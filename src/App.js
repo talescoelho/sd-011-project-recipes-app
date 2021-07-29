@@ -5,7 +5,7 @@ import store from './store';
 import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from './pages/Login';
+import Routes from './Routes';
 
 function App() {
   return (
