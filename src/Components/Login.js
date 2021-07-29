@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-function Login() {
+function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [btnDisable, setBtnDisable] = useState(true);
@@ -19,9 +20,17 @@ function Login() {
     validateLoginEntries();
   }, [email, password]);
 
-  function sendTokensToLocalStorange() {
+  function sendInfoToLocalStorangeAndRedirect() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
+
+    const userEmail = {
+      email,
+    };
+    localStorage.setItem('user', JSON.stringify(userEmail));
+
+    const { history } = props;
+    history.push('/comidas');
   }
 
   return (
@@ -48,7 +57,7 @@ function Login() {
         disabled={ btnDisable }
         data-testid="login-submit-btn"
         type="button"
-        onClick={ sendTokensToLocalStorange }
+        onClick={ sendInfoToLocalStorangeAndRedirect }
       >
         Entrar
       </button>
@@ -57,3 +66,9 @@ function Login() {
 }
 
 export default Login;
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
