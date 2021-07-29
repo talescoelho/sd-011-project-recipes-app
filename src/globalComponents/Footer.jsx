@@ -4,7 +4,7 @@ import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
-function footer() {
+function Footer() {
   return (
     <footer className="footer" data-testid="footer">
       <Link src={ drinkIcon } data-testid="drinks-bottom-btn" to="/bebidas">
@@ -20,4 +20,4 @@ function footer() {
   );
 }
 
-export default footer;
+export default Footer;
