@@ -4,6 +4,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
+import FooterMenu from './pages/FooterMenu';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/receitas-feitas"component={} />
         <Route path="/receitas-favoritas"component={} /> */}
       </Switch>
+      <FooterMenu />
     </BrowserRouter>
   );
 }
