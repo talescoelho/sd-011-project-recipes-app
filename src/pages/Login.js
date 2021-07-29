@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 function Login(props) {
   const [disabled, setDisabled] = useState(true);
@@ -62,5 +63,9 @@ function Login(props) {
     </form>
   );
 }
+
+Login.propTypes = {
+  history: PropTypes.instanceOf(PropTypes.array).isRequired,
+};
 
 export default withRouter(Login);

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import GlobalContext from '../context';
 
 export default function Provider({ children }) {
@@ -9,3 +9,7 @@ export default function Provider({ children }) {
     </GlobalContext.Provider>
   );
 }
+
+Provider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
