@@ -5,7 +5,7 @@ function FavoriteRecipe() {
     <div>
       oi
     </div>
-  )
+  );
 }
 
 export default FavoriteRecipe;

@@ -5,7 +5,7 @@ function Button() {
     <div>
       oi
     </div>
-  )
+  );
 }
 
 export default Button;

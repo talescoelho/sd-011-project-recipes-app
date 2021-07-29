@@ -5,7 +5,7 @@ function ExploreDetails() {
     <div>
       oi
     </div>
-  )
+  );
 }
 
 export default ExploreDetails;

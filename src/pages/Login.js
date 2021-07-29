@@ -5,7 +5,7 @@ function Login() {
     <div>
       oi
     </div>
-  )
+  );
 }
 
 export default Login;

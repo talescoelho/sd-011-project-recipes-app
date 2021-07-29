@@ -5,7 +5,7 @@ function CardRecipe() {
     <div>
       oi
     </div>
-  )
+  );
 }
 
 export default CardRecipe;

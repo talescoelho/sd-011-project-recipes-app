@@ -5,7 +5,7 @@ function Footer() {
     <div>
       oi
     </div>
-  )
+  );
 }
 
 export default Footer;

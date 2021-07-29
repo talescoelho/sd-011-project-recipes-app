@@ -7,10 +7,14 @@ export function UserProvider({ children }) {
   const [email, setEmail] = useState('');
 
   return (
-    <UserContext.Provider value={{ user, setUser, email, setEmail }} >
+    <UserContext.Provider value={ { user, setUser, email, setEmail } }>
       { children }
     </UserContext.Provider>
   );
 }
+
+UserProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export const UserHook = () => useContext(UserContext);

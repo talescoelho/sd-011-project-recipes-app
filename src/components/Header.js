@@ -1,11 +1,11 @@
 import React from 'react';
 
 function Header() {
-	return (
-		<div>
-			oi
-		</div>
-	)
+  return (
+    <div>
+      oi
+    </div>
+  );
 }
 
 export default Header;

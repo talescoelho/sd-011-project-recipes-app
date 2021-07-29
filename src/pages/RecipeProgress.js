@@ -5,7 +5,7 @@ function RecipeProgress() {
     <div>
       oi
     </div>
-  )
+  );
 }
 
 export default RecipeProgress;

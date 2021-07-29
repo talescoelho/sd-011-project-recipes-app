@@ -5,7 +5,7 @@ function CookedRecipe() {
     <div>
       oi
     </div>
-  )
+  );
 }
 
 export default CookedRecipe;

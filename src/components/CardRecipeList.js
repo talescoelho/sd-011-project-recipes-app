@@ -5,7 +5,7 @@ function CardRecipeList() {
     <div>
       oi
     </div>
-  )
+  );
 }
 
 export default CardRecipeList;

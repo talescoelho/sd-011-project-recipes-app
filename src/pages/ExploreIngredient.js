@@ -5,7 +5,7 @@ function ExploreIngredient() {
     <div>
       oi
     </div>
-  )
+  );
 }
 
 export default ExploreIngredient;

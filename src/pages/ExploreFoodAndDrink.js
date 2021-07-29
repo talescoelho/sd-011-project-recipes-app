@@ -5,7 +5,7 @@ function ExploreFoodAndDrink() {
     <div>
       oi
     </div>
-  )
+  );
 }
 
 export default ExploreFoodAndDrink;
