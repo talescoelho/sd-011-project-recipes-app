@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -8,7 +9,7 @@ export default function Login() {
   function ableButton() {
     const numMin = 6;
     const regex = /\w+@\w+.com(.br)?/;
-    if (regex.test(email) && password.length >= numMin) {
+    if (regex.test(email.email) && password.length >= numMin) {
       setStatus(false);
     } else {
       setStatus(true);
@@ -16,7 +17,7 @@ export default function Login() {
   }
 
   function loginInput({ target }) {
-    setEmail(target.value);
+    setEmail({ email: target.value });
     ableButton();
   }
 
@@ -28,6 +29,7 @@ export default function Login() {
   function handleClickButtonLogin() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify(email));
   }
 
   return (
@@ -45,14 +47,16 @@ export default function Login() {
         data-testid="password-input"
         onChange={ passwordInput }
       />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ status }
-        onClick={ handleClickButtonLogin }
-      >
-        Entrar
-      </button>
+      <Link to="/comidas">
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ status }
+          onClick={ handleClickButtonLogin }
+        >
+          Entrar
+        </button>
+      </Link>
     </div>
   );
 }
