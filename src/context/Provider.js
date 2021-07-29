@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import GlobalContext from './GlobalContext';
 
 function Provider({ children }) {
-  const Context = {
+  const [data] = useState('');
 
-  };
   return (
-    <GlobalContext value={ Context }>{ children }</GlobalContext>
+    <GlobalContext.Provider value={ data }>{ children }</GlobalContext.Provider>
   );
 }
 
