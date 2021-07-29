@@ -9,7 +9,46 @@ function Login() {
   const [disabled, setDisabled] = React.useState({
     disabled: true,
   });
-  
+
+  function setToken() {
+    localStorage.setItem('mealsToken', [1]);
+    localStorage.setItem('cocktailsToken', [1]);
+  }
+  function setUserLocalStorage() {
+    const user = {
+      email: login.email,
+    };
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  function verificationLogin() {
+    const validateEmail = login.email.split('').includes('@')
+      && login.email.split('.').includes('com');
+    const lengthPasswords = 5;
+    const validatePassword = login.password.length >= lengthPasswords;
+    if (validateEmail && validatePassword && disabled) {
+      setDisabled({
+        disabled: false,
+      });
+      setToken();
+    } else if ((!validateEmail || !validatePassword) && !disabled) {
+      setDisabled({
+        disabled: true,
+      });
+    }
+  }
+
+  function handleLogin({ target }) {
+    const { value, name } = target;
+    setLogin({
+      ...login,
+      [name]: value,
+    });
+
+    if (login.password && login.email) {
+      verificationLogin();
+    }
+  }
   return (
     <div>
       <h2>Login</h2>
@@ -28,13 +67,15 @@ function Login() {
           data-testid="password-input"
           type="password"
           placeholder="Seu Email"
-          onChange={ (e) => { handleLogin(e); } }
+          onChange={ handleLogin }
         />
       </label>
       <Link to="/Comida">
         <button
           type="button"
           data-testid="login-submit-btn"
+          disabled={ disabled.disabled }
+          onClick={ setUserLocalStorage }
         >
           Entrar
         </button>
