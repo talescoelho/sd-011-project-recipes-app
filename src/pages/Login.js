@@ -63,6 +63,7 @@ function Login(props) {
     </form>
   );
 }
+
 Login.propTypes = {
   history: PropTypes.instanceOf(PropTypes.array).isRequired,
 };
