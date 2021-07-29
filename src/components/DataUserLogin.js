@@ -5,7 +5,7 @@ export default function DataUserLogin() {
   const [userPassword, setUserPassword] = React.useState('');
   const [buttonActivated, setButtonActivated] = React.useState(false);
 
-  function handleButton() {
+  function handleEntrarButton() {
     const minLengthPassword = 6;
     const emailIsValid = userEmail.includes('@') && userEmail.includes('.com');
     const passwordIsValid = userPassword.length > minLengthPassword;
@@ -16,7 +16,7 @@ export default function DataUserLogin() {
   }
 
   React.useEffect(() => {
-    handleButton();
+    handleEntrarButton();
   }, [userEmail, userPassword]);
 
   return (
