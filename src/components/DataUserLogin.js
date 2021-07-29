@@ -18,6 +18,7 @@ export default function DataUserLogin() {
   function setLocalStorageToken() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email: userEmail }));
   }
 
   React.useEffect(() => {
