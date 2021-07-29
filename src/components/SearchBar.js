@@ -37,7 +37,7 @@ function SearchBar() {
           onChange={ () => setRadioInput('letter') }
         />
       </label>
-      <button type="button" data-testid="exec-search-btn" >Buscar</button>
+      <button type="button" data-testid="exec-search-btn">Buscar</button>
     </form>
   );
 }
