@@ -12,9 +12,9 @@ const Provider = ({ children }) => {
     getDataFoods,
   };
   return (
-    <MainContext.xabl value={ obj }>
+    <MainContext.Provider value={ obj }>
       {children}
-    </MainContext.xabl>
+    </MainContext.Provider>
   );
 };
 
