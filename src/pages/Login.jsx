@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const history = useHistory();
 
   function verifyLogin() {
     const validEmail = /\S+@\S+\.\S+/;
@@ -21,6 +22,7 @@ export default function Login() {
     localStorage.setItem('cocktailsToken', '1');
     localStorage.setItem('user', JSON.stringify({ email }));
     dispatch({ type: 'LOGIN', email });
+    history.push('/comidas');
   }
 
   return (
@@ -37,17 +39,14 @@ export default function Login() {
         data-testid="password-input"
         onChange={ ({ target }) => setPassword(target.value) }
       />
-      <Link to="/comidas">
-        <button
-          type="button"
-          data-testid="login-submit-btn"
-          onClick={ submitButton }
-          disabled={ verifyLogin() }
-        >
-          Entrar
-        </button>
-      </Link>
-
+      <button
+        type="button"
+        data-testid="login-submit-btn"
+        onClick={ submitButton }
+        disabled={ verifyLogin() }
+      >
+        Entrar
+      </button>
     </form>
   );
 }
