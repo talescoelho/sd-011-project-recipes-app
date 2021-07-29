@@ -6,7 +6,7 @@ export default function DataUserLogin() {
   const [userPassword, setUserPassword] = React.useState('');
   const [buttonActivated, setButtonActivated] = React.useState(false);
 
-  function handleEntrarButton() {
+  function handleEnterButton() {
     const minLengthPassword = 6;
     const emailIsValid = userEmail.includes('@') && userEmail.includes('.com');
     const passwordIsValid = userPassword.length > minLengthPassword;
