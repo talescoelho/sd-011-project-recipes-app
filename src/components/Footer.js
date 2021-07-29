@@ -5,8 +5,9 @@ import explore from '../images/exploreIcon.svg';
 import food from '../images/mealIcon.svg';
 
 export default function Footer() {
+  const fixed = { position: 'fixed', bottom: '0px' };
   return (
-    <footer data-testid="footer">
+    <footer style={ fixed } data-testid="footer">
       <Link to="/bebidas">
         <img data-testid="drinks-bottom-btn" src={ drink } alt="drink" />
       </Link>
