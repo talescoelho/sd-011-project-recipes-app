@@ -1,13 +1,15 @@
 import React from 'react';
+import { Route, Switch } from 'react-router';
+import Login from './pages/login';
+
 import './App.css';
-// import rockGlass from './images/rockGlass.svg';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Switch } from 'react-router';
 
 function App() {
   return (
     <div className="meals">
-      <Switch />
+      <Switch>
+        <Route to="/" component={ Login }/>
+      </Switch>
     </div>
   );
 }
