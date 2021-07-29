@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import RecipeAppContext from '../context/RecipeAppContext';
 
 function Login() {
@@ -37,14 +38,16 @@ function Login() {
       </label>
       {' '}
       <br />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        onClick={ () => submitCredentials() }
-        disabled={ handleDisabled() }
-      >
-        Entrar
-      </button>
+      <Link to="/comidas">
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          onClick={ () => submitCredentials() }
+          disabled={ handleDisabled() }
+        >
+          Entrar
+        </button>
+      </Link>
     </div>
   );
 }
