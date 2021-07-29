@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   function verifyLogin() {
     const validEmail = /\S+@\S+\.\S+/;
@@ -18,6 +20,7 @@ export default function Login() {
     localStorage.setItem('mealsToken', '1');
     localStorage.setItem('cocktailsToken', '1');
     localStorage.setItem('user', JSON.stringify({ email }));
+    dispatch({ type: 'LOGIN', email });
   }
 
   return (
@@ -44,6 +47,7 @@ export default function Login() {
           Entrar
         </button>
       </Link>
+
     </form>
   );
 }
