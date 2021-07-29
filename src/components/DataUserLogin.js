@@ -7,9 +7,9 @@ export default function DataUserLogin() {
 
   function handleButton() {
     const minLengthPassword = 6;
-    const verifyEmail = userEmail.includes('@') && userEmail.includes('.com');
-    const verifyPassword = userPassword.length > minLengthPassword;
-    if (verifyEmail && verifyPassword) {
+    const emailIsValid = userEmail.includes('@') && userEmail.includes('.com');
+    const passwordIsValid = userPassword.length > minLengthPassword;
+    if (emailIsValid && passwordIsValid) {
       return setButtonActivated(true);
     }
     return setButtonActivated(false);
