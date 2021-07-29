@@ -19,6 +19,9 @@
     "react-logger": "^1.1.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "redux": "^4.1.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.3.0",
     "websocket-extensions": ">=0.1.4"
   },
   "scripts": {
@@ -59,6 +62,7 @@
     "mochawesome-merge": "^4.1.0",
     "mochawesome-report-generator": "^5.1.0",
     "react-redux": "^7.2.4",
+    "redux-devtools": "^3.7.0",
     "stylelint": "^13.8.0",
     "stylelint-order": "^4.1.0"
   },
