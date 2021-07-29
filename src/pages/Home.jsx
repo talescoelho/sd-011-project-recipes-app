@@ -1,22 +1,12 @@
 import React, { Component } from 'react';
-import rockGlass from '../images/rockGlass.svg';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from '../components/Login';
 
-class Home extends Component {
+export default class Home extends Component {
   render() {
     return (
-      <div className="meals">
-        <span className="logo">TRYBE</span>
-        <object
-          className="rocksGlass"
-          type="image/svg+xml"
-          data={ rockGlass }
-        >
-          Glass
-        </object>
+      <div>
+        <Login />
       </div>
     );
   }
 }
-
-export default Home;
