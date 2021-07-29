@@ -26,8 +26,16 @@ function App() {
           <Route exact path="/explorar" component={ Explore } />
           <Route exact path="/explorar/comidas" component={ ExploreFoods } />
           <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
-          <Route exact path="/explorar/comidas/ingredientes" component={ ExploreFoodsIngredientes } />
-          <Route exact path="/explorar/bebidas/ingredientes" component={ ExploreDrinksIngredientes } />
+          <Route
+            exact
+            path="/explorar/comidas/ingredientes"
+            component={ ExploreFoodsIngredientes }
+          />
+          <Route
+            exact
+            path="/explorar/bebidas/ingredientes"
+            component={ ExploreDrinksIngredientes }
+          />
           <Route exact path="/explorar/comidas/area" component={ ExploreFoodsArea } />
           <Route exact path="/perfil" component={ Perfil } />
           <Route exact path="/receitas-feitas" component={ MakedRevenues } />
