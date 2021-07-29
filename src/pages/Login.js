@@ -2,41 +2,51 @@ import React, { useContext } from 'react';
 import RecipeAppContext from '../context/RecipeAppContext';
 
 function Login() {
-  const { handleChange, handleDisabled } = useContext(RecipeAppContext);
-  console.log('handle' , handleDisabled());
+  const { handleChange, handleDisabled, email } = useContext(RecipeAppContext);
+
+  const submitCredentials = () => {
+    const emailStringfied = JSON.stringify({ email });
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', emailStringfied);
+  };
+
   return (
-      <div>
-          <label htmlFor="email">
-            Email
-            <input 
-              id="email"
-              name="email" 
-              type="email" 
-              data-testid="email-input"
-              onChange={ (e) => handleChange(e) }
-            /> 
-          </label> <br/>
-          <label htmlFor="password" >
-            Password
-            <input 
-              id="password" 
-              name="password"
-              type="password" 
-              data-testid="password-input"
-              onChange={ (e) => handleChange(e) }
-            />
-          </label> <br/>
-        <button 
-          type="button"
-          data-testid="login-submit-btn"
-          disabled={ handleDisabled() }
-        >
-          Entrar
-        </button>           
-      </div>
-    )
+    <div>
+      <label htmlFor="email">
+        Email
+        <input
+          id="email"
+          name="email"
+          type="email"
+          data-testid="email-input"
+          onChange={ (e) => handleChange(e) }
+        />
+      </label>
+      {' '}
+      <br />
+      <label htmlFor="password">
+        Password
+        <input
+          id="password"
+          name="password"
+          type="password"
+          data-testid="password-input"
+          onChange={ (e) => handleChange(e) }
+        />
+      </label>
+      {' '}
+      <br />
+      <button
+        type="button"
+        data-testid="login-submit-btn"
+        onClick={ () => submitCredentials() }
+        disabled={ handleDisabled() }
+      >
+        Entrar
+      </button>
+    </div>
+  );
 }
 
 export default Login;
-
-

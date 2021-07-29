@@ -12,26 +12,26 @@ function RecipeAppProvider({ children }) {
   };
 
   const handleDisabled = () => {
+    const minLength = 6;
     const validRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     const emailIsValid = validRegex.test(login.email);
-    console.log('regex' , emailIsValid);
-    console.log('password' , login.password.length);
-    if (emailIsValid && login.password.length > 6) {
+    if (emailIsValid && login.password.length > minLength) {
       return false;
     }
     return true;
   };
 
-  const data = { 
+  const data = {
     handleChange,
     handleDisabled,
+    email: login.email,
   };
 
   return (
     <RecipeAppContext.Provider value={ data }>
       { children }
-    </RecipeAppContext.Provider>    
-  )
+    </RecipeAppContext.Provider>
+  );
 }
 
 RecipeAppProvider.propTypes = {

@@ -9,10 +9,10 @@ import RecipeAppProvider from './provider/RecipeAppProvider';
 ReactDOM.render(
   <BrowserRouter>
     <RecipeAppProvider>
-      <App /> 
+      <App />
     </RecipeAppProvider>
   </BrowserRouter>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change
