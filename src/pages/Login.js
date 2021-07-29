@@ -24,7 +24,7 @@ function Login() {
   function verificationLogin() {
     const validateEmail = login.email.split('').includes('@')
       && login.email.split('.').includes('com');
-    const lengthPasswords = 5;
+    const lengthPasswords = 6;
     const validatePassword = login.password.length >= lengthPasswords;
     if (validateEmail && validatePassword && disabled) {
       setDisabled({
@@ -70,7 +70,7 @@ function Login() {
           onChange={ handleLogin }
         />
       </label>
-      <Link to="/Comida">
+      <Link to="/comidas">
         <button
           type="button"
           data-testid="login-submit-btn"
