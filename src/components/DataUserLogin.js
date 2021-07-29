@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function DataUserLogin() {
   const [userEmail, setUserEmail] = React.useState('');
@@ -41,14 +42,16 @@ export default function DataUserLogin() {
         placeholder="Digite sua senha"
         data-testid="password-input"
       />
-      <button
-        disabled={ !buttonActivated }
-        onClick={ setLocalStorageToken }
-        type="button"
-        data-testid="login-submit-btn"
-      >
-        Entrar
-      </button>
+      <Link to="/comidas">
+        <button
+          disabled={ !buttonActivated }
+          onClick={ setLocalStorageToken }
+          type="button"
+          data-testid="login-submit-btn"
+        >
+          Entrar
+        </button>
+      </Link>
     </main>
   );
 }
