@@ -4,10 +4,13 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import RecipeAppProvider from './provider/RecipeAppProvider';
 
 ReactDOM.render(
   <BrowserRouter>
-    <App /> 
+    <RecipeAppProvider>
+      <App /> 
+    </RecipeAppProvider>
   </BrowserRouter>,
   document.getElementById('root')
 );
