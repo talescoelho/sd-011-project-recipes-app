@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 function Login(props) {
   const [disabled, setDisabled] = useState(true);
