@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -46,15 +47,16 @@ export default function Login() {
           validLoginInputs();
         } }
       />
-
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ invalidLogin }
-        onClick={ loginHandle }
-      >
-        Entrar
-      </button>
+      <Link to="/comidas">
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ invalidLogin }
+          onClick={ loginHandle }
+        >
+          Entrar
+        </button>
+      </Link>
     </div>
   );
 }
