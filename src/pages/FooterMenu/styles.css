@@ -1,9 +1,9 @@
 footer {
-  display: flex;
-  position: fixed;
   align-items: center;
   bottom: 0;
-  justify-content: space-around;
+  display: flex;
   height: 40px;   /* Height of the footer */
+  justify-content: space-around;
+  position: fixed;
   width: 100%;
 }
