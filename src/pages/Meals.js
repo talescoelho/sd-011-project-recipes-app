@@ -5,5 +5,5 @@ export default function Meals() {
     <main>
       <h1>Meals</h1>
     </main>
-  )
+  );
 }

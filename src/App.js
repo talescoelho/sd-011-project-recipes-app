@@ -11,9 +11,9 @@ function App() {
     <Router>
       <Header />
       <Switch>
-        <Route path="/comidas" component={Meals} />
-        <Route path="/bebidas" component={Drinks} />
-        <Route path="/perfil" component={Perfil} />
+        <Route path="/comidas" component={ Meals } />
+        <Route path="/bebidas" component={ Drinks } />
+        <Route path="/perfil" component={ Perfil } />
       </Switch>
     </Router>
   );

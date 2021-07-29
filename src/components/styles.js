@@ -6,13 +6,14 @@ export const Nav = styled.nav`
   align-items: center;
   padding: 30px;
   border-bottom: 2px solid black;
-  input {
-    position: absolute;
-    margin-left: 7rem;
-    height: 30px;
-    border-radius: 6px;
-  }
   .hide {
     display: none;
   }
+`;
+
+export const Input = styled.input`
+  position: absolute;
+  margin-left: 7rem;
+  height: 30px;
+  border-radius: 6px;
 `;
