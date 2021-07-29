@@ -42,7 +42,7 @@ class Login extends Component {
         <header className="App-header">
           <form>
             <input
-              data-testid="input-player-name"
+              data-testid="email-input"
               type="text"
               name="email"
               placeholder="Digite seu email"
@@ -50,7 +50,7 @@ class Login extends Component {
               onChange={ this.handleChange }
             />
             <input
-              data-testid="input-gravatar-email"
+              data-testid="password-input"
               type="password"
               name="password"
               placeholder="Digite sua senha"
@@ -60,7 +60,7 @@ class Login extends Component {
             <Link to="/Comidas">
               <button
                 type="button"
-                data-testid="btn-play"
+                data-testid="login-submit-btn"
                 disabled={ isEnabled }
                 onClick={ () => {
                   sendLogin(email, password);
