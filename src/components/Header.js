@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import Profile from '../images/profileIcon.svg';
 import Search from '../images/searchIcon.svg';
 import { Nav, Input } from './styles';
-import { useHistory } from 'react-router';
 
 export default function Header() {
   const [hide, setHide] = useState(false);
@@ -12,21 +12,22 @@ export default function Header() {
     setName(target.value);
   };
   const handleClick = () => {
-    setHide((prevState) =>  !prevState);
+    setHide((prevState) => !prevState);
   };
   console.log(hide);
   console.log(name);
   return (
     <Nav>
-      <button onClick={ () => history.push('/perfil') }>
+      <button type="button" onClick={ () => history.push('/perfil') }>
         <img data-testids="profile-top-btn" src={ Profile } alt="user" />
       </button>
       <h1 data-testids="page-title">Cool title</h1>
       <button
+        type="button"
         onClick={ handleClick }
         data-testids="search-top-btn"
       >
-        <img src={Search} alt="user" />
+        <img src={ Search } alt="user" />
       </button>
       <Input
         onChange={ handleChange }
