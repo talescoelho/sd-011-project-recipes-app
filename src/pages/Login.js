@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 function Login(props) {
@@ -62,5 +63,8 @@ function Login(props) {
     </form>
   );
 }
+Login.propTypes = {
+  history: PropTypes.instanceOf(PropTypes.array).isRequired,
+};
 
 export default withRouter(Login);
