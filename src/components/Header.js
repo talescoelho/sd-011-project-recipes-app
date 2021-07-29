@@ -3,8 +3,9 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
+import SearchBar from './SearchBar'
 
-function Header({ buttonExists, title }) {
+function Header({ mealOrDrink, buttonExists, title }) {
   const [searchClicked, setSearchClicked] = React.useState(false);
   const history = useHistory();
   return (
@@ -39,7 +40,7 @@ function Header({ buttonExists, title }) {
       )}
 
       {searchClicked && (
-        <input type="text" placeholder="Buscar Receita" data-testid="search-input" />
+        <SearchBar mealOrDrink={mealOrDrink} />
       )}
 
     </div>
