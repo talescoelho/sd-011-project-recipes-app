@@ -37,7 +37,7 @@
   font-weight: 900;
 }
 
-@keyframes shake {
+/* @keyframes shake {
 
   0% {
     transform: rotate(5deg);
@@ -65,4 +65,4 @@
   100% {
     transform: rotate(-10deg);
   }
-}
+} */
