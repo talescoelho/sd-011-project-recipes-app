@@ -47,6 +47,12 @@ export default function Login() {
       >
         Entrar
       </button>
+      <button
+        type="button"
+        onClick={ () => { setPassword('1234567'); setEmail('teste@teste.com'); } }
+      >
+        DEV BUTTON
+      </button>
     </form>
   );
 }
