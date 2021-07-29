@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'react-dom';
+import PropTypes from 'prop-types';
 import LoginContext from './LoginContext';
 
 function LoginProvider({ children }) {
