@@ -1,24 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
+import useLoginForm from '../hooks/useLoginForm';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const [redirect, setRedirect] = useState(false);
-
-  function checkData() {
-    const validPassword = 6;
-    return email.match(/^[A-Za-z0-9._]+@([A-Za-z]+\.)[A-Za-z]{2,3}(\.[A-Za-z]{2})?$/)
-      && password.length > validPassword;
-  }
-
-  function submit() {
-    localStorage.setItem('user', JSON.stringify({ email }));
-    localStorage.setItem('mealsToken', 1);
-    localStorage.setItem('cocktailsToken', 1);
-    setRedirect(true);
-  }
+  const [redirect, valid, handleChange, handleSubmit] = useLoginForm();
 
   return (
     <div>
@@ -27,20 +12,22 @@ export default function Login() {
         <input
           data-testid="email-input"
           type="email"
-          onKeyUp={ (e) => setEmail(e.target.value) }
+          name="email"
+          onKeyUp={ handleChange }
           placeholder="Insira seu email"
         />
         <input
           data-testid="password-input"
           type="password"
-          onKeyUp={ (e) => setPassword(e.target.value) }
+          name="password"
+          onKeyUp={ handleChange }
           placeholder="Insira sua senha"
         />
         <button
           data-testid="login-submit-btn"
           type="button"
-          disabled={ !checkData() }
-          onClick={ submit }
+          disabled={ !valid }
+          onClick={ handleSubmit }
         >
           Entrar
         </button>
