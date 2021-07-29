@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -11,6 +12,12 @@ export default function Login() {
       return false;
     }
     return true;
+  }
+
+  function submitButton() {
+    localStorage.setItem('mealsToken', '1');
+    localStorage.setItem('cocktailsToken', '1');
+    localStorage.setItem('user', JSON.stringify({ email }));
   }
 
   return (
@@ -27,13 +34,16 @@ export default function Login() {
         data-testid="password-input"
         onChange={ ({ target }) => setPassword(target.value) }
       />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ verifyLogin() }
-      >
-        Entrar
-      </button>
+      <Link to="/comidas">
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          onClick={ submitButton }
+          disabled={ verifyLogin() }
+        >
+          Entrar
+        </button>
+      </Link>
     </form>
   );
 }
