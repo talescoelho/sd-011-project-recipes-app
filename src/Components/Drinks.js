@@ -1,11 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 function Drinks() {
   return (
-    <div>
-      
-    </div>
-  )
+    <div />
+  );
 }
 
-export default Drinks
+export default Drinks;
