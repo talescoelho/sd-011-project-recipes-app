@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function Login() {
+  const history = useHistory();
   const [login, setLogin] = useState({
     email: '',
     password: '',
@@ -16,6 +18,14 @@ export default function Login() {
     if (verifyEmail && verifyPassword) {
       return setLogin({ ...login, isDisabled: false });
     }
+  }
+
+  function handleSubmit() {
+    const { email } = login;
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email }));
+    history.push('/comidas');
   }
 
   return (
@@ -36,6 +46,7 @@ export default function Login() {
         type="button"
         data-testid="login-submit-btn"
         disabled={ login.isDisabled }
+        onClick={ handleSubmit }
       >
         Login
       </button>
