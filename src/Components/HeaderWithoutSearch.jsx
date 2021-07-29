@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profilePicture from '../images/profileIcon.svg';
 
@@ -7,9 +8,9 @@ export default class HeaderWithoutSearch extends Component {
     const { title } = this.props;
     return (
       <div>
-        <button type="button" className="profilePicture">
+        <Link to="/perfil" className="profilePicture">
           <img data-testid="profile-top-btn" src={ profilePicture } alt="profileIcon" />
-        </button>
+        </Link>
         <h1 data-testid="page-title">{ title }</h1>
       </div>
     );
