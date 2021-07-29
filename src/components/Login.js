@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import rockGlass from '../images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import SendEmail from '../actions';
 
 class Login extends Component {
   constructor() {
@@ -14,6 +17,7 @@ class Login extends Component {
 
     this.handleChangeState = this.handleChangeState.bind(this);
     this.validateInput = this.validateInput.bind(this);
+    this.getEmailForLogin = this.getEmailForLogin.bind(this);
   }
 
   componentDidUpdate() {
@@ -27,12 +31,18 @@ class Login extends Component {
     });
   }
 
+  getEmailForLogin() {
+    const { dispatchSendEmail } = this.props;
+    const { email } = this.state;
+    dispatchSendEmail(email);
+  }
+
   validateInput() {
     const { email, password, disabled } = this.state;
     const lengthNumberPassword = 6;
     const validateEmail = email.split('').includes('@')
       && email.split('.').includes('com');
-    const verifyLengthPassword = password.length >= lengthNumberPassword;
+    const verifyLengthPassword = password.length > lengthNumberPassword;
     if (validateEmail && verifyLengthPassword && disabled) {
       this.setState({
         disabled: false,
@@ -84,6 +94,7 @@ class Login extends Component {
               disabled={ disabled }
               data-testid="login-submit-btn"
               type="button"
+              onClick={ this.getEmailForLogin }
             >
               Entrar
             </button>
@@ -94,4 +105,12 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSendEmail: (emailInput) => dispatch(SendEmail(emailInput)),
+});
+
+Login.propTypes = {
+  getEmailForLogin: PropTypes.func,
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(Login);
