@@ -1,5 +1,6 @@
 /* eslint-disable */
 
+import PropTypes from 'prop-types';
 import React from 'react';
 import { useTheme } from '../../hooks';
 
@@ -25,4 +26,13 @@ export const Button = ({ children, variant = 'primary', isSubmit, ...props }) =>
       { children }
     </button>
   );
+};
+
+Button.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.node, PropTypes.arrayOf(PropTypes.node),
+  ]).isRequired,
+  isSubmit: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  variant: PropTypes.string.isRequired,
 };
