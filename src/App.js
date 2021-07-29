@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Explorar from './pages/Explorar';
 import Bebidas from './pages/Bebidas';
 import Comidas from './pages/Comidas';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 
 function App() {
