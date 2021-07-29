@@ -1,12 +1,17 @@
 import React from 'react';
 import './App.css';
+import { BrowserRouter } from 'react-router-dom';
+import { Switch, Route } from 'react-router';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from './pages/Login';
 
 function App() {
   return (
-    <div>
-      olá
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={ Login } />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
