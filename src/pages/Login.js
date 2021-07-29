@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import useLoginForm from '../hooks/useLoginForm';
 
 export default function Login() {
+  // Faz uso do hook personalizado
   const [redirect, valid, handleChange, handleSubmit] = useLoginForm();
 
   return (
