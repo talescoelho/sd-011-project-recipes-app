@@ -23,6 +23,14 @@ function Login() {
           onChange={ (e) => { handleLogin(e); } }
         />
       </label>
+      <Link to="/Comida">
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+        >
+          Entrar
+        </button>
+      </Link>
     </div>
   );
 }
