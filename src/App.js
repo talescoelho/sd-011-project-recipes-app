@@ -1,15 +1,20 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import store from './store';
 import './App.css';
+import Login from './pages/Login';
 // import rockGlass from './images/rockGlass.svg';
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import Routes from './Routes';
+// import Routes from './Routes';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes />
-    </BrowserRouter>
+    <Provider store={ store }>
+      <BrowserRouter>
+        <Login />
+      </BrowserRouter>
+    </Provider>
   );
 }
 
