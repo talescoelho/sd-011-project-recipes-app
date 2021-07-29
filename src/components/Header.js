@@ -3,7 +3,7 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
-import SearchBar from './SearchBar'
+import SearchBar from './SearchBar';
 
 function Header({ mealOrDrink, buttonExists, title }) {
   const [searchClicked, setSearchClicked] = React.useState(false);
@@ -40,7 +40,7 @@ function Header({ mealOrDrink, buttonExists, title }) {
       )}
 
       {searchClicked && (
-        <SearchBar mealOrDrink={mealOrDrink} />
+        <SearchBar mealOrDrink={ mealOrDrink } />
       )}
 
     </div>
@@ -49,6 +49,7 @@ function Header({ mealOrDrink, buttonExists, title }) {
 
 Header.propTypes = {
   buttonExists: PropTypes.bool.isRequired,
+  mealOrDrink: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
 
