@@ -11,17 +11,19 @@ export default function Login() {
     const PASSWORD_MIN_LENGTH = 8;
     const EMAIL_INPUT = target.name === 'email' && target.value;
     const PASSWORD_INPUT = target.name === 'password' && target.value;
-    setLoginEmail(EMAIL_INPUT);
-    setLoginPassword(PASSWORD_INPUT);
 
-    if (PASSWORD_INPUT.length >= PASSWORD_MIN_LENGTH) setLoginButtonStatus(true);
-
-    console.log(PASSWORD_INPUT);
-    console.log(EMAIL_INPUT);
+    if (EMAIL_INPUT) setLoginEmail(EMAIL_INPUT);
+    if (PASSWORD_INPUT) setLoginPassword(PASSWORD_INPUT);
+    if (PASSWORD_INPUT.length >= PASSWORD_MIN_LENGTH) setLoginButtonStatus(false);
   };
 
   const handleSubmit = (event) => {
+    const emailObject = { email: loginEmail };
+    localStorage.setItem('user', JSON.stringify(emailObject));
+    localStorage.setItem('mealsToken', JSON.stringify(1));
+    localStorage.setItem('cocktailsToken', JSON.stringify(1));
     event.preventDefault();
+    window.location.pathname = '/comidas';
   };
 
   return (
