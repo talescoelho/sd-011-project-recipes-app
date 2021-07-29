@@ -8,13 +8,25 @@ import './styles.css';
 const FooterMenu = () => (
   <footer data-testid="footer">
     <Link to="/bebidas">
-      <img src={ cooktail } alt="" data-testid="drinks-bottom-btn" />
+      <img
+        src={ cooktail }
+        alt="menu icon cooktail"
+        data-testid="drinks-bottom-btn"
+      />
     </Link>
     <Link to="/explorar">
-      <img src={ explore } alt="" data-testid="explore-bottom-btn" />
+      <img
+        src={ explore }
+        alt="menu icon explore"
+        data-testid="explore-bottom-btn"
+      />
     </Link>
     <Link to="/comidas">
-      <img src={ meal } alt="" data-testid="food-bottom-btn" />
+      <img
+        src={ meal }
+        alt="menu icon meal"
+        data-testid="food-bottom-btn"
+      />
     </Link>
   </footer>
 );
