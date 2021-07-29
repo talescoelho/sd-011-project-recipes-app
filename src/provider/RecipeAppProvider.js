@@ -12,12 +12,11 @@ function RecipeAppProvider({ children }) {
   };
 
   const handleDisabled = () => {
-    const validRegex = new RegExp(
-      /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(login.email),
-    );
-    console.log('regex' + validRegex);
-    console.log('password' + login.password.length);
-    if (validRegex && login.password.length > 6) {
+    const validRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    const emailIsValid = validRegex.test(login.email);
+    console.log('regex' , emailIsValid);
+    console.log('password' , login.password.length);
+    if (emailIsValid && login.password.length > 6) {
       return false;
     }
     return true;
