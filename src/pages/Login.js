@@ -25,6 +25,11 @@ export default function Login() {
     ableButton();
   }
 
+  function handleClickButtonLogin() {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+  }
+
   return (
     <div>
       Login
@@ -44,6 +49,7 @@ export default function Login() {
         type="button"
         data-testid="login-submit-btn"
         disabled={ status }
+        onClick={ handleClickButtonLogin }
       >
         Entrar
       </button>
