@@ -16,6 +16,11 @@ export default function Login() {
     }
   };
 
+  const loginHandle = () => {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+  };
+
   return (
     <div className="loginPage">
       <h1>Ai que fome!</h1>
@@ -45,6 +50,7 @@ export default function Login() {
         type="button"
         data-testid="login-submit-btn"
         disabled={ invalidLogin }
+        onClick={ loginHandle }
       >
         Entrar
       </button>
