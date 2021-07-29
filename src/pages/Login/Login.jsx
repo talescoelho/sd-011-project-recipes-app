@@ -6,10 +6,19 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [invalidLogin, setInvalidLogin] = useState(true);
 
+  const inputHandle = ({ target }) => {
+    const { name, value } = target;
+    if (name === 'email') {
+      setEmail(value);
+    } else {
+      setPassword(value);
+    }
+  };
+
   const validLoginInputs = () => {
     const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/igm;
     const testEmail = emailRegex.test(email);
-    const passLength = 5;
+    const passLength = 6;
     if (testEmail && password.length > passLength) {
       setInvalidLogin(false);
     } else {
@@ -31,21 +40,23 @@ export default function Login() {
       <input
         type="text"
         data-testid="email-input"
+        name="email"
         value={ email }
-        onChange={ ({ target }) => {
-          setEmail(target.value);
-          validLoginInputs();
+        onChange={ (event) => {
+          inputHandle(event);
         } }
+        onKeyUp={ validLoginInputs }
       />
 
       <input
         type="password"
         data-testid="password-input"
+        name="password"
         value={ password }
-        onChange={ ({ target }) => {
-          setPassword(target.value);
-          validLoginInputs();
+        onChange={ (event) => {
+          inputHandle(event);
         } }
+        onKeyUp={ validLoginInputs }
       />
       <Link to="/comidas">
         <button
