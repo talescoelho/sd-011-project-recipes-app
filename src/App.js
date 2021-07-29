@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="meals">
       <Switch>
-        <Route to="/" component={ Login }/>
+        <Route to="/" component={ Login } />
       </Switch>
     </div>
   );
