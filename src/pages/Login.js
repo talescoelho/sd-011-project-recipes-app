@@ -15,6 +15,16 @@ function Login() {
             data-testid="email-input"
           />
         </label>
+        <label htmlFor="password">
+          Senha
+          <input
+            id="password"
+            type="password"
+            placeholder="Senha"
+            required
+            data-testid="password-input"
+          />
+        </label>
       </form>
     </main>
   );
