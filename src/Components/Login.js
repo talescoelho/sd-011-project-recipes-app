@@ -19,6 +19,11 @@ function Login() {
     validateLoginEntries();
   }, [email, password]);
 
+  function sendTokensToLocalStorange() {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+  }
+
   return (
     <div>
       <label htmlFor="email">
@@ -43,6 +48,7 @@ function Login() {
         disabled={ btnDisable }
         data-testid="login-submit-btn"
         type="button"
+        onClick={ sendTokensToLocalStorange }
       >
         Entrar
       </button>
