@@ -4,7 +4,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
-import FooterMenu from './pages/FooterMenu';
+import FooterMenu from './pages/FooterMenu/FooterMenu';
 
 function App() {
   return (
