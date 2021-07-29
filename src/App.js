@@ -7,6 +7,7 @@ function App() {
   return (
     <div className="meals">
       <span className="logo">TRYBE</span>
+      <h2>APP de Receitas</h2>
       <object
         className="rocksGlass"
         type="image/svg+xml"
