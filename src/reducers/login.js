@@ -6,7 +6,9 @@ const INITIAL_STATE = {
 const sendLoginInfo = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case 'SEND_LOGIN_INFO':
-    localStorage.setItem('user', JSON.stringify(action.payload));
+    localStorage.setItem('user', JSON.stringify({ email: action.payload }));
+    localStorage.setItem('mealsToken', '1');
+    localStorage.setItem('cocktailsToken', '1');
     return {
       ...state,
       email: action.payload,

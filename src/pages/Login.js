@@ -57,7 +57,7 @@ class Login extends Component {
               value={ password }
               onChange={ this.handleChange }
             />
-            <Link to="/Comidas">
+            <Link to="/comidas">
               <button
                 type="button"
                 data-testid="login-submit-btn"

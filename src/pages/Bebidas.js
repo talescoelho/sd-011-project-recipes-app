@@ -4,7 +4,7 @@ class Bebidas extends Component {
   render() {
     return (
       <main>
-        Comidas
+        Bebidas
       </main>
     );
   }
