@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Cards from '../components/Cards';
+import Footer from '../components/Footer';
 import { getDrinkFromApi } from '../actions';
 import FiltersFromCategories from '../components/FiltersFromCategories';
 
@@ -17,11 +18,11 @@ class Bebidas extends React.Component {
       <div>
         <FiltersFromCategories />
         <Cards itemsToRender={ drinksDataBase } typeFood="drink" />
+        <Footer />
       </div>
     );
   }
 }
-
 const mapStateToProps = (state) => ({
   drinksDataBase: state.drinksReducer.drinksFromApi,
 });

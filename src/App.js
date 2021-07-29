@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Explorar from './pages/Explorar';
 import Bebidas from './pages/Bebidas';
 import Comidas from './pages/Comidas';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -11,7 +12,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Home } />
         <Route path="/comidas" component={ Comidas } />
-        <Route path="/bebidas" component={ Bebidas }
+        <Route path="/bebidas" component={ Bebidas } />
+        <Route path="/explorar" component={ Explorar } />
       </Switch>
     </BrowserRouter>
   );

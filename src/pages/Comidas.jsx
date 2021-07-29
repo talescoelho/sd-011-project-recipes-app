@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Cards from '../components/Cards';
+import Footer from '../components/Footer';
 import { getFoodFromApi } from '../actions';
 import FiltersFromCategories from '../components/FiltersFromCategories';
 
@@ -17,6 +18,7 @@ class Comidas extends React.Component {
       <div>
         <FiltersFromCategories />
         <Cards itemsToRender={ foodsDataBase } typeFood="food" />
+        <Footer />
       </div>
     );
   }
