@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import rockGlass from '../images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -20,6 +21,13 @@ export default function Login() {
   useEffect(() => {
     validateInputs();
   }, [loginInput.password]);
+
+  const createLocalstorage = () => {
+    const userObj = { email: loginInput.email };
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify(userObj));
+  };
 
   return (
     <div>
@@ -56,13 +64,16 @@ export default function Login() {
           }) }
         />
       </label>
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ !validate.validate }
-      >
-        Entrar
-      </button>
+      <Link to="/comidas">
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ !validate.validate }
+          onClick={ () => createLocalstorage() }
+        >
+          Entrar
+        </button>
+      </Link>
     </div>
   );
 }
