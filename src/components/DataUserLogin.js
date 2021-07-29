@@ -15,6 +15,11 @@ export default function DataUserLogin() {
     return setButtonActivated(false);
   }
 
+  function setLocalStorageToken() {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+  }
+
   React.useEffect(() => {
     handleEntrarButton();
   }, [userEmail, userPassword]);
@@ -37,6 +42,7 @@ export default function DataUserLogin() {
       />
       <button
         disabled={ !buttonActivated }
+        onClick={ setLocalStorageToken }
         type="button"
         data-testid="login-submit-btn"
       >
