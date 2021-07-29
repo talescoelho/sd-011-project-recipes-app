@@ -1,12 +1,11 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
-import { LoginPage, Home, NotFound } from './pages';
+import { LoginPage, NotFound } from '../pages';
 
 function Routes() {
-  return(
+  return (
     <Switch>
-      <Route exact path="/" component={ <LoginPage /> }/>
-      <Route path="/home" component={ <Home />} />
+      <Route exact path="/" component={ <LoginPage /> } />
       <Route path="*" component={ NotFound } />
     </Switch>
   );
