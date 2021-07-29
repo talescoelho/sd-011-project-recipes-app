@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import Profile from '../images/profileIcon.svg';
 import Search from '../images/searchIcon.svg';
 import { Nav, Input } from './styles';
+import { useHistory } from 'react-router';
 
 export default function Header() {
   const [hide, setHide] = useState(false);
   const [name, setName] = useState('');
+  const history = useHistory();
   const handleChange = ({ target }) => {
     setName(target.value);
   };
@@ -16,15 +18,16 @@ export default function Header() {
   console.log(name);
   return (
     <Nav>
-      <a href="/perfil">
+      <button onClick={ () => history.push('/perfil') }>
         <img data-testids="profile-top-btn" src={ Profile } alt="user" />
-      </a>
+      </button>
       <h1 data-testids="page-title">Cool title</h1>
-      <img
+      <button
         onClick={ handleClick }
         data-testids="search-top-btn"
-        src={ Search } alt="search"
-      />
+      >
+        <img src={Search} alt="user" />
+      </button>
       <Input
         onChange={ handleChange }
         className={ `${hide ? null : 'hide'}` }

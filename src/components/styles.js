@@ -6,6 +6,9 @@ export const Nav = styled.nav`
   align-items: center;
   padding: 30px;
   border-bottom: 2px solid black;
+  button {
+    border: none;
+  }
   .hide {
     display: none;
   }
