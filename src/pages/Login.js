@@ -10,6 +10,8 @@ export default class Login extends Component {
       valid: true,
     };
     this.handleChangeForm = this.handleChangeForm.bind(this);
+    this.loginUser = this.loginUser.bind(this);
+    
   }
 
   
@@ -21,9 +23,19 @@ export default class Login extends Component {
     this.validateLogin();
   }
 
+  loginUser(e) {
+    e.preventDefault();
+    const { history } = this.props;
+    const { email } = this.state;
+    localStorage.setItem('user', JSON.stringify({ email, }));
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    history.push('/comidas')
+  }
+
   validateLogin() {
     const { email, password } = this.state;
-    const minSize = 5;
+    const minSize = 6;
     const re = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
     if (password.length >= minSize && re.test(email)) {
       this.setState({
@@ -63,7 +75,7 @@ export default class Login extends Component {
             type="submit"
             data-testid="login-submit-btn"
             disabled={ valid }
-            onClick={ loginUser() }
+            onClick={ this.loginUser }
           >
             Entrar
           </button>
