@@ -33,8 +33,6 @@ describe('Pagina de Login', () => {
     it('de email', async () => {
       const input = screen.getByTestId(TEST_IDS.email);
       fireEvent.change(input, { target: { value: 'cris_a_lendaria@gmail.com' } });
-      // const found = await screen.findByText('cris_a_lendaria@gmail.com');
-      // console.log(found);
       await screen.findByText('cris_a_lendaria@gmail.com');
     });
 
