@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Profilepage from './pages/Profilepage';
+import Meals from './pages/Meals';
+import Drinks from './pages/Drinks';
 
 function App() {
   return (
@@ -12,8 +14,10 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Login } />
         {/* <Route path="/comidas"component={} />
-        <Route path="/bebidas"component={} />
-        <Route path="/comidas/:id-da-receita"component={} />
+        <Route path="/bebidas"component={} /> */}
+        <Route path="/comidas" component={ Meals } />
+        <Route path="/bebidas" component={ Drinks } />
+        {/* <Route path="/comidas/:id-da-receita"component={} />
         <Route path="/bebidas/{id-da-receita}"component={} />
         <Route path="/comidas/{id-da-receita}/in-progress"component={} />
         <Route path="/bebidas/{id-da-receita}/in-progress"component={} />
