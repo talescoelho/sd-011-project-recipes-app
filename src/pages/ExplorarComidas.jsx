@@ -17,7 +17,8 @@ function ExplorarComidas() {
       >
         Por Local de Origem
       </Link>
-      {/* <Link to="/explorar/comidas" data-testid="explore-surprise">Me Surpreenda</Link> */}
+      {/* <Link to="/explorar/comidas"
+      data-testid="explore-surprise">Me Surpreenda</Link> */}
     </div>
   );
 }
