@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import { Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import Header from './components/Header';
@@ -11,9 +10,6 @@ import Comidas from './pages/Comidas';
 import Explorar from './pages/Explorar';
 import Bebidas from './pages/Bebidas';
 import Login from './pages/Login';
-import { Provider } from 'react-redux';
-import store from './store';
-
 
 function App() {
   return (
