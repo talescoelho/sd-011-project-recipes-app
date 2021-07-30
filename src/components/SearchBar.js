@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import DrinksSearchBar from './DrinksSearchBar';
 import FoodsSearchBar from './FoodsSearchBar';
-import PropTypes from 'prop-types';
 
 function SearchBar({ drinks, foods }) {
   return (
