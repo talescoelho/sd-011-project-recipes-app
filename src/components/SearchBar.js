@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import AppContext from '../context/AppContext';
 
 function SearchBar() {
-  const { inputValue, setInputValue } = useContext(AppContext);
+  const { inputValue, setInputValue, filterSearchHeader } = useContext(AppContext);
+
   return (
     <div>
       <input
@@ -52,7 +53,13 @@ function SearchBar() {
               onChange={ (e) => setInputValue({ ...inputValue,
                 radioInput: e.target.value }) }
             />
-            <button type="button" data-testid="exec-search-btn">Pesquisar</button>
+            <button
+              type="button"
+              data-testid="exec-search-btn"
+              onClick={ () => filterSearchHeader() }
+            >
+              Pesquisar
+            </button>
           </label>
         </form>
       </div>

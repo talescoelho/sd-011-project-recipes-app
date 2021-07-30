@@ -9,11 +9,39 @@ function Provider({ children }) {
     radioInput: '',
   });
 
+  const fetchSearchHeader = (URL) => {
+    fetch(URL)
+      .then((response) => response.json()
+        .then((data) => console.log(data)));
+  };
+
+  const filterSearchHeader = () => {
+    switch (inputValue.radioInput) {
+    case 'ingrediente':
+      fetchSearchHeader(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue.searchInput}`);
+      break;
+    case 'nome':
+      fetchSearchHeader(`https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue.searchInput}`);
+      break;
+    case 'first-letter':
+      if (inputValue.searchInput.length !== 1) {
+        setInputValue({ ...inputValue, searchInput: '' });
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      } else {
+        fetchSearchHeader(`https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue.searchInput}`);
+      }
+      break;
+    default:
+      alert('Nenhum filtro selecionado.');
+    }
+  };
+
   const context = {
     showInput,
     setShowInput,
     inputValue,
     setInputValue,
+    filterSearchHeader,
   };
 
   return (
