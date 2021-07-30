@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderFoods from './HeaderFoods';
+import HeaderFoods from './headers/HeaderFoods';
 
 function Foods() {
   return (

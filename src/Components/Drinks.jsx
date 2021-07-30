@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderDrinks from './HeaderDrinks';
+import HeaderDrinks from './headers/HeaderDrinks';
 
 function Drinks() {
   return (
