@@ -1,7 +1,7 @@
 import { GET_RECIPES_API, REQUEST_API } from '../actions';
 
 const INITIAL_STATE = {
-  recipes: [],
+  recipesData: [],
   isLoading: false,
 };
 
@@ -15,7 +15,7 @@ function RecipesReducer(state = INITIAL_STATE, action) {
   case GET_RECIPES_API:
     return {
       ...state,
-      recipes: action.data,
+      recipesData: action.data,
       isLoading: false,
     };
   default:
