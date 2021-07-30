@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import MenuInferior from './components/MenuInferior';
 import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -14,6 +15,7 @@ function App() {
       >
         Glass
       </object>
+      <MenuInferior />
     </div>
   );
 }
