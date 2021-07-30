@@ -32,16 +32,17 @@ export default async function searchCase(mealOrDrink, radioQuery, search) {
       break;
     }
   }
-  console.log(response);
+  // console.log(response);
   return async (dispatch) => {
     try {
+      const mealsOrDrinks = mealOrDrink === 'meal' ? 'meals' : 'drinks';
       dispatch(requestSearch());
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       dispatch(requestSuccessSearch(data));
-      if (mealOrDrink === 'meal') {
-        if (data.meals.length === 1) dispatch(itemLengthOne());
-      } else if (data.drinks.length === 1) dispatch(itemLengthOne());
+      if (data && data[mealsOrDrinks].length === 1) {
+        dispatch(itemLengthOne());
+      }
     } catch (error) {
       console.error(error);
     }
