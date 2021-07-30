@@ -66,8 +66,10 @@
     transform: rotate(-10deg);
   }
 }
-[data-testid="footer"] {
-  position:fixed;
+
+[ data-testid = 'footer' ] {
+  background-color: grey;
+  bottom: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
