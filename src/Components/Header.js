@@ -23,7 +23,6 @@ export default function Header() {
       >
         <img src={ searchIcon } alt="Barra de pesquisa" />
       </button>
-
     </header>
   );
 }
