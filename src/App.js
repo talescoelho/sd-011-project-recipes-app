@@ -26,6 +26,10 @@ function App() {
           {/* <Route path="/game" component={ Game } />
           <Route path="/settings" component={ Settings } />
           <Route path="/comidas" component={ HomeRecipes } /> */}
+
+          {/* <Route path="/settings" component={ Settings } />
+          <Route path="/feedback" component={ Feedback } />
+          <Route path="/ranking" component={ Ranking } /> */}
         </Switch>
       </BrowserRouter>
     </div>
