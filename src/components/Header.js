@@ -46,9 +46,39 @@ export default class Header extends Component {
         </header>
         { showInput
           ? (
-            <label htmlFor="search">
-              <input type="text" data-testid="search-input" />
-            </label>
+            <>
+              <label htmlFor="search">
+                <input type="text" data-testid="search-input" />
+              </label>
+              <br />
+              <label htmlFor="radio">
+                <input
+                  name="radio"
+                  data-testid="ingredient-search-radio"
+                  type="radio"
+                />
+                Ingrediente
+              </label>
+
+              <label htmlFor="radio">
+                <input
+                  name="radio"
+                  data-testid="name-search-radio"
+                  type="radio"
+                />
+                Nome
+              </label>
+              <label htmlFor="radio">
+                <input
+                  name="radio"
+                  data-testid="first-letter-search-radio"
+                  type="radio"
+                />
+                Primeira Letra
+              </label>
+              <br />
+              <button data-testid="exec-search-btn" type="button">Buscar</button>
+            </>
           ) : <div />}
       </div>
     );
