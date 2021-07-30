@@ -19,9 +19,11 @@ function SearchBar() {
   };
 
   const fetchFoodsFL = (fl) => {
-    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${fl}`)
-      .then((resp) => resp.json())
-      .then((jsonObj) => setFoods(jsonObj.meals));
+    return fl.length === 1
+      ? fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${fl}`)
+        .then((resp) => resp.json())
+        .then((jsonObj) => setFoods(jsonObj.meals))
+      : alert('Sua busca deve conter somente 1 (um) caracter');
   };
 
   const switcher = () => {
