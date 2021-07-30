@@ -16,7 +16,7 @@ class Footer extends Component {
             <img src={ drinkIcon } alt="meal" />
           </button>
         </Link>
-        <Link to="/bebidas">
+        <Link to="/explorar">
           <button
             type="button"
             data-testid="explore-bottom-btn"
