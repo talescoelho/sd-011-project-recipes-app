@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import { Layout } from '../components';
 
 function Login() {
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
+  const history = useHistory();
 
   function validateField(field, type) {
     const MIN_PASSWORD_LENGTH = 7;
@@ -27,6 +29,7 @@ function Login() {
     };
 
     window.localStorage.setItem('user', JSON.stringify(user));
+    history.push('/comidas');
   }
 
   return (
