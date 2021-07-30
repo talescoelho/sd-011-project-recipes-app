@@ -35,7 +35,7 @@ function Login() {
 
   return (
     <main>
-      { shouldRedirect ? <Redirect to="/comidas" /> : null }
+      { shouldRedirect ? <Redirect to="/home" /> : null }
       <h1>Login</h1>
       <form>
         <input
