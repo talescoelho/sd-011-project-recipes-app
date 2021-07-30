@@ -8,7 +8,7 @@ function Foods() {
     <div>
       <Header />
       <Provider>
-        <SearchBar />
+        <SearchBar fetchType="themealdb" />
       </Provider>
     </div>
   );

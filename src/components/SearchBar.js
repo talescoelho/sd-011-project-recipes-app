@@ -1,27 +1,31 @@
 import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { SearchBarContext } from '../context/SearchBar';
 import fetchByFilter from '../services/data';
 
-export default function SearchBar() {
+export default function SearchBar(props) {
   const [input, setInput] = useState('');
   const [radio, setRadio] = useState('');
   const { setData } = useContext(SearchBarContext);
+
+  const { fetchType } = props;
 
   const handleClick = async () => {
     let urlToFetch;
     switch (radio) {
     case 'ingredient':
-      urlToFetch = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${input}`;
+      urlToFetch = `https://www.${fetchType}.com/api/json/v1/1/filter.php?i=${input}`;
       break;
     case 'name':
-      urlToFetch = `https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`;
+      urlToFetch = `https://www.${fetchType}.com/api/json/v1/1/search.php?s=${input}`;
       break;
     case 'first-letter':
-      urlToFetch = `https://www.themealdb.com/api/json/v1/1/search.php?f=${input}`;
+      urlToFetch = `https://www.${fetchType}.com/api/json/v1/1/search.php?f=${input}`;
       break;
     default:
       return null;
     }
+    console.log(urlToFetch);
     const dataFromApi = await fetchByFilter(urlToFetch);
     setData(dataFromApi);
   };
@@ -77,3 +81,7 @@ export default function SearchBar() {
     </section>
   );
 }
+
+SearchBar.propTypes = {
+  fetchType: PropTypes.string,
+}.isRequired;

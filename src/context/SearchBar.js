@@ -20,3 +20,18 @@ export function Provider({ children }) {
 Provider.propTypes = {
   children: PropTypes.node,
 }.isRequired;
+
+// import { Provider } from '../../context/SearchBar';
+
+// function Foods() {
+//   return (
+//     <div>
+//       <Provider>
+//         <SearchBar />
+//       </Provider>
+//     </div>
+//   );
+// }
+
+// Dentro do Componente
+// const { setData } = useContext(SearchBarContext);
