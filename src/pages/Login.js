@@ -21,7 +21,7 @@ export default function Login() {
     const { email } = loginState;
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
-    localStorage.setItem('user', JSON.stringify({ email }));  
+    localStorage.setItem('user', JSON.stringify({ email }));
     history.push('/comidas');
   }
 

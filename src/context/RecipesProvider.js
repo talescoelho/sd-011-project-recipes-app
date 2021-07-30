@@ -12,7 +12,7 @@ export default function RecipesProvider({ children }) {
   const context = {
     loginState,
     setLogin,
-  }
+  };
 
   return (
     <RecipesContext.Provider value={ context }>

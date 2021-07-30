@@ -5,7 +5,7 @@ export default function Food() {
   const pageTitle = 'comidas';
   return (
     <div>
-     <Header value={ pageTitle } />
+      <Header value={ pageTitle } />
       FOODS
     </div>
   );
