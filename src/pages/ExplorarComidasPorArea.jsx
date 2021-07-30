@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 export default class ExplorarComidasPorArea extends Component {
   render() {
@@ -7,6 +8,7 @@ export default class ExplorarComidasPorArea extends Component {
     return (
       <div>
         <Header title="Explorar Origem" showSearchButton={ showSearchButton } />
+        <Footer />
       </div>
     );
   }
