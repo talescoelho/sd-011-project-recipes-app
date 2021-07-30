@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 // import PropTypes from 'prop-types';
@@ -7,11 +8,13 @@ function Drinks() {
   return (
     <div>
       <h1 data-testid="page-title">Bebidas</h1>
-      <img
-        data-testid="profile-top-btn"
-        src={ profileIcon }
-        alt="Botão que direciona para a tela de perfil"
-      />
+      <Link to="/perfil">
+        <img
+          data-testid="profile-top-btn"
+          src={ profileIcon }
+          alt="Botão que direciona para a tela de perfil"
+        />
+      </Link>
       <img
         data-testid="search-top-btn"
         src={ searchIcon }
