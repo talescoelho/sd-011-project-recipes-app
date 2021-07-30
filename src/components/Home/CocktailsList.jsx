@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { useCocktails } from '../../hooks';
 
 function CocktailsList() {
@@ -15,12 +16,18 @@ function CocktailsList() {
   }
   if (!cocktails) {
     return (
-      <p>Não foi possivel encontrar nada tente outro termo</p>
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
     );
   }
   return (
     <ol>
       {console.log(cocktails)}
+      {cocktails.length === 1 ? <Redirect
+        to={
+          `/comidas/${cocktails[0].idDrink}`
+        }
+      /> : null}
+      {cocktails.map((drinks) => (<li key={ drinks.idDrink }>{ drinks.strDrink }</li>))}
     </ol>
   );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { useRecipes } from '../../hooks';
 
 function RecipeList() {
@@ -20,8 +21,8 @@ function RecipeList() {
   }
   return (
     <ol>
-      {console.log(recipes)}
-      {recipes.map((meals) => <li key={ meals.idMeal }>{ meals.strMeal }</li>)}
+      {recipes.length === 1 ? <Redirect to={ `/comidas/${recipes[0].idMeal}` } /> : null}
+      {recipes.map((meals) => (<li key={ meals.idMeal }>{ meals.strMeal }</li>))}
     </ol>
   );
 }
