@@ -15,7 +15,7 @@ function TopHeaderBar() {
         data-testid="profile-top-btn"
         name="profile-top-btn"
         id="profile-top-btn"
-        onClick={ () => history.push('/profile') }
+        onClick={ () => history.push('/perfil') }
         src={ profileIcon }
       />
       <span data-testid="page-title">
