@@ -148,7 +148,7 @@ describe('21 - Exiba o menu inferior apenas nas telas indicadas pelo protótipo'
   });
 });
 
-describe('22 - Redirecione a pessoa usuária para uma lista de cocktails ao clicar no ícone de bebidas', () => {
+describe.only('22 - Redirecione a pessoa usuária para uma lista de cocktails ao clicar no ícone de bebidas', () => {
   it('Redireciona para a rota correta', () => {
     cy.visit('http://localhost:3000/comidas');
 
