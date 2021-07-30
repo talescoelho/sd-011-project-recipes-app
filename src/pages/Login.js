@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
 
-function initialState() {
-  return { email: '', password: '' };
-}
-
 function Login() {
-  const [login, setLogin] = useState(initialState);
+  const [login, setLogin] = useState({ email: '', password: '' });
   const [disabled, setDisabled] = useState(true);
-  // const [storage, setStorage] = useState('');
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
   function handleChange({ target: { value, name } }) {
@@ -35,7 +30,6 @@ function Login() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('user', JSON.stringify({ email }));
-    // setStorage(storage);
     setShouldRedirect(true);
   }
 
