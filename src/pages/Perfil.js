@@ -5,7 +5,7 @@ class Perfil extends Component {
   render() {
     return (
       <div>
-        <h1>Perfil</h1>
+        <h2>Perfil</h2>
         <Footer />
       </div>
     );
