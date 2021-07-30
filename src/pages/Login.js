@@ -7,7 +7,7 @@ function Login() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [email, setEmail] = useState('');
 
-  // Valida os inputs de Login para abilitar o Button
+  // Valida os inputs de Login para habilitar o Button
   function validateLogin() {
     const formLogin = document.querySelector('.form-login');
     setIsButtonDisabled(!formLogin.checkValidity());
