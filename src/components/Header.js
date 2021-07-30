@@ -1,12 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useHistory } from 'react-router';
+import { useDispatch } from 'react-redux';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
+import SearchBar from './SearchBar';
+import { turnGiveIdFalse } from '../actions';
 
-function Header({ buttonExists, title }) {
+function Header({ mealOrDrink, buttonExists, title }) {
   const [searchClicked, setSearchClicked] = React.useState(false);
   const history = useHistory();
+  const dispatch = useDispatch();
   return (
     <div>
 
@@ -18,7 +22,6 @@ function Header({ buttonExists, title }) {
         <img
           alt="profile"
           src={ profileIcon }
-          style={ { padding: '20px' } }
         />
       </button>
 
@@ -28,18 +31,20 @@ function Header({ buttonExists, title }) {
         <button
           data-testid="search-top-btn"
           type="button"
-          onClick={ () => setSearchClicked(!searchClicked) }
+          onClick={ () => {
+            setSearchClicked(!searchClicked);
+            dispatch(turnGiveIdFalse());
+          } }
         >
           <img
             alt="search"
             src={ searchIcon }
-            style={ { padding: '20px' } }
           />
         </button>
       )}
 
       {searchClicked && (
-        <input type="text" placeholder="Buscar Receita" data-testid="search-input" />
+        <SearchBar mealOrDrink={ mealOrDrink } />
       )}
 
     </div>
@@ -48,6 +53,7 @@ function Header({ buttonExists, title }) {
 
 Header.propTypes = {
   buttonExists: PropTypes.bool.isRequired,
+  mealOrDrink: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
 
