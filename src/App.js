@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { UserProvider } from './Context/UserHook';
+import { searchRandonMeal } from './services/RequestFood';
 
 function App() {
+  useEffect(() => {
+    searchRandonMeal();
+  }, [])
+
   return (
     <UserProvider>
       <BrowserRouter>
