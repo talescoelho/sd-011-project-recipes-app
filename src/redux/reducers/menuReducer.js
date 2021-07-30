@@ -1,14 +1,14 @@
 import {
-  REQUEST_MEALS,
-  RECEIVE_MEALS_SUCCESS,
-  RECEIVE_MEALS_FAILURE,
-  REQUEST_MEALS_FILTERS,
-  RECEIVE_MEALS_FILTERS_SUCCESS,
-  RECEIVE_MEALS_FILTERS_FAILURE,
-} from '../actions/mealsReducerActions';
+  REQUEST_MENU,
+  RECEIVE_MENU_SUCCESS,
+  RECEIVE_MENU_FAILURE,
+  REQUEST_MENU_FILTERS,
+  RECEIVE_MENU_FILTERS_SUCCESS,
+  RECEIVE_MENU_FILTERS_FAILURE,
+} from '../actions/menuReducerActions';
 
 const INITIAL_STATE = {
-  meals: [],
+  menu: [],
   error: null,
   isLoading: false,
   filters: {
@@ -18,26 +18,26 @@ const INITIAL_STATE = {
   },
 };
 
-const mealsReducer = (state = INITIAL_STATE, action) => {
+const menuReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case REQUEST_MEALS:
+  case REQUEST_MENU:
     return {
       ...state,
       isLoading: true,
     };
-  case RECEIVE_MEALS_SUCCESS:
+  case RECEIVE_MENU_SUCCESS:
     return {
       ...state,
-      meals: action.meals,
+      menu: action.menu,
       isLoading: false,
     };
-  case RECEIVE_MEALS_FAILURE:
+  case RECEIVE_MENU_FAILURE:
     return {
       ...state,
       error: action.error,
       isLoading: false,
     };
-  case REQUEST_MEALS_FILTERS:
+  case REQUEST_MENU_FILTERS:
     return {
       ...state,
       filters: {
@@ -45,7 +45,7 @@ const mealsReducer = (state = INITIAL_STATE, action) => {
         isLoading: true,
       },
     };
-  case RECEIVE_MEALS_FILTERS_SUCCESS:
+  case RECEIVE_MENU_FILTERS_SUCCESS:
     return {
       ...state,
       filters: {
@@ -54,7 +54,7 @@ const mealsReducer = (state = INITIAL_STATE, action) => {
         isLoading: false,
       },
     };
-  case RECEIVE_MEALS_FILTERS_FAILURE:
+  case RECEIVE_MENU_FILTERS_FAILURE:
     return {
       ...state,
       filters: {
@@ -67,4 +67,4 @@ const mealsReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default mealsReducer;
+export default menuReducer;

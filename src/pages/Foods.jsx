@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  requestMealsAPI,
+  requestMealsMenu,
   requestMealsFilters,
-} from '../redux/actions/mealsReducerActions';
+} from '../redux/actions/menuReducerActions';
 import FilterByCategoryName from '../components/filterByCategoryName';
 
 const Foods = ({
@@ -16,7 +16,7 @@ const Foods = ({
   meals,
 }) => {
   useEffect(() => {
-    dispatch(requestMealsAPI());
+    dispatch(requestMealsMenu());
     dispatch(requestMealsFilters());
   }, [dispatch]);
 
@@ -55,11 +55,11 @@ const Foods = ({
 };
 
 const mapStateToProps = (state) => ({
-  loadingFilterOptions: state.mealsReducer.filters.isLoading,
-  categoryNames: state.mealsReducer.filters.options,
-  meals: state.mealsReducer.meals,
-  loadingMeals: state.mealsReducer.isLoading,
-  error: state.mealsReducer.error,
+  loadingFilterOptions: state.menuReducer.filters.isLoading,
+  categoryNames: state.menuReducer.filters.options,
+  meals: state.menuReducer.menu,
+  loadingMeals: state.menuReducer.isLoading,
+  error: state.menuReducer.error,
 });
 
 Foods.propTypes = {
