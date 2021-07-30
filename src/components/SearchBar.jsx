@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+// import { useLocation, useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import getRecipes from '../services/API';
 import '../styles/SearchBar.css';
@@ -24,7 +24,6 @@ export default function SearchBar() {
   function getLocation() {
     return '/comidas';
   }
-
   function handlerInputText({ target }) {
     const { value } = target;
     setTextInputValue(value);
@@ -54,12 +53,12 @@ export default function SearchBar() {
 
     if (mealRecipes.length === 1 || drinkRecipes.length === 1) {
       const location = getLocation();
-      if (locattion === '/comidas') {
+      if (location === '/comidas') {
         const id = `/${mealRecipes[0].idMeal}`;
-        history.push(id);
+        // history.push(id);
       } else {
         const id = `/${mealRecipes[0].idDrink}`;
-        history.push(id);
+        // history.push(id);
       }
     }
   }
