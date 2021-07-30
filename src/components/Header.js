@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 function Header({ title, icon }) {
+  const [showSearchBar, setshowSearchBar] = useState(false);
+
   const renderSearchButtonIcon = () => (
     <button
       type="button"
+      onClick={ () => setshowSearchBar(!showSearchBar) }
     >
       <img src={ searchIcon } alt="icone de uma lupa" data-testid="search-top-btn" />
     </button>
@@ -24,6 +28,7 @@ function Header({ title, icon }) {
       </Link>
       <h3 data-testid="page-title">{`${title}`}</h3>
       {icon && renderSearchButtonIcon()}
+      <span>{ showSearchBar ? <SearchBar /> : <div />}</span>
     </header>
   );
 }
