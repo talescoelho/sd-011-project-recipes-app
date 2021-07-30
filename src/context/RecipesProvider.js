@@ -11,7 +11,7 @@ export default function RecipesProvider({ children }) {
 
   const context = {
     loginState,
-    setLogin
+    setLogin,
   }
 
   return (
