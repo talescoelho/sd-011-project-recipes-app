@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../style/login.css';
-import { Form, Button } from 'react-bootstrap';
+import '../styles/login.css';
 
 function Login() {
   const [user, setUser] = useState([]);
@@ -34,29 +33,25 @@ function Login() {
   }
 
   return (
-    <Form className="form">
-      <Form.Label className="label">Login</Form.Label>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Control
-          type="email"
-          data-testid="email-input"
-          placeholder="Digite seu Email"
-          onChange={ ({ target }) => handleEmail(target.value) }
-        />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Control
-          type="password"
-          data-testid="password-input"
-          placeholder="Digite sua Senha"
-          onChange={ ({ target }) => handlePassword(target.value) }
-        />
-      </Form.Group>
+    <div className="container-login">
+      <input
+        className="Email"
+        type="email"
+        data-testid="email-input"
+        placeholder="Digite seu Email"
+        onChange={ ({ target }) => handleEmail(target.value) }
+      />
+      <input
+        className="Password"
+        type="password"
+        data-testid="password-input"
+        placeholder="Digite sua Senha"
+        onChange={ ({ target }) => handlePassword(target.value) }
+      />
 
       {/* aqui utilizo o link para direciona para tela de comida  */}
       <Link to="/comidas">
-        <Button
-          variant="primary"
+        <button
           type="button"
           data-testid="login-submit-btn"
           disabled={ !email + !password }
@@ -65,9 +60,9 @@ function Login() {
           onClick={ setLocalStorage }
         >
           Entrar
-        </Button>
+        </button>
       </Link>
-    </Form>
+    </div>
   );
 }
 export default Login;
