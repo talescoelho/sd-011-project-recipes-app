@@ -1,12 +1,12 @@
 import React from 'react';
 import Footer from '../components/Footer';
 
-function MainPage() {
+function ExplorerMealsIngredients() {
   return (
-    <div className="recipes">
+    <div>
       <Footer />
     </div>
   );
 }
 
-export default MainPage;
+export default ExplorerMealsIngredients;
