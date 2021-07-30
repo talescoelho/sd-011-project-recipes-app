@@ -1,23 +1,18 @@
 import React from 'react';
+
+import CategoryFilters from '../components/CategoryFilters';
 import FoodCard from '../components/FoodCard';
 import '../styles/Comidas.css';
 
 function Comidas() {
   return (
-    <div className="foodRecipesContainer">
-      <FoodCard />
-      <FoodCard />
-      <FoodCard />
-      <FoodCard />
-      <FoodCard />
-      <FoodCard />
-      <FoodCard />
-      <FoodCard />
-      <FoodCard />
-      <FoodCard />
-      <FoodCard />
-      <FoodCard />
-    </div>
+    <>
+      <CategoryFilters />
+      <div className="foodRecipesContainer">
+        <FoodCard />
+        <FoodCard />
+      </div>
+    </>
   );
 }
 
