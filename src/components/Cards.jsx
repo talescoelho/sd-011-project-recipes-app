@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -15,6 +16,9 @@ class Cards extends React.Component {
         }
       });
       if (foodOrDrink === 'food') {
+        if (filteredElevenItems.length === 1) {
+          return <Redirect to={ `/comidas/${filteredElevenItems[0].idMeal}` } />;
+        }
         return filteredElevenItems.map((item, index) => (
           <div
             data-testid={ `${index}-recipe-card` }
@@ -30,6 +34,9 @@ class Cards extends React.Component {
             />
           </div>
         ));
+      }
+      if (filteredElevenItems.length === 1) {
+        return <Redirect to={ `/bebidas/${filteredElevenItems[0].idDrink}` } />;
       }
       return filteredElevenItems.map((item, index) => (
         <div
