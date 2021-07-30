@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Header from '../Components/Header';
+import HeaderDrink from '../Components/HeaderDrink';
 
 export default class Drinks extends Component {
   render() {
     return (
       <div>
-        <Header title="Bebidas" />
+        <HeaderDrink title="Bebidas" />
       </div>
     );
   }

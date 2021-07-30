@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Header from '../Components/Header';
+import HeaderFood from '../Components/HeaderFood';
 
 export default class Food extends Component {
   render() {
     return (
       <div>
-        <Header title="Comidas" />
+        <HeaderFood title="Comidas" />
       </div>
     );
   }

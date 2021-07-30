@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import searchIcon from '../images/searchIcon.svg';
 import profilePicture from '../images/profileIcon.svg';
-import { fetchReceiveRecipes } from '../Actions';
+import { fetchReceiveRecipes } from '../Actions/drink';
 
-class Header extends Component {
+class HeaderDrink extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -107,7 +107,7 @@ class Header extends Component {
   }
 }
 
-Header.propTypes = {
+HeaderDrink.propTypes = {
   title: PropTypes.string.isRequired,
   fetchRecipes: PropTypes.func.isRequired,
 };
@@ -116,4 +116,4 @@ const mapDispatchToProps = (dispatch) => ({
   fetchRecipes: (input, radio) => dispatch(fetchReceiveRecipes(input, radio)),
 });
 
-export default connect(null, mapDispatchToProps)(Header);
+export default connect(null, mapDispatchToProps)(HeaderDrink);

@@ -1,8 +1,8 @@
-export const RECEIVED_RECIPES = 'RECEIVED_RECIPES';
+export const RECEIVED_RECIPES_FOOD = 'RECEIVED_RECIPES_FOOD';
 export const REQUEST_RECEIVED = 'REQUEST_RECEIVED';
 
 const receiveRecipes = (allRecipes) => ({
-  type: RECEIVED_RECIPES,
+  type: RECEIVED_RECIPES_FOOD,
   allRecipes,
 });
 
