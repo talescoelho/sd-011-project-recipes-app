@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
+import '../css/RecipeCards.css';
 import RecipeAppContext from '../context/RecipeAppContext';
 
 function RecipeCards() {
@@ -21,12 +22,13 @@ function RecipeCards() {
     const list = drinksList.map((recipe, index) => {
       if (index <= maxLength) {
         return (
-          <div data-testid={ `${index}-recipe-card` }>
+          <div className="card-container" data-testid={ `${index}-recipe-card` }>
             <img
               src={ recipe.strDrinkThumb }
               data-testid={ `${index}-card-img` }
               alt={ `${recipe.strDrink}` }
               height="100px"
+              width="100px"
             />
             <p
               key={ recipe.idDrink }
@@ -47,12 +49,14 @@ function RecipeCards() {
     const list = foodsList.map((recipe, index) => {
       if (index <= maxLength) {
         return (
-          <div data-testid={ `${index}-recipe-card` }>
+          <div className="card-container" data-testid={ `${index}-recipe-card` }>
+            {console.log(`${index}-recipe-card`)}
             <img
               src={ recipe.strMealThumb }
               data-testid={ `${index}-card-img` }
               alt={ `${recipe.strMeal}` }
               height="100px"
+              width="100px"
             />
             <p
               key={ recipe.idMeal }
@@ -69,7 +73,7 @@ function RecipeCards() {
   };
 
   return (
-    <div>
+    <div className="library-card-container">
       {drinksList && renderDrinkCards()}
       {foodsList && renderFoodCards()}
     </div>
