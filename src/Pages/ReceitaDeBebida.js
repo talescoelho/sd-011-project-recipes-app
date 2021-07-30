@@ -3,7 +3,7 @@ import React from 'react';
 function ReceitaDeBebida() {
   return (
     <div>
-      Olá
+      <h1>Olá</h1>
     </div>
   );
 }

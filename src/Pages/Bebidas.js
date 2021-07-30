@@ -6,7 +6,7 @@ import Header from '../components/Header';
 function Bebidas() {
   return (
     <div>
-      <Header />
+      <Header title="Bebidas" />
       <Cards ApiCallMeals={ false } ApiCallCockTails />
       <Footer />
     </div>
