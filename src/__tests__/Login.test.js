@@ -1,10 +1,14 @@
 import React from 'react';
+import { screen } from '@testing-library/dom';
 import render from '../helpers/renderWithRouterAndStore';
 import { Login } from '../pages';
 
 describe('Pagina de Login', () => {
+  beforeEach(() => {
+    render(<Login />);
+  });
+
   it('Falou oi', () => {
-    const { getByText } = render(<Login />);
-    expect(getByText('oi mundo!')).toBeInTheDocument();
+    expect(screen.getByText('oi mundo!')).toBeInTheDocument();
   });
 });
