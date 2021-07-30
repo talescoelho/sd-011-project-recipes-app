@@ -3,7 +3,6 @@ import React from 'react';
 const minPasswordLength = 6;
 
 // Email Regex Source: http://jsfiddle.net/ghvj4gy9/
-// eslint-disable-next-line max-len
 const username = '^(([^<>()[\\]\\.,;:\\s@"]+(\\.[^<>()[\\]\\.,;:\\s@"]+)*)|(".+"))';
 const domainName = '@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}';
 const domain = '\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
@@ -17,6 +16,7 @@ function Login() {
   function handleLoginSubmit() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email }));
   }
 
   React.useEffect(() => {
