@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 // import './Header.css';
 
-// import SearchBar from './SearchBar';
+import HeaderSearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 // colocar type depois de searchBar
-function Header({ searchBar }) {
+function Header({ searchBar, receiveData, fetched }) {
   const [showSearchBar, toggleShowSearchBar] = useState(false);
+  const history = useHistory();
   useEffect(() => {
     if (!searchBar) {
       const btnSearch = document.getElementById('search-btn');
@@ -25,6 +27,19 @@ function Header({ searchBar }) {
       toggleShowSearchBar(true);
     }
   };
+
+  if (receiveData.meals && receiveData.meals.length === 1) {
+    history.push(`/comidas/${receiveData.meals[0].idMeal}`);
+  }
+
+  if (receiveData.drinks && receiveData.drinks.length === 1) {
+    history.push(`/bebidas/${receiveData.drinks[0].idDrink}`);
+  }
+
+  if (receiveData.drinks === null || receiveData.meals === null) {
+    // eslint-disable-next-line no-alert
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
+  }
 
   return (
     <>
@@ -46,12 +61,17 @@ function Header({ searchBar }) {
           <img src={ searchIcon } alt="icone de pesquisa" />
         </button>
       </header>
-      {/* { showSearchBar && <SearchBar type={ type } /> } */}
+      { showSearchBar && <HeaderSearchBar /> }
     </>
   );
 }
 
-export default Header;
+const mapStateToProps = (state) => ({
+  receiveData: state.searchBarReducer.receiveData,
+  fetched: state.searchBarReducer.fetched,
+});
+
+export default connect(mapStateToProps)(Header);
 
 Header.propTypes = {
   título: PropTypes.string,

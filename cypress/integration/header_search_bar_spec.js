@@ -8,7 +8,7 @@ describe('13 - Implemente os elementos da barra de busca respeitando os atributo
   it('Tem os data-testids tanto da barra de busca quanto de todos os radio-buttons', () => {
     cy.visit('http://localhost:3000/comidas');
 
-    cy.get('[data-testid="search-top-btn"]').click();
+    cy.get('[data-testid="search-top-btn"]').click({force: true});
 
     cy.get('[data-testid="search-input"]');
     cy.get('[data-testid="ingredient-search-radio"]');
@@ -26,7 +26,7 @@ describe('14 - Posicione a barra logo abaixo do header e implemente 3 radio butt
       },
     });
 
-    cy.get('[data-testid="search-top-btn"]').click();
+    cy.get('[data-testid="search-top-btn"]').click({force: true});
     cy.get('[data-testid="ingredient-search-radio"]').click();
     cy.get('[data-testid="search-input"]').type('chicken');
     cy.get('[data-testid="exec-search-btn"]').click();
@@ -42,7 +42,7 @@ describe('14 - Posicione a barra logo abaixo do header e implemente 3 radio butt
       },
     });
 
-    cy.get('[data-testid="search-top-btn"]').click();
+    cy.get('[data-testid="search-top-btn"]').click({force: true});
     cy.get('[data-testid="name-search-radio"]').click();
     cy.get('[data-testid="search-input"]').type('soup');
     cy.get('[data-testid="exec-search-btn"]').click();
@@ -58,7 +58,7 @@ describe('14 - Posicione a barra logo abaixo do header e implemente 3 radio butt
       },
     });
 
-    cy.get('[data-testid="search-top-btn"]').click();
+    cy.get('[data-testid="search-top-btn"]').click({force: true});
     cy.get('[data-testid="first-letter-search-radio"]').click();
     cy.get('[data-testid="search-input"]').type('a');
     cy.get('[data-testid="exec-search-btn"]').click();
@@ -74,7 +74,7 @@ describe('14 - Posicione a barra logo abaixo do header e implemente 3 radio butt
       },
     });
 
-    cy.get('[data-testid="search-top-btn"]').click();
+    cy.get('[data-testid="search-top-btn"]').click({force: true});
     cy.get('[data-testid="first-letter-search-radio"]').click();
     cy.get('[data-testid="search-input"]').type('aaa');
     cy.get('[data-testid="exec-search-btn"]').click();
@@ -92,7 +92,7 @@ describe('15 - Busque na API de comidas caso a pessoa esteja na página de comid
       },
     });
 
-    cy.get('[data-testid="search-top-btn"]').click();
+    cy.get('[data-testid="search-top-btn"]').click({force: true});
     cy.get('[data-testid="ingredient-search-radio"]').click();
     cy.get('[data-testid="search-input"]').type('lemon');
     cy.get('[data-testid="exec-search-btn"]').click();
@@ -108,7 +108,7 @@ describe('15 - Busque na API de comidas caso a pessoa esteja na página de comid
       },
     });
 
-    cy.get('[data-testid="search-top-btn"]').click();
+    cy.get('[data-testid="search-top-btn"]').click({force: true});
     cy.get('[data-testid="name-search-radio"]').click();
     cy.get('[data-testid="search-input"]').type('gin');
     cy.get('[data-testid="exec-search-btn"]').click();
@@ -124,7 +124,7 @@ describe('15 - Busque na API de comidas caso a pessoa esteja na página de comid
       },
     });
 
-    cy.get('[data-testid="search-top-btn"]').click();
+    cy.get('[data-testid="search-top-btn"]').click({force: true});
     cy.get('[data-testid="first-letter-search-radio"]').click();
     cy.get('[data-testid="search-input"]').type('a');
     cy.get('[data-testid="exec-search-btn"]').click();
@@ -140,7 +140,7 @@ describe('15 - Busque na API de comidas caso a pessoa esteja na página de comid
       },
     });
 
-    cy.get('[data-testid="search-top-btn"]').click();
+    cy.get('[data-testid="search-top-btn"]').click({force: true});
     cy.get('[data-testid="first-letter-search-radio"]').click();
     cy.get('[data-testid="search-input"]').type('aaa');
     cy.get('[data-testid="exec-search-btn"]').click();
@@ -158,7 +158,7 @@ describe('16 - Redirecione para a tela de detalhes da receita caso apenas uma re
       },
     });
 
-    cy.get('[data-testid="search-top-btn"]').click();
+    cy.get('[data-testid="search-top-btn"]').click({force: true});
     cy.get('[data-testid="name-search-radio"]').click();
     cy.get('[data-testid="search-input"]').type('Arrabiata');
     cy.get('[data-testid="exec-search-btn"]').click();
@@ -173,7 +173,7 @@ describe('16 - Redirecione para a tela de detalhes da receita caso apenas uma re
       },
     });
 
-    cy.get('[data-testid="search-top-btn"]').click();
+    cy.get('[data-testid="search-top-btn"]').click({force: true});
     cy.get('[data-testid="name-search-radio"]').click();
     cy.get('[data-testid="search-input"]').type('Aquamarine');
     cy.get('[data-testid="exec-search-btn"]').click();
@@ -190,7 +190,7 @@ describe('17 - Mostre as receitas em cards caso mais de uma receita seja encontr
       },
     });
 
-    cy.get('[data-testid="search-top-btn"]').click();
+    cy.get('[data-testid="search-top-btn"]').click({force: true});
     cy.get('[data-testid="name-search-radio"]').click();
     cy.get('[data-testid="search-input"]').type('soup');
     cy.get('[data-testid="exec-search-btn"]').click();
@@ -217,7 +217,7 @@ describe('17 - Mostre as receitas em cards caso mais de uma receita seja encontr
       },
     });
 
-    cy.get('[data-testid="search-top-btn"]').click();
+    cy.get('[data-testid="search-top-btn"]').click({force: true});
     cy.get('[data-testid="name-search-radio"]').click();
     cy.get('[data-testid="search-input"]').type('gin');
     cy.get('[data-testid="exec-search-btn"]').click();
@@ -247,7 +247,7 @@ describe('18 - Exiba um `alert` caso nenhuma receita seja encontrada', () => {
       },
     });
 
-    cy.get('[data-testid="search-top-btn"]').click();
+    cy.get('[data-testid="search-top-btn"]').click({force: true});
     cy.get('[data-testid="name-search-radio"]').click();
     cy.get('[data-testid="search-input"]').type('xablau');
     cy.get('[data-testid="exec-search-btn"]').click();
@@ -265,7 +265,7 @@ describe('18 - Exiba um `alert` caso nenhuma receita seja encontrada', () => {
       },
     });
 
-    cy.get('[data-testid="search-top-btn"]').click();
+    cy.get('[data-testid="search-top-btn"]').click({force: true});
     cy.get('[data-testid="name-search-radio"]').click();
     cy.get('[data-testid="search-input"]').type('xablau');
     cy.get('[data-testid="exec-search-btn"]').click();

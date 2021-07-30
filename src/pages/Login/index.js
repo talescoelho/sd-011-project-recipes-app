@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Header from '../../components/Header';
 import Input from '../../components/Input';
 import { addEmail } from '../../redux/actions';
 
@@ -39,6 +40,7 @@ const Login = () => {
 
   return (
     <div>
+      <Header />
       <form>
         <Input
           type="email"
