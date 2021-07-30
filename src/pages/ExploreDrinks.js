@@ -8,6 +8,14 @@ function ExploreDrinks() {
       <h1>My Explore Drinks Page</h1>
       <Header title="Explorar Bebidas" />
 
+      <button data-testid="explore-by-ingredient"> 
+        Por Ingredientes
+      </button>
+      <br />
+      <button data-testid="explore-surprise">
+        Me Surpreenda!
+      </button>
+
       <Footer />
     </div>
   );
