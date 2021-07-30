@@ -1,0 +1,11 @@
+import React, { Component } from 'react';
+
+export default class DrinkInProgress extends Component {
+  render() {
+    return (
+      <div>
+        Bebida em progresso
+      </div>
+    );
+  }
+}
