@@ -1,9 +1,9 @@
 import React from 'react';
 
-function MainPage() {
+function Drinks() {
   return (
     <h3>MainPage</h3>
   );
 }
 
-export default MainPage;
+export default Drinks;
