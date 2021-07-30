@@ -7,7 +7,8 @@ export const requestSearch = () => ({ type: REQUEST_SEARCH });
 export const REQUEST_SUCCESS_SEARCH = 'REQUEST_SUCCESS_SEARCH';
 export const requestSuccessSearch = (payload) => ({
   type: REQUEST_SUCCESS_SEARCH,
-  payload });
+  payload,
+});
 
 export const ITEM_LENGTH_ONE = 'ITEM_LENGTH_ONE';
 export const itemLengthOne = () => ({ type: ITEM_LENGTH_ONE });
@@ -20,5 +21,6 @@ export const requestDetailsId = () => ({ type: REQUEST_DETAILS_ID });
 
 export const REQUEST_SUCCESS_DETAILS_ID = 'REQUEST_SUCCESS_DETAILS_ID';
 export const requestSuccessDetailsId = (payload) => ({
-  type: REQUEST_SUCCESS_SEARCH,
-  payload });
+  type: REQUEST_SUCCESS_DETAILS_ID,
+  payload,
+});
