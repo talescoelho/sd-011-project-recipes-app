@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function OriginLocal() {
@@ -8,6 +9,7 @@ export default function OriginLocal() {
     <div>
       <Header pageName={ name } showSearchButton={ showSearchButton } />
       Local de Origem
+      <Footer />
     </div>
   );
 }
