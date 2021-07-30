@@ -21,6 +21,7 @@ export default function SearchBar({ modal, url }) {
       const firstLetterURL = `https://www.${checkLocation}.com/api/json/v1/1/search.php?f=${searchInput}`;
       dispatch(fetchApi(firstLetterURL));
     } if (radio === 'primeiraLetra' && searchInput.length > 1) {
+      // eslint-disable-next-line no-alert
       alert('Sua busca deve conter somente 1 (um) caracter');
     }
   }
