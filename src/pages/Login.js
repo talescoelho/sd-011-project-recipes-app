@@ -30,8 +30,10 @@ function Login() {
   }, [login]);
 
   function submitBtn() {
+    const { email } = login;
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email }));
     setStorage(storage);
   }
 
