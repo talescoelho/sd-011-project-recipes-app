@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 function SearchBar() {
   const [searchInput, setSearchInput] = useState('');
   const [radioInput, setRadioInput] = useState('');
+
+  const handleClick = () => {
+    console.log(`https://www.themealdb.com/api/json/v1/1/${radioInput === 'ingredient' ? 'filter' : 'search'}.php?${radioInput === 'ingredient' ? 'i' : ''}${radioInput === 'name' ? 's' : ''}${radioInput === 'firstLetter' ? 'f' : ''}=${searchInput}`);
+  };
 
   return (
     <form>
@@ -34,12 +39,26 @@ function SearchBar() {
           name="radio-options"
           type="radio"
           data-testid="first-letter-search-radio"
-          onChange={ () => setRadioInput('letter') }
+          onChange={ () => setRadioInput('firstLetter') }
         />
       </label>
-      <button type="button" data-testid="exec-search-btn">Buscar</button>
+      <button
+        type="button"
+        data-testid="exec-search-btn"
+        onClick={ handleClick }
+      >
+        Buscar
+      </button>
     </form>
   );
 }
 
-export default SearchBar;
+// const mapStateToProps = (state) => ({
+//   teste: state.RecipesReducer.teste,
+// });
+
+// const mapDispatchToProps = (dispatch) => ({
+//   logoff: () => dispatch(logoffAction())
+// })
+
+export default connect(null, null)(SearchBar);
