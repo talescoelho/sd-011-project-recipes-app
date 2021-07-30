@@ -2,16 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-// import RecipeAppContext from '../provider/RecipeAppProvider';
 
 function Perfil() {
-  // const [setLogin] = useContext(RecipeAppContext);
+  const { email } = JSON.parse(localStorage.getItem('user'));
+  console.log(email);
 
   return (
     <div>
       <h1>My Perfil Page</h1>
       <Header title="Perfil" />
-      <p data-testid="profile-email">Email</p>
+      <p data-testid="profile-email">{email}</p>
       <Link to="/receitas-feitas">
         <button
           type="button"
@@ -34,6 +34,7 @@ function Perfil() {
         <button
           type="button"
           data-testid="profile-logout-btn"
+          onClick={ () => localStorage.clear() }
         >
           Sair
         </button>
