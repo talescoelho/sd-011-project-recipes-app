@@ -13,10 +13,14 @@ export default function Header({ recipeType, title }) {
     setHide((prevState) => !prevState);
   };
   return (
-    <>
+    <header>
       <Nav>
-        <button type="button" onClick={ () => history.push('/perfil') }>
-          <img data-testids="profile-top-btn" src={ Profile } alt="user" />
+        <button
+          type="button"
+          data-testids="profile-top-btn"
+          onClick={ () => history.push('/perfil') }
+        >
+          <img src={ Profile } alt="user" />
         </button>
         <h1 data-testids="page-title">{title}</h1>
         <button
@@ -29,7 +33,7 @@ export default function Header({ recipeType, title }) {
       </Nav>
       { hide
        && <SearchBar recipeType={ recipeType } />}
-    </>
+    </header>
   );
 }
 
