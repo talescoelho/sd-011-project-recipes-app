@@ -1,3 +1,8 @@
+.comidasPageContainer {
+  background-color: aqua;
+  height: calc(640px - 58px);
+  width: 100%;
+}
 .foodRecipesContainer {
   align-items: center;
   background-color: beige;

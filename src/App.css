@@ -6,7 +6,7 @@
   flex-direction: column;
   font-family: sans-serif;
   height: 640px;
-  justify-content: center;
+  justify-content: flex-end;
   position: relative;
   width: 360px;
 }

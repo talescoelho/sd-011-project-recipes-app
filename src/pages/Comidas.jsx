@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+import Header from '../components/Header';
 import CategoryFilters from '../components/CategoryFilters';
 // import FoodCard from '../components/FoodCard';
 import '../styles/Comidas.css';
@@ -17,14 +18,15 @@ function Comidas() {
 
   console.log(mealsRecipes);
   return (
-    <>
+    <div className="comidasPageContainer">
+      <Header title="Comidas" showSearchIcon />
       <CategoryFilters />
       <div className="foodRecipesContainer">
         {
           mealsRecipes.map((recipe, index) => <h1 key={ index }>{ recipe.idMeal }</h1>)
         }
       </div>
-    </>
+    </div>
   );
 }
 
