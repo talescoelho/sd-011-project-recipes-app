@@ -1,10 +1,11 @@
 import React from 'react';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 export default function ExplorerFoods() {
   return (
     <main>
-      <h1>ExplorerFoods</h1>
+      <Header title="Explorar Comidas" disable />
       <Footer />
     </main>
   );

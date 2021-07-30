@@ -1,10 +1,11 @@
 import React from 'react';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 function Explorer() {
   return (
     <main>
-      <h1>Explorar</h1>
+      <Header title="Explorar" disable />
       <Footer />
     </main>
   );

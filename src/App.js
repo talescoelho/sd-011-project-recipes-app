@@ -13,6 +13,8 @@ import ExplorerFoodsIngredients from './pages/ExplorerFoodsIngredients';
 import ExplorerDrinksIngredients from './pages/ExplorerDrinksIngredientes';
 import ExplorerByLocation from './pages/ExplorerByLocation';
 import Profile from './pages/Profile';
+import DoneRecipes from './pages/DoneRecipes';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function App() {
   return (
@@ -40,7 +42,16 @@ function App() {
           component={ ExplorerByLocation }
         />
         <Route exact path="/perfil" component={ Profile } />
-
+        <Route
+          exact
+          path="/receitas-feitas"
+          component={ DoneRecipes }
+        />
+        <Route
+          exact
+          path="/receitas-favoritas"
+          component={ FavoriteRecipes }
+        />
       </Switch>
     </Provider>
   );
