@@ -7,6 +7,8 @@ function initialState() {
 function Login() {
   const [login, setLogin] = useState(initialState);
   const [disabled, setDisabled] = useState(true);
+  const [storage, setStorage] = useState('');
+  // const [shouldRedirect, setShouldRedirect] = useState(false);
 
   function handleChange({ target: { value, name } }) {
     setLogin({
@@ -20,12 +22,18 @@ function Login() {
     const minPass = 6;
     const emailValid = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 
-    if (emailValid.test(email) && password.length >= minPass) {
+    if (emailValid.test(email) && password.length > minPass) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
   }, [login]);
+
+  function submitBtn() {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    setStorage(storage);
+  }
 
   return (
     <main>
@@ -49,6 +57,7 @@ function Login() {
           type="button"
           data-testid="login-submit-btn"
           disabled={ disabled }
+          onClick={ submitBtn }
         >
           Entrar
         </button>
