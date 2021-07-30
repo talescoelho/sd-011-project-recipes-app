@@ -40,6 +40,30 @@ const handleMealsResponse = (meals) => {
   return filteredMeals;
 };
 
+const handleDrinksResponse = (drinks) => {
+  const maxDrinks = 12;
+  const filteredDrinks = drinks
+    .reduce((
+      acc,
+      { idDrink, strDrink, strDrinkThumb },
+      index,
+    ) => {
+      if (index < maxDrinks) {
+        acc = [
+          ...acc,
+          {
+            idDrink,
+            strDrink,
+            strDrinkThumb,
+          },
+        ];
+      }
+      return acc;
+    }, []);
+
+  return filteredDrinks;
+};
+
 export const requestMealsMenu = () => (dispatch) => {
   dispatch(menuRequest());
   return (
@@ -58,28 +82,9 @@ export const requestDrinkMenu = () => (dispatch) => {
   return (
     fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
       .then((response) => response.json())
-      .then(({ drinks }) => {
-        const maxDrinks = 12;
-        const filteredDrinks = drinks
-          .reduce((
-            acc,
-            { idDrink, strDrink, strDrinkThumb },
-            index,
-          ) => {
-            if (index < maxDrinks) {
-              acc = [
-                ...acc,
-                {
-                  idDrink,
-                  strDrink,
-                  strDrinkThumb,
-                },
-              ];
-            }
-            return acc;
-          }, []);
-
-        dispatch(menuReceiveSuccess(filteredDrinks));
+      .then(async ({ drinks }) => {
+        const response = await handleDrinksResponse(drinks);
+        dispatch(menuReceiveSuccess(response));
       })
       .catch(() => dispatch(menuReceiveFailure()))
   );
@@ -156,6 +161,15 @@ export const requestMealsByFilter = (filter) => (dispatch) => {
   );
 };
 
-// export const requestDrinksByFilter = (filter) => (dispatch) => {
-
-// }
+export const requestDrinksByFilter = (filter) => (dispatch) => {
+  dispatch(menuRequest());
+  return (
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filter}`)
+      .then((response) => response.json())
+      .then(async ({ drinks }) => {
+        const response = await handleDrinksResponse(drinks);
+        dispatch(menuReceiveSuccess(response));
+      })
+      .catch(() => dispatch(menuReceiveFailure()))
+  );
+};
