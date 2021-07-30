@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import Login from './pages/Login';
+import MenuInferior from './components/MenuInferior';
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
         <Route path="/comidas" />
         <Route path="/explorar" />
       </Switch>
+      <MenuInferior />
     </BrowserRouter>
   );
 }
