@@ -1,9 +1,9 @@
 #fixed-bar {
-  position: fixed;
-  left: 0;
   bottom: 0;
-  width: 100%;
+  left: 0;
+  position: fixed;
   background-color: #a7a7a7;
+  width: 100%;
   text-align: center;
 }
 
