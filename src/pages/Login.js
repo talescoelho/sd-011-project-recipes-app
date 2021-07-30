@@ -21,6 +21,21 @@ export default class Login extends Component {
     this.validateLogin();
   }
 
+  validateLogin() {
+    const { email, password } = this.state;
+    const minSize = 5;
+    const re = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+    if (password.length >= minSize && re.test(email)) {
+      this.setState({
+        valid: false,
+      });
+    } else {
+      this.setState({
+        valid: true,
+      });
+    }
+  }
+  
   renderLoginForm() {
     const { email, password, valid } = this.state;
     return (
