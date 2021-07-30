@@ -5,7 +5,7 @@ export default class ExplorarBebidas extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="Explorar Bebidas" />
       </div>
     );
   }

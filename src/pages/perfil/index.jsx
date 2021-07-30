@@ -5,7 +5,7 @@ export default class Perfil extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="Perfil" />
       </div>
     );
   }

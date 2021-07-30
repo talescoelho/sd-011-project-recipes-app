@@ -5,7 +5,7 @@ export default class ReceitasFeitas extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="Receitas Feitas" />
       </div>
     );
   }

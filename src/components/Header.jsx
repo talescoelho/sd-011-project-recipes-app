@@ -10,9 +10,7 @@ const Header = ({ title, hasSearchBar }) => {
   return (
     <header>
       <Link to="/perfil">
-        <button type="button">
-          <img data-testid="profile-top-btn" src={ profileIcon } alt="Perfil" />
-        </button>
+        <img data-testid="profile-top-btn" src={ profileIcon } alt="Perfil" />
       </Link>
       <span data-testid="page-title">{ title }</span>
       { hasSearchBar && (
