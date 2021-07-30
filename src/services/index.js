@@ -60,11 +60,11 @@ export async function fetchFoodLetter(primeiraLetra) {
   if (primeiraLetra.length > magicNUmber) {
     // eslint-disable-next-line no-alert
     alert('Sua busca deve conter somente 1 (um) caracter');
-  } else {
-    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${primeiraLetra}`);
-    const { meals } = await response.json();
-    return meals;
+    return [];
   }
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${primeiraLetra}`);
+  const { meals } = await response.json();
+  return meals;
 }
 
 // SEARCHBAR COCKTAILSAPI
@@ -86,11 +86,11 @@ export async function fetchCocktailsLetter(primeiraLetra) {
   if (primeiraLetra.length > magicNUmber) {
     // eslint-disable-next-line no-alert
     alert('Sua busca deve conter somente 1 (um) caracter');
-  } else {
-    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${primeiraLetra}`);
-    const { drinks } = await response.json();
-    return drinks;
+    return [];
   }
+  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${primeiraLetra}`);
+  const { drinks } = await response.json();
+  return drinks;
 }
 
 export const Foods = {
