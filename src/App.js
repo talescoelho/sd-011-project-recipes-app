@@ -4,7 +4,7 @@ import './App.css';
 import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/Login';
-import Comidas from './Pages/Comidas';
+import Recipes from './Pages/Recipes';
 
 // Tela principal de receitas de comidas: /comidas;
 // Tela principal de receitas de bebidas: /bebidas;
@@ -27,7 +27,7 @@ function App() {
     <div className="meals">
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/comidas" component={ Comidas } />
+        <Route path="/comidas" component={ Recipes } />
       </Switch>
 
       <span className="logo">TRYBE</span>
