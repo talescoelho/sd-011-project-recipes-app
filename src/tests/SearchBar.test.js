@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { createStore } from 'redux';
 import SearchBar from '../components/SearchBar';
 import { Router } from 'react-router-dom';
@@ -29,9 +29,9 @@ const renderWithReduxAndRouter = (component, {
 describe('Testa o component SearchBar', () => {
   const { getByTestId } = renderWithReduxAndRouter(<SearchBar />);
   const inputBar = getByTestId('search-input');
-  const nameRadio = getByTestId('ingredient-search-radio');
-  const firstLetterRadio = getByTestId('name-search-radio');
-  const ingredientRadio = getByTestId('exec-search-btn');
+  const nameRadio = getByTestId('name-search-radio');
+  const firstLetterRadio = getByTestId('first-letter-search-radio');
+  const ingredientRadio = getByTestId('ingredient-search-radio');
 
   test('Tem os data-testids da barra e dos radio-buttons', () => {
     expect(inputBar).toBeInTheDocument();
@@ -41,18 +41,18 @@ describe('Testa o component SearchBar', () => {
   });
 
   test('Altera corretamente o valor dos inputs', () => {
-    // const inputBar = getByTestId('search-input');
     expect(inputBar).toHaveValue('');
     fireEvent.change(inputBar, { target: { value: 'chicken' } });
     expect(inputBar).toHaveValue('chicken');
-    // const nameRadio = getByTestId('ingredient-search-radio');
-    expect(nameRadio).toHaveValue('Nome');
 
-    // const firstLetterRadio = getByTestId('name-search-radio');
-    expect(firstLetterRadio).toHaveValue('Primeira_Letra');
+    fireEvent.click(nameRadio);
+    expect(nameRadio.checked).toBe(true);
 
-    // const ingredientRadio = getByTestId('name-search-radio');
-    expect(ingredientRadio).toHaveValue('Ingrediente');
+    fireEvent.click(firstLetterRadio);
+    expect(firstLetterRadio.checked).toBe(true);
+
+    fireEvent.click(ingredientRadio);
+    expect(ingredientRadio.checked).toBe(true);
   });
 
   test('Verifique se existem 3 radio buttons', () => {

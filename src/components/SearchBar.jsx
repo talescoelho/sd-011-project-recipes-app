@@ -52,7 +52,13 @@ export default function SearchBar() {
             name="search-option"
             data-testid="ingredient-search-radio"
             value="Ingrediente"
-            onChange={ ({ target }) => setRadioValue(target.value) }
+            onChange={ ({ target }) => {
+              setRadioValue(target.value);
+            },
+              ({target}) => {
+                target.setAttribute('checked', true);
+              }
+            }
           />
           Ingrediente
         </label>
@@ -63,7 +69,12 @@ export default function SearchBar() {
             name="search-option"
             data-testid="name-search-radio"
             value="Nome"
-            onChange={ ({ target }) => setRadioValue(target.value) }
+            onChange={ 
+              ({ target }) => setRadioValue(target.value),
+              ({target}) => {
+                target.setAttribute('checked', true);
+              }
+            }
           />
           Nome
         </label>
@@ -74,7 +85,12 @@ export default function SearchBar() {
             name="search-option"
             data-testid="first-letter-search-radio"
             value="Primeira_Letra"
-            onChange={ ({ target }) => setRadioValue(target.value) }
+            onChange={ 
+              ({ target }) => setRadioValue(target.value),
+              ({target}) => {
+                target.setAttribute('checked', true);
+              }
+            }
           />
           Primeira Letra
         </label>
