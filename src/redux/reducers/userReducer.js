@@ -1,4 +1,3 @@
-// alterar com as informacoes necessarias
 import { ADD_EMAIL } from '../actions';
 
 const INITIAL_STATE = {
