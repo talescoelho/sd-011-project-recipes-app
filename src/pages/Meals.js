@@ -2,16 +2,16 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import RecipeCard from '../components/RecipeCard';
-import SearchBar from '../components/SearchBar';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function Meals() {
-  const { recipesData } = useContext(RecipesContext);
+  const { mealsData } = useContext(RecipesContext);
 
   return (
     <div>
-      <SearchBar />
-      { recipesData !== [] && recipesData.map((recipe, index) => (
+      <Header />
+      { mealsData !== [] && mealsData.map((recipe, index) => (
         <Link
           to={ `/comidas/${recipe.idMeal}` }
           key={ recipe.idMeal }

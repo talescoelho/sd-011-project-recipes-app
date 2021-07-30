@@ -11,7 +11,7 @@ import {
 } from '../services/cocktailAPI';
 
 function SearchBar() {
-  const { recipeType, setRecipesData } = useContext(RecipesContext);
+  const { recipeType, setDrinksData, setMealsData } = useContext(RecipesContext);
 
   const [searchInput, setSearchInput] = useState('');
   const [searchRadio, setSearchRadio] = useState('');
@@ -35,7 +35,7 @@ function SearchBar() {
     }
     if (response !== null && searchRadio !== '') {
       console.log(response);
-      return setRecipesData(response.slice(0, maxRecipes));
+      return setMealsData(response.slice(0, maxRecipes));
     }
     // eslint-disable-next-line no-alert
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -57,7 +57,7 @@ function SearchBar() {
       response = await fetchCocktailsByFirstLetter(searchInput);
     }
     if (response !== null && searchRadio !== '') {
-      return setRecipesData(response.slice(0, maxRecipes));
+      return setDrinksData(response.slice(0, maxRecipes));
     }
     // eslint-disable-next-line no-alert
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
