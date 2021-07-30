@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { fetchMealsAPI, fetchCocktailsAPI } from '../Services/Data';
 
-function Cards(pageMeail, pageCocktails) {
+function Cards(props) {
   const [mealsAPI, setMealsAPI] = useState([]);
   const [cocktailsAPI, SetCocktailsAPI] = useState([]);
+  const { ApiCallMeals, ApiCallCockTails } = props;
 
   const getData = () => {
-    const dataReceivedMeals = fetchMealsAPI(setMealsAPI);
-    const dataReceivedCocktails = fetchCocktailsAPI(SetCocktailsAPI);
-    const dataObjectAPI = {
-      dataReceivedMeals,
-      dataReceivedCocktails,
-    };
-    return dataObjectAPI;
+    const dataReceived = [];
+    if (ApiCallMeals) {
+      const dataReceved = fetchMealsAPI(setMealsAPI);
+    }
+    if (ApiCallCockTails) {
+      const dataReceived = fetchCocktailsAPI(SetCocktailsAPI);
+    }
+    return dataReceived;
   };
 
   useEffect(getData, []);
 
   const renderMeailList = () => {
-    if (pageMeail) {
+    if (ApiCallMeals) {
+      console.log(ApiCallMeals);
       const maxListRender = 12;
       return (
         mealsAPI.filter((__, index) => index < maxListRender)
@@ -36,7 +39,7 @@ function Cards(pageMeail, pageCocktails) {
   };
 
   const renderCocktailsList = () => {
-    if (pageCocktails) {
+    if (ApiCallCockTails) {
       const maxListRender = 12;
       return (
         cocktailsAPI.filter((__, index) => index < maxListRender)

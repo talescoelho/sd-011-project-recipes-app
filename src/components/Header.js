@@ -1,6 +1,7 @@
 import React from 'react';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 function Header() {
   return (
@@ -16,7 +17,7 @@ function Header() {
         src={ searchIcon }
         alt="imagem lupa"
       />
-
+      <SearchBar />
     </div>
   );
 }
