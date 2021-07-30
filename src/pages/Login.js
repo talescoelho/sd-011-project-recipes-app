@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const minPasswordLength = 6;
 
@@ -8,7 +9,7 @@ const domainName = '@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}';
 const domain = '\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
 const EMAIL_REGEX = new RegExp([username, domainName, domain].join(''));
 
-function Login() {
+function Login({ history }) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [isFormValid, setIsFormValid] = React.useState(false);
@@ -17,6 +18,8 @@ function Login() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('user', JSON.stringify({ email }));
+
+    return history.push('/comidas');
   }
 
   React.useEffect(() => {
@@ -68,5 +71,11 @@ function Login() {
     </main>
   );
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
 
 export default Login;
