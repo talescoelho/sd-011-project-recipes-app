@@ -12,7 +12,7 @@ const LowerMenu = () => (
         src={ drinkIcon }
         alt="Bebidas"
         data-testid="drinks-bottom-btn"
-        className="img-btn"
+        className="img-btn btn"
       />
     </Link>
     <Link to="/explorar">
@@ -20,7 +20,7 @@ const LowerMenu = () => (
         src={ exploreIcon }
         alt="Bebidas"
         data-testid="explore-bottom-btn"
-        className="img-btn"
+        className="img-btn btn"
       />
     </Link>
     <Link to="/comidas">
@@ -28,7 +28,7 @@ const LowerMenu = () => (
         src={ mealIcon }
         alt="Bebidas"
         data-testid="food-bottom-btn"
-        className="img-btn"
+        className="img-btn btn"
       />
     </Link>
   </footer>
