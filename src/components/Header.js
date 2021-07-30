@@ -10,7 +10,6 @@ function Header({ title, isButtonVisible }) {
     searchBarShow,
     setSearchBarShow,
   } = useContext(MainContext);
-  console.log(searchBarShow);
 
   function searchButton() {
     if (isButtonVisible) {

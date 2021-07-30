@@ -3,18 +3,18 @@ export function searchBarFetchMeal(search, type) {
   case 'ingredient':
     return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${search}`)
       .then((result) => result.json())
-      .then((resolve) => resolve);
+      .then(({ meals }) => meals);
 
   case 'name':
     return fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`)
       .then((result) => result.json())
-      .then((resolve) => resolve);
+      .then(({ meals }) => meals);
 
   case 'firstLetter':
     return fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${search}`)
       .then((result) => result.json())
-      .then((resolve) => resolve)
-      .catch((error) => error);
+      .then(({ meals }) => meals)
+      .catch(() => 'Sua busca deve conter somente 1 (um) caracter');
 
   default:
     break;
