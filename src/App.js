@@ -6,8 +6,8 @@ import Provider from './context/Provider';
 import Login from './pages/Login';
 import Drinks from './pages/Drinks';
 import Explorer from './pages/Explorer';
-import Foods from './pages/Foods';
 import ExplorerFoods from './pages/ExplorerFoods';
+import Foods from './pages/Foods';
 import ExplorerDrinks from './pages/ExplorerDrinks';
 import ExplorerFoodsIngredients from './pages/ExplorerFoodsIngredients';
 import ExplorerDrinksIngredients from './pages/ExplorerDrinksIngredientes';
@@ -40,6 +40,7 @@ function App() {
           component={ ExplorerByLocation }
         />
         <Route exact path="/perfil" component={ Profile } />
+
       </Switch>
     </Provider>
   );
