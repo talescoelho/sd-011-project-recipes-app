@@ -1,12 +1,16 @@
-import { REQUEST_SEARCH, REQUEST_SUCCESS_SEARCH, ITEM_LENGTH_ONE } from '../actions';
+import {
+  REQUEST_SEARCH,
+  REQUEST_SUCCESS_SEARCH,
+  ITEM_LENGTH_ONE,
+  TURN_GIVE_ID_FALSE } from '../actions';
 
 const INITIAL_STATE = {
-  loading: false,
+  loading: true,
   dataApi: {},
   giveId: false,
 };
 
-function userReducer(state = INITIAL_STATE, action) {
+function searchItemsReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case REQUEST_SEARCH:
     return {
@@ -24,9 +28,16 @@ function userReducer(state = INITIAL_STATE, action) {
       ...state,
       giveId: true,
     };
+  case TURN_GIVE_ID_FALSE:
+    return {
+      ...state,
+      giveId: false,
+      dataApi: {},
+      loading: true,
+    };
   default:
     return state;
   }
 }
 
-export default userReducer;
+export default searchItemsReducer;

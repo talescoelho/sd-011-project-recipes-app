@@ -17,7 +17,6 @@ export default async function searchCase(mealOrDrink, radioQuery, search) {
       break;
     }
   }
-
   if (mealOrDrink === 'drink') {
     switch (radioQuery) {
     case 'ingrediente':
