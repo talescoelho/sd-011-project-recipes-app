@@ -1,0 +1,14 @@
+.categoryFilterContainer {
+  background-color: red;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  height: 100px;
+  width: 100%;
+}
+
+.categoryFilterContainer button {
+  height: 45px;
+  width: 100px;
+}

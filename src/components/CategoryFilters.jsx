@@ -1,9 +1,17 @@
 import React from 'react';
 import CategoryButton from './CategoryButton';
+import '../styles/CategoryFilters.css';
 
 function CategoryFilters() {
   return (
-    <CategoryButton />
+    <div className="categoryFilterContainer">
+      <CategoryButton />
+      <CategoryButton />
+      <CategoryButton />
+      <CategoryButton />
+      <CategoryButton />
+      <CategoryButton />
+    </div>
   );
 }
 
