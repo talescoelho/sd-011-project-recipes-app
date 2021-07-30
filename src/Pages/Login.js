@@ -1,100 +1,79 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getLogin } from '../actions';
+import { login } from '../redux/slices/user';
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
+function Login() {
+  const dispatch = useDispatch();
+  const [disabledButton, setDisabledButton] = useState(true);
+  const [formsInput, setFormsInput] = useState({
+    userEmail: '',
+    userPassword: '',
+  });
+  const { userEmail, userPassword } = formsInput;
 
-    this.state = {
-      email: '',
-      password: '',
-      disabledButton: true,
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.loginValidation = this.loginValidation.bind(this);
-  }
-
-  handleChange({ target: { name, value } }) {
-    this.setState({
-      [name]: value,
-    }, () => this.loginValidation());
-  }
-
-  handleLogin() {
-    const { sendEmail } = this.props;
-    const { email } = this.state;
-    const user = { email };
-    sendEmail(email);
-    localStorage.setItem('mealsToken', 1);
-    localStorage.setItem('cocktailsToken', 1);
-    localStorage.setItem('user', JSON.stringify(user));
-  }
-
-  loginValidation() {
-    const { password, email } = this.state;
+  useEffect(() => {
     const format = /\S+@\S+\.\S+/;
     const minPassword = 6;
-    if (password.length > minPassword && email.match(format)) {
-      this.setState({ disabledButton: false });
+    if (userPassword.length > minPassword && userEmail.match(format)) {
+      setDisabledButton(false);
     } else {
-      this.setState({ disabledButton: true });
+      setDisabledButton(true);
     }
+  }, [userEmail, userPassword]);
+
+  function handleInputChange({ target: { name, value } }) {
+    setFormsInput({
+      ...formsInput,
+      [name]: value,
+    });
   }
 
-  render() {
-    const { email, password, disabledButton } = this.state;
-    return (
-      <div>
-        <form>
-          <label htmlFor="email">
-            E-mail:
-            <input
-              name="email"
-              type="email"
-              value={ email }
-              placeholder="Digite seu email"
-              onChange={ this.handleChange }
-              data-testid="email-input"
-            />
-          </label>
-          <label htmlFor="password">
-            Password:
-            <input
-              name="password"
-              type="password"
-              value={ password }
-              placeholder="Digite seu password"
-              onChange={ this.handleChange }
-              data-testid="password-input"
-            />
-          </label>
-          <Link to="/comidas">
-            <button
-              type="button"
-              disabled={ disabledButton }
-              data-testid="login-submit-btn"
-              onClick={ this.handleLogin }
-            >
-              Entrar
-            </button>
-          </Link>
-        </form>
-      </div>
-    );
+  function handleLogin() {
+    dispatch(login(formsInput));
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email: userEmail }));
   }
+
+  return (
+    <div>
+      <form>
+        <label htmlFor="email">
+          E-mail:
+          <input
+            name="userEmail"
+            type="email"
+            value={ userEmail }
+            placeholder="Digite seu email"
+            onChange={ handleInputChange }
+            data-testid="email-input"
+          />
+        </label>
+        <label htmlFor="password">
+          Password:
+          <input
+            name="userPassword"
+            type="password"
+            value={ userPassword }
+            placeholder="Digite seu password"
+            onChange={ handleInputChange }
+            data-testid="password-input"
+          />
+        </label>
+        <Link to="/comidas">
+          <button
+            type="button"
+            disabled={ disabledButton }
+            data-testid="login-submit-btn"
+            onClick={ handleLogin }
+          >
+            Entrar
+          </button>
+        </Link>
+      </form>
+    </div>
+  );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  sendEmail: (email) => dispatch(getLogin(email)),
-});
-
-export default connect(null, mapDispatchToProps)(Login);
-
-Login.propTypes = {
-  sendEmail: PropTypes.func.isRequired,
-};
+export default Login;
