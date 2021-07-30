@@ -1,6 +1,6 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { renderWithRouterAndStore } from './renderWithRouterAndStore';
+import renderWithRouterAndStore from './renderWithRouterAndStore';
 import 'jest-localstorage-mock';
 import App from '../App';
 
@@ -47,14 +47,6 @@ describe('1 - Testando a página de Login', () => {
     userEvent.type(inputEmail, EMAIL);
     userEvent.type(inputPassword, '1234567');
     userEvent.click(button);
-    expect(store.getState().user.email).toBe(EMAIL);
+    expect(store.getState().userLogin.email).toBe(EMAIL);
   });
-  // it('Verificar se está sendo salvo na LocalStorage', () => {
-  //   const KEY = 'user';
-  //   const VALUE = EMAIL;
-  //   dispatch(action.update(KEY, VALUE));
-  //   expect(localStorage.setItem).toHaveBeenLastCalledWith(KEY, VALUE);
-  //   expect(localStorage.__STORE__[KEY]).toBe(VALUE);
-  //   expect(Object.keys(localStorage.__STORE__).length).toBe(1);
-  // });
 });
