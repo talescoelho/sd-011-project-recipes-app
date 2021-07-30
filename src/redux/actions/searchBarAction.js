@@ -39,6 +39,5 @@ export function fetchSearchFirstLetter(searchFirstLetter, pathname) {
       const data = await response.json();
       return dispatch(receiveTypeApi(data));
     }
-      window.alert('Sua busca deve conter somente 1 (um) carácter');
   };
 }

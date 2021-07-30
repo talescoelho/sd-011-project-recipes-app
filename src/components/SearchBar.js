@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useLocation } from 'react-router';
 import { connect } from 'react-redux';
 import {
@@ -17,7 +18,7 @@ function HeaderSearchBar(props) {
   useEffect(() => {
     const type = pathname === '/bebidas' ? 'drinks' : 'meals';
     setSeatchDataType(type);
-  }, []);
+  }, [pathname]);
 
   const fetchSearchData = async () => {
     const { searchByIngredients, searchByName, searchByFirstLetter } = props;
@@ -98,3 +99,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderSearchBar);
+
+HeaderSearchBar.propTypes = {
+  searchByIngredients: PropTypes.func.isRequired,
+  searchByName: PropTypes.func.isRequired,
+  searchByFirstLetter: PropTypes.func.isRequired,
+};
