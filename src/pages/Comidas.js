@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 class Comidas extends Component {
   constructor() {
@@ -28,6 +29,7 @@ class Comidas extends Component {
       <main>
         Comidas
         <Header />
+        <Footer />
       </main>
     );
   }
