@@ -4,30 +4,51 @@ import './App.css';
 import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/Login';
-import Comidas from './Pages/Comidas';
-
-// Tela principal de receitas de comidas: /comidas;
-// Tela principal de receitas de bebidas: /bebidas;
-// Tela de detalhes de uma receita de comida: /comidas/{id-da-receita};
-// Tela de detalhes de uma receita de bebida: /bebidas/{id-da-receita};
-// Tela de receita em processo de comida: /comidas/{id-da-receita}/in-progress;
-// Tela de receita em processo de bebida: /bebidas/{id-da-receita}/in-progress;
-// Tela de explorar: /explorar;
-// Tela de explorar comidas: /explorar/comidas;
-// Tela de explorar bebidas: /explorar/bebidas;
-// Tela de explorar comidas por ingrediente: /explorar/comidas/ingredientes;
-// Tela de explorar bebidas por ingrediente: /explorar/bebidas/ingredientes;
-// Tela de explorar comidas por local de origem: /explorar/comidas/area;
-// Tela de perfil: /perfil;
-// Tela de receitas feitas: /receitas-feitas;
-// Tela de receitas favoritas: /receitas-favoritas.
+import Recipes from './Pages/Recipes';
+import Bebidas from './Pages/Bebidas';
+import ReceitaDeComida from './Pages/ReceitaDeComida';
+import ReceitaDeBebida from './Pages/ReceitaDeBebida';
+import MealInProgress from './Pages/MealInProgress';
+import DrinkInProgress from './Pages/DrinkInProgress';
+import Explore from './Pages/Explore';
+import ExploreMeals from './Pages/ExploreMeals';
+import ExploreDrinks from './Pages/ExploreDrinks';
+import ExploreMealsByIgrediente from './Pages/ExploreMealsByIgrediente';
+import ExploreDrinksByIgrediente from './Pages/ExploreDrinksByIgrediente';
+import ExploreMealsByArea from './Pages/ExploreMealsByArea';
+import Profile from './Pages/Profile';
+import ReceitasFeitas from './Pages/ReceitasFeitas';
+import ReceitasFavoritas from './Pages/ReceitasFavoritas';
 
 function App() {
   return (
     <div className="meals">
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/comidas" component={ Comidas } />
+        <Route path="/comidas" component={ Recipes } />
+        <Route path="/bebidas" component={ Bebidas } />
+        <Route path="/comidas/{id-da-receita}" component={ ReceitaDeComida } />
+        <Route path="/bebidas/{id-da-receita}" component={ ReceitaDeBebida } />
+        <Route path="/comidas/{id-da-receita}/in-progress" component={ MealInProgress } />
+        <Route
+          path="/bebidas/{id-da-receita}/in-progress"
+          component={ DrinkInProgress }
+        />
+        <Route path="/explorar" component={ Explore } />
+        <Route path="/explorar/comidas" component={ ExploreMeals } />
+        <Route path="/explorar/bebidas" component={ ExploreDrinks } />
+        <Route
+          path="/explorar/comidas/ingredientes"
+          component={ ExploreMealsByIgrediente }
+        />
+        <Route
+          path="/explorar/bebidas/ingredientes"
+          component={ ExploreDrinksByIgrediente }
+        />
+        <Route path="/explorar/comidas/area" component={ ExploreMealsByArea } />
+        <Route path="/perfil" component={ Profile } />
+        <Route path="/receitas-feitas" component={ ReceitasFeitas } />
+        <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
       </Switch>
 
       <span className="logo">TRYBE</span>
