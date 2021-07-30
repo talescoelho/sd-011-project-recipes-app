@@ -1,15 +1,17 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Login from '../pages/Login';
 import Meals from '../pages/Meals';
 import Drinks from '../pages/Drinks';
 import Explore from '../pages/Explore';
 import ExploreMeals from '../pages/ExploreMeals';
 import ExploreDrinks from '../pages/ExploreDrinks';
+import ExploreMealsByArea from '../pages/ExploreMealsByArea';
+import FavoriteRecipes from '../pages/FavoriteRecipes';
+import DoneRecipes from '../pages/DoneRecipes';
+import Login from '../pages/Login';
+import Profile from '../pages/Profile';
 import ExploreMealsByIngredients from '../pages/ExploreMealsByIngredients';
 import ExploreDrinksByIngredients from '../pages/ExploreDrinksByIngredients';
-import ExploreMealsByArea from '../pages/ExploreMealsByArea';
-import Profile from '../pages/Profile';
 
 export default function Routes() {
   return (
@@ -32,6 +34,8 @@ export default function Routes() {
       />
       <Route exact path="/explorar/comidas/area" component={ ExploreMealsByArea } />
       <Route exact path="/perfil" component={ Profile } />
+      <Route exact path="/receitas-feitas" component={ DoneRecipes } />
+      <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
     </Switch>
   );
 }
