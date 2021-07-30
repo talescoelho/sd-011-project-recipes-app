@@ -3,18 +3,46 @@ import { useSelector } from 'react-redux';
 import React from 'react';
 import Footer from '../../globalComponents/Footer';
 import Header from '../../globalComponents/Header';
+import styles from './Foods.module.css';
 
 function Foods({ match }) {
   const { Filter: { isLoading, data } } = useSelector((state) => state);
-  console.log(isLoading, data);
+  const mn = 12;
+  if (isLoading) {
+    return (<h1>Carregando...</h1>);
+  }
+
+  if (!isLoading && !data.meals) {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
+
   return (
-    <>
+    <div className={ styles.foodsContainer }>
       <Header title="Comidas" glass="true" match={ match } />
-      <div>
-        Foods
+      <div className={ styles.foodsCardContainer }>
+        {data.meals && data.meals.filter((_, index) => index < mn).map((item, index) => (
+          <div
+            key={ index }
+            data-testid={ `${index}-recipe-card` }
+            className={ styles.cardDiv }
+
+          >
+            <img
+              src={ item.strMealThumb }
+              alt="thumbnail"
+              data-testid={ `${index}-card-img` }
+              className={ styles.cardImg }
+            />
+            <p
+              data-testid={ `${index}-card-name` }
+            >
+              {item.strMeal}
+            </p>
+          </div>
+        ))}
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 

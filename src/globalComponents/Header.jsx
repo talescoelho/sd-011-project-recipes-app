@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Picture1 from '../images/profileIcon.svg';
 import Picture2 from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import styles from './Header.module.css';
 
 function Header({ title, glass, match: { url } }) {
   const [modal, setModal] = React.useState(false);
@@ -19,7 +20,7 @@ function Header({ title, glass, match: { url } }) {
 
   return (
     <>
-      <header className="header" src="profileIcon">
+      <header className={ styles.headerContainer } src="profileIcon">
         <Link to="/perfil">
           <img src={ Picture1 } alt="perfil" data-testid="profile-top-btn" />
         </Link>
