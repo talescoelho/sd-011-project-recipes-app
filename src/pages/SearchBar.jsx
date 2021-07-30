@@ -16,13 +16,14 @@ function SearchBar(props){
   }
 
   function handleOnClickButton() {
-    // const { recipesByIngredient } = props;
     if(searchRadio === 'ingredient') {
       props.recipesByIngredient(input);
     } else if (searchRadio === 'name') {
-      console.log(`vai chamar action name com o input ${input}`);
+      props.recipesByName(input);
+    } else if (searchRadio === 'first-letter' && input.length > 1) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
     } else if (searchRadio === 'first-letter') {
-      console.log(`vai chamar action first letter com o input ${input}`);
+      props.recipesByLetter(input);
     }
   }
 
@@ -82,7 +83,9 @@ function SearchBar(props){
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  recipesByIngredient: (input) => dispatch(actions.recipesByIngredient(input))
+  recipesByIngredient: (input) => dispatch(actions.recipesByIngredient(input)),
+  recipesByName: (input) => dispatch(actions.recipesByName(input)),
+  recipesByLetter: (input) => dispatch(actions.recipesByLetter(input)),
 });
 
 export default connect (null, mapDispatchToProps)(SearchBar);
