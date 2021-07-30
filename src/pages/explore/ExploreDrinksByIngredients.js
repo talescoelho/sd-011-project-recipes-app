@@ -1,14 +1,10 @@
 import React from 'react';
 import Footer from '../components/footer/Footer';
 
-
-function Login() {
+export default function ExploreDrinksByIngredients() {
   return (
     <div>
-      Olá
       <Footer />
     </div>
   );
 }
-
-export default Login;
