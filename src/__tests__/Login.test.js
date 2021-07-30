@@ -33,13 +33,15 @@ describe('Pagina de Login', () => {
     it('de email', async () => {
       const input = screen.getByTestId(TEST_IDS.email);
       fireEvent.change(input, { target: { value: 'cris_a_lendaria@gmail.com' } });
-      await expect(screen.findByText('cris_a_lendaria@gmail.com')).toBeInTheDocument();
+      // const found = await screen.findByText('cris_a_lendaria@gmail.com');
+      // console.log(found);
+      await screen.findByText('cris_a_lendaria@gmail.com');
     });
 
     it('de senha', async () => {
       const input = screen.getByTestId(TEST_IDS.password);
       fireEvent.change(input, { target: { value: '123456789' } });
-      await expect(screen.findByText('123456789')).toBeInTheDocument();
+      await screen.findByText('123456789');
     });
   });
 });
