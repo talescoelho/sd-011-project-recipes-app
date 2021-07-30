@@ -29,7 +29,6 @@ function Foods() {
           alt="Botão com imagem de uma lupa: abre uma barra de pesquisa"
         />
       </button>
-
     </div>
   );
 }
