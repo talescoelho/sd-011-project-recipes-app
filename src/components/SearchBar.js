@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 function SearchBar() {
   const [selected, setSelected] = useState('');
   const [search, setSearch] = useState('');
-  const [foods, setFoods] = useState([]);
+  const [, setFoods] = useState([]);
 
   const fetchFoodsIng = (ingrediente) => {
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediente}`)

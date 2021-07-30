@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { fetchMealsAPI, fetchCocktailsAPI } from '../Services/Data';
 
 function Cards(props) {
@@ -7,13 +8,14 @@ function Cards(props) {
   const { ApiCallMeals, ApiCallCockTails } = props;
 
   const getData = () => {
-    const dataReceived = [];
+    let dataReceived = [];
     if (ApiCallMeals) {
-      const dataReceved = fetchMealsAPI(setMealsAPI);
+      dataReceived = fetchMealsAPI(setMealsAPI);
     }
     if (ApiCallCockTails) {
-      const dataReceived = fetchCocktailsAPI(SetCocktailsAPI);
+      dataReceived = fetchCocktailsAPI(SetCocktailsAPI);
     }
+
     return dataReceived;
   };
 
@@ -65,4 +67,8 @@ function Cards(props) {
   );
 }
 
+Cards.propTypes = {
+  ApiCallMeals: PropTypes.bool.isRequired,
+  ApiCallCockTails: PropTypes.bool.isRequired,
+};
 export default Cards;
