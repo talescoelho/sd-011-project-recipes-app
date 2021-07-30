@@ -16,10 +16,25 @@ function Login() {
     return validators[type](field);
   }
 
+  function handleLogin(e) {
+    e.preventDefault();
+
+    window.localStorage.setItem('mealsToken', '1');
+    window.localStorage.setItem('cocktailsToken', '1');
+
+    const user = {
+      email: emailInput,
+    };
+
+    window.localStorage.setItem('user', JSON.stringify(user));
+  }
+
   return (
     <Layout>
       <main>
-        <form>
+        <form
+          onSubmit={ handleLogin }
+        >
           <input
             data-testid="email-input"
             type="email"
