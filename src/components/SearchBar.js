@@ -62,6 +62,7 @@ function SearchBar({ mealOrDrink }) {
       />
       Primeira letra
       <button
+        data-testid="exec-search-btn"
         type="button"
         onClick={ async () => {
           if (search.length > 1 && radioQuery === 'primeiraletra') {
