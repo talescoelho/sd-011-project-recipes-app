@@ -6,6 +6,7 @@ import { setToken, emailPattern } from '../services/LoginFormAPI';
 import LoginForm from '../components/LoginForm';
 
 const magicNumber = 6;
+
 export default function LoginPage() {
   const history = useHistory();
   const [isDisabled, setDisabled] = useState();

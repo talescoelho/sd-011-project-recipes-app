@@ -1,0 +1,29 @@
+header {
+  display: flex;
+  flex-flow: column nowrap;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+nav {
+  align-items: center;
+  background-color: #c4c4c4;
+  border-top: 1px solid #e7e7e7;
+  color: white;
+  display: flex;
+  font-size: 20px;
+  height: 60px;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.header-button {
+  background-color: #c4c4c4;
+  border: none;
+  border-color: #c4c4c4;
+}
+
+.header-img {
+  margin: 10px;
+}
