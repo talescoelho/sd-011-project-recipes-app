@@ -67,7 +67,7 @@
   }
 }
 
-[data-testid = 'footer'] {
+[ data-testid = 'footer' ] {
   background-color: grey;
   bottom: 0;
   display: flex;
