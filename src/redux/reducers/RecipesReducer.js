@@ -1,7 +1,7 @@
 import { GET_RECIPES_API, REQUEST_API } from '../actions';
 
 const INITIAL_STATE = {
-  recipeType: '',
+  recipeType: 'meals',
   recipesData: [],
   isLoading: false,
 };

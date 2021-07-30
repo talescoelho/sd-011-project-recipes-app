@@ -19,7 +19,10 @@ function SearchBar({ recipeType, fetch }) {
   // https://www.${VERIFICAÇÃO1}.com/api/json/v1/1/${VERIFICAÇÃO2}.php?${VERIFICAÇÃO3}=${VERIFICAÇÃO4}
 
   const handleClick = () => {
-    fetch(`https://www.${recipeType === 'food' ? 'themealdb' : 'thecocktaildb'}.com/api/json/v1/1/${radioInput === 'ingredient' ? 'filter' : 'search'}.php?${radioInput === 'ingredient' ? 'i' : ''}${radioInput === 'name' ? 's' : ''}${radioInput === 'firstLetter' ? 'f' : ''}=${searchInput}`);
+    if (radioInput === 'firstLetter' && searchInput.length > 1) {
+      return alert('Sua busca deve conter somente 1 (um) caracter');
+    }
+    fetch(`https://www.${recipeType === 'meals' ? 'themealdb' : 'thecocktaildb'}.com/api/json/v1/1/${radioInput === 'ingredient' ? 'filter' : 'search'}.php?${radioInput === 'ingredient' ? 'i' : ''}${radioInput === 'name' ? 's' : ''}${radioInput === 'firstLetter' ? 'f' : ''}=${searchInput}`);
   };
 
   return (
