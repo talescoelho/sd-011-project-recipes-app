@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import SearchIcon from '../images/searchIcon.svg';
+import ProfileIcon from '../images/profileIcon.svg';
 
 class Header extends Component {
   constructor(props) {
@@ -12,7 +14,7 @@ class Header extends Component {
     this.profileButton = this.profileButton.bind(this);
     this.searchButton = this.searchButton.bind(this);
     this.showSearch = this.showSearch.bind(this);
-  };
+  }
 
   profileButton() {
     return (
@@ -21,7 +23,7 @@ class Header extends Component {
           type="button"
           data-testid="profile-top-btn"
         >
-          <img src="./images/profileIcon.svg" alt="profileIcon" />
+          <img src={ ProfileIcon } alt="profileIcon" />
         </button>
       </Link>
     );
@@ -34,42 +36,39 @@ class Header extends Component {
         data-testids="search-top-btn"
         onClick={ () => this.showSearch() }
       >
-        <img src="./images/searchIcon.svg" alt="searchIcon" />
+        <img src={ SearchIcon } alt="searchIcon" />
       </button>
     );
   }
 
   showSearch() {
     const { disabled } = this.state;
-      if (disabled === true) {
-        this.setState({
-          disabled: false,
-        });
-      } else {
-        this.setState({
-          disabled: true,
-        });
-      }
+    if (disabled === true) {
+      this.setState({
+        disabled: false,
+      });
+    } else {
+      this.setState({
+        disabled: true,
+      });
     }
-
+  }
 
   centralHeader() {
-const { disabled } = this.state;
-const { title } = this.props;
+    const { disabled } = this.state;
     return (
-      <>
-        <h1 data-testid="page-title">{ title }</h1>
-        { !disabled ? <SearchBar /> : null  }
-      </>
+      !disabled ? (<p>AQUI SERA A SEARCHBAR</p>) : null
     );
   }
 
   render() {
+    const { title } = this.props;
     return (
       <header>
         { this.profileButton() }
-        { this.centralHeader() }
+        <h1 data-testid="page-title">{ title }</h1>
         { this.searchButton() }
+        { this.centralHeader() }
       </header>
     );
   }
