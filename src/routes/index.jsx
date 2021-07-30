@@ -5,7 +5,7 @@ import { LoginPage, NotFound } from '../pages';
 function Routes() {
   return (
     <Switch>
-      <Route exact path="/" component={ <LoginPage /> } />
+      <Route exact path="/" component={ LoginPage } />
       <Route path="*" component={ NotFound } />
     </Switch>
   );
