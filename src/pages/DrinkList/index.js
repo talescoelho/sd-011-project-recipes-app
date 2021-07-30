@@ -1,9 +1,11 @@
 import React from 'react';
+import FooterMenu from '../../components/FooterMenu';
 
-const index = () => (
+const DrinkList = () => (
   <div>
-    Sou tela de bebidas
+    Sou tela de bebidas.
+    <FooterMenu />
   </div>
 );
 
-export default index;
+export default DrinkList;

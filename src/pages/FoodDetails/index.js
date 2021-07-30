@@ -1,9 +1,13 @@
 import React from 'react';
+// import useLocalStorage from '../../hooks/useLocalStorage';
 
-const index = () => (
-  <div>
-    Sou tela de detalhes de uma comida selecionadas
-  </div>
-);
+const FoodDetails = () => {
+  console.log('index');
+  return (
+    <div>
+      Sou tela de detalhes de uma comida selecionadas
+    </div>
+  );
+};
 
-export default index;
+export default FoodDetails;

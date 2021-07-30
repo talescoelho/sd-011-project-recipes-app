@@ -1,42 +1,44 @@
 import React from 'react';
 import renderWithRouter from './renderWithRouter';
-import FooterMenu from '../pages/FooterMenu';
+import FooterMenu from '../components/FooterMenu';
+// import '@testing-library/jest-dom/extend-expect';
 
 describe('19 - Implemente os elementos do menu inferior', () => {
   it('Tem os data-testids', () => {
     const { getByTestId } = renderWithRouter(<FooterMenu />);
 
-    expect(getByTestId('footer')).toBeTruthy();
+    expect(getByTestId('footer')).toBeInTheDocument();
     expect(getByTestId('drinks-bottom-btn')).toBeTruthy();
     expect(getByTestId('explore-bottom-btn')).toBeTruthy();
     expect(getByTestId('food-bottom-btn')).toBeTruthy();
   });
 });
 
-describe('20 - Posicione o menu inferior de forma fixa e apresente 3 ícones', () => {
-  it('O menu inferior deve ficar fixado sempre ao final da página', () => {
-    // cy.visit('http://localhost:3000/comidas');
+// describe('20 - Posicione o menu inferior de forma fixa e apresente 3 ícones', () => {
+//   ('O menu inferior deve ficar fixado sempre ao final da página', () => {
+//     // const { getByTestId } = renderWithRouter(<FooterMenu />);
+//     // Ainda a desenvolver
+//   });
 
-    // cy.get('[data-testid="footer"]').should('have.css','position', 'fixed');
-    // cy.get('[data-testid="footer"]').should('have.css','bottom', '0px');
-  });
+//   it('Apresenta os ícones corretos', () => {
+//     // const { getByTestId } = renderWithRouter(<FooterMenu />);
+//     // const icon = getByTestId('drinks-bottom-btn');
+//     // const src = icon.node.props.src
+//     // console.log(src);
+//     // expect(getByTestId('drinks-bottom-btn')).
+//     // cy.get('[data-testid="drinks-bottom-btn"]')
+//     //   .should('have.attr', 'src')
+//     //   .should('include', 'drinkIcon');
 
-  it('Apresenta os ícones corretos', () => {
-    // cy.visit('http://localhost:3000/comidas');
+//     // cy.get('[data-testid="explore-bottom-btn"]')
+//     //   .should('have.attr', 'src')
+//     //   .should('include', 'exploreIcon');
 
-    // cy.get('[data-testid="drinks-bottom-btn"]')
-    //   .should('have.attr', 'src')
-    //   .should('include', 'drinkIcon');
-
-    // cy.get('[data-testid="explore-bottom-btn"]')
-    //   .should('have.attr', 'src')
-    //   .should('include', 'exploreIcon');
-
-    // cy.get('[data-testid="food-bottom-btn"]')
-    //   .should('have.attr', 'src')
-    //   .should('include', 'mealIcon');
-  });
-});
+//     // itcy.get('[data-testid="food-bottom-btn"]')
+//     //   .should('have.attr', 'src')
+//     //   .should('include', 'mealIcon');
+//   });
+// });
 
 // const hasNoFooter = () => {
 //   cy.get('[data-testid="footer"]').should('not.exist');
@@ -99,56 +101,56 @@ describe('20 - Posicione o menu inferior de forma fixa e apresente 3 ícones', (
 
 //   hasFooter();
 // });
-describe('21 - Exiba o menu inferior apenas nas telas indicadas pelo protótipo', () => {
+// describe('21 - Exiba o menu inferior apenas nas telas indicadas pelo protótipo', () => {
 
-  // it('Tem footer na tela de explorar comidas', () => {
-  //   cy.visit('http://localhost:3000/explorar/comidas');
+// it('Tem footer na tela de explorar comidas', () => {
+//   cy.visit('http://localhost:3000/explorar/comidas');
 
-  //   hasFooter();
-  // });
+//   hasFooter();
+// });
 
-  // it('Tem footer na tela de explorar bebidas', () => {
-  //   cy.visit('http://localhost:3000/explorar/bebidas');
+// it('Tem footer na tela de explorar bebidas', () => {
+//   cy.visit('http://localhost:3000/explorar/bebidas');
 
-  //   hasFooter();
-  // });
+//   hasFooter();
+// });
 
-  // it('Tem footer na tela de explorar comidas por ingrediente', () => {
-  //   cy.visit('http://localhost:3000/explorar/comidas/ingredientes');
+// it('Tem footer na tela de explorar comidas por ingrediente', () => {
+//   cy.visit('http://localhost:3000/explorar/comidas/ingredientes');
 
-  //   hasFooter();
-  // });
+//   hasFooter();
+// });
 
-  // it('Tem footer na tela de explorar bebidas por ingrediente', () => {
-  //   cy.visit('http://localhost:3000/explorar/bebidas/ingredientes');
+// it('Tem footer na tela de explorar bebidas por ingrediente', () => {
+//   cy.visit('http://localhost:3000/explorar/bebidas/ingredientes');
 
-  //   hasFooter();
-  // });
+//   hasFooter();
+// });
 
-  // it('Tem footer na tela de explorar comidas por local de origem', () => {
-  //   cy.visit('http://localhost:3000/explorar/comidas/area');
+// it('Tem footer na tela de explorar comidas por local de origem', () => {
+//   cy.visit('http://localhost:3000/explorar/comidas/area');
 
-  //   hasFooter();
-  // });
+//   hasFooter();
+// });
 
-  // it('Tem footer na tela de perfil', () => {
-  //   cy.visit('http://localhost:3000/perfil');
+// it('Tem footer na tela de perfil', () => {
+//   cy.visit('http://localhost:3000/perfil');
 
-  //   hasFooter();
-  // });
+//   hasFooter();
+// });
 
-  // it('Não tem footer na tela de receitas feitas', () => {
-  //   cy.visit('http://localhost:3000/receitas-feitas');
+// it('Não tem footer na tela de receitas feitas', () => {
+//   cy.visit('http://localhost:3000/receitas-feitas');
 
-  //   hasNoFooter();
-  // });
+//   hasNoFooter();
+// });
 
-  // it('Não tem footer na tela de receitas favoritas', () => {
-  //   cy.visit('http://localhost:3000/receitas-favoritas');
+// it('Não tem footer na tela de receitas favoritas', () => {
+//   cy.visit('http://localhost:3000/receitas-favoritas');
 
-  //   hasNoFooter();
-  // });
-});
+//   hasNoFooter();
+// });
+// });
 
 // describe('22 - Redirecione a pessoa usuária para uma lista de cocktails', () => {
 //   it('Redireciona para a rota correta', () => {

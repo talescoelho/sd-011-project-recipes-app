@@ -1,9 +1,9 @@
 import React from 'react';
 
-const index = () => (
+const FavoriteRecipes = () => (
   <div>
     Sou página de receitas favoritas.
   </div>
 );
 
-export default index;
+export default FavoriteRecipes;

@@ -1,9 +1,9 @@
 import React from 'react';
 
-const index = () => (
+const DrinkInProgress = () => (
   <div>
     Sou página de bebida em progresso.
   </div>
 );
 
-export default index;
+export default DrinkInProgress;

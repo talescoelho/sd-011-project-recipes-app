@@ -1,9 +1,11 @@
 import React from 'react';
+import FooterMenu from '../../components/FooterMenu';
 
-const index = () => (
+const Explore = () => (
   <div>
     Sou página de exploração.
+    <FooterMenu />
   </div>
 );
 
-export default index;
+export default Explore;

@@ -1,9 +1,13 @@
 import React from 'react';
+import FooterMenu from '../../components/FooterMenu';
 
-const index = () => (
-  <div>
-    Sou tela de comidas
-  </div>
-);
-
-export default index;
+const FoodList = () => {
+  console.log('index');
+  return (
+    <div>
+      Sou tela de comidas
+      <FooterMenu />
+    </div>
+  );
+};
+export default FoodList;
