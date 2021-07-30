@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Cards from '../components/Cards';
 import Footer from '../components/Footer';
-import { getDrinkFromApi } from '../actions';
+import { getDrinksFromApi } from '../actions';
 import FiltersFromCategories from '../components/FiltersFromCategories';
 
 class Bebidas extends React.Component {
@@ -28,7 +28,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getDrinks: () => dispatch(getDrinkFromApi()),
+  getDrinks: () => dispatch(getDrinksFromApi()),
 });
 
 Bebidas.propTypes = {

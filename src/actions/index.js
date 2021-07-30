@@ -40,7 +40,7 @@ export const getDrinksSuccess = (payload) => ({
   payload,
 });
 
-export const getDrinkFromApi = () => async (dispatch) => {
+export const getDrinksFromApi = () => async (dispatch) => {
   dispatch(getDrinks());
   try {
     const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
