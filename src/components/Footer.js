@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import '../App.css';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
@@ -7,29 +8,20 @@ import mealIcon from '../images/mealIcon.svg';
 class Footer extends Component {
   render() {
     return (
-      <div data-testid="footer">
+      <div className="footer" data-testid="footer">
         <Link to="/bebidas">
-          <button
-            type="button"
-            data-testid="drinks-bottom-btn"
-          >
-            <img src={ drinkIcon } alt="meal" />
+          <button type="button">
+            <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="meal" />
           </button>
         </Link>
         <Link to="/explorar">
-          <button
-            type="button"
-            data-testid="explore-bottom-btn"
-          >
-            <img src={ exploreIcon } alt="explore" />
+          <button type="button">
+            <img data-testid="explore-bottom-btn" src={ exploreIcon } alt="explore" />
           </button>
         </Link>
         <Link to="/comidas">
-          <button
-            type="button"
-            data-testid="food-bottom-btn"
-          >
-            <img src={ mealIcon } alt="drink" />
+          <button type="button">
+            <img data-testid="food-bottom-btn" src={ mealIcon } alt="drink" />
           </button>
         </Link>
 
