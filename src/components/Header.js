@@ -1,19 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import profileIcon from '../images/profileIcon.svg';
+import searchIcon from '../images/searchIcon.svg';
 
-class Header extends React.Component {
-  render() {
-    return (
-      <div>
-        <button type="button" data-testid="profile-top-btn">
-          <img alt="Profile Icon" src="src/images/profileIcon.svg" />
-        </button>
-        <button type="button" data-testid="search-top-btn">
-          <img alt="Search Icon" src="src/images/searchIcon.svg" />
-        </button>
-        <h1 data-testid="page-title">Comidas</h1>
-      </div>
-    );
-  }
+function Header({ title }) {
+  const [hiddenSearchBar, setHiddentSearchBar] = useState(true);
+  const renderWithoutSearch = [
+    'Explorar',
+    'Explorar Comidas',
+    'Explorar Bebidas',
+    'Explorar Ingredientes',
+    'Perfil',
+    'Receitas Feitas',
+    'Receitas Favoritas',
+  ];
+
+  return (
+    <div>
+      <Link to="/perfil">
+        <img
+          data-testid="profile-top-btn"
+          src={ profileIcon }
+          alt="profile-icon"
+        />
+      </Link>
+      <h1 data-testid="page-title">{title}</h1>
+      {(!renderWithoutSearch.includes(title))
+        && (
+          <div>
+            <button
+              type="button"
+              onClick={ () => setHiddentSearchBar(!hiddenSearchBar) }
+            >
+              <img src={ searchIcon } data-testid="search-top-btn" alt="search-icon" />
+            </button>
+            {(!hiddenSearchBar
+              && (
+                <label hidden={ hiddenSearchBar } htmlFor="search-bar">
+                  <input name="search-bar" data-testid="search-input" />
+                </label>)
+            )}
+          </div>)}
+    </div>
+  );
 }
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default Header;

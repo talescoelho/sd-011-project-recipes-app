@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 
-function Comidas({ title }) {
+function ExplorarBebidasIngredientes({ title }) {
   return (
     <div>
       <Header title={ title } />
@@ -10,8 +10,8 @@ function Comidas({ title }) {
   );
 }
 
-export default Comidas;
+export default ExplorarBebidasIngredientes;
 
-Comidas.propTypes = {
+ExplorarBebidasIngredientes.propTypes = {
   title: PropTypes.string.isRequired,
 };
