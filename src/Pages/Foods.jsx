@@ -1,7 +1,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 
-function Login() {
+function Foods() {
   return (
     <div>
       AAA
@@ -9,4 +9,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Foods;
