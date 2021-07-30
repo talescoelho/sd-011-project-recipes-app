@@ -1,9 +1,13 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import LoginContext from '../../context/LoginContext';
 
 function SearchBar() {
   const { setSearchText,
     setRadioButton, handleClick, radioButton, searchText } = useContext(LoginContext);
+
+  const history = useHistory();
+  const { location: { pathname } } = history;
 
   const filterSearch = ({ value }) => {
     setSearchText(value);
@@ -61,7 +65,7 @@ function SearchBar() {
           <button
             data-testid="exec-search-btn"
             type="button"
-            onClick={ handleClick }
+            onClick={ () => { handleClick(pathname); } }
           >
             Buscar
           </button>

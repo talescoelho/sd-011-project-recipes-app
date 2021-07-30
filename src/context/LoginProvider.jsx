@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LoginContext from './LoginContext';
-import { handleFoods } from './ApiFunctions';
+import { handleDrinks, handleFoods } from '../helpers/ApiFunctions';
 
 function LoginProvider({ children }) {
   const [searchText, setSearchText] = useState('');
   const [radioButton, setRadioButton] = useState(' ingrediente');
   const [data, setData] = useState([]);
 
-  const handleClick = () => handleFoods(radioButton, searchText);
+  const handleClick = (pathname) => (pathname === '/comidas'
+    ? handleFoods(radioButton, searchText)
+    : handleDrinks(radioButton, searchText));
 
   const loginContextValue = {
     searchText,

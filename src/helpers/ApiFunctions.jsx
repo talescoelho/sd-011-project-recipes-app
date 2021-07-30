@@ -31,14 +31,14 @@ export const handleDrinks = async (radioButton, searchText) => {
 
   if (radioButton === 'nome') {
     const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchText}`);
-    const { drinks } = response.json();
+    const { drinks } = await response.json();
     console.log(drinks);
     return drinks;
   }
 
   if (radioButton === 'primeira letra') {
     const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchText}`);
-    const { drinks } = response.json();
+    const { drinks } = await response.json();
     console.log(drinks);
     return drinks;
   }
