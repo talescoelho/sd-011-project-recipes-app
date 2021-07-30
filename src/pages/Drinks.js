@@ -1,10 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Header from '../components/Header';
-import OneResultSearch from '../components/OneResultSearch';
-import GlobalContext from '../context/GlobalContext';
 
 function Drinks() {
-  const { catalog } = useContext(GlobalContext);
   const headerProps = {
     title: 'Bebidas',
     enableSearchButton: true,
@@ -13,8 +10,6 @@ function Drinks() {
 
   return (
     <div>
-      { catalog
-      && <OneResultSearch />}
       <Header props={ headerProps } />
     </div>
   );
