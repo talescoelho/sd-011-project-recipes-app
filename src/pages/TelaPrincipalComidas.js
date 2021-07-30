@@ -7,6 +7,8 @@ export default function TelaPrincipalComidas() {
   const { meals } = data;
   const [mealsCategories, setMealsCategories] = useState([]);
 
+  const [filter, setFilter] = useState('');
+
   async function fetchCategories() {
     const categories = await getCategories('meal');
     setMealsCategories(categories.meals);
@@ -15,6 +17,11 @@ export default function TelaPrincipalComidas() {
   useEffect(() => {
     fetchCategories();
   }, []);
+
+  let filteredMeals = meals;
+  if (filter !== '') {
+    filteredMeals = meals.filter(({ strCategory }) => strCategory === filter);
+  }
 
   const categoryLimit = 5;
   const cardLimit = 12;
@@ -28,6 +35,7 @@ export default function TelaPrincipalComidas() {
                 <button
                   type="button"
                   key={ strCategory }
+                  onClick={ () => setFilter(strCategory) }
                   data-testid={ `${strCategory}-category-filter` }
                 >
                   {strCategory}
@@ -38,7 +46,7 @@ export default function TelaPrincipalComidas() {
         }
       </div>
       {
-        meals.map(({ idMeal, strMeal, strMealThumb }, index) => (
+        filteredMeals.map(({ idMeal, strMeal, strMealThumb }, index) => (
           index < cardLimit
             ? (
               <div key={ idMeal } data-testid={ `${index}-recipe-card` }>

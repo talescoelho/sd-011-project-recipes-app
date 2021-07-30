@@ -4,16 +4,15 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Login from './pages/Login';
-import TelaPrincipalComidas from './pages/TelaPrincipalComidas';
-import TelaPrincipalBebidas from './pages/TelaPrincipalBebidas';
+import TelaPrincipal from './pages/TelaPrincipal';
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/comidas" component={ TelaPrincipalComidas } />
-        <Route path="/bebidas" component={ TelaPrincipalBebidas } />
+        <Route path="/comidas" render={ () => <TelaPrincipal type="meal" /> } />
+        <Route path="/bebidas" render={ () => <TelaPrincipal type="cocktail" /> } />
       </Switch>
     </BrowserRouter>
   );
