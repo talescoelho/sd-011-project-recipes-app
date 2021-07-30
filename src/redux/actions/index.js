@@ -7,7 +7,7 @@ export const requestApiAction = () => ({ type: REQUEST_API });
 // ESTÁ ACTION ALTERA isLoading PARA false E SALVA O RETORNO DA API EM recipesData
 export const getRecipesAction = (data) => ({ type: GET_RECIPES_API, data });
 
-export const fetchRecipesAPI = (url) => async (dispatch) => {
+export const fetchRecipesAPIAction = (url) => async (dispatch) => {
   dispatch(requestApiAction());
   try {
     const response = await fetch(url);

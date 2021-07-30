@@ -1,12 +1,24 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchRecipesAPIAction } from '../redux/actions';
 
-function SearchBar() {
+function SearchBar({ fetch }) {
   const [searchInput, setSearchInput] = useState('');
   const [radioInput, setRadioInput] = useState('');
 
+  // LÓGICA PARA CRIAÇÃO DA URL:
+  // VERIFICAÇÃO 1 - CASO A BUSCA SEJA POR INGREDIENTE, SERÁ UTILIZADO 'filter' NA URL. JÁ PARA NOME OU PRIMEIRA LETRA, SERÁ UTILIZADO 'search'
+  // VERIFICAÇÃO 2 - POSSIBILIDADES:
+  // a) BUSCA POR INGREDIENTE, SERÁ UTILIZADO 'i'
+  // b) BUSCA POR NOME, SERÁ UTILIZADO 's'
+  // c) BUSCA POR PRIMEIRA LETRA, SERÁ UTILIZADO 'f'
+  // VERIFICAÇÃO 3 - SERÁ ACRESCENTADO O VALOR DIGITADO NO INPUT PARA REALIZAR A BUSCA.
+  // MONTAGEM DA URL:
+  // https://www.themealdb.com/api/json/v1/1/${VERIFICAÇÃO1}.php?${VERIFICAÇÃO2}=${VERIFICAÇÃO3}
+
   const handleClick = () => {
-    console.log(`https://www.themealdb.com/api/json/v1/1/${radioInput === 'ingredient' ? 'filter' : 'search'}.php?${radioInput === 'ingredient' ? 'i' : ''}${radioInput === 'name' ? 's' : ''}${radioInput === 'firstLetter' ? 'f' : ''}=${searchInput}`);
+    fetch(`https://www.themealdb.com/api/json/v1/1/${radioInput === 'ingredient' ? 'filter' : 'search'}.php?${radioInput === 'ingredient' ? 'i' : ''}${radioInput === 'name' ? 's' : ''}${radioInput === 'firstLetter' ? 'f' : ''}=${searchInput}`);
   };
 
   return (
@@ -53,12 +65,12 @@ function SearchBar() {
   );
 }
 
-// const mapStateToProps = (state) => ({
-//   teste: state.RecipesReducer.teste,
-// });
+const mapDispatchToProps = (dispatch) => ({
+  fetch: (url) => dispatch(fetchRecipesAPIAction(url)),
+});
 
-// const mapDispatchToProps = (dispatch) => ({
-//   logoff: () => dispatch(logoffAction())
-// })
+SearchBar.propTypes = {
+  fetch: PropTypes.func,
+}.isRequired;
 
-export default connect(null, null)(SearchBar);
+export default connect(null, mapDispatchToProps)(SearchBar);
