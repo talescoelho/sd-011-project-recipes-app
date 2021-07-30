@@ -1,48 +1,18 @@
-// import { requestDetailsId, requestSuccessDetailsId } from '../actions';
+import { requestDetailsId, requestSuccessDetailsId } from '../actions';
 
-export default async function detailsIdFetch(mealOrDrink) {
-  // let response;
-  // if (mealOrDrink === 'meal') {
-  //   switch (radioQuery) {
-  //   case 'ingrediente':
-  //     response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${search}`);
-  //     break;
-  //   case 'nome':
-  //     response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`);
-  //     break;
-  //   case 'primeiraletra':
-  //     response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${search}`);
-  //     break;
-  //   default:
-  //     break;
-  //   }
-  // }
-
-  // if (mealOrDrink === 'drink') {
-  //   switch (radioQuery) {
-  //   case 'ingrediente':
-  //     response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${search}`);
-  //     break;
-  //   case 'nome':
-  //     response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`);
-  //     break;
-  //   case 'primeiraletra':
-  //     response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${search}`);
-  //     break;
-  //   default:
-  //     break;
-  //   }
-  // }
-  // console.log(response);
+export default async function apiDetailsId(mealOrDrink, id) {
+  let response;
+  if (mealOrDrink === 'meal') {
+    response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  }
+  if (mealOrDrink === 'drink') {
+    response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+  }
   return async (dispatch) => {
     try {
-      dispatch(requestSearch());
+      dispatch(requestDetailsId());
       const data = await response.json();
-      // console.log(data);
-      dispatch(requestSuccessSearch(data));
-      if (mealOrDrink === 'meal') {
-        if (data.meals.length === 1) dispatch(itemLengthOne());
-      } else if (data.drinks.length === 1) dispatch(itemLengthOne());
+      dispatch(requestSuccessDetailsId(data));
     } catch (error) {
       console.error(error);
     }

@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   dataApi: {},
 };
 
-function detailsIdReducer(state = INITIAL_STATE, action) {
+function detailsId(state = INITIAL_STATE, action) {
   switch (action.type) {
   case REQUEST_DETAILS_ID:
     return {
@@ -13,14 +13,10 @@ function detailsIdReducer(state = INITIAL_STATE, action) {
       loading: true,
     };
   case REQUEST_SUCCESS_DETAILS_ID:
-    return {
-      ...state,
-      loading: false,
-      dataApi: action.payload,
-    };
+    return { ...state, loading: false, dataApi: action.payload };
   default:
     return state;
   }
 }
 
-export default detailsIdReducer;
+export default detailsId;
