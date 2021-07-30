@@ -1,16 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useHistory } from 'react-router';
-import { useDispatch } from 'react-redux';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './SearchBar';
-import { turnGiveIdFalse } from '../actions';
 
 function Header({ mealOrDrink, buttonExists, title }) {
   const [searchClicked, setSearchClicked] = React.useState(false);
   const history = useHistory();
-  const dispatch = useDispatch();
   return (
     <div>
 
@@ -18,6 +15,7 @@ function Header({ mealOrDrink, buttonExists, title }) {
         type="button"
         data-testid="profile-top-btn"
         onClick={ () => history.push('/perfil') }
+        src={ profileIcon }
       >
         <img
           alt="profile"
@@ -25,7 +23,7 @@ function Header({ mealOrDrink, buttonExists, title }) {
         />
       </button>
 
-      <h2 data-testid="page-title">{title}</h2>
+      <span data-testid="page-title">{title}</span>
 
       {buttonExists && (
         <button
@@ -33,8 +31,9 @@ function Header({ mealOrDrink, buttonExists, title }) {
           type="button"
           onClick={ () => {
             setSearchClicked(!searchClicked);
-            dispatch(turnGiveIdFalse());
+            // dispatch(turnGiveIdFalse());
           } }
+          src={ searchIcon }
         >
           <img
             alt="search"

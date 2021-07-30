@@ -1,17 +1,18 @@
 import { requestSearch, requestSuccessSearch, itemLengthOne } from '../actions';
 
 export default async function searchCase(mealOrDrink, radioQuery, search) {
-  let response;
+  let endpointApi;
+  console.log(mealOrDrink);
   if (mealOrDrink === 'meal') {
     switch (radioQuery) {
     case 'ingrediente':
-      response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${search}`);
+      endpointApi = (`https://www.themealdb.com/api/json/v1/1/filter.php?i=${search}`);
       break;
     case 'nome':
-      response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`);
+      endpointApi = (`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`);
       break;
     case 'primeiraletra':
-      response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${search}`);
+      endpointApi = (`https://www.themealdb.com/api/json/v1/1/search.php?f=${search}`);
       break;
     default:
       break;
@@ -20,28 +21,30 @@ export default async function searchCase(mealOrDrink, radioQuery, search) {
   if (mealOrDrink === 'drink') {
     switch (radioQuery) {
     case 'ingrediente':
-      response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${search}`);
+      endpointApi = (`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${search}`);
       break;
     case 'nome':
-      response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`);
+      endpointApi = (`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`);
       break;
     case 'primeiraletra':
-      response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${search}`);
+      endpointApi = (`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${search}`);
       break;
     default:
       break;
     }
   }
-  console.log(response);
+  console.log(endpointApi);
   return async (dispatch) => {
     try {
+      const mealsOrDrinks = mealOrDrink === 'meal' ? 'meals' : 'drinks';
       dispatch(requestSearch());
+      const response = await fetch(endpointApi);
       const data = await response.json();
-      console.log(data);
       dispatch(requestSuccessSearch(data));
-      if (mealOrDrink === 'meal') {
-        if (data.meals.length === 1) dispatch(itemLengthOne());
-      } else if (data.drinks.length === 1) dispatch(itemLengthOne());
+      console.log(data);
+      if (data && data[mealsOrDrinks].length === 1) {
+        dispatch(itemLengthOne());
+      }
     } catch (error) {
       console.error(error);
     }

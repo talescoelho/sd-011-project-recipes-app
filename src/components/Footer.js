@@ -1,17 +1,23 @@
 import React from 'react';
 import { useHistory } from 'react-router';
+import { useDispatch } from 'react-redux';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
+import { turnGiveIdFalse } from '../actions';
 
 function Footer() {
   const history = useHistory();
+  const dispatch = useDispatch();
   return (
     <footer data-testid="footer">
       <button
         type="button"
         data-testid="drinks-bottom-btn"
-        onClick={ () => history.push('/bebidas') }
+        onClick={ () => {
+          history.push('/bebidas');
+          dispatch(turnGiveIdFalse());
+        } }
         src={ drinkIcon }
       >
         <img
