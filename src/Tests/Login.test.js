@@ -48,4 +48,18 @@ describe('Verificações da tela de Login', () => {
     fireEvent.change(passwordInput, { target: { value: 'senhaSegura123' } });
     expect(loginButton).not.toBeDisabled();
   });
+
+  it('Verifica se ao clicar no botão "Entrar", direciona para a rota "/comidas"', () => {
+    const { getByTestId, history } = renderWithRouter(<Login />);
+
+    const emailInput = getByTestId(EMAIL_INPUT);
+    const passwordInput = getByTestId(PASS_INPUT);
+    const loginButton = getByTestId(LOGIN_BUTTON);
+
+    fireEvent.change(emailInput, { target: { value: 'email@betrybe.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'senhaSegura123' } });
+
+    fireEvent.click(loginButton);
+    expect(history.location.pathname).toBe('/comidas');
+  });
 });
