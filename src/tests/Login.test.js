@@ -121,3 +121,21 @@ describe('Requirement 06', () => {
     expect(localStorage.getItem('cocktailsToken')).toBe('1');
   });
 });
+
+describe('Requirement 07', () => {
+  it('should have user email into localStorage', () => {
+    render(<Login />);
+    const inputEmail = screen.getByTestId(emailInputTestId);
+    fireEvent.change(inputEmail, { target: {
+      value: validEmail,
+    } });
+    const inputPassword = screen.getByTestId(passwordInputTestId);
+    fireEvent.change(inputPassword, { target: {
+      value: validPassword,
+    } });
+
+    const submitButton = screen.getByTestId(submitButtonButtonTestId);
+    fireEvent.click(submitButton);
+    expect(localStorage.getItem('user')).toBe(`{"email":"${validEmail}"}`);
+  });
+});
