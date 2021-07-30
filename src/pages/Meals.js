@@ -1,7 +1,7 @@
 import React from 'react';
 import LowerMenu from '../components/LowerMenu';
 
-export default function Comidas() {
+export default function Meals() {
   return (
     <div>
       <h2>Food Page</h2>
