@@ -16,14 +16,14 @@ const Header = ({ title, hasSearchBar }) => {
       <span data-testid="page-title">{ title }</span>
       { hasSearchBar && (
         <button
-        onClick={ () => setIsSearchShowing(!isSearchShowing) }
-        type="button"
+          onClick={ () => setIsSearchShowing(!isSearchShowing) }
+          type="button"
         >
           <img data-testid="search-top-btn" src={ SearchIcon } alt="Procurar" />
         </button>)}
-        {isSearchShowing && (
-          <SearchBar />
-        )}
+      {isSearchShowing && (
+        <SearchBar />
+      )}
     </header>
   );
 };

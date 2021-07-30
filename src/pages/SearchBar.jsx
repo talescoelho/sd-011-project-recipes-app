@@ -1,32 +1,32 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import * as actions from '../actions';
 
-function SearchBar(props){
-
+function SearchBar(props) {
   const [searchRadio, setSearchRadio] = useState(null);
   const [input, setInput] = useState('');
 
-  function handleInputChange({ target: { value }}) {
-    setInput(value)
+  function handleInputChange({ target: { value } }) {
+    setInput(value);
   }
 
-  function handleSearchRadio({target: { value }}) {
-    setSearchRadio(value)
+  function handleSearchRadio({ target: { value } }) {
+    setSearchRadio(value);
   }
 
+  const FIRST_LETTER = 'first-letter';
   function handleOnClickButton() {
-    if(searchRadio === 'ingredient') {
+    if (searchRadio === 'ingredient') {
       props.recipesByIngredient(input);
     } else if (searchRadio === 'name') {
       props.recipesByName(input);
-    } else if (searchRadio === 'first-letter' && input.length > 1) {
+    } else if (searchRadio === FIRST_LETTER && input.length > 1) {
       alert('Sua busca deve conter somente 1 (um) caracter');
-    } else if (searchRadio === 'first-letter') {
+    } else if (searchRadio === FIRST_LETTER) {
       props.recipesByLetter(input);
     }
   }
-
 
   return (
     <div>
@@ -35,7 +35,7 @@ function SearchBar(props){
         data-testid="search-input"
         type="text"
         onChange={ handleInputChange }
-        value = {input}
+        value={ input }
       />
 
       <input
@@ -45,7 +45,7 @@ function SearchBar(props){
         id="ingredient"
         onChange={ handleSearchRadio }
         value="ingredient"
-        checked={searchRadio === 'ingredient'}
+        checked={ searchRadio === 'ingredient' }
       />
       Ingrediente
 
@@ -56,7 +56,7 @@ function SearchBar(props){
         id="name"
         onChange={ handleSearchRadio }
         value="name"
-        checked={searchRadio === 'name'}
+        checked={ searchRadio === 'name' }
       />
       Nome
 
@@ -67,14 +67,14 @@ function SearchBar(props){
         id="frist-letter"
         onChange={ handleSearchRadio }
         value="first-letter"
-        checked={searchRadio === "first-letter"}
+        checked={ searchRadio === 'first-letter' }
       />
       Primeira letra
 
-      <button 
-        type="button" 
+      <button
+        type="button"
         data-testid="exec-search-btn"
-        onClick={handleOnClickButton}
+        onClick={ handleOnClickButton }
       >
         Buscar
       </button>
@@ -88,4 +88,10 @@ const mapDispatchToProps = (dispatch) => ({
   recipesByLetter: (input) => dispatch(actions.recipesByLetter(input)),
 });
 
-export default connect (null, mapDispatchToProps)(SearchBar);
+SearchBar.propTypes = ({
+  recipesByIngredient: PropTypes.func.isRequired,
+  recipesByName: PropTypes.func.isRequired,
+  recipesByLetter: PropTypes.func.isRequired,
+});
+
+export default connect(null, mapDispatchToProps)(SearchBar);
