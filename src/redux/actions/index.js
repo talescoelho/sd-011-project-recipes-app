@@ -1,29 +1,23 @@
 export const REQUEST_API = 'REQUEST_API';
-export const REQUEST_FOOD_API_SUCESS = 'REQUEST_FOOD_API_SUCESS';
-export const REQUEST_FOOD_API_ERROR = 'REQUEST_FOOD_API_ERROR';
-export const REQUEST_DRINK_API_SUCESS = 'REQUEST_DRINK_API_SUCESS';
-export const REQUEST_DRINK_API_ERROR = 'REQUEST_DRINK_API_ERROR';
+export const REQUEST_FOOD_API_SUCCESS = 'REQUEST_FOOD_API_SUCCESS';
+export const REQUEST_DRINK_API_SUCCESS = 'REQUEST_DRINK_API_SUCCESS';
+export const REQUEST_FOOD_OR_DRINK_API_ERROR = 'REQUEST_FOOD_OR_DRINK_API_ERROR';
 
 export const requestApi = () => ({
   type: REQUEST_API,
 });
 
-export const requestFoodApiSucess = () => ({
-  type: REQUEST_FOOD_API_SUCESS,
+export const requestFoodApiSuccess = () => ({
+  type: REQUEST_FOOD_API_SUCCESS,
   payload,
 });
 
-export const requestFoodApiError = () => ({
-  type: REQUEST_FOOD_API_ERROR,
+export const requestDrinkApiSuccess = () => ({
+  type: REQUEST_DRINK_API_SUCCESS,
   payload,
 });
 
-export const requestDrinkApiSucess = () => ({
-  type: REQUEST_DRINK_API_SUCESS,
-  payload,
-});
-
-export const requestDrinkApiError = () => ({
-  type: REQUEST_DRINK_API_ERROR,
+export const requestFoodOrDrinkApiError = () => ({
+  type: REQUEST_FOOD_OR_DRINK_API_ERROR,
   payload,
 });
