@@ -1,7 +1,9 @@
 import React from 'react';
 
-const FoodExplore = (props) => (
-      
-  );
+const FoodExplore = () => (
+  <>
+  </>
+
+);
 
 export default FoodExplore;

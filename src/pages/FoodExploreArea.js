@@ -1,7 +1,9 @@
 import React from 'react';
 
-const FoodExploreArea = (props) => (
-      
-  );
+const FoodExploreArea = () => (
+  <>
+  </>
+
+);
 
 export default FoodExploreArea;

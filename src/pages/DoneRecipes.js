@@ -1,7 +1,8 @@
 import React from 'react';
 
-const DoneRecipes = (props) => (
-      
-  );
+const DoneRecipes = () => (
+  <>
+  </>
+);
 
 export default DoneRecipes;

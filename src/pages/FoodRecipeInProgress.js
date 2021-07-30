@@ -1,7 +1,10 @@
 import React from 'react';
 
-const FoodRecipeInProgress = (props) => (
-      
+function FoodRecipeInProgress() {
+  return (
+    <form>
+      <h1>Login</h1>
+    </form>
   );
-
+}
 export default FoodRecipeInProgress;

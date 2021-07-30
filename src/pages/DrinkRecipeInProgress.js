@@ -1,7 +1,9 @@
 import React from 'react';
 
-const DrinkRecipeInProgress = (props) => (
-      
-  );
+const DrinkRecipeInProgress = () => (
+  <>
+  </>
+
+);
 
 export default DrinkRecipeInProgress;
