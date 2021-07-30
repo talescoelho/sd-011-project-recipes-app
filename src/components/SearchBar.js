@@ -22,7 +22,7 @@ function SearchBar({ recipeType, fetch }) {
     if (radioInput === 'firstLetter' && searchInput.length > 1) {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    fetch(`https://www.${recipeType === 'meals' ? 'themealdb' : 'thecocktaildb'}.com/api/json/v1/1/${radioInput === 'ingredient' ? 'filter' : 'search'}.php?${radioInput === 'ingredient' ? 'i' : ''}${radioInput === 'name' ? 's' : ''}${radioInput === 'firstLetter' ? 'f' : ''}=${searchInput}`);
+    fetch(`https://www.${recipeType === 'meals' ? 'themealdb' : 'thecocktaildb'}.com/api/json/v1/1/${radioInput === 'ingredient' ? 'filter' : 'search'}.php?${radioInput === 'ingredient' ? 'i' : ''}${radioInput === 'name' ? 's' : ''}${radioInput === 'firstLetter' ? 'f' : ''}=${searchInput}`, recipeType);
   };
 
   return (
@@ -74,7 +74,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetch: (url) => dispatch(fetchRecipesAPIAction(url)),
+  fetch: (url, recipeType) => dispatch(fetchRecipesAPIAction(url, recipeType)),
 });
 
 SearchBar.propTypes = {
