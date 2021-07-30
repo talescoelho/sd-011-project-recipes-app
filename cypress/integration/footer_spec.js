@@ -11,30 +11,30 @@ describe('19 - Implemente os elementos do menu inferior respeitando os atributos
   });
 });
 
-// describe('20 - Posicione o menu inferior de forma fixa e apresente 3 ícones: um para comidas, um para bebidas e outro para exploração', () => {
-//   it('O menu inferior deve ficar fixado sempre ao final da página', () => {
-//     cy.visit('http://localhost:3000/comidas');
+describe('20 - Posicione o menu inferior de forma fixa e apresente 3 ícones: um para comidas, um para bebidas e outro para exploração', () => {
+  it('O menu inferior deve ficar fixado sempre ao final da página', () => {
+    cy.visit('http://localhost:3000/comidas');
 
-//     cy.get('[data-testid="footer"]').should('have.css','position', 'fixed');
-//     cy.get('[data-testid="footer"]').should('have.css','bottom', '0px');
-//   });
+    cy.get('[data-testid="footer"]').should('have.css','position', 'fixed');
+    cy.get('[data-testid="footer"]').should('have.css','bottom', '0px');
+  });
 
-//   it('Apresenta os ícones corretos', () => {
-//     cy.visit('http://localhost:3000/comidas');
+  it('Apresenta os ícones corretos', () => {
+    cy.visit('http://localhost:3000/comidas');
 
-//     cy.get('[data-testid="drinks-bottom-btn"]')
-//       .should('have.attr', 'src')
-//       .should('include', 'drinkIcon');
+    cy.get('[data-testid="drinks-bottom-btn"]')
+      .should('have.attr', 'src')
+      .should('include', 'drinkIcon');
 
-//     cy.get('[data-testid="explore-bottom-btn"]')
-//       .should('have.attr', 'src')
-//       .should('include', 'exploreIcon');
+    cy.get('[data-testid="explore-bottom-btn"]')
+      .should('have.attr', 'src')
+      .should('include', 'exploreIcon');
 
-//     cy.get('[data-testid="food-bottom-btn"]')
-//       .should('have.attr', 'src')
-//       .should('include', 'mealIcon');
-//   });
-// });
+    cy.get('[data-testid="food-bottom-btn"]')
+      .should('have.attr', 'src')
+      .should('include', 'mealIcon');
+  });
+});
 
 // describe('21 - Exiba o menu inferior apenas nas telas indicadas pelo protótipo', () => {
 //   const hasNoFooter = () => {
