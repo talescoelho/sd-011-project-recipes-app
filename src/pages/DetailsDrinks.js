@@ -24,6 +24,9 @@ export default function DetailsDrinks() {
 
   if (!data) return <p>Loading...</p>;
 
+  const mockRecomendationCard = ['recomendation 1',
+    'recomendation 2', 'recomendation 3', 'recomendation 4'];
+
   return (
     <main>
       <img
@@ -34,26 +37,27 @@ export default function DetailsDrinks() {
         height="100px"
       />
       <h1 data-testid="recipe-title">{ data.drinks[0].strDrink }</h1>
-      <button data-testid="share-btn" type="button">share</button>
-      <button data-testid="favorite-btn" type="button">favorite</button>
-      <h4 data-testid="recipe-category">{ data.drinks[0].strCategory }</h4>
-      { measures.map((measure, index) => (
-        <span
-          key={ index }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-        >
-          { data.drinks[0][measure] }
-        </span>
-      )) }
-      <span data-testid="instructions">{ data.drinks[0].instructions }</span>
-      {ingredients.map((ingredient, index) => (
-        <span
+      <h4 data-testid="recipe-category">{ data.drinks[0].strAlcoholic }</h4>
+      { measures.filter((ingrediente) => data.drinks[0][ingrediente])
+        .map((measure, index) => (
+          <p
+            key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            { `${data.drinks[0][ingredients[index]]} - ${data.drinks[0][measure]}` }
+          </p>
+        )) }
+      <span data-testid="instructions">{ data.drinks[0].strInstructions }</span>
+      {mockRecomendationCard.map((recomendation, index) => (
+        <p
           key={ index }
           data-testid={ `${index}-recomendation-card` }
         >
-          { data.drinks[0][ingredient] }
-        </span>
+          { recomendation }
+        </p>
       ))}
+      <button data-testid="share-btn" type="button">share</button>
+      <button data-testid="favorite-btn" type="button">favorite</button>
       <button data-testid="start-recipe-btn" type="button">Start</button>
     </main>
   );

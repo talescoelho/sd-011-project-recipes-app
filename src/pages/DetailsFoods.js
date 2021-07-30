@@ -24,6 +24,9 @@ export default function DetailsFoods() {
 
   if (!data) return <p>Loading...</p>;
 
+  const mockRecomendationCard = ['recomendation 1',
+    'recomendation 2', 'recomendation 3', 'recomendation 4'];
+
   return (
     <main>
       <img
@@ -34,18 +37,25 @@ export default function DetailsFoods() {
         height="100px"
       />
       <h1 data-testid="recipe-title">{ data.meals[0].strMeal }</h1>
-      <button data-testid="share-btn" type="button">share</button>
-      <button data-testid="favorite-btn" type="button">favorite</button>
       <h4 data-testid="recipe-category">{ data.meals[0].strCategory }</h4>
-      { measures.map((measure, index) => (
-        <span
+      { measures.filter((ingrediente) => data.meals[0][ingrediente])
+        .map((measure, index) => (
+          <p
+            key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            { `${data.meals[0][ingredients[index]]} - ${data.meals[0][measure]}` }
+          </p>
+        )) }
+      <span data-testid="instructions">{ data.meals[0].strInstructions }</span>
+      {mockRecomendationCard.map((recomended, index) => (
+        <p
+          data-testid={ `${index}-recomendation-card` }
           key={ index }
-          data-testid={ `${index}-ingredient-name-and-measure` }
         >
-          { data.meals[0][measure] }
-        </span>
-      )) }
-      <span data-testid="instructions">{ data.meals[0].instructions }</span>
+          { recomended }
+        </p>
+      ))}
       <iframe
         title={ data.meals[0].strMeal }
         data-testid="video"
@@ -53,14 +63,8 @@ export default function DetailsFoods() {
         width="420"
         height="345"
       />
-      {ingredients.map((ingredient, index) => (
-        <span
-          key={ index }
-          data-testid={ `${index}-recomendation-card` }
-        >
-          { data.meals[0][ingredient] }
-        </span>
-      ))}
+      <button data-testid="share-btn" type="button">share</button>
+      <button data-testid="favorite-btn" type="button">favorite</button>
       <button data-testid="start-recipe-btn" type="button">Start</button>
     </main>
   );
