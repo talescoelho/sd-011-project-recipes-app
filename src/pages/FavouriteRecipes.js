@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from '../components/Header';
 
-export default function Food() {
+export default function FavouriteReciples() {
   const pageTitle = {
-    pageName: 'Comidas',
-    setIcon: true,
+    pageName: 'Receitas Favoritas',
+    setIcon: false,
   };
   return (
     <div>

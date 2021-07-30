@@ -1,15 +1,15 @@
 import React from 'react';
 import Header from '../components/Header';
 
-export default function Food() {
+export default function DoneRecipes() {
   const pageTitle = {
-    pageName: 'Comidas',
-    setIcon: true,
+    pageName: 'Receitas Feitas',
+    setIcon: false,
   };
   return (
     <div>
       <Header value={ pageTitle } />
-      FOODS
+      Receitas Feitas
     </div>
   );
 }
