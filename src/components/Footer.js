@@ -1,29 +1,26 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../css/footer.css';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
-// import { Redirect } from 'react-router';
-// import { Link } from 'react-router-dom';
 
 function Footer() {
-  const history = useHistory();
   return (
     <footer data-testid="footer" className="footer">
       <p>Menu inferior</p>
 
-      <button type="button" onClick={ () => history.push('/bebidas') }>
+      <Link to="/bebidas">
         <img src={ drinkIcon } alt="drinks page" data-testid="drinks-bottom-btn" />
-      </button>
+      </Link>
 
-      <button type="button" onClick={ () => history.push('/explorar') }>
+      <Link to="/explorar">
         <img src={ exploreIcon } alt="explore page" data-testid="explore-bottom-btn" />
-      </button>
+      </Link>
 
-      <button type="button" onClick={ () => history.push('/comidas') }>
+      <Link to="/comidas">
         <img src={ mealIcon } alt="foods page" data-testid="food-bottom-btn" />
-      </button>
+      </Link>
 
     </footer>
   );

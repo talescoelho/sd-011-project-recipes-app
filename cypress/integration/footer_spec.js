@@ -148,29 +148,29 @@ describe('21 - Exiba o menu inferior apenas nas telas indicadas pelo protótipo'
   });
 });
 
-// describe('22 - Redirecione a pessoa usuária para uma lista de cocktails ao clicar no ícone de bebidas', () => {
-//   it('Redireciona para a rota correta', () => {
-//     cy.visit('http://localhost:3000/comidas');
+describe('22 - Redirecione a pessoa usuária para uma lista de cocktails ao clicar no ícone de bebidas', () => {
+  it('Redireciona para a rota correta', () => {
+    cy.visit('http://localhost:3000/comidas');
 
-//     cy.get('[data-testid="drinks-bottom-btn"]').click();
-//     cy.location().should((loc) => expect(loc.pathname).to.eq('/bebidas'));
-//   });
-// });
+    cy.get('[data-testid="drinks-bottom-btn"]').click();
+    cy.location().should((loc) => expect(loc.pathname).to.eq('/bebidas'));
+  });
+});
 
-// describe('23 - Redirecione a pessoa usuária para a tela de explorar ao clicar no ícone de exploração', () => {
-//   it('Redireciona para a rota correta', () => {
-//     cy.visit('http://localhost:3000/comidas');
+describe('23 - Redirecione a pessoa usuária para a tela de explorar ao clicar no ícone de exploração', () => {
+  it('Redireciona para a rota correta', () => {
+    cy.visit('http://localhost:3000/comidas');
 
-//     cy.get('[data-testid="explore-bottom-btn"]').click();
-//     cy.location().should((loc) => expect(loc.pathname).to.eq('/explorar'));
-//   });
-// });
+    cy.get('[data-testid="explore-bottom-btn"]').click();
+    cy.location().should((loc) => expect(loc.pathname).to.eq('/explorar'));
+  });
+});
 
-// describe('24 - Redirecione a pessoa usuárua para uma lista de comidas ao clicar no ícone de comidas', () => {
-//   it('Redireciona para a rota correta', () => {
-//     cy.visit('http://localhost:3000/bebidas');
+describe('24 - Redirecione a pessoa usuárua para uma lista de comidas ao clicar no ícone de comidas', () => {
+  it('Redireciona para a rota correta', () => {
+    cy.visit('http://localhost:3000/bebidas');
 
-//     cy.get('[data-testid="food-bottom-btn"]').click();
-//     cy.location().should((loc) => expect(loc.pathname).to.eq('/comidas'));
-//   });
-// });
+    cy.get('[data-testid="food-bottom-btn"]').click();
+    cy.location().should((loc) => expect(loc.pathname).to.eq('/comidas'));
+  });
+});
