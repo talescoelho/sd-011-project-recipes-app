@@ -56,9 +56,15 @@ export async function fetchFoodName(nome) {
 }
 
 export async function fetchFoodLetter(primeiraLetra) {
-  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${primeiraLetra}`);
-  const { meals } = await response.json();
-  return meals;
+  const magicNUmber = 1;
+  if (primeiraLetra.length > magicNUmber) {
+    // eslint-disable-next-line no-alert
+    alert('Sua busca deve conter somente 1 (um) caracter');
+  } else {
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${primeiraLetra}`);
+    const { meals } = await response.json();
+    return meals;
+  }
 }
 
 // SEARCHBAR COCKTAILSAPI
@@ -76,7 +82,30 @@ export async function fetchCocktailsName(nome) {
 }
 
 export async function fetchCocktailsLetter(primeiraLetra) {
-  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${primeiraLetra}`);
-  const { drinks } = await response.json();
-  return drinks;
+  const magicNUmber = 1;
+  if (primeiraLetra.length > magicNUmber) {
+    // eslint-disable-next-line no-alert
+    alert('Sua busca deve conter somente 1 (um) caracter');
+  } else {
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${primeiraLetra}`);
+    const { drinks } = await response.json();
+    return drinks;
+  }
 }
+
+export const Foods = {
+  categories: fetchFoodCategories(),
+  area: fetchExploreFoodsArea(),
+  ingredients: fetchExploreFoodsIngredients(),
+  searchIngredients: (ingredient) => fetchFoodIngredient(ingredient),
+  searchName: (name) => fetchFoodName(name),
+  searchLetter: (letter) => fetchFoodLetter(letter),
+};
+
+export const Cocktails = {
+  categories: fetchCocktailsCategories(),
+  ingredients: fetchExploreCocktailsIngredients(),
+  searchIngredients: (ingredient) => fetchCocktailsIngredient(ingredient),
+  searchName: (name) => fetchCocktailsName(name),
+  searchLetter: (letter) => fetchCocktailsLetter(letter),
+};

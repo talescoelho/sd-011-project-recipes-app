@@ -1,8 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
+import { Foods, Cocktails } from '../services';
+import SearchBarContext from '../context/searchBarContext';
 
-function SearchBar() {
+function SearchBar({ type }) {
   const [searchType, setSearchType] = useState();
   const [searchInput, setSearchInput] = useState();
+  const { setData } = useContext(SearchBarContext);
+
+  async function filterSearch() {
+    if (type.includes('Comidas')) setData(await Foods[searchType](searchInput));
+    if (type.includes('Bebidas')) setData(await Cocktails[searchType](searchInput));
+  }
 
   return (
     <form>
@@ -10,7 +18,7 @@ function SearchBar() {
         <input
           onClick={ ({ target }) => setSearchType(target.id) }
           type="radio"
-          id="ingredients"
+          id="searchIngredients"
           name="search-type"
           data-testid="ingredient-search-radio"
         />
@@ -20,7 +28,7 @@ function SearchBar() {
         <input
           onClick={ ({ target }) => setSearchType(target.id) }
           type="radio"
-          id="name"
+          id="searchName"
           name="search-type"
           data-testid="name-search-radio"
         />
@@ -30,7 +38,7 @@ function SearchBar() {
         <input
           onClick={ ({ target }) => setSearchType(target.id) }
           type="radio"
-          id="firstLetter"
+          id="searchLetter"
           name="search-type"
           data-testid="first-letter-search-radio"
         />
@@ -42,7 +50,13 @@ function SearchBar() {
         data-testid="search-input"
         placeholder="O que deseja pesquisar?"
       />
-      <button type="button" data-testid="exec-search-btn">Pesquisar</button>
+      <button
+        type="button"
+        data-testid="exec-search-btn"
+        onClick={ () => filterSearch() }
+      >
+        Pesquisar
+      </button>
     </form>
   );
 }
