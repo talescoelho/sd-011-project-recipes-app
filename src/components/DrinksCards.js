@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default function DrinksCards({ drinks }) {
@@ -9,10 +10,18 @@ export default function DrinksCards({ drinks }) {
         drinks.map(({ idDrink, strDrink, strDrinkThumb }, index) => (
           index < cardLimit
             ? (
-              <div key={ idDrink } data-testid={ `${index}-recipe-card` }>
-                <img src={ strDrinkThumb } alt="" data-testid={ `${index}-card-img` } />
-                <p data-testid={ `${index}-card-name` }>{strDrink}</p>
-              </div>)
+              <Link to={ `/bebidas/${idDrink}` }>
+                <div key={ index } data-testid={ `${index}-recipe-card` }>
+                  <img
+                    src={ strDrinkThumb }
+                    alt=""
+                    data-testid={ `${index}-card-img` }
+                    width="150px"
+                  />
+                  <p data-testid={ `${index}-card-name` }>{strDrink}</p>
+                </div>
+              </Link>
+            )
             : null
         ))
       }

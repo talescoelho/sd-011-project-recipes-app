@@ -5,8 +5,7 @@ import recipesContext from '../provider/recipesContext';
 function Searchbar() {
   const [inputRadio, setInputRadio] = useState('');
   const [searchBar, setSearchbar] = useState('');
-  const { searchResults, setSearchResults } = useContext(recipesContext);
-  // receber das props o tipo( comida ou bebida) pra mudar o endpoint da api e da rota
+  const { type, key, searchResults, setSearchResults } = useContext(recipesContext);
   function selectedInput({ target: { value } }) {
     setInputRadio(value);
   }
@@ -17,27 +16,29 @@ function Searchbar() {
 
   function endPoint(value = '') {
     if (inputRadio === 'ingredient') {
-      return `https://www.themealdb.com/api/json/v1/1/filter.php?i=${value}`;
+      return `https://www.the${type}db.com/api/json/v1/1/filter.php?i=${value}`;
     }
     if (inputRadio === 'name') {
-      return `https://www.themealdb.com/api/json/v1/1/search.php?s=${value}`;
+      return `https://www.the${type}db.com/api/json/v1/1/search.php?s=${value}`;
     }
     if (inputRadio === 'firstWord' && searchBar.length > 1) {
       return 'error';
     }
-    return `https://www.themealdb.com/api/json/v1/1/search.php?f=${value}`;
+    return `https://www.the${type}db.com/api/json/v1/1/search.php?f=${value}`;
   }
+
   function fetchApi() {
     const url = endPoint(searchBar);
     if (url === 'error') {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
     fetch(url).then((response) => response.json()).then(
-      (json) => (json.meals === null ? (
+      (json) => (json[key] === null ? (
         alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
-      ) : setSearchResults(json.meals)),
+      ) : setSearchResults(json[key])),
     );
   }
+
   return (
     <form>
       { searchResults.length === 1 ? (

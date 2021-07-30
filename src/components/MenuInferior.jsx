@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
+import recipesContext from '../provider/recipesContext';
+
 function MenuInferior() {
+  const { setType } = useContext(recipesContext);
   return (
     <div
       className="fixed-bottom"
       data-testid="footer"
     >
-      <Link to="/bebidas">
+      <Link to="/bebidas" onClick={ () => setType('cocktail') }>
         <button type="button" data-testid="drinks-bottom-btn">
           <img
             src={ drinkIcon }
@@ -26,7 +29,7 @@ function MenuInferior() {
           />
         </button>
       </Link>
-      <Link to="/comidas">
+      <Link to="/comidas" onClick={ () => setType('meal') }>
         <button type="button" data-testid="food-bottom-btn">
           <img
             src={ mealIcon }
