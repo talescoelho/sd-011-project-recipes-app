@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import FoodsSearchBar from './FoodsSearchBar';
+import SearchBar from './SearchBar';
 
-function Header({ title, icon }) {
+function Header({ title, icon, drinks, foods }) {
   const [showSearchBar, setshowSearchBar] = useState(false);
 
   const renderSearchButtonIcon = () => (
@@ -28,7 +28,9 @@ function Header({ title, icon }) {
       </Link>
       <h3 data-testid="page-title">{`${title}`}</h3>
       {icon && renderSearchButtonIcon()}
-      <span>{ showSearchBar ? <FoodsSearchBar /> : <div />}</span>
+      <span>
+        { showSearchBar ? <SearchBar drinks={ drinks } foods={ foods } /> : <div />}
+      </span>
     </header>
   );
 }

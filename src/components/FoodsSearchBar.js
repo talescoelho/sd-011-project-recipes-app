@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import RecipeAppContext from '../context/RecipeAppContext';
 
 function FoodsSearchBar() {
   const [searchText, setSearchText] = useState('');
-  console.log(searchText);
   const [input, setInput] = useState('');
+  const { setFoodList } = useContext(RecipeAppContext);
 
-  function conditionEndpoint(text) {
-    let endpoint;
+  function requestFoodEndpoint(text) {
+    let endpoint = '';
     if (input === 'ingredient') {
       endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${text}`;
     } else if (input === 'name') {
       endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${text}`;
     } else if (input === 'firstLetter' && searchText.length > 1) {
-      return alert('Sua busca deve conter somente 1 (um) caracter');
+      alert('Sua busca deve conter somente 1 (um) caracter');
     } else if (input === 'firstLetter') {
       endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${text}`;
     } else if (!input) return null;
     return fetch(endpoint)
       .then((response) => response.json())
-      .then((results) => console.log(results));
+      .then((results) => setFoodList(results.meals));
   }
 
   return (
@@ -67,7 +68,7 @@ function FoodsSearchBar() {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ () => conditionEndpoint(searchText) }
+        onClick={ () => requestFoodEndpoint(searchText) }
       >
         Buscar
       </button>
