@@ -34,4 +34,4 @@ Provider.propTypes = {
 // }
 
 // Dentro do Componente
-// const { setData } = useContext(SearchBarContext);
+// const { setData } = useContext(SearchBarContext)
