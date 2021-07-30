@@ -4,7 +4,7 @@ import FooterMenu from '../components/FooterMenu';
 
 const Foods = () => (
   <div>
-    <Header />
+    <Header title="Comidas" isButtonVisible />
     <FooterMenu />
   </div>
 );

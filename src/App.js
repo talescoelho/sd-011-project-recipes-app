@@ -2,17 +2,14 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes/Routes';
-import ProviderFood from './context/ProviderFood';
-import ProviderDrink from './context/ProviderDrink';
+import MainProvider from './context/MainProvider';
 
 function App() {
   return (
     <BrowserRouter>
-      <ProviderDrink>
-        <ProviderFood>
-          <Routes />
-        </ProviderFood>
-      </ProviderDrink>
+      <MainProvider>
+        <Routes />
+      </MainProvider>
     </BrowserRouter>
   );
 }

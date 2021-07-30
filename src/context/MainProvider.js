@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import ContextFood from './ContextFood';
+import MainContext from './MainContext';
 
 function ProviderFood({ children }) {
   const [searchBarShow, setSearchBarShow] = useState(false);
@@ -10,9 +10,9 @@ function ProviderFood({ children }) {
     setSearchBarShow,
   };
   return (
-    <ContextFood.Provider value={ contextValue }>
+    <MainContext.Provider value={ contextValue }>
       {children}
-    </ContextFood.Provider>
+    </MainContext.Provider>
   );
 }
 
