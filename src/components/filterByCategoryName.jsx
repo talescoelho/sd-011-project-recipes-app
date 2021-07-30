@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-const FilterByCategoryName = ({ categoryNames }) => (
+const FilterByCategoryName = ({
+  dispatch,
+  requestMealsMenu,
+  categoryNames,
+  filterByCategory,
+}) => (
   <label htmlFor="filters">
     <label htmlFor="all-filters">
       All
@@ -9,6 +15,7 @@ const FilterByCategoryName = ({ categoryNames }) => (
         id="all-filter"
         name="filters"
         type="radio"
+        onClick={ () => dispatch(requestMealsMenu()) }
       />
     </label>
     {
@@ -20,6 +27,7 @@ const FilterByCategoryName = ({ categoryNames }) => (
             id={ `${categoryName}-filter` }
             name="filters"
             type="radio"
+            onClick={ () => dispatch(filterByCategory(categoryName)) }
           />
         </label>
       ))
@@ -28,7 +36,10 @@ const FilterByCategoryName = ({ categoryNames }) => (
 );
 
 FilterByCategoryName.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  requestMealsMenu: PropTypes.func.isRequired,
   categoryNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  filterByCategory: PropTypes.func.isRequired,
 };
 
-export default FilterByCategoryName;
+export default connect()(FilterByCategoryName);

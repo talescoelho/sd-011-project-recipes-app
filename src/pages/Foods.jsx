@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {
   requestMealsMenu,
   requestMealsFilters,
+  requestMealsByFilter,
 } from '../redux/actions/menuReducerActions';
 import FilterByCategoryName from '../components/filterByCategoryName';
 
@@ -34,7 +35,13 @@ const Foods = ({
         {
           (loadingFilterOptions)
             ? (<div>Loading...</div>)
-            : (<FilterByCategoryName categoryNames={ categoryNames } />)
+            : (
+              <FilterByCategoryName
+                requestMealsMenu={ requestMealsMenu }
+                categoryNames={ categoryNames }
+                filterByCategory={ requestMealsByFilter }
+              />
+            )
         }
       </div>
       {

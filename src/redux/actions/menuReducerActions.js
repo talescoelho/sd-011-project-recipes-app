@@ -16,35 +16,38 @@ const menuReceiveFailure = () => ({
   error: '404',
 });
 
+const handleMealsResponse = (meals) => {
+  const maxMeals = 12;
+  const filteredMeals = meals
+    .reduce((
+      acc,
+      { idMeal, strMeal, strMealThumb },
+      index,
+    ) => {
+      if (index < maxMeals) {
+        acc = [
+          ...acc,
+          {
+            idMeal,
+            strMeal,
+            strMealThumb,
+          },
+        ];
+      }
+      return acc;
+    }, []);
+
+  return filteredMeals;
+};
+
 export const requestMealsMenu = () => (dispatch) => {
   dispatch(menuRequest());
   return (
     fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
       .then((response) => response.json())
-      .then(({ meals }) => {
-        const maxMeals = 12;
-        const filteredMeals = meals
-          .reduce((
-            acc,
-            { idMeal, strMeal, strCategory, strArea, strMealThumb },
-            index,
-          ) => {
-            if (index < maxMeals) {
-              acc = [
-                ...acc,
-                {
-                  idMeal,
-                  strMeal,
-                  strCategory,
-                  strArea,
-                  strMealThumb,
-                },
-              ];
-            }
-            return acc;
-          }, []);
-
-        dispatch(menuReceiveSuccess(filteredMeals));
+      .then(async ({ meals }) => {
+        const response = await handleMealsResponse(meals);
+        dispatch(menuReceiveSuccess(response));
       })
       .catch(() => dispatch(menuReceiveFailure()))
   );
@@ -60,7 +63,7 @@ export const requestDrinkMenu = () => (dispatch) => {
         const filteredDrinks = drinks
           .reduce((
             acc,
-            { idDrink, strDrink, strCategory, strAlcoholic, strDrinkThumb },
+            { idDrink, strDrink, strDrinkThumb },
             index,
           ) => {
             if (index < maxDrinks) {
@@ -69,8 +72,6 @@ export const requestDrinkMenu = () => (dispatch) => {
                 {
                   idDrink,
                   strDrink,
-                  strCategory,
-                  strAlcoholic,
                   strDrinkThumb,
                 },
               ];
@@ -141,3 +142,20 @@ export const requestDrinksFilters = () => (dispatch) => {
       .catch(() => dispatch(requestFilterOptionsFailure()))
   );
 };
+
+export const requestMealsByFilter = (filter) => (dispatch) => {
+  dispatch(menuRequest());
+  return (
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${filter}`)
+      .then((response) => response.json())
+      .then(async ({ meals }) => {
+        const response = await handleMealsResponse(meals);
+        dispatch(menuReceiveSuccess(response));
+      })
+      .catch(() => dispatch(menuReceiveFailure()))
+  );
+};
+
+// export const requestDrinksByFilter = (filter) => (dispatch) => {
+
+// }
