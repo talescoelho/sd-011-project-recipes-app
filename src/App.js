@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
 import { Provider } from 'react-redux';
-import Home from './pages/Home';
+import Routes from './Routes';
 import store from './store';
 
 function App() {
   return (
     <Provider store={ store }>
-      <Home />
+      <Routes />
     </Provider>
   );
 }

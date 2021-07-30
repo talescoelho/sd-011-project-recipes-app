@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 
 function Layout({ children, title }) {
@@ -16,3 +17,11 @@ function Layout({ children, title }) {
 }
 
 export default Layout;
+
+Layout.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+  title: PropTypes.string.isRequired,
+};
