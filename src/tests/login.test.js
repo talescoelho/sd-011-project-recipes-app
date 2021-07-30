@@ -1,7 +1,6 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react';
 import App from '../App';
-import Login from '../pages/Login';
 import renderWithRouter from '../helpers/renderWithRouter';
 
 const EMAIL_INPUT = 'email-input';
@@ -42,7 +41,7 @@ describe('testa pagina de login', () => {
   });
   it('Verifica se o login preenchido corretamente habilita'
   + 'o botão e ao clicar,redireciona para "/comidas"', () => {
-    const { getByTestId } = renderWithRouter(<Login />);
+    const { getByTestId } = renderWithRouter(<App />);
     const emailInput = getByTestId(EMAIL_INPUT);
     const passwordInput = getByTestId(PASSWORD_INPUT);
     const loginButton = getByTestId(LOGIN_BUTTON);
@@ -51,7 +50,6 @@ describe('testa pagina de login', () => {
     expect(emailInput.value).toBe('email_pessoa@gmail.com');
     expect(passwordInput.value).toBe('12345678');
     fireEvent.click(loginButton);
-    console.log(loginButton);
     expect(window.location.pathname).toBe('/comidas');
   });
 });

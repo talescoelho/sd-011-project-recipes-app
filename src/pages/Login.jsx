@@ -1,9 +1,11 @@
+import { useHistory } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
 export default function Login() {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [LoginButtonStatus, setLoginButtonStatus] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
     const minLength = 6;
@@ -19,7 +21,7 @@ export default function Login() {
     localStorage.setItem('user', JSON.stringify(emailObject));
     localStorage.setItem('mealsToken', JSON.stringify(1));
     localStorage.setItem('cocktailsToken', JSON.stringify(1));
-    window.location.pathname = '/comidas';
+    history.push('/comidas');
   };
 
   return (
