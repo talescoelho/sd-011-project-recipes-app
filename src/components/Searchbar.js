@@ -6,7 +6,7 @@ function Searchbar() {
   const [inputRadio, setInputRadio] = useState('');
   const [searchBar, setSearchbar] = useState('');
   const { searchResults, setSearchResults } = useContext(recipesContext);
-
+  // receber das props o tipo( comida ou bebida) pra mudar o endpoint da api e da rota
   function selectedInput({ target: { value } }) {
     setInputRadio(value);
   }
@@ -40,7 +40,8 @@ function Searchbar() {
   }
   return (
     <form>
-      { searchResults.length === 1 ? <Redirect to={ `comidas/${searchResults[0]}` } /> : null }
+      { searchResults.length === 1 ? (
+        <Redirect to={ `comidas/${searchResults[0]}` } />) : null }
       <input
         onChange={ (event) => setSearchBarFunction(event) }
         type="text"

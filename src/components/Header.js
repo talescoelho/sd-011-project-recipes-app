@@ -20,8 +20,9 @@ function Header() {
       </Link>
       <h3 data-testid="page-title">
         titulo
+        { /* alterar quando receber a props */}
       </h3>
-      <button
+      <button // alterar quando receber a props
         onClick={ () => disableSearchBar() }
         type="button"
         data-testid="search-top-btn"
