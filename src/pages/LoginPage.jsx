@@ -5,13 +5,14 @@ import '../styles/LoginPage.css';
 import { setToken, emailPattern } from '../services/LoginFormAPI';
 import LoginForm from '../components/LoginForm';
 
+const magicNumber = 6;
 export default function LoginPage() {
   const history = useHistory();
   const [isDisabled, setDisabled] = useState();
   const methods = useForm();
 
   const watchData = (email, password) => {
-    if (password && password.length > 6 && email && emailPattern.test(email)) {
+    if (password && password.length > magicNumber && email && emailPattern.test(email)) {
       setDisabled(true);
     }
   };
@@ -26,7 +27,7 @@ export default function LoginPage() {
   }, [methods]);
 
   return (
-    <FormProvider {...{ methods, isDisabled, watchData, submitData }}>
+    <FormProvider { ...{ methods, isDisabled, watchData, submitData } }>
       <LoginForm />
     </FormProvider>
   );

@@ -5,9 +5,9 @@ import { Home, LoginPage, NotFound } from '../pages';
 function Routes() {
   return (
     <Switch>
-      <Route exact path="/" component={LoginPage} />
-      <Route exact path="/comidas" component={Home} />
-      <Route path="*" component={NotFound} />
+      <Route exact path="/" component={ LoginPage } />
+      <Route exact path="/comidas" component={ Home } />
+      <Route path="*" component={ NotFound } />
     </Switch>
   );
 }
