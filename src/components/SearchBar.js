@@ -14,20 +14,22 @@ function SearchBar({ title }) {
   const history = useHistory();
 
   function RedirectDetails(foods) {
-    console.log(foods);
-    if (foods.drinks.length === 1 || foods.meals.length === 1) {
-      if (foods.meals[0].idMeal) {
-        const { idMeal } = foods[0];
-        // push(`/comidas/${idMeal}`);
-        history.push({
-          pathname: `/comidas/${idMeal}`,
-        });
-      }
+    console.log(foods.drinks[0]);
+    if (foods.drinks.length === 1) {
       if (foods.drinks[0].idDrink) {
-        const { idDrink } = foods[0];
+        const { idDrink } = foods.drinks[0];
         // push(`/bebidas/${idDrink}`);
         history.push({
           pathname: `/bebidas/${idDrink}`,
+        });
+      }
+    }
+    if (foods.meals.length === 1) {
+      if (foods.meals[0].idMeal) {
+        const { idMeal } = foods.meals[0];
+        // push(`/comidas/${idMeal}`);
+        history.push({
+          pathname: `/comidas/${idMeal}`,
         });
       }
     }
@@ -37,7 +39,6 @@ function SearchBar({ title }) {
     const response = await fetch(fetchUrl);
     const result = await response.json();
     setCatalog(result);
-    console.log(result);
     RedirectDetails(result);
   }
 
