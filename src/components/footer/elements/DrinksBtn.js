@@ -6,7 +6,7 @@ export default function DrinksBtn() {
   return (
     <div>
       <Link to="/bebidas">
-        <img src={ drinkIcon } alt="Símbolo bebida" data-testeid="drinks-bottom-btn" />
+        <img src={ drinkIcon } alt="Símbolo bebida" data-testeid="drinks-bottom-btn"/>
       </Link>
     </div>
   );
