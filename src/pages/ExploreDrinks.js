@@ -1,7 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Link } from 'react-router-dom';
 
 function ExploreDrinks() {
   return (
@@ -15,7 +15,7 @@ function ExploreDrinks() {
         </button>
       </Link>
       <br />
-      
+
       <button type="button" data-testid="explore-surprise">
         Me Surpreenda!
       </button>

@@ -54,14 +54,14 @@ describe('72 - Redirecione a pessoa usuária ao clicar em "Por Ingredientes", a 
   });
 });
 
-// describe('73 - Redirecione a pessoa usuária ao clicar em "Por Local de Origem", a rota deve mudar para tela de explorar por local de origem', () => {
-//   it('A rota deve mudar para tela de explorar por local de origem', () => {
-//     cy.visit('http://localhost:3000/explorar/comidas');
+describe('73 - Redirecione a pessoa usuária ao clicar em "Por Local de Origem", a rota deve mudar para tela de explorar por local de origem', () => {
+  it('A rota deve mudar para tela de explorar por local de origem', () => {
+    cy.visit('http://localhost:3000/explorar/comidas');
 
-//     cy.get('[data-testid="explore-by-area"]').click();
-//     cy.location().should((loc) => expect(loc.pathname).to.eq('/explorar/comidas/area'));
-//   });
-// });
+    cy.get('[data-testid="explore-by-area"]').click();
+    cy.location().should((loc) => expect(loc.pathname).to.eq('/explorar/comidas/area'));
+  });
+});
 
 // describe('74 - Redirecione a pessoa usuária ao clicar em "Me Surpreenda!", a rota deve mudar para a tela de detalhes de uma receita, que deve ser escolhida de forma aleatória através da API', () => {
 //   it('Ao clicar no botão "Por Ingredientes" da tela de explorar comidas a rota muda para a página de detalhes de uma comida aleatória', () => {

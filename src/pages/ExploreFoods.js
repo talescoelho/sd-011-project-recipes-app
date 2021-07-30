@@ -1,7 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Link } from 'react-router-dom';
 
 function ExploreFoods() {
   return (
@@ -15,9 +15,12 @@ function ExploreFoods() {
         </button>
       </Link>
       <br />
-      <button type="button" data-testid="explore-by-area">
-        Por Local de Origem
-      </button>
+      <Link to="/explorar/comidas/area">
+        <button type="button" data-testid="explore-by-area">
+          Por Local de Origem
+        </button>
+      </Link>
+
       <br />
       <button type="button" data-testid="explore-surprise">
         Me Surpreenda!
