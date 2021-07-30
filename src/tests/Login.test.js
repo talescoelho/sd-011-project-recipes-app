@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import Login from '../pages/Login';
 
 describe('Requisto 02', () => {
@@ -22,5 +22,17 @@ describe('Requisto 02', () => {
 
     expect(submitButton).toBeInTheDocument();
     expect(submitButton).toHaveTextContent('Entrar');
+  });
+});
+
+describe('Requisito 03', () => {
+  it('should be able to type an email', () => {
+    render(<Login />);
+    const inputEmail = screen.getByTestId('email-input');
+    fireEvent.change(inputEmail, { target: {
+      value: 'email@email.com',
+      type: 'email',
+    } });
+    expect(inputEmail.value).toBe('email@email.com');
   });
 });
