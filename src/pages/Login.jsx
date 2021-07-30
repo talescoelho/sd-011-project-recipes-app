@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function Login() {
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -22,13 +22,15 @@ function Login() {
       <input
         type="email"
         data-testid="email-input"
-        placeholder="Digite seu email"
+        id="email-input"
+        placeholder="Email"
         onChange={ ({ target }) => setEmail(target.value) }
       />
+
       <input
         type="password"
         data-testid="password-input"
-        placeholder="Digite sua senha"
+        placeholder="Senha"
         onChange={ ({ target }) => setPassword(target.value) }
       />
 
@@ -36,13 +38,12 @@ function Login() {
         <button
           type="button"
           data-testid="login-submit-btn"
-          value="Entrar"
           disabled={ email && password ? !(checkEmailAndPass(email, password)) : true }
           onClick={ () => setLocalStorage(email) }
-        />
+        >
+          Entrar
+        </button>
       </Link>
     </div>
   );
 }
-
-export default Login;
