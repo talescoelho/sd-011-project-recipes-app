@@ -1,1 +1,3 @@
-// export const addClientAction = (newClientInfo) => ({ type: 'ADD_CLIENT', newClientInfo });
+const REQUEST_API = 'REQUEST_API';
+
+export const fetchReceiveRecipes = (textInputValue, radioInputValue) => ({ type: REQUEST_API, newClientInfo });
