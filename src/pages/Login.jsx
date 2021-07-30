@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 
-
 function Login() {
   const [user, setUser] = useState([]);
   const [email, setEmail] = useState(false);
@@ -16,7 +15,7 @@ function Login() {
     return setEmail(regex);
   }
 
-  /* aqui faço a minha validação do tamanho da senha*/
+  /* aqui faço a minha validação do tamanho da senha */
   function handlePassword(e) {
     const Password = e;
     const minLength = 6;
@@ -26,15 +25,15 @@ function Login() {
     }
     return setPassword(validPass);
   }
-/* aqui salvo o token no local store */
+  /* aqui salvo o token no local store */
   function setLocalStorage() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('user', JSON.stringify({ email: user }));
-    };
+  }
 
   return (
-    <Form>
+    <Form className="form">
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email</Form.Label>
         <Form.Control
@@ -45,14 +44,16 @@ function Login() {
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>impo
+        <Form.Label>Password</Form.Label>
         <Form.Control
           type="password"
           data-testid="password-input"
-          placeholder="Password"
+          placeholder="Digite sua Senha"
           onChange={ ({ target }) => handlePassword(target.value) }
         />
       </Form.Group>
+
+      {/* aqui utilizo o link para direciona para tela de comida  */}
       <Link to="/comidas">
         <Button
           variant="primary"
