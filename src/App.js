@@ -1,27 +1,19 @@
 import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Searchbar from './components/Searchbar';
 import RecipesProvider from './provider/recipesProvider';
 
+import Login from './pages/Login';
+
 function App() {
   return (
-    <div>
-      <RecipesProvider>
-        <Searchbar />
-      </RecipesProvider>
-      <div className="meals">
-        <span className="logo">TRYBE</span>
-        <object
-          className="rocksGlass"
-          type="image/svg+xml"
-          data={ rockGlass }
-        >
-          Glass
-        </object>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={ Login } />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
