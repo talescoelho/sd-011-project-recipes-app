@@ -18,7 +18,7 @@ export default function DetailsFoods() {
     }
     fetchFoodApi();
     fetchDrinkRecomendedApi();
-  }, [request]);
+  }, [request, requestRecomendedApi]);
 
   React.useEffect(() => {
     if (data) {
