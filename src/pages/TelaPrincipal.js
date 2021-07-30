@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import getCategories from '../services/getCategories';
+import Header from '../components/Header';
 import MealsCards from '../components/MealsCards';
 import DrinksCards from '../components/DrinksCards';
 
@@ -32,6 +33,11 @@ export default function TelaPrincipal({ type }) {
   const categoryLimit = 5;
   return (
     <div>
+      <Header
+        title={ type === 'meal' ? 'Comidas' : 'Bebidas' }
+        type={ type }
+        showButton
+      />
       <div>
         {
           categories.map(({ strCategory }, index) => (
