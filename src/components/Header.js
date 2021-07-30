@@ -10,21 +10,28 @@ export default function Header() {
 
   return (
     <header style={ { display: 'flex' } }>
-      <img
+      <button
+        // style={ { display: 'none' } }
         data-testid="profile-top-btn"
         type="button"
-        alt=""
-        src={ profileIcon }
         onClick={ () => console.log('teste') }
-      />
+      >
+        <img
+          src={ profileIcon }
+          alt="profile icon"
+        />
+      </button>
       <h3 data-testid="page-title">Receitas</h3>
-      <img
+      <button
         data-testid="search-top-btn"
         type="button"
-        alt="button"
-        src={ searchIcon }
         onClick={ () => setVisibleBar(!isVisibleBar) }
-      />
+      >
+        <img
+          alt="search button"
+          src={ searchIcon }
+        />
+      </button>
       { isVisibleBar && <div>SearchBar</div> }
       {/* style={ { position: 'fixed', height: '200vh' } } */}
     </header>
