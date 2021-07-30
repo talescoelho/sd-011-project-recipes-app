@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
 import GlobalContext from '../context/GlobalContext';
 
-function SearchBar() {
+function SearchBar({ title }) {
   const [inputIngredient, setinputIngredient] = useState(false);
   const [inputName, setinputName] = useState(false);
   const [inputFirstLetter, setinputFirstLetter] = useState(false);
@@ -22,17 +23,31 @@ function SearchBar() {
     }
     fetchAPI();
   }
+
   useEffect(() => {
-    const defaultUrl = 'https://www.themealdb.com/api/json/v1/1/';
-    if (inputIngredient) {
-      setfetchUrl(`${defaultUrl}filter.php?i=${search}`);
-    } if (inputName) {
-      setfetchUrl(`${defaultUrl}search.php?s=${search}`);
+    if (title === 'Comidas') {
+      const defaultUrl = 'https://www.themealdb.com/api/json/v1/1/';
+      if (inputIngredient) {
+        setfetchUrl(`${defaultUrl}filter.php?i=${search}`);
+      } if (inputName) {
+        setfetchUrl(`${defaultUrl}search.php?s=${search}`);
+      }
+      if (inputFirstLetter) {
+        setfetchUrl(`${defaultUrl}search.php?f=${search}`);
+      }
     }
-    if (inputFirstLetter) {
-      setfetchUrl(`${defaultUrl}search.php?f=${search}`);
+    if (title === 'Bebidas') {
+      const defaultUrl = 'https://www.thecocktaildb.com/api/json/v1/1/';
+      if (inputIngredient) {
+        setfetchUrl(`${defaultUrl}filter.php?i=${search}`);
+      } if (inputName) {
+        setfetchUrl(`${defaultUrl}search.php?s=${search}`);
+      }
+      if (inputFirstLetter) {
+        setfetchUrl(`${defaultUrl}search.php?f=${search}`);
+      }
     }
-  }, [search, inputFirstLetter, inputName, inputIngredient]);
+  }, [search, inputFirstLetter, inputName, inputIngredient, title]);
   return (
     <div>
       <input
@@ -96,5 +111,9 @@ function SearchBar() {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default SearchBar;
