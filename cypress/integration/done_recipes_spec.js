@@ -9,7 +9,8 @@ describe('Done recipes screen', () => {
       category: 'Vegetarian',
       alcoholicOrNot: '',
       name: 'Spicy Arrabiata Penne',
-      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+      image:
+        'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
       doneDate: '23/06/2020',
       tags: ['Pasta', 'Curry'],
     },
@@ -18,9 +19,10 @@ describe('Done recipes screen', () => {
       type: 'bebida',
       area: '',
       category: 'Cocktail',
-      alcoholicOrNot:  'Alcoholic',
+      alcoholicOrNot: 'Alcoholic',
       name: 'Aquamarine',
-      image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+      image:
+        'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
       doneDate: '23/06/2020',
       tags: [],
     },
@@ -65,15 +67,20 @@ describe('Done recipes screen', () => {
       cy.get('[data-testid="0-horizontal-image"]')
         .should('have.attr', 'src')
         .should('include', doneRecipes[0].image);
-      cy.get('[data-testid="0-horizontal-top-text"]')
-        .contains(`${doneRecipes[0].area} - ${doneRecipes[0].category}`);
+      cy.get('[data-testid="0-horizontal-top-text"]').contains(
+        `${doneRecipes[0].area} - ${doneRecipes[0].category}`
+      );
       cy.get('[data-testid="0-horizontal-name"]').contains(doneRecipes[0].name);
       cy.get('[data-testid="0-horizontal-share-btn"]')
         .should('have.attr', 'src')
         .should('include', 'shareIcon');
       cy.get('[data-testid="0-horizontal-done-date"]').contains('23/06/2020');
-      cy.get('[data-testid="0-Pasta-horizontal-tag"]').contains(doneRecipes[0].tags[0]);
-      cy.get('[data-testid="0-Curry-horizontal-tag"]').contains(doneRecipes[0].tags[1]);
+      cy.get('[data-testid="0-Pasta-horizontal-tag"]').contains(
+        doneRecipes[0].tags[0]
+      );
+      cy.get('[data-testid="0-Curry-horizontal-tag"]').contains(
+        doneRecipes[0].tags[1]
+      );
     });
   });
 
@@ -82,7 +89,9 @@ describe('Done recipes screen', () => {
       cy.get('[data-testid="1-horizontal-image"]')
         .should('have.attr', 'src')
         .should('include', doneRecipes[1].image);
-      cy.get('[data-testid="1-horizontal-top-text"]').contains(doneRecipes[1].alcoholicOrNot);
+      cy.get('[data-testid="1-horizontal-top-text"]').contains(
+        doneRecipes[1].alcoholicOrNot
+      );
       cy.get('[data-testid="1-horizontal-name"]').contains(doneRecipes[1].name);
       cy.get('[data-testid="1-horizontal-share-btn"]')
         .should('have.attr', 'src')
@@ -102,8 +111,10 @@ describe('Done recipes screen', () => {
       cy.get('[data-testid="0-horizontal-share-btn"]').click();
 
       cy.window().then((win) => {
-        cy.wrap(win.navigator.clipboard.readText())
-          .should('eq', 'http://localhost:3000/comidas/52771');
+        cy.wrap(win.navigator.clipboard.readText()).should(
+          'eq',
+          'http://localhost:3000/comidas/52771'
+        );
       });
     });
   });
@@ -135,13 +146,17 @@ describe('Done recipes screen', () => {
     it('Ao clicar na foto da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
       cy.get('[data-testid="0-horizontal-image"]').click();
 
-      cy.location().should((loc) => expect(loc.pathname).to.eq('/comidas/52771'));
+      cy.location().should((loc) =>
+        expect(loc.pathname).to.eq('/comidas/52771')
+      );
     });
 
     it('Ao clicar no nome da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
       cy.get('[data-testid="1-horizontal-name"]').click();
 
-      cy.location().should((loc) => expect(loc.pathname).to.eq('/bebidas/178319'));
+      cy.location().should((loc) =>
+        expect(loc.pathname).to.eq('/bebidas/178319')
+      );
     });
   });
 });
