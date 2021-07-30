@@ -3,22 +3,23 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchRecipesAPIAction } from '../redux/actions';
 
-function SearchBar({ fetch }) {
+function SearchBar({ recipeType, fetch }) {
   const [searchInput, setSearchInput] = useState('');
   const [radioInput, setRadioInput] = useState('');
 
   // LÓGICA PARA CRIAÇÃO DA URL:
-  // VERIFICAÇÃO 1 - CASO A BUSCA SEJA POR INGREDIENTE, SERÁ UTILIZADO 'filter' NA URL. JÁ PARA NOME OU PRIMEIRA LETRA, SERÁ UTILIZADO 'search'
-  // VERIFICAÇÃO 2 - POSSIBILIDADES:
+  // VERIFICAÇÃO 1 - CASO A BUSCA SEJA POR COMIDA, SERÁ UTILIZADO 'themealdb' NA URL. JÁ PARA BEBIDAS, SERÁ UTILIZADO 'thecocktaildb'
+  // VERIFICAÇÃO 2 - CASO A BUSCA SEJA POR INGREDIENTE, SERÁ UTILIZADO 'filter' NA URL. JÁ PARA NOME OU PRIMEIRA LETRA, SERÁ UTILIZADO 'search'
+  // VERIFICAÇÃO 3 - POSSIBILIDADES:
   // a) BUSCA POR INGREDIENTE, SERÁ UTILIZADO 'i'
   // b) BUSCA POR NOME, SERÁ UTILIZADO 's'
   // c) BUSCA POR PRIMEIRA LETRA, SERÁ UTILIZADO 'f'
-  // VERIFICAÇÃO 3 - SERÁ ACRESCENTADO O VALOR DIGITADO NO INPUT PARA REALIZAR A BUSCA.
+  // VERIFICAÇÃO 4 - SERÁ ACRESCENTADO O VALOR DIGITADO NO INPUT PARA REALIZAR A BUSCA.
   // MONTAGEM DA URL:
-  // https://www.themealdb.com/api/json/v1/1/${VERIFICAÇÃO1}.php?${VERIFICAÇÃO2}=${VERIFICAÇÃO3}
+  // https://www.${VERIFICAÇÃO1}.com/api/json/v1/1/${VERIFICAÇÃO2}.php?${VERIFICAÇÃO3}=${VERIFICAÇÃO4}
 
   const handleClick = () => {
-    fetch(`https://www.themealdb.com/api/json/v1/1/${radioInput === 'ingredient' ? 'filter' : 'search'}.php?${radioInput === 'ingredient' ? 'i' : ''}${radioInput === 'name' ? 's' : ''}${radioInput === 'firstLetter' ? 'f' : ''}=${searchInput}`);
+    fetch(`https://www.${recipeType === 'food' ? 'themealdb' : 'thecocktaildb'}.com/api/json/v1/1/${radioInput === 'ingredient' ? 'filter' : 'search'}.php?${radioInput === 'ingredient' ? 'i' : ''}${radioInput === 'name' ? 's' : ''}${radioInput === 'firstLetter' ? 'f' : ''}=${searchInput}`);
   };
 
   return (
@@ -65,6 +66,10 @@ function SearchBar({ fetch }) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  recipeType: state.RecipesReducer.recipeType,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   fetch: (url) => dispatch(fetchRecipesAPIAction(url)),
 });
@@ -73,4 +78,4 @@ SearchBar.propTypes = {
   fetch: PropTypes.func,
 }.isRequired;
 
-export default connect(null, mapDispatchToProps)(SearchBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
