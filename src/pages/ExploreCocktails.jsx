@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function ExploreCocktails() {
@@ -7,6 +8,7 @@ export default function ExploreCocktails() {
     <div>
       <Header pageName={ name } />
       ExploreCocktails
+      <Footer />
     </div>
   );
 }
