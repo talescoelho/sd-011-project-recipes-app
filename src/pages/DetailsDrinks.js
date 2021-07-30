@@ -1,8 +1,10 @@
 import React from 'react';
-import useFetch from '../hooks/useFetch';
+import useDetailsFetch from '../hooks/useDetailsFetch';
+import useRecomendedItemsFetch from '../hooks/useRecomendedItemsFetch';
 
 export default function DetailsDrinks() {
-  const { data, request } = useFetch();
+  const { data, request } = useDetailsFetch();
+  const { recomendedData, requestRecomendedApi } = useRecomendedItemsFetch();
   const [ingredients, setIngredients] = React.useState([]);
   const [measures, setMeasures] = React.useState([]);
 
@@ -11,7 +13,11 @@ export default function DetailsDrinks() {
       const mockDrinkId = 178319;
       request(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${mockDrinkId}`);
     }
+    function fetchFoodRecomendedApi() {
+      requestRecomendedApi('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    }
     fetchDrinkApi();
+    fetchFoodRecomendedApi();
   }, [request]);
 
   React.useEffect(() => {
@@ -22,7 +28,7 @@ export default function DetailsDrinks() {
     }
   }, [data]);
 
-  if (!data) return <p>Loading...</p>;
+  if (!data || !recomendedData) return <p>Loading...</p>;
 
   const mockRecomendationCard = ['recomendation 1',
     'recomendation 2', 'recomendation 3', 'recomendation 4'];
