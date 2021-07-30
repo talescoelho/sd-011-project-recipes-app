@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipesProvider from './provider/recipesProvider';
-import Header from './components/Header';
 import Login from './pages/Login';
 
 function App() {
@@ -11,7 +10,7 @@ function App() {
     <RecipesProvider>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={ Header } />
+          <Route exact path="/" component={ Login } />
         </Switch>
       </BrowserRouter>
     </RecipesProvider>
