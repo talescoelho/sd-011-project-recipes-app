@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import HeaderDrink from '../Components/HeaderDrink';
+import RecipesList from '../Components/RecipesList';
 
 class Drinks extends Component {
   render() {
@@ -13,7 +14,7 @@ class Drinks extends Component {
         <HeaderDrink title="Bebidas" />
         { drinks.length === 1
           ? <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />
-          : <p>Renderiza</p>}
+          : <RecipesList />}
       </div>
     );
   }
