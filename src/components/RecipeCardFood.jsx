@@ -5,7 +5,6 @@ export default function RecipeCardFood({ recipe, index }) {
   console.log(recipe.strMealThumb);
   return (
     <div data-testid={ `${index}-recipe-card` }>
-      <h1>{ index + 1 }</h1>
       <img
         src={ recipe.strMealThumb }
         alt={ recipe.strMeal }

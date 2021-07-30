@@ -6,18 +6,18 @@ import RecipeCardFood from './RecipeCardFood';
 import RecipeCardCocktail from './RecipeCardCocktail';
 
 export default function RecipesCards({ type }) {
-  const { data, recipes } = useContext(SearchBarContext);
+  const { recipes } = useContext(SearchBarContext);
   const verifyFood = () => (
-    (data.length === 1) ? (
-      <Redirect to={ `/comidas/${data[0].idMeal}` } />)
+    (recipes.length === 1) ? (
+      <Redirect to={ `/comidas/${recipes[0].idMeal}` } />)
       : recipes.map((element, index) => (
         <RecipeCardFood key={ index } index={ index } recipe={ element } />
       ))
   );
 
   const verifyDrink = () => (
-    (data.length === 1) ? (
-      <Redirect to={ `/bebidas/${data[0].idDrink}` } />)
+    (recipes.length === 1) ? (
+      <Redirect to={ `/bebidas/${recipes[0].idDrink}` } />)
       : recipes.map((element, index) => (
         <RecipeCardCocktail key={ index } index={ index } recipe={ element } />
       ))
