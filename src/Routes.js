@@ -10,6 +10,8 @@ import ExplorerDrinks from './pages/ExplorerDrinks';
 import MealsOrigin from './pages/ExplorerMealsOrigin';
 import MealsIngredients from './pages/ExplorerMealsIngredients';
 import DrinksIgredients from './pages/ExplorerDrinksIngredients';
+import RecipesFavorites from './pages/RecipesFavorites';
+import RecipesDone from './pages/RecipesDone';
 
 function Routes() {
   return (
@@ -37,8 +39,8 @@ function Routes() {
         />
         <Route exact path="/explorar/comidas/area" component={ MealsOrigin } />
         <Route exact path="/perfil" component={ Profile } />
-        {/* <Route exact path="/receitas-feitas" component={ Login } />
-        <Route exact path="/receitas-favoritas" component={ Login } /> */}
+        <Route exact path="/receitas-feitas" component={ RecipesDone } />
+        <Route exact path="/receitas-favoritas" component={ RecipesFavorites } />
       </Switch>
     </BrowserRouter>
   );
