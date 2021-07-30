@@ -11,3 +11,6 @@ const renderWithRouter = (component) => {
 };
 
 export default renderWithRouter;
+
+/* Para fazer o uso do renderWithRouter, foi necessário fazer a função acima */
+/* Source: https://testing-library.com/docs/example-reach-router/ */

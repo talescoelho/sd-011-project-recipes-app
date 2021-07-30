@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import credentialsVerify from '../Helpers/credentialsVerify';
 import submitLocalStorage from '../Helpers/submitLocalStorage';
 
-function Login({ history }) {
+function Login() {
   const [user, setUser] = useState({ email: '', password: '' });
   const [disabled, setDisabled] = useState(true);
 
@@ -60,9 +60,3 @@ function Login({ history }) {
 }
 
 export default Login;
-
-Login.propTypes = {
-  history: PropTypes.objectOf({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};
