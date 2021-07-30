@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import SearchBarContext from './searchBarContext';
 
-import * as API from '../services';
+export default function SearchBarProvider({ children }) {
+  const [data, setData] = useState();
 
-const [data, setData] = useState();
+  return (
+    <SearchBarContext.Provider value={ { data, setData } }>
+      { children }
+    </SearchBarContext.Provider>
+  );
+}
