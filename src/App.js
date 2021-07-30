@@ -9,6 +9,10 @@ import Profile from './Pages/Profile';
 import Explore from './Pages/Explore';
 import ExploreFoods from './Pages/Explore/ExploreFoods';
 import ExploreDrinks from './Pages/Explore/ExploreDrinks';
+import ExploreFoodsIngredients from './Pages/Explore/ExploreFoodsIngredients';
+import ExploreDrinksIngredients from './Pages/Explore/ExploreDrinksIngredients';
+import ExploreFoodsArea from './Pages/Explore/ExploreFoodsArea';
+import ExploreDrinksArea from './Pages/Explore/ExploreDrinksArea';
 // Pages Components /\
 
 import './App.css';
@@ -26,6 +30,18 @@ function App() {
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ ExploreFoods } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
+        <Route
+          exact
+          path="/explorar/comidas/ingredientes"
+          component={ ExploreFoodsIngredients }
+        />
+        <Route
+          exact
+          path="/explorar/bebidas/ingredientes"
+          component={ ExploreDrinksIngredients }
+        />
+        <Route exact path="/explorar/comidas/area" component={ ExploreFoodsArea } />
+        <Route exact path="/explorar/bebidas/area" component={ ExploreDrinksArea } />
       </Switch>
     </BrowserRouter>
   );
