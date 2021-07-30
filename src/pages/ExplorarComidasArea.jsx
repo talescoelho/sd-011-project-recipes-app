@@ -4,13 +4,13 @@ import Header from '../components/Header';
 
 class ExplorarComidasArea extends Component {
   render() {
-    const title = 'Explorar Comidas Ingredientes';
-    const lupa = 'desligado';
+    const title = 'Explorar Origem';
+    const search = 'on';
     return (
       <main>
         <Header
           title={ title }
-          lupa={ lupa }
+          search={ search }
         />
         <Footer />
       </main>
