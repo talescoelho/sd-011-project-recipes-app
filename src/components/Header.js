@@ -19,7 +19,6 @@ function Header({ mealOrDrink, buttonExists, title }) {
         <img
           alt="profile"
           src={ profileIcon }
-          style={ { padding: '20px' } }
         />
       </button>
 
@@ -34,7 +33,6 @@ function Header({ mealOrDrink, buttonExists, title }) {
           <img
             alt="search"
             src={ searchIcon }
-            style={ { padding: '20px' } }
           />
         </button>
       )}

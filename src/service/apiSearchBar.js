@@ -1,4 +1,4 @@
-import { requestSearch, requestSuccessSearch } from '../actions';
+import { requestSearch, requestSuccessSearch, itemLengthOne } from '../actions';
 
 export default async function searchCase(mealOrDrink, radioQuery, search) {
   let response;
@@ -38,8 +38,11 @@ export default async function searchCase(mealOrDrink, radioQuery, search) {
     try {
       dispatch(requestSearch());
       const data = await response.json();
-      console.log(data.meals.length === 1);
+      console.log(data);
       dispatch(requestSuccessSearch(data));
+      if (mealOrDrink === 'meal') {
+        if (data.meals.length === 1) dispatch(itemLengthOne());
+      } else if (data.drinks.length === 1) dispatch(itemLengthOne());
     } catch (error) {
       console.error(error);
     }
