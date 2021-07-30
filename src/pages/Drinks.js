@@ -2,16 +2,20 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import RecipeCard from '../components/RecipeCard';
-import SearchBar from '../components/SearchBar';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function Drinks() {
-  const { recipesData } = useContext(RecipesContext);
+  const { drinksData } = useContext(RecipesContext);
+
+  // useEffect(() => {
+
+  // }, []);
 
   return (
     <div>
-      <SearchBar />
-      { recipesData !== [] && recipesData.map((recipe, index) => (
+      <Header title="Bebidas" recipeType="drinks" />
+      { drinksData !== [] && drinksData.map((recipe, index) => (
         <Link
           to={ `/bebidas/${recipe.idDrink}` }
           key={ recipe.idDrink }

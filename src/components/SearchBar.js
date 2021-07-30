@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import RecipesContext from '../context/RecipesContext';
 import {
   fetchMealsByIngredient,
@@ -10,8 +11,8 @@ import {
   fetchCocktailsByFirstLetter,
 } from '../services/cocktailAPI';
 
-function SearchBar() {
-  const { recipeType, setRecipesData } = useContext(RecipesContext);
+function SearchBar({ recipeType }) {
+  const { setDrinksData, setMealsData } = useContext(RecipesContext);
 
   const [searchInput, setSearchInput] = useState('');
   const [searchRadio, setSearchRadio] = useState('');
@@ -35,7 +36,7 @@ function SearchBar() {
     }
     if (response !== null && searchRadio !== '') {
       console.log(response);
-      return setRecipesData(response.slice(0, maxRecipes));
+      return setMealsData(response.slice(0, maxRecipes));
     }
     // eslint-disable-next-line no-alert
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -57,7 +58,8 @@ function SearchBar() {
       response = await fetchCocktailsByFirstLetter(searchInput);
     }
     if (response !== null && searchRadio !== '') {
-      return setRecipesData(response.slice(0, maxRecipes));
+      console.log(response);
+      return setDrinksData(response.slice(0, maxRecipes));
     }
     // eslint-disable-next-line no-alert
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -140,5 +142,9 @@ function SearchBar() {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  recipeType: PropTypes.string.isRequired,
+};
 
 export default SearchBar;
