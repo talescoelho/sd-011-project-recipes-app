@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/Login';
+import HomeRecipes from './Pages/HomeRecipes';
 
 function App() {
   return (
@@ -20,10 +21,11 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ Login } />
+          <Route exact path="/comidas" component={ HomeRecipes } />
+
           {/* <Route path="/game" component={ Game } />
           <Route path="/settings" component={ Settings } />
-          <Route path="/feedback" component={ Feedback } />
-          <Route path="/ranking" component={ Ranking } /> */}
+          <Route path="/comidas" component={ HomeRecipes } /> */}
         </Switch>
       </BrowserRouter>
     </div>
