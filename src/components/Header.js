@@ -40,4 +40,6 @@ export default Header;
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   icon: PropTypes.bool.isRequired,
+  drinks: PropTypes.bool.isRequired,
+  foods: PropTypes.bool.isRequired,
 };

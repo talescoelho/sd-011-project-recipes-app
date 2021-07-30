@@ -4,8 +4,8 @@ import RecipeAppContext from '../context/RecipeAppContext';
 
 function RecipeAppProvider({ children }) {
   const [login, setLogin] = useState({ email: '', password: '' });
-  const [foodsList, setFoodList] = useState([]);
-  const [drinksList, setDrinksList] = useState([]);
+  const [foodsList, setFoodList] = useState('');
+  const [drinksList, setDrinksList] = useState('');
 
   const handleChange = (e) => {
     const { target } = e;

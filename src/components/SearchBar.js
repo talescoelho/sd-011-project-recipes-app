@@ -2,7 +2,7 @@ import React from 'react';
 import DrinksSearchBar from './DrinksSearchBar';
 import FoodsSearchBar from './FoodsSearchBar';
 
-function SearchBar({ drinks, foods}) {
+function SearchBar({ drinks, foods }) {
   return (
     <div>
       {drinks && <DrinksSearchBar />}
@@ -12,3 +12,8 @@ function SearchBar({ drinks, foods}) {
 }
 
 export default SearchBar;
+
+SearchBar.propTypes = {
+  drinks: PropTypes.bool.isRequired,
+  foods: PropTypes.bool.isRequired,
+};
