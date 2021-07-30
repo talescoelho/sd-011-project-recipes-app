@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ContextFood from './ContextFood';
 
 function ProviderFood({ children }) {
-  const contextValue = {};
+  const [searchBarShow, setSearchBarShow] = useState(false);
+
+  const contextValue = {
+    searchBarShow,
+    setSearchBarShow,
+  };
   return (
     <ContextFood.Provider value={ contextValue }>
       {children}
