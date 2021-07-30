@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -7,13 +8,21 @@ export default function Login() {
 
   const handleChangeEmail = ({ target: { value } }) => {
     const checkEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    checkEmail.test(value) ? setEmail(value) : setEmail('');
-  }
+    if (checkEmail.test(value)) return setEmail(value);
+    return setEmail('');
+  };
 
   const handleChangePassword = ({ target: { value } }) => {
     const checkPassword = 6;
-    value.length > checkPassword ? setPassword(value) : setPassword('');
-  }
+    if (value.length > checkPassword) return setPassword(value);
+    return setPassword('');
+  };
+
+  const LoginStorage = () => {
+    localStorage.setItem('mealsToken', '1');
+    localStorage.setItem('cocktailsToken', '1');
+    localStorage.setItem('user', JSON.stringify({ email }));
+  };
 
   return (
     <div>
@@ -29,15 +38,17 @@ export default function Login() {
         data-testid="password-input"
         onChange={ handleChangePassword }
       />
-      <Button
-        type="button"
-        data-testid="login-submit-btn"
-        variant="primary"
-        disabled={ !email || !password}
-        
-      >
-        Entrar
-      </Button>
+      <Link to="/comidas">
+        <Button
+          type="button"
+          data-testid="login-submit-btn"
+          variant="primary"
+          disabled={ !email || !password }
+          onClick={ LoginStorage }
+        >
+          Entrar
+        </Button>
+      </Link>
     </div>
-  )
+  );
 }
