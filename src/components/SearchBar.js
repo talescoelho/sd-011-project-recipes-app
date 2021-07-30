@@ -44,7 +44,6 @@ function SearchBar() {
     }
   };
 
-
   return (
     <div>
       <div className="radios" onChange={ ({ target }) => setSelected(target.value) }>
