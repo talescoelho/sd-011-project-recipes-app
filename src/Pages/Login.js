@@ -33,7 +33,7 @@ function Login() {
     dispatch(login(formsInput));
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
-    localStorage.setItem('user', JSON.stringify(userEmail));
+    localStorage.setItem('user', JSON.stringify({ email: userEmail }));
   }
 
   return (
