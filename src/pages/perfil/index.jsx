@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 
 export default class Perfil extends Component {
@@ -6,6 +7,8 @@ export default class Perfil extends Component {
     return (
       <div>
         <Header title="Perfil" />
+        Perfil
+        <Footer />
       </div>
     );
   }

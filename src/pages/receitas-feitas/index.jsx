@@ -6,6 +6,7 @@ export default class ReceitasFeitas extends Component {
     return (
       <div>
         <Header title="Receitas Feitas" />
+        Receitas Feitas
       </div>
     );
   }
