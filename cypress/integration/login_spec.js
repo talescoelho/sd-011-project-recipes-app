@@ -10,7 +10,7 @@ describe('2 - Crie todos os elementos que devem respeitar os atributos descritos
   });
 });
 
-describe.skip('3 - Desenvolva a tela de maneira que a pessoa deve conseguir escrever seu email no input de email', () => {
+describe('3 - Desenvolva a tela de maneira que a pessoa deve conseguir escrever seu email no input de email', () => {
   it('É possível escrever o email', () => {
     cy.visit('http://localhost:3000/');
 
@@ -19,7 +19,7 @@ describe.skip('3 - Desenvolva a tela de maneira que a pessoa deve conseguir escr
   });
 });
 
-describe.skip('4 - Desenvolva a tela de maneira que a pessoa deve conseguir escrever sua senha no input de senha', () => {
+describe('4 - Desenvolva a tela de maneira que a pessoa deve conseguir escrever sua senha no input de senha', () => {
   it('É possível escrever a senha', () => {
     cy.visit('http://localhost:3000/');
 
