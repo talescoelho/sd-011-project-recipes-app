@@ -1,6 +1,7 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react';
 import App from '../App';
+import Login from '../pages/Login';
 import renderWithRouter from '../helpers/renderWithRouter';
 
 const EMAIL_INPUT = 'email-input';
@@ -27,7 +28,7 @@ describe('testa pagina de login', () => {
     const { getByTestId } = renderWithRouter(<App />);
     const emailInput = getByTestId(EMAIL_INPUT);
     const loginButton = getByTestId(LOGIN_BUTTON);
-    fireEvent.click(emailInput, { target: { value: 'email_pessoa' } });
+    fireEvent.change(emailInput, { target: { value: 'email_pessoa' } });
     expect(emailInput.value).toBe('email_pessoa');
     expect(loginButton).toHaveAttribute('disabled');
   });
@@ -41,15 +42,16 @@ describe('testa pagina de login', () => {
   });
   it('Verifica se o login preenchido corretamente habilita'
   + 'o botão e ao clicar,redireciona para "/comidas"', () => {
-    const { getByTestId } = renderWithRouter(<App />);
+    const { getByTestId } = renderWithRouter(<Login />);
     const emailInput = getByTestId(EMAIL_INPUT);
     const passwordInput = getByTestId(PASSWORD_INPUT);
     const loginButton = getByTestId(LOGIN_BUTTON);
-    fireEvent.click(emailInput, { target: { value: 'email_pessoa@gmail.com' } });
-    fireEvent.click(passwordInput, { target: { value: '12345678' } });
+    fireEvent.change(emailInput, { target: { value: 'email_pessoa@gmail.com' } });
+    fireEvent.change(passwordInput, { target: { value: '12345678' } });
     expect(emailInput.value).toBe('email_pessoa@gmail.com');
     expect(passwordInput.value).toBe('12345678');
     fireEvent.click(loginButton);
+    console.log(loginButton);
     expect(window.location.pathname).toBe('/comidas');
   });
 });

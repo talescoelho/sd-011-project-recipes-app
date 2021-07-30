@@ -11,13 +11,8 @@ function ExplorarBebidas() {
       >
         Por Ingredientes
       </Link>
-      {/*
-      <Link
-      to="/explorar/comidas"
-      data-testid="explore-surprise"
-      >
-        Me Surpreenda
-      </Link> */}
+      {/* <Link to="/explorar/comidas"
+      data-testid="explore-surprise">Me Surpreenda</Link> */}
     </div>
   );
 }
