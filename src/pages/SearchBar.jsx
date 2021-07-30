@@ -18,7 +18,6 @@ function SearchBar(props) {
   const FIRST_LETTER = 'first-letter';
   function handleOnClickButton() {
     if (props.mode === 'comidas') {
-
       if (searchRadio === 'ingredient') {
         props.foodRecipesByIngredient(input);
       } else if (searchRadio === 'name') {
@@ -28,9 +27,7 @@ function SearchBar(props) {
       } else if (searchRadio === FIRST_LETTER) {
         props.foodRecipesByLetter(input);
       }
-
     } else if (props.mode === 'bebidas') {
-
       if (searchRadio === 'ingredient') {
         props.drinkRecipesByIngredient(input);
       } else if (searchRadio === 'name') {
@@ -110,6 +107,10 @@ SearchBar.propTypes = ({
   foodRecipesByIngredient: PropTypes.func.isRequired,
   foodRecipesByName: PropTypes.func.isRequired,
   foodRecipesByLetter: PropTypes.func.isRequired,
+  drinkRecipesByIngredient: PropTypes.func.isRequired,
+  drinkRecipesByName: PropTypes.func.isRequired,
+  drinkRecipesByLetter: PropTypes.func.isRequired,
+  mode: PropTypes.string.isRequired,
 });
 
 export default connect(null, mapDispatchToProps)(SearchBar);

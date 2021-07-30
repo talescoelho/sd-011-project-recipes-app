@@ -20,11 +20,10 @@ const Header = ({ title, hasSearchBar, mode }) => {
           type="button"
         >
           <img data-testid="search-top-btn" src={ SearchIcon } alt="Procurar" />
-        </button>)
-      }
+        </button>)}
 
       {isSearchShowing && (
-        <SearchBar mode={mode} />
+        <SearchBar mode={ mode } />
       )}
     </header>
   );
@@ -35,6 +34,7 @@ export default Header;
 Header.propTypes = ({
   title: PropTypes.string.isRequired,
   hasSearchBar: PropTypes.bool,
+  mode: PropTypes.string.isRequired,
 });
 
 Header.defaultProps = ({
