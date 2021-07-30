@@ -1,12 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import drinkIcon from '../images/drinkIcon.svg';
+import exploreIcon from '../images/exploreIcon.svg';
+import mealIcon from '../images/mealIcon.svg';
+import '../styles/LowerMenu.css';
 
 export default function LowerMenu() {
   return (
-    <footer data-testid="footer">
-      <Link to="/explorar/bebidas" data-testid="drinks-bottom-btn">i</Link>
-      <Link to="/explorar" data-testid="explore-bottom-btn">i</Link>
-      <Link to="/explorar/comidas" data-testid="food-bottom-btn">i</Link>
+    <footer className="lower-menu" data-testid="footer">
+      <Link to="/explorar/bebidas">
+        <img
+          data-testid="drinks-bottom-btn"
+          className="lower-menu__img"
+          src={ drinkIcon }
+          alt="Cocktail"
+        />
+      </Link>
+      <Link to="/explorar">
+        <img
+          data-testid="explore-bottom-btn"
+          className="lower-menu__img"
+          src={ exploreIcon }
+          alt="Compass"
+        />
+      </Link>
+      <Link to="/explorar/comidas">
+        <img
+          data-testid="food-bottom-btn"
+          className="lower-menu__img"
+          src={ mealIcon }
+          alt="Crossed fork and spoon"
+        />
+      </Link>
     </footer>
   );
 }
