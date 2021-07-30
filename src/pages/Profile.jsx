@@ -1,11 +1,12 @@
 import React from 'react';
+import LowerMenu from '../components/LowerMenu';
 import Header from '../components/Header';
 
 function Profile() {
   return (
     <div>
-      Tela de perfil
       <Header />
+      <LowerMenu />
     </div>
   );
 }
