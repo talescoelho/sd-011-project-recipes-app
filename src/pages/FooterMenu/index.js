@@ -24,7 +24,7 @@ const FooterMenu = () => (
     <Link to="/comidas">
       <img
         src={ meal }
-        alt="menu icon meal"
+        alt="menu icon meal "
         data-testid="food-bottom-btn"
       />
     </Link>
