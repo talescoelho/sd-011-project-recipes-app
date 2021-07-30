@@ -12,7 +12,6 @@ import Explorar from './pages/Explorar';
 import Bebidas from './pages/Bebidas';
 import Login from './pages/Login';
 
-
 function App() {
   return (
     <div className="meals">
