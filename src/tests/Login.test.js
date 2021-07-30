@@ -102,3 +102,22 @@ describe('Requirement 05', () => {
     expect(submitButton).not.toBeDisabled();
   });
 });
+
+describe('Requirement 06', () => {
+  it('should have 2 token into localStorage (mealsToken and cocktailsToken)', () => {
+    render(<Login />);
+    const inputEmail = screen.getByTestId(emailInputTestId);
+    fireEvent.change(inputEmail, { target: {
+      value: validEmail,
+    } });
+    const inputPassword = screen.getByTestId(passwordInputTestId);
+    fireEvent.change(inputPassword, { target: {
+      value: validPassword,
+    } });
+
+    const submitButton = screen.getByTestId(submitButtonButtonTestId);
+    fireEvent.click(submitButton);
+    expect(localStorage.getItem('mealsToken')).toBe('1');
+    expect(localStorage.getItem('cocktailsToken')).toBe('1');
+  });
+});
