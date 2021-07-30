@@ -7,6 +7,7 @@ import Drinks from './pages/Drinks/Drinks';
 import Explore from './pages/Explore/Explore';
 import Foods from './pages/Foods/Foods';
 
+
 function App() {
   return (
     <div className="meals">
