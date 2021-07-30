@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import SearchContext from '../Context';
+import SearchContext from '../context/Context';
 
 function SearchBar() {
   const { handleClickIngrediente, handleClickRadio, filterIngrediente, filterFood } = useContext(SearchContext);

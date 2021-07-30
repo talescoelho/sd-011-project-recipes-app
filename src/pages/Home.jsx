@@ -1,4 +1,5 @@
 import React from 'react';
+import FoodCard from '../components/FoodCard';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import '../styles/Main.css';
@@ -8,7 +9,7 @@ export default function Home() {
     <div>
       <Header pageName="Comidas" renderButton />
       <main>
-        <h1> Hello, this is my Home Page</h1>
+        <FoodCard />
       </main>
       <Footer />
     </div>
