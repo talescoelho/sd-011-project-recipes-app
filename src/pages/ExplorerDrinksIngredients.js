@@ -1,7 +1,7 @@
 import React from 'react';
 import Footer from '../components/Footer';
 
-function ExplorerCocktails() {
+function ExplorerDrinksIngredients() {
   return (
     <div>
       <Footer />
@@ -9,4 +9,4 @@ function ExplorerCocktails() {
   );
 }
 
-export default ExplorerCocktails;
+export default ExplorerDrinksIngredients;
