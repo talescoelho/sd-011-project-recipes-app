@@ -7,6 +7,8 @@ import Foods from './Pages/Foods';
 import Drinks from './Pages/Drinks';
 import Profile from './Pages/Profile';
 import Explore from './Pages/Explore';
+import ExploreFoods from './Pages/Explore/ExploreFoods';
+import ExploreDrinks from './Pages/Explore/ExploreDrinks';
 // Pages Components /\
 
 import './App.css';
@@ -22,6 +24,8 @@ function App() {
         <Route exact path="/bebidas" component={ Drinks } />
         <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/explorar" component={ Explore } />
+        <Route exact path="/explorar/comidas" component={ ExploreFoods } />
+        <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
       </Switch>
     </BrowserRouter>
   );
