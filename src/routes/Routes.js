@@ -18,14 +18,13 @@ import Profile from '../pages/Profile';
 import DoneRecipes from '../pages/DoneRecipes';
 import FavoritesRecipes from '../pages/FavoritesRecipes';
 import NotFound from '../pages/NotFound';
-import FooterMenu from '../components/FooterMenu';
 
 const Routes = () => (
   <Switch>
     <Route
       exact
       path="/"
-      component={ FooterMenu }
+      component={ Login }
     />
     <Route
       exact
