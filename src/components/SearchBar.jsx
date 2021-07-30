@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState, useContext } from 'react';
 import { Foods, Cocktails } from '../services';
 import SearchBarContext from '../context/searchBarContext';
@@ -60,5 +61,9 @@ function SearchBar({ type }) {
     </form>
   );
 }
+
+SearchBar.propTypes = {
+  type: PropTypes.isRequired,
+};
 
 export default SearchBar;
