@@ -20,8 +20,16 @@ export default function Routes() {
       <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/explorar/comidas" component={ ExploreMeals } />
       <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
-      <Route exact path="/explorar/comidas/ingredientes" component={ ExploreMealsByIngredients } />
-      <Route exact path="/explorar/bebidas/ingredientes" component={ ExploreDrinksByIngredients } />
+      <Route
+        exact
+        path="/explorar/comidas/ingredientes"
+        component={ ExploreMealsByIngredients }
+      />
+      <Route
+        exact
+        path="/explorar/bebidas/ingredientes"
+        component={ ExploreDrinksByIngredients }
+      />
       <Route exact path="/explorar/comidas/area" component={ ExploreMealsByArea } />
       <Route exact path="/perfil" component={ Profile } />
     </Switch>
