@@ -4,7 +4,7 @@ import LowerMenu from '../components/LowerMenu';
 export default function Drinks() {
   return (
     <div>
-      <LowerMenu />
+      <LowerMenu path="/comidas" />
     </div>
   );
 }

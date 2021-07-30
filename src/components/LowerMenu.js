@@ -1,14 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 import '../styles/LowerMenu.css';
 
-export default function LowerMenu() {
+export default function LowerMenu(props) {
+  const { path } = props;
   return (
     <footer className="lower-menu" data-testid="footer">
-      <Link to="/explorar/bebidas">
+      <Link to={ path || '/explorar/bebidas' }>
         <img
           data-testid="drinks-bottom-btn"
           className="lower-menu__img"
@@ -24,7 +26,7 @@ export default function LowerMenu() {
           alt="Compass"
         />
       </Link>
-      <Link to="/explorar/comidas">
+      <Link to={ path || '/explorar/comidas' }>
         <img
           data-testid="food-bottom-btn"
           className="lower-menu__img"
@@ -35,3 +37,7 @@ export default function LowerMenu() {
     </footer>
   );
 }
+
+LowerMenu.propTypes = {
+  path: PropTypes.instanceOf(PropTypes.object).isRequired,
+};
