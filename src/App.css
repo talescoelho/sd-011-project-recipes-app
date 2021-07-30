@@ -64,6 +64,7 @@
     transform: rotate(-10deg);
   }
 }
+
 [ data-testid = 'footer' ] {
   background-color: grey;
   bottom: 0;
