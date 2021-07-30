@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
 import Login from './pages/Login';
 import Comidas from './pages/Comidas';
+import MenuInferior from './components/MenuInferior';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       >
         Glass
       </object>
+      <MenuInferior />
     </div>
   );
 }
