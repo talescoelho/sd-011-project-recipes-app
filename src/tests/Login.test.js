@@ -42,5 +42,8 @@ describe('Testes da tela de login', () => {
     expect(loginButton).not.toBeDisabled();
     fireEvent.click(loginButton);
     expect(history.location.pathname).toBe('/comidas');
+    expect(localStorage.user).toBe(JSON.stringify({ email: validEmail }));
+    expect(localStorage.cocktailsToken).toBe('1');
+    expect(localStorage.mealsToken).toBe('1');
   });
 });
