@@ -1,11 +1,11 @@
 import React from 'react';
 import Header from '../Components/Header';
 
-export default function HomeRecipes() {
+export default function ExploreDrinks() {
   return (
     <div>
       <Header />
-      <h2>Tela Principal</h2>
+      <h1>Tela de explorar de bebidas</h1>
     </div>
   );
 }

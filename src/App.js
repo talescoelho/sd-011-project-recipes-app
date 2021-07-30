@@ -1,10 +1,8 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from './Pages/Login';
-import HomeRecipes from './Pages/HomeRecipes';
+import Routes from './Routes/Routes';
 
 function App() {
   return (
@@ -18,16 +16,7 @@ function App() {
       >
         Glass
       </object>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={ Login } />
-          <Route exact path="/comidas" component={ HomeRecipes } />
-
-          {/* <Route path="/game" component={ Game } />
-          <Route path="/settings" component={ Settings } />
-          <Route path="/comidas" component={ HomeRecipes } /> */}
-        </Switch>
-      </BrowserRouter>
+      <Routes />
     </div>
   );
 }
