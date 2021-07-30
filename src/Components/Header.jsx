@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import searchIcon from '../images/searchIcon.svg';
 import profilePicture from '../images/profileIcon.svg';
+import { fetchReceiveRecipes } from '../Actions';
 
-export default class Header extends Component {
+class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,15 +15,20 @@ export default class Header extends Component {
       radioInputValue: '',
     };
     this.handleChangeRadioButtonValue = this.handleChangeRadioButtonValue.bind(this);
-    const { inputTextValue, radioInputValue } = this.state;
-    console.log(inputTextValue);
-    console.log(radioInputValue);
+    this.submitRequest = this.submitRequest.bind(this);
   }
 
   handleChangeRadioButtonValue({ target: { value, name } }) {
     this.setState({
       [name]: value,
     });
+  }
+
+  submitRequest(e) {
+    const { inputTextValue, radioInputValue } = this.state;
+    const { fetchRecipes } = this.props;
+    e.preventDefault();
+    fetchRecipes(inputTextValue, radioInputValue);
   }
 
   render() {
@@ -45,7 +52,9 @@ export default class Header extends Component {
           <img data-testid="search-top-btn" src={ searchIcon } alt="searchIcon" />
         </button>
         { inputLoading && (
-          <form onSubmit>
+          <form
+            onSubmit={ this.submitRequest }
+          >
             <input
               data-testid="search-input"
               type="text"
@@ -89,7 +98,7 @@ export default class Header extends Component {
 
               />
             </label>
-            <button type="button" data-testid="exec-search-btn">Submit</button>
+            <button type="submit" data-testid="exec-search-btn">Submit</button>
           </form>
         )}
 
@@ -100,4 +109,11 @@ export default class Header extends Component {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
+  fetchRecipes: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchRecipes: (input, radio) => dispatch(fetchReceiveRecipes(input, radio)),
+});
+
+export default connect(null, mapDispatchToProps)(Header);
