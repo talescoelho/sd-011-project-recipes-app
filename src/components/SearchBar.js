@@ -5,34 +5,37 @@ function SearchBar() {
   const [search, setSearch] = useState('');
   const [, setFoods] = useState([]);
 
-  const fetchFoodsIng = (ingrediente) => {
-    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediente}`)
+  const fetchFoodsIng = (ingrediente, what) => {
+    fetch(`https://www.the${what()}db.com/api/json/v1/1/filter.php?i=${ingrediente}`)
       .then((resp) => resp.json())
       .then((jsonObj) => setFoods(jsonObj.meals));
   };
 
-  const fetchFoodsNam = (name) => {
-    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`)
+  const fetchFoodsNam = (name, what) => {
+    fetch(`https://www.the${what()}db.com/api/json/v1/1/search.php?s=${name}`)
       .then((resp) => resp.json())
       .then((jsonObj) => setFoods(jsonObj.meals));
   };
 
-  const fetchFoodsFL = (fl) => (fl.length === 1
-    ? fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${fl}`)
+  const fetchFoodsFL = (fl, what) => (fl.length === 1
+    ? fetch(`https://www.the${what()}db.com/api/json/v1/1/search.php?f=${fl}`)
       .then((resp) => resp.json())
       .then((jsonObj) => setFoods(jsonObj.meals))
     : alert('Sua busca deve conter somente 1 (um) caracter'));
 
+  const foodOrDrink = () => (window.location.pathname === '/comidas'
+    ? 'meal' : 'cocktail');
+
   const switcher = () => {
     switch (selected) {
     case 'Ingrediente':
-      fetchFoodsIng(search);
+      fetchFoodsIng(search, foodOrDrink);
       break;
     case 'Nome':
-      fetchFoodsNam(search);
+      fetchFoodsNam(search, foodOrDrink);
       break;
     case 'Primeira letra':
-      fetchFoodsFL(search);
+      fetchFoodsFL(search, foodOrDrink);
       break;
     default:
       console.log(selected);
