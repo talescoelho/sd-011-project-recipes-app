@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 function FoodsSearchBar() {
   const [searchText, setSearchText] = useState('');
+  console.log(searchText);
   const [input, setInput] = useState('');
 
   return (
