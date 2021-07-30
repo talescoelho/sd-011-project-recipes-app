@@ -1,16 +1,17 @@
 import React from 'react';
 import './App.css';
-// import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
-
 import Header from './components/Header';
 import Perfil from './pages/Perfil';
-import Login from './components/Login';
-import Comidas from './components/Comidas';
-import Bebidas from './components/Bebidas';
-import Explorar from './components/Explorar';
+import Footer from './components/Footer';
+import Comidas from './pages/Comidas';
+import Explorar from './pages/Explorar';
+import Bebidas from './pages/Bebidas';
+import Login from './pages/Login';
+
 
 function App() {
   return (
@@ -20,10 +21,10 @@ function App() {
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ Comidas } />
           <Route exact path="/bebidas" component={ Bebidas } />
-          <Route exact path="/comidas/42" />
-          <Route exact path="/bebidas/42" />
-          <Route exact path="/comidas/42/in-progress" />
-          <Route exact path="/bebidas/42/in-progress" />
+          <Route exact path="/comidas/{id-da-receita}" />
+          <Route exact path="/bebidas/{id-da-receita}" />
+          <Route exact path="/comidas/{id-da-receita}/in-progress" />
+          <Route exact path="/bebidas/{id-da-receita}/in-progress" />
           <Route exact path="/explorar" component={ Explorar } />
           <Route
             exact
@@ -62,6 +63,7 @@ function App() {
             component={ () => <Header title="Receitas Favoritas" /> }
           />
         </Switch>
+        <Footer />
       </BrowserRouter>
     </div>
   );
