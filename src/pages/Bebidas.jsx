@@ -8,20 +8,56 @@ import FiltersFromCategories from '../components/FiltersFromCategories';
 import Header from '../components/Header';
 
 class Bebidas extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      itemsToRender: [],
+    };
+    this.prepareItemsOnLoad = this.prepareItemsOnLoad.bind(this);
+    this.updateFoods = this.updateFoods.bind(this);
+  }
+
   componentDidMount() {
+    this.prepareItemsOnLoad();
+  }
+
+  updateFoods(all) {
+    if (all) {
+      const { drinksDataBase } = this.props;
+      this.setState({
+        itemsToRender: drinksDataBase,
+      });
+    } else {
+      const { filteredDrinksPerCategory } = this.props;
+      this.setState({
+        itemsToRender: filteredDrinksPerCategory,
+      });
+    }
+  }
+
+  async prepareItemsOnLoad() {
     const { getDrinks, getCategories } = this.props;
-    getDrinks();
+    await getDrinks();
+    const { drinksDataBase } = this.props;
     getCategories('drinks');
+    this.setState({
+      itemsToRender: drinksDataBase,
+    });
   }
 
   render() {
-    const { drinksDataBase, categories } = this.props;
+    const { categories } = this.props;
+    const { itemsToRender } = this.state;
     const showSearchButton = true;
     return (
       <div>
         <Header title="Bebidas" showSearchButton={ showSearchButton } typeFood="drinks" />
-        <FiltersFromCategories categories={ categories } />
-        <Cards itemsToRender={ drinksDataBase } typeFood="drink" />
+        <FiltersFromCategories
+          categories={ categories }
+          updateItemsToRender={ this.updateFoods }
+          typeFood="drinks"
+        />
+        <Cards itemsToRender={ itemsToRender } typeFood="drink" />
         <Footer />
       </div>
     );
@@ -30,6 +66,7 @@ class Bebidas extends React.Component {
 const mapStateToProps = (state) => ({
   drinksDataBase: state.drinksReducer.drinksFromApi,
   categories: state.drinksReducer.categories,
+  filteredDrinksPerCategory: state.drinksReducer.filteredPerCategory,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -44,6 +81,9 @@ Bebidas.propTypes = {
     PropTypes.object,
   ).isRequired,
   categories: PropTypes.arrayOf(
+    PropTypes.object,
+  ).isRequired,
+  filteredDrinksPerCategory: PropTypes.arrayOf(
     PropTypes.object,
   ).isRequired,
 };

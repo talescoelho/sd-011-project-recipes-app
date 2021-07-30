@@ -1,8 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getPerCategoriesFromApi } from '../actions';
 
 class FiltersFromCategories extends React.Component {
+  constructor() {
+    super();
+    this.renderCards = this.renderCards.bind(this);
+    this.onClickFiltering = this.onClickFiltering.bind(this);
+    this.removeAllFilters = this.removeAllFilters.bind(this);
+  }
+
+  async onClickFiltering(category) {
+    const { foodPerCategory, updateItemsToRender, typeFood } = this.props;
+    await foodPerCategory(typeFood, category);
+    updateItemsToRender();
+  }
+
+  removeAllFilters() {
+    const { updateItemsToRender } = this.props;
+    updateItemsToRender(true);
+  }
+
   renderCards(itemsToRender) {
     const filteredItems = [];
     const finalIndex = 5;
@@ -19,6 +38,7 @@ class FiltersFromCategories extends React.Component {
         <button
           data-testid={ `${item.strCategory}-category-filter` }
           type="button"
+          onClick={ () => this.onClickFiltering(item.strCategory) }
         >
           { item.strCategory }
         </button>
@@ -30,16 +50,32 @@ class FiltersFromCategories extends React.Component {
     const { categories } = this.props;
     return (
       <div style={ { display: 'flex' } }>
+        <button
+          data-testid="All-category-filter"
+          onClick={ this.removeAllFilters }
+          type="button"
+        >
+          All
+        </button>
         {this.renderCards(categories)}
       </div>
     );
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  foodPerCategory: (mealsOrDrinks, category) => dispatch(
+    getPerCategoriesFromApi(mealsOrDrinks, category),
+  ),
+});
+
 FiltersFromCategories.propTypes = {
   categories: PropTypes.arrayOf(
     PropTypes.object,
   ).isRequired,
+  foodPerCategory: PropTypes.func.isRequired,
+  updateItemsToRender: PropTypes.func.isRequired,
+  typeFood: PropTypes.string.isRequired,
 };
 
-export default connect()(FiltersFromCategories);
+export default connect(null, mapDispatchToProps)(FiltersFromCategories);
