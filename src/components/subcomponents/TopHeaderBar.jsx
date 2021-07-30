@@ -2,11 +2,12 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
+import headerBarByPathname from '../../helpers/headerBarByPathname';
 
 function TopHeaderBar() {
   const history = useHistory();
   const { location: { pathname } } = history;
-  const pageTitle = pathname.split('/')[1];
+  const [pageTitle, searchButton] = headerBarByPathname(pathname);
   return (
     <div>
       <button
@@ -15,19 +16,17 @@ function TopHeaderBar() {
         name="profile-top-btn"
         id="profile-top-btn"
         onClick={ () => history.push('/profile') }
-      >
-        <img src={ profileIcon } alt="Ir para o perfil" />
-      </button>
+        src={ profileIcon }
+      />
       <span data-testid="page-title">
         {pageTitle}
       </span>
-      <button
+      { searchButton ? <button
         type="button"
         data-testid="search-top-btn"
         onClick={ () => console.log('abrir barra de busca') }
-      >
-        <img src={ searchIcon } alt="Fazer busca" />
-      </button>
+        src={ searchIcon }
+      /> : null}
     </div>
   );
 }
