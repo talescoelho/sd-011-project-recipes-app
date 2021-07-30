@@ -5,9 +5,9 @@ import './App.css';
 
 function App() {
   return (
-      <RecipesProvider>
-        <Routes />
-      </RecipesProvider>
+    <RecipesProvider>
+      <Routes />
+    </RecipesProvider>
   );
 }
 
