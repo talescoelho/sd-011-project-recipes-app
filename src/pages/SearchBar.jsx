@@ -17,14 +17,29 @@ function SearchBar(props) {
 
   const FIRST_LETTER = 'first-letter';
   function handleOnClickButton() {
-    if (searchRadio === 'ingredient') {
-      props.recipesByIngredient(input);
-    } else if (searchRadio === 'name') {
-      props.recipesByName(input);
-    } else if (searchRadio === FIRST_LETTER && input.length > 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
-    } else if (searchRadio === FIRST_LETTER) {
-      props.recipesByLetter(input);
+    if (props.mode === 'comidas') {
+
+      if (searchRadio === 'ingredient') {
+        props.foodRecipesByIngredient(input);
+      } else if (searchRadio === 'name') {
+        props.foodRecipesByName(input);
+      } else if (searchRadio === FIRST_LETTER && input.length > 1) {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      } else if (searchRadio === FIRST_LETTER) {
+        props.foodRecipesByLetter(input);
+      }
+
+    } else if (props.mode === 'bebidas') {
+
+      if (searchRadio === 'ingredient') {
+        props.drinkRecipesByIngredient(input);
+      } else if (searchRadio === 'name') {
+        props.drinkRecipesByName(input);
+      } else if (searchRadio === FIRST_LETTER && input.length > 1) {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      } else if (searchRadio === FIRST_LETTER) {
+        props.drinkRecipesByLetter(input);
+      }
     }
   }
 
@@ -83,15 +98,18 @@ function SearchBar(props) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  recipesByIngredient: (input) => dispatch(actions.recipesByIngredient(input)),
-  recipesByName: (input) => dispatch(actions.recipesByName(input)),
-  recipesByLetter: (input) => dispatch(actions.recipesByLetter(input)),
+  foodRecipesByIngredient: (input) => dispatch(actions.foodRecipesByIngredient(input)),
+  foodRecipesByName: (input) => dispatch(actions.foodRecipesByName(input)),
+  foodRecipesByLetter: (input) => dispatch(actions.foodRecipesByLetter(input)),
+  drinkRecipesByIngredient: (input) => dispatch(actions.drinkRecipesByIngredient(input)),
+  drinkRecipesByName: (input) => dispatch(actions.drinkRecipesByName(input)),
+  drinkRecipesByLetter: (input) => dispatch(actions.drinkRecipesByLetter(input)),
 });
 
 SearchBar.propTypes = ({
-  recipesByIngredient: PropTypes.func.isRequired,
-  recipesByName: PropTypes.func.isRequired,
-  recipesByLetter: PropTypes.func.isRequired,
+  foodRecipesByIngredient: PropTypes.func.isRequired,
+  foodRecipesByName: PropTypes.func.isRequired,
+  foodRecipesByLetter: PropTypes.func.isRequired,
 });
 
 export default connect(null, mapDispatchToProps)(SearchBar);

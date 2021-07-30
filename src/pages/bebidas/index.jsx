@@ -5,7 +5,7 @@ export default class Bebidas extends Component {
   render() {
     return (
       <div>
-        <Header title="Bebidas" hasSearchBar />
+        <Header title="Bebidas" mode={"bebidas"} hasSearchBar={true} />
         Main Bebidas
       </div>
     );

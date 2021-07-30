@@ -5,7 +5,7 @@ import profileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 import SearchBar from '../pages/SearchBar';
 
-const Header = ({ title, hasSearchBar }) => {
+const Header = ({ title, hasSearchBar, mode }) => {
   const [isSearchShowing, setIsSearchShowing] = useState(false);
 
   return (
@@ -20,9 +20,11 @@ const Header = ({ title, hasSearchBar }) => {
           type="button"
         >
           <img data-testid="search-top-btn" src={ SearchIcon } alt="Procurar" />
-        </button>)}
+        </button>)
+      }
+
       {isSearchShowing && (
-        <SearchBar />
+        <SearchBar mode={mode} />
       )}
     </header>
   );
