@@ -36,5 +36,9 @@ function Header({ props: { title, enableSearchButton, enableProfileButton } }) {
 export default Header;
 
 Header.propTypes = {
-  title: PropTypes.string.isRequired,
+  props: PropTypes.shape({
+    title: PropTypes.string,
+    enableSearchButton: PropTypes.bool,
+    enableProfileButton: PropTypes.bool,
+  }).isRequired,
 };
