@@ -1,7 +1,11 @@
 import React from 'react';
+import FooterMenu from '../components/FooterMenu';
 
 const Drinks = () => (
-  <div />
+  <>
+    <p>Drinks</p>
+    <FooterMenu />
+  </>
 );
 
 export default Drinks;
