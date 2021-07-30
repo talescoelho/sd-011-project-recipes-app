@@ -1,9 +1,10 @@
 import React from 'react';
+import LowerMenu from '../components/LowerMenu';
 
 function Profile() {
   return (
     <div>
-      Tela de perfil
+      <LowerMenu />
     </div>
   );
 }

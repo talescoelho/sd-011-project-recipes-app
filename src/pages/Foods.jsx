@@ -1,9 +1,10 @@
 import React from 'react';
+import LowerMenu from '../components/LowerMenu';
 
 function Foods() {
   return (
     <div>
-      Tela de comidas
+      <LowerMenu />
     </div>
   );
 }

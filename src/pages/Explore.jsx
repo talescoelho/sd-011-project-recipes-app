@@ -1,9 +1,10 @@
 import React from 'react';
+import LowerMenu from '../components/LowerMenu';
 
 function Explore() {
   return (
     <div>
-      Tela de explorar
+      <LowerMenu />
     </div>
   );
 }
