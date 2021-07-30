@@ -1,15 +1,16 @@
 import React from 'react';
 import '../styles/FoodCard.css';
 
-function FoodCard() {
-  const index = 1;
+function FoodCard({ recipe }) {
+  console.log(recipe);
+  const { index, strMeal, strMealThumb } = recipe;
   return (
     <div
       className="foodCardContainer"
     >
       <img
         className="foodImageRecipe"
-        src=""
+        src={ strMealThumb }
         alt=" Recipe"
         data-testid={ `${index}-card-img` }
       />
@@ -17,7 +18,9 @@ function FoodCard() {
         data-testid={ `${index}-card-name` }
         className="FoodNameRecipe"
       >
-        Recipes name
+        {
+          strMeal
+        }
       </p>
     </div>
   );
