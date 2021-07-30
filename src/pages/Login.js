@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { saveTokensAndEmail } from '../helpers/handleLocalStorage';
 
+// Página de Login, redireciona para página Foods ao entrar
 function Login() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [email, setEmail] = useState('');
 
+  // Valida os inputs de Login para abilitar o Button
   function validateLogin() {
     const formLogin = document.querySelector('.form-login');
     setIsButtonDisabled(!formLogin.checkValidity());
@@ -45,7 +47,6 @@ function Login() {
           Entrar
         </button>
       </Link>
-
     </form>
   );
 }
