@@ -12,6 +12,7 @@ export default function SearchBar() {
   const [foodType, setFoodType] = useState('');
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+  console.log(foodList);
 
   useEffect(() => {
     const type = pathname === '/bebidas' ? 'drinks' : 'meals';
@@ -33,7 +34,16 @@ export default function SearchBar() {
     }
   };
 
-  console.log(foodList);
+  const setValueAndChecked = ({ target }) => {
+    setRadioValue(target.value);
+    const checked = document.querySelector('.checked');
+    target.classList.add('checked');
+    target.setAttribute('checked', true);
+    if (checked) {
+      checked.setAttribute('checked', false);
+      checked.classList.remove('checked');
+    }
+  };
 
   return (
     <div className="searchBar-container">
@@ -52,13 +62,7 @@ export default function SearchBar() {
             name="search-option"
             data-testid="ingredient-search-radio"
             value="Ingrediente"
-            onChange={ ({ target }) => {
-              setRadioValue(target.value);
-            },
-              ({target}) => {
-                target.setAttribute('checked', true);
-              }
-            }
+            onChange={ setValueAndChecked }
           />
           Ingrediente
         </label>
@@ -69,12 +73,7 @@ export default function SearchBar() {
             name="search-option"
             data-testid="name-search-radio"
             value="Nome"
-            onChange={ 
-              ({ target }) => setRadioValue(target.value),
-              ({target}) => {
-                target.setAttribute('checked', true);
-              }
-            }
+            onChange={ setValueAndChecked }
           />
           Nome
         </label>
@@ -85,12 +84,7 @@ export default function SearchBar() {
             name="search-option"
             data-testid="first-letter-search-radio"
             value="Primeira_Letra"
-            onChange={ 
-              ({ target }) => setRadioValue(target.value),
-              ({target}) => {
-                target.setAttribute('checked', true);
-              }
-            }
+            onChange={ setValueAndChecked }
           />
           Primeira Letra
         </label>

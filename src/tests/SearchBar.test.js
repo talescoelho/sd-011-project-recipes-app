@@ -2,9 +2,9 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { render, fireEvent } from '@testing-library/react';
 import { createStore } from 'redux';
-import SearchBar from '../components/SearchBar';
-import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
+import { Router } from 'react-router-dom';
+import SearchBar from '../components/SearchBar';
 import rootReducers from '../reducers';
 
 const THREE = 3;
@@ -16,10 +16,10 @@ const renderWithReduxAndRouter = (component, {
   history = createMemoryHistory({ initialEntries }),
 } = {}) => ({
   ...render(
-    <Router history={history}>
-      <Provider store={store}>
-        {component}
-      </Provider>,
+    <Router history={ history }>
+      <Provider store={ store }>
+        { component }
+      </Provider>
     </Router>,
   ),
   store,
