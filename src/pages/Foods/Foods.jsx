@@ -1,10 +1,16 @@
 import React from 'react';
+import Footer from '../../globalComponents/Footer';
+import Header from '../../globalComponents/Header';
 
 function Foods() {
   return (
-    <div>
-      Foods
-    </div>
+    <>
+      <Header title="Comidas" glass="true" />
+      <div>
+        Foods
+      </div>
+      <Footer />
+    </>
   );
 }
 

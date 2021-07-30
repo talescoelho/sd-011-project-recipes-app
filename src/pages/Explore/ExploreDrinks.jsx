@@ -2,16 +2,16 @@ import React from 'react';
 import Footer from '../../globalComponents/Footer';
 import Header from '../../globalComponents/Header';
 
-function Profile() {
+function ExploreDrinks() {
   return (
     <>
-      <Header title="Perfil" />
+      <Header title="Explorar Bebidas" />
       <div>
-        Profile
+        Drinks
       </div>
       <Footer />
     </>
   );
 }
 
-export default Profile;
+export default ExploreDrinks;

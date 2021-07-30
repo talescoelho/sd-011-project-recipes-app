@@ -2,16 +2,14 @@ import React from 'react';
 import Footer from '../../globalComponents/Footer';
 import Header from '../../globalComponents/Header';
 
-function Profile() {
+function ExploreFoodIngredients() {
   return (
     <>
-      <Header title="Perfil" />
-      <div>
-        Profile
-      </div>
+      <Header title="Explorar Ingredientes" />
+      <div />
       <Footer />
     </>
   );
 }
 
-export default Profile;
+export default ExploreFoodIngredients;
