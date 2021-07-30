@@ -1,0 +1,10 @@
+.foodRecipesContainer {
+  align-items: center;
+  background-color: beige;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  overflow: auto;
+  height: 415px;
+  width: 360px;
+}
