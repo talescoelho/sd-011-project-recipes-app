@@ -2,8 +2,8 @@ import { RECEIVED_RECIPES_FOOD } from '../Actions/food';
 import { RECEIVED_RECIPES_DRINKS } from '../Actions/drink';
 
 const INITIAL_STATE = {
-  foodRecipes: [],
-  drinksRecipes: [],
+  foodRecipes: { meals: [] },
+  drinksRecipes: { drinks: [] },
 };
 
 function recipeReducer(state = INITIAL_STATE, action) {
