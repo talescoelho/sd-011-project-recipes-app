@@ -1,17 +1,17 @@
 export async function getCategories() {
-  const categories = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?c=list`);
+  const categories = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
   const result = await categories.json();
   return result.meals;
 }
 
 export async function getAreas() {
-  const areas = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?a=list`);
+  const areas = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
   const result = await areas.json();
   return result.meals;
 }
 
 export async function getIngredients() {
-  const ingredients = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?i=list`);
+  const ingredients = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
   const result = await ingredients.json();
   return result.meals;
 }
@@ -19,7 +19,7 @@ export async function getIngredients() {
 export async function searchByIngredient(ingredient) {
   const ingredients = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
   const result = await ingredients.json();
-  
+
   return result.meals;
 }
 
@@ -48,7 +48,7 @@ export async function serachImage(ingredientImage) {
 }
 
 export async function searchRandonMeal() {
-  const randomMeal = await fetch(`https://www.themealdb.com/api/json/v1/1/random.php`);
+  const randomMeal = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
   const result = await randomMeal.json();
   return result.meals[0];
 }
