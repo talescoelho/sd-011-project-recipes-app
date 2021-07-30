@@ -14,20 +14,32 @@ export async function fetchExploreFoodsArea() {
   return meals;
 }
 
-ingredientes: https://www.themealdb.com/api/json/v1/1/list.php?i=list
-
-
-foto: https://www.themealdb.com/images/ingredients/{nome-do-ingrediente}.png
+export async function fetchExploreFoodsIngredients() {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+  const { meals } = await response.json();
+  return meals;
+}
 
 // FETCH PAGINA DE BEBIDAS
 
-categorias: https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list
+export async function fetchCocktailsCategories() {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+  const { drinks } = await response.json();
+  return drinks;
+}
 
 // FETCH PAGINA DE EXPLORAR BEBIDAS
+export async function fetchExploreCocktailsArea() {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?a=list');
+  const { drinks } = await response.json();
+  return drinks;
+}
 
-areas: https://www.thecocktaildb.com/api/json/v1/1/list.php?a=list
-ingredientes: https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list
-foto: https://www.thecocktaildb.com/images/ingredients/{nome-do-ingrediente}.png
+export async function fetchExploreCocktailsIngredients() {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+  const { drinks } = await response.json();
+  return drinks;
+}
 
 // SEARCHBAR FOODAPI
 
