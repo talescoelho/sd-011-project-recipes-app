@@ -3,12 +3,11 @@ import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 // import PropTypes from 'prop-types';
 
-function MainRecipesScreen() {
+function Foods() {
   return (
     <div>
       <h1 data-testid="page-title">Comidas</h1>
       <img
-        to="/perfil"
         data-testid="profile-top-btn"
         src={ profileIcon }
         alt="Botão que direciona para a tela de perfil"
@@ -22,4 +21,4 @@ function MainRecipesScreen() {
   );
 }
 
-export default MainRecipesScreen;
+export default Foods;
