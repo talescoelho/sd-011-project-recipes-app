@@ -70,8 +70,9 @@
   position:fixed;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  width: 50%;
-  background-color: grey;
+  justify-content: space-around;
+  width: 100%;
+  background-color: #adb5bd;
   bottom: 0;
+  transform: translate(-12.5%, 0%)
 }
