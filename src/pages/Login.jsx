@@ -29,13 +29,11 @@ class Login extends Component {
   setLocalStorage() {
     const { email } = this.state;
     const userInfos = {
-      mealsToken: 0,
-      cocktailsToken: 0,
-      user: {
-        email,
-      },
+      email,
     };
-    return localStorage.setItem('state', JSON.stringify(userInfos));
+    localStorage.setItem('user', JSON.stringify(userInfos));
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
   }
 
   validateEmail(email) {
@@ -59,9 +57,11 @@ class Login extends Component {
 
   submitLogin(event) {
     event.preventDefault();
-    const { setEmailAction } = this.props;
+    const { setEmailAction, history } = this.props;
     const { email } = this.state;
     setEmailAction(email);
+    history.push('/comidas');
+    this.setLocalStorage();
   }
 
   render() {
@@ -96,7 +96,7 @@ class Login extends Component {
           <button
             type="submit"
             data-testid="login-submit-btn"
-            onClick={ (e) => this.submitLogin(e) }
+            onClick={ (event) => this.submitLogin(event) }
             disabled={ isDisable }
           >
             Entrar

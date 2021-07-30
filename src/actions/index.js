@@ -1,6 +1,6 @@
-export const SET_EMAIL = 'SET_EMAIL';
+export const USER_EMAIL = 'USER_EMAIL';
 
 export const setEmail = (payload) => ({
-  type: SET_EMAIL,
+  type: USER_EMAIL,
   payload,
 });
