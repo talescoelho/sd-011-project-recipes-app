@@ -33,7 +33,11 @@ function Cards(props) {
               data-testid={ `${indexMap}-recipe-card` }
             >
               <h5 data-testid={ `${indexMap}-card-name` }>{meal.strMeal}</h5>
-              <img src="" alt={ meal.strMeal } data-testid={ `${indexMap}-card-img` } />
+              <img
+                src={ meal.strMealThumb }
+                alt={ meal.strMeal }
+                data-testid={ `${indexMap}-card-img` }
+              />
             </div>
           ))
       );
@@ -45,13 +49,17 @@ function Cards(props) {
       const maxListRender = 12;
       return (
         cocktailsAPI.filter((__, index) => index < maxListRender)
-          .map((meal, indexMap) => (
+          .map((drink, indexMap) => (
             <div
               key={ indexMap }
               data-testid={ `${indexMap}-recipe-card` }
             >
-              <h5 data-testid={ `${indexMap}-card-name` }>{meal.strDrink}</h5>
-              <img src="" alt={ meal.strDrink } data-testid={ `${indexMap}-card-img` } />
+              <h5 data-testid={ `${indexMap}-card-name` }>{drink.strDrink}</h5>
+              <img
+                src={ drink.strDrinkThumb }
+                alt={ drink.strDrink }
+                data-testid={ `${indexMap}-card-img` }
+              />
             </div>
           ))
       );
