@@ -10,6 +10,9 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
+        <Route path="/bebidas" />
+        <Route path="/comidas" />
+        <Route path="/explorar" />
       </Switch>
     </BrowserRouter>
   );
