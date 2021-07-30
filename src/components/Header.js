@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import SearchIcon from '../images/searchIcon.svg';
 import ProfileIcon from '../images/profileIcon.svg';
+import SearchBar from './SearchBar';
 
 class Header extends Component {
   constructor(props) {
@@ -57,7 +58,7 @@ class Header extends Component {
   centralHeader() {
     const { disabled } = this.state;
     return (
-      !disabled ? (<p>AQUI SERA A SEARCHBAR</p>) : null
+      !disabled ? (<SearchBar />) : null
     );
   }
 
