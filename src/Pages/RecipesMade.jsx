@@ -1,11 +1,10 @@
 import React from 'react';
 import profileIcon from '../images/profileIcon.svg';
-// import PropTypes from 'prop-types';
 
-function Profile() {
+function RecipesMade() {
   return (
     <div>
-      <h1 data-testid="page-title">Perfil</h1>
+      <h1 data-testid="page-title">Receitas Feitas</h1>
       <img
         data-testid="profile-top-btn"
         src={ profileIcon }
@@ -15,4 +14,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default RecipesMade;
