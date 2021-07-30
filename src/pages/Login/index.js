@@ -5,7 +5,7 @@ import Input from '../../components/Input';
 import { addEmail } from '../../redux/actions';
 
 const Login = () => {
-  const [emailUser, setEmailUser] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
   const history = useHistory();
@@ -15,23 +15,26 @@ const Login = () => {
     const checkEmail = () => {
       const validEmail = /^[a-zA-Z]+@[a-zA-Z]+\.[com]{3,}$/i;
       const length = 6;
-      if (emailUser.match(validEmail) && password.length > length) {
+
+      if (email.match(validEmail) && password.length > length) {
         setDisabled(false);
       } else {
         setDisabled(true);
       }
     };
     checkEmail();
-  }, [password, emailUser]);
+  }, [password, email]);
 
   function handleClick() {
-    const emailLS = { email: emailUser };
+    const emailLS = { email };
     const stringifyEmailLS = JSON.stringify(emailLS);
+
     window.localStorage.mealsToken = 1;
     window.localStorage.cocktailsToken = 1;
     window.localStorage.user = stringifyEmailLS;
+
     history.push('/comidas');
-    dispatch(addEmail(emailUser));
+    dispatch(addEmail(email));
   }
 
   return (
@@ -42,7 +45,7 @@ const Login = () => {
           data-testid="email-input"
           id="email"
           name="email"
-          setValue={ setEmailUser }
+          setValue={ setEmail }
           label="Email:"
         />
         <br />
