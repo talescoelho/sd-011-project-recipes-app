@@ -14,14 +14,14 @@ function Footer() {
           alt="Icon Dring"
         />
       </Link>
-      <Link to="/">
+      <Link to="/explorar">
         <img
           data-testid="explore-bottom-btn"
           src={ exploreIcon }
           alt="Icon Explore"
         />
       </Link>
-      <Link to="/">
+      <Link to="/comidas">
         <img
           data-testid="food-bottom-btn"
           src={ mealIcon }
