@@ -1,14 +1,22 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import Footer from '../components/Footer';
 import Header from '../components/Header';
+import SearchBarProvider from '../context/searchBarProvider';
+import Footer from '../components/Footer';
+import RecipesCards from '../components/RecipesCards';
 
 export default function Foods({ type }) {
   const showSearchButton = true;
+
   return (
-    <div>
+    <SearchBarProvider>
       <Header pageName={ type } showSearchButton={ showSearchButton } />
-      { type }
+      <RecipesCards type={ type } />
       <Footer />
-    </div>
+    </SearchBarProvider>
   );
 }
+
+Foods.propTypes = {
+  type: PropTypes.string.isRequired,
+};

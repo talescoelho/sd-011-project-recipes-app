@@ -34,12 +34,12 @@ export default function Routes() {
       <Route
         exact
         path="/explorar/comidas/ingredientes"
-        render={ () => <Ingredients type="comidas" /> }
+        render={ () => <Ingredients type="Comidas" /> }
       />
       <Route
         exact
         path="/explorar/bebidas/ingredientes"
-        render={ () => <Ingredients type="bebidas" /> }
+        render={ () => <Ingredients type="Bebidas" /> }
       />
       <Route exact path="/explorar/comidas/area" component={ OriginLocal } />
       <Route exact path="/receitas-feitas" component={ DoneRecipes } />

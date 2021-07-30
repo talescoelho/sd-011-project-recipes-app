@@ -36,7 +36,7 @@ function Header({ pageName, showSearchButton }) {
         <h2 data-testid="page-title">{ pageName }</h2>
         { showSearchButton ? searchButton : null }
       </div>
-      { showSearchBar ? <SearchBar /> : null }
+      { showSearchBar ? <SearchBar type={ pageName } /> : null }
     </div>
 
   );
