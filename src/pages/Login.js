@@ -14,6 +14,11 @@ function Login() {
   const [password, setPassword] = React.useState('');
   const [isFormValid, setIsFormValid] = React.useState(false);
 
+  function handleLoginSubmit() {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+  }
+
   React.useEffect(() => {
     const formValidation = () => {
       const isValid = EMAIL_REGEX.test(email) && password.length > minPasswordLength;
@@ -54,6 +59,7 @@ function Login() {
         <button
           type="button"
           disabled={ !isFormValid }
+          onClick={ handleLoginSubmit }
           data-testid="login-submit-btn"
         >
           Entrar
