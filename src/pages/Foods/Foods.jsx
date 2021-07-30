@@ -1,10 +1,14 @@
 import React from 'react';
+import Footer from '../../globalComponents/Footer';
 
 function Foods() {
   return (
-    <div>
-      Foods
-    </div>
+    <>
+      <div>
+        Foods
+      </div>
+      <Footer />
+    </>
   );
 }
 

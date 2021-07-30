@@ -1,13 +1,15 @@
 import React from 'react';
 import Footer from '../../globalComponents/Footer';
 
-function Drinks() {
+function Profile() {
   return (
     <>
-      <div>Drinks</div>
+      <div>
+        Profile
+      </div>
       <Footer />
     </>
   );
 }
 
-export default Drinks;
+export default Profile;
