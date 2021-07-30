@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Header from '../components/Header';
+import OneResultSearch from '../components/OneResultSearch';
+import GlobalContext from '../context/GlobalContext';
 
 function Foods() {
+  const { catalog } = useContext(GlobalContext);
+  const headerProps = {
+    title: 'Comidas',
+    enableSearchButton: true,
+    enableProfileButton: true,
+  };
   return (
     <div>
-      <Header title="Comidas" />
+      { catalog
+      && <OneResultSearch />}
+      <Header props={ headerProps } />
     </div>
   );
 }
