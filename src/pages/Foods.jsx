@@ -1,14 +1,26 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { requestMealsAPI } from '../redux/actions/mealsReducerActions';
+import {
+  requestMealsAPI,
+  requestMealsFilters,
+} from '../redux/actions/mealsReducerActions';
+import FilterByCategoryName from '../components/filterByCategoryName';
 
-const Foods = ({ requestFoods, loading, error, meals }) => {
+const Foods = ({
+  dispatch,
+  error,
+  loadingFilterOptions,
+  categoryNames,
+  loadingMeals,
+  meals,
+}) => {
   useEffect(() => {
-    requestFoods();
-  }, [requestFoods]);
+    dispatch(requestMealsAPI());
+    dispatch(requestMealsFilters());
+  }, [dispatch]);
 
-  if (loading) {
+  if (loadingMeals) {
     return (<div>Loading...</div>);
   }
 
@@ -18,6 +30,13 @@ const Foods = ({ requestFoods, loading, error, meals }) => {
 
   return (
     <>
+      <div>
+        {
+          (loadingFilterOptions)
+            ? (<div>Loading...</div>)
+            : (<FilterByCategoryName categoryNames={ categoryNames } />)
+        }
+      </div>
       {
         meals.map(({ strMeal, strMealThumb }, index) => (
           <div key={ index } data-testid={ `${index}-recipe-card` }>
@@ -36,25 +55,26 @@ const Foods = ({ requestFoods, loading, error, meals }) => {
 };
 
 const mapStateToProps = (state) => ({
+  loadingFilterOptions: state.mealsReducer.filters.isLoading,
+  categoryNames: state.mealsReducer.filters.options,
   meals: state.mealsReducer.meals,
-  loading: state.mealsReducer.isLoading,
+  loadingMeals: state.mealsReducer.isLoading,
   error: state.mealsReducer.error,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  requestFoods: () => dispatch(requestMealsAPI()),
-});
-
 Foods.propTypes = {
-  requestFoods: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  loadingFilterOptions: PropTypes.bool.isRequired,
+  categoryNames: PropTypes.arrayOf(PropTypes.string),
+  loadingMeals: PropTypes.bool.isRequired,
   error: PropTypes.string,
   meals: PropTypes.arrayOf(PropTypes.object),
 };
 
 Foods.defaultProps = {
+  categoryNames: [],
   meals: [],
   error: null,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Foods);
+export default connect(mapStateToProps)(Foods);
