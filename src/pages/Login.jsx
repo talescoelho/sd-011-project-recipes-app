@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 
 export default function Login() {
   const [loginEmail, setLoginEmail] = useState('');
-
   const [loginPassword, setLoginPassword] = useState('');
-
   const [LoginButtonStatus, setLoginButtonStatus] = useState(true);
 
   const handleInputVerify = ({ target }) => {
-    const PASSWORD_MIN_LENGTH = 8;
+    const PASSWORD_MIN_LENGTH = 6;
     const EMAIL_INPUT = target.name === 'email' && target.value;
     const PASSWORD_INPUT = target.name === 'password' && target.value;
 
@@ -18,11 +16,11 @@ export default function Login() {
   };
 
   const handleSubmit = (event) => {
+    event.preventDefault();
     const emailObject = { email: loginEmail };
     localStorage.setItem('user', JSON.stringify(emailObject));
     localStorage.setItem('mealsToken', JSON.stringify(1));
     localStorage.setItem('cocktailsToken', JSON.stringify(1));
-    event.preventDefault();
     window.location.pathname = '/comidas';
   };
 
@@ -41,6 +39,7 @@ export default function Login() {
           />
         </label>
         <label htmlFor="password">
+          Senha:
           <input
             type="password"
             name="password"
