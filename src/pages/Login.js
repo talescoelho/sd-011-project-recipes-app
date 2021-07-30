@@ -66,7 +66,7 @@ function Login() {
           name="password"
           data-testid="password-input"
           type="password"
-          placeholder="Seu Email"
+          placeholder="Seu Senha"
           onChange={ handleLogin }
         />
       </label>
