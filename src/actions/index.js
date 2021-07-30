@@ -86,53 +86,6 @@ export const getCategoriesFromApi = (mealsOrDrinks) => async (dispatch) => {
     }
   }
 };
-
-// -----------------------------FUNÇÃO PARA RESQUISIÇÃO DA BUSCAR--------------------------------------------------------------
-
-export const getSearchsFromApi = (mealsOrDrinks, input, radio) => async (dispatch) => {
-  if (mealsOrDrinks === 'drinks') {
-    dispatch(getDrinks());
-    try {
-      let URL = '';
-      switch (radio) {
-      case 'ingredient':
-        URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${input}`;
-        break;
-      case 'name':
-        URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${input}`;
-        break;
-      default:
-        URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${input}`;
-        break;
-      }
-      const dataFromApi = await fetchFromApi(URL);
-      dispatch(getDrinksSuccess(dataFromApi.drinks));
-    } catch (error) {
-      console.error(error);
-    }
-  } else {
-    dispatch(getFoods());
-    try {
-      let URL = '';
-      switch (radio) {
-      case 'ingredient':
-        URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${input}`;
-        break;
-      case 'name':
-        URL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`;
-        break;
-      default:
-        URL = `https://www.themealdb.com/api/json/v1/1/search.php?f=${input}`;
-        break;
-      }
-      const dataFromApi = await fetchFromApi(URL);
-      dispatch(getFoodsSuccess(dataFromApi.meals));
-    } catch (error) {
-      console.error(error);
-    }
-  }
-};
-
 // -----------------------------FUNÇÃO PARA GEStÃO LOGIN USUÁRIO--------------------------------------------------------------
 
 function SendEmail(email) {

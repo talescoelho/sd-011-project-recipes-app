@@ -26,16 +26,8 @@ function App() {
         <Route exact path="/explorar" component={ Explorar } />
         <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
         <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
-        <Route
-          exact
-          path="/comidas/:id"
-          render={ (props) => <DetalhesComidas { ...props } /> }
-        />
-        <Route
-          exact
-          path="/bebidas/:id"
-          render={ (props) => <DetalhesBebidas { ...props } /> }
-        />
+        <Route exact path="/comidas/:id" component={ DetalhesComidas } />
+        <Route exact path="/bebidas/:id" component={ DetalhesBebidas } />
         <Route
           exact
           path="/explorar/comidas/ingredientes"

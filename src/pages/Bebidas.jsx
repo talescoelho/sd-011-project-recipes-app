@@ -19,7 +19,7 @@ class Bebidas extends React.Component {
     const showSearchButton = true;
     return (
       <div>
-        <Header title="Bebidas" showSearchButton={ showSearchButton } typeFood="drinks" />
+        <Header title="Bebidas" showSearchButton={ showSearchButton } />
         <FiltersFromCategories categories={ categories } />
         <Cards itemsToRender={ drinksDataBase } typeFood="drink" />
         <Footer />
