@@ -1,5 +1,6 @@
 import React from 'react';
 import rockGlass from '../images/rockGlass.svg';
+import DetailsFoods from './DetailsFoods';
 
 export default function Login() {
   return (
@@ -9,6 +10,7 @@ export default function Login() {
         Glass
       </object>
       Login
+      <DetailsFoods />
     </div>
   );
 }
