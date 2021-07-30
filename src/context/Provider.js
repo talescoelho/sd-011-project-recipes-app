@@ -15,7 +15,7 @@ function Provider({ children }) {
         .then((data) => console.log(data)));
   };
 
-  const filterSearchHeader = () => {
+  const filterFoodSearchHeader = () => {
     switch (inputValue.radioInput) {
     case 'ingrediente':
       fetchSearchHeader(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputValue.searchInput}`);
@@ -36,12 +36,34 @@ function Provider({ children }) {
     }
   };
 
+  const filterDrinkSearchHeader = () => {
+    switch (inputValue.radioInput) {
+    case 'ingrediente':
+      fetchSearchHeader(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputValue.searchInput}`);
+      break;
+    case 'nome':
+      fetchSearchHeader(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue.searchInput}`);
+      break;
+    case 'first-letter':
+      if (inputValue.searchInput.length !== 1) {
+        setInputValue({ ...inputValue, searchInput: '' });
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      } else {
+        fetchSearchHeader(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputValue.searchInput}`);
+      }
+      break;
+    default:
+      alert('Nenhum filtro selecionado.');
+    }
+  };
+
   const context = {
     showInput,
     setShowInput,
     inputValue,
     setInputValue,
-    filterSearchHeader,
+    filterFoodSearchHeader,
+    filterDrinkSearchHeader,
   };
 
   return (

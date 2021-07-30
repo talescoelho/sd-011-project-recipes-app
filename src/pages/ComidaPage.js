@@ -8,7 +8,7 @@ export default function ComidaPage() {
   return (
     <div>
       <Header text="Comidas" lupa />
-      {showInput && <SearchBar />}
+      {showInput && <SearchBar type="food" />}
     </div>
   );
 }

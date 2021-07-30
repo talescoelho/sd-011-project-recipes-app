@@ -1,8 +1,14 @@
+import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import AppContext from '../context/AppContext';
 
-function SearchBar() {
-  const { inputValue, setInputValue, filterSearchHeader } = useContext(AppContext);
+function SearchBar({ type }) {
+  const {
+    inputValue,
+    setInputValue,
+    filterFoodSearchHeader,
+    filterDrinkSearchHeader,
+  } = useContext(AppContext);
 
   return (
     <div>
@@ -56,7 +62,10 @@ function SearchBar() {
             <button
               type="button"
               data-testid="exec-search-btn"
-              onClick={ () => filterSearchHeader() }
+              onClick={ () => {
+                if (type === 'food') filterFoodSearchHeader();
+                if (type === 'drink') filterDrinkSearchHeader();
+              } }
             >
               Pesquisar
             </button>
@@ -66,5 +75,9 @@ function SearchBar() {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  type: PropTypes.string.isRequired,
+};
 
 export default SearchBar;
