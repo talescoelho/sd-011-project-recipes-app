@@ -17,16 +17,16 @@ export default function Header({ recipeType, title }) {
       <Nav>
         <button
           type="button"
-          data-testids="profile-top-btn"
+          data-testid="profile-top-btn"
           onClick={ () => history.push('/perfil') }
         >
           <img src={ Profile } alt="user" />
         </button>
-        <h1 data-testids="page-title">{title}</h1>
+        <h1 data-testid="page-title">{title}</h1>
         <button
           type="button"
           onClick={ handleClick }
-          data-testids="search-top-btn"
+          data-testid="search-top-btn"
         >
           <img src={ Search } alt="user" />
         </button>
