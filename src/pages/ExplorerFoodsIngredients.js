@@ -1,13 +1,11 @@
 import React from 'react';
 import Footer from '../components/Footer';
 
-function ToExplore() {
+export default function ExplorerFoodsIngredients() {
   return (
     <main>
-      <h1>Explorar</h1>
+      <h1>ExplorerFoodsIngredients</h1>
       <Footer />
     </main>
   );
 }
-
-export default ToExplore;
