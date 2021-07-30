@@ -1,15 +1,13 @@
-// alterar com as informacoes necessarias
-import { NEW_ACTION } from '../actions';
+import { ADD_EMAIL } from '../actions';
 
 const INITIAL_STATE = {
-  state: '',
+  email: '',
 };
 
-// alterar com as informacoes necessarias
 function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case NEW_ACTION:
-    return { state: action.state };
+  case ADD_EMAIL:
+    return { ...state, email: action.email };
   default:
     return state;
   }
