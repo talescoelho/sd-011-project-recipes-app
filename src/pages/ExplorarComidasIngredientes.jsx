@@ -2,16 +2,15 @@ import React, { Component } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-class Explorar extends Component {
+class ExplorarComidasIngredientes extends Component {
   render() {
-    const title = 'Explorar';
-    const search = 'off';
+    const title = 'Explorar Comidas Ingredientes';
+    const lupa = 'desligado';
     return (
       <main>
-        Explorar
         <Header
           title={ title }
-          search={ search }
+          lupa={ lupa }
         />
         <Footer />
       </main>
@@ -19,4 +18,4 @@ class Explorar extends Component {
   }
 }
 
-export default Explorar;
+export default ExplorarComidasIngredientes;

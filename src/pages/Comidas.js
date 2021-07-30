@@ -7,6 +7,7 @@ class Comidas extends Component {
     super();
     this.state = {
       meals: [],
+      title: 'Comidas',
     };
   }
 
@@ -23,12 +24,12 @@ class Comidas extends Component {
   }
 
   render() {
-    const { meals } = this.state;
+    const { meals, title } = this.state;
     console.log(meals);
     return (
       <main>
-        Comidas
-        <Header />
+        {/* <span>Comidas</span> */}
+        <Header title={ title } />
         <Footer />
       </main>
     );
