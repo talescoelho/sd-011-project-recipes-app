@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from '../components/Header';
 
-export default function Perfil() {
+export default function ExplorarComida() {
   return (
     <div>
-      <Header text="Perfil" lupa={ false } />
+      <Header lupa={ false } text="Explorar Comidas" />
     </div>
   );
 }

@@ -13,7 +13,7 @@ export default function Login() {
 
   const validateInputs = () => {
     const regex = /.+@.+\.[A-Za-z]+$/.test(loginInput.email);
-    if (regex && loginInput.password.length >= passwordLimit) {
+    if (regex && loginInput.password.length > passwordLimit) {
       setValidate({ validate: true });
     }
   };
