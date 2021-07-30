@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getSearchsFromApi } from '../actions';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-export default class Header extends Component {
+class Header extends Component {
   constructor() {
     super();
     this.state = {
       showInput: false,
+      input: '',
+      radio: '',
     };
     this.handleStateOnClick = this.handleStateOnClick.bind(this);
+    this.handleStateOnChange = this.handleStateOnChange.bind(this);
+    this.callApi = this.callApi.bind(this);
   }
 
   handleStateOnClick() {
@@ -18,6 +24,23 @@ export default class Header extends Component {
     this.setState({
       showInput: !showInput,
     });
+  }
+
+  handleStateOnChange({ target }) {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  callApi() {
+    const { input, radio } = this.state;
+    const { typeFood, fetchSearchFilters } = this.props;
+    if (radio === 'first-letter' && input.length > 1) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    } else {
+      fetchSearchFilters(typeFood, input, radio);
+    }
   }
 
   render() {
@@ -48,36 +71,53 @@ export default class Header extends Component {
           ? (
             <>
               <label htmlFor="search">
-                <input type="text" data-testid="search-input" />
+                <input
+                  name="input"
+                  type="text"
+                  data-testid="search-input"
+                  onChange={ (event) => this.handleStateOnChange(event) }
+                />
               </label>
               <br />
               <label htmlFor="radio">
                 <input
+                  value="ingredient"
                   name="radio"
                   data-testid="ingredient-search-radio"
                   type="radio"
+                  onChange={ (event) => this.handleStateOnChange(event) }
                 />
                 Ingrediente
               </label>
 
               <label htmlFor="radio">
                 <input
+                  value="name"
                   name="radio"
                   data-testid="name-search-radio"
                   type="radio"
+                  onChange={ (event) => this.handleStateOnChange(event) }
                 />
                 Nome
               </label>
               <label htmlFor="radio">
                 <input
+                  value="first-letter"
                   name="radio"
                   data-testid="first-letter-search-radio"
                   type="radio"
+                  onChange={ (event) => this.handleStateOnChange(event) }
                 />
                 Primeira Letra
               </label>
               <br />
-              <button data-testid="exec-search-btn" type="button">Buscar</button>
+              <button
+                data-testid="exec-search-btn"
+                type="button"
+                onClick={ (event) => this.callApi(event) }
+              >
+                Buscar
+              </button>
             </>
           ) : <div />}
       </div>
@@ -88,3 +128,11 @@ export default class Header extends Component {
 Header.propTypes = {
   title: PropTypes.string,
 }.isRequired;
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchSearchFilters:
+    (mealsOrDrinks, input, radio) => (
+      dispatch(getSearchsFromApi(mealsOrDrinks, input, radio))),
+});
+
+export default connect(null, mapDispatchToProps)(Header);
