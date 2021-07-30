@@ -3,7 +3,9 @@ import Footer from '../components/Footer';
 
 function MainPage() {
   return (
-    <Footer />
+    <div className="recipes">
+      <Footer />
+    </div>
   );
 }
 
