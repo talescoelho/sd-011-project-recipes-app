@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Layout } from '../components';
 
 const Login = () => (
   <Layout>
     <main>
-      <h1>oi mundo!</h1>
+      <form>
+        <input
+          type="email"
+        />
+      </form>
     </main>
   </Layout>
 );
