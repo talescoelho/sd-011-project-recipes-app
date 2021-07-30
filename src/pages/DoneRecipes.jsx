@@ -3,7 +3,7 @@ import React from 'react';
 function DoneRecipes() {
   return (
     <div>
-      Tela de Receitas Prontas
+      Tela De Receitas Prontas
     </div>
   );
 }
