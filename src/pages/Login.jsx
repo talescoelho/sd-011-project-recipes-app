@@ -8,11 +8,16 @@ function Login() {
     setPassword,
   } = useContext(AppContext);
 
+  function handleClick() {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+  }
+
   const verifyEmailAndPassword = () => {
     const reg = /\S+@\S+\.\S+/
       .test(email);
     const maxLenght = 6;
-    if (reg && password.length > maxLenght) {
+    if (reg && password.length >= maxLenght) {
       return false;
     }
     return true;
@@ -36,6 +41,7 @@ function Login() {
         type="button"
         data-testid="login-submit-btn"
         disabled={ verifyEmailAndPassword() }
+        onClick={ handleClick }
       >
         Entrar
       </button>
