@@ -1,7 +1,9 @@
 import React from 'react';
 
-const NotFound = (props) => (
-      
-  );
+const NotFound = () => (
+  <>
+  </>
+
+);
 
 export default NotFound;
