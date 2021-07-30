@@ -7,19 +7,55 @@ import searchIcon from '../images/searchIcon.svg';
 function Header({ value }) {
   const history = useHistory();
   const { pageName, setIcon } = value;
-  const [showInput, setShowInput] = useState(false);
+  const [showSearchBar, setShowSearchBar] = useState(false);
 
   function isVerified() {
-    if (showInput === false) {
-      return setShowInput(true);
+    if (showSearchBar === false) {
+      return setShowSearchBar(true);
     }
-    return setShowInput(false);
+    return setShowSearchBar(false);
   }
 
   function hiddenInput() {
-    if (showInput) {
+    if (showSearchBar) {
       return (
-        <input type="text" data-testid="search-input" />
+        <div>
+          <input type="text" data-testid="search-input" />
+          <label htmlFor="search-ingredients">
+            Ingredientes
+            <input
+              id="search-ingredients"
+              type="radio"
+              data-testid="ingredient-search-radio"
+              name="search--name"
+            />
+          </label>
+          <label htmlFor="search-name">
+            Nome
+            <input
+              id="search-name"
+              type="radio"
+              data-testid="name-search-radio"
+              name="search--name"
+            />
+          </label>
+          <label htmlFor="search-firstLetter">
+            Primeira Letra
+            <input
+              id="search-firstLetter"
+              type="radio"
+              data-testid="first-letter-search-radio"
+              name="search--name"
+            />
+          </label>
+          <button
+            type="button"
+            data-testid="exec-search-btn"
+          >
+            Buscar
+          </button>
+        </div>
+
       );
     }
   }
