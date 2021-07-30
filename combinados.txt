@@ -27,5 +27,4 @@ Nome do grupo: EM BREVE
 
 8. Por último e menos importante, somente apenas good vibes!!!
 
-Atualizações:
-EM Login.jsx, substituir o onClick para <Link>
+9.LINK DO PR DA MASTER: https://github.com/tryber/sd-011-project-recipes-app/pull/174

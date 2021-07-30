@@ -31,7 +31,7 @@ function App() {
         <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ ExploreFoods } />
-        <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
+        <Route exact path="/explorar/bebidas/" component={ ExploreDrinks } />
         <Route
           exact
           path="/explorar/comidas/ingredientes"
