@@ -14,24 +14,25 @@ function SearchBar({ title }) {
   const history = useHistory();
 
   function RedirectDetails(foods) {
-    console.log(foods.drinks[0]);
-    if (foods.drinks.length === 1) {
-      if (foods.drinks[0].idDrink) {
+    if (foods.drinks) {
+      if (foods.drinks.length === 1) {
         const { idDrink } = foods.drinks[0];
-        // push(`/bebidas/${idDrink}`);
         history.push({
           pathname: `/bebidas/${idDrink}`,
         });
       }
+      const TRUE = true;
+      if (TRUE) return null;
     }
-    if (foods.meals.length === 1) {
-      if (foods.meals[0].idMeal) {
+    if (foods.meals) {
+      if (foods.meals.length === 1) {
         const { idMeal } = foods.meals[0];
-        // push(`/comidas/${idMeal}`);
         history.push({
           pathname: `/comidas/${idMeal}`,
         });
       }
+      const TRUE = true;
+      if (TRUE) return null;
     }
   }
 
