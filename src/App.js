@@ -4,6 +4,7 @@ import Login from './pages/Login';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NotFound from './pages/NotFound';
+import Foods from './pages/foods/Foods';
 import './App.css';
 
 function App() {
@@ -23,8 +24,8 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-        {/* <Route exact path="/comidas" component={ Foods } />
-      <Route exact path="/bebidas" component={ Drinks } />
+        <Route exact path="/comidas" component={ Foods } />
+        {/* <Route exact path="/bebidas" component={ Drinks } />
       <Route exact path="/comidas/:id" component={ FoodRecipes } />
       <Route exact path="/bebidas/:id" component={ DrinkRecipes } />
       <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
