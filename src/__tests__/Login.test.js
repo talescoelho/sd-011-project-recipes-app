@@ -15,8 +15,11 @@ const VALID_LOGIN = {
 };
 
 describe('Pagina de Login', () => {
+  let history;
+
   beforeEach(() => {
-    render(<Login />);
+    const utils = render(<Login />);
+    history = utils.history;
   });
 
   describe('Possui os campos corretos no formulário', () => {
@@ -120,6 +123,20 @@ describe('Pagina de Login', () => {
       const expectedStrg = JSON.stringify({ email: VALID_LOGIN.email });
 
       await waitFor(() => expect(window.localStorage.getItem('user')).toBe(expectedStrg));
+    });
+
+    it('Redireciona para a página principal de comidas', async () => {
+      const emailInput = screen.getByTestId(TEST_IDS.email);
+      const passwordInput = screen.getByTestId(TEST_IDS.password);
+      fireEvent.change(emailInput, { target: { value: VALID_LOGIN.email } });
+      fireEvent.change(passwordInput, { target: { value: VALID_LOGIN.password } });
+
+      const button = screen.getByTestId(TEST_IDS.submitButton);
+      await waitFor(() => expect(button).not.toBeDisabled());
+
+      fireEvent.click(button);
+
+      await waitFor(() => expect(history.location.pathname).toBe('/comidas'));
     });
   });
 });
