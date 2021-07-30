@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
+import recipesContext from '../provider/recipesContext';
 
 function Searchbar() {
   const [inputRadio, setInputRadio] = useState('');
   const [searchBar, setSearchbar] = useState('');
+  const { searchResults, setSearchResults } = useContext(recipesContext);
 
   function selectedInput({ target: { value } }) {
     setInputRadio(value);
   }
-  function umafuncao() {
-    console.log(inputRadio);
-    console.log(searchBar.length);
-  }
+
   function setSearchBarFunction({ target: { value } }) {
     setSearchbar(value);
   }
@@ -32,11 +32,15 @@ function Searchbar() {
     if (url === 'error') {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    fetch(url).then((response) => response.json()).then((json) => console.log(json));
-    console.log(url)
+    fetch(url).then((response) => response.json()).then(
+      (json) => (json.meals === null ? (
+        alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
+      ) : setSearchResults(json.meals)),
+    );
   }
   return (
     <form>
+      { searchResults.length === 1 ? <Redirect to={ `comidas/${searchResults[0]}` } /> : null }
       <input
         onChange={ (event) => setSearchBarFunction(event) }
         type="text"

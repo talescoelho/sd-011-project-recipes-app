@@ -3,11 +3,14 @@ import './App.css';
 import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Searchbar from './components/Searchbar';
+import RecipesProvider from './provider/recipesProvider';
 
 function App() {
   return (
     <div>
-      <Searchbar />
+      <RecipesProvider>
+        <Searchbar />
+      </RecipesProvider>
       <div className="meals">
         <span className="logo">TRYBE</span>
         <object
