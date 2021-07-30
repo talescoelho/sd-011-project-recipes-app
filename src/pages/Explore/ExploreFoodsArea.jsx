@@ -1,13 +1,15 @@
 import React from 'react';
 import Footer from '../../globalComponents/Footer';
 
-function Drinks() {
+function ExploreFoodsArea() {
   return (
     <>
-      <div>Drinks</div>
+      <div>
+        Foods Area
+      </div>
       <Footer />
     </>
   );
 }
 
-export default Drinks;
+export default ExploreFoodsArea;
