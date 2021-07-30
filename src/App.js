@@ -1,7 +1,9 @@
 import React from 'react';
 import './App.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from './Pages/Login';
 
 function App() {
   return (
@@ -15,6 +17,15 @@ function App() {
       >
         Glass
       </object>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={ Login } />
+          {/* <Route path="/game" component={ Game } />
+          <Route path="/settings" component={ Settings } />
+          <Route path="/feedback" component={ Feedback } />
+          <Route path="/ranking" component={ Ranking } /> */}
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
