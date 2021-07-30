@@ -5,7 +5,7 @@ import Picture2 from '../../images/searchIcon.svg';
 
 function Header() {
   return (
-    <header className="header">
+    <header className="header" data-testid="profile-top-btn">
       <Link to="/Profile" data-testid="profile-top-btn">
         <img src={ Picture1 } alt="perfil" />
       </Link>
