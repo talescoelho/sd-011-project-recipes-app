@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
 export default function Login() {
   const [loginEmail, setLoginEmail] = useState('');
@@ -7,15 +7,13 @@ export default function Login() {
   const [LoginButtonStatus, setLoginButtonStatus] = useState(true);
   const history = useHistory();
 
-  const handleInputVerify = ({ target }) => {
-    const PASSWORD_MIN_LENGTH = 6;
-    const EMAIL_INPUT = target.name === 'email' && target.value;
-    const PASSWORD_INPUT = target.name === 'password' && target.value;
-
-    if (EMAIL_INPUT) setLoginEmail(EMAIL_INPUT);
-    if (PASSWORD_INPUT) setLoginPassword(PASSWORD_INPUT);
-    if (PASSWORD_INPUT.length >= PASSWORD_MIN_LENGTH) setLoginButtonStatus(false);
-  };
+  useEffect(() => {
+    const minLength = 6;
+    setLoginButtonStatus(true);
+    if (loginPassword.length >= minLength) {
+      setLoginButtonStatus(false);
+    }
+  }, [loginPassword]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -36,7 +34,7 @@ export default function Login() {
             name="email"
             id="email"
             value={ loginEmail }
-            onChange={ (event) => handleInputVerify(event) }
+            onChange={ ({ target }) => setLoginEmail(target.value) }
             data-testid="email-input"
           />
         </label>
@@ -47,7 +45,7 @@ export default function Login() {
             name="password"
             id="password"
             value={ loginPassword }
-            onChange={ (event) => handleInputVerify(event) }
+            onChange={ ({ target }) => setLoginPassword(target.value) }
             data-testid="password-input"
           />
         </label>
