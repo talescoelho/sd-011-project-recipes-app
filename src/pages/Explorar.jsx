@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
-import '../App.css';
 import Header from '../components/Header';
+import '../App.css';
 
 class Explorar extends Component {
   render() {
