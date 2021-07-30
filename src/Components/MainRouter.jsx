@@ -1,28 +1,44 @@
-// import { Switch/* , Route */} from 'react-router-dom';
-// import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import React from 'react';
+import MainExplorer from '../Pages/Explorer/MainExplorer';
+import ExplorerDrinks from '../Pages/Explorer/Drinks/ExplorerDrinks';
+import RecipesDrinks from '../Pages/Explorer/Drinks/RecipesDrinks';
+import ExplorerFoods from '../Pages/Explorer/Foods/ExplorerFoods';
+import RecipesFoods from '../Pages/Explorer/Foods/RecipesFoods';
+import Origen from '../Pages/Explorer/Foods/Origen';
+import MainDrinks from '../Pages/Main/MainDrinks';
+import MainFoods from '../Pages/Main/MainFoods';
+import User from '../Pages/User';
+import Home from '../Pages/Home';
 
-// const MainRouter = () => ({
-//   <Switch>
-//     <p>Oi</p>
-//     <p>Oi</p>
-//     <p>Oi</p>
-//     {/* <Route exact path="/" component={} />
-//     <Route exact path="/comidas" component={} />
-//     <Route exact path="/bebidas" component={} />
-//     <Route exact path={`/comidas/${id-da-receita}`} component={} />
-//     <Route exact path={`/bebidas/${id-da-receita}`} component={} />
-//     <Route exact path={`/comidas/${id-da-receita}/in-progress`} component={} />
-//     <Route exact path={`/bebidas/${id-da-receita}/in-progress`} component={} />
-//     <Route exact path="/explorar" component={} />
-//     <Route exact path="/explorar/comidas" component={} />
-//     <Route exact path="/explorar/bebidas" component={} />
-//     <Route exact path="/explorar/comidas/ingredientes" component={} />
-//     <Route exact path="/explorar/bebidas/ingredientes" component={} />
-//     <Route exact path="/explorar/comidas/area" component={} />
-//     <Route exact path="/perfil" component={} />
-//     <Route exact path="/receitas-feitas" component={} />
-//     <Route exact path="/receitas-favoritas" component={} /> */}
-//   </Switch>
-// });
+const MainRouter = () => (
+  <Switch>
+    <Route exact path="/" render={ () => <Home /> } />
+    <Route exact path="/comidas" render={ () => <MainFoods /> } />
+    <Route exact path="/bebidas" render={ () => <MainDrinks /> } />
+    {/* <Route exact path={ `/comidas/${id-da-receita}`} render={ () => <MainDrinks /> }
+    <Route exact path={ `/bebidas/${id-da-receita}`} render={ () => <MainDrinks /> }
+    <Route exact path={ `/comidas/${id-da-receita}/in-progress`} render={ () => <MainDrinks /> }
+    <Route exact path={ `/bebidas/${id-da-receita}/in-progress`}
+    render={ () => <MainDrinks /> } */}
+    <Route exact path="/explorar" render={ () => <MainExplorer /> } />
+    <Route exact path="/explorar/comidas" render={ () => <ExplorerFoods /> } />
+    <Route exact path="/explorar/bebidas" render={ () => <ExplorerDrinks /> } />
+    <Route
+      exact
+      path="/explorar/comidas/ingredientes"
+      render={ () => <RecipesFoods /> }
+    />
+    <Route
+      exact
+      path="/explorar/bebidas/ingredientes"
+      render={ () => <RecipesDrinks /> }
+    />
+    <Route exact path="/explorar/comidas/area" render={ () => <Origen /> } />
+    <Route exact path="/perfil" render={ () => <User /> } />
+    {/* <Route exact path="/receitas-feitas" render={ () => <MainDrinks /> }
+    <Route exact path="/receitas-favoritas" render={ () => <MainDrinks /> } */}
+  </Switch>
+);
 
-// export default MainRouter;
+export default MainRouter;
