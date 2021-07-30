@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import LoginContext from '../../context/LoginContext';
+import RecipesContext from '../../context/RecipesContext';
 
 function SearchBar() {
   const { setSearchText,
-    setRadioButton, handleClick, radioButton, searchText } = useContext(LoginContext);
+    setRadioButton, handleClick, radioButton, searchText } = useContext(RecipesContext);
 
   const history = useHistory();
   const { location: { pathname } } = history;
