@@ -39,5 +39,7 @@ export function fetchSearchFirstLetter(searchFirstLetter, pathname) {
       const data = await response.json();
       return dispatch(receiveTypeApi(data));
     }
+    // eslint-disable-next-line no-alert
+    alert('Sua busca deve conter somente 1 (um) caracter');
   };
 }

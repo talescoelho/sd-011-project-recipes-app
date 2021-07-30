@@ -7,17 +7,16 @@ import {
   fetchSearchName,
   fetchSearchFirstLetter } from '../redux/actions/searchBarAction';
 import Input from './Input';
-import Header from './Header';
 
 function HeaderSearchBar(props) {
   const [searchInput, setSearchInput] = useState('');
   const [radioValue, setRadioValue] = useState('Ingrediente');
-  const [searchDataType, setSeatchDataType] = useState('');
+  const [searchDataType, setSearchDataType] = useState('');
   const { pathname } = useLocation();
 
   useEffect(() => {
     const type = pathname === '/bebidas' ? 'drinks' : 'meals';
-    setSeatchDataType(type);
+    setSearchDataType(type);
   }, [pathname]);
 
   const fetchSearchData = async () => {
@@ -32,13 +31,11 @@ function HeaderSearchBar(props) {
       receiveData = await searchByFirstLetter(searchInput, pathname);
     }
     if (receiveData) {
-      setSeatchDataType(receiveData[searchDataType]);
+      setSearchDataType(receiveData[searchDataType]);
     }
   };
-
   return (
     <>
-      <Header />
       <Input
         id="searchInput"
         name="searchInput"
