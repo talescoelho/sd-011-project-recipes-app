@@ -1,18 +1,13 @@
-body{
-  height: 100vh;
+body{ height: 100vh;
   width: 100vw;
-
 }
 
-footer{
+footer{ bottom: 0;
   width: 100vw;  
-  bottom: 0px;
-  position: fixed;
   display: flex;  
-  flex-direction: row;
   justify-content: space-evenly;
-  align-items: baseline;
-  padding: 10px;
+  position: fixed;
   background-color: salmon;
+  padding: 10px;
 }
 
