@@ -1,6 +1,49 @@
-.form {
- position: relative;
- width: 360px;
- height: 640px;
- background: #ffffff;
-}
+body {
+    display: flex;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background: #ffffff;
+   } 
+   .label {
+       position: absolute;
+       font-family: 'Times New Roman', Times, serif;
+       font-style: normal;  
+       font-size: 39px;
+       line-height: 46px;
+       width: 97px;
+       height: 46px;
+       left: 128px;
+       top: 79px;
+       
+       
+   }
+
+
+   #formBasicEmail {
+    position: absolute;
+    width: 293px;
+    height: 58px;
+    left: 30px;
+    top: 200px;
+ }
+
+   #formBasicPassword {
+    position: absolute;
+    width: 293px;
+    height: 58px;
+    left: 31px;
+    top: 260px;
+     
+ }
+
+ button {
+    position: absolute;
+    width: 293px;
+    height: 58px;
+    left: 31px;
+    top: 350px;
+    background: #6CE34f;
+ }
+
+
