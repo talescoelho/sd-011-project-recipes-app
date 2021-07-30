@@ -7,12 +7,12 @@ export default function FoodDetails() {
   const [food, setFood] = useState();
 
   useEffect(() => {
-    const getFood = async () => {
-      const data = await fetchFood(params.id);
-      console.log(data);
-      setFood(data);
-    };
-    getFood();
+    // const getFood = async () => {
+    //   const data = await fetchFood(params.id);
+
+    //   setFood(data);
+    // };
+    // getFood();
   }, [params.id]);
 
   return (
