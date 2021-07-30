@@ -4,26 +4,28 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { fetchRecipesAPIAction } from '../redux/actions';
 
+// LÓGICA PARA CRIAÇÃO DA URL NA FUNÇÃO:
+// VERIFICAÇÃO 1 - CASO A BUSCA SEJA POR COMIDA, SERÁ UTILIZADO 'themealdb' NA URL. JÁ PARA BEBIDAS, SERÁ UTILIZADO 'thecocktaildb'
+// VERIFICAÇÃO 2 - CASO A BUSCA SEJA POR INGREDIENTE, SERÁ UTILIZADO 'filter' NA URL. JÁ PARA NOME OU PRIMEIRA LETRA, SERÁ UTILIZADO 'search'
+// VERIFICAÇÃO 3 - POSSIBILIDADES:
+// a) BUSCA POR INGREDIENTE, SERÁ UTILIZADO 'i'
+// b) BUSCA POR NOME, SERÁ UTILIZADO 's'
+// c) BUSCA POR PRIMEIRA LETRA, SERÁ UTILIZADO 'f'
+// VERIFICAÇÃO 4 - SERÁ ACRESCENTADO O VALOR DIGITADO NO INPUT PARA REALIZAR A BUSCA.
+// MONTAGEM DA URL:
+// https://www.${VERIFICAÇÃO1}.com/api/json/v1/1/${VERIFICAÇÃO2}.php?${VERIFICAÇÃO3}=${VERIFICAÇÃO4}
+const generateUrlToSearchBar = (recipeType, radioInput, searchInput) => `https://www.${recipeType === 'meals' ? 'themealdb' : 'thecocktaildb'}.com/api/json/v1/1/${radioInput === 'ingredient' ? 'filter' : 'search'}.php?${radioInput === 'ingredient' ? 'i' : ''}${radioInput === 'name' ? 's' : ''}${radioInput === 'firstLetter' ? 'f' : ''}=${searchInput}`;
+
 function SearchBar({ recipesData, recipeType, fetch }) {
   const [searchInput, setSearchInput] = useState('');
   const [radioInput, setRadioInput] = useState('');
 
-  // LÓGICA PARA CRIAÇÃO DA URL:
-  // VERIFICAÇÃO 1 - CASO A BUSCA SEJA POR COMIDA, SERÁ UTILIZADO 'themealdb' NA URL. JÁ PARA BEBIDAS, SERÁ UTILIZADO 'thecocktaildb'
-  // VERIFICAÇÃO 2 - CASO A BUSCA SEJA POR INGREDIENTE, SERÁ UTILIZADO 'filter' NA URL. JÁ PARA NOME OU PRIMEIRA LETRA, SERÁ UTILIZADO 'search'
-  // VERIFICAÇÃO 3 - POSSIBILIDADES:
-  // a) BUSCA POR INGREDIENTE, SERÁ UTILIZADO 'i'
-  // b) BUSCA POR NOME, SERÁ UTILIZADO 's'
-  // c) BUSCA POR PRIMEIRA LETRA, SERÁ UTILIZADO 'f'
-  // VERIFICAÇÃO 4 - SERÁ ACRESCENTADO O VALOR DIGITADO NO INPUT PARA REALIZAR A BUSCA.
-  // MONTAGEM DA URL:
-  // https://www.${VERIFICAÇÃO1}.com/api/json/v1/1/${VERIFICAÇÃO2}.php?${VERIFICAÇÃO3}=${VERIFICAÇÃO4}
-
   const handleClick = () => {
     if (radioInput === 'firstLetter' && searchInput.length > 1) {
+      // eslint-disable-next-line no-alert
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    fetch(`https://www.${recipeType === 'meals' ? 'themealdb' : 'thecocktaildb'}.com/api/json/v1/1/${radioInput === 'ingredient' ? 'filter' : 'search'}.php?${radioInput === 'ingredient' ? 'i' : ''}${radioInput === 'name' ? 's' : ''}${radioInput === 'firstLetter' ? 'f' : ''}=${searchInput}`, recipeType);
+    fetch(generateUrlToSearchBar(recipeType, radioInput, searchInput), recipeType);
   };
 
   return (
@@ -68,13 +70,18 @@ function SearchBar({ recipesData, recipeType, fetch }) {
         >
           Buscar
         </button>
-        {recipesData[recipeType]
-        && recipesData[recipeType].length === 1
-        && console.log('só uma receita')}
 
         {recipesData[recipeType]
-        && recipesData[recipeType].length > 1
-        && console.log('mais de uma receita')}
+        && recipesData[recipeType].length === 1
+        && (
+          <Redirect
+            to={ `/${recipeType === 'meals'
+              ? 'comidas'
+              : 'bebidas'}/${recipeType === 'meals'
+              ? recipesData[recipeType][0].idMeal
+              : recipesData[recipeType][0].idDrink}` }
+          />
+        )}
       </form>
     </div>
   );

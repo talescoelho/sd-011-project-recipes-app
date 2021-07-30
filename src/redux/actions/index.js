@@ -15,6 +15,7 @@ export const fetchRecipesAPIAction = (url, recipeType) => async (dispatch) => {
     const json = await response.json();
     console.log(json);
     if (!json[recipeType]) {
+      // eslint-disable-next-line no-alert
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     dispatch(getRecipesAction(json));
