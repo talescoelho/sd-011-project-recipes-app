@@ -1,7 +1,10 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
-// import App from '../App';
+import { fireEvent } from '@testing-library/react';
 import Login from '../Pages/Login';
+import renderWithRouter from './renderWithRouter';
+
+// Para fazer uso do .toBeDisabled, foi consultada a documentação oficial do RLT
+// Source: https://testing-library.com/docs/react-testing-library/example-intro
 
 const EMAIL_INPUT = 'email-input';
 const PASS_INPUT = 'password-input';
@@ -9,7 +12,7 @@ const LOGIN_BUTTON = 'login-submit-btn';
 
 describe('Verificações da tela de Login', () => {
   it('Verifica se há dois inputs na tela de Login', () => {
-    const { getByTestId } = render(<Login />);
+    const { getByTestId } = renderWithRouter(<Login />);
     const emailInput = getByTestId(EMAIL_INPUT);
     const passwordInput = getByTestId(PASS_INPUT);
     expect(emailInput).toBeInTheDocument();
@@ -17,13 +20,13 @@ describe('Verificações da tela de Login', () => {
   });
 
   it('Verifica se há um botão de login na tela de Login', () => {
-    const { getByTestId } = render(<Login />);
+    const { getByTestId } = renderWithRouter(<Login />);
     const loginButton = getByTestId(LOGIN_BUTTON);
     expect(loginButton).toBeInTheDocument();
   });
 
-  it('Verifica se o botão desabilita quando informações errada são inseridas', () => {
-    const { getByTestId } = render(<Login />);
+  it('Verifica se o botão desabilita quando informações erradas são inseridas', () => {
+    const { getByTestId } = renderWithRouter(<Login />);
 
     const emailInput = getByTestId(EMAIL_INPUT);
     const passwordInput = getByTestId(PASS_INPUT);
@@ -35,7 +38,7 @@ describe('Verificações da tela de Login', () => {
   });
 
   it('Verifica se o botão habilita quando informações corretas são inseridas', () => {
-    const { getByTestId } = render(<Login />);
+    const { getByTestId } = renderWithRouter(<Login />);
 
     const emailInput = getByTestId(EMAIL_INPUT);
     const passwordInput = getByTestId(PASS_INPUT);

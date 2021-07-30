@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import credentialsVerify from '../Helpers/credentialsVerify';
+import submitLocalStorage from '../Helpers/submitLocalStorage';
 
-function Login() {
-  const [user, setUser] = useState({
-    email: '',
-    password: '',
-  });
-
+function Login({ history }) {
+  const [user, setUser] = useState({ email: '', password: '' });
   const [disabled, setDisabled] = useState(true);
 
   function handleSubmit(e) {
@@ -43,16 +42,27 @@ function Login() {
             placeholder="Senha"
           />
         </label>
-        <button
-          disabled={ disabled }
-          type="button"
-          data-testid="login-submit-btn"
+        <Link
+          to="/comidas"
         >
-          Entrar
-        </button>
+          <button
+            disabled={ disabled }
+            type="button"
+            data-testid="login-submit-btn"
+            onClick={ () => submitLocalStorage(user.email, history) }
+          >
+            Entrar
+          </button>
+        </Link>
       </section>
     </div>
   );
 }
 
 export default Login;
+
+Login.propTypes = {
+  history: PropTypes.objectOf({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};

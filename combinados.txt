@@ -26,3 +26,6 @@ Nome do grupo: EM BREVE
 => Trabalhando com metas diárias, sempre que possível.
 
 8. Por último e menos importante, somente apenas good vibes!!!
+
+Atualizações:
+EM Login.jsx, substituir o onClick para <Link>

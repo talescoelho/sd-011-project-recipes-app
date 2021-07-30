@@ -6,7 +6,7 @@ function credentialsVerify(user, pass) {
 
   const userRegex = emailPattern.test(user);
   const passwordLength = 7;
-  console.log(user);
+
   if (userRegex && pass.length >= passwordLength) {
     return false;
   }
