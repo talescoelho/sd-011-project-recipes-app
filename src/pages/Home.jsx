@@ -21,7 +21,7 @@ function Home() {
       <main style={ styles.main }>
         <h1>oi</h1>
         <Button
-          onClick={ () => dispatch(updateEmail('cris a lendaria')) }
+          onClick={ () => dispatch(updateEmail('cris_a_lendaria@yahoo.com')) }
         >
           Crica em mim
         </Button>
