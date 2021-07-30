@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Button, Form } from 'react-bootstrap';
 
 class Login extends Component {
   constructor() {
@@ -50,9 +51,9 @@ class Login extends Component {
   renderLoginForm() {
     const { email, password, valid } = this.state;
     return (
-      <form>
-        <div className="input">
-          <input
+      <Form className="login-form">
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Control
             type="email"
             name="email"
             placeholder="Digite seu e-mail"
@@ -60,9 +61,9 @@ class Login extends Component {
             value={ email }
             onChange={ this.handleChangeForm }
           />
-        </div>
-        <div className="input">
-          <input
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Control
             type="password"
             name="password"
             placeholder="Digite sua Senha"
@@ -70,16 +71,18 @@ class Login extends Component {
             value={ password }
             onChange={ this.handleChangeForm }
           />
-          <button
-            type="submit"
-            data-testid="login-submit-btn"
-            disabled={ valid }
-            onClick={ this.loginUser }
-          >
-            Entrar
-          </button>
-        </div>
-      </form>
+        </Form.Group>
+        <Button
+          type="submit"
+          size="lg"
+          variant="success"
+          data-testid="login-submit-btn"
+          disabled={ valid }
+          onClick={ this.loginUser }
+        >
+          Entrar
+        </Button>
+      </Form>
     );
   }
 
