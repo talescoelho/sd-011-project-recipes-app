@@ -5,7 +5,7 @@ import getRecipes from '../services/API';
 import '../styles/SearchBar.css';
 import RecipesAppContext from '../context/RecipesAppContext';
 import Recipes from './Recipes';
-import DetailsRecipe from './DetailsRecipe';
+// import DetailsRecipe from './DetailsRecipe';
 
 export default function SearchBar() {
   const {
