@@ -2,21 +2,17 @@ import React, { Component } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-class Explorar extends Component {
+class ComidasDetalhes extends Component {
   render() {
-    const title = 'Explorar';
     const lupa = 'desligado';
     return (
-      <main>
-        Explorar
-        <Header
-          title={ title }
-          lupa={ lupa }
-        />
+      <div>
+        <h1>Detalhes de Comida</h1>
+        <Header lupa={ lupa } />
         <Footer />
-      </main>
+      </div>
     );
   }
 }
 
-export default Explorar;
+export default ComidasDetalhes;
