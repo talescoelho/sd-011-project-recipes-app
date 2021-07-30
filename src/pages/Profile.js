@@ -1,9 +1,10 @@
 import React from 'react';
 import FooterMenu from '../components/FooterMenu';
+import Header from '../components/Header';
 
 const Profile = () => (
   <>
-    <p>Profile</p>
+    <Header title="Perfil" />
     <FooterMenu />
   </>
 );

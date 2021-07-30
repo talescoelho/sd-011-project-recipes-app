@@ -1,9 +1,10 @@
 import React from 'react';
 import FooterMenu from '../components/FooterMenu';
+import Header from '../components/Header';
 
 const Drinks = () => (
   <>
-    <p>Drinks</p>
+    <Header title="Bebidas" isButtonVisible />
     <FooterMenu />
   </>
 );
