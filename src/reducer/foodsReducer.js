@@ -1,7 +1,8 @@
-import { GET_FOODS, GET_FOODS_SUCCESS } from '../actions';
+import { GET_FOODS, GET_FOODS_SUCCESS, GET_CATEGORIES_FOODS_SUCCESS } from '../actions';
 
 const INITIAL_STATE = {
   foodsFromApi: [],
+  categories: [],
   isLoading: false,
 };
 
@@ -17,6 +18,12 @@ function foodsReducer(state = INITIAL_STATE, action) {
       ...state,
       foodsFromApi: action.payload,
       isLoading: false,
+    };
+  case GET_CATEGORIES_FOODS_SUCCESS:
+    return {
+      ...state,
+      isLoading: false,
+      categories: action.payload,
     };
   default:
     return state;

@@ -5,7 +5,10 @@ export const GET_FOODS_SUCCESS = 'GET_FOODS_SUCCESS';
 export const GET_FOODS_FAIL = 'GET_FOODS_FAIL';
 export const GET_DRINKS = 'GET_DRINKS';
 export const GET_DRINKS_SUCCESS = 'GET_DRINKS_SUCCESS';
+export const GET_CATEGORIES_FOODS_SUCCESS = 'GET_CATEGORIES_FOODS_SUCCESS';
+export const GET_CATEGORIES_DRINKS_SUCCESS = 'GET_CATEGORIES_DRINKS_SUCCESS';
 
+// -------------------------FUNÇÕES PARA REQUISIÇÃO DAS RECEITAS -----------------------
 export const getFoods = () => ({
   type: GET_FOODS,
 });
@@ -50,6 +53,40 @@ export const getDrinksFromApi = () => async (dispatch) => {
     console.error(error);
   }
 };
+// ----------------FUNÇÕES PARA REQUISIÇÃO DAS CATEGORIAS----------------------------------------
+
+export const getCategoriesFoodsSuccess = (payload) => ({
+  type: GET_CATEGORIES_FOODS_SUCCESS,
+  payload,
+});
+
+export const getCategoriesDrinksSuccess = (payload) => ({
+  type: GET_CATEGORIES_DRINKS_SUCCESS,
+  payload,
+});
+
+export const getCategoriesFromApi = (mealsOrDrinks) => async (dispatch) => {
+  if (mealsOrDrinks === 'meals') {
+    dispatch(getFoods());
+    try {
+      const URL = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+      const dataFromApi = await fetchFromApi(URL);
+      dispatch(getCategoriesFoodsSuccess(dataFromApi.meals));
+    } catch (error) {
+      console.error(error);
+    }
+  } else {
+    dispatch(getDrinks());
+    try {
+      const URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+      const dataFromApi = await fetchFromApi(URL);
+      dispatch(getCategoriesDrinksSuccess(dataFromApi.drinks));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
+// -----------------------------FUNÇÃO PARA GEStÃO LOGIN USUÁRIO--------------------------------------------------------------
 
 function SendEmail(email) {
   const user = {
