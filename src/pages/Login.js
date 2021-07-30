@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router';
 
 function initialState() {
   return { email: '', password: '' };
@@ -7,8 +8,8 @@ function initialState() {
 function Login() {
   const [login, setLogin] = useState(initialState);
   const [disabled, setDisabled] = useState(true);
-  const [storage, setStorage] = useState('');
-  // const [shouldRedirect, setShouldRedirect] = useState(false);
+  // const [storage, setStorage] = useState('');
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
   function handleChange({ target: { value, name } }) {
     setLogin({
@@ -34,11 +35,13 @@ function Login() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('user', JSON.stringify({ email }));
-    setStorage(storage);
+    // setStorage(storage);
+    setShouldRedirect(true);
   }
 
   return (
     <main>
+      { shouldRedirect ? <Redirect to="/comidas" /> : null }
       <h1>Login</h1>
       <form>
         <input
