@@ -6,7 +6,7 @@ import Login from './pages/Login/Login';
 import Drinks from './pages/Drinks/Drinks';
 import Explore from './pages/Explore/Explore';
 import Foods from './pages/Foods/Foods';
-
+import Profile from './pages/Profile/Profile';
 
 function App() {
   return (
@@ -16,6 +16,7 @@ function App() {
         <Route exact path="/bebidas" component={ Drinks } />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/comidas" component={ Foods } />
+        <Route exact path="/perfil" component={ Profile } />
       </Switch>
     </div>
   );
