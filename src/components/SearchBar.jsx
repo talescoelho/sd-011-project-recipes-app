@@ -33,6 +33,8 @@ export default function SearchBar() {
     }
   };
 
+  console.log(foodList);
+
   return (
     <div className="searchBar-container">
       <input

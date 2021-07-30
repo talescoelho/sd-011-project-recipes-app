@@ -8,6 +8,8 @@ import Comidas from './pages/Comidas';
 import Explorar from './pages/Explorar';
 import Bebidas from './pages/Bebidas';
 import Login from './pages/Login';
+import { Provider } from 'react-redux';
+import store from './store';
 
 function App() {
   return (
