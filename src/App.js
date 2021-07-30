@@ -16,8 +16,16 @@ function App() {
         <Route exact path="/comidas" component={ Comidas } />
         <Route exact path="/bebidas" component={ Bebidas } />
         <Route exact path="/explorar" component={ Explorar } />
-        <Route exact path="/comidas/:id" render={ () => <RecipesId /> } />
-        <Route exact path="/bebidas/:id" render={ () => <RecipesId /> } />
+        <Route
+          exact
+          path="/comidas/:id"
+          render={ (props) => <RecipesId { ...props } /> }
+        />
+        <Route
+          exact
+          path="/bebidas/:id"
+          render={ (props) => <RecipesId { ...props } /> }
+        />
       </Switch>
     </div>
   );
