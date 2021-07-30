@@ -20,9 +20,15 @@ export const fetchApi = (url) => async (dispatch) => {
   try {
     dispatch(fetchStarted());
     const response = await fetch(url);
-    const { meals } = await response.json();
-    return dispatch(fetchSucess(meals));
+    const data = await response.json();
+    return dispatch(fetchSucess(data));
   } catch (error) {
     dispatch(fetchError(error.message));
   }
 };
+
+export const filterHandle = ({ name, value }) => ({
+  type: 'INPUT_HANDLE',
+  name,
+  value,
+});

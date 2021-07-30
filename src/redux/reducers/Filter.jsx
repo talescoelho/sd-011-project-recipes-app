@@ -1,7 +1,9 @@
 import { FETCH_ERROR, FETCH_STARTED, FETCH_SUCESS } from '../actions';
 
 const INITIAL_STATE = {
-  meals: [],
+  radio: '',
+  searchInput: '',
+  data: [],
   isLoading: false,
   error: '',
 };
@@ -11,9 +13,11 @@ const Filter = (state = INITIAL_STATE, action) => {
   case FETCH_STARTED:
     return { ...state, isLoading: true };
   case FETCH_SUCESS:
-    return { ...state, meals: action.payload, isLoading: false };
+    return { ...state, data: action.payload, isLoading: false };
   case FETCH_ERROR:
     return { ...state, error: action.payload, isLoading: false };
+  case 'INPUT_HANDLE':
+    return { ...state, [action.name]: action.value };
   default:
     return state;
   }
