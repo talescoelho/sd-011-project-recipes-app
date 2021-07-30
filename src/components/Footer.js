@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
-import { turnGiveIdFalse } from '../actions';
+import { returnToInitialState } from '../actions/mainPageRecipe';
 
 function Footer() {
   const history = useHistory();
@@ -16,7 +16,7 @@ function Footer() {
         data-testid="drinks-bottom-btn"
         onClick={ () => {
           history.push('/bebidas');
-          dispatch(turnGiveIdFalse());
+          dispatch(returnToInitialState());
         } }
         src={ drinkIcon }
       >
@@ -39,7 +39,10 @@ function Footer() {
       <button
         type="button"
         data-testid="food-bottom-btn"
-        onClick={ () => history.push('/comidas') }
+        onClick={ () => {
+          history.push('/comidas');
+          dispatch(returnToInitialState());
+        } }
         src={ mealIcon }
       >
         <img

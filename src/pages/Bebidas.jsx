@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecipeCards from '../components/RecipeCards';
 import searchCase from '../service/apiSearchBar';
+import Categories from '../components/Categories';
 
 function Bebidas() {
   const stateReduxSearch = useSelector(({ searchItems }) => searchItems);
@@ -13,15 +14,15 @@ function Bebidas() {
 
   React.useEffect(() => {
     async function fetchDidMount() {
-      dispatch(await searchCase('drink', 'primeiraletra', 'z'));
+      dispatch(await searchCase('drink', 'primeiraletra', 'z', true));
     }
     fetchDidMount();
-    console.log('oi');
   }, [dispatch]);
 
   return (
     <div>
       <Header buttonExists title="Bebidas" mealOrDrink="drink" />
+      <Categories mealOrDrink="drink" />
       {dataApi.drinks
         && dataApi.drinks
           .map((e, i) => i < limitSearch && (
