@@ -14,7 +14,7 @@ function Comidas() {
 
   React.useEffect(() => {
     async function fetchDidMount() {
-      dispatch(await searchCase('meal', 'primeiraletra', 't'));
+      dispatch(await searchCase('meal'));
     }
     fetchDidMount();
   }, [dispatch]);

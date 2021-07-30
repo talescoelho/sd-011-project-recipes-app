@@ -14,7 +14,7 @@ function Bebidas() {
 
   React.useEffect(() => {
     async function fetchDidMount() {
-      dispatch(await searchCase('drink', 'primeiraletra', 'z', true));
+      dispatch(await searchCase('drink'));
     }
     fetchDidMount();
   }, [dispatch]);
