@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router';
+import { setRecipeList } from '../action';
 import { searchByFirstLetter, searchByIngredient, searchByName } from '../services';
 import '../styles/SearchBar.css';
 
@@ -8,6 +10,7 @@ export default function SearchBar() {
   const [radioValue, setRadioValue] = useState('');
   const [foodList, setFoodList] = useState([]);
   const [foodType, setFoodType] = useState('');
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -26,6 +29,7 @@ export default function SearchBar() {
     }
     if (api) {
       setFoodList(api[foodType]);
+      dispatch(setRecipeList(api[foodType]));
     }
   };
 
