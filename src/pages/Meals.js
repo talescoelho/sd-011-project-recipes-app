@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import RecipeCard from '../components/RecipeCard';
 import SearchBar from '../components/SearchBar';
+import Footer from '../components/Footer';
 
 function Meals() {
   const { recipesData } = useContext(RecipesContext);
@@ -21,6 +22,7 @@ function Meals() {
           />
         </Link>
       )) }
+      <Footer />
     </div>
   );
 }

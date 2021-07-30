@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+
+  --font-color: white;
+
+  --light-color-1: #e2f263;
+
+  --light-color-2: #ff9362;
+
+  --dark-color-1: #1b34a2;
+
+  --dark-color-2: #fb3c34;
+}
+
+/* Footer CSS */
+.footer {
+  align-items: center;
+  background-color: var(--light-color-1);
+  bottom: 0;
+  color: var(--font-color);
+  display: flex;
+  height: 60px;
+  justify-content: space-evenly;
+  position: fixed;
+  width: 100%;
+}
+
+.footer img {
+  height: 40px;
+  width: 40px;
+}
