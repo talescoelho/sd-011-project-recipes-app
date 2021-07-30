@@ -1,36 +1,46 @@
-import React, { useContext, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [ isDisabled, setIsDisable ] = useState(true);
+  const [disabled, setDisabled] = useState(true);
 
-  const handleChange = ({ target }) => {
-    const { name, value } = target;
-    this.setState({
-    [name]: value,
-    }, () => this.LoginVerification());
+  useEffect(() => {
+    function LoginVerification() {
+      const validateEmail = /^[\w.]+@[a-z]+\.\w{2,3}$/g;
+      const validatePass = /[\S]{7,}/;
+      if (validateEmail.test(email) && validatePass.test(password)) {
+        setDisabled(false);
+      } else {
+        setDisabled(true);
+      }
+    }
+    LoginVerification();
+  }, [email, password]);
+
+  function setToLocalStorage() {
+    localStorage.setItem('mealsToken', '1');
+    localStorage.setItem('cocktailsToken', '1');
+    const setUser = { email };
+    const emailStringFly = JSON.stringify(setUser);
+    localStorage.setItem('user', emailStringFly);
+    // const initialObj = {
+    //   cocktails: {},
+    //   meals: {},
+    // };
   }
-
-  const validateLogin = () => {
-    let validate = false;
-    const validateEmail = /^[\w.]+@[a-z]+\.\w{2,3}$/g;
-    const validatePass = /[\S]{6,}/;
-    if (!validateEmail.test(email)) validate = true;
-    if (!validatePass.test(password)) validate = true;
-    setIsDisable({ disable: validate });
-  };
 
   return (
     <div>
       <label htmlFor="email">
         <input
           data-testid="email-input"
-          type="email"
+          type="text"
           placeholder="Digite seu email"
           name="email"
           value={ email }
-          onChange={ this.handleChange }
+          onChange={ (event) => setEmail(event.target.value) }
         />
       </label>
       <label htmlFor="password">
@@ -40,19 +50,19 @@ export default function Login() {
           placeholder="Digite sua senha"
           name="password"
           value={ password }
-          onChange={  }
+          onChange={ (event) => setPassword(event.target.value) }
         />
       </label>
-      {/* <Link to="/game"> */}
-      <button
-        data-testid="login-submit-btn"
-        type="button"
-        disabled={ isDisabled }
-        // onClick={ this.handlePlayer }
-      >
-        Entrar
-      </button>
-      {/* </Link> */}
+      <Link to="/comidas">
+        <button
+          data-testid="login-submit-btn"
+          type="button"
+          disabled={ disabled }
+          onClick={ setToLocalStorage }
+        >
+          Entrar
+        </button>
+      </Link>
     </div>
   );
 }

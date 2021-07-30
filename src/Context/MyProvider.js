@@ -1,11 +1,19 @@
-import { Children } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import MyContext from './MyContext';
 
-function MyProvider({ Children }) {
-  
-  return(
-    <MyContext.Provider value={}>
-      { Children }
+const HomeRecipes = ({ children }) => {
+  const context = {
+    // valores...
+  };
+
+  return (
+    <MyContext.Provider value={ context }>
+      { children }
     </MyContext.Provider>
-  )
-}
+  );
+};
+
+HomeRecipes.propTypes = {
+  children: PropTypes.node.isRequired,
+};
