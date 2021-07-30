@@ -4,7 +4,7 @@ import Header from '../components/Header';
 function Drinks() {
   const headerProps = {
     title: 'Bebidas',
-    enableSearchButton: true,
+    enableSearchButton: false,
     enableProfileButton: true,
   };
 

@@ -4,8 +4,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import './css/Header.css';
 
-function Header({ title, enableSearchButton, enableProfileButton }) {
-  console.log(enableSearchButton);
+function Header({ props: { title, enableSearchButton, enableProfileButton } }) {
   return (
     <header className="header">
       {enableProfileButton
@@ -21,13 +20,15 @@ function Header({ title, enableSearchButton, enableProfileButton }) {
 
       <h1 data-testid="page-title">{title}</h1>
 
-      <button
-        type="button"
-        data-testid="search-top-btn"
-        src={ searchIcon }
-      >
-        <img src={ searchIcon } alt="Lens" />
-      </button>
+      {enableSearchButton
+      && (
+        <button
+          type="button"
+          data-testid="search-top-btn"
+          src={ searchIcon }
+        >
+          <img src={ searchIcon } alt="Lens" />
+        </button>)}
     </header>
   );
 }
