@@ -9,7 +9,7 @@ const LOGIN_BUTTON = 'login-submit-btn';
 
 describe('', () => {
   it('Verifica o texto da tela de comidas.', async () => {
-    const { getByTestId, findByText } = renderWithRouter(<Login />);
+    const { getByTestId, findByText, history } = renderWithRouter(<Login />);
 
     const emailInput = getByTestId(EMAIL_INPUT);
     const passwordInput = getByTestId(PASS_INPUT);
@@ -20,7 +20,9 @@ describe('', () => {
 
     fireEvent.click(loginButton);
 
-    const AAAText = await findByText(/Vinicius Gouveia/);
-    expect(AAAText[0]).toBeInTheDocument();
+    await expect(history.location.pathname).toBe('/comidas');
+
+    const AAAText = await findByText(/Comidas/i);
+    expect(AAAText).toBeInTheDocument();
   });
 });
