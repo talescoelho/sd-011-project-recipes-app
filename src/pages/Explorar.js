@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import Footer from '../components/Footer';
 
-class Perfil extends Component {
+class Explorar extends Component {
   render() {
     return (
-      <div>
-        <h1>Perfil</h1>
+      <main>
+        Explorar
         <Footer />
-      </div>
+      </main>
     );
   }
 }
 
-export default Perfil;
+export default Explorar;
