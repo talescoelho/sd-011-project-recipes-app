@@ -8,20 +8,56 @@ import FiltersFromCategories from '../components/FiltersFromCategories';
 import Header from '../components/Header';
 
 class Comidas extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      itemsToRender: [],
+    };
+    this.prepareItemsOnLoad = this.prepareItemsOnLoad.bind(this);
+    this.updateFoods = this.updateFoods.bind(this);
+  }
+
   componentDidMount() {
+    this.prepareItemsOnLoad();
+  }
+
+  updateFoods(all) {
+    if (all) {
+      const { foodsDataBase } = this.props;
+      this.setState({
+        itemsToRender: foodsDataBase,
+      });
+    } else {
+      const { filteredFoodsPerCategory } = this.props;
+      this.setState({
+        itemsToRender: filteredFoodsPerCategory,
+      });
+    }
+  }
+
+  async prepareItemsOnLoad() {
     const { getFoods, getCategories } = this.props;
-    getFoods();
+    await getFoods();
+    const { foodsDataBase } = this.props;
     getCategories('meals');
+    this.setState({
+      itemsToRender: foodsDataBase,
+    });
   }
 
   render() {
-    const { foodsDataBase, categories } = this.props;
+    const { categories } = this.props;
+    const { itemsToRender } = this.state;
     const showSearchButton = true;
     return (
       <div>
         <Header title="Comidas" showSearchButton={ showSearchButton } typeFood="food" />
-        <FiltersFromCategories categories={ categories } />
-        <Cards itemsToRender={ foodsDataBase } typeFood="food" />
+        <FiltersFromCategories
+          categories={ categories }
+          updateItemsToRender={ this.updateFoods }
+          typeFood="meals"
+        />
+        <Cards itemsToRender={ itemsToRender } typeFood="food" />
         <Footer />
       </div>
     );
@@ -31,6 +67,7 @@ class Comidas extends React.Component {
 const mapStateToProps = (state) => ({
   foodsDataBase: state.foodsReducer.foodsFromApi,
   categories: state.foodsReducer.categories,
+  filteredFoodsPerCategory: state.foodsReducer.filteredPerCategory,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -45,6 +82,9 @@ Comidas.propTypes = {
     PropTypes.object,
   ).isRequired,
   categories: PropTypes.arrayOf(
+    PropTypes.object,
+  ).isRequired,
+  filteredFoodsPerCategory: PropTypes.arrayOf(
     PropTypes.object,
   ).isRequired,
 };

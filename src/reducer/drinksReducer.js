@@ -1,9 +1,14 @@
 import {
-  GET_DRINKS, GET_DRINKS_SUCCESS, GET_CATEGORIES_DRINKS_SUCCESS } from '../actions';
+  GET_DRINKS,
+  GET_DRINKS_SUCCESS,
+  GET_CATEGORIES_DRINKS_SUCCESS,
+  FILTERED_DRINKS_PER_CATEGORY,
+} from '../actions';
 
 const INITIAL_STATE = {
   drinksFromApi: [],
   categories: [],
+  filteredPerCategory: [],
   isLoading: false,
 };
 
@@ -25,6 +30,11 @@ function drinksReducer(state = INITIAL_STATE, action) {
       ...state,
       isLoading: false,
       categories: action.payload,
+    };
+  case FILTERED_DRINKS_PER_CATEGORY:
+    return {
+      ...state,
+      filteredPerCategory: action.payload,
     };
   default:
     return state;
