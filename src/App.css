@@ -1,9 +1,14 @@
-.footer {
+.footer, .header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 10px;
   width: 100%;
+}
+
+.footer {
+  bottom: 0;
+  position: fixed;
 }
 
 .meals {

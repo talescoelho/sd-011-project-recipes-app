@@ -5,6 +5,7 @@ import Cards from '../components/Cards';
 import Footer from '../components/Footer';
 import { getCategoriesFromApi, getFoodFromApi } from '../actions';
 import FiltersFromCategories from '../components/FiltersFromCategories';
+import Header from '../components/Header';
 
 class Comidas extends React.Component {
   componentDidMount() {
@@ -15,8 +16,10 @@ class Comidas extends React.Component {
 
   render() {
     const { foodsDataBase, categories } = this.props;
+    const showSearchButton = true;
     return (
       <div>
+        <Header title="Comidas" showSearchButton={ showSearchButton } />
         <FiltersFromCategories categories={ categories } />
         <Cards itemsToRender={ foodsDataBase } typeFood="food" />
         <Footer />

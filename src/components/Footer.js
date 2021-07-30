@@ -15,6 +15,7 @@ class Footer extends Component {
         <Link
           to="/bebidas"
           data-testid="drinks-bottom-btn"
+          src={ drinkIcon }
         >
           <img
             src={ drinkIcon }
@@ -24,6 +25,7 @@ class Footer extends Component {
         <Link
           to="/explorar"
           data-testid="explore-bottom-btn"
+          src={ exploreIcon }
         >
           <img
             src={ exploreIcon }
@@ -33,6 +35,7 @@ class Footer extends Component {
         <Link
           to="/comidas"
           data-testid="food-bottom-btn"
+          src={ mealIcon }
         >
           <img
             src={ mealIcon }
