@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import LoginContext from './LoginContext';
+import { handleFoods } from './ApiFunctions';
 
 function LoginProvider({ children }) {
-  const loginContextValue = {};
+  const [searchText, setSearchText] = useState('');
+  const [radioButton, setRadioButton] = useState(' ingrediente');
+  const [data, setData] = useState([]);
+
+  const handleClick = () => handleFoods(radioButton, searchText);
+
+  const loginContextValue = {
+    searchText,
+    setSearchText,
+    radioButton,
+    setRadioButton,
+    handleClick,
+    setData,
+    data,
+  };
 
   return (
     <LoginContext.Provider value={ loginContextValue }>
