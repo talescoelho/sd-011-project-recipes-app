@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../styles/MealCard.css';
+import Header from './Header';
 
 export default function MealCard({ recipe }) {
   return (
     <div className="meal-card" data-testid={ `${recipe.idMeal}-recipe-card` }>
+      <Header />
       <img
         src={ recipe.strMealThumb }
         alt={ recipe.strMeal }

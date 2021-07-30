@@ -2,7 +2,7 @@ import React from 'react';
 
 function Perfil() {
   return (
-    <h1>Perfil</h1>
+    <h2 data-testid="page-title">Perfil</h2>
   );
 }
 

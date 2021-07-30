@@ -1,7 +1,9 @@
 import React from 'react';
+// import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+// import SearchBar from './SearchBar';
 
 function Header() {
   return (
@@ -14,7 +16,7 @@ function Header() {
         />
       </Link>
       <h2 data-testid="page-title">
-        Comida
+        Comidas
       </h2>
       <img
         src={ searchIcon }
@@ -24,5 +26,9 @@ function Header() {
     </header>
   );
 }
+
+// Header.propTypes = {
+//   children: PropTypes.node,
+// }.isRequired;
 
 export default Header;

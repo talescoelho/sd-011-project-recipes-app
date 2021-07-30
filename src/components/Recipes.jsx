@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import MealCard from './MealCard';
 import RecipesAppContext from '../context/RecipesAppContext';
 import '../styles/Recipes.css';
+import Header from './Header';
 
 export default function Recipes({ path }) {
   const { mealRecipes } = useContext(RecipesAppContext);
@@ -15,7 +16,12 @@ export default function Recipes({ path }) {
   }
 
   function renderDrinks() {
-    return <h3>Receitas Drinks</h3>;
+    return (
+      <div>
+        <Header />
+        <h3>Receitas Drinks</h3>
+      </div>
+    );
   }
 
   function renderRecipes() {
@@ -25,6 +31,7 @@ export default function Recipes({ path }) {
 
   return (
     <div className="recipes-section">
+      <Header />
       { renderRecipes() }
     </div>
   );
