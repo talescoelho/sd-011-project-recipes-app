@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-// import { saveEmail } from '../redux/actions';
+import { saveEmail } from '../redux/actions';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -54,7 +54,7 @@ const Login = () => {
             id="password"
             name="password"
             setValue={ setPassword }
-            label="Password:"
+            label="Senha:"
           />
         </label>
         <button
@@ -63,7 +63,7 @@ const Login = () => {
           disabled={ disabled }
           onClick={ handleClick }
         >
-          Submit
+          Entrar
         </button>
       </form>
     </div>
