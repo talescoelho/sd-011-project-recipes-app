@@ -23,8 +23,8 @@ function App() {
     <div className="meals">
       <Switch>
         <Route exact path="/" render={ () => <Login /> } />
-        <Route path="/comidas" render={ () => <ComidaPage /> } />
-        <Route path="/bebidas" render={ () => <BebidaPage /> } />
+        <Route exact path="/comidas" render={ () => <ComidaPage /> } />
+        <Route exact path="/bebidas" render={ () => <BebidaPage /> } />
         <Route path="/comidas/:id-receita" render={ () => <ReceitaComidaPage /> } />
         <Route path="/bebidas/:id-receita" render={ () => <ReceitaBebidaPage /> } />
         <Route
@@ -35,14 +35,16 @@ function App() {
           path="/bebidas/:id-receita/in-progress"
           render={ () => <ProcessoBebidaPage /> }
         />
-        <Route path="/explorar" render={ () => <Explorar /> } />
-        <Route path="/explorar/comidas" render={ () => <ExplorarComida /> } />
-        <Route path="/explorar/bebidas" render={ () => <ExplorarBebida /> } />
+        <Route exact path="/explorar" render={ () => <Explorar /> } />
+        <Route exact path="/explorar/comidas" render={ () => <ExplorarComida /> } />
+        <Route exact path="/explorar/bebidas" render={ () => <ExplorarBebida /> } />
         <Route
+          exact
           path="/explorar/comidas/ingredientes"
           render={ () => <ExplorarComidaIngredientes /> }
         />
         <Route
+          exact
           path="/explorar/bebidas/ingredientes"
           render={ () => <ExplorarBebidaIngredientes /> }
         />

@@ -4,7 +4,7 @@ import Header from '../components/Header';
 export default function ExplorarComidaArea() {
   return (
     <div>
-      <Header lupa={ false } text="Explorar Origem" />
+      <Header lupa text="Explorar Origem" />
     </div>
   );
 }
