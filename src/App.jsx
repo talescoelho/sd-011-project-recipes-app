@@ -3,11 +3,7 @@ import Routes from './routes';
 import './App.css';
 
 function App() {
-  return (
-    <main>
-      <Routes />
-    </main>
-  );
+  return <Routes />;
 }
 
 export default App;
