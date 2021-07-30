@@ -5,6 +5,8 @@ import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/Login';
 import Comidas from './Pages/Comidas';
+import Perfil from './Pages/Perfil';
+import Explore from './Pages/Explore';
 
 // Tela principal de receitas de comidas: /comidas;
 // Tela principal de receitas de bebidas: /bebidas;
@@ -28,6 +30,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route path="/comidas" component={ Comidas } />
+        <Route path="/explorar" component={ Explore } />
+        <Route path="/perfil" component={ Perfil } />
       </Switch>
 
       <span className="logo">TRYBE</span>
