@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export default class Login extends Component {
-  constructor(){
+class Login extends Component {
+  constructor() {
     super();
 
     this.state = {
@@ -11,10 +12,8 @@ export default class Login extends Component {
     };
     this.handleChangeForm = this.handleChangeForm.bind(this);
     this.loginUser = this.loginUser.bind(this);
-    
   }
 
-  
   handleChangeForm({ target }) {
     const { name, value } = target;
     this.setState({
@@ -27,10 +26,10 @@ export default class Login extends Component {
     e.preventDefault();
     const { history } = this.props;
     const { email } = this.state;
-    localStorage.setItem('user', JSON.stringify({ email, }));
+    localStorage.setItem('user', JSON.stringify({ email }));
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
-    history.push('/comidas')
+    history.push('/comidas');
   }
 
   validateLogin() {
@@ -47,7 +46,7 @@ export default class Login extends Component {
       });
     }
   }
-  
+
   renderLoginForm() {
     const { email, password, valid } = this.state;
     return (
@@ -93,3 +92,11 @@ export default class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default Login;
