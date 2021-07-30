@@ -49,7 +49,7 @@ function Login() {
             disabled={ disabled }
             type="button"
             data-testid="login-submit-btn"
-            onClick={ () => submitLocalStorage(user.email, history) }
+            onClick={ () => submitLocalStorage(user.email) }
           >
             Entrar
           </button>
