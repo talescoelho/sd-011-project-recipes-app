@@ -1,52 +1,57 @@
 import React from 'react';
+import useFetch from '../hooks/useFetch';
 
 export default function DetailsDrinks() {
-  const mockData = {
-    url: 'https://ciclovivo.com.br/wp-content/uploads/2018/10/iStock-536613027.jpg',
-    title: 'title',
-    category: 'category',
-    ingredients: ['ingredient 1', 'ingredient 2', 'ingredient 3'],
-    instructions: 'instructions',
-    video: 'https://www.youtube.com/embed/tgbNymZ7vqY',
-    recomendedRevenueCard: ['revenue recomended 1',
-      'revenue recomended 2', 'revenue recomended 3'],
-  };
+  const { data, request } = useFetch();
+  const [ingredients, setIngredients] = React.useState([]);
+  const [measures, setMeasures] = React.useState([]);
+
+  React.useEffect(() => {
+    function fetchDrinkApi() {
+      const mockDrinkId = 178319;
+      request(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${mockDrinkId}`);
+    }
+    fetchDrinkApi();
+  }, [request]);
+
+  React.useEffect(() => {
+    if (data) {
+      const dataKeys = Object.keys(data.drinks[0]);
+      setIngredients(dataKeys.filter((key) => key.includes('strIngredient')));
+      setMeasures(dataKeys.filter((key) => key.includes('strMeasure')));
+    }
+  }, [data]);
+
+  if (!data) return <p>Loading...</p>;
 
   return (
     <main>
       <img
         data-testid="recipe-photo"
-        src={ mockData.url }
-        alt="flor amarela"
+        src={ data.drinks[0].strDrinkThumb }
+        alt={ data.drinks[0].strDrink }
         width="100px"
         height="100px"
       />
-      <h1 data-testid="recipe-title">{ mockData.title }</h1>
+      <h1 data-testid="recipe-title">{ data.drinks[0].strDrink }</h1>
       <button data-testid="share-btn" type="button">share</button>
       <button data-testid="favorite-btn" type="button">favorite</button>
-      <h4 data-testid="recipe-category">{ mockData.category }</h4>
-      { mockData.ingredients.map((ingredient, index) => (
+      <h4 data-testid="recipe-category">{ data.drinks[0].strCategory }</h4>
+      { measures.map((measure, index) => (
         <span
           key={ index }
           data-testid={ `${index}-ingredient-name-and-measure` }
         >
-          { ingredient }
+          { data.drinks[0][measure] }
         </span>
       )) }
-      <span data-testid="instructions">{ mockData.instructions }</span>
-      <iframe
-        title="moto"
-        data-testid="video"
-        src={ mockData.video }
-        width="420"
-        height="345"
-      />
-      {mockData.recomendedRevenueCard.map((revenue, index) => (
+      <span data-testid="instructions">{ data.drinks[0].instructions }</span>
+      {ingredients.map((ingredient, index) => (
         <span
           key={ index }
           data-testid={ `${index}-recomendation-card` }
         >
-          { revenue }
+          { data.drinks[0][ingredient] }
         </span>
       ))}
       <button data-testid="start-recipe-btn" type="button">Start</button>

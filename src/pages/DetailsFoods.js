@@ -1,52 +1,64 @@
 import React from 'react';
+import useFetch from '../hooks/useFetch';
 
 export default function DetailsFoods() {
-  const mockData = {
-    url: 'https://ciclovivo.com.br/wp-content/uploads/2018/10/iStock-536613027.jpg',
-    title: 'title',
-    category: 'category',
-    ingredients: ['ingredient 1', 'ingredient 2', 'ingredient 3'],
-    instructions: 'instructions',
-    video: 'https://www.youtube.com/embed/tgbNymZ7vqY',
-    recomendedRevenueCard: ['revenue recomended 1',
-      'revenue recomended 2', 'revenue recomended 3'],
-  };
+  const { data, request } = useFetch();
+  const [ingredients, setIngredients] = React.useState([]);
+  const [measures, setMeasures] = React.useState([]);
+
+  React.useEffect(() => {
+    function fetchFoodApi() {
+      const mockFoodId = 52771;
+      request(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mockFoodId}`);
+    }
+    fetchFoodApi();
+  }, [request]);
+
+  React.useEffect(() => {
+    if (data) {
+      const dataKeys = Object.keys(data.meals[0]);
+      setIngredients(dataKeys.filter((key) => key.includes('strIngredient')));
+      setMeasures(dataKeys.filter((key) => key.includes('strMeasure')));
+    }
+  }, [data]);
+
+  if (!data) return <p>Loading...</p>;
 
   return (
     <main>
       <img
         data-testid="recipe-photo"
-        src={ mockData.url }
-        alt="flor amarela"
+        src={ data.meals[0].strMealThumb }
+        alt={ data.meals[0].strMeal }
         width="100px"
         height="100px"
       />
-      <h1 data-testid="recipe-title">{ mockData.title }</h1>
+      <h1 data-testid="recipe-title">{ data.meals[0].strMeal }</h1>
       <button data-testid="share-btn" type="button">share</button>
       <button data-testid="favorite-btn" type="button">favorite</button>
-      <h4 data-testid="recipe-category">{ mockData.category }</h4>
-      { mockData.ingredients.map((ingredient, index) => (
+      <h4 data-testid="recipe-category">{ data.meals[0].strCategory }</h4>
+      { measures.map((measure, index) => (
         <span
           key={ index }
           data-testid={ `${index}-ingredient-name-and-measure` }
         >
-          { ingredient }
+          { data.meals[0][measure] }
         </span>
       )) }
-      <span data-testid="instructions">{ mockData.instructions }</span>
+      <span data-testid="instructions">{ data.meals[0].instructions }</span>
       <iframe
-        title="moto"
+        title={ data.meals[0].strMeal }
         data-testid="video"
-        src={ mockData.video }
+        src={ data.meals[0].strYoutube }
         width="420"
         height="345"
       />
-      {mockData.recomendedRevenueCard.map((revenue, index) => (
+      {ingredients.map((ingredient, index) => (
         <span
           key={ index }
           data-testid={ `${index}-recomendation-card` }
         >
-          { revenue }
+          { data.meals[0][ingredient] }
         </span>
       ))}
       <button data-testid="start-recipe-btn" type="button">Start</button>

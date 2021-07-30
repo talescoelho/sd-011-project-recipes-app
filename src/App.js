@@ -12,8 +12,16 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ Login } />
-          <Route exact path="/comidas/:id" component={ DetailsFoods } />
-          <Route exact path="/bebidas/:id" component={ DetailsDrinks } />
+          <Route
+            exact
+            path="/comidas/:id"
+            render={ (props) => <DetailsFoods { ...props } /> }
+          />
+          <Route
+            exact
+            path="/bebidas/:id"
+            render={ (props) => <DetailsDrinks { ...props } /> }
+          />
         </Switch>
       </BrowserRouter>
     </div>
