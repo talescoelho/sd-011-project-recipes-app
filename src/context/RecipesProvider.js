@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
-  const [recipeType, setRecipeType] = useState('drinks');
+  const [recipeType, setRecipeType] = useState('meals');
   const [recipesData, setRecipesData] = useState([]);
 
   const context = {
