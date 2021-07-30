@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 function SearchBar() {
   const [selected, setSelected] = useState('');
   const [search, setSearch] = useState('');
-  const [foods, setFoods] = useState([]);
-  console.log(foods);
+  const [, setFoods] = useState([]);
 
   const fetchFoodsIng = (ingrediente, what) => {
     fetch(`https://www.the${what()}db.com/api/json/v1/1/filter.php?i=${ingrediente}`)
