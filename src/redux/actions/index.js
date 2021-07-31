@@ -65,3 +65,14 @@ export const fetchList = (url) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const fetchRecipesListDrinks = (url) => async (dispatch) => {
+  dispatch(responseApiList());
+  try {
+    const request = await fetch(url);
+    const response = await request.json();
+    return response.drinks;
+  } catch (error) {
+    console.log(error);
+  }
+};
