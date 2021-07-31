@@ -26,21 +26,26 @@ export async function categoriesFetch(mealOrDrink) {
 }
 
 export async function filterByCategorieFetch(mealOrDrink, category) {
-  let response;
-  if (mealOrDrink === 'meal') {
-    response = await fetch(`www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+  let endpointApi;
+  if (mealOrDrink === 'meal' && category) {
+    endpointApi = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
   }
-  if (mealOrDrink === 'drink') {
-    response = await fetch(
-      `www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`,
-    );
+  if (mealOrDrink === 'drink' && category) {
+    endpointApi = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+  }
+  if (mealOrDrink === 'meal' && !category) {
+    endpointApi = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  }
+  if (mealOrDrink === 'drink' && !category) {
+    endpointApi = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   }
 
   return async (dispatch) => {
     try {
       dispatch(requestFilterCategories());
+      const response = await fetch(endpointApi);
       const data = await response.json();
-      // console.log(data);
+      console.log(data);
       dispatch(requestSuccessFilterCategories(data));
     } catch (error) {
       console.error(error);
