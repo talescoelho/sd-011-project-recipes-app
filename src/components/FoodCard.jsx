@@ -5,7 +5,6 @@ function FoodCard({ recipe, index, type }) {
   const foodName = type === 'drinks' ? 'strDrink' : 'strMeal';
   const foodImage = type === 'drinks' ? 'strDrinkThumb' : 'strMealThumb';
 
-  console.log(recipe);
   return (
     <div
       className="foodCardContainer"

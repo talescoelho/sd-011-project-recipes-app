@@ -1,8 +1,8 @@
 const MEAL_URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const COCKTAILS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
-export const fetchAllRecipes = async (recipeTypes) => {
-  if (recipeTypes === 'Bebidas') {
+export const fetchAllRecipes = async (recipeType) => {
+  if (recipeType === '/bebidas') {
     const recipes = await fetch(COCKTAILS_URL);
     const { drinks } = await recipes.json();
     return drinks;

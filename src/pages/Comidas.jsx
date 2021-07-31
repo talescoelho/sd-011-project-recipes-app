@@ -9,8 +9,12 @@ import MealsContext from '../context/MealsContext';
 
 function Comidas() {
   const { pathname } = useLocation();
+  const [route] = useState(pathname);
+
   const type = pathname === '/bebidas' ? 'drinks' : 'meals';
-  const { dataRecipes, recipeType } = useContext(MealsContext);
+  const title = type === 'drinks' ? 'Bebidas' : 'Comidas';
+
+  const { dataRecipes, setRecipeType } = useContext(MealsContext);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -18,17 +22,21 @@ function Comidas() {
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
+    setRecipeType(route);
+  }, [route, setRecipeType]);
+
+  useEffect(() => {
     const ONE_SECOND = 1000;
     // Foi necessário o timeout, pois estava executando antes o effect, VERIFICAR O PQ;
     setTimeout(() => {
       setIsLoading(false);
     }, ONE_SECOND);
-    console.log(dataRecipes, recipeType, type);
   }, [dataRecipes]);
 
   return (
     <div className="comidasPageContainer">
-      <Header title={ recipeType } showSearchIcon />
+      <Header title={ title } showSearchIcon />
       <CategoryFilters />
       <div className="foodRecipesContainer">
         {

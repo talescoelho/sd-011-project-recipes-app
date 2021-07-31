@@ -6,15 +6,16 @@ import { fetchAllRecipes } from '../services/index';
 
 function MealsProvider({ children }) {
   const { pathname } = useLocation();
-  const type = pathname === '/bebidas' ? 'Bebidas' : 'Comidas';
-
-  const [recipeType, setRecipeType] = useState('');
+  const [recipeType, setRecipeType] = useState(pathname);
   const [dataRecipes, setDataRecipes] = useState({});
 
   useEffect(() => {
-    setRecipeType(type);
+    setRecipeType(pathname);
+  }, [pathname]);
+
+  useEffect(() => {
     const fetchRecipes = async () => {
-      const recipes = await fetchAllRecipes(type);
+      const recipes = await fetchAllRecipes(recipeType);
       setDataRecipes(recipes);
     };
     fetchRecipes();
@@ -23,6 +24,7 @@ function MealsProvider({ children }) {
   const contextValue = {
     dataRecipes,
     recipeType,
+    setRecipeType,
   };
 
   MealsProvider.propTypes = {
