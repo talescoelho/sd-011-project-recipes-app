@@ -5,8 +5,8 @@ import mealIcon from '../../../images/mealIcon.svg';
 export default function FoodBtn() {
   return (
     <div>
-      <Link to="/comidas" data-testid="food-bottom-btn">
-        <img src={ mealIcon } alt="Símbolo comida" />
+      <Link to="/comidas">
+        <img src={ mealIcon } alt="Símbolo comida" data-testid="food-bottom-btn" />
       </Link>
     </div>
   );

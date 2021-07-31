@@ -1,10 +1,10 @@
 import React from 'react';
-import Footer from '../components/footer/Footer';
+// import Footer from '../components/footer/Footer';
 
 export default function RecipeDetails() {
   return (
     <div>
-      <Footer />
+      ola
     </div>
   );
 }
