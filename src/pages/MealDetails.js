@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchRecipeDetailsAPIAction, fetchRecipesAPIAction } from '../redux/actions';
+import objToArryOfObj from '../helper/objToArryOfObj';
 
 const URL_TO_DRINKS_RECIPES = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
@@ -20,23 +21,34 @@ function MealDetails({ recipeDetailsData, fetchDetails, fetchRecipes, match }) {
     const { meals } = recipeDetailsData;
     const data = meals[0];
     const { strMeal, strMealThumb, strCategory } = data;
-    const ingedientsKeys = (Object.keys(data))
-      .filter((key) => key.includes('strIngredient'));
+    // const ingedientsKeys = (Object.keys(data))
+    //   .filter((key) => key.includes('strIngredient'));
+    // const measureKeys = (Object.keys(data))
+    //   .filter((key) => key.includes('strMeasure'));
+
+    // const ingredientsAndMesure = [];
+    // ingedientsKeys.forEach((key, index) => {
+    //   if (data[key]) {
+    //     const obj = {
+    //       name: data[key],
+    //       measure: data[measureKeys[index]],
+    //     };
+    //     ingredientsAndMesure.push(obj);
+    //   }
+    // });
+    // console.log(ingredientsAndMesure);
+    const ingredientsAndMesure = objToArryOfObj(data);
 
     return (
       <div>
+        {console.log(ingredientsAndMesure)}
         DETALHES
         <img src={ strMealThumb } alt={ strMeal } data-testid="recipe-photo" />
         <h1 data-testid="recipe-title">{ strMeal }</h1>
         <button type="button" data-testid="share-btn">SHARE</button>
         <button type="button" data-testid="favorite-btn">FAV</button>
         <span data-testid="recipe-category">{ strCategory }</span>
-        {ingedientsKeys.map((ingredientKey, index) => {
-          if (data[ingredientKey]) {
-            return (<p key={ index }>{data[ingredientKey]}</p>);
-          }
-          return '';
-        })}
+        {/* {ingredientsAndMesure.map((ingredient) => <p>{ingredient.name}{ingredient.measure}</p>)} */}
       </div>
     );
   }
