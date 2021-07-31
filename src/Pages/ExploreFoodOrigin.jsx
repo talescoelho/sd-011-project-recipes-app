@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from '../Components/Header';
+import Header from '../Components/HeaderFood';
 
 export default class ExploreFoodOrigin extends Component {
   render() {

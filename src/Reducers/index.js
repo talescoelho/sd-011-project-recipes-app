@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import taskReducer from './Genirico';
+import recipeReducer from './recipeReducer';
 
-const rootReducer = combineReducers({ taskReducer });
+const rootReducer = combineReducers({ recipeReducer });
 
 export default rootReducer;
