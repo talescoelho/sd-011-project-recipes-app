@@ -4,7 +4,7 @@ export default class ComidasInProgress extends Component {
   render() {
     return (
       <div>
-        0
+        Comidas In Progress
       </div>
     );
   }
