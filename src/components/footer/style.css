@@ -1,8 +1,8 @@
 .container-footer {
-    bottom: 0;
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 100%;
+  bottom: 0;
+  align-items: center;
+  display: flex;
+  position: fixed;
+  justify-content: space-around;
+  width: 100%;
 }
