@@ -31,8 +31,8 @@ export const fetchRecipesMain = (url) => async (dispatch) => {
   dispatch(responseApiRecipes());
   try {
     const request = await fetch(url);
-    const reponse = await request.json();
-    console.log(reponse);
+    const response = await request.json();
+    return response.meals;
   } catch (error) {
     console.log(error);
   }
