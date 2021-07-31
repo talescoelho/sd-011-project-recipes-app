@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import Context from './Context';
 
 // Aux vars
@@ -52,12 +53,16 @@ function Provider({ children }) {
       }
     };
     fetchFoodData();
+
+    // if (dataFood.meals.length === 1 && !dataFood) {
+    //   return <Redirect to={ `/comidas/${dataFood.meals[0].idMeal}` } />;
+    // }
   }, [requestFoodParams]);
+  console.log(dataFood);
 
   useEffect(() => {
     const { searchInput, searchMethod } = requestDrinksParams;
     const fetchDrinkData = async () => {
-      console.log(requestDrinksParams);
       let response;
       if (searchMethod === firstLetter && searchInput.length !== 1) {
         // eslint-disable-next-line no-alert
@@ -82,7 +87,6 @@ function Provider({ children }) {
     };
     fetchDrinkData();
   }, [requestDrinksParams]);
-  console.log('dataDrink:', dataDrinks);
 
   const context = {
     dataFood,

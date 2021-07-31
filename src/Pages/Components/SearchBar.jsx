@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Context from '../../Context_Configs/Context';
 
 function SearchBar({ value }) {
-  console.log(value);
   const [searchParameters, setSearchParameters] = useState({
     searchInput: '',
     searchMethod: '',
