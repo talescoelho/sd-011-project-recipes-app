@@ -1,0 +1,18 @@
+.recomendations {
+  display: flex;
+  flex-direction: row;
+  max-width: 360px;
+  overflow-x: scroll;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 50px
+}
+
+img {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}

@@ -77,7 +77,7 @@ function RecipesId({ match }) {
   useEffect(() => {
     async function getApi() {
       dispatch(await apiDetailsId(
-        typeDrinkorMeal === 'comidas' ? 'meal' : 'drink', id,
+        typeDrinkorMeal === 'comidas' ? 'meals' : 'drinks', id,
       ));
     }
     getApi();
@@ -102,7 +102,7 @@ function RecipesId({ match }) {
       { video && <div data-testid="video">{ video }</div> }
       <Recomendation
         recomendInverse={
-          typeDrinkorMeal === 'comidas' ? 'meal' : 'drink'
+          typeDrinkorMeal === 'comidas' ? 'meals' : 'drinks'
         }
       />
       <button type="button" data-testid="start-recipe-btn">Iniciar</button>

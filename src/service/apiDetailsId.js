@@ -6,10 +6,10 @@ import {
 
 export async function apiDetailsId(mealOrDrink, id) {
   let responseDetail;
-  if (mealOrDrink === 'meal') {
+  if (mealOrDrink === 'meals') {
     responseDetail = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
   }
-  if (mealOrDrink === 'drink') {
+  if (mealOrDrink === 'drinks') {
     responseDetail = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
   }
   return async (dispatch) => {
@@ -24,15 +24,20 @@ export async function apiDetailsId(mealOrDrink, id) {
 }
 export async function apiRecomendation(mealOrDrink) {
   let responseRecomendation;
-  if (mealOrDrink === 'meal') {
+  let data = [];
+  const magiCNumber = 6;
+  if (mealOrDrink === 'meals') {
     responseRecomendation = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    const { drinks } = await responseRecomendation.json();
+    data = drinks.slice(0, magiCNumber);
   }
-  if (mealOrDrink === 'drink') {
+  if (mealOrDrink === 'drinks') {
     responseRecomendation = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    const { meals } = await responseRecomendation.json();
+    data = meals.slice(0, magiCNumber);
   }
-  return async (dispatch) => {
+  return (dispatch) => {
     try {
-      const data = await responseRecomendation.json();
       dispatch(requestRecomendation(data));
     } catch (error) {
       console.error(error);
