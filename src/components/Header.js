@@ -19,43 +19,46 @@ function Header({ value }) {
   function hiddenInput() {
     if (showSearchBar) {
       return (
-        <div>
-          <input type="text" data-testid="search-input" />
-          <label htmlFor="search-ingredients">
-            Ingredientes
-            <input
-              id="search-ingredients"
-              type="radio"
-              data-testid="ingredient-search-radio"
-              name="search--name"
-            />
-          </label>
-          <label htmlFor="search-name">
-            Nome
-            <input
-              id="search-name"
-              type="radio"
-              data-testid="name-search-radio"
-              name="search--name"
-            />
-          </label>
-          <label htmlFor="search-firstLetter">
-            Primeira Letra
-            <input
-              id="search-firstLetter"
-              type="radio"
-              data-testid="first-letter-search-radio"
-              name="search--name"
-            />
-          </label>
-          <button
-            type="button"
-            data-testid="exec-search-btn"
-          >
-            Buscar
-          </button>
-        </div>
-
+        <section className="section-container">
+          <div className="search-recipe">
+            <input type="text" data-testid="search-input" />
+            <div className="search-radio">
+              <label className="label-style" htmlFor="search-ingredients">
+                <input
+                  id="search-ingredients"
+                  type="radio"
+                  data-testid="ingredient-search-radio"
+                  name="search--name"
+                />
+                Ingredientes
+              </label>
+              <label className="label-style" htmlFor="search-name">
+                <input
+                  id="search-name"
+                  type="radio"
+                  data-testid="name-search-radio"
+                  name="search--name"
+                />
+                Nome
+              </label>
+              <label className="label-style" htmlFor="search-firstLetter">
+                <input
+                  id="search-firstLetter"
+                  type="radio"
+                  data-testid="first-letter-search-radio"
+                  name="search--name"
+                />
+                Primeira
+              </label>
+            </div>
+            <button
+              type="button"
+              data-testid="exec-search-btn"
+            >
+              Buscar
+            </button>
+          </div>
+        </section>
       );
     }
   }
@@ -63,33 +66,37 @@ function Header({ value }) {
   function handleButton() {
     if (setIcon) {
       return (
-        <>
+        <div>
           <button
+            className="button-header"
             type="button"
             onClick={ isVerified }
           >
             <img data-testid="search-top-btn" src={ searchIcon } alt="buscar" />
           </button>
-          { hiddenInput() }
-        </>
+        </div>
       );
     }
   }
 
   return (
-    <header>
-      <button
-        type="button"
-        onClick={ () => history.push('/perfil') }
-      >
-        <img
-          data-testid="profile-top-btn"
-          alt="User"
-          src={ profileIcon }
-        />
-      </button>
-      <h1 data-testid="page-title">{ pageName }</h1>
-      { handleButton() }
+    <header className="container-header">
+      <div className="header-wrapper">
+        <button
+          className="button-header"
+          type="button"
+          onClick={ () => history.push('/perfil') }
+        >
+          <img
+            data-testid="profile-top-btn"
+            alt="User"
+            src={ profileIcon }
+          />
+        </button>
+        <h2 data-testid="page-title">{ pageName }</h2>
+        { handleButton() }
+      </div>
+      { hiddenInput() }
     </header>
   );
 }

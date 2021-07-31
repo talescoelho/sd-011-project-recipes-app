@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
+import '../styles/login.css';
 
 export default function Login() {
   const { loginState, setLogin } = useContext(RecipesContext);
@@ -26,27 +27,33 @@ export default function Login() {
   }
 
   return (
-    <div>
-      <input
-        type="email"
-        data-testid="email-input"
-        placeholder="email"
-        onChange={ handleLogin }
-      />
-      <input
-        type="password"
-        data-testid="password-input"
-        placeholder="senha"
-        onChange={ handleLogin }
-      />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ loginState.isDisabled }
-        onClick={ handleSubmit }
-      >
-        Login
-      </button>
-    </div>
+    <main className="container">
+      <div className="container-login">
+        <div className="login-info">
+          <h2>Login</h2>
+          <input
+            type="email"
+            data-testid="email-input"
+            placeholder="email"
+            onChange={ handleLogin }
+          />
+          <input
+            type="password"
+            data-testid="password-input"
+            placeholder="senha"
+            onChange={ handleLogin }
+          />
+          <button
+            className="button-login"
+            type="button"
+            data-testid="login-submit-btn"
+            disabled={ loginState.isDisabled }
+            onClick={ handleSubmit }
+          >
+            Entrar
+          </button>
+        </div>
+      </div>
+    </main>
   );
 }

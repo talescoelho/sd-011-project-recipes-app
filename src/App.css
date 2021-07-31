@@ -1,68 +1,75 @@
-.meals {
+.container {
   align-items: center;
-  background: #0fa36b;
-  color: #464646;
+  background-color: hotpink;
   display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
+  justify-content: center;
   height: 100vh;
+  width: 100%;
+}
+
+.container-header {
+  align-items: center;
+  display: flex;
+  background-color: rgb(182, 182, 182);
+  flex-direction: column;
   justify-content: center;
   width: 100%;
 }
 
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
+.header-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
-/*
-#iceLeft {
-  animation: clink .8s infinite ease;
-  opacity: 0.6;
-  transform-origin: 36px 66px;
+.hidden-container {
+  width: 40px;
+  height: 40px;
 }
 
-#iceRight {
-  animation: clink .8s .2s infinite ease;
-  opacity: 0.6;
-  transform-origin: 60px 78px;
-}
-*/
-
-.meals > .logo {
-  animation: shake 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
+.button-header {
+  border: 0;
+  border-radius: 10px;
+  height: 40px;
+  background-color: transparent;
 }
 
-@keyframes shake {
-
-  0% {
-    transform: rotate(5deg);
-  }
-
-  50% {
-    transform: rotate(-5deg);
-  }
-
-  100% {
-    transform: rotate(5deg);
-  }
+.section-container{
+  align-items: center;
+  background-color: rgb(240, 240, 240);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
 }
 
-@keyframes clink {
+.search-recipe {
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
+  width: 95%;
+}
 
-  0% {
-    transform: rotate(-10deg);
-  }
+.search-recipe input {
+  width: 100%;
+}
 
-  50% {
-    transform: rotate(20deg);
-  }
+.search-recipe button {
+  border: 0;
+  background-color: rgb(182, 182, 182);
+  border-radius: 5px;
+  width: 30%;
+}
 
-  100% {
-    transform: rotate(-10deg);
-  }
+.search-radio {
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  width: 100%;
+}
+
+.label-style {
+  display: flex;
+  flex-wrap: nowrap;
 }
