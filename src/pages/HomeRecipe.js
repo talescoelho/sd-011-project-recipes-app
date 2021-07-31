@@ -5,6 +5,7 @@ function HomeRecipe() {
   return (
     <div>
       <Header title="Comidas" />
+
     </div>
   );
 }
