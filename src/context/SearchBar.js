@@ -5,10 +5,13 @@ export const SearchBarContext = createContext();
 
 export function Provider({ children }) {
   const [data, setData] = useState({});
+  const [shouldCallCards, setShouldCallCards] = useState(false);
 
   const value = {
     setData,
     data,
+    shouldCallCards,
+    setShouldCallCards,
   };
   return (
     <SearchBarContext.Provider value={ value }>

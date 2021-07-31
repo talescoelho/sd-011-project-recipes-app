@@ -3,36 +3,53 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { SearchBarContext } from '../context/SearchBar';
 import fetchByFilter from '../services/data';
+import Cards from './Cards';
 
 export default function SearchBar(props) {
+  const {
+    setData,
+    data,
+    setShouldCallCards,
+    shouldCallCards,
+  } = useContext(SearchBarContext);
+
   const [input, setInput] = useState('');
   const [radio, setRadio] = useState('');
-  const { setData, data } = useContext(SearchBarContext);
-  const history = useHistory();
-
+  const [recipeId, setRecipeId] = useState();
+  const [dataValues, setDataValues] = useState();
+  const [path, setPath] = useState();
+  const [recipeType, setRecipeType] = useState();
   const { fetchType } = props;
 
+  const history = useHistory();
+
   useEffect(() => {
-    const dataValues = Object.values(data)[0]; // Pega a primeira posição dos valores de data, onde ficam todos os objectos de receitas
+    setDataValues(Object.values(data)[0]); // Pega a primeira posição dos valores de data, onde ficam todos os objectos de receitas
+    console.log(dataValues);
+  }, [data, dataValues]);
+
+  useEffect(() => {
     if (dataValues && dataValues.length === 1) {
-      let id;
-      let url;
-      switch (fetchType) {
-      case 'themealdb':
-        id = dataValues[0].idMeal; // Pega id da receita na posição 0
-        url = 'comidas';
-        break;
-      case 'thecocktaildb':
-        id = dataValues[0].idDrink;
-        url = 'bebidas';
-        break;
-      default:
-        break;
+      if (fetchType === 'themealdb') {
+        setRecipeType('comidas');
+        setRecipeId(dataValues[0].idMeal);
       }
-      const path = `/${url}/${id}`;
+      if (fetchType === 'thecocktaildb') {
+        setRecipeType('bebidas');
+        setRecipeId(dataValues[0].idDrink);
+      }
+      setPath(`/${recipeType}/${recipeId}`);
       history.push(path);
     }
-  }, [data, fetchType, history]);
+  }, [dataValues, fetchType, history, path, recipeId, recipeType]);
+
+  useEffect(() => {
+    if (dataValues && dataValues.length > 1) {
+      setShouldCallCards(true);
+    } else {
+      setShouldCallCards(false);
+    }
+  }, [dataValues, setShouldCallCards]);
 
   const handleClick = async () => {
     const urlToFetch = `https://www.${fetchType}.com/api/json/v1/1/${radio}${input}`;
@@ -92,6 +109,17 @@ export default function SearchBar(props) {
       >
         Buscar
       </button>
+      <section>
+        { shouldCallCards
+          && dataValues.map((eachRecipe, index) => (
+            <Cards
+              recipe={ eachRecipe }
+              type={ fetchType }
+              index={ index }
+              key={ index }
+            />
+          )) }
+      </section>
     </section>
   );
 }
