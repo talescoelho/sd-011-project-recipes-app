@@ -27,6 +27,8 @@ function Bebidas() {
         && dataApi.drinks
           .map((e, i) => i < limitSearch && (
             <RecipeCards
+              comidasOuBebidas="bebidas"
+              idItem={ e.idDrink }
               index={ i }
               key={ i }
               src={ e.strDrinkThumb }

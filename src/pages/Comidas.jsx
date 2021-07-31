@@ -27,6 +27,8 @@ function Comidas() {
         && dataApi.meals
           .map((e, i) => i < limitSearch && (
             <RecipeCards
+              comidasOuBebidas="comidas"
+              idItem={ e.idMeal }
               index={ i }
               key={ i }
               src={ e.strMealThumb }

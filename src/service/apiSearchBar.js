@@ -52,7 +52,7 @@ export default async function searchCase(mealOrDrink, radioQuery, search) {
       const data = await response.json();
       // console.log(data);
       dispatch(requestSuccessSearch(data));
-      caseItemLengthOne(data, dispatch(itemLengthOne()), mealOrDrink);
+      caseItemLengthOne(data, dispatch, mealOrDrink);
     } catch (error) {
       console.error(error);
     }
