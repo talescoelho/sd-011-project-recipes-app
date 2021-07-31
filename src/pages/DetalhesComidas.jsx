@@ -8,6 +8,7 @@ class DetalhesComidas extends Component {
     super();
     this.state = {
       food: {},
+      recomendations: [],
     };
 
     this.fetchIdMeal = this.fetchIdMeal.bind(this);
@@ -18,6 +19,7 @@ class DetalhesComidas extends Component {
     const { location } = history;
     const { pathname } = location;
     this.fetchIdMeal(pathname.split('/')[2]);
+    this.recomendationsFetch();
   }
 
   fetchIdMeal(id) {
@@ -28,9 +30,19 @@ class DetalhesComidas extends Component {
       }));
   }
 
+  recomendationsFetch() {
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+      .then((data) => data.json())
+      .then((response) => this.setState({
+        recomendations: response,
+      }));
+  }
+
   render() {
-    const { food } = this.state;
+    const { food, recomendations } = this.state;
     const { meals } = food;
+    const { drinks } = recomendations;
+    console.log(drinks);
     if (!meals) {
       return <p>Carregando</p>;
     }

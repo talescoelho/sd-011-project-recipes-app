@@ -8,9 +8,11 @@ class DetalhesBebidas extends Component {
     super();
     this.state = {
       cocktail: {},
+      recomendations: [],
     };
 
     this.fetchIdDrink = this.fetchIdDrink.bind(this);
+    this.recomendationsFetch = this.recomendationsFetch.bind(this);
   }
 
   componentDidMount() {
@@ -18,6 +20,7 @@ class DetalhesBebidas extends Component {
     const { location } = history;
     const { pathname } = location;
     this.fetchIdDrink(pathname.split('/')[2]);
+    this.recomendationsFetch();
   }
 
   fetchIdDrink(id) {
@@ -28,9 +31,19 @@ class DetalhesBebidas extends Component {
       }));
   }
 
+  recomendationsFetch() {
+    fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+      .then((data) => data.json())
+      .then((response) => this.setState({
+        recomendations: response,
+      }));
+  }
+
   render() {
-    const { cocktail } = this.state;
+    const { cocktail, recomendations } = this.state;
     const { drinks } = cocktail;
+    const { meals } = recomendations;
+    console.log(meals);
     if (!drinks) {
       return <p>Carregando</p>;
     }
@@ -86,6 +99,9 @@ class DetalhesBebidas extends Component {
               { value }
             </p>))}
           <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+        </div>
+        <div>
+          { }
         </div>
       </div>
     );
