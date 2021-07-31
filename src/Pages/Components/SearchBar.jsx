@@ -1,19 +1,22 @@
 import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import Context from '../../Context_Configs/Context';
 
-function SearchBar() {
+function SearchBar({ value }) {
+  console.log(value);
   const [searchParameters, setSearchParameters] = useState({
     searchInput: '',
     searchMethod: '',
   });
 
-  const { setRequestParams } = useContext(Context);
+  const { setRequestFoodParams, setRequestDrinksParams } = useContext(Context);
 
   return (
     <div>
       <label htmlFor="search-input">
         <input
-          onChange={ (e) => setSearchParameters({ ...searchParameters, searchInput: e.target.value }) }
+          onChange={ (e) => setSearchParameters({ ...searchParameters,
+            searchInput: e.target.value }) }
           id="search-input"
           data-testid="search-input"
           type="text"
@@ -24,7 +27,8 @@ function SearchBar() {
         <label htmlFor="ingredients">
           Ingredientes
           <input
-            onChange={ (e) => setSearchParameters({ ...searchParameters, searchMethod: e.target.id }) }
+            onChange={ (e) => setSearchParameters({ ...searchParameters,
+              searchMethod: e.target.id }) }
             data-testid="ingredient-search-radio"
             name="parameter"
             id="ingredients"
@@ -34,7 +38,8 @@ function SearchBar() {
         <label htmlFor="name">
           Nome
           <input
-            onChange={ (e) => setSearchParameters({ ...searchParameters, searchMethod: e.target.id }) }
+            onChange={ (e) => setSearchParameters({ ...searchParameters,
+              searchMethod: e.target.id }) }
             data-testid="name-search-radio"
             name="parameter"
             id="name"
@@ -44,7 +49,8 @@ function SearchBar() {
         <label htmlFor="first-letter">
           Primeira Letra
           <input
-            onChange={ (e) => setSearchParameters({ ...searchParameters, searchMethod: e.target.id }) }
+            onChange={ (e) => setSearchParameters({ ...searchParameters,
+              searchMethod: e.target.id }) }
             data-testid="first-letter-search-radio"
             name="parameter"
             id="first-letter"
@@ -54,7 +60,9 @@ function SearchBar() {
         <button
           type="button"
           data-testid="exec-search-btn"
-          onClick={ () => setRequestParams(searchParameters) }
+          onClick={ () => (value === 'foods'
+            ? setRequestFoodParams(searchParameters)
+            : setRequestDrinksParams(searchParameters)) }
         >
           Pesquisar
         </button>
@@ -64,3 +72,7 @@ function SearchBar() {
 }
 
 export default SearchBar;
+
+SearchBar.propTypes = {
+  value: PropTypes.string.isRequired,
+};

@@ -7,11 +7,11 @@ import SearchBar from './Components/SearchBar';
 
 function Foods() {
   const [showSearch, setShowSearch] = useState(false);
-
+  const foods = 'foods';
   return (
     <div>
       <h1 data-testid="page-title">Comidas</h1>
-      { showSearch ? <SearchBar /> : <p>Desapareceu</p> }
+      { showSearch ? <SearchBar value={ foods } /> : <p>Desapareceu</p> }
       <Link to="/perfil">
         <img
           data-testid="profile-top-btn"
