@@ -29,14 +29,14 @@ function RecipesId({ match }) {
 
   function getReduxMealsOrDrinks() {
     if (drinks !== undefined) {
-      const { idDrink, strDrink, strDrinkThumb, strCategory, strInstructions, strVideo,
+      const { idDrink, strDrink, strDrinkThumb, strAlcoholic, strInstructions, strVideo,
         strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5,
         strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5 } = drinks[0];
       setDetail({
         idItem: idDrink,
         title: strDrink,
         imgThumb: strDrinkThumb,
-        category: strCategory,
+        category: strAlcoholic,
         instructions: strInstructions,
         video: strVideo,
         ingredient: [
