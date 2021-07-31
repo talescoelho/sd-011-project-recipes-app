@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import apiDetailsId from '../service/apiDetailsId';
 
-function RecipesId({ match: { params: { id } } }) {
+function RecipesId({ match }) {
+  const { params, path } = match;
+  const { id } = params;
   const dispatch = useDispatch();
   const { dataApi } = useSelector(({ detailsId }) => detailsId);
   const { drinks } = dataApi;
@@ -84,10 +86,13 @@ function RecipesId({ match: { params: { id } } }) {
 
   useEffect(() => {
     async function getApi() {
-      dispatch(await apiDetailsId('drink', id));
+      const typeDrinkorMeal = path.split('/')[1];
+      dispatch(await apiDetailsId(
+        typeDrinkorMeal === 'comidas' ? 'meal' : 'drink', id,
+      ));
     }
     getApi();
-  }, [dispatch, id]);
+  }, [dispatch, id, path]);
 
   return (
     <div>
