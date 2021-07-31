@@ -88,7 +88,7 @@ export default function DetailsFoods() {
       </div>
       <button data-testid="share-btn" type="button">share</button>
       <button data-testid="favorite-btn" type="button">favorite</button>
-      <button data-testid="start-recipe-btn" type="button">Start</button>
+      <button className="btnFixed" data-testid="start-recipe-btn" type="button">Iniciar receita</button>
     </main>
   );
 }

@@ -73,3 +73,8 @@
   width: 200px;
   height: 200px;
 }
+
+.btnFixed {
+  position: fixed;
+  bottom: 0;
+}
