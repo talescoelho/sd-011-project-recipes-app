@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import HeaderDrink from '../Components/HeaderDrink';
 import RecipesList from '../Components/RecipesList';
+import FooterMenu from '../Components/FooterMenu';
 
 class Drinks extends Component {
   render() {
@@ -14,6 +15,7 @@ class Drinks extends Component {
         { drinks.length === 1
           ? <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />
           : <RecipesList />}
+        <FooterMenu />
       </div>
     );
   }
