@@ -38,7 +38,10 @@ function HomeRecipe() {
         {isLoading ? <p>loading...</p>
           : (mealsFilter.slice(0, magicNumberFive).map((itemButtons, index) => (
             <div key={ index }>
-              <button type="button">
+              <button
+                data-testid={ `${itemButtons.strCategory}-category-filter` }
+                type="button"
+              >
                 {' '}
                 {itemButtons.strCategory}
                 {' '}
