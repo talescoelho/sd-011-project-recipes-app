@@ -1,0 +1,6 @@
+.buttonSart {
+  bottom: 0;
+  left: 50%;
+  position: fixed;
+  transform: translateX(-50%);
+}

@@ -24,3 +24,9 @@ export const requestSuccessDetailsId = (payload) => ({
   type: REQUEST_SUCCESS_DETAILS_ID,
   payload,
 });
+
+export const REQUEST_SUCCESS_RECOMENDATION = 'REQUEST_SUCCESS_RECOMENDATION';
+export const requestRecomendation = (payload) => ({
+  type: REQUEST_SUCCESS_RECOMENDATION,
+  payload,
+});
