@@ -7,6 +7,7 @@ export default function DetailsFoods() {
   const { recomendedData, requestRecomendedApi } = useRecomendedItemsFetch();
   const [ingredients, setIngredients] = React.useState([]);
   const [measures, setMeasures] = React.useState([]);
+  const [recomendedDrinks, setRecomendedDrinks] = React.useState([]);
 
   React.useEffect(() => {
     function fetchFoodApi() {
@@ -21,17 +22,19 @@ export default function DetailsFoods() {
   }, [request, requestRecomendedApi]);
 
   React.useEffect(() => {
-    if (data) {
+    if (data && recomendedData) {
+      const maxRecomendedItems = 6;
       const dataKeys = Object.keys(data.meals[0]);
       setIngredients(dataKeys.filter((key) => key.includes('strIngredient')));
       setMeasures(dataKeys.filter((key) => key.includes('strMeasure')));
+      const onlySix = recomendedData.drinks.filter((_, index) => (
+        index < maxRecomendedItems
+      ));
+      setRecomendedDrinks(onlySix);
     }
-  }, [data]);
+  }, [data, recomendedData]);
 
   if (!data || !recomendedData) return <p>Loading...</p>;
-
-  const mockRecomendationCard = ['recomendation 1',
-    'recomendation 2', 'recomendation 3', 'recomendation 4'];
 
   return (
     <main>
@@ -54,14 +57,6 @@ export default function DetailsFoods() {
           </p>
         )) }
       <span data-testid="instructions">{ data.meals[0].strInstructions }</span>
-      {mockRecomendationCard.map((recomended, index) => (
-        <p
-          data-testid={ `${index}-recomendation-card` }
-          key={ index }
-        >
-          { recomended }
-        </p>
-      ))}
       <iframe
         title={ data.meals[0].strMeal }
         data-testid="video"
@@ -69,6 +64,28 @@ export default function DetailsFoods() {
         width="420"
         height="345"
       />
+      <div className="div-scroll">
+        {recomendedDrinks.map((recomended, index) => (
+          <div
+            data-testid={ `${index}-recomendation-card` }
+            key={ index }
+            style={ { width: '100px', height: '100px', margin: '10px 5px' } }
+          >
+            <img
+              src={ recomended.strDrinkThumb }
+              alt={ recomended.strDrink }
+              width="90px"
+              height="90px"
+            />
+            <h6>{ recomended.strCategory }</h6>
+            <h3
+              data-testid={ `${index}-recomendation-title` }
+            >
+              { recomended.strDrink }
+            </h3>
+          </div>
+        ))}
+      </div>
       <button data-testid="share-btn" type="button">share</button>
       <button data-testid="favorite-btn" type="button">favorite</button>
       <button data-testid="start-recipe-btn" type="button">Start</button>
