@@ -1,7 +1,15 @@
 import React from 'react';
 
+import Header from '../components/Header/Header';
+
 const Foods = () => (
-  <div>Pagina de Comidas</div>
+  <>
+    <Header
+      page="Comidas"
+      showSearchBtn
+    />
+    <div>Pagina de Comidas</div>
+  </>
 );
 
 export default Foods;

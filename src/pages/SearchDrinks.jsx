@@ -1,7 +1,15 @@
 import React from 'react';
 
+import Header from '../components/Header/Header';
+
 const SearchDrinks = () => (
-  <div>Explorar Bebidas</div>
+  <>
+    <Header
+      page="Explorar Bebidas"
+      showSearchBtn={ false }
+    />
+    <div>Explorar Bebidas</div>
+  </>
 );
 
 export default SearchDrinks;

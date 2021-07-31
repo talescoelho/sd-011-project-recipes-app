@@ -1,7 +1,15 @@
 import React from 'react';
 
+import Header from '../components/Header/Header';
+
 const SearchFoods = () => (
-  <div>Explorar Comidas</div>
+  <>
+    <Header
+      page="Explorar Comidas"
+      showSearchBtn={ false }
+    />
+    <div>Explorar Comidas</div>
+  </>
 );
 
 export default SearchFoods;
