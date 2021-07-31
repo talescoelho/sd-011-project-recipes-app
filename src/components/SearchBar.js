@@ -4,7 +4,27 @@ import { Redirect } from 'react-router-dom';
 function SearchBar() {
   const [selected, setSelected] = useState('');
   const [search, setSearch] = useState('');
+<<<<<<< HEAD
   const [, setFoods] = useState([]);
+=======
+  const [foods, setFoods] = useState([]);
+  console.log('this is foods:', foods);
+
+  const foodOrDrink = () => {
+    const LOC = window.location.pathname;
+    const item = { type: '', key: '', id: '' };
+    const food = ['meal', 'meals', 'idMeal'];
+    const drink = ['cocktail', 'drinks', 'idDrink'];
+    if (LOC === '/comidas') {
+      food.forEach((el, index) => { item[Object.keys(item)[index]] = el; });
+      return item;
+    }
+    drink.forEach((el, index) => { item[Object.keys(item)[index]] = el; });
+    return item;
+  };
+
+  console.log(foodOrDrink());
+>>>>>>> fb9c756f1687d2dca599b02a929ad39429d24f22
 
   const fetchFoodsIng = (ingrediente, what) => {
     fetch(`https://www.the${what().type}db.com/api/json/v1/1/filter.php?i=${ingrediente}`)
