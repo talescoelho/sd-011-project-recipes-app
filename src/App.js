@@ -20,6 +20,7 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Explorer from './pages/Explorer';
 import './App.css';
+import { RecipesProvider } from './context/RecipesContext';
 
 function App() {
   const pathFoods = '/explorar/comidas/ingredientes';
@@ -38,8 +39,10 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="/comidas" component={ Foods } />
-        <Route exact path="/bebidas" component={ Drinks } />
+        <RecipesProvider>
+          <Route exact path="/comidas" component={ Foods } />
+          <Route exact path="/bebidas" component={ Drinks } />
+        </RecipesProvider>
         <Route exact path="/comidas/:id" component={ FoodRecipes } />
         <Route exact path="/bebidas/:id" component={ DrinkRecipes } />
         <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
