@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   requestMealsMenu,
   requestMealsFilters,
@@ -45,8 +46,12 @@ const Foods = ({
           (loadingMeals)
             ? (<div>Loading...</div>)
             : (
-              meals.map(({ strMeal, strMealThumb }, index) => (
-                <div key={ index } data-testid={ `${index}-recipe-card` }>
+              meals.map(({ idMeal, strMeal, strMealThumb }, index) => (
+                <Link
+                  data-testid={ `${index}-recipe-card` }
+                  key={ index }
+                  to={ `/comidas/${idMeal}` }
+                >
                   <img
                     data-testid={ `${index}-card-img` }
                     src={ strMealThumb }
@@ -54,7 +59,7 @@ const Foods = ({
                     width="100px"
                   />
                   <h3 data-testid={ `${index}-card-name` }>{ strMeal }</h3>
-                </div>
+                </Link>
               ))
             )
         }
