@@ -4,13 +4,24 @@ import { Link } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-// import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 const FoodDetails = ({ match }) => {
   const { id } = match.params;
   const { data, request } = useFetch();
   const [messageClipboard, setMessageClipboard] = React.useState(null);
   const { data: drinksData, request: requestDrinks } = useFetch();
+  const [isFavorite, setIsFavorite] = React.useState(false);
+
+  React.useEffect(() => {
+    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
+    if (favoriteRecipes) {
+      const favoriteRecipesArray = JSON.parse(favoriteRecipes);
+      if (favoriteRecipesArray.some((recipe) => recipe.id === id)) {
+        setIsFavorite(true);
+      }
+    }
+  }, [id]);
 
   React.useEffect(() => {
     request(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
@@ -79,7 +90,9 @@ const FoodDetails = ({ match }) => {
           data-testid="share-btn"
         />
       </button>
-      <img src={ whiteHeartIcon } alt="" data-testid="favorite-btn" />
+      { isFavorite ? (
+        <img src={ blackHeartIcon } alt="" data-testid="favorite-btn" />)
+        : (<img src={ whiteHeartIcon } alt="" data-testid="favorite-btn" />) }
       <h2 data-testid="recipe-category">{ strCategory }</h2>
       Ingredients
       <ul>
