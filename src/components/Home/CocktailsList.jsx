@@ -19,15 +19,29 @@ function CocktailsList() {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
     );
   }
+  const magicalNumber = 12;
   return (
     <ol>
-      {console.log(cocktails)}
       {cocktails.length === 1 ? <Redirect
         to={
           `/comidas/${cocktails[0].idDrink}`
         }
       /> : null}
-      {cocktails.map((drinks) => (<li key={ drinks.idDrink }>{ drinks.strDrink }</li>))}
+      {console.log(cocktails)}
+      {cocktails.slice(0, magicalNumber).map((drinks, index) => (
+        <li data-testid={ `${index}-recipe-card` } key={ drinks.idDrink }>
+          <img
+            alt={ `Foto de uma ${drinks.strDrink}` }
+            data-testid={ `${index}-card-img` }
+            src={ drinks.strDrinkThumb }
+          />
+          <h3
+            data-testid={ `${index}-card-name` }
+          >
+            { drinks.strDrink }
+          </h3>
+
+        </li>))}
     </ol>
   );
 }
