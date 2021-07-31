@@ -22,19 +22,21 @@ function MealDetails({ recipeDetailsData, fetchDetails, fetchRecipes, match }) {
     const { strMeal, strMealThumb, strCategory } = data;
     const ingedientsKeys = (Object.keys(data))
       .filter((key) => key.includes('strIngredient'));
-    ingedientsKeys.forEach((key) => {
-      console.log(data[key]);
-    });
 
     return (
       <div>
         DETALHES
-        {console.log(recipeDetailsData.meals)}
         <img src={ strMealThumb } alt={ strMeal } data-testid="recipe-photo" />
         <h1 data-testid="recipe-title">{ strMeal }</h1>
         <button type="button" data-testid="share-btn">SHARE</button>
         <button type="button" data-testid="favorite-btn">FAV</button>
         <span data-testid="recipe-category">{ strCategory }</span>
+        {ingedientsKeys.map((ingredientKey, index) => {
+          if (data[ingredientKey]) {
+            return (<p key={ index }>{data[ingredientKey]}</p>);
+          }
+          return '';
+        })}
       </div>
     );
   }
