@@ -63,26 +63,26 @@ describe('73 - Redirecione a pessoa usuária ao clicar em "Por Local de Origem",
   });
 });
 
-// describe('74 - Redirecione a pessoa usuária ao clicar em "Me Surpreenda!", a rota deve mudar para a tela de detalhes de uma receita, que deve ser escolhida de forma aleatória através da API', () => {
-//   it('Ao clicar no botão "Por Ingredientes" da tela de explorar comidas a rota muda para a página de detalhes de uma comida aleatória', () => {
-//     cy.visit('http://localhost:3000/explorar/comidas', {
-//       onBeforeLoad(win) {
-//         win.fetch = fetchMock;
-//       },
-//     });
+describe('74 - Redirecione a pessoa usuária ao clicar em "Me Surpreenda!", a rota deve mudar para a tela de detalhes de uma receita, que deve ser escolhida de forma aleatória através da API', () => {
+  it('Ao clicar no botão "Por Ingredientes" da tela de explorar comidas a rota muda para a página de detalhes de uma comida aleatória', () => {
+    cy.visit('http://localhost:3000/explorar/comidas', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-//     cy.get('[data-testid="explore-surprise"]').click();
-//     cy.location().should((loc) => expect(loc.pathname).to.eq('/comidas/52771'));
-//   });
+    cy.get('[data-testid="explore-surprise"]').click();
+    cy.location().should((loc) => expect(loc.pathname).to.eq('/comidas/52771'));
+  });
 
-//   it('Ao clicar no botão "Explorar Bebidas" da tela de explorar bebidas a rota muda para a página de detalhes de uma bebida aleatória', () => {
-//     cy.visit('http://localhost:3000/explorar/bebidas', {
-//       onBeforeLoad(win) {
-//         win.fetch = fetchMock;
-//       },
-//     });
+  it('Ao clicar no botão "Explorar Bebidas" da tela de explorar bebidas a rota muda para a página de detalhes de uma bebida aleatória', () => {
+    cy.visit('http://localhost:3000/explorar/bebidas', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-//     cy.get('[data-testid="explore-surprise"]').click();
-//     cy.location().should((loc) => expect(loc.pathname).to.eq('/bebidas/178319'));
-//   });
-// });
+    cy.get('[data-testid="explore-surprise"]').click();
+    cy.location().should((loc) => expect(loc.pathname).to.eq('/bebidas/178319'));
+  });
+});
