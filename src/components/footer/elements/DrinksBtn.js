@@ -5,8 +5,8 @@ import drinkIcon from '../../../images/drinkIcon.svg';
 export default function DrinksBtn() {
   return (
     <div>
-      <Link to="/bebidas" data-testid="drinks-bottom-btn">
-        <img src={ drinkIcon } alt="Símbolo bebida" />
+      <Link to="/bebidas">
+        <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="Símbolo bebida" />
       </Link>
     </div>
   );
