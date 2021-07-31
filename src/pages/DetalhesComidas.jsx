@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import '../App.css';
 
 class DetalhesComidas extends Component {
   constructor() {
@@ -42,7 +43,7 @@ class DetalhesComidas extends Component {
     const { food, recomendations } = this.state;
     const { meals } = food;
     const { drinks } = recomendations;
-    console.log(drinks);
+    const magicNumber = 6;
     if (!meals) {
       return <p>Carregando</p>;
     }
@@ -54,7 +55,6 @@ class DetalhesComidas extends Component {
     const filtradosMeasure = ingredientes.filter((value) => value.includes('strMeasure'));
     const valuesMeasure = filtradosMeasure.map((value) => meals[0][value]);
     const onlyMeasures = valuesMeasure.filter((value) => value);
-    const obj = ['str', 'str1', 'str2'];
     return (
       <div>
         Detalhes de comidas
@@ -97,14 +97,28 @@ class DetalhesComidas extends Component {
             title={ strMeal }
             data-testid="video"
           />
-          { obj.map((value, index) => (
-            <p
-              key={ index }
-              data-testid={ `${index}-recomendation-card` }
-            >
-              { value }
-            </p>))}
           <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+        </div>
+        <div className="div-scroll">
+          {
+            drinks
+            && drinks.map((value, index) => (
+              index < magicNumber
+            && (
+              <div
+                data-testid={ `${index}-recomendation-card` }
+                className="recomendation-card"
+              >
+                <img
+                  className="img-card"
+                  src={ value.strDrinkThumb }
+                  alt={ value.strDrink }
+                />
+                <p data-testid={ `${index}-recomendation-title` }>{ value.strDrink }</p>
+                <p>{ value.strAlcoholic }</p>
+              </div>)
+            ))
+          }
         </div>
       </div>
     );

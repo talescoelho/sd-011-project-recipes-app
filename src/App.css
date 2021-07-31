@@ -11,6 +11,21 @@
   position: fixed;
 }
 
+.div-scroll {
+  display: flex;
+  height: 280px;
+  overflow-x: scroll;
+  width: 100%;
+}
+
+.recomendation-card {
+  width: 180px;
+}
+
+.img-card {
+  width: 180px;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;

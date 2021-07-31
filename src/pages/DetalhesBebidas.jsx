@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import '../App.css';
 
 class DetalhesBebidas extends Component {
   constructor() {
@@ -43,6 +44,7 @@ class DetalhesBebidas extends Component {
     const { cocktail, recomendations } = this.state;
     const { drinks } = cocktail;
     const { meals } = recomendations;
+    const magicNumber = 6;
     console.log(meals);
     if (!drinks) {
       return <p>Carregando</p>;
@@ -55,7 +57,6 @@ class DetalhesBebidas extends Component {
     const filtradosMeasure = ingredientes.filter((value) => value.includes('strMeasure'));
     const valuesMeasure = filtradosMeasure.map((value) => drinks[0][value]);
     const onlyMeasures = valuesMeasure.filter((value) => value);
-    const obj = ['str', 'str1', 'str2'];
     return (
       <div>
         Detalhes de bebidas
@@ -91,17 +92,29 @@ class DetalhesBebidas extends Component {
               {`${value} - ${onlyMeasures[index]}`}
             </p>)) }
           <p data-testid="instructions">{ strInstructions }</p>
-          { obj.map((value, index) => (
-            <p
-              key={ index }
-              data-testid={ `${index}-recomendation-card` }
-            >
-              { value }
-            </p>))}
           <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
         </div>
-        <div>
-          { }
+        <div className="div-scroll">
+          {
+            meals
+            && meals.map((value, index) => (
+              index < magicNumber
+            && (
+              <div
+                data-testid={ `${index}-recomendation-card` }
+                className="recomendation-card"
+              >
+                { console.log(meals) }
+                <img
+                  className="img-card"
+                  src={ value.strMealThumb }
+                  alt={ value.strMeal }
+                />
+                <p data-testid={ `${index}-recomendation-title` }>{ value.strMeal }</p>
+                <p>{ value.strCategory }</p>
+              </div>)
+            ))
+          }
         </div>
       </div>
     );
