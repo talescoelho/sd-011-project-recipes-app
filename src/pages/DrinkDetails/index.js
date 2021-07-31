@@ -11,6 +11,7 @@ const FoodDetails = ({ match }) => {
   const { id } = match.params;
   const { data, request } = useFetch();
   const { data: mealsData, request: requestMeals } = useFetch();
+  const [messageClipboard, setMessageClipboard] = React.useState(null);
 
   React.useEffect(() => {
     request(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
@@ -26,7 +27,6 @@ const FoodDetails = ({ match }) => {
 
   const { drinks } = data;
   const drink = drinks[0];
-  console.log(drink);
   const { strDrinkThumb, strDrink, strAlcoholic, strInstructions } = drink;
   const entries = Object.entries(drink);
   const ingredients = entries.filter(([value]) => value
@@ -51,6 +51,14 @@ const FoodDetails = ({ match }) => {
     }
   }
 
+  function handleClickClipboard() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url);
+    const time = 3000;
+    setMessageClipboard('Link copiado!');
+    setTimeout(() => setMessageClipboard(null), time);
+  }
+
   return (
     <div>
       <img
@@ -60,8 +68,15 @@ const FoodDetails = ({ match }) => {
         data-testid="recipe-photo"
       />
       <h1 data-testid="recipe-title">{ strDrink }</h1>
-      <img src={ shareIcon } alt="" data-testid="share-btn" />
+      <button type="button" onClick={ handleClickClipboard }>
+        <img
+          src={ shareIcon }
+          alt=""
+          data-testid="share-btn"
+        />
+      </button>
       <img src={ whiteHeartIcon } alt="" data-testid="favorite-btn" />
+      {messageClipboard}
       <h2 data-testid="recipe-category">{ strAlcoholic }</h2>
       Ingredients
       <ul>

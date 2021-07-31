@@ -24,7 +24,6 @@ describe('19 - Implemente os elementos do menu inferior', () => {
 //     // const { getByTestId } = renderWithRouter(<FooterMenu />);
 //     // const icon = getByTestId('drinks-bottom-btn');
 //     // const src = icon.node.props.src
-//     // console.log(src);
 //     // expect(getByTestId('drinks-bottom-btn')).
 //     // cy.get('[data-testid="drinks-bottom-btn"]')
 //     //   .should('have.attr', 'src')

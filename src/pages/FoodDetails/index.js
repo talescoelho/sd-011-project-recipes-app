@@ -9,6 +9,7 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 const FoodDetails = ({ match }) => {
   const { id } = match.params;
   const { data, request } = useFetch();
+  const [messageClipboard, setMessageClipboard] = React.useState(null);
   const { data: drinksData, request: requestDrinks } = useFetch();
 
   React.useEffect(() => {
@@ -53,6 +54,14 @@ const FoodDetails = ({ match }) => {
     }
   }
 
+  function handleClickClipboard() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url);
+    const time = 2000;
+    setMessageClipboard('Link copiado!');
+    setTimeout(() => setMessageClipboard(null), time);
+  }
+
   return (
     <div>
       <img
@@ -62,7 +71,14 @@ const FoodDetails = ({ match }) => {
         data-testid="recipe-photo"
       />
       <h1 data-testid="recipe-title">{ strMeal }</h1>
-      <img src={ shareIcon } alt="" data-testid="share-btn" />
+      { messageClipboard }
+      <button type="button" onClick={ handleClickClipboard }>
+        <img
+          src={ shareIcon }
+          alt=""
+          data-testid="share-btn"
+        />
+      </button>
       <img src={ whiteHeartIcon } alt="" data-testid="favorite-btn" />
       <h2 data-testid="recipe-category">{ strCategory }</h2>
       Ingredients
