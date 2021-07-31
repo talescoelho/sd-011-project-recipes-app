@@ -1,25 +1,22 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect, useDispatch } from 'react-redux';
-import { fetchRecipesMain } from '../redux/actions';
+import { fetchDrinkMain } from '../redux/actions';
 import Header from '../components/Header';
 
-function HomeRecipe() {
-  const urlFetch = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+function HomeDrinks() {
+  const urlFetch = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const [isLoading, setIsLoading] = React.useState(true);
-  const [meals, setMeals] = React.useState([]);
+  const [drinks, setDrinks] = React.useState([]);
 
   const dispatch = useDispatch();
   const MagicMikeDance = 12;
-  const fetchRecipesMainF = (url) => dispatch(fetchRecipesMain(url));
+  const fetchRecipesMainF = (url) => dispatch(fetchDrinkMain(url));
 
   const handlerCard = async () => {
     const response = await fetchRecipesMainF(urlFetch);
-
     if (response.length > 1) {
-      setMeals([...response]);
+      setDrinks([...response]);
       setIsLoading(false);
-      // console.log(meals);
     }
   };
 
@@ -30,19 +27,19 @@ function HomeRecipe() {
   // console.log(meals, isLoading);
   return (
     <div>
-      <Header title="Comidas" />
+      <Header title="Bebidas" />
       <div>
         {isLoading ? <p>loading...</p>
-          : (meals.slice(0, MagicMikeDance).map((itemCard, index) => (
+          : (drinks.slice(0, MagicMikeDance).map((itemCard, index) => (
 
             <div key={ index } data-testid={ `${index}-recipe-card` } className="card">
               <img
-                src={ itemCard.strMealThumb }
+                src={ itemCard.strDrinkThumb }
                 data-testid={ `${index}-card-img` }
-                alt={ itemCard.strMeal }
+                alt={ itemCard.strDrink }
               />
               <div className="card-body">
-                <p data-testid={ `${index}-card-name` }>{ itemCard.strMeal }</p>
+                <p data-testid={ `${index}-card-name` }>{ itemCard.strDrink }</p>
               </div>
             </div>)))}
       </div>
@@ -50,4 +47,4 @@ function HomeRecipe() {
   );
 }
 
-export default connect(null, null)(HomeRecipe);
+export default connect(null, null)(HomeDrinks);

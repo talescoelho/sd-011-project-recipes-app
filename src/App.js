@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
 import HomeRecipe from './pages/HomeRecipe';
+import HomeDrinks from './pages/HomeDrinks';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ HomeRecipe } />
+        <Route exact path="/bebidas" component={ HomeDrinks } />
 
       </Switch>
     </BrowserRouter>
