@@ -6,7 +6,7 @@ export default function FoodBtn() {
   return (
     <div>
       <Link to="comidas">
-        <img src={ mealIcon } alt="Símbolo comida" data-testeid="food-bottom-btn"/>
+        <img src={ mealIcon } alt="Símbolo comida" data-testeid="food-bottom-btn" />
       </Link>
     </div>
   );
