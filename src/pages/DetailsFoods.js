@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import useDetailsFetch from '../hooks/useDetailsFetch';
 import useRecomendedItemsFetch from '../hooks/useRecomendedItemsFetch';
 
@@ -11,6 +12,7 @@ export default function DetailsFoods() {
   const [recomendedDrinks, setRecomendedDrinks] = React.useState([]);
   const [recipeExists, setRecipeExists] = React.useState(false);
   const [inProgressRecipes, setInProgressRecipes] = React.useState(false);
+  const [copiedText, setCopiedText] = React.useState(false);
   const idReceita = '52771';
 
   function verifyDoneRecipes(id) {
@@ -54,6 +56,17 @@ export default function DetailsFoods() {
   }, [data, recomendedData]);
 
   if (!data || !recomendedData) return <p>Loading...</p>;
+
+  function copyUrl() {
+    const seconds = 2000;
+    setCopiedText(true);
+    copy(window.location.href);
+    setTimeout(() => {
+      setCopiedText(false);
+    }, seconds);
+  }
+
+  console.log(window.location.href);
 
   return (
     <main>
@@ -105,7 +118,14 @@ export default function DetailsFoods() {
           </div>
         ))}
       </div>
-      <button data-testid="share-btn" type="button">share</button>
+      {copiedText ? <p>Link copiado!</p> : null}
+      <button
+        data-testid="share-btn"
+        type="button"
+        onClick={ copyUrl }
+      >
+        share
+      </button>
       <button data-testid="favorite-btn" type="button">favorite</button>
 
       {recipeExists ? null
