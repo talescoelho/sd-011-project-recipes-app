@@ -21,10 +21,6 @@ const Foods = ({
     dispatch(requestMealsFilters());
   }, [dispatch]);
 
-  if (loadingMeals) {
-    return (<div>Loading...</div>);
-  }
-
   if (error) {
     return (<div>Erro</div>);
   }
@@ -44,19 +40,25 @@ const Foods = ({
             )
         }
       </div>
-      {
-        meals.map(({ strMeal, strMealThumb }, index) => (
-          <div key={ index } data-testid={ `${index}-recipe-card` }>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ strMealThumb }
-              alt={ `${strMeal} recipe` }
-              width="100px"
-            />
-            <h3 data-testid={ `${index}-card-name` }>{ strMeal }</h3>
-          </div>
-        ))
-      }
+      <div>
+        {
+          (loadingMeals)
+            ? (<div>Loading...</div>)
+            : (
+              meals.map(({ strMeal, strMealThumb }, index) => (
+                <div key={ index } data-testid={ `${index}-recipe-card` }>
+                  <img
+                    data-testid={ `${index}-card-img` }
+                    src={ strMealThumb }
+                    alt={ `${strMeal} recipe` }
+                    width="100px"
+                  />
+                  <h3 data-testid={ `${index}-card-name` }>{ strMeal }</h3>
+                </div>
+              ))
+            )
+        }
+      </div>
     </>
   );
 };

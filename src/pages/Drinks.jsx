@@ -21,10 +21,6 @@ const Drinks = ({
     dispatch(requestDrinksFilters());
   }, [dispatch]);
 
-  if (loadingDrinks) {
-    return (<div>Loading...</div>);
-  }
-
   if (error) {
     return (<div>Erro</div>);
   }
@@ -44,19 +40,25 @@ const Drinks = ({
             )
         }
       </div>
-      {
-        drinks.map(({ strDrink, strDrinkThumb }, index) => (
-          <div key={ index } data-testid={ `${index}-recipe-card` }>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ strDrinkThumb }
-              alt={ `${strDrink} recipe` }
-              width="100px"
-            />
-            <h3 data-testid={ `${index}-card-name` }>{ strDrink }</h3>
-          </div>
-        ))
-      }
+      <div>
+        {
+          (loadingDrinks)
+            ? (<div>Loading...</div>)
+            : (
+              drinks.map(({ strDrink, strDrinkThumb }, index) => (
+                <div key={ index } data-testid={ `${index}-recipe-card` }>
+                  <img
+                    data-testid={ `${index}-card-img` }
+                    src={ strDrinkThumb }
+                    alt={ `${strDrink} recipe` }
+                    width="100px"
+                  />
+                  <h3 data-testid={ `${index}-card-name` }>{ strDrink }</h3>
+                </div>
+              ))
+            )
+        }
+      </div>
     </>
   );
 };
