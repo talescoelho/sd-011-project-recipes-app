@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import HeaderSearchComidas from './HeaderSearchComidas';
+import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
@@ -18,7 +18,8 @@ function Header({ title }) {
   ];
 
   const renderSearchComponents = {
-    Comidas: (<HeaderSearchComidas />),
+    Comidas: (<SearchBar />),
+    Bebidas: (<SearchBar />),
   };
 
   return (

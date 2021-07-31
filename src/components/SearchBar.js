@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getRecipes } from '../redux/slices/fetchComidas';
+import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRecipes } from '../redux/slices/fetchReceitas';
+import redirectOneRecipe from '../helpers/redirectOneRecipe';
 
-function HeaderSearchComidas() {
+function SearchBar() {
+  const { data } = useSelector((state) => state.fetchReceitas);
   const dispatch = useDispatch();
   const [selectedRadio, setSelectedRadio] = useState();
   const [searchInput, setSearchInput] = useState();
+  const [redirectURL, setRedirectURL] = useState('');
 
   const requestDictionary = {
     ingredients: 'filter.php?i=',
@@ -17,13 +21,28 @@ function HeaderSearchComidas() {
     setSearchInput(value);
   }
 
+  useEffect(() => {
+    redirectOneRecipe(data, setRedirectURL);
+    if (Object.values(data)[0] === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+  }, [data]);
+
   function handleRequest() {
     if (selectedRadio === 'firstLetter' && searchInput.length > 1) {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    const URL = `https://www.themealdb.com/api/json/v1/1/${requestDictionary[selectedRadio]}${searchInput}`;
+    const { pathname } = window.location;
+    let recipeType = 'themealdb';
+    const recipeURL = pathname.split('/')[1];
+    if (recipeURL === 'bebidas') {
+      recipeType = 'thecocktaildb';
+    }
+    const URL = `https://www.${recipeType}.com/api/json/v1/1/${requestDictionary[selectedRadio]}${searchInput}`;
     dispatch(getRecipes(URL));
   }
+
+  if (redirectURL !== '') return (<Redirect to={ redirectURL } />);
 
   return (
     <form>
@@ -31,7 +50,7 @@ function HeaderSearchComidas() {
         <input
           name="search-bar"
           data-testid="search-input"
-          value={ searchInput }
+          //  value={ searchInput } Componente esta sendo alterado de não controlado para controlado.
           onChange={ handleSearchInput }
         />
       </label>
@@ -61,6 +80,7 @@ function HeaderSearchComidas() {
       <button
         type="button"
         onClick={ handleRequest }
+        data-testid="exec-search-btn"
       >
         Buscar
       </button>
@@ -68,4 +88,4 @@ function HeaderSearchComidas() {
   );
 }
 
-export default HeaderSearchComidas;
+export default SearchBar;

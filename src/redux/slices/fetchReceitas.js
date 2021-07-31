@@ -12,11 +12,10 @@ export const getRecipes = createAsyncThunk(
   async (URL) => fetch(URL).then((res) => res.json()),
 );
 
-const fetchComidasSlice = createSlice({
+const fetchReceitasSlice = createSlice({
   name: 'fetchRecipes',
   initialState,
   reducers: {
-
   },
   extraReducers: {
     [getRecipes.pending]: (state) => {
@@ -26,10 +25,11 @@ const fetchComidasSlice = createSlice({
       state.data = action.payload;
       state.loading = false;
     },
-    [getRecipes.rejected]: (state) => {
+    [getRecipes.rejected]: (state, action) => {
       state.loading = false;
+      state.error = action;
     },
   },
 });
 
-export default fetchComidasSlice.reducer;
+export default fetchReceitasSlice.reducer;

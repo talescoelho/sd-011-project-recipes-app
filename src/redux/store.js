@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userLogin from './slices/user';
-import fetchRecipes from './slices/fetchComidas';
+import fetchReceitas from './slices/fetchReceitas';
 
 const store = configureStore({
   reducer: {
     userLogin,
-    fetchRecipes,
+    fetchReceitas,
   },
 });
 
