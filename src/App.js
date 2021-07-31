@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
-// import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NotFound from './pages/NotFound';
 import Foods from './pages/foods/Foods';
@@ -20,29 +19,19 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Explorer from './pages/Explorer';
 import './App.css';
-import { RecipesProvider } from './context/RecipesContext';
+// import { RecipesProvider } from './context/RecipesContext';
 
 function App() {
   const pathFoods = '/explorar/comidas/ingredientes';
   const pathDrinks = '/explorar/bebidas/ingredientes';
   return (
-    // <div className="meals">
-    //   <span className="logo">TRYBE</span>
-    //   <object
-    //     className="rocksGlass"
-    //     type="image/svg+xml"DoneRecipes
-    //     data={ rockGlass }
-    //   >
-    //     Glass
-    //   </object>
-    // </div>
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <RecipesProvider>
+//         <RecipesProvider>
           <Route exact path="/comidas" component={ Foods } />
           <Route exact path="/bebidas" component={ Drinks } />
-        </RecipesProvider>
+//         </RecipesProvider>
         <Route exact path="/comidas/:id" component={ FoodRecipes } />
         <Route exact path="/bebidas/:id" component={ DrinkRecipes } />
         <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
