@@ -4,6 +4,7 @@ import { useRecipes } from '../../hooks';
 
 function RecipeList() {
   const { isLoading, error, recipes } = useRecipes();
+  const magicalNumber = 12;
   if (isLoading) {
     return (
       <p>...carregando</p>
@@ -15,14 +16,27 @@ function RecipeList() {
     );
   }
   if (!recipes) {
-    return (
-      <p>Não foi possivel encontrar nada tente outro termo</p>
-    );
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
   return (
     <ol>
+      {console.log(recipes)}
       {recipes.length === 1 ? <Redirect to={ `/comidas/${recipes[0].idMeal}` } /> : null}
-      {recipes.map((meals) => (<li key={ meals.idMeal }>{ meals.strMeal }</li>))}
+      {recipes.slice(0, magicalNumber)
+        .map((meals, index) => (
+          <li data-testid={ `${index}-recipe-card` } key={ meals.idMeal }>
+            <img
+              alt={ `Foto de uma ${meals.strMeal}` }
+              data-testid={ `${index}-card-img` }
+              src={ meals.strMealThumb }
+            />
+            <h3
+              data-testid={ `${index}-card-name` }
+            >
+              { meals.strMeal }
+            </h3>
+
+          </li>))}
     </ol>
   );
 }
