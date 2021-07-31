@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import twelveItems from '../Helpers/twelveItems';
 import Context from './Context';
+import { ConsoleWriter } from 'istanbul-lib-report';
 
 // Aux vars
 const firstLetter = 'first-letter';
@@ -19,12 +21,8 @@ const URL_DRINK_FIRST_LETTER = 'https://www.thecocktaildb.com/api/json/v1/1/sear
 // ====================
 
 function Provider({ children }) {
-  const [dataFood, setDataFoods] = useState({
-    meals: [],
-  });
-  const [dataDrinks, setDataDrinks] = useState({
-    drinks: [],
-  });
+  const [dataFood, setDataFoods] = useState([]);
+  const [dataDrinks, setDataDrinks] = useState([]);
   const [APIerror, setError] = useState(null);
   const [requestFoodParams, setRequestFoodParams] = useState({
     searchInput: '', searchMethod: '' });
@@ -51,18 +49,13 @@ function Provider({ children }) {
           response = await fetch(`${URL_FOOD_FIRST_LETTER}${searchInput}`);
         }
         const result = await response.json();
-        setDataFoods(result);
+        setDataFoods(twelveItems(result));
       } catch (error) {
         setError(error);
       }
     };
     fetchFoodData();
-
-    // if (dataFood.meals.length === 1 && !dataFood) {
-    //   return <Redirect to={ `/comidas/${dataFood.meals[0].idMeal}` } />;
-    // }
   }, [requestFoodParams]);
-  console.log(dataFood);
 
   useEffect(() => {
     const { searchInput, searchMethod } = requestDrinksParams;
@@ -84,14 +77,13 @@ function Provider({ children }) {
           response = await fetch(`${URL_DRINK_FIRST_LETTER}${searchInput}`);
         }
         const result = await response.json();
-        setDataDrinks(result);
+        setDataDrinks(twelveItems(result));
       } catch (error) {
         setError(error);
       }
     };
     fetchDrinkData();
   }, [requestDrinksParams]);
-  console.log(dataDrinks);
 
   const context = {
     dataFood,

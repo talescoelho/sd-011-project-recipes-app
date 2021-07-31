@@ -10,10 +10,9 @@ function Drinks({ history }) {
   const { dataDrinks } = useContext(Context);
   const [showSearch, setShowSearch] = useState(false);
   const drinks = 'drinks';
-
-  if (dataDrinks.drinks.length === 1) {
-    const oneResult = dataDrinks.drinks[0];
-    console.log('One result of drinks', oneResult);
+  // console.log(dataDrinks);
+  if (dataDrinks.length === 1) {
+    const oneResult = dataDrinks[0];
     history.push(`/bebidas/${oneResult.idDrink}`);
   }
 
@@ -39,7 +38,7 @@ function Drinks({ history }) {
         />
       </button>
       <div>
-      { dataDrinks !== null ? dataDrinks.drinks.map((mals) => <p>{mals.strDrink}</p>) : 'coisado'}
+      { dataDrinks !== null ? dataDrinks.map(({ strDrink }) => <p>{ strDrink }</p>) : 'coisado'}
       </div>
     </div>
   );

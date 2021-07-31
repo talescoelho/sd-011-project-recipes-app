@@ -11,9 +11,8 @@ function Foods({ history }) {
   const [showSearch, setShowSearch] = useState(false);
   const foods = 'foods';
 
-  if (dataFood.meals.length === 1) {
-    const oneResult = dataFood.meals[0];
-    // console.log(oneResult.idMeal);
+  if (dataFood.length === 1) {
+    const oneResult = dataFood[0];
     history.push(`/comidas/${oneResult.idMeal}`);
   }
 
@@ -41,7 +40,7 @@ function Foods({ history }) {
         </button>
       </div>
       <div>
-        { dataFood !== null ? dataFood.meals.map((meal) => <p>{meal.strMeal}</p>) : 'coisado'}
+        { dataFood !== null ? dataFood.map(({ strMeal }) => <p key>{strMeal}</p>) : 'coisado'}
       </div>
     </>
   );
