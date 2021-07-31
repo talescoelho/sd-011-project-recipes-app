@@ -7,11 +7,10 @@ import Footer from '../../components/Footer';
 export default function FoodExplorer() {
   return (
     <>
-      <Header />
+      <Header title="Explorar Comidas" search={ false } />
       <Provider>
         <SearchBar fetchType="thecocktaildb" />
       </Provider>
-      <h3>Food Explorer</h3>
       <Footer />
     </>
   );
