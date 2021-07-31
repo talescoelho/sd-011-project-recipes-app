@@ -77,4 +77,5 @@
 .btnFixed {
   position: fixed;
   bottom: 0;
+  margin: 5px
 }

@@ -8,17 +8,26 @@ export default function DetailsDrinks() {
   const [ingredients, setIngredients] = React.useState([]);
   const [measures, setMeasures] = React.useState([]);
   const [recomendedFoods, setRecomendedFoods] = React.useState([]);
+  const [recipeExists, setRecipeExists] = React.useState(false);
+
+  function verifyLocalStorage(id) {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes && doneRecipes.find((recipes) => recipes.id === id)) {
+      setRecipeExists(true);
+    }
+  }
 
   React.useEffect(() => {
+    const idReceita = '178319';
     function fetchDrinkApi() {
-      const mockDrinkId = 178319;
-      request(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${mockDrinkId}`);
+      request(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idReceita}`);
     }
     function fetchFoodRecomendedApi() {
       requestRecomendedApi('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     }
     fetchDrinkApi();
     fetchFoodRecomendedApi();
+    verifyLocalStorage(idReceita);
   }, [request, requestRecomendedApi]);
 
   React.useEffect(() => {
@@ -77,7 +86,16 @@ export default function DetailsDrinks() {
       </div>
       <button data-testid="share-btn" type="button">share</button>
       <button data-testid="favorite-btn" type="button">favorite</button>
-      <button className="btnFixed" data-testid="start-recipe-btn" type="button">Iniciar receita</button>
+      {recipeExists ? null
+        : (
+          <button
+            className="btnFixed"
+            data-testid="start-recipe-btn"
+            type="button"
+          >
+            Iniciar receita
+          </button>
+        )}
     </main>
   );
 }
