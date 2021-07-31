@@ -1,0 +1,10 @@
+.header-container {
+  background-color: aquamarine;
+  display: flex;
+  flex-wrap: row;
+  justify-content: space-between;
+  top: 0;
+}
+.search-container {
+  background-color: aquamarine;
+}

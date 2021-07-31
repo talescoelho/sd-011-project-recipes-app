@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import '../css/Header.css';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import CategoryButtons from './CategoryButtons';
 
 function Header({ title, icon, drinks, foods }) {
   const [showSearchBar, setshowSearchBar] = useState(false);
@@ -19,18 +21,19 @@ function Header({ title, icon, drinks, foods }) {
 
   return (
     <header>
-      <Link to="/perfil">
-        <button
-          type="button"
-        >
-          <img src={ profileIcon } alt="Profile Icon" data-testid="profile-top-btn" />
-        </button>
-      </Link>
-      <h3 data-testid="page-title">{`${title}`}</h3>
-      {icon && renderSearchButtonIcon()}
-      <span>
-        { showSearchBar ? <SearchBar drinks={ drinks } foods={ foods } /> : <div />}
-      </span>
+      <div className="header-container">
+        <Link to="/perfil">
+          <button
+            type="button"
+          >
+            <img src={ profileIcon } alt="Profile Icon" data-testid="profile-top-btn" />
+          </button>
+        </Link>
+        <h3 data-testid="page-title">{`${title}`}</h3>
+        {icon && renderSearchButtonIcon()}
+      </div>
+      {showSearchBar && <SearchBar drinks={ drinks } foods={ foods } />}
+      <CategoryButtons drinks={ drinks } foods={ foods } />
     </header>
   );
 }

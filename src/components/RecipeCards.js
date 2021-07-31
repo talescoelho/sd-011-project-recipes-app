@@ -50,7 +50,6 @@ function RecipeCards() {
       if (index <= maxLength) {
         return (
           <div className="card-container" data-testid={ `${index}-recipe-card` }>
-            {console.log(`${index}-recipe-card`)}
             <img
               src={ recipe.strMealThumb }
               data-testid={ `${index}-card-img` }
