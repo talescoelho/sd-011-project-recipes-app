@@ -41,6 +41,7 @@ export default class Login extends Component {
       email,
     };
     localStorage.setItem('user', JSON.stringify(user));
+    this.redirect();
   }
 
   render() {
@@ -69,7 +70,6 @@ export default class Login extends Component {
           disabled={ !login }
           type="submit"
           data-testid="login-submit-btn"
-          onClick={ () => this.redirect() }
         >
           Submit
         </button>

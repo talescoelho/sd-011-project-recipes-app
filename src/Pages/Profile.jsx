@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FooterMenu from '../Components/FooterMenu';
 import HeaderWithoutSearch from '../Components/HeaderWithoutSearch';
 
 export default class Profile extends Component {
@@ -6,6 +7,7 @@ export default class Profile extends Component {
     return (
       <div>
         <HeaderWithoutSearch title="Perfil" />
+        <FooterMenu />
       </div>
     );
   }
