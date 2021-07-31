@@ -11,7 +11,9 @@ function Foods({ history }) {
   const [showSearch, setShowSearch] = useState(false);
   const foods = 'foods';
 
-  if (dataFood.length === 1) {
+  console.log(dataFood);
+
+  if (dataFood !== null && dataFood.length === 1) {
     const oneResult = dataFood[0];
     history.push(`/comidas/${oneResult.idMeal}`);
   }
@@ -43,9 +45,13 @@ function Foods({ history }) {
         { dataFood !== null ? dataFood.map(({ strMeal, strMealThumb, idMeal }, index) => (
           <div data-testid={ `${index}-recipe-card` } key={ idMeal }>
             <h3 data-testid={ `${index}-card-name` }>{strMeal}</h3>
-            <img src={ strMealThumb } data-testid={ `${index}-card-img` } alt="Imagem de comida" />
+            <img
+              src={ strMealThumb }
+              data-testid={ `${index}-card-img` }
+              alt="Imagem de comida"
+            />
           </div>
-        )) : 'coisado'}
+        )) : alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')}
       </div>
     </>
   );

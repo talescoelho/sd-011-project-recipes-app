@@ -11,7 +11,7 @@ function Drinks({ history }) {
   const [showSearch, setShowSearch] = useState(false);
   const drinks = 'drinks';
   // console.log(dataDrinks);
-  if (dataDrinks.length === 1) {
+  if (dataDrinks !== null && dataDrinks.length === 1) {
     const oneResult = dataDrinks[0];
     history.push(`/bebidas/${oneResult.idDrink}`);
   }
@@ -43,7 +43,7 @@ function Drinks({ history }) {
             <h3 data-testid={ `${index}-card-name` }>{ strDrink }</h3>
             <img src={ strDrinkThumb } data-testid={ `${index}-card-img` } alt="Imagem de bebida" />
           </div>
-        )) : 'coisado'}
+        )) : alert('Sinto muito, não encontramos nenhuma receita para esses filtros.') }
       </div>
     </div>
   );

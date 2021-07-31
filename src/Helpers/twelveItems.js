@@ -1,9 +1,12 @@
 function twelveItems(dataResult) {
   const whichMethod = Object.keys(dataResult)[0];
-  console.log(whichMethod);
 
   const quantityItems = 12;
   let array = [];
+
+  if (dataResult[whichMethod] === null) {
+    return null;
+  }
 
   if (whichMethod === 'drinks' && dataResult.drinks.length >= quantityItems) {
     array = [];
@@ -21,10 +24,13 @@ function twelveItems(dataResult) {
     return array;
   }
 
-  if (whichMethod === 'drinks') {
+  // condicionais caso o tamanho seja menor que 12
+  if (whichMethod === 'drinks' && dataResult.drinks !== null) {
     return dataResult.drinks;
   }
-  return dataResult.meals;
+  if (whichMethod === 'meals' && dataResult.meals !== null) {
+    return dataResult.meals;
+  }
 }
 
 export default twelveItems;
