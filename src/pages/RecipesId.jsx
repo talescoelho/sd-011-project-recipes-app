@@ -29,14 +29,9 @@ function RecipesId({ match }) {
 
   function getReduxMealsOrDrinks() {
     if (drinks !== undefined) {
-      const { idDrink, strDrink, strDrinkThumb,
-        strCategory, strInstructions, strVideo,
-        strIngredient1, strIngredient2,
-        strIngredient3, strIngredient4, strIngredient5,
-        strIngredient6, strIngredient7,
-        strMeasure1, strMeasure2,
-        strMeasure3, strMeasure4,
-        strMeasure5 } = drinks[0];
+      const { idDrink, strDrink, strDrinkThumb, strCategory, strInstructions, strVideo,
+        strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5,
+        strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5 } = drinks[0];
       setDetail({
         idItem: idDrink,
         title: strDrink,
@@ -44,36 +39,32 @@ function RecipesId({ match }) {
         category: strCategory,
         instructions: strInstructions,
         video: strVideo,
-        ingredient: [strIngredient1, strIngredient2,
-          strIngredient3, strIngredient4, strIngredient5,
-          strIngredient6, strIngredient7],
-        recomendation: [strMeasure1, strMeasure2,
-          strMeasure3, strMeasure4,
-          strMeasure5],
+        ingredient: [
+          `${strIngredient1} ${strMeasure1}`, `${strIngredient2} ${strMeasure2}`,
+          `${strIngredient3} ${strMeasure3}`, `${strIngredient4} ${strMeasure4}`,
+          `${strIngredient5} ${strMeasure5}`],
+        recomendation: ['teste'],
         update: false,
       });
     }
     if (meals !== undefined) {
-      const { idMeal, strMeal, strMealThumb,
-        strCategory, strInstructions, strYoutube,
-        strIngredient1, strIngredient2,
-        strIngredient3, strIngredient4, strIngredient5,
-        strIngredient6, strIngredient7,
-        strMeasure1, strMeasure2,
-        strMeasure3, strMeasure4,
-        strMeasure5 } = meals[0];
+      const { idMeal, strMeal, strMealThumb, strCategory, strInstructions, strYoutube,
+        strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5,
+        strIngredient6, strIngredient7, strIngredient8, strMeasure1, strMeasure2,
+        strMeasure3, strMeasure4, strMeasure5, strMeasure6, strMeasure7,
+        strMeasure8 } = meals[0];
       setDetail({
         idItem: idMeal,
         title: strMeal,
         imgThumb: strMealThumb,
         category: strCategory,
         instructions: strInstructions,
-        ingredient: [strIngredient1, strIngredient2,
-          strIngredient3, strIngredient4, strIngredient5,
-          strIngredient6, strIngredient7],
-        recomendation: [strMeasure1, strMeasure2,
-          strMeasure3, strMeasure4,
-          strMeasure5],
+        ingredient: [
+          `${strIngredient1} ${strMeasure1}`, `${strIngredient2} ${strMeasure2}`,
+          `${strIngredient3} ${strMeasure3}`, `${strIngredient4} ${strMeasure4}`,
+          `${strIngredient5} ${strMeasure5}`, `${strIngredient6} ${strMeasure6}`,
+          `${strIngredient7} ${strMeasure7}`, `${strIngredient8} ${strMeasure8}`],
+        recomendation: ['teste'],
         video: strYoutube,
         update: false,
       });
@@ -109,7 +100,6 @@ function RecipesId({ match }) {
           { item }
         </span>
       )) }
-
       <span data-testid="instructions">{ instructions }</span>
       { video && <div data-testid="video">{ video }</div> }
       <div data-testid={ `${idItem}-recomendation-card` }>Recomendações</div>
