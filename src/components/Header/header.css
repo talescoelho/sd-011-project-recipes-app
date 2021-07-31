@@ -1,6 +1,6 @@
 .header-style {
+  background-color: rgb(207, 199, 199);
   display: flex;
   justify-content: space-between;
-  background-color: rgb(207, 199, 199);
   height: 42px;
 }
