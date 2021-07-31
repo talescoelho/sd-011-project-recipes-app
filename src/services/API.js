@@ -95,3 +95,17 @@ export function getDetailsRecipesFromTheCockTailAPI(id) {
   const urlDetailCockTail = API_THECOCKTAILDB_DETAILS + id;
   getRecipesFromCocktailAPI(urlDetailCockTail);
 }
+
+export function getCategoriesFromApi(path, callback) {
+  const API_THEMEALDB_CATEGORIES = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  const API_THECOCKTAILDB_CATEGORIES = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  if (path === '/comidas') {
+    fetch(API_THEMEALDB_CATEGORIES)
+      .then((response) => response.json())
+      .then((data) => callback(data.meals));
+  } else if (path === '/bebidas') {
+    fetch(API_THECOCKTAILDB_CATEGORIES)
+      .then((response) => response.json())
+      .then((data) => callback(data.drinks));
+  }
+}

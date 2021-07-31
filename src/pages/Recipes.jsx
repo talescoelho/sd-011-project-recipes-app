@@ -4,11 +4,17 @@ import MealCard from '../components/MealCard';
 import DrinkCard from '../components/DrinkCard';
 import RecipesAppContext from '../context/RecipesAppContext';
 import Header from '../components/Header';
-import getRecipes from '../services/API';
+import getRecipes, { getCategoriesFromApi } from '../services/API';
 import '../styles/Recipes.css';
 
 export default function Recipes() {
-  const { mealRecipes, drinkRecipes, haveRecipes, saveDrinkRecipes } = useContext(RecipesAppContext);
+  const {
+    mealRecipes,
+    drinkRecipes,
+    haveRecipes,
+    saveDrinkRecipes,
+    saveCategories,
+  } = useContext(RecipesAppContext);
   const location = useLocation();
   const history = useHistory();
 
@@ -26,9 +32,15 @@ export default function Recipes() {
 
   useEffect(checkOneRecipe, [mealRecipes, drinkRecipes, history, location]);
 
+  function getCategories() {
+    const path = location.pathname;
+    getCategoriesFromApi(path, saveCategories);
+  }
+  useEffect(getCategories, [location, saveCategories]);
+
   function GetRecipesDrinksFirstAccess() {
     if (location.pathname === '/bebidas' && drinkRecipes.length === 0) {
-      getRecipes('', 's', location.pathname, saveDrinkRecipes)
+      getRecipes('', 's', location.pathname, saveDrinkRecipes);
     }
   }
   useEffect(GetRecipesDrinksFirstAccess, [location, saveDrinkRecipes, drinkRecipes]);
