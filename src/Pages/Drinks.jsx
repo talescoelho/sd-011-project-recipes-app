@@ -38,7 +38,12 @@ function Drinks({ history }) {
         />
       </button>
       <div>
-      { dataDrinks !== null ? dataDrinks.map(({ strDrink }) => <p>{ strDrink }</p>) : 'coisado'}
+        { dataDrinks !== null ? dataDrinks.map(({ strDrink, strDrinkThumb, idDrink }, index) => (
+          <div data-testid={ `${index}-recipe-card` } key={ idDrink }>
+            <h3 data-testid={ `${index}-card-name` }>{ strDrink }</h3>
+            <img src={ strDrinkThumb } data-testid={ `${index}-card-img` } alt="Imagem de bebida" />
+          </div>
+        )) : 'coisado'}
       </div>
     </div>
   );

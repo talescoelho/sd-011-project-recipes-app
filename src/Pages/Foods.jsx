@@ -40,7 +40,12 @@ function Foods({ history }) {
         </button>
       </div>
       <div>
-        { dataFood !== null ? dataFood.map(({ strMeal }) => <p key>{strMeal}</p>) : 'coisado'}
+        { dataFood !== null ? dataFood.map(({ strMeal, strMealThumb, idMeal }, index) => (
+          <div data-testid={ `${index}-recipe-card` } key={ idMeal }>
+            <h3 data-testid={ `${index}-card-name` }>{strMeal}</h3>
+            <img src={ strMealThumb } data-testid={ `${index}-card-img` } alt="Imagem de comida" />
+          </div>
+        )) : 'coisado'}
       </div>
     </>
   );
