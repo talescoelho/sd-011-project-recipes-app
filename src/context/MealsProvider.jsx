@@ -1,21 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import MealsContext from './MealsContext';
+import { fetchAllRecipes } from '../services/index';
 
-export default function MealsProvider({ children }) {
-  const [mealsRecipes, setMealsRecipes] = useState([]);
+function MealsProvider({ children }) {
+  const { pathname } = useLocation();
+  const type = pathname === '/bebidas' ? 'Bebidas' : 'Comidas';
+
+  const [recipeType, setRecipeType] = useState('');
+  const [dataRecipes, setDataRecipes] = useState({});
 
   useEffect(() => {
-    const fetchFoods = async () => {
-      const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-      const { meals } = await response.json();
-      setMealsRecipes(meals);
+    setRecipeType(type);
+    const fetchRecipes = async () => {
+      const recipes = await fetchAllRecipes(type);
+      setDataRecipes(recipes);
     };
-    fetchFoods();
-  }, []);
+    fetchRecipes();
+  }, [recipeType]);
 
   const contextValue = {
-    mealsRecipes,
+    dataRecipes,
+    recipeType,
   };
 
   MealsProvider.propTypes = {
@@ -28,3 +35,5 @@ export default function MealsProvider({ children }) {
     </MealsContext.Provider>
   );
 }
+
+export default MealsProvider;

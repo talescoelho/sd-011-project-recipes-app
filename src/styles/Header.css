@@ -1,8 +1,7 @@
 .container-main-header {
   height: 58px;
-  left: 0;
-  position: absolute;
-  top: 0;
+  /* position: absolute; */
+  /* top: 0; */
   width: 360px;
   display: flex;
   align-items: center;

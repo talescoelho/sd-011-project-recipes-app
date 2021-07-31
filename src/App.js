@@ -9,7 +9,6 @@ import Perfil from './pages/Perfil';
 import Footer from './components/Footer';
 import Comidas from './pages/Comidas';
 import Explorar from './pages/Explorar';
-import Bebidas from './pages/Bebidas';
 import Login from './pages/Login';
 import MealsProvider from './context/MealsProvider';
 
@@ -21,10 +20,11 @@ function App() {
           <Route exact path="/" component={ Login } />
           <MealsProvider>
             <Route exact path="/comidas" component={ Comidas } />
-            <Route exact path="/comidas/{id-da-receita}" />
-            <Route exact path="/comidas/{id-da-receita}/in-progress" />
+            <Route exact path="/bebidas" component={ Comidas } />
           </MealsProvider>
-          <Route exact path="/bebidas" component={ Bebidas } />
+
+          <Route exact path="/comidas/{id-da-receita}" />
+          <Route exact path="/comidas/{id-da-receita}/in-progress" />
           <Route exact path="/bebidas/{id-da-receita}" />
           <Route exact path="/bebidas/{id-da-receita}/in-progress" />
           <Route exact path="/explorar" component={ Explorar } />

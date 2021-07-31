@@ -1,16 +1,18 @@
 import React from 'react';
 import '../styles/FoodCard.css';
 
-function FoodCard({ recipe }) {
+function FoodCard({ recipe, index, type }) {
+  const foodName = type === 'drinks' ? 'strDrink' : 'strMeal';
+  const foodImage = type === 'drinks' ? 'strDrinkThumb' : 'strMealThumb';
+
   console.log(recipe);
-  const { index, strMeal, strMealThumb } = recipe;
   return (
     <div
       className="foodCardContainer"
     >
       <img
         className="foodImageRecipe"
-        src={ strMealThumb }
+        src={ recipe[foodImage] }
         alt=" Recipe"
         data-testid={ `${index}-card-img` }
       />
@@ -19,7 +21,7 @@ function FoodCard({ recipe }) {
         className="FoodNameRecipe"
       >
         {
-          strMeal
+          recipe[foodName]
         }
       </p>
     </div>

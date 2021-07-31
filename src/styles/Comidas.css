@@ -1,11 +1,12 @@
 .comidasPageContainer {
-  background-color: aqua;
-  height: calc(640px - 58px);
+  /* background-color: aqua; */
+  height: 540px;
   width: 100%;
 }
 .foodRecipesContainer {
   align-items: center;
-  background-color: beige;
+  /* background-color: brown; */
+  background-color: black;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;

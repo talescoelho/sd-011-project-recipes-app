@@ -1,3 +1,17 @@
+const MEAL_URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const COCKTAILS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+
+export const fetchAllRecipes = async (recipeTypes) => {
+  if (recipeTypes === 'Bebidas') {
+    const recipes = await fetch(COCKTAILS_URL);
+    const { drinks } = await recipes.json();
+    return drinks;
+  }
+  const recipes = await fetch(MEAL_URL);
+  const { meals } = await recipes.json();
+  return meals;
+};
+
 export const searchByIngredient = async (ingredient, pathname) => {
   const type = pathname === '/bebidas' ? 'cocktail' : 'meal';
   const recipes = await fetch(`https://www.the${type}db.com/api/json/v1/1/filter.php?i=${ingredient}`);
