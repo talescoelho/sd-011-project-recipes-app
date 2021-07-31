@@ -4,9 +4,6 @@ import { Redirect } from 'react-router-dom';
 function SearchBar() {
   const [selected, setSelected] = useState('');
   const [search, setSearch] = useState('');
-<<<<<<< HEAD
-  const [, setFoods] = useState([]);
-=======
   const [foods, setFoods] = useState([]);
   console.log('this is foods:', foods);
 
@@ -24,7 +21,6 @@ function SearchBar() {
   };
 
   console.log(foodOrDrink());
->>>>>>> fb9c756f1687d2dca599b02a929ad39429d24f22
 
   const fetchFoodsIng = (ingrediente, what) => {
     fetch(`https://www.the${what().type}db.com/api/json/v1/1/filter.php?i=${ingrediente}`)
