@@ -41,7 +41,6 @@ function SearchBar() {
     : alert('Sua busca deve conter somente 1 (um) caracter'));
 
   const switcher = () => {
-    // let URL = ;
     switch (selected) {
     case 'Ingrediente':
       fetchFoodsIng(search, foodOrDrink);
@@ -56,16 +55,12 @@ function SearchBar() {
       console.log(selected);
       break;
     }
-    // fetch(`https://www.the${what().type}db.com/api/json/v1/1/search.php?f=${fl}`)
-    // .then((resp) => resp.json())
-    // .then((jsonObj) => setFoods(jsonObj[what().key]));
   };
 
   if (foods.length > 0 && foods.length === 1) {
     const LOC = window.location.pathname;
     if (LOC === '/comidas') return <Redirect to={ `/comidas/${foods[0].idMeal}` } />;
     if (LOC === '/bebidas') return <Redirect to={ `/bebidas/${foods[0].idDrink}` } />;
-    // return 0;
   }
 
   return (
