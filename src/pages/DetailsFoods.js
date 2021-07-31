@@ -9,11 +9,20 @@ export default function DetailsFoods() {
   const [measures, setMeasures] = React.useState([]);
   const [recomendedDrinks, setRecomendedDrinks] = React.useState([]);
   const [recipeExists, setRecipeExists] = React.useState(false);
+  const [inProgressRecipes, setInProgressRecipes] = React.useState(false);
 
-  function verifyLocalStorage(id) {
+  function verifyDoneRecipes(id) {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes && doneRecipes.find((recipes) => recipes.id === id)) {
       setRecipeExists(true);
+    }
+  }
+
+  function verifyProgressRecipes(id) {
+    const progressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (progressRecipes && progressRecipes.meals[id]) {
+      console.log(progressRecipes);
+      setInProgressRecipes(true);
     }
   }
 
@@ -27,7 +36,8 @@ export default function DetailsFoods() {
     }
     fetchFoodApi();
     fetchDrinkRecomendedApi();
-    verifyLocalStorage(idReceita);
+    verifyDoneRecipes(idReceita);
+    verifyProgressRecipes(idReceita);
   }, [request, requestRecomendedApi]);
 
   React.useEffect(() => {
@@ -97,6 +107,7 @@ export default function DetailsFoods() {
       </div>
       <button data-testid="share-btn" type="button">share</button>
       <button data-testid="favorite-btn" type="button">favorite</button>
+
       {recipeExists ? null
         : (
           <button
@@ -107,6 +118,17 @@ export default function DetailsFoods() {
             Iniciar receita
           </button>
         )}
+
+      {inProgressRecipes ? (
+        <button
+          className="btnFixed"
+          data-testid="start-recipe-btn"
+          type="button"
+        >
+          Continuar Receita
+        </button>
+      ) : null}
+
     </main>
   );
 }
