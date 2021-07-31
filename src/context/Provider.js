@@ -4,6 +4,7 @@ import AppContext from './AppContext';
 
 function Provider({ children }) {
   const [showInput, setShowInput] = useState(false);
+  const [data, setData] = useState();
   const [inputValue, setInputValue] = useState({
     searchInput: '',
     radioInput: '',
@@ -11,8 +12,8 @@ function Provider({ children }) {
 
   const fetchSearchHeader = (URL) => {
     fetch(URL)
-      .then((response) => response.json()
-        .then((data) => console.log(data)));
+      .then((response) => response.json())
+      .then((dataValue) => setData(dataValue));
   };
 
   const filterFoodSearchHeader = () => {
@@ -26,12 +27,14 @@ function Provider({ children }) {
     case 'first-letter':
       if (inputValue.searchInput.length !== 1) {
         setInputValue({ ...inputValue, searchInput: '' });
+        // eslint-disable-next-line no-alert
         alert('Sua busca deve conter somente 1 (um) caracter');
       } else {
         fetchSearchHeader(`https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue.searchInput}`);
       }
       break;
     default:
+      // eslint-disable-next-line no-alert
       alert('Nenhum filtro selecionado.');
     }
   };
@@ -47,12 +50,14 @@ function Provider({ children }) {
     case 'first-letter':
       if (inputValue.searchInput.length !== 1) {
         setInputValue({ ...inputValue, searchInput: '' });
+        // eslint-disable-next-line no-alert
         alert('Sua busca deve conter somente 1 (um) caracter');
       } else {
         fetchSearchHeader(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputValue.searchInput}`);
       }
       break;
     default:
+      // eslint-disable-next-line no-alert
       alert('Nenhum filtro selecionado.');
     }
   };
@@ -64,6 +69,7 @@ function Provider({ children }) {
     setInputValue,
     filterFoodSearchHeader,
     filterDrinkSearchHeader,
+    data,
   };
 
   return (
