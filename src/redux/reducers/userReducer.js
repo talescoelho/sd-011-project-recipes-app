@@ -4,7 +4,6 @@ const INITIAL_STATE = {
   email: '',
 };
 
-// alterar com as informacoes necessarias
 function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case ADD_EMAIL:
@@ -13,5 +12,4 @@ function userReducer(state = INITIAL_STATE, action) {
     return state;
   }
 }
-
 export default userReducer;
