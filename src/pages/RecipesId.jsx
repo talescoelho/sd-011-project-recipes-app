@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { apiDetailsId } from '../service/apiDetailsId';
-import Recomendation from '../components/Detail/Recomendation';
+import RecomendationDrink from '../components/Detail/RecomendationDrink';
+import RecomendationMeal from '../components/Detail/RecomendationMeal';
 
 function RecipesId({ match }) {
   const { params, path } = match;
@@ -100,11 +101,9 @@ function RecipesId({ match }) {
       )) }
       <span data-testid="instructions">{ instructions }</span>
       { video && <div data-testid="video">{ video }</div> }
-      <Recomendation
-        recomendInverse={
-          typeDrinkorMeal === 'comidas' ? 'meals' : 'drinks'
-        }
-      />
+      { typeDrinkorMeal === 'comidas'
+        ? <RecomendationDrink recomendInverse="meals" />
+        : <RecomendationMeal recomendInverse="drinks" /> }
       <button type="button" data-testid="start-recipe-btn">Iniciar</button>
     </div>
   );

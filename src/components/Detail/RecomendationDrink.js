@@ -4,30 +4,31 @@ import PropTypes from 'prop-types';
 import { apiRecomendation } from '../../service/apiDetailsId';
 import './cecomendadtion.css';
 
-function Recomendation({ recomendInverse }) {
+function RecomendationDrink({ recomendInverse }) {
   const diapatch = useDispatch();
   const { recomendation } = useSelector(({ detailsId }) => detailsId);
-  console.log(recomendation);
+
   useEffect(() => {
     async function getApiRecomendation() {
       diapatch(await apiRecomendation(recomendInverse));
     }
+
     getApiRecomendation();
   }, [diapatch, recomendInverse]);
 
   return (
     <div className="recomendations">
-      { recomendation.map(({ strMealThumb, strMeal }, index) => (
+      { recomendation.map(({ strDrinkThumb, strDrink }, index) => (
         <div className="card" key={ index }>
           <img
             data-testid={ `${index}-recomendation-card` }
-            src={ strMealThumb }
-            alt={ strMeal }
+            src={ strDrinkThumb }
+            alt={ strDrink }
           />
           <span
             data-testid={ `${index}-recomendation-title` }
           >
-            { strMeal }
+            { strDrink }
           </span>
         </div>
       )) }
@@ -35,8 +36,8 @@ function Recomendation({ recomendInverse }) {
   );
 }
 
-export default Recomendation;
+export default RecomendationDrink;
 
-Recomendation.propTypes = {
+RecomendationDrink.propTypes = {
   recomendInverse: PropTypes.string.isRequired,
 };
