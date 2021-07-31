@@ -18,10 +18,14 @@ function Layout({ children, title }) {
 
 export default Layout;
 
+Layout.defaultProps = {
+  title: null,
+};
+
 Layout.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
 };
