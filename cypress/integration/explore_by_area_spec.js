@@ -54,6 +54,7 @@ describe('78 - Implemente os elementos da tela de explorar por local de origem r
 });
 
 describe('79 - Desenvolva as mesmas especificações da tela de receitas principal, com a diferença de que os filtros de categoria são substituídos por um dropdown', () => {
+  
   it('Devem ser carregadas as 12 primeiras receitas de comidas', () => {
     cy.visit('http://localhost:3000/explorar/comidas/area', {
       onBeforeLoad(win) {
@@ -91,39 +92,39 @@ describe('79 - Desenvolva as mesmas especificações da tela de receitas princip
   });
 });
 
-describe('80 - Implemente o dropdown de maneira que devem estar disponíveis todas as áreas retornadas da API, incluindo a opção "All", que retorna as receitas sem nenhum filtro', () => {
-  it('No dropdown devem estar disponíveis todas as áreas retornadas da API, incluindo a opção "All"', () => {
-    cy.visit('http://localhost:3000/explorar/comidas/area', {
-      onBeforeLoad(win) {
-        win.fetch = fetchMock;
-      },
-    });
+// describe('80 - Implemente o dropdown de maneira que devem estar disponíveis todas as áreas retornadas da API, incluindo a opção "All", que retorna as receitas sem nenhum filtro', () => {
+//   it('No dropdown devem estar disponíveis todas as áreas retornadas da API, incluindo a opção "All"', () => {
+//     cy.visit('http://localhost:3000/explorar/comidas/area', {
+//       onBeforeLoad(win) {
+//         win.fetch = fetchMock;
+//       },
+//     });
 
-    cy.get('[data-testid="All-option"]').contains('All');
-    areasMock.meals.forEach(({ strArea: area }) => {
-      cy.get(`[data-testid="${area}-option"]`).contains(area);
-    });
-  });
+//     cy.get('[data-testid="All-option"]').contains('All');
+//     areasMock.meals.forEach(({ strArea: area }) => {
+//       cy.get(`[data-testid="${area}-option"]`).contains(area);
+//     });
+//   });
 
-  it('A opção "All" retorna as receitas sem nenhum filtro', () => {
-    cy.visit('http://localhost:3000/explorar/comidas/area', {
-      onBeforeLoad(win) {
-        win.fetch = fetchMock;
-      },
-    });
+//   it('A opção "All" retorna as receitas sem nenhum filtro', () => {
+//     cy.visit('http://localhost:3000/explorar/comidas/area', {
+//       onBeforeLoad(win) {
+//         win.fetch = fetchMock;
+//       },
+//     });
 
-    cy.get('[data-testid="explore-by-area-dropdown"]').select('Japanese');
-    checkFirstMeals(japaneseMealsMock.meals, 5);
+//     cy.get('[data-testid="explore-by-area-dropdown"]').select('Japanese');
+//     checkFirstMeals(japaneseMealsMock.meals, 5);
 
-    cy.get('[data-testid="explore-by-area-dropdown"]').select('All');
-    checkFirstMeals(mealsMock.meals);
-  });
-});
+//     cy.get('[data-testid="explore-by-area-dropdown"]').select('All');
+//     checkFirstMeals(mealsMock.meals);
+//   });
+// });
 
-describe('81 - Implemente a rota que deve ser apenas `/explorar/comidas/area`', () => {
-  it('Ao acessar a rota ela retorna um erro de "Not Found"', () => {
-    cy.visit('http://localhost:3000/explorar/bebidas/area');
+// describe('81 - Implemente a rota que deve ser apenas `/explorar/comidas/area`', () => {
+//   it('Ao acessar a rota ela retorna um erro de "Not Found"', () => {
+//     cy.visit('http://localhost:3000/explorar/bebidas/area');
 
-    cy.contains('Not Found');
-  });
-});
+//     cy.contains('Not Found');
+//   });
+// });
