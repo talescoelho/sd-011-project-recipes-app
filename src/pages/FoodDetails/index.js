@@ -38,10 +38,19 @@ const FoodDetails = ({ match }) => {
   const filteredDrinks = drinks.filter((value, index) => index < numberOfDrinks);
 
   const doneRecipes = localStorage.getItem('doneRecipes');
+  const recipesInProgress = localStorage.getItem('inProgressRecipes');
   let buttonShoulBeVisible = true;
   if (doneRecipes) {
     const doneRecipesArray = JSON.parse(doneRecipes);
     buttonShoulBeVisible = !doneRecipesArray.some((recipe) => recipe.id.includes(id));
+  }
+
+  let continueButton = false;
+  if (recipesInProgress) {
+    const recipesInProgressObj = JSON.parse(recipesInProgress).meals;
+    if (recipesInProgressObj[id]) {
+      continueButton = true;
+    }
   }
 
   return (
@@ -95,7 +104,7 @@ const FoodDetails = ({ match }) => {
               data-testid="start-recipe-btn"
               type="button"
             >
-              Iniciar Receita
+              { continueButton ? 'Continuar Receita' : 'Iniciar Receita' }
             </button>
           </Link>)
       }
