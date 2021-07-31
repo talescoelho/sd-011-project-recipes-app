@@ -9,7 +9,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 // colocar type depois de searchBar
-function Header({ searchBar, receiveData, fetched }) {
+function Header({ searchBar, receiveData }) {
   const [showSearchBar, toggleShowSearchBar] = useState(false);
   const history = useHistory();
   useEffect(() => {
@@ -38,7 +38,7 @@ function Header({ searchBar, receiveData, fetched }) {
 
   if (receiveData.drinks === null || receiveData.meals === null) {
     // eslint-disable-next-line no-alert
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
 
   return (

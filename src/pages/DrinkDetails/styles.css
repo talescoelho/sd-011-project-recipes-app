@@ -1,0 +1,6 @@
+.div-scroll {
+  overflow-x: scroll;
+  display: flex;
+  width: 200px;
+  height: 200px;
+}

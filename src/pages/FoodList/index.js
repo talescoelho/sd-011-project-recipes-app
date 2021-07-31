@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import FooterMenu from '../../components/FooterMenu';
@@ -21,6 +22,13 @@ const FoodList = ({ receiveData, fetched }) => (
     <FooterMenu />
   </div>
 );
+
+FoodList.propTypes = {
+  fetched: PropTypes.string.isRequired,
+  receiveData: PropTypes.shape({
+    meals: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }).isRequired,
+};
 
 const mapStateToProps = (state) => ({
   receiveData: state.searchBarReducer.receiveData,
