@@ -24,15 +24,15 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) , 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   color: white;
+  font-weight: 400;
   height: 40px;
   width: 90%;
-  font-weight: 400;
   margin-top: 20px;
 }
 
 .button-login:disabled {
-  cursor: not-allowed;
   background-color: rgba(137, 64, 255, 0.6);
+  cursor: not-allowed;
 }
 
 .container input {
