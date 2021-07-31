@@ -4,6 +4,7 @@
   justify-content: center;
   padding-bottom: 50px;
 }
+
 .recipe-card {
   border: 1px solid #eee;
   box-shadow: 2px 8px 20px #ddd;
@@ -21,7 +22,7 @@ a:link {
   text-decoration: none;
 }
 
-.card-name  {
+.card-name {
   align-items: center;
   color: black;
   display: flex;
