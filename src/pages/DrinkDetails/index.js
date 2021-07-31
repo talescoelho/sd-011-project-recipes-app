@@ -26,7 +26,7 @@ const FoodDetails = ({ match }) => {
   const { drinks } = data;
   const drink = drinks[0];
   console.log(drink);
-  const { strDrinkThumb, strDrink, strCategory, strInstructions } = drink;
+  const { strDrinkThumb, strDrink, strAlcoholic, strInstructions } = drink;
   const entries = Object.entries(drink);
   const ingredients = entries.filter(([value]) => value
     .includes('strIngredient')).filter(([, value]) => value !== '' && value !== null);
@@ -48,7 +48,7 @@ const FoodDetails = ({ match }) => {
       <h1 data-testid="recipe-title">{ strDrink }</h1>
       <img src={ shareIcon } alt="" data-testid="share-btn" />
       <img src={ whiteHeartIcon } alt="" data-testid="favorite-btn" />
-      <h2 data-testid="recipe-category">{ strCategory }</h2>
+      <h2 data-testid="recipe-category">{ strAlcoholic }</h2>
       Ingredients
       <ul>
         { ingredients.map(([name, value], index) => {

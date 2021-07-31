@@ -65,11 +65,11 @@ const FoodDetails = ({ match }) => {
       Recommended
       <div className="div-scroll">
         { filteredDrinks.map((drink, index) => {
-          const { strDrinkThumb, strCategory: drinkCategory, strGlass } = drink;
+          const { strDrinkThumb, strCategory: strAlcoholic, strGlass } = drink;
           return (
             <div key={ index } data-testid={ `${index}-recomendation-card` }>
               <img src={ strDrinkThumb } alt={ strGlass } />
-              <p>{ drinkCategory }</p>
+              <p>{ strAlcoholic }</p>
               <h3>{ strGlass }</h3>
             </div>
           );
