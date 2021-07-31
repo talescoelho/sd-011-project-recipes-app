@@ -1,0 +1,19 @@
+.foodsContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: auto;
+}
+
+.foodsCardContainer {
+  margin: 10px 5px 40px;
+  overflow: auto;
+}
+
+.cardImg {
+  width: 50px;
+}
+
+.cardDiv {
+  border: 1px solid black;
+}
