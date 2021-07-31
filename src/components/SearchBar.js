@@ -11,20 +11,8 @@ export default function SearchBar(props) {
   const { fetchType } = props;
 
   const handleClick = async () => {
-    let urlToFetch;
-    switch (radio) {
-    case 'ingredient':
-      urlToFetch = `https://www.${fetchType}.com/api/json/v1/1/filter.php?i=${input}`;
-      break;
-    case 'name':
-      urlToFetch = `https://www.${fetchType}.com/api/json/v1/1/search.php?s=${input}`;
-      break;
-    case 'first-letter':
-      urlToFetch = `https://www.${fetchType}.com/api/json/v1/1/search.php?f=${input}`;
-      break;
-    default:
-      return null;
-    }
+    const urlToFetch = `https://www.${fetchType}.com/api/json/v1/1/${radio}${input}`;
+
     console.log(urlToFetch);
     const dataFromApi = await fetchByFilter(urlToFetch);
     setData(dataFromApi);
@@ -47,7 +35,8 @@ export default function SearchBar(props) {
           id="ingredient"
           type="radio"
           data-testid="ingredient-search-radio"
-          onChange={ (e) => setRadio(e.target.id) }
+          value="filter.php?i="
+          onChange={ (e) => setRadio(e.target.value) }
         />
         Ingrediente
       </label>
@@ -57,7 +46,8 @@ export default function SearchBar(props) {
           id="name"
           type="radio"
           data-testid="name-search-radio"
-          onChange={ (e) => setRadio(e.target.id) }
+          value="search.php?s="
+          onChange={ (e) => setRadio(e.target.value) }
         />
         Nome
       </label>
@@ -67,7 +57,8 @@ export default function SearchBar(props) {
           id="first-letter"
           type="radio"
           data-testid="first-letter-search-radio"
-          onChange={ (e) => setRadio(e.target.id) }
+          value="search.php?f="
+          onChange={ (e) => setRadio(e.target.value) }
         />
         Primeira letra
       </label>

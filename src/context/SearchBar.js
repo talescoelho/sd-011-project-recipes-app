@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export const SearchBarContext = createContext();
 
 export function Provider({ children }) {
-  const [data, setData] = useState();
+  const [data, setData] = useState({});
 
   const value = {
     setData,
