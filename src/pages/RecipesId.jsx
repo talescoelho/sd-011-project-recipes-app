@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import apiDetailsId from '../service/apiDetailsId';
+import { apiDetailsId } from '../service/apiDetailsId';
+import Recomendation from '../components/Detail/Recomendation';
 
 function RecipesId({ match }) {
   const { params, path } = match;
   const { id } = params;
+  const typeDrinkorMeal = path.split('/')[1];
   const dispatch = useDispatch();
   const { dataApi } = useSelector(({ detailsId }) => detailsId);
   const { drinks } = dataApi;
@@ -19,13 +21,12 @@ function RecipesId({ match }) {
     instructions: '',
     instructionsIT: '',
     ingredient: [],
-    recomendation: [],
     video: '',
     update: true,
   });
 
-  const { idItem, title, imgThumb, category,
-    instructions, video, update, ingredient, recomendation } = detail;
+  const { title, imgThumb, category,
+    instructions, video, update, ingredient } = detail;
 
   function getReduxMealsOrDrinks() {
     if (drinks !== undefined) {
@@ -43,7 +44,6 @@ function RecipesId({ match }) {
           `${strIngredient1} ${strMeasure1}`, `${strIngredient2} ${strMeasure2}`,
           `${strIngredient3} ${strMeasure3}`, `${strIngredient4} ${strMeasure4}`,
           `${strIngredient5} ${strMeasure5}`],
-        recomendation: ['teste'],
         update: false,
       });
     }
@@ -64,7 +64,6 @@ function RecipesId({ match }) {
           `${strIngredient3} ${strMeasure3}`, `${strIngredient4} ${strMeasure4}`,
           `${strIngredient5} ${strMeasure5}`, `${strIngredient6} ${strMeasure6}`,
           `${strIngredient7} ${strMeasure7}`, `${strIngredient8} ${strMeasure8}`],
-        recomendation: ['teste'],
         video: strYoutube,
         update: false,
       });
@@ -77,13 +76,12 @@ function RecipesId({ match }) {
 
   useEffect(() => {
     async function getApi() {
-      const typeDrinkorMeal = path.split('/')[1];
       dispatch(await apiDetailsId(
         typeDrinkorMeal === 'comidas' ? 'meal' : 'drink', id,
       ));
     }
     getApi();
-  }, [dispatch, id, path]);
+  }, [dispatch, id, typeDrinkorMeal]);
 
   return (
     <div>
@@ -102,15 +100,11 @@ function RecipesId({ match }) {
       )) }
       <span data-testid="instructions">{ instructions }</span>
       { video && <div data-testid="video">{ video }</div> }
-      <div data-testid={ `${idItem}-recomendation-card` }>Recomendações</div>
-      { recomendation.map((item, index) => (
-        <span
-          data-testid={ `${index}-recomendation-card` }
-          key={ index }
-        >
-          { item }
-        </span>
-      )) }
+      <Recomendation
+        recomendInverse={
+          typeDrinkorMeal === 'comidas' ? 'meal' : 'drink'
+        }
+      />
       <button type="button" data-testid="start-recipe-btn">Iniciar</button>
     </div>
   );
