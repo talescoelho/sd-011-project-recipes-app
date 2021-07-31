@@ -24,10 +24,12 @@ function Routes() {
       <Route exact path="/comidas" component={ FoodList } />
       <Route exact path="/bebidas" component={ DrinkList } />
       <Route
+        exact
         path="/comidas/:id"
         render={ (props) => <FoodDetails { ...props } /> }
       />
       <Route
+        exact
         path="/bebidas/:id"
         render={ (props) => <DrinkDetails { ...props } /> }
       />

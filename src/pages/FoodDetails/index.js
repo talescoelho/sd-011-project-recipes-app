@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
@@ -35,6 +36,13 @@ const FoodDetails = ({ match }) => {
   const { drinks } = drinksData;
   const numberOfDrinks = 6;
   const filteredDrinks = drinks.filter((value, index) => index < numberOfDrinks);
+
+  const doneRecipes = localStorage.getItem('doneRecipes');
+  let buttonShoulBeVisible = true;
+  if (doneRecipes) {
+    const doneRecipesArray = JSON.parse(doneRecipes);
+    buttonShoulBeVisible = !doneRecipesArray.some((recipe) => recipe.id.includes(id));
+  }
 
   return (
     <div>
@@ -79,13 +87,18 @@ const FoodDetails = ({ match }) => {
           );
         }) }
       </div>
-      <button
-        className="start-btn"
-        data-testid="start-recipe-btn"
-        type="button"
-      >
-        Iniciar Receita
-      </button>
+      {
+        buttonShoulBeVisible && (
+          <Link to={ `/comidas/${id}/in-progress` }>
+            <button
+              className="start-btn"
+              data-testid="start-recipe-btn"
+              type="button"
+            >
+              Iniciar Receita
+            </button>
+          </Link>)
+      }
     </div>
   );
 };

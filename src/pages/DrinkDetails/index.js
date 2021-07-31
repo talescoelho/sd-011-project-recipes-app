@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import './styles.css';
 import shareIcon from '../../images/shareIcon.svg';
@@ -33,12 +34,14 @@ const FoodDetails = ({ match }) => {
   const { meals } = mealsData;
   const numberOfMeals = 6;
   const filteredMeals = meals.filter((value, index) => index < numberOfMeals);
+
   const doneRecipes = localStorage.getItem('doneRecipes');
   let buttonShoulBeVisible = true;
   if (doneRecipes) {
     const doneRecipesArray = JSON.parse(doneRecipes);
     buttonShoulBeVisible = !doneRecipesArray.some((recipe) => recipe.id.includes(id));
   }
+
   return (
     <div>
       <img
@@ -96,13 +99,15 @@ const FoodDetails = ({ match }) => {
       </div>
       {
         buttonShoulBeVisible && (
-          <button
-            className="start-btn"
-            data-testid="start-recipe-btn"
-            type="button"
-          >
-            Iniciar Receita
-          </button>)
+          <Link to={ `/bebidas/${id}/in-progress` }>
+            <button
+              className="start-btn"
+              data-testid="start-recipe-btn"
+              type="button"
+            >
+              Iniciar Receita
+            </button>
+          </Link>)
       }
     </div>
   );
