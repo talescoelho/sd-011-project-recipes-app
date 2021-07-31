@@ -26,8 +26,8 @@
   color: white;
   font-weight: 400;
   height: 40px;
-  width: 90%;
   margin-top: 20px;
+  width: 90%;
 }
 
 .button-login:disabled {
