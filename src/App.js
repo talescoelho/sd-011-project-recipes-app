@@ -50,15 +50,6 @@ function App() {
         <Route path="/receitas-feitas" component={ ReceitasFeitas } />
         <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
       </Switch>
-
-      <span className="logo">TRYBE</span>
-      <object
-        className="rocksGlass"
-        type="image/svg+xml"
-        data={ rockGlass }
-      >
-        Glass
-      </object>
     </div>
   );
 }
