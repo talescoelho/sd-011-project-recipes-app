@@ -1,5 +1,6 @@
 export const REQUEST_API = 'REQUEST_API';
 export const GET_RECIPES_API = 'GET_RECIPES_API';
+export const GET_RECIPES = 'GET_RECIPES';
 
 // ESTÁ ACTION ALTERA isLoading PARA true
 export const requestApiAction = () => ({ type: REQUEST_API });
@@ -19,6 +20,19 @@ export const fetchRecipesAPIAction = (url, recipeType) => async (dispatch) => {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     dispatch(getRecipesAction(json));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const responseApiRecipes = () => ({ type: GET_RECIPES });
+
+export const fetchRecipesMain = (url) => async (dispatch) => {
+  dispatch(responseApiRecipes());
+  try {
+    const request = await fetch(url);
+    const reponse = await request.json();
+    console.log(reponse);
   } catch (error) {
     console.log(error);
   }
