@@ -8,7 +8,6 @@ import RecipesList from '../Components/RecipesList';
 class Drinks extends Component {
   render() {
     const { drinkAPIResponse: { drinks } } = this.props;
-    console.log(drinks);
     return (
       <div>
         <HeaderDrink title="Bebidas" />

@@ -14,8 +14,7 @@ export function fetchReceiveRecipes(textInputValue, radioInputValue) {
   return (dispatch) => {
     dispatch(requestRecipes());
     let url = '';
-    console.log(textInputValue);
-    console.log(textInputValue);
+    const message = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
     switch (radioInputValue) {
     case 'ingrediente':
       url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${textInputValue}`;
@@ -31,9 +30,13 @@ export function fetchReceiveRecipes(textInputValue, radioInputValue) {
       break;
     default:
     }
-    console.log(url);
     return fetch(url)
       .then((response) => response.json())
-      .then((recipes) => dispatch(receiveRecipes(recipes)));
+      .then((recipes) => {
+        if (recipes.drinks === null) {
+          return alert(message);
+        }
+        return dispatch(receiveRecipes(recipes));
+      });
   };
 }
