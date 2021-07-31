@@ -32,8 +32,12 @@ function MealDetails({ recipeDetailsData, fetchDetails, fetchRecipes, match }) {
         <button type="button" data-testid="share-btn">SHARE</button>
         <button type="button" data-testid="favorite-btn">FAV</button>
         <span data-testid="recipe-category">{ strCategory }</span>
-        {/* <p>{data.strIngredient1}{data.strMeasure1}</p> */}
-        {ingredientsAndMesure.map((ingredient) => <p>{`${ingredient.name} ${ingredient.measure}`}</p>)}
+        {ingredientsAndMesure
+          .map((ingredient, index) => (
+            <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+              {`${ingredient.name} ${ingredient.measure}`}
+            </p>
+          ))}
       </div>
     );
   }

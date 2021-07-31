@@ -2,16 +2,16 @@ export const REQUEST_API = 'REQUEST_API';
 export const GET_RECIPES_API = 'GET_RECIPES_API';
 export const GET_RECIPE_DETAILS_API = 'GET_RECIPE_DETAILS_API';
 
-// ESTÁ ACTION ALTERA isLoading PARA true
+// ESTA ACTION ALTERA isLoading PARA true
 export const requestApiAction = () => ({ type: REQUEST_API });
 
-// ESTÁ ACTION ALTERA isLoading PARA false E SALVA O RETORNO DA API EM recipesData
+// ESTA ACTION ALTERA isLoading PARA false E SALVA O RETORNO DA API EM recipesData
 export const getRecipesAction = (data) => ({ type: GET_RECIPES_API, data });
 
-// ESTÁ ACTION ALTERA isLoading PARA false E SALVA O RETORNO DA API EM recipeDetailsData
+// ESTA ACTION ALTERA isLoading PARA false E SALVA O RETORNO DA API EM recipeDetailsData
 export const getRecipeDetailsAction = (data) => ({ type: GET_RECIPE_DETAILS_API, data });
 
-// ESTÁ ACTION CRIA O AMBIENTE THUNK PARA REQUISIÇÃO API E OBTENÇÃO DA LISTA DE RECEITAS
+// ESTA ACTION CRIA O AMBIENTE THUNK PARA REQUISIÇÃO API E OBTENÇÃO DA LISTA DE RECEITAS
 export const fetchRecipesAPIAction = (url, recipeType) => async (dispatch) => {
   dispatch(requestApiAction());
   try {
@@ -28,7 +28,7 @@ export const fetchRecipesAPIAction = (url, recipeType) => async (dispatch) => {
   }
 };
 
-// ESTÁ ACTION CRIA O AMBIENTE THUNK PARA REQUISIÇÃO API E OBTENÇÃO DA LISTA DE RECEITAS
+// ESTA ACTION CRIA O AMBIENTE THUNK PARA REQUISIÇÃO API E OBTENÇÃO DA LISTA DE RECEITAS
 export const fetchRecipeDetailsAPIAction = (url) => async (dispatch) => {
   dispatch(requestApiAction());
   try {
