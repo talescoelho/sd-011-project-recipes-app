@@ -26,7 +26,7 @@ function ExploreDrinksByIngredients() {
             key={ ingredient.strIngredient1 }
             data-testid={ `${index}-ingredient-card` }
           >
-            <img alt="thumbnail drink" height="25" src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}.png` } data-testid={ `${index}-card-img` } />
+            <img alt="thumbnail drink" height="25" src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` } data-testid={ `${index}-card-img` } />
             <p data-testid={ `${index}-card-name` }>{ingredient.strIngredient1}</p>
           </div>
         );

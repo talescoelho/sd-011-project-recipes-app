@@ -26,7 +26,7 @@ function ExploreFoodsByIngredients() {
             key={ ingredient.strIngredient }
             data-testid={ `${index}-ingredient-card` }
           >
-            <img alt="thumbnail drink" height="25" src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}.png` } data-testid={ `${index}-card-img` } />
+            <img alt="thumbnail drink" height="25" src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` } data-testid={ `${index}-card-img` } />
             <p data-testid={ `${index}-card-name` }>{ingredient.strIngredient}</p>
           </div>
         );
