@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { apiDetailsId } from '../service/apiDetailsId';
 import Recomendation from '../components/Detail/Recomendation';
+import './styles/styleRecipesId.css';
 
 function RecipesId({ match }) {
   const { params, path } = match;
@@ -105,7 +106,13 @@ function RecipesId({ match }) {
           typeDrinkorMeal === 'comidas' ? 'meals' : 'drinks'
         }
       />
-      <button type="button" data-testid="start-recipe-btn">Iniciar</button>
+      <button
+        className="buttonSart"
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 }
