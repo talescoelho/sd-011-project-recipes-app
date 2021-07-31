@@ -30,14 +30,15 @@ const FoodDetails = ({ match }) => {
   const entries = Object.entries(drink);
   const ingredients = entries.filter(([value]) => value
     .includes('strIngredient')).filter(([, value]) => value !== '' && value !== null);
-  const ingredientsQuantity = entries.filter(([value]) => value
-    .includes('strMeasure')).filter(([, value]) => value !== '' && value !== null);
   const { meals } = mealsData;
   const numberOfMeals = 6;
   const filteredMeals = meals.filter((value, index) => index < numberOfMeals);
-  console.log(ingredients);
-  console.log(ingredientsQuantity);
-  console.log(filteredMeals);
+  const doneRecipes = localStorage.getItem('doneRecipes');
+  let buttonShoulBeVisible = true;
+  if (doneRecipes) {
+    const doneRecipesArray = JSON.parse(doneRecipes);
+    buttonShoulBeVisible = !doneRecipesArray.some((recipe) => recipe.id.includes(id));
+  }
   return (
     <div>
       <img
@@ -93,13 +94,16 @@ const FoodDetails = ({ match }) => {
           );
         }) }
       </div>
-      <button
-        className="start-btn"
-        data-testid="start-recipe-btn"
-        type="button"
-      >
-        Iniciar Receita
-      </button>
+      {
+        buttonShoulBeVisible && (
+          <button
+            className="start-btn"
+            data-testid="start-recipe-btn"
+            type="button"
+          >
+            Iniciar Receita
+          </button>)
+      }
     </div>
   );
 };
