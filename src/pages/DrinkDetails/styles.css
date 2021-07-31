@@ -16,3 +16,8 @@
 .img-card {
   width: 180px;
 }
+
+.start-btn {
+  position: fixed;
+  bottom: 0;
+}

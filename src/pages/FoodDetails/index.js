@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import useFetch from '../../hooks/useFetch';
-import './styles.css';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 // import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -80,7 +79,13 @@ const FoodDetails = ({ match }) => {
           );
         }) }
       </div>
-      <button data-testid="start-recipe-btn" type="button">Start Recipe</button>
+      <button
+        className="start-btn"
+        data-testid="start-recipe-btn"
+        type="button"
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 };

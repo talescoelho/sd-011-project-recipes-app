@@ -93,7 +93,13 @@ const FoodDetails = ({ match }) => {
           );
         }) }
       </div>
-      <button data-testid="start-recipe-btn" type="button">Start Recipe</button>
+      <button
+        className="start-btn"
+        data-testid="start-recipe-btn"
+        type="button"
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 };
