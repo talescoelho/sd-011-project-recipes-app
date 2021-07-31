@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Context from '../Context_Configs/Context';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './Components/SearchBar';
-// import PropTypes from 'prop-types';
 
 function Foods({ history }) {
   const { dataFood } = useContext(Context);
@@ -42,6 +42,7 @@ function Foods({ history }) {
         </button>
       </div>
       <div>
+        {/* necessidade de componentizar os itens abaixo */}
         { dataFood !== null ? dataFood.map(({ strMeal, strMealThumb, idMeal }, index) => (
           <div data-testid={ `${index}-recipe-card` } key={ idMeal }>
             <h3 data-testid={ `${index}-card-name` }>{strMeal}</h3>
@@ -51,6 +52,7 @@ function Foods({ history }) {
               alt="Imagem de comida"
             />
           </div>
+        // eslint-disable-next-line no-alert
         )) : alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')}
       </div>
     </>
@@ -58,3 +60,9 @@ function Foods({ history }) {
 }
 
 export default Foods;
+
+Foods.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};

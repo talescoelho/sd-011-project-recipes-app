@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 import twelveItems from '../Helpers/twelveItems';
 import Context from './Context';
-import { ConsoleWriter } from 'istanbul-lib-report';
 
 // Aux vars
 const firstLetter = 'first-letter';

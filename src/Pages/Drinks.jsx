@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Context from '../Context_Configs/Context';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './Components/SearchBar';
-// import PropTypes from 'prop-types';
 
 function Drinks({ history }) {
   const { dataDrinks } = useContext(Context);
@@ -38,15 +38,28 @@ function Drinks({ history }) {
         />
       </button>
       <div>
-        { dataDrinks !== null ? dataDrinks.map(({ strDrink, strDrinkThumb, idDrink }, index) => (
-          <div data-testid={ `${index}-recipe-card` } key={ idDrink }>
-            <h3 data-testid={ `${index}-card-name` }>{ strDrink }</h3>
-            <img src={ strDrinkThumb } data-testid={ `${index}-card-img` } alt="Imagem de bebida" />
-          </div>
-        )) : alert('Sinto muito, não encontramos nenhuma receita para esses filtros.') }
+        {/* necessidade de componentizar os itens abaixo */}
+        { dataDrinks !== null ? dataDrinks
+          .map(({ strDrink, strDrinkThumb, idDrink }, index) => (
+            <div data-testid={ `${index}-recipe-card` } key={ idDrink }>
+              <h3 data-testid={ `${index}-card-name` }>{ strDrink }</h3>
+              <img
+                src={ strDrinkThumb }
+                data-testid={ `${index}-card-img` }
+                alt="Imagem de bebida"
+              />
+            </div>
+          // eslint-disable-next-line no-alert
+          )) : alert('Sinto muito, não encontramos nenhuma receita para esses filtros.') }
       </div>
     </div>
   );
 }
 
 export default Drinks;
+
+Drinks.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
