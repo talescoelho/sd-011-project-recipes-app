@@ -1,13 +1,14 @@
 import React, { useContext, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import MealCard from './MealCard';
-import DrinkCard from './DrinkCard';
+import MealCard from '../components/MealCard';
+import DrinkCard from '../components/DrinkCard';
 import RecipesAppContext from '../context/RecipesAppContext';
-import Header from './Header';
+import Header from '../components/Header';
+import getRecipes from '../services/API';
 import '../styles/Recipes.css';
 
 export default function Recipes() {
-  const { mealRecipes, drinkRecipes, haveRecipes } = useContext(RecipesAppContext);
+  const { mealRecipes, drinkRecipes, haveRecipes, saveDrinkRecipes } = useContext(RecipesAppContext);
   const location = useLocation();
   const history = useHistory();
 
@@ -24,6 +25,13 @@ export default function Recipes() {
   }
 
   useEffect(checkOneRecipe, [mealRecipes, drinkRecipes, history, location]);
+
+  function GetRecipesDrinksFirstAccess() {
+    if (location.pathname === '/bebidas' && drinkRecipes.length === 0) {
+      getRecipes('', 's', location.pathname, saveDrinkRecipes)
+    }
+  }
+  useEffect(GetRecipesDrinksFirstAccess, [location, saveDrinkRecipes, drinkRecipes]);
 
   const limit = 12;
   function renderRecipes() {
