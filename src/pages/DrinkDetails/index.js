@@ -41,6 +41,7 @@ const FoodDetails = ({ match }) => {
   return (
     <div>
       <img
+        className="top-img"
         src={ strDrinkThumb }
         alt={ `${strDrink}` }
         data-testid="recipe-photo"
@@ -80,10 +81,14 @@ const FoodDetails = ({ match }) => {
         { filteredMeals.map((meal, index) => {
           const { strMealThumb, strCategory: mealCategory, strMeal } = meal;
           return (
-            <div key={ index } data-testid={ `${index}-recomendation-card` }>
-              <img src={ strMealThumb } alt={ strMeal } />
+            <div
+              className="recomendation-card"
+              key={ index }
+              data-testid={ `${index}-recomendation-card` }
+            >
+              <img className="img-card" src={ strMealThumb } alt={ strMeal } />
               <p>{ mealCategory }</p>
-              <h3>{ strMeal }</h3>
+              <h3 data-testid={ `${index}-recomendation-title` }>{ strMeal }</h3>
             </div>
           );
         }) }
