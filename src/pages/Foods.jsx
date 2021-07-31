@@ -18,7 +18,6 @@ const Foods = ({
   meals,
 }) => {
   useEffect(() => {
-    dispatch(requestMealsMenu());
     dispatch(requestMealsFilters());
   }, [dispatch]);
 

@@ -18,7 +18,6 @@ const Drinks = ({
   drinks,
 }) => {
   useEffect(() => {
-    dispatch(requestDrinkMenu());
     dispatch(requestDrinksFilters());
   }, [dispatch]);
 
