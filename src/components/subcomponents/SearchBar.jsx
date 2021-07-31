@@ -4,17 +4,10 @@ import RecipesContext from '../../context/RecipesContext';
 
 function SearchBar() {
   const { setSearchText,
-    setRadioButton, handleClick, radioButton, searchText } = useContext(RecipesContext);
+    setRadioButton, handleClick } = useContext(RecipesContext);
 
   const history = useHistory();
   const { location: { pathname } } = history;
-
-  const filterSearch = ({ value }) => {
-    setSearchText(value);
-    if (radioButton === 'primeira letra' && searchText.length > 0) {
-      global.alert('Sua busca deve conter somente 1 (um) caracter');
-    }
-  };
 
   return (
     <section>
@@ -25,7 +18,7 @@ function SearchBar() {
             data-testid="search-input"
             type="text"
             name="searchText"
-            onChange={ ({ target }) => filterSearch(target) }
+            onChange={ ({ target: { value } }) => setSearchText(value) }
           />
         </label>
         <label htmlFor="ingredient-radio">

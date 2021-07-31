@@ -13,6 +13,15 @@ export const handleFoods = async (radioButton, searchText, setDataFilter) => {
     return setDataFilter(meals);
   }
 
+  const fnAlert = (func, message) => {
+    func(message);
+  };
+
+  if (searchText.length > 1) {
+    const msg = ('Sua busca deve conter somente 1 (um) caracter');
+    return fnAlert(alert, msg);
+  }
+
   if (radioButton === 'primeira letra') {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${searchText}`);
     const { meals } = await response.json();
@@ -34,6 +43,15 @@ export const handleDrinks = async (radioButton, searchText, setDataFilter) => {
     const { drinks } = await response.json();
     console.log(drinks);
     return setDataFilter(drinks);
+  }
+
+  const fnAlert = (func, message) => {
+    func(message);
+  };
+
+  if (searchText.length > 1) {
+    const msg = ('Sua busca deve conter somente 1 (um) caracter');
+    return fnAlert(alert, msg);
   }
 
   if (radioButton === 'primeira letra') {
