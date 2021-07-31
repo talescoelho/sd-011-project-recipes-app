@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import mealIcon from '../images/mealIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import drinkIcon from '../images/drinkIcon.svg';
@@ -17,15 +17,15 @@ function Footer() {
       } }
       data-testid="footer"
     >
-      <Link to="/comidas" data-testid="food-bottom-btn">
-        <img src={ mealIcon } alt="food icon" />
-      </Link>
-      <Link to="/explorar" data-testid="explore-bottom-btn">
-        <img src={ exploreIcon } alt="explore icon" />
-      </Link>
-      <Link to="/bebidas" data-testid="drinks-bottom-btn">
-        <img src={ drinkIcon } alt="drink icon" />
-      </Link>
+      <a href="/comidas">
+        <img data-testid="food-bottom-btn" src={ mealIcon } alt="food icon" />
+      </a>
+      <a href="/explorar">
+        <img data-testid="explore-bottom-btn" src={ exploreIcon } alt="explore icon" />
+      </a>
+      <a href="/bebidas">
+        <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="drink icon" />
+      </a>
     </footer>
   );
 }
