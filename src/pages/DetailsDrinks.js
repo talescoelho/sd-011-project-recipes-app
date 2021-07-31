@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import useDetailsFetch from '../hooks/useDetailsFetch';
 import useRecomendedItemsFetch from '../hooks/useRecomendedItemsFetch';
 
@@ -10,6 +11,7 @@ export default function DetailsDrinks() {
   const [recomendedFoods, setRecomendedFoods] = React.useState([]);
   const [recipeExists, setRecipeExists] = React.useState(false);
   const [inProgressRecipes, setInProgressRecipes] = React.useState(false);
+  const idReceita = '178319';
 
   function verifyDoneRecipes(id) {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -27,7 +29,6 @@ export default function DetailsDrinks() {
   }
 
   React.useEffect(() => {
-    const idReceita = '178319';
     function fetchDrinkApi() {
       request(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idReceita}`);
     }
@@ -98,13 +99,15 @@ export default function DetailsDrinks() {
       <button data-testid="favorite-btn" type="button">favorite</button>
       {recipeExists ? null
         : (
-          <button
-            className="btnFixed"
-            data-testid="start-recipe-btn"
-            type="button"
-          >
-            Iniciar receita
-          </button>
+          <Link to={ `/bebidas/${idReceita}/in-progress` }>
+            <button
+              className="btnFixed"
+              data-testid="start-recipe-btn"
+              type="button"
+            >
+              Iniciar receita
+            </button>
+          </Link>
         )}
 
       {inProgressRecipes ? (

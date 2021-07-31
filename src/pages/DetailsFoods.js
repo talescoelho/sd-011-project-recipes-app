@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import useDetailsFetch from '../hooks/useDetailsFetch';
 import useRecomendedItemsFetch from '../hooks/useRecomendedItemsFetch';
 
@@ -10,6 +11,7 @@ export default function DetailsFoods() {
   const [recomendedDrinks, setRecomendedDrinks] = React.useState([]);
   const [recipeExists, setRecipeExists] = React.useState(false);
   const [inProgressRecipes, setInProgressRecipes] = React.useState(false);
+  const idReceita = '52771';
 
   function verifyDoneRecipes(id) {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -21,13 +23,11 @@ export default function DetailsFoods() {
   function verifyProgressRecipes(id) {
     const progressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (progressRecipes && progressRecipes.meals[id]) {
-      console.log(progressRecipes);
       setInProgressRecipes(true);
     }
   }
 
   React.useEffect(() => {
-    const idReceita = '52771';
     function fetchFoodApi() {
       request(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idReceita}`);
     }
@@ -110,13 +110,15 @@ export default function DetailsFoods() {
 
       {recipeExists ? null
         : (
-          <button
-            className="btnFixed"
-            data-testid="start-recipe-btn"
-            type="button"
-          >
-            Iniciar receita
-          </button>
+          <Link to={ `/comidas/${idReceita}/in-progress` }>
+            <button
+              className="btnFixed"
+              data-testid="start-recipe-btn"
+              type="button"
+            >
+              Iniciar receita
+            </button>
+          </Link>
         )}
 
       {inProgressRecipes ? (
