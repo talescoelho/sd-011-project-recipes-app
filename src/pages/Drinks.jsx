@@ -7,7 +7,7 @@ import {
   requestDrinksFilters,
   requestDrinksByFilter,
 } from '../redux/actions/menuReducerActions';
-import FilterByCategoryName from '../components/filterByCategoryName';
+import FilterMenu from '../components/filterMenu';
 
 const Drinks = ({
   dispatch,
@@ -28,20 +28,20 @@ const Drinks = ({
 
   return (
     <>
-      <div>
+      <nav>
         {
           (loadingFilterOptions)
             ? (<div>Loading...</div>)
             : (
-              <FilterByCategoryName
+              <FilterMenu
                 requestMealsMenu={ requestDrinkMenu }
                 categoryNames={ categoryNames }
                 filterByCategory={ requestDrinksByFilter }
               />
             )
         }
-      </div>
-      <div>
+      </nav>
+      <main>
         {
           (loadingDrinks)
             ? (<div>Loading...</div>)
@@ -63,7 +63,7 @@ const Drinks = ({
               ))
             )
         }
-      </div>
+      </main>
     </>
   );
 };

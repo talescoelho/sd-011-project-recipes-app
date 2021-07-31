@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-const FilterByCategoryName = ({
+const FilterMenu = ({
   dispatch,
   requestMealsMenu,
   categoryNames,
@@ -65,11 +65,11 @@ const FilterByCategoryName = ({
   );
 };
 
-FilterByCategoryName.propTypes = {
+FilterMenu.propTypes = {
   dispatch: PropTypes.func.isRequired,
   requestMealsMenu: PropTypes.func.isRequired,
   categoryNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   filterByCategory: PropTypes.func.isRequired,
 };
 
-export default connect()(FilterByCategoryName);
+export default connect()(FilterMenu);
