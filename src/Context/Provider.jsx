@@ -8,7 +8,10 @@ import {
 import {
   getDrinkByIngredients,
   getDrinkByName,
-  getDrinkByFirstLetter} from '../Services/ApiDrink';
+  getDrinkByFirstLetter } from '../Services/ApiDrink';
+
+const number = 12;
+const notFound = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
 const Provider = ({ children }) => {
   const [inputSearch, setInputSearch] = useState('');
@@ -16,34 +19,53 @@ const Provider = ({ children }) => {
   const [page, setPage] = useState('');
   const [dataDrinks, setDataDrinks] = useState([]);
   const [dataFoods, setDataFoods] = useState([]);
+  const [limit] = useState([number]);
 
   async function fetchFood() {
     if (radioBtn === 'ingredient') {
       const foodByIngredientsAPI = await getFoodByIngredients(inputSearch);
-      setDataFoods(foodByIngredientsAPI.meals);
+      if (foodByIngredientsAPI.meals) {
+        setDataFoods(foodByIngredientsAPI.meals);
+      }
+      return global.alert(notFound);
     }
     if (radioBtn === 'name') {
-      const foodBynameAPI = await getFoodByName(inputSearch);
-      setDataFoods(foodBynameAPI.meals);
+      const foodByNameAPI = await getFoodByName(inputSearch);
+      if (foodByNameAPI.meals) {
+        setDataFoods(foodByNameAPI.meals);
+      }
+      return global.alert(notFound);
     }
     if (radioBtn === 'letter') {
       const foodByFirstLetterAPI = await getFoodByFirstLetter(inputSearch);
-      setDataFoods(foodByFirstLetterAPI.meals);
+      if (foodByFirstLetterAPI.meals) {
+        setDataFoods(foodByFirstLetterAPI.meals);
+      }
+      return global.alert(notFound);
     }
   }
 
   async function fetchDrink() {
     if (radioBtn === 'ingredient') {
       const drinkByIngredientsAPI = await getDrinkByIngredients(inputSearch);
-      setDataDrinks(drinkByIngredientsAPI.drinks);
+      if (drinkByIngredientsAPI.drinks) {
+        setDataDrinks(drinkByIngredientsAPI.drinks);
+      }
+      return global.alert(notFound);
     }
     if (radioBtn === 'name') {
-      const drinkBynameAPI = await getDrinkByName(inputSearch);
-      setDataDrinks(drinkBynameAPI.drinks);
+      const drinkByNameAPI = await getDrinkByName(inputSearch);
+      if (drinkByNameAPI.drinks) {
+        setDataDrinks(drinkByNameAPI.drinks);
+      }
+      return global.alert(notFound);
     }
     if (radioBtn === 'letter') {
       const drinkByFirstLetterAPI = await getDrinkByFirstLetter(inputSearch);
-      setDataDrinks(drinkByFirstLetterAPI.drinks);
+      if (drinkByFirstLetterAPI.drinks) {
+        setDataDrinks(drinkByFirstLetterAPI.drinks);
+      }
+      return global.alert(notFound);
     }
   }
 
@@ -58,6 +80,7 @@ const Provider = ({ children }) => {
     dataFoods,
     fetchDrink,
     dataDrinks,
+    limit,
   };
 
   return (
