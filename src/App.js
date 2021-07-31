@@ -15,7 +15,8 @@ import ExploreFoodsArea from './Pages/Explore/ExploreFoodsArea';
 import ExploreDrinksArea from './Pages/Explore/ExploreDrinksArea';
 import RecipesMade from './Pages/RecipesMade';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
-import SingleItem from './Pages/Components/SingleItem';
+import SingleFoodItem from './Pages/Components/SingleFoodItem';
+import SingleDrinkItem from './Pages/Components/SingleDrinkItem';
 // Pages Components /\
 
 import './App.css';
@@ -29,7 +30,8 @@ function App() {
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ Foods } />
-          <Route exact path="/comidas/:id" component={ SingleItem } />
+          <Route exact path="/comidas/:id" component={ SingleFoodItem } />
+          <Route exact path="/bebidas/:id" component={ SingleDrinkItem } />
           <Route exact path="/bebidas" component={ Drinks } />
           <Route exact path="/perfil" component={ Profile } />
           <Route exact path="/explorar" component={ Explore } />

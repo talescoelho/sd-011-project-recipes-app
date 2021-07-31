@@ -19,8 +19,12 @@ const URL_DRINK_FIRST_LETTER = 'https://www.thecocktaildb.com/api/json/v1/1/sear
 // ====================
 
 function Provider({ children }) {
-  const [dataFood, setDataFoods] = useState(null);
-  const [dataDrinks, setDataDrinks] = useState(null);
+  const [dataFood, setDataFoods] = useState({
+    meals: [],
+  });
+  const [dataDrinks, setDataDrinks] = useState({
+    drinks: [],
+  });
   const [APIerror, setError] = useState(null);
   const [requestFoodParams, setRequestFoodParams] = useState({
     searchInput: '', searchMethod: '' });
@@ -87,6 +91,7 @@ function Provider({ children }) {
     };
     fetchDrinkData();
   }, [requestDrinksParams]);
+  console.log(dataDrinks);
 
   const context = {
     dataFood,

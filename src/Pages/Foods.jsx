@@ -6,10 +6,17 @@ import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './Components/SearchBar';
 // import PropTypes from 'prop-types';
 
-function Foods() {
+function Foods({ history }) {
   const { dataFood } = useContext(Context);
   const [showSearch, setShowSearch] = useState(false);
   const foods = 'foods';
+
+  if (dataFood.meals.length === 1) {
+    const oneResult = dataFood.meals[0];
+    // console.log(oneResult.idMeal);
+    history.push(`/comidas/${oneResult.idMeal}`);
+  }
+
   return (
     <>
       <div>
@@ -34,7 +41,7 @@ function Foods() {
         </button>
       </div>
       <div>
-        { dataFood !== null ? dataFood.meals.map((mals) => <p>{mals.strMeal}</p>) : 'coisado'}
+        { dataFood !== null ? dataFood.meals.map((meal) => <p>{meal.strMeal}</p>) : 'coisado'}
       </div>
     </>
   );

@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import Context from '../Context_Configs/Context';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './Components/SearchBar';
 // import PropTypes from 'prop-types';
 
-function Drinks() {
+function Drinks({ history }) {
+  const { dataDrinks } = useContext(Context);
   const [showSearch, setShowSearch] = useState(false);
   const drinks = 'drinks';
+
+  if (dataDrinks.drinks.length === 1) {
+    const oneResult = dataDrinks.drinks[0];
+    console.log('One result of drinks', oneResult);
+    history.push(`/bebidas/${oneResult.idDrink}`);
+  }
+
   return (
     <div>
       <h1 data-testid="page-title">Bebidas</h1>
@@ -29,6 +38,9 @@ function Drinks() {
           alt="Botão com imagem de uma lupa: abre uma barra de pesquisa"
         />
       </button>
+      <div>
+      { dataDrinks !== null ? dataDrinks.drinks.map((mals) => <p>{mals.strDrink}</p>) : 'coisado'}
+      </div>
     </div>
   );
 }
