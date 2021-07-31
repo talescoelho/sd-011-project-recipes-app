@@ -34,6 +34,7 @@ function Cards(props) {
             >
               <h5 data-testid={ `${indexMap}-card-name` }>{meal.strMeal}</h5>
               <img
+                width="70"
                 src={ meal.strMealThumb }
                 alt={ meal.strMeal }
                 data-testid={ `${indexMap}-card-img` }

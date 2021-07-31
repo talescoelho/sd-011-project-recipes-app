@@ -16,11 +16,15 @@ export default function Recipes() {
   }, [pathname]);
 
   return (
-    <div>
-      <Header title={ title } search />
-      <h1>Receitas</h1>
-      <Cards ApiCallMeals ApiCallCockTails={ false } />
-      <Footer />
-    </div>
+    <>
+      <header>
+        <Header title={ title } search />
+        <h1>Receitas</h1>
+      </header>
+      <div>
+        <Cards ApiCallMeals ApiCallCockTails={ false } />
+        <Footer />
+      </div>
+    </>
   );
 }
