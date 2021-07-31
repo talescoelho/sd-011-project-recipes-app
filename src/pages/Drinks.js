@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function Drinks() {
   const [data, setData] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [toggle, setToggle] = useState('');
 
   async function fetchDrinks() {
     const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -28,12 +30,29 @@ export default function Drinks() {
     categoriesDrinks();
   }, []);
 
-  async function searchByCategory(param) {
-    const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${param}`;
-    const response = await fetch(endpoint);
-    const json = await response.json();
-    setData(json);
+  function searchByCategory({ target }) {
+    if (toggle === target.name) {
+      setToggle('');
+    } else if (toggle === '') {
+      setToggle(target.name);
+    } else {
+      setToggle(target.name);
+    }
   }
+
+  useEffect(() => {
+    if (toggle) {
+      const changeCategorieDrink = async () => {
+        const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${toggle}`;
+        const response = await fetch(endpoint);
+        const json = await response.json();
+        setData(json);
+      };
+      changeCategorieDrink();
+    } else {
+      fetchDrinks();
+    }
+  }, [toggle]);
 
   const maxArrayDrinks = 12;
   const maxArrayCategories = 5;
@@ -41,13 +60,21 @@ export default function Drinks() {
   return (
     <main>
       <Header title="Bebidas" />
+      <button
+        type="button"
+        onClick={ () => fetchDrinks() }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
       {categories.length === 0 ? <p>Loading</p>
         : categories.drinks.slice(0, maxArrayCategories).map((categorie, index) => (
-          <div key={ index } data-testid={ `${index}-recipe-card` }>
+          <div key={ index }>
             <button
               type="button"
               data-testid={ `${categorie.strCategory}-category-filter` }
-              onClick={ () => searchByCategory(categorie.strCategory) }
+              onClick={ (e) => searchByCategory(e) }
+              name={ categorie.strCategory }
             >
               {categorie.strCategory}
             </button>
@@ -55,15 +82,17 @@ export default function Drinks() {
         ))}
       {data.length === 0 ? <p>Loading</p>
         : data.drinks.slice(0, maxArrayDrinks).map((drink, index) => (
-          <div key={ index } data-testid={ `${index}-recipe-card` }>
-            <img
-              src={ drink.strDrinkThumb }
-              alt="comida_principal"
-              data-testid={ `${index}-card-img` }
-              width="50px"
-            />
-            <p data-testid={ `${index}-card-name` }>{drink.strDrink}</p>
-          </div>
+          <Link to={ `/bebidas/${drink.idDrink}` } key={ index }>
+            <div data-testid={ `${index}-recipe-card` }>
+              <img
+                src={ drink.strDrinkThumb }
+                alt="comida_principal"
+                data-testid={ `${index}-card-img` }
+                width="50px"
+              />
+              <p data-testid={ `${index}-card-name` }>{drink.strDrink}</p>
+            </div>
+          </Link>
         ))}
       <Footer />
     </main>
