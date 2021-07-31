@@ -15,8 +15,11 @@ const Login = () => {
       const regex = /^[a-zA-Z]+@[a-zA-Z]+\.[com]{3,}$/i;
       const length = 6;
 
-      if (email.match(regex) && password.length < length) setDisabled(false);
-      else setDisable(true);
+      if (email.match(regex) && password.length < length) {
+        setDisabled(false);
+      } else {
+        setDisabled(true);
+      }
     };
 
     emailCheck();
@@ -47,6 +50,7 @@ const Login = () => {
             label="Email:"
           />
         </label>
+        <br />
         <label htmlFor="password">
           <input
             type="password"
@@ -57,9 +61,11 @@ const Login = () => {
             label="Senha:"
           />
         </label>
+        <br />
         <button
           type="button"
           data-testid="login-submit-btn"
+          id="button-submit"
           disabled={ disabled }
           onClick={ handleClick }
         >
