@@ -19,13 +19,22 @@ function MealDetails({ recipeDetailsData, fetchDetails, fetchRecipes, match }) {
   if (recipeDetailsData.meals) {
     const { meals } = recipeDetailsData;
     const data = meals[0];
-    const { strMeal, strMealThumb } = data;
+    const { strMeal, strMealThumb, strCategory } = data;
+    const ingedientsKeys = (Object.keys(data))
+      .filter((key) => key.includes('strIngredient'));
+    ingedientsKeys.forEach((key) => {
+      console.log(data[key]);
+    });
 
     return (
       <div>
         DETALHES
-        {console.log(data)}
+        {console.log(recipeDetailsData.meals)}
         <img src={ strMealThumb } alt={ strMeal } data-testid="recipe-photo" />
+        <h1 data-testid="recipe-title">{ strMeal }</h1>
+        <button type="button" data-testid="share-btn">SHARE</button>
+        <button type="button" data-testid="favorite-btn">FAV</button>
+        <span data-testid="recipe-category">{ strCategory }</span>
       </div>
     );
   }
