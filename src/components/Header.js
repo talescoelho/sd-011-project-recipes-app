@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
@@ -10,6 +10,10 @@ function Header({ value }) {
   const { pageName, setIcon } = value;
   const [showSearchBar, setShowSearchBar] = useState(false);
 
+  useEffect(() => () => {
+    setShowSearchBar(false);
+  }, [setShowSearchBar]);
+
   function isVerified() {
     if (showSearchBar === false) {
       return setShowSearchBar(true);
@@ -20,53 +24,48 @@ function Header({ value }) {
   function hiddenInput() {
     if (showSearchBar) {
       return (
-        <section className="section-container">
-          <SearchBar />
-        </section>
+        <SearchBar />
       );
     }
   }
-
   function handleButton() {
     if (setIcon) {
       return (
-        <div>
+        <>
           <button
-            className="button-header"
             type="button"
             onClick={ isVerified }
           >
             <img data-testid="search-top-btn" src={ searchIcon } alt="buscar" />
           </button>
-        </div>
+          { hiddenInput() }
+        </>
       );
     }
   }
-
   return (
-    <header className="container-header">
-      <div className="header-wrapper">
-        <button
-          className="button-header"
-          type="button"
-          onClick={ () => history.push('/perfil') }
-        >
-          <img
-            data-testid="profile-top-btn"
-            alt="User"
-            src={ profileIcon }
-          />
-        </button>
-        <h2 data-testid="page-title">{ pageName }</h2>
-        { handleButton() }
-      </div>
-      { hiddenInput() }
+    <header>
+      <button
+        type="button"
+        onClick={ () => history.push('/perfil') }
+      >
+        <img
+          data-testid="profile-top-btn"
+          alt="User"
+          src={ profileIcon }
+        />
+      </button>
+      <h1 data-testid="page-title">{ pageName }</h1>
+      { handleButton() }
     </header>
   );
 }
 
 Header.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.shape({
+    pageName: PropTypes.string,
+    setIcon: PropTypes.bool,
+  }).isRequired,
 };
 
 export default Header;
