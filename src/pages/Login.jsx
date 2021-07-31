@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import LoginAux from '../components/LoginAux';
 import { saveEmail } from '../redux/actions';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [disabled, setDisabled] = useState('');
+  const [email, emailSet] = useState('');
+  const [password, passSet] = useState('');
+  const [disabled, buttonState] = useState(true);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -15,13 +16,9 @@ const Login = () => {
       const regex = /^[a-zA-Z]+@[a-zA-Z]+\.[com]{3,}$/i;
       const length = 6;
 
-      if (email.match(regex) && password.length < length) {
-        setDisabled(false);
-      } else {
-        setDisabled(true);
-      }
+      if (email.match(regex) && password.length > length) buttonState(false);
+      else buttonState(true);
     };
-
     emailCheck();
   }, [password, email]);
 
@@ -40,32 +37,25 @@ const Login = () => {
   return (
     <div>
       <form>
-        <label htmlFor="email">
-          <input
-            type="email"
-            data-testid="email-input"
-            id="email"
-            name="email"
-            setValue={ setEmail }
-            label="Email:"
-          />
-        </label>
+        <LoginAux
+          type="email"
+          data-testid="email-input"
+          name="email"
+          setValue={ emailSet }
+          label="Email:"
+        />
         <br />
-        <label htmlFor="password">
-          <input
-            type="password"
-            data-testid="password-input"
-            id="password"
-            name="password"
-            setValue={ setPassword }
-            label="Senha:"
-          />
-        </label>
+        <LoginAux
+          type="password"
+          data-testid="password-input"
+          name="password"
+          setValue={ passSet }
+          label="Senha:"
+        />
         <br />
         <button
           type="button"
           data-testid="login-submit-btn"
-          id="button-submit"
           disabled={ disabled }
           onClick={ handleClick }
         >
