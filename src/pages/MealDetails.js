@@ -1,15 +1,20 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchRecipeDetailsAPIAction } from '../redux/actions';
+import { fetchRecipeDetailsAPIAction, fetchRecipesAPIAction } from '../redux/actions';
 
-function MealDetails({ recipeDetailsData, fetch }) {
+const URL_TO_DRINKS_RECIPES = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+
+function MealDetails({ recipeDetailsData, fetchDetails, fetchRecipes, match }) {
+  const { id } = match.params;
+
   useEffect(() => {
     const getMealDetails = async () => {
-      await fetch('https://www.themealdb.com/api/json/v1/1/lookup.php?i=53014');
+      await fetchRecipes();
+      await fetchDetails(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
     };
     getMealDetails();
-  }, [fetch]);
+  }, [fetchDetails, fetchRecipes, id]);
 
   if (recipeDetailsData.meals) {
     const { meals } = recipeDetailsData;
@@ -20,7 +25,7 @@ function MealDetails({ recipeDetailsData, fetch }) {
       <div>
         DETALHES
         {console.log(data)}
-        <img src={ strMealThumb } alt={ strMeal } />
+        <img src={ strMealThumb } alt={ strMeal } data-testid="recipe-photo" />
       </div>
     );
   }
@@ -35,7 +40,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetch: (url) => dispatch(fetchRecipeDetailsAPIAction(url)),
+  fetchDetails: (url) => dispatch(fetchRecipeDetailsAPIAction(url)),
+  fetchRecipes: () => dispatch(fetchRecipesAPIAction(URL_TO_DRINKS_RECIPES, 'drinks')),
 });
 
 MealDetails.propTypes = {
