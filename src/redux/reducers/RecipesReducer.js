@@ -4,6 +4,7 @@ import { GET_RECIPES_API, REQUEST_API } from '../actions';
 const INITIAL_STATE = {
   recipeType: 'meals',
   recipesData: [],
+  recipeDetailsData: [],
   isLoading: false,
 };
 

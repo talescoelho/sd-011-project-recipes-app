@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 
 function Login() {
   const [login, setLogin] = React.useState({
@@ -52,6 +53,7 @@ function Login() {
   return (
     <div>
       <h2>Login</h2>
+      <Header />
       <label htmlFor="email">
         <input
           data-testid="email-input"
