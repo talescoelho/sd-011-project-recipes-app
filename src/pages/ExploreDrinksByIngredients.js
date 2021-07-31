@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
+import RecipeAppContext from '../context/RecipeAppContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../css/explore.css';
 
 function ExploreDrinksByIngredients() {
   const [isLoading, setIsLoading] = useState(true);
   const [ingredients, setIngredients] = useState([]);
+  const [shouldRedirectToPageDrinks, setShouldRedirectToPageDrinks] = useState(false);
+  const { setDrinksList } = useContext(RecipeAppContext);
 
   useEffect(() => {
     const fetchApi = async () => {
@@ -17,6 +22,17 @@ function ExploreDrinksByIngredients() {
     fetchApi();
   }, []);
 
+  function redirectToPageDrinks({ target: { id } }) {
+    const fetchApi = async () => {
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${id}`);
+      const json = await response.json();
+      const { drinks } = json;
+      setDrinksList(drinks);
+      setShouldRedirectToPageDrinks(true);
+    };
+    fetchApi();
+  }
+
   function renderIngredientsCard() {
     const maxLength = 12;
     const cardsIngredients = ingredients.map((ingredient, index) => {
@@ -24,7 +40,13 @@ function ExploreDrinksByIngredients() {
         return (
           <div
             key={ ingredient.strIngredient1 }
+            role="link"
+            tabIndex={ 0 }
             data-testid={ `${index}-ingredient-card` }
+            className="card-ingredients"
+            id={ ingredient.strIngredient1 }
+            onClick={ (event) => redirectToPageDrinks(event) }
+            onKeyDown={ (event) => redirectToPageDrinks(event) }
           >
             <img alt="thumbnail drink" height="25" src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` } data-testid={ `${index}-card-img` } />
             <p data-testid={ `${index}-card-name` }>{ingredient.strIngredient1}</p>
@@ -43,6 +65,10 @@ function ExploreDrinksByIngredients() {
       <div>
         { isLoading ? <p>Carregando...</p> : renderIngredientsCard() }
       </div>
+
+      <span>
+        { shouldRedirectToPageDrinks ? <Redirect to="/bebidas" /> : <div /> }
+      </span>
 
       <Footer />
     </div>

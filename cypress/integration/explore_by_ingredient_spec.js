@@ -78,52 +78,52 @@ describe('76 - Desenvolva cards para os 12 primeiros ingredientes, de forma que 
   });
 });
 
-// describe('77 -  Redireciona a pessoa usuária ao clicar no card do ingrediente, a rota deve mudar para tela principal de receitas mas mostrando apenas as receitas que contém o ingrediente escolhido', () => {
-//   it('Ao clicar no card do ingrediente da tela de explorar comidas por ingrediente a rota muda para a tela principal de receitas filtrada pelo ingrediente', () => {
-//     cy.visit('http://localhost:3000/explorar/comidas/ingredientes', {
-//       onBeforeLoad(win) {
-//         win.fetch = fetchMock;
-//       },
-//     });
+describe('77 -  Redireciona a pessoa usuária ao clicar no card do ingrediente, a rota deve mudar para tela principal de receitas mas mostrando apenas as receitas que contém o ingrediente escolhido', () => {
+  it('Ao clicar no card do ingrediente da tela de explorar comidas por ingrediente a rota muda para a tela principal de receitas filtrada pelo ingrediente', () => {
+    cy.visit('http://localhost:3000/explorar/comidas/ingredientes', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-//     cy.get('[data-testid="0-ingredient-card"]').click();
+    cy.get('[data-testid="0-ingredient-card"]').click();
 
-//     mealsByIngredientMock.meals.slice(0, 12).forEach((meal, index) => {
-//       cy.get(`[data-testid="${index}-recipe-card"]`);
+    mealsByIngredientMock.meals.slice(0, 12).forEach((meal, index) => {
+      cy.get(`[data-testid="${index}-recipe-card"]`);
 
-//       cy.get(`[data-testid="${index}-card-img"]`)
-//         .should('have.attr', 'src')
-//         .should('include', meal['strMealThumb']);
+      cy.get(`[data-testid="${index}-card-img"]`)
+        .should('have.attr', 'src')
+        .should('include', meal['strMealThumb']);
 
-//       cy.get(`[data-testid="${index}-card-name"]`).contains(meal['strMeal']);
-//     });
+      cy.get(`[data-testid="${index}-card-name"]`).contains(meal['strMeal']);
+    });
 
-//     cy.get('[data-testid="12-recipe-card"]').should('not.exist');
-//     cy.get('[data-testid="12-card-img"]').should('not.exist');
-//     cy.get('[data-testid="12-card-name"]').should('not.exist');
-//   });
+    cy.get('[data-testid="12-recipe-card"]').should('not.exist');
+    cy.get('[data-testid="12-card-img"]').should('not.exist');
+    cy.get('[data-testid="12-card-name"]').should('not.exist');
+  });
 
-//   it('Ao clicar no card do ingrediente da tela de explorar bebidas por ingrediente a rota muda para a tela principal de receitas filtrada pelo ingrediente', () => {
-//     cy.visit('http://localhost:3000/explorar/bebidas/ingredientes', {
-//       onBeforeLoad(win) {
-//         win.fetch = fetchMock;
-//       },
-//     });
+  it('Ao clicar no card do ingrediente da tela de explorar bebidas por ingrediente a rota muda para a tela principal de receitas filtrada pelo ingrediente', () => {
+    cy.visit('http://localhost:3000/explorar/bebidas/ingredientes', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-//     cy.get('[data-testid="0-ingredient-card"]').click();
+    cy.get('[data-testid="0-ingredient-card"]').click();
 
-//     drinksByIngredientMock.drinks.slice(0, 12).forEach((drink, index) => {
-//       cy.get(`[data-testid="${index}-recipe-card"]`);
+    drinksByIngredientMock.drinks.slice(0, 12).forEach((drink, index) => {
+      cy.get(`[data-testid="${index}-recipe-card"]`);
 
-//       cy.get(`[data-testid="${index}-card-img"]`)
-//         .should('have.attr', 'src')
-//         .should('include', drink['strDrinkThumb']);
+      cy.get(`[data-testid="${index}-card-img"]`)
+        .should('have.attr', 'src')
+        .should('include', drink['strDrinkThumb']);
 
-//       cy.get(`[data-testid="${index}-card-name"]`).contains(drink['strDrink']);
-//     });
+      cy.get(`[data-testid="${index}-card-name"]`).contains(drink['strDrink']);
+    });
 
-//     cy.get('[data-testid="12-recipe-card"]').should('not.exist');
-//     cy.get('[data-testid="12-card-img"]').should('not.exist');
-//     cy.get('[data-testid="12-card-name"]').should('not.exist');
-//   });
-// });
+    cy.get('[data-testid="12-recipe-card"]').should('not.exist');
+    cy.get('[data-testid="12-card-img"]').should('not.exist');
+    cy.get('[data-testid="12-card-name"]').should('not.exist');
+  });
+});
