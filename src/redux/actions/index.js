@@ -2,6 +2,7 @@ export const REQUEST_API = 'REQUEST_API';
 export const GET_RECIPES_API = 'GET_RECIPES_API';
 export const GET_RECIPES = 'GET_RECIPES';
 export const GET_DRINKS = 'GET_DRINKS';
+export const GET_LIST = 'GET_LIST';
 
 // ESTÁ ACTION ALTERA isLoading PARA true
 export const requestApiAction = () => ({ type: REQUEST_API });
@@ -30,6 +31,8 @@ const responseApiRecipes = () => ({ type: GET_RECIPES });
 
 const responseApiDrinks = () => ({ type: GET_DRINKS });
 
+const responseApiList = () => ({ type: GET_LIST });
+
 export const fetchRecipesMain = (url) => async (dispatch) => {
   dispatch(responseApiRecipes());
   try {
@@ -47,6 +50,17 @@ export const fetchDrinkMain = (url) => async (dispatch) => {
     const request = await fetch(url);
     const response = await request.json();
     return response.drinks;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchList = (url) => async (dispatch) => {
+  dispatch(responseApiList());
+  try {
+    const request = await fetch(url);
+    const response = await request.json();
+    return response.meals;
   } catch (error) {
     console.log(error);
   }

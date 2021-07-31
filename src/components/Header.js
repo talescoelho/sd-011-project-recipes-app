@@ -34,7 +34,7 @@ class Header extends Component {
     return (
       <button
         type="button"
-        data-testids="search-top-btn"
+        data-testid="search-top-btn"
         onClick={ () => this.showSearch() }
       >
         <img src={ SearchIcon } alt="searchIcon" />

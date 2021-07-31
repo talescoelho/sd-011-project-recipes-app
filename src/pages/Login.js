@@ -14,6 +14,7 @@ function Login() {
     localStorage.setItem('mealsToken', [1]);
     localStorage.setItem('cocktailsToken', [1]);
   }
+
   function setUserLocalStorage() {
     const user = {
       email: login.email,
@@ -68,6 +69,7 @@ function Login() {
           type="password"
           placeholder="Seu Senha"
           onChange={ handleLogin }
+          onKeyUp={ verificationLogin }
         />
       </label>
       <Link to="/comidas">
