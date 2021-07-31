@@ -21,22 +21,6 @@ function MealDetails({ recipeDetailsData, fetchDetails, fetchRecipes, match }) {
     const { meals } = recipeDetailsData;
     const data = meals[0];
     const { strMeal, strMealThumb, strCategory } = data;
-    // const ingedientsKeys = (Object.keys(data))
-    //   .filter((key) => key.includes('strIngredient'));
-    // const measureKeys = (Object.keys(data))
-    //   .filter((key) => key.includes('strMeasure'));
-
-    // const ingredientsAndMesure = [];
-    // ingedientsKeys.forEach((key, index) => {
-    //   if (data[key]) {
-    //     const obj = {
-    //       name: data[key],
-    //       measure: data[measureKeys[index]],
-    //     };
-    //     ingredientsAndMesure.push(obj);
-    //   }
-    // });
-    // console.log(ingredientsAndMesure);
     const ingredientsAndMesure = objToArryOfObj(data);
 
     return (
@@ -48,7 +32,8 @@ function MealDetails({ recipeDetailsData, fetchDetails, fetchRecipes, match }) {
         <button type="button" data-testid="share-btn">SHARE</button>
         <button type="button" data-testid="favorite-btn">FAV</button>
         <span data-testid="recipe-category">{ strCategory }</span>
-        {/* {ingredientsAndMesure.map((ingredient) => <p>{ingredient.name}{ingredient.measure}</p>)} */}
+        {/* <p>{data.strIngredient1}{data.strMeasure1}</p> */}
+        {ingredientsAndMesure.map((ingredient) => <p>{`${ingredient.name} ${ingredient.measure}`}</p>)}
       </div>
     );
   }
