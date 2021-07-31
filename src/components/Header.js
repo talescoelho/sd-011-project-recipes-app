@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 function Header({ value }) {
   const history = useHistory();
@@ -20,44 +21,7 @@ function Header({ value }) {
     if (showSearchBar) {
       return (
         <section className="section-container">
-          <div className="search-recipe">
-            <input type="text" data-testid="search-input" />
-            <div className="search-radio">
-              <label className="label-style" htmlFor="search-ingredients">
-                <input
-                  id="search-ingredients"
-                  type="radio"
-                  data-testid="ingredient-search-radio"
-                  name="search--name"
-                />
-                Ingredientes
-              </label>
-              <label className="label-style" htmlFor="search-name">
-                <input
-                  id="search-name"
-                  type="radio"
-                  data-testid="name-search-radio"
-                  name="search--name"
-                />
-                Nome
-              </label>
-              <label className="label-style" htmlFor="search-firstLetter">
-                <input
-                  id="search-firstLetter"
-                  type="radio"
-                  data-testid="first-letter-search-radio"
-                  name="search--name"
-                />
-                Primeira
-              </label>
-            </div>
-            <button
-              type="button"
-              data-testid="exec-search-btn"
-            >
-              Buscar
-            </button>
-          </div>
+          <SearchBar />
         </section>
       );
     }
