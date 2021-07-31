@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Footer from '../components/footer/Footer';
 
 function Login() {
   const [login, setLogin] = React.useState({
@@ -52,7 +51,6 @@ function Login() {
   }
   return (
     <div>
-      <Footer />
       <h2>Login</h2>
       <label htmlFor="email">
         <input
