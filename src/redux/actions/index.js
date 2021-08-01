@@ -72,7 +72,18 @@ export const fetchList = (url) => async (dispatch) => {
   }
 };
 
-export const fetchRecipesListDrinks = (url, type) => async (dispatch) => {
+export const fetchRecipesListDrinks = (url) => async (dispatch) => {
+  dispatch(responseApiList());
+  try {
+    const request = await fetch(url);
+    const response = await request.json();
+    return response.drinks;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchCategories = (url, type) => async (dispatch) => {
   if (type === GET_CATEGORIES_MEALS) {
     dispatch(responseCategoryMeals());
   } else {
@@ -81,7 +92,7 @@ export const fetchRecipesListDrinks = (url, type) => async (dispatch) => {
   try {
     const request = await fetch(url);
     const response = await request.json();
-    return response.categories;
+    return response;
   } catch (error) {
     console.log(error);
   }

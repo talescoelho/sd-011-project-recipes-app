@@ -1,8 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect, useDispatch } from 'react-redux';
-import { fetchRecipesMain, fetchList } from '../redux/actions';
+import { fetchRecipesMain,
+  fetchList,
+  fetchCategories, GET_CATEGORIES_MEALS } from '../redux/actions';
 import Header from '../components/Header';
+import RenderCategories from '../components/RenderCategories';
 
 function HomeRecipe() {
   const MagicMikeDance = 12;
@@ -12,9 +15,12 @@ function HomeRecipe() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [meals, setMeals] = React.useState([]);
   const [mealsFilter, setMealsFilter] = React.useState([]);
+  const [renderCategories, setRenderCategories] = React.useState(true);
+  const [whoCategory, setWhoCategory] = React.useState([]);
   const dispatch = useDispatch();
   const fetchRecipesMainF = (url) => dispatch(fetchRecipesMain(url));
   const fetchListApi = (url) => dispatch(fetchList(url));
+  const getCategory = (url, type) => dispatch(fetchCategories(url, type));
 
   const handlerCard = async () => {
     const response = await fetchRecipesMainF(urlFetch);
@@ -25,6 +31,30 @@ function HomeRecipe() {
       setIsLoading(false);
     }
   };
+
+  const filterCategories = async (value) => {
+    const categories = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${value}`;
+    const responseCategory = await getCategory(categories, GET_CATEGORIES_MEALS);
+    setWhoCategory([...responseCategory.meals]);
+
+    setRenderCategories(false);
+  };
+
+  const renderMeals = () => (
+    isLoading ? <p>loading...</p>
+      : meals.slice(0, MagicMikeDance).map((itemCard, index) => (
+
+        <div key={ index } data-testid={ `${index}-recipe-card` } className="card">
+          <img
+            src={ itemCard.strMealThumb }
+            data-testid={ `${index}-card-img` }
+            alt={ itemCard.strMeal }
+          />
+          <div className="card-body">
+            <p data-testid={ `${index}-card-name` }>{ itemCard.strMeal }</p>
+          </div>
+        </div>))
+  );
 
   React.useEffect(() => {
     handlerCard();
@@ -41,6 +71,7 @@ function HomeRecipe() {
               <button
                 data-testid={ `${itemButtons.strCategory}-category-filter` }
                 type="button"
+                onClick={ () => filterCategories(itemButtons.strCategory) }
               >
                 {' '}
                 {itemButtons.strCategory}
@@ -51,19 +82,8 @@ function HomeRecipe() {
         { !isLoading && <button type="button">All</button>}
       </div>
       <div>
-        {isLoading ? <p>loading...</p>
-          : (meals.slice(0, MagicMikeDance).map((itemCard, index) => (
+        { !renderCategories ? RenderCategories(whoCategory) : renderMeals() }
 
-            <div key={ index } data-testid={ `${index}-recipe-card` } className="card">
-              <img
-                src={ itemCard.strMealThumb }
-                data-testid={ `${index}-card-img` }
-                alt={ itemCard.strMeal }
-              />
-              <div className="card-body">
-                <p data-testid={ `${index}-card-name` }>{ itemCard.strMeal }</p>
-              </div>
-            </div>)))}
       </div>
     </div>
   );
