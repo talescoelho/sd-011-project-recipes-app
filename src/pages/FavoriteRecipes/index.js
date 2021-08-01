@@ -1,6 +1,7 @@
 import React from 'react';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+
 // [{
 //   id: id-da-receita,
 //   type: comida-ou-bebida,
@@ -13,12 +14,28 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 const FavoriteRecipes = () => {
   const [recipes, setRecipes] = React.useState([]);
+  const [indexOfMessageClipboard, setIndexOfMessageClipboard] = React.useState(null);
   React.useEffect(() => {
     const favoriteRecipes = localStorage.getItem('favoriteRecipes');
     if (favoriteRecipes) {
       setRecipes(JSON.parse(favoriteRecipes));
     }
   }, []);
+
+  function handleShareBtnClick(type, id, index) {
+    const url = window.location.href;
+    const shareUrl = url.split('/receitas-favoritas')[0];
+    if (type === 'comida') {
+      navigator.clipboard.writeText(`${shareUrl}/comidas/${id}`);
+    } else if (type === 'bebida') {
+      navigator.clipboard.writeText(`${shareUrl}/bebidas/${id}`);
+    }
+    setIndexOfMessageClipboard(index);
+    const ms = 2000;
+    setTimeout(() => {
+      setIndexOfMessageClipboard(null);
+    }, ms);
+  }
 
   return (
     <>
@@ -56,9 +73,11 @@ const FavoriteRecipes = () => {
                   </p>) }
             </div>
             <div>
+              { indexOfMessageClipboard === index && <p>Link copiado!</p> }
               <button
                 src={ shareIcon }
                 type="button"
+                onClick={ () => handleShareBtnClick(type, id, index) }
                 data-testid={ `${index}-horizontal-share-btn` }
               >
                 <img src={ shareIcon } alt="Share" />
