@@ -5,6 +5,7 @@ import RecipesContext from '../context/RecipesContext';
 import Header from '../components/Header';
 import CategoryFilters from '../components/CategoryFilters';
 import FoodCard from '../components/FoodCard';
+import Loading from '../components/Loading';
 
 import '../styles/Comidas.css';
 
@@ -13,23 +14,23 @@ function Comidas() {
   const type = pathname === '/bebidas' ? 'drinks' : 'meals';
   const title = type === 'drinks' ? 'Bebidas' : 'Comidas';
 
-  const { dataRecipes, setRecipeType } = useContext(RecipesContext);
+  const { isLoading, dataRecipes, setRecipeType } = useContext(RecipesContext);
   const { route } = useState(pathname);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
 
   useEffect(() => {
-    setIsLoading(true);
-  }, []);
+    console.log('isLoading: ', isLoading);
+  }, [isLoading]);
 
   useEffect(() => {
-    setIsLoading(true);
+    // setIsLoading(true);
     setRecipeType(route);
   }, [route, setRecipeType]);
 
   useEffect(() => {
     // const ONE_SECOND = 500;
-    setIsLoading(false);
+    // setIsLoading(false);
     // Foi necessário o timeout, pois estava executando antes o effect, VERIFICAR O PQ;
     // setTimeout(() => {
     // }, ONE_SECOND);
@@ -43,7 +44,7 @@ function Comidas() {
       <div className="foodRecipesContainer">
         {
           isLoading === true
-            ? 'carregando'
+            ? <Loading />
             : filteredRecipes.map(
               (recipe, index) => (<FoodCard
                 key={ index }

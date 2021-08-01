@@ -6,10 +6,11 @@ import { fetchAllRecipesOrByCategory, fetchCategorysList } from '../services/ind
 
 function RecipesProvider({ children }) {
   const { pathname } = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
   const [recipeType, setRecipeType] = useState(pathname);
   const [dataRecipes, setDataRecipes] = useState([]);
   const [categorysList, setCategorysList] = useState(pathname);
-  const [currentCategory, setCurrentCategory] = useState('all');
+  const [currentCategory, setCurrentCategory] = useState('All');
 
   useEffect(() => {
     setRecipeType(pathname);
@@ -24,22 +25,19 @@ function RecipesProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    console.log('teste2')
     const fetchRecipes = async (recipeTypeToFetch, category) => {
+      setIsLoading(true);
+      console.log('chamou', currentCategory, isLoading);
       const recipes = await fetchAllRecipesOrByCategory(recipeTypeToFetch, category);
       setDataRecipes(recipes);
+      setIsLoading(false);
     };
     fetchRecipes(recipeType, currentCategory);
   }, [recipeType, currentCategory]);
 
-  // useEffect(() => {
-  //   console.log('teste');
-  //   // const fetchRecipesByCategory = async () => {
-  //     // const recipesByCategory = await fetchAllRecipesOrByCategory(recipeTypeToFetch, category);
-  //   // }
-  // }, [currentCategory]);
   const contextValue = {
     dataRecipes,
+    isLoading,
     recipeType,
     setRecipeType,
     categorysList,
