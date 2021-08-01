@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import * as api from '../services/API';
 
 class SearchInput extends Component {
@@ -8,8 +10,12 @@ class SearchInput extends Component {
       searchInput: '',
       option: 'ingredient',
       API: [],
+      isFetchDone: false,
+      choice: '',
+      choiceObj: '',
+      choiceObj1: '',
+      choiceObj2: '',
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -38,23 +44,36 @@ class SearchInput extends Component {
     let getAPI;
     if (title === 'Comidas') {
       getAPI = await api.fetchAPISearchBarComidas(searchInput, option);
+      this.setState({
+        choice: 'comidas',
+        choiceObj: 'idMeal',
+        choiceObj1: 'strMealThumb',
+        choiceObj2: 'strMeal',
+      });
     }
     if (title === 'Bebidas') {
-      console.log('hello');
       getAPI = await api.fetchAPISearchBarBebidas(searchInput, option);
+      this.setState({
+        choice: 'bebidas',
+        choiceObj: 'idDrink',
+        choiceObj1: 'strDrinkThumb',
+        choiceObj2: 'strDrink',
+      });
     }
-    console.log('hello');
     this.setState({
       API: getAPI,
+      isFetchDone: true,
     }, () => {
       const { API } = this.state;
       if (API === null) {
-        alert("Sinto muito, não encontramos nenhuma receita para esses filtros.");
+        alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       }
     });
   }
 
   render() {
+    const { API, isFetchDone, choice, choiceObj, choiceObj1, choiceObj2 } = this.state;
+    const elements = 12;
     return (
       <main>
         <input
@@ -104,9 +123,34 @@ class SearchInput extends Component {
         >
           Buscar
         </button>
+        { isFetchDone === false ? <div>Nenhuma busca foi realizada</div> : (
+          <div>
+            { API === null ? <div>Nenhuma receita foi encontrada</div> : (
+              <div>
+                { API.length === 1
+                  ? <Redirect to={ `/${choice}/${API[0][choiceObj]}` } /> : (
+                    API.slice(0, elements).map((recipe, index) => (
+                      <div key={ index } data-testid={ `${index}-recipe-card` }>
+                        <img
+                          src={ recipe[choiceObj1] }
+                          data-testid={ `${index}-card-img` }
+                          alt="Imagem da receita"
+                        />
+                        <p data-testid={ `${index}-card-name` }>{recipe[choiceObj2]}</p>
+                      </div>
+                    ))
+                  )}
+              </div>
+            )}
+          </div>
+        )}
       </main>
     );
   }
 }
 
 export default SearchInput;
+
+SearchInput.propTypes = {
+  title: PropTypes.string.isRequired,
+};
