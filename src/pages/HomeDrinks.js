@@ -42,7 +42,7 @@ function HomeDrinks() {
   React.useEffect(() => {
     handlerCard();
   }, []);
-  console.log(drinks)
+
   const renderDrinks = () => (
     isLoading ? <p>loading...</p>
       : drinks.slice(0, MagicMikeDance).map((itemCard, index) => (
