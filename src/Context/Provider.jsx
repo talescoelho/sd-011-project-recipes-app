@@ -26,22 +26,25 @@ const Provider = ({ children }) => {
       const foodByIngredientsAPI = await getFoodByIngredients(inputSearch);
       if (foodByIngredientsAPI.meals) {
         setDataFoods(foodByIngredientsAPI.meals);
+      } else {
+        return global.alert(notFound);
       }
-      return global.alert(notFound);
     }
     if (radioBtn === 'name') {
       const foodByNameAPI = await getFoodByName(inputSearch);
       if (foodByNameAPI.meals) {
         setDataFoods(foodByNameAPI.meals);
+      } else {
+        return global.alert(notFound);
       }
-      return global.alert(notFound);
     }
     if (radioBtn === 'letter') {
       const foodByFirstLetterAPI = await getFoodByFirstLetter(inputSearch);
       if (foodByFirstLetterAPI.meals) {
         setDataFoods(foodByFirstLetterAPI.meals);
+      } else {
+        return global.alert(notFound);
       }
-      return global.alert(notFound);
     }
   }
 
@@ -50,22 +53,25 @@ const Provider = ({ children }) => {
       const drinkByIngredientsAPI = await getDrinkByIngredients(inputSearch);
       if (drinkByIngredientsAPI.drinks) {
         setDataDrinks(drinkByIngredientsAPI.drinks);
+      } else {
+        return global.alert(notFound);
       }
-      return global.alert(notFound);
     }
     if (radioBtn === 'name') {
       const drinkByNameAPI = await getDrinkByName(inputSearch);
       if (drinkByNameAPI.drinks) {
         setDataDrinks(drinkByNameAPI.drinks);
+      } else {
+        return global.alert(notFound);
       }
-      return global.alert(notFound);
     }
     if (radioBtn === 'letter') {
       const drinkByFirstLetterAPI = await getDrinkByFirstLetter(inputSearch);
       if (drinkByFirstLetterAPI.drinks) {
         setDataDrinks(drinkByFirstLetterAPI.drinks);
+      } else {
+        return global.alert(notFound);
       }
-      return global.alert(notFound);
     }
   }
 
