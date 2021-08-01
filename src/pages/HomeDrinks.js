@@ -1,13 +1,17 @@
 import React from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { fetchDrinkMain, fetchRecipesListDrinks } from '../redux/actions';
+import { fetchDrinkMain,
+  fetchRecipesListDrinks,
+  GET_CATEGORIES_DRINK, fetchCategories } from '../redux/actions';
 import Header from '../components/Header';
+import RenderCategories from '../components/RenderCategories';
 
 function HomeDrinks() {
   const urlFetch = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const urlFetchList = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const [isLoading, setIsLoading] = React.useState(true);
   const [whoCategory, setWhoCategory] = React.useState([]);
+  const [renderCategories, setRenderCategories] = React.useState(true);
   const [drinksList, setDrinksList] = React.useState([]);
   const [drinks, setDrinks] = React.useState([]);
 
@@ -16,23 +20,23 @@ function HomeDrinks() {
   const MagicNumber = 5;
   const fetchRecipesMainF = (url) => dispatch(fetchDrinkMain(url));
   const fetchListApi = (url) => dispatch(fetchRecipesListDrinks(url));
+  const getCategory = (url, type) => dispatch(fetchCategories(url, type));
 
   const handlerCard = async () => {
     const response = await fetchRecipesMainF(urlFetch);
     const responseList = await fetchListApi(urlFetchList);
     if (response.length > 1 && responseList.length > 1) {
       setDrinks([...response]);
-      console.log(responseList);
       setDrinksList([...responseList]);
       setIsLoading(false);
     }
   };
 
   const filterCategories = async (value) => {
-    const categories = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${value}`;
-    const responseCategory = await getCategory(categories, GET_CATEGORIES_MEALS);
-    setWhoCategory([...responseCategory.meals]);
-
+    const categories = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${value}`;
+    const responseCategory = await getCategory(categories, GET_CATEGORIES_DRINK);
+    setWhoCategory([...responseCategory]);
+    console.log(responseCategory.drinks);
     setRenderCategories(false);
   };
 
@@ -40,6 +44,7 @@ function HomeDrinks() {
     handlerCard();
   }, []);
 
+  console.log(drinks);
   const renderDrinks = () => (
     isLoading ? <p>loading...</p>
       : drinks.slice(0, MagicMikeDance).map((itemCard, index) => (
@@ -64,6 +69,7 @@ function HomeDrinks() {
           <button
             data-testid={ `${itemList.strCategory}-category-filter` }
             type="button"
+            onClick={ () => filterCategories(itemList.strCategory) }
           >
             {' '}
             { itemList.strCategory }
@@ -74,7 +80,7 @@ function HomeDrinks() {
       { !isLoading && <button type="button">All</button> }
 
       <div>
-        
+        { !renderCategories ? RenderCategories(whoCategory) : renderDrinks() }
       </div>
     </div>
   );
