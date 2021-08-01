@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import { fetchDrinkMain,
   fetchRecipesListDrinks,
@@ -23,10 +24,11 @@ function HomeDrinks() {
   const fetchRecipesMainF = (url) => dispatch(fetchDrinkMain(url));
   const fetchListApi = (url) => dispatch(fetchRecipesListDrinks(url));
   const getCategory = (url, type) => dispatch(fetchCategories(url, type));
-
+  
   const handlerCard = async () => {
     const response = await fetchRecipesMainF(urlFetch);
     const responseList = await fetchListApi(urlFetchList);
+    console.log(response);
     if (response.length > 1 && responseList.length > 1) {
       setDrinks([...response]);
       setDrinksList([...responseList]);
@@ -58,17 +60,19 @@ function HomeDrinks() {
   const renderDrinks = () => (
     isLoading ? <p>loading...</p>
       : drinks.slice(0, MagicMikeDance).map((itemCard, index) => (
-
-        <div key={ index } data-testid={ `${index}-recipe-card` } className="card">
-          <img
-            src={ itemCard.strDrinkThumb }
-            data-testid={ `${index}-card-img` }
-            alt={ itemCard.strDrinks }
-          />
-          <div className="card-body">
-            <p data-testid={ `${index}-card-name` }>{ itemCard.strDrink }</p>
+        <Link key={ index } to={ `/bebidas/${itemCard.idDrink}` }>
+          <div data-testid={ `${index}-recipe-card` } className="card">
+            <img
+              src={ itemCard.strDrinkThumb }
+              data-testid={ `${index}-card-img` }
+              alt={ itemCard.strDrinks }
+            />
+            <div className="card-body">
+              <p data-testid={ `${index}-card-name` }>{ itemCard.strDrink }</p>
+            </div>
           </div>
-        </div>))
+        </Link>
+      ))
   );
 
   return (
