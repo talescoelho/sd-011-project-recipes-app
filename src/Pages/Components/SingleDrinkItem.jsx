@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function SingleDrinkItem({ history }) {
   return (
@@ -7,3 +8,11 @@ function SingleDrinkItem({ history }) {
 }
 
 export default SingleDrinkItem;
+
+SingleDrinkItem.propTypes = {
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
