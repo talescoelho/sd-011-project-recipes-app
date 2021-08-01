@@ -7,6 +7,7 @@ function HomeDrinks() {
   const urlFetch = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const urlFetchList = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const [isLoading, setIsLoading] = React.useState(true);
+  const [whoCategory, setWhoCategory] = React.useState([]);
   const [drinksList, setDrinksList] = React.useState([]);
   const [drinks, setDrinks] = React.useState([]);
 
@@ -25,6 +26,14 @@ function HomeDrinks() {
       setDrinksList([...responseList]);
       setIsLoading(false);
     }
+  };
+
+  const filterCategories = async (value) => {
+    const categories = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${value}`;
+    const responseCategory = await getCategory(categories, GET_CATEGORIES_MEALS);
+    setWhoCategory([...responseCategory.meals]);
+
+    setRenderCategories(false);
   };
 
   React.useEffect(() => {

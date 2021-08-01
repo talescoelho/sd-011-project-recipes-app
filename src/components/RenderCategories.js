@@ -4,7 +4,6 @@ function RenderCategories(whoCategory) {
   const MagicMikeDance = 12;
 
   return (
-
     whoCategory && whoCategory.slice(0, MagicMikeDance).map((itemCard, index) => (
 
       <div key={ index } data-testid={ `${index}-recipe-card` } className="card">
