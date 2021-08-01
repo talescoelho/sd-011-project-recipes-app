@@ -11,7 +11,7 @@ function HomeDrinks() {
   const urlFetchList = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const [isLoading, setIsLoading] = React.useState(true);
   const [whoCategory, setWhoCategory] = React.useState([]);
-  const [renderCategories, setRenderCategories] = React.useState(true);
+  const [renderCategories, setRenderCategories] = React.useState(false);
   const [drinksList, setDrinksList] = React.useState([]);
   const [drinks, setDrinks] = React.useState([]);
 
@@ -36,7 +36,7 @@ function HomeDrinks() {
     const categories = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${value}`;
     const responseCategory = await getCategory(categories, GET_CATEGORIES_DRINK);
     setWhoCategory([...responseCategory.drinks]);
-    setRenderCategories(false);
+    setRenderCategories(!renderCategories);
   };
 
   React.useEffect(() => {
@@ -78,7 +78,7 @@ function HomeDrinks() {
       { !isLoading && <button type="button">All</button> }
 
       <div>
-        { !renderCategories ? RenderCategoriesDrinks(whoCategory) : renderDrinks() }
+        { renderCategories ? RenderCategoriesDrinks(whoCategory) : renderDrinks() }
       </div>
     </div>
   );
