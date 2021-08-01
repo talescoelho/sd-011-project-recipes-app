@@ -15,7 +15,7 @@ function HomeRecipe() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [meals, setMeals] = React.useState([]);
   const [mealsFilter, setMealsFilter] = React.useState([]);
-  const [renderCategories, setRenderCategories] = React.useState(true);
+  const [renderCategories, setRenderCategories] = React.useState(false);
   const [whoCategory, setWhoCategory] = React.useState([]);
   const dispatch = useDispatch();
   const fetchRecipesMainF = (url) => dispatch(fetchRecipesMain(url));
@@ -37,7 +37,7 @@ function HomeRecipe() {
     const responseCategory = await getCategory(categories, GET_CATEGORIES_MEALS);
     setWhoCategory([...responseCategory.meals]);
 
-    setRenderCategories(false);
+    setRenderCategories(!renderCategories);
   };
 
   const renderMeals = () => (
@@ -82,7 +82,7 @@ function HomeRecipe() {
         { !isLoading && <button type="button">All</button>}
       </div>
       <div>
-        { !renderCategories ? RenderCategoriesMeals(whoCategory) : renderMeals() }
+        { renderCategories ? RenderCategoriesMeals(whoCategory) : renderMeals() }
 
       </div>
     </div>
