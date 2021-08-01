@@ -10,12 +10,16 @@ function CarouselRecipes({ data, recipeType }) {
     <div>
       <Carousel>
         {data.map((recipe, index) => {
-          if (index < SIX_CARDS) {
+          if (index < SIX_CARDS && index % 2 === 0) {
             return (
               <CarouselItem key={ index } data-testid={ `${index}-recomendation-card` }>
                 <img
                   alt="First slide"
                   src={ recipe[thumbType] }
+                />
+                <img
+                  alt="First slide"
+                  src={ data[index + 1][thumbType] }
                 />
               </CarouselItem>
             );
