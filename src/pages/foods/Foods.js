@@ -1,15 +1,15 @@
 import React from 'react';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
-import { Provider } from '../../context/SearchBar';
+import { SearchBarProvider } from '../../context/SearchBar';
 
 function Foods() {
   return (
     <div>
       <Header />
-      <Provider>
+      <SearchBarProvider>
         <SearchBar fetchType="themealdb" />
-      </Provider>
+      </SearchBarProvider>
     </div>
   );
 }

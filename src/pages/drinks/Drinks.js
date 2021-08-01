@@ -1,15 +1,15 @@
 import React from 'react';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
-import { Provider } from '../../context/SearchBar';
+import { SearchBarProvider } from '../../context/SearchBar';
 
 export default function Drinks() {
   return (
     <>
       <Header />
-      <Provider>
+      <SearchBarProvider>
         <SearchBar fetchType="thecocktaildb" />
-      </Provider>
+      </SearchBarProvider>
     </>
   );
 }

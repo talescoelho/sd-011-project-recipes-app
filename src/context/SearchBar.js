@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export const SearchBarContext = createContext();
 
-export function Provider({ children }) {
+export function SearchBarProvider({ children }) {
   const [data, setData] = useState({});
   const [shouldCallCards, setShouldCallCards] = useState(false);
 
@@ -20,18 +20,18 @@ export function Provider({ children }) {
   );
 }
 
-Provider.propTypes = {
+SearchBarProvider.propTypes = {
   children: PropTypes.node,
 }.isRequired;
 
-// import { Provider } from '../../context/SearchBar';
+// import { SearchBarProvider } from '../../context/SearchBar';
 
 // function Foods() {
 //   return (
 //     <div>
-//       <Provider>
+//       <SearchBarProvider>
 //         <SearchBar />
-//       </Provider>
+//       </SearchBarProvider>
 //     </div>
 //   );
 // }
