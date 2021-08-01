@@ -29,18 +29,21 @@ export default function SearchBar(props) {
   }, [data, dataValues]);
 
   useEffect(() => {
-    if (dataValues && dataValues.length === 1) {
-      if (fetchType === 'themealdb') {
-        setRecipeType('comidas');
-        setRecipeId(dataValues[0].idMeal);
+    async function getPath() {
+      if (dataValues && dataValues.length === 1) {
+        if (fetchType === 'themealdb') {
+          setRecipeType('comidas');
+          setRecipeId(dataValues[0].idMeal);
+        }
+        if (fetchType === 'thecocktaildb') {
+          setRecipeType('bebidas');
+          setRecipeId(dataValues[0].idDrink);
+        }
+        await setPath(`/${recipeType}/${recipeId}`);
+        history.push(path);
       }
-      if (fetchType === 'thecocktaildb') {
-        setRecipeType('bebidas');
-        setRecipeId(dataValues[0].idDrink);
-      }
-      setPath(`/${recipeType}/${recipeId}`);
-      history.push(path);
     }
+    getPath();
   }, [dataValues, fetchType, history, path, recipeId, recipeType]);
 
   useEffect(() => {
