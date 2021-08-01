@@ -5,6 +5,7 @@ import { fetchRecipeDetailsAPIAction, fetchRecipesAPIAction } from '../redux/act
 import objToArryOfObj from '../helper/objToArryOfObj';
 import FavBtn from '../components/FavBtn';
 import ShareBtn from '../components/ShareBtn';
+import RecipeStageBtn from '../components/RecipeStageBtn';
 
 const URL_TO_DRINKS_RECIPES = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const SIX_CARDS = 6;
@@ -54,17 +55,17 @@ function MealDetails(
           .map((recipe, index) => (index < SIX_CARDS
             ? (<p data-testid={ `${index}-recomendation-card` } key={ index }>{recipe.strDrink}</p>)
             : ''))}
-        <button type="button" data-testid="start-recipe-btn">Começar Reiceita</button>
+        <RecipeStageBtn id={ id } recipeType="meals" />
       </div>
     );
   }
+
   return (
     <span>Loading</span>
   );
 }
 
 const mapStateToProps = (state) => ({
-  recipeType: state.RecipesReducer.recipeType,
   recipesData: state.RecipesReducer.recipesData,
   recipeDetailsData: state.RecipesReducer.recipeDetailsData,
 });
