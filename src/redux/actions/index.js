@@ -81,7 +81,7 @@ export const fetchRecipesListDrinks = (url, type) => async (dispatch) => {
   try {
     const request = await fetch(url);
     const response = await request.json();
-    return response.drinks;
+    return response.categories;
   } catch (error) {
     console.log(error);
   }
