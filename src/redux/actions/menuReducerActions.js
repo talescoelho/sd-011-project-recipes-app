@@ -1,3 +1,12 @@
+import {
+  searchMealByName,
+  searchDrinkByName,
+  requestAllMealCategories,
+  requestAllDrinkCategories,
+  filterMealByCategory,
+  filterDrinkByCategory,
+} from '../../services/requestMenu';
+
 export const REQUEST_MENU = 'REQUEST_MENU';
 export const RECEIVE_MENU_SUCCESS = 'RECEIVE_MENU_SUCCESS';
 export const RECEIVE_MENU_FAILURE = 'RECEIVE_MENU_FAILURE';
@@ -67,8 +76,7 @@ const handleDrinksResponse = (drinks) => {
 export const requestMealsMenu = () => (dispatch) => {
   dispatch(menuRequest());
   return (
-    fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
-      .then((response) => response.json())
+    searchMealByName()
       .then(async ({ meals }) => {
         const response = await handleMealsResponse(meals);
         dispatch(menuReceiveSuccess(response));
@@ -80,8 +88,7 @@ export const requestMealsMenu = () => (dispatch) => {
 export const requestDrinkMenu = () => (dispatch) => {
   dispatch(menuRequest());
   return (
-    fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
-      .then((response) => response.json())
+    searchDrinkByName()
       .then(async ({ drinks }) => {
         const response = await handleDrinksResponse(drinks);
         dispatch(menuReceiveSuccess(response));
@@ -108,21 +115,27 @@ const requestFilterOptionsFailure = () => ({
   error: '404',
 });
 
+const handleFilterMenuList = (menuList) => {
+  const maxFilterOptions = 5;
+  const filteredOptions = menuList
+    .reduce((acc, { strCategory }, index) => {
+      if (index < maxFilterOptions) {
+        acc = [...acc, strCategory];
+      }
+      return acc;
+    }, []);
+
+  console.log(filteredOptions);
+  return filteredOptions;
+};
+
 export const requestMealsFilters = () => (dispatch) => {
   dispatch(requestFilterOptions());
   return (
-    fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
-      .then((response) => response.json())
-      .then(({ meals }) => {
-        const maxFilterOptions = 5;
-        const filteredOptions = meals
-          .reduce((acc, { strCategory }, index) => {
-            if (index < maxFilterOptions) {
-              acc = [...acc, strCategory];
-            }
-            return acc;
-          }, []);
-        dispatch(requestFilterOptionsSuccess(filteredOptions));
+    requestAllMealCategories()
+      .then(async ({ meals }) => {
+        const response = await handleFilterMenuList(meals);
+        dispatch(requestFilterOptionsSuccess(response));
       })
       .catch(() => dispatch(requestFilterOptionsFailure()))
   );
@@ -131,41 +144,32 @@ export const requestMealsFilters = () => (dispatch) => {
 export const requestDrinksFilters = () => (dispatch) => {
   dispatch(requestFilterOptions());
   return (
-    fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
-      .then((response) => response.json())
-      .then(({ drinks }) => {
-        const maxFilterOptions = 5;
-        const filteredOptions = drinks
-          .reduce((acc, curr, index) => {
-            if (index < maxFilterOptions) {
-              acc = [...acc, curr.strCategory];
-            }
-            return acc;
-          }, []);
+    requestAllDrinkCategories()
+      .then(async ({ drinks }) => {
+        const filteredOptions = await handleFilterMenuList(drinks);
         dispatch(requestFilterOptionsSuccess(filteredOptions));
       })
       .catch(() => dispatch(requestFilterOptionsFailure()))
   );
 };
 
-export const requestMealsByFilter = (filter) => (dispatch) => {
+export const requestMealsByFilter = (meal) => (dispatch) => {
   dispatch(menuRequest());
   return (
-    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${filter}`)
-      .then((response) => response.json())
+    filterMealByCategory(meal)
       .then(async ({ meals }) => {
         const response = await handleMealsResponse(meals);
+        console.log('meals by filter', response);
         dispatch(menuReceiveSuccess(response));
       })
       .catch(() => dispatch(menuReceiveFailure()))
   );
 };
 
-export const requestDrinksByFilter = (filter) => (dispatch) => {
+export const requestDrinksByFilter = (drink) => (dispatch) => {
   dispatch(menuRequest());
   return (
-    fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filter}`)
-      .then((response) => response.json())
+    filterDrinkByCategory(drink)
       .then(async ({ drinks }) => {
         const response = await handleDrinksResponse(drinks);
         dispatch(menuReceiveSuccess(response));
