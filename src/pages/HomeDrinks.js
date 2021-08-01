@@ -12,6 +12,7 @@ function HomeDrinks() {
 
   const dispatch = useDispatch();
   const MagicMikeDance = 12;
+  const MagicNumber = 5;
   const fetchRecipesMainF = (url) => dispatch(fetchDrinkMain(url));
   const fetchListApi = (url) => dispatch(fetchRecipesListDrinks(url));
 
@@ -34,7 +35,7 @@ function HomeDrinks() {
   return (
     <div>
       <Header title="Bebidas" />
-      { !isLoading && (drinksList.slice(0, 5).map((itemList, index) => (
+      { !isLoading && (drinksList.slice(0, MagicNumber).map((itemList, index) => (
         <div key={ index }>
           <button
             data-testid={ `${itemList.strCategory}-category-filter` }
@@ -46,7 +47,7 @@ function HomeDrinks() {
           </button>
         </div>
       )))}
-      { !isLoading && <button type="button">All</button>}
+      { !isLoading && <button type="button">All</button> }
 
       <div>
         {isLoading ? <p>loading...</p>
