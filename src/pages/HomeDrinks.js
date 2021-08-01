@@ -35,28 +35,26 @@ function HomeDrinks() {
   const filterCategories = async (value) => {
     const categories = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${value}`;
     const responseCategory = await getCategory(categories, GET_CATEGORIES_DRINK);
-    setWhoCategory([...responseCategory]);
-    console.log(responseCategory.drinks);
+    setWhoCategory([...responseCategory.drinks]);
     setRenderCategories(false);
   };
 
   React.useEffect(() => {
     handlerCard();
   }, []);
-
-  console.log(drinks);
+  console.log(drinks)
   const renderDrinks = () => (
     isLoading ? <p>loading...</p>
       : drinks.slice(0, MagicMikeDance).map((itemCard, index) => (
 
         <div key={ index } data-testid={ `${index}-recipe-card` } className="card">
           <img
-            src={ itemCard.strMealThumb }
+            src={ itemCard.strDrinkThumb }
             data-testid={ `${index}-card-img` }
-            alt={ itemCard.strMeal }
+            alt={ itemCard.strDrinks }
           />
           <div className="card-body">
-            <p data-testid={ `${index}-card-name` }>{ itemCard.strMeal }</p>
+            <p data-testid={ `${index}-card-name` }>{ itemCard.strDrink }</p>
           </div>
         </div>))
   );
