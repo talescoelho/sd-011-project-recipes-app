@@ -5,7 +5,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import './styles/header.css';
 
-export default function Header({ title }) {
+export default function Header({ title, disable }) {
   const [invisibility, setInvisibility] = useState(true);
   return (
     <header className="container-fluid header-container">
@@ -20,26 +20,31 @@ export default function Header({ title }) {
 
         <h1 data-testid="page-title">{ title }</h1>
 
-        <button
-          onClick={ () => setInvisibility(!invisibility) }
-          className="btn"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#collapseTarget"
+        {
+          !disable
+        && (
+          <button
+            onClick={ () => setInvisibility(!invisibility) }
+            className="btn"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseTarget"
+          >
 
-        >
-          <img
-            src={ searchIcon }
-            alt="icone de pesquisa"
-            data-testid="search-top-btn"
-
-          />
-        </button>
+            <img
+              src={ searchIcon }
+              alt="icone de pesquisa"
+              data-testid="search-top-btn"
+            />
+          </button>)
+        }
       </div>
       <div className="searchBarContainer container-fluid" hidden={ invisibility }>
-        <p>
-          barra de pesquisa
-        </p>
+        { !invisibility
+          && (
+            <p data-testid="search-input">
+              barra de pesquisa
+            </p>)}
       </div>
     </header>
   );

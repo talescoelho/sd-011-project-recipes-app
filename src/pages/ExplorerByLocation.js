@@ -1,10 +1,11 @@
 import React from 'react';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 export default function ExplorerByLocation() {
   return (
     <main>
-      <h1>ExplorerByLocation</h1>
+      <Header title="Explorar Origem" disable={ false } />
       <Footer />
     </main>
   );
