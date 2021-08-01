@@ -37,14 +37,14 @@ function FavBtn({ data, recipeType }) {
   if (!localStorage.favoriteRecipes
     || !(JSON.parse(localStorage.favoriteRecipes)).find((recipe) => recipe.id === id)) {
     return (
-      <button type="button" onClick={ addFavorite }>
+      <button type="button" onClick={ addFavorite } data-testid="favorite-btn">
         {console.log(data)}
         <img src={ whiteHeartIcon } alt="favorite icon" />
       </button>
     );
   }
   return (
-    <button type="button" onClick={ removeFavorite }>
+    <button type="button" onClick={ removeFavorite } data-testid="favorite-btn">
       {console.log(data)}
       <img src={ blackHeartIcon } alt="favorite icon" />
     </button>
