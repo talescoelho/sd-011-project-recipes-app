@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import { fetchRecipesMain,
   fetchList,
@@ -54,17 +55,19 @@ function HomeRecipe() {
   const renderMeals = () => (
     isLoading ? <p>loading...</p>
       : meals.slice(0, MagicMikeDance).map((itemCard, index) => (
+        <Link key={ index } to={ `/comidas/${itemCard.idMeal}` }>
 
-        <div key={ index } data-testid={ `${index}-recipe-card` } className="card">
-          <img
-            src={ itemCard.strMealThumb }
-            data-testid={ `${index}-card-img` }
-            alt={ itemCard.strMeal }
-          />
-          <div className="card-body">
-            <p data-testid={ `${index}-card-name` }>{ itemCard.strMeal }</p>
+          <div data-testid={ `${index}-recipe-card` } className="card">
+            <img
+              src={ itemCard.strMealThumb }
+              data-testid={ `${index}-card-img` }
+              alt={ itemCard.strMeal }
+            />
+            <div className="card-body">
+              <p data-testid={ `${index}-card-name` }>{ itemCard.strMeal }</p>
+            </div>
           </div>
-        </div>))
+        </Link>))
   );
 
   React.useEffect(() => {

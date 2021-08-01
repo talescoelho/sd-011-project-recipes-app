@@ -24,7 +24,7 @@ function HomeDrinks() {
   const fetchRecipesMainF = (url) => dispatch(fetchDrinkMain(url));
   const fetchListApi = (url) => dispatch(fetchRecipesListDrinks(url));
   const getCategory = (url, type) => dispatch(fetchCategories(url, type));
-  
+
   const handlerCard = async () => {
     const response = await fetchRecipesMainF(urlFetch);
     const responseList = await fetchListApi(urlFetchList);
