@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function RecipeStageBtn({ id, recipeType }) {
   const type = recipeType === 'meals' ? 'meals' : 'cocktails';
+  const urlType = recipeType === 'meals' ? 'comidas' : 'bebidas';
+  const URL = `/${urlType}/${id}/in-progress`;
+
   const checkDoneRecipes = () => {
     if (localStorage.doneRecipes
     && (JSON.parse(localStorage.doneRecipes)).find((recipe) => recipe.id === id)) {
@@ -21,10 +25,18 @@ function RecipeStageBtn({ id, recipeType }) {
   case checkDoneRecipes():
     return null;
   case checkInProgressRecipes():
-    return <p>CONTINUAR RECEITA</p>;
+    return (
+      <Link to={ URL }>
+        <button type="button">Continuar Receita</button>
+      </Link>
+    );
 
   default:
-    return <p>COMEÇAR RECEITA</p>;
+    return (
+      <Link to={ URL }>
+        <button type="button">Começar Receita</button>
+      </Link>
+    );
   }
 }
 
