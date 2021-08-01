@@ -9,7 +9,6 @@ const FilterMenu = ({
   categoryNames,
   filterByCategory,
 }) => {
-  console.log(categoryNames);
   const [filterAll, setFilterAll] = useState(true);
   const [lastClickTarget, setLastClickTarget] = useState('');
 
