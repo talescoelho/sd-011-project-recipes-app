@@ -48,7 +48,7 @@ class Header extends Component {
             <img data-testid="search-top-btn" src={ searchIcon } alt="lupa" />
           </button>
         )}
-        {searchInput === false ? null : (<SearchInput />)}
+        {searchInput === false ? null : (<SearchInput title={ title } />)}
       </main>
     );
   }

@@ -28,7 +28,6 @@ class Comidas extends Component {
     console.log(meals);
     return (
       <main>
-        {/* <span>Comidas</span> */}
         <Header title={ title } />
         <Footer />
       </main>
