@@ -11,6 +11,8 @@ function HomeDrinks() {
   const urlFetchList = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const [isLoading, setIsLoading] = React.useState(true);
   const [whoCategory, setWhoCategory] = React.useState([]);
+  const [indexOfCategory, setIndexOfCategory] = React.useState(null);
+  const [typeCategories, setTypeCategories] = React.useState(true);
   const [renderCategories, setRenderCategories] = React.useState(false);
   const [drinksList, setDrinksList] = React.useState([]);
   const [drinks, setDrinks] = React.useState([]);
@@ -32,11 +34,17 @@ function HomeDrinks() {
     }
   };
 
-  const filterCategories = async (value) => {
+  const filterCategories = async (value, index) => {
     const categories = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${value}`;
     const responseCategory = await getCategory(categories, GET_CATEGORIES_DRINK);
     setWhoCategory([...responseCategory.drinks]);
-    setRenderCategories(!renderCategories);
+    if (typeCategories) {
+      setTypeCategories(false);
+      setIndexOfCategory(index);
+      setRenderCategories(!renderCategories);
+    } else if (indexOfCategory === index) {
+      setRenderCategories(!renderCategories);
+    }
   };
 
   React.useEffect(() => {
@@ -67,7 +75,7 @@ function HomeDrinks() {
           <button
             data-testid={ `${itemList.strCategory}-category-filter` }
             type="button"
-            onClick={ () => filterCategories(itemList.strCategory) }
+            onClick={ () => filterCategories(itemList.strCategory, index) }
           >
             {' '}
             { itemList.strCategory }
