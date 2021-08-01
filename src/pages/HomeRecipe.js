@@ -14,6 +14,8 @@ function HomeRecipe() {
   const urlFetchList = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
   const [isLoading, setIsLoading] = React.useState(true);
   const [meals, setMeals] = React.useState([]);
+  const [indexOfCategory, setIndexOfCategory] = React.useState(null);
+  const [typeCategories, setTypeCategories] = React.useState(true);
   const [mealsFilter, setMealsFilter] = React.useState([]);
   const [renderCategories, setRenderCategories] = React.useState(false);
   const [whoCategory, setWhoCategory] = React.useState([]);
@@ -32,12 +34,17 @@ function HomeRecipe() {
     }
   };
 
-  const filterCategories = async (value) => {
+  const filterCategories = async (value, index) => {
     const categories = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${value}`;
     const responseCategory = await getCategory(categories, GET_CATEGORIES_MEALS);
     setWhoCategory([...responseCategory.meals]);
-
-    setRenderCategories(!renderCategories);
+    if (typeCategories) {
+      setTypeCategories(false);
+      setIndexOfCategory(index);
+      setRenderCategories(!renderCategories);
+    } else if (indexOfCategory === index) {
+      setRenderCategories(!renderCategories);
+    }
   };
 
   const renderMeals = () => (
@@ -71,7 +78,7 @@ function HomeRecipe() {
               <button
                 data-testid={ `${itemButtons.strCategory}-category-filter` }
                 type="button"
-                onClick={ () => filterCategories(itemButtons.strCategory) }
+                onClick={ () => filterCategories(itemButtons.strCategory, index) }
               >
                 {' '}
                 {itemButtons.strCategory}
