@@ -1,52 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router';
+import AppContext from '../context/AppContext';
 
 function SearchBarHeader({ foodOrDrink }) {
-  const [filterRadio, setFilterRadio] = useState('s');
-  const [filterText, setFilterText] = useState('');
-  const [filteredItem, setFilteredItem] = useState([]);
+  const { filterRadio,
+    setFilterRadio,
+    filterText,
+    setFilterText,
+    filteredItem,
+    fetchFood,
+    fetchDrink,
+  } = useContext(AppContext);
 
-  const history = useHistory();
   const maxLength = 12;
-
-  async function fetchFood() {
-    let endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?${filterRadio}=${filterText}`;
-    if (filterRadio === 'i') {
-      endPoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${filterText}`;
-    }
-    const request = await fetch(endPoint);
-    const response = await request.json();
-    const data = response.meals;
-    if (data !== null) {
-      setFilteredItem(data);
-      document.getElementById('form').reset();
-      if (data.length === 1) {
-        history.push(`/comidas/${data[0].idMeal}`);
-      }
-    } else {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    }
-  }
-
-  async function fetchDrink() {
-    let endPoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?${filterRadio}=${filterText}`;
-    if (filterRadio === 'i') {
-      endPoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${filterText}`;
-    }
-    const request = await fetch(endPoint);
-    const response = await request.json();
-    const data = response.drinks;
-    if (data !== null) {
-      setFilteredItem(data);
-      document.getElementById('form').reset();
-      if (data.length === 1) {
-        history.push(`/bebidas/${data[0].idDrink}`);
-      }
-    } else {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    }
-  }
+  const history = useHistory();
 
   function renderRecipes(item, index) {
     return (
@@ -71,6 +39,11 @@ function SearchBarHeader({ foodOrDrink }) {
 
   useEffect(() => {
     console.log(filteredItem);
+    if (filteredItem.length === 1 && foodOrDrink === 'Comidas') {
+      history.push(`/comidas/${filteredItem[0].idMeal}`);
+    } if (filteredItem.length === 1 && foodOrDrink === 'Bebidas') {
+      history.push(`/bebidas/${filteredItem[0].idDrink}`);
+    }
   }, [filteredItem]);
 
   return (
