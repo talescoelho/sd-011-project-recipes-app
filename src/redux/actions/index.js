@@ -28,7 +28,7 @@ export const fetchRecipesAPIAction = (url, recipeType) => async (dispatch) => {
   }
 };
 
-// ESTA ACTION CRIA O AMBIENTE THUNK PARA REQUISIÇÃO API E OBTENÇÃO DA LISTA DE RECEITAS
+// ESTA ACTION CRIA O AMBIENTE THUNK PARA REQUISIÇÃO API E OBTENÇÃO DOS DETALHES DA RECEITA
 export const fetchRecipeDetailsAPIAction = (url) => async (dispatch) => {
   dispatch(requestApiAction());
   try {

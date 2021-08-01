@@ -20,7 +20,7 @@ function MealDetails({ recipeDetailsData, fetchDetails, fetchRecipes, match }) {
   if (recipeDetailsData.meals) {
     const { meals } = recipeDetailsData;
     const data = meals[0];
-    const { strMeal, strMealThumb, strCategory } = data;
+    const { strMeal, strMealThumb, strCategory, strInstructions, strYoutube } = data;
     const ingredientsAndMesure = objToArryOfObj(data);
 
     return (
@@ -38,7 +38,13 @@ function MealDetails({ recipeDetailsData, fetchDetails, fetchRecipes, match }) {
               {`${ingredient.name} ${ingredient.measure}`}
             </p>
           ))}
+        <p data-testid="instructions">{strInstructions}</p>
+        <iframe
+          src={ strYoutube.split('watch?v=').join('embed/') }
+          title="Embedded youtube"
+        />
       </div>
+
     );
   }
   return (
