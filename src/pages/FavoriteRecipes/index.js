@@ -15,12 +15,28 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 const FavoriteRecipes = () => {
   const [recipes, setRecipes] = React.useState([]);
   const [indexOfMessageClipboard, setIndexOfMessageClipboard] = React.useState(null);
+  const [filteredRecipes, setFilteredRecipes] = React.useState([]);
+  const [filter, setFilter] = React.useState('all');
+
   React.useEffect(() => {
     const favoriteRecipes = localStorage.getItem('favoriteRecipes');
     if (favoriteRecipes) {
       setRecipes(JSON.parse(favoriteRecipes));
     }
   }, []);
+
+  React.useEffect(() => {
+    if (filter === 'all') {
+      setFilteredRecipes(recipes);
+      setIndexOfMessageClipboard(null);
+    } else if (filter === 'comida') {
+      setFilteredRecipes(recipes.filter((recipe) => recipe.type === 'comida'));
+      setIndexOfMessageClipboard(null);
+    } else if (filter === 'bebida') {
+      setFilteredRecipes(recipes.filter((recipe) => recipe.type === 'bebida'));
+      setIndexOfMessageClipboard(null);
+    }
+  }, [filter, recipes]);
 
   function handleShareBtnClick(type, id, index) {
     const url = window.location.href;
@@ -38,19 +54,41 @@ const FavoriteRecipes = () => {
   }
 
   function handleClickFavoriteRecipe(id) {
-    const filteredRecipes = recipes.filter((recipe) => recipe.id !== id);
-    setRecipes(filteredRecipes);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(filteredRecipes));
+    const filteredRecipesById = recipes.filter((recipe) => recipe.id !== id);
+    setRecipes(filteredRecipesById);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(filteredRecipesById));
+    setIndexOfMessageClipboard(null);
   }
 
   return (
     <>
       <div>
-        <button type="button" data-testid="filter-by-all-btn">All</button>
-        <button type="button" data-testid="filter-by-food-btn">Food</button>
-        <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
+        <button
+          type="button"
+          name="all"
+          data-testid="filter-by-all-btn"
+          onClick={ () => setFilter('all') }
+        >
+          All
+        </button>
+        <button
+          type="button"
+          name="comida"
+          data-testid="filter-by-food-btn"
+          onClick={ () => setFilter('comida') }
+        >
+          Food
+        </button>
+        <button
+          type="button"
+          name="bebida"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => setFilter('bebida') }
+        >
+          Drinks
+        </button>
       </div>
-      { recipes.map((recipe, index) => {
+      { filteredRecipes.map((recipe, index) => {
         const { id, type, area, category, alcoholicOrNot, name, image } = recipe;
         return (
           <div key={ id } alt>
