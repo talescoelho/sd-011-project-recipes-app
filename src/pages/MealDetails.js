@@ -5,8 +5,12 @@ import { fetchRecipeDetailsAPIAction, fetchRecipesAPIAction } from '../redux/act
 import objToArryOfObj from '../helper/objToArryOfObj';
 
 const URL_TO_DRINKS_RECIPES = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+const SIX_CARDS = 6;
 
-function MealDetails({ recipeDetailsData, fetchDetails, fetchRecipes, match }) {
+function MealDetails(
+  { recipesData, recipeDetailsData,
+    fetchDetails, fetchRecipes, match },
+) {
   const { id } = match.params;
 
   useEffect(() => {
@@ -44,6 +48,10 @@ function MealDetails({ recipeDetailsData, fetchDetails, fetchRecipes, match }) {
           src={ strYoutube.split('watch?v=').join('embed/') }
           title="Embedded youtube"
         />
+        {recipesData.drinks
+          .map((recipe, index) => (index < SIX_CARDS
+            ? (<p data-testid={ `${index}-recomendation-card` } key={ index }>{recipe.strDrink}</p>)
+            : ''))}
       </div>
 
     );
@@ -55,6 +63,7 @@ function MealDetails({ recipeDetailsData, fetchDetails, fetchRecipes, match }) {
 
 const mapStateToProps = (state) => ({
   recipeType: state.RecipesReducer.recipeType,
+  recipesData: state.RecipesReducer.recipesData,
   recipeDetailsData: state.RecipesReducer.recipeDetailsData,
 });
 
