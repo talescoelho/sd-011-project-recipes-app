@@ -26,7 +26,7 @@ function Login() {
     const validateEmail = login.email.split('').includes('@')
       && login.email.split('.').includes('com');
     const lengthPasswords = 6;
-    const validatePassword = login.password.length >= lengthPasswords;
+    const validatePassword = login.password.length > lengthPasswords;
     if (validateEmail && validatePassword && disabled) {
       setDisabled({
         disabled: false,
