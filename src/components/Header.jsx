@@ -26,7 +26,7 @@ function Header({ title, searchButton }) {
             <img src={ searchIcon } alt="searchIcon" data-testid="search-top-btn" />
           </button>
           {searchBar && (
-            <SearchBarHeader />
+            <SearchBarHeader foodOrDrink={ title } />
           )}
         </div>
       )}

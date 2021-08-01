@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 
-function SearchBarHeader() {
+function SearchBarHeader(foodOrDrink) {
   const [filterRadio, setFilterRadio] = useState('s');
   const [filterText, setFilterText] = useState('');
   const [filteredItem, setFilteredItem] = useState([]);
 
-  async function fetchItem() {
+  const history = useHistory();
+
+  async function fetchFood() {
     let endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?${filterRadio}=${filterText}`;
     if (filterRadio === 'i') {
       endPoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${filterText}`;
@@ -16,6 +19,25 @@ function SearchBarHeader() {
     setFilteredItem(data);
     setFilterText([]);
     document.getElementById('form').reset();
+    if (data.length === 1) {
+      history.push(`/comidas/${data[0].idMeal}`);
+    }
+  }
+
+  async function fetchDrink() {
+    let endPoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?${filterRadio}=${filterText}`;
+    if (filterRadio === 'i') {
+      endPoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${filterText}`;
+    }
+    const request = await fetch(endPoint);
+    const response = await request.json();
+    const data = response.drinks;
+    setFilteredItem(data);
+    setFilterText([]);
+    document.getElementById('form').reset();
+    if (data.length === 1) {
+      history.push(`/bebidas/${data[0].idDrink}`);
+    }
   }
 
   useEffect(() => {
@@ -69,7 +91,11 @@ function SearchBarHeader() {
         />
         Primeira letra
       </label>
-      <button type="button" data-testid="exec-search-btn" onClick={ fetchItem }>
+      <button
+        type="button"
+        data-testid="exec-search-btn"
+        onClick={ foodOrDrink.foodOrDrink === 'Comidas' ? fetchFood : fetchDrink }
+      >
         Buscar
       </button>
     </form>
