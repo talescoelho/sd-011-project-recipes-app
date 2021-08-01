@@ -19,13 +19,13 @@ export default function SearchBar(props) {
   const [dataValues, setDataValues] = useState();
   const [path, setPath] = useState();
   const [recipeType, setRecipeType] = useState();
+  const [newSearch, setNewSearch] = useState(false);
   const { fetchType } = props;
 
   const history = useHistory();
 
   useEffect(() => {
     setDataValues(Object.values(data)[0]); // Pega a primeira posição dos valores de data, onde ficam todos os objectos de receitas
-    console.log(dataValues);
   }, [data, dataValues]);
 
   useEffect(() => {
@@ -44,83 +44,98 @@ export default function SearchBar(props) {
   }, [dataValues, fetchType, history, path, recipeId, recipeType]);
 
   useEffect(() => {
-    if (dataValues && dataValues.length > 1) {
-      setShouldCallCards(true);
-    } else {
+    if (newSearch && !dataValues) {
+      // eslint-disable-next-line no-alert
+      window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       setShouldCallCards(false);
     }
-  }, [dataValues, setShouldCallCards]);
+    if (newSearch && dataValues && dataValues.length > 1) {
+      setShouldCallCards(true);
+    }
+  }, [dataValues, setShouldCallCards, newSearch]);
 
   const handleClick = async () => {
     const urlToFetch = `https://www.${fetchType}.com/api/json/v1/1/${radio}${input}`;
 
     const dataFromApi = await fetchByFilter(urlToFetch);
     setData(dataFromApi);
+    setNewSearch(true);
+    setNewSearch(false);
+  };
+
+  const renderCards = () => {
+    const MAX_CARDS = 12;
+    if (shouldCallCards && dataValues.length > 1) {
+      return dataValues.slice(0, MAX_CARDS).map((eachRecipe, index) => (
+        <Cards
+          recipe={ eachRecipe }
+          type={ fetchType }
+          index={ index }
+          key={ index }
+        />
+      ));
+    }
   };
 
   return (
-    <section>
-      <label htmlFor="search-input">
-        <input
-          id="search-input"
-          type="text"
-          data-testid="search-input"
-          value={ input }
-          onChange={ (e) => setInput(e.target.value) }
-        />
-      </label>
-      <label htmlFor="ingredient">
-        <input
-          name="search-type"
-          id="ingredient"
-          type="radio"
-          data-testid="ingredient-search-radio"
-          value="filter.php?i="
-          onChange={ (e) => setRadio(e.target.value) }
-        />
-        Ingrediente
-      </label>
-      <label htmlFor="name">
-        <input
-          name="search-type"
-          id="name"
-          type="radio"
-          data-testid="name-search-radio"
-          value="search.php?s="
-          onChange={ (e) => setRadio(e.target.value) }
-        />
-        Nome
-      </label>
-      <label htmlFor="first-letter">
-        <input
-          name="search-type"
-          id="first-letter"
-          type="radio"
-          data-testid="first-letter-search-radio"
-          value="search.php?f="
-          onChange={ (e) => setRadio(e.target.value) }
-        />
-        Primeira letra
-      </label>
-      <button
-        data-testid="exec-search-btn"
-        type="button"
-        onClick={ () => handleClick() }
-      >
-        Buscar
-      </button>
+    <nav>
       <section>
-        { shouldCallCards
-          && dataValues.map((eachRecipe, index) => (
-            <Cards
-              recipe={ eachRecipe }
-              type={ fetchType }
-              index={ index }
-              key={ index }
-            />
-          )) }
+        <label htmlFor="search-input">
+          <input
+            id="search-input"
+            type="text"
+            data-testid="search-input"
+            value={ input }
+            onChange={ (e) => setInput(e.target.value) }
+          />
+        </label>
+        <button
+          data-testid="exec-search-btn"
+          type="button"
+          onClick={ () => handleClick() }
+        >
+          Buscar
+        </button>
       </section>
-    </section>
+      <section>
+        <label htmlFor="ingredient">
+          <input
+            name="search-type"
+            id="ingredient"
+            type="radio"
+            data-testid="ingredient-search-radio"
+            value="filter.php?i="
+            onChange={ (e) => setRadio(e.target.value) }
+          />
+          Ingrediente
+        </label>
+        <label htmlFor="name">
+          <input
+            name="search-type"
+            id="name"
+            type="radio"
+            data-testid="name-search-radio"
+            value="search.php?s="
+            onChange={ (e) => setRadio(e.target.value) }
+          />
+          Nome
+        </label>
+        <label htmlFor="first-letter">
+          <input
+            name="search-type"
+            id="first-letter"
+            type="radio"
+            data-testid="first-letter-search-radio"
+            value="search.php?f="
+            onChange={ (e) => setRadio(e.target.value) }
+          />
+          Primeira letra
+        </label>
+        <section>
+          { shouldCallCards && dataValues && renderCards() }
+        </section>
+      </section>
+    </nav>
   );
 }
 
