@@ -47,6 +47,10 @@ function HomeRecipe() {
     }
   };
 
+  const handlerFilterer = () => {
+    setRenderCategories(!renderCategories);
+  };
+
   const renderMeals = () => (
     isLoading ? <p>loading...</p>
       : meals.slice(0, MagicMikeDance).map((itemCard, index) => (
@@ -86,7 +90,15 @@ function HomeRecipe() {
               </button>
 
             </div>)))}
-        { !isLoading && <button type="button">All</button>}
+        { !isLoading
+        && (
+          <button
+            onClick={ handlerFilterer }
+            type="button"
+            data-testid="All-category-filter"
+          >
+            All
+          </button>)}
       </div>
       <div>
         { renderCategories ? RenderCategoriesMeals(whoCategory) : renderMeals() }
