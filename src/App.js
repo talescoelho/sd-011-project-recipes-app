@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 import Comidas from './pages/Comidas';
 import Explorar from './pages/Explorar';
 import Login from './pages/Login';
-import MealsProvider from './context/MealsProvider';
+import RecipesProvider from './context/RecipesProvider';
 
 function App() {
   return (
@@ -18,10 +18,10 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ Login } />
-          <MealsProvider>
+          <RecipesProvider>
             <Route exact path="/comidas" component={ Comidas } />
             <Route exact path="/bebidas" component={ Comidas } />
-          </MealsProvider>
+          </RecipesProvider>
 
           <Route exact path="/comidas/{id-da-receita}" />
           <Route exact path="/comidas/{id-da-receita}/in-progress" />

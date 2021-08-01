@@ -1,17 +1,33 @@
-const MEAL_URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-const COCKTAILS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-
-export const fetchAllRecipes = async (recipeType) => {
+export const fetchAllRecipesOrByCategory = async (recipeType, category = 'all') => {
   if (recipeType === '/bebidas') {
-    const recipes = await fetch(COCKTAILS_URL);
+    if (category !== 'all') {
+      const recipes = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
+      const { drinks } = await recipes.json();
+      return drinks;
+    }
+    const recipes = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     const { drinks } = await recipes.json();
     return drinks;
   }
-  const recipes = await fetch(MEAL_URL);
+  if (category !== 'all') {
+    const recipes = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+    const { meals } = await recipes.json();
+    return meals;
+  }
+  const recipes = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   const { meals } = await recipes.json();
   return meals;
 };
-
+export const fetchCategorysList = async (typeOfRecipes) => {
+  if (typeOfRecipes === '/bebidas') {
+    const recipes = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    const { drinks } = await recipes.json();
+    return drinks;
+  }
+  const recipes = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+  const { meals } = await recipes.json();
+  return meals;
+};
 export const searchByIngredient = async (ingredient, pathname) => {
   const type = pathname === '/bebidas' ? 'cocktail' : 'meal';
   const recipes = await fetch(`https://www.the${type}db.com/api/json/v1/1/filter.php?i=${ingredient}`);

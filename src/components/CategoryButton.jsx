@@ -1,9 +1,12 @@
 import React from 'react';
 
-function CategoryButton() {
+function CategoryButton({ categoryName }) {
   return (
-    <button type="button">
-      All
+    <button
+      type="button"
+      data-testid={ `${categoryName}-category-filter` }
+    >
+      { categoryName }
     </button>
   );
 }
