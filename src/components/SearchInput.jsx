@@ -40,12 +40,18 @@ class SearchInput extends Component {
       getAPI = await api.fetchAPISearchBarComidas(searchInput, option);
     }
     if (title === 'Bebidas') {
+      console.log('hello');
       getAPI = await api.fetchAPISearchBarBebidas(searchInput, option);
     }
+    console.log('hello');
     this.setState({
       API: getAPI,
+    }, () => {
+      const { API } = this.state;
+      if (API === null) {
+        alert("Sinto muito, não encontramos nenhuma receita para esses filtros.");
+      }
     });
-    console.log(getAPI);
   }
 
   render() {
