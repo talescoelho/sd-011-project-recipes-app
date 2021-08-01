@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './css/filterMenu.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -8,60 +9,68 @@ const FilterMenu = ({
   categoryNames,
   filterByCategory,
 }) => {
-  const [checked, setChecked] = useState(true);
-  const [lastClick, setLastClicked] = useState('');
+  const [filterAll, setFilterAll] = useState(true);
+  const [lastClickTarget, setLastClickTarget] = useState('');
 
   useEffect(() => {
-    if (checked) {
+    if (filterAll) {
       dispatch(requestMealsMenu());
-      setChecked(true);
+      setFilterAll(true);
     }
-  }, [checked, dispatch, requestMealsMenu]);
+  }, [filterAll, dispatch, requestMealsMenu]);
 
-  const checkHasClicked = ({ target: { id } }) => {
-    if (id === lastClick) {
-      setChecked(true);
+  const changeFilterToAll = () => {
+    setFilterAll(true);
+    setLastClickTarget('');
+    document.querySelector('.filter-selected').className = '';
+    document.querySelector('#All-category-filter').className = 'filter-selected';
+  };
+
+  const checkHasClicked = (id, categoryName) => {
+    if (id === lastClickTarget) {
+      changeFilterToAll();
+    } else {
+      dispatch(filterByCategory(categoryName));
     }
   };
 
-  const requestFilterMenuByCategory = (id, categoryName) => {
-    setChecked(false);
-    setLastClicked(id);
-    dispatch(filterByCategory(categoryName));
+  const changeFilterByCategoryName = (target, categoryName) => {
+    setFilterAll(false);
+    setLastClickTarget(target.id);
+    document.querySelector('.filter-selected').className = '';
+    target.className = 'filter-selected';
+    checkHasClicked(target.id, categoryName);
   };
 
   return (
-    <label htmlFor="filters">
-      <label htmlFor="all-filters">
+    <nav className="nav-filters">
+      <button
+        className="filter-selected"
+        data-testid="All-category-filter"
+        id="All-category-filter"
+        onClick={ () => changeFilterToAll() }
+        readOnly
+        type="button"
+      >
         All
-        <input
-          checked={ checked }
-          data-testid="All-category-filter"
-          id="all-filter"
-          name="filters"
-          onClick={ () => setChecked(true) }
-          readOnly
-          type="radio"
-        />
-      </label>
+      </button>
       {
         categoryNames.map((categoryName, index) => (
-          <label key={ index } htmlFor={ `${categoryName}-filter` }>
+          <button
+            className=""
+            data-testid={ `${categoryName}-category-filter` }
+            id={ `${categoryName}-filter` }
+            key={ index }
+            type="button"
+            onClick={
+              ({ target }) => changeFilterByCategoryName(target, categoryName)
+            }
+          >
             { categoryName }
-            <input
-              data-testid={ `${categoryName}-category-filter` }
-              id={ `${categoryName}-filter` }
-              name="filters"
-              type="radio"
-              onClick={ checkHasClicked }
-              onChange={
-                ({ target: { id } }) => requestFilterMenuByCategory(id, categoryName)
-              }
-            />
-          </label>
+          </button>
         ))
       }
-    </label>
+    </nav>
   );
 };
 
