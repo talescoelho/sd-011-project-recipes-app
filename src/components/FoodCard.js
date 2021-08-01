@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import GlobalContext from '../context';
 import '../styles/Comidas.css';
 
-export default function FoodCard() {
+function FoodCard(props) {
   const { foodArray } = useContext(GlobalContext);
 
   const eleven = 11;
@@ -19,14 +21,45 @@ export default function FoodCard() {
 
   const mealsArray = filter();
 
+  function goToRecipeDetails({ target }) {
+    const { history } = props;
+    const { id } = target;
+    history.push(`/comidas/${id}`);
+  }
+
   return (
     <section className="card-list">
       {mealsArray ? mealsArray.map((meal, index) => (
-        <div data-testid={ `${index}-recipe-card` } className="card" key={ index }>
-          <img data-testid={ `${index}-card-img` } src={ meal.strMealThumb } alt="" />
-          <span data-testid={ `${index}-card-name` }>{meal.strMeal}</span>
+        <div
+          className="card"
+          data-testid={ `${index}-recipe-card` }
+          id={ meal.idMeal }
+          key={ index }
+          onClick={ goToRecipeDetails }
+          onKeyUp={ goToRecipeDetails }
+          role="button"
+          tabIndex={ index }
+        >
+          <img
+            alt=""
+            data-testid={ `${index}-card-img` }
+            id={ meal.idMeal }
+            src={ meal.strMealThumb }
+          />
+          <span
+            data-testid={ `${index}-card-name` }
+            id={ meal.idMeal }
+          >
+            {meal.strMeal}
+          </span>
         </div>
       )) : <span>Loading</span>}
     </section>
   );
 }
+
+FoodCard.propTypes = {
+  history: PropTypes.instanceOf(PropTypes.array).isRequired,
+};
+
+export default withRouter(FoodCard);
