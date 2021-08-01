@@ -40,7 +40,22 @@ function HomeDrinks() {
     handlerCard();
   }, []);
 
-  // console.log(meals, isLoading);
+  const renderDrinks = () => (
+    isLoading ? <p>loading...</p>
+      : drinks.slice(0, MagicMikeDance).map((itemCard, index) => (
+
+        <div key={ index } data-testid={ `${index}-recipe-card` } className="card">
+          <img
+            src={ itemCard.strMealThumb }
+            data-testid={ `${index}-card-img` }
+            alt={ itemCard.strMeal }
+          />
+          <div className="card-body">
+            <p data-testid={ `${index}-card-name` }>{ itemCard.strMeal }</p>
+          </div>
+        </div>))
+  );
+
   return (
     <div>
       <Header title="Bebidas" />
@@ -59,19 +74,7 @@ function HomeDrinks() {
       { !isLoading && <button type="button">All</button> }
 
       <div>
-        {isLoading ? <p>loading...</p>
-          : (drinks.slice(0, MagicMikeDance).map((itemCard, index) => (
-
-            <div key={ index } data-testid={ `${index}-recipe-card` } className="card">
-              <img
-                src={ itemCard.strDrinkThumb }
-                data-testid={ `${index}-card-img` }
-                alt={ itemCard.strDrink }
-              />
-              <div className="card-body">
-                <p data-testid={ `${index}-card-name` }>{ itemCard.strDrink }</p>
-              </div>
-            </div>)))}
+        
       </div>
     </div>
   );
