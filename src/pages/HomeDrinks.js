@@ -46,6 +46,8 @@ function HomeDrinks() {
           </button>
         </div>
       )))}
+      { !isLoading && <button type="button">All</button>}
+
       <div>
         {isLoading ? <p>loading...</p>
           : (drinks.slice(0, MagicMikeDance).map((itemCard, index) => (
