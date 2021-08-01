@@ -5,7 +5,7 @@ import { fetchRecipesMain,
   fetchList,
   fetchCategories, GET_CATEGORIES_MEALS } from '../redux/actions';
 import Header from '../components/Header';
-import RenderCategories from '../components/RenderCategories';
+import RenderCategories from '../components/RenderCategoriesMeals';
 
 function HomeRecipe() {
   const MagicMikeDance = 12;

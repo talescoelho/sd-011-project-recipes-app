@@ -4,7 +4,7 @@ import { fetchDrinkMain,
   fetchRecipesListDrinks,
   GET_CATEGORIES_DRINK, fetchCategories } from '../redux/actions';
 import Header from '../components/Header';
-import RenderCategories from '../components/RenderCategories';
+import RenderCategories from '../components/RenderCategoriesMeals';
 
 function HomeDrinks() {
   const urlFetch = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';

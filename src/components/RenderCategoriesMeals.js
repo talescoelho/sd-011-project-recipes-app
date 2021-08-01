@@ -1,6 +1,6 @@
 import React from 'react';
 
-function RenderCategories(whoCategory) {
+function RenderCategoriesMeals(whoCategory) {
   const MagicMikeDance = 12;
 
   return (
@@ -19,4 +19,4 @@ function RenderCategories(whoCategory) {
   );
 }
 
-export default RenderCategories;
+export default RenderCategoriesMeals;
