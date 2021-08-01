@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchRecipeDetailsAPIAction, fetchRecipesAPIAction } from '../redux/actions';
 import objToArryOfObj from '../helper/objToArryOfObj';
-import favoriteIcon from '../images/whiteHeartIcon.svg';
+import FavBtn from '../components/FavBtn';
 import shareIcon from '../images/shareIcon.svg';
 
 const URL_TO_DRINKS_RECIPES = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -38,9 +38,7 @@ function MealDetails(
         <button type="button" data-testid="share-btn">
           <img src={ shareIcon } alt="share icon" />
         </button>
-        <button type="button" data-testid="favorite-btn">
-          <img src={ favoriteIcon } alt="favorite icon" />
-        </button>
+        <FavBtn data={ data } recipeType="meals" />
         <span data-testid="recipe-category">{ strCategory }</span>
         {ingredientsAndMesure
           .map((ingredient, index) => (
