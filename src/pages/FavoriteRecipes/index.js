@@ -37,6 +37,12 @@ const FavoriteRecipes = () => {
     }, ms);
   }
 
+  function handleClickFavoriteRecipe(id) {
+    const filteredRecipes = recipes.filter((recipe) => recipe.id !== id);
+    setRecipes(filteredRecipes);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(filteredRecipes));
+  }
+
   return (
     <>
       <div>
@@ -84,6 +90,7 @@ const FavoriteRecipes = () => {
               </button>
               <button
                 type="button"
+                onClick={ () => handleClickFavoriteRecipe(id) }
                 data-testid={ `${index}-horizontal-favorite-btn` }
                 src={ blackHeartIcon }
               >
