@@ -138,7 +138,7 @@ describe('25- Implemente os cards da tela principal respeitando os atributos:', 
     expect(twelfthDrinkCardImg).toHaveAttribute('src', 'https://www.thecocktaildb.com/images/media/drink/5a3vg61504372070.jpg');
     expect(twelfthDrinkCardName).toHaveTextContent('B-52');
 
-    const cards = await screen.findAllByRole('link');
+    const cards = await screen.findAllByRole('link', { name: /card-menu/i });
 
     expect(cards.length).toBe(maxDrinksCards);
     expect(cards.length).not.toBe(maxDrinksCards > maxDrinksCards + 1);

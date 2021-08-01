@@ -7,7 +7,7 @@ import {
   requestMealsFilters,
   requestMealsByFilter,
 } from '../redux/actions/menuReducerActions';
-import FilterMenu from '../components/filterMenu';
+import FilterMenu from '../components/FilterMenu';
 
 const Foods = ({
   dispatch,
@@ -47,6 +47,7 @@ const Foods = ({
             : (
               meals.map(({ idMeal, strMeal, strMealThumb }, index) => (
                 <Link
+                  aria-label="card-menu"
                   data-testid={ `${index}-recipe-card` }
                   key={ index }
                   to={ `/comidas/${idMeal}` }

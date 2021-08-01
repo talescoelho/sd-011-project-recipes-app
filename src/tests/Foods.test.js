@@ -138,9 +138,10 @@ describe('25- Implemente os cards da tela principal respeitando os atributos:', 
     expect(twelfthFoodCardImg).toHaveAttribute('src', 'https://www.themealdb.com/images/media/meals/sxysrt1468240488.jpg');
     expect(twelfthFoodCardName).toHaveTextContent('Kapsalon');
 
-    const cards = await screen.findAllByRole('link');
+    const cards = screen.getAllByRole('link', { name: /card-menu/i });
 
     expect(cards.length).toBe(maxFoodCards);
+    expect(cards.length).not.toBe(maxFoodCards > maxFoodCards + 1);
     expect(mockedSearchMealByName).toBeCalled();
     expect(mockedSearchMealByName).toBeCalledTimes(2);
     expect(mockedRequestAllMealCategories).toBeCalled();
