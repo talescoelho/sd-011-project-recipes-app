@@ -41,15 +41,33 @@ const FavoriteRecipes = () => {
             <div>
               <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
               <p>{type}</p>
-              { area && <p>{area}</p> }
-              <p data-testid={ `${index}-horizontal-top-text` }>{category}</p>
-              { alcoholicOrNot && <p>{alcoholicOrNot}</p> }
+              { area && (
+                <p
+                  data-testid={ `${index}-horizontal-top-text` }
+                >
+                  {`${area} - ${category}`}
+                </p>) }
+              { alcoholicOrNot
+                && (
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    {`${alcoholicOrNot} - ${category}`}
+                  </p>) }
             </div>
             <div>
-              <button type="button" data-testid={ `${index}-horizontal-share-btn` }>
+              <button
+                src={ shareIcon }
+                type="button"
+                data-testid={ `${index}-horizontal-share-btn` }
+              >
                 <img src={ shareIcon } alt="Share" />
               </button>
-              <button type="button" data-testid={ `${index}-horizontal-favorite-btn` }>
+              <button
+                type="button"
+                data-testid={ `${index}-horizontal-favorite-btn` }
+                src={ blackHeartIcon }
+              >
                 <img src={ blackHeartIcon } alt="Heart" />
               </button>
             </div>
