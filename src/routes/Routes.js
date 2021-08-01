@@ -17,6 +17,7 @@ import {
   Perfil,
   RecipesDone,
   FavoriteRecipes,
+  NotFound,
 } from '../pages/index';
 
 function Routes() {
@@ -46,6 +47,7 @@ function Routes() {
       <Route exact path="/perfil" component={ Perfil } />
       <Route exact path="/receitas-feitas" component={ RecipesDone } />
       <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
+      <Route component={ NotFound } />
     </Switch>
   );
 }

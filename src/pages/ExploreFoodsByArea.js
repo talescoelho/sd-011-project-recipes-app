@@ -35,7 +35,7 @@ function ExploreFoodsByArea() {
     const recipes = recipesChosenArea.map((recipe, index) => {
       if (index < maxLength) {
         return (
-          <Link to={ `/comidas/${recipe.idMeal}` }>
+          <Link key={ recipe.idMeal } to={ `/comidas/${recipe.idMeal}` }>
             <div className="card-ingredients" data-testid={ `${index}-recipe-card` }>
               <img
                 height="25"
@@ -63,11 +63,19 @@ function ExploreFoodsByArea() {
         {area.strArea}
       </option>
     ));
+
+    const allOption = (
+      <option data-testid="All-option" value={ areas[0].strArea }>
+        All
+      </option>
+    );
+
     return (
       <select
         onChange={ (event) => setChosenArea(event.target.value) }
         data-testid="explore-by-area-dropdown"
       >
+        { allOption }
         { options }
       </select>
     );
