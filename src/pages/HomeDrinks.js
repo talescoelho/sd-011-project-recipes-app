@@ -4,7 +4,7 @@ import { fetchDrinkMain,
   fetchRecipesListDrinks,
   GET_CATEGORIES_DRINK, fetchCategories } from '../redux/actions';
 import Header from '../components/Header';
-import RenderCategories from '../components/RenderCategoriesMeals';
+import RenderCategoriesDrinks from '../components/RenderCategoriesDrinks';
 
 function HomeDrinks() {
   const urlFetch = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -78,7 +78,7 @@ function HomeDrinks() {
       { !isLoading && <button type="button">All</button> }
 
       <div>
-        { !renderCategories ? RenderCategories(whoCategory) : renderDrinks() }
+        { !renderCategories ? RenderCategoriesDrinks(whoCategory) : renderDrinks() }
       </div>
     </div>
   );
