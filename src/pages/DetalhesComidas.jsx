@@ -97,7 +97,6 @@ class DetalhesComidas extends Component {
             title={ strMeal }
             data-testid="video"
           />
-          <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
         </div>
         <div className="div-scroll">
           {
@@ -119,6 +118,15 @@ class DetalhesComidas extends Component {
               </div>)
             ))
           }
+        </div>
+        <div>
+          <button
+            data-testid="start-recipe-btn"
+            type="button"
+            className="btn-start"
+          >
+            Iniciar Receita
+          </button>
         </div>
       </div>
     );

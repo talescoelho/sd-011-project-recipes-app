@@ -92,7 +92,6 @@ class DetalhesBebidas extends Component {
               {`${value} - ${onlyMeasures[index]}`}
             </p>)) }
           <p data-testid="instructions">{ strInstructions }</p>
-          <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
         </div>
         <div className="div-scroll">
           {
@@ -115,6 +114,15 @@ class DetalhesBebidas extends Component {
               </div>)
             ))
           }
+        </div>
+        <div>
+          <button
+            data-testid="start-recipe-btn"
+            type="button"
+            className="btn-start"
+          >
+            Iniciar Receita
+          </button>
         </div>
       </div>
     );

@@ -11,6 +11,11 @@
   position: fixed;
 }
 
+.btn-start {
+  bottom: 0;
+  position: fixed;
+}
+
 .div-scroll {
   display: flex;
   height: 280px;
