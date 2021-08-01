@@ -33,7 +33,7 @@ const Drinks = ({
             ? (<div>Loading...</div>)
             : (
               <FilterMenu
-                requestMealsMenu={ requestDrinkMenu }
+                requestMenu={ requestDrinkMenu }
                 categoryNames={ categoryNames }
                 filterByCategory={ requestDrinksByFilter }
               />
