@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchRecipeDetailsAPIAction, fetchRecipesAPIAction } from '../redux/actions';
 import objToArryOfObj from '../helper/objToArryOfObj';
+import favoriteIcon from '../images/whiteHeartIcon.svg';
 
 const URL_TO_DRINKS_RECIPES = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const SIX_CARDS = 6;
@@ -34,7 +35,9 @@ function MealDetails(
         <img src={ strMealThumb } alt={ strMeal } data-testid="recipe-photo" />
         <h1 data-testid="recipe-title">{ strMeal }</h1>
         <button type="button" data-testid="share-btn">SHARE</button>
-        <button type="button" data-testid="favorite-btn">FAV</button>
+        <button type="button" data-testid="favorite-btn">
+          <img src={ favoriteIcon } alt="favorite icon" />
+        </button>
         <span data-testid="recipe-category">{ strCategory }</span>
         {ingredientsAndMesure
           .map((ingredient, index) => (
@@ -52,8 +55,8 @@ function MealDetails(
           .map((recipe, index) => (index < SIX_CARDS
             ? (<p data-testid={ `${index}-recomendation-card` } key={ index }>{recipe.strDrink}</p>)
             : ''))}
+        <button type="button" data-testid="start-recipe-btn">Começar Reiceita</button>
       </div>
-
     );
   }
   return (
