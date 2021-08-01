@@ -40,6 +40,7 @@ function MealDetails({ recipeDetailsData, fetchDetails, fetchRecipes, match }) {
           ))}
         <p data-testid="instructions">{strInstructions}</p>
         <iframe
+          data-testid="video"
           src={ strYoutube.split('watch?v=').join('embed/') }
           title="Embedded youtube"
         />
