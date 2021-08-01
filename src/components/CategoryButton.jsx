@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+
 import RecipesContext from '../context/RecipesContext';
 
 function CategoryButton({ categoryName }) {
@@ -13,5 +15,9 @@ function CategoryButton({ categoryName }) {
     </button>
   );
 }
+
+CategoryButton.propTypes = {
+  categoryName: PropTypes.string.isRequired,
+};
 
 export default CategoryButton;

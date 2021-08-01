@@ -20,9 +20,9 @@ function Comidas() {
   // const [isLoading, setIsLoading] = useState(true);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
 
-  useEffect(() => {
-    console.log('isLoading: ', isLoading);
-  }, [isLoading]);
+  // useEffect(() => {
+  //   console.log('isLoading: ', isLoading);
+  // }, [isLoading]);
 
   useEffect(() => {
     // setIsLoading(true);

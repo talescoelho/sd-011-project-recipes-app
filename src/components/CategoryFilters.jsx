@@ -5,14 +5,16 @@ import RecipesContext from '../context/RecipesContext';
 import '../styles/CategoryFilters.css';
 
 function CategoryFilters() {
+  const QUANTITY_OF_BUTTONS = 5;
   const { categorysList } = useContext(RecipesContext);
-  const firstCategorys = Object.values(categorysList).slice(0, 5);
+  const firstCategorys = Object.values(categorysList).slice(0, QUANTITY_OF_BUTTONS);
+  // console.log(categorysList);
   return (
     <div className="categoryFilterContainer">
-      <CategoryButton categoryName={ 'All' } />
+      <CategoryButton categoryName="All" />
       {
-        firstCategorys.map(({ strCategory }) => (
-          <CategoryButton key={ strCategory } categoryName={strCategory} />
+        firstCategorys.map(({ strCategory }, index) => (
+          <CategoryButton key={ index } categoryName={ strCategory } />
         ))
       }
     </div>

@@ -1,5 +1,4 @@
 export const fetchAllRecipesOrByCategory = async (recipeType, category) => {
-  console.log(recipeType, category)
   if (recipeType === '/bebidas') {
     if (category === 'All') {
       const recipes = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
