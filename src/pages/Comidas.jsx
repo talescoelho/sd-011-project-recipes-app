@@ -11,6 +11,7 @@ import '../styles/Comidas.css';
 import Footer from '../components/Footer';
 
 function Comidas() {
+  const NUMBER_OF_CARDS = 12;
   const { pathname } = useLocation();
   const type = pathname === '/bebidas' ? 'drinks' : 'meals';
   const title = type === 'drinks' ? 'Bebidas' : 'Comidas';
@@ -46,7 +47,7 @@ function Comidas() {
         {
           isLoading === true
             ? <Loading />
-            : filteredRecipes.map(
+            : filteredRecipes.slice(0, NUMBER_OF_CARDS).map(
               (recipe, index) => (<FoodCard
                 key={ index }
                 recipe={ recipe }

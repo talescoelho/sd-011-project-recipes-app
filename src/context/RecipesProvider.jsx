@@ -14,11 +14,9 @@ function RecipesProvider({ children }) {
 
   useEffect(() => {
     setRecipeType(pathname);
-    console.log(1, pathname);
   }, [pathname]);
 
   useEffect(() => {
-    console.log(2, pathname);
     const fetchRecipes = async (recipeTypeToFetch, category) => {
       setIsLoading(true);
       const recipes = await fetchAllRecipesOrByCategory(recipeTypeToFetch, category);
@@ -28,12 +26,9 @@ function RecipesProvider({ children }) {
     const fetchCategorys = async () => {
       const categorys = await fetchCategorysList(recipeType);
       setCategorysList(categorys);
-      console.log(recipeType, categorys);
     };
     fetchRecipes(recipeType, currentCategory);
     fetchCategorys();
-    console.log(3);
-    // console.log(categorysList)
   }, [recipeType, currentCategory]);
 
   const contextValue = {
@@ -42,6 +37,7 @@ function RecipesProvider({ children }) {
     recipeType,
     setRecipeType,
     categorysList,
+    currentCategory,
     setCurrentCategory,
   };
 
