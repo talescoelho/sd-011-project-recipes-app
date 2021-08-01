@@ -5,19 +5,20 @@ import { connect } from 'react-redux';
 
 const FilterMenu = ({
   dispatch,
-  requestMealsMenu,
+  requestMenu,
   categoryNames,
   filterByCategory,
 }) => {
+  console.log(categoryNames);
   const [filterAll, setFilterAll] = useState(true);
   const [lastClickTarget, setLastClickTarget] = useState('');
 
   useEffect(() => {
     if (filterAll) {
-      dispatch(requestMealsMenu());
+      dispatch(requestMenu());
       setFilterAll(true);
     }
-  }, [filterAll, dispatch, requestMealsMenu]);
+  }, [filterAll, dispatch, requestMenu]);
 
   const changeFilterToAll = () => {
     setFilterAll(true);
@@ -76,7 +77,7 @@ const FilterMenu = ({
 
 FilterMenu.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  requestMealsMenu: PropTypes.func.isRequired,
+  requestMenu: PropTypes.func.isRequired,
   categoryNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   filterByCategory: PropTypes.func.isRequired,
 };
