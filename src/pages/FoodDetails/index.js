@@ -5,6 +5,10 @@ import useFetch from '../../hooks/useFetch';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import handleClickFavoriteRecipe from '../../helpers/handleClickFavoriteRecipe';
+import handleClickClipboard from '../../helpers/handleClickClipBoard';
+import RecomendationCard from '../../components/recomendationCard.js';
+import handleContinueButton from '../../helpers/handleContinueButton';
 
 const FoodDetails = ({ match }) => {
   const { id } = match.params;
@@ -45,32 +49,12 @@ const FoodDetails = ({ match }) => {
   const ingredientsQuantity = entries.filter(([value]) => value
     .includes('strMeasure')).filter(([, value]) => value !== '' && value !== null);
 
-  const { drinks } = drinksData;
-  const numberOfDrinks = 6;
-  const filteredDrinks = drinks.filter((value, index) => index < numberOfDrinks);
-
   const doneRecipes = localStorage.getItem('doneRecipes');
-  const recipesInProgress = localStorage.getItem('inProgressRecipes');
+
   let buttonShoulBeVisible = true;
   if (doneRecipes) {
     const doneRecipesArray = JSON.parse(doneRecipes);
     buttonShoulBeVisible = !doneRecipesArray.some((recipe) => recipe.id.includes(id));
-  }
-
-  let continueButton = false;
-  if (recipesInProgress) {
-    const recipesInProgressObj = JSON.parse(recipesInProgress).meals;
-    if (recipesInProgressObj[id]) {
-      continueButton = true;
-    }
-  }
-
-  function handleClickClipboard() {
-    const url = window.location.href;
-    navigator.clipboard.writeText(url);
-    const time = 2000;
-    setMessageClipboard('Link copiado!');
-    setTimeout(() => setMessageClipboard(null), time);
   }
 
   return (
@@ -83,16 +67,21 @@ const FoodDetails = ({ match }) => {
       />
       <h1 data-testid="recipe-title">{ strMeal }</h1>
       { messageClipboard }
-      <button type="button" onClick={ handleClickClipboard }>
+      <button type="button" onClick={ () => handleClickClipboard(setMessageClipboard) }>
         <img
           src={ shareIcon }
           alt=""
           data-testid="share-btn"
         />
       </button>
-      { isFavorite ? (
-        <img src={ blackHeartIcon } alt="" data-testid="favorite-btn" />)
-        : (<img src={ whiteHeartIcon } alt="" data-testid="favorite-btn" />) }
+      <button
+        type="button"
+        onClick={ () => handleClickFavoriteRecipe(id, meal, setIsFavorite, isFavorite) }
+      >
+        { isFavorite ? (
+          <img src={ blackHeartIcon } alt="" data-testid="favorite-btn" />)
+          : (<img src={ whiteHeartIcon } alt="" data-testid="favorite-btn" />) }
+      </button>
       <h2 data-testid="recipe-category">{ strCategory }</h2>
       Ingredients
       <ul>
@@ -109,22 +98,7 @@ const FoodDetails = ({ match }) => {
       <p data-testid="instructions">{ strInstructions }</p>
       <iframe data-testid="video" src={ strYoutube } title="description" />
       Recommended
-      <div className="div-scroll">
-        { filteredDrinks.map((drink, index) => {
-          const { strDrinkThumb, strCategory: strAlcoholic, strDrink } = drink;
-          return (
-            <div
-              className="recomendation-card"
-              key={ index }
-              data-testid={ `${index}-recomendation-card` }
-            >
-              <img className="img-card" src={ strDrinkThumb } alt={ strDrink } />
-              <p>{ strAlcoholic }</p>
-              <h3 data-testid={ `${index}-recomendation-title` }>{ strDrink }</h3>
-            </div>
-          );
-        }) }
-      </div>
+      <RecomendationCard arrayOfRecomendations={ drinksData } />
       {
         buttonShoulBeVisible && (
           <Link to={ `/comidas/${id}/in-progress` }>
@@ -133,7 +107,8 @@ const FoodDetails = ({ match }) => {
               data-testid="start-recipe-btn"
               type="button"
             >
-              { continueButton ? 'Continuar Receita' : 'Iniciar Receita' }
+              { handleContinueButton(id, 'meals')
+                ? 'Continuar Receita' : 'Iniciar Receita' }
             </button>
           </Link>)
       }
