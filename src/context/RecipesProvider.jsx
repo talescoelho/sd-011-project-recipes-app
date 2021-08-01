@@ -27,7 +27,6 @@ function RecipesProvider({ children }) {
   useEffect(() => {
     const fetchRecipes = async (recipeTypeToFetch, category) => {
       setIsLoading(true);
-      console.log('chamou', currentCategory, isLoading);
       const recipes = await fetchAllRecipesOrByCategory(recipeTypeToFetch, category);
       setDataRecipes(recipes);
       setIsLoading(false);

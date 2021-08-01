@@ -6,7 +6,7 @@ import { Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import Header from './components/Header';
 import Perfil from './pages/Perfil';
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 import Comidas from './pages/Comidas';
 import Explorar from './pages/Explorar';
 import Login from './pages/Login';
@@ -65,7 +65,7 @@ function App() {
             component={ () => <Header title="Receitas Favoritas" /> }
           />
         </Switch>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     </div>
   );

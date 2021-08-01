@@ -8,6 +8,7 @@ import FoodCard from '../components/FoodCard';
 import Loading from '../components/Loading';
 
 import '../styles/Comidas.css';
+import Footer from '../components/Footer';
 
 function Comidas() {
   const { pathname } = useLocation();
@@ -55,6 +56,7 @@ function Comidas() {
               ),
             )
         }
+        <Footer />
       </div>
     </div>
   );
