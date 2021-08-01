@@ -3,6 +3,8 @@ export const GET_RECIPES_API = 'GET_RECIPES_API';
 export const GET_RECIPES = 'GET_RECIPES';
 export const GET_DRINKS = 'GET_DRINKS';
 export const GET_LIST = 'GET_LIST';
+export const GET_CATEGORIES_MEALS = 'GET_CATEGORIES_MEALS';
+export const GET_CATEGORIES_DRINK = 'GET_CATEGORIES_DRINK';
 
 // ESTÁ ACTION ALTERA isLoading PARA true
 export const requestApiAction = () => ({ type: REQUEST_API });
@@ -32,6 +34,10 @@ const responseApiRecipes = () => ({ type: GET_RECIPES });
 const responseApiDrinks = () => ({ type: GET_DRINKS });
 
 const responseApiList = () => ({ type: GET_LIST });
+
+const responseCategoryMeals = () => ({ type: GET_CATEGORIES_MEALS });
+
+const responseCategoryDrinks = () => ({ type: GET_CATEGORIES_DRINK });
 
 export const fetchRecipesMain = (url) => async (dispatch) => {
   dispatch(responseApiRecipes());
@@ -66,8 +72,12 @@ export const fetchList = (url) => async (dispatch) => {
   }
 };
 
-export const fetchRecipesListDrinks = (url) => async (dispatch) => {
-  dispatch(responseApiList());
+export const fetchRecipesListDrinks = (url, type) => async (dispatch) => {
+  if (type === GET_CATEGORIES_MEALS) {
+    dispatch(responseCategoryMeals());
+  } else {
+    dispatch(responseCategoryDrinks());
+  }
   try {
     const request = await fetch(url);
     const response = await request.json();
