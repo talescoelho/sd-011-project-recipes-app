@@ -33,3 +33,18 @@ export const fetchMeals = () => {
       return resultMeals;
     });
 };
+
+export const fetchMealsCategory = () => {
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => {
+      const dataMeals = data.meals;
+      const resultMeals = [];
+      const limitMeals = 5;
+      for (let index = 0; index < limitMeals; index += 1) {
+        resultMeals.push(dataMeals[index]);
+      }
+      return resultMeals;
+    });
+};

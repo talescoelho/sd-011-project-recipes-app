@@ -33,3 +33,18 @@ export const fetchCocktails = () => {
       return resultDrinks;
     });
 };
+
+export const fetchDrinkCategory = () => {
+  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => {
+      const dataDrink = data.drinks;
+      const resultDrink = [];
+      const limitDrink = 5;
+      for (let index = 0; index < limitDrink; index += 1) {
+        resultDrink.push(dataDrink[index]);
+      }
+      return resultDrink;
+    });
+};
