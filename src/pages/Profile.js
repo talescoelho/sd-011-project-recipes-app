@@ -5,8 +5,7 @@ import Footer from '../components/Footer';
 export default function Profile() {
   return (
     <>
-      <Header />
-      <h3>Profile</h3>
+      <Header title="Perfil" search={ false } />
       <Footer />
     </>
   );

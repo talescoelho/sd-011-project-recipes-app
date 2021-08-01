@@ -7,11 +7,10 @@ import Footer from '../../components/Footer';
 export default function DrinkExplorerByIngredients() {
   return (
     <>
-      <Header />
+      <Header title="Explorar Ingredientes" search={ false } />
       <Provider>
         <SearchBar fetchType="thecocktaildb" />
       </Provider>
-      <h3>Drink Explorer por Ingredients</h3>
       <Footer />
     </>
   );

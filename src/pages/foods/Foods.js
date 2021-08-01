@@ -7,11 +7,10 @@ import { Provider } from '../../context/SearchBar';
 function Foods() {
   return (
     <div>
-      <Header />
+      <Header title="Comidas" search />
       <Provider>
         <SearchBar fetchType="themealdb" />
       </Provider>
-      <h3>Foods</h3>
       <Footer />
     </div>
   );
