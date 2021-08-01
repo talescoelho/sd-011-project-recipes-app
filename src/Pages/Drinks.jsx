@@ -19,7 +19,7 @@ function Drinks({ history }) {
   return (
     <div>
       <h1 data-testid="page-title">Bebidas</h1>
-      { showSearch ? <SearchBar value={ drinks } /> : <p>Desapareceu</p> }
+      { showSearch && <SearchBar value={ drinks } /> }
       <Link to="/perfil">
         <img
           data-testid="profile-top-btn"

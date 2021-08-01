@@ -11,7 +11,7 @@ function SearchBar({ value }) {
   const { setRequestFoodParams, setRequestDrinksParams } = useContext(Context);
 
   return (
-    <div>
+    <div className="search-bar">
       <label htmlFor="search-input">
         <input
           onChange={ (e) => setSearchParameters({ ...searchParameters,

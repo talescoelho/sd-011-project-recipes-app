@@ -1,17 +1,16 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from '../Context_Configs/Context';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './Components/SearchBar';
 
-function Foods({ history }) {
+function Foods() {
+  const history = useHistory();
   const { dataFood } = useContext(Context);
   const [showSearch, setShowSearch] = useState(false);
   const foods = 'foods';
-
-  console.log(dataFood);
 
   if (dataFood !== null && dataFood.length === 1) {
     const oneResult = dataFood[0];
@@ -22,7 +21,7 @@ function Foods({ history }) {
     <>
       <div>
         <h1 data-testid="page-title">Comidas</h1>
-        { showSearch ? <SearchBar value={ foods } /> : <p>Desapareceu</p> }
+        { showSearch && <SearchBar value={ foods } /> }
         <Link to="/perfil">
           <img
             data-testid="profile-top-btn"
