@@ -125,7 +125,6 @@ const handleFilterMenuList = (menuList) => {
       return acc;
     }, []);
 
-  console.log(filteredOptions);
   return filteredOptions;
 };
 
@@ -159,7 +158,6 @@ export const requestMealsByFilter = (meal) => (dispatch) => {
     filterMealByCategory(meal)
       .then(async ({ meals }) => {
         const response = await handleMealsResponse(meals);
-        console.log('meals by filter', response);
         dispatch(menuReceiveSuccess(response));
       })
       .catch(() => dispatch(menuReceiveFailure()))
