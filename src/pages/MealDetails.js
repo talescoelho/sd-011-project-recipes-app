@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { fetchRecipeDetailsAPIAction, fetchRecipesAPIAction } from '../redux/actions';
 import objToArryOfObj from '../helper/objToArryOfObj';
 import FavBtn from '../components/FavBtn';
-import shareIcon from '../images/shareIcon.svg';
+import ShareBtn from '../components/ShareBtn';
 
 const URL_TO_DRINKS_RECIPES = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const SIX_CARDS = 6;
@@ -35,9 +35,7 @@ function MealDetails(
         DETALHES
         <img src={ strMealThumb } alt={ strMeal } data-testid="recipe-photo" />
         <h1 data-testid="recipe-title">{ strMeal }</h1>
-        <button type="button" data-testid="share-btn">
-          <img src={ shareIcon } alt="share icon" />
-        </button>
+        <ShareBtn url={ match.url } />
         <FavBtn data={ data } recipeType="meals" />
         <span data-testid="recipe-category">{ strCategory }</span>
         {ingredientsAndMesure
