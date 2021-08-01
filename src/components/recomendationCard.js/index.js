@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 const RecomendationCard = ({ arrayOfRecomendations }) => {
+  console.log(arrayOfRecomendations);
   if (arrayOfRecomendations.meals) {
     const { meals } = arrayOfRecomendations;
     const numberOfMeals = 6;
@@ -49,7 +50,18 @@ const RecomendationCard = ({ arrayOfRecomendations }) => {
 };
 
 RecomendationCard.propTypes = {
-  arrayOfRecomendations: PropTypes.arrayOf(PropTypes.object).isRequired,
+  arrayOfRecomendations: PropTypes.shape({
+    meals: PropTypes.arrayOf(PropTypes.shape({
+      strMealThumb: PropTypes.string,
+      strCategory: PropTypes.string,
+      strMeal: PropTypes.string,
+    })),
+    drinks: PropTypes.arrayOf(PropTypes.shape({
+      strDrinkThumb: PropTypes.string,
+      strCategory: PropTypes.string,
+      strDrink: PropTypes.string,
+    })),
+  }).isRequired,
 };
 
 export default RecomendationCard;

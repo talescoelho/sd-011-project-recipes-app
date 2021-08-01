@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
@@ -38,9 +39,10 @@ const FavoriteRecipes = () => {
     }
   }, [filter, recipes]);
 
+  const url = window.location.href;
+  const shareUrl = url.split('/receitas-favoritas')[0];
+
   function handleShareBtnClick(type, id, index) {
-    const url = window.location.href;
-    const shareUrl = url.split('/receitas-favoritas')[0];
     if (type === 'comida') {
       navigator.clipboard.writeText(`${shareUrl}/comidas/${id}`);
     } else if (type === 'bebida') {
@@ -91,16 +93,19 @@ const FavoriteRecipes = () => {
       { filteredRecipes.map((recipe, index) => {
         const { id, type, area, category, alcoholicOrNot, name, image } = recipe;
         return (
-          <div key={ id } alt>
+          <div key={ id }>
             <div>
-              <img
-                data-testid={ `${index}-horizontal-image` }
-                src={ image }
-                alt={ name }
-              />
+              <Link to={ `${type}s/${id}` }>
+                <img
+                  className="top-img"
+                  data-testid={ `${index}-horizontal-image` }
+                  src={ image }
+                  alt={ name }
+                />
+                <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
+              </Link>
             </div>
             <div>
-              <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
               <p>{type}</p>
               { area && (
                 <p
