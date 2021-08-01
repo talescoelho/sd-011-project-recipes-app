@@ -27,14 +27,14 @@ function RecipeStageBtn({ id, recipeType }) {
   case checkInProgressRecipes():
     return (
       <Link to={ URL }>
-        <button type="button">Continuar Receita</button>
+        <button type="button" data-testid="start-recipe-btn">Continuar Receita</button>
       </Link>
     );
 
   default:
     return (
       <Link to={ URL }>
-        <button type="button">Começar Receita</button>
+        <button type="button" data-testid="start-recipe-btn">Começar Receita</button>
       </Link>
     );
   }
