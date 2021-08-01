@@ -10,10 +10,11 @@ function RecipesProvider({ children }) {
   const [foods, setFoods] = useState([]);
   const [dataFilter, setDataFilter] = useState([]);
   const [compare, setCompare] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleClick = (pathname) => (pathname === '/comidas'
-    ? handleFoods(radioButton, searchText, setDataFilter)
-    : handleDrinks(radioButton, searchText, setDataFilter));
+    ? handleFoods(radioButton, searchText, setDataFilter, setLoading)
+    : handleDrinks(radioButton, searchText, setDataFilter, setLoading));
 
   const recipesContextValue = {
     searchText,
@@ -28,6 +29,8 @@ function RecipesProvider({ children }) {
     dataFilter,
     compare,
     setCompare,
+    loading,
+    setLoading,
   };
 
   return (

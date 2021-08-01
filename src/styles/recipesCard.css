@@ -16,6 +16,7 @@
   overflow: hidden;
   padding: 10px;
   transition: 0.5s linear;
+  width: 250px;
 }
 
 a:link {
@@ -30,6 +31,7 @@ a:link {
   font-weight: 900;
   margin: 0 auto;
   padding-top: 2px;
+  text-align: center;
 }
 
 .recipe-card:hover {
@@ -37,8 +39,9 @@ a:link {
 }
 
 .recipe-card img {
-  display: block;
+  display: flex;
   height: 100%;
+  margin: 0 auto;
   max-height: 200px;
   max-width: 200px;
   object-fit: cover;

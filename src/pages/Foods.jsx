@@ -1,22 +1,27 @@
 import React, { useEffect, useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import * as ReactBootStrap from 'react-bootstrap';
 import LowerMenu from '../components/LowerMenu';
 import Header from '../components/Header';
 import { fetchFoods } from '../services/API';
 import RecipesContext from '../context/RecipesContext';
 
 function Foods() {
-  const { setFoods, dataFilter, foods, compare, setCompare } = useContext(RecipesContext);
+  const { setFoods,
+    dataFilter, foods,
+    compare, setCompare, loading, setLoading } = useContext(RecipesContext);
 
   useEffect(() => {
+    setLoading(true);
     const fetchFood = async () => {
       const response = await fetchFoods();
       const MAX = 12;
       const results = response.slice(0, MAX);
+      setLoading(false);
       setFoods(results);
     };
     fetchFood();
-  }, [setFoods]);
+  }, [setFoods, setLoading]);
 
   useEffect(() => {
     const renderItens = () => {
@@ -45,28 +50,29 @@ function Foods() {
     <>
       <Header />
       <section className="recipes-container">
-        {compare.map((food, index) => (
-          <div
-            className="recipe-card"
-            data-testid={ `${index}-recipe-card` }
-            key={ index }
-          >
-            <Link to={ `/comidas/${food.idMeal}` }>
-              <img
-                data-testid={ `${index}-card-img` }
-                src={ food.strMealThumb }
-                alt={ food.strMeal }
-                width="200px"
-              />
-              <p
-                className="card-name"
-                data-testid={ `${index}-card-name` }
-              >
-                {food.strMeal}
-              </p>
-            </Link>
-          </div>
-        ))}
+        {loading ? <ReactBootStrap.Spinner animation="border" />
+          : compare.map((food, index) => (
+            <div
+              className="recipe-card"
+              data-testid={ `${index}-recipe-card` }
+              key={ index }
+            >
+              <Link to={ `/comidas/${food.idMeal}` }>
+                <img
+                  data-testid={ `${index}-card-img` }
+                  src={ food.strMealThumb }
+                  alt={ food.strMeal }
+                  width="200px"
+                />
+                <p
+                  className="card-name"
+                  data-testid={ `${index}-card-name` }
+                >
+                  {food.strMeal}
+                </p>
+              </Link>
+            </div>
+          ))}
       </section>
       <LowerMenu />
     </>
