@@ -5,7 +5,7 @@ import { fetchRecipesMain,
   fetchList,
   fetchCategories, GET_CATEGORIES_MEALS } from '../redux/actions';
 import Header from '../components/Header';
-import RenderCategories from '../components/RenderCategoriesMeals';
+import RenderCategoriesMeals from '../components/RenderCategoriesMeals';
 
 function HomeRecipe() {
   const MagicMikeDance = 12;
@@ -82,7 +82,7 @@ function HomeRecipe() {
         { !isLoading && <button type="button">All</button>}
       </div>
       <div>
-        { !renderCategories ? RenderCategories(whoCategory) : renderMeals() }
+        { !renderCategories ? RenderCategoriesMeals(whoCategory) : renderMeals() }
 
       </div>
     </div>
