@@ -28,9 +28,13 @@ function App() {
         <Route exact path="/bebidas" component={ Drinks } />
         <Route exact path="/comidas/:id" component={ FoodRecipes } />
         <Route exact path="/bebidas/:id" component={ DrinkRecipes } />
-        {/* <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
+        { /* <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
         <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
+<<<<<<< HEAD
         { /* <Route exact path="/comidas/:id" component={ FoodRecipes } />
+=======
+        <Route exact path="/comidas/:id" component={ FoodRecipes } />
+>>>>>>> 80c1dd5053814afd1232f633665422318a5a72d3
         <Route exact path="/bebidas/:id" component={ DrinkRecipes } />
         <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
         <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } /> */ }
