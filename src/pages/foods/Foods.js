@@ -41,5 +41,5 @@ export default function Foods() {
       </section>
       <Footer />
     </main>
-  )
+  );
 }

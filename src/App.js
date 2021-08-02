@@ -42,11 +42,11 @@ function App() {
         <Route path="/perfil" component={ Profile } />
         <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
-        <Route path="*" component={ NotFound } />
         <RecipesProvider>
           <Route exact path="/comidas" component={ Foods } />
           <Route exact path="/bebidas" component={ Drinks } />
         </RecipesProvider>
+        <Route path="*" component={ NotFound } />
       </Switch>
     </BrowserRouter>
   );
