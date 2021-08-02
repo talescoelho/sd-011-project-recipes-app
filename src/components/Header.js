@@ -31,15 +31,15 @@ function Header({ value }) {
   function handleButton() {
     if (setIcon) {
       return (
-        <>
+        <div>
           <button
+            className="button-header"
             type="button"
             onClick={ isVerified }
           >
             <img data-testid="search-top-btn" src={ searchIcon } alt="buscar" />
           </button>
-          { hiddenInput() }
-        </>
+        </div>
       );
     }
   }
@@ -47,6 +47,7 @@ function Header({ value }) {
     <header className="container-header">
       <div className="header-wrapper">
         <button
+          className="button-header"
           type="button"
           onClick={ () => history.push('/perfil') }
         >
@@ -59,6 +60,7 @@ function Header({ value }) {
         <h1 data-testid="page-title">{ pageName }</h1>
         { handleButton() }
       </div>
+      { hiddenInput() }
     </header>
   );
 }

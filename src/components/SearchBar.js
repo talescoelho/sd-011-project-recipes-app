@@ -41,54 +41,58 @@ export default function SearchBar() {
   // }
 
   return (
-    <div>
-      <input
-        type="text"
-        data-testid="search-input"
-        name="searchText"
-        onChange={ handleGenericInput }
-      />
-      <label htmlFor="search-ingredients">
-        Ingredientes
+    <section className="section-container">
+      <div className="search-recipe">
         <input
-          id="search-ingredients"
-          type="radio"
-          data-testid="ingredient-search-radio"
-          name="filterRadio"
-          value="ingredient"
+          type="text"
+          data-testid="search-input"
+          name="searchText"
           onChange={ handleGenericInput }
         />
-      </label>
-      <label htmlFor="search-name">
-        Nome
-        <input
-          id="search-name"
-          type="radio"
-          data-testid="name-search-radio"
-          name="filterRadio"
-          value="name"
-          onChange={ handleGenericInput }
-        />
-      </label>
-      <label htmlFor="search-firstLetter">
-        Primeira Letra
-        <input
-          id="search-firstLetter"
-          type="radio"
-          data-testid="first-letter-search-radio"
-          name="filterRadio"
-          value="firstLetter"
-          onChange={ handleGenericInput }
-        />
-      </label>
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-        disabled={ (searchInput.searchText.length === 0) }
-        onClick={ () => handleSearch(searchInput, location.pathname) }
-      >
-        Buscar
-      </button>
-    </div>
+        <div className="serach-radio">
+          <label htmlFor="search-ingredients">
+            Ingredientes
+            <input
+              id="search-ingredients"
+              type="radio"
+              data-testid="ingredient-search-radio"
+              name="filterRadio"
+              value="ingredient"
+              onChange={ handleGenericInput }
+            />
+          </label>
+          <label htmlFor="search-name">
+            Nome
+            <input
+              id="search-name"
+              type="radio"
+              data-testid="name-search-radio"
+              name="filterRadio"
+              value="name"
+              onChange={ handleGenericInput }
+            />
+          </label>
+          <label htmlFor="search-firstLetter">
+            Primeira Letra
+            <input
+              id="search-firstLetter"
+              type="radio"
+              data-testid="first-letter-search-radio"
+              name="filterRadio"
+              value="firstLetter"
+              onChange={ handleGenericInput }
+            />
+          </label>
+        </div>
+        <button
+          type="button"
+          data-testid="exec-search-btn"
+          disabled={ (searchInput.searchText.length === 0) }
+          onClick={ () => handleSearch(searchInput, location.pathname) }
+        >
+          Buscar
+        </button>
+      </div>
+    </section>
   );
 }
