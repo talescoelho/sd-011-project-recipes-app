@@ -12,6 +12,7 @@ export default function Drinks() {
   };
 
   const [firstDrink, setFirstDrink] = useState([]);
+  const [categoriesDrink, setCategoriesDrink] = useState([]);
 
   useEffect(() => {
     const response = async () => {
@@ -21,9 +22,19 @@ export default function Drinks() {
     response();
   }, []);
 
+  useEffect(() => {
+    const response = async () => {
+      const data = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+      const dataList = await data.json();
+      return setCategoriesDrink(dataList.drinks);
+    };
+    response();
+  }, []);
+
   const history = useHistory();
   const { recipesDb, redirect } = useContext(RecipesContext);
   const limits = 12;
+  const limitCategory = 5;
 
   function handleDrinks() {
     if (recipesDb.length === 0) {
@@ -77,7 +88,20 @@ export default function Drinks() {
   return (
     <div>
       <Header value={ pageTitle } />
-      { redirect ? history.push(`/bebidas/${recipesDb.map((drink) => drink.idDrink)}`) : handleDrinks() }
+      <button type="button">All</button>
+      { categoriesDrink.map((category, index) => ((index < limitCategory
+      ) && (
+        <button
+          type="button"
+          key={ index }
+          data-testid={ `${category.strCategory}-category-filter` }
+        >
+          {category.strCategory}
+        </button>)
+      ))}
+      { redirect
+        ? history.push(`/bebidas/${recipesDb.map((drink) => drink.idDrink)}`)
+        : handleDrinks() }
       <FooterMenu />
     </div>
   );

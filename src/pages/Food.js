@@ -12,6 +12,7 @@ export default function Food() {
   };
 
   const [firstFood, setFirstFood] = useState([]);
+  const [categoriesFood, setCategoriesFood] = useState([]);
 
   useEffect(() => {
     const response = async () => {
@@ -21,9 +22,19 @@ export default function Food() {
     response();
   }, []);
 
+  useEffect(() => {
+    const response = async () => {
+      const data = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+      const dataList = await data.json();
+      return setCategoriesFood(dataList.meals);
+    };
+    response();
+  }, []);
+
   const history = useHistory();
   const { recipesDb, redirect } = useContext(RecipesContext);
   const limits = 12;
+  const limitCategory = 5;
 
   function handleMeals() {
     if (recipesDb.length === 0) {
@@ -73,11 +84,24 @@ export default function Food() {
       </div>
     );
   }
+
   return (
     <div>
       <Header value={ pageTitle } />
-      { redirect ? history.push(`/comidas/${recipesDb.map((meal) => meal.idMeal)}`) : handleMeals()}
-      ;
+      <button type="button">All</button>
+      { categoriesFood.map((category, index) => ((index < limitCategory
+      ) && (
+        <button
+          type="button"
+          key={ index }
+          data-testid={ `${category.strCategory}-category-filter` }
+        >
+          {category.strCategory}
+        </button>)
+      ))}
+      { redirect
+        ? history.push(`/comidas/${recipesDb.map((meal) => meal.idMeal)}`)
+        : handleMeals()}
       <FooterMenu />
     </div>
   );
