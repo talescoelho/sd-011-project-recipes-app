@@ -19,12 +19,13 @@ function Profile() {
       >
         {email.email}
       </h3>
-      <div>
+      <div className="btn-group-vertical">
         <Link
           to="/receitas-feitas"
           data-testid="profile-done-btn"
         >
           <button
+            className="btn btn-primary"
             type="button"
           >
             Receitas Feitas
@@ -35,6 +36,7 @@ function Profile() {
           data-testid="profile-favorite-btn"
         >
           <button
+            className="btn btn-primary"
             type="button"
           >
             Receitas Favoritas
@@ -47,6 +49,7 @@ function Profile() {
           data-testid="profile-logout-btn"
         >
           <button
+            className="btn btn-primary"
             type="button"
           >
             Sair

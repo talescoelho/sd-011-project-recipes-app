@@ -13,7 +13,7 @@ function Header({ title, showButton }) {
   }
 
   return (
-    <header>
+    <header className="d-flex justify-content-between">
       <Link to="/perfil">
         <img
           data-testid="profile-top-btn"
