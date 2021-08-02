@@ -12,10 +12,11 @@ import DrinksExplorer from './pages/DrinksExplorer';
 import Explorer from './pages/Explorer';
 import FavouriteReciples from './pages/FavouriteRecipes';
 import FoodsByLocal from './pages/FoodsByLocal';
-import ExploreByIngredients from './pages/ExploreByIngredients';
+import ExploreFoodByIngredients from './pages/ExploreFoodByIngredients';
 import Profile from './pages/Profile';
 import MealsDetails from './pages/MealsDetails';
 import DrinksDetails from './pages/DrinksDetails';
+import ExploreDrinkByIngredients from './pages/ExploreDrinkByIngredients';
 
 function App() {
   return (
@@ -36,12 +37,12 @@ function App() {
           <Route
             exact
             path="/explorar/comidas/ingredientes"
-            component={ ExploreByIngredients }
+            component={ ExploreFoodByIngredients }
           />
           <Route
             exact
             path="/explorar/bebidas/ingredientes"
-            component={ ExploreByIngredients }
+            component={ ExploreDrinkByIngredients }
           />
           <Route exact path="/perfil" component={ Profile } />
         </Switch>
