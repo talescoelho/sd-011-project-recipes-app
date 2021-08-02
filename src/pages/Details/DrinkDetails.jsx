@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import styles from './DrinkDetails.module.css';
 import shareIcon from '../../images/shareIcon.svg';
@@ -9,6 +10,7 @@ import blackHeart from '../../images/blackHeartIcon.svg';
 function DrinkDetails({ match }) {
   const [drinks, setDrinks] = useState({});
   const [favorite, setFavorite] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [foodRecomendation, setRecomendation] = useState([]);
   const { id } = match.params;
   const mN = 6;
@@ -35,6 +37,14 @@ function DrinkDetails({ match }) {
   const measures = Object.keys(drinks)
     .filter((item) => item.includes('Measure'))
     .filter((item) => drinks[item]).map((item) => drinks[item]);
+  const shareButtonHandle = () => {
+    setCopied(true);
+    const mSeconds = 2000;
+    copy(window.location.href);
+    setTimeout(() => {
+      setCopied(false);
+    }, mSeconds);
+  };
   return (
     <div>
 
@@ -60,6 +70,7 @@ function DrinkDetails({ match }) {
       <button
         data-testid="share-btn"
         type="button"
+        onClick={ shareButtonHandle }
       >
         <img src={ shareIcon } alt="share" />
       </button>
@@ -70,6 +81,7 @@ function DrinkDetails({ match }) {
       >
         <img src={ !favorite ? whiteHeart : blackHeart } alt="share" />
       </button>
+      <p>{copied ? 'Link copiado!' : null}</p>
       <h1>Instruções</h1>
       <p
         data-testid="instructions"

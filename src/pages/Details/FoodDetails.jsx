@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import styles from './FoodDetails.module.css';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeart from '../../images/whiteHeartIcon.svg';
@@ -9,6 +10,7 @@ import blackHeart from '../../images/blackHeartIcon.svg';
 function FoodDetails({ match }) {
   const [meals, setMeals] = useState({});
   const [favorite, setFavorite] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [drinkRecomendation, setRecomendation] = useState([]);
   const { id } = match.params;
   const mN = 6;
@@ -35,7 +37,16 @@ function FoodDetails({ match }) {
   const measures = Object.keys(meals)
     .filter((item) => item.includes('Measure'))
     .filter((item) => meals[item]).map((item) => meals[item]);
-  // const array = ['1', '1', '1', '1', '1', '1'];
+
+  const shareButtonHandle = () => {
+    setCopied(true);
+    const mSeconds = 2000;
+    copy(window.location.href);
+    setTimeout(() => {
+      setCopied(false);
+    }, mSeconds);
+  };
+
   return (
     <div>
 
@@ -59,6 +70,7 @@ function FoodDetails({ match }) {
       <button
         data-testid="share-btn"
         type="button"
+        onClick={ shareButtonHandle }
       >
         <img src={ shareIcon } alt="share" />
       </button>
@@ -69,6 +81,7 @@ function FoodDetails({ match }) {
       >
         <img src={ !favorite ? whiteHeart : blackHeart } alt="share" />
       </button>
+      <p>{copied ? 'Link copiado!' : null}</p>
       <h1>Instruções</h1>
       <p
         data-testid="instructions"

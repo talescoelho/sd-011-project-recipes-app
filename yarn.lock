@@ -3396,7 +3396,7 @@
   "resolved" "https://registry.npmjs.org/cli-width/-/cli-width-3.0.0.tgz"
   "version" "3.0.0"
 
-"clipboard-copy@^3.1.0":
+"clipboard-copy@^3.2.0":
   "integrity" "sha512-vooFaGFL6ulEP1liiaWFBmmfuPm3cY3y7T9eB83ZTnYc/oFeAKsq3NcDrOkBC8XaauEE8zHQwI7k0+JSYiVQSQ=="
   "resolved" "https://registry.npmjs.org/clipboard-copy/-/clipboard-copy-3.2.0.tgz"
   "version" "3.2.0"
