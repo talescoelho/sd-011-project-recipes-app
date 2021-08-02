@@ -1,11 +1,13 @@
 import React from 'react';
 import Header from '../Components/Header';
 
-export default function HomeRecipes() {
+function FavoriteRecipes() {
   return (
     <div>
       <Header />
-      <h2>Tela Principal</h2>
+      <h1>Tela de Receitas Favoritas</h1>
     </div>
   );
 }
+
+export default FavoriteRecipes;
