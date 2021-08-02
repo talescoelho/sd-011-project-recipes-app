@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-class ExplorarComidas extends Component {
+class ReceitasFavoritas extends Component {
   render() {
-    const title = 'Explorar Comidas';
+    const title = 'Receitas Favoritas';
     const search = 'off';
     return (
       <main>
@@ -12,10 +11,9 @@ class ExplorarComidas extends Component {
           title={ title }
           search={ search }
         />
-        <Footer />
       </main>
     );
   }
 }
 
-export default ExplorarComidas;
+export default ReceitasFavoritas;

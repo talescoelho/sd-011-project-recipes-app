@@ -5,12 +5,12 @@ import Header from '../components/Header';
 class ExplorarBebidas extends Component {
   render() {
     const title = 'Explorar Bebidas';
-    const lupa = 'desligado';
+    const search = 'off';
     return (
       <main>
         <Header
           title={ title }
-          lupa={ lupa }
+          search={ search }
         />
         <Footer />
       </main>
