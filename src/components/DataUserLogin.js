@@ -6,16 +6,6 @@ export default function DataUserLogin() {
   const [userPassword, setUserPassword] = React.useState('');
   const [buttonActivated, setButtonActivated] = React.useState(false);
 
-  function handleEnterButton() {
-    const minLengthPassword = 6;
-    const emailIsValid = userEmail.includes('@') && userEmail.includes('.com');
-    const passwordIsValid = userPassword.length > minLengthPassword;
-    if (emailIsValid && passwordIsValid) {
-      return setButtonActivated(true);
-    }
-    return setButtonActivated(false);
-  }
-
   function setLocalStorageToken() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
@@ -23,6 +13,15 @@ export default function DataUserLogin() {
   }
 
   React.useEffect(() => {
+    function handleEnterButton() {
+      const minLengthPassword = 6;
+      const emailIsValid = userEmail.includes('@') && userEmail.includes('.com');
+      const passwordIsValid = userPassword.length > minLengthPassword;
+      if (emailIsValid && passwordIsValid) {
+        return setButtonActivated(true);
+      }
+      return setButtonActivated(false);
+    }
     handleEnterButton();
   }, [userEmail, userPassword]);
 

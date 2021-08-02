@@ -14,6 +14,8 @@ import Perfil from './pages/Perfil';
 import MakedRevenues from './pages/MakedRevenues';
 import FavoritedRevenues from './pages/FavoritedRevenues';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import DetailsDrinks from './pages/DetailsDrinks';
+import DetailsFoods from './pages/DetailsFoods';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ Foods } />
           <Route exact path="/bebidas" component={ Drinks } />
+          <Route exact path="/comidas/:id" component={ DetailsFoods } />
+          <Route exact path="/bebidas/:id" component={ DetailsDrinks } />
           <Route exact path="/explorar" component={ Explore } />
           <Route exact path="/explorar/comidas" component={ ExploreFoods } />
           <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
