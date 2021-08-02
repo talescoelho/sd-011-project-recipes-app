@@ -24,19 +24,21 @@ function Routes() {
       <Route exact path="/comidas" component={ FoodList } />
       <Route exact path="/bebidas" component={ DrinkList } />
       <Route
-        path="/comidas/:id-da-receita"
+        exact
+        path="/comidas/:id"
         render={ (props) => <FoodDetails { ...props } /> }
       />
       <Route
-        path="/bebidas/:id-da-receita"
+        exact
+        path="/bebidas/:id"
         render={ (props) => <DrinkDetails { ...props } /> }
       />
       <Route
-        path="/comidas/:id-da-receita:/in-progress"
+        path="/comidas/:id/in-progress"
         render={ (props) => <FoodInProgress { ...props } /> }
       />
       <Route
-        path="/bebidas/{id-da-receita}/in-progress"
+        path="/bebidas/:id/in-progress"
         render={ (props) => <DrinkInProgress { ...props } /> }
       />
       <Route path="/explorar" component={ Explore } />
