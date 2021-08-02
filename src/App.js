@@ -1,24 +1,21 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/Login';
 import HomeRecipes from './Pages/HomeRecipes';
+import loginbg from './loginbg.mp4';
+
 
 function App() {
   return (
     <div className="meals">
-      <span className="logo">TRYBE</span>
-      <h2>APP de Receitas</h2>
-      <object
-        className="rocksGlass"
-        type="image/svg+xml"
-        data={ rockGlass }
-      >
-        Glass
-      </object>
-      <BrowserRouter>
+      <h2 className="title">Cozinhando com Gosto</h2>
+      <video width="360" height="640" playsinline="playsinline" autoplay="autoplay"
+        muted="muted" loop="loop" className="bgVideo" important>
+        <source src={ loginbg}  type="video/mp4"></source>
+      </video>
+        <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ HomeRecipes } />
