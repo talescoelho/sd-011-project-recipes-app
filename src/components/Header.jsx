@@ -4,13 +4,9 @@ import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import '../styles/Header.css';
 
 function Header({ pageName, showSearchButton }) {
-  const style = {
-    display: 'flex',
-    border: '2px solid red',
-  };
-
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   const showSearchBarHandler = () => (
@@ -19,6 +15,7 @@ function Header({ pageName, showSearchButton }) {
 
   const searchButton = (
     <button
+      className="btn-search"
       type="button"
       onClick={ showSearchBarHandler }
     >
@@ -27,13 +24,13 @@ function Header({ pageName, showSearchButton }) {
 
   return (
     <div>
-      <div style={ style }>
+      <div className="btns">
         <Link to="/perfil">
-          <button type="button">
+          <button className="btn-perfil" type="button">
             <img src={ profileIcon } alt="Profile Icon" data-testid="profile-top-btn" />
           </button>
         </Link>
-        <h2 data-testid="page-title">{ pageName }</h2>
+        <h2 className="title" data-testid="page-title">{ pageName }</h2>
         { showSearchButton ? searchButton : null }
       </div>
       { showSearchBar ? <SearchBar type={ pageName } /> : null }
