@@ -54,6 +54,7 @@ describe('78 - Implemente os elementos da tela de explorar por local de origem r
 });
 
 describe('79 - Desenvolva as mesmas especificações da tela de receitas principal, com a diferença de que os filtros de categoria são substituídos por um dropdown', () => {
+  
   it('Devem ser carregadas as 12 primeiras receitas de comidas', () => {
     cy.visit('http://localhost:3000/explorar/comidas/area', {
       onBeforeLoad(win) {

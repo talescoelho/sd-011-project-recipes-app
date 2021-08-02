@@ -6,6 +6,9 @@ function RecipeAppProvider({ children }) {
   const [login, setLogin] = useState({ email: '', password: '' });
   const [foodsList, setFoodList] = useState('');
   const [drinksList, setDrinksList] = useState('');
+  const [drinkCategoryList, setDrinkCategory] = useState('');
+  const [foodCategoryList, setFoodCategory] = useState('');
+  const [toggleOn, setToggleOn] = useState(false);
 
   const handleChange = (e) => {
     const { target } = e;
@@ -31,6 +34,13 @@ function RecipeAppProvider({ children }) {
     setDrinksList,
     foodsList,
     drinksList,
+    setDrinkCategory,
+    setFoodCategory,
+    drinkCategoryList,
+    foodCategoryList,
+    setLogin,
+    toggleOn,
+    setToggleOn,
   };
 
   return (
