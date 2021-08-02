@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import searchIcon from '../images/searchIcon.svg';
 import profilePicture from '../images/profileIcon.svg';
-import { fetchReceiveRecipes } from '../Actions/food';
+import fetchReceiveFood from '../Actions/food';
 
 class HeaderFood extends Component {
   constructor(props) {
@@ -113,7 +113,7 @@ HeaderFood.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchRecipes: (input, radio) => dispatch(fetchReceiveRecipes(input, radio)),
+  fetchRecipes: (input, radio) => dispatch(fetchReceiveFood(input, radio)),
 });
 
 export default connect(null, mapDispatchToProps)(HeaderFood);

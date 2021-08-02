@@ -5,23 +5,38 @@ import PropTypes from 'prop-types';
 import HeaderFood from '../Components/HeaderFood';
 import RecipesList from '../Components/RecipesList';
 import FooterMenu from '../Components/FooterMenu';
-import { fetchReceiveRecipes } from '../Actions/food';
+import fetchReceiveFood from '../Actions/food';
 
 class Food extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      buttonClicked: false,
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   componentDidMount() {
     const { fetchRecipes } = this.props;
     fetchRecipes();
   }
 
+  handleClick() {
+    this.setState({
+      buttonClicked: true,
+    });
+  }
+
   render() {
     const { history: { location: { pathname } } } = this.props;
     const { foodAPIResponse: { meals } } = this.props;
+    const { buttonClicked } = this.state;
     return (
       <div>
         <HeaderFood title="Comidas" />
-        { meals.length === 1
-          ? <Redirect to={ `/comidas/${meals[0].idMeal}` } />
-          : <RecipesList pathName={ pathname } />}
+        { meals.length === 1 && !buttonClicked
+          ? <Redirect to={ { pathname: `/comidas/${meals[0].idMeal}`, state: meals } } />
+          : <RecipesList onClick={ this.handleClick } pathName={ pathname } />}
         <FooterMenu />
       </div>
     );
@@ -40,7 +55,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchRecipes: () => dispatch(fetchReceiveRecipes()),
+  fetchRecipes: () => dispatch(fetchReceiveFood()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Food);

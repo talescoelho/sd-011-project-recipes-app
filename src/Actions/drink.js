@@ -10,7 +10,7 @@ const requestRecipes = () => ({
   type: REQUEST_RECEIVED,
 });
 
-export function fetchReceiveRecipes(textInputValue, radioInputValue) {
+export default function fetchReceiveRecipes(textInputValue, radioInputValue) {
   return (dispatch) => {
     dispatch(requestRecipes());
     let url = '';

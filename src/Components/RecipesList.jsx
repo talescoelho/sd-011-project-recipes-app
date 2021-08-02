@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import fetchReceiveFood from '../Actions/food';
+import fetchReceiveDrink from '../Actions/drink';
 
 class RecipesList extends Component {
   constructor() {
@@ -16,10 +18,6 @@ class RecipesList extends Component {
   }
 
   componentDidMount() {
-    this.fetchFilters();
-  }
-
-  componentDidUpdate() {
     this.fetchFilters();
   }
 
@@ -45,22 +43,30 @@ class RecipesList extends Component {
   }
 
   renderFilters() {
-    const { pathName } = this.props;
-    let teste;
+    const { pathName, fetchRecipesFood, fetchRecipesDrink, onClick } = this.props;
+    let mealOrDrink;
     if (pathName === '/comidas') {
-      teste = 'meals';
+      mealOrDrink = 'meals';
     } else {
-      teste = 'drinks';
+      mealOrDrink = 'drinks';
     }
     const { filters } = this.state;
     const maxFilters = 5;
     return (
-      filters[teste] && filters[teste].map((item, index) => (
+      filters[mealOrDrink] && filters[mealOrDrink].map((item, index) => (
         index < maxFilters
       && (
         <button
           type="button"
           key={ index }
+          name={ item.strCategory }
+          onClick={ (event) => {
+            onClick();
+            if (pathName === '/comidas') {
+              return fetchRecipesFood(event.target.name, 'filter');
+            }
+            return fetchRecipesDrink(event.target.name, 'filter');
+          } }
           data-testid={ `${item.strCategory}-category-filter` }
         >
           { item.strCategory }
@@ -148,4 +154,9 @@ const mapStateToProps = (state) => ({
   drinkAPIResponse: state.recipeReducer.drinksRecipes,
 });
 
-export default connect(mapStateToProps)(RecipesList);
+const mapDispatchToProps = (dispatch) => ({
+  fetchRecipesFood: (name, filter) => dispatch(fetchReceiveFood(name, filter)),
+  fetchRecipesDrink: (name, filter) => dispatch(fetchReceiveDrink(name, filter)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipesList);
