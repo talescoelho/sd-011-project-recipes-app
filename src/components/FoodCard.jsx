@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Card, Button } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import getFood from '../services/SearchRecipe';
 
 export default function FoodCard() {
+  const [name, setName] = useState();
   const [foodList, setFoodList] = useState();
   const history = useHistory();
   const recipes = useSelector((state) => state.recipes);
+  const user = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  const sendUserName = (userName) => {
+    dispatch({ type: 'SEND_USER_INFO', userName });
+  };
+
   const { data, formInfo } = recipes;
 
   useEffect(() => {
@@ -39,5 +48,10 @@ export default function FoodCard() {
     }
   };
 
-  return <div>{getCards()}</div>;
+  return (
+    <div>
+      <input type="text" onChange={ (e) => setName(e.target.value) } />
+      <Button onClick={ () => sendUserName(name) }>CLIQUE AQUI</Button>
+      {getCards()}
+    </div>);
 }
