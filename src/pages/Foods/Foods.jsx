@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Footer from '../../globalComponents/Footer';
 import Header from '../../globalComponents/Header';
 import styles from './Foods.module.css';
@@ -26,24 +27,28 @@ function Foods({ match }) {
         <div className={ styles.foodsCardContainer }>
           {data.meals && data.meals.filter((_, index) => index < mn)
             .map((item, index) => (
-              <div
+              <Link
                 key={ index }
-                data-testid={ `${index}-recipe-card` }
-                className={ styles.cardDiv }
-
+                to={ `/comidas/${item.idMeal}` }
               >
-                <img
-                  src={ item.strMealThumb }
-                  alt="thumbnail"
-                  data-testid={ `${index}-card-img` }
-                  className={ styles.cardImg }
-                />
-                <p
-                  data-testid={ `${index}-card-name` }
+                <div
+                  data-testid={ `${index}-recipe-card` }
+                  className={ styles.cardDiv }
+
                 >
-                  {item.strMeal}
-                </p>
-              </div>
+                  <img
+                    src={ item.strMealThumb }
+                    alt="thumbnail"
+                    data-testid={ `${index}-card-img` }
+                    className={ styles.cardImg }
+                  />
+                  <p
+                    data-testid={ `${index}-card-name` }
+                  >
+                    {item.strMeal}
+                  </p>
+                </div>
+              </Link>
             ))}
         </div>
       );
@@ -56,23 +61,27 @@ function Foods({ match }) {
       <div className={ styles.drinksCardContainer }>
         {meals.meals && meals.meals.filter((_, index) => index < mn)
           .map((item, index) => (
-            <section
+            <Link
               key={ index }
-              data-testid={ `${index}-recipe-card` }
-              className={ styles.cardDiv }
+              to={ `/comidas/${item.idMeal}` }
             >
-              <img
-                src={ item.strMealThumb }
-                alt="thumbnail"
-                data-testid={ `${index}-card-img` }
-                className={ styles.cardImg }
-              />
-              <p
-                data-testid={ `${index}-card-name` }
+              <section
+                data-testid={ `${index}-recipe-card` }
+                className={ styles.cardDiv }
               >
-                {item.strMeal}
-              </p>
-            </section>
+                <img
+                  src={ item.strMealThumb }
+                  alt="thumbnail"
+                  data-testid={ `${index}-card-img` }
+                  className={ styles.cardImg }
+                />
+                <p
+                  data-testid={ `${index}-card-name` }
+                >
+                  {item.strMeal}
+                </p>
+              </section>
+            </Link>
           ))}
       </div>
     );
