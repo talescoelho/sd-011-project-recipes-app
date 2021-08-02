@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
 import Cards from '../components/Cards';
 import Footer from '../components/Footer';
 import '../css/comidas.css';
 
-const endPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
-function Foods() {
-  const [foods, setFoods] = useState({});
+function Drink() {
+  const [drinks, setDrinks] = useState({});
   const [categories, setCategories] = useState({});
-  const mealsLength = 12;
+  const drinksLength = 12;
   const categoriesLength = 5;
 
   const fetchComidas = (endPointFetch, setState) => {
@@ -21,11 +20,11 @@ function Foods() {
   };
 
   useEffect(() => {
-    fetchComidas(endPoint, setFoods);
-    fetchComidas('https://www.themealdb.com/api/json/v1/1/list.php?c=list', setCategories);
+    fetchComidas(endPoint, setDrinks);
+    fetchComidas('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', setCategories);
   }, []);
 
-  if (!foods.meals || !categories.meals) {
+  if (!drinks.drinks || !categories.drinks) {
     return <div>Carregando...</div>;
   }
 
@@ -38,18 +37,16 @@ function Foods() {
     });
     if (target.checked) {
       if (strCategory === 'All') {
-        fetchComidas(endPoint, setFoods);
+        fetchComidas(endPoint, setDrinks);
       } else {
-        fetchComidas(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${strCategory}`, setFoods);
+        fetchComidas(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${strCategory}`, setDrinks);
       }
     } else {
-      fetchComidas(endPoint, setFoods);
+      fetchComidas(endPoint, setDrinks);
     }
   }
-
   return (
     <div>
-      <Header title="Comidas" />
       <label htmlFor="All">
         <input
           data-testid="All-category-filter"
@@ -62,9 +59,9 @@ function Foods() {
         All
       </label>
       {
-        categories.meals.filter((_, index) => index < categoriesLength)
+        categories.drinks.filter((_, index) => index < categoriesLength)
           .map((category, index) => (
-            <label key={ index } htmlFor={ category.strCategory }>
+            <label htmlFor={ category.strCategory } key={ index }>
               <input
                 data-testid={ `${category.strCategory}-category-filter` }
                 id={ category.strCategory }
@@ -78,18 +75,20 @@ function Foods() {
           ))
       }
       <div className="foods-cards">
-        { foods.meals.filter((_, index) => index < mealsLength)
-          .map((meal, index) => (
+        { drinks.drinks.filter((_, index) => index < drinksLength)
+          .map((drink, index) => (
             <Link
               className="card"
               data-testid={ `${index}-recipe-card` }
               key={ index }
-              to={ `/comidas/${meal.idMeal}` }
+              to={ `/bebidas/${drink.idDrink}` }
             >
+
               <Cards
-                name={ meal.strMeal }
-                thumb={ meal.strMealThumb }
+                name={ drink.strDrink }
+                thumb={ drink.strDrinkThumb }
                 index={ index }
+                key={ index }
               />
             </Link>
           ))}
@@ -99,4 +98,4 @@ function Foods() {
   );
 }
 
-export default connect()(Foods);
+export default connect()(Drink);
