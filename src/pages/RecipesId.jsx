@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { apiDetailsId } from '../service/apiDetailsId';
 import Recomendation from '../components/Detail/Recomendation';
 import './styles/styleRecipesId.css';
+import ButtonStart from '../components/Detail/ButtonStart';
 
 function RecipesId({ match }) {
   const { params, path } = match;
@@ -24,6 +25,8 @@ function RecipesId({ match }) {
     instructionsIT: '',
     ingredient: [],
     video: '',
+    alcoholic: '',
+    tags: [],
     update: true,
   });
 
@@ -31,22 +34,25 @@ function RecipesId({ match }) {
     instructions, video, update, ingredient } = detail;
 
   function getReduxMealsOrDrinks() {
-    if (drinks !== undefined && !loading) {
+    if (drinks !== undefined) {
       // console.log(dataApi[mealsOrDrinks][0][`str${MealOrDrink}`]);
-      const { idDrink, strDrink, strDrinkThumb, strAlcoholic, strInstructions, strVideo,
-        strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5,
-        strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5 } = drinks[0];
+      const { idDrink, strDrink, strDrinkThumb, strCategory, strAlcoholic,
+        strInstructions, strVideo, strIngredient1, strIngredient2, strIngredient3,
+        strIngredient4, strIngredient5, strMeasure1, strMeasure2, strMeasure3,
+        strMeasure4, strMeasure5, strTags } = drinks[0];
       setDetail({
         idItem: idDrink,
         title: strDrink,
         imgThumb: strDrinkThumb,
         category: strAlcoholic,
+        alcoholic: strCategory,
         instructions: strInstructions,
         video: strVideo,
         ingredient: [
           `${strIngredient1} ${strMeasure1}`, `${strIngredient2} ${strMeasure2}`,
           `${strIngredient3} ${strMeasure3}`, `${strIngredient4} ${strMeasure4}`,
           `${strIngredient5} ${strMeasure5}`],
+        tags: strTags,
         update: false,
       });
     }
@@ -55,8 +61,8 @@ function RecipesId({ match }) {
       const { idMeal, strMeal, strMealThumb, strCategory, strInstructions, strYoutube,
         strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5,
         strIngredient6, strIngredient7, strIngredient8, strMeasure1, strMeasure2,
-        strMeasure3, strMeasure4, strMeasure5, strMeasure6, strMeasure7,
-        strMeasure8 } = meals[0];
+        strMeasure3, strMeasure4, strMeasure5, strMeasure6, strMeasure7, strMeasure8,
+        strTags } = meals[0];
       setDetail({
         idItem: idMeal,
         title: strMeal,
@@ -69,6 +75,7 @@ function RecipesId({ match }) {
           `${strIngredient5} ${strMeasure5}`, `${strIngredient6} ${strMeasure6}`,
           `${strIngredient7} ${strMeasure7}`, `${strIngredient8} ${strMeasure8}`],
         video: strYoutube,
+        tags: strTags,
         update: false,
       });
     }
@@ -89,36 +96,35 @@ function RecipesId({ match }) {
 
   return (
     <div>
-      {!loading && (
-        <div>
-          <img data-testid="recipe-photo" src={ imgThumb } alt={ title } />
-          <h1 data-testid="recipe-title">{ title }</h1>
-          <button data-testid="share-btn" type="button">Compartilhar</button>
-          <button data-testid="favorite-btn" type="button">Favorito</button>
-          <span data-testid="recipe-category">{ category }</span>
-          { ingredient.map((item, index) => (
-            <span
-              data-testid={ `${index}-ingredient-name-and-measure` }
-              key={ index }
-            >
-              { item }
-            </span>
-          )) }
-          <span data-testid="instructions">{ instructions }</span>
-          { video && <div data-testid="video">{ video }</div> }
-          <Recomendation
-            recomendInverse={
-              typeDrinkorMeal === 'comidas' ? 'meals' : 'drinks'
-            }
-          />
-          <button
-            className="buttonSart"
-            type="button"
-            data-testid="start-recipe-btn"
-          >
-            Iniciar Receita
-          </button>
-        </div>)}
+      <img
+        data-testid="recipe-photo"
+        className="imgDetail"
+        src={ imgThumb }
+        alt={ title }
+      />
+      <h1 data-testid="recipe-title">{ title }</h1>
+      <button data-testid="share-btn" type="button">Compartilhar</button>
+      <button data-testid="favorite-btn" type="button">Favorito</button>
+      <span data-testid="recipe-category">{ category }</span>
+      { ingredient.map((item, index) => (
+        <span
+          data-testid={ `${index}-ingredient-name-and-measure` }
+          key={ index }
+        >
+          { item }
+        </span>
+      )) }
+      <span data-testid="instructions">{ instructions }</span>
+      { video && <div data-testid="video">{ video }</div> }
+      <Recomendation
+        recomendInverse={
+          typeDrinkorMeal === 'comidas' ? 'meals' : 'drinks'
+        }
+      />
+      <ButtonStart
+        typeDrinkorMeal={ typeDrinkorMeal }
+        detail={ detail }
+      />
     </div>
   );
 }
