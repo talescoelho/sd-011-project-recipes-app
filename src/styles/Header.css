@@ -1,15 +1,17 @@
 .container-main-header {
-  height: 58px;
-  /* position: absolute; */
-  /* top: 0; */
-  width: 360px;
-  display: flex;
   align-items: center;
+  display: flex;
+
+  /* position: absolute; */
+
+  /* top: 0; */
+  height: 58px;
+  width: 360px;
 }
 
 .container-title-icons {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: space-around;
   width: 100%;
 }
