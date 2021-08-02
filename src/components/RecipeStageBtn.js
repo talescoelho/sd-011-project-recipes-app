@@ -17,6 +17,7 @@ function RecipeStageBtn({ id, recipeType, ingredients }) {
 
   const checkInProgressRecipes = () => {
     if (localStorage.inProgressRecipes
+      && JSON.parse(localStorage.inProgressRecipes)[type]
       && JSON.parse(localStorage.inProgressRecipes)[type][id]) {
       return true;
     }

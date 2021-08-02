@@ -26,7 +26,7 @@ function MealDetails(
     getDrinkDetails();
   }, [fetchDetails, fetchRecipes, id]);
 
-  if (recipeDetailsData.meals) {
+  if (recipeDetailsData.drinks) {
     const { drinks } = recipeDetailsData;
     const data = drinks[0];
     const { strDrink, strDrinkThumb, strCategory, strInstructions } = data;

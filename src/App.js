@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
 import MealDetails from './pages/MealDetails';
+import DrinkDetails from './pages/DrinkDetails';
 
 function App() {
   return (
@@ -15,6 +16,11 @@ function App() {
           exact
           path="/comidas/:id"
           render={ (props) => <MealDetails { ...props } /> }
+        />
+        <Route
+          exact
+          path="/bebidas/:id"
+          render={ (props) => <DrinkDetails { ...props } /> }
         />
       </Switch>
     </BrowserRouter>
