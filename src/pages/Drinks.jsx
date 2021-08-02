@@ -5,6 +5,7 @@ import LowerMenu from '../components/LowerMenu';
 import Header from '../components/Header';
 import { fetchDrinks } from '../services/API';
 import RecipesContext from '../context/RecipesContext';
+import FiltersCategories from '../components/FiltersCategories';
 import '../styles/recipesCard.css';
 
 function Drinks() {
@@ -49,6 +50,7 @@ function Drinks() {
   return (
     <>
       <Header />
+      <FiltersCategories />
       <section className="recipes-container">
         {loading ? <ReactBootStrap.Spinner animation="border" />
           : compare.map((drink, index) => (
