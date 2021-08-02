@@ -1,10 +1,10 @@
 .footer {
   background-color: rgb(131, 131, 131);
-  display: flex;
   bottom: 0;
+  justify-content: center;
   left: 0;
   right: 0;
-  justify-content: center;
+  display: flex;
   position: fixed;
 }
 
