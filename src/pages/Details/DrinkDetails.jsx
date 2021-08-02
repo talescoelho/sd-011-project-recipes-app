@@ -108,8 +108,9 @@ function DrinkDetails({ match }) {
       <button
         data-testid="start-recipe-btn"
         type="button"
+        className={ styles.startRecipeBttn }
       >
-        Iniciar
+        Iniciar Receita
       </button>
     </div>
   );

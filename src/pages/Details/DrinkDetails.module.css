@@ -14,3 +14,8 @@
 .carouselImg {
   width: 130px;
 }
+
+.startRecipeBttn {
+  bottom: 0px;
+  position: fixed;
+}
