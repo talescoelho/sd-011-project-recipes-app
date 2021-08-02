@@ -60,6 +60,7 @@ const Header = ({ page, showSearchBtn }) => {
         <button type="button" data-testid="exec-search-btn">Buscar</button>
       </span>
     </>
+    // Requirement 13
   );
 };
 
