@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../styles/login.css';
+import profileIcon from '../images/profileIcon.svg';
 
 function Login() {
   const [user, setUser] = useState([]);
@@ -42,6 +43,7 @@ function Login() {
 
   return (
     <div className="container-login">
+      <img className=" login-img" src={ profileIcon } alt="Profile" />
       <input
         className="Email"
         type="email"
