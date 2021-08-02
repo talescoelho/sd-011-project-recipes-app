@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import './styles/header.css';
+import SearchBar from './SearchBar';
 
 export default function Header({ title, disable }) {
   const [invisibility, setInvisibility] = useState(true);
@@ -41,10 +42,7 @@ export default function Header({ title, disable }) {
       </div>
       <div className="searchBarContainer container-fluid" hidden={ invisibility }>
         { !invisibility
-          && (
-            <p data-testid="search-input">
-              barra de pesquisa
-            </p>)}
+          && <SearchBar data-testid="search-input" />}
       </div>
     </header>
   );
