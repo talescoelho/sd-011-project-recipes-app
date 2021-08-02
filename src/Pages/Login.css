@@ -1,0 +1,7 @@
+.loginBox {
+  border: 2px grey;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30vh;
+  text-align: center;
+}
