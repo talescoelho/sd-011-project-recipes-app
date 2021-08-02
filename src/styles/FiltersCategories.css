@@ -8,7 +8,9 @@
   background-color: salmon;
   border-radius: 6px;
   color: black;
+  height: 50px;
   margin-top: 1px;
+  overflow: hidden;
 }
 
 .button-categories:hover {
