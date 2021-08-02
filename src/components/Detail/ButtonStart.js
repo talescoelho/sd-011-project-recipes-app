@@ -44,7 +44,7 @@ function ButtonStart({ detail, typeDrinkorMeal }) {
       </button>
     );
   }
-  // Continuar Receita
+
   return (
     buttonStart === false && btnStart()
   );
