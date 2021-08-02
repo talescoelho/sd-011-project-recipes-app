@@ -1,37 +1,53 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import Searchbar from './Searchbar';
 
-function Header() {
+function Header({ title, showButton }) {
   const [renderSearch, setRenderSearch] = useState(false);
 
   function disableSearchBar() {
     setRenderSearch(!renderSearch);
   }
+
   return (
     <header>
-      <Link
-        to="/perfil"
-        data-testid="profile-top-btn"
-      >
-        <img alt="icone de perfil" src={ profileIcon } />
+      <Link to="/perfil">
+        <img
+          data-testid="profile-top-btn"
+          src={ profileIcon }
+          alt="icone de perfil"
+        />
       </Link>
       <h3 data-testid="page-title">
-        titulo
-        { /* alterar quando receber a props */}
+        {title}
       </h3>
-      <button // alterar quando receber a props
-        onClick={ () => disableSearchBar() }
-        type="button"
-        data-testid="search-top-btn"
-      >
-        <img alt="icone de pesquisa" src={ searchIcon } />
-      </button>
+      {
+        showButton
+          ? (
+            <button
+              onClick={ () => disableSearchBar() }
+              type="button"
+            >
+              <img
+                data-testid="search-top-btn"
+                src={ searchIcon }
+                alt="icone de pesquisa"
+              />
+            </button>
+          )
+          : null
+      }
       {renderSearch ? <Searchbar /> : null}
     </header>
   );
 }
 
 export default Header;
+
+Header.propTypes = {
+  title: PropTypes.string,
+  showButton: PropTypes.bool,
+}.isRequired;
