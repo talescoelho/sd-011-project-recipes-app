@@ -3,8 +3,8 @@
   bottom: 0;
   justify-content: center;
   left: 0;
-  right: 0;
   display: flex;
+  right: 0;
   position: fixed;
 }
 
