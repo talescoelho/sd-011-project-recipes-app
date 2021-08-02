@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
+import MenuInferior from '../components/MenuInferior';
 
 function Profile() {
   const email = JSON.parse(localStorage.getItem('user'));
@@ -8,44 +10,54 @@ function Profile() {
   }
   return (
     <div>
+      <Header
+        showButton={ false }
+        title="Perfil"
+      />
       <h3
         data-testid="profile-email"
       >
         {email.email}
       </h3>
-      <Link
-        to="/receitas-feitas"
-        data-testid="profile-done-btn"
-      >
-        <button
-          type="button"
+      <div className="btn-group-vertical">
+        <Link
+          to="/receitas-feitas"
+          data-testid="profile-done-btn"
         >
-          Receitas Feitas
-        </button>
-      </Link>
-      <Link
-        to="/receitas-favoritas"
-        data-testid="profile-favorite-btn"
-      >
-        <button
-          type="button"
+          <button
+            className="btn btn-primary"
+            type="button"
+          >
+            Receitas Feitas
+          </button>
+        </Link>
+        <Link
+          to="/receitas-favoritas"
+          data-testid="profile-favorite-btn"
         >
-          Receitas Favoritas
-        </button>
-      </Link>
-      <Link
-        onClick={ () => logoutClear() }
-        to="/"
-        type="button"
-        data-testid="profile-logout-btn"
-      >
-        <button
+          <button
+            className="btn btn-primary"
+            type="button"
+          >
+            Receitas Favoritas
+          </button>
+        </Link>
+        <Link
+          onClick={ () => logoutClear() }
+          to="/"
           type="button"
+          data-testid="profile-logout-btn"
         >
-          Sair
-        </button>
+          <button
+            className="btn btn-primary"
+            type="button"
+          >
+            Sair
+          </button>
 
-      </Link>
+        </Link>
+      </div>
+      <MenuInferior />
     </div>
   );
 }
