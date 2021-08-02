@@ -5,16 +5,20 @@ import PropTypes from 'prop-types';
 import { fetchFoodAction } from '../redux/actions';
 
 function FoodCard(props) {
-  const { resultFood } = props;
+  const { resultFood, requestFood } = props;
   const totalRecipes = 12;
-  const food = resultFood.filter((_, index) => index < totalRecipes);
+  const food = resultFood && resultFood.filter((_, index) => index < totalRecipes);
 
   React.useEffect(() => {
     if (!resultFood.length) {
-      const { requestFood } = props;
       requestFood();
     }
   }, []);
+
+  if (!food) {
+    requestFood();
+    return <p>Carregando...</p>;
+  }
 
   return (
     <div>

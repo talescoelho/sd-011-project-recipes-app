@@ -5,22 +5,26 @@ import PropTypes from 'prop-types';
 import { fetchDrinkAction } from '../redux/actions';
 
 function DrinkCard(props) {
-  const { resultDrink } = props;
+  const { resultDrink, requestDrink } = props;
   const totalRecipes = 12;
-  const drinks = resultDrink.filter((_, index) => index < totalRecipes);
+  const drinks = resultDrink && resultDrink.filter((_, index) => index < totalRecipes);
 
   React.useEffect(() => {
     if (!resultDrink.length) {
-      const { requestDrink } = props;
       requestDrink();
     }
   }, []);
 
+  if (!drinks) {
+    requestDrink();
+    return <p>Carregando...</p>;
+  }
+
   return (
     <div>
       {drinks.map((recipe, index) => (
-        <div key={ recipe.idDrink } className="card">
-          <Link to={ `/bebidas/${recipe.idDrink}` }>
+        <Link key={ recipe.idDrink } to={ `/bebidas/${recipe.idDrink}` }>
+          <div className="card">
             <div key={ recipe.idDrink } data-testid={ `${index}-recipe-card` }>
               <img
                 data-testid={ `${index}-card-img` }
@@ -30,8 +34,8 @@ function DrinkCard(props) {
               />
               <h4 data-testid={ `${index}-card-name` }>{ recipe.strDrink }</h4>
             </div>
-          </Link>
-        </div>
+          </div>
+        </Link>
       ))}
     </div>
   );
