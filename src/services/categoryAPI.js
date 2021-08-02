@@ -1,8 +1,7 @@
-const categoryAPI = () => {
-  const { results } = await getPlanets();
-  results.filter((item) => delete item.residents);
-  setPlanetsResults(results);
-  setFilteredResult(results);
+const getCategory = async (endPoint) => {
+  const response = await fetch(endPoint);
+  const data = await response.json();
+  return response.ok ? Promise.resolve(data) : Promise.reject(data);
 };
 
-export default categoryAPI;
+export default getCategory;

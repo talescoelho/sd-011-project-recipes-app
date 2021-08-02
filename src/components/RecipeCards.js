@@ -22,7 +22,11 @@ function RecipeCards() {
     const list = drinksList.map((recipe, index) => {
       if (index <= maxLength) {
         return (
-          <div className="card-container" data-testid={ `${index}-recipe-card` }>
+          <div
+            className="card-container"
+            data-testid={ `${index}-recipe-card` }
+            key={ recipe.idDrink }
+          >
             <img
               src={ recipe.strDrinkThumb }
               data-testid={ `${index}-card-img` }
