@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -10,9 +11,12 @@ class DetalhesComidas extends Component {
     this.state = {
       food: {},
       recomendations: [],
+      showButton: true,
     };
 
     this.fetchIdMeal = this.fetchIdMeal.bind(this);
+    this.recomendationsFetch = this.recomendationsFetch.bind(this);
+    this.handleStateButton = this.handleStateButton.bind(this);
   }
 
   componentDidMount() {
@@ -21,6 +25,20 @@ class DetalhesComidas extends Component {
     const { pathname } = location;
     this.fetchIdMeal(pathname.split('/')[2]);
     this.recomendationsFetch();
+    this.handleStateButton();
+  }
+
+  handleStateButton() {
+    const { history } = this.props;
+    const { location } = history;
+    const { pathname } = location;
+    const urlId = pathname.split('/')[2];
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes && doneRecipes.some(({ id }) => id === urlId)) {
+      this.setState({
+        showButton: false,
+      });
+    }
   }
 
   fetchIdMeal(id) {
@@ -40,7 +58,11 @@ class DetalhesComidas extends Component {
   }
 
   render() {
-    const { food, recomendations } = this.state;
+    const { history } = this.props;
+    const { location } = history;
+    const { pathname } = location;
+    const id = pathname.split('/')[2];
+    const { food, recomendations, showButton } = this.state;
     const { meals } = food;
     const { drinks } = recomendations;
     const magicNumber = 6;
@@ -119,15 +141,19 @@ class DetalhesComidas extends Component {
             ))
           }
         </div>
-        <div>
-          <button
-            data-testid="start-recipe-btn"
-            type="button"
-            className="btn-start"
-          >
-            Iniciar Receita
-          </button>
-        </div>
+        {showButton
+          && (
+            <Link to={ `/comidas/${id}/in-progress` }>
+              <div>
+                <button
+                  data-testid="start-recipe-btn"
+                  type="button"
+                  className="btn-start"
+                >
+                  Iniciar Receita
+                </button>
+              </div>
+            </Link>)}
       </div>
     );
   }

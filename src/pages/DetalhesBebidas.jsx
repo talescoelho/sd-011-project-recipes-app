@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -10,10 +11,12 @@ class DetalhesBebidas extends Component {
     this.state = {
       cocktail: {},
       recomendations: [],
+      showButton: true,
     };
 
     this.fetchIdDrink = this.fetchIdDrink.bind(this);
     this.recomendationsFetch = this.recomendationsFetch.bind(this);
+    this.handleStateButton = this.handleStateButton.bind(this);
   }
 
   componentDidMount() {
@@ -22,6 +25,20 @@ class DetalhesBebidas extends Component {
     const { pathname } = location;
     this.fetchIdDrink(pathname.split('/')[2]);
     this.recomendationsFetch();
+    this.handleStateButton();
+  }
+
+  handleStateButton() {
+    const { history } = this.props;
+    const { location } = history;
+    const { pathname } = location;
+    const urlId = pathname.split('/')[2];
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes && doneRecipes.some(({ id }) => id === urlId)) {
+      this.setState({
+        showButton: false,
+      });
+    }
   }
 
   fetchIdDrink(id) {
@@ -41,7 +58,11 @@ class DetalhesBebidas extends Component {
   }
 
   render() {
-    const { cocktail, recomendations } = this.state;
+    const { history } = this.props;
+    const { location } = history;
+    const { pathname } = location;
+    const id = pathname.split('/')[2];
+    const { cocktail, recomendations, showButton } = this.state;
     const { drinks } = cocktail;
     const { meals } = recomendations;
     const magicNumber = 6;
@@ -115,15 +136,19 @@ class DetalhesBebidas extends Component {
             ))
           }
         </div>
-        <div>
-          <button
-            data-testid="start-recipe-btn"
-            type="button"
-            className="btn-start"
-          >
-            Iniciar Receita
-          </button>
-        </div>
+        {showButton
+          && (
+            <Link to={ `/bebidas/${id}/in-progress` }>
+              <div>
+                <button
+                  data-testid="start-recipe-btn"
+                  type="button"
+                  className="btn-start"
+                >
+                  Iniciar Receita
+                </button>
+              </div>
+            </Link>)}
       </div>
     );
   }
