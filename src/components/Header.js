@@ -1,23 +1,82 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 function Header({ title, search }) {
+  const [showFilterInput, setShowFilter] = useState(false);
+  const [inputTextSearch, setInputTextSearch] = useState('');
+
+  useEffect(() => {
+    setShowFilter(true);
+  }, []);
+
   return (
     <header>
-      <button type="button">
-        <img data-testid="profile-top-btn" src={ profileIcon } alt="profile icon" />
-      </button>
-
+      <Link to="/perfil">
+        <button type="button">
+          <img data-testid="profile-top-btn" src={ profileIcon } alt="profile icon" />
+        </button>
+      </Link>
       <h1 data-testid="page-title">{ title }</h1>
 
       { search
         && (
-          <button type="button">
+          <button
+            type="button"
+            onClick={ () => setShowFilter((state) => !state) }
+          >
             <img data-testid="search-top-btn" src={ searchIcon } alt="search icon" />
           </button>) }
+
+      { showFilterInput ? (
+        <p>categorias</p>
+      )
+        : (
+          <form>
+            <input
+              data-testid="search-input"
+              type="text"
+              onChange={ (e) => setInputTextSearch(e.target.value) }
+            />
+            <label htmlFor="ingredient">
+              <input
+                data-testid="ingredient-search-radio"
+                type="radio"
+                id="ingredient"
+                name="radio-button"
+                value="ingredient"
+              />
+              Ingrediente
+            </label>
+            { ' ' }
+            <label htmlFor="name-search">
+              <input
+                data-testid="name-search-radio"
+                type="radio"
+                id="name-search"
+                name="radio-button"
+                value="name-search"
+              />
+              Nome
+            </label>
+            { ' ' }
+            <label htmlFor="first-letter">
+              <input
+                data-testid="first-letter-search-radio"
+                type="radio"
+                id="first-letter"
+                name="radio-button"
+                value="first-letter"
+              />
+              Primeira letra
+            </label>
+            <button data-testid="exec-search-btn" type="button">Buscar</button>
+          </form>
+        ) }
+
     </header>
   );
 }
