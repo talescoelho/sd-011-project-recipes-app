@@ -1,6 +1,5 @@
 .comidasPageContainer {
-
-  /* background-color: aqua; */
+  position: absolute;
   height: 540px;
   width: 100%;
 }

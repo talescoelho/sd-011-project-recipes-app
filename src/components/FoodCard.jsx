@@ -1,14 +1,25 @@
 import React from 'react';
-import '../styles/FoodCard.css';
 import PropTypes from 'prop-types';
+import { useHistory, useLocation } from 'react-router-dom';
+import '../styles/FoodCard.css';
 
 function FoodCard({ recipe, index, type }) {
   const foodName = type === 'drinks' ? 'strDrink' : 'strMeal';
   const foodImage = type === 'drinks' ? 'strDrinkThumb' : 'strMealThumb';
+  const foodId = type === 'drinks' ? 'idDrink' : 'idMeal';
+  const { pathname } = useLocation();
+  const history = useHistory();
+
+  const HandleRedirect = (id) => {
+    history.push(`${pathname}/${recipe[id]}`);
+  };
 
   return (
     <div
       className="foodCardContainer"
+      data-testid={ `${index}-recipe-card` }
+      aria-hidden="true"
+      onClick={ () => HandleRedirect(foodId) }
     >
       <img
         className="foodImageRecipe"
