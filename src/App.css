@@ -76,3 +76,8 @@
   position: fixed;
   width: 50%;
 }
+
+img{
+  max-height: 50px;
+  max-width: 50;
+}
