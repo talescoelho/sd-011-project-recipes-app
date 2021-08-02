@@ -68,10 +68,10 @@
 }
 
 .div-scroll {
-  display: flex;
-  overflow-x: scroll;
   height: 200px;
   width: 200px;
+  display: flex;
+  overflow-x: scroll;
 }
 
 .btnFixed {
