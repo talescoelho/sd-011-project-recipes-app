@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+// import FoodCard from '../components/FoodCard';
+// import { Link } from 'react-router-dom';
 import Header from '../components/Header';
-import Cards from '../components/Cards';
 import Footer from '../components/Footer';
 import '../css/comidas.css';
 
@@ -11,7 +11,7 @@ const endPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 function Foods() {
   const [foods, setFoods] = useState({});
   const [categories, setCategories] = useState({});
-  const mealsLength = 12;
+  // const mealsLength = 12;
   const categoriesLength = 5;
 
   const fetchComidas = (endPointFetch, setState) => {
@@ -77,7 +77,7 @@ function Foods() {
             </label>
           ))
       }
-      <div className="foods-cards">
+      {/* <div className="foods-cards">
         { foods.meals.filter((_, index) => index < mealsLength)
           .map((meal, index) => (
             <Link
@@ -86,14 +86,14 @@ function Foods() {
               key={ index }
               to={ `/comidas/${meal.idMeal}` }
             >
-              <Cards
+              <FoodCard
                 name={ meal.strMeal }
                 thumb={ meal.strMealThumb }
                 index={ index }
               />
             </Link>
           ))}
-      </div>
+      </div> */}
       <Footer />
     </div>
   );

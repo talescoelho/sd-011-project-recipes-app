@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Cards from '../components/Cards';
+// import { Link } from 'react-router-dom';
+// import DrinkCard from '../components/DrinkCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../css/comidas.css';
@@ -11,7 +11,7 @@ const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 function Drinks() {
   const [drinks, setDrinks] = useState({});
   const [categories, setCategories] = useState({});
-  const drinksLength = 12;
+  // const drinksLength = 12;
   const categoriesLength = 5;
 
   const fetchComidas = (endPointFetch, setState) => {
@@ -76,7 +76,7 @@ function Drinks() {
             </label>
           ))
       }
-      <div className="foods-cards">
+      {/* <div className="foods-cards">
         { drinks.drinks.filter((_, index) => index < drinksLength)
           .map((drink, index) => (
             <Link
@@ -86,7 +86,7 @@ function Drinks() {
               to={ `/bebidas/${drink.idDrink}` }
             >
 
-              <Cards
+              <DrinkCard
                 name={ drink.strDrink }
                 thumb={ drink.strDrinkThumb }
                 index={ index }
@@ -94,7 +94,7 @@ function Drinks() {
               />
             </Link>
           ))}
-      </div>
+      </div> */}
       <Footer />
     </div>
   );
