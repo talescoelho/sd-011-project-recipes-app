@@ -6,16 +6,18 @@ import RecipesDrinks from '../Pages/Explorer/Drinks/RecipesDrinks';
 import ExplorerFoods from '../Pages/Explorer/Foods/ExplorerFoods';
 import RecipesFoods from '../Pages/Explorer/Foods/RecipesFoods';
 import Origen from '../Pages/Explorer/Foods/Origen';
-import MainDrinks from '../Pages/Main/Drinks';
-import MainFoods from '../Pages/Main/Foods';
+import Drinks from '../Pages/Main/Drinks';
+import Foods from '../Pages/Main/Foods';
 import User from '../Pages/User';
 import Home from '../Pages/Home';
+import RecipesDone from '../Pages/RecipesDone';
+import FavoriteRecipes from '../Pages/FavoriteRecipes';
 
 const MainRouter = () => (
   <Switch>
     <Route exact path="/" render={ () => <Home /> } />
-    <Route exact path="/comidas" render={ () => <MainFoods /> } />
-    <Route exact path="/bebidas" render={ () => <MainDrinks /> } />
+    <Route exact path="/comidas" render={ () => <Foods /> } />
+    <Route exact path="/bebidas" render={ () => <Drinks /> } />
     {/* <Route exact path={ `/comidas/${id-da-receita}`} render={ () => <MainDrinks /> }
     <Route exact path={ `/bebidas/${id-da-receita}`} render={ () => <MainDrinks /> }
     <Route exact path={ `/comidas/${id-da-receita}/in-progress`} render={ () => <MainDrinks /> }
@@ -36,8 +38,8 @@ const MainRouter = () => (
     />
     <Route exact path="/explorar/comidas/area" render={ () => <Origen /> } />
     <Route exact path="/perfil" render={ () => <User /> } />
-    {/* <Route exact path="/receitas-feitas" render={ () => <MainDrinks /> }
-    <Route exact path="/receitas-favoritas" render={ () => <MainDrinks /> } */}
+    <Route exact path="/receitas-feitas" render={ () => <RecipesDone /> } />
+    <Route exact path="/receitas-favoritas" render={ () => <FavoriteRecipes /> } />
   </Switch>
 );
 

@@ -34,11 +34,9 @@ function Drinks() {
           <p data-testid={ `${index}-card-name` }>
             { item.strDrink }
           </p>
-          <footer>
-            <LowerMenu />
-          </footer>
         </div>
       )) }
+      <LowerMenu />
     </div>
   );
 }
