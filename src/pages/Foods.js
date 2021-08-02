@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import Header from '../components/Header';
+import ButtonsCategories from '../components/ButtonsCategories';
 import Footer from '../components/Footer';
 import CardCatalog from '../components/CardCatalog';
 import GlobalContext from '../context/GlobalContext';
@@ -18,7 +19,6 @@ function Foods() {
       fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
           setCatalog(result);
         });
     }
@@ -28,6 +28,7 @@ function Foods() {
   return (
     <div>
       <Header props={ headerProps } />
+      <ButtonsCategories categoryName={ headerProps.title } />
       {catalog && <CardCatalog />}
       <Footer />
     </div>

@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CardCatalog from '../components/CardCatalog';
 import GlobalContext from '../context/GlobalContext';
+import ButtonsCategories from '../components/ButtonsCategories';
 
 function Drinks() {
   const headerProps = {
@@ -28,6 +29,7 @@ function Drinks() {
   return (
     <div>
       <Header props={ headerProps } />
+      <ButtonsCategories categoryName={ headerProps.title } />
       {catalog && <CardCatalog />}
       <Footer />
     </div>
