@@ -6,6 +6,7 @@ import RecipesProvider from './provider/recipesProvider';
 import Login from './pages/Login';
 import TelaPrincipal from './pages/TelaPrincipal';
 import NotFound from './pages/NotFound';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
           <Route exact path="/explorar/comidas/ingredientes" component={ NotFound } />
           <Route exact path="/explorar/bebidas/ingredientes" component={ NotFound } />
           <Route exact path="/explorar/comidas/area" component={ NotFound } />
-          <Route exact path="/perfil" component={ NotFound } />
+          <Route exact path="/perfil" component={ Profile } />
           { /* não tem footer \/ */ }
           <Route exact path="/receitas-feitas" component={ NotFound } />
           <Route exact path="/receitas-favoritas" component={ NotFound } />
