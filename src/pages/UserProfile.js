@@ -1,11 +1,13 @@
 import React from 'react';
+import Header from '../components/Header';
 
-function UserProfile() {
+function userProfile() {
   return (
     <div>
-      oi
+      <Header title="Perfil" />
+      Profile
     </div>
   );
 }
 
-export default UserProfile;
+export default userProfile;

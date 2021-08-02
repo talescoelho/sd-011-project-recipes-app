@@ -1,13 +1,14 @@
 import React from 'react';
 import Header from '../components/Header';
 
-function Explore() {
+function foodPage() {
   return (
     <div>
-      <Header title="Explorar" />
-      Explorar
+      <Header title="Comidas" search />
+
+      MAIN
     </div>
   );
 }
 
-export default Explore;
+export default foodPage;

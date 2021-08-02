@@ -1,11 +1,13 @@
 import React from 'react';
+import Header from '../components/Header';
 
-function CookedRecipe() {
+function finishRecipe() {
   return (
     <div>
-      oi
+      <Header title="Receitas Feitas" />
+      Receitas feitas
     </div>
   );
 }
 
-export default CookedRecipe;
+export default finishRecipe;
