@@ -83,6 +83,8 @@ export default function DetailsFoods() {
 
   if (!data || !recomendedData) return <p>Loading...</p>;
 
+  const videoId = data.meals[0].strYoutube.split('=')[1];
+
   return (
     <main>
       <img
@@ -107,7 +109,7 @@ export default function DetailsFoods() {
       <iframe
         title={ data.meals[0].strMeal }
         data-testid="video"
-        src={ data.meals[0].strYoutube }
+        src={ `https://www.youtube.com/embed/${videoId}` }
         width="420"
         height="345"
       />
