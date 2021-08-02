@@ -43,7 +43,10 @@ const Header = ({ page, showSearchBtn }) => {
         }
         <label htmlFor="label-ingredient-radio">
           Ingrediente
-          <input type="radio" data-testid="ingredient-search-radio" />
+          <input
+            type="radio"
+            data-testid="ingredient-search-radio"
+          />
         </label>
         <label htmlFor="label-name-radio">
           Nome

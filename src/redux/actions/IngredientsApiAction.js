@@ -15,4 +15,4 @@ export const fetchIngredients = (ingredient) => (dispatch) => {
   return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`)
     .then((response) => console.log(response.json()))
     .then((success) => dispatch(getIngredientsSuccess(success)));
-}
+};
