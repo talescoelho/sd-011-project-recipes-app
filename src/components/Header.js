@@ -44,19 +44,21 @@ function Header({ value }) {
     }
   }
   return (
-    <header>
-      <button
-        type="button"
-        onClick={ () => history.push('/perfil') }
-      >
-        <img
-          data-testid="profile-top-btn"
-          alt="User"
-          src={ profileIcon }
-        />
-      </button>
-      <h1 data-testid="page-title">{ pageName }</h1>
-      { handleButton() }
+    <header className="container-header">
+      <div className="header-wrapper">
+        <button
+          type="button"
+          onClick={ () => history.push('/perfil') }
+        >
+          <img
+            data-testid="profile-top-btn"
+            alt="User"
+            src={ profileIcon }
+          />
+        </button>
+        <h1 data-testid="page-title">{ pageName }</h1>
+        { handleButton() }
+      </div>
     </header>
   );
 }
