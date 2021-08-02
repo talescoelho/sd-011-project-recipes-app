@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from '../components/Header';
 
-function Explore() {
+function drinkPage() {
   return (
     <div>
-      <Header title="Explorar" />
-      Explorar
+      <Header title="Bebidas" search />
+      Page drink
     </div>
   );
 }
 
-export default Explore;
+export default drinkPage;

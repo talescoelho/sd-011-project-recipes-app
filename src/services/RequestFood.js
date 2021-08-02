@@ -29,6 +29,12 @@ export async function searchByFirstLetter(letter) {
   return result.meals;
 }
 
+export async function searchByName(name) {
+  const ingredients = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`);
+  const result = await ingredients.json();
+  return result.meals;
+}
+
 export async function searchByArea(area) {
   const ingredients = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
   const result = await ingredients.json();

@@ -2,9 +2,23 @@ import React, { useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 import { UserProvider } from './Context/UserHook';
+
 import { searchRandonMeal } from './services/RequestFood';
-import Clipboard from './components/Clipboard';
+
+import Login from './pages/Login';
+import foodPage from './pages/FoodPage';
+import drinkPage from './pages/DrinkPage';
+import Explore from './pages/Explore';
+import exploreFood from './pages/ExploreFood';
+import exploreDrink from './pages/ExploreDrink';
+import exploreFoodIngredients from './pages/ExploreFoodIngredients';
+import exploreDrinkIngredients from './pages/ExploreDrinkIngredients';
+import exploreByOrigin from './pages/ExploreByOrigin';
+import userProfile from './pages/UserProfile';
+import finishRecipe from './pages/FinishRecipe';
+import favoriteRecipe from './pages/FavoriteRecipe';
 
 function App() {
   useEffect(() => {
@@ -13,25 +27,32 @@ function App() {
 
   return (
     <UserProvider>
-      <Clipboard />
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" />
-          <Route exact path="/comidas" />
-          <Route exact path="/bebidas" />
+          <Route exact path="/" component={ Login } />
+          <Route exact path="/comidas" component={ foodPage } />
+          <Route exact path="/bebidas" component={ drinkPage } />
           <Route exact path="/comidas/{id-da-receita}" />
           <Route exact path="/bebidas/{id-da-receita}" />
           <Route exact path="/comidas/{id-da-receita}/in-progress" />
           <Route exact path="/bebidas/{id-da-receita}/in-progress" />
-          <Route exact path="/explorar" />
-          <Route exact path="/explorar/comidas" />
-          <Route exact path="/explorar/bebidas" />
-          <Route exact path="/explorar/comidas/ingredientes" />
-          <Route exact path="/explorar/bebidas/ingredientes" />
-          <Route exact path="/explorar/comidas/area" />
-          <Route exact path="/perfil" />
-          <Route exact path="/receitas-feitas" />
-          <Route exact path="/receitas-favoritas" />
+          <Route exact path="/explorar" component={ Explore } />
+          <Route exact path="/explorar/comidas" component={ exploreFood } />
+          <Route exact path="/explorar/bebidas" component={ exploreDrink } />
+          <Route
+            exact
+            path="/explorar/comidas/ingredientes"
+            component={ exploreFoodIngredients }
+          />
+          <Route
+            exact
+            path="/explorar/bebidas/ingredientes"
+            component={ exploreDrinkIngredients }
+          />
+          <Route exact path="/explorar/comidas/area" component={ exploreByOrigin } />
+          <Route exact path="/perfil" component={ userProfile } />
+          <Route exact path="/receitas-feitas" component={ finishRecipe } />
+          <Route exact path="/receitas-favoritas" component={ favoriteRecipe } />
         </Switch>
       </BrowserRouter>
     </UserProvider>

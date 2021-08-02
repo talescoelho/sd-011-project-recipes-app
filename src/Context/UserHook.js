@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const UserContext = createContext();
 
 export function UserProvider({ children }) {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState('');
   const [email, setEmail] = useState('');
 
   return (
