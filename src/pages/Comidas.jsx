@@ -51,7 +51,12 @@ class Comidas extends React.Component {
     const showSearchButton = true;
     return (
       <div>
-        <Header title="Comidas" showSearchButton={ showSearchButton } typeFood="food" />
+        <Header
+          title="Comidas"
+          showSearchButton={ showSearchButton }
+          updateItemsToRender={ this.updateFoods }
+          typeFood="food"
+        />
         <FiltersFromCategories
           categories={ categories }
           updateItemsToRender={ this.updateFoods }

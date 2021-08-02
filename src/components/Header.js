@@ -33,13 +33,14 @@ class Header extends Component {
     });
   }
 
-  callApi() {
+  async callApi() {
     const { input, radio } = this.state;
-    const { typeFood, fetchSearchFilters } = this.props;
+    const { typeFood, fetchSearchFilters, updateItemsToRender } = this.props;
     if (radio === 'first-letter' && input.length > 1) {
       alert('Sua busca deve conter somente 1 (um) caracter');
     } else {
-      fetchSearchFilters(typeFood, input, radio);
+      await fetchSearchFilters(typeFood, input, radio);
+      updateItemsToRender(true);
     }
   }
 
