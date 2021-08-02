@@ -24,11 +24,21 @@ function Layout({ children, title, search, noHeader }) {
       { !noHeader && (
         <header style={ styles.header }>
           <Link to="/perfil">
-            <img data-testid="profile-top-btn" alt="Profile Icon" src={ ProfileIcon } />
+            <img
+              data-testid="profile-top-btn"
+              alt="Ver meu perfil"
+              src={ ProfileIcon }
+            />
           </Link>
           <h3 data-testid="page-title">{ title }</h3>
           { search
-            ? <img data-testid="search-top-btn" alt="Search Icon" src={ SearchIcon } />
+            ? (
+              <img
+                data-testid="search-top-btn"
+                alt="Buscar receitas"
+                src={ SearchIcon }
+              />
+            )
             : null}
         </header>)}
       { children }
