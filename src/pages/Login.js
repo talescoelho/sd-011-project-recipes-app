@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 export default function Login() {
   // useEffect(() => {
@@ -7,6 +8,7 @@ export default function Login() {
   // }, []);
 
   const [isDisabled, setIsDisable] = useState(true);
+  const dispatch = useDispatch();
 
   function handleOnChangeInputValidate() {
     const correctEmailEntry = /(.*)@(.*).com/;
@@ -48,6 +50,17 @@ export default function Login() {
     );
   }
 
+  function ButtonLoginHandler() {
+    const email = document.querySelector('#email');
+    const emailObj = {
+      email: email.value,
+    };
+    localStorage.user = JSON.stringify(emailObj);
+    localStorage.mealsToken = 1;
+    localStorage.cocktailsToken = 1;
+    dispatch({ type: 'SEND_USER_EMAIL_TO_STORE', payload: email.value });
+  }
+
   function buttonLoginRender() {
     return (
       <label htmlFor="button-login">
@@ -57,6 +70,7 @@ export default function Login() {
           type="button"
           value="login"
           disabled={ isDisabled }
+          onClick={ () => ButtonLoginHandler() }
         />
       </label>
     );
