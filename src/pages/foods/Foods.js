@@ -1,16 +1,16 @@
 import React from 'react';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
+import { SearchBarProvider } from '../../context/SearchBar';
 import Footer from '../../components/Footer';
-import { Provider } from '../../context/SearchBar';
 
 function Foods() {
   return (
     <div>
       <Header />
-      <Provider>
+      <SearchBarProvider>
         <SearchBar fetchType="themealdb" />
-      </Provider>
+      </SearchBarProvider>
       <h3>Foods</h3>
       <Footer />
     </div>
