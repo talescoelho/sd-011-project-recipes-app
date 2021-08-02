@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function DoneFavRecipesCard({ recipe, index, done, fav }) {
   const [isCopied, setIsCopied] = useState(false);
 
-  const copyToClipboard = () => {
-    // funcao que copia URL utilizando biblioteca clipboard-copy
+  const copyToClipboard = ({ id, type }) => {
+    const url = `http://localhost:3000/${type}s/${id}`;
+    const time = 2000;
+    // funcao que copia URL utilizando biblioteca clipboard-copy ainda em teste
+    copy(url);
     setIsCopied(true);
-    setTimeout(setIsCopied(false), time);
+    setTimeout(setIsCopied, time, false);
   };
 
   const removeFromFavorites = (id) => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     newFavorites = favoriteRecipes.filter((favRecipe) => favRecipe.id !== id);
     localStorage.setItem('avoriteRecipes', JSON.stringify(newFavorites));
+    // ainda em teste
   };
 
   return (
@@ -42,7 +47,7 @@ function DoneFavRecipesCard({ recipe, index, done, fav }) {
         </p>) }
       <button
         type="button"
-        onClick={ copyToClipboard }
+        onClick={ () => copyToClipboard(recipe) }
       >
         <img
           data-testid={ `${index}-horizontal-share-btn` }
