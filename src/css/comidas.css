@@ -12,3 +12,20 @@
 .card p {
   align-self: center;
 }
+
+.in-progress-card {
+  display: flex;
+  margin-top: 25px;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.in-progress-card img {
+  width: 80%;
+}
+
+.teste {
+  text-decoration: line-through;
+}
