@@ -1,14 +1,22 @@
 import React from 'react';
-import SearchBar from './subcomponents/SearchBar';
-import TopHeaderBar from './subcomponents/TopHeaderBar';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import profileIcon from '../images/profileIcon.svg';
 
-function Header() {
+function Header({ title }) {
+  const history = useHistory();
   return (
     <header>
-      <TopHeaderBar />
-      <SearchBar />
+      <button type="button" onClick={ () => history.push('/perfil') }>
+        <img data-testid="profile-top-btn" src={ profileIcon } alt="Profile" />
+      </button>
+      <h3 data-testid="page-title">{title}</h3>
     </header>
   );
 }
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default Header;
