@@ -2,6 +2,9 @@ import React, { useContext } from 'react';
 import Header from '../../components/Header';
 import RecipeCard from '../../components/RecipeCard';
 import { RecipesContext } from '../../context/RecipesContext';
+import SearchBar from '../../components/SearchBar';
+import { SearchBarProvider } from '../../context/SearchBar';
+import Footer from '../../components/Footer';
 
 export default function Drinks() {
   const { drinksFiltered, drinkCategories } = useContext(RecipesContext);
@@ -9,6 +12,9 @@ export default function Drinks() {
   return (
     <main>
       <Header title="Bebidas" search />
+      <SearchBarProvider>
+        <SearchBar fetchType="thecocktaildb" />
+      </SearchBarProvider>
       <section>
         { drinkCategories.length > 0 && drinkCategories.map((cat) => (
           <button
@@ -25,7 +31,7 @@ export default function Drinks() {
           <RecipeCard recipe={ recipe } index={ index } type="Drink" key={ index } />
         ))}
       </section>
+      <Footer />
     </main>
-
   );
 }

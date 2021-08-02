@@ -2,6 +2,9 @@ import React, { useContext } from 'react';
 import Header from '../../components/Header';
 import RecipeCard from '../../components/RecipeCard';
 import { RecipesContext } from '../../context/RecipesContext';
+import SearchBar from '../../components/SearchBar';
+import { SearchBarProvider } from '../../context/SearchBar';
+import Footer from '../../components/Footer';
 
 export default function Foods() {
   const { foodsFiltered, foodCategories, setFilter } = useContext(RecipesContext);
@@ -9,6 +12,9 @@ export default function Foods() {
   return (
     <main>
       <Header title="Comidas" search />
+      <SearchBarProvider>
+        <SearchBar fetchType="themealdb" />
+      </SearchBarProvider>
       <section>
         <button
           type="button"
@@ -33,7 +39,7 @@ export default function Foods() {
           <RecipeCard recipe={ recipe } index={ index } type="Meal" key={ index } />
         ))}
       </section>
+      <Footer />
     </main>
-
-  );
+  )
 }
