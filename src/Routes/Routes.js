@@ -14,7 +14,6 @@ import ExploreDrinks from '../Pages/ExploreDrinks';
 import ExploreFoods from '../Pages/ExploreFoods';
 import Explore from '../Pages/Explore';
 
-
 function Routes() {
   return (
     <BrowserRouter>
