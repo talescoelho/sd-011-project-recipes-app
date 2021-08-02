@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import ProfileIcon from '../../images/profileIcon.svg';
 import SearchIcon from '../../images/searchIcon.svg';
 import { useTheme } from '../../hooks';
@@ -22,7 +23,9 @@ function Layout({ children, title, search, noHeader }) {
     <>
       { !noHeader && (
         <header style={ styles.header }>
-          <img data-testid="profile-top-btn" alt="Profile Icon" src={ ProfileIcon } />
+          <Link to="/perfil">
+            <img data-testid="profile-top-btn" alt="Profile Icon" src={ ProfileIcon } />
+          </Link>
           <h3 data-testid="page-title">{ title }</h3>
           { search
             ? <img data-testid="search-top-btn" alt="Search Icon" src={ SearchIcon } />
