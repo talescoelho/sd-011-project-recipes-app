@@ -31,6 +31,7 @@ function RecipeAppProvider({ children }) {
     setDrinksList,
     foodsList,
     drinksList,
+    setLogin,
   };
 
   return (
