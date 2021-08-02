@@ -1,11 +1,13 @@
 import React from 'react';
 import Header from '../Components/Header';
 
-export default function HomeRecipes() {
+function ExploreFoodOrigin() {
   return (
     <div>
       <Header />
-      <h2>Tela Principal</h2>
+      <h1>tela de explorar comidas por local de origem</h1>
     </div>
   );
 }
+
+export default ExploreFoodOrigin;
