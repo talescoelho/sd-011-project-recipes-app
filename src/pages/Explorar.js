@@ -6,7 +6,7 @@ import MenuInferior from '../components/MenuInferior';
 function Explorar() {
   return (
     <div>
-      <Header />
+      <Header showButton={ false } title="Explorar" />
       <Link to="/explorar/comidas">
         <button type="button" data-testid="explore-food">
           Explorar Comidas
