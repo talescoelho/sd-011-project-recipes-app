@@ -1,0 +1,13 @@
+.lower-menu {
+  background-color: mediumpurple;
+  bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 6px 0;
+  position: fixed;
+  width: 100%;
+}
+
+.lower-menu__img {
+  width: 11vw;
+}
