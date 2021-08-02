@@ -7,7 +7,7 @@ import { SearchBarProvider } from '../context/SearchBar';
 export default function Explorer() {
   return (
     <>
-      <Header />
+      <Header title="Explorar" search={ false } />
       <SearchBarProvider>
         <SearchBar fetchType="thecocktaildb" />
       </SearchBarProvider>

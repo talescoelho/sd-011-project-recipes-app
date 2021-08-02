@@ -35,23 +35,29 @@ function Login() {
 
   return (
     <main>
-      { shouldRedirect ? <Redirect to="/comidas" /> : null }
+      { shouldRedirect && <Redirect to="/comidas" /> }
       <h1>Login</h1>
       <form>
-        <input
-          type="email"
-          data-testid="email-input"
-          placeholder="Email"
-          name="email"
-          onChange={ handleChange }
-        />
-        <input
-          type="password"
-          data-testid="password-input"
-          placeholder="Senha"
-          name="password"
-          onChange={ handleChange }
-        />
+        <label htmlFor="id">
+          <input
+            id="id"
+            type="email"
+            data-testid="email-input"
+            placeholder="Email"
+            name="email"
+            onChange={ handleChange }
+          />
+        </label>
+        <label htmlFor="password">
+          <input
+            id="password"
+            type="password"
+            data-testid="password-input"
+            placeholder="Senha"
+            name="password"
+            onChange={ handleChange }
+          />
+        </label>
         <button
           type="button"
           data-testid="login-submit-btn"

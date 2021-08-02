@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function FoodInProgress() {
+export default function NotFound() {
   return (
     <div>
-      FoodInProgress
+      Não encontrada
     </div>
   );
 }

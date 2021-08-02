@@ -1,17 +1,16 @@
 import React from 'react';
 import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
-import { Provider } from '../../context/SearchBar';
 import Footer from '../../components/Footer';
+import { SearchBarProvider } from '../../context/SearchBar';
 
 export default function FoodExplorerByIngredients() {
   return (
     <>
-      <Header />
-      <Provider>
+      <Header title="Explorar Ingredientes" search={ false } />
+      <SearchBarProvider>
         <SearchBar fetchType="thecocktaildb" />
-      </Provider>
-      <h3>Food Explorer by Ingredients</h3>
+      </SearchBarProvider>
       <Footer />
     </>
   );
