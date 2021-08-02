@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 export default function Login() {
   // useEffect(() => {
@@ -9,6 +10,7 @@ export default function Login() {
 
   const [isDisabled, setIsDisable] = useState(true);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   function handleOnChangeInputValidate() {
     const correctEmailEntry = /(.*)@(.*).com/;
@@ -59,6 +61,7 @@ export default function Login() {
     localStorage.mealsToken = 1;
     localStorage.cocktailsToken = 1;
     dispatch({ type: 'SEND_USER_EMAIL_TO_STORE', payload: email.value });
+    history.push('/comidas');
   }
 
   function buttonLoginRender() {
