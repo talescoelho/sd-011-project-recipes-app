@@ -143,6 +143,7 @@ class DetalhesComidas extends Component {
               index < magicNumber
             && (
               <div
+                key={ index }
                 data-testid={ `${index}-recomendation-card` }
                 className="recomendation-card"
               >
