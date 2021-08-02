@@ -4,7 +4,6 @@ import renderWithRouter from '../Router/renderWithRouter';
 import LowerMenu from '../Components/LowerMenu';
 
 describe('deve renderizar os componentes do Footer', () => {
-
   it('Verifica se o footer foi criado', () => {
     const { getByTestId } = renderWithRouter(<LowerMenu />);
     const footer = getByTestId('footer');
