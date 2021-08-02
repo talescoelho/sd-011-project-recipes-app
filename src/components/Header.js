@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
@@ -15,6 +16,11 @@ function Header({ title }) {
     'Receitas Feitas',
     'Receitas Favoritas',
   ];
+
+  const renderSearchComponents = {
+    Comidas: (<SearchBar />),
+    Bebidas: (<SearchBar />),
+  };
 
   return (
     <div>
@@ -35,12 +41,7 @@ function Header({ title }) {
             >
               <img src={ searchIcon } data-testid="search-top-btn" alt="search-icon" />
             </button>
-            {(!hiddenSearchBar
-              && (
-                <label hidden={ hiddenSearchBar } htmlFor="search-bar">
-                  <input name="search-bar" data-testid="search-input" />
-                </label>)
-            )}
+            {(!hiddenSearchBar && renderSearchComponents[title])}
           </div>)}
     </div>
   );
