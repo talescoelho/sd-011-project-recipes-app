@@ -24,6 +24,7 @@ class DetalhesComidas extends Component {
     this.handleNameButton = this.handleNameButton.bind(this);
     this.shareLinkClick = this.shareLinkClick.bind(this);
     this.favoriteButtonClick = this.favoriteButtonClick.bind(this);
+    this.verifyButtonState = this.verifyButtonState.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +35,7 @@ class DetalhesComidas extends Component {
     this.recomendationsFetch();
     this.handleStateButton();
     this.handleNameButton();
+    this.verifyButtonState();
   }
 
   handleStateButton() {
@@ -89,6 +91,19 @@ class DetalhesComidas extends Component {
     }), magicNumber);
   }
 
+  verifyButtonState() {
+    const { history } = this.props;
+    const { location } = history;
+    const { pathname } = location;
+    const urlId = pathname.split('/')[2];
+    const stateFavoriteButton = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (stateFavoriteButton && stateFavoriteButton.some(({ id }) => id === urlId)) {
+      this.setState({
+        favoriteButton: true,
+      });
+    }
+  }
+
   favoriteButtonClick() {
     const { favoriteButton } = this.state;
     this.setState({
@@ -141,7 +156,7 @@ class DetalhesComidas extends Component {
             type="button"
             onClick={ this.favoriteButtonClick }
           >
-            { favoriteButton
+            { !favoriteButton
               ? (
                 <img
                   data-testid="favorite-btn"
