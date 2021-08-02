@@ -5,7 +5,7 @@ import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-function DoneFavRecipesCard({ recipe, index, done, fav }) {
+function DoneFavRecipesCard({ recipe, index, done, fav, removeFromFavorites }) {
   const [isCopied, setIsCopied] = useState(false);
 
   const copyToClipboard = ({ id, type }) => {
@@ -15,13 +15,6 @@ function DoneFavRecipesCard({ recipe, index, done, fav }) {
     copy(url);
     setIsCopied(true);
     setTimeout(setIsCopied, time, false);
-  };
-
-  const removeFromFavorites = (id) => {
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const newFavorites = favoriteRecipes.filter((favRecipe) => favRecipe.id !== id);
-    localStorage.setItem('avoriteRecipes', JSON.stringify(newFavorites));
-    // ainda em teste
   };
 
   return (
@@ -67,11 +60,12 @@ function DoneFavRecipesCard({ recipe, index, done, fav }) {
           />
         </button>)}
       { isCopied && <p>Link copiado!</p>}
-      { done && (recipe.tags.map((tag, tagIndex) => tagIndex > 2 && (
-        <p data-testid={ `${index}-${tag}-horizontal-tag` }>
-          { tag }
-        </p>
-      ))) }
+      { done && (
+        recipe.tags.map((tag, i) => (
+          <p key={ i } data-testid={ `${index}-${tag}-horizontal-tag` }>
+            {tag}
+          </p>
+        )))}
     </div>
   );
 }
@@ -81,6 +75,7 @@ DoneFavRecipesCard.propTypes = {
   index: PropTypes.number.isRequired,
   done: PropTypes.bool.isRequired,
   fav: PropTypes.bool.isRequired,
+  removeFromFavorites: PropTypes.func.isRequired,
 };
 
 export default DoneFavRecipesCard;

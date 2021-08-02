@@ -19,6 +19,12 @@ function RecipesFavorites() {
     }
   };
 
+  const removeFromFavorites = (id) => {
+    const newFavorites = favoriteRecipes.filter((favRecipe) => favRecipe.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
+    setFilteredRecipes(newFavorites);
+  };
+
   return (
     <div>
       <Header title="Receitas Favoritas" />
@@ -51,6 +57,7 @@ function RecipesFavorites() {
             key={ recipe.id }
             recipe={ recipe }
             index={ index }
+            removeFromFavorites={ removeFromFavorites }
             fav
           />
         )) }
