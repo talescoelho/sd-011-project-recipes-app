@@ -25,6 +25,6 @@ Nome do grupo: EM BREVE
 7. Dar o nosso máximo para realização do projeto.
 => Trabalhando com metas diárias, sempre que possível.
 
-8. Por último e menos importante, somente apenas good vibes!!!
+8. Por último e não menos importante, somente apenas good vibes!!!
 
 9.LINK DO PR DA MASTER: https://github.com/tryber/sd-011-project-recipes-app/pull/174
