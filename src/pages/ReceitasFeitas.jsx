@@ -12,7 +12,6 @@ class ReceitasFeitas extends Component {
           title={ title }
           search={ search }
         />
-        <Footer />
       </main>
     );
   }

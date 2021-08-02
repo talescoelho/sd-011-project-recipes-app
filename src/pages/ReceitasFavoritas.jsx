@@ -12,7 +12,6 @@ class ReceitasFavoritas extends Component {
           title={ title }
           search={ search }
         />
-        <Footer />
       </main>
     );
   }
