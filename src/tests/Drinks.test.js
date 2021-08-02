@@ -187,3 +187,43 @@ describe('26 - Carregue as 12 primeiras receitas de bebidas, uma em cada card',
       expect(twelfthDrinkCardName).toHaveTextContent('B-52');
     });
   });
+
+describe('27 - Implemente os botões de categoria para serem utilizados como filtro',
+  () => {
+    it(`Caso as receitas sejam de comida, deve-se exibir as 5 primeiras categorias de 
+    comida`, async () => {
+      renderWithRouterAndStore(<Drinks />, '/bebidas', mockDrinksMenu);
+
+      expect(mockedSearchDrinkByName).toBeCalled();
+      expect(mockedSearchDrinkByName).toBeCalledTimes(1);
+      expect(mockedRequestAllDrinksCategories).toBeCalled();
+      expect(mockedRequestAllDrinksCategories).toBeCalledTimes(1);
+
+      const ordinaryDrinkFilterOption = await screen
+        .findByTestId('Ordinary Drink-category-filter');
+      const cocktailFilterOption = await screen
+        .findByTestId('Cocktail-category-filter');
+      const milkFloatShakeFilterOption = await screen
+        .findByTestId('Milk / Float / Shake-category-filter');
+      const otherUnknownFilterOption = await screen
+        .findByTestId('Other/Unknown-category-filter');
+      const cocoaFilterOption = await screen.findByTestId('Cocoa-category-filter');
+
+      expect(ordinaryDrinkFilterOption).toBeInTheDocument();
+      expect(ordinaryDrinkFilterOption).toHaveTextContent('Ordinary Drink');
+      expect(cocktailFilterOption).toBeInTheDocument();
+      expect(cocktailFilterOption).toHaveTextContent('Cocktail');
+      expect(milkFloatShakeFilterOption).toBeInTheDocument();
+      expect(milkFloatShakeFilterOption).toHaveTextContent('Milk / Float / Shake');
+      expect(otherUnknownFilterOption).toBeInTheDocument();
+      expect(otherUnknownFilterOption).toHaveTextContent('Other/Unknown');
+      expect(cocoaFilterOption).toBeInTheDocument();
+      expect(cocoaFilterOption).toHaveTextContent('Cocoa');
+
+      const filterButtons = await screen.findAllByRole('button', { name: 'filter-btn' });
+
+      const maxFilterButtons = 6;
+
+      expect(filterButtons.length).toBe(maxFilterButtons);
+    });
+  });

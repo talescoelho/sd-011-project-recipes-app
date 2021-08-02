@@ -48,6 +48,7 @@ const FilterMenu = ({
         className="filter-selected"
         data-testid="All-category-filter"
         id="All-category-filter"
+        aria-label="filter-btn"
         onClick={ () => changeFilterToAll() }
         readOnly
         type="button"
@@ -61,6 +62,7 @@ const FilterMenu = ({
             data-testid={ `${categoryName}-category-filter` }
             id={ `${categoryName}-filter` }
             key={ index }
+            aria-label="filter-btn"
             type="button"
             onClick={
               ({ target }) => changeFilterByCategoryName(target, categoryName)

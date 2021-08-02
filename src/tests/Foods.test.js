@@ -9,17 +9,13 @@ import {
 import Foods from '../pages/Foods';
 import * as requestMenu from '../services/requestMenu';
 
-const searchMealByName = Promise.resolve(mealsResponse);
-
 const mockedSearchMealByName = jest
   .spyOn(requestMenu, 'searchMealByName')
-  .mockImplementation(() => searchMealByName);
-
-const requestAllMealCategories = Promise.resolve(mealsFiltersResponse);
+  .mockImplementation(() => Promise.resolve(mealsResponse));
 
 const mockedRequestAllMealCategories = jest
   .spyOn(requestMenu, 'requestAllMealCategories')
-  .mockImplementation(() => requestAllMealCategories);
+  .mockImplementation(() => Promise.resolve(mealsFiltersResponse));
 
 afterEach(() => jest.clearAllMocks());
 beforeEach(() => jest.clearAllMocks());
@@ -66,6 +62,7 @@ describe('26 - Carregue as 12 primeiras receitas de comidas, uma em cada card',
   () => {
     it('Deve carregar as 12 primeiras receitas de comida', async () => {
       renderWithRouterAndStore(<Foods />, '/comidas', mockMealsMenu);
+
       expect(mockedSearchMealByName).toBeCalled();
       expect(mockedSearchMealByName).toBeCalledTimes(1);
       expect(mockedRequestAllMealCategories).toBeCalled();
@@ -185,5 +182,42 @@ describe('26 - Carregue as 12 primeiras receitas de comidas, uma em cada card',
       expect(twelfthFoodCard).toHaveAttribute('href', '/comidas/52769');
       expect(twelfthFoodCardImg).toHaveAttribute('src', 'https://www.themealdb.com/images/media/meals/sxysrt1468240488.jpg');
       expect(twelfthFoodCardName).toHaveTextContent('Kapsalon');
+    });
+  });
+
+describe('27 - Implemente os botões de categoria para serem utilizados como filtro',
+  () => {
+    it(`Caso as receitas sejam de comida, deve-se exibir as 5 primeiras categorias de 
+    comida`, async () => {
+      renderWithRouterAndStore(<Foods />, '/comidas', mockMealsMenu);
+
+      expect(mockedSearchMealByName).toBeCalled();
+      expect(mockedSearchMealByName).toBeCalledTimes(1);
+      expect(mockedRequestAllMealCategories).toBeCalled();
+      expect(mockedRequestAllMealCategories).toBeCalledTimes(1);
+
+      const beefFilterOption = await screen.findByTestId('Beef-category-filter');
+      const breakfastFilterOption = await screen
+        .findByTestId('Breakfast-category-filter');
+      const chickenFilterOption = await screen.findByTestId('Chicken-category-filter');
+      const dessertFilterOption = await screen.findByTestId('Dessert-category-filter');
+      const goatFilterOption = await screen.findByTestId('Goat-category-filter');
+
+      expect(beefFilterOption).toBeInTheDocument();
+      expect(beefFilterOption).toHaveTextContent('Beef');
+      expect(breakfastFilterOption).toBeInTheDocument();
+      expect(breakfastFilterOption).toHaveTextContent('Breakfast');
+      expect(chickenFilterOption).toBeInTheDocument();
+      expect(chickenFilterOption).toHaveTextContent('Chicken');
+      expect(dessertFilterOption).toBeInTheDocument();
+      expect(dessertFilterOption).toHaveTextContent('Dessert');
+      expect(goatFilterOption).toBeInTheDocument();
+      expect(goatFilterOption).toHaveTextContent('Goat');
+
+      const filterButtons = await screen.findAllByRole('button', { name: 'filter-btn' });
+
+      const maxFilterButtons = 6;
+
+      expect(filterButtons.length).toBe(maxFilterButtons);
     });
   });
