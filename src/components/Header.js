@@ -28,9 +28,8 @@ class Header extends Component {
       <Link to="/perfil">
         <button
           type="button"
-          data-testid="profile-top-btn"
         >
-          <img src={ ProfileIcon } alt="profileIcon" />
+          <img data-testid="profile-top-btn" src={ ProfileIcon } alt="profileIcon" />
         </button>
       </Link>
     );
