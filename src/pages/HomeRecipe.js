@@ -5,6 +5,7 @@ import { connect, useDispatch } from 'react-redux';
 import { fetchRecipesMain,
   fetchList,
   fetchCategories, GET_CATEGORIES_MEALS } from '../redux/actions';
+import Footer from '../components/footer/Footer';
 import Header from '../components/Header';
 import RenderCategoriesMeals from '../components/RenderCategoriesMeals';
 
@@ -107,6 +108,7 @@ function HomeRecipe() {
         { renderCategories ? RenderCategoriesMeals(whoCategory) : renderMeals() }
 
       </div>
+      <Footer />
     </div>
   );
 }
