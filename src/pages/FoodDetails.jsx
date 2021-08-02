@@ -25,10 +25,10 @@ export default function FoodDetails() {
     const retorno = [];
     const qtdMax = 20;
     for (let index = 1; index <= qtdMax; index += 1) {
-      if (returnRecipe()[`strIngredient${index}`] !== '') {
+      if (returnRecipe()[`strIngredient${index}`] !== ''
+      && returnRecipe()[`strIngredient${index}`] !== null) {
         retorno.push(
-          <li key={ index }>
-            {' '}
+          <li>
             {returnRecipe()[`strIngredient${index}`]}
             {' '}
             -
