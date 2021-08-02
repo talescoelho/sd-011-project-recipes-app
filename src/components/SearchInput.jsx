@@ -119,7 +119,9 @@ class SearchInput extends Component {
         <button
           data-testid="exec-search-btn"
           type="button"
-          onClick={ () => this.handleSearchClick() }
+          onClick={ () => {
+            this.handleSearchClick();
+          } }
         >
           Buscar
         </button>
@@ -132,6 +134,7 @@ class SearchInput extends Component {
                     API.slice(0, elements).map((recipe, index) => (
                       <div key={ index } data-testid={ `${index}-recipe-card` }>
                         <img
+                          className="photo"
                           src={ recipe[choiceObj1] }
                           data-testid={ `${index}-card-img` }
                           alt="Imagem da receita"

@@ -6,11 +6,13 @@ import Header from '../components/Header';
 class Explorar extends Component {
   render() {
     const title = 'Explorar';
+    const lupa = 'desligada';
     return (
-      <main>
+      <div>
         Explorar
         <Header
           title={ title }
+          lupa={ lupa }
         />
         <Link to="/explorar/comidas">
           <div>Explorar Comidas</div>
@@ -19,7 +21,7 @@ class Explorar extends Component {
           <div>Explorar Bebidas</div>
         </Link>
         <Footer />
-      </main>
+      </div>
     );
   }
 }

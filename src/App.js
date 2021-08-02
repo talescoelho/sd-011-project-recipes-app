@@ -17,7 +17,7 @@ import ReceitasFeitas from './pages/ReceitasFeitas';
 
 function App() {
   return (
-    <div className="meals">
+    <div>
       <Switch>
         <Route exact path="/bebidas" component={ Bebidas } />
         <Route exact path="/comidas/:id" component={ ComidasDetalhes } />

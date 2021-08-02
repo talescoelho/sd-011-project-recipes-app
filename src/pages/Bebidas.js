@@ -11,7 +11,10 @@ class Bebidas extends Component {
       title: 'Bebidas',
       drinks: [],
       isFetchDone: false,
+      lupa: 'ligada',
+      modus: 'list',
     };
+    this.switchModus = this.switchModus.bind(this);
   }
 
   componentDidMount() {
@@ -26,29 +29,51 @@ class Bebidas extends Component {
     });
   }
 
+  switchModus() {
+    const { modus } = this.state;
+    if (modus === 'list') {
+      this.setState({
+        modus: 'search',
+      });
+    } else {
+      this.setState({
+        modus: 'list',
+      });
+    }
+  }
+
   render() {
-    const { title, drinks, isFetchDone } = this.state;
+    const { title, drinks, isFetchDone, lupa, modus } = this.state;
     const elements = 12;
     return (
-      <main>
+      <div>
         Bebidas
-        <Header title={ title } />
+        <Header
+          title={ title }
+          lupa={ lupa }
+          switchModus={ this.switchModus }
+          modus={ modus }
+        />
         { isFetchDone === false ? <div>Carregando...</div> : (
           <div>
-            { drinks.slice(0, elements).map((recipe, index) => (
-              <div key={ index } data-testid={ `${index}-recipe-card` }>
-                <img
-                  src={ recipe.strDrinkThumb }
-                  data-testid={ `${index}-card-img` }
-                  alt="Imagem da receita"
-                />
-                <p data-testid={ `${index}-card-name` }>{recipe.strDrink}</p>
+            { modus === 'search' ? <div>...</div> : (
+              <div>
+                { drinks.slice(0, elements).map((recipe, index) => (
+                  <div key={ index } data-testid={ `${index}-recipe-card` }>
+                    <img
+                      src={ recipe.strDrinkThumb }
+                      data-testid={ `${index}-card-img` }
+                      alt="Imagem da receita"
+                    />
+                    <p data-testid={ `${index}-card-name` }>{recipe.strDrink}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
         )}
         <Footer />
-      </main>
+      </div>
     );
   }
 }

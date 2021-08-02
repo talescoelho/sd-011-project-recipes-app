@@ -4,8 +4,8 @@ import Header from '../components/Header';
 
 class Perfil extends Component {
   render() {
-    const title = 'Explorar Origem';
-    const lupa = 'desligado';
+    const title = 'Perfil';
+    const lupa = 'desligada';
     return (
       <div>
         <h1 data-testid="page-title">Perfil</h1>

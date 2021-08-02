@@ -5,7 +5,7 @@ import Header from '../components/Header';
 class ExplorarComidas extends Component {
   render() {
     const title = 'Explorar Comidas';
-    const lupa = 'desligado';
+    const lupa = 'desligada';
     return (
       <main>
         <Header
