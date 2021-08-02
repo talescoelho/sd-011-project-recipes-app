@@ -13,7 +13,7 @@ function DrinkCard(props) {
     if (!resultDrink.length) {
       requestDrink();
     }
-  }, []);
+  }, [resultDrink, requestDrink]);
 
   if (!drinks) {
     requestDrink();

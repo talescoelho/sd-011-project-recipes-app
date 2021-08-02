@@ -13,7 +13,7 @@ function FoodCard(props) {
     if (!resultFood.length) {
       requestFood();
     }
-  }, []);
+  }, [resultFood, requestFood]);
 
   if (!food) {
     requestFood();
