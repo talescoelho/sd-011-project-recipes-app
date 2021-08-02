@@ -15,7 +15,7 @@ export default function DetailsFoods() {
   const [recipeExists, setRecipeExists] = React.useState(false);
   const [inProgressRecipes, setInProgressRecipes] = React.useState(false);
   const [isFavorite, setIsFavorite] = React.useState(false);
-  const idReceita = '52771';
+  const idReceita = window.location.pathname.split('/')[2];
 
   function verifyFavoriteExistsOnLocalStorage(id) {
     const favoriteExists = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -66,7 +66,7 @@ export default function DetailsFoods() {
     verifyDoneRecipes(idReceita);
     verifyProgressRecipes(idReceita);
     verifyFavoriteExistsOnLocalStorage(idReceita);
-  }, [request, requestRecomendedApi]);
+  }, [request, requestRecomendedApi, idReceita]);
 
   React.useEffect(() => {
     if (data && recomendedData) {
