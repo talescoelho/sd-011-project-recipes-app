@@ -1,0 +1,12 @@
+.fixed-bar {
+  background-color: #a7a7a7;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+}
+
+.img-btn {
+  margin: 10px 5px;
+}
