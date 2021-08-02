@@ -9,6 +9,7 @@ function FoodCard({ recipe, index, type }) {
   return (
     <div
       className="foodCardContainer"
+      data-testid={ `${index}-recipe-card` }
     >
       <img
         className="foodImageRecipe"
