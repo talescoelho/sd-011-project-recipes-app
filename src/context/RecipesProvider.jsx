@@ -39,6 +39,7 @@ function RecipesProvider({ children }) {
     categorysList,
     currentCategory,
     setCurrentCategory,
+    setDataRecipes,
   };
 
   RecipesProvider.propTypes = {
