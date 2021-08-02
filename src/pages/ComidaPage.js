@@ -49,6 +49,7 @@ export default function ComidaPage() {
           {data.meals.map((meal, index) => index <= RENDER_CONDITION && (
             <div key={ index } data-testid={ `${index}-recipe-card` }>
               <img
+                width="80%"
                 data-testid={ `${index}-card-img` }
                 alt={ meal.strMeal }
                 src={ meal.strMealThumb }

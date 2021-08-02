@@ -48,6 +48,7 @@ export default function BebidaPage() {
           {data.drinks.map((drink, index) => index <= RENDER_CONDITION && (
             <div key={ index } data-testid={ `${index}-recipe-card` }>
               <img
+                width="80%"
                 data-testid={ `${index}-card-img` }
                 alt={ drink.strDrink }
                 src={ drink.strDrinkThumb }
@@ -63,7 +64,7 @@ export default function BebidaPage() {
     <div>
       <Header text="Bebidas" lupa />
       {showInput && <SearchBar type="drink" />}
-      { drinkCategories ? <SearchCategories /> : <p>Loading...</p> }
+      { drinkCategories ? <SearchCategories type="drink" /> : <p>Loading...</p> }
       { data ? renderData() : <p>faca uma pesquisa</p> }
       <LowerMenu />
     </div>

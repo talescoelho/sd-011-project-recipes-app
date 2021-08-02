@@ -7,10 +7,16 @@ function Provider({ children }) {
   const [data, setData] = useState();
   const [foodCategories, setFoodCategories] = useState();
   const [drinkCategories, setDrinkCategories] = useState();
+  const [filter, setFilter] = useState('All');
   const [inputValue, setInputValue] = useState({
     searchInput: '',
     radioInput: '',
   });
+
+  const switchFilter = (filterValue) => {
+    if (filter === filterValue) return setFilter('All');
+    setFilter(filterValue);
+  };
 
   const fetchSearchHeader = (URL) => {
     fetch(URL)
@@ -77,6 +83,8 @@ function Provider({ children }) {
     setFoodCategories,
     drinkCategories,
     setDrinkCategories,
+    filter,
+    switchFilter,
   };
 
   return (
