@@ -8,6 +8,7 @@ import { fetchDrink } from '../../redux/actions';
 
 function Drinks({ match }) {
   const { isLoading, drinks } = useSelector((state) => state.Drinks);
+  const { data, render } = useSelector((state) => state.Filter);
   const dispatch = useDispatch();
   const mn = 12;
 
@@ -16,24 +17,44 @@ function Drinks({ match }) {
       await dispatch(fetchDrink());
     }
     getDrinks();
-  }, []);
+  }, [dispatch]);
 
-  if (isLoading) {
-    return (<h1>Carregando...</h1>);
-  }
-
-  if (!isLoading && !drinks.drinks) {
-    // eslint-disable-next-line no-alert
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  }
-
-  return (
-    <div className={ styles.drinksContainer }>
-      <Header title="Bebidas" glass="true" match={ match } />
+  function renderDrinks() {
+    if (render && data.drinks) {
+      return (
+        <div className={ styles.drinksCardContainer }>
+          {data.drinks && data.drinks.filter((_, index) => index < mn)
+            .map((item, index) => (
+              <div
+                key={ index }
+                data-testid={ `${index}-recipe-card` }
+                className={ styles.cardDiv }
+              >
+                <img
+                  src={ item.strDrinkThumb }
+                  alt="thumbnail"
+                  data-testid={ `${index}-card-img` }
+                  className={ styles.cardImg }
+                />
+                <p
+                  data-testid={ `${index}-card-name` }
+                >
+                  {item.strDrink}
+                </p>
+              </div>
+            ))}
+        </div>
+      );
+    } if (render && !isLoading && !data.drinks) {
+      // eslint-disable-next-line no-alert
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      return null;
+    }
+    return (
       <div className={ styles.drinksCardContainer }>
         {drinks.drinks && drinks.drinks.filter((_, index) => index < mn)
           .map((item, index) => (
-            <div
+            <section
               key={ index }
               data-testid={ `${index}-recipe-card` }
               className={ styles.cardDiv }
@@ -49,9 +70,20 @@ function Drinks({ match }) {
               >
                 {item.strDrink}
               </p>
-            </div>
+            </section>
           ))}
       </div>
+    );
+  }
+
+  if (isLoading) {
+    return (<h1>Carregando...</h1>);
+  }
+
+  return (
+    <div className={ styles.drinksContainer }>
+      <Header title="Bebidas" glass="true" match={ match } />
+      {renderDrinks()}
       <Footer />
     </div>
   );

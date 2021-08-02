@@ -8,6 +8,7 @@ export const FETCH_BOTH_STARTED = 'FETCH_BOTH_STARTED';
 export const FETCH_BOTH_SUCESS = 'FETCH_BOTH_SUCESS';
 export const FETCH_BOTH_ERROR = 'FETCH_BOTH_ERROR';
 export const INPUT_HANDLE = 'INPUT_HANDLE';
+export const RENDER_FILTER = 'RENDER_FILTER';
 
 export const fetchMealStarted = () => ({
   type: FETCH_MEALS_STARTED,
@@ -55,6 +56,11 @@ export const filterHandle = ({ name, value }) => ({
   type: INPUT_HANDLE,
   name,
   value,
+});
+
+export const renderFilter = (payload) => ({
+  type: RENDER_FILTER,
+  payload,
 });
 
 export const fetchMeal = () => async (dispatch) => {

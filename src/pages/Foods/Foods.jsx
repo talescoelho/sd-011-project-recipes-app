@@ -8,6 +8,8 @@ import { fetchMeal } from '../../redux/actions';
 
 function Foods({ match }) {
   const { meals, isLoading } = useSelector((state) => state.Meals);
+  const { data, render } = useSelector((state) => state.Filter);
+  console.log(meals);
   const dispatch = useDispatch();
   const mn = 12;
 
@@ -16,23 +18,48 @@ function Foods({ match }) {
       await dispatch(fetchMeal());
     }
     getMeals();
-  }, []);
+  }, [dispatch]);
 
-  if (isLoading) {
-    return (<h1>Carregando...</h1>);
-  }
+  function renderFoods() {
+    if (render && data.meals) {
+      return (
+        <div className={ styles.foodsCardContainer }>
+          {data.meals && data.meals.filter((_, index) => index < mn)
+            .map((item, index) => (
+              <div
+                key={ index }
+                data-testid={ `${index}-recipe-card` }
+                className={ styles.cardDiv }
 
-  return (
-    <div className={ styles.foodsContainer }>
-      <Header title="Comidas" glass="true" match={ match } />
-      <div className={ styles.foodsCardContainer }>
+              >
+                <img
+                  src={ item.strMealThumb }
+                  alt="thumbnail"
+                  data-testid={ `${index}-card-img` }
+                  className={ styles.cardImg }
+                />
+                <p
+                  data-testid={ `${index}-card-name` }
+                >
+                  {item.strMeal}
+                </p>
+              </div>
+            ))}
+        </div>
+      );
+    } if (render && !isLoading && !data.meals) {
+      // eslint-disable-next-line no-alert
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      return null;
+    }
+    return (
+      <div className={ styles.drinksCardContainer }>
         {meals.meals && meals.meals.filter((_, index) => index < mn)
           .map((item, index) => (
-            <div
+            <section
               key={ index }
               data-testid={ `${index}-recipe-card` }
               className={ styles.cardDiv }
-
             >
               <img
                 src={ item.strMealThumb }
@@ -45,9 +72,20 @@ function Foods({ match }) {
               >
                 {item.strMeal}
               </p>
-            </div>
+            </section>
           ))}
       </div>
+    );
+  }
+
+  if (isLoading) {
+    return (<h1>Carregando...</h1>);
+  }
+
+  return (
+    <div className={ styles.foodsContainer }>
+      <Header title="Comidas" glass="true" match={ match } />
+      {renderFoods()}
       <Footer />
     </div>
   );

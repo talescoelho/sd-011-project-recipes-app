@@ -1,5 +1,5 @@
 import { FETCH_BOTH_ERROR, FETCH_BOTH_STARTED,
-  FETCH_BOTH_SUCESS, INPUT_HANDLE } from '../actions';
+  FETCH_BOTH_SUCESS, INPUT_HANDLE, RENDER_FILTER } from '../actions';
 
 const INITIAL_STATE = {
   radio: '',
@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   data: [],
   isLoading: false,
   error: '',
+  render: false,
 };
 
 const Filter = (state = INITIAL_STATE, action) => {
@@ -19,6 +20,8 @@ const Filter = (state = INITIAL_STATE, action) => {
     return { ...state, error: action.payload, isLoading: false };
   case INPUT_HANDLE:
     return { ...state, [action.name]: action.value };
+  case RENDER_FILTER:
+    return { ...state, render: action.payload };
   default:
     return state;
   }
