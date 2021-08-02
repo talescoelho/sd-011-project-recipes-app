@@ -41,6 +41,10 @@ export default function DetailsDrinks() {
     }
   }
 
+  function addFavorite() {
+    setIsFavorite(!isFavorite);
+  }
+
   React.useEffect(() => {
     function fetchDrinkApi() {
       request(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idReceita}`);
@@ -111,7 +115,7 @@ export default function DetailsDrinks() {
       </div>
       {copiedText ? <p>Link copiado!</p> : null}
       <ShareButton setCopiedText={ setCopiedText } />
-      <FavoriteButton isFavorite={ isFavorite } />
+      <FavoriteButton addFavorite={ addFavorite } isFavorite={ isFavorite } />
       <ContinueButton inProgressRecipes={ inProgressRecipes } />
       <StartButton page="bebidas" idReceita={ idReceita } recipeExists={ recipeExists } />
     </main>

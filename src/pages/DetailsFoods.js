@@ -41,6 +41,10 @@ export default function DetailsFoods() {
     }
   }
 
+  function addFavorite() {
+    setIsFavorite(!isFavorite);
+  }
+
   React.useEffect(() => {
     function fetchFoodApi() {
       request(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idReceita}`);
@@ -122,7 +126,7 @@ export default function DetailsFoods() {
       </div>
       {copiedText ? <p>Link copiado!</p> : null}
       <ShareButton setCopiedText={ setCopiedText } />
-      <FavoriteButton isFavorite={ isFavorite } />
+      <FavoriteButton addFavorite={ addFavorite } isFavorite={ isFavorite } />
       <ContinueButton inProgressRecipes={ inProgressRecipes } />
       <StartButton page="comidas" idReceita={ idReceita } recipeExists={ recipeExists } />
     </main>
