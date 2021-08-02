@@ -19,13 +19,11 @@ import Profile from './pages/Profile';
 import RecipeMade from './pages/RecipeMade';
 import RecipeFavorite from './pages/RecipeFavorite';
 
-
 function App() {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-
         <Route exact path="/comidas" component={ HomeRecipe } />
         <Route exact path="/bebidas" component={ HomeDrinks } />
         <Route exact path="/comidas/:id" component={ RecipeDetails } />
