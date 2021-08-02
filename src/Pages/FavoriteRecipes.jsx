@@ -1,11 +1,10 @@
 import React from 'react';
-import HeaderFavoriteRecipes from './headers/HeaderFavoriteRecipes';
+import HeaderFavoriteRecipes from '../Components/headers/HeaderFavoriteRecipes';
 
 function FavoriteRecipes() {
   return (
     <div>
       <HeaderFavoriteRecipes />
-      <p>Eu sou a page de receitas favoritas</p>
     </div>
   );
 }

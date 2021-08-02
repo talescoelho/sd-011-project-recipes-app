@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import MainContext from '../Context/MainContext';
-import HeaderDrinks from '../Components/headers/HeaderDrinks';
+import MainContext from '../../Context/MainContext';
+import HeaderDrinks from '../../Components/headers/HeaderDrinks';
+import LowerMenu from '../../Components/LowerMenu';
 
 function Drinks() {
   const { setPage, dataDrinks, limit } = useContext(MainContext);
@@ -33,6 +34,9 @@ function Drinks() {
           <p data-testid={ `${index}-card-name` }>
             { item.strDrink }
           </p>
+          <footer>
+            <LowerMenu />
+          </footer>
         </div>
       )) }
     </div>
