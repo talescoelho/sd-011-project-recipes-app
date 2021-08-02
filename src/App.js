@@ -5,7 +5,7 @@ import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/Login';
 import Recipes from './Pages/Recipes';
-import Bebidas from './Pages/Bebidas';
+// import Bebidas from './Pages/Bebidas';
 import ReceitaDeComida from './Pages/ReceitaDeComida';
 import ReceitaDeBebida from './Pages/ReceitaDeBebida';
 import MealInProgress from './Pages/MealInProgress';
@@ -44,17 +44,19 @@ function App() {
         <Route path="/explorar/comidas" component={ ExploreMeals } />
         <Route path="/explorar/bebidas" component={ ExploreDrinks } />
         <Route
+          exact
           path="/explorar/comidas/ingredientes"
           component={ ExploreMealsByIgrediente }
         />
         <Route
+          exact
           path="/explorar/bebidas/ingredientes"
           component={ ExploreDrinksByIgrediente }
         />
-        <Route path="/explorar/comidas/area" component={ ExploreMealsByArea } />
-        <Route path="/perfil" component={ Profile } />
-        <Route path="/receitas-feitas" component={ ReceitasFeitas } />
-        <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
+        <Route exact path="/perfil" component={ Profile } />
+        <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
+        <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
+        <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
       </Switch>
 
       <span className="logo">TRYBE</span>

@@ -1,9 +1,10 @@
 import React from 'react';
+import Footer from '../components/Footer';
 
 function DrinkInProgress() {
   return (
     <div>
-      Olá
+      <Footer />
     </div>
   );
 }
