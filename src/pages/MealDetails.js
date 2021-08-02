@@ -9,6 +9,7 @@ import RecipeStageBtn from '../components/RecipeStageBtn';
 import CarouselRecipes from '../components/CarouselRecipes';
 import ThumbDetails from '../components/ThumbDetails';
 import IngredientsList from '../components/IngredientsList';
+import RecipeVideo from '../components/RecipeVideo';
 
 const URL_TO_DRINKS_RECIPES = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
@@ -42,11 +43,7 @@ function MealDetails(
         <span data-testid="recipe-category">{ strCategory }</span>
         <IngredientsList list={ ingredientsAndMesure } />
         <p data-testid="instructions">{strInstructions}</p>
-        <iframe
-          data-testid="video"
-          src={ strYoutube.split('watch?v=').join('embed/') }
-          title="Embedded youtube"
-        />
+        <RecipeVideo video={ strYoutube } />
         <CarouselRecipes data={ recipesData.drinks } recipeType="drinks" />
         <RecipeStageBtn
           id={ id }
