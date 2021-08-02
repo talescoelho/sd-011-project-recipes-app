@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 import Cards from '../components/Cards';
 import Footer from '../components/Footer';
 import '../css/comidas.css';
@@ -48,6 +49,7 @@ function Foods() {
 
   return (
     <div>
+      <Header title="Comidas" />
       <label htmlFor="All">
         <input
           data-testid="All-category-filter"
