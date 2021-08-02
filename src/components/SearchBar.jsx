@@ -1,20 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Button } from 'react-bootstrap';
-import SearchContext from '../context/Context';
+import { useDispatch } from 'react-redux';
+import { sendFormData } from '../Redux/actions';
 
 function SearchBar() {
-  const { register, handleSubmit, watch } = useForm();
-  const {
-    handleClickIngrediente, handleClickRadio, filterIngrediente, filterFood,
-  } = useContext(SearchContext);
-
-  const ingrediente = watch('ingrediente');
-  const nome = watch('nome');
-  const letra = watch('letra');
+  const { register, handleSubmit } = useForm();
+  const dispatch = useDispatch();
 
   const submitForm = (data) => {
-    console.log(data);
+    dispatch(sendFormData(data));
   };
 
   return (
@@ -24,44 +19,47 @@ function SearchBar() {
           name="ingrediente"
           data-testid="search-input"
           placeholder="Buscar Receita"
+          { ...register('query') }
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>
+        <Form.Label className="col-3">
           Ingrediente
           <Form.Check
-            inline
+            value="ingredient"
             data-testid="ingredient-search-radio"
             type="radio"
-            { ...register('ingrediente') }
+            { ...register('type') }
           />
         </Form.Label>
-        <Form.Label>
+        <Form.Label className="col-3">
           Nome
           <Form.Check
-            inline
+            value="name"
             data-testid="name-search-radio"
             type="radio"
-            { ...register('nome') }
+            { ...register('type') }
           />
         </Form.Label>
-        <Form.Label>
-          Primeira Letra
+        <Form.Label className="col-3">
+          Letra
           <Form.Check
-            inline
+            value="letra"
             data-testid="first-letter-search-radio"
             type="radio"
-            { ...register('letra') }
+            { ...register('type') }
           />
         </Form.Label>
+        <Button
+          className="col-3"
+          type="submit"
+          variant="outline-secondary"
+          data-testid="exec-search-btn"
+        >
+          Buscar
+        </Button>
       </Form.Group>
-      <Button
-        type="submit"
-        variant="outline-secondary"
-        data-testid="exec-search-btn"
-      >
-        Buscar
-      </Button>
+
     </Form>
   );
 }

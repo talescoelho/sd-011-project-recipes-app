@@ -1,63 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import '../App.css';
 import SearchContext from './Context';
+import getFood from '../services/SearchRecipe';
 
 function ProviderSearch({ children }) {
   const [data, setData] = useState({});
-  const [filterIngrediente, setFilterIngrediente] = useState([]);
-  const [filterRadio, setFilterRadio] = useState([]);
+  const [search, setSearch] = useState();
+  const [filteredData, setFilteredData] = useState([]);
 
-  useEffect(() => {
+  const initialState = {
+    data: '',
+  };
 
-  }, []);
+  const reducer = (state = initialState, action) => {
+    switch (action.type) {
+      case 'SEARCH':
+        return {
+          ...state,
+          data: action.payload,
+        };
 
-  function filterFood() {
-    let url = '';
-    if (filterRadio === 'ingrediente') {
-      url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${filterIngrediente}`;
+      case 'FILTER':
+        return {
+          ...state,
+          filteredData: action.payload,
+        };
+      default:
+        return state;
     }
-    if (filterRadio === 'nome') {
-      url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${filterIngrediente}`;
-    }
-    if (filterRadio === 'letra') {
-      if (filterIngrediente.length > 1) {
-        alert('Sua busca deve conter somente 1 (um) caracter');
-        return;
-      }
-      url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${filterIngrediente}`;
-    }
-    const getFood = async () => {
-      const endpoint = url;
-      const { meals } = await fetch(endpoint).then((dataApi) => dataApi.json());
-      setData(meals);
-    };
-    getFood();
-  }
+  };
 
-  function handleClickIngrediente({ target }) {
-    setFilterIngrediente(target.value);
-  }
+  const [state, dispatch] = useReducer(initialState, reducer);
 
-  function handleClickRadio({ target }) {
-    setFilterRadio(target.value);
-  }
+  const getForm = (form) => {};
+
+  const returned = { state, filteredData };
 
   return (
-    <div>
-      <SearchContext.Provider
-        value={ {
-          data,
-          filterIngrediente,
-          filterRadio,
-          handleClickIngrediente,
-          handleClickRadio,
-          filterFood,
-        } }
-      >
-        {children}
-      </SearchContext.Provider>
-    </div>
+    <SearchContext.Provider value={returned}>{children}</SearchContext.Provider>
   );
 }
 

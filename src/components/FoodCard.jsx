@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Card, Button } from 'react-bootstrap';
-import useSearchContext from '../hooks/useSearchContext';
+import { useSelector } from 'react-redux';
 
 export default function FoodCard() {
-  const { data } = useSearchContext();
   const history = useHistory();
+  const recipes = useSelector((state) => state.recipes);
+  const { data } = recipes;
+
+  console.log(recipes);
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
 
-  console.log(useSearchContext());
+  }, []);
+
   const getCards = () => {
-    if (data && data.length > 0) {
+    if (data.length > 0) {
       return data.map((item, index) => {
-        const { idMeal, strArea, strCategory, strMeal, strMealThumb } = item;
+        const { idMeal, strMeal, strMealThumb } = item;
         return (
           <Card key={ index }>
             <Card.Img variant="top" src={ strMealThumb } />
