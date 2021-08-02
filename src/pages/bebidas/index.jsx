@@ -12,9 +12,9 @@ class Bebidas extends Component {
     let { allRecipes } = this.props;
     allRecipes = allRecipes.slice(0, TWELVE);
     if (allRecipes.length === 1) {
-      return <Redirect to={ `/bebidas/${allRecipes[0].idDrink}` } />;
-    } if (allRecipes.length === 0) {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      return (
+        <Redirect to={ `/bebidas/${allRecipes[0].idDrink}` } />
+      );
     }
     return allRecipes.map((item, index) => (
       <div
@@ -42,7 +42,6 @@ class Bebidas extends Component {
         Main Bebidas
         {this.renderDrinks()}
         <Footer />
-
       </div>
     );
   }
