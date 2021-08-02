@@ -71,6 +71,22 @@ function SearchBar({ recipesData, recipeType, fetch }) {
           Buscar
         </button>
 
+      </Link>
+    );
+  }
+
+  searchButton() {
+    return (
+      <button
+        type="button"
+        data-testid="search-top-btn"
+        onClick={ () => this.showSearch() }
+      >
+        <img src={ SearchIcon } alt="searchIcon" />
+      </button>
+    );
+  }
+
         {recipesData[recipeType]
         && recipesData[recipeType].length === 1
         && (
