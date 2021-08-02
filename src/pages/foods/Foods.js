@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import Header from '../../components/Header';
 import RecipeCard from '../../components/RecipeCard';
 import { RecipesContext } from '../../context/RecipesContext';
-import SearchBar from '../../components/SearchBar';
 import { SearchBarProvider } from '../../context/SearchBar';
 import Footer from '../../components/Footer';
 
@@ -11,9 +10,8 @@ export default function Foods() {
 
   return (
     <main>
-      <Header title="Comidas" search />
       <SearchBarProvider>
-        <SearchBar fetchType="themealdb" />
+        <Header title="Explorar Bebidas" search fetchType="thecocktaildb" />
       </SearchBarProvider>
       <section>
         <button
