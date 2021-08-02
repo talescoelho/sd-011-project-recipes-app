@@ -6,6 +6,8 @@ import { Foods, Cocktails } from '../services';
 const twelve = 12;
 export default function SearchBarProvider({ children, type }) {
   const [data, setData] = useState([]);
+  const [keyRedirect, setKeyRedirect] = useState(true);
+
   const recipes = (data) ? data.slice(0, twelve) : [];
   useEffect(() => {
     const asyncFunc = async () => {
@@ -15,7 +17,9 @@ export default function SearchBarProvider({ children, type }) {
     asyncFunc();
   }, [type]);
   return (
-    <SearchBarContext.Provider value={ { data, setData, recipes } }>
+    <SearchBarContext.Provider
+      value={ { data, setData, recipes, keyRedirect, setKeyRedirect } }
+    >
       { children }
     </SearchBarContext.Provider>
   );

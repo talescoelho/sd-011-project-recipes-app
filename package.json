@@ -60,6 +60,7 @@
     "mochawesome-merge": "^4.1.0",
     "mochawesome-report-generator": "^5.1.0",
     "react-redux": "^7.2.4",
+    "react-toggle": "^4.1.2",
     "redux-devtools": "^3.7.0",
     "redux-devtools-extension": "^2.13.9",
     "stylelint": "^13.8.0",
