@@ -9,6 +9,7 @@ export default function Drinks() {
       <SearchBarProvider>
         <Header title="Explorar Bebidas" search fetchType="thecocktaildb" />
       </SearchBarProvider>
+
       <Footer />
     </main>
   );

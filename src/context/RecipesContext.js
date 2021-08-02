@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { filterByCategory } from '../services/filterServices';
 
 export const RecipesContext = createContext();
 
@@ -8,6 +7,8 @@ const foodApi = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const drinkApi = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const foodCategoriesApi = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
 const drinkCategoriesApi = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+const foodCategory = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
+const drinkCategory = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
 
 const fetchApi = async (api) => {
   try {
@@ -27,7 +28,7 @@ export function RecipesProvider({ children }) {
   const [foodCategories, setFoodCategories] = useState([]);
   const [drinkCategories, setDrinkCategories] = useState([]);
   const [foodsFilter, setFoodsFilter] = useState('');
-  // const [drinksFilter, setDrinksFilter] = useState('all');
+  const [drinksFilter, setDrinksFilter] = useState('');
   const five = 5;
   const twelve = 12;
 
@@ -51,25 +52,28 @@ export function RecipesProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    let newFoodsFiltered = [...foodList];
-    if (foodsFilter) {
-      newFoodsFiltered = filterByCategory(newFoodsFiltered, foodsFilter);
-    }
-    setFoodsFiltered(newFoodsFiltered.filter((_recipe, index) => index < twelve));
+    const getFoodByCategory = async () => {
+      let newFoodsFiltered = [...foodList];
+      if (foodsFilter) {
+        const { meals } = await fetchApi(`${foodCategory}${foodsFilter}`);
+        newFoodsFiltered = [...meals];
+      }
+      setFoodsFiltered(newFoodsFiltered.filter((_recipe, index) => index < twelve));
+    };
+    getFoodByCategory();
   }, [foodsFilter, foodList]);
 
-  const setFilter = (clickedCategory) => {
-    if (clickedCategory === foodsFilter) {
-      setFoodsFilter('');
-    } else {
-      setFoodsFilter(clickedCategory);
-    }
-  };
-
-  // useEffect(() => {
-  //   const newDrinksFiltered = filterByCategory(drinkList, foodsFilter);
-  //   setFoodsFiltered(newFoodsFiltered.filter((_recipe, index) => index < twelve));
-  // }, [foodsFilter, foodList]);
+  useEffect(() => {
+    const getDrinkByCategory = async () => {
+      let newDrinksFiltered = [...drinkList];
+      if (drinksFilter) {
+        const { drinks } = await fetchApi(`${drinkCategory}${drinksFilter}`);
+        newDrinksFiltered = [...drinks];
+      }
+      setDrinksFiltered(newDrinksFiltered.filter((_recipe, index) => index < twelve));
+    };
+    getDrinkByCategory();
+  }, [drinksFilter, drinkList]);
 
   const recipesContext = {
     foodList,
@@ -78,7 +82,10 @@ export function RecipesProvider({ children }) {
     drinksFiltered,
     foodCategories,
     drinkCategories,
-    setFilter,
+    foodsFilter,
+    drinksFilter,
+    setFoodsFilter,
+    setDrinksFilter,
   };
 
   return (

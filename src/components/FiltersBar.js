@@ -3,15 +3,25 @@ import { RecipesContext } from '../context/RecipesContext';
 import RecipeCard from './RecipeCard';
 
 export default function FiltersBar() {
-  const { foodsFiltered, foodCategories, setFilter } = useContext(RecipesContext);
+  const {
+    foodsFiltered, foodCategories, setFoodsFilter, foodsFilter,
+  } = useContext(RecipesContext);
+
+  const onClickFoodFilter = (clickedCategory) => {
+    if (clickedCategory === foodsFilter) {
+      setFoodsFilter('');
+    } else {
+      setFoodsFilter(clickedCategory);
+    }
+  };
 
   return (
     <>
       <section>
         <button
           type="button"
-          data-testid="all-category-filter"
-          onClick={ () => setFilter('') }
+          data-testid="All-category-filter"
+          onClick={ () => onClickFoodFilter('') }
         >
           All
         </button>
@@ -20,7 +30,7 @@ export default function FiltersBar() {
             type="button"
             key={ cat.strCategory }
             data-testid={ `${cat.strCategory}-category-filter` }
-            onClick={ () => setFilter(cat.strCategory) }
+            onClick={ () => onClickFoodFilter(cat.strCategory) }
           >
             {cat.strCategory}
           </button>
