@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterHandle, fetchApi } from '../redux/actions';
+import { filterHandle, fetchApi, renderFilter } from '../redux/actions';
 
 export default function SearchBar({ modal, url }) {
   const dispatch = useDispatch();
@@ -24,7 +24,13 @@ export default function SearchBar({ modal, url }) {
       // eslint-disable-next-line no-alert
       alert('Sua busca deve conter somente 1 (um) caracter');
     }
+    dispatch(renderFilter(true));
   }
+
+  // if (!isLoading && !data.meals) {
+  //   // eslint-disable-next-line no-alert
+  //   alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  // }
 
   return (
     <div>
