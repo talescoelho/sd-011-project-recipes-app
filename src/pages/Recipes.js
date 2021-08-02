@@ -10,7 +10,7 @@ function Recipes() {
         <button type="button" data-testid="search-top-btn">Search</button>
       </header>
       <main data-testid="recipes-page">
-        <h1>Tela Principal de Receitas</h1>
+        <h1>Algo só pra não deixar vazio</h1>
       </main>
       <Footer />
     </>

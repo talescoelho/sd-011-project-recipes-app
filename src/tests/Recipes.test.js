@@ -12,4 +12,9 @@ describe('Requeriment 09', () => {
     render(<Recipes />);
     expect(screen.getByTestId('search-top-btn')).toBeInTheDocument();
   });
+
+  it('Should have "page title" on screen', () => {
+    render(<Recipes />);
+    expect(screen.getByTestId('page-title')).toBeInTheDocument();
+  });
 });
