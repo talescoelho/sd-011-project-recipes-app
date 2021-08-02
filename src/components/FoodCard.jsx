@@ -13,8 +13,8 @@ export default function FoodCard() {
 
   const dispatch = useDispatch();
 
-  const sendUserName = (userName) => {
-    dispatch({ type: 'SEND_USER_INFO', userName });
+  const sendUserName = () => {
+    dispatch({ type: 'SEND_USER_INFO', payload: name });
   };
 
   const { data, formInfo } = recipes;
@@ -51,7 +51,7 @@ export default function FoodCard() {
   return (
     <div>
       <input type="text" onChange={ (e) => setName(e.target.value) } />
-      <Button onClick={ () => sendUserName(name) }>CLIQUE AQUI</Button>
+      <Button onClick={ sendUserName }>CLIQUE AQUI</Button>
       {getCards()}
     </div>);
 }
