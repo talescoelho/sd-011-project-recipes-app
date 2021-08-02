@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
 
 function ButtonStart({ detail, typeDrinkorMeal }) {
   const { idItem } = detail;
   const [buttonStart, setButtonStart] = useState(false);
   const [buttonContinue, setButtonContinue] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     function checkRecipes() {
@@ -27,47 +29,7 @@ function ButtonStart({ detail, typeDrinkorMeal }) {
   }, [idItem, typeDrinkorMeal]);
 
   function startRecipes() {
-    // const teste = JSON.parse(localStorage.getItem('doneRecipes'));
-    // const type = typeDoM === 'comidas' ? 'comida' : 'bebida';
-    // if (teste === null) {
-    //   localStorage.setItem('doneRecipes', JSON.stringify([
-    //     {
-    //       id: idItem,
-    //       type,
-    //       area: '',
-    //       category: alcoholic,
-    //       alcoholicOrNot: category,
-    //       name: title,
-    //       image: imgThumb,
-    //       doneDate: new Date(),
-    //       tags: [],
-    //     },
-    //   ]));
-    // } else {
-    //   const recipesLocalstorage = JSON.parse(localStorage.getItem('doneRecipes'));
-    //   localStorage.setItem('doneRecipes', JSON.stringify([
-    //     ...recipesLocalstorage,
-    //     {
-    //       id: idItem,
-    //       type,
-    //       area: '',
-    //       category: alcoholic,
-    //       alcoholicOrNot: category,
-    //       name: title,
-    //       image: imgThumb,
-    //       doneDate: new Date(),
-    //       tags: [],
-    //     },
-    //   ]));
-    //   localStorage.setItem('inProgressRecipes', JSON.stringify({
-    //     meals: {
-    //       52771: [],
-    //     },
-    //     cocktails: {
-    //       178319: [],
-    //     },
-    //   }));
-    // }
+    history.push(`${idItem}/in-progress`);
   }
 
   function btnStart() {
