@@ -39,9 +39,19 @@ class Bebidas extends React.Component {
   }
 
   async prepareItemsOnLoad() {
-    const { getDrinks, getCategories } = this.props;
-    await getDrinks();
-    const { drinksDataBase } = this.props;
+    const { getDrinks, drinksDataBase } = this.props;
+    if (drinksDataBase.length > 0) {
+      this.setState({
+        itemsToRender: drinksDataBase,
+      });
+    } else {
+      await getDrinks('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+      this.updateFromCategories();
+    }
+  }
+
+  updateFromCategories() {
+    const { drinksDataBase, getCategories } = this.props;
     getCategories('drinks');
     this.setState({
       itemsToRender: drinksDataBase,
@@ -82,7 +92,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getDrinks: () => dispatch(getDrinksFromApi()),
+  getDrinks: (url) => dispatch(getDrinksFromApi(url)),
   getCategories: (mealsOrDrinks) => dispatch(getCategoriesFromApi(mealsOrDrinks)),
 });
 

@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getFoodFromApi } from '../actions';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-export default class ExplorarIngredientesComidas extends Component {
+class ExplorarIngredientesComidas extends Component {
   constructor() {
     super();
     this.state = ({
@@ -22,6 +25,12 @@ export default class ExplorarIngredientesComidas extends Component {
     });
   }
 
+  async filterPerIngredient(ingredient) {
+    const { filterRecipes, history } = this.props;
+    await filterRecipes(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+    history.push('/comidas');
+  }
+
   renderIngredientsCards() {
     const { itemsToRender } = this.state;
     const filteredElevenItems = [];
@@ -33,7 +42,14 @@ export default class ExplorarIngredientesComidas extends Component {
     });
 
     return filteredElevenItems.map((item, index) => (
-      <div data-testid={ `${index}-ingredient-card` } key={ item.idIngredient }>
+      <div
+        onClick={ () => this.filterPerIngredient(item.strIngredient) }
+        onKeyDown={ () => this.filterPerIngredient(item.strIngredient) }
+        data-testid={ `${index}-ingredient-card` }
+        key={ item.idIngredient }
+        role="button"
+        tabIndex="0"
+      >
         <p data-testid={ `${index}-card-name` }>{ item.strIngredient }</p>
         <img data-testid={ `${index}-card-img` } src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` } style={ { width: '80px' } } alt="imagem comida" />
       </div>
@@ -53,4 +69,15 @@ export default class ExplorarIngredientesComidas extends Component {
   }
 }
 
-// https://www.themealdb.com/images/ingredients/{nome-do-ingrediente}.png
+const mapDispatchToProps = (dispatch) => ({
+  filterRecipes: (url) => dispatch(getFoodFromApi(url)),
+});
+
+ExplorarIngredientesComidas.propTypes = {
+  filterRecipes: PropTypes.func,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(ExplorarIngredientesComidas);

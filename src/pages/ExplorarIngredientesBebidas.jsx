@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { getDrinksFromApi } from '../actions';
 
-export default class ExplorarIngredientesBebidas extends Component {
+class ExplorarIngredientesBebidas extends Component {
   constructor() {
     super();
     this.state = ({
@@ -22,6 +25,12 @@ export default class ExplorarIngredientesBebidas extends Component {
     });
   }
 
+  async filterPerIngredient(ingredient) {
+    const { filterRecipes, history } = this.props;
+    await filterRecipes(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+    history.push('/bebidas');
+  }
+
   renderIngredientsCards() {
     const { itemsToRender } = this.state;
     const filteredElevenItems = [];
@@ -33,7 +42,14 @@ export default class ExplorarIngredientesBebidas extends Component {
     });
 
     return filteredElevenItems.map((item, index) => (
-      <div data-testid={ `${index}-ingredient-card` } key={ index }>
+      <div
+        onClick={ () => this.filterPerIngredient(item.strIngredient1) }
+        onKeyDown={ () => this.filterPerIngredient(item.strIngredient1) }
+        data-testid={ `${index}-ingredient-card` }
+        key={ index }
+        role="button"
+        tabIndex="0"
+      >
         <p data-testid={ `${index}-card-name` }>{ item.strIngredient1 }</p>
         <img data-testid={ `${index}-card-img` } src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` } style={ { width: '80px' } } alt="imagem comida" />
       </div>
@@ -52,3 +68,16 @@ export default class ExplorarIngredientesBebidas extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  filterRecipes: (url) => dispatch(getDrinksFromApi(url)),
+});
+
+ExplorarIngredientesBebidas.propTypes = {
+  filterRecipes: PropTypes.func,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(ExplorarIngredientesBebidas);

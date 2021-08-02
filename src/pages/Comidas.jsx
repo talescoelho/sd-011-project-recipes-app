@@ -39,9 +39,19 @@ class Comidas extends React.Component {
   }
 
   async prepareItemsOnLoad() {
-    const { getFoods, getCategories } = this.props;
-    await getFoods();
-    const { foodsDataBase } = this.props;
+    const { getFoods, foodsDataBase } = this.props;
+    if (foodsDataBase.length > 0) {
+      this.setState({
+        itemsToRender: foodsDataBase,
+      });
+    } else {
+      await getFoods('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+      this.updateFromCategories();
+    }
+  }
+
+  updateFromCategories() {
+    const { foodsDataBase, getCategories } = this.props;
     getCategories('meals');
     this.setState({
       itemsToRender: foodsDataBase,
@@ -83,7 +93,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getFoods: () => dispatch(getFoodFromApi()),
+  getFoods: (url) => dispatch(getFoodFromApi(url)),
   getCategories: (mealsOrDrinks) => dispatch(getCategoriesFromApi(mealsOrDrinks)),
 });
 
