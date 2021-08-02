@@ -15,8 +15,6 @@ class Comidas extends Component {
       return (
         <Redirect to={ `/comidas/${allRecipes[0].idMeal}` } />
       );
-    } if (allRecipes.length === 0) {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     return allRecipes.map((item, index) => (
       <div
