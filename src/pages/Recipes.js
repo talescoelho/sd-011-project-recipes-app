@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 
 function Recipes() {
   return (
@@ -9,8 +10,9 @@ function Recipes() {
         <button type="button" data-testid="search-top-btn"> Search</button>
       </header>
       <main data-testid="recipes-page">
-        <h2> Corpo da Tela </h2>
+        <h1>Tela Principal de Receitas</h1>
       </main>
+      <Footer />
     </>
   );
 }
