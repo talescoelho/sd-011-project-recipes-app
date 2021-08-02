@@ -2,14 +2,14 @@
   background-color: rgb(131, 131, 131);
   display: flex;
   justify-content: center;
+  bottom: 0;
   position: fixed;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
+  left: 0;
+  right: 0;
 }
 
 .img {
-  padding: 5px;
   margin-left: 60px;
   margin-right: 60px;
+  padding: 5px;
 }
