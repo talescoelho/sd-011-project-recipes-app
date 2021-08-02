@@ -4,8 +4,8 @@ import Header from '../Components/Header';
 export default function ExploreFood() {
   return (
     <div>
-      <Header />
-      <h1>Tela de explorar de comidas</h1>
+      <Header title="Explorar Comidas" />
+      <h1>Explorar Comidas</h1>
     </div>
   );
 }
