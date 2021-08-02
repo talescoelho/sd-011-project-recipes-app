@@ -7,3 +7,11 @@
 .search-bar {
   width: 100%;
 }
+
+.search-bar .input-search {
+  width: 100%;
+}
+
+.search-bar .search-prop {
+  margin: 10px 25px 10px 2px;
+}

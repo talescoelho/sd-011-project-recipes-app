@@ -75,11 +75,11 @@ function SearchBar({ title }) {
     }
   }, [search, inputFirstLetter, inputName, inputIngredient, title]);
   return (
-    <div>
+    <div className="search-bar">
       <input
         onChange={ (e) => setSearch(e.target.value) }
         data-testid="search-input"
-        className="search-bar"
+        className="input-search"
         type="search"
         placeholder="Pesquisar..."
       />
@@ -92,6 +92,7 @@ function SearchBar({ title }) {
               setinputName(false);
               setinputIngredient(!inputIngredient);
             } }
+            className="search-prop"
             name="inputRadio"
             type="radio"
             data-testid="ingredient-search-radio"
@@ -106,6 +107,7 @@ function SearchBar({ title }) {
               setinputFirstLetter(false);
               setinputName(!inputName);
             } }
+            className="search-prop"
             name="inputRadio"
             type="radio"
             id="name"
@@ -120,6 +122,7 @@ function SearchBar({ title }) {
               setinputIngredient(false);
               setinputFirstLetter(!inputFirstLetter);
             } }
+            className="search-prop"
             name="inputRadio"
             type="radio"
             id="first-letter"
