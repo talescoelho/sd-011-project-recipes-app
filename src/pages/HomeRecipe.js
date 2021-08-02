@@ -77,7 +77,7 @@ function HomeRecipe() {
 
   return (
     <div>
-      <Header title="Comidas" />
+      <Header title="Comidas" recipeType="meals" />
       <div>
         {' '}
         {isLoading ? <p>loading...</p>

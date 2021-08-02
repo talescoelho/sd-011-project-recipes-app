@@ -55,9 +55,10 @@ class Header extends Component {
   }
 
   centralHeader() {
+    const { recipeType } = this.props;
     const { disabled } = this.state;
     return (
-      !disabled ? (<SearchBar />) : null
+      !disabled ? (<SearchBar recipeType={ recipeType } />) : null
     );
   }
 
