@@ -7,7 +7,7 @@ export default function MealCard({ recipe, i }) {
   const location = useLocation();
   return (
     <div className="meal-card" data-testid={ `${i}-recipe-card` }>
-      <Link to={ `${location.pathname}/${recipe.idMeal}`}>
+      <Link to={ `${location.pathname}/${recipe.idMeal}` }>
         <img
           src={ recipe.strMealThumb }
           alt={ recipe.strMeal }
