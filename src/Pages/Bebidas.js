@@ -1,15 +1,30 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/Header';
 import RenderRecipes from '../components/RenderRecipes';
+import { getRecipes, setTypeRecipe } from '../redux/slices/fetchReceitas';
+import CategoryButtons from '../components/CategoryButtons';
 
 function Bebidas({ title }) {
-  const { data } = useSelector((state) => state.fetchReceitas);
+  const { drinks } = useSelector((state) => state.fetchReceitas);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setTypeRecipe({ typeRecipe: 'drinks' }));
+    if (drinks || drinks.length === 0) {
+      const URL = title === 'Comidas'
+        ? 'https://www.themealdb.com/api/json/v1/1/search.php?s='
+        : 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+      dispatch(getRecipes(URL));
+    }
+  }, [dispatch]);
+
   return (
     <div>
       <Header title={ title } />
-      { (Object.keys(data).length > 0) && <RenderRecipes />}
+      <CategoryButtons />
+      {drinks.length > 0 && <RenderRecipes />}
     </div>
   );
 }

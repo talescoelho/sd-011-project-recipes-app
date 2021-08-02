@@ -2,6 +2,10 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: [],
+  meals: [],
+  drinks: [],
+  categories: [],
+  typeRecipe: '',
   loading: false,
   error: null,
 };
@@ -16,6 +20,9 @@ const fetchReceitasSlice = createSlice({
   name: 'fetchRecipes',
   initialState,
   reducers: {
+    setTypeRecipe: (state, action) => {
+      state.typeRecipe = action.payload.typeRecipe;
+    },
   },
   extraReducers: {
     [getRecipes.pending]: (state) => {
@@ -23,6 +30,10 @@ const fetchReceitasSlice = createSlice({
     },
     [getRecipes.fulfilled]: (state, action) => {
       state.data = action.payload;
+      state.meals = !action.payload.meals ? state.meals : action.payload.meals;
+      state.drinks = !action.payload.drinks ? state.drinks : action.payload.drinks;
+      state.categories = !action.payload.categories
+        ? state.categories : action.payload.categories;
       state.loading = false;
     },
     [getRecipes.rejected]: (state, action) => {
@@ -31,5 +42,7 @@ const fetchReceitasSlice = createSlice({
     },
   },
 });
+
+export const { setTypeRecipe } = fetchReceitasSlice.actions;
 
 export default fetchReceitasSlice.reducer;

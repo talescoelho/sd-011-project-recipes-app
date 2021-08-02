@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import CategoryButtons from './CategoryButtons';
 
 function Header({ title }) {
   const [hiddenSearchBar, setHiddentSearchBar] = useState(true);
@@ -43,6 +44,8 @@ function Header({ title }) {
             </button>
             {(!hiddenSearchBar && renderSearchComponents[title])}
           </div>)}
+      { console.log("Loguei", CategoryButtons) }
+      <CategoryButtons />
     </div>
   );
 }

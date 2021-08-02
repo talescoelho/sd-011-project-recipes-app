@@ -7,31 +7,33 @@ function RenderRecipes() {
     name: '',
     image: '',
   });
-  const { data } = useSelector((state) => state.fetchReceitas);
+  const { typeRecipe, drinks, meals } = useSelector((state) => state.fetchReceitas);
 
   useEffect(() => {
-    if (Object.keys(data)[0] === 'meals') {
+    if (typeRecipe === 'meals') {
       setRecipeType({
+        recipes: meals,
         type: 'meals',
         name: 'strMeal',
         image: 'strMealThumb',
       });
     } else {
       setRecipeType({
+        recipes: drinks,
         type: 'drinks',
         name: 'strDrink',
         image: 'strDrinkThumb',
       });
     }
-  }, [data]);
+  }, [typeRecipe]);
 
-  const { type, name, image } = recipeType;
+  const { recipes, type, name, image } = recipeType;
   const limitRecipes = 12;
 
   return (
     <section>
-      {(type !== '' && data[type] !== null)
-        && data[type].slice(0, limitRecipes).map((recipe, index) => (
+      {(type !== '' && recipes !== null)
+        && recipes.slice(0, limitRecipes).map((recipe, index) => (
           <div data-testid={ `${index}-recipe-card` } key={ index }>
             <p data-testid={ `${index}-card-name` }>{recipe[name]}</p>
             <img data-testid={ `${index}-card-img` } src={ recipe[image] } alt={ name } />
