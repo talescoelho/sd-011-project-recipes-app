@@ -7,7 +7,11 @@ import '../../styles/footerBar.css';
 
 export default function FooterBar() {
   return (
-    <div style={ { position: 'fixed', bottom: 0 } } className="footer-div" data-testid="footer">
+    <div
+      style={ { position: 'fixed', bottom: 0 } }
+      className="footer-div"
+      data-testid="footer"
+    >
       <Link to="/bebidas">
         <img
           data-testid="drinks-bottom-btn"
