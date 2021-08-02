@@ -78,7 +78,7 @@ function HomeDrinks() {
 
   return (
     <div>
-      <Header title="Bebidas" />
+      <Header title="Bebidas" recipeType="drinks" />
       { !isLoading && (drinksList.slice(0, MagicNumber).map((itemList, index) => (
         <div key={ index }>
           <button

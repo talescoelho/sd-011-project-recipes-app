@@ -86,7 +86,6 @@ function SearchBar({ recipesData, recipeType, fetch }) {
 }
 
 const mapStateToProps = (state) => ({
-  recipeType: state.RecipesReducer.recipeType,
   recipesData: state.RecipesReducer.recipesData,
 });
 
