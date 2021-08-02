@@ -78,9 +78,6 @@
       "text",
       "clover"
     ],
-    "resetMocks": false,
-    "setupFiles": [
-      "jest-localstorage-mock"
-    ]
+    "resetMocks": false
   }
 }
