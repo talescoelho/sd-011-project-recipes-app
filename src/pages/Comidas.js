@@ -1,9 +1,10 @@
 import React from 'react';
+import SearchBarHeader from '../components/SearchBarHeader';
 
 export default function Comidas() {
   return (
     <div>
-      <h2>Food Page</h2>
+      <SearchBarHeader />
     </div>
   );
 }
