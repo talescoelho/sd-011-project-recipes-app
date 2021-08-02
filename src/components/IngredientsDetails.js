@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getRecipes } from '../redux/slices/fetchReceitas';
 import './IngredientsDetails.css';
@@ -9,15 +9,17 @@ function IngredientsDetails() {
 
   const { pathname } = window.location;
   const currentURL = pathname.split('/')[2];
-  const recipeTypeDictionary = {
+
+  const recipeTypeDictionary = useCallback(() => ({
     comidas: 'themealdb',
     bebidas: 'thecocktaildb',
-  };
+  }), []);
 
   useEffect(() => {
-    const URL = `https://www.${recipeTypeDictionary[currentURL]}.com/api/json/v1/1/list.php?i=list`;
+    const URL = `https://www.${recipeTypeDictionary()[currentURL]}.com/api/json/v1/1/list.php?i=list`;
     dispatch(getRecipes(URL));
-  }, [dispatch, currentURL]);
+    console.log('useEffect');
+  }, [dispatch, currentURL, recipeTypeDictionary]);
 
   if (data.length !== 0) {
     const limitCards = 12;
@@ -38,7 +40,7 @@ function IngredientsDetails() {
           >
             <img
               data-testid={ `${index}-card-img` }
-              src={ `https://www.${recipeTypeDictionary[currentURL]}.com/images/ingredients/${ingredient[ingredientKey]}-Small.png` }
+              src={ `https://www.${recipeTypeDictionary()[currentURL]}.com/images/ingredients/${ingredient[ingredientKey]}-Small.png` }
               alt={ ingredient[ingredientKey] }
             />
             <p
