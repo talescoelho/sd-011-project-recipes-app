@@ -39,8 +39,13 @@ function SearchBar({ title }) {
   async function fetchAPI() {
     const response = await fetch(fetchUrl);
     const result = await response.json();
-    setCatalog(result);
-    RedirectDetails(result);
+    console.log(result);
+    if (result.meals || result.drinks) {
+      setCatalog(result);
+      RedirectDetails(result);
+    } else {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
   }
 
   function searchFood() {
