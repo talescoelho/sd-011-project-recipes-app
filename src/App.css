@@ -6,7 +6,7 @@ video {
 	bottom: 0;
 	min-width: 100%; 
 	min-height: 100%;
-	width: auto; @import url('https://fonts.googleapis.com/css2?family=MonteCarlo&display=swap');
+	width: auto;
 	height: auto; 
 	z-index: -1000;
 	background-size: cover; 
@@ -23,7 +23,6 @@ video {
 	margin-top: 5vh;
 	color: aliceblue;
 	font-family: 'MonteCarlo', cursive;
-	
-	
+	font-weight: bold;	
 }
 
