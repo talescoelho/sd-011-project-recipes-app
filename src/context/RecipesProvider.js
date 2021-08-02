@@ -20,39 +20,50 @@ export default function RecipesProvider({ children }) {
     isDisabled: true,
   });
 
+  const [redirect, setRedirect] = useState(false);
+  const [recipesDb, setRecipesDb] = useState([]);
+
   async function handleSearchMeals(searchText, filterRadio) { // função que faz requisição para as refeições com info do searchBar
+    let data = [];
     if (filterRadio === 'ingredient') {
-      const ingredients = await fetchMealsIngredient(searchText);
-      return console.log(ingredients);
+      data = await fetchMealsIngredient(searchText);
+      setRecipesDb(data);
     }
     if (filterRadio === 'name') {
-      const mealsName = await fetchMealsName(searchText);
-      return console.log(mealsName);
+      data = await fetchMealsName(searchText);
+      setRecipesDb(data);
     }
     if (filterRadio === 'firstLetter') {
       if (searchText.length > 1) {
         return alert('Sua busca deve conter somente 1 (um) caracter');
       }
-      const fisrtName = await fetchMealsLetter(searchText);
-      return console.log(fisrtName);
+      data = await fetchMealsLetter(searchText);
+      setRecipesDb(data);
+    }
+    if (data.length === 1) {
+      setRedirect(true);
     }
   }
 
   async function handleSearchDrinks(searchText, filterRadio) { // função que faz requisição para os drinks com info do serachbar
+    let data = [];
     if (filterRadio === 'ingredient') {
-      const ingredients = await fetchDrinksIngredient(searchText);
-      return console.log(ingredients);
+      data = await fetchDrinksIngredient(searchText);
+      setRecipesDb(data);
     }
     if (filterRadio === 'name') {
-      const mealsName = await fetchDrinksName(searchText);
-      return console.log(mealsName);
+      data = await fetchDrinksName(searchText);
+      setRecipesDb(data);
     }
     if (filterRadio === 'firstLetter') {
       if (searchText.length > 1) {
         return alert('Sua busca deve conter somente 1 (um) caracter');
       }
-      const fisrtName = await fetchDrinksLetter(searchText);
-      return console.log(fisrtName);
+      data = await fetchDrinksLetter(searchText);
+      setRecipesDb(data);
+    }
+    if (data.length === 1) {
+      setRedirect(true);
     }
   }
 
@@ -70,6 +81,8 @@ export default function RecipesProvider({ children }) {
     loginState,
     setLogin,
     handleSearch,
+    recipesDb,
+    redirect,
   };
 
   return (
