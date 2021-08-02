@@ -7,7 +7,7 @@ function ButtonsCategories({ categoryName }) {
 
   const [categories, setCategories] = useState({ loading: ['true'] });
   const [URLCategoryToSearch, setURLCategoryToSearch] = useState('');
-  const [filterActive, setFilterActive] = useState(false);
+  const [filterActive, setFilterActive] = useState(true);
 
   useEffect(() => {
     function fetchAPI() {
@@ -74,6 +74,7 @@ function ButtonsCategories({ categoryName }) {
   return (
     <div>
       <button
+        data-testid="All-category-filter"
         type="button"
         onClick={ () => resetFetchAPI() }
       >
@@ -86,7 +87,12 @@ function ButtonsCategories({ categoryName }) {
           key={ index }
           name={ category.strCategory }
           onClick={ ({ target }) => {
-            setFilterActive(!filterActive);
+            if (URLCategoryToSearch === category.strCategory) {
+              setFilterActive(!filterActive);
+            }
+            if (!filterActive) {
+              setFilterActive(true);
+            }
             setURLCategoryToSearch(target.name);
           } }
         >
