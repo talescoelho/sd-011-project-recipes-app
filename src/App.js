@@ -9,14 +9,14 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/explorar" component={ Explore } />
-        <Route exact path="/comidas" component={ ExploreFood } />
-        <Route exact path="/bebidas" component={ ExploreDrink } />
+        <Route exact path="/explorar/comidas" component={ ExploreFood } />
+        <Route exact path="/explorar/bebidas" component={ ExploreDrink } />
         { /* <Route exact path="/" component={ Login } />
         <Route path="/comidas:id-" component={} />
         <Route path="/bebidas" component={} />
         <Route path="/bebidas:id" component={} />
-        <Route path="/explorar/comidas" component={} />
-        <Route path="/explorar/bebidas" component={} />
+        <Route path="/comidas" component={} />
+        <Route path="/bebidas" component={} />
         <Route path="/explorar/comidas/ingredientes" component={} />
         <Route path="/explorar/bebidas/ingredientes" component={} />
         <Route path="/explorar/comidas/area" component={} />
