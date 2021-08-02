@@ -46,6 +46,9 @@ function Provider({ children }) {
         if (searchMethod === firstLetter) {
           response = await fetch(`${URL_FOOD_FIRST_LETTER}${searchInput}`);
         }
+        if (searchMethod === '') {
+          response = await fetch(URL_FOOD_NAME);
+        }
         const result = await response.json();
         setDataFoods(twelveItems(result));
       } catch (error) {
@@ -73,6 +76,9 @@ function Provider({ children }) {
         }
         if (searchMethod === firstLetter) {
           response = await fetch(`${URL_DRINK_FIRST_LETTER}${searchInput}`);
+        }
+        if (searchMethod === '') {
+          response = await fetch(URL_DRINK_NAME);
         }
         const result = await response.json();
         setDataDrinks(twelveItems(result));

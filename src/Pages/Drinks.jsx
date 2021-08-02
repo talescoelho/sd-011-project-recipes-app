@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from '../Context_Configs/Context';
@@ -11,10 +11,15 @@ import FooterBar from './Components/FooterBar';
 
 function Drinks() {
   const history = useHistory();
-  const { dataDrinks } = useContext(Context);
+  const { dataDrinks, setRequestDrinksParams } = useContext(Context);
   const [showSearch, setShowSearch] = useState(false);
   const drinks = 'drinks';
-  // console.log(dataDrinks);
+
+  // Busca por bebidas quando monta a tela de bebidas
+  useEffect(() => {
+    setRequestDrinksParams({ searchInput: '', searchMethod: '' });
+  }, []);
+
   if (dataDrinks !== null && dataDrinks.length === 1) {
     const oneResult = dataDrinks[0];
     history.push(`/bebidas/${oneResult.idDrink}`);

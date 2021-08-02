@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from '../Context_Configs/Context';
@@ -10,9 +10,15 @@ import FooterBar from './Components/FooterBar';
 
 function Foods() {
   const history = useHistory();
-  const { dataFood } = useContext(Context);
+  const { dataFood, setRequestFoodParams } = useContext(Context);
   const [showSearch, setShowSearch] = useState(false);
   const foods = 'foods';
+
+  // Busca por comidas ao renderizar a tela de comidas.
+  useEffect(() => {
+    setRequestFoodParams({
+      searchInput: '', searchMethod: '' });
+  }, []);
 
   if (dataFood !== null && dataFood.length === 1) {
     const oneResult = dataFood[0];
