@@ -1,0 +1,17 @@
+.container-categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.button-categories {
+  background-color: salmon;
+  border-radius: 6px;
+  color: black;
+  margin-top: 1px;
+}
+
+.button-categories:hover {
+  background-color: black;
+  color: salmon;
+}
