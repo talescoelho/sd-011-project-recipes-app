@@ -1,12 +1,13 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Context from '../Context_Configs/Context';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './Components/SearchBar';
 
-function Drinks({ history }) {
+function Drinks() {
+  const history = useHistory();
   const { dataDrinks } = useContext(Context);
   const [showSearch, setShowSearch] = useState(false);
   const drinks = 'drinks';
