@@ -11,6 +11,7 @@ export default function SearchBar() {
     changeHaveRecipes,
     saveMealRecipes,
     saveDrinkRecipes,
+    setIsFilterByCategory,
   } = useContext(RecipesAppContext);
 
   const [textInputValue, setTextInputValue] = useState('');
@@ -20,14 +21,17 @@ export default function SearchBar() {
   function handlerInputText({ target }) {
     const { value } = target;
     setTextInputValue(value);
+    setIsFilterByCategory(false);
   }
 
   function handlerInputRadio({ target }) {
     const { value } = target;
     setRadioInputValue(value);
+    setIsFilterByCategory(false);
   }
 
   function updateDataToSearch() {
+    setIsFilterByCategory(false);
     if (radioInputValue === 'f' && textInputValue.length > 1) {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }

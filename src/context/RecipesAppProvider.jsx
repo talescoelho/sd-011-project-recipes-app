@@ -8,6 +8,11 @@ export default function RecipesAppProvider({ children }) {
   const [haveRecipes, setHaveRecipes] = useState(false);
   const [firstAccess, setFirstAccess] = useState(true);
   const [categories, setCategories] = useState([]);
+  const [isFilterByCategory, setFilterByCategory] = useState(false);
+
+  function setIsFilterByCategory(value) {
+    setFilterByCategory(value);
+  }
 
   function saveCategories(data) {
     setCategories(data);
@@ -48,10 +53,12 @@ export default function RecipesAppProvider({ children }) {
     drinkRecipes,
     categories,
     haveRecipes,
+    isFilterByCategory,
     changeHaveRecipes,
     saveMealRecipes,
     saveDrinkRecipes,
     saveCategories,
+    setIsFilterByCategory,
   };
 
   return (
