@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 
 class Comidas extends Component {
@@ -21,6 +22,7 @@ class Comidas extends Component {
             {item.idMeal}
           </div>
         ))}
+        <Footer />
       </div>
     );
   }
