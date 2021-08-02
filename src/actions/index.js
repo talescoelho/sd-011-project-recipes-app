@@ -2,6 +2,9 @@ export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 
 function handleFoodsSuccess(result) {
   console.log('AQUI FOODS', result);
+  if (result === null) {
+    result = [];
+  }
   return { type: REQUEST_SUCCESS, payload: result };
 }
 
@@ -11,7 +14,7 @@ export function foodRecipesByIngredient(ingredient) {
       .then((response) => response.json())
       .then(
         (json) => dispatch(handleFoodsSuccess(json.meals)),
-        (error) => console.log(error),
+        () => dispatch(handleFoodsSuccess([])),
       );
   };
 }
@@ -22,7 +25,7 @@ export function foodRecipesByName(name) {
       .then((response) => response.json())
       .then(
         (json) => dispatch(handleFoodsSuccess(json.meals)),
-        (error) => console.log(error),
+        () => dispatch(handleFoodsSuccess([])),
       );
   };
 }
@@ -33,13 +36,16 @@ export function foodRecipesByLetter(letter) {
       .then((response) => response.json())
       .then(
         (json) => dispatch(handleFoodsSuccess(json.meals)),
-        (error) => console.log(error),
+        () => dispatch(handleFoodsSuccess([])),
       );
   };
 }
 
 function handleDrinksSuccess(result) {
   console.log('AQUI DRINKS', result);
+  if (result === null) {
+    result = [];
+  }
   return { type: REQUEST_SUCCESS, payload: result };
 }
 
@@ -49,7 +55,7 @@ export function drinkRecipesByIngredient(ingredient) {
       .then((response) => response.json())
       .then(
         (json) => dispatch(handleDrinksSuccess(json.drinks)),
-        (error) => console.log(error),
+        () => dispatch(handleDrinksSuccess([])),
       );
   };
 }
@@ -60,7 +66,7 @@ export function drinkRecipesByName(name) {
       .then((response) => response.json())
       .then(
         (json) => dispatch(handleDrinksSuccess(json.drinks)),
-        (error) => console.log(error),
+        () => dispatch(handleDrinksSuccess([])),
       );
   };
 }
@@ -71,7 +77,7 @@ export function drinkRecipesByLetter(letter) {
       .then((response) => response.json())
       .then(
         (json) => dispatch(handleDrinksSuccess(json.drinks)),
-        (error) => console.log(error),
+        () => dispatch(handleDrinksSuccess([])),
       );
   };
 }

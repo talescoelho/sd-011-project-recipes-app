@@ -8,34 +8,41 @@ import Header from '../../components/Header';
 const TWELVE = 12;
 
 class Bebidas extends Component {
-  render() {
+  renderDrinks() {
     let { allRecipes } = this.props;
     allRecipes = allRecipes.slice(0, TWELVE);
     if (allRecipes.length === 1) {
       return <Redirect to={ `/bebidas/${allRecipes[0].idDrink}` } />;
+    } if (allRecipes.length === 0) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
+    return allRecipes.map((item, index) => (
+      <div
+        data-testid={ `${index}-recipe-card` }
+        key={ item.idDrink }
+      >
+        <img
+          alt="drink"
+          src={ item.strDrinkThumb }
+          data-testid={ `${index}-card-img` }
+        />
+        <span
+          data-testid={ `${index}-card-name` }
+        >
+          {item.strDrink}
+        </span>
+      </div>
+    ));
+  }
+
+  render() {
     return (
       <div>
         <Header title="Bebidas" mode="bebidas" hasSearchBar />
         Main Bebidas
-        {allRecipes.map((item, index) => (
-          <div
-            data-testid={ `${index}-recipe-card` }
-            key={ item.idDrink }
-          >
-            <img
-              alt="drink"
-              src={ item.strDrinkThumb }
-              data-testid={ `${index}-card-img` }
-            />
-            <span
-              data-testid={ `${index}-card-name` }
-            >
-              {item.strDrink}
-            </span>
-          </div>
-        ))}
+        {this.renderDrinks()}
         <Footer />
+
       </div>
     );
   }
