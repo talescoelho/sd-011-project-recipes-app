@@ -116,10 +116,12 @@ class SearchBar extends Component {
     );
   }
 }
+
 const mapStateToProps = (state) => ({
   resultFood: state.food.recipes,
   resultDrink: state.drink.recipes,
 });
+
 const mapDispatchToProps = (dispatch) => ({
   requestFoodRecipes: (searchInput, searchFilter) => (
     dispatch(fetchIngrentAction(searchInput, searchFilter))),
@@ -127,6 +129,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchDrinksAction(searchInput, searchFilter))
   ),
 });
+
 SearchBar.propTypes = {
   requestFoodRecipes: PropTypes.func.isRequired,
   requestDrinkRecipes: PropTypes.func.isRequired,

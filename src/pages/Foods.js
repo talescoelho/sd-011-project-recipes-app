@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-// import FoodCard from '../components/FoodCard';
-// import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import FoodCard from '../components/FoodCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../css/comidas.css';
+import { fetchCategorieFoodFilterAction, fetchFoodAction } from '../redux/actions';
 
-const endPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-
-function Foods() {
-  const [foods, setFoods] = useState({});
+function Foods(props) {
   const [categories, setCategories] = useState({});
-  // const mealsLength = 12;
   const categoriesLength = 5;
 
   const fetchComidas = (endPointFetch, setState) => {
@@ -21,15 +18,15 @@ function Foods() {
   };
 
   useEffect(() => {
-    fetchComidas(endPoint, setFoods);
     fetchComidas('https://www.themealdb.com/api/json/v1/1/list.php?c=list', setCategories);
   }, []);
 
-  if (!foods.meals || !categories.meals) {
+  if (!categories.meals) {
     return <div>Carregando...</div>;
   }
 
   function handleChange(target, strCategory) {
+    const { searchAllCategory, searchCategory } = props;
     const checkboxes = document.querySelectorAll('input[type=checkbox]');
     checkboxes.forEach((checkbox) => {
       if (target.id !== checkbox.id) {
@@ -38,12 +35,12 @@ function Foods() {
     });
     if (target.checked) {
       if (strCategory === 'All') {
-        fetchComidas(endPoint, setFoods);
+        searchAllCategory();
       } else {
-        fetchComidas(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${strCategory}`, setFoods);
+        searchCategory(strCategory);
       }
     } else {
-      fetchComidas(endPoint, setFoods);
+      searchAllCategory();
     }
   }
 
@@ -77,26 +74,20 @@ function Foods() {
             </label>
           ))
       }
-      {/* <div className="foods-cards">
-        { foods.meals.filter((_, index) => index < mealsLength)
-          .map((meal, index) => (
-            <Link
-              className="card"
-              data-testid={ `${index}-recipe-card` }
-              key={ index }
-              to={ `/comidas/${meal.idMeal}` }
-            >
-              <FoodCard
-                name={ meal.strMeal }
-                thumb={ meal.strMealThumb }
-                index={ index }
-              />
-            </Link>
-          ))}
-      </div> */}
+      <FoodCard />
       <Footer />
     </div>
   );
 }
 
-export default connect()(Foods);
+const mapDispatchToProps = (dispatch) => ({
+  searchCategory: (category) => dispatch(fetchCategorieFoodFilterAction(category)),
+  searchAllCategory: (category) => dispatch(fetchFoodAction(category)),
+});
+
+Foods.propTypes = {
+  searchAllCategory: PropTypes.func,
+  searchCategory: PropTypes.func,
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(Foods);
