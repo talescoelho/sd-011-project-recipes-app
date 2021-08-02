@@ -3,10 +3,10 @@ import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { render } from '@testing-library/react';
-import Defaultstore from '../store';
+import defaultStore from '../store';
 
 const renderWithRouterAndStore = (component, {
-  store = Defaultstore,
+  store = defaultStore,
   initialEntries = ['/'],
   history = createMemoryHistory({ initialEntries }),
 } = {}) => ({
