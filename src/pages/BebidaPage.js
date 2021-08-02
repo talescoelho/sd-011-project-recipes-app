@@ -1,12 +1,36 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import AppContext from '../context/AppContext';
 import LowerMenu from '../components/LowerMenu';
+import SearchCategories from '../components/SearchCategories';
 
 export default function BebidaPage() {
-  const { showInput, data } = useContext(AppContext);
+  const {
+    showInput,
+    data,
+    setData,
+    setDrinkCategories,
+    drinkCategories,
+  } = useContext(AppContext);
+
+  const getInitialDrink = () => {
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+      .then((result) => result.json())
+      .then((rdata) => setData(rdata));
+  };
+
+  const fetchCategories = () => {
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
+      .then((result) => result.json())
+      .then((rdata) => setDrinkCategories(rdata));
+  };
+
+  useEffect(() => {
+    getInitialDrink();
+    fetchCategories();
+  }, []);
 
   const renderData = () => {
     const ALERT_TEXT = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
@@ -39,6 +63,7 @@ export default function BebidaPage() {
     <div>
       <Header text="Bebidas" lupa />
       {showInput && <SearchBar type="drink" />}
+      { drinkCategories ? <SearchCategories /> : <p>Loading...</p> }
       { data ? renderData() : <p>faca uma pesquisa</p> }
       <LowerMenu />
     </div>

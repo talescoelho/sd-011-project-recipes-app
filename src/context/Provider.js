@@ -5,6 +5,8 @@ import AppContext from './AppContext';
 function Provider({ children }) {
   const [showInput, setShowInput] = useState(false);
   const [data, setData] = useState();
+  const [foodCategories, setFoodCategories] = useState();
+  const [drinkCategories, setDrinkCategories] = useState();
   const [inputValue, setInputValue] = useState({
     searchInput: '',
     radioInput: '',
@@ -70,6 +72,11 @@ function Provider({ children }) {
     filterFoodSearchHeader,
     filterDrinkSearchHeader,
     data,
+    setData,
+    foodCategories,
+    setFoodCategories,
+    drinkCategories,
+    setDrinkCategories,
   };
 
   return (
