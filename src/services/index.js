@@ -13,7 +13,6 @@ export async function fetchFoodCategories() {
 async function fetchFoodSearchCategory(category) {
   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
   const { meals } = await response.json();
-  console.log(category);
   return meals;
 }
 

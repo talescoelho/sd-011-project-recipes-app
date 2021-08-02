@@ -6,20 +6,24 @@ import SearchBarContext from '../context/searchBarContext';
 export default function CategoriesButtons({ type }) {
   const [categories, setCategories] = useState([]);
   const { setData, setKeyRedirect } = useContext(SearchBarContext);
-  const [checked, setChecked] = useState(false);
+  // const [checked, setChecked] = useState(false);
   const five = 5;
 
-  async function onClick(strCategory) {
-    if (checked) {
-      setKeyRedirect(false);
-      if (type.includes('Comidas')) setData(await Foods.searchName(''));
-      if (type.includes('Bebidas')) setData(await Cocktails.searchName(''));
-      setChecked(false);
+  async function allCategories() {
+    setKeyRedirect(false);
+    if (type.includes('Comidas')) setData(await Foods.searchName(''));
+    if (type.includes('Bebidas')) setData(await Cocktails.searchName(''));
+  }
+
+  async function onClick({ target }, strCategory) {
+    if (target.onChecked) {
+      allCategories();
+      target.onChecked = false;
     } else {
       setKeyRedirect(false);
       if (type.includes('Comidas')) setData(await Foods.searchCategory(strCategory));
       if (type.includes('Bebidas')) setData(await Cocktails.searchCategory(strCategory));
-      setChecked(true);
+      target.onChecked = true;
     }
   }
 
@@ -30,16 +34,26 @@ export default function CategoriesButtons({ type }) {
     }
     asyncFunc();
   }, [type]);
+
   return (
     <div>
+      <button
+        data-testid="All-category-filter"
+        type="button"
+        onClick={ () => allCategories() }
+        onChecked={ false }
+      >
+        All
+      </button>
       {
         categories.slice(0, five).map(({ strCategory }, index) => (
           <button
             type="button"
             key={ index }
+            onChecked={ false }
             data-testid={ `${strCategory}-category-filter` }
             value={ strCategory }
-            onClick={ () => onClick(strCategory) }
+            onClick={ (e) => onClick(e, strCategory) }
           >
             { strCategory }
           </button>
