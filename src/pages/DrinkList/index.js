@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FooterMenu from '../../components/FooterMenu';
 import Header from '../../components/Header';
@@ -46,3 +47,9 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(DrinkList);
+
+DrinkList.propTypes = {
+  receiveData: PropTypes.func.isRequired,
+  fetched: PropTypes.bool.isRequired,
+  drinks: PropTypes.objectOf(PropTypes.string).isRequired,
+};
