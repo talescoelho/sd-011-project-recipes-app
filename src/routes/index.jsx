@@ -1,6 +1,9 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
-import { LoginPage, NotFound, User, Drinks, Explore, Home, FoodDetails } from '../pages';
+import {
+  LoginPage, NotFound, User, Drinks, Explore, Home, FoodDetails, ExploreFood,
+  ExploreDrink,
+} from '../pages';
 
 function Routes() {
   return (
@@ -8,6 +11,8 @@ function Routes() {
       <Route exact path="/" component={ LoginPage } />
       <Route exact path="/comidas" component={ Home } />
       <Route exact path="/bebidas" render={ (props) => <Drinks { ...props } /> } />
+      <Route exact path="/explorar/comidas" component={ ExploreFood } />
+      <Route exact path="/explorar/bebidas" component={ ExploreDrink } />
       <Route
         exact
         path="/comidas/:id"
