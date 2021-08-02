@@ -1,7 +1,7 @@
 .carousel {
   display: flex;
-  overflow: scroll;
   max-width: 100%;
+  overflow: scroll;
 }
 
 .carouselItemDiv {
