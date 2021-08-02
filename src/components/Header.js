@@ -4,14 +4,28 @@ import PropTypes from 'prop-types';
 
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import {
+  searchByFirstLetter,
+  searchByIngredient,
+  searchByName
+} from '../services/RequestFood';
 
 function Header({ title, search }) {
   const [showFilterInput, setShowFilter] = useState(false);
   const [inputTextSearch, setInputTextSearch] = useState('');
+  const [radio, setRadio] = useState('');
 
   useEffect(() => {
     setShowFilter(true);
-  }, []);
+    console.log(radio);
+  }, [radio]);
+
+  function handleSubmitButton(e) {
+    e.preventDefault();
+    if (inputTextSearch === 'ingredient') {
+      console.log('x');
+    }
+  }
 
   return (
     <header>
@@ -48,6 +62,7 @@ function Header({ title, search }) {
                 id="ingredient"
                 name="radio-button"
                 value="ingredient"
+                onChange={ () => setRadio('ingredient') }
               />
               Ingrediente
             </label>
@@ -59,6 +74,7 @@ function Header({ title, search }) {
                 id="name-search"
                 name="radio-button"
                 value="name-search"
+                onChange={ () => setRadio('name-search') }
               />
               Nome
             </label>
@@ -70,10 +86,17 @@ function Header({ title, search }) {
                 id="first-letter"
                 name="radio-button"
                 value="first-letter"
+                onChange={ () => setRadio('first-letter') }
               />
               Primeira letra
             </label>
-            <button data-testid="exec-search-btn" type="button">Buscar</button>
+            <button
+              data-testid="exec-search-btn"
+              type="button"
+              onClick={ (e) => handleSubmitButton(e.target.value) }
+            >
+              Buscar
+            </button>
           </form>
         ) }
 
