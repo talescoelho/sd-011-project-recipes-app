@@ -9,7 +9,7 @@ function ExploreFoodsByIngredients() {
   const [isLoading, setIsLoading] = useState(true);
   const [ingredients, setIngredients] = useState([]);
   const [shouldRedirectToPageFoods, setShouldRedirectToPageFoods] = useState(false);
-  const { setFoodList } = useContext(RecipeAppContext);
+  const { setFoodList, setToggleOn } = useContext(RecipeAppContext);
 
   useEffect(() => {
     const fetchApi = async () => {
@@ -29,6 +29,7 @@ function ExploreFoodsByIngredients() {
       const json = await response.json();
       const { meals } = json;
       setFoodList(meals);
+      setToggleOn(true);
       setShouldRedirectToPageFoods(true);
     };
     fetchApi();
@@ -49,7 +50,12 @@ function ExploreFoodsByIngredients() {
             onClick={ (event) => redirectToPageFood(event) }
             onKeyDown={ (event) => redirectToPageFood(event) }
           >
-            <img alt="thumbnail drink" height="25" src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` } data-testid={ `${index}-card-img` } />
+            <img
+              alt="thumbnail drink"
+              height="25"
+              src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
+              data-testid={ `${index}-card-img` }
+            />
             <p data-testid={ `${index}-card-name` }>{ingredient.strIngredient}</p>
           </div>
         );

@@ -1,11 +1,12 @@
 import React from 'react';
+import '../css/Header.css';
 import PropTypes from 'prop-types';
 import DrinksSearchBar from './DrinksSearchBar';
 import FoodsSearchBar from './FoodsSearchBar';
 
 function SearchBar({ drinks, foods }) {
   return (
-    <div>
+    <div className="search-container">
       {drinks && <DrinksSearchBar />}
       {foods && <FoodsSearchBar />}
     </div>
