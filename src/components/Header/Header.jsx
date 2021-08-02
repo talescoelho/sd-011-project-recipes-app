@@ -53,6 +53,11 @@ const Header = ({ page, showSearchBtn }) => {
           Nome
           <input type="radio" data-testid="name-search-radio" />
         </label>
+        <label htmlFor="label-first-letter-radio">
+          Busca por primeira letra
+          <input type="radio" data-testid="first-letter-search-radio" />
+        </label>
+        <button type="button" data-testid="exec-search-btn">Buscar</button>
       </span>
     </>
   );
