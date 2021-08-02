@@ -5,7 +5,7 @@ import { filterHandle, fetchApi } from '../redux/actions';
 
 export default function SearchBar({ modal, url }) {
   const dispatch = useDispatch();
-  const { radio, searchInput } = useSelector((state) => state.Filter);
+  const { radio, searchInput, isLoading, data } = useSelector((state) => state.Filter);
 
   function handleClick() {
     const checkLocation = url === '/comidas' ? 'themealdb' : 'thecocktaildb';
@@ -24,6 +24,11 @@ export default function SearchBar({ modal, url }) {
       // eslint-disable-next-line no-alert
       alert('Sua busca deve conter somente 1 (um) caracter');
     }
+  }
+
+  if (!isLoading && !data.meals) {
+    // eslint-disable-next-line no-alert
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
 
   return (
