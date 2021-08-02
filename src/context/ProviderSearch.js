@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import './App.css';
+import '../App.css';
 import SearchContext from './Context';
 
 function ProviderSearch({ children }) {
@@ -22,7 +22,7 @@ function ProviderSearch({ children }) {
     }
     if (filterRadio === 'letra') {
       if (filterIngrediente.length > 1) {
-        alert("Sua busca deve conter somente 1 (um) caracter");
+        alert('Sua busca deve conter somente 1 (um) caracter');
         return;
       }
       url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${filterIngrediente}`;

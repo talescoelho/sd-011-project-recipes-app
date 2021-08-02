@@ -1,9 +1,17 @@
 import React from 'react';
+import FoodCard from '../components/FoodCard';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
+import '../styles/Main.css';
 
 export default function Home() {
   return (
     <div>
-      <h1> Hello, this is my Home Page</h1>
+      <Header pageName="Comidas" renderButton />
+      <main>
+        <FoodCard />
+      </main>
+      <Footer />
     </div>
   );
 }
