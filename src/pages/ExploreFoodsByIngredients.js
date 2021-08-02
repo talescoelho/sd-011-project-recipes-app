@@ -9,7 +9,7 @@ function ExploreFoodsByIngredients() {
   const [isLoading, setIsLoading] = useState(true);
   const [ingredients, setIngredients] = useState([]);
   const [shouldRedirectToPageFoods, setShouldRedirectToPageFoods] = useState(false);
-  const { setFoodList } = useContext(RecipeAppContext);
+  const { setFoodList, setToggleOn } = useContext(RecipeAppContext);
 
   useEffect(() => {
     const fetchApi = async () => {
@@ -29,6 +29,7 @@ function ExploreFoodsByIngredients() {
       const json = await response.json();
       const { meals } = json;
       setFoodList(meals);
+      setToggleOn(true);
       setShouldRedirectToPageFoods(true);
     };
     fetchApi();

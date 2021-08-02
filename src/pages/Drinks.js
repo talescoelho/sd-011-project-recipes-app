@@ -5,14 +5,16 @@ import Footer from '../components/Footer';
 import RecipeAppContext from '../context/RecipeAppContext';
 
 function Drinks() {
-  const { setDrinksList } = useContext(RecipeAppContext);
+  const { setDrinksList, toggleOn } = useContext(RecipeAppContext);
 
   useEffect(() => {
-    const drinkEndpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-    fetch(drinkEndpoint)
-      .then((response) => response.json())
-      .then((results) => setDrinksList(results.drinks));
-  }, []);
+    if (!toggleOn) {
+      const drinkEndpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+      fetch(drinkEndpoint)
+        .then((response) => response.json())
+        .then((results) => setDrinksList(results.drinks));
+    }
+  }, [toggleOn]);
 
   return (
     <div>

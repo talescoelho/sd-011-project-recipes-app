@@ -68,7 +68,12 @@ function CategoryButtons({ foods, drinks }) {
 
   return (
     <div>
-      <button type="button">All</button>
+      <button
+        type="button"
+        onClick={ () => setToggleOn(false) }
+      >
+        All
+      </button>
       {drinks && drinkCategoryList && renderCategoryButton(drinkCategoryList)}
       {foods && foodCategoryList && renderCategoryButton(foodCategoryList)}
     </div>

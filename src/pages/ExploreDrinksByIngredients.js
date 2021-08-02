@@ -9,7 +9,7 @@ function ExploreDrinksByIngredients() {
   const [isLoading, setIsLoading] = useState(true);
   const [ingredients, setIngredients] = useState([]);
   const [shouldRedirectToPageDrinks, setShouldRedirectToPageDrinks] = useState(false);
-  const { setDrinksList } = useContext(RecipeAppContext);
+  const { setDrinksList, setToggleOn } = useContext(RecipeAppContext);
 
   useEffect(() => {
     const fetchApi = async () => {
@@ -28,6 +28,7 @@ function ExploreDrinksByIngredients() {
       const json = await response.json();
       const { drinks } = json;
       setDrinksList(drinks);
+      setToggleOn(true);
       setShouldRedirectToPageDrinks(true);
     };
     fetchApi();
