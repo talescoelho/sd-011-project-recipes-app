@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Header from '../../components/Header';
 
 class Comidas extends Component {
@@ -28,5 +29,9 @@ class Comidas extends Component {
 const mapStateToProps = (state) => ({
   allRecipes: state.recipes.allRecipes,
 });
+
+Comidas.propTypes = {
+  allRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default connect(mapStateToProps)(Comidas);

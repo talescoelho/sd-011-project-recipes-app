@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Header from '../../components/Header';
 
 class Bebidas extends Component {
@@ -14,7 +15,7 @@ class Bebidas extends Component {
         <Header title="Bebidas" mode="bebidas" hasSearchBar />
         Main Bebidas
         {allRecipes.map((item) => (
-          <div>
+          <div key={ item.idDrink }>
             {item.idDrink}
           </div>
         ))}
@@ -26,5 +27,9 @@ class Bebidas extends Component {
 const mapStateToProps = (state) => ({
   allRecipes: state.recipes.allRecipes,
 });
+
+Bebidas.propTypes = {
+  allRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default connect(mapStateToProps)(Bebidas);
