@@ -12,11 +12,13 @@ class DetalhesBebidas extends Component {
       cocktail: {},
       recomendations: [],
       showButton: true,
+      nameButton: true,
     };
 
     this.fetchIdDrink = this.fetchIdDrink.bind(this);
     this.recomendationsFetch = this.recomendationsFetch.bind(this);
     this.handleStateButton = this.handleStateButton.bind(this);
+    this.handleNameButton = this.handleNameButton.bind(this);
   }
 
   componentDidMount() {
@@ -26,6 +28,7 @@ class DetalhesBebidas extends Component {
     this.fetchIdDrink(pathname.split('/')[2]);
     this.recomendationsFetch();
     this.handleStateButton();
+    this.handleNameButton();
   }
 
   handleStateButton() {
@@ -37,6 +40,19 @@ class DetalhesBebidas extends Component {
     if (doneRecipes && doneRecipes.some(({ id }) => id === urlId)) {
       this.setState({
         showButton: false,
+      });
+    }
+  }
+
+  handleNameButton() {
+    const { history } = this.props;
+    const { location } = history;
+    const { pathname } = location;
+    const urlId = pathname.split('/')[2];
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgressRecipes && inProgressRecipes.cocktails[urlId]) {
+      this.setState({
+        nameButton: false,
       });
     }
   }
@@ -62,11 +78,10 @@ class DetalhesBebidas extends Component {
     const { location } = history;
     const { pathname } = location;
     const id = pathname.split('/')[2];
-    const { cocktail, recomendations, showButton } = this.state;
+    const { cocktail, recomendations, showButton, nameButton } = this.state;
     const { drinks } = cocktail;
     const { meals } = recomendations;
     const magicNumber = 6;
-    console.log(meals);
     if (!drinks) {
       return <p>Carregando</p>;
     }
@@ -145,7 +160,7 @@ class DetalhesBebidas extends Component {
                   type="button"
                   className="btn-start"
                 >
-                  Iniciar Receita
+                  { nameButton ? 'Iniciar Receita' : 'Continuar Receita'}
                 </button>
               </div>
             </Link>)}

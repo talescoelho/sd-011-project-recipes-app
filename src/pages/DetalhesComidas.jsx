@@ -12,11 +12,13 @@ class DetalhesComidas extends Component {
       food: {},
       recomendations: [],
       showButton: true,
+      nameButton: true,
     };
 
     this.fetchIdMeal = this.fetchIdMeal.bind(this);
     this.recomendationsFetch = this.recomendationsFetch.bind(this);
     this.handleStateButton = this.handleStateButton.bind(this);
+    this.handleNameButton = this.handleNameButton.bind(this);
   }
 
   componentDidMount() {
@@ -26,6 +28,7 @@ class DetalhesComidas extends Component {
     this.fetchIdMeal(pathname.split('/')[2]);
     this.recomendationsFetch();
     this.handleStateButton();
+    this.handleNameButton();
   }
 
   handleStateButton() {
@@ -37,6 +40,19 @@ class DetalhesComidas extends Component {
     if (doneRecipes && doneRecipes.some(({ id }) => id === urlId)) {
       this.setState({
         showButton: false,
+      });
+    }
+  }
+
+  handleNameButton() {
+    const { history } = this.props;
+    const { location } = history;
+    const { pathname } = location;
+    const urlId = pathname.split('/')[2];
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgressRecipes && inProgressRecipes.meals[urlId]) {
+      this.setState({
+        nameButton: false,
       });
     }
   }
@@ -62,7 +78,7 @@ class DetalhesComidas extends Component {
     const { location } = history;
     const { pathname } = location;
     const id = pathname.split('/')[2];
-    const { food, recomendations, showButton } = this.state;
+    const { food, recomendations, showButton, nameButton } = this.state;
     const { meals } = food;
     const { drinks } = recomendations;
     const magicNumber = 6;
@@ -150,7 +166,7 @@ class DetalhesComidas extends Component {
                   type="button"
                   className="btn-start"
                 >
-                  Iniciar Receita
+                  { nameButton ? 'Iniciar Receita' : 'Continuar Receita' }
                 </button>
               </div>
             </Link>)}
