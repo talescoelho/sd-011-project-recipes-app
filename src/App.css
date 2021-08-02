@@ -15,20 +15,6 @@
   max-height: 80vh;
 }
 
-/*
-#iceLeft {
-  animation: clink .8s infinite ease;
-  opacity: 0.6;
-  transform-origin: 36px 66px;
-}
-
-#iceRight {
-  animation: clink .8s .2s infinite ease;
-  opacity: 0.6;
-  transform-origin: 60px 78px;
-}
-*/
-
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
@@ -67,7 +53,7 @@
   }
 }
 
-[ data-testid = 'footer' ] {
+[ data-testid = ' footer' ] {
   background-color: grey;
   bottom: 0;
   display: flex;
@@ -77,4 +63,9 @@
   background-color: #adb5bd;
   bottom: 0;
   transform: translate(-12.5%, 0%)
+}
+
+img{
+  max-height: 50px;
+  max-width: 50;
 }
