@@ -3,16 +3,20 @@ import React, { useState } from 'react';
 
 function FoodDetails({ match }) {
   const [meals, setMeals] = useState({});
+  const [drinkRecomendation, setRecomendation] = useState({});
   const { id } = match.params;
   React.useEffect(() => {
     const fetchMeal = () => {
       fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
         .then((response) => response.json())
         .then((data) => setMeals(data.meals[0]));
+      fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+        .then((response) => response.json())
+        .then((data) => setRecomendation(data.drinks));
     };
     fetchMeal();
   }, [id]);
-  console.log(meals);
+  console.log(drinkRecomendation);
   if (Object.keys(meals).length === 0) {
     return (<h1>Carregando...</h1>);
   }
