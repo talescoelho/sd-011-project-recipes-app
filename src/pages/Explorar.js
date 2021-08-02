@@ -15,10 +15,18 @@ class Explorar extends Component {
           lupa={ lupa }
         />
         <Link to="/explorar/comidas">
-          <div>Explorar Comidas</div>
+          <div
+            data-testid="explore-food"
+          >
+            Explorar Comidas
+          </div>
         </Link>
         <Link to="/explorar/bebidas">
-          <div>Explorar Bebidas</div>
+          <div
+            data-testid="explore-drinks"
+          >
+            Explorar Bebidas
+          </div>
         </Link>
         <Footer />
       </div>
