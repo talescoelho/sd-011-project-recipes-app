@@ -1,3 +1,6 @@
+const limitMealsCategory = 5;
+const limitRender = 12;
+
 export const fetchMealsByIngredient = (ingredient) => {
   const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
   return fetch(endpoint)
@@ -19,35 +22,23 @@ export const fetchMealsByFirstLetter = (firstLetter) => {
     .then((data) => data.meals);
 };
 
-// Refatorar essa função
 export const fetchMeals = () => {
   const endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   return fetch(endpoint)
     .then((response) => response.json())
     .then((data) => {
       const dataMeals = data.meals;
-      const resultMeals = [];
-      const limitMeals = 12;
-      for (let index = 0; index < limitMeals; index += 1) {
-        resultMeals.push(dataMeals[index]);
-      }
-      return resultMeals;
+      return dataMeals.slice(0, limitRender);
     });
 };
 
-// Refatorar essa função
 export const fetchMealsCategory = () => {
   const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
   return fetch(endpoint)
     .then((response) => response.json())
     .then((data) => {
       const dataMeals = data.meals;
-      const resultMeals = [];
-      const limitMeals = 5;
-      for (let index = 0; index < limitMeals; index += 1) {
-        resultMeals.push(dataMeals[index]);
-      }
-      return resultMeals;
+      return dataMeals.slice(0, limitMealsCategory);
     });
 };
 
@@ -56,8 +47,7 @@ export const fetchMealsByCategories = (category) => {
   return fetch(endpoint)
     .then((response) => response.json())
     .then((data) => {
-      const dataDrinks = data.meals;
-      const limitDrink = 12;
-      return dataDrinks.slice(0, limitDrink);
+      const dataMeals = data.meals;
+      return dataMeals.slice(0, limitRender);
     });
 };
