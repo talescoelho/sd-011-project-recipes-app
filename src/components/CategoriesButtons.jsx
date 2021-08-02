@@ -5,13 +5,20 @@ import SearchBarContext from '../context/searchBarContext';
 
 export default function CategoriesButtons({ type }) {
   const [categories, setCategories] = useState([]);
-  const { setData } = useContext(SearchBarContext);
+  const { setData, setKeyRedirect } = useContext(SearchBarContext);
   const five = 5;
 
   async function onClick({ target }) {
-    if (type.includes('Comidas')) setData(await Foods.searchCategory(target.value));
-    if (type.includes('Bebidas')) setData(await Cocktails.searchCategory(target.value));
-    console.log(await Cocktails.searchCategory(target.value));
+    if (target.onChecked) {
+      if (type.includes('Comidas')) setData(await Foods.searchName(''));
+      if (type.includes('Bebidas')) setData(await Cocktails.searchName(''));
+      setKeyRedirect(false);
+    } else {
+      if (type.includes('Comidas')) setData(await Foods.searchCategory(target.value));
+      if (type.includes('Bebidas')) setData(await Cocktails.searchCategory(target.value));
+      setKeyRedirect(false);
+      target.onChecked = true;
+    }
   }
 
   useEffect(() => {
@@ -28,9 +35,10 @@ export default function CategoriesButtons({ type }) {
           <button
             type="button"
             key={ index }
+            onChecked={ false }
             data-testid={ `${strCategory}-category-filter` }
             value={ strCategory }
-            onClick={ onClick }
+            onClick={ (e) => onClick(e) }
           >
             { strCategory }
           </button>
