@@ -1,0 +1,26 @@
+.top-header-bar {
+  align-items: center;
+  background-color: salmon;
+  display: flex;
+  height: 2.5rem;
+  justify-content: space-between;
+  width: 100vw;
+}
+
+.top-header-bar button {
+  background-color: salmon;
+  border: none;
+  height: 87%;
+  margin: 0 1rem;
+  width: 9%;
+}
+
+.top-header-bar span {
+  align-self: center;
+  font-size: large;
+  font-weight: 700;
+  justify-self: center;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
