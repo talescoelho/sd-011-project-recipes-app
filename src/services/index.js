@@ -10,6 +10,12 @@ export async function fetchFoodCategories() {
   return meals;
 }
 
+async function fetchFoodSearchCategory(category) {
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+  const { meals } = await response.json();
+  return meals;
+}
+
 // FETCH PAGINA DE EXPLORAR COMIDAS
 
 export async function fetchExploreFoodsArea() {
@@ -48,6 +54,12 @@ export async function fetchCocktailsCategories() {
   if (!drinks) {
     alert(alertString);
   }
+  return drinks;
+}
+
+async function fetchCocktailsSearchCategory(category) {
+  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
+  const { drinks } = await response.json();
   return drinks;
 }
 
@@ -154,6 +166,7 @@ export const Foods = {
   categories: fetchFoodCategories(),
   area: fetchExploreFoodsArea(),
   ingredients: fetchExploreFoodsIngredients(),
+  searchCategory: (category) => fetchFoodSearchCategory(category),
   searchIngredients: (ingredient) => fetchFoodIngredient(ingredient),
   searchName: (name) => fetchFoodName(name),
   searchLetter: (letter) => fetchFoodLetter(letter),
@@ -163,6 +176,7 @@ export const Foods = {
 export const Cocktails = {
   categories: fetchCocktailsCategories(),
   ingredients: fetchExploreCocktailsIngredients(),
+  searchCategory: (category) => fetchCocktailsSearchCategory(category),
   searchIngredients: (ingredient) => fetchCocktailsIngredient(ingredient),
   searchName: (name) => fetchCocktailsName(name),
   searchLetter: (letter) => fetchCocktailsLetter(letter),
