@@ -8,13 +8,6 @@ function RecipesProvider({ children }) {
   const [drinksData, setDrinksData] = useState([]);
   const [mealsData, setMealsData] = useState([]);
 
-  const context = {
-    drinksData,
-    setDrinksData,
-    mealsData,
-    setMealsData,
-  };
-
   useEffect(() => {
     async function fetchMyAPI() {
       const responseMeals = await fetchMeals();
@@ -24,6 +17,13 @@ function RecipesProvider({ children }) {
     }
     fetchMyAPI();
   }, []);
+
+  const context = {
+    drinksData,
+    setDrinksData,
+    mealsData,
+    setMealsData,
+  };
 
   return (
     <RecipesContext.Provider value={ context }>

@@ -12,7 +12,7 @@ function Meals() {
   return (
     <div>
       <Header title="Comidas" recipeType="meals" />
-      <CategoriesBar recipeType="meals" />
+      <CategoriesBar recipeType="meals" filterType="meals" />
       { mealsData !== [] && mealsData.map((recipe, index) => (
         <Link
           to={ `/comidas/${recipe.idMeal}` }

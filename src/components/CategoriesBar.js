@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { fetchMealsCategory } from '../services/meailAPI';
-import { fetchDrinkCategory } from '../services/cocktailAPI';
+import React, { useState, useEffect, useContext } from 'react';
+import { fetchMealsByCategories, fetchMealsCategory } from '../services/meailAPI';
+import { fetchCocktailsByCategories, fetchDrinkCategory } from '../services/cocktailAPI';
+import RecipesContext from '../context/RecipesContext';
 
-function CategoriesBar({ recipeType }) {
+function CategoriesBar({ recipeType, filterType }) {
   const [mealsCategory, setMealsCategory] = useState([]);
   const [drinkCategory, setDrinksCategory] = useState([]);
+  const { setDrinksData, setMealsData } = useContext(RecipesContext);
 
   useEffect(() => {
     async function fetchCategory() {
@@ -19,12 +21,26 @@ function CategoriesBar({ recipeType }) {
     fetchCategory();
   }, [recipeType]);
 
+  async function handleClick({ target }) {
+    const { value } = target;
+    if (filterType === 'meals') {
+      const responseMeals = await fetchMealsByCategories(value);
+      setMealsData(responseMeals);
+    }
+    if (filterType === 'bebidas') {
+      const responseDrinks = await fetchCocktailsByCategories(value);
+      setDrinksData(responseDrinks);
+    }
+  }
+
   function renderCategoryBar(strCategory, index) {
     return (
       <button
         key={ index }
         data-testid={ `${strCategory}-category-filter` }
         type="button"
+        value={ strCategory }
+        onClick={ (e) => handleClick(e) }
       >
         { strCategory }
       </button>

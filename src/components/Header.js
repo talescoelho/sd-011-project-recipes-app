@@ -5,7 +5,6 @@ import Profile from '../images/profileIcon.svg';
 import Search from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import { Nav } from './styles';
-import CategoriesBar from './CategoriesBar';
 
 export default function Header({ recipeType, title }) {
   const [hide, setHide] = useState(false);

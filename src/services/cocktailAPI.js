@@ -19,6 +19,7 @@ export const fetchCocktailsByFirstLetter = (firstLetter) => {
     .then((data) => data.drinks);
 };
 
+// Refatorar essa função
 export const fetchCocktails = () => {
   const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   return fetch(endpoint)
@@ -34,6 +35,7 @@ export const fetchCocktails = () => {
     });
 };
 
+// Refatorar essa função
 export const fetchDrinkCategory = () => {
   const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   return fetch(endpoint)
@@ -46,5 +48,16 @@ export const fetchDrinkCategory = () => {
         resultDrink.push(dataDrink[index]);
       }
       return resultDrink;
+    });
+};
+
+export const fetchCocktailsByCategories = (category) => {
+  const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => {
+      const dataDrinks = data.drinks;
+      const limitDrink = 12;
+      return dataDrinks.slice(0, limitDrink);
     });
 };

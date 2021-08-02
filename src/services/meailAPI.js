@@ -19,6 +19,7 @@ export const fetchMealsByFirstLetter = (firstLetter) => {
     .then((data) => data.meals);
 };
 
+// Refatorar essa função
 export const fetchMeals = () => {
   const endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   return fetch(endpoint)
@@ -34,6 +35,7 @@ export const fetchMeals = () => {
     });
 };
 
+// Refatorar essa função
 export const fetchMealsCategory = () => {
   const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
   return fetch(endpoint)
@@ -46,5 +48,16 @@ export const fetchMealsCategory = () => {
         resultMeals.push(dataMeals[index]);
       }
       return resultMeals;
+    });
+};
+
+export const fetchMealsByCategories = (category) => {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => {
+      const dataDrinks = data.meals;
+      const limitDrink = 12;
+      return dataDrinks.slice(0, limitDrink);
     });
 };
