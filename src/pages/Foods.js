@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Header from '../components/Header';
+import ButtonsCategories from '../components/ButtonsCategories';
 import Footer from '../components/Footer';
 import CardCatalog from '../components/CardCatalog';
 import GlobalContext from '../context/GlobalContext';
@@ -11,11 +12,23 @@ function Foods() {
     enableProfileButton: true,
   };
 
-  const { catalog } = useContext(GlobalContext);
+  const { catalog, setCatalog } = useContext(GlobalContext);
+
+  useEffect(() => {
+    function fetchAPI() {
+      fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+        .then((response) => response.json())
+        .then((result) => {
+          setCatalog(result);
+        });
+    }
+    fetchAPI();
+  }, [setCatalog]);
 
   return (
     <div>
       <Header props={ headerProps } />
+      <ButtonsCategories categoryName={ headerProps.title } />
       {catalog && <CardCatalog />}
       <Footer />
     </div>
