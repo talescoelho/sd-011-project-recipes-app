@@ -15,13 +15,12 @@ function RecipeList() {
       <p>deu errado filhao</p>
     );
   }
-  if (!recipes) {
+  if (recipes.length) {
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
   return (
     <ol>
-      {console.log(recipes)}
-      {recipes.length === 1 ? <Redirect to={ `/comidas/${recipes[0].idMeal}` } /> : null}
+      {recipes.length === 1 && <Redirect to={ `/comidas/${recipes[0].idMeal}` } /> }
       {recipes.slice(0, magicalNumber)
         .map((meals, index) => (
           <li data-testid={ `${index}-recipe-card` } key={ meals.idMeal }>

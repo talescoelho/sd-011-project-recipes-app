@@ -42,7 +42,7 @@ export const fetchRecipes = ({ searchTerm, category }) => async (dispatch) => {
   const URL_SEARCH_OPTION = {
     ingrediente: 'filter.php?i=',
     nome: 'search.php?s=',
-    'primeira-letra': 'search.php?f=',
+    primeira_letra: 'search.php?f=',
   };
   const urlModifier = URL_SEARCH_OPTION[category] || '';
   dispatch(requestRecipes());

@@ -11,6 +11,7 @@ const initialState = {
 const reducers = {
   requestCocktails: (state) => {
     state.isLoading = true;
+    state.cocktails = [];
     state.error = null;
   },
   reportError: (state, { payload }) => {
@@ -19,6 +20,7 @@ const reducers = {
   },
 
   receiveCocktails: (state, { payload }) => {
+    console.log(payload);
     state.cocktails = payload;
     state.isLoading = false;
   },
@@ -42,7 +44,7 @@ export const fetchCocktails = ({ searchTerm, category }) => async (dispatch) => 
   const URL_SEARCH_OPTION = {
     ingrediente: 'filter.php?i=',
     nome: 'search.php?s=',
-    'primeira-letra': 'search.php?f=',
+    primeira_letra: 'search.php?f=',
   };
   const urlModifier = URL_SEARCH_OPTION[category] || '';
   dispatch(requestCocktails());
@@ -53,7 +55,7 @@ export const fetchCocktails = ({ searchTerm, category }) => async (dispatch) => 
     console.log(result);
   } catch (error) {
     if (error instanceof SyntaxError) {
-      dispatch(receiveCocktails([]));
+      dispatch(receiveCocktails(null));
     } else {
       dispatch(reportError(error));
     }

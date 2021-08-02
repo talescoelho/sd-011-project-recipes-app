@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useCocktails } from '../../hooks';
 
 function CocktailsList() {
   const { isLoading, error, cocktails } = useCocktails();
+
+  useEffect(() => {
+    if (!cocktails) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+  }, [cocktails]);
+
   if (isLoading) {
     return (
       <p>...carregando</p>
@@ -14,21 +21,16 @@ function CocktailsList() {
       <p>deu errado filhao</p>
     );
   }
-  if (!cocktails) {
-    return (
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
-    );
-  }
+
   const magicalNumber = 12;
   return (
     <ol>
-      {cocktails.length === 1 ? <Redirect
+      {cocktails && cocktails.length === 1 && <Redirect
         to={
           `/comidas/${cocktails[0].idDrink}`
         }
-      /> : null}
-      {console.log(cocktails)}
-      {cocktails.slice(0, magicalNumber).map((drinks, index) => (
+      />}
+      {cocktails && cocktails.slice(0, magicalNumber).map((drinks, index) => (
         <li data-testid={ `${index}-recipe-card` } key={ drinks.idDrink }>
           <img
             alt={ `Foto de uma ${drinks.strDrink}` }
