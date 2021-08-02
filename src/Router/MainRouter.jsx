@@ -9,13 +9,14 @@ import Origen from '../Pages/Explorer/Foods/Origen';
 import Drinks from '../Pages/Main/Drinks';
 import Foods from '../Pages/Main/Foods';
 import User from '../Pages/User';
-import Home from '../Pages/Home';
+// import Home from '../Pages/Home';
 import RecipesDone from '../Pages/RecipesDone';
 import FavoriteRecipes from '../Pages/FavoriteRecipes';
+import Login from '../Pages/Login';
 
 const MainRouter = () => (
   <Switch>
-    <Route exact path="/" render={ () => <Home /> } />
+    <Route exact path="/" render={ () => <Login /> } />
     <Route exact path="/comidas" render={ () => <Foods /> } />
     <Route exact path="/bebidas" render={ () => <Drinks /> } />
     {/* <Route exact path={ `/comidas/${id-da-receita}`} render={ () => <MainDrinks /> }
