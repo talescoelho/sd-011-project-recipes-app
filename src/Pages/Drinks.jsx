@@ -5,6 +5,9 @@ import Context from '../Context_Configs/Context';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './Components/SearchBar';
+import FooterBar from './Components/FooterBar';
+
+// import PropTypes from 'prop-types';
 
 function Drinks() {
   const history = useHistory();
@@ -53,6 +56,7 @@ function Drinks() {
           // eslint-disable-next-line no-alert
           )) : alert('Sinto muito, não encontramos nenhuma receita para esses filtros.') }
       </div>
+      <FooterBar />
     </div>
   );
 }
