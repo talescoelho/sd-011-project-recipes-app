@@ -21,6 +21,7 @@ function App() {
             <Route path="/comidas" component={ Comidas } />
             <Route path="/bebidas" component={ Comidas } />
             <Route path="/explorar" component={ Explorar } />
+            <Route exact path="/perfil" component={ Perfil } />
           </RecipesProvider>
 
           <Route path="/comidas/{id-da-receita}" />
@@ -47,7 +48,6 @@ function App() {
             path="/explorar/comidas/area"
             component={ () => <Header title="Explorar Origem" showSearchIcon /> }
           />
-          <Route exact path="/perfil" component={ Perfil } />
           <Route
             path="/receitas-feitas"
             component={ () => <Header title="Receitas Feitas" /> }
