@@ -1,0 +1,25 @@
+.foodCardContainer {
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 172px;
+  margin: 10px 1px 3px 1px;
+  width: 162px;
+}
+
+.foodImageRecipe {
+  background-color: red;
+  height: 132px;  
+  width: 100%;
+}
+
+.FoodNameRecipe {
+  background-color: white;
+  color: black;
+  font-family:Verdana;
+  font-size: 20px;
+  height: 40px;
+  width: 100%;
+}

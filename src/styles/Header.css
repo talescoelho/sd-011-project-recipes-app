@@ -1,20 +1,24 @@
-.container-title-icons {
-  display: flex;
-  justify-content: space-around;
-}
-
 .container-main-header {
   height: 58px;
-  left: 0;
-  position: absolute;
-  top: 0;
+  /* position: absolute; */
+  /* top: 0; */
   width: 360px;
+  display: flex;
+  align-items: center;
+}
+
+.container-title-icons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .container-buttons {
   align-items: center;
   display: flex;
   flex-direction: column;
+  height: 100px;
   width: 80%;
 }
 
