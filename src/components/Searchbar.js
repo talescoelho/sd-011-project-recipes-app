@@ -40,10 +40,12 @@ function Searchbar() {
   function fetchApi() {
     const url = endPoint(searchBar);
     if (url === 'error') {
+      // eslint-disable-next-line no-alert
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
     fetch(url).then((response) => response.json()).then(
       (json) => (json[key] === null ? (
+        // eslint-disable-next-line no-alert
         alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
       ) : setSearchResults(json)),
     );
