@@ -28,7 +28,12 @@ export function fetchReceiveRecipes(textInputValue, radioInputValue) {
       }
       url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${textInputValue}`;
       break;
+    case 'filter':
+      url = `www.themealdb.com/api/json/v1/1/filter.php?c=${textInputValue}`;
+      break;
     default:
+      url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+      break;
     }
     return fetch(url)
       .then((response) => response.json())
