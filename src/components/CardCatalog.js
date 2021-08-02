@@ -13,7 +13,13 @@ function CardCatalog() {
 
   function renderMealsCards() {
     return catalogLimited.map((food, index) => (
-      <Link key={ index } to={ `/comidas/${food.idMeal}` }>
+      <Link
+        key={ index }
+        to={ {
+          pathname: `/comidas/${food.idMeal}`,
+          state: { foodInfo: food },
+        } }
+      >
         <div data-testid={ `${index}-recipe-card` } className="supply-card">
           <img
             className="supply-card"
@@ -33,7 +39,10 @@ function CardCatalog() {
 
   function renderDrinksCards() {
     return catalogLimited.map((drink, index) => (
-      <Link key={ index } to={ `/bebidas/${drink.idDrink}` }>
+      <Link
+        key={ index }
+        to={ `/bebidas/${drink.idDrink}` }
+      >
         <div data-testid={ `${index}-recipe-card` } className="supply-card">
           <img
             className="supply-card"

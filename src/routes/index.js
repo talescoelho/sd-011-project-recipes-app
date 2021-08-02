@@ -7,14 +7,17 @@ import Explorer from '../pages/Explorer';
 import Perfil from '../pages/Perfil';
 import Recipes from '../pages/Recipes';
 import FavoriteRecipes from '../pages/FavoriteRecipes';
+import RecipeDetails from '../pages/RecipeDetails';
 
 function Routes() {
   return (
     <div>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/comidas" component={ Foods } />
+        <Route exact path="/comidas" component={ Foods } />
+        <Route exact path="/comidas/:id" component={ RecipeDetails } />
         <Route path="/bebidas" component={ Drinks } />
+        <Route exact path="/bebidas/:id" component={ RecipeDetails } />
         <Route path="/explorar" component={ Explorer } />
         <Route path="/perfil" component={ Perfil } />
         <Route path="/receitas-feitas" component={ Recipes } />
