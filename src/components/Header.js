@@ -44,7 +44,6 @@ function Header({ props: { title, enableSearchButton, enableProfileButton } }) {
       //   placeholder="Pesquisar..."
       // />)}
       )}
-      ;
     </header>
   );
 }

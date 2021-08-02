@@ -39,8 +39,13 @@ function SearchBar({ title }) {
   async function fetchAPI() {
     const response = await fetch(fetchUrl);
     const result = await response.json();
-    setCatalog(result);
-    RedirectDetails(result);
+    console.log(result);
+    if (result.meals || result.drinks) {
+      setCatalog(result);
+      RedirectDetails(result);
+    } else {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
   }
 
   function searchFood() {
@@ -75,17 +80,16 @@ function SearchBar({ title }) {
     }
   }, [search, inputFirstLetter, inputName, inputIngredient, title]);
   return (
-    <div>
+    <div className="search-bar">
       <input
         onChange={ (e) => setSearch(e.target.value) }
         data-testid="search-input"
-        className="search-bar"
+        className="input-search"
         type="search"
         placeholder="Pesquisar..."
       />
-      <div>
+      <div className="search-prop">
         <label htmlFor="ingredient">
-          Ingrediente
           <input
             onChange={ () => {
               setinputFirstLetter(false);
@@ -97,9 +101,9 @@ function SearchBar({ title }) {
             data-testid="ingredient-search-radio"
             id="ingredient"
           />
+          Ingrediente
         </label>
         <label htmlFor="name">
-          Nome
           <input
             onChange={ () => {
               setinputIngredient(false);
@@ -111,9 +115,9 @@ function SearchBar({ title }) {
             id="name"
             data-testid="name-search-radio"
           />
+          Nome
         </label>
         <label htmlFor="first-letter">
-          Primeira Letra
           <input
             onChange={ () => {
               setinputName(false);
@@ -125,6 +129,7 @@ function SearchBar({ title }) {
             id="first-letter"
             data-testid="first-letter-search-radio"
           />
+          Primeira Letra
         </label>
       </div>
       <button
