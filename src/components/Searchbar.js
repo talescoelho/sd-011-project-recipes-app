@@ -5,7 +5,17 @@ import recipesContext from '../provider/recipesContext';
 function Searchbar() {
   const [inputRadio, setInputRadio] = useState('');
   const [searchBar, setSearchbar] = useState('');
-  const { type, key, searchResults, setSearchResults } = useContext(recipesContext);
+  const { type, searchResults, setSearchResults } = useContext(recipesContext);
+
+  let page = 'bebidas';
+  let key = 'drinks';
+  let itemKey = 'idDrink';
+  if (type === 'meal') {
+    page = 'comidas';
+    key = 'meals';
+    itemKey = 'idMeal';
+  }
+
   function selectedInput({ target: { value } }) {
     setInputRadio(value);
   }
@@ -35,14 +45,20 @@ function Searchbar() {
     fetch(url).then((response) => response.json()).then(
       (json) => (json[key] === null ? (
         alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
-      ) : setSearchResults(json[key])),
+      ) : setSearchResults(json)),
     );
+  }
+
+  let resultSize = 0;
+  if (searchResults[key]) {
+    resultSize = searchResults[key].length;
   }
 
   return (
     <form>
-      { searchResults.length === 1 ? (
-        <Redirect to={ `comidas/${searchResults[0]}` } />) : null }
+      { resultSize === 1 ? (
+        <Redirect to={ `/${page}/${searchResults[key][0][itemKey]}` } />
+      ) : null }
       <input
         onChange={ (event) => setSearchBarFunction(event) }
         type="text"

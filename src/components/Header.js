@@ -14,11 +14,12 @@ function Header({ title, showButton }) {
 
   return (
     <header>
-      <Link
-        to="/perfil"
-        data-testid="profile-top-btn"
-      >
-        <img alt="icone de perfil" src={ profileIcon } />
+      <Link to="/perfil">
+        <img
+          data-testid="profile-top-btn"
+          src={ profileIcon }
+          alt="icone de perfil"
+        />
       </Link>
       <h3 data-testid="page-title">
         {title}
@@ -29,9 +30,12 @@ function Header({ title, showButton }) {
             <button
               onClick={ () => disableSearchBar() }
               type="button"
-              data-testid="search-top-btn"
             >
-              <img alt="icone de pesquisa" src={ searchIcon } />
+              <img
+                data-testid="search-top-btn"
+                src={ searchIcon }
+                alt="icone de pesquisa"
+              />
             </button>
           )
           : null

@@ -14,24 +14,27 @@ function MenuInferior() {
       data-testid="footer"
     >
       <Link to="/bebidas" onClick={ () => setType('cocktail') }>
-        <button type="button" data-testid="drinks-bottom-btn">
+        <button type="button">
           <img
+            data-testid="drinks-bottom-btn"
             src={ drinkIcon }
             alt="bebidas"
           />
         </button>
       </Link>
       <Link to="/explorar">
-        <button type="button" data-testid="explore-bottom-btn">
+        <button type="button">
           <img
+            data-testid="explore-bottom-btn"
             src={ exploreIcon }
             alt="bebidas"
           />
         </button>
       </Link>
       <Link to="/comidas" onClick={ () => setType('meal') }>
-        <button type="button" data-testid="food-bottom-btn">
+        <button type="button">
           <img
+            data-testid="food-bottom-btn"
             src={ mealIcon }
             alt="bebidas"
           />
