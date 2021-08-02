@@ -6,7 +6,6 @@ function ProviderFood({ children }) {
   const [searchBarShow, setSearchBarShow] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const contextValue = {
     searchBarShow,
     setSearchBarShow,
@@ -15,6 +14,7 @@ function ProviderFood({ children }) {
     loading,
     setLoading,
   };
+
   return (
     <MainContext.Provider value={ contextValue }>
       {children}

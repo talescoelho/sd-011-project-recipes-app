@@ -8,11 +8,9 @@ import { getInitialMealsRecipes } from '../services/theMealAPI';
 function Foods() {
   const {
     setData,
-    loading,
     setLoading,
   } = useContext(MainContext);
 
-  console.log(loading);
   useEffect(() => {
     setLoading(true);
     getInitialMealsRecipes()
@@ -20,6 +18,9 @@ function Foods() {
         setData(meals);
         setLoading(false);
       });
+    return () => {
+      setData([]);
+    };
   }, [setData, setLoading]);
 
   return (

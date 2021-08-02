@@ -8,11 +8,9 @@ import { getInitialDrinksRecipes } from '../services/theCockTailAPI';
 function Drinks() {
   const {
     setData,
-    loading,
     setLoading,
   } = useContext(MainContext);
 
-  console.log(loading);
   useEffect(() => {
     setLoading(true);
     getInitialDrinksRecipes()
@@ -20,14 +18,17 @@ function Drinks() {
         setData(drinks);
         setLoading(false);
       });
+    return () => {
+      setData([]);
+    };
   }, [setData, setLoading]);
 
   return (
-    <>
+    <div>
       <Header title="Bebidas" isButtonVisible />
       <RecipesCardsContainer />
       <FooterMenu />
-    </>
+    </div>
   );
 }
 

@@ -8,26 +8,21 @@ function SearchBar() {
   const [search, setSearch] = useState('');
   const [radio, setRadio] = useState('');
   const { pathname } = useLocation();
-
   const { data, setData, loading } = useContext(MainContext);
-
   const history = useHistory();
 
   useEffect(() => {
     if (data.length === 1) {
       const { idMeal, idDrink } = data[0];
       const id = idMeal || idDrink;
-      console.log(idMeal);
       history.push(`${pathname}/${id}`);
     }
-    console.log(0);
   }, [pathname, data, history]);
 
   async function searchButton() {
     if (!loading) {
       if (pathname === '/comidas') {
         const newResults = await searchBarFetchMeal(search, radio) || [];
-        console.log(newResults);
         if (typeof (newResults) === 'string') {
           // eslint-disable-next-line no-alert
           alert(newResults);

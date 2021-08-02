@@ -18,8 +18,6 @@ function RecipesCardsContainer() {
     }
   }, [data, loading]);
 
-  console.log(data);
-
   return (
     <section>
       { showCards ? data.map((recipe, index) => (
