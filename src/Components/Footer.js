@@ -1,11 +1,8 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import RecipesContext from '../contexts/RecipesContext';
-import SearchbarContext from '../contexts/SearchbarContext';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
-import '../styles/Footer.css';
 
 function Footer() {
   const { setSearchCategory, setPageName } = useContext(SearchbarContext);
