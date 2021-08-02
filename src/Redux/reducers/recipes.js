@@ -1,5 +1,5 @@
 const initialState = {
-  formInfo: {},
+  formInfo: '',
   data: [],
 };
 
