@@ -3,10 +3,10 @@ import Header from '../components/Header';
 
 function FavoritesRecipes() {
   return (
-    <div>
-      Tela de Receitas Favoritass
+    <>
       <Header />
-    </div>
+      Tela de Receitas Favoritass
+    </>
   );
 }
 

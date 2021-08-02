@@ -4,10 +4,10 @@ import LowerMenu from '../components/LowerMenu';
 
 function ExploreFoodsArea() {
   return (
-    <div>
+    <>
       <Header />
       <LowerMenu />
-    </div>
+    </>
   );
 }
 

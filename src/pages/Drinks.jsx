@@ -26,7 +26,7 @@ function Drinks() {
 
   useEffect(() => {
     const renderItens = () => {
-      if (dataFilter <= 0) {
+      if (dataFilter.length === 0) {
         return setCompare(drinks);
       }
       return setCompare(dataFilter);
