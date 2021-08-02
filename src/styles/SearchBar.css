@@ -1,5 +1,5 @@
 .search-bar {
-  background-color: #fff;
+  background-color: white;
   display: flex;
   height: 4rem;
   position: absolute;
@@ -14,29 +14,29 @@
   width: 100%;
 }
 
-.search-bar label:nth-child(1) {
+.search-bar label:nth-child( 1 ) {
   align-items: center;
   display: flex;
-  justify-content: center;
   flex-grow: 1;
+  justify-content: center;
   width: 100%;
 }
 
-.search-bar label:nth-child(2) {
+.search-bar label:nth-child( 2 ) {
   width: 33%;
 }
 
-.search-bar label:nth-child(3) {
+.search-bar label:nth-child( 3 ) {
   width: 33%;
 }
 
-.search-bar label:nth-child(4) {
+.search-bar label:nth-child( 4 ) {
   width: 33%;
 }
 
-.search-bar label:nth-child(1) input {
-  justify-self: center;
+.search-bar label:nth-child( 1 ) input {
   height: 90%;
+  justify-self: center;
   margin-top: 0.1rem;
   width: 95%;
 }
