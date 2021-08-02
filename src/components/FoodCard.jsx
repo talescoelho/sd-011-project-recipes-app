@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/FoodCard.css';
+import PropTypes from 'prop-types';
 
 function FoodCard({ recipe, index, type }) {
   const foodName = type === 'drinks' ? 'strDrink' : 'strMeal';
@@ -28,3 +29,9 @@ function FoodCard({ recipe, index, type }) {
 }
 
 export default FoodCard;
+
+FoodCard.propTypes = {
+  recipe: PropTypes.objectOf(String),
+  index: PropTypes.number,
+  type: PropTypes.string,
+}.isRequired;
