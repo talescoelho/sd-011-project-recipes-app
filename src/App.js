@@ -3,8 +3,6 @@ import './App.css';
 import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Routes from './Routes/Routes';
-import Login from './Pages/Login';
-import HomeRecipes from './Pages/HomeRecipes';
 
 function App() {
   return (
