@@ -1,6 +1,16 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
-import { LoginPage, NotFound, User, Drinks, Explore, Home, FoodDetails } from '../pages';
+import {
+  LoginPage,
+  NotFound,
+  User,
+  Drinks,
+  Explore,
+  Home,
+  FoodDetails,
+  MealtIngredients,
+  DrinkIngredients,
+} from '../pages';
 
 function Routes() {
   return (
@@ -17,6 +27,16 @@ function Routes() {
         exact
         path="/explorar"
         render={ (props) => <Explore { ...props } /> }
+      />
+      <Route
+        exact
+        path="/explorar/comidas/ingredientes"
+        render={ (props) => <MealtIngredients { ...props } /> }
+      />
+      <Route
+        exact
+        path="/explorar/bebidas/ingredientes"
+        render={ (props) => <DrinkIngredients { ...props } /> }
       />
       <Route exact path="/perfil" render={ (props) => <User { ...props } /> } />
       <Route path="*" component={ NotFound } />

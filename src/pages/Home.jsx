@@ -6,12 +6,12 @@ import '../styles/Main.css';
 
 export default function Home() {
   return (
-    <>
+    <div>
       <Header pageName="Comidas" renderButton />
       <main>
         <FoodCard />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
