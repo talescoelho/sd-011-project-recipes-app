@@ -1,4 +1,5 @@
 export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
+export const USER_EMAIL = 'USER_EMAIL';
 
 function handleFoodsSuccess(result) {
   console.log('AQUI FOODS', result);
@@ -81,3 +82,8 @@ export function drinkRecipesByLetter(letter) {
       );
   };
 }
+
+export const setEmail = (payload) => ({
+  type: USER_EMAIL,
+  payload,
+});

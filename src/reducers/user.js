@@ -1,10 +1,16 @@
-const INITIAL_STATE = {};
+import { USER_EMAIL } from '../actions/index';
 
-function userReducer(state = INITIAL_STATE, { type }) {
-  switch (type) {
+const INITIAL_STATE = {
+  email: '',
+};
+
+function user(state = INITIAL_STATE, action) {
+  switch (action.type) {
+  case USER_EMAIL:
+    return { ...state, email: action.payload };
   default:
     return state;
   }
 }
 
-export default userReducer;
+export default user;
