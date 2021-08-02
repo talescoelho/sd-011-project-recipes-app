@@ -18,11 +18,19 @@ function RecipesProvider({ children }) {
     fetchMyAPI();
   }, []);
 
+  async function resetFilter() {
+    const defaultMeals = await fetchMeals();
+    setMealsData(defaultMeals);
+    const defaultDrinks = await fetchCocktails();
+    setDrinksData(defaultDrinks);
+  }
+
   const context = {
     drinksData,
     setDrinksData,
     mealsData,
     setMealsData,
+    resetFilter,
   };
 
   return (

@@ -6,7 +6,7 @@ import RecipesContext from '../context/RecipesContext';
 function CategoriesBar({ recipeType, filterType }) {
   const [mealsCategory, setMealsCategory] = useState([]);
   const [drinkCategory, setDrinksCategory] = useState([]);
-  const { setDrinksData, setMealsData } = useContext(RecipesContext);
+  const { setDrinksData, setMealsData, resetFilter } = useContext(RecipesContext);
 
   useEffect(() => {
     async function fetchCategory() {
@@ -60,9 +60,19 @@ function CategoriesBar({ recipeType, filterType }) {
   }
 
   return (
-    recipeType === 'meals'
-      ? renderCategoryMeals()
-      : renderCategoryDrink()
+    <>
+      {recipeType === 'meals'
+        ? renderCategoryMeals()
+        : renderCategoryDrink()}
+
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => resetFilter() }
+      >
+        All
+      </button>
+    </>
   );
 }
 
