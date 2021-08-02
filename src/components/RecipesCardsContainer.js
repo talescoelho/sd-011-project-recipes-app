@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import MainContext from '../context/MainContext';
+import RecipeCard from './RecipeCard';
 
 function RecipesCardsContainer() {
   const [showCards, setShowCards] = useState(false);
@@ -7,7 +8,7 @@ function RecipesCardsContainer() {
   const maxCardLength = 11;
 
   useEffect(() => {
-    if (!data) {
+    if (data.length === 0) {
     // eslint-disable-next-line no-alert
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     } else {
@@ -15,10 +16,12 @@ function RecipesCardsContainer() {
     }
   }, [data]);
 
+  console.log(data);
+
   return (
     <section>
       { showCards ? data.map((recipe, index) => (
-        index > maxCardLength ? null : <div />
+        index > maxCardLength ? null : <RecipeCard index={ index } recipe={ recipe } />
       )) : null }
     </section>
   );

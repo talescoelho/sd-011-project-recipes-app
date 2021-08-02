@@ -25,7 +25,7 @@ function SearchBar() {
 
   async function searchButton() {
     if (pathname === '/comidas') {
-      const newResults = await searchBarFetchMeal(search, radio);
+      const newResults = await searchBarFetchMeal(search, radio) || [];
       console.log(newResults);
       if (typeof (newResults) === 'string') {
         // eslint-disable-next-line no-alert
@@ -35,7 +35,7 @@ function SearchBar() {
       }
     }
     if (pathname === '/bebidas') {
-      const newResults = await searchBarFetchCockTail(search, radio);
+      const newResults = await searchBarFetchCockTail(search, radio) || [];
       if (typeof (newResults) === 'string') {
         // eslint-disable-next-line no-alert
         alert(newResults);
