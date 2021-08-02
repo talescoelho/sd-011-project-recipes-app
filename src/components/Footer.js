@@ -1,26 +1,42 @@
 import React, { Component } from 'react';
+import drinkIcon from '../images/drinkIcon.svg';
+import exploreIcon from '../images/exploreIcon.svg';
+import mealIcon from '../images/mealIcon.svg';
+import '../styles/footer.css';
 
 class Footer extends Component {
   render() {
     return (
-      <footer data-testid="footer">
+      <footer
+        className="footer"
+        data-testid="footer"
+      >
         <button
           type="button"
-          data-testid="drinks-bottom-btn"
         >
-          Bebidas
+          <img
+            src={ drinkIcon }
+            alt="Link para bebidas"
+            data-testid="drinks-bottom-btn"
+          />
         </button>
         <button
           type="button"
-          data-testid="explore-bottom-btn"
         >
-          Explorar
+          <img
+            src={ exploreIcon }
+            alt="Link para bebidas"
+            data-testid="explore-bottom-btn"
+          />
         </button>
         <button
           type="button"
-          data-testid="food-bottom-btn"
         >
-          Comida
+          <img
+            src={ mealIcon }
+            alt="Link para bebidas"
+            data-testid="food-bottom-btn"
+          />
         </button>
       </footer>
     );
