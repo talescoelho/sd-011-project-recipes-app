@@ -74,12 +74,12 @@
 }
 
 .photo {
-  position: relative;
-  display: block;
-  margin-left: 5px;
   border: 5px solid rgb(206, 203, 17);
   border-radius: 50px;
-  text-align: center;
+  display: block;
   height: 200px;
+  margin-left: 5px;
+  position: relative;
+  text-align: center;
   width: 200px;
 }
