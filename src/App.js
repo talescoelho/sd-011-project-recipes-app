@@ -5,6 +5,7 @@ import Comidas from './pages/Comidas';
 import Bebidas from './pages/Bebidas';
 import RecipesId from './pages/RecipesId';
 import Explorar from './pages/Explorar';
+import ReceitasFeitas from './pages/ReceitasFeitas';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route exact path="/comidas" component={ Comidas } />
         <Route exact path="/bebidas" component={ Bebidas } />
         <Route exact path="/explorar" component={ Explorar } />
+        <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
         <Route
           exact
           path="/comidas/:id"

@@ -11,9 +11,11 @@ function RecipesId({ match }) {
   const { id } = params;
   const typeDrinkorMeal = path.split('/')[1];
   const dispatch = useDispatch();
-  const { dataApi } = useSelector(({ detailsId }) => detailsId);
+  const { dataApi, loading } = useSelector(({ detailsId }) => detailsId);
   const { drinks } = dataApi;
   const { meals } = dataApi;
+  // const mealsOrDrinks = typeDrinkorMeal === 'comidas' ? 'meals' : 'drinks';
+  // const MealOrDrink = typeDrinkorMeal === 'comidas' ? 'Meal' : 'Drink';
   const [detail, setDetail] = useState({
     idItem: 0,
     title: '',
@@ -33,6 +35,7 @@ function RecipesId({ match }) {
 
   function getReduxMealsOrDrinks() {
     if (drinks !== undefined) {
+      // console.log(dataApi[mealsOrDrinks][0][`str${MealOrDrink}`]);
       const { idDrink, strDrink, strDrinkThumb, strCategory, strAlcoholic,
         strInstructions, strVideo, strIngredient1, strIngredient2, strIngredient3,
         strIngredient4, strIngredient5, strMeasure1, strMeasure2, strMeasure3,
@@ -53,7 +56,8 @@ function RecipesId({ match }) {
         update: false,
       });
     }
-    if (meals !== undefined) {
+    if (meals !== undefined && !loading) {
+      // console.log(dataApi[mealsOrDrinks][0][`str${MealOrDrink}`]);
       const { idMeal, strMeal, strMealThumb, strCategory, strInstructions, strYoutube,
         strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5,
         strIngredient6, strIngredient7, strIngredient8, strMeasure1, strMeasure2,
