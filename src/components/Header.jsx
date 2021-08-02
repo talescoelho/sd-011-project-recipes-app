@@ -4,11 +4,12 @@ import TopHeaderBar from './subcomponents/TopHeaderBar';
 
 function Header() {
   const [searchBar, setSearchBar] = useState(false);
-
   return (
     <header>
       <TopHeaderBar toggleSearchBar={ { searchBar, setSearchBar } } />
-      { searchBar ? <SearchBar /> : null }
+      {searchBar ? <SearchBar /> : null}
+
+      {/*  <h3 data-testid="page-title">{title}</h3> */}
     </header>
   );
 }
