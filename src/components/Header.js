@@ -4,15 +4,15 @@ import PropTypes from 'prop-types';
 
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import {
-  searchByFirstLetter,
-  searchByIngredient,
-  searchByName
-} from '../services/RequestFood';
+// import {
+//   searchByFirstLetter,
+//   searchByIngredient,
+//   searchByName,
+// } from '../services/RequestFood';
 
 function Header({ title, search }) {
   const [showFilterInput, setShowFilter] = useState(false);
-  const [inputTextSearch, setInputTextSearch] = useState('');
+  const [setInputTextSearch] = useState('');
   const [radio, setRadio] = useState('');
 
   useEffect(() => {
@@ -22,9 +22,10 @@ function Header({ title, search }) {
 
   function handleSubmitButton(e) {
     e.preventDefault();
-    if (inputTextSearch === 'ingredient') {
-      console.log('x');
-    }
+    console.log(radio);
+    // if (radio === 'ingredient') {
+
+    // }
   }
 
   return (
