@@ -7,7 +7,8 @@ import Header from '../../components/Header';
 
 class Bebidas extends Component {
   render() {
-    const { allRecipes } = this.props;
+    let { allRecipes } = this.props;
+    allRecipes = allRecipes.slice(0, 12);
     if (allRecipes.length === 1) {
       return <Redirect to={ `/bebidas/${allRecipes[0].idDrink}` } />;
     }
@@ -15,9 +16,18 @@ class Bebidas extends Component {
       <div>
         <Header title="Bebidas" mode="bebidas" hasSearchBar />
         Main Bebidas
-        {allRecipes.map((item) => (
-          <div key={ item.idDrink }>
-            {item.idDrink}
+        {allRecipes.map((item, index) => (
+          <div
+            data-testid={`${index}-recipe-card`}
+            key={ item.idDrink }>
+              <img
+                src={item.strDrinkThumb}
+                data-testid={`${index}-card-img`}
+              />
+              <span 
+                data-testid={`${index}-card-name`}>
+                  {item.strDrink}
+              </span>
           </div>
         ))}
         <Footer />
