@@ -6,7 +6,7 @@ import RecipeAppContext from '../context/RecipeAppContext';
 function RecipeCards() {
   const { drinksList, foodsList } = useContext(RecipeAppContext);
   const history = useHistory();
-  console.log(foodsList);
+  // console.log(foodsList);
   useEffect(() => {
     if (foodsList === null || drinksList === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');

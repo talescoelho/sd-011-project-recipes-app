@@ -4,13 +4,14 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function Perfil() {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = localStorage.getItem('user');
+  const objUser = JSON.parse(user) || {};
 
   return (
     <div>
       <h1>My Perfil Page</h1>
       <Header title="Perfil" />
-      <p data-testid="profile-email">{user.email}</p>
+      <p data-testid="profile-email">{objUser.email}</p>
       <Link to="/receitas-feitas">
         <button
           type="button"
