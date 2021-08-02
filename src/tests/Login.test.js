@@ -1,6 +1,8 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import Login from '../pages/Login';
+import App from '../App';
 
 const emailInputTestId = 'email-input';
 const passwordInputTestId = 'password-input';
@@ -105,7 +107,11 @@ describe('Requirement 05', () => {
 
 describe('Requirement 06', () => {
   it('should have 2 token into localStorage (mealsToken and cocktailsToken)', () => {
-    render(<Login />);
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>,
+    );
     const inputEmail = screen.getByTestId(emailInputTestId);
     fireEvent.change(inputEmail, { target: {
       value: validEmail,
@@ -124,7 +130,12 @@ describe('Requirement 06', () => {
 
 describe('Requirement 07', () => {
   it('should have user email into localStorage', () => {
-    render(<Login />);
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>,
+    );
+
     const inputEmail = screen.getByTestId(emailInputTestId);
     fireEvent.change(inputEmail, { target: {
       value: validEmail,
@@ -137,5 +148,29 @@ describe('Requirement 07', () => {
     const submitButton = screen.getByTestId(submitButtonButtonTestId);
     fireEvent.click(submitButton);
     expect(localStorage.getItem('user')).toBe(`{"email":"${validEmail}"}`);
+  });
+});
+
+describe('Requirement 08', () => {
+  it('should redirect to /comidas on submit', () => {
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>,
+    );
+
+    const inputEmail = screen.getByTestId(emailInputTestId);
+    fireEvent.change(inputEmail, { target: {
+      value: validEmail,
+    } });
+    const inputPassword = screen.getByTestId(passwordInputTestId);
+    fireEvent.change(inputPassword, { target: {
+      value: validPassword,
+    } });
+
+    const submitButton = screen.getByTestId(submitButtonButtonTestId);
+    fireEvent.click(submitButton);
+    const recipesPage = screen.getByTestId('recipes-page');
+    expect(recipesPage).toBeInTheDocument();
   });
 });
