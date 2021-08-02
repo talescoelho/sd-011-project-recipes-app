@@ -19,7 +19,7 @@ function DoneFavRecipesCard({ recipe, index, done, fav }) {
 
   const removeFromFavorites = (id) => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    newFavorites = favoriteRecipes.filter((favRecipe) => favRecipe.id !== id);
+    const newFavorites = favoriteRecipes.filter((favRecipe) => favRecipe.id !== id);
     localStorage.setItem('avoriteRecipes', JSON.stringify(newFavorites));
     // ainda em teste
   };
