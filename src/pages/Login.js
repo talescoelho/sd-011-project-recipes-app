@@ -1,27 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import RecipesContext from '../context/RecipesContext';
+import '../styles/login.css';
 
 export default function Login() {
+  const { loginState, setLogin } = useContext(RecipesContext);
   const history = useHistory();
-  const [login, setLogin] = useState({
-    email: '',
-    password: '',
-    isDisabled: true,
-  });
 
   function handleLogin({ target: { type, value } }) {
-    setLogin({ ...login, [type]: value });
-    const { password, email } = login;
+    setLogin({ ...loginState, [type]: value });
+    const { password, email } = loginState;
     const SIX_PASS = 6;
     const verifyEmail = email.includes('@') && email.includes('.com');
     const verifyPassword = password.length >= SIX_PASS;
     if (verifyEmail && verifyPassword) {
-      return setLogin({ ...login, isDisabled: false });
+      return setLogin({ ...loginState, isDisabled: false });
     }
   }
 
   function handleSubmit() {
-    const { email } = login;
+    const { email } = loginState;
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('user', JSON.stringify({ email }));
@@ -29,27 +27,33 @@ export default function Login() {
   }
 
   return (
-    <div>
-      <input
-        type="email"
-        data-testid="email-input"
-        placeholder="email"
-        onChange={ handleLogin }
-      />
-      <input
-        type="password"
-        data-testid="password-input"
-        placeholder="senha"
-        onChange={ handleLogin }
-      />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ login.isDisabled }
-        onClick={ handleSubmit }
-      >
-        Login
-      </button>
-    </div>
+    <main className="container">
+      <div className="container-login">
+        <div className="login-info">
+          <h2>Login</h2>
+          <input
+            type="email"
+            data-testid="email-input"
+            placeholder="email"
+            onChange={ handleLogin }
+          />
+          <input
+            type="password"
+            data-testid="password-input"
+            placeholder="senha"
+            onChange={ handleLogin }
+          />
+          <button
+            className="button-login"
+            type="button"
+            data-testid="login-submit-btn"
+            disabled={ loginState.isDisabled }
+            onClick={ handleSubmit }
+          >
+            Entrar
+          </button>
+        </div>
+      </div>
+    </main>
   );
 }

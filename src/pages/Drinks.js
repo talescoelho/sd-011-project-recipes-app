@@ -3,9 +3,9 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 
-export default function Food() {
+export default function Drinks() {
   const pageTitle = {
-    pageName: 'Comidas',
+    pageName: 'Bebidas',
     setIcon: true,
   };
   const history = useHistory();
@@ -14,21 +14,21 @@ export default function Food() {
   return (
     <div>
       <Header value={ pageTitle } />
-      { redirect ? history.push(`/comidas/${recipesDb.map((meal) => meal.idMeal)}`) : (
+      { redirect ? history.push(`/bebidas/${recipesDb.map((drink) => drink.idDrink)}`) : (
         <div>
           {
-            recipesDb.map((meal, index) => (
+            recipesDb.map((drink, index) => (// requisito 17, card com limite de 12
               (index < limits) && (
                 <div key={ index }>
                   <div data-testid={ `${index}-recipe-card` }>
                     <img
-                      src={ meal.strMealThumb }
+                      src={ drink.strDrinkThumb }
                       data-testid={ `${index}-card-img` }
-                      alt={ meal.strMeal }
+                      alt={ drink.strDrink }
                     />
                   </div>
                   <div>
-                    <span data-testid={ `${index}-card-name` }>{ meal.strMeal }</span>
+                    <span data-testid={ `${index}-card-name` }>{ drink.strDrink }</span>
                   </div>
                 </div>
               )
