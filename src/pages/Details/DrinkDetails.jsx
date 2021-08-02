@@ -1,9 +1,14 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './DrinkDetails.module.css';
+import shareIcon from '../../images/shareIcon.svg';
+import whiteHeart from '../../images/whiteHeartIcon.svg';
+import blackHeart from '../../images/blackHeartIcon.svg';
 
 function DrinkDetails({ match }) {
   const [drinks, setDrinks] = useState({});
+  const [favorite, setFavorite] = useState(false);
   const [foodRecomendation, setRecomendation] = useState([]);
   const { id } = match.params;
   const mN = 6;
@@ -56,13 +61,14 @@ function DrinkDetails({ match }) {
         data-testid="share-btn"
         type="button"
       >
-        Compartilhar
+        <img src={ shareIcon } alt="share" />
       </button>
       <button
         data-testid="favorite-btn"
         type="button"
+        onClick={ () => setFavorite(!favorite) }
       >
-        Favorite
+        <img src={ !favorite ? whiteHeart : blackHeart } alt="share" />
       </button>
       <h1>Instruções</h1>
       <p
@@ -105,13 +111,17 @@ function DrinkDetails({ match }) {
           </div>
         ))}
       </div>
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-        className={ styles.startRecipeBttn }
+      <Link
+        to={ `/bebidas/${id}/in-progress` }
       >
-        Iniciar Receita
-      </button>
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          className={ styles.startRecipeBttn }
+        >
+          Iniciar Receita
+        </button>
+      </Link>
     </div>
   );
 }
