@@ -68,14 +68,14 @@
 }
 
 .div-scroll {
-  height: 200px;
   display: flex;
-  width: 200px;
+  height: 200px;
   overflow-x: scroll;
+  width: 200px;
 }
 
 .btnFixed {
   bottom: 0;
-  position: fixed;
   margin: 5px;
+  position: fixed;
 }
