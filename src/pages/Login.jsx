@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import '../styles/login.css';
 
 function Login() {
   const [user, setUser] = useState([]);
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
+
+  const history = useHistory();
 
   /* aqui faço a minha validação de email usando regex */
   function handleEmail(e) {
@@ -32,6 +34,12 @@ function Login() {
     localStorage.setItem('user', JSON.stringify({ email: user }));
   }
 
+  function loginToApp(target) {
+    setUser(target.value);
+    setLocalStorage();
+    history.push('/comidas');
+  }
+
   return (
     <div className="container-login">
       <input
@@ -50,18 +58,15 @@ function Login() {
       />
 
       {/* aqui utilizo o link para direciona para tela de comida  */}
-      <Link to="/comidas">
-        <button
-          type="button"
-          data-testid="login-submit-btn"
-          disabled={ !email + !password }
-          value={ user }
-          onChange={ (e) => setUser(e.target.value) }
-          onClick={ setLocalStorage }
-        >
-          Entrar
-        </button>
-      </Link>
+      <button
+        type="button"
+        data-testid="login-submit-btn"
+        disabled={ !email + !password }
+        value={ user }
+        onClick={ ({ target }) => loginToApp(target) }
+      >
+        Entrar
+      </button>
     </div>
   );
 }
