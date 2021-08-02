@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
+import whiteHeart from '../images/whiteHeartIcon.svg';
+import blackHeart from '../images/blackHeartIcon.svg';
 import useDetailsFetch from '../hooks/useDetailsFetch';
 import useRecomendedItemsFetch from '../hooks/useRecomendedItemsFetch';
 
@@ -13,7 +15,17 @@ export default function DetailsDrinks() {
   const [recipeExists, setRecipeExists] = React.useState(false);
   const [inProgressRecipes, setInProgressRecipes] = React.useState(false);
   const [copiedText, setCopiedText] = React.useState(false);
+  const [isFavorite, setIsFavorite] = React.useState(false);
   const idReceita = '178319';
+
+  function verifyFavoriteExistsOnLocalStorage(id) {
+    const favoriteExists = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favoriteExists && favoriteExists.find((revenue) => (
+      revenue.id === id
+    ))) {
+      setIsFavorite(true);
+    }
+  }
 
   function verifyDoneRecipes(id) {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -41,6 +53,7 @@ export default function DetailsDrinks() {
     fetchFoodRecomendedApi();
     verifyDoneRecipes(idReceita);
     verifyProgressRecipes(idReceita);
+    verifyFavoriteExistsOnLocalStorage(idReceita);
   }, [request, requestRecomendedApi]);
 
   React.useEffect(() => {
@@ -106,6 +119,23 @@ export default function DetailsDrinks() {
           </div>
         ))}
       </div>
+      <button type="button">
+        {isFavorite
+          ? (
+            <img
+              data-testid="favorite-btn"
+              src={ blackHeart }
+              alt="coração preenchido"
+            />
+          )
+          : (
+            <img
+              data-testid="favorite-btn"
+              src={ whiteHeart }
+              alt="coração preenchido"
+            />
+          )}
+      </button>
       {copiedText ? <p>Link copiado!</p> : null}
       <button
         data-testid="share-btn"
@@ -114,7 +144,6 @@ export default function DetailsDrinks() {
       >
         share
       </button>
-      <button data-testid="favorite-btn" type="button">favorite</button>
       {recipeExists ? null
         : (
           <Link to={ `/bebidas/${idReceita}/in-progress` }>

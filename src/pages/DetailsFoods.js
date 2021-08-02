@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
+import whiteHeart from '../images/whiteHeartIcon.svg';
+import blackHeart from '../images/blackHeartIcon.svg';
 import useDetailsFetch from '../hooks/useDetailsFetch';
 import useRecomendedItemsFetch from '../hooks/useRecomendedItemsFetch';
 
@@ -13,7 +15,17 @@ export default function DetailsFoods() {
   const [recipeExists, setRecipeExists] = React.useState(false);
   const [inProgressRecipes, setInProgressRecipes] = React.useState(false);
   const [copiedText, setCopiedText] = React.useState(false);
+  const [isFavorite, setIsFavorite] = React.useState(false);
   const idReceita = '52771';
+
+  function verifyFavoriteExistsOnLocalStorage(id) {
+    const favoriteExists = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favoriteExists && favoriteExists.find((revenue) => (
+      revenue.id === id
+    ))) {
+      setIsFavorite(true);
+    }
+  }
 
   function verifyDoneRecipes(id) {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -40,6 +52,7 @@ export default function DetailsFoods() {
     fetchDrinkRecomendedApi();
     verifyDoneRecipes(idReceita);
     verifyProgressRecipes(idReceita);
+    verifyFavoriteExistsOnLocalStorage(idReceita);
   }, [request, requestRecomendedApi]);
 
   React.useEffect(() => {
@@ -65,8 +78,6 @@ export default function DetailsFoods() {
       setCopiedText(false);
     }, seconds);
   }
-
-  console.log(window.location.href);
 
   return (
     <main>
@@ -126,8 +137,23 @@ export default function DetailsFoods() {
       >
         share
       </button>
-      <button data-testid="favorite-btn" type="button">favorite</button>
-
+      <button type="button">
+        {isFavorite
+          ? (
+            <img
+              data-testid="favorite-btn"
+              src={ blackHeart }
+              alt="coração preenchido"
+            />
+          )
+          : (
+            <img
+              data-testid="favorite-btn"
+              src={ whiteHeart }
+              alt="coração preenchido"
+            />
+          )}
+      </button>
       {recipeExists ? null
         : (
           <Link to={ `/comidas/${idReceita}/in-progress` }>
