@@ -8,6 +8,7 @@ import ShareBtn from '../components/ShareBtn';
 import RecipeStageBtn from '../components/RecipeStageBtn';
 import CarouselRecipes from '../components/CarouselRecipes';
 import ThumbDetails from '../components/ThumbDetails';
+import IngredientsList from '../components/IngredientsList';
 
 const URL_TO_DRINKS_RECIPES = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
@@ -39,12 +40,7 @@ function MealDetails(
         <ShareBtn url={ match.url } />
         <FavBtn data={ data } recipeType="meals" />
         <span data-testid="recipe-category">{ strCategory }</span>
-        {ingredientsAndMesure
-          .map((ingredient, index) => (
-            <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-              {`${ingredient.name} ${ingredient.measure}`}
-            </p>
-          ))}
+        <IngredientsList list={ ingredientsAndMesure } />
         <p data-testid="instructions">{strInstructions}</p>
         <iframe
           data-testid="video"
