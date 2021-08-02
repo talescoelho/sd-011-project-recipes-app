@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
-import { fetchDrinksLetter } from '../services/DrinksApiServices';
+import { fetchDrinksName } from '../services/DrinksApiServices';
 
 export default function Drinks() {
   const pageTitle = {
@@ -16,7 +16,7 @@ export default function Drinks() {
 
   useEffect(() => {
     const response = async () => {
-      const data = await fetchDrinksLetter('a');
+      const data = await fetchDrinksName('');
       return setFirstDrink(data);
     };
     response();
@@ -41,7 +41,7 @@ export default function Drinks() {
       return (
         <div>
           {
-            firstDrink.map((drink, index) => (// requisito 17, card com limite de 12
+            firstDrink.map((drink, index) => (
               (index < limits) && (
                 <div key={ index }>
                   <div data-testid={ `${index}-recipe-card` }>
@@ -64,7 +64,7 @@ export default function Drinks() {
     return (
       <div>
         {
-          recipesDb.map((drink, index) => (// requisito 17, card com limite de 12
+          recipesDb.map((drink, index) => (
             (index < limits) && (
               <div key={ index }>
                 <div data-testid={ `${index}-recipe-card` }>
