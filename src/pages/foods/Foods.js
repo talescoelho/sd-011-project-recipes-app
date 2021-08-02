@@ -7,7 +7,17 @@ import { SearchBarProvider } from '../../context/SearchBar';
 import Footer from '../../components/Footer';
 
 export default function Foods() {
-  const { foodsFiltered, foodCategories, setFilter } = useContext(RecipesContext);
+  const {
+    foodsFiltered, foodCategories, setFoodsFilter, foodsFilter,
+  } = useContext(RecipesContext);
+
+  const onClickFoodFilter = (clickedCategory) => {
+    if (clickedCategory === foodsFilter) {
+      setFoodsFilter('');
+    } else {
+      setFoodsFilter(clickedCategory);
+    }
+  };
 
   return (
     <main>
@@ -18,8 +28,8 @@ export default function Foods() {
       <section>
         <button
           type="button"
-          data-testid="all-category-filter"
-          onClick={ () => setFilter('') }
+          data-testid="All-category-filter"
+          onClick={ () => onClickFoodFilter('') }
         >
           All
         </button>
@@ -28,7 +38,7 @@ export default function Foods() {
             type="button"
             key={ cat.strCategory }
             data-testid={ `${cat.strCategory}-category-filter` }
-            onClick={ () => setFilter(cat.strCategory) }
+            onClick={ () => onClickFoodFilter(cat.strCategory) }
           >
             {cat.strCategory}
           </button>

@@ -7,7 +7,17 @@ import { SearchBarProvider } from '../../context/SearchBar';
 import Footer from '../../components/Footer';
 
 export default function Drinks() {
-  const { drinksFiltered, drinkCategories } = useContext(RecipesContext);
+  const {
+    drinksFiltered, drinkCategories, drinksFilter, setDrinksFilter,
+  } = useContext(RecipesContext);
+
+  const onClickDrinkFilter = (clickedCategory) => {
+    if (clickedCategory === drinksFilter) {
+      setDrinksFilter('');
+    } else {
+      setDrinksFilter(clickedCategory);
+    }
+  };
 
   return (
     <main>
@@ -16,11 +26,19 @@ export default function Drinks() {
         <SearchBar fetchType="thecocktaildb" />
       </SearchBarProvider>
       <section>
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => onClickDrinkFilter('') }
+        >
+          All
+        </button>
         { drinkCategories.length > 0 && drinkCategories.map((cat) => (
           <button
             type="button"
             key={ cat.strCategory }
             data-testid={ `${cat.strCategory}-category-filter` }
+            onClick={ () => onClickDrinkFilter(cat.strCategory) }
           >
             {cat.strCategory}
           </button>
