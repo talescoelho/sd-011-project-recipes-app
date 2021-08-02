@@ -1,33 +1,50 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import getCategories from '../services/categoriesAPI';
 import getCategory from '../services/categoryAPI';
 import RecipeAppContext from '../context/RecipeAppContext';
 
 function CategoryButtons({ foods, drinks }) {
+  const [toggleOn, setToggleOn] = useState(false);
+
   const { setFoodCategory,
     setDrinkCategory,
     drinkCategoryList,
     foodCategoryList,
+    setFoodList,
   } = useContext(RecipeAppContext);
 
   useEffect(() => {
     const foodCatEndpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
     const drinkCatEndpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
     if (foods) {
-      const getCategoryFromAPI = async () => {
-        const { meals } = await getCategory(foodCatEndpoint);
+      const getCategoriesFromAPI = async () => {
+        const { meals } = await getCategories(foodCatEndpoint);
         setFoodCategory(meals);
       };
-      getCategoryFromAPI();
+      getCategoriesFromAPI();
     } else if (drinks) {
-      const getCategoryFromAPI = async () => {
-        const response = await getCategory(drinkCatEndpoint);
-        const drinkCategory = response.drinks;
+      const getCategoriesFromAPI = async () => {
+        const data = await getCategories(drinkCatEndpoint);
+        const drinkCategory = data.drinks;
         setDrinkCategory(drinkCategory);
       };
-      getCategoryFromAPI();
+      getCategoriesFromAPI();
     }
   }, []);
+
+  const filterCategory = async ({ target }) => {
+    const { name } = target;
+    const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${name}`;
+    const data = await getCategory(endpoint);
+    if (!toggleOn) {
+      setFoodList(data.meals);
+      setToggleOn(true);
+    } if (toggleOn) {
+      setFoodList('');
+      setToggleOn(false);
+    }
+  };
 
   const renderCategoryButton = (type) => {
     const maxLength = 4;
@@ -37,7 +54,9 @@ function CategoryButtons({ foods, drinks }) {
           <button
             type="button"
             key={ index }
+            name={ category.strCategory }
             data-testid={ `${category.strCategory}-category-filter` }
+            onClick={ (e) => filterCategory(e) }
           >
             {`${category.strCategory}`}
           </button>

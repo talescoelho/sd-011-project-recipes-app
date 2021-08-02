@@ -6,7 +6,7 @@ import RecipeAppContext from '../context/RecipeAppContext';
 function RecipeCards() {
   const { drinksList, foodsList } = useContext(RecipeAppContext);
   const history = useHistory();
-
+  console.log(foodsList);
   useEffect(() => {
     if (foodsList === null || drinksList === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -53,7 +53,11 @@ function RecipeCards() {
     const list = foodsList.map((recipe, index) => {
       if (index <= maxLength) {
         return (
-          <div className="card-container" data-testid={ `${index}-recipe-card` }>
+          <div
+            className="card-container"
+            data-testid={ `${index}-recipe-card` }
+            key={ index }
+          >
             <img
               src={ recipe.strMealThumb }
               data-testid={ `${index}-card-img` }
