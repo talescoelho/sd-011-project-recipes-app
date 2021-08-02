@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import copy from 'clipboard-copy';
-import whiteHeart from '../images/whiteHeartIcon.svg';
-import blackHeart from '../images/blackHeartIcon.svg';
+import ShareButton from '../components/ShareButton';
+import FavoriteButton from '../components/FavoriteButton';
+import ContinueButton from '../components/ContinueButton';
+import StartButton from '../components/StartButton';
 import useDetailsFetch from '../hooks/useDetailsFetch';
 import useRecomendedItemsFetch from '../hooks/useRecomendedItemsFetch';
 
@@ -70,15 +70,6 @@ export default function DetailsFoods() {
 
   if (!data || !recomendedData) return <p>Loading...</p>;
 
-  function copyUrl() {
-    const seconds = 2000;
-    setCopiedText(true);
-    copy(window.location.href);
-    setTimeout(() => {
-      setCopiedText(false);
-    }, seconds);
-  }
-
   return (
     <main>
       <img
@@ -130,53 +121,10 @@ export default function DetailsFoods() {
         ))}
       </div>
       {copiedText ? <p>Link copiado!</p> : null}
-      <button
-        data-testid="share-btn"
-        type="button"
-        onClick={ copyUrl }
-      >
-        share
-      </button>
-      <button type="button">
-        {isFavorite
-          ? (
-            <img
-              data-testid="favorite-btn"
-              src={ blackHeart }
-              alt="coração preenchido"
-            />
-          )
-          : (
-            <img
-              data-testid="favorite-btn"
-              src={ whiteHeart }
-              alt="coração preenchido"
-            />
-          )}
-      </button>
-      {recipeExists ? null
-        : (
-          <Link to={ `/comidas/${idReceita}/in-progress` }>
-            <button
-              className="btnFixed"
-              data-testid="start-recipe-btn"
-              type="button"
-            >
-              Iniciar receita
-            </button>
-          </Link>
-        )}
-
-      {inProgressRecipes ? (
-        <button
-          className="btnFixed"
-          data-testid="start-recipe-btn"
-          type="button"
-        >
-          Continuar Receita
-        </button>
-      ) : null}
-
+      <ShareButton setCopiedText={ setCopiedText } />
+      <FavoriteButton isFavorite={ isFavorite } />
+      <ContinueButton inProgressRecipes={ inProgressRecipes } />
+      <StartButton page="comidas" idReceita={ idReceita } recipeExists={ recipeExists } />
     </main>
   );
 }
