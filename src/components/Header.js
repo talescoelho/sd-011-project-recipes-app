@@ -30,7 +30,7 @@ class Header extends Component {
   }
 
   render() {
-    const { title, search } = this.props;
+    const { title, lupa } = this.props;
     const { searchInput } = this.state;
     return (
       <main>
@@ -40,7 +40,7 @@ class Header extends Component {
           </button>
         </Link>
         <span data-testid="page-title">{ title }</span>
-        { search === 'off' ? null : (
+        { (title === 'Explorar' || lupa === 'desligado') ? null : (
           <button
             type="button"
             onClick={ this.handleSearchChange }
@@ -56,7 +56,7 @@ class Header extends Component {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  search: PropTypes.string.isRequired,
+  lupa: PropTypes.string.isRequired,
 };
 
 export default Header;
