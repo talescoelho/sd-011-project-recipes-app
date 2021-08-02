@@ -11,8 +11,9 @@ export async function fetchFoodCategories() {
 }
 
 async function fetchFoodSearchCategory(category) {
-  const response = await fetch(`http://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
   const { meals } = await response.json();
+  console.log(category);
   return meals;
 }
 
@@ -48,7 +49,7 @@ export async function fetchCocktailsCategories() {
 }
 
 async function fetchCocktailsSearchCategory(category) {
-  const response = await fetch(`http://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
+  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
   const { drinks } = await response.json();
   return drinks;
 }

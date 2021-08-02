@@ -6,18 +6,20 @@ import SearchBarContext from '../context/searchBarContext';
 export default function CategoriesButtons({ type }) {
   const [categories, setCategories] = useState([]);
   const { setData, setKeyRedirect } = useContext(SearchBarContext);
+  const [checked, setChecked] = useState(false);
   const five = 5;
 
-  async function onClick({ target }) {
-    if (target.onChecked) {
+  async function onClick(strCategory) {
+    if (checked) {
+      setKeyRedirect(false);
       if (type.includes('Comidas')) setData(await Foods.searchName(''));
       if (type.includes('Bebidas')) setData(await Cocktails.searchName(''));
-      setKeyRedirect(false);
+      setChecked(false);
     } else {
-      if (type.includes('Comidas')) setData(await Foods.searchCategory(target.value));
-      if (type.includes('Bebidas')) setData(await Cocktails.searchCategory(target.value));
       setKeyRedirect(false);
-      target.onChecked = true;
+      if (type.includes('Comidas')) setData(await Foods.searchCategory(strCategory));
+      if (type.includes('Bebidas')) setData(await Cocktails.searchCategory(strCategory));
+      setChecked(true);
     }
   }
 
@@ -35,10 +37,9 @@ export default function CategoriesButtons({ type }) {
           <button
             type="button"
             key={ index }
-            onChecked={ false }
             data-testid={ `${strCategory}-category-filter` }
             value={ strCategory }
-            onClick={ (e) => onClick(e) }
+            onClick={ () => onClick(strCategory) }
           >
             { strCategory }
           </button>
