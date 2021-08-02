@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipesProvider from './provider/recipesProvider';
 import Login from './pages/Login';
 import TelaPrincipal from './pages/TelaPrincipal';
+import DetalhesComida from './pages/DetalhesComida';
+import DetalhesBebida from './pages/DetalhesBebida';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -22,8 +24,16 @@ function App() {
             render={ () => <TelaPrincipal type="cocktail" /> }
           />
           { /* não tem header/footer \/ */ }
-          <Route exact path="/comidas/:id" component={ NotFound } />
-          <Route exact path="/bebidas/:id" component={ NotFound } />
+          <Route
+            exact
+            path="/comidas/:id"
+            render={ (props) => <DetalhesComida { ...props } /> }
+          />
+          <Route
+            exact
+            path="/bebidas/:id"
+            render={ (props) => <DetalhesBebida { ...props } /> }
+          />
           <Route exact path="/comidas/:id/in-progress" component={ NotFound } />
           <Route exact path="/bebidas/:id/in-progress" component={ NotFound } />
           { /* não tem header/footer /\ */ }
