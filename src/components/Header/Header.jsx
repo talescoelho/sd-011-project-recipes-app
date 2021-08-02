@@ -45,9 +45,13 @@ const Header = ({ page, showSearchBtn }) => {
             ? (<input type="text" data-testid="search-input" />)
             : null
         }
-        <label htmlFor="label-radio">
+        <label htmlFor="label-ingredient-radio">
           Ingredientes
           <input type="radio" data-testid="ingredient-search-radio" />
+        </label>
+        <label htmlFor="label-name-radio">
+          Nome
+          <input type="radio" data-testid="name-search-radio" />
         </label>
       </span>
     </>
