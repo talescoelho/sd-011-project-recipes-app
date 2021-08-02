@@ -31,8 +31,8 @@ function RecipeCards() {
               src={ recipe.strDrinkThumb }
               data-testid={ `${index}-card-img` }
               alt={ `${recipe.strDrink}` }
-              height="100px"
-              width="100px"
+              height="50px"
+              width="50px"
             />
             <p
               key={ recipe.idDrink }
@@ -62,8 +62,9 @@ function RecipeCards() {
               src={ recipe.strMealThumb }
               data-testid={ `${index}-card-img` }
               alt={ `${recipe.strMeal}` }
-              height="100px"
-              width="100px"
+              height="50px"
+              width="50px"
+
             />
             <p
               key={ recipe.idMeal }

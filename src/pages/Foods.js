@@ -5,14 +5,16 @@ import Footer from '../components/Footer';
 import RecipeAppContext from '../context/RecipeAppContext';
 
 function Foods() {
-  const { setFoodList } = useContext(RecipeAppContext);
+  const { setFoodList, toggleOn } = useContext(RecipeAppContext);
 
   useEffect(() => {
-    const foodEndpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-    fetch(foodEndpoint)
-      .then((response) => response.json())
-      .then((results) => setFoodList(results.meals));
-  }, []);
+    if (!toggleOn) {
+      const foodEndpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+      fetch(foodEndpoint)
+        .then((response) => response.json())
+        .then((results) => setFoodList(results.meals));
+    }
+  }, [toggleOn]);
 
   return (
     <>

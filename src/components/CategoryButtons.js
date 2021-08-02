@@ -1,17 +1,17 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import getCategories from '../services/categoriesAPI';
 import getCategory from '../services/categoryAPI';
 import RecipeAppContext from '../context/RecipeAppContext';
 
 function CategoryButtons({ foods, drinks }) {
-  const [toggleOn, setToggleOn] = useState(false);
-
   const { setFoodCategory,
     setDrinkCategory,
     drinkCategoryList,
     foodCategoryList,
     setFoodList,
+    setToggleOn,
+    toggleOn,
   } = useContext(RecipeAppContext);
 
   useEffect(() => {
@@ -36,12 +36,11 @@ function CategoryButtons({ foods, drinks }) {
   const filterCategory = async ({ target }) => {
     const { name } = target;
     const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${name}`;
-    const data = await getCategory(endpoint);
     if (!toggleOn) {
+      const data = await getCategory(endpoint);
       setFoodList(data.meals);
       setToggleOn(true);
     } if (toggleOn) {
-      setFoodList('');
       setToggleOn(false);
     }
   };
