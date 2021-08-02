@@ -9,10 +9,7 @@ import Perfil from './pages/Perfil';
 import Comidas from './pages/Comidas';
 import Explorar from './pages/Explorar';
 import Login from './pages/Login';
-<<<<<<< HEAD
-=======
 import RecipesProvider from './context/RecipesProvider';
->>>>>>> ccb5ff358afdf74234a9407754ae500446eacbd6
 
 function App() {
   return (

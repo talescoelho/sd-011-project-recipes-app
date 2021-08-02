@@ -1,24 +1,23 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import SearchBar from './SearchBar';
+
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import '../styles/Header.css';
+import SearchBar from './SearchBar';
 
 function Header(props) {
   const [hidden, setHidden] = useState(false);
 
-  const searchIconRender = (
-  <img
+  const searchIconRender = (<img
     aria-hidden="true"
-    onClick={() => setHidden(!hidden)}
+    onClick={ () => setHidden(!hidden) }
     className="container-search-icon"
     data-testid="search-top-btn"
     src={ searchIcon }
     alt="search icon"
-  />
-  );
+  />);
 
   const { title, showSearchIcon } = props;
 
@@ -51,3 +50,8 @@ function Header(props) {
 }
 
 export default Header;
+
+Header.propTypes = {
+  title: PropTypes.string,
+  showSearchIcon: PropTypes.bool,
+}.isRequired;

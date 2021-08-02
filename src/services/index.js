@@ -18,6 +18,7 @@ export const fetchAllRecipesOrByCategory = async (recipeType, category) => {
   const { meals } = await recipes.json();
   return meals;
 };
+
 export const fetchCategorysList = async (typeOfRecipes) => {
   if (typeOfRecipes === '/bebidas') {
     const recipes = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
@@ -28,6 +29,7 @@ export const fetchCategorysList = async (typeOfRecipes) => {
   const { meals } = await recipes.json();
   return meals;
 };
+
 export const searchByIngredient = async (ingredient, pathname) => {
   const type = pathname === '/bebidas' ? 'cocktail' : 'meal';
   const recipes = await fetch(`https://www.the${type}db.com/api/json/v1/1/filter.php?i=${ingredient}`);
@@ -49,5 +51,5 @@ export const searchByFirstLetter = async (firstLetter, pathname) => {
     const json = await recipes.json();
     return json;
   }
-  window.alert('Sua busca deve conter somente 1 (um) carácter');
+  window.alert('Sua busca deve conter somente 1 (um) caracter');
 };

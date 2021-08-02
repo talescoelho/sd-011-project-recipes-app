@@ -3,7 +3,7 @@ import { fireEvent, render } from '@testing-library/react';
 import renderWithRouter from '../helpers/renderWithRouter';
 
 import Login from '../components/Login';
-import Comidas from '../components/Comidas';
+import Comidas from '../pages/Comidas';
 import Bebidas from '../components/Bebidas';
 import Explorar from '../components/Explorar';
 import Header from '../components/Header';
