@@ -1,10 +1,10 @@
-#fixed-bar {
+#fixedBar {
   bottom: 0;
   left: 0;
-  position: fixed;
   background-color: #a7a7a7;
-  width: 100%;
+  position: fixed;
   text-align: center;
+  width: 100%;
 }
 
 .img-btn {

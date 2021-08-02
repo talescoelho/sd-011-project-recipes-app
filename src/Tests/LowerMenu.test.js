@@ -4,19 +4,16 @@ import renderWithRouter from '../Router/renderWithRouter';
 import LowerMenu from '../Components/LowerMenu';
 
 describe('deve renderizar os componentes do Footer', () => {
-  const { getByTestId, history } = renderWithRouter(<LowerMenu />);
 
-  const locateFooterElements = {
-    footer: getByTestId('footer'),
-    drinksBtn: getByTestId('drinks-bottom-btn'),
-    exploreBtn: getByTestId('explore-bottom-btn'),
-    foodBtn: getByTestId('food-bottom-btn'),
-  };
-  const { footer, drinksBtn, exploreBtn, foodBtn } = locateFooterElements;
-
-  it('Verifica se o footer foi criado', () => expect(footer).toBeInTheDocument());
+  it('Verifica se o footer foi criado', () => {
+    const { getByTestId } = renderWithRouter(<LowerMenu />);
+    const footer = getByTestId('footer');
+    expect(footer).toBeInTheDocument();
+  });
 
   it('Verifica se o botão que redireciona para o catálogo das bebidas existe', () => {
+    const { getByTestId, history } = renderWithRouter(<LowerMenu />);
+    const drinksBtn = getByTestId('drinks-bottom-btn');
     expect(drinksBtn).toBeInTheDocument();
 
     fireEvent.click(drinksBtn);
@@ -25,6 +22,8 @@ describe('deve renderizar os componentes do Footer', () => {
   });
 
   it('Verifica se o botão que redireciona para o explorar existe', () => {
+    const { getByTestId, history } = renderWithRouter(<LowerMenu />);
+    const exploreBtn = getByTestId('explore-bottom-btn');
     expect(exploreBtn).toBeInTheDocument();
 
     fireEvent.click(exploreBtn);
@@ -33,6 +32,8 @@ describe('deve renderizar os componentes do Footer', () => {
   });
 
   it('Verifica se o botão que redireciona para o catálogo de comidas existe', () => {
+    const { getByTestId, history } = renderWithRouter(<LowerMenu />);
+    const foodBtn = getByTestId('food-bottom-btn');
     expect(foodBtn).toBeInTheDocument();
 
     fireEvent.click(foodBtn);

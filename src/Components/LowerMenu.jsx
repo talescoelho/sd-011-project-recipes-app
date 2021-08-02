@@ -6,7 +6,7 @@ import mealIcon from '../images/mealIcon.svg';
 import './LowerMenu.css';
 
 const LowerMenu = () => (
-  <footer data-testid="footer" id="fixed-bar">
+  <footer data-testid="footer" id="fixedBar">
     <Link to="/bebidas">
       <img
         src={ drinkIcon }
