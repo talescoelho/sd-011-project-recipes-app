@@ -7,7 +7,9 @@ import MainRouter from './Components/MainRouter';
 function App() {
   return (
     <Provider>
-      <MainRouter />
+      <div className="meals">
+        <MainRouter />
+      </div>
     </Provider>
   );
 }
