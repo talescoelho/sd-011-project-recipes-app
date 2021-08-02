@@ -1,0 +1,19 @@
+.comidas {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.card {
+  border: solid black 2px;
+  display: flex;
+  max-width: 180px;
+  padding: 5px;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+}
