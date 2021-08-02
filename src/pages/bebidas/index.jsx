@@ -5,10 +5,12 @@ import PropTypes from 'prop-types';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 
+const TWELVE = 12;
+
 class Bebidas extends Component {
   render() {
     let { allRecipes } = this.props;
-    allRecipes = allRecipes.slice(0, 12);
+    allRecipes = allRecipes.slice(0, TWELVE);
     if (allRecipes.length === 1) {
       return <Redirect to={ `/bebidas/${allRecipes[0].idDrink}` } />;
     }
@@ -18,16 +20,19 @@ class Bebidas extends Component {
         Main Bebidas
         {allRecipes.map((item, index) => (
           <div
-            data-testid={`${index}-recipe-card`}
-            key={ item.idDrink }>
-              <img
-                src={item.strDrinkThumb}
-                data-testid={`${index}-card-img`}
-              />
-              <span 
-                data-testid={`${index}-card-name`}>
-                  {item.strDrink}
-              </span>
+            data-testid={ `${index}-recipe-card` }
+            key={ item.idDrink }
+          >
+            <img
+              alt="drink"
+              src={ item.strDrinkThumb }
+              data-testid={ `${index}-card-img` }
+            />
+            <span
+              data-testid={ `${index}-card-name` }
+            >
+              {item.strDrink}
+            </span>
           </div>
         ))}
         <Footer />
