@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
+import FooterBar from './Components/FooterBar';
+
 // import PropTypes from 'prop-types';
 
 function Drinks() {
@@ -20,6 +22,7 @@ function Drinks() {
         src={ searchIcon }
         alt="Botão com imagem de uma lupa: abre uma barra de pesquisa"
       />
+      <FooterBar />
     </div>
   );
 }

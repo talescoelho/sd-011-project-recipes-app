@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './Components/SearchBar';
+import FooterBar from './Components/FooterBar';
 // import PropTypes from 'prop-types';
 
 function Foods() {
@@ -29,7 +30,7 @@ function Foods() {
           alt="Botão com imagem de uma lupa: abre uma barra de pesquisa"
         />
       </button>
-
+      <FooterBar />
     </div>
   );
 }
