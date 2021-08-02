@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
-import Login from '../pages/Login';
+import Login from '../pages/login';
 import Comidas from '../pages/comidas';
 import Bebidas from '../pages/bebidas';
 import ComidasRecipeId from '../pages/comidas/recipeId';

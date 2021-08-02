@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class ComidasRecipeId extends Component {
-  render() {
-    return (
-      <div>
-        Comidas Recipe Id
-      </div>
-    );
-  }
+export default function index() {
+  return (
+    <div>
+      Comidas Recipe Id
+    </div>
+  );
 }
