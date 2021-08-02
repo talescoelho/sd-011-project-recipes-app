@@ -23,7 +23,6 @@ function Cards(props) {
 
   const renderMeailList = () => {
     if (ApiCallMeals) {
-      console.log(ApiCallMeals);
       const maxListRender = 12;
       return (
         mealsAPI.filter((__, index) => index < maxListRender)

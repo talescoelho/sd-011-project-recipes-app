@@ -14,7 +14,7 @@ function Bebidas() {
   };
 
   useEffect(getData, []);
-  const renderButtons = () => {
+  const renderButtonsCocktails = () => {
     if (listCocktailsCategorie.length > 0) {
       return (
         <div>
@@ -60,7 +60,7 @@ function Bebidas() {
   return (
     <div>
       <Header title="Bebidas" />
-      {renderButtons()}
+      {renderButtonsCocktails()}
       <Cards ApiCallMeals={ false } ApiCallCockTails />
       <Footer />
     </div>
