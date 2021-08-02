@@ -12,6 +12,7 @@ class Comidas extends React.Component {
     super();
     this.state = {
       itemsToRender: [],
+      renderOneOrNot: true,
     };
     this.prepareItemsOnLoad = this.prepareItemsOnLoad.bind(this);
     this.updateFoods = this.updateFoods.bind(this);
@@ -26,11 +27,13 @@ class Comidas extends React.Component {
       const { foodsDataBase } = this.props;
       this.setState({
         itemsToRender: foodsDataBase,
+        renderOneOrNot: true,
       });
     } else {
       const { filteredFoodsPerCategory } = this.props;
       this.setState({
         itemsToRender: filteredFoodsPerCategory,
+        renderOneOrNot: false,
       });
     }
   }
@@ -47,7 +50,7 @@ class Comidas extends React.Component {
 
   render() {
     const { categories } = this.props;
-    const { itemsToRender } = this.state;
+    const { itemsToRender, renderOneOrNot } = this.state;
     const showSearchButton = true;
     return (
       <div>
@@ -62,7 +65,11 @@ class Comidas extends React.Component {
           updateItemsToRender={ this.updateFoods }
           typeFood="meals"
         />
-        <Cards itemsToRender={ itemsToRender } typeFood="food" />
+        <Cards
+          itemsToRender={ itemsToRender }
+          renderOneOrNot={ renderOneOrNot }
+          typeFood="food"
+        />
         <Footer />
       </div>
     );

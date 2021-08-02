@@ -9,12 +9,26 @@ class FiltersFromCategories extends React.Component {
     this.renderCards = this.renderCards.bind(this);
     this.onClickFiltering = this.onClickFiltering.bind(this);
     this.removeAllFilters = this.removeAllFilters.bind(this);
+    this.state = {
+      toggleFilters: '',
+    };
   }
 
   async onClickFiltering(category) {
     const { foodPerCategory, updateItemsToRender, typeFood } = this.props;
-    await foodPerCategory(typeFood, category);
-    updateItemsToRender();
+    const { toggleFilters } = this.state;
+    if (toggleFilters === category) {
+      updateItemsToRender(true);
+      this.setState({
+        toggleFilters: '',
+      });
+    } else {
+      this.setState({
+        toggleFilters: category,
+      });
+      await foodPerCategory(typeFood, category);
+      updateItemsToRender();
+    }
   }
 
   removeAllFilters() {
