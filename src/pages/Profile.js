@@ -1,13 +1,13 @@
 import React from 'react';
-import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 export default function Profile() {
   return (
-    <>
-      <Header />
-      <h3>Profile</h3>
+    <div>
+      <Header title="Perfil" search={ false } />
+      Página de perfil
       <Footer />
-    </>
+    </div>
   );
 }
