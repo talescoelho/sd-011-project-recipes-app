@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import SearchBar from '../SearchBar';
 import profileIcon from '../../images/profileIcon.svg';
 import SearchIcon from '../../images/searchIcon.svg';
 import './styles.css';
 
-const Header = ({ title, hasSearchBar }) => {
+const Header = ({ title, hasSearchBar, mode }) => {
   const [isSearchShowing, setIsSearchShowing] = useState(false);
 
   return (
@@ -22,6 +23,10 @@ const Header = ({ title, hasSearchBar }) => {
         >
           <img data-testid="search-top-btn" src={ SearchIcon } alt="Procurar" />
         </button>)}
+
+      {isSearchShowing && (
+        <SearchBar mode={ mode } />
+      )}
     </header>
   );
 };
@@ -31,6 +36,7 @@ export default Header;
 Header.propTypes = ({
   title: PropTypes.string.isRequired,
   hasSearchBar: PropTypes.bool,
+  mode: PropTypes.string.isRequired,
 });
 
 Header.defaultProps = ({

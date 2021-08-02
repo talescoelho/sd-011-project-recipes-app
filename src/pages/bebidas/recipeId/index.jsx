@@ -4,7 +4,7 @@ export default class BebidasRecipeId extends Component {
   render() {
     return (
       <div>
-        0
+        Bebidas Recipe Id
       </div>
     );
   }
