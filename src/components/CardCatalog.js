@@ -5,13 +5,11 @@ import './css/CardCatalog.css';
 
 function CardCatalog() {
   const { catalog } = useContext(GlobalContext);
+
   const supplyIdentity = Object.keys(catalog)[0];
 
   const maxCardsOnPage = 12;
   const catalogLimited = catalog[supplyIdentity].slice(0, maxCardsOnPage);
-
-  // strMeal: "Creamy Tomato Soup"
-  // strMealThumb: "https://www.themealdb.com/images/media/meals/stpuws1511191310.jpg"
 
   function renderMealsCards() {
     return catalogLimited.map((food, index) => (
