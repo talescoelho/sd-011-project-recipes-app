@@ -5,6 +5,7 @@ import { fetchDrinkMain,
   fetchRecipesListDrinks,
   GET_CATEGORIES_DRINK, fetchCategories } from '../redux/actions';
 import Header from '../components/Header';
+import Footer from '../components/footer/Footer';
 import RenderCategoriesDrinks from '../components/RenderCategoriesDrinks';
 
 function HomeDrinks() {
@@ -104,6 +105,8 @@ function HomeDrinks() {
       <div>
         { renderCategories ? RenderCategoriesDrinks(whoCategory) : renderDrinks() }
       </div>
+      <Footer />
+
     </div>
   );
 }

@@ -8,7 +8,6 @@ import Login from './pages/Login';
 import HomeRecipe from './pages/HomeRecipe';
 import HomeDrinks from './pages/HomeDrinks';
 
-import Main from './pages/Main';
 import RecipeDetails from './pages/RecipeDetails';
 import RecipesInProgress from './pages/RecipeInProgress';
 import Explore from './pages/explore/Explore';
@@ -20,19 +19,13 @@ import Profile from './pages/Profile';
 import RecipeMade from './pages/RecipeMade';
 import RecipeFavorite from './pages/RecipeFavorite';
 
-
 function App() {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-
         <Route exact path="/comidas" component={ HomeRecipe } />
         <Route exact path="/bebidas" component={ HomeDrinks } />
-
-
-        <Route exact path="/comidas" component={ Main } />
-        <Route exact path="/bebidas" component={ Main } />
         <Route exact path="/comidas/:id" component={ RecipeDetails } />
         <Route exact path="/bebidas/:id" component={ RecipeDetails } />
         <Route
