@@ -8,7 +8,11 @@ function Routes() {
       <Route exact path="/" component={ LoginPage } />
       <Route exact path="/comidas" component={ Home } />
       <Route exact path="/bebidas" render={ (props) => <Drinks { ...props } /> } />
-      <Route exact path="/comidas/:id" render={ (props) => <FoodDetails { ...props } /> } />
+      <Route
+        exact
+        path="/comidas/:id"
+        render={ (props) => <FoodDetails { ...props } /> }
+      />
       <Route
         exact
         path="/explorar"

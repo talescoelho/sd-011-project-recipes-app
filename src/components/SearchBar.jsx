@@ -1,56 +1,66 @@
-import React, { useContext } from 'react';
-import SearchContext from '../context/Context';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { Form, Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { sendFormData } from '../Redux/actions';
 
 function SearchBar() {
-  const { handleClickIngrediente, handleClickRadio, filterIngrediente, filterFood } = useContext(SearchContext);
+  const { register, handleSubmit } = useForm();
+  const dispatch = useDispatch();
+
+  const submitForm = (data) => {
+    dispatch(sendFormData(data));
+  };
 
   return (
-    <div>
-      <label htmlFor="input">
-        <input
+    <Form onSubmit={ handleSubmit(submitForm) }>
+      <Form.Group>
+        <Form.Control
           name="ingrediente"
-          id="input"
           data-testid="search-input"
           placeholder="Buscar Receita"
-          onChange={ handleClickIngrediente }
-          value={ filterIngrediente }
+          { ...register('query') }
         />
-      </label>
-      <label htmlFor="radio">
-        <input
-          name="radio"
-          id="ingrediente"
-          data-testid="ingredient-search-radio"
-          type="radio"
-          onChange={ handleClickRadio }
-          value="ingrediente"
+      </Form.Group>
+      <Form.Group>
+        <Form.Label className="col-3">
+          Ingrediente
+          <Form.Check
+            value="ingredient"
+            data-testid="ingredient-search-radio"
+            type="radio"
+            { ...register('type') }
+          />
+        </Form.Label>
+        <Form.Label className="col-3">
+          Nome
+          <Form.Check
+            value="name"
+            data-testid="name-search-radio"
+            type="radio"
+            { ...register('type') }
+          />
+        </Form.Label>
+        <Form.Label className="col-3">
+          Letra
+          <Form.Check
+            value="letra"
+            data-testid="first-letter-search-radio"
+            type="radio"
+            { ...register('type') }
+          />
+        </Form.Label>
+        <Button
+          className="col-3"
+          type="submit"
+          variant="outline-secondary"
+          data-testid="exec-search-btn"
+        >
+          Buscar
+        </Button>
+      </Form.Group>
 
-        />
-        Ingrediente
-        <input
-          name="radio"
-          id="nome"
-          data-testid="name-search-radio"
-          type="radio"
-          onChange={ handleClickRadio }
-          value="nome"
-        />
-        Nome
-        <input
-          name="radio"
-          id="letra"
-          data-testid="first-letter-search-radio"
-          type="radio"
-          onChange={ handleClickRadio }
-          value="letra"
-
-        />
-        Primeira Letra
-      </label>
-      <button type="button" data-testid="exec-search-btn" onClick={ filterFood }>
-        Buscar
-      </button>
-    </div>
+    </Form>
   );
 }
 
