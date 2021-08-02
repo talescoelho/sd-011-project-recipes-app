@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import SearchBar from '../Components/SearchBar';
 import MainContext from '../Context/MainContext';
+import HeaderFoods from '../Components/headers/HeaderFoods';
 
 function Foods() {
   const { dataFoods, setPage, limit } = useContext(MainContext);
@@ -21,10 +21,7 @@ function Foods() {
   console.log(dataFoods);
   return (
     <div>
-      <header>
-        <button type="button" data-testid="search-top-btn">passa</button>
-      </header>
-      <SearchBar />
+      <HeaderFoods />
       { dataFoods.map((item, index) => index < limit && (
         <div key={ index } data-testid={ `${index}-recipe-card` }>
           <img
