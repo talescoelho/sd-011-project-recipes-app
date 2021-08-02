@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Routes from './Routes/Routes';
 import Login from './Pages/Login';
 import HomeRecipes from './Pages/HomeRecipes';
 
@@ -18,6 +18,7 @@ function App() {
       >
         Glass
       </object>
+<<<<<<< HEAD
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ Login } />
@@ -32,6 +33,9 @@ function App() {
           <Route path="/ranking" component={ Ranking } /> */}
         </Switch>
       </BrowserRouter>
+=======
+      <Routes />
+>>>>>>> 33b614bcddf3564e6b6533dfc8e23ee057f97b65
     </div>
   );
 }
