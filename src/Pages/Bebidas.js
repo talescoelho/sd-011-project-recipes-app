@@ -59,7 +59,7 @@ function Bebidas() {
 
   return (
     <div>
-      <Header />
+      <Header title="Bebidas" />
       {renderButtons()}
       <Cards ApiCallMeals={ false } ApiCallCockTails />
       <Footer />
