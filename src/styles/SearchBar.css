@@ -15,7 +15,7 @@
   width: 100%;
 }
 
-.search-bar label:nth-child (1 ) {
+.search-bar label:nth-child( 1 ) {
   align-items: center;
   display: flex;
   flex-grow: 1;
