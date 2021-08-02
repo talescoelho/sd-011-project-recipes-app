@@ -8,6 +8,7 @@ import TelaPrincipal from './pages/TelaPrincipal';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 import Explorar from './pages/Explorar';
+import ExplorarComidaBebida from './pages/ExplorarComidaBebida';
 
 function App() {
   return (
@@ -30,8 +31,8 @@ function App() {
           <Route exact path="/bebidas/:id/in-progress" component={ NotFound } />
           { /* não tem header/footer /\ */ }
           <Route exact path="/explorar" component={ Explorar } />
-          <Route exact path="/explorar/comidas" component={ NotFound } />
-          <Route exact path="/explorar/bebidas" component={ NotFound } />
+          <Route exact path="/explorar/comidas" component={ ExplorarComidaBebida } />
+          <Route exact path="/explorar/bebidas" component={ ExplorarComidaBebida } />
           <Route exact path="/explorar/comidas/ingredientes" component={ NotFound } />
           <Route exact path="/explorar/bebidas/ingredientes" component={ NotFound } />
           <Route exact path="/explorar/comidas/area" component={ NotFound } />
