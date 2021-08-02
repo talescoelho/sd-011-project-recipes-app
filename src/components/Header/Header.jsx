@@ -7,10 +7,6 @@ import searchIcon from '../../images/searchIcon.svg';
 import profileIcon from '../../images/profileIcon.svg';
 import './header.css';
 
-// const Other = () => {
-//   const [showField, setShowField] = useState(false);
-// };
-
 const Header = ({ page, showSearchBtn }) => {
   const [showField, setShowField] = useState(false);
   return (
@@ -46,7 +42,7 @@ const Header = ({ page, showSearchBtn }) => {
             : null
         }
         <label htmlFor="label-ingredient-radio">
-          Ingredientes
+          Ingrediente
           <input type="radio" data-testid="ingredient-search-radio" />
         </label>
         <label htmlFor="label-name-radio">
@@ -54,13 +50,12 @@ const Header = ({ page, showSearchBtn }) => {
           <input type="radio" data-testid="name-search-radio" />
         </label>
         <label htmlFor="label-first-letter-radio">
-          Busca por primeira letra
+          Primeira letra
           <input type="radio" data-testid="first-letter-search-radio" />
         </label>
         <button type="button" data-testid="exec-search-btn">Buscar</button>
       </span>
     </>
-    // Requirement 13
   );
 };
 
