@@ -9,6 +9,11 @@ const TEST_IDS = {
   submitButton: 'login-submit-btn',
 };
 
+const VALID_LOGIN = {
+  email: 'miguel_o_brabo@outlook.com',
+  password: 'a91c6d89$#@142977c318a',
+};
+
 describe('Pagina de Login', () => {
   beforeEach(() => {
     render(<Login />);
@@ -74,11 +79,47 @@ describe('Pagina de Login', () => {
     it('quando ambos os campos são válidos', async () => {
       const emailInput = screen.getByTestId(TEST_IDS.email);
       const passwordInput = screen.getByTestId(TEST_IDS.password);
-      fireEvent.change(emailInput, { target: { value: 'miguel_o_brabo@outlook.com' } });
-      fireEvent.change(passwordInput, { target: { value: 'a91c6d89$#@142977c318a' } });
+      fireEvent.change(emailInput, { target: { value: VALID_LOGIN.email } });
+      fireEvent.change(passwordInput, { target: { value: VALID_LOGIN.password } });
 
       const button = screen.getByTestId(TEST_IDS.submitButton);
       await waitFor(() => expect(button).not.toBeDisabled());
+    });
+  });
+
+  describe('Após fazer login', () => {
+    it('salva os tokens no localStorage', async () => {
+      const emailInput = screen.getByTestId(TEST_IDS.email);
+      const passwordInput = screen.getByTestId(TEST_IDS.password);
+      fireEvent.change(emailInput, { target: { value: VALID_LOGIN.email } });
+      fireEvent.change(passwordInput, { target: { value: VALID_LOGIN.password } });
+
+      const button = screen.getByTestId(TEST_IDS.submitButton);
+      await waitFor(() => expect(button).not.toBeDisabled());
+
+      fireEvent.click(button);
+
+      await waitFor(() => expect(window
+        .localStorage.getItem('mealsToken')).toBe('1'));
+
+      await waitFor(() => expect(window
+        .localStorage.getItem('cocktailsToken')).toBe('1'));
+    });
+
+    it('salva o email no localStorage', async () => {
+      const emailInput = screen.getByTestId(TEST_IDS.email);
+      const passwordInput = screen.getByTestId(TEST_IDS.password);
+      fireEvent.change(emailInput, { target: { value: VALID_LOGIN.email } });
+      fireEvent.change(passwordInput, { target: { value: VALID_LOGIN.password } });
+
+      const button = screen.getByTestId(TEST_IDS.submitButton);
+      await waitFor(() => expect(button).not.toBeDisabled());
+
+      fireEvent.click(button);
+
+      const expectedStrg = JSON.stringify({ email: VALID_LOGIN.email });
+
+      await waitFor(() => expect(window.localStorage.getItem('user')).toBe(expectedStrg));
     });
   });
 });
