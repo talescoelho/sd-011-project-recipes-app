@@ -1,23 +1,17 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
+import '../../styles/SearchBar.css';
 
 function SearchBar() {
   const { setSearchText,
-    setRadioButton, handleClick, radioButton, searchText } = useContext(RecipesContext);
+    setRadioButton, handleClick } = useContext(RecipesContext);
 
   const history = useHistory();
   const { location: { pathname } } = history;
 
-  const filterSearch = ({ value }) => {
-    setSearchText(value);
-    if (radioButton === 'primeira letra' && searchText.length > 0) {
-      global.alert('Sua busca deve conter somente 1 (um) caracter');
-    }
-  };
-
   return (
-    <section>
+    <section className="search-bar">
       <form>
         <label htmlFor="search-input">
           <input
@@ -25,7 +19,7 @@ function SearchBar() {
             data-testid="search-input"
             type="text"
             name="searchText"
-            onChange={ ({ target }) => filterSearch(target) }
+            onChange={ ({ target: { value } }) => setSearchText(value) }
           />
         </label>
         <label htmlFor="ingredient-radio">

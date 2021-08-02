@@ -18,7 +18,7 @@ function Profile() {
   return (
     <>
       <div className="rf">
-        <Header title="Perfil" />
+        <Header />
         {user && getEmail()}
         <button
           type="button"
