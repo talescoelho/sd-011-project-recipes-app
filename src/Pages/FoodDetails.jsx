@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 class FoodDetails extends Component {
   render() {
     // const { location: { state } } = this.props;
-    console.log(state);
 
     return (
       <div>
