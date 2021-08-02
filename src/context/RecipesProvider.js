@@ -23,24 +23,32 @@ export default function RecipesProvider({ children }) {
   const [redirect, setRedirect] = useState(false);
   const [recipesDb, setRecipesDb] = useState([]);
 
+  function visibleAlert(data) { // implementação do requisito 18
+    if (data === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    } else {
+      setRecipesDb(data);
+    }
+  }
+
   async function handleSearchMeals(searchText, filterRadio) { // função que faz requisição para as refeições com info do searchBar
     let data = [];
     if (filterRadio === 'ingredient') {
       data = await fetchMealsIngredient(searchText);
-      setRecipesDb(data);
+      visibleAlert(data);
     }
     if (filterRadio === 'name') {
       data = await fetchMealsName(searchText);
-      setRecipesDb(data);
+      visibleAlert(data);
     }
     if (filterRadio === 'firstLetter') {
       if (searchText.length > 1) {
         return alert('Sua busca deve conter somente 1 (um) caracter');
       }
       data = await fetchMealsLetter(searchText);
-      setRecipesDb(data);
+      visibleAlert(data);
     }
-    if (data.length === 1) {
+    if (data !== null && data.length === 1) {
       setRedirect(true);
     }
   }
@@ -49,30 +57,30 @@ export default function RecipesProvider({ children }) {
     let data = [];
     if (filterRadio === 'ingredient') {
       data = await fetchDrinksIngredient(searchText);
-      setRecipesDb(data);
+      visibleAlert(data);
     }
     if (filterRadio === 'name') {
       data = await fetchDrinksName(searchText);
-      setRecipesDb(data);
+      visibleAlert(data);
     }
     if (filterRadio === 'firstLetter') {
       if (searchText.length > 1) {
         return alert('Sua busca deve conter somente 1 (um) caracter');
       }
       data = await fetchDrinksLetter(searchText);
-      setRecipesDb(data);
+      visibleAlert(data);
     }
-    if (data.length === 1) {
+    if (data !== null && data.length === 1) {
       setRedirect(true);
     }
   }
 
-  function handleSearch(inputs, pathname) {
+  function handleSearch(inputs, pathname) { // inputs e pathname vem como parametro da função que é disparada na searchBar
     const { searchText, filterRadio } = inputs;
-    if (pathname.includes('comidas')) {
+    if (pathname.includes('comidas')) { // buscando a api de comidas se tiver na pagina de comidas
       handleSearchMeals(searchText, filterRadio);
     }
-    if (pathname.includes('bebidas')) {
+    if (pathname.includes('bebidas')) { // buscando a api de bebidas se tiver na pagina de bebidas
       handleSearchDrinks(searchText, filterRadio);
     }
   }

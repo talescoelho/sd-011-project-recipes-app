@@ -10,13 +10,30 @@ export default function Food() {
   };
   const history = useHistory();
   const { recipesDb, redirect } = useContext(RecipesContext);
-  const getMealId = recipesDb.map((meal) => meal.idMeal);
+  const limits = 12;
   return (
     <div>
       <Header value={ pageTitle } />
-      { redirect ? history.push(`/comidas/${getMealId}`) : (
+      { redirect ? history.push(`/comidas/${recipesDb.map((meal) => meal.idMeal)}`) : (
         <div>
-          foods
+          {
+            recipesDb.map((meal, index) => (
+              (index < limits) && (
+                <div key={ index }>
+                  <div data-testid={ `${index}-recipe-card` }>
+                    <img
+                      src={ meal.strMealThumb }
+                      data-testid={ `${index}-card-img` }
+                      alt={ meal.strMeal }
+                    />
+                  </div>
+                  <div>
+                    <span data-testid={ `${index}-card-name` }>{ meal.strMeal }</span>
+                  </div>
+                </div>
+              )
+            ))
+          }
         </div>
       ) }
     </div>
