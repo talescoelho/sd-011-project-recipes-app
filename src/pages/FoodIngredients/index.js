@@ -11,17 +11,22 @@ const FoodInProgress = () => {
   if (!data) {
     return null;
   }
-  const magicNumber = 10;
-  const filteredData = data.filter((item, index) => index < magicNumber);
+  console.log(data);
+  const magicNumber = 12;
+  const filteredData = data.meals.filter((item, index) => index < magicNumber);
 
   return (
     <div>
       { filteredData.map((item, index) => {
         const { strIngredient } = item;
         return (
-          <div key={ index }>
-            <img src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient}-Small.png ` } alt={ strIngredient } />
-            <h3>{strIngredient}</h3>
+          <div key={ index } data-testid={ `${index}-ingredient-card` }>
+            <img
+              src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient}-Small.png ` }
+              alt={ strIngredient }
+              data-testid={ `${index}-card-img` }
+            />
+            <h3 data-testid={ `${index}-card-name` }>{strIngredient}</h3>
           </div>
         );
       }) }
