@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-function RecipeStageBtn({ id, recipeType }) {
+function RecipeStageBtn({ id, recipeType, ingredients }) {
   const type = recipeType === 'meals' ? 'meals' : 'cocktails';
   const urlType = recipeType === 'meals' ? 'comidas' : 'bebidas';
   const URL = `/${urlType}/${id}/in-progress`;
@@ -12,12 +12,26 @@ function RecipeStageBtn({ id, recipeType }) {
     && (JSON.parse(localStorage.doneRecipes)).find((recipe) => recipe.id === id)) {
       return true;
     }
+    return false;
   };
 
   const checkInProgressRecipes = () => {
     if (localStorage.inProgressRecipes
-      && JSON.parse(localStorage.inProgressRecipes)[type].id === id) {
+      && JSON.parse(localStorage.inProgressRecipes)[type][id]) {
       return true;
+    }
+    return false;
+  };
+
+  const generateProgressRecipe = () => {
+    if (localStorage.inProgressRecipes) {
+      const progressRecipes = JSON.parse(localStorage.inProgressRecipes);
+      const newProgressRecipes = {
+        ...progressRecipes, [type]: { ...progressRecipes[type], [id]: ingredients } };
+      localStorage.inProgressRecipes = JSON.stringify(newProgressRecipes);
+    } else {
+      localStorage
+        .setItem('inProgressRecipes', JSON.stringify({ [type]: { [id]: ingredients } }));
     }
   };
 
@@ -34,7 +48,13 @@ function RecipeStageBtn({ id, recipeType }) {
   default:
     return (
       <Link to={ URL }>
-        <button type="button" data-testid="start-recipe-btn">Começar Receita</button>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ generateProgressRecipe }
+        >
+          Começar Receita
+        </button>
       </Link>
     );
   }

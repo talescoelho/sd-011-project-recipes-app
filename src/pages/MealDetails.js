@@ -52,7 +52,11 @@ function MealDetails(
           title="Embedded youtube"
         />
         <CarouselRecipes data={ recipesData.drinks } recipeType="drinks" />
-        <RecipeStageBtn id={ id } recipeType="meals" />
+        <RecipeStageBtn
+          id={ id }
+          recipeType="meals"
+          ingredients={ ingredientsAndMesure }
+        />
       </div>
     );
   }
