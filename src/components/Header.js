@@ -32,26 +32,28 @@ export default function Header(props) {
           src={ searchIcon }
         />
       </button>
-      { isVisibleBar ? renderSearchBar() : renderFiltersBar() }
+      <section>
+        { isVisibleBar ? renderSearchBar() : renderFiltersBar() }
+      </section>
     </>
   );
 
   return (
-    <header style={ { display: 'flex' } }>
-      <button
-        // style={ { display: 'none' } }
-        type="button"
-        onClick={ () => history.push('/perfil') }
-      >
-        <img
-          data-testid="profile-top-btn"
-          src={ profileIcon }
-          alt="profile icon"
-        />
-      </button>
+    <header>
+      <section>
+        <button
+          type="button"
+          onClick={ () => history.push('/perfil') }
+        >
+          <img
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="profile icon"
+          />
+        </button>
+      </section>
       <h3 data-testid="page-title">{ title }</h3>
       { search && buttonSearch() }
-      {/* style={ { position: 'fixed', height: '200vh' } } */}
     </header>
   );
 }

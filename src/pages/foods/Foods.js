@@ -6,11 +6,14 @@ import Footer from '../../components/Footer';
 export default function Foods() {
   return (
     <main>
-      <SearchBarProvider>
-        <Header title="Explorar Bebidas" search fetchType="thecocktaildb" />
-      </SearchBarProvider>
-
-      <Footer />
+      <section>
+        <SearchBarProvider>
+          <Header title="Explorar Bebidas" search fetchType="thecocktaildb" />
+        </SearchBarProvider>
+      </section>
+      <section>
+        <Footer />
+      </section>
     </main>
   );
 }
