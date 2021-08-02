@@ -42,7 +42,7 @@ describe('Verificações da barra de pesquisa e tela de comidas', () => {
     expect(searchBar[0]).toBeInTheDocument();
   });
 
-  it('Verifica se a barra de pesquisa possui três radio-buttons e se é possível clicá-los.', () => {
+  it('Verifica se a barra de pesquisa tem 3 input-radio e clica-os.', () => {
     const { getByTestId } = renderWithRouter(<App />);
 
     const searchButton = getByTestId(SEARCH_TOP_BTN);
@@ -63,10 +63,9 @@ describe('Verificações da barra de pesquisa e tela de comidas', () => {
     expect(firstLetterButton).toBeInTheDocument();
     fireEvent.click(firstLetterButton);
     expect(firstLetterButton).toBeChecked();
-
   });
 
-  it('Verifica se a barra de pesquisa tem um input para digitação e se é possível digitar nela', () => {
+  it('Verifica barra de pesquisa e se é possível digitar nela.', () => {
     const { getByTestId } = renderWithRouter(<App />);
     const searchButton = getByTestId(SEARCH_TOP_BTN);
     fireEvent.click(searchButton);
@@ -95,7 +94,6 @@ describe('Verificações da barra de pesquisa e tela de comidas', () => {
 
     const execSearch = getByTestId('exec-search-btn');
     fireEvent.click(execSearch);
-    
     expect(execSearch.innerHTML).toBe('Pesquisar');
   });
 });

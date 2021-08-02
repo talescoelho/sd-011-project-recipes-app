@@ -7,6 +7,7 @@ describe('Verificações da tela de receitas feitas"', () => {
     const { getByTestId } = renderWithRouter(<RecipesMade />);
 
     const pageTitle = getByTestId('page-title');
+    console.log(pageTitle);
     const profileIcon = getByTestId('profile-top-btn');
 
     expect(pageTitle).toBeInTheDocument();
