@@ -1,0 +1,14 @@
+.foods-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.card {
+  width: 40%;
+  margin-top: 25px;
+}
+
+.card p {
+  align-self: center;
+}
