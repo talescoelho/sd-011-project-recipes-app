@@ -1,11 +1,12 @@
 import React from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import Login from './pages/Login';
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" component={Login} />
+        <Route path="/" component={ Login } />
         {/* <Route path="/comidas" component={} />
         <Route path="/comidas:id-" component={} />
         <Route path="/bebidas" component={} />
@@ -23,7 +24,6 @@ function App() {
         <Route path="*" component={NotFound} /> */}
       </Switch>
     </BrowserRouter>
-  
   );
 }
 
