@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import GlobalContext from './GlobalContext';
 
 function Provider({ children }) {
-  const [data] = useState('');
+  const [catalog, setCatalog] = useState('');
+  const context = { catalog, setCatalog };
 
   return (
-    <GlobalContext.Provider value={ data }>{ children }</GlobalContext.Provider>
+    <GlobalContext.Provider value={ context }>{ children }</GlobalContext.Provider>
   );
 }
 
