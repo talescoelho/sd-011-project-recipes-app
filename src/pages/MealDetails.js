@@ -7,6 +7,7 @@ import FavBtn from '../components/FavBtn';
 import ShareBtn from '../components/ShareBtn';
 import RecipeStageBtn from '../components/RecipeStageBtn';
 import CarouselRecipes from '../components/CarouselRecipes';
+import ThumbDetails from '../components/ThumbDetails';
 
 const URL_TO_DRINKS_RECIPES = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
@@ -33,8 +34,7 @@ function MealDetails(
     return (
       <div>
         {console.log(ingredientsAndMesure)}
-        DETALHES
-        <img src={ strMealThumb } alt={ strMeal } data-testid="recipe-photo" />
+        <ThumbDetails thumb={ strMealThumb } />
         <h1 data-testid="recipe-title">{ strMeal }</h1>
         <ShareBtn url={ match.url } />
         <FavBtn data={ data } recipeType="meals" />
