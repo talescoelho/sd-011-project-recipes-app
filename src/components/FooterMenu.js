@@ -3,11 +3,12 @@ import { useHistory } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
+import '../styles/components/footer.css';
 
 export default function FooterMenu() {
   const history = useHistory();
   return (
-    <footer data-testid="footer">
+    <footer className="footer-menu" data-testid="footer">
       <button
         type="button"
         onClick={ () => history.push('/bebidas') }

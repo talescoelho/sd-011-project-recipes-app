@@ -1,4 +1,5 @@
 import React from 'react';
+import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
 
 export default function DrinksExplorer() {
@@ -10,6 +11,7 @@ export default function DrinksExplorer() {
     <div>
       <Header value={ pageTitle } />
       Explorar Bebidas
+      <FooterMenu />
     </div>
   );
 }

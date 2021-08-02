@@ -1,7 +1,8 @@
 import React from 'react';
+import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
 
-export default function ExploreByIngredients() {
+export default function ExploreFoodByIngredients() {
   const pageTitle = {
     pageName: 'Explorar Ingredientes',
     setIcon: false,
@@ -10,6 +11,7 @@ export default function ExploreByIngredients() {
     <div>
       <Header value={ pageTitle } />
       FOODS
+      <FooterMenu />
     </div>
   );
 }

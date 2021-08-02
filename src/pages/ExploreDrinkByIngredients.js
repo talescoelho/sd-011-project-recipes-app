@@ -2,9 +2,9 @@ import React from 'react';
 import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
 
-export default function Profile() {
+export default function ExploreDrinkByIngredients() {
   const pageTitle = {
-    pageName: 'Perfil',
+    pageName: 'Explorar Ingredientes',
     setIcon: false,
   };
   return (

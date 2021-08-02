@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 
@@ -36,6 +37,7 @@ export default function Drinks() {
           }
         </div>
       ) }
+      <FooterMenu />
     </div>
   );
 }
