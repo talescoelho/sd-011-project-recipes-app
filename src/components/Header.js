@@ -24,7 +24,10 @@ export default function Header({ title, renderButton, renderIMG }) {
         <h1 data-testid="page-title">{ title }</h1>
         { !renderButton && btn }
       </header>
-      { searchBarVisible && <input placeholder="Buscar Receita" /> }
+      { searchBarVisible && <input
+        data-testid="search-input"
+        placeholder="Buscar Receita"
+      /> }
     </div>
   );
 }
