@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import AppContext from '../context/AppContext';
+import LowerMenu from '../components/LowerMenu';
 
 export default function BebidaPage() {
   const { showInput, data } = useContext(AppContext);
@@ -39,6 +40,7 @@ export default function BebidaPage() {
       <Header text="Bebidas" lupa />
       {showInput && <SearchBar type="drink" />}
       { data ? renderData() : <p>faca uma pesquisa</p> }
+      <LowerMenu />
     </div>
   );
 }
