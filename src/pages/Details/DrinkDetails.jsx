@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import styles from './DrinkDetails.module.css';
 
 function DrinkDetails({ match }) {
   const [drinks, setDrinks] = useState({});
-  const [foodRecomendation, setRecomendation] = useState({});
+  const [foodRecomendation, setRecomendation] = useState([]);
   const { id } = match.params;
+  const mN = 6;
   React.useEffect(() => {
     const fetchDrink = () => {
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
@@ -12,7 +14,7 @@ function DrinkDetails({ match }) {
         .then((data) => setDrinks(data.drinks[0]));
       fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
         .then((response) => response.json())
-        .then((data) => setRecomendation(data.meals));
+        .then((data) => setRecomendation(data.meals.filter((_, index) => index < mN)));
     };
     fetchDrink();
   }, [id]);
@@ -28,7 +30,6 @@ function DrinkDetails({ match }) {
   const measures = Object.keys(drinks)
     .filter((item) => item.includes('Measure'))
     .filter((item) => drinks[item]).map((item) => drinks[item]);
-  const array = ['1', '1', '1', '1', '1', '1'];
   return (
     <div>
 
@@ -81,14 +82,29 @@ function DrinkDetails({ match }) {
         </p>
       ))}
       <h1>Recomendação</h1>
-      {array.map((item, index) => (
-        <p
-          key={ index }
-          data-testid={ `${index}-recomendation-card` }
-        >
-          {item}
-        </p>
-      ))}
+      <div
+        className={ styles.carousel }
+      >
+        {foodRecomendation && foodRecomendation.map((item, index) => (
+          <div
+            key={ index }
+            data-testid={ `${index}-recomendation-card` }
+            className={ styles.carouselItemDiv }
+          >
+            <img
+              src={ item.strMealThumb }
+              alt="recipe"
+              className={ styles.carouselImg }
+            />
+            <p>{ item.strCategory }</p>
+            <h5
+              data-testid={ `${index}-recomendation-title` }
+            >
+              { item.strMeal }
+            </h5>
+          </div>
+        ))}
+      </div>
       <button
         data-testid="start-recipe-btn"
         type="button"

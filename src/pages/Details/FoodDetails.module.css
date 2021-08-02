@@ -1,0 +1,16 @@
+.carousel {
+  display: flex;
+  overflow: scroll;
+  max-width: 100%;
+}
+
+.carouselItemDiv {
+  border: 1px solid #333;
+  border-radius: 4px;
+  margin: 10px 4px;
+  padding: 20px;
+}
+
+.carouselImg {
+  width: 130px;
+}
