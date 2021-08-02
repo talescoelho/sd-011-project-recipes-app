@@ -2,8 +2,8 @@
   align-items: center;
   background-color: salmon;
   display: flex;
-  justify-content: space-between;
   height: 2.5rem;
+  justify-content: space-between;
   width: 100vw;
 }
 
@@ -18,7 +18,7 @@
 .top-header-bar span {
   align-self: center;
   font-size: large;
-  font-weight: bold;
+  font-weight: 700;
   justify-self: center;
   left: 50%;
   position: absolute;
