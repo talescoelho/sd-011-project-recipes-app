@@ -6,10 +6,15 @@ import { handleDrinks, handleFoods } from '../helpers/ApiFunctions';
 function RecipesProvider({ children }) {
   const [searchText, setSearchText] = useState('');
   const [radioButton, setRadioButton] = useState(' ingrediente');
+  const [drinks, setDrinks] = useState([]);
+  const [foods, setFoods] = useState([]);
+  const [dataFilter, setDataFilter] = useState([]);
+  const [compare, setCompare] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleClick = (pathname) => (pathname === '/comidas'
-    ? handleFoods(radioButton, searchText)
-    : handleDrinks(radioButton, searchText));
+    ? handleFoods(radioButton, searchText, setDataFilter, setLoading)
+    : handleDrinks(radioButton, searchText, setDataFilter, setLoading));
 
   const recipesContextValue = {
     searchText,
@@ -17,6 +22,15 @@ function RecipesProvider({ children }) {
     radioButton,
     setRadioButton,
     handleClick,
+    drinks,
+    setDrinks,
+    foods,
+    setFoods,
+    dataFilter,
+    compare,
+    setCompare,
+    loading,
+    setLoading,
   };
 
   return (
