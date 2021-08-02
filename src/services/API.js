@@ -10,7 +10,7 @@ function checkResponseMeal(data, callback) {
   callback(data);
 }
 
-function getRecipesFromMealAPI(url, callback) {
+export function getRecipesFromMealAPI(url, callback) {
   fetch(url)
     .then((response) => response.json())
     .then((data) => checkResponseMeal(data, callback));
@@ -24,7 +24,7 @@ function checkResponseCockTail(data, callback) {
   callback(data);
 }
 
-function getRecipesFromCocktailAPI(url, callback) {
+export function getRecipesFromCocktailAPI(url, callback) {
   fetch(url)
     .then((response) => response.json())
     .then((data) => checkResponseCockTail(data, callback));
