@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import './Login.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -30,9 +31,8 @@ export default function Login() {
     //   meals: {},
     // };
   }
-
   return (
-    <div>
+    <div className="loginBox">
       <label htmlFor="email">
         <input
           data-testid="email-input"
@@ -54,6 +54,7 @@ export default function Login() {
         />
       </label>
       <Link to="/comidas">
+        <br />
         <button
           data-testid="login-submit-btn"
           type="button"
