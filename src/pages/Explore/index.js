@@ -4,7 +4,6 @@ import Header from '../../components/Header';
 import FooterMenu from '../../components/FooterMenu';
 
 export default function Explore() {
-
   return (
     <div>
       <Header />
