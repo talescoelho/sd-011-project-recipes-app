@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import { RecipesProvider } from '../context/RecipesContext';
+import FiltersBar from './FiltersBar';
 
 export default function Header(props) {
   const [isVisibleBar, setVisibleBar] = useState(false);
@@ -11,6 +13,12 @@ export default function Header(props) {
   const { title, search, fetchType } = props;
 
   const renderSearchBar = () => <section><SearchBar fetchType={ fetchType } /></section>;
+
+  const renderFiltersBar = () => (
+    <RecipesProvider>
+      <FiltersBar />
+    </RecipesProvider>
+  );
 
   const buttonSearch = () => (
     <>
@@ -24,7 +32,7 @@ export default function Header(props) {
           src={ searchIcon }
         />
       </button>
-      { isVisibleBar && renderSearchBar() }
+      { isVisibleBar ? renderSearchBar() : renderFiltersBar() }
     </>
   );
 
