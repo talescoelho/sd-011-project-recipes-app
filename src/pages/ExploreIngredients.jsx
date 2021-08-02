@@ -1,8 +1,8 @@
 import React from 'react';
-import { Layout, HeaderPage } from '../components';
+import { Layout } from '../components';
 import { useTheme } from '../hooks';
 
-function ExplorarIgredientes() {
+function ExploreIngredients() {
   const { colors } = useTheme();
 
   const styles = {
@@ -15,10 +15,10 @@ function ExplorarIgredientes() {
   return (
     <Layout title="Explorar Ingredientes">
       <main style={ styles.main }>
-        <HeaderPage pageName="Explorar Ingredientes" />
+        <p>ola mundo</p>
       </main>
     </Layout>
   );
 }
 
-export default ExplorarIgredientes;
+export default ExploreIngredients;

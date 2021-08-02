@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, HeaderPage } from '../components';
+import { Layout } from '../components';
 import { useTheme } from '../hooks';
 
 function FoodExplore() {
@@ -15,7 +15,7 @@ function FoodExplore() {
   return (
     <Layout title="Explorar Comidas">
       <main style={ styles.main }>
-        <HeaderPage pageName="Explorar Comidas" />
+        <p>ola mundo</p>
       </main>
     </Layout>
   );

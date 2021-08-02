@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, HeaderPage } from '../components';
+import { Layout } from '../components';
 import { useTheme } from '../hooks';
 
 function FavoriteRecipes() {
@@ -15,7 +15,7 @@ function FavoriteRecipes() {
   return (
     <Layout title="Receitas Favoritas">
       <main style={ styles.main }>
-        <HeaderPage pageName="Receitas Favoritas" />
+        <p>ola mundo</p>
       </main>
     </Layout>
   );

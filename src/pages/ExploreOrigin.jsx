@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, HeaderPage } from '../components';
+import { Layout } from '../components';
 import { useTheme } from '../hooks';
 
 function ExploreOrigin() {
@@ -13,9 +13,9 @@ function ExploreOrigin() {
   };
 
   return (
-    <Layout title="Explorar Origem">
+    <Layout title="Explorar Origem" search>
       <main style={ styles.main }>
-        <HeaderPage pageName="Explorar Origem" search />
+        <p>ola mundo</p>
       </main>
     </Layout>
   );

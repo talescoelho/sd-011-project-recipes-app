@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, HeaderPage } from '../components';
+import { Layout } from '../components';
 import { useTheme } from '../hooks';
 
 function Drinks() {
@@ -13,9 +13,9 @@ function Drinks() {
   };
 
   return (
-    <Layout title="Bebidas">
+    <Layout title="Bebidas" search>
       <main style={ styles.main }>
-        <HeaderPage pageName="Bebidas" search />
+        <p>ola mundo</p>
       </main>
     </Layout>
   );

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Layout, HeaderPage } from '../components';
+import { Layout } from '../components';
 import { useTheme } from '../hooks';
 
-function ReceitasFeitas() {
+function RecipesMade() {
   const { colors } = useTheme();
 
   const styles = {
@@ -15,10 +15,10 @@ function ReceitasFeitas() {
   return (
     <Layout title="Receitas Feitas">
       <main style={ styles.main }>
-        <HeaderPage pageName="Receitas Feitas" />
+        <p>ola mundo</p>
       </main>
     </Layout>
   );
 }
 
-export default ReceitasFeitas;
+export default RecipesMade;

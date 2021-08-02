@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, HeaderPage } from '../components';
+import { Layout } from '../components';
 import { useTheme } from '../hooks';
 
 function Perfil() {
@@ -15,7 +15,7 @@ function Perfil() {
   return (
     <Layout title="Perfil">
       <main style={ styles.main }>
-        <HeaderPage pageName="Perfil" />
+        <p>ola mundo</p>
       </main>
     </Layout>
   );
