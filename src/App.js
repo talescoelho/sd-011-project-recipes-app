@@ -13,8 +13,6 @@ import ExploreFoodsArea from './pages/ExploreFoodsArea';
 import Perfil from './pages/Perfil';
 import MakedRevenues from './pages/MakedRevenues';
 import FavoritedRevenues from './pages/FavoritedRevenues';
-import Comidas from './pages/Comidas';
-import Bebidas from './pages/Bebidas';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -42,8 +40,6 @@ function App() {
           <Route exact path="/perfil" component={ Perfil } />
           <Route exact path="/receitas-feitas" component={ MakedRevenues } />
           <Route exact path="/receitas-favoritadas" component={ FavoritedRevenues } />
-          <Route exact path="/comidas" component={ Comidas } />
-          <Route exact path="/bebidas" component={ Bebidas } />
         </Switch>
       </BrowserRouter>
     </div>
