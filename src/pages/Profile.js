@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 function Profile() {
   const email = JSON.parse(localStorage.getItem('user'));
-  console.log(email.email);
   function logoutClear() {
     localStorage.clear();
   }
