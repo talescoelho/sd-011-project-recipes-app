@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 function MainRecipes({ foodOrDrink }) {
   const [mainItems, setMainItems] = useState();
+  const [categories, setCategories] = useState();
   const [loading, setLoading] = useState(true);
 
-  const maxLength = 12;
+  const maxLengthItems = 12;
+  const maxLengthCategories = 5;
 
   function renderRecipes(item, index) {
     return (
@@ -21,27 +23,49 @@ function MainRecipes({ foodOrDrink }) {
     );
   }
 
-  async function fetchMainItem() {
-    let endPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  async function fetchMainRecipes() {
+    let endPointItems = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    let endPointCategory = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
     if (foodOrDrink === 'Bebidas') {
-      endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+      endPointItems = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+      endPointCategory = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
     }
-    const require = await fetch(endPoint);
-    const response = await require.json();
-    const data = foodOrDrink === 'Bebidas' ? response.drinks : response.meals;
-    setMainItems(data);
+    const requireItems = await fetch(endPointItems);
+    const responseItems = await requireItems.json();
+    const dataItems = foodOrDrink === 'Bebidas' ? responseItems.drinks : responseItems.meals;
+    const requireCategory = await fetch(endPointCategory);
+    const responseCategory = await requireCategory.json();
+    const dataCategory = foodOrDrink === 'Bebidas' ? responseCategory.drinks : responseCategory.meals;
+    setMainItems(dataItems);
+    setCategories(dataCategory);
     setLoading(false);
   }
 
   useEffect(() => {
-    fetchMainItem();
+    fetchMainRecipes();
   }, []);
 
   return (
     <div>
-      {loading ? <span>Carregando...</span> : (
-        mainItems.filter((item, index) => index < maxLength).map(renderRecipes)
-      )}
+      <div>
+        {loading ? <span>Carregando...</span> : (
+          categories.filter((item, index) => index < maxLengthCategories)
+            .map((item, index) => (
+              <button
+                key={ index }
+                type="button"
+                data-testid={ `${item.strCategory}-category-filter` }
+              >
+                { item.strCategory }
+              </button>
+            ))
+        )}
+      </div>
+      <div>
+        {loading ? <span>Carregando...</span> : (
+          mainItems.filter((item, index) => index < maxLengthItems).map(renderRecipes)
+        )}
+      </div>
     </div>
   );
 }
