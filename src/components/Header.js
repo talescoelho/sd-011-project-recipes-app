@@ -10,11 +10,17 @@ class Header extends Component {
     super(props);
     this.state = {
       disabled: true,
+      search: false,
     };
     this.centralHeader = this.centralHeader.bind(this);
     this.profileButton = this.profileButton.bind(this);
     this.searchButton = this.searchButton.bind(this);
     this.showSearch = this.showSearch.bind(this);
+    this.verifyTitle = this.verifyTitle.bind(this);
+  }
+
+  componentDidMount() {
+    this.verifyTitle();
   }
 
   profileButton() {
@@ -34,10 +40,9 @@ class Header extends Component {
     return (
       <button
         type="button"
-        data-testids="search-top-btn"
         onClick={ () => this.showSearch() }
       >
-        <img src={ SearchIcon } alt="searchIcon" />
+        <img src={ SearchIcon } data-testid="search-top-btn" alt="searchIcon" />
       </button>
     );
   }
@@ -62,13 +67,23 @@ class Header extends Component {
     );
   }
 
+  verifyTitle() {
+    const { title } = this.props;
+    if (title === 'Comidas' || title === 'Bebidas' || title === 'Explorar Origem') {
+      this.setState({
+        search: true,
+      });
+    }
+  }
+
   render() {
+    const { search } = this.state;
     const { title } = this.props;
     return (
       <header>
         { this.profileButton() }
         <h1 data-testid="page-title">{ title }</h1>
-        { this.searchButton() }
+        { search && this.searchButton() }
         { this.centralHeader() }
       </header>
     );
