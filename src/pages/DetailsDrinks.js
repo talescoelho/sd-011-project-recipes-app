@@ -14,7 +14,6 @@ export default function DetailsDrinks() {
   const [recomendedFoods, setRecomendedFoods] = React.useState([]);
   const [recipeExists, setRecipeExists] = React.useState(false);
   const [inProgressRecipes, setInProgressRecipes] = React.useState(false);
-  const [copiedText, setCopiedText] = React.useState(false);
   const [isFavorite, setIsFavorite] = React.useState(false);
   const idReceita = '178319';
 
@@ -42,7 +41,17 @@ export default function DetailsDrinks() {
   }
 
   function addFavorite() {
+    const bebida = {
+      id: idReceita,
+      type: 'bebida',
+      area: '',
+      category: data.drinks[0].strCategory,
+      alcoholicOrNot: data.drinks[0].strAlcoholic,
+      name: data.drinks[0].strDrink,
+      image: data.drinks[0].strDrinkThumb,
+    };
     setIsFavorite(!isFavorite);
+    localStorage.setItem('favoriteRecipes', JSON.stringify([bebida]));
   }
 
   React.useEffect(() => {
@@ -113,8 +122,7 @@ export default function DetailsDrinks() {
           </div>
         ))}
       </div>
-      {copiedText ? <p>Link copiado!</p> : null}
-      <ShareButton setCopiedText={ setCopiedText } />
+      <ShareButton />
       <FavoriteButton addFavorite={ addFavorite } isFavorite={ isFavorite } />
       <ContinueButton inProgressRecipes={ inProgressRecipes } />
       <StartButton page="bebidas" idReceita={ idReceita } recipeExists={ recipeExists } />
