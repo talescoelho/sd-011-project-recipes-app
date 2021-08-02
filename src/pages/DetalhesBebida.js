@@ -39,6 +39,11 @@ export default function DetalhesBebida({ match }) {
   }
 
   const loading = !drink.idDrink && recommendations.length > 0;
+  const doneRecipes = localStorage.getItem('doneRecipes');
+  let isDone;
+  if (doneRecipes) {
+    isDone = JSON.parse(doneRecipes).find((recipe) => recipe.id === id);
+  }
   return (
     loading
       ? <h1>Carregando....</h1>
@@ -82,9 +87,21 @@ export default function DetalhesBebida({ match }) {
           </div>
           <p data-testid="instructions">{drink.strInstructions}</p>
           <RecommendMeal items={ recommendations } />
-          <Link to="/">
-            <button data-testid="start-recipe-btn" type="button">Iniciar receita</button>
-          </Link>
+          {
+            isDone
+              ? null
+              : (
+                <Link to="/">
+                  <button
+                    className="start-recipe-btn"
+                    data-testid="start-recipe-btn"
+                    type="button"
+                  >
+                    Iniciar receita
+                  </button>
+                </Link>
+              )
+          }
         </div>
       )
   );

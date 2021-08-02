@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ReactPlayer from 'react-player';
 
+import '../styles/Detalhes.css';
 import RecommendDrink from '../components/RecommendDrink';
 
 export default function DetalhesComida({ match }) {
@@ -40,6 +41,11 @@ export default function DetalhesComida({ match }) {
   }
 
   const loading = !meal.idMeal && recommendations.length > 0;
+  const doneRecipes = localStorage.getItem('doneRecipes');
+  let isDone;
+  if (doneRecipes) {
+    isDone = JSON.parse(doneRecipes).find((recipe) => recipe.id === id);
+  }
   return (
     loading
       ? <h1>Carregando....</h1>
@@ -84,9 +90,21 @@ export default function DetalhesComida({ match }) {
           <p data-testid="instructions">{meal.strInstructions}</p>
           <ReactPlayer data-testid="video" url={ meal.strYoutube } />
           <RecommendDrink items={ recommendations } />
-          <Link to="/">
-            <button data-testid="start-recipe-btn" type="button">Iniciar receita</button>
-          </Link>
+          {
+            isDone
+              ? null
+              : (
+                <Link to="/">
+                  <button
+                    className="start-recipe-btn"
+                    data-testid="start-recipe-btn"
+                    type="button"
+                  >
+                    Iniciar receita
+                  </button>
+                </Link>
+              )
+          }
         </div>
       )
   );
