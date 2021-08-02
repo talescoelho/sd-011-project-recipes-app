@@ -13,6 +13,16 @@ const THEMES = {
       bold: 700,
     },
   },
+  dark: {
+    name: 'dark',
+    colors: {
+      background: '#121212',
+      textboxs: '#332940',
+      primaryColor: '#BB86FC',
+      secondaryColor: '#03DAC5',
+      errorColor: '#CF6679',
+    },
+  },
 };
 
 const initialState = THEMES.light;

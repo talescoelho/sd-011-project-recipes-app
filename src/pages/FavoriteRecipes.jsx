@@ -1,23 +1,24 @@
 import React from 'react';
-import { Layout, SearchForm, RecipeList } from '../components';
+import { Layout } from '../components';
 import { useTheme } from '../hooks';
 
-function Comidas() {
+function FavoriteRecipes() {
   const { colors } = useTheme();
+
   const styles = {
     main: {
       backgroundColor: colors.background,
       color: colors.text400,
     },
   };
+
   return (
-    <Layout title="Comidas">
+    <Layout title="Receitas Favoritas">
       <main style={ styles.main }>
-        <SearchForm type="meals" />
-        <RecipeList />
+        <p>ola mundo</p>
       </main>
     </Layout>
   );
 }
 
-export default Comidas;
+export default FavoriteRecipes;
