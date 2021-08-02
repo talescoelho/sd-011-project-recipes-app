@@ -23,8 +23,9 @@ export default function FoodDetails() {
 
   function listIngradient() {
     const retorno = [];
-    for (let index = 1; index <= 20; index++) {
-      if (returnRecipe()[`strIngredient${index}`] != '') {
+    const qtdMax = 20;
+    for (let index = 1; index <= qtdMax; index += 1) {
+      if (returnRecipe()[`strIngredient${index}`] !== '') {
         retorno.push(
           <li key={ index }>
             {' '}
