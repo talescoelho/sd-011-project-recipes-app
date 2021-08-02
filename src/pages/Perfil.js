@@ -14,7 +14,7 @@ class Perfil extends Component {
           lupa={ lupa }
         />
         <Footer />
-      </div>
+      </main>
     );
   }
 }
