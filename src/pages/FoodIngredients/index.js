@@ -22,7 +22,7 @@ const FoodInProgress = () => {
         return (
           <div key={ index } data-testid={ `${index}-ingredient-card` }>
             <img
-              src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient}-Small.png ` }
+              src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png ` }
               alt={ strIngredient }
               data-testid={ `${index}-card-img` }
             />
