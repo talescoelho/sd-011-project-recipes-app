@@ -4,3 +4,8 @@
   height: 42px;
   justify-content: space-between;
 }
+
+.field-style {
+  display: flex;
+  justify-content: flex-end;
+}

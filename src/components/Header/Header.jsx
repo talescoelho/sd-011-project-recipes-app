@@ -39,12 +39,16 @@ const Header = ({ page, showSearchBtn }) => {
               </button>) : null
         }
       </header>
-      <span>
+      <span className="field-style">
         {
           showField
             ? (<input type="text" data-testid="search-input" />)
             : null
         }
+        <label htmlFor="label-radio">
+          Ingredientes
+          <input type="radio" data-testid="ingredient-search-radio" />
+        </label>
       </span>
     </>
   );
