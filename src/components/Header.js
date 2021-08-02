@@ -30,33 +30,37 @@ class Header extends Component {
   }
 
   render() {
-    const { title, search } = this.props;
+    const { title, switchModus, lupa } = this.props;
     const { searchInput } = this.state;
     return (
-      <main>
+      <div>
         <Link to="/perfil">
           <button type="button">
             <img data-testid="profile-top-btn" src={ profileIcon } alt="profile" />
           </button>
         </Link>
         <span data-testid="page-title">{ title }</span>
-        { search === 'off' ? null : (
+        { (lupa === 'desligada') ? null : (
           <button
             type="button"
-            onClick={ this.handleSearchChange }
+            onClick={ () => {
+              this.handleSearchChange();
+              switchModus();
+            } }
           >
             <img data-testid="search-top-btn" src={ searchIcon } alt="lupa" />
           </button>
         )}
-        {searchInput === false ? null : (<SearchInput />)}
-      </main>
+        {searchInput === false ? null : (<SearchInput title={ title } />)}
+      </div>
     );
   }
 }
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  search: PropTypes.string.isRequired,
+  lupa: PropTypes.string.isRequired,
+  switchModus: PropTypes.func.isRequired,
 };
 
 export default Header;

@@ -5,15 +5,16 @@ import Header from '../components/Header';
 class Perfil extends Component {
   render() {
     const title = 'Perfil';
-    const search = 'off';
+    const lupa = 'desligada';
     return (
-      <main>
+      <div>
+        <h1 data-testid="page-title">Perfil</h1>
         <Header
           title={ title }
-          search={ search }
+          lupa={ lupa }
         />
         <Footer />
-      </main>
+      </div>
     );
   }
 }

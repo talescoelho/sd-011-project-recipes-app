@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import * as api from '../services/API';
 
 class Comidas extends Component {
   constructor() {
     super();
     this.state = {
-      meals: [],
       title: 'Comidas',
+      meals: [],
+      isFetchDone: false,
+      lupa: 'ligada',
+      modus: 'list',
     };
+    this.switchModus = this.switchModus.bind(this);
   }
 
   componentDidMount() {
@@ -16,22 +21,58 @@ class Comidas extends Component {
   }
 
   async fetchAPI() {
-    const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-    const data = await response.json();
+    const getAPI = await api.fetchAPIFoodList();
     this.setState({
-      meals: data,
+      meals: getAPI,
+      isFetchDone: true,
     });
   }
 
+  switchModus() {
+    const { modus } = this.state;
+    if (modus === 'list') {
+      this.setState({
+        modus: 'search',
+      });
+    } else {
+      this.setState({
+        modus: 'list',
+      });
+    }
+  }
+
   render() {
-    const { meals, title } = this.state;
-    console.log(meals);
+    const { title, meals, isFetchDone, lupa, modus } = this.state;
+    const elements = 12;
     return (
-      <main>
-        {/* <span>Comidas</span> */}
-        <Header title={ title } />
+      <div>
+        <Header
+          title={ title }
+          lupa={ lupa }
+          switchModus={ this.switchModus }
+          modus={ modus }
+        />
+        { isFetchDone === false ? <div>Carregando...</div> : (
+          <div>
+            { modus === 'search' ? <div>...</div> : (
+              <div>
+                {meals.slice(0, elements).map((recipe, index) => (
+                  <div key={ index } data-testid={ `${index}-recipe-card` }>
+                    <img
+                      className="photo"
+                      src={ recipe.strMealThumb }
+                      data-testid={ `${index}-card-img` }
+                      alt="Imagem da receita"
+                    />
+                    <p data-testid={ `${index}-card-name` }>{recipe.strMeal}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
         <Footer />
-      </main>
+      </div>
     );
   }
 }

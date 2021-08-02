@@ -4,14 +4,14 @@ import Header from '../components/Header';
 class ReceitasFeitas extends Component {
   render() {
     const title = 'Receitas Feitas';
-    const search = 'off';
+    const lupa = 'desligada';
     return (
-      <main>
+      <div>
         <Header
           title={ title }
-          search={ search }
+          lupa={ lupa }
         />
-      </main>
+      </div>
     );
   }
 }
