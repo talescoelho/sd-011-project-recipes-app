@@ -1,17 +1,23 @@
 import React from 'react';
 import { useHistory } from 'react-router';
+import { useDispatch } from 'react-redux';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
+import { returnToInitialState } from '../actions/mainPageRecipe';
 
 function Footer() {
   const history = useHistory();
+  const dispatch = useDispatch();
   return (
     <footer data-testid="footer">
       <button
         type="button"
         data-testid="drinks-bottom-btn"
-        onClick={ () => history.push('/bebidas') }
+        onClick={ () => {
+          history.push('/bebidas');
+          dispatch(returnToInitialState());
+        } }
         src={ drinkIcon }
       >
         <img
@@ -33,7 +39,10 @@ function Footer() {
       <button
         type="button"
         data-testid="food-bottom-btn"
-        onClick={ () => history.push('/comidas') }
+        onClick={ () => {
+          history.push('/comidas');
+          dispatch(returnToInitialState());
+        } }
         src={ mealIcon }
       >
         <img

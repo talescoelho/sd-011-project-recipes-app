@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import RecipeCards from './RecipeCards';
+
 import searchCase from '../service/apiSearchBar';
 
 function SearchBar({ mealOrDrink }) {
@@ -15,7 +15,6 @@ function SearchBar({ mealOrDrink }) {
   const comidasOuBebidas = mealOrDrink === 'meal' ? 'comidas' : 'bebidas';
   const mealsOrDrinks = mealOrDrink === 'meal' ? 'meals' : 'drinks';
   const caseMOrD = mealOrDrink === 'meal' ? 'Meal' : 'Drink';
-  const limitSearch = 12;
 
   React.useEffect(() => {
     if (dataApi[mealsOrDrinks] === null && !stateReduxSearch.loading) {
@@ -80,15 +79,6 @@ function SearchBar({ mealOrDrink }) {
             to={ `/${comidasOuBebidas}/${dataApi[mealsOrDrinks][0][`id${caseMOrD}`]}` }
           />
         ) }
-      {!stateReduxSearch.loading && dataApi[mealsOrDrinks]
-        && dataApi[mealsOrDrinks]
-          .map((e, i) => i < limitSearch && (
-            <RecipeCards
-              index={ i }
-              key={ i }
-              src={ e[`str${caseMOrD}Thumb`] }
-              name={ e[`str${caseMOrD}`] }
-            />))}
 
     </div>
   );

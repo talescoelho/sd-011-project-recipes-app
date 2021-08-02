@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 function Explorar() {
   return (
     <div>
-      <Header buttonExists title="Explorar" />
+      <Header title="Explorar" />
       <Footer />
     </div>
   );
