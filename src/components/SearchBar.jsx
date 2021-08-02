@@ -1,11 +1,15 @@
 import React, { useContext } from 'react';
+import { useForm } from 'react-hook-form';
 import SearchContext from '../Context';
 
 function SearchBar() {
-  const { handleClickIngrediente, handleClickRadio, filterIngrediente, filterFood } = useContext(SearchContext);
+  const { register, handleSubmit, watch } = useForm();
+  const {
+    handleClickIngrediente, handleClickRadio, filterIngrediente, filterFood,
+  } = useContext(SearchContext);
 
   return (
-    <div>
+    <form>
       <label htmlFor="input">
         <input
           name="ingrediente"
@@ -47,10 +51,10 @@ function SearchBar() {
         />
         Primeira Letra
       </label>
-      <button type="button" data-testid="exec-search-btn" onClick={ filterFood }>
+      <button type="submit" data-testid="exec-search-btn" onClick={ filterFood }>
         Buscar
       </button>
-    </div>
+    </form>
   );
 }
 
