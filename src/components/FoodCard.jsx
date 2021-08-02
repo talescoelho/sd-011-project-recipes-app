@@ -50,8 +50,6 @@ export default function FoodCard() {
 
   return (
     <div>
-      <input type="text" onChange={ (e) => setName(e.target.value) } />
-      <Button onClick={ sendUserName }>CLIQUE AQUI</Button>
       {getCards()}
     </div>);
 }
