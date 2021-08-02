@@ -60,7 +60,7 @@ class Header extends Component {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   lupa: PropTypes.string.isRequired,
-  switchLupa: PropTypes.func.isRequired,
+  switchModus: PropTypes.func.isRequired,
 };
 
 export default Header;
