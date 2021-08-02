@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
+import '../../styles/SearchBar.css';
 
 function SearchBar() {
   const { setSearchText,
@@ -17,7 +18,7 @@ function SearchBar() {
   };
 
   return (
-    <section>
+    <section className="search-bar">
       <form>
         <label htmlFor="search-input">
           <input

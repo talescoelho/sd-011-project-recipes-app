@@ -1,0 +1,42 @@
+.search-bar {
+  background-color: #fff;
+  display: flex;
+  height: 4rem;
+  position: absolute;
+  top: 2.1rem;
+  width: 100%;
+}
+
+.search-bar form {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
+}
+
+.search-bar label:nth-child(1) {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.search-bar label:nth-child(2) {
+  width: 33%;
+}
+
+.search-bar label:nth-child(3) {
+  width: 33%;
+}
+
+.search-bar label:nth-child(4) {
+  width: 33%;
+}
+
+.search-bar label:nth-child(1) input {
+  justify-self: center;
+  height: 90%;
+  margin-top: 0.1rem;
+  width: 95%;
+}
