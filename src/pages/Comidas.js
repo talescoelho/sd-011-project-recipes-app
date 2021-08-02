@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Categories from '../components/Categories';
 import * as api from '../services/API';
 
 class Comidas extends Component {
@@ -14,6 +15,8 @@ class Comidas extends Component {
       modus: 'list',
     };
     this.switchModus = this.switchModus.bind(this);
+    this.filterByCategory = this.filterByCategory.bind(this);
+    this.listAll = this.listAll.bind(this);
   }
 
   componentDidMount() {
@@ -41,6 +44,22 @@ class Comidas extends Component {
     }
   }
 
+  listAll() {
+    this.fetchAPI();
+  }
+
+  filterByCategory(event) {
+    const { value } = event.target;
+    this.fetchAPIByCategory(value);
+  }
+
+  async fetchAPIByCategory(category) {
+    const getAPI = await api.fetchAPIByFoodCategory(category);
+    this.setState({
+      meals: getAPI,
+    });
+  }
+
   render() {
     const { title, meals, isFetchDone, lupa, modus } = this.state;
     const elements = 12;
@@ -51,6 +70,11 @@ class Comidas extends Component {
           lupa={ lupa }
           switchModus={ this.switchModus }
           modus={ modus }
+        />
+        <Categories
+          title={ title }
+          filterByCategory={ this.filterByCategory }
+          listAll={ this.listAll }
         />
         { isFetchDone === false ? <div>Carregando...</div> : (
           <div>

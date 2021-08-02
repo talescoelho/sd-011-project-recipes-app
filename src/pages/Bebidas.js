@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Categories from '../components/Categories';
 import * as api from '../services/API';
 
 class Bebidas extends Component {
@@ -15,6 +16,8 @@ class Bebidas extends Component {
       modus: 'list',
     };
     this.switchModus = this.switchModus.bind(this);
+    this.filterByCategory = this.filterByCategory.bind(this);
+    this.listAll = this.listAll.bind(this);
   }
 
   componentDidMount() {
@@ -42,6 +45,22 @@ class Bebidas extends Component {
     }
   }
 
+  listAll() {
+    this.fetchAPI();
+  }
+
+  filterByCategory(event) {
+    const { value } = event.target;
+    this.fetchAPIByCategory(value);
+  }
+
+  async fetchAPIByCategory(category) {
+    const getAPI = await api.fetchAPIByDrinkCategory(category);
+    this.setState({
+      drinks: getAPI,
+    });
+  }
+
   render() {
     const { title, drinks, isFetchDone, lupa, modus } = this.state;
     const elements = 12;
@@ -54,6 +73,11 @@ class Bebidas extends Component {
           switchModus={ this.switchModus }
           modus={ modus }
         />
+        <Categories
+          title={ title }
+          filterByCategory={ this.filterByCategory }
+          listAll={ this.listAll }
+        />
         { isFetchDone === false ? <div>Carregando...</div> : (
           <div>
             { modus === 'search' ? <div>...</div> : (
@@ -61,6 +85,7 @@ class Bebidas extends Component {
                 { drinks.slice(0, elements).map((recipe, index) => (
                   <div key={ index } data-testid={ `${index}-recipe-card` }>
                     <img
+                      className="photo"
                       src={ recipe.strDrinkThumb }
                       data-testid={ `${index}-card-img` }
                       alt="Imagem da receita"
