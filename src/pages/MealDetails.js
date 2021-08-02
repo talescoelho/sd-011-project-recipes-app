@@ -9,7 +9,6 @@ import RecipeStageBtn from '../components/RecipeStageBtn';
 import CarouselRecipes from '../components/CarouselRecipes';
 
 const URL_TO_DRINKS_RECIPES = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-const SIX_CARDS = 6;
 
 function MealDetails(
   { recipesData, recipeDetailsData,
@@ -53,10 +52,6 @@ function MealDetails(
           title="Embedded youtube"
         />
         <CarouselRecipes data={ recipesData.drinks } recipeType="drinks" />
-        {recipesData.drinks
-          .map((recipe, index) => (index < SIX_CARDS
-            ? (<p data-testid={ `${index}-recomendation-card` } key={ index }>{recipe.strDrink}</p>)
-            : ''))}
         <RecipeStageBtn id={ id } recipeType="meals" />
       </div>
     );
