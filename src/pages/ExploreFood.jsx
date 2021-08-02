@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const ExploreFood = () => (
   <>
-    <Link to="/comidas">
+    <Link to="/explorar/comidas/ingredientes">
       <Button
         type="submit"
         data-testid="explore-by-ingredient"
@@ -14,7 +14,7 @@ const ExploreFood = () => (
         Por Ingredientes
       </Button>
     </Link>
-    <Link to="/bebidas">
+    <Link to="/explorar/comidas/area">
       <Button
         type="submit"
         data-testid="explore-by-area"

@@ -2,29 +2,28 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 
-const ExploreDrink = () => (
+const DrinkIngredient = () => (
   <>
-    <Link to="/explorar/bebidas/ingredientes">
+    <Link to="/explorar/comidas">
       <Button
         type="submit"
-        data-testid="explore-by-ingredient"
+        data-testid="explore-food"
         variant="light"
         size="lg"
       >
-        Por Ingredientes
+        Explorar Comidas
       </Button>
     </Link>
-    <Link to="/bebidas">
+    <Link to="/explorar/bebidas">
       <Button
         type="submit"
-        data-testid="explore-surprise"
+        data-testid="explore-drinks"
         variant="light"
         size="lg"
       >
-        Me Surpreenda!
+        Explorar Bebidas
       </Button>
     </Link>
   </>
 );
-
-export default ExploreDrink;
+export default DrinkIngredient;
