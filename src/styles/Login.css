@@ -1,0 +1,34 @@
+.loginContainer {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+.loginContainer form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.loginContainer form label {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.loginContainer form input {
+  border: none;
+  border-radius: 8px;
+  height: 32px;
+  outline: none;
+  padding: 0px 15px;
+  transition: 0.4s;
+  width: 80%;
+}
+
+.loginContainer form input:focus {
+  transform: scale(1.2);
+  transition: 0.4s;
+}

@@ -1,5 +1,9 @@
 .footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   bottom: 0;
   height: 58px;
   position: absolute;
+  width: 360px;
 }
