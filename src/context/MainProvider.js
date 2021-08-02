@@ -5,12 +5,15 @@ import MainContext from './MainContext';
 function ProviderFood({ children }) {
   const [searchBarShow, setSearchBarShow] = useState(false);
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const contextValue = {
     searchBarShow,
     setSearchBarShow,
     data,
     setData,
+    loading,
+    setLoading,
   };
   return (
     <MainContext.Provider value={ contextValue }>

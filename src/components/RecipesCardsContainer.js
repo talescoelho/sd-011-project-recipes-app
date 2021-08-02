@@ -4,17 +4,19 @@ import RecipeCard from './RecipeCard';
 
 function RecipesCardsContainer() {
   const [showCards, setShowCards] = useState(false);
-  const { data } = useContext(MainContext);
+  const { data, loading } = useContext(MainContext);
   const maxCardLength = 11;
 
   useEffect(() => {
-    if (data.length === 0) {
-    // eslint-disable-next-line no-alert
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    } else {
-      setShowCards(true);
+    if (!loading) {
+      if (data.length === 0) {
+      // eslint-disable-next-line no-alert
+        alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      } else {
+        setShowCards(true);
+      }
     }
-  }, [data]);
+  }, [data, loading]);
 
   console.log(data);
 

@@ -21,4 +21,8 @@ export function searchBarFetchCockTail(search, type) {
   }
 }
 
-export const valor = 'teste';
+export function getInitialDrinksRecipes() {
+  return fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=vodka')
+    .then((result) => result.json())
+    .then(({ drinks }) => drinks);
+}
