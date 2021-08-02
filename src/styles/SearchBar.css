@@ -5,6 +5,7 @@
   height: 105px;
   justify-content: space-between;
   padding: 15px;
+  position: absolute;
   width: 360px;
 }
 
