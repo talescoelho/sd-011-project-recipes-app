@@ -13,5 +13,6 @@
 }
 
 .search-bar .search-prop {
-  margin: 10px 25px 10px 2px;
+  display: flex;
+  justify-content: space-between;
 }

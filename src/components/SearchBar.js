@@ -83,51 +83,48 @@ function SearchBar({ title }) {
         type="search"
         placeholder="Pesquisar..."
       />
-      <div>
+      <div className="search-prop">
         <label htmlFor="ingredient">
-          Ingrediente
           <input
             onChange={ () => {
               setinputFirstLetter(false);
               setinputName(false);
               setinputIngredient(!inputIngredient);
             } }
-            className="search-prop"
             name="inputRadio"
             type="radio"
             data-testid="ingredient-search-radio"
             id="ingredient"
           />
+          Ingrediente
         </label>
         <label htmlFor="name">
-          Nome
           <input
             onChange={ () => {
               setinputIngredient(false);
               setinputFirstLetter(false);
               setinputName(!inputName);
             } }
-            className="search-prop"
             name="inputRadio"
             type="radio"
             id="name"
             data-testid="name-search-radio"
           />
+          Nome
         </label>
         <label htmlFor="first-letter">
-          Primeira Letra
           <input
             onChange={ () => {
               setinputName(false);
               setinputIngredient(false);
               setinputFirstLetter(!inputFirstLetter);
             } }
-            className="search-prop"
             name="inputRadio"
             type="radio"
             id="first-letter"
             data-testid="first-letter-search-radio"
           />
+          Primeira Letra
         </label>
       </div>
       <button
