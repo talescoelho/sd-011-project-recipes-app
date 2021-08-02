@@ -12,6 +12,7 @@ class Bebidas extends React.Component {
     super();
     this.state = {
       itemsToRender: [],
+      renderOneOrNot: true,
     };
     this.prepareItemsOnLoad = this.prepareItemsOnLoad.bind(this);
     this.updateFoods = this.updateFoods.bind(this);
@@ -26,19 +27,31 @@ class Bebidas extends React.Component {
       const { drinksDataBase } = this.props;
       this.setState({
         itemsToRender: drinksDataBase,
+        renderOneOrNot: true,
       });
     } else {
       const { filteredDrinksPerCategory } = this.props;
       this.setState({
         itemsToRender: filteredDrinksPerCategory,
+        renderOneOrNot: false,
       });
     }
   }
 
   async prepareItemsOnLoad() {
-    const { getDrinks, getCategories } = this.props;
-    await getDrinks();
-    const { drinksDataBase } = this.props;
+    const { getDrinks, drinksDataBase } = this.props;
+    if (drinksDataBase.length > 0) {
+      this.setState({
+        itemsToRender: drinksDataBase,
+      });
+    } else {
+      await getDrinks('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+      this.updateFromCategories();
+    }
+  }
+
+  updateFromCategories() {
+    const { drinksDataBase, getCategories } = this.props;
     getCategories('drinks');
     this.setState({
       itemsToRender: drinksDataBase,
@@ -47,17 +60,26 @@ class Bebidas extends React.Component {
 
   render() {
     const { categories } = this.props;
-    const { itemsToRender } = this.state;
+    const { itemsToRender, renderOneOrNot } = this.state;
     const showSearchButton = true;
     return (
       <div>
-        <Header title="Bebidas" showSearchButton={ showSearchButton } typeFood="drinks" />
+        <Header
+          title="Bebidas"
+          showSearchButton={ showSearchButton }
+          updateItemsToRender={ this.updateFoods }
+          typeFood="drinks"
+        />
         <FiltersFromCategories
           categories={ categories }
           updateItemsToRender={ this.updateFoods }
           typeFood="drinks"
         />
-        <Cards itemsToRender={ itemsToRender } typeFood="drink" />
+        <Cards
+          itemsToRender={ itemsToRender }
+          renderOneOrNot={ renderOneOrNot }
+          typeFood="drink"
+        />
         <Footer />
       </div>
     );
@@ -70,7 +92,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getDrinks: () => dispatch(getDrinksFromApi()),
+  getDrinks: (url) => dispatch(getDrinksFromApi(url)),
   getCategories: (mealsOrDrinks) => dispatch(getCategoriesFromApi(mealsOrDrinks)),
 });
 

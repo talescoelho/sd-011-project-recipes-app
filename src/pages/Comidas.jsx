@@ -12,6 +12,7 @@ class Comidas extends React.Component {
     super();
     this.state = {
       itemsToRender: [],
+      renderOneOrNot: true,
     };
     this.prepareItemsOnLoad = this.prepareItemsOnLoad.bind(this);
     this.updateFoods = this.updateFoods.bind(this);
@@ -26,19 +27,31 @@ class Comidas extends React.Component {
       const { foodsDataBase } = this.props;
       this.setState({
         itemsToRender: foodsDataBase,
+        renderOneOrNot: true,
       });
     } else {
       const { filteredFoodsPerCategory } = this.props;
       this.setState({
         itemsToRender: filteredFoodsPerCategory,
+        renderOneOrNot: false,
       });
     }
   }
 
   async prepareItemsOnLoad() {
-    const { getFoods, getCategories } = this.props;
-    await getFoods();
-    const { foodsDataBase } = this.props;
+    const { getFoods, foodsDataBase } = this.props;
+    if (foodsDataBase.length > 0) {
+      this.setState({
+        itemsToRender: foodsDataBase,
+      });
+    } else {
+      await getFoods('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+      this.updateFromCategories();
+    }
+  }
+
+  updateFromCategories() {
+    const { foodsDataBase, getCategories } = this.props;
     getCategories('meals');
     this.setState({
       itemsToRender: foodsDataBase,
@@ -47,17 +60,26 @@ class Comidas extends React.Component {
 
   render() {
     const { categories } = this.props;
-    const { itemsToRender } = this.state;
+    const { itemsToRender, renderOneOrNot } = this.state;
     const showSearchButton = true;
     return (
       <div>
-        <Header title="Comidas" showSearchButton={ showSearchButton } typeFood="food" />
+        <Header
+          title="Comidas"
+          showSearchButton={ showSearchButton }
+          updateItemsToRender={ this.updateFoods }
+          typeFood="food"
+        />
         <FiltersFromCategories
           categories={ categories }
           updateItemsToRender={ this.updateFoods }
           typeFood="meals"
         />
-        <Cards itemsToRender={ itemsToRender } typeFood="food" />
+        <Cards
+          itemsToRender={ itemsToRender }
+          renderOneOrNot={ renderOneOrNot }
+          typeFood="food"
+        />
         <Footer />
       </div>
     );
@@ -71,7 +93,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getFoods: () => dispatch(getFoodFromApi()),
+  getFoods: (url) => dispatch(getFoodFromApi(url)),
   getCategories: (mealsOrDrinks) => dispatch(getCategoriesFromApi(mealsOrDrinks)),
 });
 

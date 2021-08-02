@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../App.css';
 
 class DetalhesBebidas extends Component {
@@ -13,12 +14,17 @@ class DetalhesBebidas extends Component {
       recomendations: [],
       showButton: true,
       nameButton: true,
+      shareButton: false,
+      favoriteButton: false,
     };
 
     this.fetchIdDrink = this.fetchIdDrink.bind(this);
     this.recomendationsFetch = this.recomendationsFetch.bind(this);
     this.handleStateButton = this.handleStateButton.bind(this);
     this.handleNameButton = this.handleNameButton.bind(this);
+    this.shareLinkClick = this.shareLinkClick.bind(this);
+    this.favoriteButtonClick = this.favoriteButtonClick.bind(this);
+    this.verifyButtonState = this.verifyButtonState.bind(this);
   }
 
   componentDidMount() {
@@ -29,6 +35,7 @@ class DetalhesBebidas extends Component {
     this.recomendationsFetch();
     this.handleStateButton();
     this.handleNameButton();
+    this.verifyButtonState();
   }
 
   handleStateButton() {
@@ -73,12 +80,44 @@ class DetalhesBebidas extends Component {
       }));
   }
 
+  shareLinkClick() {
+    const magicNumber = 2000;
+    navigator.clipboard.writeText(window.location.href);
+    this.setState({
+      shareButton: true,
+    });
+    setTimeout(() => this.setState({
+      shareButton: false,
+    }), magicNumber);
+  }
+
+  verifyButtonState() {
+    const { history } = this.props;
+    const { location } = history;
+    const { pathname } = location;
+    const urlId = pathname.split('/')[2];
+    const stateFavoriteButton = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (stateFavoriteButton && stateFavoriteButton.some(({ id }) => id === urlId)) {
+      this.setState({
+        favoriteButton: true,
+      });
+    }
+  }
+
+  favoriteButtonClick() {
+    const { favoriteButton } = this.state;
+    this.setState({
+      favoriteButton: !favoriteButton,
+    });
+  }
+
   render() {
     const { history } = this.props;
     const { location } = history;
     const { pathname } = location;
     const id = pathname.split('/')[2];
-    const { cocktail, recomendations, showButton, nameButton } = this.state;
+    const { cocktail,
+      recomendations, showButton, nameButton, shareButton, favoriteButton } = this.state;
     const { drinks } = cocktail;
     const { meals } = recomendations;
     const magicNumber = 6;
@@ -109,15 +148,29 @@ class DetalhesBebidas extends Component {
           <button
             type="button"
             data-testid="share-btn"
+            onClick={ this.shareLinkClick }
           >
             <img src={ shareIcon } alt="share" />
           </button>
           <button
             type="button"
-            data-testid="favorite-btn"
+            onClick={ this.favoriteButtonClick }
           >
-            <img src={ whiteHeartIcon } alt="favorite" />
+            { !favoriteButton
+              ? (
+                <img
+                  data-testid="favorite-btn"
+                  src={ whiteHeartIcon }
+                  alt="no-favorite"
+                />)
+              : (
+                <img
+                  data-testid="favorite-btn"
+                  src={ blackHeartIcon }
+                  alt="yes-favorite"
+                />)}
           </button>
+          {shareButton ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
           <p data-testid="recipe-category">{ strAlcoholic }</p>
           <p>Ingredientes:</p>
           { onlyIngredientes.map((value, index) => (

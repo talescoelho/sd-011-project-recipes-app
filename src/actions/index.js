@@ -25,10 +25,10 @@ export const getFoodsSuccess = (payload) => ({
 //   payload,
 // });
 
-export const getFoodFromApi = () => async (dispatch) => {
+export const getFoodFromApi = (url) => async (dispatch) => {
   dispatch(getFoods());
   try {
-    const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    const URL = url;
     const dataFromApi = await fetchFromApi(URL);
     dispatch(getFoodsSuccess(dataFromApi.meals));
   } catch (error) {
@@ -45,10 +45,10 @@ export const getDrinksSuccess = (payload) => ({
   payload,
 });
 
-export const getDrinksFromApi = () => async (dispatch) => {
+export const getDrinksFromApi = (url) => async (dispatch) => {
   dispatch(getDrinks());
   try {
-    const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    const URL = url;
     const dataFromApi = await fetchFromApi(URL);
     dispatch(getDrinksSuccess(dataFromApi.drinks));
   } catch (error) {
