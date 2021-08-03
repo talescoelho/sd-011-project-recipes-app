@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/Login';
@@ -26,7 +26,6 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Recipes } />
         <Route exact path="/bebidas" component={ Recipes } />
-        <Route exact path="/explorar/comidas/area" component={ ExploreMealsByArea } />
         <Route exact path="/comidas/:id/in-progress" component={ MealInProgress } />
         <Route exact path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
         <Route exact path="/comidas/:id" component={ ReceitaDeComida } />
@@ -47,8 +46,12 @@ function App() {
         <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
         <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
-        <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
+        <Route exact path="/explorar/comidas/area" component={ ExploreMealsByArea } />
       </Switch>
+
+      <Link to="/receitas-feitas">
+        <button type="submit">Receitas Feitas</button>
+      </Link>
     </div>
   );
 }

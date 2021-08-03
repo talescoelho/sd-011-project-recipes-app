@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { fetchMealsAPI, fetchCocktailsAPI } from '../Services/Data';
 
 function Cards(props) {
@@ -23,7 +24,6 @@ function Cards(props) {
 
   const renderMeailList = () => {
     if (ApiCallMeals) {
-      console.log(ApiCallMeals);
       const maxListRender = 12;
       return (
         mealsAPI.filter((__, index) => index < maxListRender)
@@ -32,12 +32,14 @@ function Cards(props) {
               key={ indexMap }
               data-testid={ `${indexMap}-recipe-card` }
             >
-              <h5 data-testid={ `${indexMap}-card-name` }>{meal.strMeal}</h5>
-              <img
-                src={ meal.strMealThumb }
-                alt={ meal.strMeal }
-                data-testid={ `${indexMap}-card-img` }
-              />
+              <Link to={ `/comidas/${meal.idMeal}` }>
+                <h5 data-testid={ `${indexMap}-card-name` }>{meal.strMeal}</h5>
+                <img
+                  src={ meal.strMealThumb }
+                  alt={ meal.strMeal }
+                  data-testid={ `${indexMap}-card-img` }
+                />
+              </Link>
             </div>
           ))
       );
@@ -54,12 +56,14 @@ function Cards(props) {
               key={ indexMap }
               data-testid={ `${indexMap}-recipe-card` }
             >
-              <h5 data-testid={ `${indexMap}-card-name` }>{drink.strDrink}</h5>
-              <img
-                src={ drink.strDrinkThumb }
-                alt={ drink.strDrink }
-                data-testid={ `${indexMap}-card-img` }
-              />
+              <Link to={ `/bebidas/${drink.idMeal}` }>
+                <h5 data-testid={ `${indexMap}-card-name` }>{drink.strDrink}</h5>
+                <img
+                  src={ drink.strDrinkThumb }
+                  alt={ drink.strDrink }
+                  data-testid={ `${indexMap}-card-img` }
+                />
+              </Link>
             </div>
           ))
       );
