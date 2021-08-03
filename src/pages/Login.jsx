@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Login() {
+function Login({ history }) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -10,37 +10,40 @@ function Login() {
     password: /^[\w@-]{6,20}$/,
   };
 
-  function handleBtn() {
+  function handleInput({ name, value }) {
+    if (name === 'password') setPassword(value);
+    if (name === 'email') setEmail(value);
     if (patterns.email.test(email) && patterns.password.test(password)) {
       setIsDisabled(false);
-      localStorage.setItem('mealsToken', '1');
-      localStorage.setItem('cocktailsToken', '1');
-      localStorage.setItem('user', email);
     }
+  }
+
+  function handleBtn() {
+    localStorage.setItem('mealsToken', '1');
+    localStorage.setItem('cocktailsToken', '1');
+    localStorage.setItem('user', email);
+    history.push('/comidas');
   }
 
   return (
     <div className="">
       <h1>Login</h1>
       <input
-        onChange={ ({ target: { value } }) => {
-          setEmail(value);
-          handleBtn();
-        } }
+        onChange={ ({ target }) => handleInput(target) }
         type="email"
         placeholder="Email"
         data-testid="email-input"
+        name="email"
       />
+
       <input
-        onChange={ ({ target: { value } }) => {
-          setPassword(value);
-          handleBtn();
-        } }
+        onChange={ ({ target }) => handleInput(target) }
         type="text"
         placeholder="senha"
         data-testid="password-input"
+        name="password"
       />
-      <br />
+
       <input
         onClick={ () => handleBtn() }
         disabled={ isDisabled }
@@ -53,3 +56,7 @@ function Login() {
 }
 
 export default Login;
+
+// if (indexLimit === questionIndex) {
+//   const { history } = this.props;
+//   history.push('/feedback');

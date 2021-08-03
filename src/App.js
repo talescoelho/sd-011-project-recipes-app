@@ -7,7 +7,7 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" component={ Login } />
+        <Route exact path="/" component={ Login } />
         <Route path="/comidas" component={ Comidas } />
         {/* <Route path="/comidas:id-" component={} />
         <Route path="/bebidas" component={} />
