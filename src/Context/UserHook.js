@@ -2,8 +2,8 @@ import React, { createContext, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  // searchByFirstLetter,
-  // searchByIngredient,
+  searchByFirstLetter,
+  searchByIngredient,
   searchByName,
 } from '../services/RequestFood';
 
@@ -14,19 +14,41 @@ export function UserProvider({ children }) {
   const [email, setEmail] = useState('');
   const [filtered, setFiltered] = useState([]);
 
-  async function filterFoodDrink(filterText) {
+  async function filterByName(filterText) {
     if (!filterText) return;
-    const { items } = await searchByName(filterText);
+    const items = await searchByName(filterText);
 
     setFiltered(items);
   }
 
+  async function filterByIngredient(filterText) {
+    if (!filterText) return;
+    const items = await searchByIngredient(filterText);
+
+    setFiltered(items);
+  }
+
+  async function filterByFirstLetter(filterText) {
+    if (!filterText) return;
+    const items = await searchByFirstLetter(filterText);
+
+    setFiltered(items);
+  }
+
+  const contextValues = {
+    user,
+    email,
+    filtered,
+    filterByName,
+    filterByIngredient,
+    filterByFirstLetter,
+    setUser,
+    setEmail,
+    setFiltered,
+  };
+
   return (
-    <UserContext.Provider
-      value={
-        { user, setUser, email, setEmail, filtered, filterFoodDrink }
-      }
-    >
+    <UserContext.Provider value={ contextValues }>
       { children }
     </UserContext.Provider>
   );
