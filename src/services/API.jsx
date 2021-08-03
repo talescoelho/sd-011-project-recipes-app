@@ -56,10 +56,22 @@ export async function fetchAPIDrinkList() {
   return data.drinks;
 }
 
+export async function fetchAPIRandomMeal() {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+  const data = await response.json();
+  return data.meals;
+}
+
 export async function fetchAPIFoodCategories() {
   const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
   const data = await response.json();
   return data.meals;
+}
+
+export async function fetchAPIRandomCocktail() {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+  const data = await response.json();
+  return data.drinks;
 }
 
 export async function fetchAPIDrinkCategories() {
