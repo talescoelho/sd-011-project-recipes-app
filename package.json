@@ -17,12 +17,8 @@
     "react-bootstrap": "^1.4.0",
     "react-dom": "^16.13.1",
     "react-logger": "^1.1.0",
-    "react-redux": "^7.2.4",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
-    "redux": "^4.1.0",
-    "redux-devtools-extension": "^2.13.9",
-    "redux-thunk": "^2.3.0",
+    "react-scripts": "^1.1.5",
     "websocket-extensions": ">=0.1.4"
   },
   "scripts": {
@@ -52,7 +48,7 @@
   },
   "devDependencies": {
     "clipboardy": "^2.1.0",
-    "cypress": "^3.7.0",
+    "cypress": "^8.1.0",
     "cypress-multi-reporters": "^1.4.0",
     "eslint": "6.8.0",
     "eslint-config-trybe-frontend": "1.2.0",
@@ -62,8 +58,7 @@
     "mochawesome": "^6.1.1",
     "mochawesome-merge": "^4.1.0",
     "mochawesome-report-generator": "^5.1.0",
-    "stylelint": "^13.13.1",
-    "stylelint-config-standard": "^22.0.0",
+    "stylelint": "^13.8.0",
     "stylelint-order": "^4.1.0"
   },
   "jest": {
