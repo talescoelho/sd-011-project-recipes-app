@@ -3,29 +3,63 @@ import MainContext from '../context/MainContext';
 import Header from '../components/Header';
 import FooterMenu from '../components/FooterMenu';
 import RecipesCardsContainer from '../components/RecipesCardsContainer';
-import { getInitialDrinksRecipes } from '../services/theCockTailAPI';
+import {
+  getInitialDrinksRecipes,
+  getDrinksCategoryList,
+  getDrinksByCategory,
+}
+  from '../services/theCockTailAPI';
 
 function Drinks() {
   const {
     setData,
     setLoading,
+    categoryList,
+    setCategoryList,
   } = useContext(MainContext);
+
+  function filterByCategory({ target: { innerText } }) {
+    setLoading(true);
+    getDrinksByCategory(innerText)
+      .then((drinks) => {
+        setData(drinks);
+        setLoading(false);
+      });
+  }
 
   useEffect(() => {
     setLoading(true);
     getInitialDrinksRecipes()
       .then((drinks) => {
         setData(drinks);
-        setLoading(false);
+        getDrinksCategoryList()
+          .then((drinksCategory) => {
+            setCategoryList(drinksCategory);
+            setLoading(false);
+          });
       });
     return () => {
       setData([]);
+      setCategoryList([]);
     };
-  }, [setData, setLoading]);
+  }, [setData, setLoading, setCategoryList]);
 
+  const maxCategoryNumber = 4;
   return (
     <div>
       <Header title="Bebidas" isButtonVisible />
+      {categoryList.map((item, index) => (
+        index > maxCategoryNumber ? null
+          : (
+            <button
+              key={ index }
+              type="button"
+              data-testid={ `${item.strCategory}-category-filter` }
+              onClick={ filterByCategory }
+            >
+              {item.strCategory}
+            </button>)
+      ))}
       <RecipesCardsContainer />
       <FooterMenu />
     </div>

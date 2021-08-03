@@ -26,3 +26,15 @@ export function getInitialMealsRecipes() {
     .then((result) => result.json())
     .then(({ meals }) => meals);
 }
+
+export function getMealsCategoryList() {
+  return fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
+    .then((result) => result.json())
+    .then(({ meals }) => meals);
+}
+
+export function getMealsByCategory(categoryName) {
+  return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryName}`)
+    .then((result) => result.json())
+    .then(({ meals }) => meals);
+}

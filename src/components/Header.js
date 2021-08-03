@@ -16,11 +16,14 @@ function Header({ title, isButtonVisible }) {
       return (
         <button
           type="button"
-          data-testid="search-top-btn"
           onClick={ () => setSearchBarShow(!searchBarShow) }
-          src={ SearchIcon }
-          alt="search icon"
-        />
+        >
+          <img
+            data-testid="search-top-btn"
+            src={ SearchIcon }
+            alt="search icon"
+          />
+        </button>
       );
     }
   }

@@ -22,10 +22,19 @@ export function searchBarFetchCockTail(search, type) {
 }
 
 export function getInitialDrinksRecipes() {
-  return fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=vodka')
+  return fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
     .then((result) => result.json())
-    .then(({ drinks, meals }) => {
-      const key = drinks || meals;
-      return key;
-    });
+    .then(({ drinks }) => drinks);
+}
+
+export function getDrinksCategoryList() {
+  return fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
+    .then((result) => result.json())
+    .then(({ drinks }) => drinks);
+}
+
+export function getDrinksByCategory(categoryName) {
+  return fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categoryName}`)
+    .then((result) => result.json())
+    .then(({ drinks }) => drinks);
 }
