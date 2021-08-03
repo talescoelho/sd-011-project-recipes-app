@@ -1,28 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchFoodCategory, getFilteredFoodList } from '../services/FoodAPI';
 import { getFoodCard } from '../Redux/actions/index';
 
 export default function FilterButtons({ type }) {
-  const [filters, setFilters] = useState([]);
   const dispatch = useDispatch();
+  const recipes = useSelector((state) => state.recipes);
+  const { categories } = recipes;
 
   useEffect(() => {
-    (async () => {
-      const categories = await fetchFoodCategory(type);
-      setFilters(categories);
-    })();
-  }, [type]);
+    dispatch(fetchFoodCategory(type));
+  }, [dispatch, type]);
 
-  const handleFilterButton = async (category) => {
-    const filtered = await getFilteredFoodList(category, type);
-    console.log(filtered);
-    dispatch(getFoodCard(filtered));
+  const handleFilterButton = (selectedCategory) => {
+    const cat = recipes.selectedCategory === selectedCategory ? 'All' : selectedCategory;
+    dispatch(getFilteredFoodList(cat, type));
   };
 
-  const filterButtons = () => filters.map((categoryName) => (
+  const filterButtons = () => categories[type].map((categoryName) => (
     <Button
       key={ categoryName }
       onClick={ () => handleFilterButton(categoryName) }

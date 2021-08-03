@@ -9,14 +9,16 @@ export default function DrinkCard() {
   const history = useHistory();
   const dispatch = useDispatch();
   const recipes = useSelector((state) => state.recipes);
-  const { cards, formInfo } = recipes;
+  const { cards, formInfo, category } = recipes;
 
   useEffect(() => {
     (async () => {
       const drink = await getFood(formInfo, 'drinks');
-      dispatch(getFoodCard(drink));
+      dispatch(getFoodCard({ filtered: drink }));
     })();
   }, [dispatch, formInfo]);
+
+  console.log(cards);
 
   const getCards = () => {
     if (cards) {
@@ -24,7 +26,7 @@ export default function DrinkCard() {
         const { idDrink, strDrink, strDrinkThumb, strAlcoholic, strCategory } = item;
         return (
           <Card key={ index } data-testid={ `${index}-recipe-card` }>
-            <Card.Header>{strCategory}</Card.Header>
+            <Card.Header>{strCategory || category}</Card.Header>
             <Card.Img
               variant="top"
               src={ strDrinkThumb }

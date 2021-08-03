@@ -1,4 +1,6 @@
-const getFood = async (food, db) => {
+import { getFoodCard } from '../Redux/actions/index';
+
+const getFood = (food, db) => async (dispatch) => {
   const { type, query } = food;
   const warning = 'Sua busca deve conter somente 1 (um) caracter';
   const database = {
@@ -13,6 +15,7 @@ const getFood = async (food, db) => {
       letra: `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${query}`,
     },
   };
+
   const fetchData = async () => {
     const maxCards = 12;
     if (type === 'letra' && query.length > 1) {
@@ -25,7 +28,8 @@ const getFood = async (food, db) => {
     const filtered = data[db] && data[db].filter((item, index) => index < maxCards);
 
     try {
-      return food ? data[db] : filtered;
+      const list = food ? data[db] : filtered;
+      dispatch(getFoodCard({ filtered: list, untouched: list }));
     } catch (error) {
       throw new Error(error);
     }

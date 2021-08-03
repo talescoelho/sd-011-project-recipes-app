@@ -1,3 +1,5 @@
+import { getFoodCategories, getFoodCard } from '../Redux/actions/index';
+
 export const fetchFood = async (id) => {
   const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const response = await fetch(URL);
@@ -10,7 +12,7 @@ export const fetchFood = async (id) => {
   }
 };
 
-export const fetchFoodCategory = async (type) => {
+export const fetchFoodCategory = (type) => async (dispatch) => {
   const cat = {
     meals: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
     drinks: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
@@ -22,24 +24,31 @@ export const fetchFoodCategory = async (type) => {
     const array = Object.values(json)[0].filter((el,
       index) => index < magic).map((el) => el.strCategory);
     array.unshift('All');
+    dispatch(getFoodCategories({ type, array }));
     return array;
   } catch (error) {
     throw new Error(error);
   }
 };
 
-export const getFilteredFoodList = async (food, type) => {
+export const getFilteredFoodList = (food, type) => async (dispatch) => {
+  console.log(food, type);
   const magic = 12;
+  const allCat = {
+    meals: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
+    drinks: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
+
+  };
   const cat = {
     meals: `https://www.themealdb.com/api/json/v1/1/filter.php?c=${food}`,
     drinks: `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${food}`,
   };
-  const response = await fetch(cat[type]);
+  const response = await fetch(food !== 'All' ? cat[type] : allCat[type]);
   const json = await response.json();
   try {
     const array = Object.values(json)[0].filter((el,
       index) => index < magic);
-    return array;
+    return dispatch(getFoodCard({ filtered: array, selectedCategory: food }));
   } catch (error) {
     throw new Error(error);
   }
