@@ -8,13 +8,14 @@ import * as api from '../services/API';
 class Bebidas extends Component {
   constructor() {
     super();
-
     this.state = {
       title: 'Bebidas',
       drinks: [],
       isFetchDone: false,
       lupa: 'ligada',
       modus: 'list',
+      filter: false,
+      selectedFilter: 'nenhum',
     };
     this.switchModus = this.switchModus.bind(this);
     this.filterByCategory = this.filterByCategory.bind(this);
@@ -48,6 +49,10 @@ class Bebidas extends Component {
 
   listAll() {
     this.fetchAPI();
+    this.setState({
+      filter: false,
+      selectedFilter: 'nenhum',
+    });
   }
 
   filterByCategory(event) {
@@ -56,10 +61,17 @@ class Bebidas extends Component {
   }
 
   async fetchAPIByCategory(category) {
+    const { filter, selectedFilter } = this.state;
     const getAPI = await api.fetchAPIByDrinkCategory(category);
-    this.setState({
-      drinks: getAPI,
-    });
+    if (filter === false || selectedFilter !== category) {
+      this.setState({
+        drinks: getAPI,
+        filter: true,
+        selectedFilter: category,
+      });
+    } else {
+      this.listAll();
+    }
   }
 
   render() {
@@ -74,15 +86,15 @@ class Bebidas extends Component {
           switchModus={ this.switchModus }
           modus={ modus }
         />
-        <Categories
-          title={ title }
-          filterByCategory={ this.filterByCategory }
-          listAll={ this.listAll }
-        />
         { isFetchDone === false ? <div>Carregando...</div> : (
           <div>
             { modus === 'search' ? <div>...</div> : (
               <div>
+                <Categories
+                  title={ title }
+                  filterByCategory={ this.filterByCategory }
+                  listAll={ this.listAll }
+                />
                 { drinks.slice(0, elements).map((recipe, index) => (
                   <div key={ index } data-testid={ `${index}-recipe-card` }>
                     <Link to={ `/bebidas/${recipe.idDrink}` }>

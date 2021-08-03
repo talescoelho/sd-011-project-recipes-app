@@ -14,6 +14,8 @@ class Comidas extends Component {
       isFetchDone: false,
       lupa: 'ligada',
       modus: 'list',
+      filter: false,
+      selectedFilter: 'nenhum',
     };
     this.switchModus = this.switchModus.bind(this);
     this.filterByCategory = this.filterByCategory.bind(this);
@@ -47,6 +49,10 @@ class Comidas extends Component {
 
   listAll() {
     this.fetchAPI();
+    this.setState({
+      filter: false,
+      selectedFilter: 'nenhum',
+    });
   }
 
   filterByCategory(event) {
@@ -55,10 +61,17 @@ class Comidas extends Component {
   }
 
   async fetchAPIByCategory(category) {
+    const { filter, selectedFilter } = this.state;
     const getAPI = await api.fetchAPIByFoodCategory(category);
-    this.setState({
-      meals: getAPI,
-    });
+    if (filter === false || selectedFilter !== category) {
+      this.setState({
+        meals: getAPI,
+        filter: true,
+        selectedFilter: category,
+      });
+    } else {
+      this.listAll();
+    }
   }
 
   render() {
@@ -72,15 +85,15 @@ class Comidas extends Component {
           switchModus={ this.switchModus }
           modus={ modus }
         />
-        <Categories
-          title={ title }
-          filterByCategory={ this.filterByCategory }
-          listAll={ this.listAll }
-        />
         { isFetchDone === false ? <div>Carregando...</div> : (
           <div>
             { modus === 'search' ? <div>...</div> : (
               <div>
+                <Categories
+                  title={ title }
+                  filterByCategory={ this.filterByCategory }
+                  listAll={ this.listAll }
+                />
                 {meals.slice(0, elements).map((recipe, index) => (
                   <div key={ index } data-testid={ `${index}-recipe-card` }>
                     <Link to={ `/comidas/${recipe.idMeal}` }>

@@ -74,7 +74,6 @@ class SearchInput extends Component {
   render() {
     const { API, isFetchDone, choice, choiceObj, choiceObj1, choiceObj2 } = this.state;
     const elements = 12;
-    console.log(API);
     return (
       <main>
         <input
