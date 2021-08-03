@@ -29,7 +29,7 @@ describe('Profile screen', () => {
     });
   });
 
-  describe.only('83 - Implemente a solução de maneira que o e-mail da pessoa usuária deve estar visível', () => {
+  describe('83 - Implemente a solução de maneira que o e-mail da pessoa usuária deve estar visível', () => {
     it('O e-mail armazenado em localStorage está visível', () => {
       cy.get('[data-testid="profile-email"]').contains('email@mail.com');
     });
@@ -43,7 +43,7 @@ describe('Profile screen', () => {
     });
   });
 
-  describe('85 - Redirecione a pessoa usuária que, ao clicar no botão de "Receitas Favoritas", a rota deve mudar para a tela de receitas favoritas', () => {
+  describe.only('85 - Redirecione a pessoa usuária que, ao clicar no botão de "Receitas Favoritas", a rota deve mudar para a tela de receitas favoritas', () => {
     it('Redireciona para a rota correta', () => {
       cy.get('[data-testid="profile-done-btn"]').click();
       cy.location().should((loc) => expect(loc.pathname).to.eq('/receitas-feitas'));
