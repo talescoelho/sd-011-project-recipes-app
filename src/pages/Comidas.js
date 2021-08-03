@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Categories from '../components/Categories';
 import * as api from '../services/API';
 
 class Comidas extends Component {
@@ -12,8 +14,12 @@ class Comidas extends Component {
       isFetchDone: false,
       lupa: 'ligada',
       modus: 'list',
+      filter: false,
+      selectedFilter: 'nenhum',
     };
     this.switchModus = this.switchModus.bind(this);
+    this.filterByCategory = this.filterByCategory.bind(this);
+    this.listAll = this.listAll.bind(this);
   }
 
   componentDidMount() {
@@ -41,6 +47,33 @@ class Comidas extends Component {
     }
   }
 
+  listAll() {
+    this.fetchAPI();
+    this.setState({
+      filter: false,
+      selectedFilter: 'nenhum',
+    });
+  }
+
+  filterByCategory(event) {
+    const { value } = event.target;
+    this.fetchAPIByCategory(value);
+  }
+
+  async fetchAPIByCategory(category) {
+    const { filter, selectedFilter } = this.state;
+    const getAPI = await api.fetchAPIByFoodCategory(category);
+    if (filter === false || selectedFilter !== category) {
+      this.setState({
+        meals: getAPI,
+        filter: true,
+        selectedFilter: category,
+      });
+    } else {
+      this.listAll();
+    }
+  }
+
   render() {
     const { title, meals, isFetchDone, lupa, modus } = this.state;
     const elements = 12;
@@ -56,16 +89,24 @@ class Comidas extends Component {
           <div>
             { modus === 'search' ? <div>...</div> : (
               <div>
+                <Categories
+                  title={ title }
+                  filterByCategory={ this.filterByCategory }
+                  listAll={ this.listAll }
+                />
                 {meals.slice(0, elements).map((recipe, index) => (
                   <div key={ index } data-testid={ `${index}-recipe-card` }>
-                    <img
-                      className="photo"
-                      src={ recipe.strMealThumb }
-                      data-testid={ `${index}-card-img` }
-                      alt="Imagem da receita"
-                    />
-                    <p data-testid={ `${index}-card-name` }>{recipe.strMeal}</p>
+                    <Link to={ `/comidas/${recipe.idMeal}` }>
+                      <img
+                        className="photo"
+                        src={ recipe.strMealThumb }
+                        data-testid={ `${index}-card-img` }
+                        alt="Imagem da receita"
+                      />
+                      <p data-testid={ `${index}-card-name` }>{recipe.strMeal}</p>
+                    </Link>
                   </div>
+
                 ))}
               </div>
             )}
