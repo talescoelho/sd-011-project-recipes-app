@@ -8,13 +8,13 @@ import FilterButtons from '../components/FilterButtons';
 
 export default function Home() {
   return (
-    <div>
+    <>
       <Header pageName="Comidas" renderButton />
       <main>
         <FilterButtons />
         <FoodCard />
       </main>
       <Footer />
-    </div>
+    </>
   );
 }
