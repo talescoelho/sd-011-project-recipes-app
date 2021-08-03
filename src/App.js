@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/Login';
 import Recipes from './Pages/Recipes';
@@ -25,46 +24,38 @@ function App() {
     <div className="meals">
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/comidas/:id/in-progress" component={ MealInProgress } />
+        <Route exact path="/comidas" component={ Recipes } />
+        <Route exact path="/bebidas" component={ Bebidas } />
+        <Route exact path="/comidas/:id/in-progress" component={ MealInProgress } />
+        <Route exact path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
         <Route
+          exact
           path="/comidas/:id"
           render={ (props) => <ReceitaDeComida { ...props } /> }
         />
-        <Route path="/comidas" component={ Recipes } />
         <Route
-          path="/bebidas/:id/in-progress"
-          component={ DrinkInProgress }
-        />
-        <Route
+          exact
           path="/bebidas/:id"
           render={ (props) => <ReceitaDeBebida { ...props } /> }
         />
-        <Route path="/bebidas" component={ Bebidas } />
-        <Route path="/explorar" component={ Explore } />
-        <Route path="/explorar/comidas" component={ ExploreMeals } />
-        <Route path="/explorar/bebidas" component={ ExploreDrinks } />
+        <Route exact path="/explorar" component={ Explore } />
+        <Route exact path="/explorar/comidas" component={ ExploreMeals } />
+        <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
         <Route
+          exact
           path="/explorar/comidas/ingredientes"
           component={ ExploreMealsByIgrediente }
         />
         <Route
+          exact
           path="/explorar/bebidas/ingredientes"
           component={ ExploreDrinksByIgrediente }
         />
-        <Route path="/explorar/comidas/area" component={ ExploreMealsByArea } />
-        <Route path="/perfil" component={ Profile } />
-        <Route path="/receitas-feitas" component={ ReceitasFeitas } />
-        <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
+        <Route exact path="/perfil" component={ Profile } />
+        <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
+        <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
+        <Route exact path="/explorar/comidas/area" component={ ExploreMealsByArea } />
       </Switch>
-
-      <span className="logo">TRYBE</span>
-      <object
-        className="rocksGlass"
-        type="image/svg+xml"
-        data={ rockGlass }
-      >
-        Glass
-      </object>
     </div>
   );
 }
