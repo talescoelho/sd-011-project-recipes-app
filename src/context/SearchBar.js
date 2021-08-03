@@ -6,12 +6,43 @@ export const SearchBarContext = createContext();
 export function SearchBarProvider({ children }) {
   const [data, setData] = useState({});
   const [shouldCallCards, setShouldCallCards] = useState(false);
+  const [input, setInput] = useState('');
+  const [radio, setRadio] = useState('');
+  const [recipeId, setRecipeId] = useState();
+  const [dataValues, setDataValues] = useState();
+  const [path, setPath] = useState();
+  const [recipeType, setRecipeType] = useState();
+  const [newSearch, setNewSearch] = useState(false);
+  // Ana
+  const [dataList, setDataList] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [filter, setFilter] = useState('');
 
   const value = {
-    setData,
+    input,
+    setInput,
+    radio,
+    setRadio,
+    recipeId,
+    setRecipeId,
+    dataValues,
+    setDataValues,
+    path,
+    setPath,
+    recipeType,
+    setRecipeType,
+    newSearch,
+    setNewSearch,
     data,
+    setData,
     shouldCallCards,
     setShouldCallCards,
+    categories,
+    setCategories,
+    filter,
+    setFilter,
+    dataList,
+    setDataList,
   };
   return (
     <SearchBarContext.Provider value={ value }>
@@ -37,4 +68,4 @@ SearchBarProvider.propTypes = {
 // }
 
 // Dentro do Componente
-// const { setData } = useContext(SearchBarContext);
+// const { setData } = useContext(SearchBarContext)

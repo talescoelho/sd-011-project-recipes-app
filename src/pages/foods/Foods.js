@@ -1,45 +1,21 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Header from '../../components/Header';
-import RecipeCard from '../../components/RecipeCard';
-import { RecipesContext } from '../../context/RecipesContext';
-import SearchBar from '../../components/SearchBar';
 import { SearchBarProvider } from '../../context/SearchBar';
 import Footer from '../../components/Footer';
+import CardsList from '../../components/CardsList';
 
 export default function Foods() {
-  const { foodsFiltered, foodCategories, setFilter } = useContext(RecipesContext);
-
   return (
     <main>
-      <Header title="Comidas" search />
-      <SearchBarProvider>
-        <SearchBar fetchType="themealdb" />
-      </SearchBarProvider>
       <section>
-        <button
-          type="button"
-          data-testid="all-category-filter"
-          onClick={ () => setFilter('') }
-        >
-          All
-        </button>
-        { foodCategories.length > 0 && foodCategories.map((cat) => (
-          <button
-            type="button"
-            key={ cat.strCategory }
-            data-testid={ `${cat.strCategory}-category-filter` }
-            onClick={ () => setFilter(cat.strCategory) }
-          >
-            {cat.strCategory}
-          </button>
-        ))}
+        <SearchBarProvider>
+          <Header title="Explorar Comidas" search fetchType="themealdb" />
+          <CardsList fetchType="themealdb" />
+        </SearchBarProvider>
       </section>
       <section>
-        { foodsFiltered.length > 0 && foodsFiltered.map((recipe, index) => (
-          <RecipeCard recipe={ recipe } index={ index } type="Meal" key={ index } />
-        ))}
+        <Footer />
       </section>
-      <Footer />
     </main>
   );
 }

@@ -6,7 +6,6 @@ export default function Profile() {
   return (
     <div>
       <Header title="Perfil" search={ false } />
-      Página de perfil
       <Footer />
     </div>
   );
