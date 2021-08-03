@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { Cocktails } from '../services';
 import Ingredients from '../components/Ingredients';
 import Recommendations from '../components/Recommendations';
+import ShareButton from '../components/ShareButton';
+import FavoriteButton from '../components/FavoriteButton';
 
 export default function CocktailsDetails() {
   const [recipe, setRecipe] = useState(null);
@@ -22,6 +24,8 @@ export default function CocktailsDetails() {
         <img data-testid="recipe-photo" src={ strDrinkThumb } alt={ strDrink } />
         <h2 data-testid="recipe-title">{ strDrink }</h2>
         <h3 data-testid="recipe-category">{ strAlcoholic }</h3>
+        <ShareButton />
+        <FavoriteButton recipe={ recipe } drinkOrFood="bebida" />
         <Ingredients recipe={ recipe } />
         <div>
           <h3>Instructions</h3>

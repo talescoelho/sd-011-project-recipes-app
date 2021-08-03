@@ -3,19 +3,19 @@ import React, { useState, useEffect } from 'react';
 import { Foods, Cocktails } from '../services';
 
 export default function Recommendations({ type }) {
-  const [itens, setItens] = useState();
+  const [items, setItems] = useState();
   useEffect(() => {
     const asyncFunc = async () => {
-      if (type.includes('Comida')) setItens(await Foods.searchName(''));
-      if (type.includes('Bebidas')) setItens(await Cocktails.searchName(''));
+      if (type.includes('Comida')) setItems(await Foods.searchName(''));
+      if (type.includes('Bebidas')) setItems(await Cocktails.searchName(''));
     };
     asyncFunc();
   }, [type]);
 
-  return (itens) ? (
+  return (items) ? (
     <div>
       {
-        itens.map((element, index) => (
+        items.map((element, index) => (
           <div key={ index }>
             <img src={ element.strMealThumb } alt={ element.strMeal } />
             <p>{ element.strMeal }</p>
