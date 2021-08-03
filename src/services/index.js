@@ -70,3 +70,14 @@ export const searchByArea = async (area) => {
   const json = await recipes.json();
   return json;
 };
+
+export const searchRecommendation = async (type) => {
+  if (type === 'bebidas') {
+    const recipes = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    const json = await recipes.json();
+    return json.drinks;
+  }
+  const recipes = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  const json = await recipes.json();
+  return json.meals;
+}
