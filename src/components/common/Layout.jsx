@@ -32,7 +32,17 @@ function Layout({ children, title, search, noHeader }) {
             : null}
         </header>)}
       { children }
-      <footer />
+      <footer data-testid="footer">
+        <Link to="/bebidas">
+          <img data-testid="drinks-bottom-btn" src={ DrinkIcon } alt="Drink Icon" />
+        </Link>
+        <Link to="/explorar">
+          <img data-testid="explore-bottom-btn" src={ ExploreIcon } alt="Explore Icon" />
+        </Link>
+        <Link to="/comidas">
+          <img data-testid="food-bottom-btn" src={ MealIcon } alt="Meal Icon" />
+        </Link>
+      </footer>
     </>
   );
 }
