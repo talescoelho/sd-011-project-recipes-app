@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SharedButton from '../components/SharedButton';
 import Header from '../components/Header';
-
+// Possivelmente será necessario Refatorar da linha 7 até linha 31
 function ReceitasFeitas() {
   const [filter, setFilter] = useState('all');
   localStorage.setItem('doneRecipes', JSON.stringify([
