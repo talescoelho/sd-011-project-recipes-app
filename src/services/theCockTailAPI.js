@@ -16,6 +16,11 @@ export function searchBarFetchCockTail(search, type) {
       .then(({ drinks }) => drinks)
       .catch(() => 'Sua busca deve conter somente 1 (um) caracter');
 
+  case 'drinkId':
+    return fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${search}`)
+      .then((result) => result.json())
+      .then(({ drinks }) => drinks);
+
   default:
     break;
   }

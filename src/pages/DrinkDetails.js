@@ -1,33 +1,42 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import MainContext from '../context/MainContext';
+import { searchBarFetchCockTail } from '../services/theCockTailAPI';
 
 const DrinkDetails = (props) => {
+  const [drinkData, setdrinkData] = useState([]);
   const { match: { params: { id } } } = props;
-  const data = useContext(MainContext);
+
+  useEffect(() => {
+    const getDrinkDetail = async () => {
+      const data = await searchBarFetchCockTail(id, 'drinkId');
+      setdrinkData(...data);
+    };
+    console.log('teste');
+    getDrinkDetail();
+  }, [id]);
+
+  console.log(drinkData);
+
   const {
     strDrink,
     strDrinkThumb,
     strCategory,
     strInstructions,
-  } = data.find((recipe) => recipe.idDrink === id);
+  } = drinkData;
   const ingredientsName = [];
-  const ingredientMeasure = [];
+  const ingredientsMeasure = [];
   const maxIngredients = 20;
 
-  function getIngredients() {
-    for (let index = 1; index <= maxIngredients; index += 1) {
-      ingredientsName.push(data
-        .find((recipe) => recipe[`strIngredient${index}`]
-          && recipe[`strIngredient${index}` !== '']));
-
-      ingredientsMeasure.push(data
-        .find((recipe) => recipe[`strMeasure${index}`]
-        && recipe[`strMeasure${index}` !== '']));
+  function listIngredients() {
+    const list = [];
+    for (let index = 1; drinkData[`strIngredient${index}`] !== null; index += 1) {
+      list.push(
+        `${drinkData[`strIngredient${index}`]} - ${drinkData[`strMeasure${index}`]}`,
+      );
     }
+    return list;
   }
-
-  getIngredients();
 
   return (
     <section>
@@ -39,18 +48,18 @@ const DrinkDetails = (props) => {
       <ol>
 
         {
-          ingredientsName.map((ingredient, index) => (
+          listIngredients().map((ingredient, index) => (
             <li
               key={ index }
               data-testid={ `${index}-ingredient-name-and-measure` }
             >
-              { `${ingredientsName}: ${ingredientMeasure}` }
+              { `${ingredient}` }
             </li>
           ))
         }
       </ol>
       <p data-testid="instruction">{strInstructions}</p>
-      <p data-testid={ `${index}-recomendation-card` } />
+      <p data-testid="-recomendation-card" />
       <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
     </section>
   );
