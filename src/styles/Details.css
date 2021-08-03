@@ -23,11 +23,11 @@ img {
 }
 
 .slider {
-  -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: row;
   margin-bottom: 60px;
   overflow: hidden;
+  -webkit-overflow-scrolling: touch;
   overflow-x: auto;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
