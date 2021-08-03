@@ -37,12 +37,7 @@ export default function FoodDrinks() {
     getDrink();
   }, [params.id]);
 
-  function returnDrink(index) {
-    if (drink) {
-      return drink.drinks[index];
-    }
-    return '';
-  }
+  const returnDrink = (index) => (drink ? drink.drinks[index] : '');
 
   function cardsDrinks() {
     const drinks = [];
@@ -58,10 +53,7 @@ export default function FoodDrinks() {
               alt="imagem drink"
             />
             <p>{returnDrink(index).strAlcoholic}</p>
-            <p>
-              {returnDrink(index).strDrink}
-              {' '}
-            </p>
+            <p>{returnDrink(index).strDrink}</p>
           </div>,
         );
       }

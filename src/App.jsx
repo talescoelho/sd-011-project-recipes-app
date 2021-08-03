@@ -1,13 +1,14 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import Routes from './routes';
 import './App.css';
-import ProviderSearch from './context/ProviderSearch';
+import store from './Redux/store';
 
 function App() {
   return (
-    <ProviderSearch>
+    <Provider store={ store }>
       <Routes />
-    </ProviderSearch>
+    </Provider>
   );
 }
 

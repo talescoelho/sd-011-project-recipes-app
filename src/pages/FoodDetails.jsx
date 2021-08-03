@@ -39,8 +39,10 @@ export default function FoodDetails() {
     const retorno = [];
     const qtdMax = 20;
     for (let index = 1; index <= qtdMax; index += 1) {
-      if (returnRecipe()[`strIngredient${index}`] !== ''
-      && returnRecipe()[`strIngredient${index}`] !== null) {
+      if (
+        returnRecipe()[`strIngredient${index}`] !== ''
+        && returnRecipe()[`strIngredient${index}`] !== null
+      ) {
         retorno.push(
           <li>
             {returnRecipe()[`strIngredient${index}`]}
@@ -81,9 +83,7 @@ export default function FoodDetails() {
           {listIngradient()}
         </p>
         <p>
-          <h1>
-            Vídeo
-          </h1>
+          <h1>Vídeo</h1>
           <iframe
             data-testid="video"
             title="Vídeo da Receita"
