@@ -23,18 +23,18 @@ function App() {
     <div className="meals">
       <Switch>
         <Route exact path="/" render={ () => <Login /> } />
+        <Route
+          path="/comidas/:id/in-progress"
+          render={ (props) => <ProcessoComidaPage { ...props } /> }
+        />
+        <Route
+          path="/bebidas/:id/in-progress"
+          render={ (props) => <ProcessoBebidaPage { ...props } /> }
+        />
+        <Route path="/comidas/:id" render={ () => <ReceitaComidaPage /> } />
+        <Route path="/bebidas/:id" render={ () => <ReceitaBebidaPage /> } />
         <Route exact path="/comidas" render={ () => <ComidaPage /> } />
         <Route exact path="/bebidas" render={ () => <BebidaPage /> } />
-        <Route path="/comidas/:id-receita" render={ () => <ReceitaComidaPage /> } />
-        <Route path="/bebidas/:id-receita" render={ () => <ReceitaBebidaPage /> } />
-        <Route
-          path="/comidas/:id-receita/in-progress"
-          render={ () => <ProcessoComidaPage /> }
-        />
-        <Route
-          path="/bebidas/:id-receita/in-progress"
-          render={ () => <ProcessoBebidaPage /> }
-        />
         <Route exact path="/explorar" render={ () => <Explorar /> } />
         <Route exact path="/explorar/comidas" render={ () => <ExplorarComida /> } />
         <Route exact path="/explorar/bebidas" render={ () => <ExplorarBebida /> } />
