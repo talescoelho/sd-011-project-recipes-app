@@ -8,8 +8,8 @@
 
 .details-container > div:nth-child( 1 ) {
   align-items: center;
-  flex-wrap: nowrap;
   display: flex;
+  flex-wrap: nowrap;
 }
 
 .details-container > div:nth-child( 1 ) div {
