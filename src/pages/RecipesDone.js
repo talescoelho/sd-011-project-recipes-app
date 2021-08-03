@@ -1,42 +1,39 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
+import RecipeAppContext from '../context/RecipeAppContext';
 
 const copy = require('clipboard-copy');
 
 function RecipesDone() {
   const [click, setClick] = useState(false);
+  const {
+    recipesDone,
+    setFilteredRecipesDone,
+    filteredRecipesDone,
+  } = useContext(RecipeAppContext);
   const history = useHistory();
 
   function copyLink(type, id) {
     copy(`http://localhost:3000/${type}s/${id}`);
     setClick(true);
   }
-  const doneRecipes = [
-    {
-      id: '52771',
-      type: 'comida',
-      area: 'Italian',
-      category: 'Vegetarian',
-      alcoholicOrNot: '',
-      name: 'Spicy Arrabiata Penne',
-      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      doneDate: '23/06/2020',
-      tags: ['Pasta', 'Curry'],
-    },
-    {
-      id: '178319',
-      type: 'bebida',
-      area: '',
-      category: 'Cocktail',
-      alcoholicOrNot: 'Alcoholic',
-      name: 'Aquamarine',
-      image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-      doneDate: '23/06/2020',
-      tags: [],
-    },
-  ];
+
+  const filterRecipesDone = ({ target: { name } }) => {
+    let filteredRecipes = [];
+    switch (name) {
+    case 'Food':
+      filteredRecipes = recipesDone.filter((recipe) => recipe.type === 'comida');
+      break;
+    case 'Drink':
+      filteredRecipes = recipesDone.filter((recipe) => recipe.type === 'bebida');
+      break;
+    default:
+      filteredRecipes = recipesDone;
+    }
+    setFilteredRecipesDone(filteredRecipes);
+  };
 
   return (
     <div>
@@ -45,6 +42,8 @@ function RecipesDone() {
       <button
         type="button"
         data-testid="filter-by-all-btn"
+        name="All"
+        onClick={ (e) => filterRecipesDone(e) }
       >
         All
       </button>
@@ -52,6 +51,8 @@ function RecipesDone() {
       <button
         type="button"
         data-testid="filter-by-food-btn"
+        name="Food"
+        onClick={ (e) => filterRecipesDone(e) }
       >
         Food
       </button>
@@ -59,11 +60,13 @@ function RecipesDone() {
       <button
         type="button"
         data-testid="filter-by-drink-btn"
+        name="Drink"
+        onClick={ (e) => filterRecipesDone(e) }
       >
         Drinks
       </button>
       <span>{click ? <p>Link copiado!</p> : <div />}</span>
-      {doneRecipes.map((recipes, index) => (
+      {filteredRecipesDone && filteredRecipesDone.map((recipes, index) => (
         <div key={ index }>
           <input
             type="image"
@@ -77,19 +80,21 @@ function RecipesDone() {
               type="image"
               data-testid={ `${index}-horizontal-image` }
               src={ recipes.image }
+              width="50px"
+              height="50px"
               alt={ recipes.name }
               onClick={ () => history.push(`/${recipes.type}s/${recipes.id}`) }
             />
             <li data-testid={ `${index}-horizontal-top-text` }>
               {`${recipes.area} - ${recipes.category} ${recipes.alcoholicOrNot}`}
             </li>
-            <li
+            <button
+              type="button"
               data-testid={ `${index}-horizontal-name` }
+              onClick={ () => history.push(`/${recipes.type}s/${recipes.id}`) }
             >
-              <Link to={ `/${recipes.type}s/${recipes.id}` }>
-                { recipes.name }
-              </Link>
-            </li>
+              { recipes.name }
+            </button>
             <li data-testid={ `${index}-horizontal-done-date` }>{ recipes.doneDate }</li>
             {recipes.tags && recipes.tags.map((tag, indexTag) => (
               <li
