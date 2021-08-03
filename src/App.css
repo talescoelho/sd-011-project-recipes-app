@@ -72,3 +72,7 @@
   position: fixed;
   width: 100%;
 }
+
+.cardImage {
+  max-width: 150px;
+}

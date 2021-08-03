@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/Header';
 import RenderRecipes from '../components/RenderRecipes';
@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import FetchApi from '../services/ApiFetch';
 
 export default function Foods() {
+  const [catItens, setCatItens] = useState([]);
   const qty = 12;
   const dispatch = useDispatch();
   const recipes = useSelector((state) => state.Mechanics.searcResults);
@@ -20,6 +21,16 @@ export default function Foods() {
     fetchApi();
   }, []);
 
+  useEffect(() => {
+    async function fetchApi() {
+      const catQty = 5;
+      const results = await FetchApi('themealdb', null, null, 'list');
+      const categories = results.meals.slice(0, catQty);
+      setCatItens(categories);
+    }
+    fetchApi();
+  }, []);
+
   return (
     <div>
       <Header
@@ -27,6 +38,19 @@ export default function Foods() {
         haveSearchBtn
         searchTrigger="themealdb"
       />
+      <div className="catBtns">
+        {
+          catItens.map((item) => (
+            <button
+              key={ item.strCategory }
+              type="button"
+              data-testid={ `${item.strCategory}-category-filter` }
+            >
+              {item.strCategory}
+            </button>))
+        }
+      </div>
+
       <div>
         {
           recipes.meals !== null && recipes.meals !== undefined

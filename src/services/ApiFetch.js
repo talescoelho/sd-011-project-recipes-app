@@ -1,4 +1,4 @@
-const FetchApi = async (trigger, radioOption, inputValue) => {
+const FetchApi = async (trigger, radioOption, inputValue, list) => {
   let url = '';
   if (radioOption === 'ingrediente') {
     url = `filter.php?i=${inputValue}`;
@@ -8,6 +8,9 @@ const FetchApi = async (trigger, radioOption, inputValue) => {
   }
   if (radioOption === 'primeiraLetra') {
     url = `search.php?f=${inputValue}`;
+  }
+  if (list === 'list') {
+    url = 'list.php?c=list';
   }
   try {
     const feth = await fetch(`https://www.${trigger}.com/api/json/v1/1/${url}`);

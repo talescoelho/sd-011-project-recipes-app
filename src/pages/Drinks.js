@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/Header';
 import RenderRecipes from '../components/RenderRecipes';
@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import FetchApi from '../services/ApiFetch';
 
 export default function Drinks() {
+  const [catItens, setCatItens] = useState([]);
   const qty = 12;
   const recipes = useSelector((state) => state.Mechanics.searcResults);
   const dispatch = useDispatch();
@@ -19,6 +20,17 @@ export default function Drinks() {
     }
     fetchApi();
   }, []);
+
+  useEffect(() => {
+    async function fetchApi() {
+      const catQty = 5;
+      const results = await FetchApi('thecocktaildb', null, null, 'list');
+      const categories = results.drinks.slice(0, catQty);
+      setCatItens(categories);
+    }
+    fetchApi();
+  }, []);
+
   return (
     <div>
       <Header
@@ -26,6 +38,18 @@ export default function Drinks() {
         haveSearchBtn
         searchTrigger="thecocktaildb"
       />
+      <div className="catBtns">
+        {
+          catItens.map((item) => (
+            <button
+              key={ item.strCategory }
+              type="button"
+              data-testid={ `${item.strCategory}-category-filter` }
+            >
+              {item.strCategory}
+            </button>))
+        }
+      </div>
       <div>
         {
           recipes.drinks !== null && recipes.drinks !== undefined
