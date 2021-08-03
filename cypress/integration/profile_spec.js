@@ -50,14 +50,14 @@ describe('Profile screen', () => {
     });
   });
 
-  describe.only('86 - Redirecione a pessoa usuária que, ao clicar no botão de "Receitas Feitas", a rota deve mudar para a tela de receitas feitas', () => {
+  describe('86 - Redirecione a pessoa usuária que, ao clicar no botão de "Receitas Feitas", a rota deve mudar para a tela de receitas feitas', () => {
     it('Redireciona para a rota correta', () => {
       cy.get('[data-testid="profile-favorite-btn"]').click();
       cy.location().should((loc) => expect(loc.pathname).to.eq('/receitas-favoritas'));
     });
   });
 
-  describe('87 - Redirecione a pessoa usuária que, ao clicar no botão de "Sair", o `localStorage` deve ser limpo e a rota deve mudar para a tela de login', () => {
+  describe.only('87 - Redirecione a pessoa usuária que, ao clicar no botão de "Sair", o `localStorage` deve ser limpo e a rota deve mudar para a tela de login', () => {
     it('Limpa todas as chaves da localStorage', () => {
       cy.window().then((win) => {
         expect(win.localStorage.getItem('user')).to.eq('{ "email": "email@mail.com" }');

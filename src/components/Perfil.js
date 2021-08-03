@@ -5,7 +5,10 @@ function Perfil() {
   const emailUser = localStorage.getItem('user');
   const history = useHistory();
 
-  // const redirectDone = () => history.push('/');
+  const logout = () => {
+    localStorage.clear();
+    history.push('/');
+  };
 
   return (
     <>
@@ -25,7 +28,13 @@ function Perfil() {
       >
         Receitas Favoritas
       </button>
-      <button type="button" data-testid="profile-logout-btn">Sair</button>
+      <button
+        type="button"
+        data-testid="profile-logout-btn"
+        onClick={ logout }
+      >
+        Sair
+      </button>
     </>
   );
 }
