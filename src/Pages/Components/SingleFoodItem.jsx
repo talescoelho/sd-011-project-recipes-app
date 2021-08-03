@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import CarrouselDrinks from './CarrouselDrinks';
 import { convertUrlToID, manageDetailAPI } from '../../Helpers/convertUrlToID';
 import embedYouTubeVideo from '../../Helpers/embedYouTubeVideo';
 
@@ -7,7 +7,7 @@ function SingleFoodItem() {
   const [itemDetail, setItemDetail] = useState({
     meals: null,
   });
-  // const [recomendation, setRecomendation] = useState();
+  const [recomendation, setRecomendation] = useState();
   // const [ingredients, setIngredients] = useState([]);
   // const [measures, setMeasures] = useState([]);
 
@@ -23,15 +23,6 @@ function SingleFoodItem() {
     };
     return FetchFood();
   }, []);
-
-  // useEffect(() => {
-  //   const FetchRecomendation = async () => {
-  //     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-  //     const recomendations = response.json();
-  //     const recomendationsQuantity = 6;
-  //     for (let i = 0; i < recomendationsQuantity; i += 1)
-  //   };
-  // }, []);
 
   // Parte que separa os ingredientes da receitas
   if (itemDetail.meals !== null) {
@@ -95,7 +86,7 @@ function SingleFoodItem() {
         <h2>Instruções em vídeo</h2>
         <embed data-testid="video" src={ embedYouTubeVideo(meals[0].strYoutube) } />
       </section>
-
+      <CarrouselDrinks />
       <p data-testid={ `${0}-recomendation-card` }>Recomendação de bebida</p>
       <button data-testid="start-recipe-btn" type="button">Iniciar receita</button>
     </div>
