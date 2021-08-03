@@ -24,11 +24,12 @@ class Bebidas extends Component {
       <button
         className="filter-btn"
         type="button"
-        data-testid={`${item.strCategory}-category-filter`}
+        data-testid={ `${item.strCategory}-category-filter` }
         key={ index }
-      >{item.strCategory}
+      >
+        {item.strCategory}
       </button>
-    ))
+    ));
   }
 
   renderDrinks() {
@@ -92,6 +93,7 @@ Bebidas.propTypes = {
   allRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
   generalRecipesDrink: PropTypes.func.isRequired,
   categoriesDrink: PropTypes.func.isRequired,
+  allCategories: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bebidas);

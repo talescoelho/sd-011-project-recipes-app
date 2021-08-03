@@ -23,11 +23,12 @@ class Comidas extends Component {
       <button
         className="filter-btn"
         type="button"
-        data-testid={`${item.strCategory}-category-filter`}
+        data-testid={ `${item.strCategory}-category-filter` }
         key={ index }
-      >{item.strCategory}
+      >
+        {item.strCategory}
       </button>
-    ))
+    ));
   }
 
   renderFoods() {
@@ -91,6 +92,7 @@ Comidas.propTypes = {
   allRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
   generalRecipesFood: PropTypes.func.isRequired,
   categoriesFood: PropTypes.func.isRequired,
+  allCategories: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comidas);
