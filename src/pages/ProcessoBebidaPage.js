@@ -26,6 +26,15 @@ export default function ProcessoBebidaPage(props) {
     .filter((value) => value !== 'null-null' && value !== '-');
   console.log(ingredientFilter);
 
+  function markIngredients({ target }) {
+    const { checked } = target;
+    if (checked) {
+      target.parentNode.style.textDecoration = 'line-through';
+    } else {
+      target.parentNode.style.textDecoration = 'none';
+    }
+  }
+
   return (
     <div>
       {drinkInProgress && (
@@ -41,14 +50,14 @@ export default function ProcessoBebidaPage(props) {
           <button type="button" data-testid="favorite-btn">favoritar</button>
           <p data-testid="recipe-category">{drinkInProgress.drinks[0].strCategory}</p>
           {ingredientFilter && ingredientFilter.map((ing, index) => (
-            <label key={ index } htmlFor={ ing }>
+            <label key={ index } htmlFor={ ing } data-testid={ `${index}-ingredient-step` }>
               {ing}
               <input
+                onClick={ markIngredients }
                 type="checkbox"
                 name={ ing }
                 key={ index }
                 value={ ing }
-                data-testid={ `${index}-ingredient-step` }
               />
             </label>))}
           <p data-testid="instructions">{drinkInProgress.drinks[0].strInstructions}</p>
