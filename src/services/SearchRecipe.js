@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 const getFood = async (food, db) => {
   const { type, query } = food;
   const warning = 'Sua busca deve conter somente 1 (um) caracter';

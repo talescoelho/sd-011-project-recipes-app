@@ -1,21 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
-<<<<<<< HEAD
-import { LoginPage, NotFound, User,
-  Bebidas, Explore, Comidas, FoodDetails } from '../pages';
-=======
 import {
-  LoginPage,
-  NotFound,
-  User,
-  Drinks,
-  Explore,
-  Home,
-  FoodDetails,
-  MealtIngredients,
-  DrinkIngredients,
-} from '../pages';
->>>>>>> dc273e3d873acdabafec02907a0ed885f57ddd18
+  LoginPage, NotFound, User, Bebidas, Explore, Comidas,
+  FoodDetails, MealtIngredients, DrinkIngredients } from '../pages';
 
 function Routes() {
   return (
