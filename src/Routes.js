@@ -10,6 +10,9 @@ import ExplorerDrinks from './pages/ExplorerDrinks';
 import MealsOrigin from './pages/ExplorerMealsOrigin';
 import MealsIngredients from './pages/ExplorerMealsIngredients';
 import DrinksIgredients from './pages/ExplorerDrinksIngredients';
+import RecipesFavorites from './pages/RecipesFavorites';
+import RecipesDone from './pages/RecipesDone';
+import Details from './pages/Details';
 
 function Routes() {
   return (
@@ -18,9 +21,9 @@ function Routes() {
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Meals } />
         <Route exact path="/bebidas" component={ Drinks } />
-        {/* <Route exact path="/comidas/:id" component={ Login } />
-        <Route exact path="/bebidas/:id" component={ Login } />
-        <Route exact path="/comidas/:id/in-progress" component={ Login } />
+        <Route exact path="/comidas/:id" component={ Details } />
+        <Route exact path="/bebidas/:id" component={ Details } />
+        {/* <Route exact path="/comidas/:id/in-progress" component={ Login } />
         <Route exact path="/bebidas/:id/in-progress" component={ Login } /> */}
         <Route exact path="/explorar" component={ Explorer } />
         <Route exact path="/explorar/comidas" component={ ExplorerMeals } />
@@ -37,8 +40,8 @@ function Routes() {
         />
         <Route exact path="/explorar/comidas/area" component={ MealsOrigin } />
         <Route exact path="/perfil" component={ Profile } />
-        {/* <Route exact path="/receitas-feitas" component={ Login } />
-        <Route exact path="/receitas-favoritas" component={ Login } /> */}
+        <Route exact path="/receitas-feitas" component={ RecipesDone } />
+        <Route exact path="/receitas-favoritas" component={ RecipesFavorites } />
       </Switch>
     </BrowserRouter>
   );

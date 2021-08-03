@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
@@ -13,6 +13,9 @@ function Meals() {
     <div>
       <Header title="Comidas" recipeType="meals" />
       <CategoriesBar recipeType="meals" />
+      { mealsData.length === 1
+        && <Redirect to={ `/comidas/${mealsData[0].idMeal}` } /> }
+      <Header title="Comidas" recipeType="meals" searchButton />
       { mealsData !== [] && mealsData.map((recipe, index) => (
         <Link
           to={ `/comidas/${recipe.idMeal}` }
