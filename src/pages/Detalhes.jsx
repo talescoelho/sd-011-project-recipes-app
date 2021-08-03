@@ -14,7 +14,6 @@ function Detalhes(props) {
     let response = [];
     if (match.path.includes('comidas')) {
       response = await searchById(id, 'comidas');
-      console.log(response);
     } if (match.path.includes('bebidas')) {
       response = await searchById(id, 'bebidas');
     }
@@ -26,11 +25,13 @@ function Detalhes(props) {
     async function effectFetch() {
       const fetchRequest = await handleFetchRequest();
       setRecipeData(fetchRequest);
+      console.log(fetchRequest, 'ola');
     }
     effectFetch();
   }, []);
 
   if (loading) return <Loading />;
+
   return (
     <div className="Detalhes-container">
       <h1>Detalhes</h1>

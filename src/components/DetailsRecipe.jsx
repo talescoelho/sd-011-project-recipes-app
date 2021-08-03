@@ -1,20 +1,26 @@
 import React from 'react';
+import Ingredients from '../components/Ingredients';
 
 function DetailsRecipe(props) {
   const { recipeData } = props;
   const {
     ingredients,
-    ingredientQuantity,
+    ingredientsQuantity,
     imgUrl,
     instructions,
     title,
     video,
   } = recipeData;
-  console.log(recipeData);
+  console.log(props, 'la');
   return (
     <div>
-      <img src={imgUrl} alt={title} />
+      <img src={ imgUrl } alt={ title } />
       <h2>{title}</h2>
+      <Ingredients
+        ingredients={ ingredients }
+        ingredientsQuantity={ ingredientsQuantity }
+      />
+
     </div>
   );
 }

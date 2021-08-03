@@ -64,6 +64,7 @@ export const searchById = async (id, type) => {
     const recipes = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
     const { meals } = await recipes.json();
     const mealsObject = mealsObjectFormater(meals[0]);
+    console.log(mealsObject);
     return mealsObject;
   } if (type === 'bebidas') {
     const recipes = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
