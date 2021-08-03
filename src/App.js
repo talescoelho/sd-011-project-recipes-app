@@ -1,10 +1,10 @@
 import React from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/Login';
 import Recipes from './Pages/Recipes';
-// import Bebidas from './Pages/Bebidas';
+import Bebidas from './Pages/Bebidas';
 import ReceitaDeComida from './Pages/ReceitaDeComida';
 import ReceitaDeBebida from './Pages/ReceitaDeBebida';
 import MealInProgress from './Pages/MealInProgress';
@@ -25,11 +25,20 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Recipes } />
-        <Route exact path="/bebidas" component={ Recipes } />
+        <Route exact path="/bebidas" component={ Bebidas } />
+        <Route exact path="/explorar/comidas/area" component={ ExploreMealsByArea } />
         <Route exact path="/comidas/:id/in-progress" component={ MealInProgress } />
         <Route exact path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
-        <Route exact path="/comidas/:id" component={ ReceitaDeComida } />
-        <Route exact path="/bebidas/:id" component={ ReceitaDeBebida } />
+        <Route
+          exact
+          path="/comidas/:id"
+          render={ (props) => <ReceitaDeComida { ...props } /> }
+        />
+        <Route
+          exact
+          path="/bebidas/:id"
+          render={ (props) => <ReceitaDeBebida { ...props } /> }
+        />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ ExploreMeals } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
@@ -48,9 +57,6 @@ function App() {
         <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
         <Route exact path="/explorar/comidas/area" component={ ExploreMealsByArea } />
       </Switch>
-      <Link to="/receitas-feitas">
-        <button type="submit">Receitas Feitas</button>
-      </Link>
     </div>
   );
 }
