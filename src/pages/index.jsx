@@ -5,3 +5,5 @@ export { default as User } from './User';
 export { default as Bebidas } from './Bebidas';
 export { default as Explore } from './Explore';
 export { default as FoodDetails } from './FoodDetails';
+export { default as MealtIngredients } from './MealtIngredients';
+export { default as DrinkIngredients } from './DrinkIngredients';
