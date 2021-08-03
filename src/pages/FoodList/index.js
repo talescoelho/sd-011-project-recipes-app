@@ -5,6 +5,7 @@ import FooterMenu from '../../components/FooterMenu';
 import Header from '../../components/Header';
 
 const FoodList = ({ receiveData, fetched }) => {
+  document.title = 'Comidas';
   if (receiveData.meals === null) {
     // eslint-disable-next-line no-alert
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');

@@ -2,18 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
-
-// [{
-//   id: id-da-receita,
-//   type: comida-ou-bebida,
-//   area: area-da-receita-ou-texto-vazio,
-//   category: categoria-da-receita-ou-texto-vazio,
-//   alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
-//   name: nome-da-receita,
-//   image: imagem-da-receita
-// }]
+import Header from '../../components/Header';
 
 const FavoriteRecipes = () => {
+  document.title = 'Receitas Favoritas';
   const [recipes, setRecipes] = React.useState([]);
   const [indexOfMessageClipboard, setIndexOfMessageClipboard] = React.useState(null);
   const [filteredRecipes, setFilteredRecipes] = React.useState([]);
@@ -64,6 +56,7 @@ const FavoriteRecipes = () => {
 
   return (
     <>
+      <Header />
       <div>
         <button
           type="button"

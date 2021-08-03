@@ -1,9 +1,14 @@
 import React from 'react';
+import Header from '../../components/Header';
 
-const FoodInProgress = () => (
-  <div>
-    Sou página de ingredientes de um prato.
-  </div>
-);
+const FoodInProgress = () => {
+  document.title = 'Explorar Ingredientes';
+  return (
+    <div>
+      <Header />
+      Sou página de ingredientes de uma comidas.
+    </div>
+  );
+};
 
 export default FoodInProgress;

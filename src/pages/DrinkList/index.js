@@ -5,6 +5,7 @@ import FooterMenu from '../../components/FooterMenu';
 import Header from '../../components/Header';
 
 const DrinkList = ({ receiveData, fetched }) => {
+  document.title = 'Bebidas';
   const renderReceiveDataDrinks = () => {
     const maxRender = 12;
     if (receiveData && receiveData.drinks !== null) {
