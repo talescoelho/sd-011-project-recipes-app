@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from '../Pages/Login';
-import HomeRecipes from '../Pages/HomeRecipes';
 import RecipesFoods from '../Pages/RecipesFoods';
 import RecipesDrinks from '../Pages/RecipesDrinks';
 import Profile from '../Pages/Profile';
@@ -24,8 +23,16 @@ function Routes() {
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ ExploreFoods } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
-        <Route exact path="/explorar/comidas/ingredientes" component={ ExploreFoodsIngridients } />
-        <Route exact path="/explorar/bebidas/ingredientes" component={ ExploreDrinksIngredients } />
+        <Route
+          exact
+          path="/explorar/comidas/ingredientes"
+          component={ ExploreFoodsIngridients }
+        />
+        <Route
+          exact
+          path="/explorar/bebidas/ingredientes"
+          component={ ExploreDrinksIngredients }
+        />
         <Route exact path="/explorar/comidas/area" component={ ExploreFoodOrigin } />
         <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/receitas-feitas" component={ RecipesDone } />
