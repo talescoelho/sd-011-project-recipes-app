@@ -63,7 +63,7 @@
   width: 50%;
 }
 
-img {
+.card-img {
   max-height: 25px;
   max-width: 25;
 }
