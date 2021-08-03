@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
-import { fetchMealsLetter } from '../services/MealApiService';
+import { fetchMealsLetter, fetchMealsCategory } from '../services/MealApiService';
 
 export default function Food() {
   const pageTitle = {
@@ -31,8 +31,16 @@ export default function Food() {
     response();
   }, []);
 
+  const { recipesDb, redirect, setRecipesDb } = useContext(RecipesContext);
+
+  async function handleFetchByCategory(param) {
+    // console.log(param);
+    // console.log(recipesDb);
+    const cat = await fetchMealsCategory(param);
+    return setRecipesDb(cat);
+  }
+
   const history = useHistory();
-  const { recipesDb, redirect } = useContext(RecipesContext);
   const limits = 12;
   const limitCategory = 5;
 
@@ -95,6 +103,11 @@ export default function Food() {
           type="button"
           key={ index }
           data-testid={ `${category.strCategory}-category-filter` }
+          name={ category.strCategory }
+          onClick={ ({ target }) => {
+            setRecipesDb([]);
+            handleFetchByCategory(target.name);
+          } }
         >
           {category.strCategory}
         </button>)
