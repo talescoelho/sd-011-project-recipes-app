@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default function IngredientsCheckList({ recipeType, id, strInstructions }) {
   const [render, setrender] = useState(false);
@@ -58,7 +59,9 @@ export default function IngredientsCheckList({ recipeType, id, strInstructions }
           </label>
         ))}
       <p data-testid="instructions">{strInstructions}</p>
-      <button type="button" disabled={ !verifyAllCheck() }>Finalizar receita</button>
+      <Link to="/receitas-feitas">
+        <button type="button" disabled={ !verifyAllCheck() }>Finalizar receita</button>
+      </Link>
     </>
   );
 }
