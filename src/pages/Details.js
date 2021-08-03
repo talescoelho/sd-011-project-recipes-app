@@ -1,35 +1,40 @@
-import React, { useContext } from 'react';
-import { useParams } from 'react-router-dom';
-import RecipesContext from '../context/RecipesContext';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import * as CocktailAPI from '../services/cocktailAPI';
+import * as MealAPI from '../services/meailAPI';
+import RecipeDetails from '../components/RecipeDetails';
 
-function Details() {
-  const { id } = useParams();
-  const { mealsData } = useContext(RecipesContext);
-  const singleMeal = mealsData.filter((meal) => meal.idMeal === id);
-  const {
-    strMealThumb: thumbnail,
-    strMeal: name,
-    strCategory: category,
-  } = singleMeal[0] || [];
+function Details({ match: { url, params: { id } } }) {
+  const [recipeDetail, setRecipeDetail] = useState('');
 
-  console.log(singleMeal);
+  const getRecipeById = async () => {
+    let response = '';
+    if (url.includes('comidas')) {
+      response = await MealAPI.fetchMealById(id);
+    }
+    if (url.includes('bebidas')) {
+      response = await CocktailAPI.fetchCocktailById(id);
+    }
+    return setRecipeDetail(...response);
+  };
+
+  // didMount getRecipeById
+  useEffect(() => {
+    getRecipeById();
+  }, []);
+
   return (
-    <article>
-      <div>
-        <img data-testid="recipe-photo" src={ thumbnail } alt={ name } />
-        <h2 data-testid="recipe-title">{ name }</h2>
-        <p data-testid="recipe-category">{ category }</p>
-        <div className="buttons">
-          <button data-testid="share-btn" type="button">
-            compartilhar
-          </button>
-          <button data-testid="favorite-btn" type="button">
-            favoritar
-          </button>
-        </div>
-      </div>
-    </article>
+    <RecipeDetails recipe={ recipeDetail } />
   );
 }
+
+Details.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+    url: PropTypes.string,
+  }).isRequired,
+};
 
 export default Details;

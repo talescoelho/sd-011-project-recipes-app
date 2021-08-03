@@ -18,3 +18,10 @@ export const fetchCocktailsByFirstLetter = (firstLetter) => {
     .then((response) => response.json())
     .then((data) => data.drinks);
 };
+
+export const fetchCocktailById = (id) => {
+  const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => data.drinks);
+};
