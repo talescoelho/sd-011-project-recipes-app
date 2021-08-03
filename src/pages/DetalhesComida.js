@@ -3,21 +3,24 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ReactPlayer from 'react-player';
 
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
 import '../styles/Detalhes.css';
 import RecommendDrink from '../components/RecommendDrink';
 import {
   checkDoneRecipes,
-  checkInProgressMeals } from '../services/localStorageChecks';
+  checkInProgressMeals,
+  checkFavorite } from '../services/localStorageChecks';
+import { handleFavoriteMealBtn } from '../services/favoriteButton';
 
 const copy = require('clipboard-copy');
 
 export default function DetalhesComida({ match }) {
   const { id } = match.params;
   const [meal, setMeal] = useState({});
+  const [isFavorite, setFavorite] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
   const [copied, setCopied] = useState(false);
   const cardLimit = 6;
@@ -29,6 +32,7 @@ export default function DetalhesComida({ match }) {
         response.json()
           .then((data) => {
             setMeal(data.meals[0]);
+            setFavorite(checkFavorite(id));
           });
       });
   }, [id]);
@@ -84,10 +88,17 @@ export default function DetalhesComida({ match }) {
             />
           </button>
           <button
-            data-testid="favorite-btn"
             type="button"
+            onClick={ () => {
+              handleFavoriteMealBtn(isFavorite, meal);
+              setFavorite(!isFavorite);
+            } }
           >
-            Favoritar
+            <img
+              data-testid="favorite-btn"
+              alt="Toque para favoritar esta receita"
+              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            />
           </button>
           <p data-testid="recipe-category">{meal.strCategory}</p>
           <div>

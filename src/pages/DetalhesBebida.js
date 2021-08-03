@@ -2,21 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
 import '../styles/Detalhes.css';
 import RecommendMeal from '../components/RecommendMeal';
 import {
   checkDoneRecipes,
-  checkInProgressDrinks } from '../services/localStorageChecks';
+  checkInProgressDrinks,
+  checkFavorite } from '../services/localStorageChecks';
+import { handleFavoriteDrinkBtn } from '../services/favoriteButton';
 
 const copy = require('clipboard-copy');
 
 export default function DetalhesBebida({ match }) {
   const { id } = match.params;
   const [drink, setDrink] = useState({});
+  const [isFavorite, setFavorite] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
   const [copied, setCopied] = useState(false);
   const cardLimit = 6;
@@ -28,6 +31,7 @@ export default function DetalhesBebida({ match }) {
         response.json()
           .then((data) => {
             setDrink(data.drinks[0]);
+            setFavorite(checkFavorite(id));
           });
       });
   }, [id]);
@@ -83,10 +87,17 @@ export default function DetalhesBebida({ match }) {
             />
           </button>
           <button
-            data-testid="favorite-btn"
             type="button"
+            onClick={ () => {
+              handleFavoriteDrinkBtn(isFavorite, drink);
+              setFavorite(!isFavorite);
+            } }
           >
-            Favoritar
+            <img
+              data-testid="favorite-btn"
+              alt="Toque para favoritar esta receita"
+              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            />
           </button>
           <p data-testid="recipe-category">{drink.strAlcoholic}</p>
           <div>

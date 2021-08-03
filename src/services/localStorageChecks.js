@@ -24,3 +24,13 @@ export function checkInProgressMeals(id) {
   }
   return isInProgress ? 'Continuar Receita' : 'Iniciar Receita';
 }
+
+export function checkFavorite(id) {
+  const favoriteRecipes = localStorage.getItem('favoriteRecipes');
+  let isFavorite;
+  if (favoriteRecipes) {
+    const data = JSON.parse(favoriteRecipes);
+    isFavorite = data.find((recipe) => recipe.id === id);
+  }
+  return isFavorite;
+}
