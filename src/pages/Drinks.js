@@ -27,7 +27,7 @@ function Drinks() {
         setData(drinks);
         setLoading(false);
       });
-    if (innerText === categorySelected) {
+    if (innerText === categorySelected || innerText === 'All') {
       setLoading(true);
       getInitialDrinksRecipes()
         .then((drinks) => {
@@ -60,6 +60,13 @@ function Drinks() {
   return (
     <div>
       <Header title="Bebidas" isButtonVisible />
+      <button
+        data-testid="All-category-filter"
+        type="button"
+        onClick={ filterByCategory }
+      >
+        All
+      </button>
       {categoryList.map((item, index) => (
         index > maxCategoryNumber ? null
           : (

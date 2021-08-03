@@ -27,7 +27,7 @@ function Foods() {
         setData(meals);
         setLoading(false);
       });
-    if (innerText === categorySelected) {
+    if (innerText === categorySelected || innerText === 'All') {
       setLoading(true);
       getInitialMealsRecipes()
         .then((meals) => {
@@ -60,6 +60,14 @@ function Foods() {
   return (
     <div>
       <Header title="Comidas" isButtonVisible />
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ filterByCategory }
+      >
+        All
+      </button>
+      )
       {categoryList.map((item, index) => (
         index > maxCategoryNumber ? null
           : (
