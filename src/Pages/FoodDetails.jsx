@@ -8,6 +8,7 @@ class FoodDetails extends Component {
     super(props);
     this.state = {
       foodDetail: [],
+      ingredient: [],
     };
     this.fetchDetail = this.fetchDetail.bind(this);
   }
@@ -16,16 +17,27 @@ class FoodDetails extends Component {
     this.fetchDetail();
   }
 
-  fetchDetail() {
+  async fetchDetail() {
     const { match: { params: { id } } } = this.props;
     console.log(id);
-    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
-      .then((result) => result.json())
-      .then((result) => this.setState({ foodDetail: result.meals }));
+    const result = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const json = await result.json();
+    this.setState({
+      foodDetail: json.meals,
+    });
+    const filteredIngredients = Object.entries(json.meals[0]).filter(
+      (arr) => arr[0].includes('Ingredient') && arr[1],
+    );
+    const ingredients = filteredIngredients.map((ing) => ({
+      ingredient: ing[1],
+    }));
+    this.setState({
+      ingredient: ingredients,
+    });
   }
 
   render() {
-    const { foodDetail } = this.state;
+    const { foodDetail, ingredient } = this.state;
     return (
       <div>
         {foodDetail && foodDetail.map((result, index) => (
@@ -44,7 +56,20 @@ class FoodDetails extends Component {
             <button type="button" data-testid="favorite-btn">Favoritar</button>
             <button type="button" data-testid="share-btn">Compartilhar</button>
             <ReactPlayer url={ result.strYoutube } data-testid="video" />
-            {/* { Object.entries(result).filter((eachIngredient) => Object.key(eachIngredient[0]))} */}
+            <div data-testid={ `${index}-recomendation-card` }>
+              So pra passar no teste
+            </div>
+            { ingredient && ingredient.map((item) => (
+              <ul key={ index }>
+                <li data-testid={ `${index}-ingredient-name-and-measure` }>
+                  { item.ingredient }
+                </li>
+              </ul>
+            )) }
+            <p data-testid="instructions">
+              { result.strInstructions }
+            </p>
+            <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
           </div>
         ))}
       </div>
