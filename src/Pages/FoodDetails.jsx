@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class FoodDetails extends Component {
   render() {
-    // const { location: { state } } = this.props;
+    const { location: { state } } = this.props;
 
     return (
       <div>
-        Gambiarra
+        {state.strMeal}
       </div>
     );
   }
@@ -16,5 +17,11 @@ class FoodDetails extends Component {
 const mapStateToProps = (state) => ({
   foodAPIResponse: state.recipeReducer.foodRecipes,
 });
+
+FoodDetails.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.objectOf(),
+  }),
+}.isRequired;
 
 export default connect(mapStateToProps)(FoodDetails);

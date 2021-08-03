@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import fetchReceiveFood from '../Actions/food';
 import fetchReceiveDrink from '../Actions/drink';
 
@@ -131,17 +132,20 @@ class RecipesList extends Component {
           {meals.map((meal, index) => {
             if (index < maxRecipes) {
               return (
-                <div
-                  key={ meal.idMeal }
-                  data-testid={ `${index}-recipe-card` }
-                >
-                  <img
-                    data-testid={ `${index}-card-img` }
-                    src={ meal.strMealThumb }
-                    alt="Thumb Meal"
-                  />
-                  <h2 data-testid={ `${index}-card-name` }>{ meal.strMeal }</h2>
-                </div>);
+                <Link to={ { pathname: `/comidas/${meal.idMeal}`, state: meal } }>
+                  <div
+                    key={ meal.idMeal }
+                    data-testid={ `${index}-recipe-card` }
+                  >
+                    <img
+                      data-testid={ `${index}-card-img` }
+                      src={ meal.strMealThumb }
+                      alt="Thumb Meal"
+                    />
+                    <h2 data-testid={ `${index}-card-name` }>{ meal.strMeal }</h2>
+                  </div>
+                </Link>
+              );
             }
             return undefined;
           })}
@@ -155,17 +159,20 @@ class RecipesList extends Component {
           {drinks.map((drink, index) => {
             if (index < maxRecipes) {
               return (
-                <div
-                  key={ drink.idDrink }
-                  data-testid={ `${index}-recipe-card` }
-                >
-                  <img
-                    data-testid={ `${index}-card-img` }
-                    src={ drink.strDrinkThumb }
-                    alt="Thumb Drink"
-                  />
-                  <h2 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h2>
-                </div>);
+                <Link to={ { pathname: `/bebidas/${drink.idDrink}`, state: drink } }>
+                  <div
+                    key={ drink.idDrink }
+                    data-testid={ `${index}-recipe-card` }
+                  >
+                    <img
+                      data-testid={ `${index}-card-img` }
+                      src={ drink.strDrinkThumb }
+                      alt="Thumb Drink"
+                    />
+                    <h2 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h2>
+                  </div>
+                </Link>
+              );
             }
             return undefined;
           })}
