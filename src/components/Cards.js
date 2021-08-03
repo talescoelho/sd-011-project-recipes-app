@@ -6,6 +6,8 @@ import {
   fetchMealsForCategorie,
   fetchCocktailsForCategorie,
 } from '../Services/Data';
+import { Link } from 'react-router-dom';
+import { fetchMealsAPI, fetchCocktailsAPI } from '../Services/Data';
 
 function Cards(props) {
   const [mealsAPI, setMealsAPI] = useState([]);
@@ -41,12 +43,14 @@ function Cards(props) {
               data-testid={ `${indexMap}-recipe-card` }
               className="cards"
             >
-              <h5 data-testid={ `${indexMap}-card-name` }>{meal.strMeal}</h5>
-              <img
-                src={ meal.strMealThumb }
-                alt={ meal.strMeal }
-                data-testid={ `${indexMap}-card-img` }
-              />
+              <Link to={ `/comidas/${meal.idMeal}` }>
+                <h5 data-testid={ `${indexMap}-card-name` }>{meal.strMeal}</h5>
+                <img
+                  src={ meal.strMealThumb }
+                  alt={ meal.strMeal }
+                  data-testid={ `${indexMap}-card-img` }
+                />
+              </Link>
             </div>
           ))
       );
@@ -65,12 +69,14 @@ function Cards(props) {
               data-testid={ `${indexMap}-recipe-card` }
               className="cards"
             >
-              <h5 data-testid={ `${indexMap}-card-name` }>{drink.strDrink}</h5>
-              <img
-                src={ drink.strDrinkThumb }
-                alt={ drink.strDrink }
-                data-testid={ `${indexMap}-card-img` }
-              />
+              <Link to={ `/bebidas/${drink.idMeal}` }>
+                <h5 data-testid={ `${indexMap}-card-name` }>{drink.strDrink}</h5>
+                <img
+                  src={ drink.strDrinkThumb }
+                  alt={ drink.strDrink }
+                  data-testid={ `${indexMap}-card-img` }
+                />
+              </Link>
             </div>
           ))
       );
