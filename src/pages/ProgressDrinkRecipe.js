@@ -27,6 +27,15 @@ export default function ProgressDrinkRecipe(props) {
       .map((element) => data.drinks[0][element])
       .filter((value) => value);
 
+  function handleClickCheckbox({ target }) {
+    const { checked } = target;
+    if (checked) {
+      target.parentNode.style.textDecoration = 'line-through';
+    } else {
+      target.parentNode.style.textDecoration = 'none';
+    }
+  }
+
   return (
     <div>
       <h1>Progresso Bebida</h1>
@@ -63,6 +72,7 @@ export default function ProgressDrinkRecipe(props) {
                 <input
                   type="checkbox"
                   id={ `${index}-ingredient-step` }
+                  onClick={ handleClickCheckbox }
                 />
                 {' '}
                 { item }
