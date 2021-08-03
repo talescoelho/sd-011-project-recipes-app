@@ -7,6 +7,7 @@ import { fetchCocktails } from '../services/cocktailAPI';
 function RecipesProvider({ children }) {
   const [drinksData, setDrinksData] = useState([]);
   const [mealsData, setMealsData] = useState([]);
+  const [btnName, setBtnName] = useState('');
   const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
@@ -26,6 +27,18 @@ function RecipesProvider({ children }) {
     setDrinksData(defaultDrinks);
   }
 
+  function handleToggle(name) {
+    if (!toggle) {
+      setBtnName(name);
+      setToggle(true);
+    } if (toggle && name === btnName) {
+      setToggle(false);
+    } if (toggle && name !== btnName) {
+      resetFilter();
+      setBtnName(name);
+    }
+  }
+
   const context = {
     drinksData,
     setDrinksData,
@@ -34,6 +47,7 @@ function RecipesProvider({ children }) {
     resetFilter,
     toggle,
     setToggle,
+    handleToggle,
   };
 
   return (

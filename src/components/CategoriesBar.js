@@ -7,9 +7,8 @@ import RecipesContext from '../context/RecipesContext';
 function CategoriesBar({ recipeType }) {
   const [mealsCategory, setMealsCategory] = useState([]);
   const [drinkCategory, setDrinksCategory] = useState([]);
-  const [btnName, setBtnName] = useState('');
   const { setDrinksData, setMealsData,
-    resetFilter, toggle, setToggle } = useContext(RecipesContext);
+    resetFilter, handleToggle } = useContext(RecipesContext);
 
   useEffect(() => {
     async function fetchCategory() {
@@ -34,13 +33,7 @@ function CategoriesBar({ recipeType }) {
       const responseDrinks = await fetchCocktailsByCategories(value);
       setDrinksData(responseDrinks);
     }
-    if (!toggle) {
-      setToggle(true);
-      setBtnName(name);
-    } if (toggle && name === btnName) {
-      resetFilter();
-      setToggle(false);
-    }
+    handleToggle(name);
   }
 
   function renderCategoryBar(strCategory, index) {
