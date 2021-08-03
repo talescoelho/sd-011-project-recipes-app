@@ -28,8 +28,19 @@ nav {
   background-color: #c4c4c4;
   border: none;
   border-color: #c4c4c4;
+  margin: 10px;
 }
 
 .header-img {
   margin: 10px;
+}
+
+.search-input {
+  width: 90%;
+}
+
+.search-form {
+  background-color: whitesmoke;
+  border: 1px solid rgb(172, 172, 172);
+  border-radius: 0 0 5px 5px;
 }

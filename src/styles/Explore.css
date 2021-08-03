@@ -1,8 +1,7 @@
-/* .explore-buttons {
+.explore-buttons {
   display: block;
-  position: absolute;
   margin: 200px auto;
-  margin-left: 515px;
+  position: absolute;
   text-align: center;
 }
 
@@ -11,4 +10,4 @@
   background-color: #c4c4c4;
   border: 1px solid gray;
   margin: 10px;
-} */
+}

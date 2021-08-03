@@ -9,12 +9,20 @@ export default function Explore() {
       <Header pageName="Explorar" />
       <div className="explore-buttons">
         <Link to="/explorar/comidas">
-          <button data-testid="explore-food" type="button" className="explore-button">
+          <button
+            data-testid="explore-food"
+            type="button"
+            className="explore-button"
+          >
             Explorar Comidas
           </button>
         </Link>
         <Link to="/explorar/bebidas">
-          <button data-testid="explore-drinks" type="button" className="explore-button">
+          <button
+            data-testid="explore-drinks"
+            type="button"
+            className="explore-button"
+          >
             Explorar Bebidas
           </button>
         </Link>
