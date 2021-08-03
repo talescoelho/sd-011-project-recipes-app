@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
-import { fetchMealsLetter, fetchMealsCategory } from '../services/MealApiService';
+import { fetchMealsLetter } from '../services/MealApiService';
 
 export default function Food() {
   const pageTitle = {
@@ -13,8 +13,6 @@ export default function Food() {
 
   const [firstFood, setFirstFood] = useState([]);
   const [categoriesFood, setCategoriesFood] = useState([]);
-
-  const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
     const response = async () => {
@@ -33,19 +31,8 @@ export default function Food() {
     response();
   }, []);
 
-  const { recipesDb, redirect, setRecipesDb } = useContext(RecipesContext);
-
-  async function handleFetchByCategory(param) {
-    const cat = await fetchMealsCategory(param);
-    return setRecipesDb(cat);
-  }
-
-  function functionAll() {
-    // const data = await fetchMealsLetter('c');
-    return setRecipesDb(firstFood);
-  }
-
   const history = useHistory();
+  const { recipesDb, redirect } = useContext(RecipesContext);
   const limits = 12;
   const limitCategory = 5;
 
@@ -101,29 +88,13 @@ export default function Food() {
   return (
     <div>
       <Header value={ pageTitle } />
-      <button
-        type="button"
-        onClick={ () => functionAll() }
-        data-testid="All-category-filter"
-      >
-        All
-      </button>
+      <button type="button">All</button>
       { categoriesFood.map((category, index) => ((index < limitCategory
       ) && (
         <button
           type="button"
           key={ index }
           data-testid={ `${category.strCategory}-category-filter` }
-          name={ category.strCategory }
-          onClick={ ({ target }) => {
-            setRecipesDb([]);
-            setSelectedCategory(target.name);
-            if (selectedCategory === target.name) {
-              functionAll();
-            } else {
-              handleFetchByCategory(target.name);
-            }
-          } }
         >
           {category.strCategory}
         </button>)

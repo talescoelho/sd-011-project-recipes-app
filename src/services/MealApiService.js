@@ -15,10 +15,3 @@ export async function fetchMealsLetter(letter) {
   const data = await response.json();
   return data.meals;
 }
-
-export async function fetchMealsCategory(category) {
-  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
-    .then((res) => res.json());
-  console.log(response);
-  return response.meals;
-}
