@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchFoodCategory, getFilteredFoodList } from '../services/FoodAPI';
-import { getFoodCard } from '../Redux/actions/index';
 
 export default function FilterButtons({ type }) {
   const dispatch = useDispatch();

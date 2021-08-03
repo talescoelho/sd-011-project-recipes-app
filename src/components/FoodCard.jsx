@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Card, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import propTypes from 'prop-types';
 import getFood from '../services/SearchRecipe';
 
 export default function FoodCard({ type }) {
@@ -52,3 +53,7 @@ export default function FoodCard({ type }) {
 
   return <div className="food-cards">{getCards()}</div>;
 }
+
+FoodCard.propTypes = {
+  type: propTypes.string.isRequired,
+};
