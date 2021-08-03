@@ -9,7 +9,7 @@ import FiltersCategories from '../components/FiltersCategories';
 
 function Foods() {
   const { setFoods,
-    dataFilter, foods, compare,
+    dataFilter, foods, compare, setDataFilter,
     setCompare, loading, setLoading, foodsByItem } = useContext(RecipesContext);
 
   const MAX = 12;
@@ -36,7 +36,7 @@ function Foods() {
       return setCompare(dataFilter);
     };
     renderItens();
-  }, [setCompare, foods, dataFilter, foodsByItem]);
+  }, [setCompare, foods, dataFilter, foodsByItem, setDataFilter]);
 
   const fnAlert = (func, message) => {
     func(message);
