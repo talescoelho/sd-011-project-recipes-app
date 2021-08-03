@@ -24,6 +24,15 @@ function SingleFoodItem() {
     return FetchFood();
   }, []);
 
+  // useEffect(() => {
+  //   const FetchRecomendation = async () => {
+  //     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  //     const recomendations = response.json();
+  //     const recomendationsQuantity = 6;
+  //     for (let i = 0; i < recomendationsQuantity; i += 1)
+  //   };
+  // }, []);
+
   // Parte que separa os ingredientes da receitas
   if (itemDetail.meals !== null) {
     const food = itemDetail.meals[0];
@@ -86,6 +95,7 @@ function SingleFoodItem() {
         <h2>Instruções em vídeo</h2>
         <embed data-testid="video" src={ embedYouTubeVideo(meals[0].strYoutube) } />
       </section>
+
       <p data-testid={ `${0}-recomendation-card` }>Recomendação de bebida</p>
       <button data-testid="start-recipe-btn" type="button">Iniciar receita</button>
     </div>
