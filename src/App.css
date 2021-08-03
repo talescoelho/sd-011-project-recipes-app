@@ -63,12 +63,12 @@
   width: 50%;
 }
 
-img{
+img {
   max-height: 25px;
   max-width: 25;
 }
 
-.cards{
-display: inline-block;
-font-size: 2px;
+.cards {
+  display: inline-block;
+  font-size: 2px;
 }
