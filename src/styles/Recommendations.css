@@ -1,9 +1,9 @@
 .carousel {
+  align-items: center;
   display: flex;
+  justify-content: space-between;
   overflow-x: scroll;
   width: 360px;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .item-carousel {
