@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes, { object } from 'prop-types';
 import { searchById } from '../services';
-import Loading from '../components/Loading';
 import DetailsRecipe from '../components/DetailsRecipe';
+import Loading from '../components/Loading';
 
 function Detalhes(props) {
   const { match } = props;
@@ -34,7 +34,6 @@ function Detalhes(props) {
 
   return (
     <div className="Detalhes-container">
-      <h1>Detalhes</h1>
       <DetailsRecipe recipeData={ recipeData } />
     </div>
   );

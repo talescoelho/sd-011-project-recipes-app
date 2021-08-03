@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function Ingredients(props) {
   const { ingredients, ingredientsQuantity } = props;
@@ -13,7 +14,7 @@ function Ingredients(props) {
         { ingredientsArr.map((ingredient, index) => (
           <li
             key={ ingredient }
-            data-testid={ `${index} - ingredient-name-and-measure` }
+            data-testid={ `${index}-ingredient-name-and-measure` }
           >
             {`${ingredientsArr[index][1]} - ${ingredientsQuantityArr[index][1]}`}
           </li>))}
@@ -25,3 +26,8 @@ function Ingredients(props) {
 }
 
 export default Ingredients;
+
+Ingredients.propTypes = {
+  ingredients: PropTypes.arrayOf(String),
+  ingredientsQuantity: PropTypes.arrayOf(String),
+}.isRequired;
