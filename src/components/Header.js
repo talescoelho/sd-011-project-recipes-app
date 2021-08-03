@@ -7,7 +7,7 @@ import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import CategoryButtons from './CategoryButtons';
 
-function Header({ title, icon, drinks, foods, explore }) {
+function Header({ title, icon, drinks, foods }) {
   const [showSearchBar, setshowSearchBar] = useState(false);
 
   const renderSearchButtonIcon = () => (
@@ -33,7 +33,7 @@ function Header({ title, icon, drinks, foods, explore }) {
         {icon && renderSearchButtonIcon()}
       </div>
       {showSearchBar && <SearchBar drinks={ drinks } foods={ foods } />}
-      <CategoryButtons drinks={ drinks } foods={ foods } explore={ explore } />
+      <CategoryButtons drinks={ drinks } foods={ foods } />
     </header>
   );
 }
@@ -45,5 +45,4 @@ Header.propTypes = {
   icon: PropTypes.bool.isRequired,
   drinks: PropTypes.bool.isRequired,
   foods: PropTypes.bool.isRequired,
-  explore: PropTypes.bool.isRequired,
 };

@@ -84,7 +84,7 @@ function ExploreFoodsByArea() {
   return (
     <div>
       <h1>My Explore Foods By Area Page</h1>
-      <Header title="Explorar Origem" icon explore />
+      <Header title="Explorar Origem" icon />
 
       <span>{ isLoading ? <div /> : renderDropDownAreas() }</span>
 
