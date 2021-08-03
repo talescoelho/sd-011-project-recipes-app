@@ -1,26 +1,42 @@
-import React, { useContext } from 'react';
-// import { useHistory } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import RecipeAppContext from '../context/RecipeAppContext';
 
-// const copy = require('clipboard-copy');
+const copy = require('clipboard-copy');
 
 function FavoriteRecipes() {
-  // const [click, setClick] = useState(false);
-  // recipesDone,
-  // setFilteredRecipesDone,
+  const [click, setClick] = useState(false);
+
   const {
+    recipesDone,
+    setFilteredRecipesDone,
     filteredRecipesDone,
   } = useContext(RecipeAppContext);
 
-  // const history = useHistory();
+  const history = useHistory();
 
-  // function copyLink(type, id) {
-  //   copy(`http://localhost:3000/${type}s/${id}`);
-  //   setClick(true);
-  // }
+  function copyLink(type, id) {
+    copy(`http://localhost:3000/${type}s/${id}`);
+    setClick(true);
+  }
+
+  const filterRecipesDone = ({ target: { name } }) => {
+    let filteredRecipes = [];
+    switch (name) {
+    case 'Food':
+      filteredRecipes = recipesDone.filter((recipe) => recipe.type === 'comida');
+      break;
+    case 'Drink':
+      filteredRecipes = recipesDone.filter((recipe) => recipe.type === 'bebida');
+      break;
+    default:
+      filteredRecipes = recipesDone;
+    }
+    setFilteredRecipesDone(filteredRecipes);
+  };
 
   return (
     <div>
@@ -29,6 +45,8 @@ function FavoriteRecipes() {
       <button
         type="button"
         data-testid="filter-by-all-btn"
+        name="All"
+        onClick={ (e) => filterRecipesDone(e) }
       >
         All
       </button>
@@ -36,6 +54,8 @@ function FavoriteRecipes() {
       <button
         type="button"
         data-testid="filter-by-food-btn"
+        name="Food"
+        onClick={ (e) => filterRecipesDone(e) }
       >
         Food
       </button>
@@ -43,9 +63,13 @@ function FavoriteRecipes() {
       <button
         type="button"
         data-testid="filter-by-drink-btn"
+        name="Drink"
+        onClick={ (e) => filterRecipesDone(e) }
       >
         Drinks
       </button>
+
+      <span>{click ? <p>Link copiado!</p> : <div />}</span>
 
       <span>
         {filteredRecipesDone && filteredRecipesDone.map((recipes, index) => (
@@ -55,6 +79,7 @@ function FavoriteRecipes() {
               data-testid={ `${index}-horizontal-share-btn` }
               src={ shareIcon }
               alt="card da receita"
+              onClick={ () => copyLink(recipes.type, recipes.id) }
             />
             <ul>
               <input
@@ -64,6 +89,7 @@ function FavoriteRecipes() {
                 width="50px"
                 height="50px"
                 alt={ recipes.name }
+                onClick={ () => history.push(`/${recipes.type}s/${recipes.id}`) }
               />
 
               <li data-testid={ `${index}-horizontal-top-text` }>
@@ -73,6 +99,7 @@ function FavoriteRecipes() {
               <a
                 href={ `/${recipes.type}s/${recipes.id}` }
                 data-testid={ `${index}-horizontal-name` }
+                onClick={ () => history.push(`/${recipes.type}s/${recipes.id}`) }
               >
                 { recipes.name }
               </a>

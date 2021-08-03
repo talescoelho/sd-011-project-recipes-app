@@ -87,22 +87,22 @@ describe('Favorite recipes screen', () => {
     });
   });
 
-  // describe('63 - Desenvolva a solução de maneira que o botão de compartilhar deve copiar a URL da tela de detalhes da receita para o clipboard', () => {
-  //   it('Ao clicar no botão de compartilhar deve aparecer a mensagem "Link copiado!"', () => {
-  //     cy.get('[data-testid="0-horizontal-share-btn"]').click();
+  describe('63 - Desenvolva a solução de maneira que o botão de compartilhar deve copiar a URL da tela de detalhes da receita para o clipboard', () => {
+    it('Ao clicar no botão de compartilhar deve aparecer a mensagem "Link copiado!"', () => {
+      cy.get('[data-testid="0-horizontal-share-btn"]').click();
 
-  //     cy.contains('Link copiado!');
-  //   });
+      cy.contains('Link copiado!');
+    });
 
-  //   it('A URL da tela de detalhes da receita é copiada para o clipboard', () => {
-  //     cy.get('[data-testid="0-horizontal-share-btn"]').click();
+    it('A URL da tela de detalhes da receita é copiada para o clipboard', () => {
+      cy.get('[data-testid="0-horizontal-share-btn"]').click();
 
-  //     cy.window().then((win) => {
-  //       cy.wrap(win.navigator.clipboard.readText())
-  //         .should('eq', 'http://localhost:3000/comidas/52771');
-  //     });
-  //   });
-  // });
+      cy.window().then((win) => {
+        cy.wrap(win.navigator.clipboard.readText())
+          .should('eq', 'http://localhost:3000/comidas/52771');
+      });
+    });
+  });
 
   // describe('64 - Desenvolva a solução de maneira que o botão de "desfavoritar" deve remover a receita da lista de receitas favoritas do `localStorage` e da tela', () => {
   //   it('Ao clicar no botão de "desfavoritar" a respectiva receita é removida da tela', () => {
@@ -135,40 +135,40 @@ describe('Favorite recipes screen', () => {
   //   });
   // });
 
-  // describe('65 - Implemente 2 botões que filtram as receitas por comida ou bebida e um terceiro que remove todos os filtros', () => {
-  //   it('Ao clicar no botão "Food" as receitas devem ser filtradas por comidas', () => {
-  //     cy.get('[data-testid="filter-by-food-btn"]').click();
+  describe('65 - Implemente 2 botões que filtram as receitas por comida ou bebida e um terceiro que remove todos os filtros', () => {
+    it('Ao clicar no botão "Food" as receitas devem ser filtradas por comidas', () => {
+      cy.get('[data-testid="filter-by-food-btn"]').click();
 
-  //     cy.get('[data-testid="0-horizontal-name"]').contains(favoriteRecipes[0].name);
-  //     cy.get('[data-testid="1-horizontal-name"]').should('not.exist');
-  //   });
+      cy.get('[data-testid="0-horizontal-name"]').contains(favoriteRecipes[0].name);
+      cy.get('[data-testid="1-horizontal-name"]').should('not.exist');
+    });
 
-  //   it('Ao clicar no botão "Drinks" as receitas devem ser filtradas por bebidas', () => {
-  //     cy.get('[data-testid="filter-by-drink-btn"]').click();
-  //     cy.get('[data-testid="0-horizontal-name"]').contains(favoriteRecipes[1].name);
-  //     cy.get('[data-testid="1-horizontal-name"]').should('not.exist');
-  //   });
+    it('Ao clicar no botão "Drinks" as receitas devem ser filtradas por bebidas', () => {
+      cy.get('[data-testid="filter-by-drink-btn"]').click();
+      cy.get('[data-testid="0-horizontal-name"]').contains(favoriteRecipes[1].name);
+      cy.get('[data-testid="1-horizontal-name"]').should('not.exist');
+    });
 
-  //   it('Ao clicar no botão "All" o filtro deve ser removido', () => {
-  //     cy.get('[data-testid="filter-by-food-btn"]').click();
-  //     cy.get('[data-testid="filter-by-all-btn"]').click();
+    it('Ao clicar no botão "All" o filtro deve ser removido', () => {
+      cy.get('[data-testid="filter-by-food-btn"]').click();
+      cy.get('[data-testid="filter-by-all-btn"]').click();
 
-  //     cy.get('[data-testid="0-horizontal-name"]').contains(favoriteRecipes[0].name);
-  //     cy.get('[data-testid="1-horizontal-name"]').contains(favoriteRecipes[1].name);
-  //   });
-  // });
+      cy.get('[data-testid="0-horizontal-name"]').contains(favoriteRecipes[0].name);
+      cy.get('[data-testid="1-horizontal-name"]').contains(favoriteRecipes[1].name);
+    });
+  });
 
-  // describe('66 - Redirecione a pessoa usuária ao clicar na foto ou no nome da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
-  //   it('Ao clicar na foto da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
-  //     cy.get('[data-testid="0-horizontal-image"]').click();
+  describe('66 - Redirecione a pessoa usuária ao clicar na foto ou no nome da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
+    it('Ao clicar na foto da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
+      cy.get('[data-testid="0-horizontal-image"]').click();
 
-  //     cy.location().should((loc) => expect(loc.pathname).to.eq('/comidas/52771'));
-  //   });
+      cy.location().should((loc) => expect(loc.pathname).to.eq('/comidas/52771'));
+    });
 
-  //   it('Ao clicar no nome da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
-  //     cy.get('[data-testid="1-horizontal-name"]').click();
+    it('Ao clicar no nome da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
+      cy.get('[data-testid="1-horizontal-name"]').click();
 
-  //     cy.location().should((loc) => expect(loc.pathname).to.eq('/bebidas/178319'));
-  //   });
-  // });
+      cy.location().should((loc) => expect(loc.pathname).to.eq('/bebidas/178319'));
+    });
+  });
 });
