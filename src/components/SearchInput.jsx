@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as api from '../services/API';
 
@@ -133,13 +133,15 @@ class SearchInput extends Component {
                   ? <Redirect to={ `/${choice}/${API[0][choiceObj]}` } /> : (
                     API.slice(0, elements).map((recipe, index) => (
                       <div key={ index } data-testid={ `${index}-recipe-card` }>
-                        <img
-                          className="photo"
-                          src={ recipe[choiceObj1] }
-                          data-testid={ `${index}-card-img` }
-                          alt="Imagem da receita"
-                        />
-                        <p data-testid={ `${index}-card-name` }>{recipe[choiceObj2]}</p>
+                        <Link to={ `/${choice}/${recipe.idDrink}` }>
+                          <img
+                            className="photo"
+                            src={ recipe[choiceObj1] }
+                            data-testid={ `${index}-card-img` }
+                            alt="Imagem da receita"
+                          />
+                          <p data-testid={ `${index}-card-name` }>{recipe[choiceObj2]}</p>
+                        </Link>
                       </div>
                     ))
                   )}

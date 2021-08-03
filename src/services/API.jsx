@@ -17,7 +17,7 @@ export async function fetchAPISearchBarComidas(searchInput, option) {
     }
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput}`);
     const data = await response.json();
-    return data;
+    return data.meals;
   }
 }
 
@@ -40,7 +40,7 @@ export async function fetchAPISearchBarBebidas(searchInput, option) {
     }
     const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchInput}`);
     const data = await response.json();
-    return data;
+    return data.drinks;
   }
 }
 
@@ -62,6 +62,42 @@ export async function fetchMealDetails(idMeal) {
 }
 export async function fetchDrinkDetails(idDrink) {
   const response = await fetch(`www.themealdb.com/api/json/v1/1/lookup.php?i=${idDrink}`);
+  const data = await response.json();
+  return data.drinks;
+}
+
+export async function fetchAPIRandomMeal() {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+  const data = await response.json();
+  return data.meals;
+}
+
+export async function fetchAPIFoodCategories() {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+  const data = await response.json();
+  return data.meals;
+}
+
+export async function fetchAPIRandomCocktail() {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+  const data = await response.json();
+  return data.drinks;
+}
+
+export async function fetchAPIDrinkCategories() {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+  const data = await response.json();
+  return data.drinks;
+}
+
+export async function fetchAPIByFoodCategory(category) {
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+  const data = await response.json();
+  return data.meals;
+}
+
+export async function fetchAPIByDrinkCategory(category) {
+  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
   const data = await response.json();
   return data.drinks;
 }

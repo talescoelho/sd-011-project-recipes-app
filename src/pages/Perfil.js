@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import email from '../reducers/login';
 
 class Perfil extends Component {
   constructor() {
@@ -15,9 +14,9 @@ class Perfil extends Component {
     localStorage.clear();
   }
 
-  handleEmail() {
-    localStorage.getItem('user', JSON);
-  }
+  // handleEmail() {
+  // localStorage.getItem('user', JSON);
+  // }
 
   render() {
     const title = 'Perfil';
@@ -29,7 +28,7 @@ class Perfil extends Component {
           title={ title }
           lupa={ lupa }
         />
-        <h2 data-testid="profile-email">{ this.handleEmail }</h2>
+        <h2 data-testid="profile-email">email</h2>
         <Link to="/receitas-feitas">
           <button type="button" data-testid="profile-done-btn">Receitas Feitas</button>
         </Link>
