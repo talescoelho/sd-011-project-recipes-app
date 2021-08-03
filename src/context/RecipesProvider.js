@@ -9,6 +9,7 @@ function RecipesProvider({ children }) {
   const [mealsData, setMealsData] = useState([]);
   const [btnName, setBtnName] = useState('');
   const [toggle, setToggle] = useState(false);
+  const [currentCategory, setCurrentCategory] = useState('All');
 
   useEffect(() => {
     async function fetchMyAPI() {
@@ -23,6 +24,7 @@ function RecipesProvider({ children }) {
   async function resetFilter() {
     const defaultMeals = await fetchMeals();
     setMealsData(defaultMeals);
+    setCurrentCategory('All');
     const defaultDrinks = await fetchCocktails();
     setDrinksData(defaultDrinks);
   }
@@ -33,8 +35,8 @@ function RecipesProvider({ children }) {
       setToggle(true);
     } if (toggle && name === btnName) {
       setToggle(false);
-    } if (toggle && name !== btnName) {
       resetFilter();
+    } if (toggle && name !== btnName) {
       setBtnName(name);
     }
   }
@@ -48,6 +50,8 @@ function RecipesProvider({ children }) {
     toggle,
     setToggle,
     handleToggle,
+    currentCategory,
+    setCurrentCategory,
   };
 
   return (
