@@ -1,7 +1,5 @@
-.recipes-section {
+.cards-section {
   display: flex;
   flex-flow: row wrap;
-  height: 100%;
-  margin: 0 auto;
   width: 95%;
 }
