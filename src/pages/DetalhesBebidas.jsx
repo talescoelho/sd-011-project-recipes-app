@@ -208,7 +208,6 @@ class DetalhesBebidas extends Component {
                 data-testid={ `${index}-recomendation-card` }
                 className="recomendation-card"
               >
-                { console.log(meals) }
                 <img
                   className="img-card"
                   src={ value.strMealThumb }
