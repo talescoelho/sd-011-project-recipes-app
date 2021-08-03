@@ -7,7 +7,7 @@ import RecipesContext from '../context/RecipesContext';
 function CategoriesBar({ recipeType }) {
   const [mealsCategory, setMealsCategory] = useState([]);
   const [drinkCategory, setDrinksCategory] = useState([]);
-  const { setDrinksData, setMealsData,
+  const { setDrinksData, setMealsData, setCurrentCategory, currentCategory,
     resetFilter, handleToggle } = useContext(RecipesContext);
 
   useEffect(() => {
@@ -23,17 +23,24 @@ function CategoriesBar({ recipeType }) {
     fetchCategory();
   }, [recipeType]);
 
-  async function handleClick({ target }) {
-    const { value, name } = target;
-    if (recipeType === 'meals') {
-      const responseMeals = await fetchMealsByCategories(value);
-      setMealsData(responseMeals);
+  useEffect(() => {
+    async function getCategories() {
+      if (currentCategory !== 'All') {
+        if (recipeType === 'meals') {
+          const responseMeals = await fetchMealsByCategories(currentCategory);
+          setMealsData(responseMeals);
+        } else {
+          const responseDrinks = await fetchCocktailsByCategories(currentCategory);
+          setDrinksData(responseDrinks);
+        }
+      }
     }
-    if (recipeType === 'bebidas') {
-      const responseDrinks = await fetchCocktailsByCategories(value);
-      setDrinksData(responseDrinks);
-    }
-    handleToggle(name);
+    getCategories();
+  }, [currentCategory]);
+
+  function handleClick(strCategory) {
+    setCurrentCategory(strCategory);
+    handleToggle(strCategory);
   }
 
   function renderCategoryBar(strCategory, index) {
@@ -44,7 +51,7 @@ function CategoriesBar({ recipeType }) {
         type="button"
         id={ `${strCategory}-category-filter` }
         value={ strCategory }
-        onClick={ (e) => handleClick(e) }
+        onClick={ () => handleClick(strCategory) }
       >
         { strCategory }
       </button>

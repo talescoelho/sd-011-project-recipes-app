@@ -15,11 +15,10 @@ function Drinks() {
 
   return (
     <div>
-      <Header title="Bebidas" recipeType="drinks" />
-      <CategoriesBar recipeType="bebidas" />
       { drinksData.length === 1
         && <Redirect to={ `/bebidas/${drinksData[0].idDrink}` } /> }
       <Header title="Bebidas" recipeType="drinks" searchButton />
+      <CategoriesBar recipeType="bebidas" />
       { drinksData !== [] && drinksData.map((recipe, index) => (
         <Link
           to={ `/bebidas/${recipe.idDrink}` }

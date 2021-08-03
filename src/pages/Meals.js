@@ -7,15 +7,19 @@ import Footer from '../components/Footer';
 import CategoriesBar from '../components/CategoriesBar';
 
 function Meals() {
-  const { mealsData } = useContext(RecipesContext);
+  const { mealsData, currentCategory } = useContext(RecipesContext);
+  console.log(mealsData);
+  console.log(currentCategory);
+  if (mealsData.length === 1 && currentCategory === 'All') {
+    console.log(currentCategory);
+    console.log('redirecinou');
+    return <Redirect to={ `/comidas/${mealsData[0].idMeal}` } />;
+  }
 
   return (
     <div>
-      <Header title="Comidas" recipeType="meals" />
-      <CategoriesBar recipeType="meals" />
-      { mealsData.length === 1
-        && <Redirect to={ `/comidas/${mealsData[0].idMeal}` } /> }
       <Header title="Comidas" recipeType="meals" searchButton />
+      <CategoriesBar recipeType="meals" />
       { mealsData !== [] && mealsData.map((recipe, index) => (
         <Link
           to={ `/comidas/${recipe.idMeal}` }
