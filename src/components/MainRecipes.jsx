@@ -55,10 +55,15 @@ function MainRecipes({ foodOrDrink }) {
     if (e.target.value === buttonFilter) {
       setFilterButtonActive(false);
       setLoading(true);
+      setButtonFilter('');
       return;
     }
     setLoading(true);
     setButtonFilter(e.target.value);
+    if (e.target.value === 'all') {
+      setFilterButtonActive(false);
+      return;
+    }
     setFilterButtonActive(true);
   }
 
@@ -89,6 +94,14 @@ function MainRecipes({ foodOrDrink }) {
                   </button>
                 ))
             )}
+            <button
+              type="button"
+              value="all"
+              onClick={ (e) => handleClick(e) }
+              data-testid="All-category-filter"
+            >
+              All
+            </button>
           </div>
           <div>
             {mainItems
