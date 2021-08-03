@@ -220,3 +220,20 @@ describe(`28 - Implemente o filtro das receitas através da API ao clicar no fil
     await testRecipeCard(meals, 1);
   });
 });
+
+describe(`29 - Implemente o filtro como um toggle, que se for selecionado de novo, o app 
+deve retornar as receitas sem nenhum filtro`, () => {
+  it(`Caso as receitas sejam de comida e o filtro tenha sido selecionado novamente, 
+  deve-se retornar as 12 primeiras receitas sem filtro`, async () => {
+    mockFilterMealByCategory(mealsFilterByBeef);
+
+    renderWithRouterAndStore(<Foods />, '/comidas');
+
+    const beefFilterOption = await screen.findByTestId('Beef-category-filter');
+    fireEvent.click(beefFilterOption);
+    fireEvent.click(beefFilterOption);
+
+    const { meals } = mealsFiltersByAll;
+    await testRecipeCard(meals, maxDefaultCards);
+  });
+});

@@ -237,3 +237,22 @@ describe(`28 - Implemente o filtro das receitas através da API ao clicar no fil
     await testRecipeCard(drinks, maxCocoaCards);
   });
 });
+
+describe(`29 - Implemente o filtro como um toggle, que se for selecionado de novo, o app 
+deve retornar as receitas sem nenhum filtro`, () => {
+  it(`Caso as receitas sejam de bebidas e o filtro tenha sido selecionado novamente, 
+  deve-se retornar as 12 primeiras receitas sem filtro`, async () => {
+    mockFilterDrinkByCategory(drinksFilterByOrdinaryDrink);
+
+    renderWithRouterAndStore(<Drinks />, '/bebidas');
+
+    const ordinaryDrinkFilterOption = await screen.findByTestId(
+      'Ordinary Drink-category-filter',
+    );
+    fireEvent.click(ordinaryDrinkFilterOption);
+    fireEvent.click(ordinaryDrinkFilterOption);
+
+    const { drinks } = drinksFiltersByAll;
+    await testRecipeCard(drinks, maxDefaultCards);
+  });
+});
