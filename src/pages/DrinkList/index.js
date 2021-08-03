@@ -3,11 +3,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import FooterMenu from '../../components/FooterMenu';
 import Header from '../../components/Header';
+import RenderDrinks from './RenderDrinks';
 
-const DrinkList = ({ receiveData, fetched }) => {
-  const renderReceiveDataDrinks = () => {
+const DrinkList = ({ receiveData, isFetching }) => {
+  const renderFilteredReceiveDataDrinks = () => {
     const maxRender = 12;
-    if (receiveData && receiveData.drinks !== null) {
+    if (receiveData.drinks === null) {
+      // eslint-disable-next-line no-alert
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+    if (receiveData.drinks && !isFetching && receiveData.drinks !== null) {
       const filteredData = receiveData.drinks.filter((item, index) => index < maxRender);
       return (
         <div>
@@ -25,24 +30,20 @@ const DrinkList = ({ receiveData, fetched }) => {
         </div>
       );
     }
-    if (receiveData.drinks === null) {
-      // eslint-disable-next-line no-alert
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    }
   };
 
   return (
     <div>
       <Header />
-      { fetched && receiveData ? <div>{ renderReceiveDataDrinks() }</div>
-        : <p>Pesquise por uma bebida.</p> }
+      { receiveData.length < 1 || !receiveData.drinks ? <RenderDrinks />
+        : <div>{ renderFilteredReceiveDataDrinks() }</div> }
       <FooterMenu />
     </div>
   );
 };
 
 DrinkList.propTypes = {
-  fetched: PropTypes.string.isRequired,
+  isFetching: PropTypes.bool.isRequired,
   receiveData: PropTypes.shape({
     drinks: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
@@ -50,13 +51,17 @@ DrinkList.propTypes = {
 
 const mapStateToProps = (state) => ({
   receiveData: state.searchBarReducer.receiveData,
-  fetched: state.searchBarReducer.fetched,
+  isFetching: state.searchBarReducer.isFetching,
 });
 
 export default connect(mapStateToProps)(DrinkList);
 
+DrinkList.defaultProps = {
+  drinks: {},
+};
+
 DrinkList.propTypes = {
-  receiveData: PropTypes.func.isRequired,
-  fetched: PropTypes.bool.isRequired,
-  drinks: PropTypes.objectOf(PropTypes.string).isRequired,
+  receiveData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  drinks: PropTypes.objectOf(PropTypes.string),
 };
