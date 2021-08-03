@@ -1,7 +1,14 @@
-import React from 'react';
+const INITIAL_STATE = {
+  searcResults: [],
+};
 
-export default function mecanics() {
-  return (
-    <div />
-  );
+function Mechanics(state = INITIAL_STATE, action) {
+  switch (action.type) {
+  case 'MODIFY_SEARCH_RESULTS':
+    return { ...state, searcResults: action.payload };
+  default:
+    return state;
+  }
 }
+
+export default Mechanics;

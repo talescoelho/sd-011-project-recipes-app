@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
 import SearchIcon from '../images/searchIcon.svg';
 
-export default function SearchBarBtn({ haveSearchBtn }) {
+export default function SearchBarBtn({ haveSearchBtn, searchTrigger }) {
   const [isHidden, setHidden] = useState(true);
 
   return (
@@ -28,7 +28,7 @@ export default function SearchBarBtn({ haveSearchBtn }) {
       {
         !isHidden
       && (
-        <SearchBar />
+        <SearchBar searchTrigger={ searchTrigger } />
       )
       }
     </div>
@@ -37,4 +37,5 @@ export default function SearchBarBtn({ haveSearchBtn }) {
 
 SearchBarBtn.propTypes = {
   haveSearchBtn: PropTypes.bool.isRequired,
+  searchTrigger: PropTypes.string.isRequired,
 };

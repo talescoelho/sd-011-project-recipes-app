@@ -5,7 +5,7 @@ import SearchBarBtn from './SearchBarBtn';
 
 import ProfileIcon from '../images/profileIcon.svg';
 
-export default function Header({ title, haveSearchBtn }) {
+export default function Header({ title, haveSearchBtn, searchTrigger }) {
   return (
     <header>
       <h1 data-testid="page-title">{title}</h1>
@@ -21,7 +21,7 @@ export default function Header({ title, haveSearchBtn }) {
           />
         </button>
       </Link>
-      <SearchBarBtn haveSearchBtn={ haveSearchBtn } />
+      <SearchBarBtn haveSearchBtn={ haveSearchBtn } searchTrigger={ searchTrigger } />
     </header>
   );
 }
@@ -29,4 +29,5 @@ export default function Header({ title, haveSearchBtn }) {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   haveSearchBtn: PropTypes.bool.isRequired,
+  searchTrigger: PropTypes.string.isRequired,
 };
