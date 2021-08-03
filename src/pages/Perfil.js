@@ -19,6 +19,8 @@ class Perfil extends Component {
   // }
 
   render() {
+    const email = JSON.parse(localStorage.getItem('user'));
+    console.log(email);
     const title = 'Perfil';
     const lupa = 'desligada';
     return (
@@ -28,7 +30,7 @@ class Perfil extends Component {
           title={ title }
           lupa={ lupa }
         />
-        <h2 data-testid="profile-email">email</h2>
+        <h2 data-testid="profile-email">{ email.email }</h2>
         <Link to="/receitas-feitas">
           <button type="button" data-testid="profile-done-btn">Receitas Feitas</button>
         </Link>
