@@ -9,11 +9,6 @@ import DrinkDetails from './pages/DrinkDetails';
 
 import HomeRecipe from './pages/HomeRecipe';
 import HomeDrinks from './pages/HomeDrinks';
-<<<<<<< HEAD
-
-import RecipeDetails from './pages/RecipeDetails';
-=======
->>>>>>> 4cba715a8076933e9cf6d4cdb8d4ed87732681db
 import RecipesInProgress from './pages/RecipeInProgress';
 import Explore from './pages/explore/Explore';
 import ExploreRecipes from './pages/explore/ExploreRecipes';
@@ -29,12 +24,6 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-<<<<<<< HEAD
-        <Route exact path="/comidas" component={ HomeRecipe } />
-        <Route exact path="/bebidas" component={ HomeDrinks } />
-        <Route exact path="/comidas/:id" component={ RecipeDetails } />
-        <Route exact path="/bebidas/:id" component={ RecipeDetails } />
-=======
         <Route
           exact
           path="/comidas/:id"
@@ -47,7 +36,6 @@ function App() {
         />
         <Route exact path="/comidas" component={ HomeRecipe } />
         <Route exact path="/bebidas" component={ HomeDrinks } />
->>>>>>> 4cba715a8076933e9cf6d4cdb8d4ed87732681db
         <Route
           path="/comidas/:id/in-progress"
           component={ RecipesInProgress }
