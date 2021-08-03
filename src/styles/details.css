@@ -1,0 +1,14 @@
+.carousel {
+  width: 100vw;
+  display: flex;
+  overflow-x: auto;
+}
+
+.carousel-item {
+  flex: none;
+  width: 50vw;
+}
+
+.carousel-item img {
+  width: 45vw;
+}

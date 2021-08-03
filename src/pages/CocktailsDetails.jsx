@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Cocktails } from '../services';
 import Ingredients from '../components/Ingredients';
 import Recommendations from '../components/Recommendations';
+import '../styles/details.css';
 
 export default function CocktailsDetails() {
   const [recipe, setRecipe] = useState(null);
