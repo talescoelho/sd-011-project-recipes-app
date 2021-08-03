@@ -1,8 +1,9 @@
 import React from 'react';
+import shareIcon from '../images/shareIcon.svg';
 
 const DoneRecipes = () => {
   const [recipes, setRecipes] = React.useState([]);
-  const [filteredRecipes, setFilteredRecipe] = React.useState(null);
+  const [filteredRecipes, setFilteredRecipe] = React.useState([]);
 
   // [{
   //   id: id-da-receita,
@@ -60,6 +61,27 @@ const DoneRecipes = () => {
       >
         Drinks
       </button>
+      <div>
+        {filteredRecipes.map((recipe, index) => {
+          const { image, id, category, name } = recipe;
+          return (
+            <div key={ id }>
+              <img src={ image } alt="" data-testid={ `${index}-horizontal-image` } />
+              <p data-testid={ `${index}-horizontal-top-text` }>{category}</p>
+              <h3 data-testid={ `${index}-horizontal-name` }>{ name }</h3>
+              <p data-testid={ `${index}-horizontal-done-date` }>{id}</p>
+              <button type="button">
+                <img
+                  src={ shareIcon }
+                  alt=""
+                  data-testid={ `${index}-horizontal-share-btn` }
+                />
+              </button>
+              {/* <p data-testid={ `${index}--horizontal-tag` }>{id}</p> */}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
