@@ -4,18 +4,17 @@ import { useHistory } from 'react-router';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './SearchBar';
-import AreaSelect from './AreaSelect'
+import AreaSelect from './AreaSelect';
 
 function Header({ mealOrDrink, buttonExists, title, searchOrSelect }) {
   const [searchClicked, setSearchClicked] = React.useState(false);
   const history = useHistory();
-  const checker = () =>{
-    if (searchOrSelect === "search"){
-      return  <SearchBar mealOrDrink={ mealOrDrink } />
-    }else{
-      return  <AreaSelect />
+  const checker = () => {
+    if (searchOrSelect === 'search') {
+      return <SearchBar mealOrDrink={ mealOrDrink } />;
     }
-  }
+    return <AreaSelect />;
+  };
   return (
     <div>
       <button
@@ -57,6 +56,7 @@ function Header({ mealOrDrink, buttonExists, title, searchOrSelect }) {
 Header.propTypes = {
   buttonExists: PropTypes.bool.isRequired,
   mealOrDrink: PropTypes.string.isRequired,
+  searchOrSelect: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
 

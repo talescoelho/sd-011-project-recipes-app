@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Profile() {
   const history = useHistory();
@@ -8,7 +10,7 @@ function Profile() {
   });
 
   useEffect(() => {
-    const { email } = JSON.parse(localStorage.getItem('user'));
+    const { email } = JSON.parse(localStorage.getItem('user')) || '';
     setUserState({ email });
   }, []);
 
@@ -20,6 +22,7 @@ function Profile() {
   const { email } = userstate;
   return (
     <div>
+      <Header title="Perfil" />
       <span data-testid="profile-email">{ email }</span>
       <button
         data-testid="profile-favorite-btn"
@@ -42,6 +45,7 @@ function Profile() {
       >
         Sair
       </button>
+      <Footer />
     </div>
   );
 }
