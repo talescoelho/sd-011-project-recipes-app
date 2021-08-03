@@ -27,6 +27,7 @@ function SearchForm({ type }) {
         onChange={ ({ target }) => setSearchTerm(target.value) }
         data-testid="search-input"
       />
+      <br />
       <label htmlFor="ingrediente">
         <input
           id="ingrediente"

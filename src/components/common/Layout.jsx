@@ -1,12 +1,16 @@
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProfileIcon from '../../images/profileIcon.svg';
 import SearchIcon from '../../images/searchIcon.svg';
 import { useTheme } from '../../hooks';
+import SearchForm from '../Home/SearchForm';
 
 function Layout({ children, title, search, noHeader }) {
   const { colors } = useTheme();
+
+  const [showInput, setShowInput] = useState(false);
+
   useEffect(() => {
     const defaultTitle = 'App de Receitas';
     document.title = title ? `${title} | ${defaultTitle}` : defaultTitle;
@@ -18,6 +22,11 @@ function Layout({ children, title, search, noHeader }) {
       color: colors.primaryColor,
     },
   };
+  const handleShowSeachInput = () => (
+    showInput ? setShowInput(false) : setShowInput(true)
+  );
+
+  const handleTypeRequisition = () => (title === 'Comidas' ? 'meals' : 'drinks');
 
   return (
     <>
@@ -32,14 +41,20 @@ function Layout({ children, title, search, noHeader }) {
           </Link>
           <h3 data-testid="page-title">{ title }</h3>
           { search
-            ? (
-              <img
-                data-testid="search-top-btn"
-                alt="Buscar receitas"
-                src={ SearchIcon }
-              />
-            )
-            : null}
+            && (
+              <button
+                type="button"
+                onClick={ () => handleShowSeachInput() }
+              >
+                <img
+                  data-testid="search-top-btn"
+                  alt="Buscar receitas"
+                  src={ SearchIcon }
+                />
+              </button>
+            )}
+          {showInput && <SearchForm type={ handleTypeRequisition() } />}
+
         </header>)}
       { children }
       <footer />

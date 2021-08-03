@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, SearchForm, CocktailsList } from '../components';
+import { Layout, RecipeList } from '../components';
 import { useTheme } from '../hooks';
 
 function Foods() {
@@ -11,10 +11,9 @@ function Foods() {
     },
   };
   return (
-    <Layout title="Comidas">
+    <Layout title="Comidas" search>
       <main style={ styles.main }>
-        <SearchForm type="cocktails" />
-        <CocktailsList />
+        <RecipeList />
       </main>
     </Layout>
   );
