@@ -16,6 +16,7 @@ import MadeRecipes from './pages/MadeRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import ExploreFoodByArea from './pages/ExploreFoodByArea';
 import Profilepage from './pages/ProfilePage';
+import NotFound from './pages/NotFound';
 
 function Routes() {
   return (
@@ -52,6 +53,7 @@ function Routes() {
       <Route path="/explorar/comidas/area" component={ ExploreFoodByArea } />
       <Route path="/perfil" component={ Profilepage } />
       <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+      <Route component={ NotFound } />
     </Switch>
   );
 }
