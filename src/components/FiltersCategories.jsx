@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import '../styles/FiltersCategories.css';
+import { useHistory } from 'react-router-dom';
+import RecipesContext from '../context/RecipesContext';
 
 function FiltersCategories() {
+  const history = useHistory();
+  const { location: { pathname } } = history;
   const [categories, setCategories] = useState([]);
+  const { setCompare, setLoading } = useContext(RecipesContext);
 
   useEffect(() => {
     const requisitionFilters = async () => {
-      const vinteUm = 21;
-      const currentURL = document.URL.slice(vinteUm);
       const cinco = 5;
-      if (currentURL === '/comidas') {
+      if (pathname === '/comidas') {
         const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
         const responseFoods = await response.json();
         const { meals } = responseFoods;
         return setCategories(meals.slice(0, cinco));
       }
-      if (currentURL === '/bebidas') {
+      if (pathname === '/bebidas') {
         const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
         const responseDrinks = await response.json();
         const { drinks } = responseDrinks;
@@ -23,7 +26,27 @@ function FiltersCategories() {
       }
     };
     requisitionFilters();
-  }, []);
+  }, [pathname]);
+
+  async function categoryFilter({ target }) {
+    const doze = 12;
+    if (pathname === '/comidas') {
+      setLoading(true);
+      const ConsultAPICategories = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${target.name}`);
+      const response = await ConsultAPICategories.json();
+      const { meals } = response;
+      setCompare(!meals ? [] : meals.slice(0, doze));
+      setLoading(false);
+    }
+    if (pathname === '/bebidas') {
+      setLoading(true);
+      const ConsultAPICategories = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${target.name}`);
+      const response = await ConsultAPICategories.json();
+      const { drinks } = response;
+      setCompare(!drinks ? [] : drinks.slice(0, doze));
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="container-categories">
@@ -32,7 +55,9 @@ function FiltersCategories() {
           data-testid={ `${category.strCategory}-category-filter` }
           className="button-categories"
           type="button"
+          name={ category.strCategory }
           key={ index }
+          onClick={ (e) => categoryFilter(e) }
         >
           {category.strCategory}
         </button>))}
