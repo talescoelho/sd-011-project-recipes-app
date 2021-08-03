@@ -46,8 +46,6 @@ class Comidas extends Component {
   }
 
   render() {
-    let { allRecipes } = this.props;
-    allRecipes = allRecipes.slice(0, TWELVE);
     return (
       <div>
         <Header title="Comidas" mode="comidas" hasSearchBar />
@@ -70,6 +68,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Comidas.propTypes = {
   allRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  generalRecipesFood: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comidas);

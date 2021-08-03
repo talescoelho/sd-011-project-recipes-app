@@ -8,7 +8,6 @@ const INITIAL_STATE = {
 // @todo criar action que vai fazer o fetch das categorias
 // @todo o componente did mount chamará a nova action para criação dos botões
 
-
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case actions.REQUEST_SUCCESS:

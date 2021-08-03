@@ -92,7 +92,7 @@ export function generalRecipesFood() {
     fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
       .then((response) => response.json())
       .then(
-        (json) => dispatch(handleRequestSuccess(json.meals))
+        (json) => dispatch(handleRequestSuccess(json.meals)),
       );
   };
 }
@@ -102,9 +102,9 @@ export function generalRecipesDrink() {
     fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
       .then((response) => response.json())
       .then(
-        (json) => dispatch(handleRequestSuccess(json.drinks))
+        (json) => dispatch(handleRequestSuccess(json.drinks)),
       );
-  }
+  };
 }
 
 export const setEmail = (payload) => ({
