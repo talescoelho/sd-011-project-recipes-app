@@ -1,17 +1,30 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
-import SearchBar from '../components/SearchBar';
 import Footer from '../components/Footer';
 import { SearchBarProvider } from '../context/SearchBar';
 
 export default function Explorer() {
+  const history = useHistory();
   return (
     <>
-      <Header title="Explorar" search={ false } />
       <SearchBarProvider>
-        <SearchBar fetchType="thecocktaildb" />
+        <Header title="Explorar" search={ false } />
       </SearchBarProvider>
-      <h3>Explorer</h3>
+      <button
+        type="button"
+        data-testid="explore-food"
+        onClick={ () => history.push('/explorar/comidas') }
+      >
+        Explorar Comidas
+      </button>
+      <button
+        type="button"
+        data-testid="explore-drinks"
+        onClick={ () => history.push('/explorar/bebidas') }
+      >
+        Explorar Bebidas
+      </button>
       <Footer />
     </>
   );
