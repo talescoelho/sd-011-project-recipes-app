@@ -37,14 +37,30 @@ export const getRecipes = createAsyncThunk(
       drinksCategories: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
       randomFoodRecipe: 'https://www.themealdb.com/api/json/v1/1/random.php',
       randomDrinkRecipe: 'https://www.thecocktaildb.com/api/json/v1/1/random.php',
+      foodByIngredients: `https://www.themealdb.com/api/json/v1/1/filter.php?i=${input}`,
+      drinkByIngredients: `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${input}`,
+      foodFirstLetter: `https://www.themealdb.com/api/json/v1/1/search.php?f=${input}`,
+      drinkFirstLetter: `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${input}`,
+      foodByName: `https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`,
+      drinkByName: `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${input}`,
     };
-    const response = await fetch(URLDictionary[actionName]).then((res) => res.json());
+    const response = await fetch(URLDictionary[actionName]).then((res) => res.json())
+      .catch((error) => error);
+    console.log(response);
     return {
       response,
       actionName,
     };
   },
 );
+
+export const foodsAction = [
+  'foodByIngredients', 'foodFirstLetter', 'foodByName', 'filterByFoodCategorie',
+];
+export const drinksAction = [
+  'drinkByIngredients', 'drinkFirstLetter', 'drinkByName', 'filterByDrinkCategorie',
+];
+
 const fetchReceitasSlice = createSlice({
   name: 'fetchRecipes',
   initialState,
@@ -60,11 +76,17 @@ const fetchReceitasSlice = createSlice({
     [getRecipes.fulfilled]: (state, action) => {
       const { actionName, response } = action.payload;
       state[actionName] = response;
-      if (actionName === 'filterByFoodCategorie') {
+      state.error = null;
+      if (foodsAction.includes(actionName)) {
         state.foods = response;
+        if (response.meals === null) state.error = 'Sem resultado';
       }
-      if (actionName === 'filterByDrinkCategorie') {
+      if (drinksAction.includes(actionName)) {
         state.drinks = response;
+        if (response.drinks === null) state.error = 'Sem resultado';
+      }
+      if (response instanceof Error) {
+        state.error = response;
       }
       state.loading = false;
     },

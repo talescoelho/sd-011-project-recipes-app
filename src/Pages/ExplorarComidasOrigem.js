@@ -24,6 +24,7 @@ function ExplorarComidasOrigem({ title }) {
     );
   }
   return null;
+}
 
 export default ExplorarComidasOrigem;
 
