@@ -1,19 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 
 const DoneRecipes = () => {
   const [recipes, setRecipes] = React.useState([]);
   const [filteredRecipes, setFilteredRecipe] = React.useState([]);
-
-  // [{
-  //   id: id-da-receita,
-  //   type: comida-ou-bebida,
-  //   area: area-da-receita-ou-texto-vazio,
-  //   category: categoria-da-receita-ou-texto-vazio,
-  //   alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
-  //   name: nome-da-receita,
-  //   image: imagem-da-receita
-  // }]
+  const [messageClipboard, setMessageClipboard] = React.useState(null);
+  const [indexOfMessageClipboard, setIndexOfMessageClipboard] = React.useState(null);
 
   React.useEffect(() => {
     const doneRecipes = localStorage.getItem('doneRecipes');
@@ -23,8 +16,6 @@ const DoneRecipes = () => {
     }
   }, []);
 
-  console.log(recipes);
-  console.log(filteredRecipes);
   function handleClickBtnFilters({ target: { value } }) {
     if (value === 'comida') {
       setFilteredRecipe(recipes.filter((recipe) => recipe.type === 'comida'));
@@ -33,6 +24,18 @@ const DoneRecipes = () => {
     } else {
       setFilteredRecipe(recipes);
     }
+  }
+
+  function handleClick(index, type, id) {
+    const url = window.location.href.split('/receitas-feitas')[0];
+    navigator.clipboard.writeText(`${url}/${type}s/${id}`);
+    setMessageClipboard('Link copiado!');
+    setIndexOfMessageClipboard(index);
+    const time = 3000;
+    setTimeout(() => {
+      setMessageClipboard(null);
+      setMessageClipboard(null);
+    }, time);
   }
 
   return (
@@ -63,21 +66,52 @@ const DoneRecipes = () => {
       </button>
       <div>
         {filteredRecipes.map((recipe, index) => {
-          const { image, id, category, name } = recipe;
+          const {
+            image,
+            type,
+            id, category, name, area, alcoholicOrNot, doneDate, tags } = recipe;
+          console.log(doneDate, tags);
           return (
             <div key={ id }>
-              <img src={ image } alt="" data-testid={ `${index}-horizontal-image` } />
-              <p data-testid={ `${index}-horizontal-top-text` }>{category}</p>
-              <h3 data-testid={ `${index}-horizontal-name` }>{ name }</h3>
-              <p data-testid={ `${index}-horizontal-done-date` }>{id}</p>
-              <button type="button">
+              <Link to={ `/${type}s/${id}` }>
+                <img
+                  className="top-img"
+                  src={ image }
+                  alt=""
+                  data-testid={ `${index}-horizontal-image` }
+                />
+                <h3 data-testid={ `${index}-horizontal-name` }>{ name }</h3>
+              </Link>
+              {area ? (
+                <p
+                  data-testid={ `${index}-horizontal-top-text` }
+                >
+                  { `${area} - ${category}` }
+                </p>
+              ) : (
+                <p
+                  data-testid={ `${index}-horizontal-top-text` }
+                >
+                  { alcoholicOrNot }
+                </p>
+              )}
+              <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
+              <button type="button" onClick={ () => handleClick(index, type, id) }>
                 <img
                   src={ shareIcon }
                   alt=""
                   data-testid={ `${index}-horizontal-share-btn` }
                 />
               </button>
-              {/* <p data-testid={ `${index}--horizontal-tag` }>{id}</p> */}
+              {index === indexOfMessageClipboard && <p>{messageClipboard}</p>}
+              {tags.length > 0 && tags.map((tag) => (
+                <p
+                  key={ tag }
+                  data-testid={ `${index}-${tag}-horizontal-tag` }
+                >
+                  { tag }
+                </p>
+              ))}
             </div>
           );
         })}
