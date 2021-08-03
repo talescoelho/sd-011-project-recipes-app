@@ -10,11 +10,12 @@ function FavBtn({ data, recipeType }) {
   const addFavorite = () => {
     const recipeInfo = {
       id,
-      recipeType,
+      type: recipeType,
       area: recipeType === 'meals' ? data.strArea : '',
       alcoholicOrNot: recipeType === 'meals' ? '' : data.strAlcoholic,
       name: recipeType === 'meals' ? data.strMeal : data.strDrink,
       image: recipeType === 'meals' ? data.strMealThumb : data.strDrinkThumb,
+      category: data.strCategory,
     };
     if (localStorage.favoriteRecipes) {
       const favorites = JSON.parse(localStorage.favoriteRecipes);
@@ -37,14 +38,14 @@ function FavBtn({ data, recipeType }) {
   if (!localStorage.favoriteRecipes
     || !(JSON.parse(localStorage.favoriteRecipes)).find((recipe) => recipe.id === id)) {
     return (
-      <button type="button" onClick={ addFavorite } data-testid="favorite-btn">
-        <img src={ whiteHeartIcon } alt="favorite icon" />
+      <button type="button" onClick={ addFavorite }>
+        <img src={ whiteHeartIcon } data-testid="favorite-btn" alt="favorite icon" />
       </button>
     );
   }
   return (
-    <button type="button" onClick={ removeFavorite } data-testid="favorite-btn">
-      <img src={ blackHeartIcon } alt="favorite icon" />
+    <button type="button" onClick={ removeFavorite }>
+      <img src={ blackHeartIcon } data-testid="favorite-btn" alt="favorite icon" />
     </button>
   );
 }

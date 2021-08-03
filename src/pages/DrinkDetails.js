@@ -29,7 +29,7 @@ function MealDetails(
   if (recipeDetailsData.drinks) {
     const { drinks } = recipeDetailsData;
     const data = drinks[0];
-    const { strDrink, strDrinkThumb, strCategory, strInstructions } = data;
+    const { strDrink, strDrinkThumb, strAlcoholic, strInstructions } = data;
     const ingredientsAndMesure = objToArryOfObj(data);
 
     return (
@@ -39,7 +39,7 @@ function MealDetails(
         <h1 data-testid="recipe-title">{ strDrink }</h1>
         <ShareBtn url={ match.url } />
         <FavBtn data={ data } recipeType="drinks" />
-        <span data-testid="recipe-category">{ strCategory }</span>
+        <span data-testid="recipe-category">{ strAlcoholic }</span>
         <IngredientsList list={ ingredientsAndMesure } />
         <p data-testid="instructions">{strInstructions}</p>
         <CarouselRecipes data={ recipesData.meals } recipeType="meals" />

@@ -50,11 +50,12 @@ function RecipeStageBtn({ id, recipeType, ingredients }) {
     return (
       <Link to={ URL }>
         <button
+          className="btn-start-recipe"
           type="button"
           data-testid="start-recipe-btn"
           onClick={ generateProgressRecipe }
         >
-          Começar Receita
+          Iniciar Receita
         </button>
       </Link>
     );

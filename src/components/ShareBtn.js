@@ -7,8 +7,9 @@ const copy = require('clipboard-copy');
 function ShareBtn({ url }) {
   const [copyMessage, setCopyMessage] = useState(false);
   const handleClick = () => {
-    copy(`localhost:3000${url}`);
+    copy(`http://localhost:3000${url}`);
     setCopyMessage(true);
+    alert('Link copiado!');
   };
 
   return (

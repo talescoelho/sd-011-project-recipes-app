@@ -1,3 +1,8 @@
+.btn-start-recipe {
+  position: fixed;
+  bottom: 0px;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
@@ -35,34 +40,4 @@
   font-family: Montserrat , sans-serif;
   font-size: 3em;
   font-weight: 900;
-}
-
-@keyframes shake {
-
-  0% {
-    transform: rotate(5deg);
-  }
-
-  50% {
-    transform: rotate(-5deg);
-  }
-
-  100% {
-    transform: rotate(5deg);
-  }
-}
-
-@keyframes clink {
-
-  0% {
-    transform: rotate(-10deg);
-  }
-
-  50% {
-    transform: rotate(20deg);
-  }
-
-  100% {
-    transform: rotate(-10deg);
-  }
 }
