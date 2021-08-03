@@ -7,11 +7,28 @@ import Header from '../../components/Header';
 import * as actions from '../../actions';
 
 const TWELVE = 12;
+const FIVE = 5;
 
 class Bebidas extends Component {
   componentDidMount() {
-    const { generalRecipesDrink } = this.props;
+    const { generalRecipesDrink, categoriesDrink } = this.props;
     generalRecipesDrink();
+    categoriesDrink();
+  }
+
+  renderFilters() {
+    let { allCategories } = this.props;
+    allCategories = allCategories.slice(0, FIVE);
+
+    return allCategories.map((item, index) => (
+      <button
+        className="filter-btn"
+        type="button"
+        data-testid={`${item.strCategory}-category-filter`}
+        key={ index }
+      >{item.strCategory}
+      </button>
+    ))
   }
 
   renderDrinks() {
@@ -49,6 +66,9 @@ class Bebidas extends Component {
     return (
       <div>
         <Header title="Bebidas" mode="bebidas" hasSearchBar />
+        <div className="filter-list">
+          {this.renderFilters()}
+        </div>
         <div className="card-list">
           {this.renderDrinks()}
         </div>
@@ -60,15 +80,18 @@ class Bebidas extends Component {
 
 const mapStateToProps = (state) => ({
   allRecipes: state.recipes.allRecipes,
+  allCategories: state.recipes.allCategories,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   generalRecipesDrink: () => dispatch(actions.generalRecipesDrink()),
+  categoriesDrink: () => dispatch(actions.categoriesDrink()),
 });
 
 Bebidas.propTypes = {
   allRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
   generalRecipesDrink: PropTypes.func.isRequired,
+  categoriesDrink: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bebidas);

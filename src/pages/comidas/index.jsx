@@ -7,11 +7,27 @@ import Header from '../../components/Header';
 import * as actions from '../../actions';
 
 const TWELVE = 12;
-
+const FIVE = 5;
 class Comidas extends Component {
   componentDidMount() {
-    const { generalRecipesFood } = this.props;
+    const { generalRecipesFood, categoriesFood } = this.props;
     generalRecipesFood();
+    categoriesFood();
+  }
+
+  renderFilters() {
+    let { allCategories } = this.props;
+    allCategories = allCategories.slice(0, FIVE);
+
+    return allCategories.map((item, index) => (
+      <button
+        className="filter-btn"
+        type="button"
+        data-testid={`${item.strCategory}-category-filter`}
+        key={ index }
+      >{item.strCategory}
+      </button>
+    ))
   }
 
   renderFoods() {
@@ -49,6 +65,9 @@ class Comidas extends Component {
     return (
       <div>
         <Header title="Comidas" mode="comidas" hasSearchBar />
+        <div className="filter-list">
+          {this.renderFilters()}
+        </div>
         <div className="card-list">
           {this.renderFoods()}
         </div>
@@ -60,15 +79,18 @@ class Comidas extends Component {
 
 const mapStateToProps = (state) => ({
   allRecipes: state.recipes.allRecipes,
+  allCategories: state.recipes.allCategories,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   generalRecipesFood: () => dispatch(actions.generalRecipesFood()),
+  categoriesFood: () => dispatch(actions.categoriesFood()),
 });
 
 Comidas.propTypes = {
   allRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
   generalRecipesFood: PropTypes.func.isRequired,
+  categoriesFood: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comidas);

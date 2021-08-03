@@ -1,4 +1,5 @@
 export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
+export const CATEGORIES_SUCCESS = 'CATEGORIES_SUCCESS';
 export const USER_EMAIL = 'USER_EMAIL';
 const MESSAGE_ALERT = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
@@ -7,6 +8,10 @@ function handleRequestSuccess(result) {
     result = [];
   }
   return { type: REQUEST_SUCCESS, payload: result };
+}
+
+function handleCategoriesSuccess(result) {
+  return { type: CATEGORIES_SUCCESS, payload: result };
 }
 
 function defaultFunctionFood(dispatch, json) {
@@ -103,6 +108,26 @@ export function generalRecipesDrink() {
       .then((response) => response.json())
       .then(
         (json) => dispatch(handleRequestSuccess(json.drinks)),
+      );
+  };
+}
+
+export function categoriesFood() {
+  return (dispatch) => {
+    fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
+      .then((response) => response.json())
+      .then(
+        (json) => dispatch(handleCategoriesSuccess(json.meals)),
+      );
+  };
+}
+
+export function categoriesDrink() {
+  return (dispatch) => {
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
+      .then((response) => response.json())
+      .then(
+        (json) => dispatch(handleCategoriesSuccess(json.drinks)),
       );
   };
 }
