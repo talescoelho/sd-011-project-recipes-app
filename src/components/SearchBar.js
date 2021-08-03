@@ -67,13 +67,12 @@ function SearchBar({ mealOrDrink }) {
           if (search.length > 1 && radioQuery === 'primeiraletra') {
             alert('Sua busca deve conter somente 1 (um) caracter'); // eslint-disable-line no-alert
           }
-
           dispatch(await searchCase(mealOrDrink, radioQuery, search));
         } }
       >
         Buscar
       </button>
-      {stateReduxSearch.giveId
+      { stateReduxSearch.giveId
         && (
           <Redirect
             to={ `/${comidasOuBebidas}/${dataApi[mealsOrDrinks][0][`id${caseMOrD}`]}` }

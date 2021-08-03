@@ -96,25 +96,25 @@ function IngredientRecipes() {
               onChange={
                 () => handleChange(index, ingredientList, setIngredientList, ingredient)
               }
-              // data-testid={ `${index}-ingredient-step` }
+            // data-testid={ `${index}-ingredient-step` }
             />
-            {!ingredients[1] ? (
+            { !ingredients[1] ? (
               <div>
                 <p>
-                  {ingredient[index]}
+                  { ingredient[index] }
                 </p>
-                <p>{ingredients[0]}</p>
+                <p>{ ingredients[0] }</p>
               </div>
             )
               : (
                 <div>
                   <p>
                     <s>
-                      {ingredient[index]}
+                      { ingredient[index] }
                     </s>
                   </p>
-                  <p><s>{ingredients[0]}</s></p>
-                </div>)}
+                  <p><s>{ ingredients[0] }</s></p>
+                </div>) }
           </label>
         </div>
       )) : '' }

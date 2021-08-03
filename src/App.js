@@ -5,8 +5,16 @@ import Comidas from './pages/Comidas';
 import Bebidas from './pages/Bebidas';
 import RecipesId from './pages/RecipesId';
 import Explorar from './pages/Explorar';
+import IngredienteBebida from './pages/IngredienteBebida';
+import IngredienteComida from './pages/IngredienteComida';
+import ExplorarComidas from './pages/ExplorarComidas';
+import ExplorarBebidas from './pages/ExplorarBebidas';
+import Perfil from './pages/Perfil';
+import ComidasArea from './pages/ComidasArea';
+import ReceitasFeitas from './pages/ReceitasFeitas';
+import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import RecipesInProgress from './pages/RecipesInProgress';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -16,6 +24,20 @@ function App() {
         <Route exact path="/comidas" component={ Comidas } />
         <Route exact path="/bebidas" component={ Bebidas } />
         <Route exact path="/explorar" component={ Explorar } />
+        <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
+        <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
+        <Route exact path="/perfil" component={ Profile } />
+        <Route
+          exact
+          path="/explorar/comidas/ingredientes"
+          component={ IngredienteComida }
+        />
+        <Route
+          exact
+          path="/explorar/bebidas/ingredientes"
+          component={ IngredienteBebida }
+        />
+        <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
         <Route
           exact
           path="/comidas/:id"
@@ -26,15 +48,12 @@ function App() {
           path="/bebidas/:id"
           render={ (props) => <RecipesId { ...props } /> }
         />
+        <Route exact path="/perfil" component={ Perfil } />
+        <Route exact path="/explorar/comidas/area" component={ ComidasArea } />
         <Route
           exact
-          path="/comidas/:id/in-progress"
-          render={ (props) => <RecipesInProgress { ...props } /> }
-        />
-        <Route
-          exact
-          path="/bebidas/:id/in-progress"
-          render={ (props) => <RecipesInProgress { ...props } /> }
+          path="/receitas-favoritas"
+          component={ ReceitasFavoritas }
         />
       </Switch>
     </div>

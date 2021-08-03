@@ -21,9 +21,9 @@ function Bebidas() {
 
   return (
     <div>
-      <Header buttonExists title="Bebidas" mealOrDrink="drink" />
+      <Header buttonExists title="Bebidas" mealOrDrink="drink" searchOrSelect="search"/>
       <Categories mealOrDrink="drink" />
-      {dataApi.drinks
+      { dataApi.drinks
         && dataApi.drinks
           .map((e, i) => i < limitSearch && (
             <RecipeCards
@@ -33,7 +33,7 @@ function Bebidas() {
               key={ i }
               src={ e.strDrinkThumb }
               name={ e.strDrink }
-            />))}
+            />)) }
       <Footer />
     </div>
   );
