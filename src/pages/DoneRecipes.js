@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
+import '../styles/doneRecipes.css';
 
 const DoneRecipes = () => {
   const [recipes, setRecipes] = React.useState([]);
@@ -72,10 +73,10 @@ const DoneRecipes = () => {
             id, category, name, area, alcoholicOrNot, doneDate, tags } = recipe;
           console.log(doneDate, tags);
           return (
-            <div key={ id }>
+            <div key={ id } className="recipe-card">
               <Link to={ `/${type}s/${id}` }>
                 <img
-                  className="top-img"
+                  className="recipe-img"
                   src={ image }
                   alt=""
                   data-testid={ `${index}-horizontal-image` }
