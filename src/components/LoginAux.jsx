@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Reference: SetValue
+// https://docs.microfocus.com/SM/9.41/Classic/Content/programming/javascript/reference/javascript_method_xml_setvalue.htm
+
 const LoginAux = ({ id, label, setValue, ...props }) => (
   <>
     <label htmlFor={ id }>{label}</label>

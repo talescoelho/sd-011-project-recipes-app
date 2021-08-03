@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { render, cleanup } from '@testing-library/react';
 import { createStore, combineReducers } from 'redux';
 import Login from '../pages/Login';
-import emailReducer from '../redux/reducers/saveEmail';
+import emailReducer from '../redux/reducers/emailReducer';
 
 const renderWithRedux = (component, { initialState,
   store = createStore(combineReducers({ emailReducer }), initialState) } = {}) => (

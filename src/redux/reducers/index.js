@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import emailReducer from './saveEmail';
+import emailReducer from './emailReducer';
 
 const rootReducer = combineReducers({ emailReducer });
 

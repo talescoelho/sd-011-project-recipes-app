@@ -38,17 +38,17 @@ const Login = () => {
     <div>
       <form>
         <LoginAux
+          name="email"
           type="email"
           data-testid="email-input"
-          name="email"
           setValue={ emailSet }
           label="Email:"
         />
         <br />
         <LoginAux
+          name="password"
           type="password"
           data-testid="password-input"
-          name="password"
           setValue={ passSet }
           label="Senha:"
         />
