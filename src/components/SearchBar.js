@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import FetchApi from '../services/ApiFetch';
 
 export default function SearchBar({ searchTrigger }) {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [inputValue, setInputValue] = useState('');
   const [radioOption, setRadioOption] = useState('ingrediente');
@@ -16,7 +18,14 @@ export default function SearchBar({ searchTrigger }) {
       payload: results,
     });
     console.log(results);
-    return results;
+    if (searchTrigger === 'themealdb' && results.meals.length === 1) {
+      const { idMeal } = results.meals[0];
+      return history.push(`/comidas/${idMeal}`);
+    }
+    if (searchTrigger === 'thecocktaildb' && results.drinks.length === 1) {
+      const { idDrink } = results.drinks[0];
+      history.push(`/bebidas/${idDrink}`);
+    }
   }
 
   return (

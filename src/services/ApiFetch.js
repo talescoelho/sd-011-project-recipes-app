@@ -1,10 +1,5 @@
-// https://www.themealdb.com/api/json/v1/1/filter.php?i=
-// https://www.themealdb.com/api/json/v1/1/search.php?s={nome}
-// https://www.themealdb.com/api/json/v1/1/search.php?f={primeira-letra}
-
 const FetchApi = async (trigger, radioOption, inputValue) => {
   let url = '';
-  // console.log(param === 'igrediente');
   if (radioOption === 'ingrediente') {
     url = `filter.php?i=${inputValue}`;
     console.log(inputValue);
