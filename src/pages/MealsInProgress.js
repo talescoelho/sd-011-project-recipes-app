@@ -6,7 +6,6 @@ import ThumbDetails from '../components/ThumbDetails';
 import ShareBtn from '../components/ShareBtn';
 import FavBtn from '../components/FavBtn';
 import IngredientsCheckList from '../components/IngredientsCheckList';
-import objToArryOfObj from '../helper/objToArryOfObj';
 
 function MealsInProgress({ fetchDetails, recipeDetailsData, match }) {
   const { id } = match.params;
@@ -21,8 +20,7 @@ function MealsInProgress({ fetchDetails, recipeDetailsData, match }) {
   if (recipeDetailsData.meals) {
     const { meals } = recipeDetailsData;
     const data = meals[0];
-    const { strMeal, strMealThumb, strCategory, strInstructions, strYoutube } = data;
-    const ingredientsAndMesure = objToArryOfObj(data);
+    const { strMeal, strMealThumb, strCategory, strInstructions } = data;
     return (
       <div>
         <ThumbDetails thumb={ strMealThumb } />
@@ -30,7 +28,8 @@ function MealsInProgress({ fetchDetails, recipeDetailsData, match }) {
         <ShareBtn url={ (match.url).replace('/in-progress', '') } />
         <FavBtn data={ data } recipeType="meals" />
         <span data-testid="recipe-category">{ strCategory }</span>
-        <IngredientsCheckList list={ ingredientsAndMesure } />
+        <IngredientsCheckList recipeType="meals" id={ id } />
+        <p data-testid="instructions">{strInstructions}</p>
       </div>
     );
   }
