@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Ingredients from './Ingredients';
 import Share from '../images/shareIcon.svg';
@@ -8,8 +8,10 @@ import BlackHeart from '../images/blackHeartIcon.svg';
 import handleShareBtn from '../helpers/handleShareBtn';
 
 import '../styles/DetailsRecipe.css';
+import ButtonStartRecipe from './ButtonStartRecipe';
 
 function DetailsRecipe(props) {
+  // comentario
   const { recipeData } = props;
   const {
     ingredients,
@@ -22,25 +24,10 @@ function DetailsRecipe(props) {
     id,
     strAlcoholic,
   } = recipeData;
-
-  const [disabled, setDisabled] = useState(false);
-  const [btnName, setBtnName] = useState('Iniciar Receita');
+  const location = useLocation();
   const [favorite, setFavorite] = useState(false);
 
-  const handleButtonStartRecipe = (recipeId) => {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    const inProgress = JSON.parse(localStorage.getItem('inProgress'));
-    if (doneRecipes && doneRecipes === recipeId) {
-      setDisabled(true);
-    }
-    if (inProgress && inProgress === recipeId) {
-      setDisabled(false);
-      setBtnName('Continuar Receita');
-    }
-  };
-
   useEffect(() => {
-    handleButtonStartRecipe(id);
     const getFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
     if (!localStorage.getItem('favoriteRecipes')) {
@@ -50,18 +37,6 @@ function DetailsRecipe(props) {
       setFavorite(true);
     }
   }, [id]);
-
-  const history = useHistory();
-  const location = useLocation();
-
-  const handleStartClickBtn = () => {
-    if (location.pathname.includes('comidas')) {
-      history.push(`/comidas/${id}/in-progress`);
-    }
-    if (location.pathname.includes('bebidas')) {
-      history.push(`/bebidas/${id}/in-progress`);
-    }
-  };
 
   const createFavoriteObject = () => {
     let favoriteRecipeObj = {};
@@ -148,14 +123,7 @@ function DetailsRecipe(props) {
         data-testid="video"
         allowFullScreen
       />
-      <button
-        type="button"
-        className="details-btn"
-        disabled={ disabled }
-        onClick={ () => { handleStartClickBtn(); } }
-      >
-        { btnName }
-      </button>
+      <ButtonStartRecipe id={ id } />
     </div>
   );
 }
