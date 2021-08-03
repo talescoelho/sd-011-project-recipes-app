@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Header from '../components/Header';
 import RenderRecipes from '../components/RenderRecipes';
+import Footer from '../components/Footer';
 
 export default function Foods() {
   const qty = 12;
@@ -26,6 +27,7 @@ export default function Foods() {
             : ''
         }
       </div>
+      <Footer />
     </main>
   );
 }

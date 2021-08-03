@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 export default function Explorer() {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ export default function Explorer() {
       >
         Explorar Bebidas
       </button>
+      <Footer />
     </main>
   );
 }
