@@ -36,7 +36,9 @@ function SearchBarHeader(props) {
     if (pathname === '/comidas' && option === 'nome') {
       getDataFromFoods(endPointNameMeals, searchInput);
     }
-    if (pathname === '/comidas' && option === firstLetter) {
+    if (pathname === '/comidas' && option === firstLetter && searchInput.length > 1) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    } else {
       getDataFromFoods(endPointFirstLetterMeals, searchInput);
     }
     if (pathname === '/bebidas' && option === 'ingrediente') {
@@ -45,7 +47,9 @@ function SearchBarHeader(props) {
     if (pathname === '/bebidas' && option === 'nome') {
       getDataFromDrinks(endPointNameDrink, searchInput);
     }
-    if (pathname === '/bebidas' && option === firstLetter) {
+    if (pathname === '/bebidas' && option === firstLetter && searchInput.length > 1) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    } else {
       getDataFromDrinks(endPointFirstLetterDrink, searchInput);
     }
   };

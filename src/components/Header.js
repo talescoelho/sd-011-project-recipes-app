@@ -5,7 +5,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBarHeader from './SearchBarHeader';
 
-export default function Header({ title, renderButton, renderIMG, renderSearchBar }) {
+export default function Header({ title, renderButton, renderIMG }) {
   const [searchBarVisible, setSearchBarVisible] = useState(false);
 
   const btn = (
@@ -26,10 +26,6 @@ export default function Header({ title, renderButton, renderIMG, renderSearchBar
         { !renderButton && btn }
         { searchBarVisible && <SearchBarHeader /> }
       </header>
-      {/* { searchBarVisible && <input
-        data-testid="search-input"
-        placeholder="Buscar Receita"
-      /> } */}
     </div>
   );
 }

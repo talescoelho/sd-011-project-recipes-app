@@ -5,24 +5,34 @@ import GlobalContext from '../context';
 import '../styles/Comidas.css';
 
 function FoodCard(props) {
+  const { history } = props;
   const { foodArray } = useContext(GlobalContext);
 
   const eleven = 11;
 
   function filter() {
     const twelveRecepies = [];
-    foodArray.forEach((meal, index) => {
-      if (index <= eleven) {
-        twelveRecepies.push(meal);
-      }
-    });
+    if (foodArray) {
+      foodArray.forEach((meal, index) => {
+        if (index <= eleven) {
+          twelveRecepies.push(meal);
+        }
+      });
+    }
+
+    if (twelveRecepies.length === 1) {
+      const id = foodArray[0].idMeal;
+      history.push(`/comidas/${id}`);
+    } else if (twelveRecepies.length === 0) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+
     return twelveRecepies;
   }
 
   const mealsArray = filter();
 
   function goToRecipeDetails({ target }) {
-    const { history } = props;
     const { id } = target;
     history.push(`/comidas/${id}`);
   }
@@ -33,7 +43,7 @@ function FoodCard(props) {
         <div
           className="card"
           data-testid={ `${index}-recipe-card` }
-          id={ meal.idMeal }
+          // id={ meal.idMeal }
           key={ index }
           onClick={ goToRecipeDetails }
           onKeyUp={ goToRecipeDetails }
@@ -43,12 +53,12 @@ function FoodCard(props) {
           <img
             alt=""
             data-testid={ `${index}-card-img` }
-            id={ meal.idMeal }
+            // id={ meal.idMeal }
             src={ meal.strMealThumb }
           />
           <span
             data-testid={ `${index}-card-name` }
-            id={ meal.idMeal }
+            // id={ meal.idMeal }
           >
             {meal.strMeal}
           </span>
