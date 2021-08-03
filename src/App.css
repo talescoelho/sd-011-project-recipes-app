@@ -76,3 +76,31 @@
   position: fixed;
   width: 50%;
 }
+
+[ data-testid= "start-recipe-btn" ] {
+  position: fixed;
+  bottom: 0;
+}
+
+.recommendedFoodContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  margin: auto 50px;
+}
+
+.RecommendedContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  text-align: center;
+}
+
+.recommendedImage {
+  width: 300px;
+}

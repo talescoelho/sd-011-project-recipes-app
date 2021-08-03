@@ -53,7 +53,7 @@ function ReceitaDeBebida(props) {
   const numberOfRecomendedMeals = 6;
 
   const {
-    strDrink, strCategory, strDrinkThumb, strInstructions,
+    strDrink, strAlcoholic, strDrinkThumb, strInstructions,
   } = recipeDataAsObject;
 
   if (!recipeDataAsObject) return <h2>Loading...</h2>;
@@ -71,7 +71,7 @@ function ReceitaDeBebida(props) {
         src="../images/whiteHeartIcon.svg"
         alt="botão para favoritar a receita"
       />
-      <h5 data-testid="recipe-category">{strCategory}</h5>
+      <h5 data-testid="recipe-category">{strAlcoholic}</h5>
       <h3>Igredientes</h3>
       <ol>
         {setIgredientAndMeasureList()
@@ -84,16 +84,18 @@ function ReceitaDeBebida(props) {
       <h3 data-testid="instructions">Instruções</h3>
       <p>{ strInstructions }</p>
       <h3>Receitas Recomendadas</h3>
-      {recomendedMeal
-        .slice(0, numberOfRecomendedMeals)
-        .map((obj, index) => (
-          <RecomendedFood
-            dataTestid={ `${index}-recomendation-card` }
-            key={ index }
-            category={ obj.strCategory }
-            title={ obj.strMeal }
-            img={ obj.strMealThumb }
-          />))}
+      <div className="RecommendedContainer">
+        {recomendedMeal
+          .slice(0, numberOfRecomendedMeals)
+          .map((obj, index) => (
+            <RecomendedFood
+              dataTestid={ `${index}-recomendation-card` }
+              key={ index }
+              category={ obj.strCategory }
+              title={ obj.strMeal }
+              img={ obj.strMealThumb }
+            />))}
+      </div>
       <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
     </div>
   );

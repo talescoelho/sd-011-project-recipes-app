@@ -85,19 +85,21 @@ function ReceitaDeComida(props) {
           ))}
       </ol>
       <h3 data-testid="instructions">Instruções</h3>
-      <p>{ strInstructions }</p>
+      <h3>{ strInstructions }</h3>
       {strYoutube && <iframe src={ `https://youtube.com/embed/${strYoutube.substr(videoUrlPosition)}` } title="video" data-testid="video" />}
       <h3>Receitas Recomendadas</h3>
-      {recomendedDrink
-        .slice(0, numberOfRecomendedDrinks)
-        .map((obj, index) => (
-          <RecomendedFood
-            dataTestid={ `${index}-recomendation-card` }
-            key={ index }
-            category={ obj.strCategory }
-            title={ obj.strDrink }
-            img={ obj.strDrinkThumb }
-          />))}
+      <div className="RecommendedContainer">
+        {recomendedDrink
+          .slice(0, numberOfRecomendedDrinks)
+          .map((obj, index) => (
+            <RecomendedFood
+              dataTestid={ `${index}-recomendation-card` }
+              key={ index }
+              category={ obj.strCategory }
+              title={ obj.strDrink }
+              img={ obj.strDrinkThumb }
+            />))}
+      </div>
       <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
     </div>
   );

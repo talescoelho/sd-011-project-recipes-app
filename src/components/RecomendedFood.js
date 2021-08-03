@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 function RecomendedFood(props) {
   const { category, title, img, dataTestid } = props;
   return (
-    <div data-testid={ dataTestid }>
-      <img src={ img } alt="imagem de um drink" />
-      <p>{ category }</p>
-      <h4>{ title }</h4>
+    <div data-testid={ dataTestid } className="recommendedFoodContainer">
+      <img src={ img } alt="imagem de um drink" className="recommendedImage" />
+      <h3>{ category }</h3>
+      <h2>{ title }</h2>
     </div>
   );
 }
