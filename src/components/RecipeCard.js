@@ -10,9 +10,9 @@ export default function RecipeCard(props) {
   if (type === 'Drink') { tipo = 'bebidas'; }
 
   const [isRedirect, setIsRedirect] = useState(false);
-  const handleValue = (event) => {
-    setInProgress(event);
-    localStorage.setItem('id', event);
+  const handleValue = (key, event) => {
+    setInProgress({[key]: event});
+    // localStorage.setItem('id', event);
     setIsRedirect(true);
   }
 
@@ -30,7 +30,7 @@ export default function RecipeCard(props) {
           {recipe[`str${type}`]}
         </h6>
       </span>
-      <button type="button" onClick={ () => handleValue(recipe[`id${type}`]) }>Detalhes</button>
+      <button type="button" onClick={ () => handleValue(type, recipe[`id${type}`]) }>Detalhes</button>
       { isRedirect && <Redirect to={ `/${tipo}/${recipe[`id${type}`]}` } /> }
     </div>
   );
