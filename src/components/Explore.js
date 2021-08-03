@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
@@ -62,8 +63,8 @@ function Explore({ localOrigin, mealOrDrink }) {
 }
 
 Explore.propTypes = {
+  localOrigin: PropTypes.bool.isRequired,
   mealOrDrink: PropTypes.string.isRequired,
-  localOrigin: PropTypes.string.isRequired,
 };
 
 export default Explore;

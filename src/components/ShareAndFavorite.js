@@ -9,7 +9,7 @@ function ShareAndFavorite({
   favorite,
   share,
   testFavorite,
-  testShare, comidasOuBebidas, id, data }) {
+  testShare, comidasOuBebidas, id, data, forceUpdate }) {
   const [favorited, setFavorited] = useState(false);
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [copiado, setCopiado] = useState(false);
@@ -25,6 +25,9 @@ function ShareAndFavorite({
   }, [favoriteRecipes, id]);
 
   async function handleFavorite() {
+    if (forceUpdate) {
+      forceUpdate();
+    }
     setFavorited(!favorited);
     let newFavorite = [];
     if (favorited) {
@@ -94,12 +97,13 @@ function ShareAndFavorite({
 
 ShareAndFavorite.propTypes = {
   comidasOuBebidas: PropTypes.string.isRequired,
+  data: PropTypes.oneOfType([PropTypes.object]).isRequired,
   favorite: PropTypes.bool.isRequired,
+  forceUpdate: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
   share: PropTypes.bool.isRequired,
   testFavorite: PropTypes.string.isRequired,
   testShare: PropTypes.string.isRequired,
-  data: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 
 export default ShareAndFavorite;

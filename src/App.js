@@ -12,7 +12,9 @@ import ExplorarBebidas from './pages/ExplorarBebidas';
 import Perfil from './pages/Perfil';
 import ComidasArea from './pages/ComidasArea';
 import ReceitasFeitas from './pages/ReceitasFeitas';
+import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
         <Route exact path="/explorar" component={ Explorar } />
         <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
         <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
+        <Route exact path="/perfil" component={ Profile } />
         <Route
           exact
           path="/explorar/comidas/ingredientes"
@@ -47,6 +50,11 @@ function App() {
         />
         <Route exact path="/perfil" component={ Perfil } />
         <Route exact path="/explorar/comidas/area" component={ ComidasArea } />
+        <Route
+          exact
+          path="/receitas-favoritas"
+          component={ ReceitasFavoritas }
+        />
       </Switch>
     </div>
   );
