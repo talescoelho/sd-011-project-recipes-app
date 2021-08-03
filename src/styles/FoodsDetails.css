@@ -6,16 +6,16 @@
   width: 40%;
 }
 
-.details-container > div:nth-child(1) {
+.details-container > div:nth-child( 1 ) {
   align-items: center;
   flex-wrap: nowrap;
   display: flex;
 }
 
-.details-container > div:nth-child(1) div {
+.details-container > div:nth-child( 1 ) div {
   display: inline-block;
 }
 
-.details-container > div:nth-child(1) div button {
+.details-container > div:nth-child( 1 ) div button {
   width: 10%;
 }
