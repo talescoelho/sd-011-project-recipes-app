@@ -1,7 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import randomFetch from '../service/apiRandomRecipe';
 
 function Explore({ localOrigin, mealOrDrink }) {
@@ -59,6 +59,11 @@ function Explore({ localOrigin, mealOrDrink }) {
     </div>
   );
 }
+
+Explore.propTypes = {
+  localOrigin: PropTypes.bool.isRequired,
+  mealOrDrink: PropTypes.string.isRequired,
+};
 
 export default Explore;
 

@@ -10,6 +10,7 @@ import IngredienteComida from './pages/IngredienteComida';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
 import ReceitasFeitas from './pages/ReceitasFeitas';
+import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Profile from './pages/Profile';
 
@@ -44,6 +45,11 @@ function App() {
           exact
           path="/bebidas/:id"
           render={ (props) => <RecipesId { ...props } /> }
+        />
+        <Route
+          exact
+          path="/receitas-favoritas"
+          component={ ReceitasFavoritas }
         />
       </Switch>
     </div>
