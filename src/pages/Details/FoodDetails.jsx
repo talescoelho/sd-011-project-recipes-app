@@ -17,6 +17,9 @@ function FoodDetails({ match }) {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   const isDone = doneRecipes && doneRecipes.some((item) => item.id === id);
 
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const inProgress = inProgressRecipes && inProgressRecipes.meals[id];
+
   const mN = 6;
   React.useEffect(() => {
     const fetchMeal = () => {
@@ -141,7 +144,7 @@ function FoodDetails({ match }) {
             type="button"
             className={ styles.startRecipeBttn }
           >
-            Iniciar Receita
+            {inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
           </button>
         </Link>
       )}
