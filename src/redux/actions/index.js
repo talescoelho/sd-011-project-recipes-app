@@ -1,18 +1,22 @@
 export const REQUEST_API = 'REQUEST_API';
 export const GET_RECIPES_API = 'GET_RECIPES_API';
+export const GET_RECIPE_DETAILS_API = 'GET_RECIPE_DETAILS_API';
 export const GET_RECIPES = 'GET_RECIPES';
 export const GET_DRINKS = 'GET_DRINKS';
 export const GET_LIST = 'GET_LIST';
 export const GET_CATEGORIES_MEALS = 'GET_CATEGORIES_MEALS';
 export const GET_CATEGORIES_DRINK = 'GET_CATEGORIES_DRINK';
 
-// ESTÁ ACTION ALTERA isLoading PARA true
+// ESTA ACTION ALTERA isLoading PARA true
 export const requestApiAction = () => ({ type: REQUEST_API });
 
-// ESTÁ ACTION ALTERA isLoading PARA false E SALVA O RETORNO DA API EM recipesData
+// ESTA ACTION ALTERA isLoading PARA false E SALVA O RETORNO DA API EM recipesData
 export const getRecipesAction = (data) => ({ type: GET_RECIPES_API, data });
 
-// ESTÁ ACTION CRIA O AMBIENTE THUNK PARA REQUISIÇÃO API E OBTENÇÃO DA LISTA DE RECEITAS
+// ESTA ACTION ALTERA isLoading PARA false E SALVA O RETORNO DA API EM recipeDetailsData
+export const getRecipeDetailsAction = (data) => ({ type: GET_RECIPE_DETAILS_API, data });
+
+// ESTA ACTION CRIA O AMBIENTE THUNK PARA REQUISIÇÃO API E OBTENÇÃO DA LISTA DE RECEITAS
 export const fetchRecipesAPIAction = (url, recipeType) => async (dispatch) => {
   dispatch(requestApiAction());
   try {
@@ -24,6 +28,19 @@ export const fetchRecipesAPIAction = (url, recipeType) => async (dispatch) => {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     dispatch(getRecipesAction(json));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// ESTA ACTION CRIA O AMBIENTE THUNK PARA REQUISIÇÃO API E OBTENÇÃO DOS DETALHES DA RECEITA
+export const fetchRecipeDetailsAPIAction = (url) => async (dispatch) => {
+  dispatch(requestApiAction());
+  try {
+    const response = await fetch(url);
+    const json = await response.json();
+    console.log(json);
+    dispatch(getRecipeDetailsAction(json));
   } catch (error) {
     console.log(error);
   }
