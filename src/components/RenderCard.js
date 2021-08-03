@@ -4,6 +4,16 @@ import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function RenderCard({ recipes }) {
+  // eslint-disable-next-line global-require
+  const copy = require('clipboard-copy');
+  function copyUrl({ target }) {
+    let type = 'comidas';
+    if (target.dataset.recipetype !== 'comida') {
+      type = 'bebidas';
+    }
+    console.log(target.dataset);
+    copy(`http://localhost:3000/${type}/${target.dataset.recipeid}`);
+  }
   return (
     <div>
       {recipes.map((object, index) => (
@@ -26,6 +36,9 @@ function RenderCard({ recipes }) {
             )}
           <h4 data-testid={ `${index}-horizontal-name` }>{object.name}</h4>
           <input
+            data-recipetype={ object.type }
+            onClick={ (event) => copyUrl(event) }
+            data-recipeId={ object.id }
             alt="botao de compartilhar"
             type="image"
             src={ shareIcon }
