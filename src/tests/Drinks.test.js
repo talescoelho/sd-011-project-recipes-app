@@ -256,3 +256,61 @@ deve retornar as receitas sem nenhum filtro`, () => {
     await testRecipeCard(drinks, maxDefaultCards);
   });
 });
+
+describe(`30 - Implemente o filtro de categoria para que apenas um seja selecionado por 
+vez`, () => {
+  it(`Caso as receitas sejam de bebida apenas um filtro de categoria deve poder ser 
+  selecionado por vez`, async () => {
+    renderWithRouterAndStore(<Drinks />, '/bebidas');
+
+    mockFilterDrinkByCategory(drinksFilterByOrdinaryDrink);
+
+    const ordinaryDrinkFilterOption = await screen.findByTestId(
+      'Ordinary Drink-category-filter',
+    );
+    fireEvent.click(ordinaryDrinkFilterOption);
+
+    const { drinks: ordinaryDrinks } = drinksFilterByOrdinaryDrink;
+    await testRecipeCard(ordinaryDrinks, maxDefaultCards);
+
+    mockFilterDrinkByCategory(drinksFilterByCocktail);
+
+    const cocktailFilterOption = await screen.findByTestId(
+      'Cocktail-category-filter',
+    );
+    fireEvent.click(cocktailFilterOption);
+
+    const { drinks: cocktailDrinks } = drinksFilterByCocktail;
+    await testRecipeCard(cocktailDrinks, maxDefaultCards);
+
+    mockFilterDrinkByCategory(drinksFilterByMilkFloatShake);
+
+    const MilkFloatShakeFilterOption = await screen.findByTestId(
+      'Milk / Float / Shake-category-filter',
+    );
+    fireEvent.click(MilkFloatShakeFilterOption);
+
+    const { drinks: milkFloatShakeDrinks } = drinksFilterByMilkFloatShake;
+    await testRecipeCard(milkFloatShakeDrinks, maxDefaultCards);
+
+    mockFilterDrinkByCategory(drinksFilterByOtherUnknown);
+
+    const otherUnknownFilterOption = await screen.findByTestId(
+      'Other/Unknown-category-filter',
+    );
+    fireEvent.click(otherUnknownFilterOption);
+
+    const { drinks: otherUnknownDrinks } = drinksFilterByOtherUnknown;
+    await testRecipeCard(otherUnknownDrinks, maxDefaultCards);
+
+    mockFilterDrinkByCategory(drinksFilterByCocoa);
+
+    const cocoaFilterOption = await screen.findByTestId(
+      'Cocoa-category-filter',
+    );
+    fireEvent.click(cocoaFilterOption);
+
+    const { drinks: cocoaDrinks } = drinksFilterByCocoa;
+    await testRecipeCard(cocoaDrinks, maxDefaultCards);
+  });
+});

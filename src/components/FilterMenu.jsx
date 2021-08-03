@@ -3,8 +3,6 @@ import './css/filterMenu.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import store from '../redux/store';
-
 const FilterMenu = ({
   dispatch,
   requestMenu,
@@ -13,8 +11,6 @@ const FilterMenu = ({
 }) => {
   const [filterAll, setFilterAll] = useState(true);
   const [lastClickTarget, setLastClickTarget] = useState('');
-
-  console.log(store.getState());
 
   useEffect(() => {
     if (filterAll) {

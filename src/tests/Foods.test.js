@@ -237,3 +237,61 @@ deve retornar as receitas sem nenhum filtro`, () => {
     await testRecipeCard(meals, maxDefaultCards);
   });
 });
+
+describe(`30 - Implemente o filtro de categoria para que apenas um seja selecionado por 
+vez`, () => {
+  it(`Caso as receitas sejam de comida apenas um filtro de categoria deve poder ser 
+  selecionado por vez`, async () => {
+    renderWithRouterAndStore(<Foods />, '/comidas');
+
+    mockFilterMealByCategory(mealsFilterByBeef);
+
+    const beefFilterOption = await screen.findByTestId(
+      'Beef-category-filter',
+    );
+    fireEvent.click(beefFilterOption);
+
+    const { meals: beefMeals } = mealsFilterByBeef;
+    await testRecipeCard(beefMeals, maxDefaultCards);
+
+    mockFilterMealByCategory(mealsFilterByBreakfast);
+
+    const breakfastFilterOption = await screen.findByTestId(
+      'Breakfast-category-filter',
+    );
+    fireEvent.click(breakfastFilterOption);
+
+    const { meals: breakfastMeals } = mealsFilterByBreakfast;
+    await testRecipeCard(breakfastMeals, maxDefaultCards);
+
+    mockFilterMealByCategory(mealsFilterByChicken);
+
+    const chickenFilterOption = await screen.findByTestId(
+      'Chicken-category-filter',
+    );
+    fireEvent.click(chickenFilterOption);
+
+    const { meals: chickenMeals } = mealsFilterByChicken;
+    await testRecipeCard(chickenMeals, maxDefaultCards);
+
+    mockFilterMealByCategory(mealsFilterByDessert);
+
+    const dessertFilterOption = await screen.findByTestId(
+      'Dessert-category-filter',
+    );
+    fireEvent.click(dessertFilterOption);
+
+    const { meals: dessertMeals } = mealsFilterByDessert;
+    await testRecipeCard(dessertMeals, maxDefaultCards);
+
+    mockFilterMealByCategory(mealsFilterByGoat);
+
+    const goatFilterOption = await screen.findByTestId(
+      'Goat-category-filter',
+    );
+    fireEvent.click(goatFilterOption);
+
+    const { meals: goatMeals } = mealsFilterByGoat;
+    await testRecipeCard(goatMeals, maxDefaultCards);
+  });
+});
