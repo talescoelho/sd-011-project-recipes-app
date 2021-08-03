@@ -8,29 +8,10 @@ function FoodCard(props) {
   const { history } = props;
   const { foodArray } = useContext(GlobalContext);
 
-  const eleven = 11;
-
-  function filter() {
-    const twelveRecepies = [];
-    if (foodArray) {
-      foodArray.forEach((meal, index) => {
-        if (index <= eleven) {
-          twelveRecepies.push(meal);
-        }
-      });
-    }
-
-    if (twelveRecepies.length === 1) {
-      const id = foodArray[0].idMeal;
-      history.push(`/comidas/${id}`);
-    } else if (twelveRecepies.length === 0) {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    }
-
-    return twelveRecepies;
+  if (foodArray && foodArray.length === 1) {
+    const id = foodArray[0].idMeal;
+    history.push(`/comidas/${id}`);
   }
-
-  const mealsArray = filter();
 
   function goToRecipeDetails({ target }) {
     const { id } = target;
@@ -39,7 +20,7 @@ function FoodCard(props) {
 
   return (
     <section className="card-list">
-      {mealsArray ? mealsArray.map((meal, index) => (
+      {foodArray ? foodArray.map((meal, index) => (
         <div
           className="card"
           data-testid={ `${index}-recipe-card` }

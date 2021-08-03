@@ -8,29 +8,10 @@ function DrinkCard(props) {
   const { history } = props;
   const { drinkArray } = useContext(GlobalContext);
 
-  const eleven = 11;
-
-  function filter() {
-    const twelveRecepies = [];
-    if (drinkArray) {
-      drinkArray.forEach((meal, index) => {
-        if (index <= eleven) {
-          twelveRecepies.push(meal);
-        }
-      });
-    }
-
-    if (twelveRecepies.length === 1) {
-      const id = drinkArray[0].idDrink;
-      history.push(`/bebidas/${id}`);
-    } else if (twelveRecepies.length === 0) {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    }
-
-    return twelveRecepies;
+  if (drinkArray && drinkArray.length === 1) {
+    const id = drinkArray[0].idDrink;
+    history.push(`/bebidas/${id}`);
   }
-
-  const drinksArray = filter();
 
   function goToRecipeDetails({ target }) {
     const { id } = target;
@@ -39,7 +20,7 @@ function DrinkCard(props) {
 
   return (
     <section className="card-list">
-      {drinksArray ? drinksArray.map((drink, index) => (
+      {drinkArray ? drinkArray.map((drink, index) => (
         <div
           className="card"
           data-testid={ `${index}-recipe-card` }
