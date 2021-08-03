@@ -13,7 +13,7 @@ function FavoriteRecipes() {
   };
 
   return (
-    <Layout title="Receitas Favoritas">
+    <Layout title="Receitas Favoritas" noFooter>
       <main style={ styles.main }>
         <p>ola mundo</p>
       </main>
