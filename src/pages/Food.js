@@ -15,6 +15,7 @@ export default function Food() {
   const [categoriesFood, setCategoriesFood] = useState([]);
 
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     const response = async () => {
@@ -122,9 +123,11 @@ export default function Food() {
           onClick={ ({ target }) => {
             setRecipesDb([]);
             setSelectedCategory(target.name);
-            if (selectedCategory === target.name) {
+            if (selectedCategory === target.name && toggle === false) {
+              setToggle(true);
               functionAll();
             } else {
+              setToggle(false);
               handleFetchByCategory(target.name);
             }
           } }
