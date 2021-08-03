@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Carousel, CarouselItem } from 'react-bootstrap';
+import { Carousel, CarouselItem, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const SIX_CARDS = 6;
@@ -18,24 +18,36 @@ function CarouselRecipes({ data, recipeType }) {
             return (
               <CarouselItem key={ index }>
                 <Link to={ `/${urlType}/${recipe[idType]}` }>
-                  <img
-                    alt="First slide"
-                    src={ recipe[thumbType] }
-                    data-testid={ `${index}-recomendation-card` }
-                  />
-                  <span data-testid={ `${index}-recomendation-title` }>
-                    {recipe[titleType]}
-                  </span>
+                  <Card style={ { width: '18rem' } }>
+                    <Card.Img
+                      variant="top"
+                      data-testid={ `${index}-recomendation-card` }
+                      src={ recipe[thumbType] }
+                    />
+                    <Card.Body>
+                      <Card.Title
+                        data-testid={ `${index}-recomendation-title` }
+                      >
+                        {recipe[titleType]}
+                      </Card.Title>
+                    </Card.Body>
+                  </Card>
                 </Link>
                 <Link to={ `/${urlType}/${data[index + 1][idType]}` }>
-                  <img
-                    alt="First slide"
-                    src={ data[index + 1][thumbType] }
-                    data-testid={ `${index + 1}-recomendation-card` }
-                  />
-                  <span data-testid={ `${index + 1}-recomendation-title` }>
-                    {data[index + 1][titleType]}
-                  </span>
+                  <Card style={ { width: '18rem' } }>
+                    <Card.Img
+                      variant="top"
+                      data-testid={ `${index + 1}-recomendation-card` }
+                      src={ data[index + 1][thumbType] }
+                    />
+                    <Card.Body>
+                      <Card.Title
+                        data-testid={ `${index + 1}-recomendation-title` }
+                      >
+                        {data[index + 1][titleType]}
+                      </Card.Title>
+                    </Card.Body>
+                  </Card>
                 </Link>
               </CarouselItem>
             );
