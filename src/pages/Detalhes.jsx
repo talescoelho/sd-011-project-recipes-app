@@ -34,7 +34,7 @@ function Detalhes(props) {
   return (
     <div className="Detalhes-container">
       <h1>Detalhes</h1>
-      <DetailsRecipe />
+      <DetailsRecipe recipeData={ recipeData } />
     </div>
   );
 }
