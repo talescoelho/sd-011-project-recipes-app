@@ -28,11 +28,11 @@ function FoodsDetails() {
     );
   }
 
-  function renderIngredientsCard() {
-    return (
-      
-    );
-  }
+  // function renderIngredientsCard() {
+  //   return (
+
+  //   );
+  // }
 
   return (
     <div>
