@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { propTypes } from 'react-bootstrap/esm/Image';
 
 function Login({ history }) {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -21,7 +23,7 @@ function Login({ history }) {
   function handleBtn() {
     localStorage.setItem('mealsToken', '1');
     localStorage.setItem('cocktailsToken', '1');
-    localStorage.setItem('user', email);
+    localStorage.setItem('user', JSON.stringify({ email }));
     history.push('/comidas');
   }
 
@@ -57,6 +59,6 @@ function Login({ history }) {
 
 export default Login;
 
-// if (indexLimit === questionIndex) {
-//   const { history } = this.props;
-//   history.push('/feedback');
+Login.propTypes = {
+  history: PropTypes.objectOf(propTypes.object).isRequired,
+};
