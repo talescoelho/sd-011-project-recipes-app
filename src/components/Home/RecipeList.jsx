@@ -15,7 +15,7 @@ function RecipeList() {
       <p>deu errado filhao</p>
     );
   }
-  if (recipes.length) {
+  if (recipes.meals) {
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
   return (

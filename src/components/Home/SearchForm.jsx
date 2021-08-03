@@ -19,8 +19,14 @@ function SearchForm({ type }) {
     }
   };
 
+  const handleFirstLetter = () => {
+    if (selectedCategory === 'primeira_letra' && searchTerm.length >= 2) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    }
+  };
+
   return (
-    <form onSubmit={ handleSubmitSearch }>
+    <form onSubmit={ handleSubmitSearch } onChange={ () => handleFirstLetter() }>
       <input
         type="text"
         value={ searchTerm }

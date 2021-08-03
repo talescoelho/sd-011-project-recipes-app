@@ -27,7 +27,7 @@ function CocktailsList() {
     <ol>
       {cocktails && cocktails.length === 1 && <Redirect
         to={
-          `/comidas/${cocktails[0].idDrink}`
+          `/bebidas/${cocktails[0].idDrink}`
         }
       />}
       {cocktails && cocktails.slice(0, magicalNumber).map((drinks, index) => (
