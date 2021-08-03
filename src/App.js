@@ -48,15 +48,6 @@ function App() {
         <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
         <Route exact path="/explorar/comidas/area" component={ ExploreMealsByArea } />
       </Switch>
-
-      <span className="logo">TRYBE</span>
-      <object
-        className="rocksGlass"
-        type="image/svg+xml"
-        data={ rockGlass }
-      >
-        Glass
-      </object>
       <Link to="/receitas-feitas">
         <button type="submit">Receitas Feitas</button>
       </Link>
