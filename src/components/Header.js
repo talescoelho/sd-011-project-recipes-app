@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
-// import './Header.css';
-
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import HeaderSearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 // colocar type depois de searchBar
-function Header({ searchBar, receiveData }) {
+function Header({ receiveData }) {
   const [showSearchBar, toggleShowSearchBar] = useState(false);
   const history = useHistory();
+  const { pathname } = useLocation();
+
+  const [showSearchIcon, setShowSearchIcon] = useState(false);
   useEffect(() => {
-    if (!searchBar) {
-      const btnSearch = document.getElementById('search-btn');
-      btnSearch.disabled = true;
-      btnSearch.style.opacity = 0;
+    const urlArray = ['/explorar/comidas/area', '/comidas', '/bebidas'];
+    if (urlArray.includes(pathname)) {
+      setShowSearchIcon(true);
+    } else {
+      setShowSearchIcon(false);
     }
-  }, [searchBar]);
+  }, [pathname]);
 
   const toggleSearchBar = () => {
     if (showSearchBar) {
@@ -47,19 +49,22 @@ function Header({ searchBar, receiveData }) {
         <Link
           to="/perfil"
         >
-          <button type="button" data-testid="profile-top-btn">
+          <button src={ profileIcon } type="button" data-testid="profile-top-btn">
             <img src={ profileIcon } alt="icone do perfil" />
           </button>
         </Link>
         <h1 data-testid="page-title">{document.title}</h1>
-        <button
-          type="button"
-          data-testid="search-top-btn"
-          id="search-btn"
-          onClick={ toggleSearchBar }
-        >
-          <img src={ searchIcon } alt="icone de pesquisa" />
-        </button>
+
+        { showSearchIcon && (
+          <button
+            src={ searchIcon }
+            type="button"
+            data-testid="search-top-btn"
+            id="search-btn"
+            onClick={ toggleSearchBar }
+          >
+            <img src={ searchIcon } alt="icone de pesquisa" />
+          </button>)}
       </header>
       { showSearchBar && <HeaderSearchBar /> }
     </>
@@ -68,7 +73,6 @@ function Header({ searchBar, receiveData }) {
 
 const mapStateToProps = (state) => ({
   receiveData: state.searchBarReducer.receiveData,
-  fetched: state.searchBarReducer.fetched,
 });
 
 export default connect(mapStateToProps)(Header);
