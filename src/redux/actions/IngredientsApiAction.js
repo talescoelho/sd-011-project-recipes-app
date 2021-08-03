@@ -10,9 +10,9 @@ export const getIngredientsSuccess = (payload) => ({
   payload,
 });
 
-export const fetchIngredients = (ingredient) => (dispatch) => {
+export const fetchIngredients = (ingredients) => (dispatch) => {
   dispatch(getIngredients());
-  return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`)
-    .then((response) => console.log(response.json()))
+  return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredients}`)
+    .then((response) => response.json())
     .then((success) => dispatch(getIngredientsSuccess(success)));
 };

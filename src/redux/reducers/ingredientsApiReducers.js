@@ -1,14 +1,23 @@
-import { getIngredientsSuccess } from '../actions/IngredientsApiAction';
+import {
+  FETCH_INGREDIENTS,
+  FETCH_INGREDIENTS_SUCCESS,
+} from '../actions/IngredientsApiAction';
 
 const INITIAL_STATE = {
-  state: '',
+  ingredient: [],
+  loading: false,
 };
 
 const handleIngredients = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case getIngredientsSuccess:
+  case FETCH_INGREDIENTS:
     return {
-      ...state,
+      loading: true,
+    };
+  case FETCH_INGREDIENTS_SUCCESS:
+    return {
+      ingredient: action.payload.meals,
+      loading: false,
     };
   default:
     return state;
