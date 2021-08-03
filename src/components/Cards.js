@@ -69,7 +69,7 @@ function Cards(props) {
               data-testid={ `${indexMap}-recipe-card` }
               className="cards"
             >
-              <Link to={ `/bebidas/${drink.idMeal}` }>
+              <Link to={ `/bebidas/${drink.idDrink}` }>
                 <h5 data-testid={ `${indexMap}-card-name` }>{drink.strDrink}</h5>
                 <img
                   className="card-img"
