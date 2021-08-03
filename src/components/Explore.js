@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import randomFetch from '../service/apiRandomRecipe';
@@ -21,10 +22,10 @@ function Explore({ localOrigin, mealOrDrink }) {
     if (mealOrDrink === 'comidas') {
       return dataApi.meals && dataApi.meals.map((e) => e.idMeal);
     }
-
     return dataApi.drinks && dataApi.drinks.map((e) => e.idDrink);
   };
 
+  const random = checker();
   return (
     <div>
       <button
@@ -36,7 +37,7 @@ function Explore({ localOrigin, mealOrDrink }) {
       >
         Por Ingredientes
       </button>
-      { localOrigin && (
+      {localOrigin && (
         <button
           type="button"
           data-testid="explore-by-area"
@@ -46,12 +47,13 @@ function Explore({ localOrigin, mealOrDrink }) {
         >
           Por Local de Origem
         </button>
-      ) }
+      )}
+
       <button
         type="button"
         data-testid="explore-surprise"
         onClick={ () => {
-          history.push(`/${mealOrDrink}/${checker()}`);
+          history.push(`/${mealOrDrink}/${random}`);
         } }
       >
         Me Surpreenda!
@@ -66,8 +68,3 @@ Explore.propTypes = {
 };
 
 export default Explore;
-
-Explore.propTypes = {
-  localOrigin: PropTypes.string.isRequired,
-  mealOrDrink: PropTypes.string.isRequired,
-};

@@ -4,13 +4,20 @@ import { useHistory } from 'react-router';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './SearchBar';
+import AreaSelect from './AreaSelect'
 
-function Header({ mealOrDrink, buttonExists, title }) {
+function Header({ mealOrDrink, buttonExists, title, searchOrSelect }) {
   const [searchClicked, setSearchClicked] = React.useState(false);
   const history = useHistory();
+  const checker = () =>{
+    if (searchOrSelect === "search"){
+      return  <SearchBar mealOrDrink={ mealOrDrink } />
+    }else{
+      return  <AreaSelect />
+    }
+  }
   return (
     <div>
-
       <button
         type="button"
         data-testid="profile-top-btn"
@@ -42,10 +49,7 @@ function Header({ mealOrDrink, buttonExists, title }) {
         </button>
       )}
 
-      {searchClicked && (
-        <SearchBar mealOrDrink={ mealOrDrink } />
-      )}
-
+      {searchClicked && checker()}
     </div>
   );
 }

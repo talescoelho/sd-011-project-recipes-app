@@ -9,6 +9,8 @@ import IngredienteBebida from './pages/IngredienteBebida';
 import IngredienteComida from './pages/IngredienteComida';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
+import Perfil from './pages/Perfil';
+import ComidasArea from './pages/ComidasArea';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -27,12 +29,12 @@ function App() {
         <Route exact path="/perfil" component={ Profile } />
         <Route
           exact
-          path="/explorar/ingredientes/comidas"
+          path="/explorar/comidas/ingredientes"
           component={ IngredienteComida }
         />
         <Route
           exact
-          path="/explorar/ingredientes/bebidas"
+          path="/explorar/bebidas/ingredientes"
           component={ IngredienteBebida }
         />
         <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
@@ -46,6 +48,8 @@ function App() {
           path="/bebidas/:id"
           render={ (props) => <RecipesId { ...props } /> }
         />
+        <Route exact path="/perfil" component={ Perfil } />
+        <Route exact path="/explorar/comidas/area" component={ ComidasArea } />
         <Route
           exact
           path="/receitas-favoritas"
