@@ -26,6 +26,7 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Recipes } />
         <Route exact path="/bebidas" component={ Bebidas } />
+        <Route exact path="/explorar/comidas/area" component={ ExploreMealsByArea } />
         <Route exact path="/comidas/:id/in-progress" component={ MealInProgress } />
         <Route exact path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
         <Route
