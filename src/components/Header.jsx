@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import '../css/header.css';
+import '../styles/header.css';
 import SearchBar from './SearchBar';
 
 function Header({ title, search = true }) {
