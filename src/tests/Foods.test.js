@@ -1,21 +1,47 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import { renderWithRouterAndStore } from './helper/testConfig';
-import {
-  mealsResponse,
-  mockMealsMenu,
-  mealsFiltersResponse,
-} from './mocks/mockMealsData';
+import { mealsFiltersOptions } from './mocks/mockFilterOptions';
+import mealsFiltersByAll from './mocks/meals/mockFilterMealsByAll';
+import mealsFilterByBeef from './mocks/meals/mockFilterByBeef';
+import mealsFilterByBreakfast from './mocks/meals/mockFilterByBreakfast';
+import mealsFilterByChicken from './mocks/meals/mockFilterByChicken';
+import mealsFilterByDessert from './mocks/meals/mockFilterByDessert';
+import mealsFilterByGoat from './mocks/meals/mockFilterByGoat';
 import Foods from '../pages/Foods';
 import * as requestMenu from '../services/requestMenu';
 
+const testRecipeCard = async (menu, maxCards) => {
+  const reduceToMaxCards = menu.slice(0, maxCards);
+  await Promise.all(
+    reduceToMaxCards.map(async ({ idMeal, strMeal, strMealThumb }, index) => {
+      const foodCard = await screen.findByTestId(`${index}-recipe-card`);
+      const foodCardImg = await screen.findByTestId(`${index}-card-img`);
+      const foodCardName = await screen.findByTestId(`${index}-card-name`);
+
+      expect(foodCard).toBeInTheDocument();
+      expect(foodCard).toHaveAttribute('href', `/comidas/${idMeal}`);
+      expect(foodCardImg).toHaveAttribute('src', strMealThumb);
+      expect(foodCardName).toHaveTextContent(strMeal);
+    }),
+  );
+};
+
+const maxDefaultCards = 12;
+
 const mockedSearchMealByName = jest
   .spyOn(requestMenu, 'searchMealByName')
-  .mockImplementation(() => Promise.resolve(mealsResponse));
+  .mockImplementation(() => Promise.resolve(mealsFiltersByAll));
 
 const mockedRequestAllMealCategories = jest
   .spyOn(requestMenu, 'requestAllMealCategories')
-  .mockImplementation(() => Promise.resolve(mealsFiltersResponse));
+  .mockImplementation(() => Promise.resolve(mealsFiltersOptions));
+
+const mockFilterMealByCategory = (category) => (
+  jest
+    .spyOn(requestMenu, 'filterMealByCategory')
+    .mockImplementation(() => Promise.resolve(category))
+);
 
 afterEach(() => jest.clearAllMocks());
 beforeEach(() => jest.clearAllMocks());
@@ -23,165 +49,32 @@ beforeEach(() => jest.clearAllMocks());
 describe(`25 - Implemente os elementos da tela principal de receitas respeitando os 
 atributos descritos no protótipo`, () => {
   it('A tela tem os data-testids de todos os 12 cards da tela de comidas', async () => {
-    renderWithRouterAndStore(<Foods />, '/comidas', mockMealsMenu);
+    renderWithRouterAndStore(<Foods />, '/comidas');
 
     expect(mockedSearchMealByName).toBeCalled();
     expect(mockedSearchMealByName).toBeCalledTimes(1);
     expect(mockedRequestAllMealCategories).toBeCalled();
     expect(mockedRequestAllMealCategories).toBeCalledTimes(1);
 
-    const firstFoodCard = await screen.findByTestId('0-recipe-card');
-    const secondFoodCard = await screen.findByTestId('1-recipe-card');
-    const thirdFoodCard = await screen.findByTestId('2-recipe-card');
-    const fourthFoodCard = await screen.findByTestId('3-recipe-card');
-    const fifthFoodCard = await screen.findByTestId('4-recipe-card');
-    const sixthFoodCard = await screen.findByTestId('5-recipe-card');
-    const seventhFoodCard = await screen.findByTestId('6-recipe-card');
-    const eighthFoodCard = await screen.findByTestId('7-recipe-card');
-    const ninthFoodCard = await screen.findByTestId('8-recipe-card');
-    const tenthFoodCard = await screen.findByTestId('9-recipe-card');
-    const eleventhFoodCard = await screen.findByTestId('10-recipe-card');
-    const twelfthFoodCard = await screen.findByTestId('11-recipe-card');
+    const { meals } = mealsFiltersByAll;
+    await testRecipeCard(meals, maxDefaultCards);
 
-    expect(firstFoodCard).toBeInTheDocument();
-    expect(secondFoodCard).toBeInTheDocument();
-    expect(thirdFoodCard).toBeInTheDocument();
-    expect(fourthFoodCard).toBeInTheDocument();
-    expect(fifthFoodCard).toBeInTheDocument();
-    expect(sixthFoodCard).toBeInTheDocument();
-    expect(seventhFoodCard).toBeInTheDocument();
-    expect(eighthFoodCard).toBeInTheDocument();
-    expect(ninthFoodCard).toBeInTheDocument();
-    expect(tenthFoodCard).toBeInTheDocument();
-    expect(eleventhFoodCard).toBeInTheDocument();
-    expect(twelfthFoodCard).toBeInTheDocument();
+    expect(screen.queryByTestId('12-recipe-card')).toBeNull();
+    expect(screen.queryByTestId('12-recipe-img')).toBeNull();
+    expect(screen.queryByTestId('12-recipe-name')).toBeNull();
   });
 });
 
 describe('26 - Carregue as 12 primeiras receitas de comidas, uma em cada card',
   () => {
     it('Deve carregar as 12 primeiras receitas de comida', async () => {
-      renderWithRouterAndStore(<Foods />, '/comidas', mockMealsMenu);
+      renderWithRouterAndStore(<Foods />, '/comidas');
+      const { meals } = mealsFiltersByAll;
+      await testRecipeCard(meals, maxDefaultCards);
 
-      expect(mockedSearchMealByName).toBeCalled();
-      expect(mockedSearchMealByName).toBeCalledTimes(1);
-      expect(mockedRequestAllMealCategories).toBeCalled();
-      expect(mockedRequestAllMealCategories).toBeCalledTimes(1);
-
-      const maxFoodCards = 12;
-
-      const cards = await screen.findAllByRole('link', { name: /card-menu/i });
-
-      expect(cards.length).toBe(maxFoodCards);
-      expect(cards.length).not.toBe(maxFoodCards + 1);
-
-      const firstFoodCard = await screen.findByTestId('0-recipe-card');
-      const firstFoodCardImg = await screen.findByTestId('0-card-img');
-      const firstFoodCardName = await screen.findByTestId('0-card-name');
-
-      expect(firstFoodCard).toBeInTheDocument();
-      expect(firstFoodCard).toHaveAttribute('href', '/comidas/52977');
-      expect(firstFoodCardImg).toHaveAttribute('src', 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg');
-      expect(firstFoodCardName).toHaveTextContent('Corba');
-
-      const secondFoodCard = await screen.findByTestId('1-recipe-card');
-      const secondFoodCardImg = await screen.findByTestId('1-card-img');
-      const secondFoodCardName = await screen.findByTestId('1-card-name');
-
-      expect(secondFoodCard).toBeInTheDocument();
-      expect(secondFoodCard).toHaveAttribute('href', '/comidas/52978');
-      expect(secondFoodCardImg).toHaveAttribute('src', 'https://www.themealdb.com/images/media/meals/mlchx21564916997.jpg');
-      expect(secondFoodCardName).toHaveTextContent('Kumpir');
-
-      const thirdFoodCard = await screen.findByTestId('2-recipe-card');
-      const thirdFoodCardImg = await screen.findByTestId('2-card-img');
-      const thirdFoodCardName = await screen.findByTestId('2-card-name');
-
-      expect(thirdFoodCard).toBeInTheDocument();
-      expect(thirdFoodCard).toHaveAttribute('href', '/comidas/53026');
-      expect(thirdFoodCardImg).toHaveAttribute('src', 'https://www.themealdb.com/images/media/meals/n3xxd91598732796.jpg');
-      expect(thirdFoodCardName).toHaveTextContent('Tamiya');
-
-      const fourthFoodCard = await screen.findByTestId('3-recipe-card');
-      const fourthFoodCardImg = await screen.findByTestId('3-card-img');
-      const fourthFoodCardName = await screen.findByTestId('3-card-name');
-
-      expect(fourthFoodCard).toBeInTheDocument();
-      expect(fourthFoodCard).toHaveAttribute('href', '/comidas/52785');
-      expect(fourthFoodCardImg).toHaveAttribute('src', 'https://www.themealdb.com/images/media/meals/wuxrtu1483564410.jpg');
-      expect(fourthFoodCardName).toHaveTextContent('Dal fry');
-
-      const fifthFoodCard = await screen.findByTestId('4-recipe-card');
-      const fifthFoodCardImg = await screen.findByTestId('4-card-img');
-      const fifthFoodCardName = await screen.findByTestId('4-card-name');
-
-      expect(fifthFoodCard).toBeInTheDocument();
-      expect(fifthFoodCard).toHaveAttribute('href', '/comidas/52804');
-      expect(fifthFoodCardImg).toHaveAttribute('src', 'https://www.themealdb.com/images/media/meals/uuyrrx1487327597.jpg');
-      expect(fifthFoodCardName).toHaveTextContent('Poutine');
-
-      const sixthFoodCard = await screen.findByTestId('5-recipe-card');
-      const sixthFoodCardImg = await screen.findByTestId('5-card-img');
-      const sixthFoodCardName = await screen.findByTestId('5-card-name');
-
-      expect(sixthFoodCard).toBeInTheDocument();
-      expect(sixthFoodCard).toHaveAttribute('href', '/comidas/52844');
-      expect(sixthFoodCardImg).toHaveAttribute('src', 'https://www.themealdb.com/images/media/meals/wtsvxx1511296896.jpg');
-      expect(sixthFoodCardName).toHaveTextContent('Lasagne');
-
-      const seventhFoodCard = await screen.findByTestId('6-recipe-card');
-      const seventhFoodCardImg = await screen.findByTestId('6-card-img');
-      const seventhFoodCardName = await screen.findByTestId('6-card-name');
-
-      expect(seventhFoodCard).toBeInTheDocument();
-      expect(seventhFoodCard).toHaveAttribute('href', '/comidas/52929');
-      expect(seventhFoodCardImg).toHaveAttribute('src', 'https://www.themealdb.com/images/media/meals/txsupu1511815755.jpg');
-      expect(seventhFoodCardName).toHaveTextContent('Timbits');
-
-      const eighthFoodCard = await screen.findByTestId('7-recipe-card');
-      const eighthFoodCardImg = await screen.findByTestId('7-card-img');
-      const eighthFoodCardName = await screen.findByTestId('7-card-name');
-
-      expect(eighthFoodCard).toBeInTheDocument();
-      expect(eighthFoodCard).toHaveAttribute('href', '/comidas/52948');
-      expect(eighthFoodCardImg).toHaveAttribute('src', 'https://www.themealdb.com/images/media/meals/1525876468.jpg');
-      expect(eighthFoodCardName).toHaveTextContent('Wontons');
-
-      const ninthFoodCard = await screen.findByTestId('8-recipe-card');
-      const ninthFoodCardImg = await screen.findByTestId('8-card-img');
-      const ninthFoodCardName = await screen.findByTestId('8-card-name');
-
-      expect(ninthFoodCard).toBeInTheDocument();
-      expect(ninthFoodCard).toHaveAttribute('href', '/comidas/52971');
-      expect(ninthFoodCardImg).toHaveAttribute('src', 'https://www.themealdb.com/images/media/meals/1bsv1q1560459826.jpg');
-      expect(ninthFoodCardName).toHaveTextContent('Kafteji');
-
-      const tenthFoodCard = await screen.findByTestId('9-recipe-card');
-      const tenthFoodCardImg = await screen.findByTestId('9-card-img');
-      const tenthFoodCardName = await screen.findByTestId('9-card-name');
-
-      expect(tenthFoodCard).toBeInTheDocument();
-      expect(tenthFoodCard).toHaveAttribute('href', '/comidas/53013');
-      expect(tenthFoodCardImg).toHaveAttribute('src', 'https://www.themealdb.com/images/media/meals/urzj1d1587670726.jpg');
-      expect(tenthFoodCardName).toHaveTextContent('Big Mac');
-
-      const eleventhFoodCard = await screen.findByTestId('10-recipe-card');
-      const eleventhFoodCardImg = await screen.findByTestId('10-card-img');
-      const eleventhFoodCardName = await screen.findByTestId('10-card-name');
-
-      expect(eleventhFoodCard).toBeInTheDocument();
-      expect(eleventhFoodCard).toHaveAttribute('href', '/comidas/53027');
-      expect(eleventhFoodCardImg).toHaveAttribute('src', 'https://www.themealdb.com/images/media/meals/4er7mj1598733193.jpg');
-      expect(eleventhFoodCardName).toHaveTextContent('Koshari');
-
-      const twelfthFoodCard = await screen.findByTestId('11-recipe-card');
-      const twelfthFoodCardImg = await screen.findByTestId('11-card-img');
-      const twelfthFoodCardName = await screen.findByTestId('11-card-name');
-
-      expect(twelfthFoodCard).toBeInTheDocument();
-      expect(twelfthFoodCard).toHaveAttribute('href', '/comidas/52769');
-      expect(twelfthFoodCardImg).toHaveAttribute('src', 'https://www.themealdb.com/images/media/meals/sxysrt1468240488.jpg');
-      expect(twelfthFoodCardName).toHaveTextContent('Kapsalon');
+      expect(screen.queryByTestId('12-recipe-card')).toBeNull();
+      expect(screen.queryByTestId('12-recipe-img')).toBeNull();
+      expect(screen.queryByTestId('12-recipe-name')).toBeNull();
     });
   });
 
@@ -189,12 +82,7 @@ describe('27 - Implemente os botões de categoria para serem utilizados como fil
   () => {
     it(`Caso as receitas sejam de comida, deve-se exibir as 5 primeiras categorias de 
     comida`, async () => {
-      renderWithRouterAndStore(<Foods />, '/comidas', mockMealsMenu);
-
-      expect(mockedSearchMealByName).toBeCalled();
-      expect(mockedSearchMealByName).toBeCalledTimes(1);
-      expect(mockedRequestAllMealCategories).toBeCalled();
-      expect(mockedRequestAllMealCategories).toBeCalledTimes(1);
+      renderWithRouterAndStore(<Foods />, '/comidas');
 
       const beefFilterOption = await screen.findByTestId('Beef-category-filter');
       const breakfastFilterOption = await screen
@@ -219,5 +107,116 @@ describe('27 - Implemente os botões de categoria para serem utilizados como fil
       const maxFilterButtons = 6;
 
       expect(filterButtons.length).toBe(maxFilterButtons);
+      expect(filterButtons.length).not.toBe(maxFilterButtons + 1);
     });
   });
+
+describe(`28 - Implemente o filtro das receitas através da API ao clicar no filtro de 
+  categoria`, () => {
+  it(`Caso as receitas sejam de comida e a categoria seja "Beef", deve-se carregar as 
+    12 primeiras receitas de "Beef"`, async () => {
+    const mockFilterMealByBeef = mockFilterMealByCategory(mealsFilterByBeef);
+
+    renderWithRouterAndStore(<Foods />, '/comidas');
+
+    const beefFilterOption = await screen.findByTestId('Beef-category-filter');
+    fireEvent.click(beefFilterOption);
+
+    expect(mockFilterMealByBeef).toBeCalled();
+    expect(mockFilterMealByBeef).toBeCalledTimes(1);
+
+    const cards = await screen.findAllByRole('link', { name: /card-menu/i });
+
+    expect(cards.length).toBe(maxDefaultCards);
+    expect(cards.length).not.toBe(maxDefaultCards + 1);
+
+    const { meals } = mealsFilterByBeef;
+    await testRecipeCard(meals, maxDefaultCards);
+  });
+
+  it(`Caso as receitas sejam de comida e a categoria seja "Breakfast", deve-se 
+  carregar as 12 primeiras receitas de "Breakfast"`, async () => {
+    const mockFilterMealByBreakfast = mockFilterMealByCategory(mealsFilterByBreakfast);
+
+    renderWithRouterAndStore(<Foods />, '/comidas');
+
+    const maxBreakfastCards = 7;
+
+    const breakfastFilterOption = await screen.findByTestId('Breakfast-category-filter');
+    fireEvent.click(breakfastFilterOption);
+
+    expect(mockFilterMealByBreakfast).toBeCalled();
+    expect(mockFilterMealByBreakfast).toBeCalledTimes(1);
+
+    const cards = await screen.findAllByRole('link', { name: /card-menu/i });
+
+    expect(cards.length).toBe(maxBreakfastCards);
+    expect(cards.length).not.toBe(maxBreakfastCards + 1);
+
+    const { meals } = mealsFilterByBreakfast;
+    await testRecipeCard(meals, maxBreakfastCards);
+  });
+
+  it(`Caso as receitas sejam de comida e a categoria seja "Chicken", deve-se carregar as 
+  12 primeiras receitas de "Chicken"`, async () => {
+    const mockFilterMealByChicken = mockFilterMealByCategory(mealsFilterByChicken);
+
+    renderWithRouterAndStore(<Foods />, '/comidas');
+
+    const chickenFilterOption = await screen.findByTestId('Chicken-category-filter');
+    fireEvent.click(chickenFilterOption);
+
+    expect(mockFilterMealByChicken).toBeCalled();
+    expect(mockFilterMealByChicken).toBeCalledTimes(1);
+
+    const cards = await screen.findAllByRole('link', { name: /card-menu/i });
+
+    expect(cards.length).toBe(maxDefaultCards);
+    expect(cards.length).not.toBe(maxDefaultCards + 1);
+
+    const { meals } = mealsFilterByChicken;
+    await testRecipeCard(meals, maxDefaultCards);
+  });
+
+  it(`Caso as receitas sejam de comida e a categoria seja "Dessert", deve-se carregar as 
+  12 primeiras receitas de "Dessert"`, async () => {
+    const mockFilterMealByDessert = mockFilterMealByCategory(mealsFilterByDessert);
+
+    renderWithRouterAndStore(<Foods />, '/comidas');
+
+    const dessertFilterOption = await screen.findByTestId('Dessert-category-filter');
+    fireEvent.click(dessertFilterOption);
+
+    expect(mockFilterMealByDessert).toBeCalled();
+    expect(mockFilterMealByDessert).toBeCalledTimes(1);
+
+    const cards = await screen.findAllByRole('link', { name: /card-menu/i });
+
+    expect(cards.length).toBe(maxDefaultCards);
+    expect(cards.length).not.toBe(maxDefaultCards + 1);
+
+    const { meals } = mealsFilterByDessert;
+    await testRecipeCard(meals, maxDefaultCards);
+  });
+
+  it(`Caso as receitas sejam de comida e a categoria seja "Goat", deve-se carregar as 
+  12 primeiras receitas de "Goat"`, async () => {
+    const mockFilterMealByGoat = mockFilterMealByCategory(mealsFilterByGoat);
+
+    renderWithRouterAndStore(<Foods />, '/comidas');
+
+    const goatFilterOption = await screen.findByTestId('Goat-category-filter');
+    fireEvent.click(goatFilterOption);
+
+    expect(mockFilterMealByGoat).toBeCalled();
+    expect(mockFilterMealByGoat).toBeCalledTimes(1);
+
+    const cards = await screen.findAllByRole('link', { name: /card-menu/i });
+
+    expect(cards.length).toBe(1);
+    expect(cards.length).not.toBe(1 + 1);
+
+    const { meals } = mealsFilterByGoat;
+    await testRecipeCard(meals, 1);
+  });
+});
