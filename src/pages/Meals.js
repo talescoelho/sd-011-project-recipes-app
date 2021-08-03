@@ -4,12 +4,15 @@ import RecipesContext from '../context/RecipesContext';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import CategoriesBar from '../components/CategoriesBar';
 
 function Meals() {
   const { mealsData } = useContext(RecipesContext);
 
   return (
     <div>
+      <Header title="Comidas" recipeType="meals" />
+      <CategoriesBar recipeType="meals" />
       { mealsData.length === 1
         && <Redirect to={ `/comidas/${mealsData[0].idMeal}` } /> }
       <Header title="Comidas" recipeType="meals" searchButton />
