@@ -1,9 +1,9 @@
 import React from 'react';
 
-const FoodInProgress = () => (
+const FoodIngredients = () => (
   <div>
     Sou página de ingredientes de um prato.
   </div>
 );
 
-export default FoodInProgress;
+export default FoodIngredients;
