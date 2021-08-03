@@ -1,5 +1,5 @@
 .start-recipe-btn {
-  bottom: 0px;
+  bottom: 0;
   left: 50%;
   position: fixed;
   transform: translateX(-50%);
