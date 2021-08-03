@@ -15,10 +15,7 @@ function CardCatalog() {
     return catalogLimited.map((food, index) => (
       <Link
         key={ index }
-        to={ {
-          pathname: `/comidas/${food.idMeal}`,
-          state: { foodInfo: food },
-        } }
+        to={ `/comidas/${food.idMeal}` }
       >
         <div data-testid={ `${index}-recipe-card` } className="supply-card">
           <img
