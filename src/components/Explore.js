@@ -25,7 +25,6 @@ function Explore({ localOrigin, mealOrDrink }) {
   };
 
   const random = checker();
-
   return (
     <div>
       <button
@@ -37,7 +36,7 @@ function Explore({ localOrigin, mealOrDrink }) {
       >
         Por Ingredientes
       </button>
-      { localOrigin && (
+      {localOrigin && (
         <button
           type="button"
           data-testid="explore-by-area"
@@ -47,7 +46,8 @@ function Explore({ localOrigin, mealOrDrink }) {
         >
           Por Local de Origem
         </button>
-      ) }
+      )}
+
       <button
         type="button"
         data-testid="explore-surprise"
@@ -67,8 +67,3 @@ Explore.propTypes = {
 };
 
 export default Explore;
-
-Explore.propTypes = {
-  localOrigin: PropTypes.string.isRequired,
-  mealOrDrink: PropTypes.string.isRequired,
-};

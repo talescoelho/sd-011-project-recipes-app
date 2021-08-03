@@ -21,7 +21,7 @@ function Bebidas() {
 
   return (
     <div>
-      <Header buttonExists title="Bebidas" mealOrDrink="drink" />
+      <Header buttonExists title="Bebidas" mealOrDrink="drink" searchOrSelect="search"/>
       <Categories mealOrDrink="drink" />
       {dataApi.drinks
         && dataApi.drinks
