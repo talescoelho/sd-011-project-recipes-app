@@ -2,24 +2,70 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import Card from '../components/Cards';
 import Footer from '../components/Footer';
-import DrinkCard from '../components/DrinkCard';
-import '../css/comidas.css';
-import { fetchCategorieDrinkFilterAction, fetchDrinkAction } from '../redux/actions';
-import FoodCard from '../components/FoodCard';
+import {
+  fetchCategorieDrinkFilterAction,
+  fetchDrinkAction,
+  fetchCategorieFoodFilterAction,
+  fetchFoodAction,
+} from '../redux/actions';
+import '../styles/comidas.css';
+
+function handleChange(props, location, target, strCategory) {
+  const { searchAllDrinks, searchDrink, searchAllFoods, searchFood } = props;
+  const checkboxes = document.querySelectorAll('input[type=checkbox]');
+  checkboxes.forEach((checkbox) => {
+    if (target.id !== checkbox.id) {
+      checkbox.checked = false;
+    }
+  });
+  if (location === '/bebidas') {
+    if (target.checked) {
+      if (strCategory === 'All') {
+        searchAllDrinks();
+      } else {
+        searchDrink(strCategory);
+      }
+    } else {
+      searchAllDrinks();
+    }
+  } else if (target.checked) {
+    if (strCategory === 'All') {
+      searchAllFoods();
+    } else {
+      searchFood(strCategory);
+    }
+  } else {
+    searchAllFoods();
+  }
+}
 
 function MainPage(props) {
+  const { requestDrink, requestFood } = props;
+  const [testFetch, setTestFetch] = useState({});
   const [categories, setCategories] = useState({});
   const [categoryType, setCategoryType] = useState('');
   const [headerTittle, setHeaderTittle] = useState('');
   const categoriesLength = 5;
-  const location = window.location.pathname;
+  const [location, setLocation] = useState(window.location.pathname);
 
   const fetchCategory = (endPointFetch, setState) => {
     fetch(endPointFetch)
       .then((resolve) => resolve.json())
       .then((response) => setState(response));
   };
+
+  useEffect(() => {
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+      .then((resolve) => resolve.json())
+      .then((response) => setTestFetch(response));
+  }, []);
+
+  useEffect(() => {
+    requestDrink();
+    requestFood();
+  }, [requestDrink, requestFood]);
 
   useEffect(() => {
     if (location === '/bebidas') {
@@ -31,29 +77,26 @@ function MainPage(props) {
       setHeaderTittle('Comidas');
       fetchCategory('https://www.themealdb.com/api/json/v1/1/list.php?c=list', setCategories);
     }
-  }, []);
+  }, [location]);
 
-  if (!categories[categoryType]) {
-    return <div>Carregando...</div>;
+  if (location !== window.location.pathname) {
+    setLocation(window.location.pathname);
   }
 
-  function handleChange(target, strCategory) {
-    const { searchAllCategory, searchCategory } = props;
-    const checkboxes = document.querySelectorAll('input[type=checkbox]');
-    checkboxes.forEach((checkbox) => {
-      if (target.id !== checkbox.id) {
-        checkbox.checked = false;
-      }
-    });
-    if (target.checked) {
-      if (strCategory === 'All') {
-        searchAllCategory();
-      } else {
-        searchCategory(strCategory);
-      }
-    } else {
-      searchAllCategory();
-    }
+  if (!testFetch) {
+    return (<p>Carreagando...</p>);
+  }
+
+  if (!categories[categoryType]) {
+    return (
+      <div>
+        <Header title={ headerTittle } />
+        Carregando...
+        <div className="foods-cards">
+          <Card location={ location } />
+        </div>
+        <Footer />
+      </div>);
   }
 
   return (
@@ -66,7 +109,7 @@ function MainPage(props) {
           type="checkbox"
           name="category"
           value="All"
-          onClick={ ({ target }) => handleChange(target, 'All') }
+          onClick={ ({ target }) => handleChange(props, location, target, 'All') }
         />
         All
       </label>
@@ -80,21 +123,29 @@ function MainPage(props) {
                 type="checkbox"
                 name="category"
                 value={ category.strCategory }
-                onClick={ ({ target }) => handleChange(target, category.strCategory) }
+                onClick={ ({ target }) => {
+                  handleChange(props, location, target, category.strCategory);
+                } }
               />
               { category.strCategory }
             </label>
           ))
       }
-      { location === 'bebidas' ? <DrinkCard /> : <FoodCard /> }
+      <div className="foods-cards">
+        <Card location={ location } />
+      </div>
       <Footer />
     </div>
   );
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  searchCategory: (category) => dispatch(fetchCategorieDrinkFilterAction(category)),
-  searchAllCategory: (category) => dispatch(fetchDrinkAction(category)),
+  searchDrink: (category) => dispatch(fetchCategorieDrinkFilterAction(category)),
+  searchAllDrinks: (category) => dispatch(fetchDrinkAction(category)),
+  searchFood: (category) => dispatch(fetchCategorieFoodFilterAction(category)),
+  searchAllFoods: (category) => dispatch(fetchFoodAction(category)),
+  requestDrink: () => dispatch(fetchDrinkAction()),
+  requestFood: () => dispatch(fetchFoodAction()),
 });
 
 MainPage.propTypes = {

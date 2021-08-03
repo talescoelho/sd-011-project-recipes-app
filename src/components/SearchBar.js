@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import FoodCard from './FoodCard';
-import DrinkCard from './DrinkCard';
 import { fetchIngrentAction, fetchDrinksAction } from '../redux/actions';
 
 class SearchBar extends Component {
@@ -27,8 +25,9 @@ class SearchBar extends Component {
     const { requestFoodRecipes, title, requestDrinkRecipes } = this.props;
     if (searchFilter === 'primeira-letra' && searchInput.length > 1) {
       this.invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
-    } else if (title === 'Comidas') requestFoodRecipes(searchInput, searchFilter);
-    else {
+    } else if (title === 'Comidas') {
+      requestFoodRecipes(searchInput, searchFilter);
+    } else if (title === 'Bebidas') {
       requestDrinkRecipes(searchInput, searchFilter);
     }
   }
@@ -49,14 +48,6 @@ class SearchBar extends Component {
       this.invokeAlert(alert,
         'Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
-    const renderCard = () => {
-      if (resultFood && title === 'Comidas' && resultFood.length > 1) {
-        return <FoodCard />;
-      }
-      if (resultDrink && title === 'Bebidas' && resultDrink.length > 1) {
-        return <DrinkCard />;
-      }
-    };
     return (
       <div className="search">
         <div className="search-container">
@@ -111,7 +102,6 @@ class SearchBar extends Component {
             Buscar
           </button>
         </div>
-        {renderCard()}
       </div>
     );
   }
@@ -131,10 +121,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 SearchBar.propTypes = {
-  requestFoodRecipes: PropTypes.func.isRequired,
-  requestDrinkRecipes: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
-  resultFood: PropTypes.arrayOf(Object).isRequired,
-  resultDrink: PropTypes.arrayOf(Object).isRequired,
-};
+  requestFoodRecipes: PropTypes.func,
+  requestDrinkRecipes: PropTypes.func,
+  title: PropTypes.string,
+  resultFood: PropTypes.arrayOf(Object),
+  resultDrink: PropTypes.arrayOf(Object),
+}.isRequired;
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

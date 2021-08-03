@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import DrinkCard from '../components/DrinkCard';
-import '../css/comidas.css';
 import { fetchCategorieDrinkFilterAction, fetchDrinkAction } from '../redux/actions';
+import '../styles/comidas.css';
 
 function Drinks(props) {
   const [categories, setCategories] = useState({});
