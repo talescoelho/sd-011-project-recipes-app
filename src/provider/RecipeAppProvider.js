@@ -17,7 +17,7 @@ function RecipeAppProvider({ children }) {
     alcoholicOrNot: '',
     name: 'Spicy Arrabiata Penne',
     image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-    doneDate: '23/06/2020',
+    doneDate: '23/05/2020',
     tags: ['Pasta', 'Curry'],
   },
   {
@@ -28,7 +28,7 @@ function RecipeAppProvider({ children }) {
     alcoholicOrNot: 'Alcoholic',
     name: 'Aquamarine',
     image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-    doneDate: '23/06/2020',
+    doneDate: '24/06/2020',
     tags: [],
   },
   ]);

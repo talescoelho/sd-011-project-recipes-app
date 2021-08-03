@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import RecipeAppContext from '../context/RecipeAppContext';
