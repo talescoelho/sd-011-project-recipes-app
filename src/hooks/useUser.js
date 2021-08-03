@@ -7,7 +7,6 @@ const initialState = {
 
 const reducers = {
   updateEmail: (state, { payload }) => {
-    console.log({ state, payload });
     state.email = payload;
   },
 };

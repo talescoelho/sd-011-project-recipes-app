@@ -20,7 +20,6 @@ const reducers = {
   },
 
   receiveCocktails: (state, { payload }) => {
-    console.log(payload);
     state.cocktails = payload;
     state.isLoading = false;
   },
@@ -52,7 +51,6 @@ export const fetchCocktails = ({ searchTerm, category }) => async (dispatch) => 
     const response = await fetch(`${BASE_URL}${urlModifier}${searchTerm}`);
     const result = await response.json();
     dispatch(receiveCocktails(result.drinks));
-    console.log(result);
   } catch (error) {
     if (error instanceof SyntaxError) {
       dispatch(receiveCocktails(null));

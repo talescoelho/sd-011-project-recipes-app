@@ -25,6 +25,8 @@ describe('O component Layout, quando recebe a prop title', () => {
   });
 });
 
+// TODO mover este teste para o Header.test.js
+
 describe('O component Layout, quando recebe a prop search', () => {
   beforeEach(() => {
     render(<Layout search><h1>ola mundo</h1></Layout>);
