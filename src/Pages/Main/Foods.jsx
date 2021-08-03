@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import MainContext from '../../Context/MainContext';
 import HeaderFoods from '../../Components/headers/HeaderFoods';
-import LowerMenu from '../../Components/LowerMenu';
+import LowerMenu from '../../Components/footer/LowerMenu';
 
 function Foods() {
   const { dataFoods, setPage, limit } = useContext(MainContext);

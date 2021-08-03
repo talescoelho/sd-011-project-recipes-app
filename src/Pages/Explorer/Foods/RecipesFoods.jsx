@@ -1,6 +1,6 @@
 import React from 'react';
 import HeaderExpIngredients from '../../../Components/headers/HeaderExploreIngredients';
-import LowerMenu from '../../../Components/LowerMenu';
+import LowerMenu from '../../../Components/footer/LowerMenu';
 
 const RecipesFoods = () => (
   <div>

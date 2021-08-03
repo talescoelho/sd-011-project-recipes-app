@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react';
 import renderWithRouter from '../Router/renderWithRouter';
-import LowerMenu from '../Components/LowerMenu';
+import LowerMenu from '../Components/footer/LowerMenu';
 
 describe('deve renderizar os componentes do Footer', () => {
   it('Verifica se o footer foi criado', () => {

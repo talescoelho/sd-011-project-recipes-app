@@ -1,6 +1,6 @@
 import React from 'react';
 import HeaderExplore from '../../Components/headers/HeaderExplore';
-import LowerMenu from '../../Components/LowerMenu';
+import LowerMenu from '../../Components/footer/LowerMenu';
 
 const MainExplorer = () => (
   <div>
