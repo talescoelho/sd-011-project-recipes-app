@@ -5,6 +5,7 @@ import { apiDetailsId } from '../service/apiDetailsId';
 import Recomendation from '../components/Detail/Recomendation';
 import './styles/styleRecipesId.css';
 import ButtonStart from '../components/Detail/ButtonStart';
+import ShareAndFavorite from '../components/ShareAndFavorite';
 
 function RecipesId({ match }) {
   const { params, path } = match;
@@ -14,7 +15,7 @@ function RecipesId({ match }) {
   const { dataApi, loading } = useSelector(({ detailsId }) => detailsId);
   const { drinks } = dataApi;
   const { meals } = dataApi;
-  // const mealsOrDrinks = typeDrinkorMeal === 'comidas' ? 'meals' : 'drinks';
+  const mealsOrDrinks = typeDrinkorMeal === 'comidas' ? 'meals' : 'drinks';
   // const MealOrDrink = typeDrinkorMeal === 'comidas' ? 'Meal' : 'Drink';
   const [detail, setDetail] = useState({
     idItem: 0,
@@ -103,8 +104,15 @@ function RecipesId({ match }) {
         alt={ title }
       />
       <h1 data-testid="recipe-title">{ title }</h1>
-      <button data-testid="share-btn" type="button">Compartilhar</button>
-      <button data-testid="favorite-btn" type="button">Favorito</button>
+      <ShareAndFavorite
+        share
+        favorite
+        data={ dataApi[mealsOrDrinks] }
+        testFavorite="favorite-btn"
+        testShare="share-btn"
+        comidasOuBebidas={ typeDrinkorMeal }
+        id={ id }
+      />
       <span data-testid="recipe-category">{ category }</span>
       { ingredient.map((item, index) => (
         <span
