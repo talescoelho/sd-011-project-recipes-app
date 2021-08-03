@@ -8,6 +8,7 @@ import {
   requestMealsByFilter,
 } from '../redux/actions/menuReducerActions';
 import FilterMenu from '../components/FilterMenu';
+import Footer from '../components/common/Footer';
 
 const Foods = ({
   dispatch,
@@ -64,6 +65,7 @@ const Foods = ({
             )
         }
       </main>
+      <Footer />
     </>
   );
 };

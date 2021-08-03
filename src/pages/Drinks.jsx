@@ -8,6 +8,7 @@ import {
   requestDrinksByFilter,
 } from '../redux/actions/menuReducerActions';
 import FilterMenu from '../components/FilterMenu';
+import Footer from '../components/common/Footer';
 
 const Drinks = ({
   dispatch,
@@ -64,6 +65,7 @@ const Drinks = ({
             )
         }
       </main>
+      <Footer />
     </>
   );
 };

@@ -1,28 +1,28 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import SearchFoodsByIngredients from '../pages/SearchFoodsByIngredients';
+import SearchDrinksByIngredients from '../pages/SearchFoodsByIngredients';
 
-import { renderWithRouterAndStore } from './testConfig';
+import { renderWithRouterAndStore as renderWith } from './testConfig';
 
 describe('Tests SearchFoodsByIngredients Page', () => {
-  const searchFoodsByIngredientsRoute = '/explorar/bebidas';
+  const searchDrinksByIngredientsRoute = '/explorar/bebidas';
   it('Checks if Footer is rendered', () => {
-    renderWithRouterAndStore(<SearchFoodsByIngredients />, searchFoodsByIngredientsRoute);
+    renderWith(<SearchDrinksByIngredients />, searchDrinksByIngredientsRoute);
     const footerField = screen.getByTestId('footer');
     expect(footerField).toBeInTheDocument();
   });
   it('Checks if drinkIcon is rendered', () => {
-    renderWithRouterAndStore(<SearchFoodsByIngredients />, searchFoodsByIngredientsRoute);
+    renderWith(<SearchDrinksByIngredients />, searchDrinksByIngredientsRoute);
     const drinkButton = screen.getByTestId('drinks-bottom-btn');
     expect(drinkButton).toBeInTheDocument();
   });
   it('Checks if searchIcon is rendered', () => {
-    renderWithRouterAndStore(<SearchFoodsByIngredients />, searchFoodsByIngredientsRoute);
+    renderWith(<SearchDrinksByIngredients />, searchDrinksByIngredientsRoute);
     const searchButton = screen.getByTestId('explore-bottom-btn');
     expect(searchButton).toBeInTheDocument();
   });
   it('Checks if foodIcon is rendered', () => {
-    renderWithRouterAndStore(<SearchFoodsByIngredients />, searchFoodsByIngredientsRoute);
+    renderWith(<SearchDrinksByIngredients />, searchDrinksByIngredientsRoute);
     const foodButton = screen.getByTestId('food-bottom-btn');
     expect(foodButton).toBeInTheDocument();
   });

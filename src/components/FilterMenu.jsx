@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './css/filterMenu.css';
+import '../styles/components/filterMenu.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
