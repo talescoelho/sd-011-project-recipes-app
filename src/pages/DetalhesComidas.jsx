@@ -17,7 +17,6 @@ class DetalhesComidas extends Component {
       shareButton: false,
       favoriteButton: false,
     };
-
     this.fetchIdMeal = this.fetchIdMeal.bind(this);
     this.recomendationsFetch = this.recomendationsFetch.bind(this);
     this.handleStateButton = this.handleStateButton.bind(this);
@@ -45,9 +44,7 @@ class DetalhesComidas extends Component {
     const urlId = pathname.split('/')[2];
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes && doneRecipes.some(({ id }) => id === urlId)) {
-      this.setState({
-        showButton: false,
-      });
+      this.setState({ showButton: false });
     }
   }
 
@@ -58,26 +55,20 @@ class DetalhesComidas extends Component {
     const urlId = pathname.split('/')[2];
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (inProgressRecipes && inProgressRecipes.meals[urlId]) {
-      this.setState({
-        nameButton: false,
-      });
+      this.setState({ nameButton: false });
     }
   }
 
   fetchIdMeal(id) {
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
       .then((data) => data.json())
-      .then((response) => this.setState({
-        food: response,
-      }));
+      .then((response) => this.setState({ food: response }));
   }
 
   recomendationsFetch() {
     fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
       .then((data) => data.json())
-      .then((response) => this.setState({
-        recomendations: response,
-      }));
+      .then((response) => this.setState({ recomendations: response }));
   }
 
   shareLinkClick() {
@@ -105,9 +96,34 @@ class DetalhesComidas extends Component {
   }
 
   favoriteButtonClick() {
-    const { favoriteButton } = this.state;
+    const { favoriteButton, food } = this.state;
+    const { meals } = food;
+    const obj = {
+      id: meals[0].idMeal,
+      type: 'comida',
+      area: meals[0].strArea,
+      category: meals[0].strCategory,
+      alcoholicOrNot: '',
+      name: meals[0].strMeal,
+      image: meals[0].strMealThumb,
+    };
+
     this.setState({
       favoriteButton: !favoriteButton,
+    }, () => {
+      if (!localStorage.favoriteRecipes) {
+        localStorage.setItem('favoriteRecipes', JSON.stringify([obj]));
+      } else {
+        const favoritesRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        if (favoritesRecipes.some((value) => value.id === meals[0].idMeal)) {
+          const attFavorite = favoritesRecipes
+            .filter((value) => value.id !== meals[0].idMeal);
+          localStorage.setItem('favoriteRecipes', JSON.stringify(attFavorite));
+        } else {
+          localStorage
+            .setItem('favoriteRecipes', JSON.stringify([...favoritesRecipes, obj]));
+        }
+      }
     });
   }
 
@@ -121,9 +137,7 @@ class DetalhesComidas extends Component {
     const { meals } = food;
     const { drinks } = recomendations;
     const magicNumber = 6;
-    if (!meals) {
-      return <p>Carregando</p>;
-    }
+    if (!meals) { return <p>Carregando</p>; }
     const { strMealThumb, strMeal, strCategory, strInstructions, strYoutube } = meals[0];
     const ingredientes = Object.keys(meals[0]);
     const filtrados = ingredientes.filter((value) => value.includes('strIngredient'));
