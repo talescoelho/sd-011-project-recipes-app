@@ -10,7 +10,7 @@ const requestRecipes = () => ({
   type: REQUEST_RECEIVED,
 });
 
-export function fetchReceiveRecipes(textInputValue, radioInputValue) {
+export default function fetchReceiveRecipes(textInputValue, radioInputValue) {
   return (dispatch) => {
     dispatch(requestRecipes());
     let url = '';
@@ -28,7 +28,12 @@ export function fetchReceiveRecipes(textInputValue, radioInputValue) {
       }
       url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${textInputValue}`;
       break;
+    case 'filter':
+      url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${textInputValue}`;
+      break;
     default:
+      url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+      break;
     }
     return fetch(url)
       .then((response) => response.json())
