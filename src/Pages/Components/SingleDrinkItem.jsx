@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { convertUrlToID, manageDetailAPI } from '../../Helpers/convertUrlToID';
-import embedYouTubeVideo from '../../Helpers/embedYouTubeVideo';
 
 function SingleFoodItem() {
   const [itemDetail, setItemDetail] = useState({
