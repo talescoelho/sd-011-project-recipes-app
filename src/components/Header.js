@@ -2,30 +2,37 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import { UserHook } from '../Context/UserHook';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-// import {
-//   searchByFirstLetter,
-//   searchByIngredient,
-//   searchByName,
-// } from '../services/RequestFood';
 
 function Header({ title, search }) {
   const [showFilterInput, setShowFilter] = useState(false);
-  const [setInputTextSearch] = useState('');
-  const [radio, setRadio] = useState('');
+  const [inputTextSearch, setInputTextSearch] = useState('');
+  const [radio, setRadio] = useState('ingredient');
+
+  const {
+    setFiltered,
+    filterByName,
+    filterByIngredient,
+    filterByFirstLetter,
+  } = UserHook();
 
   useEffect(() => {
     setShowFilter(true);
-    console.log(radio);
-  }, [radio]);
+  }, []);
 
-  function handleSubmitButton(e) {
-    e.preventDefault();
-    console.log(radio);
-    // if (radio === 'ingredient') {
-
-    // }
+  function handleSubmitButton() {
+    if (radio === 'name-search') {
+      setFiltered(filterByName(inputTextSearch));
+    } else if (radio === 'first-letter') {
+      if (inputTextSearch.length > 1) {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      }
+      setFiltered(filterByFirstLetter(inputTextSearch));
+    } else {
+      setFiltered(filterByIngredient(inputTextSearch));
+    }
   }
 
   return (
@@ -54,6 +61,7 @@ function Header({ title, search }) {
             <input
               data-testid="search-input"
               type="text"
+              value={ inputTextSearch }
               onChange={ (e) => setInputTextSearch(e.target.value) }
             />
             <label htmlFor="ingredient">
@@ -63,6 +71,7 @@ function Header({ title, search }) {
                 id="ingredient"
                 name="radio-button"
                 value="ingredient"
+                checked
                 onChange={ () => setRadio('ingredient') }
               />
               Ingrediente
@@ -94,7 +103,7 @@ function Header({ title, search }) {
             <button
               data-testid="exec-search-btn"
               type="button"
-              onClick={ (e) => handleSubmitButton(e.target.value) }
+              onClick={ () => handleSubmitButton() }
             >
               Buscar
             </button>
