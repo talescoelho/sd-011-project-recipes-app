@@ -8,39 +8,36 @@ function SearchBar() {
   const [search, setSearch] = useState('');
   const [radio, setRadio] = useState('');
   const { pathname } = useLocation();
-
-  const { data, setData } = useContext(MainContext);
-
+  const { data, setData, loading } = useContext(MainContext);
   const history = useHistory();
 
   useEffect(() => {
     if (data.length === 1) {
       const { idMeal, idDrink } = data[0];
       const id = idMeal || idDrink;
-      console.log(idMeal);
       history.push(`${pathname}/${id}`);
     }
-    console.log(0);
   }, [pathname, data, history]);
 
   async function searchButton() {
-    if (pathname === '/comidas') {
-      const newResults = await searchBarFetchMeal(search, radio) || [];
-      console.log(newResults);
-      if (typeof (newResults) === 'string') {
-        // eslint-disable-next-line no-alert
-        alert(newResults);
-      } else {
-        setData(newResults);
+    if (!loading) {
+      if (pathname === '/comidas') {
+        const newResults = await searchBarFetchMeal(search, radio) || [];
+        if (typeof (newResults) === 'string') {
+          // eslint-disable-next-line no-alert
+          alert(newResults);
+        } else {
+          setData(newResults);
+        }
       }
-    }
-    if (pathname === '/bebidas') {
-      const newResults = await searchBarFetchCockTail(search, radio) || [];
-      if (typeof (newResults) === 'string') {
-        // eslint-disable-next-line no-alert
-        alert(newResults);
-      } else {
-        setData(newResults);
+      if (pathname === '/bebidas') {
+        const newResults = await searchBarFetchCockTail(search, radio) || [];
+        if (typeof (newResults) === 'string') {
+          // eslint-disable-next-line no-alert
+          alert(newResults);
+        } else {
+          setData(newResults);
+        }
       }
     }
   }
@@ -57,7 +54,6 @@ function SearchBar() {
         />
       </label>
       <label htmlFor="ingredient-search-radio">
-        Ingrediente
         <input
           data-testid="ingredient-search-radio"
           id="ingredient-search-radio"
@@ -66,9 +62,9 @@ function SearchBar() {
           type="radio"
           value="ingredient"
         />
+        Ingrediente
       </label>
       <label htmlFor="name-search-radio">
-        Nome
         <input
           data-testid="name-search-radio"
           id="name-search-radio"
@@ -77,9 +73,9 @@ function SearchBar() {
           type="radio"
           value="name"
         />
+        Nome
       </label>
       <label htmlFor="first-letter-search-radio">
-        Primeira letra
         <input
           data-testid="first-letter-search-radio"
           id="first-letter-search-radio"
@@ -88,6 +84,7 @@ function SearchBar() {
           type="radio"
           value="firstLetter"
         />
+        Primeira letra
       </label>
       <button
         type="button"
