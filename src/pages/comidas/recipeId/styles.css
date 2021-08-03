@@ -1,0 +1,16 @@
+.details {
+  width: 100hv;
+  padding: 5px;
+}
+
+.details-picture {
+  width: 330px;
+  margin: 10px;
+  /* padding: 20px; */
+}
+
+.details-btn {
+  display: flex;
+  justify-content: center;
+  /* margin: auto; */
+}
