@@ -1,6 +1,7 @@
 import React from 'react';
 import FooterMenu from '../components/FooterMenu';
 import useFetch from '../hooks/useFetch';
+import { Link } from 'react-router-dom';
 
 const ExploreFoodByArea = () => {
   const { data: filters, request: requestFilters } = useFetch();
@@ -43,16 +44,18 @@ const ExploreFoodByArea = () => {
       </select>
       {data.meals.filter((value, index) => index < maxNumberOfCard)
         .map((value, index) => {
-          const { strMeal, strMealThumb } = value;
+          const { strMeal, strMealThumb, idMeal } = value;
           return (
-            <div data-testid={ `${index}-recipe-card` } key={ index }>
-              <img
-                data-testid={ `${index}-card-img` }
-                src={ strMealThumb }
-                alt={ strMeal }
-              />
-              <h3 data-testid={ `${index}-card-name` }>{ strMeal }</h3>
-            </div>
+            <Link to={ `/comidas/${idMeal}` } key={ index }>
+              <div data-testid={ `${index}-recipe-card` }>
+                <img
+                  data-testid={ `${index}-card-img` }
+                  src={ strMealThumb }
+                  alt={ strMeal }
+                />
+                <h3 data-testid={ `${index}-card-name` }>{ strMeal }</h3>
+              </div>
+            </Link>
           );
         })}
       <FooterMenu />
