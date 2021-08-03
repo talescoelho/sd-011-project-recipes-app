@@ -1,5 +1,5 @@
 import React from 'react';
-import LowerMenu from '../../../Components/LowerMenu';
+import LowerMenu from '../../../Components/footer/LowerMenu';
 import HeaderExplore from '../../../Components/headers/HeaderExploreDrinks';
 
 const ExplorerDrinks = () => (
