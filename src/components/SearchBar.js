@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRecipes, foodsAction, drinksAction, setInput } from '../redux/slices/fetchReceitas';
+import {
+  getRecipes,
+  foodsAction,
+  drinksAction,
+  setInput } from '../redux/slices/fetchReceitas';
 
 function SearchBar() {
   const { error, foods, drinks } = useSelector((state) => state.fetchReceitas);
   const dispatch = useDispatch();
   const [selectedRadio, setSelectedRadio] = useState();
   const [searchInput, setSearchInput] = useState();
-  const [redirectURL, setRedirectURL] = useState('');
 
   const drinksActions = {
     ingredients: drinksAction[0],
@@ -51,13 +54,6 @@ function SearchBar() {
       ? foodsActions[selectedRadio]
       : drinksActions[selectedRadio];
     dispatch(getRecipes(action));
-    // let recipeType = 'foods';
-    // const { pathname } = window.location;
-    // const recipeURL = pathname.split('/')[1];
-    // if (recipeURL === 'bebidas') {
-    //   recipeType = 'drinks';
-    // }
-    // dispatch(getRecipes(recipeType));
   }
 
   if (redirectURL !== '') return (<Redirect to={ redirectURL } />);
