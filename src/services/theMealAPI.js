@@ -16,6 +16,11 @@ export function searchBarFetchMeal(search, type) {
       .then(({ meals }) => meals)
       .catch(() => 'Sua busca deve conter somente 1 (um) caracter');
 
+  case 'foodId':
+    return fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${search}`)
+      .then((result) => result.json())
+      .then(({ meals }) => meals);
+
   default:
     break;
   }
