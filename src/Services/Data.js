@@ -19,3 +19,9 @@ export function fetchCocktailsAPI(setListCocktails) {
     .then((response) => response.json())
     .then((jsonData) => setListCocktails(jsonData.drinks));
 }
+export function fetchCocktailsCategorisAPI(setListCocktailsCategorie) {
+  // retorna API de lista de categoria de comida
+  fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
+    .then((response) => response.json())
+    .then((jsonData) => setListCocktailsCategorie(jsonData.drinks));
+}
