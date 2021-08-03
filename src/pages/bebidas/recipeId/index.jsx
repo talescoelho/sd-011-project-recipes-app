@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import Carousel from 'react-bootstrap/Carousel';
 import fetchDetails from '../../../services/fetchDrinkDetailsApi';
 import './styles.css';
 
@@ -21,10 +22,8 @@ export default function ComidasRecipeId({ match: { params: { recipeId } } }) {
     strCategory,
     strInstructions,
     strDrinkThumb,
-    strYoutube,
+    strAlcoholic,
   } = details;
-  console.log(strYoutube);
-  const ytUrl = '0' || strYoutube.split('watch?v=')[1];
 
   const loading = () => <h1>Loading content...</h1>;
 
@@ -43,9 +42,9 @@ export default function ComidasRecipeId({ match: { params: { recipeId } } }) {
         <button type="button" data-testid="share-btn">Compartilhar</button>
         <button type="button" data-testid="favorite-btn">Favoritar</button>
       </div>
-      <p>
-        Categoria
-        <span data-testid="recipe-category"><strong>{ strCategory }</strong></span>
+      <p data-testid="recipe-category">
+        <span><strong>{ strCategory }</strong></span>
+        <span>{ strAlcoholic }</span>
       </p>
       <div>
         <h2>Ingredientes</h2>
@@ -67,21 +66,29 @@ export default function ComidasRecipeId({ match: { params: { recipeId } } }) {
         </ul>
       </div>
       <p data-testid="instructions">{strInstructions}</p>
-      <div data-testid="video">VIDEO</div>
-      <iframe
-        title="Recipe video"
-        width="320"
-        height="215"
-        src={ `https://www.youtube.com/embed/${ytUrl}` }
-      />
-      <div data-testid={ `${recipeId}-recomendation-card` }>Receitas recomendadas</div>
-      <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+      <div className="details-recomendation" data-testid="0-recomendation-card">
+        <h2>Receitas recomendadas</h2>
+        <Carousel>
+          <Carousel.Item>
+            alo alo
+          </Carousel.Item>
+          <Carousel.Item>
+            TESTANDO BARSA
+          </Carousel.Item>
+        </Carousel>
+      </div>
+      <button
+        type="button"
+        className="start-btn"
+        data-testid="start-recipe-btn"
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 
-  const content = isLoading ? loading() : pageContent();
   return (
-    content
+    isLoading ? loading() : pageContent()
   );
 }
 

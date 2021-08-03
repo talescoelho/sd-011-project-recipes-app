@@ -64,7 +64,7 @@ describe('34 - Realize uma request para a API passando o `id` da receita que dev
         cy.spy(win, 'fetch');
       },
     });
-
+    console.log('')
     cy.window()
       .its('fetch')
       .should('be.calledWith', 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319');

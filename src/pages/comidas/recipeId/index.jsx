@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import Carousel from 'react-bootstrap/Carousel';
 import fetchDetails from '../../../services/fetchMealDetailsApi';
 import './styles.css';
 
@@ -23,8 +24,6 @@ export default function ComidasRecipeId({ match: { params: { recipeId } } }) {
     strMealThumb,
     strYoutube,
   } = details;
-  console.log(strYoutube);
-  const ytUrl = '0' || strYoutube.split('watch?v=')[1];
 
   const loading = () => <h1>Loading content...</h1>;
 
@@ -70,10 +69,26 @@ export default function ComidasRecipeId({ match: { params: { recipeId } } }) {
         title="Recipe video"
         width="320"
         height="215"
-        src={ `https://www.youtube.com/embed/${ytUrl}` }
+        src={ `https://www.youtube.com/embed/${strYoutube.split('watch?v=')[1]}` }
       />
-      <div data-testid={ `${recipeId}-recomendation-card` }>Receitas recomendadas</div>
-      <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+      <div className="details-recomendation" data-testid="0-recomendation-card">
+        <h2>Receitas recomendadas</h2>
+        <Carousel>
+          <Carousel.Item>
+            alo alo
+          </Carousel.Item>
+          <Carousel.Item>
+            TESTANDO BARSA
+          </Carousel.Item>
+        </Carousel>
+      </div>
+      <button
+        type="button"
+        className="start-btn"
+        data-testid="start-recipe-btn"
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 
