@@ -10,6 +10,7 @@ import Explorar from './pages/Explorar';
 import Comidas from './pages/Comidas';
 import Login from './pages/Login';
 import RecipesProvider from './context/RecipesProvider';
+import Detalhes from './pages/Detalhes';
 
 function App() {
   return (
@@ -18,15 +19,15 @@ function App() {
         <Switch>
           <Route exact path="/" component={ Login } />
           <RecipesProvider>
-            <Route path="/comidas" component={ Comidas } />
-            <Route path="/bebidas" component={ Comidas } />
+            <Route exact path="/comidas" component={ Comidas } />
+            <Route exact path="/bebidas" component={ Comidas } />
             <Route path="/explorar" component={ Explorar } />
             <Route exact path="/perfil" component={ Perfil } />
+            <Route exact path="/comidas/:id" component={ Detalhes } />
+            <Route exact path="/bebidas/:id" component={ Detalhes } />
           </RecipesProvider>
 
-          <Route path="/comidas/{id-da-receita}" />
           <Route path="/comidas/{id-da-receita}/in-progress" />
-          <Route path="/bebidas/{id-da-receita}" />
           <Route path="/bebidas/{id-da-receita}/in-progress" />
           <Route
             path="/explorar/comidas"

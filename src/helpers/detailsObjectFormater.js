@@ -1,0 +1,44 @@
+export const mealsObjectFormater = (recipeData) => {
+  const recipeEntries = Object.entries(recipeData);
+  const ingredients = recipeEntries.filter(([value]) => value
+    .includes('strIngredient')).filter((value) => value !== '' && value !== null);
+  const ingredientsQuantity = recipeEntries.filter(([value]) => value
+    .includes('strMeasure')).filter((value) => value !== '' && value !== null);
+
+  const mealObject = {
+    ingredients,
+    ingredientsQuantity,
+    imgUrl: recipeData.strMealThumb,
+    instructions: recipeData.strInstructions,
+    title: recipeData.strMeal,
+    video: recipeData.strYoutube,
+    category: recipeData.strCategory,
+    idMeal: recipeData.idMeal,
+  };
+
+  return mealObject;
+};
+
+export const drinksObjectFormater = (recipeData) => {
+  const recipeEntries = Object.entries(recipeData);
+  const ingredients = recipeEntries.filter(([value]) => value
+    .includes('strIngredient')).filter((value) => value !== '' && value !== null);
+  const ingredientsQuantity = recipeEntries.filter(([value]) => value
+    .includes('strMeasure')).filter((value) => value !== '' && value !== null);
+
+  const drinksObject = {
+    ingredients,
+    ingredientsQuantity,
+    imgUrl: recipeData.strDrinkThumb,
+    instructions: recipeData.strInstructions,
+    title: recipeData.strDrink,
+    video: recipeData.strYoutube,
+    category: recipeData.strCategory,
+    idDrink: recipeData.idDrink,
+    strAlcoholic: recipeData.strAlcoholic,
+    strGlass: recipeData.strGlass,
+
+  };
+
+  return drinksObject;
+};
