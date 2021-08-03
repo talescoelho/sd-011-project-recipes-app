@@ -5,7 +5,7 @@ import copy from 'clipboard-copy';
 import RecomendationRecipesCards from '../components/RecomendationRecipesCards';
 import '../components/css/RecipeDetails.css';
 import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import FavoriteButton from '../components/FavoriteButton';
 
 function RecipeDetails(props) {
   const { match: { params: { id } } } = props;
@@ -89,9 +89,7 @@ function RecipeDetails(props) {
         >
           <img src={ shareIcon } alt="shareIcon" />
         </button>
-        <button type="button" data-testid="favorite-btn">
-          <img src={ whiteHeartIcon } alt="whiteHeartIcon" />
-        </button>
+        <FavoriteButton />
         <h3 data-testid="recipe-category">
           {recipe.meals[0].strCategory}
         </h3>
@@ -149,9 +147,7 @@ function RecipeDetails(props) {
         >
           <img src={ shareIcon } alt="shareIcon" />
         </button>
-        <button type="button" data-testid="favorite-btn">
-          <img src={ whiteHeartIcon } alt="whiteHeartIcon" />
-        </button>
+        <FavoriteButton />
         <h3 data-testid="recipe-category">
           {recipe.drinks[0].strCategory}
         </h3>
