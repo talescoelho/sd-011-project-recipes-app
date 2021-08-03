@@ -11,7 +11,7 @@ class Footer extends Component {
       <div className="footer" data-testid="footer">
         <Link to="/bebidas">
           <button type="button">
-            <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="meal" />
+            <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="drink" />
           </button>
         </Link>
         <Link to="/explorar">
@@ -21,7 +21,7 @@ class Footer extends Component {
         </Link>
         <Link to="/comidas">
           <button type="button">
-            <img data-testid="food-bottom-btn" src={ mealIcon } alt="drink" />
+            <img data-testid="food-bottom-btn" src={ mealIcon } alt="meal" />
           </button>
         </Link>
 
