@@ -91,6 +91,7 @@ export default function RecipesProvider({ children }) {
     handleSearch,
     recipesDb,
     redirect,
+    setRecipesDb,
   };
 
   return (

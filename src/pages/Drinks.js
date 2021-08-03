@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
-import { fetchDrinksName } from '../services/DrinksApiServices';
+import { fetchDrinksName, fetchDrinkCategory } from '../services/DrinksApiServices';
 
 export default function Drinks() {
   const pageTitle = {
@@ -13,6 +13,8 @@ export default function Drinks() {
 
   const [firstDrink, setFirstDrink] = useState([]);
   const [categoriesDrink, setCategoriesDrink] = useState([]);
+
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
     const response = async () => {
@@ -32,9 +34,20 @@ export default function Drinks() {
   }, []);
 
   const history = useHistory();
-  const { recipesDb, redirect } = useContext(RecipesContext);
+  const { recipesDb, redirect, setRecipesDb } = useContext(RecipesContext);
   const limits = 12;
   const limitCategory = 5;
+
+  function functionAll() {
+    return setRecipesDb(firstDrink);
+  }
+
+  async function handleFetchByCategory(param) {
+    // console.log(param);
+    // console.log(recipesDb);
+    const cat = await fetchDrinkCategory(param);
+    return setRecipesDb(cat);
+  }
 
   function handleDrinks() {
     if (recipesDb.length === 0) {
@@ -88,13 +101,29 @@ export default function Drinks() {
   return (
     <div>
       <Header value={ pageTitle } />
-      <button type="button">All</button>
+      <button
+        type="button"
+        onClick={ () => functionAll() }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
       { categoriesDrink.map((category, index) => ((index < limitCategory
       ) && (
         <button
           type="button"
           key={ index }
           data-testid={ `${category.strCategory}-category-filter` }
+          name={ category.strCategory }
+          onClick={ ({ target }) => {
+            setRecipesDb([]);
+            setSelectedCategory(target.name);
+            if (selectedCategory === target.name) {
+              functionAll();
+            } else {
+              handleFetchByCategory(target.name);
+            }
+          } }
         >
           {category.strCategory}
         </button>)
