@@ -2,18 +2,19 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LowerMenu from '../components/LowerMenu';
 import Header from '../components/Header';
-// import { fetchDefaultFoodsFromMealsDB } from '../services';
+// import GlobalContext from '../context';
 
 export default function ExploreMeals() {
+  // const { foodArray } = useContext(GlobalContext);
   const [randomMealId] = useState('52771');
 
-  // const getRandomMeal = async () => {
-  //   const meals = await fetchDefaultFoodsFromMealsDB();
-  //   const randomMealIndex = Math.floor(Math.random() * meals.length);
-  //   setRandomMealId(meals[randomMealIndex].idMeal);
+  // const getRandomMealId = () => {
+  //   const randomMealIndex = Math.floor(Math.random() * foodArray.length);
+  //   const mealId = foodArray[randomMealIndex];
+  //   if (mealId) setRandomMealId(mealId.idMeal);
   // };
 
-  // useEffect(() => getRandomMeal(), []);
+  // useEffect(getRandomMealId, [foodArray]);
 
   return (
     <div>

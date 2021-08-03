@@ -2,19 +2,19 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LowerMenu from '../components/LowerMenu';
 import Header from '../components/Header';
-// import { fetchDefaultDrinksFromCocktailsDB } from '../services';
+// import GlobalContext from '../context';
 
 export default function ExploreDrinks() {
+  // const { drinkArray } = useContext(GlobalContext);
   const [randomDrinkId] = useState('178319');
 
-  // const getRandomDrink = async () => {
-  //   const drinks = await fetchDefaultDrinksFromCocktailsDB();
-  //   console.log(drinks);
-  //   const randomDrinkIndex = Math.floor(Math.random() * drinks.length);
-  //   setRandomDrinkId(drinks[randomDrinkIndex].idDrink);
+  // const getRandomDrinkId = () => {
+  //   const randomDrinkIndex = Math.floor(Math.random() * drinkArray.length);
+  //   const drinkId = drinkArray[randomDrinkIndex];
+  //   if (drinkId) setRandomDrinkId(drinkId.idDrink);
   // };
 
-  // useEffect(() => getRandomDrink(), []);
+  // useEffect(getRandomDrinkId, [drinkArray]);
 
   return (
     <div>
