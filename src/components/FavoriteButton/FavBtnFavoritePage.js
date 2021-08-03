@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import whiteHeartIcon from '.../images/whiteHeartIcon.svg';
+import whiteHeartIcon from '.../image/whiteHeartIcon.svg';
 import blackHeartIcon from '.../images/blackHeartIcon.svg';
 
 const mountObject = (data, recipeType) => {
