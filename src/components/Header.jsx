@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import Categories from './Categories';
 import '../styles/Header.css';
 
 function Header() {
@@ -33,6 +34,7 @@ function Header() {
         </button>
       </div>
       { isSearch && <SearchBar /> }
+      <Categories />
     </header>
   );
 }

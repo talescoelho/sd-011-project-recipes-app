@@ -1,0 +1,13 @@
+.categories-section {
+  display: flex;
+  flex-flow: row wrap;
+  width: 95%;
+}
+
+.categories-section button {
+  background-color: white;
+  font-size: 0.6em;
+  margin: 3px;
+  padding: 3px 0;
+  width: 30%;
+}

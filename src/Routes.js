@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
-import Recipes from './components/Recipes';
-import DetailsRecipe from './components/DetailsRecipe';
+import Recipes from './pages/Recipes';
+import DetailsRecipe from './pages/DetailsRecipe';
 
 export default function Routes() {
   return (

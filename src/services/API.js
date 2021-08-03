@@ -1,3 +1,5 @@
+const food = '/comidas';
+const drink = '/bebidas';
 const error = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
 function checkResponseMeal(data, callback) {
@@ -8,7 +10,7 @@ function checkResponseMeal(data, callback) {
   callback(data);
 }
 
-function getRecipesFromMealAPI(url, callback) {
+export function getRecipesFromMealAPI(url, callback) {
   fetch(url)
     .then((response) => response.json())
     .then((data) => checkResponseMeal(data, callback));
@@ -22,7 +24,7 @@ function checkResponseCockTail(data, callback) {
   callback(data);
 }
 
-function getRecipesFromCocktailAPI(url, callback) {
+export function getRecipesFromCocktailAPI(url, callback) {
   fetch(url)
     .then((response) => response.json())
     .then((data) => checkResponseCockTail(data, callback));
@@ -77,9 +79,9 @@ function getRecipesfromTheCockTailAPI(term, type, callback) {
 }
 
 export default function getRecipes(term, type, path, callback) {
-  if (path === '/comidas') {
+  if (path === food) {
     getRecipesFromTheMealAPI(term, type, callback);
-  } else if (path === '/bebidas') {
+  } else if (path === drink) {
     getRecipesfromTheCockTailAPI(term, type, callback);
   }
 }
@@ -94,4 +96,32 @@ export function getDetailsRecipesFromTheCockTailAPI(id) {
   const API_THECOCKTAILDB_DETAILS = 'www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
   const urlDetailCockTail = API_THECOCKTAILDB_DETAILS + id;
   getRecipesFromCocktailAPI(urlDetailCockTail);
+}
+
+export function getCategoriesFromApi(path, callback) {
+  const API_THEMEALDB_CATEGORIES = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  const API_THECOCKTAILDB_CATEGORIES = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  if (path === food) {
+    fetch(API_THEMEALDB_CATEGORIES)
+      .then((response) => response.json())
+      .then((data) => callback(data.meals));
+  } else if (path === drink) {
+    fetch(API_THECOCKTAILDB_CATEGORIES)
+      .then((response) => response.json())
+      .then((data) => callback(data.drinks));
+  }
+}
+
+export function getRecipiesByCategories(category, path, callback) {
+  const API_MEAL_RECIPIES_CAT = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
+  const API_COCKTAIL_RECIPIES_CAT = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
+  let url;
+  console.log(category);
+  if (path === food) {
+    url = API_MEAL_RECIPIES_CAT + category;
+    getRecipesFromMealAPI(url, callback);
+  } else if (path === drink) {
+    url = API_COCKTAIL_RECIPIES_CAT + category;
+    getRecipesFromCocktailAPI(url, callback);
+  }
 }
