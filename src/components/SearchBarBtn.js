@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import SearchBar from './SearchBar';
 import SearchIcon from '../images/searchIcon.svg';
 
 export default function SearchBarBtn({ haveSearchBtn }) {
@@ -27,10 +28,8 @@ export default function SearchBarBtn({ haveSearchBtn }) {
       {
         !isHidden
       && (
-        <label htmlFor="search-input">
-          <input data-testid="search-input" />
-          <input type="button" value="Buscar" />
-        </label>)
+        <SearchBar />
+      )
       }
     </div>
   );
