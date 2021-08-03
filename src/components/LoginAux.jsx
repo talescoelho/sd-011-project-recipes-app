@@ -17,9 +17,13 @@ const LoginAux = ({ id, label, setValue, ...props }) => (
 );
 
 LoginAux.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   label: PropTypes.string.isRequired,
   setValue: PropTypes.func.isRequired,
+};
+
+LoginAux.defaultProps = {
+  id: undefined,
 };
 
 export default LoginAux;
