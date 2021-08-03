@@ -1,20 +1,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useFetch from '../../hooks/useFetch';
-import shareIcon from '../../images/shareIcon.svg';
-import blackHeartIcon from '../../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-import handleClickFavoriteRecipe from '../../helpers/handleClickFavoriteRecipe';
-import handleClickClipboard from '../../helpers/handleClickClipBoard';
-import RecomendationCard from '../../components/recomendationCard.js';
-import handleContinueButton from '../../helpers/handleContinueButton';
+import useFetch from '../hooks/useFetch';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import handleClickFavoriteRecipe from '../helpers/handleClickFavoriteRecipe';
+import handleClickClipboard from '../helpers/handleClickClipBoard';
+import RecomendationCard from '../components/RecomendationCard';
+import handleContinueButton from '../helpers/handleContinueButton';
 
 const FoodDetails = ({ match }) => {
   const { id } = match.params;
   const { data, request } = useFetch();
+  const { data: mealsData, request: requestMeals } = useFetch();
   const [messageClipboard, setMessageClipboard] = React.useState(null);
-  const { data: drinksData, request: requestDrinks } = useFetch();
   const [isFavorite, setIsFavorite] = React.useState(false);
 
   React.useEffect(() => {
@@ -28,29 +28,25 @@ const FoodDetails = ({ match }) => {
   }, [id]);
 
   React.useEffect(() => {
-    request(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+    request(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
   }, [request, id]);
 
   React.useEffect(() => {
-    requestDrinks('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-  }, [requestDrinks]);
+    requestMeals('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  }, [requestMeals]);
 
-  if (!data || !drinksData) {
+  if (!data || !mealsData) {
     return null;
   }
 
-  const { meals } = data;
-  const meal = meals[0];
-  const { strMealThumb, strYoutube, strMeal, strCategory, strInstructions } = meal;
-
-  const entries = Object.entries(meal);
+  const { drinks } = data;
+  const drink = drinks[0];
+  const { strDrinkThumb, strDrink, strAlcoholic, strInstructions } = drink;
+  const entries = Object.entries(drink);
   const ingredients = entries.filter(([value]) => value
     .includes('strIngredient')).filter(([, value]) => value !== '' && value !== null);
-  const ingredientsQuantity = entries.filter(([value]) => value
-    .includes('strMeasure')).filter(([, value]) => value !== '' && value !== null);
 
   const doneRecipes = localStorage.getItem('doneRecipes');
-
   let buttonShoulBeVisible = true;
   if (doneRecipes) {
     const doneRecipesArray = JSON.parse(doneRecipes);
@@ -61,12 +57,11 @@ const FoodDetails = ({ match }) => {
     <div>
       <img
         className="top-img"
-        src={ strMealThumb }
-        alt={ `${strMeal}` }
+        src={ strDrinkThumb }
+        alt={ `${strDrink}` }
         data-testid="recipe-photo"
       />
-      <h1 data-testid="recipe-title">{ strMeal }</h1>
-      { messageClipboard }
+      <h1 data-testid="recipe-title">{ strDrink }</h1>
       <button type="button" onClick={ () => handleClickClipboard(setMessageClipboard) }>
         <img
           src={ shareIcon }
@@ -76,38 +71,51 @@ const FoodDetails = ({ match }) => {
       </button>
       <button
         type="button"
-        onClick={ () => handleClickFavoriteRecipe(id, meal, setIsFavorite, isFavorite) }
+        onClick={ () => handleClickFavoriteRecipe(id, drink, setIsFavorite, isFavorite) }
       >
         { isFavorite ? (
           <img src={ blackHeartIcon } alt="" data-testid="favorite-btn" />)
           : (<img src={ whiteHeartIcon } alt="" data-testid="favorite-btn" />) }
       </button>
-      <h2 data-testid="recipe-category">{ strCategory }</h2>
+      {messageClipboard}
+      <h2 data-testid="recipe-category">{ strAlcoholic }</h2>
       Ingredients
       <ul>
-        { ingredients.map(([, value], index) => (
-          <li
-            key={ value }
-            data-testid={ `${index}-ingredient-name-and-measure` }
-          >
-            { `${value} -${ingredientsQuantity[index][1]}` }
-          </li>
-        ))}
+        { ingredients.map(([name, value], index) => {
+          const quantity = drink[`strMeasure${name.split('strIngredient')[1]}`];
+          if (quantity === null || quantity === '') {
+            return (
+              <li
+                key={ value }
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
+                { value }
+              </li>
+            );
+          }
+          return (
+            <li
+              key={ value }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              { `${value} -${drink[`strMeasure${name.split('strIngredient')[1]}`]}` }
+            </li>
+          );
+        })}
       </ul>
       Instructions
       <p data-testid="instructions">{ strInstructions }</p>
-      <iframe data-testid="video" src={ strYoutube } title="description" />
       Recommended
-      <RecomendationCard arrayOfRecomendations={ drinksData } />
+      <RecomendationCard arrayOfRecomendations={ mealsData } />
       {
         buttonShoulBeVisible && (
-          <Link to={ `/comidas/${id}/in-progress` }>
+          <Link to={ `/bebidas/${id}/in-progress` }>
             <button
               className="start-btn"
               data-testid="start-recipe-btn"
               type="button"
             >
-              { handleContinueButton(id, 'meals')
+              { handleContinueButton(id, 'cocktails')
                 ? 'Continuar Receita' : 'Iniciar Receita' }
             </button>
           </Link>)

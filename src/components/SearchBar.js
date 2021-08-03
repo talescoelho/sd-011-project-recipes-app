@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import {
   fetchSearchIngredients,
   fetchSearchName,
-  fetchSearchFirstLetter } from '../../redux/actions/searchBarActions';
-import Input from '../Input';
+  fetchSearchFirstLetter } from '../redux/actions/searchBarActions';
+import Input from './Input';
 
 function HeaderSearchBar(props) {
   const [searchInput, setSearchInput] = useState('');

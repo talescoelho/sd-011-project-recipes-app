@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '../../components/Header';
-import useFetch from '../../hooks/useFetch';
+import Header from '../components/Header';
+import useFetch from '../hooks/useFetch';
 
 const DrinkIngredients = () => {
   const { data, request } = useFetch();

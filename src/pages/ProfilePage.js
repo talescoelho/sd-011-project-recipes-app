@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import FooterMenu from '../components/footerMenu';
-import Header from '../../components/Header';
-import FooterMenu from '../../components/FooterMenu';
+import Header from '../components/Header';
+import FooterMenu from '../components/FooterMenu';
 
 export default function ProfilePage() {
   function getItem() {

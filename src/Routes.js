@@ -34,10 +34,12 @@ function Routes() {
         render={ (props) => <DrinkDetails { ...props } /> }
       />
       <Route
+        exact
         path="/comidas/:id/in-progress"
         render={ (props) => <FoodInProgress { ...props } /> }
       />
       <Route
+        exact
         path="/bebidas/:id/in-progress"
         render={ (props) => <DrinkInProgress { ...props } /> }
       />
