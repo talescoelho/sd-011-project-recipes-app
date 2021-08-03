@@ -4,19 +4,19 @@ import { Foods, Cocktails } from '../services';
 
 const six = 6;
 export default function Recommendations({ type }) {
-  const [itens, setItens] = useState();
+  const [items, setItems] = useState();
   useEffect(() => {
     const asyncFunc = async () => {
-      if (type.includes('Comida')) setItens(await Foods.searchName(''));
-      if (type.includes('Bebidas')) setItens(await Cocktails.searchName(''));
+      if (type.includes('Comida')) setItems(await Foods.searchName(''));
+      if (type.includes('Bebidas')) setItems(await Cocktails.searchName(''));
     };
     asyncFunc();
   }, [type]);
 
-  return (itens) ? (
+  return (items) ? (
     <div className="carousel">
       {
-        itens.slice(0, six).map((element, index) => (
+        items.slice(0, six).map((element, index) => (
           <div
             key={ index }
             className="carousel-item"
