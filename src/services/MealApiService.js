@@ -17,7 +17,7 @@ export async function fetchMealsLetter(letter) {
 }
 
 export async function fetchMealsCategory(category) {
-  const response = await fetch(`www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
     .then((res) => res.json());
   console.log(response);
   return response.meals;
