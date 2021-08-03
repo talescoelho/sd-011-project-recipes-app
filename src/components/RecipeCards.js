@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import '../css/RecipeCards.css';
 import RecipeAppContext from '../context/RecipeAppContext';
 
@@ -7,15 +7,13 @@ function RecipeCards() {
   const { drinksList, foodsList } = useContext(RecipeAppContext);
   const history = useHistory();
 
-  useEffect(() => {
-    if (foodsList === null || drinksList === null) {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    } else if (drinksList.length === 1) {
-      history.push(`/bebidas/${drinksList[0].idDrink}`);
-    } else if (foodsList.length === 1) {
-      history.push(`/comidas/${foodsList[0].idMeal}`);
+  const redirectToDetails = (id, foods, drinks) => {
+    if (foods) {
+      history.push(`/comidas/${id}`);
+    } if (drinks) {
+      history.push(`/bebidas/${id}`);
     }
-  }, [drinksList, foodsList]);
+  };
 
   const renderDrinkCards = () => {
     const maxLength = 11;
@@ -26,6 +24,10 @@ function RecipeCards() {
             className="card-container"
             data-testid={ `${index}-recipe-card` }
             key={ recipe.idDrink }
+            role="link"
+            tabIndex={ 0 }
+            onClick={ () => redirectToDetails(recipe.idDrink, false, true) }
+            onKeyDown={ () => redirectToDetails(recipe.idDrink, false, true) }
           >
             <img
               src={ recipe.strDrinkThumb }
@@ -56,7 +58,11 @@ function RecipeCards() {
           <div
             className="card-container"
             data-testid={ `${index}-recipe-card` }
-            key={ index }
+            key={ recipe.idMeal }
+            role="link"
+            tabIndex={ 0 }
+            onClick={ () => redirectToDetails(recipe.idMeal, true, false) }
+            onKeyDown={ () => redirectToDetails(recipe.idMeal, true, false) }
           >
             <img
               src={ recipe.strMealThumb }
@@ -64,7 +70,6 @@ function RecipeCards() {
               alt={ `${recipe.strMeal}` }
               height="50px"
               width="50px"
-
             />
             <p
               key={ recipe.idMeal }

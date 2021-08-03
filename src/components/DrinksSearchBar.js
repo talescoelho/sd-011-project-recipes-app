@@ -1,13 +1,17 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router';
 import RecipeAppContext from '../context/RecipeAppContext';
 
 function DrinksSearchBar() {
   const [searchText, setSearchText] = useState('');
   const [input, setInput] = useState('');
   const { setDrinksList } = useContext(RecipeAppContext);
+  const history = useHistory();
 
-  function requestDrinkEndpoint(text) {
+  const requestDrinkEndpoint = async (text) => {
     let endpoint = '';
+    const alertMsg = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+
     if (input === 'ingredient') {
       endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${text}`;
     } else if (input === 'name') {
@@ -17,10 +21,13 @@ function DrinksSearchBar() {
     } else if (input === 'firstLetter') {
       endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${text}`;
     } else if (!input) return null;
-    return fetch(endpoint)
-      .then((response) => response.json())
-      .then((results) => setDrinksList(results.drinks));
-  }
+    const response = await fetch(endpoint);
+    const { drinks } = await response.json();
+    console.log(drinks);
+    if (drinks === null) return alert(alertMsg);
+    if (drinks.length === 1) return history.push(`/bebidas/${drinks[0].idDrink}`);
+    setDrinksList(drinks);
+  };
 
   return (
     <div>

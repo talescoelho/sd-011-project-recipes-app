@@ -23,7 +23,6 @@ function ExploreFoodsByIngredients() {
   }, []);
 
   function redirectToPageFood({ target: { id } }) {
-    console.log(id);
     const fetchApi = async () => {
       const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${id}`);
       const json = await response.json();
