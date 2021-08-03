@@ -13,7 +13,7 @@ function RecipesMade() {
   };
 
   return (
-    <Layout title="Receitas Feitas">
+    <Layout title="Receitas Feitas" noFooter>
       <main style={ styles.main }>
         <p>ola mundo</p>
       </main>

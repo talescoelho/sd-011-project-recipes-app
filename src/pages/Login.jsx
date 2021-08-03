@@ -33,7 +33,7 @@ function Login() {
   }
 
   return (
-    <Layout>
+    <Layout noHeader noFooter>
       <main>
         <form
           onSubmit={ handleLogin }
