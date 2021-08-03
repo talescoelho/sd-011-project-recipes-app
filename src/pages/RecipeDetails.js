@@ -111,6 +111,7 @@ function RecipeDetails(props) {
           <RecomendationRecipesCards identifier="comidas" />
         </div>
         <button
+          className="start-recipe"
           type="button"
           data-testid="start-recipe-btn"
         >
@@ -158,6 +159,7 @@ function RecipeDetails(props) {
           <RecomendationRecipesCards identifier="bebidas" />
         </div>
         <button
+          className="start-recipe"
           type="button"
           data-testid="start-recipe-btn"
         >

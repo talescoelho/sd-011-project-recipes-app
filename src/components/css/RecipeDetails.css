@@ -5,3 +5,8 @@
 .supply-card img {
   width: 100%;
 }
+
+.start-recipe {
+  position: fixed;
+  bottom: 0
+} 
