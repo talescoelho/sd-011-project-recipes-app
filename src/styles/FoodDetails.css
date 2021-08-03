@@ -1,8 +1,8 @@
 .imgreceita {
   display: flex;
-  width: 100%;
   height: 20vh;
   object-fit: cover;
+  width: 100%;
 }
 
 h1 {

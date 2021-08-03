@@ -52,7 +52,11 @@ export default function FoodDrinks() {
       if (returnDrink(index) !== '') {
         drinks.push(
           <div className="card">
-            <img className="imgdrinks" src={ returnDrink(index).strDrinkThumb } alt="imagem drink" />
+            <img
+              className="imgdrinks"
+              src={ returnDrink(index).strDrinkThumb }
+              alt="imagem drink"
+            />
             <p>{returnDrink(index).strAlcoholic}</p>
             <p>
               {returnDrink(index).strDrink}
