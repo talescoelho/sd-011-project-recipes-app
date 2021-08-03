@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { apiDetailsId } from '../service/apiDetailsId';
-import Recomendation from '../components/Detail/Recomendation';
 import './styles/styleRecipesId.css';
+import IngredientRecipes from '../components/IngredientRecipes';
+// import IngredientRecipes from '../components/IngredientRecipes';
 
-function RecipesId({ match }) {
+function RecipesInProgress({ match }) {
   const { params, path } = match;
-  console.log("oi");
-  console.log(match);
   const { id } = params;
   const typeDrinkorMeal = path.split('/')[1];
   const dispatch = useDispatch();
@@ -23,51 +22,33 @@ function RecipesId({ match }) {
     category: '',
     instructions: '',
     instructionsIT: '',
-    ingredient: [],
-    video: '',
     update: true,
   });
 
   const { title, imgThumb, category,
-    instructions, video, update, ingredient } = detail;
+    instructions, update } = detail;
 
   function getReduxMealsOrDrinks() {
     if (drinks !== undefined) {
-      const { idDrink, strDrink, strDrinkThumb, strAlcoholic, strInstructions, strVideo,
-        strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5,
-        strMeasure1, strMeasure2, strMeasure3, strMeasure4, strMeasure5 } = drinks[0];
+      const { idDrink, strDrink, strDrinkThumb, strAlcoholic, strInstructions,
+      } = drinks[0];
       setDetail({
         idItem: idDrink,
         title: strDrink,
         imgThumb: strDrinkThumb,
         category: strAlcoholic,
         instructions: strInstructions,
-        video: strVideo,
-        ingredient: [
-          `${strIngredient1} ${strMeasure1}`, `${strIngredient2} ${strMeasure2}`,
-          `${strIngredient3} ${strMeasure3}`, `${strIngredient4} ${strMeasure4}`,
-          `${strIngredient5} ${strMeasure5}`],
         update: false,
       });
     }
     if (meals !== undefined) {
-      const { idMeal, strMeal, strMealThumb, strCategory, strInstructions, strYoutube,
-        strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5,
-        strIngredient6, strIngredient7, strIngredient8, strMeasure1, strMeasure2,
-        strMeasure3, strMeasure4, strMeasure5, strMeasure6, strMeasure7,
-        strMeasure8 } = meals[0];
+      const { idMeal, strMeal, strMealThumb, strCategory, strInstructions } = meals[0];
       setDetail({
         idItem: idMeal,
         title: strMeal,
         imgThumb: strMealThumb,
         category: strCategory,
         instructions: strInstructions,
-        ingredient: [
-          `${strIngredient1} ${strMeasure1}`, `${strIngredient2} ${strMeasure2}`,
-          `${strIngredient3} ${strMeasure3}`, `${strIngredient4} ${strMeasure4}`,
-          `${strIngredient5} ${strMeasure5}`, `${strIngredient6} ${strMeasure6}`,
-          `${strIngredient7} ${strMeasure7}`, `${strIngredient8} ${strMeasure8}`],
-        video: strYoutube,
         update: false,
       });
     }
@@ -93,34 +74,21 @@ function RecipesId({ match }) {
       <button data-testid="share-btn" type="button">Compartilhar</button>
       <button data-testid="favorite-btn" type="button">Favorito</button>
       <span data-testid="recipe-category">{ category }</span>
-      { ingredient.map((item, index) => (
-        <span
-          data-testid={ `${index}-ingredient-name-and-measure` }
-          key={ index }
-        >
-          { item }
-        </span>
-      )) }
+      <IngredientRecipes />
       <span data-testid="instructions">{ instructions }</span>
-      { video && <div data-testid="video">{ video }</div> }
-      <Recomendation
-        recomendInverse={
-          typeDrinkorMeal === 'comidas' ? 'meals' : 'drinks'
-        }
-      />
       <button
         className="buttonSart"
         type="button"
-        data-testid="start-recipe-btn"
+        data-testid="finish-recipe-btn"
       >
-        Iniciar Receita
+        Finalizar Receita
       </button>
     </div>
   );
 }
 
-export default RecipesId;
+export default RecipesInProgress;
 
-RecipesId.propTypes = {
+RecipesInProgress.propTypes = {
   match: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };

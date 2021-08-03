@@ -30,3 +30,12 @@ export const requestRecomendation = (payload) => ({
   type: REQUEST_SUCCESS_RECOMENDATION,
   payload,
 });
+
+export const REQUEST_INGREDIENTS = 'REQUEST_INGREDIENTS';
+export const requestIngredients = () => ({ type: REQUEST_INGREDIENTS });
+
+export const REQUEST_SUCCESS_INGREDIENTS = 'REQUEST_SUCCESS_INGREDIENTS';
+export const requestSuccessIngredients = (payload) => ({
+  type: REQUEST_SUCCESS_INGREDIENTS,
+  payload,
+});

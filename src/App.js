@@ -6,6 +6,7 @@ import Bebidas from './pages/Bebidas';
 import RecipesId from './pages/RecipesId';
 import Explorar from './pages/Explorar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import RecipesInProgress from './pages/RecipesInProgress';
 
 function App() {
   return (
@@ -24,6 +25,16 @@ function App() {
           exact
           path="/bebidas/:id"
           render={ (props) => <RecipesId { ...props } /> }
+        />
+        <Route
+          exact
+          path="/comidas/:id/in-progress"
+          render={ (props) => <RecipesInProgress { ...props } /> }
+        />
+        <Route
+          exact
+          path="/bebidas/:id/in-progress"
+          render={ (props) => <RecipesInProgress { ...props } /> }
         />
       </Switch>
     </div>
