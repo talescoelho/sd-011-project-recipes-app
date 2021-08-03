@@ -1,9 +1,9 @@
 import React from 'react';
 
 function IngredienteBebida() {
-  return(
+  return (
     <div>Ingrediente Bebida</div>
-  )
+  );
 }
 
-export default IngredienteBebida
+export default IngredienteBebida;

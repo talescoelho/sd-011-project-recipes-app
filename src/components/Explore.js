@@ -25,8 +25,6 @@ function Explore({ localOrigin, mealOrDrink }) {
     return dataApi.drinks && dataApi.drinks.map((e) => e.idDrink);
   };
 
-  const random = checker();
-  console.log(random);
   return (
     <div>
       <button
@@ -38,7 +36,7 @@ function Explore({ localOrigin, mealOrDrink }) {
       >
         Por Ingredientes
       </button>
-      {localOrigin && (
+      { localOrigin && (
         <button
           type="button"
           data-testid="explore-by-area"
@@ -48,13 +46,12 @@ function Explore({ localOrigin, mealOrDrink }) {
         >
           Por Local de Origem
         </button>
-      )}
-
+      ) }
       <button
         type="button"
         data-testid="explore-surprise"
         onClick={ () => {
-          history.push(`/${mealOrDrink}/${random}`);
+          history.push(`/${mealOrDrink}/${checker()}`);
         } }
       >
         Me Surpreenda!
@@ -69,3 +66,8 @@ Explore.propTypes = {
 };
 
 export default Explore;
+
+Explore.propTypes = {
+  localOrigin: PropTypes.string.isRequired,
+  mealOrDrink: PropTypes.string.isRequired,
+};

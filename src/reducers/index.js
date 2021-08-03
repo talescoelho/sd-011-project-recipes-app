@@ -5,7 +5,12 @@ import detailsId from './detailsId';
 import mainPageRecipe from './mainPageRecipe';
 import randomRecipe from './randomRecipe';
 
-
-const rootReducer = combineReducers({ user, searchItems, detailsId, mainPageRecipe, randomRecipe });
+const rootReducer = combineReducers({
+  user,
+  searchItems,
+  detailsId,
+  mainPageRecipe,
+  randomRecipe,
+});
 
 export default rootReducer;
