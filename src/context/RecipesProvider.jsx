@@ -37,6 +37,7 @@ function RecipesProvider({ children }) {
     setDrinksByItem,
     foodsByItem,
     setFoodsByItem,
+    setDataFilter,
   };
 
   return (
