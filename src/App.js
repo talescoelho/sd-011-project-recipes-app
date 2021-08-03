@@ -24,11 +24,13 @@ function App() {
       <Route path="/comidas" exact component={ Food } />
       <Route path="/bebidas" exact component={ Drinks } />
       <Route
-        path="/comidas/{id-da-receita}"
+        path="/comidas/:id"
+        exact
         render={ (props) => <FoodDetails { ...props } /> }
       />
       <Route
-        path="/bebidas/{id-da-receita}"
+        path="/bebidas/:id"
+        exact
         render={ (props) => <DrinkDetails { ...props } /> }
       />
       <Route path="/explorar" exact component={ Explore } />
