@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Carousel, CarouselItem, Card } from 'react-bootstrap';
+import { Carousel, CarouselItem, CardGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import RecipeCard from './RecipeCard';
 
 const SIX_CARDS = 6;
 
@@ -17,38 +18,22 @@ function CarouselRecipes({ data, recipeType }) {
           if (index < SIX_CARDS && index % 2 === 0) {
             return (
               <CarouselItem key={ index }>
-                <Link to={ `/${urlType}/${recipe[idType]}` }>
-                  <Card style={ { width: '18rem' } }>
-                    <Card.Img
-                      variant="top"
-                      data-testid={ `${index}-recomendation-card` }
-                      src={ recipe[thumbType] }
+                <CardGroup>
+                  <Link to={ `/${urlType}/${recipe[idType]}` }>
+                    <RecipeCard
+                      thumb={ recipe[thumbType] }
+                      title={ recipe[titleType] }
+                      index={ index }
                     />
-                    <Card.Body>
-                      <Card.Title
-                        data-testid={ `${index}-recomendation-title` }
-                      >
-                        {recipe[titleType]}
-                      </Card.Title>
-                    </Card.Body>
-                  </Card>
-                </Link>
-                <Link to={ `/${urlType}/${data[index + 1][idType]}` }>
-                  <Card style={ { width: '18rem' } }>
-                    <Card.Img
-                      variant="top"
-                      data-testid={ `${index + 1}-recomendation-card` }
-                      src={ data[index + 1][thumbType] }
+                  </Link>
+                  <Link to={ `/${urlType}/${data[index + 1][idType]}` }>
+                    <RecipeCard
+                      thumb={ data[index + 1][thumbType] }
+                      title={ data[index + 1][titleType] }
+                      index={ index + 1 }
                     />
-                    <Card.Body>
-                      <Card.Title
-                        data-testid={ `${index + 1}-recomendation-title` }
-                      >
-                        {data[index + 1][titleType]}
-                      </Card.Title>
-                    </Card.Body>
-                  </Card>
-                </Link>
+                  </Link>
+                </CardGroup>
               </CarouselItem>
             );
           }
