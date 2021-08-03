@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router';
 import {
   LoginPage, NotFound, User, Bebidas, Explore, Comidas,
-  FoodDetails, MealtIngredients, DrinkIngredients } from '../pages';
+  FoodDetails, MealtIngredients, DrinkIngredients, ExploreFood, ExploreDrink } from '../pages';
 
 function Routes() {
   return (
@@ -10,6 +10,8 @@ function Routes() {
       <Route exact path="/" component={ LoginPage } />
       <Route exact path="/comidas" component={ Comidas } />
       <Route exact path="/bebidas" render={ (props) => <Bebidas { ...props } /> } />
+      <Route exact path="/explorar/comidas" component={ ExploreFood } />
+      <Route exact path="/explorar/bebidas" component={ ExploreDrink } />
       <Route
         exact
         path="/comidas/:id"
