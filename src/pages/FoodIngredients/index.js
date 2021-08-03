@@ -20,13 +20,15 @@ const FoodInProgress = () => {
       { filteredData.map((item, index) => {
         const { strIngredient } = item;
         return (
-          <div key={ index } data-testid={ `${index}-ingredient-card` }>
-            <img
-              src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png ` }
-              alt={ strIngredient }
-              data-testid={ `${index}-card-img` }
-            />
-            <h3 data-testid={ `${index}-card-name` }>{strIngredient}</h3>
+          <div key={ index } data-testid={ `${index}-recipe-card` }>
+            <div data-testid={ `${index}-ingredient-card` }>
+              <img
+                src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png ` }
+                alt={ strIngredient }
+                data-testid={ `${index}-card-img` }
+              />
+              <h3 data-testid={ `${index}-card-name` }>{strIngredient}</h3>
+            </div>
           </div>
         );
       }) }

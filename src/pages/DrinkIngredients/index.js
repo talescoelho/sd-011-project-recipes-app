@@ -12,18 +12,18 @@ const DrinkIngredients = () => {
   if (!data) {
     return null;
   }
-  console.log(data);
+
   const magicNumber = 12;
   const filteredData = data.drinks.filter((item, index) => index < magicNumber);
 
   return (
     <div>
+      <Header />
       { filteredData.map((item, index) => {
         const { strIngredient1 } = item;
         return (
-          <>
-            <Header />
-            <div key={ index } data-testid={ `${index}-ingredient-card` }>
+          <div key={ index } data-testid={ `${index}-recipe-card` }>
+            <div data-testid={ `${index}-ingredient-card` }>
               <img
                 src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png ` }
                 alt={ strIngredient1 }
@@ -31,7 +31,7 @@ const DrinkIngredients = () => {
               />
               <h3 data-testid={ `${index}-card-name` }>{strIngredient1}</h3>
             </div>
-          </>
+          </div>
         );
       }) }
     </div>
