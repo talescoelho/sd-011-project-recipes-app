@@ -13,9 +13,10 @@ function SearchBar() {
   };
 
   return (
-    <Form onSubmit={ handleSubmit(submitForm) }>
+    <Form onSubmit={ handleSubmit(submitForm) } className="search-form">
       <Form.Group>
         <Form.Control
+          className="search-input"
           name="ingrediente"
           data-testid="search-input"
           placeholder="Buscar Receita"

@@ -1,0 +1,14 @@
+.explore-buttons {
+  display: block;
+  margin: 200px auto;
+  margin-left: 515px;
+  position: absolute;
+  text-align: center;
+}
+
+
+.explore-button {
+  background-color: #c4c4c4;
+  border: 1px solid gray;
+  margin: 10px;
+}

@@ -8,3 +8,8 @@ export const sendAPIData = (payload) => ({
   payload,
 
 });
+
+export const getFoodCard = (payload) => ({
+  type: 'FETCH_FOOD_CARD',
+  payload,
+});
