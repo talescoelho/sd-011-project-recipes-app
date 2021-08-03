@@ -10,6 +10,7 @@ import Comidas from './pages/Comidas';
 import Login from './pages/Login';
 import RecipesProvider from './context/RecipesProvider';
 import ReceitasFeitas from './pages/ReceitasFeitas';
+import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
 import ExplorarPorOrigem from './pages/ExplorarPorOrigem';
@@ -27,6 +28,7 @@ function App() {
             <Route exact path="/explorar" component={ Explorar } />
             <Route exact path="/perfil" component={ Perfil } />
             <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
+            <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
             <Route
               exact
               path="/explorar/comidas"
@@ -60,14 +62,6 @@ function App() {
             <Route path="/comidas/{id-da-receita}/in-progress" />
             <Route path="/bebidas/{id-da-receita}" />
             <Route path="/bebidas/{id-da-receita}/in-progress" />
-            <Route
-              path="/receitas-feitas"
-              component={ () => <Header title="Receitas Feitas" /> }
-            />
-            <Route
-              path="/receitas-favoritas"
-              component={ () => <Header title="Receitas Favoritas" /> }
-            />
           </Switch>
         </RecipesProvider>
       </BrowserRouter>
