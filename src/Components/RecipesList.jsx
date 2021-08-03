@@ -9,6 +9,7 @@ class RecipesList extends Component {
     super();
     this.state = {
       filters: [],
+      usedButton: 'All',
     };
     this.renderRecipes = this.renderRecipes.bind(this);
     this.fetchFiltersFood = this.fetchFiltersFood.bind(this);
@@ -67,8 +68,25 @@ class RecipesList extends Component {
           name={ item.strCategory }
           onClick={ (event) => {
             onClick(true);
+            this.setState({
+              usedButton: event.target.name,
+            });
             if (pathName === '/comidas') {
+              const { usedButton } = this.state;
+              if (usedButton === event.target.name) {
+                this.setState({
+                  usedButton: 'All',
+                });
+                return fetchRecipesFood();
+              }
               return fetchRecipesFood(event.target.name, 'filter');
+            }
+            const { usedButton } = this.state;
+            if (usedButton === event.target.name) {
+              this.setState({
+                usedButton: 'All',
+              });
+              return fetchRecipesDrink();
             }
             return fetchRecipesDrink(event.target.name, 'filter');
           } }
