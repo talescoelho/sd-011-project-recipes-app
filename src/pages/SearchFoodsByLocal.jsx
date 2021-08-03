@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/common/Footer';
 
 import Header from '../components/Header/Header';
 
@@ -9,6 +10,7 @@ const SearchFoodsByLocal = () => (
       showSearchBtn
     />
     <div>Explorar Comida Por Localidade</div>
+    <Footer />
   </>
 );
 

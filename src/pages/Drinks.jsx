@@ -1,15 +1,102 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import {
+  requestDrinkMenu,
+  requestDrinksFilters,
+  requestDrinksByFilter,
+} from '../redux/actions/menuReducerActions';
+import FilterMenu from '../components/FilterMenu';
+import Footer from '../components/common/Footer';
 
 import Header from '../components/Header/Header';
 
-const Drinks = () => (
-  <>
-    <Header
-      page="Bebidas"
-      showSearchBtn
-    />
-    <div>Pagina de Bebidas</div>
-  </>
-);
+const Drinks = ({
+  dispatch,
+  error,
+  loadingFilterOptions,
+  categoryNames,
+  loadingDrinks,
+  drinks,
+}) => {
+  useEffect(() => {
+    dispatch(requestDrinksFilters());
+  }, [dispatch]);
 
-export default Drinks;
+  if (error) {
+    return (<div>Erro</div>);
+  }
+
+  return (
+    <>
+      <Header
+        page="Bebidas"
+        showSearchBtn
+      />
+      <nav>
+        {
+          (loadingFilterOptions)
+            ? (<div>Loading...</div>)
+            : (
+              <FilterMenu
+                requestMenu={ requestDrinkMenu }
+                categoryNames={ categoryNames }
+                filterByCategory={ requestDrinksByFilter }
+              />
+            )
+        }
+      </nav>
+      <main>
+        {
+          (loadingDrinks)
+            ? (<div>Loading...</div>)
+            : (
+              drinks.map(({ idDrink, strDrink, strDrinkThumb }, index) => (
+                <Link
+                  aria-label="card-menu"
+                  data-testid={ `${index}-recipe-card` }
+                  key={ index }
+                  to={ `/bebidas/${idDrink}` }
+                >
+                  <img
+                    data-testid={ `${index}-card-img` }
+                    src={ strDrinkThumb }
+                    alt={ `${strDrink} recipe` }
+                    width="100px"
+                  />
+                  <h3 data-testid={ `${index}-card-name` }>{ strDrink }</h3>
+                </Link>
+              ))
+            )
+        }
+      </main>
+      <Footer />
+    </>
+  );
+};
+
+const mapStateToProps = (state) => ({
+  loadingFilterOptions: state.menuReducer.filters.isLoading,
+  categoryNames: state.menuReducer.filters.options,
+  drinks: state.menuReducer.menu,
+  loadingDrinks: state.menuReducer.isLoading,
+  error: state.menuReducer.error,
+});
+
+Drinks.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  loadingFilterOptions: PropTypes.bool.isRequired,
+  categoryNames: PropTypes.arrayOf(PropTypes.string),
+  loadingDrinks: PropTypes.bool.isRequired,
+  error: PropTypes.string,
+  drinks: PropTypes.arrayOf(PropTypes.object),
+};
+
+Drinks.defaultProps = {
+  categoryNames: [],
+  drinks: [],
+  error: null,
+};
+
+export default connect(mapStateToProps)(Drinks);
