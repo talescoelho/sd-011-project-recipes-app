@@ -10,6 +10,8 @@ const initialState = {
   foodIngredients: [],
   foodAreaList: [],
   drinkIngredients: [],
+  randomFoodRecipe: '',
+  randomDrinkRecipe: '',
   loading: false,
   error: null,
   input: '',
@@ -33,6 +35,8 @@ export const getRecipes = createAsyncThunk(
       drinkAreaList: 'https://www.thecoktail.com/api/json/v1/1/list.php?a=list',
       foodCategories: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
       drinksCategories: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
+      randomFoodRecipe: 'https://www.themealdb.com/api/json/v1/1/random.php',
+      randomDrinkRecipe: 'https://www.thecocktaildb.com/api/json/v1/1/random.php',
     };
     const response = await fetch(URLDictionary[actionName]).then((res) => res.json());
     return {
@@ -63,8 +67,6 @@ const fetchReceitasSlice = createSlice({
         state.drinks = response;
       }
       state.loading = false;
-      // state.data = action.payload;
-      // state.loading = false;
     },
     [getRecipes.rejected]: (state, action) => {
       state.loading = false;

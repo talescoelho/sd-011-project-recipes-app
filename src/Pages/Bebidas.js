@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/Header';
 import RenderRecipes from '../components/RenderRecipes';
 import { getRecipes } from '../redux/slices/fetchReceitas';
+import Footer from '../components/Footer';
 
 function Bebidas({ title }) {
   const { drinks } = useSelector((state) => state.fetchReceitas);
@@ -22,6 +23,7 @@ function Bebidas({ title }) {
     <div>
       <Header title={ title } />
       {Object.keys(drinks).length > 0 && <RenderRecipes />}
+      <Footer />
     </div>
   );
 }
