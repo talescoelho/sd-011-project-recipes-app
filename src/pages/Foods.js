@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Cards from '../components/Cards';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 import '../css/comidas.css';
 
 const endPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -48,6 +49,7 @@ function Foods() {
 
   return (
     <div>
+      <Header />
       <label htmlFor="All">
         <input
           data-testid="All-category-filter"

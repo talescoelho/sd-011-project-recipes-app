@@ -4,7 +4,11 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import '../css/header.css';
 
-function Header() {
+function Header(props) {
+  console.log(window.location.pathname.split('/')[1]);
+  console.log(props);
+  const { title } = props;
+  console.log(`console 3 ${title}`);
   return (
     <div>
       <header className="header-container">
@@ -12,21 +16,25 @@ function Header() {
           type="button"
           data-testid="profile-top-btn"
           onClick={ <Redirect to="/perfil" /> }
+          src={ profileIcon }
         >
           <img
-            data-testid="profile-top-btn"
             src={ profileIcon }
             alt="profile top button"
           />
         </button>
-        <p data-testid="page-title">Titulo</p>
-        <img
+        <h1 data-testid="page-title">{ window.location.pathname.split('/')[1] }</h1>
+        <button
+          type="button"
           data-testid="search-top-btn"
           src={ searchIcon }
-          alt="search top button"
-        />
+        >
+          <img
+            src={ searchIcon }
+            alt="search top button"
+          />
+        </button>
       </header>
-      <p>Componente Header</p>
     </div>
   );
 }
