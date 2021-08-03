@@ -6,7 +6,6 @@ function IngredienteComida() {
   return (
     <div>
       <Header title="Explorar Ingredientes" />
-      <div>Ingrediente Comida</div>
       <Footer />
     </div>
   );

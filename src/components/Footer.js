@@ -10,7 +10,7 @@ function Footer() {
   const history = useHistory();
   const dispatch = useDispatch();
   return (
-    <footer data-testid="footer">
+    <footer data-testid="footer" style={ { position: 'fixed', bottom: 0 } }>
       <button
         type="button"
         data-testid="drinks-bottom-btn"

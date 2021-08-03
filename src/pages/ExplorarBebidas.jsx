@@ -10,7 +10,5 @@ function ExplorarBebidas() {
       <Explore mealOrDrink="bebidas" />
       <Footer />
     </div>
-  );
-}
 
 export default ExplorarBebidas;

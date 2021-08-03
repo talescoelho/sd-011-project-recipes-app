@@ -11,6 +11,7 @@ import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
 import Perfil from './pages/Perfil';
 import ComidasArea from './pages/ComidasArea';
+import ReceitasFeitas from './pages/ReceitasFeitas';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           path="/explorar/bebidas/ingredientes"
           component={ IngredienteBebida }
         />
+        <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
         <Route
           exact
           path="/comidas/:id"

@@ -10,7 +10,5 @@ function ExplorarComidas() {
       <Explore localOrigin mealOrDrink="comidas" />
       <Footer />
     </div>
-  );
-}
 
 export default ExplorarComidas;

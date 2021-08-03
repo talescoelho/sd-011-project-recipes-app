@@ -1,5 +1,8 @@
-import { requestRandomRecipe,
-  requestRandomSucessRecipes } from '../actions/randomRecipeAction';
+
+import {
+  requestRandomRecipe,
+  requestRandomSucessRecipes,
+} from '../actions/randomRecipeAction';
 
 export default async function randomFetch(mealOrDrink) {
   let response;

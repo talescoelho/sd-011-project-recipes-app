@@ -1,5 +1,7 @@
-import { REQUEST_RANDOM_RECIPE,
-  REQUEST_SUCESS_RANDOM_RECIPES } from '../actions/randomRecipeAction';
+import {
+  REQUEST_RANDOM_RECIPE,
+  REQUEST_SUCESS_RANDOM_RECIPES,
+} from '../actions/randomRecipeAction';
 
 const INITIAL_STATE = {
   loading: true,
@@ -15,9 +17,7 @@ function randomRecipe(state = INITIAL_STATE, action) {
     };
   case REQUEST_SUCESS_RANDOM_RECIPES:
     return {
-      ...state,
-      loading: false,
-      dataApi: action.payload,
+      ...state, loading: false, dataApi: action.payload,
     };
   default:
     return state;

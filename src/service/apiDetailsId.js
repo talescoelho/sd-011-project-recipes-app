@@ -7,15 +7,16 @@ import {
 export async function apiDetailsId(mealOrDrink, id) {
   let responseDetail;
   if (mealOrDrink === 'meals') {
-    responseDetail = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+    responseDetail = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   }
   if (mealOrDrink === 'drinks') {
-    responseDetail = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+    responseDetail = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   }
   return async (dispatch) => {
     try {
       dispatch(requestDetailsId());
-      const data = await responseDetail.json();
+      const response = await fetch(responseDetail);
+      const data = await response.json();
       dispatch(requestSuccessDetailsId(data));
     } catch (error) {
       console.error(error);
