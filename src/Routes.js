@@ -34,16 +34,18 @@ function Routes() {
         render={ (props) => <DrinkDetails { ...props } /> }
       />
       <Route
+        exact
         path="/comidas/:id/in-progress"
         render={ (props) => <FoodInProgress { ...props } /> }
       />
       <Route
+        exact
         path="/bebidas/:id/in-progress"
         render={ (props) => <DrinkInProgress { ...props } /> }
       />
-      <Route path="/explorar" component={ Explore } />
-      <Route path="/explorar/comidas" component={ FoodExplore } />
-      <Route path="/explorar/bebidas" component={ DrinkExplore } />
+      <Route exact path="/explorar" component={ Explore } />
+      <Route exact path="/explorar/comidas" component={ FoodExplore } />
+      <Route exact path="/explorar/bebidas" component={ DrinkExplore } />
       <Route path="/explorar/comidas/ingredientes" component={ FoodIngredients } />
       <Route path="/explorar/bebidas/ingredientes" component={ DrinkIngredients } />
       <Route path="/receitas-feitas" component={ MadeRecipes } />

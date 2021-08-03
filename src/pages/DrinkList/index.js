@@ -6,6 +6,7 @@ import Header from '../../components/Header';
 import RenderDrinks from './RenderDrinks';
 
 const DrinkList = ({ receiveData, isFetching }) => {
+  document.title = 'Bebidas';
   const renderFilteredReceiveDataDrinks = () => {
     const maxRender = 12;
     if (receiveData.drinks === null) {

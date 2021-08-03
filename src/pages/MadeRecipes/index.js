@@ -1,9 +1,14 @@
 import React from 'react';
+import Header from '../../components/Header';
 
-const MadeRecipes = () => (
-  <div>
-    Sou página de receitas feitas.
-  </div>
-);
+const MadeRecipes = () => {
+  document.title = 'Receitas Feitas';
+  return (
+    <div>
+      <Header />
+      Sou página de receitas feitas.
+    </div>
+  );
+};
 
 export default MadeRecipes;

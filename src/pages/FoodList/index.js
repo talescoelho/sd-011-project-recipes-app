@@ -6,6 +6,7 @@ import Header from '../../components/Header';
 import RenderFoods from './RenderFoods';
 
 const FoodList = ({ receiveData }) => {
+  document.title = 'Comidas';
   if (receiveData.meals === null) {
     // eslint-disable-next-line no-alert
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -38,7 +39,6 @@ FoodList.propTypes = {
 
 const mapStateToProps = (state) => ({
   receiveData: state.searchBarReducer.receiveData,
-  isFetching: state.searchBarReducer.isFetching,
 });
 
 export default connect(mapStateToProps)(FoodList);
