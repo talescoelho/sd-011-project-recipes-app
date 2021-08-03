@@ -1,7 +1,7 @@
 export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 export const USER_EMAIL = 'USER_EMAIL';
-
 const MESSAGE_ALERT = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+
 function handleFoodsSuccess(result) {
   console.log('AQUI FOODS', result);
   if (result === null) {
@@ -84,6 +84,16 @@ export function drinkRecipesByLetter(letter) {
       .then((response) => response.json())
       .then(
         (json) => defaultFunctionDrink(dispatch, json),
+      );
+  };
+}
+
+export function generalRecipesFood() {
+  return (dispatch) => {
+    fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+      .then((response) => response.json())
+      .then(
+        (json) => dispatch(handleFoodsSuccess(json.meals))
       );
   };
 }
