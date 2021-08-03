@@ -67,11 +67,24 @@ export async function fetchDrinksByCategoryFromCocktailsDB(category) {
 }
 
 export async function fetchIngredientsFromMealsDB() {
+  const ingredientsMaxCount = 12;
   try {
     const response = await
     fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
     const data = await response.json();
-    return data.meals;
+    return data.meals.slice(0, ingredientsMaxCount);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function fetchIngredientsFromCocktailsDB() {
+  const ingredientsMaxCount = 12;
+  try {
+    const response = await
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+    const data = await response.json();
+    return data.drinks.slice(0, ingredientsMaxCount);
   } catch (err) {
     console.log(err);
   }

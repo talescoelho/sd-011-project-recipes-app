@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import LowerMenu from '../components/LowerMenu';
 import Header from '../components/Header';
+import IngredientsCard from '../components/IngredientsCard';
 import { fetchIngredientsFromMealsDB } from '../services';
 
 export default function ExploreMealsByIngredients() {
@@ -15,10 +16,19 @@ export default function ExploreMealsByIngredients() {
     getIngredients();
   }, []);
 
+  if (!ingredients.length) return <h2>Loading...</h2>;
+
   return (
     <div>
       <Header title="Explorar Ingredientes" renderButton />
-      { ingredients.length ? JSON.stringify(ingredients) : 'Loading...' }
+      <div className="ingredients">
+        {
+          ingredients.map((ing, index) => {
+            const ingredientsObject = { name: ing.strIngredient, index, api: 'meals' };
+            return <IngredientsCard key={ index } ingredient={ ingredientsObject } />;
+          })
+        }
+      </div>
       <LowerMenu />
     </div>
   );
