@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProfileIcon from '../../images/profileIcon.svg';
 import SearchIcon from '../../images/searchIcon.svg';
+import Footer from './Layout/Footer';
 import { useTheme } from '../../hooks';
 import SearchForm from '../Home/SearchForm';
 
@@ -57,7 +58,7 @@ function Layout({ children, title, search, noHeader }) {
 
         </header>)}
       { children }
-      <footer />
+      <Footer />
     </>
   );
 }
