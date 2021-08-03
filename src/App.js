@@ -5,7 +5,7 @@ import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/Login';
 import Recipes from './Pages/Recipes';
-// import Bebidas from './Pages/Bebidas';
+import Bebidas from './Pages/Bebidas';
 import ReceitaDeComida from './Pages/ReceitaDeComida';
 import ReceitaDeBebida from './Pages/ReceitaDeBebida';
 import MealInProgress from './Pages/MealInProgress';
@@ -57,7 +57,6 @@ function App() {
         <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
         <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
       </Switch>
-
       <span className="logo">TRYBE</span>
       <object
         className="rocksGlass"
