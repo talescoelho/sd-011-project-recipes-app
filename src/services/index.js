@@ -61,8 +61,12 @@ export const listAllAreas = async () => {
 };
 
 export const searchByArea = async (area) => {
+  if (area === 'all') {
+    const recipes = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    const json = await recipes.json();
+    return json;
+  }
   const recipes = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
   const json = await recipes.json();
-  console.log(json);
   return json;
-}
+};

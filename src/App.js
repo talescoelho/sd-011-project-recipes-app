@@ -13,16 +13,17 @@ import RecipesProvider from './context/RecipesProvider';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
 import ExplorarPorOrigem from './pages/ExplorarPorOrigem';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
     <div className="meals">
       <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={ Login } />
-          <RecipesProvider>
-            <Route path="/comidas" component={ Comidas } />
-            <Route path="/bebidas" component={ Comidas } />
+        <RecipesProvider>
+          <Switch>
+            <Route exact path="/" component={ Login } />
+            <Route exact path="/comidas" component={ Comidas } />
+            <Route exact path="/bebidas" component={ Comidas } />
             <Route exact path="/explorar" component={ Explorar } />
             <Route exact path="/perfil" component={ Perfil } />
             <Route
@@ -46,24 +47,28 @@ function App() {
               component={ () => <Header title="Explorar Ingredientes" /> }
             />
             <Route
+              exact
               path="/explorar/comidas/area"
               component={ ExplorarPorOrigem }
             />
-          </RecipesProvider>
-
-          <Route path="/comidas/{id-da-receita}" />
-          <Route path="/comidas/{id-da-receita}/in-progress" />
-          <Route path="/bebidas/{id-da-receita}" />
-          <Route path="/bebidas/{id-da-receita}/in-progress" />
-          <Route
-            path="/receitas-feitas"
-            component={ () => <Header title="Receitas Feitas" /> }
-          />
-          <Route
-            path="/receitas-favoritas"
-            component={ () => <Header title="Receitas Favoritas" /> }
-          />
-        </Switch>
+            <Route
+              path="*"
+              component={ NotFound }
+            />
+            <Route path="/comidas/{id-da-receita}" />
+            <Route path="/comidas/{id-da-receita}/in-progress" />
+            <Route path="/bebidas/{id-da-receita}" />
+            <Route path="/bebidas/{id-da-receita}/in-progress" />
+            <Route
+              path="/receitas-feitas"
+              component={ () => <Header title="Receitas Feitas" /> }
+            />
+            <Route
+              path="/receitas-favoritas"
+              component={ () => <Header title="Receitas Favoritas" /> }
+            />
+          </Switch>
+        </RecipesProvider>
       </BrowserRouter>
     </div>
   );
