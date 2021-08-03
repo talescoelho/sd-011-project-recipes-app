@@ -13,6 +13,7 @@ import {
 function Drinks() {
   const {
     setData,
+    loading,
     setLoading,
     categoryList,
     setCategoryList,
@@ -39,6 +40,22 @@ function Drinks() {
     }
   }
 
+  function categoryButtons() {
+    const maxCategoryNumber = 4;
+    return categoryList.map((item, index) => (
+      index > maxCategoryNumber ? null
+        : (
+          <button
+            key={ index }
+            type="button"
+            data-testid={ `${item.strCategory}-category-filter` }
+            onClick={ filterByCategory }
+          >
+            {item.strCategory}
+          </button>)
+    ));
+  }
+
   useEffect(() => {
     setLoading(true);
     getInitialDrinksRecipes()
@@ -56,7 +73,6 @@ function Drinks() {
     };
   }, [setData, setLoading, setCategoryList]);
 
-  const maxCategoryNumber = 4;
   return (
     <div>
       <Header title="Bebidas" isButtonVisible />
@@ -67,18 +83,7 @@ function Drinks() {
       >
         All
       </button>
-      {categoryList.map((item, index) => (
-        index > maxCategoryNumber ? null
-          : (
-            <button
-              key={ index }
-              type="button"
-              data-testid={ `${item.strCategory}-category-filter` }
-              onClick={ filterByCategory }
-            >
-              {item.strCategory}
-            </button>)
-      ))}
+      {loading ? null : categoryButtons()}
       <RecipesCardsContainer />
       <FooterMenu />
     </div>

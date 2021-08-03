@@ -13,6 +13,7 @@ import {
 function Foods() {
   const {
     setData,
+    loading,
     setLoading,
     categoryList,
     setCategoryList,
@@ -39,6 +40,22 @@ function Foods() {
     }
   }
 
+  function categoryButtons() {
+    const maxCategoryNumber = 4;
+    return categoryList.map((item, index) => (
+      index > maxCategoryNumber ? null
+        : (
+          <button
+            key={ index }
+            type="button"
+            data-testid={ `${item.strCategory}-category-filter` }
+            onClick={ filterByCategory }
+          >
+            {item.strCategory}
+          </button>)
+    ));
+  }
+
   useEffect(() => {
     setLoading(true);
     getInitialMealsRecipes()
@@ -56,7 +73,6 @@ function Foods() {
     };
   }, [setData, setLoading, setCategoryList]);
 
-  const maxCategoryNumber = 4;
   return (
     <div>
       <Header title="Comidas" isButtonVisible />
@@ -67,19 +83,7 @@ function Foods() {
       >
         All
       </button>
-      )
-      {categoryList.map((item, index) => (
-        index > maxCategoryNumber ? null
-          : (
-            <button
-              key={ index }
-              type="button"
-              data-testid={ `${item.strCategory}-category-filter` }
-              onClick={ filterByCategory }
-            >
-              {item.strCategory}
-            </button>)
-      ))}
+      {loading ? null : categoryButtons()}
       <RecipesCardsContainer />
       <FooterMenu />
     </div>
