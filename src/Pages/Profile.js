@@ -1,30 +1,30 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import SearchbarContext from '../contexts/SearchbarContext';
-import UserContext from '../contexts/UserContext';
-import '../styles/ProfilePage.css';
+import React from 'react';
+// import { Link } from 'react-router-dom';
+// import Footer from '../components/Footer';
+import Header from '../Components/Header';
+// import SearchbarContext from '../contexts/SearchbarContext';
+// import UserContext from '../contexts/UserContext';
+// import '../styles/ProfilePage.css';
 
 function Profile() {
-  const [userEmailProfile, setUserEmailProfile] = useState('');
-  const { setHideSearchBtn, setPageName } = useContext(SearchbarContext);
-  const { userEmail } = useContext(UserContext);
+//   const [userEmailProfile, setUserEmailProfile] = useState('');
+//   const { setHideSearchBtn, setPageName } = useContext(SearchbarContext);
+//   const { userEmail } = useContext(UserContext);
 
-  useEffect(() => {
-    const userEmailStorageString = JSON.parse(localStorage.getItem('user'));
-    if (userEmailStorageString === null) setUserEmailProfile(userEmail);
-    else setUserEmailProfile(userEmailStorageString.email);
-    setHideSearchBtn(false);
-    setPageName('Perfil');
-  }, []);
+  //   useEffect(() => {
+  //     const userEmailStorageString = JSON.parse(localStorage.getItem('user'));
+  //     if (userEmailStorageString === null) setUserEmailProfile(userEmail);
+  //     else setUserEmailProfile(userEmailStorageString.email);
+  //     setHideSearchBtn(false);
+  //     setPageName('Perfil');
+  //   }, []);
 
-  const clearStorage = () => localStorage.clear();
+  //   const clearStorage = () => localStorage.clear();
 
   return (
     <>
-      <Header />
-      <main className="main-profile">
+      <Header title="Perfil" />
+      {/* <main className="main-profile">
         <section className="profile-section">
           <p data-testid="profile-email">{userEmailProfile}</p>
           <Link to="/receitas-feitas">
@@ -57,7 +57,7 @@ function Profile() {
           </Link>
         </section>
       </main>
-      <Footer />
+      <Footer /> */}
     </>
   );
 }

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { bool, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-export default function Header({ title }) {
+export default function Header({ title, searchIconAppears = false }) {
   const [searchInput, setSearchInput] = useState(false);
   function toggleInput() {
     if (!searchInput) {
@@ -27,16 +28,18 @@ export default function Header({ title }) {
           </button>
         </Link>
         <h1 data-testid="page-title">{title}</h1>
-        <button
-          type="button"
-          onClick={ toggleInput }
-        >
-          <img
-            data-testid="search-top-btn"
-            src={ searchIcon }
-            alt="Barra de pesquisa"
-          />
-        </button>
+        {searchIconAppears && (
+          <button
+            type="button"
+            onClick={ toggleInput }
+          >
+            <img
+              data-testid="search-top-btn"
+              src={ searchIcon }
+              alt="Barra de pesquisa"
+            />
+          </button>
+        )}
       </header>
       { searchInput ? <input
         type="text"
@@ -47,3 +50,8 @@ export default function Header({ title }) {
     </div>
   );
 }
+
+Header.propTypes = {
+  title: string,
+  searchIconAppears: bool,
+}.isRequired;
