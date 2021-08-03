@@ -23,8 +23,8 @@ function Cards(props) {
       fetchMealsForCategorie(setMealsAPI, categorie);
     }
     if (ApiCallCockTails && categorie !== null) {
-      const newStringCategorie = categorie.replace(/ /gi, '_');
-      fetchCocktailsForCategorie(SetCocktailsAPI, newStringCategorie);
+      // const newStringCategorie = categorie.replace(/ /gi, '_');
+      fetchCocktailsForCategorie(SetCocktailsAPI, categorie);
     }
   };
 
@@ -56,6 +56,7 @@ function Cards(props) {
   const renderCocktailsList = () => {
     if (ApiCallCockTails) {
       const maxListRender = 12;
+      console.log('cards', cocktailsAPI);
       return (
         cocktailsAPI.filter((__, index) => index < maxListRender)
           .map((drink, indexMap) => (

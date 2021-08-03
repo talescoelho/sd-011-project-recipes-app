@@ -35,7 +35,11 @@ export function fetchCocktailsCategorisAPI(setListCocktailsCategorie) {
 
 export function fetchCocktailsForCategorie(setListCocktail, categorie) {
   // retorna API de lista de bebidas pela categoria
+  console.log(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categorie}`);
   fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categorie}`)
     .then((response) => response.json())
-    .then((jsonData) => setListCocktail(jsonData.drinks));
+    .then((jsonData) => {
+      setListCocktail(jsonData.drinks);
+      console.log('Data', jsonData);
+    });
 }
