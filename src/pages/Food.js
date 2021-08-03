@@ -14,6 +14,8 @@ export default function Food() {
   const [firstFood, setFirstFood] = useState([]);
   const [categoriesFood, setCategoriesFood] = useState([]);
 
+  const [selectedCategory, setSelectedCategory] = useState('');
+
   useEffect(() => {
     const response = async () => {
       const data = await fetchMealsLetter('c');
@@ -34,10 +36,13 @@ export default function Food() {
   const { recipesDb, redirect, setRecipesDb } = useContext(RecipesContext);
 
   async function handleFetchByCategory(param) {
-    // console.log(param);
-    // console.log(recipesDb);
     const cat = await fetchMealsCategory(param);
     return setRecipesDb(cat);
+  }
+
+  function functionAll() {
+    // const data = await fetchMealsLetter('c');
+    return setRecipesDb(firstFood);
   }
 
   const history = useHistory();
@@ -96,7 +101,13 @@ export default function Food() {
   return (
     <div>
       <Header value={ pageTitle } />
-      <button type="button">All</button>
+      <button
+        type="button"
+        onClick={ () => functionAll() }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
       { categoriesFood.map((category, index) => ((index < limitCategory
       ) && (
         <button
@@ -106,7 +117,12 @@ export default function Food() {
           name={ category.strCategory }
           onClick={ ({ target }) => {
             setRecipesDb([]);
-            handleFetchByCategory(target.name);
+            setSelectedCategory(target.name);
+            if (selectedCategory === target.name) {
+              functionAll();
+            } else {
+              handleFetchByCategory(target.name);
+            }
           } }
         >
           {category.strCategory}

@@ -14,6 +14,8 @@ export default function Drinks() {
   const [firstDrink, setFirstDrink] = useState([]);
   const [categoriesDrink, setCategoriesDrink] = useState([]);
 
+  const [selectedCategory, setSelectedCategory] = useState('');
+
   useEffect(() => {
     const response = async () => {
       const data = await fetchDrinksName('');
@@ -35,6 +37,10 @@ export default function Drinks() {
   const { recipesDb, redirect, setRecipesDb } = useContext(RecipesContext);
   const limits = 12;
   const limitCategory = 5;
+
+  function functionAll() {
+    return setRecipesDb(firstDrink);
+  }
 
   async function handleFetchByCategory(param) {
     // console.log(param);
@@ -95,7 +101,13 @@ export default function Drinks() {
   return (
     <div>
       <Header value={ pageTitle } />
-      <button type="button">All</button>
+      <button
+        type="button"
+        onClick={ () => functionAll() }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
       { categoriesDrink.map((category, index) => ((index < limitCategory
       ) && (
         <button
@@ -105,7 +117,12 @@ export default function Drinks() {
           name={ category.strCategory }
           onClick={ ({ target }) => {
             setRecipesDb([]);
-            handleFetchByCategory(target.name);
+            setSelectedCategory(target.name);
+            if (selectedCategory === target.name) {
+              functionAll();
+            } else {
+              handleFetchByCategory(target.name);
+            }
           } }
         >
           {category.strCategory}
