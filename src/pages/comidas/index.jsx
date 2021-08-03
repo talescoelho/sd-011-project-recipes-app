@@ -13,7 +13,8 @@ class Comidas extends Component {
     const { generalRecipesFood } = this.props;
     generalRecipesFood();
   }
-  renderComidas() {
+
+  renderFoods() {
     let { allRecipes } = this.props;
     allRecipes = allRecipes.slice(0, TWELVE);
     if (allRecipes.length === 1) {
@@ -51,7 +52,7 @@ class Comidas extends Component {
       <div>
         <Header title="Comidas" mode="comidas" hasSearchBar />
         <div className="card-list">
-          {this.renderComidas()}
+          {this.renderFoods()}
         </div>
         <Footer />
       </div>

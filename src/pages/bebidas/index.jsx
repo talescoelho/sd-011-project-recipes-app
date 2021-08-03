@@ -4,10 +4,16 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
+import * as actions from '../../actions';
 
 const TWELVE = 12;
 
 class Bebidas extends Component {
+  componentDidMount() {
+    const { generalRecipesDrink } = this.props;
+    generalRecipesDrink();
+  }
+
   renderDrinks() {
     let { allRecipes } = this.props;
     allRecipes = allRecipes.slice(0, TWELVE);
@@ -18,19 +24,23 @@ class Bebidas extends Component {
     }
     return allRecipes.map((item, index) => (
       <div
+        className="card-item"
         data-testid={ `${index}-recipe-card` }
         key={ item.idDrink }
       >
         <img
-          alt="drink"
+          className="img-card"
+          alt="drinks"
           src={ item.strDrinkThumb }
           data-testid={ `${index}-card-img` }
         />
-        <span
-          data-testid={ `${index}-card-name` }
-        >
-          {item.strDrink}
-        </span>
+        <div>
+          <span
+            data-testid={ `${index}-card-name` }
+          >
+            {item.strDrink}
+          </span>
+        </div>
       </div>
     ));
   }
@@ -39,8 +49,9 @@ class Bebidas extends Component {
     return (
       <div>
         <Header title="Bebidas" mode="bebidas" hasSearchBar />
-        Main Bebidas
-        {this.renderDrinks()}
+        <div className="card-list">
+          {this.renderDrinks()}
+        </div>
         <Footer />
       </div>
     );
@@ -51,8 +62,12 @@ const mapStateToProps = (state) => ({
   allRecipes: state.recipes.allRecipes,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  generalRecipesDrink: () => dispatch(actions.generalRecipesDrink()),
+});
+
 Bebidas.propTypes = {
   allRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default connect(mapStateToProps)(Bebidas);
+export default connect(mapStateToProps, mapDispatchToProps)(Bebidas);

@@ -2,8 +2,7 @@ export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 export const USER_EMAIL = 'USER_EMAIL';
 const MESSAGE_ALERT = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
-function handleFoodsSuccess(result) {
-  console.log('AQUI FOODS', result);
+function handleRequestSuccess(result) {
   if (result === null) {
     result = [];
   }
@@ -11,7 +10,7 @@ function handleFoodsSuccess(result) {
 }
 
 function defaultFunctionFood(dispatch, json) {
-  dispatch(handleFoodsSuccess(json.meals));
+  dispatch(handleRequestSuccess(json.meals));
   if (!json.meals) {
     return (
       alert(MESSAGE_ALERT)
@@ -20,7 +19,7 @@ function defaultFunctionFood(dispatch, json) {
 }
 
 function defaultFunctionDrink(dispatch, json) {
-  dispatch(handleFoodsSuccess(json.drinks));
+  dispatch(handleRequestSuccess(json.drinks));
   if (!json.drinks) {
     return (
       alert(MESSAGE_ALERT)
@@ -93,9 +92,19 @@ export function generalRecipesFood() {
     fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
       .then((response) => response.json())
       .then(
-        (json) => dispatch(handleFoodsSuccess(json.meals))
+        (json) => dispatch(handleRequestSuccess(json.meals))
       );
   };
+}
+
+export function generalRecipesDrink() {
+  return (dispatch) => {
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+      .then((response) => response.json())
+      .then(
+        (json) => dispatch(handleRequestSuccess(json.drinks))
+      );
+  }
 }
 
 export const setEmail = (payload) => ({
