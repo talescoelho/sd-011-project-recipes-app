@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Link } from 'react';
 import PropTypes from 'prop-types';
 import { fetchMealsAPI, fetchCocktailsAPI } from '../Services/Data';
 
@@ -28,17 +28,19 @@ function Cards(props) {
       return (
         mealsAPI.filter((__, index) => index < maxListRender)
           .map((meal, indexMap) => (
-            <div
-              key={ indexMap }
-              data-testid={ `${indexMap}-recipe-card` }
-            >
-              <h5 data-testid={ `${indexMap}-card-name` }>{meal.strMeal}</h5>
-              <img
-                src={ meal.strMealThumb }
-                alt={ meal.strMeal }
-                data-testid={ `${indexMap}-card-img` }
-              />
-            </div>
+            <Link to={ `comidas/${meal.idMeal}` } key={ indexMap }>
+              <div
+                key={ indexMap }
+                data-testid={ `${indexMap}-recipe-card` }
+              >
+                <h5 data-testid={ `${indexMap}-card-name` }>{meal.strMeal}</h5>
+                <img
+                  src={ meal.strMealThumb }
+                  alt={ meal.strMeal }
+                  data-testid={ `${indexMap}-card-img` }
+                />
+              </div>
+            </Link>
           ))
       );
     }
@@ -50,17 +52,19 @@ function Cards(props) {
       return (
         cocktailsAPI.filter((__, index) => index < maxListRender)
           .map((drink, indexMap) => (
-            <div
-              key={ indexMap }
-              data-testid={ `${indexMap}-recipe-card` }
-            >
-              <h5 data-testid={ `${indexMap}-card-name` }>{drink.strDrink}</h5>
-              <img
-                src={ drink.strDrinkThumb }
-                alt={ drink.strDrink }
-                data-testid={ `${indexMap}-card-img` }
-              />
-            </div>
+            <Link to={ `bebidas/${drink.idMeal}` } key={ indexMap }>
+              <div
+                key={ indexMap }
+                data-testid={ `${indexMap}-recipe-card` }
+              >
+                <h5 data-testid={ `${indexMap}-card-name` }>{drink.strDrink}</h5>
+                <img
+                  src={ drink.strDrinkThumb }
+                  alt={ drink.strDrink }
+                  data-testid={ `${indexMap}-card-img` }
+                />
+              </div>
+            </Link>
           ))
       );
     }
