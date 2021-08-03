@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import getCategories from '../services/categoriesAPI';
 import getCategory from '../services/categoryAPI';
@@ -9,10 +9,12 @@ function CategoryButtons({ foods, drinks }) {
     setDrinkCategory,
     drinkCategoryList,
     foodCategoryList,
+    setDrinksList,
     setFoodList,
     setToggleOn,
     toggleOn,
   } = useContext(RecipeAppContext);
+  const [btnName, setBtnName] = useState('');
 
   useEffect(() => {
     const foodCatEndpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
@@ -35,13 +37,26 @@ function CategoryButtons({ foods, drinks }) {
 
   const filterCategory = async ({ target }) => {
     const { name } = target;
-    const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${name}`;
-    if (!toggleOn) {
-      const data = await getCategory(endpoint);
-      setFoodList(data.meals);
-      setToggleOn(true);
-    } if (toggleOn) {
-      setToggleOn(false);
+    if (foods) {
+      const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${name}`;
+      if (!toggleOn) {
+        const data = await getCategory(endpoint);
+        setFoodList(data.meals);
+        setBtnName(name);
+        setToggleOn(true);
+      } if (toggleOn && name === btnName) {
+        setToggleOn(false);
+      }
+    } else if (drinks) {
+      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${name}`;
+      if (!toggleOn) {
+        const data = await getCategory(endpoint);
+        setDrinksList(data.drinks);
+        setBtnName(name);
+        setToggleOn(true);
+      } if (toggleOn && name === btnName) {
+        setToggleOn(false);
+      }
     }
   };
 
@@ -71,6 +86,7 @@ function CategoryButtons({ foods, drinks }) {
       <button
         type="button"
         onClick={ () => setToggleOn(false) }
+        data-testid="All-category-filter"
       >
         All
       </button>
