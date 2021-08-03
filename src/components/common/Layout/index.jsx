@@ -11,7 +11,7 @@ function Layout({ children, title, search, noHeader, noFooter }) {
 
   return (
     <>
-      { noHeader || <Header search={ search } />}
+      { noHeader || <Header search={ search } title={ title } />}
       { children }
       { noFooter || <Footer /> }
     </>
@@ -21,7 +21,7 @@ function Layout({ children, title, search, noHeader, noFooter }) {
 export default Layout;
 
 Layout.defaultProps = {
-  title: null,
+  title: 'Comidas',
   search: false,
   noHeader: false,
   noFooter: false,
