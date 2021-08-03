@@ -2,12 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+// import blackHeartIcon from '../images/blackHeartIcon.svg';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
+
+import '../styles/Detalhes.css';
 import RecommendMeal from '../components/RecommendMeal';
+import {
+  checkDoneRecipes,
+  checkInProgressDrinks } from '../services/localStorageChecks';
+
+const copy = require('clipboard-copy');
 
 export default function DetalhesBebida({ match }) {
   const { id } = match.params;
   const [drink, setDrink] = useState({});
   const [recommendations, setRecommendations] = useState([]);
+  const [copied, setCopied] = useState(false);
   const cardLimit = 6;
 
   useEffect(() => {
@@ -29,6 +40,11 @@ export default function DetalhesBebida({ match }) {
       });
   }, []);
 
+  function handleShareBtn() {
+    copy(window.location.href);
+    setCopied(true);
+  }
+
   let ingredientsKeys = [];
   if (drink.strIngredient1) {
     // filtra as chaves dos ingredientes
@@ -39,11 +55,10 @@ export default function DetalhesBebida({ match }) {
   }
 
   const loading = !drink.idDrink && recommendations.length > 0;
-  const doneRecipes = localStorage.getItem('doneRecipes');
-  let isDone;
-  if (doneRecipes) {
-    isDone = JSON.parse(doneRecipes).find((recipe) => recipe.id === id);
-  }
+
+  const isDone = checkDoneRecipes(id);
+  const btnMessage = checkInProgressDrinks(id);
+
   return (
     loading
       ? <h1>Carregando....</h1>
@@ -56,11 +71,16 @@ export default function DetalhesBebida({ match }) {
             width="150px"
           />
           <p data-testid="recipe-title">{drink.strDrink}</p>
+          { copied ? <p>Link copiado!</p> : null }
           <button
-            data-testid="share-btn"
             type="button"
+            onClick={ handleShareBtn }
           >
-            Compartilhar
+            <img
+              data-testid="share-btn"
+              alt="Toque para copiar o link da receita para o clipboard"
+              src={ shareIcon }
+            />
           </button>
           <button
             data-testid="favorite-btn"
@@ -91,13 +111,13 @@ export default function DetalhesBebida({ match }) {
             isDone
               ? null
               : (
-                <Link to="/">
+                <Link to={ `/bebidas/${id}/in-progress` }>
                   <button
                     className="start-recipe-btn"
                     data-testid="start-recipe-btn"
                     type="button"
                   >
-                    Iniciar receita
+                    {btnMessage}
                   </button>
                 </Link>
               )
