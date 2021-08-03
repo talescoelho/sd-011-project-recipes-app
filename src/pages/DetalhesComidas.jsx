@@ -74,9 +74,7 @@ class DetalhesComidas extends Component {
   shareLinkClick() {
     const magicNumber = 2000;
     navigator.clipboard.writeText(window.location.href);
-    this.setState({
-      shareButton: true,
-    });
+    this.setState({ shareButton: true });
     setTimeout(() => this.setState({
       shareButton: false,
     }), magicNumber);
