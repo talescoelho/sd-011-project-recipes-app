@@ -2,14 +2,13 @@ import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-function IngredienteBebida() {
+function ComidasArea() {
   return (
     <div>
-      <Header title="Explorar Ingredientes" />
-      <div>Ingrediente Bebida</div>
+      <Header buttonExists title="Explorar Origem" />
       <Footer />
     </div>
   );
 }
 
-export default IngredienteBebida;
+export default ComidasArea;

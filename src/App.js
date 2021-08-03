@@ -9,6 +9,8 @@ import IngredienteBebida from './pages/IngredienteBebida';
 import IngredienteComida from './pages/IngredienteComida';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
+import Perfil from './pages/Perfil';
+import ComidasArea from './pages/ComidasArea';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -23,12 +25,12 @@ function App() {
         <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
         <Route
           exact
-          path="/explorar/ingredientes/comidas"
+          path="/explorar/comidas/ingredientes"
           component={ IngredienteComida }
         />
         <Route
           exact
-          path="/explorar/ingredientes/bebidas"
+          path="/explorar/bebidas/ingredientes"
           component={ IngredienteBebida }
         />
         <Route
@@ -41,6 +43,8 @@ function App() {
           path="/bebidas/:id"
           render={ (props) => <RecipesId { ...props } /> }
         />
+        <Route exact path="/perfil" component={ Perfil } />
+        <Route exact path="/explorar/comidas/area" component={ ComidasArea } />
       </Switch>
     </div>
   );
