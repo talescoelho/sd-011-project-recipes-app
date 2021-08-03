@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import '../components/css/RecipeDetails.css';
 import PropTypes from 'prop-types';
+import RecomendationRecipesCards from '../components/RecomendationRecipesCards';
+import '../components/css/RecipeDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
@@ -21,25 +22,23 @@ function RecipeDetails(props) {
       setSearchIdURL('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=');
       setType('drinks');
     }
-  }, [url]);
-
-  useEffect(() => {
     fetch(`${searchIdURL}${id}`)
       .then((response) => response.json())
       .then((result) => setRecipe(result));
-  }, [id, searchIdURL]);
+  }, [url, id, searchIdURL]);
 
   const [ingredients, setIngredients] = useState([]);
-
-  console.log(recipe);
+  const [measures, setMeasures] = useState([]);
 
   useEffect(() => {
     if (recipe) {
       const recipeKeys = Object.keys(recipe[type][0]);
 
       const ingredientsKeys = [];
+      const measureKeys = [];
       recipeKeys.forEach((key) => {
         if (key.includes('strIngredient')) ingredientsKeys.push(key);
+        if (key.includes('strMeasure')) measureKeys.push(key);
       });
 
       const recipeIngredints = [];
@@ -47,10 +46,18 @@ function RecipeDetails(props) {
         recipeIngredints.push(recipe[type][0][ingredient]);
       });
 
+      const recipeMeasure = [];
+      measureKeys.forEach((measure) => {
+        recipeMeasure.push(recipe[type][0][measure]);
+      });
+
       const filteredIngredints = recipeIngredints.filter((ingredient) => ingredient);
       setIngredients(filteredIngredints);
+
+      const filteredMeasures = recipeMeasure.filter((measure) => measure);
+      setMeasures(filteredMeasures);
     }
-  }, [recipe]);
+  }, [recipe, type]);
 
   function getCorrectYoutubeURL(urlLink) {
     console.log(urlLink);
@@ -85,6 +92,8 @@ function RecipeDetails(props) {
           {ingredients.map((ingredient, index) => (
             <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
               {ingredient}
+              {' '}
+              <strong>{measures[index]}</strong>
             </li>
           ))}
         </ul>
@@ -99,12 +108,7 @@ function RecipeDetails(props) {
         />
         <h2>Recomendações</h2>
         <div>
-          <span data-testid="0-recomendation-card"> Video1 </span>
-          <span data-testid="1-recomendation-card"> Video2 </span>
-          <span data-testid="2-recomendation-card"> Video3 </span>
-          <span data-testid="3-recomendation-card"> Video4 </span>
-          <span data-testid="4-recomendation-card"> Video5 </span>
-          <span data-testid="5-recomendation-card"> Video6 </span>
+          <RecomendationRecipesCards identifier="comidas" />
         </div>
         <button
           type="button"
@@ -140,6 +144,8 @@ function RecipeDetails(props) {
           {ingredients.map((ingredientDrink, index) => (
             <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
               {ingredientDrink}
+              {' '}
+              <strong>{measures[index]}</strong>
             </li>
           ))}
         </ul>
@@ -149,12 +155,7 @@ function RecipeDetails(props) {
         </p>
         <h2>Recomendações</h2>
         <div>
-          <span data-testid="0-recomendation-card"> Video1 </span>
-          <span data-testid="1-recomendation-card"> Video2 </span>
-          <span data-testid="2-recomendation-card"> Video3 </span>
-          <span data-testid="3-recomendation-card"> Video4 </span>
-          <span data-testid="4-recomendation-card"> Video5 </span>
-          <span data-testid="5-recomendation-card"> Video6 </span>
+          <RecomendationRecipesCards identifier="bebidas" />
         </div>
         <button
           type="button"
@@ -173,7 +174,7 @@ function RecipeDetails(props) {
 
   return (
     <>
-      {!recipe ? <div>Carregando...</div> : chooseMealOrDrinkDetail() }
+      {recipe && chooseMealOrDrinkDetail() }
       <div />
     </>
   );
