@@ -15,6 +15,8 @@ function DoneRecipeCards({
                 src={ src }
                 alt={ name }
                 data-testid={ `${index}-horizontal-image` }
+                width="40px"
+                height="40px"
               />
             </Link>
           </div>
@@ -58,6 +60,8 @@ function DoneRecipeCards({
                   src={ src }
                   alt={ name }
                   data-testid={ `${index}-horizontal-image` }
+                  width="40px"
+                  height="40px"
                 />
               </Link>
             </div>

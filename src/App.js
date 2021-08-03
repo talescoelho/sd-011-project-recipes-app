@@ -44,6 +44,11 @@ function App() {
           path="/bebidas/:id"
           render={ (props) => <RecipesId { ...props } /> }
         />
+        <Route
+          exact
+          path="/receitas-favoritas"
+          component={ ReceitasFavoritas }
+        />
       </Switch>
     </div>
   );
