@@ -25,10 +25,10 @@ function App() {
             <Route exact path="/perfil" component={ Perfil } />
             <Route exact path="/comidas/:id" component={ Detalhes } />
             <Route exact path="/bebidas/:id" component={ Detalhes } />
+            <Route exact path="/comidas/id/in-progress" />
+            <Route exact path="/bebidas/id/in-progress" />
           </RecipesProvider>
 
-          <Route path="/comidas/{id-da-receita}/in-progress" />
-          <Route path="/bebidas/{id-da-receita}/in-progress" />
           <Route
             path="/explorar/comidas"
             component={ () => <Header title="Explorar Comidas" /> }
