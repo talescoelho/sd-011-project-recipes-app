@@ -2,26 +2,51 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: [],
-  meals: [],
+  foods: [],
   drinks: [],
-  categories: [],
-  typeRecipe: '',
+  foodCategories: [],
+  drinksCategories: [],
+  comidas: [],
+  foodIngredients: [],
+  foodAreaList: [],
+  drinkIngredients: [],
   loading: false,
   error: null,
+  input: '',
 };
 
 // createAsyncThunk receives two parameters: 1) name of the slice, 2) function name that creates the createAsyncThunk
 export const getRecipes = createAsyncThunk(
   'requisition/fetchRecipes',
-  async (URL) => fetch(URL).then((res) => res.json()),
+  async (actionName, { getState }) => {
+    const { fetchReceitas: { input } } = getState();
+    const URLDictionary = {
+      foods: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
+      drinks: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
+      filterByFoodCategorie:
+        `https://www.themealdb.com/api/json/v1/1/filter.php?c=${input}`,
+      filterByDrinkCategorie:
+        `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${input}`,
+      foodIngredients: 'https://www.themealdb.com/api/json/v1/1/list.php?i=list',
+      foodAreaList: 'https://www.themealdb.com/api/json/v1/1/list.php?a=list',
+      drinkIngredients: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list',
+      drinkAreaList: 'https://www.thecoktail.com/api/json/v1/1/list.php?a=list',
+      foodCategories: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
+      drinksCategories: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
+    };
+    const response = await fetch(URLDictionary[actionName]).then((res) => res.json());
+    return {
+      response,
+      actionName,
+    };
+  },
 );
-
 const fetchReceitasSlice = createSlice({
   name: 'fetchRecipes',
   initialState,
   reducers: {
-    setTypeRecipe: (state, action) => {
-      state.typeRecipe = action.payload.typeRecipe;
+    setInput: (state, action) => {
+      state.input = action.payload;
     },
   },
   extraReducers: {
@@ -29,12 +54,17 @@ const fetchReceitasSlice = createSlice({
       state.loading = true;
     },
     [getRecipes.fulfilled]: (state, action) => {
-      state.data = action.payload;
-      state.meals = !action.payload.meals ? state.meals : action.payload.meals;
-      state.drinks = !action.payload.drinks ? state.drinks : action.payload.drinks;
-      state.categories = !action.payload.categories
-        ? state.categories : action.payload.categories;
+      const { actionName, response } = action.payload;
+      state[actionName] = response;
+      if (actionName === 'filterByFoodCategorie') {
+        state.foods = response;
+      }
+      if (actionName === 'filterByDrinkCategorie') {
+        state.drinks = response;
+      }
       state.loading = false;
+      // state.data = action.payload;
+      // state.loading = false;
     },
     [getRecipes.rejected]: (state, action) => {
       state.loading = false;
@@ -43,6 +73,6 @@ const fetchReceitasSlice = createSlice({
   },
 });
 
-export const { setTypeRecipe } = fetchReceitasSlice.actions;
+export const { setInput } = fetchReceitasSlice.actions;
 
 export default fetchReceitasSlice.reducer;

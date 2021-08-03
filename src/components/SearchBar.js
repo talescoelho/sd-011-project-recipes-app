@@ -11,12 +11,6 @@ function SearchBar() {
   const [searchInput, setSearchInput] = useState();
   const [redirectURL, setRedirectURL] = useState('');
 
-  const requestDictionary = {
-    ingredients: 'filter.php?i=',
-    name: 'search.php?s=',
-    firstLetter: 'search.php?f=',
-  };
-
   function handleSearchInput({ target: { value } }) {
     setSearchInput(value);
   }
@@ -32,14 +26,13 @@ function SearchBar() {
     if (selectedRadio === 'firstLetter' && searchInput.length > 1) {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
+    let recipeType = 'foods';
     const { pathname } = window.location;
-    let recipeType = 'themealdb';
     const recipeURL = pathname.split('/')[1];
     if (recipeURL === 'bebidas') {
-      recipeType = 'thecocktaildb';
+      recipeType = 'drinks';
     }
-    const URL = `https://www.${recipeType}.com/api/json/v1/1/${requestDictionary[selectedRadio]}${searchInput}`;
-    dispatch(getRecipes(URL));
+    dispatch(getRecipes(recipeType));
   }
 
   if (redirectURL !== '') return (<Redirect to={ redirectURL } />);
