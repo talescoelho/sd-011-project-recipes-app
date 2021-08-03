@@ -13,7 +13,6 @@ function RecipesProvider({ children }) {
   const [dataRecipes, setDataRecipes] = useState([]);
   const [categorysList, setCategorysList] = useState(pathname);
   const [currentCategory, setCurrentCategory] = useState('All');
-
   const [currentIngredientsList, setCurrentIngredientsList] = useState([]);
 
   useEffect(() => {

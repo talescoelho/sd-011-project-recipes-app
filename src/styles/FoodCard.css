@@ -1,4 +1,4 @@
-.ingredientCardContainer {
+.foodCardContainer {
   background-color: white;
   border-radius: 5px;
   display: flex;
@@ -9,13 +9,13 @@
   width: 162px;
 }
 
-.ingredientImageRecipe {
+.foodImageRecipe {
   background-color: red;
   height: 132px;
   width: 100%;
 }
 
-.ingredientNameRecipe {
+.FoodNameRecipe {
   background-color: white;
   color: black;
   font-family: Verdana , sans-serif;
