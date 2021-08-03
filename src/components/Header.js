@@ -13,34 +13,38 @@ function Header({ title, showButton }) {
   }
 
   return (
-    <header className="d-flex justify-content-between">
-      <Link to="/perfil">
-        <img
-          data-testid="profile-top-btn"
-          src={ profileIcon }
-          alt="icone de perfil"
-        />
-      </Link>
-      <h3 data-testid="page-title">
-        {title}
-      </h3>
-      {
-        showButton
-          ? (
-            <button
-              onClick={ () => disableSearchBar() }
-              type="button"
-            >
-              <img
-                data-testid="search-top-btn"
-                src={ searchIcon }
-                alt="icone de pesquisa"
-              />
-            </button>
-          )
-          : null
-      }
-      {renderSearch ? <Searchbar /> : null}
+    <header>
+      <div className="d-flex justify-content-between">
+
+        <Link to="/perfil">
+          <img
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="icone de perfil"
+          />
+        </Link>
+        <h3 data-testid="page-title">
+          {title}
+        </h3>
+        {
+          showButton
+            ? (
+              <button
+                onClick={ () => disableSearchBar() }
+                type="button"
+              >
+                <img
+                  data-testid="search-top-btn"
+                  src={ searchIcon }
+                  alt="icone de pesquisa"
+                />
+              </button>
+            )
+            : null
+        }
+        {renderSearch ? <div /> : null}
+      </div>
+      {renderSearch ? <Searchbar /> : <div />}
     </header>
   );
 }

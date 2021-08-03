@@ -55,7 +55,7 @@ function Searchbar() {
   if (searchResults[key]) {
     resultSize = searchResults[key].length;
   }
-
+  console.log(searchResults)
   return (
     <form>
       { resultSize === 1 ? (

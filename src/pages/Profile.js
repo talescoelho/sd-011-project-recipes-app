@@ -8,6 +8,7 @@ function Profile() {
   function logoutClear() {
     localStorage.clear();
   }
+
   return (
     <div>
       <Header
@@ -25,7 +26,6 @@ function Profile() {
           data-testid="profile-done-btn"
         >
           <button
-            className="btn btn-primary"
             type="button"
           >
             Receitas Feitas
@@ -36,7 +36,6 @@ function Profile() {
           data-testid="profile-favorite-btn"
         >
           <button
-            className="btn btn-primary"
             type="button"
           >
             Receitas Favoritas
@@ -49,7 +48,6 @@ function Profile() {
           data-testid="profile-logout-btn"
         >
           <button
-            className="btn btn-primary"
             type="button"
           >
             Sair
