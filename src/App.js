@@ -2,9 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
-import Drink from './pages/Drinks';
-import Foods from './pages/Foods';
-import FoodsInProgress from './pages/FoodsInProgress';
+import MainPage from './pages/MainPage';
 import Explore from './pages/Explore';
 import ExploreFoods from './pages/ExploreFoods';
 import ExploreDrinks from './pages/ExploreDrinks';
@@ -14,6 +12,7 @@ import ExploreFoodsArea from './pages/ExploreFoodsArea';
 import Perfil from './pages/Perfil';
 import MakedRevenues from './pages/MakedRevenues';
 import FavoritedRevenues from './pages/FavoritedRevenues';
+import Details from './pages/Details';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -22,27 +21,27 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ Login } />
-          <Route exact path="/comidas" component={ Foods } />
-          <Route exact path="/bebidas" component={ Drink } />
-          <Route exact path="/comidas/:id/in-progress" component={ FoodsInProgress } />
-          <Route exact path="/bebidas/:id/in-progress" component={ FoodsInProgress } />
-          <Route exact path="/explorar" component={ Explore } />
-          <Route exact path="/explorar/comidas" component={ ExploreFoods } />
-          <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
+          <Route exact path="/comidas/" component={ MainPage } />
+          <Route exact path="/bebidas/" component={ MainPage } />
+          <Route exact path="/comidas/:id" component={ Details } />
+          <Route exact path="/bebidas/:id" component={ Details } />
+          <Route exact path="/explorar/" component={ Explore } />
+          <Route exact path="/explorar/comidas/" component={ ExploreFoods } />
+          <Route exact path="/explorar/bebidas/" component={ ExploreDrinks } />
           <Route
             exact
-            path="/explorar/comidas/ingredientes"
+            path="/explorar/comidas/ingredientes/"
             component={ ExploreFoodsIngredientes }
           />
           <Route
             exact
-            path="/explorar/bebidas/ingredientes"
+            path="/explorar/bebidas/ingredientes/"
             component={ ExploreDrinksIngredientes }
           />
-          <Route exact path="/explorar/comidas/area" component={ ExploreFoodsArea } />
-          <Route exact path="/perfil" component={ Perfil } />
-          <Route exact path="/receitas-feitas" component={ MakedRevenues } />
-          <Route exact path="/receitas-favoritadas" component={ FavoritedRevenues } />
+          <Route exact path="/explorar/comidas/area/" component={ ExploreFoodsArea } />
+          <Route exact path="/perfil/" component={ Perfil } />
+          <Route exact path="/receitas-feitas/" component={ MakedRevenues } />
+          <Route exact path="/receitas-favoritadas/" component={ FavoritedRevenues } />
         </Switch>
       </BrowserRouter>
     </div>

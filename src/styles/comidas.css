@@ -1,4 +1,5 @@
 .foods-cards {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -9,8 +10,12 @@
   width: 40%;
 }
 
-.card p {
-  align-self: center;
+.card h4 {
+  text-align: center;
+}
+
+.card img {
+  width: 100%;
 }
 
 .in-progress-card {
