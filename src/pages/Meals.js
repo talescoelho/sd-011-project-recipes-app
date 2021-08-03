@@ -11,11 +11,10 @@ function Meals() {
 
   return (
     <div>
-      <Header title="Comidas" recipeType="meals" />
-      <CategoriesBar recipeType="meals" />
       { mealsData.length === 1
         && <Redirect to={ `/comidas/${mealsData[0].idMeal}` } /> }
       <Header title="Comidas" recipeType="meals" searchButton />
+      <CategoriesBar recipeType="meals" />
       { mealsData !== [] && mealsData.map((recipe, index) => (
         <Link
           to={ `/comidas/${recipe.idMeal}` }
