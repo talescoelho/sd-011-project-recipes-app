@@ -3,7 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import InitialScreen from './pages/InitialScreen';
 import Profile from './pages/Profile';
-import Details from './pages/Details';
+import FoodDetails from './pages/FoodDetails';
+import CocktailsDetails from './pages/CocktailsDetails';
 import Explore from './pages/Explore';
 import ExploreDynamic from './pages/ExploreDynamic';
 import Ingredients from './pages/Ingredients';
@@ -18,8 +19,8 @@ export default function Routes() {
       <Route exact path="/comidas" render={ () => <InitialScreen type="Comidas" /> } />
       <Route exact path="/bebidas" render={ () => <InitialScreen type="Bebidas" /> } />
       <Route exact path="/perfil" component={ Profile } />
-      <Route exact path="/comidas/:id" component={ Details } />
-      <Route exact path="/bebidas/:id" component={ Details } />
+      <Route exact path="/comidas/:id" component={ FoodDetails } />
+      <Route exact path="/bebidas/:id" component={ CocktailsDetails } />
       <Route exact path="/explorar" component={ Explore } />
       <Route
         exact
