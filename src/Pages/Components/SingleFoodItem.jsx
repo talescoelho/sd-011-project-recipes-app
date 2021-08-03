@@ -33,13 +33,17 @@ function SingleFoodItem() {
     const arrayOfMeasuresKey = Object
       .keys(food).filter((key) => key.includes('strMeasure'));
     arrayOfIngredientsKey.map((ingredient) => {
-      if ((food[ingredient] !== '' && food[ingredient] !== ' ' && food[ingredient] !== null)) {
+      if ((food[ingredient] !== ''
+      && food[ingredient] !== ' '
+      && food[ingredient] !== null)) {
         arrayOfIngredients.push(food[ingredient]);
       }
       return null;
     });
     arrayOfMeasuresKey.map((ingredient) => {
-      if ((food[ingredient] !== '' && food[ingredient] !== ' ' && food[ingredient] !== null)) {
+      if ((food[ingredient] !== ''
+      && food[ingredient] !== ' '
+      && food[ingredient] !== null)) {
         arrayOfMeasures.push(food[ingredient]);
       }
       return null;
