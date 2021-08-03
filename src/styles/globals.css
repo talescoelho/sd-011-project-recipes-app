@@ -7,6 +7,6 @@ main {
 }
 
 footer {
-  bottom: 0px;
-  position: fixed;  
+  bottom: 0;
+  position: fixed;
 }
