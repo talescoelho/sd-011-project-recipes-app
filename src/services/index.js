@@ -53,3 +53,20 @@ export const searchByFirstLetter = async (firstLetter, pathname) => {
   }
   window.alert('Sua busca deve conter somente 1 (um) caracter');
 };
+
+export const listAllAreas = async () => {
+  const areas = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+  const json = await areas.json();
+  return json;
+};
+
+export const searchByArea = async (area) => {
+  if (area === 'all') {
+    const recipes = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    const json = await recipes.json();
+    return json;
+  }
+  const recipes = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
+  const json = await recipes.json();
+  return json;
+};

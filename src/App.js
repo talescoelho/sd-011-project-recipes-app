@@ -10,53 +10,66 @@ import Comidas from './pages/Comidas';
 import Login from './pages/Login';
 import RecipesProvider from './context/RecipesProvider';
 import ReceitasFeitas from './pages/ReceitasFeitas';
+import ExplorarComidas from './pages/ExplorarComidas';
+import ExplorarBebidas from './pages/ExplorarBebidas';
+import ExplorarPorOrigem from './pages/ExplorarPorOrigem';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
     <div className="meals">
       <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={ Login } />
-          <RecipesProvider>
-            <Route path="/comidas" component={ Comidas } />
-            <Route path="/bebidas" component={ Comidas } />
-            <Route path="/explorar" component={ Explorar } />
+        <RecipesProvider>
+          <Switch>
+            <Route exact path="/" component={ Login } />
+            <Route exact path="/comidas" component={ Comidas } />
+            <Route exact path="/bebidas" component={ Comidas } />
+            <Route exact path="/explorar" component={ Explorar } />
             <Route exact path="/perfil" component={ Perfil } />
+            <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
+            <Route
+              exact
+              path="/explorar/comidas"
+              component={ ExplorarComidas }
+            />
+            <Route
+              exact
+              path="/explorar/bebidas"
+              component={ ExplorarBebidas }
+            />
+            <Route
+              exact
+              path="/explorar/comidas/ingredientes"
+              component={ () => <Header title="Explorar Ingredientes" /> }
+            />
+            <Route
+              exact
+              path="/explorar/bebidas/ingredientes"
+              component={ () => <Header title="Explorar Ingredientes" /> }
+            />
+            <Route
+              exact
+              path="/explorar/comidas/area"
+              component={ ExplorarPorOrigem }
+            />
+            <Route
+              path="*"
+              component={ NotFound }
+            />
             <Route path="/comidas/{id-da-receita}" />
+            <Route path="/comidas/{id-da-receita}/in-progress" />
+            <Route path="/bebidas/{id-da-receita}" />
+            <Route path="/bebidas/{id-da-receita}/in-progress" />
             <Route
               path="/receitas-feitas"
-              component={ ReceitasFeitas }
+              component={ () => <Header title="Receitas Feitas" /> }
             />
-          </RecipesProvider>
-
-          <Route path="/comidas/{id-da-receita}/in-progress" />
-          <Route path="/bebidas/{id-da-receita}" />
-          <Route path="/bebidas/{id-da-receita}/in-progress" />
-          <Route
-            path="/explorar/comidas"
-            component={ () => <Header title="Explorar Comidas" /> }
-          />
-          <Route
-            path="/explorar/bebidas"
-            component={ () => <Header title="Explorar Comidas" /> }
-          />
-          <Route
-            path="/explorar/comidas/ingredientes"
-            component={ () => <Header title="Explorar Ingredientes" /> }
-          />
-          <Route
-            path="/explorar/bebidas/ingredientes"
-            component={ () => <Header title="Explorar Ingredientes" /> }
-          />
-          <Route
-            path="/explorar/comidas/area"
-            component={ () => <Header title="Explorar Origem" showSearchIcon /> }
-          />
-          <Route
-            path="/receitas-favoritas"
-            component={ () => <Header title="Receitas Favoritas" /> }
-          />
-        </Switch>
+            <Route
+              path="/receitas-favoritas"
+              component={ () => <Header title="Receitas Favoritas" /> }
+            />
+          </Switch>
+        </RecipesProvider>
       </BrowserRouter>
     </div>
   );

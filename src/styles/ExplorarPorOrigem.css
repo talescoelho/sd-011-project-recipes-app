@@ -1,20 +1,23 @@
-.comidasPageContainer {
-<<<<<<< HEAD
-=======
+.origem-content {
 
   /* background-color: aqua; */
->>>>>>> c8c89fff689df43b18d6c1f3db83290a926183c8
   height: 540px;
   width: 100%;
 }
 
-.foodRecipesContainer {
+.origem-foods-container {
   align-items: center;
+
+  /* background-color: brown; */
   background-color: black;
   display: flex;
   flex-flow: row wrap;
   height: 415px;
-  justify-content: space-around;
+
+  /* justify-content: space-around; */
   overflow: auto;
+  padding: 0 10px;
+
+  /* margin-right: 50px; */
   width: 360px;
 }
