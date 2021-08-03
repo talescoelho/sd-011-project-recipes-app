@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import RecomendationRecipesCards from '../components/RecomendationRecipesCards';
 import '../components/css/RecipeDetails.css';
 import shareIcon from '../images/shareIcon.svg';
@@ -68,6 +69,8 @@ function RecipeDetails(props) {
     return IFrameYtLink;
   }
 
+  const { location: { pathname } } = props;
+
   function renderMealDetails() {
     return (
       <div className="supply-card">
@@ -110,12 +113,15 @@ function RecipeDetails(props) {
         <div>
           <RecomendationRecipesCards identifier="comidas" />
         </div>
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-        >
-          Iniciar Receita
-        </button>
+        <Link to={ `${pathname}/in-progress` }>
+          <button
+            className="start-recipe"
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            Continuar Receita
+          </button>
+        </Link>
       </div>
     );
   }
@@ -157,12 +163,15 @@ function RecipeDetails(props) {
         <div>
           <RecomendationRecipesCards identifier="bebidas" />
         </div>
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-        >
-          Iniciar Receita
-        </button>
+        <Link to={ `${pathname}/in-progress` }>
+          <button
+            className="start-recipe"
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            Continuar Receita
+          </button>
+        </Link>
       </div>
     );
   }
