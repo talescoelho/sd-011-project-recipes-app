@@ -2,16 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { RecipesContext } from '../context/RecipesContext';
 
 function InProgressCard() {
-  // const verifingId = localStorage.getItem('id');
   const [mealDetail, setMealDetail] = useState([]);
   const [drinkDetail, setDrinkDetail] = useState([]);
   const { inProgress } = useContext(RecipesContext);
-
-  // let newId = '';
-  // if (verifingId) {
-  //   newId = verifingId;
-  //   localStorage.removeItem('id');
-  // }
 
   const foodToDetail = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
   const drinkToDetail = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
