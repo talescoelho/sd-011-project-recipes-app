@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ProfileIcon from '../../images/profileIcon.svg';
 import SearchIcon from '../../images/searchIcon.svg';
+import Footer from './Layout/Footer';
 import { useTheme } from '../../hooks';
 
 function Layout({ children, title, search, noHeader }) {
@@ -32,7 +33,8 @@ function Layout({ children, title, search, noHeader }) {
             : null}
         </header>)}
       { children }
-      <footer />
+      <Footer />
+              
     </>
   );
 }
