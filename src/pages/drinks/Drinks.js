@@ -1,37 +1,21 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Header from '../../components/Header';
-import RecipeCard from '../../components/RecipeCard';
-import { RecipesContext } from '../../context/RecipesContext';
-import SearchBar from '../../components/SearchBar';
 import { SearchBarProvider } from '../../context/SearchBar';
 import Footer from '../../components/Footer';
+import CardsList from '../../components/CardsList';
 
 export default function Drinks() {
-  const { drinksFiltered, drinkCategories } = useContext(RecipesContext);
-
   return (
     <main>
-      <Header title="Bebidas" search />
-      <SearchBarProvider>
-        <SearchBar fetchType="thecocktaildb" />
-      </SearchBarProvider>
       <section>
-        { drinkCategories.length > 0 && drinkCategories.map((cat) => (
-          <button
-            type="button"
-            key={ cat.strCategory }
-            data-testid={ `${cat.strCategory}-category-filter` }
-          >
-            {cat.strCategory}
-          </button>
-        ))}
+        <SearchBarProvider>
+          <Header title="Explorar Bebidas" search fetchType="thecocktaildb" />
+          <CardsList fetchType="thecocktaildb" />
+        </SearchBarProvider>
       </section>
       <section>
-        { drinksFiltered.length > 0 && drinksFiltered.map((recipe, index) => (
-          <RecipeCard recipe={ recipe } index={ index } type="Drink" key={ index } />
-        ))}
+        <Footer />
       </section>
-      <Footer />
     </main>
   );
 }

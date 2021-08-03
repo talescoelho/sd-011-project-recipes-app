@@ -1,32 +1,39 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { SearchBarContext } from '../context/SearchBar';
 import fetchByFilter from '../services/data';
-import Cards from './Cards';
+// import Cards from './Cards';
 
 export default function SearchBar(props) {
   const {
+    input,
+    setInput,
+    radio,
+    setRadio,
+    recipeId,
+    setRecipeId,
+    dataValues,
+    setDataValues,
+    path,
+    setPath,
+    recipeType,
+    setRecipeType,
+    newSearch,
+    setNewSearch,
     setData,
     data,
+    // shouldCallCards,
     setShouldCallCards,
-    shouldCallCards,
   } = useContext(SearchBarContext);
 
-  const [input, setInput] = useState('');
-  const [radio, setRadio] = useState('');
-  const [recipeId, setRecipeId] = useState();
-  const [dataValues, setDataValues] = useState();
-  const [path, setPath] = useState();
-  const [recipeType, setRecipeType] = useState();
-  const [newSearch, setNewSearch] = useState(false);
   const { fetchType } = props;
 
   const history = useHistory();
 
   useEffect(() => {
     setDataValues(Object.values(data)[0]); // Pega a primeira posição dos valores de data, onde ficam todos os objectos de receitas
-  }, [data, dataValues]);
+  }, [data, dataValues, setDataValues]);
 
   useEffect(() => {
     async function getPath() {
@@ -44,7 +51,17 @@ export default function SearchBar(props) {
       }
     }
     getPath();
-  }, [dataValues, fetchType, history, path, recipeId, recipeType]);
+  }, [
+    dataValues,
+    fetchType,
+    history,
+    path,
+    recipeId,
+    recipeType,
+    setPath,
+    setRecipeId,
+    setRecipeType,
+  ]);
 
   useEffect(() => {
     if (newSearch && !dataValues) {
@@ -66,19 +83,21 @@ export default function SearchBar(props) {
     setNewSearch(false);
   };
 
-  const renderCards = () => {
-    const MAX_CARDS = 12;
-    if (shouldCallCards && dataValues.length > 1) {
-      return dataValues.slice(0, MAX_CARDS).map((eachRecipe, index) => (
-        <Cards
-          recipe={ eachRecipe }
-          type={ fetchType }
-          index={ index }
-          key={ index }
-        />
-      ));
-    }
-  };
+  // Passei o renderCards para dentro do CardsList
+
+  // const renderCards = () => {
+  //   const MAX_CARDS = 12;
+  //   if (shouldCallCards && dataValues.length > 1) {
+  //     return dataValues.slice(0, MAX_CARDS).map((eachRecipe, index) => (
+  //       <Cards
+  //         recipe={ eachRecipe }
+  //         type={ fetchType }
+  //         index={ index }
+  //         key={ index }
+  //       />
+  //     ));
+  //   }
+  // };
 
   return (
     <nav>
@@ -134,9 +153,9 @@ export default function SearchBar(props) {
           />
           Primeira letra
         </label>
-        <section>
+        {/* <section>
           { shouldCallCards && dataValues && renderCards() }
-        </section>
+        </section> */}
       </section>
     </nav>
   );

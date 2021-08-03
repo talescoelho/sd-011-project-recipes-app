@@ -28,8 +28,10 @@ export function RecipesProvider({ children }) {
   const [drinkCategories, setDrinkCategories] = useState([]);
   const [foodsFilter, setFoodsFilter] = useState('');
   // const [drinksFilter, setDrinksFilter] = useState('all');
+  const [inProgress, setInProgress] = useState([]);
   const five = 5;
   const twelve = 12;
+
 
   useEffect(() => {
     const getRecipes = async () => {
@@ -58,6 +60,10 @@ export function RecipesProvider({ children }) {
     setFoodsFiltered(newFoodsFiltered.filter((_recipe, index) => index < twelve));
   }, [foodsFilter, foodList]);
 
+  useEffect(() => {
+    console.log('inprogress', inProgress);
+  }, [inProgress]);
+
   const setFilter = (clickedCategory) => {
     if (clickedCategory === foodsFilter) {
       setFoodsFilter('');
@@ -79,6 +85,8 @@ export function RecipesProvider({ children }) {
     foodCategories,
     drinkCategories,
     setFilter,
+    setInProgress,
+    inProgress,
   };
 
   return (

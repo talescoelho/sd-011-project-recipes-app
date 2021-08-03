@@ -3,11 +3,16 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
+import FiltersBar from './FiltersBar';
 
 export default function Header(props) {
   const [isVisibleBar, setVisibleBar] = useState(false);
   const history = useHistory();
-  const { title, search } = props;
+  const { title, search, fetchType } = props;
+
+  const renderSearchBar = () => <section><SearchBar fetchType={ fetchType } /></section>;
+  const renderFiltersBar = () => (<FiltersBar fetchType={ fetchType } />);
 
   const buttonSearch = () => (
     <>
@@ -21,26 +26,28 @@ export default function Header(props) {
           src={ searchIcon }
         />
       </button>
-      { isVisibleBar && <div>SearchBar</div> }
+      <section>
+        { isVisibleBar ? renderSearchBar() : renderFiltersBar() }
+      </section>
     </>
   );
 
   return (
-    <header style={ { display: 'flex' } }>
-      <button
-        // style={ { display: 'none' } }
-        type="button"
-        onClick={ () => history.push('/perfil') }
-      >
-        <img
-          data-testid="profile-top-btn"
-          src={ profileIcon }
-          alt="profile icon"
-        />
-      </button>
+    <header>
+      <section>
+        <button
+          type="button"
+          onClick={ () => history.push('/perfil') }
+        >
+          <img
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="profile icon"
+          />
+        </button>
+      </section>
       <h3 data-testid="page-title">{ title }</h3>
       { search && buttonSearch() }
-      {/* style={ { position: 'fixed', height: '200vh' } } */}
     </header>
   );
 }
