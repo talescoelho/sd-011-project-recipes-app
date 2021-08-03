@@ -1,6 +1,6 @@
 const initialState = {
   formInfo: '',
-  data: [],
+  cards: [],
 };
 
 const recipe = (state = initialState, action) => {
@@ -13,6 +13,10 @@ const recipe = (state = initialState, action) => {
     const { data } = payload;
     return { ...state, data };
   }
+  case 'FETCH_FOOD_CARD': {
+    return { ...state, cards: payload };
+  }
+
   default:
     return { ...state };
   }

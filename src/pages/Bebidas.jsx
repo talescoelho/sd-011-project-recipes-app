@@ -11,7 +11,7 @@ export default function Bebidas() {
     <>
       <Header pageName="Bebidas" renderButton />
       <main>
-        <FilterButtons />
+        <FilterButtons type="drinks" />
         <DrinkCard />
       </main>
       <Footer />

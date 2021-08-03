@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Card, Button } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import getFood from '../services/SearchRecipe';
+import { getFoodCard } from '../Redux/actions/index';
 
 export default function DrinkCard() {
-  const [drinkList, setDrinkList] = useState();
   const history = useHistory();
+  const dispatch = useDispatch();
   const recipes = useSelector((state) => state.recipes);
-
-  const { formInfo } = recipes;
+  const { cards, formInfo } = recipes;
 
   useEffect(() => {
     (async () => {
       const drink = await getFood(formInfo, 'drinks');
-      setDrinkList(drink);
+      dispatch(getFoodCard(drink));
     })();
   }, [formInfo]);
 
   const getCards = () => {
-    if (drinkList) {
-      return drinkList.map((item, index) => {
+    if (cards) {
+      return cards.map((item, index) => {
         const { idDrink, strDrink, strDrinkThumb, strAlcoholic, strCategory } = item;
         return (
           <Card key={ index } data-testid={ `${index}-recipe-card` }>

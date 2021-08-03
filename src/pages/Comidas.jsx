@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <Header pageName="Comidas" renderButton />
       <main>
-        <FilterButtons />
+        <FilterButtons type="meals" />
         <FoodCard />
       </main>
       <Footer />
