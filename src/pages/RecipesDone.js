@@ -88,13 +88,12 @@ function RecipesDone() {
             <li data-testid={ `${index}-horizontal-top-text` }>
               {`${recipes.area} - ${recipes.category} ${recipes.alcoholicOrNot}`}
             </li>
-            <button
-              type="button"
+            <a
+              href={ `/${recipes.type}s/${recipes.id}` }
               data-testid={ `${index}-horizontal-name` }
-              onClick={ () => history.push(`/${recipes.type}s/${recipes.id}`) }
             >
               { recipes.name }
-            </button>
+            </a>
             <li data-testid={ `${index}-horizontal-done-date` }>{ recipes.doneDate }</li>
             {recipes.tags && recipes.tags.map((tag, indexTag) => (
               <li
