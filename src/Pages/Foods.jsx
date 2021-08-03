@@ -6,7 +6,9 @@ import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './Components/SearchBar';
 import FooterBar from './Components/FooterBar';
-import CategoryFoodAPI from '../services/CategoryFoodAPI';
+import {CategoryFoodAPI ,CategoryFoodFilter} from '../services/CategoryFoodAPI';
+
+
 // import PropTypes from 'prop-types';
 
 function Foods() {
@@ -14,6 +16,7 @@ function Foods() {
   const { dataFood, setRequestFoodParams } = useContext(Context);
   const [showSearch, setShowSearch] = useState(false);
   const [foodCategories, setFoodCategories] = useState();
+  const [foodFilter, setFoodFilter] = useState([]);
   const foods = 'foods';
   const numberFour = 4;
   // Busca por comidas ao renderizar a tela de comidas.
@@ -26,7 +29,6 @@ function Foods() {
     fetchFoodParams();
   }, []);
 
-  console.log(foodCategories);
 
   useEffect(() => {
     setRequestFoodParams({
@@ -36,6 +38,13 @@ function Foods() {
   if (dataFood !== null && dataFood.length === 1) {
     const oneResult = dataFood[0];
     history.push(`/comidas/${oneResult.idMeal}`);
+  }
+
+  function requestFoodCategories({target}){
+    const {value} = target;
+    const meals = CategoryFoodFilter(value)
+  meals && setFoodFilter(meals.filter((item , index) => index <= 11))
+  console.log(foodFilter)
   }
 
   return (
@@ -66,9 +75,12 @@ function Foods() {
           ? foodCategories.filter((item, index) => index <= numberFour)
             .map((category, index) => (
               <button
+                onClick={(e) => requestFoodCategories(e)}
                 type="button"
                 key={ index }
                 data-testid={ `${category}-category-filter` }
+                name="category"
+                value={category}
               >
                 {category}
               </button>
