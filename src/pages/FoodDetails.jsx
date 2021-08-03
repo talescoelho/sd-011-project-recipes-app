@@ -67,10 +67,10 @@ export default function FoodDetails() {
         />
         <h1 data-testid="recipe-title">{returnRecipe().strMeal}</h1>
         <button className="btnheader" type="button" data-testid="share-btn">
-          <img src={ imageShare } alt="share" />
+          <img data-testid="share-btn" src={ imageShare } alt="share" />
         </button>
         <button className="btnheader" type="button" data-testid="favorite-btn">
-          <img src={ imageHeart } alt="favorite" />
+          <img data-testid="favorite-btn" src={ imageHeart } alt="favorite" />
         </button>
         <p data-testid="instructions">{returnRecipe().strInstructions}</p>
         <p data-testid="recipe-category">
