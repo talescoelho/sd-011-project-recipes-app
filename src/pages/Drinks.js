@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
@@ -56,6 +56,32 @@ export default function Drinks() {
           {
             firstDrink.map((drink, index) => (
               (index < limits) && (
+                <Link to={ `/bebidas/${drink.idDrink}` } key={ index }>
+                  <div>
+                    <div data-testid={ `${index}-recipe-card` }>
+                      <img
+                        src={ drink.strDrinkThumb }
+                        data-testid={ `${index}-card-img` }
+                        alt={ drink.strDrink }
+                      />
+                    </div>
+                    <div>
+                      <span data-testid={ `${index}-card-name` }>{ drink.strDrink }</span>
+                    </div>
+                  </div>
+                </Link>
+              )
+            ))
+          }
+        </div>
+      );
+    }
+    return (
+      <div>
+        {
+          recipesDb.map((drink, index) => (
+            (index < limits) && (
+              <Link to={ `/bebidas/${drink.idDrink}` } key={ index }>
                 <div key={ index }>
                   <div data-testid={ `${index}-recipe-card` }>
                     <img
@@ -68,29 +94,7 @@ export default function Drinks() {
                     <span data-testid={ `${index}-card-name` }>{ drink.strDrink }</span>
                   </div>
                 </div>
-              )
-            ))
-          }
-        </div>
-      );
-    }
-    return (
-      <div>
-        {
-          recipesDb.map((drink, index) => (
-            (index < limits) && (
-              <div key={ index }>
-                <div data-testid={ `${index}-recipe-card` }>
-                  <img
-                    src={ drink.strDrinkThumb }
-                    data-testid={ `${index}-card-img` }
-                    alt={ drink.strDrink }
-                  />
-                </div>
-                <div>
-                  <span data-testid={ `${index}-card-name` }>{ drink.strDrink }</span>
-                </div>
-              </div>
+              </Link>
             )
           ))
         }
