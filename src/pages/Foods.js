@@ -1,14 +1,27 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/Header';
 import RenderRecipes from '../components/RenderRecipes';
 import Footer from '../components/Footer';
+import FetchApi from '../services/ApiFetch';
 
 export default function Foods() {
   const qty = 12;
+  const dispatch = useDispatch();
   const recipes = useSelector((state) => state.Mechanics.searcResults);
+  useEffect(() => {
+    async function fetchApi() {
+      const results = await FetchApi('themealdb', 'nome', '');
+      dispatch({
+        type: 'MODIFY_SEARCH_RESULTS',
+        payload: results,
+      });
+    }
+    fetchApi();
+  }, []);
+
   return (
-    <main>
+    <div>
       <Header
         title="Comidas"
         haveSearchBtn
@@ -28,6 +41,6 @@ export default function Foods() {
         }
       </div>
       <Footer />
-    </main>
+    </div>
   );
 }
