@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import PropTypes from 'prop-types';
-import { apiIngredients } from '../service/apiIngredients';
+import apiIngredients from '../service/apiIngredients';
 
 const handleChange = (
   index, ingredientList, setIngredientList, ingredients,
@@ -26,8 +26,8 @@ function IngredientRecipes() {
   // const typeDrinkorMeal = path.split('/')[1];
   const dispatch = useDispatch();
   const { dataApi } = useSelector(({ ingredients }) => ingredients);
-  const { drinks } = dataApi;
   console.log(dataApi);
+  const { drinks } = dataApi;
   const { meals } = dataApi;
 
   const [ingredientList, setIngredientList] = useState({

@@ -1,7 +1,6 @@
 import { requestIngredients, requestSuccessIngredients } from '../actions';
 
-// eslint-disable-next-line import/prefer-default-export
-export async function apiIngredients(mealOrDrink, list) {
+async function apiIngredients(mealOrDrink, list) {
   let responseIngredients;
   if (mealOrDrink === 'meals') {
     responseIngredients = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?i=${list}`);
@@ -21,3 +20,5 @@ export async function apiIngredients(mealOrDrink, list) {
     }
   };
 }
+
+export default apiIngredients;

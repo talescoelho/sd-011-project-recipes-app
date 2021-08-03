@@ -7,7 +7,6 @@ import './styles/styleRecipesId.css';
 
 function RecipesId({ match }) {
   const { params, path } = match;
-  console.log("oi");
   console.log(match);
   const { id } = params;
   const typeDrinkorMeal = path.split('/')[1];
