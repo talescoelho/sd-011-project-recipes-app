@@ -16,6 +16,7 @@ class RecipesList extends Component {
     this.fetchFiltersDrink = this.fetchFiltersDrink.bind(this);
     this.renderFilters = this.renderFilters.bind(this);
     this.fetchFilters = this.fetchFilters.bind(this);
+    this.fetchAllDrinksOrFoods = this.fetchAllDrinksOrFoods.bind(this);
   }
 
   componentDidMount() {
@@ -48,6 +49,17 @@ class RecipesList extends Component {
       .then((response) => this.setState({ filters: response }));
   }
 
+  fetchAllDrinksOrFoods() {
+    const { pathName, fetchRecipesDrink, fetchRecipesFood } = this.props;
+    this.setState({
+      usedButton: 'All',
+    });
+    if (pathName === '/comidas') {
+      return fetchRecipesFood();
+    }
+    return fetchRecipesDrink();
+  }
+
   renderFilters() {
     const { pathName, fetchRecipesFood, fetchRecipesDrink, onClick } = this.props;
     let mealOrDrink;
@@ -59,42 +71,51 @@ class RecipesList extends Component {
     const { filters } = this.state;
     const maxFilters = 5;
     return (
-      filters[mealOrDrink] && filters[mealOrDrink].map((item, index) => (
-        index < maxFilters
-      && (
+      <div>
         <button
           type="button"
-          key={ index }
-          name={ item.strCategory }
-          onClick={ (event) => {
-            onClick(true);
-            this.setState({
-              usedButton: event.target.name,
-            });
-            if (pathName === '/comidas') {
-              const { usedButton } = this.state;
-              if (usedButton === event.target.name) {
-                this.setState({
-                  usedButton: 'All',
-                });
-                return fetchRecipesFood();
-              }
-              return fetchRecipesFood(event.target.name, 'filter');
-            }
-            const { usedButton } = this.state;
-            if (usedButton === event.target.name) {
-              this.setState({
-                usedButton: 'All',
-              });
-              return fetchRecipesDrink();
-            }
-            return fetchRecipesDrink(event.target.name, 'filter');
-          } }
-          data-testid={ `${item.strCategory}-category-filter` }
+          data-testid="All-category-filter"
+          onClick={ this.fetchAllDrinksOrFoods }
         >
-          { item.strCategory }
-        </button>)
-      ))
+          All
+        </button>
+        {filters[mealOrDrink] && filters[mealOrDrink].map((item, index) => (
+          index < maxFilters
+          && (
+            <button
+              type="button"
+              key={ index }
+              name={ item.strCategory }
+              onClick={ (event) => {
+                onClick(true);
+                this.setState({
+                  usedButton: event.target.name,
+                });
+                if (pathName === '/comidas') {
+                  const { usedButton } = this.state;
+                  if (usedButton === event.target.name) {
+                    this.setState({
+                      usedButton: 'All',
+                    });
+                    return fetchRecipesFood();
+                  }
+                  return fetchRecipesFood(event.target.name, 'filter');
+                }
+                const { usedButton } = this.state;
+                if (usedButton === event.target.name) {
+                  this.setState({
+                    usedButton: 'All',
+                  });
+                  return fetchRecipesDrink();
+                }
+                return fetchRecipesDrink(event.target.name, 'filter');
+              } }
+              data-testid={ `${item.strCategory}-category-filter` }
+            >
+              { item.strCategory }
+            </button>)
+        ))}
+      </div>
     );
   }
 
