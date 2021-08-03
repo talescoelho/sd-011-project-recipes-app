@@ -11,6 +11,7 @@ import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route exact path="/explorar" component={ Explorar } />
         <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
         <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
+        <Route exact path="/perfil" component={ Profile } />
         <Route
           exact
           path="/explorar/ingredientes/comidas"
