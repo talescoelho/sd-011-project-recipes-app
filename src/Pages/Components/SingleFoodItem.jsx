@@ -1,70 +1,88 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+
 import { convertUrlToID, manageDetailAPI } from '../../Helpers/convertUrlToID';
+import embedYouTubeVideo from '../../Helpers/embedYouTubeVideo';
 
 function SingleFoodItem() {
   const [itemDetail, setItemDetail] = useState({
     meals: null,
   });
-  const [ingredients, setIngredients] = useState([]);
-  const [measures, setMeasures] = useState([]);
+  // const [recomendation, setRecomendation] = useState();
+  // const [ingredients, setIngredients] = useState([]);
+  // const [measures, setMeasures] = useState([]);
 
   const itemId = convertUrlToID(window.location.pathname);
+  const arrayOfIngredients = [];
+  const arrayOfMeasures = [];
 
   useEffect(() => {
     const FetchFood = async () => {
-      // https://github.com/axios/axios#axios-api
-      const detailRequest = await axios.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${itemId}`);
-      setItemDetail(manageDetailAPI(detailRequest.data));
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${itemId}`);
+      const detailRequest = await response.json();
+      setItemDetail(manageDetailAPI(detailRequest));
     };
     return FetchFood();
   }, []);
 
-  const ingredientsArray = [];
-  let measureArray = [];
-
+  // Parte que separa os ingredientes da receitas
   if (itemDetail.meals !== null) {
-    const { meals } = itemDetail;
-    console.log(meals);
-    const ingredientTimes = 20;
-    for (let i = 0; i < ingredientTimes; i += 1) {
-      if (meals[0].strIngredient[i + 1] !== '' || meals[0].strIngredient[i + 1] !== ' ') {
-        ingredientsArray.push(meals.strIngredient[i + 1]);
+    const food = itemDetail.meals[0];
+
+    const arrayOfIngredientsKey = Object
+      .keys(food).filter((key) => key.includes('strIngredient'));
+    const arrayOfMeasuresKey = Object
+      .keys(food).filter((key) => key.includes('strMeasure'));
+    arrayOfIngredientsKey.map((ingredient) => {
+      if ((food[ingredient] !== '' && food[ingredient] !== ' ' && food[ingredient] !== null)) {
+        arrayOfIngredients.push(food[ingredient]);
       }
-    }
-    console.log(ingredientsArray);
+      return null;
+    });
+    arrayOfMeasuresKey.map((ingredient) => {
+      if ((food[ingredient] !== '' && food[ingredient] !== ' ' && food[ingredient] !== null)) {
+        arrayOfMeasures.push(food[ingredient]);
+      }
+      return null;
+    });
   }
+  //
 
   const { meals } = itemDetail;
-  return itemDetail.meals !== null ? (
+  return itemDetail.meals !== null && (
     <div>
       <h1 data-testid="recipe-title">{meals[0].strMeal}</h1>
-      <img width="350" src={ meals[0].strMealThumb } alt="Foto comida" data-testid="recipe-photo" />
+      <img
+        width="350"
+        src={ meals[0].strMealThumb }
+        alt={ `Foto da comida chamada ${meals[0].strMeal}` }
+        data-testid="recipe-photo"
+      />
       <button type="button" data-testid="share-btn">Compartilhar</button>
       <button data-testid="favorite-btn" type="button">Favoritar</button>
       <p data-testid="recipe-category">{meals[0].strCategory}</p>
       <section>
         <h2>Ingredientes</h2>
         <table>
-
-          <tr>
-            <th>a</th>
-            <th>a</th>
-          </tr>
-
+          { arrayOfIngredients.map((ingredient, i) => (
+            <tr key={ `${ingredient}-${i}` }>
+              <th
+                data-testid={ `${i}-ingredient-name-and-measure` }
+              >
+                {`${arrayOfIngredients[i]} - ${arrayOfMeasures[i]}`}
+              </th>
+            </tr>
+          ))}
         </table>
       </section>
-    </div>
-  ) : 'Carregando';
-
-  const index = '';
-
-  return (
-    <div>
-      <p data-testid={ `${index}-ingredient-name-and-measure` }>Ingredientes</p>
-      <p data-testid="instructions">Instruções</p>
-      {/* <embed data-testid="video" src="https://www.youtube.com/embed/vCgJR840SJM?list=RDMMvCgJR840SJM" /> */}
-      <p data-testid={ `${index}-recomendation-card` }>Card de receitas</p>
+      <section>
+        <h2>Instruções</h2>
+        <p data-testid="instructions">{meals[0].strInstructions}</p>
+      </section>
+      <section>
+        <h2>Instruções em vídeo</h2>
+        <embed data-testid="video" src={ embedYouTubeVideo(meals[0].strYoutube) } />
+      </section>
+      <p data-testid={ `${0}-recomendation-card` }>Recomendação de bebida</p>
       <button data-testid="start-recipe-btn" type="button">Iniciar receita</button>
     </div>
   );
