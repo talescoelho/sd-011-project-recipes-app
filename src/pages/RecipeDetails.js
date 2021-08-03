@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import RecomendationRecipesCards from '../components/RecomendationRecipesCards';
 import '../components/css/RecipeDetails.css';
 import shareIcon from '../images/shareIcon.svg';
@@ -81,7 +82,11 @@ function RecipeDetails(props) {
           alt={ recipe.meals[0].strMeal }
         />
         <h1 data-testid="recipe-title">{ recipe.meals[0].strMeal }</h1>
-        <button type="button" data-testid="share-btn">
+        <button
+          onClick={ () => copy(`http://localhost:3000${pathname}`) }
+          type="button"
+          data-testid="share-btn"
+        >
           <img src={ shareIcon } alt="shareIcon" />
         </button>
         <button type="button" data-testid="favorite-btn">
@@ -122,6 +127,7 @@ function RecipeDetails(props) {
             Continuar Receita
           </button>
         </Link>
+        <div>Link copiado!</div>
       </div>
     );
   }
@@ -136,7 +142,11 @@ function RecipeDetails(props) {
           alt={ recipe.drinks[0].strDrink }
         />
         <h1 data-testid="recipe-title">{ recipe.drinks[0].strDrink }</h1>
-        <button type="button" data-testid="share-btn">
+        <button
+          onClick={ () => copy(pathname) }
+          type="button"
+          data-testid="share-btn"
+        >
           <img src={ shareIcon } alt="shareIcon" />
         </button>
         <button type="button" data-testid="favorite-btn">
