@@ -69,7 +69,7 @@ class Header extends Component {
   }
 }
 Header.propTypes = {
-  title: PropTypes.string.isRequired,
-  searchIcon: PropTypes.bool.isRequired,
-};
+  title: PropTypes.string,
+  searchIcon: PropTypes.bool,
+}.isRequired;
 export default Header;
