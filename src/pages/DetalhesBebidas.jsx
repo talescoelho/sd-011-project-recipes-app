@@ -17,7 +17,6 @@ class DetalhesBebidas extends Component {
       shareButton: false,
       favoriteButton: false,
     };
-
     this.fetchIdDrink = this.fetchIdDrink.bind(this);
     this.recomendationsFetch = this.recomendationsFetch.bind(this);
     this.handleStateButton = this.handleStateButton.bind(this);
@@ -58,9 +57,7 @@ class DetalhesBebidas extends Component {
     const urlId = pathname.split('/')[2];
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (inProgressRecipes && inProgressRecipes.cocktails[urlId]) {
-      this.setState({
-        nameButton: false,
-      });
+      this.setState({ nameButton: false });
     }
   }
 
@@ -75,17 +72,13 @@ class DetalhesBebidas extends Component {
   recomendationsFetch() {
     fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
       .then((data) => data.json())
-      .then((response) => this.setState({
-        recomendations: response,
-      }));
+      .then((response) => this.setState({ recomendations: response }));
   }
 
   shareLinkClick() {
     const magicNumber = 2000;
     navigator.clipboard.writeText(window.location.href);
-    this.setState({
-      shareButton: true,
-    });
+    this.setState({ shareButton: true });
     setTimeout(() => this.setState({
       shareButton: false,
     }), magicNumber);
@@ -105,9 +98,34 @@ class DetalhesBebidas extends Component {
   }
 
   favoriteButtonClick() {
-    const { favoriteButton } = this.state;
+    const { favoriteButton, cocktail } = this.state;
+    const { drinks } = cocktail;
+    const obj = {
+      id: drinks[0].idDrink,
+      type: 'bebida',
+      area: '',
+      category: drinks[0].strCategory,
+      alcoholicOrNot: drinks[0].strAlcoholic,
+      name: drinks[0].strDrink,
+      image: drinks[0].strDrinkThumb,
+    };
+
     this.setState({
       favoriteButton: !favoriteButton,
+    }, () => {
+      if (!localStorage.favoriteRecipes) {
+        localStorage.setItem('favoriteRecipes', JSON.stringify([obj]));
+      } else {
+        const favoritesRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        if (favoritesRecipes.some((value) => value.id === drinks[0].idDrink)) {
+          const attFavorite = favoritesRecipes
+            .filter((value) => value.id !== drinks[0].idDrink);
+          localStorage.setItem('favoriteRecipes', JSON.stringify(attFavorite));
+        } else {
+          localStorage
+            .setItem('favoriteRecipes', JSON.stringify([...favoritesRecipes, obj]));
+        }
+      }
     });
   }
 
@@ -121,9 +139,7 @@ class DetalhesBebidas extends Component {
     const { drinks } = cocktail;
     const { meals } = recomendations;
     const magicNumber = 6;
-    if (!drinks) {
-      return <p>Carregando</p>;
-    }
+    if (!drinks) return <p>Carregando</p>;
     const { strDrinkThumb, strDrink, strAlcoholic, strInstructions } = drinks[0];
     const ingredientes = Object.keys(drinks[0]);
     const filtrados = ingredientes.filter((value) => value.includes('strIngredient'));
