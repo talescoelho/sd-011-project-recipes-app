@@ -22,7 +22,7 @@ export default function Recipes() {
     fetchMealsCategorisAPI(setListMealsCategorie);
     return renderCards;
   };
-  console.log(buttonCategorie, 'recepies');
+
   useEffect(getDataButton, [buttonCategorie]);
 
   const renderButtons = () => {
@@ -66,6 +66,14 @@ export default function Recipes() {
             onClick={ () => setButtonCategorie(listMealsCategorie[4].strCategory) }
           >
             {listMealsCategorie[4].strCategory}
+
+          </button>
+          <button
+            type="button"
+            data-testid="All-category-filter"
+            onClick={ () => setButtonCategorie(null) }
+          >
+            All
 
           </button>
         </div>

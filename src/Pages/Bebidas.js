@@ -63,6 +63,13 @@ function Bebidas() {
             {listCocktailsCategorie[4].strCategory}
 
           </button>
+          <button
+            type="button"
+            data-testid="All-category-filter"
+            onClick={ () => setButtonCategorie(null) }
+          >
+            All
+          </button>
         </div>
       );
     }

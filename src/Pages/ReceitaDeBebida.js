@@ -13,7 +13,7 @@ function ReceitaDeBebida(props) {
     const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     const response = await fetch(url);
     const result = await response.json();
-    setRecipeDataAsObject(...result.meals);
+    setRecipeDataAsObject(...result.drinks);
   }
 
   async function fetchRecomendedMeal() {
