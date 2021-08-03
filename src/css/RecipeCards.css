@@ -3,8 +3,7 @@
   background-color: seagreen;
   border: 1px solid black;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   height: 100px;
   justify-content: center;
   width: 100px;
@@ -19,8 +18,7 @@
   align-content: space-around;
   background-color: salmon;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   height: 500px;
   justify-content: space-evenly;
 }

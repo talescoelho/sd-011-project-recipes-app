@@ -69,9 +69,9 @@
 
 .app {
   align-content: space-between;
-  background-color:burlywood;
+  background-color: burlywood;
   display: flex;
-  height: 640px;
   flex-direction: column;
+  height: 640px;
   width: 360px;
 }

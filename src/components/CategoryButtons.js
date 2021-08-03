@@ -1,19 +1,21 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import getCategories from '../services/categoriesAPI';
 import getCategory from '../services/categoryAPI';
 import RecipeAppContext from '../context/RecipeAppContext';
 import '../css/Header.css';
 
-function CategoryButtons({ foods, drinks }) {
+function CategoryButtons({ foods, drinks, explore }) {
   const { setFoodCategory,
     setDrinkCategory,
     drinkCategoryList,
     foodCategoryList,
+    setDrinksList,
     setFoodList,
     setToggleOn,
     toggleOn,
   } = useContext(RecipeAppContext);
+  const [btnName, setBtnName] = useState('');
 
   useEffect(() => {
     const foodCatEndpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
@@ -34,19 +36,41 @@ function CategoryButtons({ foods, drinks }) {
     }
   }, []);
 
-  const filterCategory = async ({ target }) => {
+  const filterDrinkCategory = async ({ target }) => {
+    const { name } = target;
+    const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${name}`;
+    if (!toggleOn) {
+      const data = await getCategory(endpoint);
+      setDrinksList(data.drinks);
+      setBtnName(name);
+      setToggleOn(true);
+    } if (toggleOn && name === btnName) {
+      setToggleOn(false);
+    } if (toggleOn && name !== btnName) {
+      const data = await getCategory(endpoint);
+      setDrinksList(data.drinks);
+      setBtnName(name);
+    }
+  };
+
+  const filterFoodCategory = async ({ target }) => {
     const { name } = target;
     const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${name}`;
     if (!toggleOn) {
       const data = await getCategory(endpoint);
       setFoodList(data.meals);
+      setBtnName(name);
       setToggleOn(true);
-    } if (toggleOn) {
+    } if (toggleOn && name === btnName) {
       setToggleOn(false);
+    } if (toggleOn && name !== btnName) {
+      const data = await getCategory(endpoint);
+      setFoodList(data.meals);
+      setBtnName(name);
     }
   };
 
-  const renderCategoryButton = (type) => {
+  const renderDrinkCategoryButton = (type) => {
     const maxLength = 4;
     const list = type.map((category, index) => {
       if (index <= maxLength) {
@@ -55,9 +79,8 @@ function CategoryButtons({ foods, drinks }) {
             type="button"
             key={ index }
             name={ category.strCategory }
-            className="header-button-item"
             data-testid={ `${category.strCategory}-category-filter` }
-            onClick={ (e) => filterCategory(e) }
+            onClick={ (e) => filterDrinkCategory(e) }
           >
             {`${category.strCategory}`}
           </button>
@@ -68,6 +91,38 @@ function CategoryButtons({ foods, drinks }) {
     return list;
   };
 
+  const renderFoodCategoryButton = (type) => {
+    const maxLength = 4;
+    const list = type.map((category, index) => {
+      if (index <= maxLength) {
+        return (
+          <button
+            type="button"
+            key={ index }
+            name={ category.strCategory }
+            className="header-button-item"
+            data-testid={ `${category.strCategory}-category-filter` }
+            onClick={ (e) => filterFoodCategory(e) }
+          >
+            {`${category.strCategory}`}
+          </button>
+        );
+      }
+      return null;
+    });
+    return list;
+  };
+
+  const renderAllButton = () => (
+    <button
+      type="button"
+      onClick={ () => setToggleOn(false) }
+      data-testid="All-category-filter"
+    >
+      All
+    </button>
+  );
+
   return (
     <div className="header-buttons-container">
       <button
@@ -77,8 +132,9 @@ function CategoryButtons({ foods, drinks }) {
       >
         All
       </button>
-      {drinks && drinkCategoryList && renderCategoryButton(drinkCategoryList)}
-      {foods && foodCategoryList && renderCategoryButton(foodCategoryList)}
+      {!explore && renderAllButton()}
+      {drinks && drinkCategoryList && renderDrinkCategoryButton(drinkCategoryList)}
+      {foods && foodCategoryList && renderFoodCategoryButton(foodCategoryList)}
     </div>
   );
 }
@@ -86,6 +142,7 @@ function CategoryButtons({ foods, drinks }) {
 CategoryButtons.propTypes = {
   foods: PropTypes.bool.isRequired,
   drinks: PropTypes.bool.isRequired,
+  explore: PropTypes.bool.isRequired,
 };
 
 export default CategoryButtons;
