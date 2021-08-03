@@ -20,7 +20,7 @@ describe('Profile screen', () => {
     });
   });
 
-  describe.only('82 - Implemente os elementos da a tela de perfil respeitando os atributos descritos no protótipo', () => {
+  describe('82 - Implemente os elementos da a tela de perfil respeitando os atributos descritos no protótipo', () => {
     it('Todos o data-testid do email e de todos os botões', () => {
       cy.get('[data-testid="profile-email"]');
       cy.get('[data-testid="profile-done-btn"]');
@@ -29,7 +29,7 @@ describe('Profile screen', () => {
     });
   });
 
-  describe('83 - Implemente a solução de maneira que o e-mail da pessoa usuária deve estar visível', () => {
+  describe.only('83 - Implemente a solução de maneira que o e-mail da pessoa usuária deve estar visível', () => {
     it('O e-mail armazenado em localStorage está visível', () => {
       cy.get('[data-testid="profile-email"]').contains('email@mail.com');
     });
