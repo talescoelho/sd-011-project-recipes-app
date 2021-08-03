@@ -22,6 +22,16 @@ const Foods = ({ ingredients, loading }) => (
             </li>),
         )
       }
+
+      {/* {
+        !loading && !ingredients && name.map(
+          (value, index) => (
+            <li key={ index }>
+
+            </li>
+          )
+        )
+      } */}
     </ul>
     <div>Pagina de Comidas</div>
   </>

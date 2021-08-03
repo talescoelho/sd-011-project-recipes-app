@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchIngredients } from '../../redux/actions/IngredientsApiAction';
+import {
+  fetchIngredients,
+  fetchByName,
+} from '../../redux/actions/IngredientsApiAction';
 
 import searchIcon from '../../images/searchIcon.svg';
 import profileIcon from '../../images/profileIcon.svg';
@@ -12,15 +15,15 @@ const Header = ({ page, showSearchBtn, dispatch }) => {
   const [showField, setShowField] = useState(false);
   const [typeIngredient, setTypeIngredient] = useState('');
   const [selectedRadio, setSelectedRadio] = useState('');
-  console.log(selectedRadio);
   const handleIngredient = ({ target }) => {
-    if (selectedRadio === 'ingrediente') {
-      setTypeIngredient(target.value);
-    }
+    setTypeIngredient(target.value);
   };
   const handleRadioButton = () => {
     if (selectedRadio === 'ingrediente') {
       dispatch(fetchIngredients(typeIngredient));
+    }
+    if (selectedRadio === 'name') {
+      dispatch(fetchByName(typeIngredient));
     }
   };
   return (
@@ -69,6 +72,7 @@ const Header = ({ page, showSearchBtn, dispatch }) => {
               data-testid="name-search-radio"
               name="ingredient"
               value="name"
+              onClick={ ({ target: { value } }) => setSelectedRadio(value) }
             />
           </label>
 
@@ -79,6 +83,7 @@ const Header = ({ page, showSearchBtn, dispatch }) => {
               data-testid="first-letter-search-radio"
               name="ingredient"
               value="first-letter"
+              onClick={ ({ target: { value } }) => setSelectedRadio(value) }
             />
           </label>
           <button
