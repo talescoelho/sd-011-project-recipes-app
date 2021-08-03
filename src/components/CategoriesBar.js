@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { fetchMealsByCategories, fetchMealsCategory } from '../services/meailAPI';
 import { fetchCocktailsByCategories, fetchDrinkCategory } from '../services/cocktailAPI';
 import RecipesContext from '../context/RecipesContext';
 
-function CategoriesBar({ recipeType, filterType }) {
+function CategoriesBar({ recipeType }) {
   const [mealsCategory, setMealsCategory] = useState([]);
   const [drinkCategory, setDrinksCategory] = useState([]);
-  const { setDrinksData, setMealsData, resetFilter } = useContext(RecipesContext);
+  const [btnName, setBtnName] = useState('');
+  const { setDrinksData, setMealsData,
+    resetFilter, toggle, setToggle } = useContext(RecipesContext);
 
   useEffect(() => {
     async function fetchCategory() {
@@ -22,14 +25,21 @@ function CategoriesBar({ recipeType, filterType }) {
   }, [recipeType]);
 
   async function handleClick({ target }) {
-    const { value } = target;
-    if (filterType === 'meals') {
+    const { value, name } = target;
+    if (recipeType === 'meals') {
       const responseMeals = await fetchMealsByCategories(value);
       setMealsData(responseMeals);
     }
-    if (filterType === 'bebidas') {
+    if (recipeType === 'bebidas') {
       const responseDrinks = await fetchCocktailsByCategories(value);
       setDrinksData(responseDrinks);
+    }
+    if (!toggle) {
+      setToggle(true);
+      setBtnName(name);
+    } if (toggle && name === btnName) {
+      resetFilter();
+      setToggle(false);
     }
   }
 
@@ -39,6 +49,7 @@ function CategoriesBar({ recipeType, filterType }) {
         key={ index }
         data-testid={ `${strCategory}-category-filter` }
         type="button"
+        id={ `${strCategory}-category-filter` }
         value={ strCategory }
         onClick={ (e) => handleClick(e) }
       >
@@ -61,10 +72,6 @@ function CategoriesBar({ recipeType, filterType }) {
 
   return (
     <>
-      {recipeType === 'meals'
-        ? renderCategoryMeals()
-        : renderCategoryDrink()}
-
       <button
         type="button"
         data-testid="All-category-filter"
@@ -72,8 +79,16 @@ function CategoriesBar({ recipeType, filterType }) {
       >
         All
       </button>
+      {recipeType === 'meals'
+        ? renderCategoryMeals()
+        : renderCategoryDrink()}
+
     </>
   );
 }
 
 export default CategoriesBar;
+
+CategoriesBar.propTypes = {
+  recipeType: PropTypes.string.isRequired,
+};

@@ -16,7 +16,7 @@ function Drinks() {
   return (
     <div>
       <Header title="Bebidas" recipeType="drinks" />
-      <CategoriesBar recipeType="bebidas" filterType="bebidas" />
+      <CategoriesBar recipeType="bebidas" />
       { drinksData !== [] && drinksData.map((recipe, index) => (
         <Link
           to={ `/bebidas/${recipe.idDrink}` }

@@ -7,6 +7,7 @@ import { fetchCocktails } from '../services/cocktailAPI';
 function RecipesProvider({ children }) {
   const [drinksData, setDrinksData] = useState([]);
   const [mealsData, setMealsData] = useState([]);
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     async function fetchMyAPI() {
@@ -31,6 +32,8 @@ function RecipesProvider({ children }) {
     mealsData,
     setMealsData,
     resetFilter,
+    toggle,
+    setToggle,
   };
 
   return (
