@@ -7,12 +7,9 @@ function RenderCard({ recipes }) {
   // eslint-disable-next-line global-require
   const copy = require('clipboard-copy');
   function copyUrl({ target }) {
-    let type = 'comidas';
-    if (target.dataset.recipetype !== 'comida') {
-      type = 'bebidas';
-    }
-    console.log(target.dataset);
-    copy(`http://localhost:3000/${type}/${target.dataset.recipeid}`);
+    const type = target.dataset.recipetype;
+    copy(`http://localhost:3000/${type}s/${target.dataset.recipeid}`);
+    alert('Link copiado!');
   }
   return (
     <div>
