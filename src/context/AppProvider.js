@@ -8,6 +8,11 @@ function AppProvider({ children }) {
   const [filterRadio, setFilterRadio] = useState('s');
   const [filterText, setFilterText] = useState('');
   const [filteredItem, setFilteredItem] = useState([]);
+  const [mainItems, setMainItems] = useState();
+  const [categories, setCategories] = useState();
+  const [buttonFilter, setButtonFilter] = useState();
+  const [loadingMainRecipes, setLoadingMainRecipes] = useState(true);
+  const [filterButtonActive, setFilterButtonActive] = useState(false);
 
   async function fetchFood() {
     let endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?${filterRadio}=${filterText}`;
@@ -41,6 +46,32 @@ function AppProvider({ children }) {
     }
   }
 
+  async function fetchMainRecipes(foodOrDrink) {
+    let endPointItems = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    let endPointCategory = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+    if (foodOrDrink === 'Bebidas') {
+      endPointItems = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+      endPointCategory = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+    }
+    if (filterButtonActive) {
+      endPointItems = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${buttonFilter}`;
+      if (foodOrDrink === 'Bebidas') {
+        endPointItems = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${buttonFilter}`;
+      }
+    }
+    const requireItems = await fetch(endPointItems);
+    const responseItems = await requireItems.json();
+    const dataItems = foodOrDrink === 'Bebidas' ? responseItems.drinks
+      : responseItems.meals;
+    const requireCategory = await fetch(endPointCategory);
+    const responseCategory = await requireCategory.json();
+    const dataCategory = foodOrDrink === 'Bebidas' ? responseCategory.drinks
+      : responseCategory.meals;
+    setMainItems(dataItems);
+    setCategories(dataCategory);
+    setLoadingMainRecipes(false);
+  }
+
   const contextValue = {
     email,
     password,
@@ -54,6 +85,17 @@ function AppProvider({ children }) {
     setFilteredItem,
     fetchFood,
     fetchDrink,
+    mainItems,
+    setMainItems,
+    categories,
+    setCategories,
+    buttonFilter,
+    setButtonFilter,
+    loadingMainRecipes,
+    setLoadingMainRecipes,
+    filterButtonActive,
+    setFilterButtonActive,
+    fetchMainRecipes,
   };
 
   return (

@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import AppContext from '../context/AppContext';
 
 function MainRecipes({ foodOrDrink }) {
-  const [mainItems, setMainItems] = useState();
-  const [categories, setCategories] = useState();
-  const [buttonFilter, setButtonFilter] = useState();
-  const [loading, setLoading] = useState(true);
-  const [filterButtonActive, setFilterButtonActive] = useState(false);
+  const { mainItems,
+    categories,
+    buttonFilter,
+    setButtonFilter,
+    loadingMainRecipes,
+    setLoadingMainRecipes,
+    filterButtonActive,
+    setFilterButtonActive,
+    fetchMainRecipes,
+  } = useContext(AppContext);
 
   const maxLengthItems = 12;
   const maxLengthCategories = 5;
@@ -33,40 +39,14 @@ function MainRecipes({ foodOrDrink }) {
     );
   }
 
-  async function fetchMainRecipes() {
-    let endPointItems = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-    let endPointCategory = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
-    if (foodOrDrink === 'Bebidas') {
-      endPointItems = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-      endPointCategory = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
-    }
-    if (filterButtonActive) {
-      endPointItems = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${buttonFilter}`;
-      if (foodOrDrink === 'Bebidas') {
-        endPointItems = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${buttonFilter}`;
-      }
-    }
-    const requireItems = await fetch(endPointItems);
-    const responseItems = await requireItems.json();
-    const dataItems = foodOrDrink === 'Bebidas' ? responseItems.drinks
-      : responseItems.meals;
-    const requireCategory = await fetch(endPointCategory);
-    const responseCategory = await requireCategory.json();
-    const dataCategory = foodOrDrink === 'Bebidas' ? responseCategory.drinks
-      : responseCategory.meals;
-    setMainItems(dataItems);
-    setCategories(dataCategory);
-    setLoading(false);
-  }
-
   function handleClick(e) {
     if (e.target.value === buttonFilter) {
       setFilterButtonActive(false);
-      setLoading(true);
+      setLoadingMainRecipes(true);
       setButtonFilter('');
       return;
     }
-    setLoading(true);
+    setLoadingMainRecipes(true);
     setButtonFilter(e.target.value);
     if (e.target.value === 'all') {
       setFilterButtonActive(false);
@@ -76,16 +56,16 @@ function MainRecipes({ foodOrDrink }) {
   }
 
   useEffect(() => {
-    fetchMainRecipes();
+    fetchMainRecipes(foodOrDrink);
   }, [buttonFilter, filterButtonActive]);
 
   useEffect(() => {
-    fetchMainRecipes();
+    fetchMainRecipes(foodOrDrink);
   }, []);
 
   return (
     <div>
-      {loading ? <span>Carregando...</span> : (
+      {loadingMainRecipes ? <span>Carregando...</span> : (
         <div>
           <div>
             {(
