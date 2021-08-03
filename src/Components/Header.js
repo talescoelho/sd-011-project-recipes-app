@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { bool, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import useRecipes from '../UseStates/useRecipes';
+import MyContext from '../Context/MyContext';
 import { fetchIngredient, fetchName, fetchFirstLetter } from '../Services/FetchApi';
 
 export default function Header({ title, searchIconAppears = false }) {
-  const { setRecipe } = useRecipes;
-  // a useRecipes é uma função, só que se eu colocar os () chamando, ela não passa a questão 13.
-  // Eu to usando o setRecipes, pra puxar as informações do provider/useState e trazer de volta no retorno da API.
+  const { setRecipe } = useContext(MyContext);
   const [searchResult, setSearchResult] = useState('');
   const [selectedSearch, setSelectedSearch] = useState('');
 
@@ -30,12 +28,10 @@ export default function Header({ title, searchIconAppears = false }) {
     case 'name':
       return fetchName(searchResult);
     case 'firstLetter':
-      if (selectedSearch.length === 1) {
+      if (searchResult.length === 1) {
         return fetchFirstLetter(searchResult);
       }
-      // eslint-disable-next-line no-alert
       alert('Sua busca deve conter somente 1 (um) caracter');
-      // esse alert tb está dando errado, desabilitei o eslint aqui só pra ver se o teste passaria.
       break;
     default:
       return searchResult;
@@ -87,7 +83,7 @@ export default function Header({ title, searchIconAppears = false }) {
             <input
               data-testid="ingredient-search-radio"
               id="ingredient-search-radio"
-              name="ingredient-search-radio"
+              name="search-radio"
               type="radio"
               value="ingredient"
               onChange={ ({ target }) => setSelectedSearch(target.value) }
@@ -98,7 +94,7 @@ export default function Header({ title, searchIconAppears = false }) {
             <input
               data-testid="name-search-radio"
               id="name-search-radio"
-              name="name-search-radio"
+              name="search-radio"
               type="radio"
               value="name"
               onChange={ ({ target }) => setSelectedSearch(target.value) }
@@ -109,9 +105,9 @@ export default function Header({ title, searchIconAppears = false }) {
             <input
               data-testid="first-letter-search-radio"
               id="first-letter-search-radio"
-              name="first-letter-search-radio"
+              name="search-radio"
               type="radio"
-              value="firsLetter"
+              value="firstLetter"
               onChange={ ({ target }) => setSelectedSearch(target.value) }
             />
           </label>
