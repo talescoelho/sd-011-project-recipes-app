@@ -28,22 +28,22 @@ img {
   margin-bottom: 60px;
   overflow: hidden;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
   text-align: center;
-  width: 360px;
   -webkit-overflow-scrolling: touch;
+  width: 360px;
 }
 
 .slide {
-  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
   width: 360px;
 }
 
 .slide > img {
-  margin: 0 5px 0 5px;
+  margin: 0 5px;
   max-width: 180px;
 }
 
@@ -56,6 +56,6 @@ img {
   font-size: 2em;
   height: 60px;
   justify-content: center;
-  width: 100vw;
   position: fixed;
+  width: 100vw;
 }
