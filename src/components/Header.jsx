@@ -6,14 +6,18 @@ import searchIcon from '../images/searchIcon.svg';
 import '../styles/header.css';
 import SearchBar from './SearchBar';
 
+// Codigo do Eraldo funcionando...
+
 function Header({ title, search = true }) {
+  const redirectToPerfil = () => <Redirect to="/perfil" />;
+  const renderSearchBar = () => <SearchBar />;
   return (
     <div>
       <header className="header-container">
         <button
           type="button"
           data-testid="profile-top-btn"
-          onClick={ <Redirect to="/perfil" /> }
+          onClick={ redirectToPerfil }
           src={ profileIcon }
         >
           <img
@@ -27,7 +31,7 @@ function Header({ title, search = true }) {
             type="button"
             data-testid="search-top-btn"
             src={ searchIcon }
-            onClick={ <SearchBar /> }
+            onClick={ renderSearchBar }
           >
             <img
               src={ searchIcon }

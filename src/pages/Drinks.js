@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import DrinkCard from '../components/DrinkCard';
-import '../css/comidas.css';
+import '../styles/comidas.css';
 import { fetchCategorieDrinkFilterAction, fetchDrinkAction } from '../redux/actions';
 
 function Drinks(props) {
