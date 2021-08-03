@@ -16,6 +16,8 @@ function Drinks() {
     setLoading,
     categoryList,
     setCategoryList,
+    categorySelected,
+    setCategorySelected,
   } = useContext(MainContext);
 
   function filterByCategory({ target: { innerText } }) {
@@ -25,6 +27,16 @@ function Drinks() {
         setData(drinks);
         setLoading(false);
       });
+    if (innerText === categorySelected) {
+      setLoading(true);
+      getInitialDrinksRecipes()
+        .then((drinks) => {
+          setData(drinks);
+          setLoading(false);
+        });
+    } else {
+      setCategorySelected(innerText);
+    }
   }
 
   useEffect(() => {

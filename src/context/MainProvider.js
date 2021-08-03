@@ -7,6 +7,8 @@ function ProviderFood({ children }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [categoryList, setCategoryList] = useState([]);
+  const [categorySelected, setCategorySelected] = useState('');
+
   const contextValue = {
     searchBarShow,
     setSearchBarShow,
@@ -16,6 +18,8 @@ function ProviderFood({ children }) {
     setLoading,
     categoryList,
     setCategoryList,
+    categorySelected,
+    setCategorySelected,
   };
 
   return (

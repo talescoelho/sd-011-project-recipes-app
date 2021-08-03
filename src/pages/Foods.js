@@ -16,18 +16,29 @@ function Foods() {
     setLoading,
     categoryList,
     setCategoryList,
+    categorySelected,
+    setCategorySelected,
   } = useContext(MainContext);
 
   function filterByCategory({ target: { innerText } }) {
-    console.log(getMealsByCategory(innerText));
     setLoading(true);
     getMealsByCategory(innerText)
       .then((meals) => {
-        console.log(meals);
         setData(meals);
         setLoading(false);
       });
+    if (innerText === categorySelected) {
+      setLoading(true);
+      getInitialMealsRecipes()
+        .then((meals) => {
+          setData(meals);
+          setLoading(false);
+        });
+    } else {
+      setCategorySelected(innerText);
+    }
   }
+
   useEffect(() => {
     setLoading(true);
     getInitialMealsRecipes()
