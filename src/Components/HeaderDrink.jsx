@@ -32,7 +32,7 @@ class HeaderDrink extends Component {
   }
 
   render() {
-    const { title } = this.props;
+    const { title, onClick } = this.props;
     const { inputLoading } = this.state;
 
     return (
@@ -98,7 +98,13 @@ class HeaderDrink extends Component {
 
               />
             </label>
-            <button type="submit" data-testid="exec-search-btn">Submit</button>
+            <button
+              type="submit"
+              data-testid="exec-search-btn"
+              onClick={ () => onClick(false) }
+            >
+              Submit
+            </button>
           </form>
         )}
 
@@ -110,6 +116,7 @@ class HeaderDrink extends Component {
 HeaderDrink.propTypes = {
   title: PropTypes.string.isRequired,
   fetchRecipes: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

@@ -21,6 +21,11 @@ class RecipesList extends Component {
     this.fetchFilters();
   }
 
+  componentWillUnmount() {
+    const { onClick } = this.props;
+    onClick(false);
+  }
+
   fetchFilters() {
     const { pathName } = this.props;
     if (pathName === '/comidas') {
@@ -61,7 +66,7 @@ class RecipesList extends Component {
           key={ index }
           name={ item.strCategory }
           onClick={ (event) => {
-            onClick();
+            onClick(true);
             if (pathName === '/comidas') {
               return fetchRecipesFood(event.target.name, 'filter');
             }

@@ -21,9 +21,9 @@ class Food extends Component {
     fetchRecipes();
   }
 
-  handleClick() {
+  handleClick(bool) {
     this.setState({
-      buttonClicked: true,
+      buttonClicked: bool,
     });
   }
 
@@ -33,7 +33,7 @@ class Food extends Component {
     const { buttonClicked } = this.state;
     return (
       <div>
-        <HeaderFood title="Comidas" />
+        <HeaderFood onClick={ this.handleClick } title="Comidas" />
         { meals.length === 1 && !buttonClicked
           ? <Redirect to={ { pathname: `/comidas/${meals[0].idMeal}`, state: meals } } />
           : <RecipesList onClick={ this.handleClick } pathName={ pathname } />}

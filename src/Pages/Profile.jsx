@@ -6,11 +6,17 @@ import HeaderWithoutSearch from '../Components/HeaderWithoutSearch';
 export default class Profile extends Component {
   render() {
     const emailUser = JSON.parse(localStorage.getItem('user'));
+    let renderEmail;
+    if (emailUser === null) {
+      renderEmail = 'Realize o login na tela inicial!';
+    } else {
+      renderEmail = emailUser.email;
+    }
     return (
       <div>
         <HeaderWithoutSearch title="Perfil" />
         <div>
-          <h2 data-testid="profile-email">{ emailUser.email }</h2>
+          <h2 data-testid="profile-email">{ renderEmail }</h2>
           <Link
             to="/receitas-feitas"
             data-testid="profile-done-btn"
