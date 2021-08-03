@@ -1,10 +1,31 @@
 const error = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
-function getRecipesFromAPI(url, callback) {
+function checkResponseMeal(data, callback) {
+  const response = data.meals;
+  if (response === null) {
+    return alert(error);
+  }
+  callback(data);
+}
+
+function getRecipesFromMealAPI(url, callback) {
   fetch(url)
     .then((response) => response.json())
-    .then((data) => callback(data))
-    .catch(() => alert(error));
+    .then((data) => checkResponseMeal(data, callback));
+}
+
+function checkResponseCockTail(data, callback) {
+  const response = data.drinks;
+  if (response === null) {
+    return alert(error);
+  }
+  callback(data);
+}
+
+function getRecipesFromCocktailAPI(url, callback) {
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => checkResponseCockTail(data, callback));
 }
 
 function getRecipesFromTheMealAPI(term, type, callback) {
@@ -16,15 +37,15 @@ function getRecipesFromTheMealAPI(term, type, callback) {
   switch (type) {
   case 'i':
     url = API_THEMEALDB_INGREDIENT + termSearch;
-    getRecipesFromAPI(url, callback);
+    getRecipesFromMealAPI(url, callback);
     break;
   case 's':
     url = API_THEMEALDB_NAME + termSearch;
-    getRecipesFromAPI(url, callback);
+    getRecipesFromMealAPI(url, callback);
     break;
   case 'f':
     url = API_THEMEALDB_FIRST_LETTER + termSearch;
-    getRecipesFromAPI(url, callback);
+    getRecipesFromMealAPI(url, callback);
     break;
   default:
     break;
@@ -34,21 +55,21 @@ function getRecipesFromTheMealAPI(term, type, callback) {
 function getRecipesfromTheCockTailAPI(term, type, callback) {
   const API_THECOCKTAILDB_INGREDIENT = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
   const API_THECOCKTAILDB_NAME = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-  const API_THECOCKTAILDB__FIRST_LETTER = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f='
+  const API_THECOCKTAILDB__FIRST_LETTER = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
   const termSearch = `${term}`;
   let url = '';
   switch (type) {
   case 'i':
     url = API_THECOCKTAILDB_INGREDIENT + termSearch;
-    getRecipesFromAPI(url, callback);
+    getRecipesFromCocktailAPI(url, callback);
     break;
   case 's':
     url = API_THECOCKTAILDB_NAME + termSearch;
-    getRecipesFromAPI(url, callback);
+    getRecipesFromCocktailAPI(url, callback);
     break;
   case 'f':
     url = API_THECOCKTAILDB__FIRST_LETTER + termSearch;
-    getRecipesFromAPI(url, callback);
+    getRecipesFromCocktailAPI(url, callback);
     break;
   default:
     break;
@@ -66,11 +87,11 @@ export default function getRecipes(term, type, path, callback) {
 export function getDetailsRecipesFromTheMealAPI(id) {
   const API_THEMEALDB_DETAILS = 'www.themealdb.com/api/json/v1/1/lookup.php?i=';
   const urlDetailMeal = API_THEMEALDB_DETAILS + id;
-  getRecipesFromAPI(urlDetailMeal);
+  getRecipesFromMealAPI(urlDetailMeal);
 }
 
 export function getDetailsRecipesFromTheCockTailAPI(id) {
   const API_THECOCKTAILDB_DETAILS = 'www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
   const urlDetailCockTail = API_THECOCKTAILDB_DETAILS + id;
-  getRecipesFromAPI(urlDetailCockTail);
+  getRecipesFromCocktailAPI(urlDetailCockTail);
 }

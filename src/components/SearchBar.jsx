@@ -1,29 +1,22 @@
 import React, { useState, useContext } from 'react';
-// import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import getRecipes from '../services/API';
 import '../styles/SearchBar.css';
 import RecipesAppContext from '../context/RecipesAppContext';
-import Recipes from './Recipes';
 // import DetailsRecipe from './DetailsRecipe';
 
 export default function SearchBar() {
   const {
-    mealRecipes,
-    drinkRecipes,
-    haveRecipes,
+    changeHaveRecipes,
     saveMealRecipes,
     saveDrinkRecipes,
   } = useContext(RecipesAppContext);
 
   const [textInputValue, setTextInputValue] = useState('');
   const [radioInputValue, setRadioInputValue] = useState('');
-  // const location = useLocation();
-  // const history = useHistory();
+  const location = useLocation();
 
-  function getLocation() {
-    return '/comidas';
-  }
   function handlerInputText({ target }) {
     const { value } = target;
     setTextInputValue(value);
@@ -32,11 +25,15 @@ export default function SearchBar() {
   function handlerInputRadio({ target }) {
     const { value } = target;
     setRadioInputValue(value);
-    getLocation();
   }
 
   function updateDataToSearch() {
-    const path = getLocation();
+    if (radioInputValue === 'f' && textInputValue.length > 1) {
+      return alert('Sua busca deve conter somente 1 (um) caracter');
+    }
+
+    changeHaveRecipes(false);
+    const path = location.pathname;
     let callback;
     if (path === '/comidas') {
       callback = saveMealRecipes;
@@ -45,24 +42,6 @@ export default function SearchBar() {
     }
     getRecipes(textInputValue, radioInputValue, path, callback);
   }
-
-  function renderRecipes() {
-    if (mealRecipes.length > 1 || drinkRecipes.length > 1) {
-      return <Recipes path={ getLocation() } />;
-    }
-
-    if (mealRecipes.length === 1 || drinkRecipes.length === 1) {
-      const location = getLocation();
-      if (location === '/comidas') {
-        const id = `/${mealRecipes[0].idMeal}`;
-        // history.push(id);
-      } else {
-        const id = `/${mealRecipes[0].idDrink}`;
-        // history.push(id);
-      }
-    }
-  }
-  // useEffect(renderRecipes, [mealRecipes, drinkRecipes]);
 
   return (
     <section className="recipes-filter-section">
@@ -116,9 +95,6 @@ export default function SearchBar() {
           </button>
         </Button>
       </nav>
-      {
-        haveRecipes && renderRecipes()
-      }
     </section>
   );
 }

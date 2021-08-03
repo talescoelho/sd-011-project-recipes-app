@@ -1,0 +1,18 @@
+.header-section-top {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+}
+
+.header-section {
+  display: flex;
+  flex-direction: row;
+  font-size: 0.5em;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.header-section button {
+  width: 50px;
+}
