@@ -9,8 +9,8 @@ import FiltersCategories from '../components/FiltersCategories';
 
 function Foods() {
   const { setFoods,
-    dataFilter, foods,
-    compare, setCompare, loading, setLoading } = useContext(RecipesContext);
+    dataFilter, foods, compare,
+    setCompare, loading, setLoading, foodsByItem } = useContext(RecipesContext);
 
   const MAX = 12;
 
@@ -27,13 +27,16 @@ function Foods() {
 
   useEffect(() => {
     const renderItens = () => {
+      if (foodsByItem.length > 1) {
+        return setCompare(foodsByItem);
+      }
       if (dataFilter.length === 0) {
         return setCompare(foods);
       }
       return setCompare(dataFilter);
     };
     renderItens();
-  }, [setCompare, foods, dataFilter]);
+  }, [setCompare, foods, dataFilter, foodsByItem]);
 
   const fnAlert = (func, message) => {
     func(message);
