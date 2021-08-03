@@ -16,7 +16,7 @@ export default function DrinkCard() {
       const drink = await getFood(formInfo, 'drinks');
       dispatch(getFoodCard(drink));
     })();
-  }, [formInfo]);
+  }, [dispatch, formInfo]);
 
   const getCards = () => {
     if (cards) {
