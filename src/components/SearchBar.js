@@ -7,7 +7,6 @@ import FetchApi from '../services/ApiFetch';
 export default function SearchBar({ searchTrigger }) {
   const dispatch = useDispatch();
   const history = useHistory();
-
   const [inputValue, setInputValue] = useState('');
   const [radioOption, setRadioOption] = useState('ingrediente');
 
@@ -30,6 +29,7 @@ export default function SearchBar({ searchTrigger }) {
 
   return (
     <form action="">
+      {searchTrigger}
       <label htmlFor="search-input">
         <input
           data-testid="search-input"
