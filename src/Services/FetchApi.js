@@ -1,5 +1,5 @@
 export const fetchIngredient = async (ingredient) => {
-  const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+  const URL = `www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
   const response = await fetch(URL);
   const data = await response.json();
   return data;
