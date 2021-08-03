@@ -5,7 +5,7 @@ import Header from '../components/Header';
 export default function FavoritedRevenues() {
   return (
     <div>
-      <Header />
+      <Header title="Receitas Favoritas" search={ false } />
       <Footer />
     </div>
   );

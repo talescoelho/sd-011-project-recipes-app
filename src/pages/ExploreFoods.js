@@ -5,7 +5,7 @@ import Header from '../components/Header';
 export default function ExploreFoods() {
   return (
     <div>
-      <Header />
+      <Header title="Explorar Comidas" search={ false } />
       <Footer />
     </div>
   );

@@ -2,8 +2,8 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
-import Drink from './pages/Drink';
 import Foods from './pages/Foods';
+import Drinks from './pages/Drinks';
 import Explore from './pages/Explore';
 import ExploreFoods from './pages/ExploreFoods';
 import ExploreDrinks from './pages/ExploreDrinks';
@@ -14,6 +14,8 @@ import Perfil from './pages/Perfil';
 import MakedRevenues from './pages/MakedRevenues';
 import FavoritedRevenues from './pages/FavoritedRevenues';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import DetailsDrinks from './pages/DetailsDrinks';
+import DetailsFoods from './pages/DetailsFoods';
 
 function App() {
   return (
@@ -22,7 +24,9 @@ function App() {
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ Foods } />
-          <Route exact path="/bebidas" component={ Drink } />
+          <Route exact path="/bebidas" component={ Drinks } />
+          <Route exact path="/comidas/:id" component={ DetailsFoods } />
+          <Route exact path="/bebidas/:id" component={ DetailsDrinks } />
           <Route exact path="/explorar" component={ Explore } />
           <Route exact path="/explorar/comidas" component={ ExploreFoods } />
           <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
@@ -39,7 +43,7 @@ function App() {
           <Route exact path="/explorar/comidas/area" component={ ExploreFoodsArea } />
           <Route exact path="/perfil" component={ Perfil } />
           <Route exact path="/receitas-feitas" component={ MakedRevenues } />
-          <Route exact path="/receitas-favoritadas" component={ FavoritedRevenues } />
+          <Route exact path="/receitas-favoritas" component={ FavoritedRevenues } />
         </Switch>
       </BrowserRouter>
     </div>

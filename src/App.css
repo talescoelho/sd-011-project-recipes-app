@@ -66,3 +66,16 @@
     transform: rotate(-10deg);
   }
 }
+
+.div-scroll {
+  display: flex;
+  height: 200px;
+  overflow-x: scroll;
+  width: 200px;
+}
+
+.btnFixed {
+  bottom: 0;
+  margin: 5px;
+  position: fixed;
+}

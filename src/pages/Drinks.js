@@ -1,35 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Cards from '../components/Cards1';
+import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import DrinkCard from '../components/DrinkCard';
 import '../css/comidas.css';
+import { fetchCategorieDrinkFilterAction, fetchDrinkAction } from '../redux/actions';
 
-const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-
-function Drink() {
-  const [drinks, setDrinks] = useState({});
+function Drinks(props) {
   const [categories, setCategories] = useState({});
-  const drinksLength = 12;
   const categoriesLength = 5;
 
-  const fetchComidas = (endPointFetch, setState) => {
+  const fetchDrinks = (endPointFetch, setState) => {
     fetch(endPointFetch)
       .then((resolve) => resolve.json())
       .then((response) => setState(response));
   };
 
   useEffect(() => {
-    fetchComidas(endPoint, setDrinks);
-    fetchComidas('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', setCategories);
+    fetchDrinks('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', setCategories);
   }, []);
 
-  if (!drinks.drinks || !categories.drinks) {
+  if (!categories.drinks) {
     return <div>Carregando...</div>;
   }
 
   function handleChange(target, strCategory) {
+    const { searchAllCategory, searchCategory } = props;
     const checkboxes = document.querySelectorAll('input[type=checkbox]');
     checkboxes.forEach((checkbox) => {
       if (target.id !== checkbox.id) {
@@ -38,17 +35,18 @@ function Drink() {
     });
     if (target.checked) {
       if (strCategory === 'All') {
-        fetchComidas(endPoint, setDrinks);
+        searchAllCategory();
       } else {
-        fetchComidas(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${strCategory}`, setDrinks);
+        searchCategory(strCategory);
       }
     } else {
-      fetchComidas(endPoint, setDrinks);
+      searchAllCategory();
     }
   }
+
   return (
     <div>
-      <Header />
+      <Header title="Bebidas" />
       <label htmlFor="All">
         <input
           data-testid="All-category-filter"
@@ -76,28 +74,20 @@ function Drink() {
             </label>
           ))
       }
-      <div className="foods-cards">
-        { drinks.drinks.filter((_, index) => index < drinksLength)
-          .map((drink, index) => (
-            <Link
-              className="card"
-              data-testid={ `${index}-recipe-card` }
-              key={ index }
-              to={ `/bebidas/${drink.idDrink}` }
-            >
-
-              <Cards
-                name={ drink.strDrink }
-                thumb={ drink.strDrinkThumb }
-                index={ index }
-                key={ index }
-              />
-            </Link>
-          ))}
-      </div>
+      <DrinkCard />
       <Footer />
     </div>
   );
 }
 
-export default connect()(Drink);
+const mapDispatchToProps = (dispatch) => ({
+  searchCategory: (category) => dispatch(fetchCategorieDrinkFilterAction(category)),
+  searchAllCategory: (category) => dispatch(fetchDrinkAction(category)),
+});
+
+Drinks.propTypes = {
+  searchAllCategory: PropTypes.func,
+  searchCategory: PropTypes.func,
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(Drinks);

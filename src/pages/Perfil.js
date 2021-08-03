@@ -5,7 +5,7 @@ import Header from '../components/Header';
 export default function Perfil() {
   return (
     <div>
-      <Header />
+      <Header title="Perfil" search={ false } />
       <Footer />
     </div>
   );

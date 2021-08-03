@@ -1,14 +1,12 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import '../css/header.css';
+import SearchBar from './SearchBar';
 
-function Header(props) {
-  console.log(window.location.pathname.split('/')[1]);
-  console.log(props);
-  const { title } = props;
-  console.log(`console 3 ${title}`);
+function Header({ title, search = true }) {
   return (
     <div>
       <header className="header-container">
@@ -23,20 +21,26 @@ function Header(props) {
             alt="profile top button"
           />
         </button>
-        <h1 data-testid="page-title">{ window.location.pathname.split('/')[1] }</h1>
-        <button
-          type="button"
-          data-testid="search-top-btn"
-          src={ searchIcon }
-        >
-          <img
+        <h1 data-testid="page-title">{ title }</h1>
+        { search && (
+          <button
+            type="button"
+            data-testid="search-top-btn"
             src={ searchIcon }
-            alt="search top button"
-          />
-        </button>
+            onClick={ <SearchBar /> }
+          >
+            <img
+              src={ searchIcon }
+              alt="search top button"
+            />
+          </button>)}
       </header>
     </div>
   );
 }
+
+Header.propTypes = {
+  title: PropTypes.String,
+}.isRquired;
 
 export default Header;
