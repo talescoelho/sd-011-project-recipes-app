@@ -21,10 +21,12 @@ export default class ReceitasFavoritas extends Component {
   }
 
   setItemsToRender() {
-    this.setState({
-      itemsToRender: JSON.parse(localStorage.getItem('favoriteRecipes')),
-      itemsToRenderBD: JSON.parse(localStorage.getItem('favoriteRecipes')),
-    });
+    if (JSON.parse(localStorage.getItem('favoriteRecipes')) !== null) {
+      this.setState({
+        itemsToRender: JSON.parse(localStorage.getItem('favoriteRecipes')),
+        itemsToRenderBD: JSON.parse(localStorage.getItem('favoriteRecipes')),
+      });
+    }
   }
 
   setItemsToRenderFiltered(comidaOrBebida) {
