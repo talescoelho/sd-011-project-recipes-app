@@ -11,6 +11,8 @@ function RecipesProvider({ children }) {
   const [dataFilter, setDataFilter] = useState([]);
   const [compare, setCompare] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [drinksByItem, setDrinksByItem] = useState([]);
+  const [foodsByItem, setFoodsByItem] = useState([]);
 
   const handleClick = (pathname) => (pathname === '/comidas'
     ? handleFoods(radioButton, searchText, setDataFilter, setLoading)
@@ -31,6 +33,10 @@ function RecipesProvider({ children }) {
     setCompare,
     loading,
     setLoading,
+    drinksByItem,
+    setDrinksByItem,
+    foodsByItem,
+    setFoodsByItem,
   };
 
   return (

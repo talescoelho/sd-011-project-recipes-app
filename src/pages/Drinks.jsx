@@ -9,8 +9,8 @@ import FiltersCategories from '../components/FiltersCategories';
 import '../styles/recipesCard.css';
 
 function Drinks() {
-  const { setDrinks, setLoading,
-    dataFilter, drinks, compare, setCompare, loading } = useContext(RecipesContext);
+  const { setDrinks, setLoading, dataFilter,
+    drinks, compare, setCompare, loading, drinksByItem } = useContext(RecipesContext);
 
   useEffect(() => {
     const fetchDrink = async () => {
@@ -26,13 +26,16 @@ function Drinks() {
 
   useEffect(() => {
     const renderItens = () => {
+      if (drinksByItem.length > 1) {
+        return setCompare(drinksByItem);
+      }
       if (dataFilter.length === 0) {
         return setCompare(drinks);
       }
       return setCompare(dataFilter);
     };
     renderItens();
-  }, [setCompare, compare, drinks, dataFilter]);
+  }, [setCompare, drinks, dataFilter, drinksByItem]);
 
   const fnAlert = (func, message) => {
     func(message);

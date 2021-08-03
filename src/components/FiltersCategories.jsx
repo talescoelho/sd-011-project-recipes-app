@@ -13,14 +13,12 @@ function FiltersCategories() {
         const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
         const responseFoods = await response.json();
         const { meals } = responseFoods;
-        console.log(meals);
         return setCategories(meals.slice(0, cinco));
       }
       if (currentURL === '/bebidas') {
         const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
         const responseDrinks = await response.json();
         const { drinks } = responseDrinks;
-        console.log(drinks);
         return setCategories(drinks.slice(0, cinco));
       }
     };
