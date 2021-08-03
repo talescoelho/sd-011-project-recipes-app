@@ -3,11 +3,6 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 export default function Login() {
-  // useEffect(() => {
-  //   const btnLogin = document.querySelector('#button-login');
-  //   btnLogin.disabled = true;
-  // }, []);
-
   const [isDisabled, setIsDisable] = useState(true);
   const dispatch = useDispatch();
   const history = useHistory();
