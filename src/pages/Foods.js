@@ -22,20 +22,16 @@ function Foods() {
   } = useContext(MainContext);
 
   function filterByCategory({ target: { innerText } }) {
-    setLoading(true);
-    getMealsByCategory(innerText)
-      .then((meals) => {
-        setData(meals);
-        setLoading(false);
-      });
     if (innerText === categorySelected || innerText === 'All') {
-      setLoading(true);
       getInitialMealsRecipes()
         .then((meals) => {
           setData(meals);
-          setLoading(false);
         });
     } else {
+      getMealsByCategory(innerText)
+        .then((meals) => {
+          setData(meals);
+        });
       setCategorySelected(innerText);
     }
   }

@@ -22,20 +22,16 @@ function Drinks() {
   } = useContext(MainContext);
 
   function filterByCategory({ target: { innerText } }) {
-    setLoading(true);
-    getDrinksByCategory(innerText)
-      .then((drinks) => {
-        setData(drinks);
-        setLoading(false);
-      });
     if (innerText === categorySelected || innerText === 'All') {
-      setLoading(true);
       getInitialDrinksRecipes()
         .then((drinks) => {
           setData(drinks);
-          setLoading(false);
         });
     } else {
+      getDrinksByCategory(innerText)
+        .then((drinks) => {
+          setData(drinks);
+        });
       setCategorySelected(innerText);
     }
   }
