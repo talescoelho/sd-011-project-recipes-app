@@ -10,13 +10,20 @@ import '../App.css';
 
 export default function Recipes() {
   const [listMealsCategorie, setListMealsCategorie] = useState([]);
+  const [buttonCategorie, setButtonCategorie] = useState(null);
 
-  const getData = () => {
-    const dataReceived = fetchMealsCategorisAPI(setListMealsCategorie);
-    return dataReceived;
+  const renderCards = () => (<Cards
+    ApiCallMeals
+    ApiCallCockTails={ false }
+    categorie={ buttonCategorie }
+  />);
+
+  const getDataButton = () => {
+    fetchMealsCategorisAPI(setListMealsCategorie);
+    return renderCards;
   };
-
-  useEffect(getData, []);
+  console.log(buttonCategorie, 'recepies');
+  useEffect(getDataButton, [buttonCategorie]);
 
   const renderButtons = () => {
     if (listMealsCategorie.length > 0) {
@@ -25,12 +32,14 @@ export default function Recipes() {
           <button
             type="button"
             data-testid={ `${listMealsCategorie[0].strCategory}-category-filter` }
+            onClick={ () => setButtonCategorie(listMealsCategorie[0].strCategory) }
           >
             {listMealsCategorie[0].strCategory}
           </button>
           <button
             type="button"
             data-testid={ `${listMealsCategorie[1].strCategory}-category-filter` }
+            onClick={ () => setButtonCategorie(listMealsCategorie[1].strCategory) }
           >
             {listMealsCategorie[1].strCategory}
 
@@ -38,6 +47,7 @@ export default function Recipes() {
           <button
             type="button"
             data-testid={ `${listMealsCategorie[2].strCategory}-category-filter` }
+            onClick={ () => setButtonCategorie(listMealsCategorie[2].strCategory) }
           >
             {listMealsCategorie[2].strCategory}
 
@@ -45,6 +55,7 @@ export default function Recipes() {
           <button
             type="button"
             data-testid={ `${listMealsCategorie[3].strCategory}-category-filter` }
+            onClick={ () => setButtonCategorie(listMealsCategorie[3].strCategory) }
           >
             {listMealsCategorie[3].strCategory}
 
@@ -52,6 +63,7 @@ export default function Recipes() {
           <button
             type="button"
             data-testid={ `${listMealsCategorie[4].strCategory}-category-filter` }
+            onClick={ () => setButtonCategorie(listMealsCategorie[4].strCategory) }
           >
             {listMealsCategorie[4].strCategory}
 
@@ -74,7 +86,7 @@ export default function Recipes() {
       <Header title={ title } search />
       <h1>Receitas</h1>
       {renderButtons()}
-      <Cards ApiCallMeals ApiCallCockTails={ false } />
+      {renderCards()}
       <Footer />
     </div>
   );

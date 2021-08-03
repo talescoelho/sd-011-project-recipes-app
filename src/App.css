@@ -12,15 +12,15 @@
 
 .rocksGlass {
   animation: shake 1s infinite ease;
-  max-height: 80vh;
+  max-height: 10vh;
 }
 
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
   font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
+  font-size: 1em;
+  font-weight: 100;
 }
 
 @keyframes shake {
@@ -64,6 +64,11 @@
 }
 
 img{
-  max-height: 50px;
-  max-width: 50;
+  max-height: 25px;
+  max-width: 25;
+}
+
+.cards{
+display: inline-block;
+font-size: 2px;
 }

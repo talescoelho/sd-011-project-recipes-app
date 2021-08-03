@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
+// import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/Login';
 import Recipes from './Pages/Recipes';
@@ -19,6 +19,7 @@ import ExploreMealsByArea from './Pages/ExploreMealsByArea';
 import Profile from './Pages/Profile';
 import ReceitasFeitas from './Pages/ReceitasFeitas';
 import ReceitasFavoritas from './Pages/ReceitasFavoritas';
+import Bebidas from './Pages/Bebidas';
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Recipes } />
-        <Route exact path="/bebidas" component={ Recipes } />
+        <Route exact path="/bebidas" component={ Bebidas } />
         <Route exact path="/explorar/comidas/area" component={ ExploreMealsByArea } />
         <Route exact path="/comidas/:id/in-progress" component={ MealInProgress } />
         <Route exact path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
@@ -50,7 +51,7 @@ function App() {
         <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
         <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
       </Switch>
-
+      {/*
       <span className="logo">TRYBE</span>
       <object
         className="rocksGlass"
@@ -58,7 +59,7 @@ function App() {
         data={ rockGlass }
       >
         Glass
-      </object>
+      </object> */}
     </div>
   );
 }

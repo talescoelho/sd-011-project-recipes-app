@@ -1,25 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { fetchMealsAPI, fetchCocktailsAPI } from '../Services/Data';
+import {
+  fetchMealsAPI,
+  fetchCocktailsAPI,
+  fetchMealsForCategorie,
+  fetchCocktailsForCategorie,
+} from '../Services/Data';
 
 function Cards(props) {
   const [mealsAPI, setMealsAPI] = useState([]);
   const [cocktailsAPI, SetCocktailsAPI] = useState([]);
-  const { ApiCallMeals, ApiCallCockTails } = props;
+  const { ApiCallMeals, ApiCallCockTails, categorie } = props;
 
   const getData = () => {
-    let dataReceived = [];
-    if (ApiCallMeals) {
-      dataReceived = fetchMealsAPI(setMealsAPI);
+    if (ApiCallMeals && categorie === null) {
+      fetchMealsAPI(setMealsAPI);
     }
-    if (ApiCallCockTails) {
-      dataReceived = fetchCocktailsAPI(SetCocktailsAPI);
+    if (ApiCallCockTails && categorie === null) {
+      fetchCocktailsAPI(SetCocktailsAPI);
     }
-
-    return dataReceived;
+    if (ApiCallMeals && categorie !== null) {
+      fetchMealsForCategorie(setMealsAPI, categorie);
+    }
+    if (ApiCallCockTails && categorie !== null) {
+      const newStringCategorie = categorie.replace(/ /gi, '_');
+      fetchCocktailsForCategorie(SetCocktailsAPI, newStringCategorie);
+    }
   };
 
-  useEffect(getData, []);
+  useEffect(getData, [categorie]);
 
   const renderMeailList = () => {
     if (ApiCallMeals) {
@@ -30,6 +39,7 @@ function Cards(props) {
             <div
               key={ indexMap }
               data-testid={ `${indexMap}-recipe-card` }
+              className="cards"
             >
               <h5 data-testid={ `${indexMap}-card-name` }>{meal.strMeal}</h5>
               <img
@@ -52,6 +62,7 @@ function Cards(props) {
             <div
               key={ indexMap }
               data-testid={ `${indexMap}-recipe-card` }
+              className="cards"
             >
               <h5 data-testid={ `${indexMap}-card-name` }>{drink.strDrink}</h5>
               <img
@@ -77,5 +88,6 @@ function Cards(props) {
 Cards.propTypes = {
   ApiCallMeals: PropTypes.bool.isRequired,
   ApiCallCockTails: PropTypes.bool.isRequired,
+  categorie: PropTypes.string.isRequired,
 };
 export default Cards;
