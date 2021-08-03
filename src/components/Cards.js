@@ -23,7 +23,6 @@ function Cards(props) {
 
   const renderMeailList = () => {
     if (ApiCallMeals) {
-      console.log(ApiCallMeals);
       const maxListRender = 12;
       return (
         mealsAPI.filter((__, index) => index < maxListRender)
@@ -34,7 +33,6 @@ function Cards(props) {
             >
               <h5 data-testid={ `${indexMap}-card-name` }>{meal.strMeal}</h5>
               <img
-                width="70"
                 src={ meal.strMealThumb }
                 alt={ meal.strMeal }
                 data-testid={ `${indexMap}-card-img` }

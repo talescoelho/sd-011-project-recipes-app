@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import './App.css';
 import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -59,6 +59,9 @@ function App() {
       >
         Glass
       </object>
+      <Link to="/receitas-feitas">
+        <button type="submit">Receitas Feitas</button>
+      </Link>
     </div>
   );
 }
