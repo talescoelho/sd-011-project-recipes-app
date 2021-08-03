@@ -12,12 +12,13 @@ function Foods() {
     dataFilter, foods,
     compare, setCompare, loading, setLoading } = useContext(RecipesContext);
 
+  const MAX = 12;
+
   useEffect(() => {
     setLoading(true);
     const fetchFood = async () => {
       const response = await fetchFoods();
-      const MAX = 12;
-      const results = response.slice(0, MAX);
+      const results = response;
       setLoading(false);
       setFoods(results);
     };
@@ -32,7 +33,7 @@ function Foods() {
       return setCompare(dataFilter);
     };
     renderItens();
-  }, [setCompare, compare, foods, dataFilter]);
+  }, [setCompare, foods, dataFilter]);
 
   const fnAlert = (func, message) => {
     func(message);
@@ -53,7 +54,7 @@ function Foods() {
       <FiltersCategories />
       <section className="recipes-container">
         {loading ? <ReactBootStrap.Spinner animation="border" />
-          : compare.map((food, index) => (
+          : compare.slice(0, MAX).map((food, index) => (
             <div
               className="recipe-card"
               data-testid={ `${index}-recipe-card` }
