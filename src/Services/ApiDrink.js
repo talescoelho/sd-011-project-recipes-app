@@ -18,3 +18,10 @@ export const getDrinkByFirstLetter = (input) => fetch(`https://www.thecocktaildb
       .json()
       .then((json) => (results.ok ? Promise.resolve(json) : Promise.reject(json)))
   ));
+
+export const getDrinksInitial = () => fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+  .then((initial) => (
+    initial
+      .json()
+      .then((json) => (initial.ok ? Promise.resolve(json) : Promise.reject(json)))
+  ));

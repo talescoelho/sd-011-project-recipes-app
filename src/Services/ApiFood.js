@@ -18,3 +18,10 @@ export const getFoodByFirstLetter = (input) => fetch(`https://www.themealdb.com/
       .json()
       .then((json) => (results.ok ? Promise.resolve(json) : Promise.reject(json)))
   ));
+
+export const getFoodsInitial = () => fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+  .then((initial) => (
+    initial
+      .json()
+      .then((json) => (initial.ok ? Promise.resolve(json) : Promise.reject(json)))
+  ));
