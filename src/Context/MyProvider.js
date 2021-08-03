@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from './MyContext';
 
-const HomeRecipes = ({ children }) => {
-  const context = {
-    // valores...
-  };
+const MyProvider = ({ children }) => {
+  const [recipe, setRecipe] = useState();
 
   return (
-    <MyContext.Provider value={ context }>
+    <MyContext.Provider value={ { recipe, setRecipe } }>
       { children }
     </MyContext.Provider>
   );
 };
 
-HomeRecipes.propTypes = {
+MyProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
+
+export default MyProvider;
