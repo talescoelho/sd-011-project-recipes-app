@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Categories from '../components/Categories';
@@ -84,13 +85,15 @@ class Bebidas extends Component {
               <div>
                 { drinks.slice(0, elements).map((recipe, index) => (
                   <div key={ index } data-testid={ `${index}-recipe-card` }>
-                    <img
-                      className="photo"
-                      src={ recipe.strDrinkThumb }
-                      data-testid={ `${index}-card-img` }
-                      alt="Imagem da receita"
-                    />
-                    <p data-testid={ `${index}-card-name` }>{recipe.strDrink}</p>
+                    <Link to={ `/bebidas/${recipe.idDrink}` }>
+                      <img
+                        className="photo"
+                        src={ recipe.strDrinkThumb }
+                        data-testid={ `${index}-card-img` }
+                        alt="Imagem da receita"
+                      />
+                      <p data-testid={ `${index}-card-name` }>{recipe.strDrink}</p>
+                    </Link>
                   </div>
                 ))}
               </div>

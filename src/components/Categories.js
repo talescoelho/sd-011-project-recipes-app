@@ -47,6 +47,7 @@ class Categories extends Component {
               key="7"
               value="all"
               onClick={ listAll }
+              data-testid="All-category-filter"
             >
               All
             </button>
