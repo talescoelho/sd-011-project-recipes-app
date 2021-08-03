@@ -33,12 +33,12 @@ function Header(props) {
               alt="profile icon"
             />
           </Link>
-          <h3
+          <h1
             className="container-title-header"
             data-testid="page-title"
           >
             { title }
-          </h3>
+          </h1>
           <div>
             { showSearchIcon ? searchIconRender : null }
           </div>

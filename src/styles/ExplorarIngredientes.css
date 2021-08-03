@@ -1,0 +1,15 @@
+.ingredients-page-container {
+  height: 540px;
+  width: 100%;
+}
+
+.ingredients-card-container {
+  align-items: center;
+  background-color: black;
+  display: flex;
+  flex-flow: row wrap;
+  height: 415px;
+  justify-content: space-around;
+  overflow: auto;
+  width: 360px;
+}

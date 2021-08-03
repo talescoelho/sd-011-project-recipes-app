@@ -53,3 +53,9 @@ export const searchByFirstLetter = async (firstLetter, pathname) => {
   }
   window.alert('Sua busca deve conter somente 1 (um) caracter');
 };
+
+export const fetchIngredients = async () => {
+  const recipes = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+  const { meals } = await recipes.json();
+  return meals;
+};

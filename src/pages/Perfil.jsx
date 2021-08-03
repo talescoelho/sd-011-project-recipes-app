@@ -1,16 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Header from '../components/Header';
 
-class Perfil extends Component {
-  render() {
-    return (
-      <div>
-        <Header title="Perfil" />
-        Página de configuração
-      </div>
-    );
-  }
+function Perfil() {
+
+  return (
+    <div>
+      <Header title="Perfil" />
+      <p>Configuração</p>
+    </div>
+  );
 }
 
 export default Perfil;

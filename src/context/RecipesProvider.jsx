@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
-import { fetchAllRecipesOrByCategory, fetchCategorysList } from '../services/index';
+import { fetchAllRecipesOrByCategory,
+  fetchCategorysList,
+  fetchIngredients } from '../services/index';
 
 function RecipesProvider({ children }) {
   const { pathname } = useLocation();
@@ -11,6 +13,8 @@ function RecipesProvider({ children }) {
   const [dataRecipes, setDataRecipes] = useState([]);
   const [categorysList, setCategorysList] = useState(pathname);
   const [currentCategory, setCurrentCategory] = useState('All');
+
+  const [currentIngredientsList, setCurrentIngredientsList] = useState([]);
 
   useEffect(() => {
     setRecipeType(pathname);
@@ -31,6 +35,16 @@ function RecipesProvider({ children }) {
     fetchCategorys();
   }, [recipeType, currentCategory]);
 
+  useEffect(() => {
+    const fetchIngredientsList = async () => {
+      setIsLoading(true);
+      const ingredients = await fetchIngredients();
+      setCurrentIngredientsList(ingredients);
+      setIsLoading(false);
+    };
+    fetchIngredientsList();
+  }, []);
+
   const contextValue = {
     dataRecipes,
     isLoading,
@@ -40,6 +54,8 @@ function RecipesProvider({ children }) {
     currentCategory,
     setCurrentCategory,
     setDataRecipes,
+    currentIngredientsList,
+    setCurrentIngredientsList,
   };
 
   RecipesProvider.propTypes = {
