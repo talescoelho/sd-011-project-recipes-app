@@ -9,21 +9,31 @@ export default class ReceitasFavoritas extends Component {
     super();
     this.state = {
       itemsToRender: [],
+      // shareButton: false,
     };
   }
 
   componentDidMount() {
-    this.teste();
+    this.setItemsToRender();
   }
 
-  teste() {
+  setItemsToRender() {
     this.setState({
       itemsToRender: JSON.parse(localStorage.getItem('favoriteRecipes')),
     });
   }
 
+  shareLinkClick(id, foodOrDrink) {
+    const magicNumber = 2000;
+    navigator.clipboard.writeText(`${window.location.origin}/${foodOrDrink}/${id}`);
+    this.setState({ shareButton: true });
+    setTimeout(() => this.setState({
+      shareButton: false,
+    }), magicNumber);
+  }
+
   renderItems() {
-    const { itemsToRender } = this.state;
+    const { itemsToRender, shareButton } = this.state;
     return itemsToRender.map((item) => {
       if (item.type === 'comida') {
         return (
@@ -42,7 +52,10 @@ export default class ReceitasFavoritas extends Component {
               {' '}
               { item.category }
             </p>
-            <button type="button">
+            <button
+              onClick={ () => this.shareLinkClick(item.id, 'comidas') }
+              type="button"
+            >
               <img data-testid="0-horizontal-share-btn" src={ shareIcon } alt="share" />
             </button>
             <button type="button">
@@ -52,6 +65,7 @@ export default class ReceitasFavoritas extends Component {
                 alt="White Heart"
               />
             </button>
+            {shareButton ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
           </div>);
       }
       return (
@@ -64,7 +78,7 @@ export default class ReceitasFavoritas extends Component {
             style={ { width: '50px' } }
           />
           <p data-testid="1-horizontal-top-text">{ item.alcoholicOrNot }</p>
-          <button type="button">
+          <button onClick={ () => this.shareLinkClick(item.id, 'bebidas') } type="button">
             <img data-testid="1-horizontal-share-btn" src={ shareIcon } alt="share" />
           </button>
           <button type="button">
@@ -74,6 +88,7 @@ export default class ReceitasFavoritas extends Component {
               alt="White Heart"
             />
           </button>
+          {shareButton ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
         </div>);
     });
   }
