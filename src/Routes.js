@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Recipes from './pages/Recipes';
 import DetailsRecipe from './pages/DetailsRecipe';
 import Perfil from './components/Perfil';
+import Explore from './pages/Explore';
 
 export default function Routes() {
   return (
@@ -14,6 +15,7 @@ export default function Routes() {
       <Route path="/comidas/:id" component={ DetailsRecipe } />
       <Route path="/bebidas/:id" component={ DetailsRecipe } />
       <Route exact path="/perfil" component={ Perfil } />
+      <Route exact path="/explorar" component={ Explore } />
     </Switch>
   );
 }
