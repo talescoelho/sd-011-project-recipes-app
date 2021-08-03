@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import RenderRecipes from '../components/RenderRecipes';
+import Footer from '../components/Footer';
 
 function Bebidas({ title }) {
   const { data } = useSelector((state) => state.fetchReceitas);
@@ -10,6 +11,7 @@ function Bebidas({ title }) {
     <div>
       <Header title={ title } />
       { (Object.keys(data).length > 0) && <RenderRecipes />}
+      <Footer />
     </div>
   );
 }
