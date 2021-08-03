@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { searchBarFetchMeal } from '../services/theMealAPI';
 
 const FoodDetails = (props) => {
-  const [foodData, setfoodData] = useState([]);
+  const [foodData, setfoodData] = useState({ strYoutube: '' });
   const { match: { params: { id } } } = props;
 
   useEffect(() => {
@@ -11,7 +11,6 @@ const FoodDetails = (props) => {
       const data = await searchBarFetchMeal(id, 'foodId');
       setfoodData(...data);
     };
-    console.log('teste');
     getFoodDetail();
   }, [id]);
 
@@ -22,6 +21,7 @@ const FoodDetails = (props) => {
     strMealThumb,
     strCategory,
     strInstructions,
+    strYoutube,
   } = foodData;
   const maxIngredients = 20;
 
@@ -38,15 +38,10 @@ const FoodDetails = (props) => {
   }
 
   function getVideoTag() {
-    const { strYoutube } = foodData;
     const index = 32;
-    console.log(strYoutube);
-    const videoTag = strYoutube.slice(index);
-    console.log(videoTag);
-    return videoTag;
+    const videoStr = strYoutube.slice(index);
+    return videoStr;
   }
-
-  getVideoTag();
 
   function renderDetails() {
     return (
@@ -70,7 +65,16 @@ const FoodDetails = (props) => {
           }
         </ol>
         <p data-testid="instructions">{strInstructions}</p>
-        {/* <iframe width="560" height="315" src={ `https://www.youtube.com/embed/${getVideoTag()}` } title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen /> */}
+        <iframe
+          width="560"
+          height="315"
+          src={ `https://www.youtube.com/embed/${getVideoTag()}` }
+          title="YouTube video player"
+          frameBorder="0"
+          data-testid="video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
         <p data-testid="-recomendation-card" />
         <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
       </section>
