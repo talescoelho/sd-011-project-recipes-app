@@ -1,15 +1,10 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import ShareAndFavorite from './ShareAndFavorite';
 
 function DoneRecipeCards({
   src, name, index, text, date, tags, area, comidaOuBebida, id }) {
-  const [copiado, setCopiado] = useState(false);
-  useEffect(() => {
-    const limitCopy = 5000;
-    setTimeout(() => setCopiado(false), limitCopy);
-  });
   return (
     <div>
       {comidaOuBebida === 'comida' ? (
@@ -39,8 +34,6 @@ function DoneRecipeCards({
               testShare={ `${index}-horizontal-share-btn` }
               comidasOuBebidas="comidas"
               id={ id }
-              setCopy={ setCopiado }
-              linkCopiado={ copiado }
             />
             <p data-testid={ `${index}-horizontal-done-date` }>
               Feita em:
@@ -80,8 +73,6 @@ function DoneRecipeCards({
                 testShare={ `${index}-horizontal-share-btn` }
                 comidasOuBebidas="bebidas"
                 id={ id }
-                linkCopiado={ copiado }
-                setCopy={ setCopiado }
               />
               <p data-testid={ `${index}-horizontal-done-date` }>
                 Feita em:

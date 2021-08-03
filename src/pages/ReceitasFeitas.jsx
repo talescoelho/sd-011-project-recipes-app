@@ -77,6 +77,7 @@ function ReceitasFeitas() {
           date={ e.doneDate }
           tags={ e.tags }
           area={ e.area }
+          data={ e }
         />)
         : (
           <DoneRecipeCards
@@ -89,6 +90,7 @@ function ReceitasFeitas() {
             text={ e.alcoholicOrNot }
             date={ e.doneDate }
             tags={ e.tags }
+            data={ e }
           />
         )))}
     </div>
