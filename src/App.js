@@ -5,11 +5,11 @@ import { Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import Header from './components/Header';
 import Perfil from './pages/Perfil';
-// import Footer from './components/Footer';
 import Explorar from './pages/Explorar';
 import Comidas from './pages/Comidas';
 import Login from './pages/Login';
 import RecipesProvider from './context/RecipesProvider';
+import ReceitasFeitas from './pages/ReceitasFeitas';
 
 function App() {
   return (
@@ -22,9 +22,13 @@ function App() {
             <Route path="/bebidas" component={ Comidas } />
             <Route path="/explorar" component={ Explorar } />
             <Route exact path="/perfil" component={ Perfil } />
+            <Route path="/comidas/{id-da-receita}" />
+            <Route
+              path="/receitas-feitas"
+              component={ ReceitasFeitas }
+            />
           </RecipesProvider>
 
-          <Route path="/comidas/{id-da-receita}" />
           <Route path="/comidas/{id-da-receita}/in-progress" />
           <Route path="/bebidas/{id-da-receita}" />
           <Route path="/bebidas/{id-da-receita}/in-progress" />
@@ -47,10 +51,6 @@ function App() {
           <Route
             path="/explorar/comidas/area"
             component={ () => <Header title="Explorar Origem" showSearchIcon /> }
-          />
-          <Route
-            path="/receitas-feitas"
-            component={ () => <Header title="Receitas Feitas" /> }
           />
           <Route
             path="/receitas-favoritas"
