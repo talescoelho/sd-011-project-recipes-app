@@ -6,21 +6,30 @@ import Header from '../components/Header';
 class Perfil extends Component {
   constructor() {
     super();
+    this.state = {
+      email: 'Carregando...',
+    };
+  }
 
-    this.handleLogOut = this.handleLogOut.bind(this);
+  componentDidMount() {
+    this.getEmail();
   }
 
   handleLogOut() {
     localStorage.clear();
   }
 
-  // handleEmail() {
-  // localStorage.getItem('user', JSON);
-  // }
+  getEmail() {
+    const obj = JSON.parse(localStorage.getItem('user'));
+    if (obj) {
+      this.setState({
+        email: obj.email,
+      });
+    }
+  }
 
   render() {
-    const email = JSON.parse(localStorage.getItem('user'));
-    console.log(email);
+    const { email } = this.state;
     const title = 'Perfil';
     const lupa = 'desligada';
     return (
@@ -30,7 +39,7 @@ class Perfil extends Component {
           title={ title }
           lupa={ lupa }
         />
-        <h2 data-testid="profile-email">{ email.email }</h2>
+        <h2 data-testid="profile-email">{ email }</h2>
         <Link to="/receitas-feitas">
           <button type="button" data-testid="profile-done-btn">Receitas Feitas</button>
         </Link>
