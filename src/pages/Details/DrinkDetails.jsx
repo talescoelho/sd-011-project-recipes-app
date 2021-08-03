@@ -31,6 +31,11 @@ function DrinkDetails({ match }) {
         .then((data) => setRecomendation(data.meals.filter((_, index) => index < mN)));
     };
     fetchDrink();
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const favorites = favoriteRecipes && favoriteRecipes.some((item) => item.id === id);
+    if (favorites) {
+      setFavorite(true);
+    }
   }, [id]);
 
   console.log(foodRecomendation);
@@ -81,13 +86,18 @@ function DrinkDetails({ match }) {
       >
         <img src={ shareIcon } alt="share" />
       </button>
+
       <button
-        data-testid="favorite-btn"
         type="button"
         onClick={ () => setFavorite(!favorite) }
       >
-        <img src={ !favorite ? whiteHeart : blackHeart } alt="share" />
+        <img
+          src={ !favorite ? whiteHeart : blackHeart }
+          alt="share"
+          data-testid="favorite-btn"
+        />
       </button>
+
       <p>{copied ? 'Link copiado!' : null}</p>
       <h1>Instruções</h1>
       <p
