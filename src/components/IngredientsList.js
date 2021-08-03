@@ -7,7 +7,7 @@ export default function IngredientsList({ list }) {
       {list
         .map((ingredient, index) => (
           <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-            {`${ingredient.name} ${ingredient.measure}`}
+            {`${ingredient.name} ${ingredient.measure ? ingredient.measure : ''}`}
           </p>
         ))}
     </div>
