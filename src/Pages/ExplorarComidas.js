@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import ExploreFoodsButtons from '../components/ExploreFoodsButtons';
+import ExploreButtons from '../components/ExploreButtons';
 
 function ExplorarComidas({ title }) {
   return (
     <div>
       <Header title={ title } />
-      <ExploreFoodsButtons />
+      <ExploreButtons />
     </div>
   );
 }

@@ -4,30 +4,33 @@ import { getRecipes } from '../redux/slices/fetchReceitas';
 import './IngredientsDetails.css';
 
 function IngredientsDetails() {
-  const { data } = useSelector((state) => state.fetchReceitas);
+  const {
+    foodIngredients,
+    drinkIngredients,
+  } = useSelector((state) => state.fetchReceitas);
   const dispatch = useDispatch();
 
   const { pathname } = window.location;
   const currentURL = pathname.split('/')[2];
 
   const recipeTypeDictionary = useCallback(() => ({
-    comidas: 'themealdb',
-    bebidas: 'thecocktaildb',
+    comidas: 'foodIngredients',
+    bebidas: 'drinkIngredients',
   }), []);
 
   useEffect(() => {
-    const URL = `https://www.${recipeTypeDictionary()[currentURL]}.com/api/json/v1/1/list.php?i=list`;
-    dispatch(getRecipes(URL));
-    console.log('useEffect');
+    dispatch(getRecipes(recipeTypeDictionary()[currentURL]));
   }, [dispatch, currentURL, recipeTypeDictionary]);
 
-  if (data.length !== 0) {
+  if (foodIngredients.length !== 0 || drinkIngredients.length !== 0) {
     const limitCards = 12;
     let ingredientKey = 'strIngredient';
-    let recipeType = data.meals;
+    let recipeType = foodIngredients.meals;
+    let imageURL = 'themealdb';
     if (currentURL === 'bebidas') {
-      recipeType = data.drinks;
+      recipeType = drinkIngredients.drinks;
       ingredientKey = 'strIngredient1';
+      imageURL = 'thecocktaildb';
     }
 
     return (
@@ -40,7 +43,7 @@ function IngredientsDetails() {
           >
             <img
               data-testid={ `${index}-card-img` }
-              src={ `https://www.${recipeTypeDictionary()[currentURL]}.com/images/ingredients/${ingredient[ingredientKey]}-Small.png` }
+              src={ `https://www.${imageURL}.com/images/ingredients/${ingredient[ingredientKey]}-Small.png` }
               alt={ ingredient[ingredientKey] }
             />
             <p

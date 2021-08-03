@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { getRecipes } from '../redux/slices/fetchReceitas';
-import Header from '../components/Header';
-import RenderFoodAreaOptions from '../components/RenderFoodAreaOptions';
 
-function ExplorarComidasOrigem({ title }) {
+function RenderFoodAreaOptions() {
   const { foodAreaList } = useSelector((state) => state.fetchReceitas);
   const dispatch = useDispatch();
 
@@ -15,17 +12,20 @@ function ExplorarComidasOrigem({ title }) {
 
   if (foodAreaList.length !== 0) {
     return (
-      <div>
-        <Header title={ title } />
-        <RenderFoodAreaOptions />
-      </div>
+      <label htmlFor="recipe-origin">
+        <select
+          id="recipe-origin"
+          data-testid="explore-by-area-dropdown"
+        >
+          {foodAreaList.meals.map(({ strArea }, index) => (
+            <option key={ index }>{strArea}</option>
+          ))}
+        </select>
+      </label>
+
     );
   }
   return null;
 }
 
-export default ExplorarComidasOrigem;
-
-ExplorarComidasOrigem.propTypes = {
-  title: PropTypes.string.isRequired,
-};
+export default RenderFoodAreaOptions;
