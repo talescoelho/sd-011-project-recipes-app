@@ -3,19 +3,23 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { fetchFoodList } from '../redux/actions';
+import { fetchFoodCategory, fetchFoodList } from '../redux/actions';
+import Cards from '../components/Cards';
+import Categories from '../components/Categories';
 
 class Foods extends Component {
   componentDidMount() {
-    const { actionFetchFoodList } = this.props;
+    const { actionFetchFoodList, actionFetchCategories } = this.props;
     actionFetchFoodList('');
+    actionFetchCategories('list');
   }
 
   render() {
     return (
       <div>
         <Header />
-        Comidas
+        <Categories />
+        <Cards />
         <Footer />
       </div>
     );
@@ -28,10 +32,12 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actionFetchFoodList: (name) => dispatch(fetchFoodList(name)),
+  actionFetchCategories: (category) => dispatch(fetchFoodCategory(category)),
 });
 
 Foods.propTypes = {
-  actionFetchFoodList: PropTypes.func.isRequired,
-};
+  actionFetchFoodList: PropTypes.func,
+  actionFetchCategories: PropTypes.func,
+}.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Foods);
