@@ -66,7 +66,6 @@ function Cards(props) {
       return (
         cocktailsAPI.filter((__, index) => index < maxListRender)
           .map((drink, indexMap) => (
-
             <div
               key={ indexMap }
               data-testid={ `${indexMap}-recipe-card` }
@@ -82,6 +81,14 @@ function Cards(props) {
                     data-testid={ `${indexMap}-card-img` }
                   />
                 </div>
+              <Link to={ `/bebidas/${drink.idDrink}` }>
+                <h5 data-testid={ `${indexMap}-card-name` }>{drink.strDrink}</h5>
+                <img
+                  className="card-img"
+                  src={ drink.strDrinkThumb }
+                  alt={ drink.strDrink }
+                  data-testid={ `${indexMap}-card-img` }
+                />
               </Link>
             </div>
           ))
