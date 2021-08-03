@@ -3,20 +3,25 @@ import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
+const mountObject = (data, recipeType) => {
+  const myObject = {
+    id: recipeType === 'meals' ? data.idMeal : data.idDrink,
+    type: recipeType === 'meals' ? 'comida' : 'bebida',
+    area: recipeType === 'meals' ? data.strArea : '',
+    alcoholicOrNot: recipeType === 'meals' ? '' : data.strAlcoholic,
+    name: recipeType === 'meals' ? data.strMeal : data.strDrink,
+    image: recipeType === 'meals' ? data.strMealThumb : data.strDrinkThumb,
+    category: data.strCategory,
+  };
+  return myObject;
+};
+
 function FavBtn({ data, recipeType }) {
   const [render, setRender] = useState(false);
 
   const id = recipeType === 'meals' ? data.idMeal : data.idDrink;
   const addFavorite = () => {
-    const recipeInfo = {
-      id,
-      type: recipeType,
-      area: recipeType === 'meals' ? data.strArea : '',
-      alcoholicOrNot: recipeType === 'meals' ? '' : data.strAlcoholic,
-      name: recipeType === 'meals' ? data.strMeal : data.strDrink,
-      image: recipeType === 'meals' ? data.strMealThumb : data.strDrinkThumb,
-      category: data.strCategory,
-    };
+    const recipeInfo = mountObject(data, recipeType);
     if (localStorage.favoriteRecipes) {
       const favorites = JSON.parse(localStorage.favoriteRecipes);
       const newFavorites = [...favorites, recipeInfo];
