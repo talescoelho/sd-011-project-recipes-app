@@ -67,8 +67,8 @@ export default function TelaPrincipal() {
       </div>
       {
         type === 'meal'
-          ? <MealsCards meals={ data } />
-          : <DrinksCards drinks={ data } />
+          ? <MealsCards meals={ data } cardLimit={ 12 } />
+          : <DrinksCards drinks={ data } cardLimit={ 12 } />
       }
       <MenuInferior />
     </div>
