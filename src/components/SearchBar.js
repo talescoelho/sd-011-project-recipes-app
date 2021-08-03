@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { SearchBarContext } from '../context/SearchBar';
 import fetchByFilter from '../services/data';
-import Cards from './Cards';
+// import Cards from './Cards';
 
 export default function SearchBar(props) {
   const {
@@ -23,7 +23,7 @@ export default function SearchBar(props) {
     setNewSearch,
     setData,
     data,
-    shouldCallCards,
+    // shouldCallCards,
     setShouldCallCards,
   } = useContext(SearchBarContext);
 
@@ -83,19 +83,21 @@ export default function SearchBar(props) {
     setNewSearch(false);
   };
 
-  const renderCards = () => {
-    const MAX_CARDS = 12;
-    if (shouldCallCards && dataValues.length > 1) {
-      return dataValues.slice(0, MAX_CARDS).map((eachRecipe, index) => (
-        <Cards
-          recipe={ eachRecipe }
-          type={ fetchType }
-          index={ index }
-          key={ index }
-        />
-      ));
-    }
-  };
+  // Passei o renderCards para dentro do CardsList
+
+  // const renderCards = () => {
+  //   const MAX_CARDS = 12;
+  //   if (shouldCallCards && dataValues.length > 1) {
+  //     return dataValues.slice(0, MAX_CARDS).map((eachRecipe, index) => (
+  //       <Cards
+  //         recipe={ eachRecipe }
+  //         type={ fetchType }
+  //         index={ index }
+  //         key={ index }
+  //       />
+  //     ));
+  //   }
+  // };
 
   return (
     <nav>
@@ -151,9 +153,9 @@ export default function SearchBar(props) {
           />
           Primeira letra
         </label>
-        <section>
+        {/* <section>
           { shouldCallCards && dataValues && renderCards() }
-        </section>
+        </section> */}
       </section>
     </nav>
   );

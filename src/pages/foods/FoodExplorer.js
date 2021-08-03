@@ -7,7 +7,7 @@ export default function FoodExplorer() {
   return (
     <>
       <SearchBarProvider>
-        <Header title="Explorar Bebidas" search={ false } />
+        <Header title="Explorar Comidas" search={ false } />
       </SearchBarProvider>
       <Footer />
     </>

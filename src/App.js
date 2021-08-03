@@ -19,7 +19,6 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Explorer from './pages/Explorer';
 import './App.css';
-import { RecipesProvider } from './context/RecipesContext';
 
 function App() {
   const pathFoods = '/explorar/comidas/ingredientes';
@@ -42,10 +41,8 @@ function App() {
         <Route path="/perfil" component={ Profile } />
         <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
-        <RecipesProvider>
-          <Route exact path="/comidas" component={ Foods } />
-          <Route exact path="/bebidas" component={ Drinks } />
-        </RecipesProvider>
+        <Route exact path="/comidas" component={ Foods } />
+        <Route exact path="/bebidas" component={ Drinks } />
         <Route path="*" component={ NotFound } />
       </Switch>
     </BrowserRouter>

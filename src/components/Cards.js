@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default function Cards(props) {
   const [source, setSource] = useState();
   const [recipeName, setRecipeName] = useState();
   const { recipe, index, type } = props;
+
+  let tipo = 'comidas';
+  let shortName = 'Meal';
+  if (type === 'thecocktaildb') {
+    tipo = 'bebidas';
+    shortName = 'Drink';
+  }
 
   useEffect(() => {
     if (type === 'themealdb') {
@@ -18,18 +26,21 @@ export default function Cards(props) {
   }, [recipe.strDrink, recipe.strDrinkThumb, recipe.strMeal, recipe.strMealThumb, type]);
 
   return (
-    <section data-testid={ `${index}-recipe-card` }>
-      <img
-        src={ source }
-        alt={ recipeName }
-        data-testid={ `${index}-card-img` }
-      />
-      <p
-        data-testid={ `${index}-card-name` }
-      >
-        { recipeName }
-      </p>
-    </section>
+    <Link to={ `/${tipo}/${recipe[`id${shortName}`]}` }>
+      <section data-testid={ `${index}-recipe-card` }>
+        <img
+          src={ source }
+          alt={ recipeName }
+          data-testid={ `${index}-card-img` }
+          width="50px"
+        />
+        <p
+          data-testid={ `${index}-card-name` }
+        >
+          { recipeName }
+        </p>
+      </section>
+    </Link>
   );
 }
 

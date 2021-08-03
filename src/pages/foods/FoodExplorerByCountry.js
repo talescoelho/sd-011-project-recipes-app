@@ -7,9 +7,8 @@ export default function FoodExplorerByCountry() {
   return (
     <>
       <SearchBarProvider>
-        <Header title="Explorar Bebidas" search fetchType="thecocktaildb" />
+        <Header title="Explorar Origem" search fetchType="themealdb" />
       </SearchBarProvider>
-      <h3>Food Explorer by Country</h3>
       <Footer />
     </>
   );
