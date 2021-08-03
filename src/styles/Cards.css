@@ -58,3 +58,8 @@ main {
 .card-header {
   text-align: center;
 }
+
+.food-cards a{
+  color : black;
+  text-decoration: none;
+}

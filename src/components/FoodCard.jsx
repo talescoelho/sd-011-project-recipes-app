@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { Card, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import propTypes from 'prop-types';
@@ -23,31 +23,36 @@ export default function FoodCard({ type }) {
         const { idMeal, strMeal, strMealThumb,
           strCategory, strTags, idDrink, strDrink, strDrinkThumb, strAlcoholic } = item;
         return (
-          <Card key={ index } data-testid={ `${index}-recipe-card` }>
-            <Card.Header>{strCategory || selectedCategory}</Card.Header>
-            <Card.Img
-              variant="top"
-              src={ strMealThumb || strDrinkThumb }
-              data-testid={ `${index}-card-img` }
-            />
-            <Card.Body>
-              <Card.Title data-testid={ `${index}-card-name` }>
-                {strMeal
-              || strDrink}
-
-              </Card.Title>
-              <Card.Text>{strTags || strAlcoholic}</Card.Text>
-            </Card.Body>
-            <Card.Footer>
-              <Button
-                className="card-button"
-                onClick={ () => history.push(`/${middle}/${idMeal || idDrink}`) }
-                variant="primary"
-              >
-                Ver receita
-              </Button>
-            </Card.Footer>
-          </Card>
+          <Link
+            to={ `/${middle}/${idMeal || idDrink}` }
+            key={ index }
+            data-testid={ `${index}-recipe-card` }
+          >
+            <Card>
+              <Card.Header>{strCategory || selectedCategory}</Card.Header>
+              <Card.Img
+                variant="top"
+                src={ strMealThumb || strDrinkThumb }
+                data-testid={ `${index}-card-img` }
+              />
+              <Card.Body>
+                <Card.Title data-testid={ `${index}-card-name` }>
+                  {strMeal
+                || strDrink}
+                </Card.Title>
+                <Card.Text>{strTags || strAlcoholic}</Card.Text>
+              </Card.Body>
+              <Card.Footer>
+                <Button
+                  className="card-button"
+                  onClick={ () => history.push(`/${middle}/${idMeal || idDrink}`) }
+                  variant="primary"
+                >
+                  Ver receita
+                </Button>
+              </Card.Footer>
+            </Card>
+          </Link>
         );
       });
     }
