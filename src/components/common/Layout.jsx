@@ -34,7 +34,6 @@ function Layout({ children, title, search, noHeader }) {
         </header>)}
       { children }
       <Footer />
-              
     </>
   );
 }
