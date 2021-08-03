@@ -6,7 +6,7 @@ import emailReducer from './emailReducer';
 const rootReducer = combineReducers({
   menuReducer,
   emailReducer,
-  handleIngredients
+  handleIngredients,
 });
 
 export default rootReducer;
