@@ -53,7 +53,7 @@ export default function FiltersBar(props) {
       if (filter) {
         const urlToFetch = `https://www.${fetchType}.com/api/json/v1/1/filter.php?c=${filter}`;
         const recipesFromApi = await fetchByFilter(urlToFetch);
-        newRecipesFiltered = Object.values(recipesFromApi)[0];
+        newRecipesFiltered = [...Object.values(recipesFromApi)[0]];
       }
       setDataValues(newRecipesFiltered.filter((_recipe, index) => index < twelve));
     };
