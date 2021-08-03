@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import GlobalContext from '../context/GlobalContext';
 import './css/CardCatalog.css';
 
 function CardCatalog() {
-  const { catalog } = useContext(GlobalContext);
+  const { catalog, setCatalog } = useContext(GlobalContext);
 
   const supplyIdentity = Object.keys(catalog)[0];
 
@@ -56,6 +56,10 @@ function CardCatalog() {
       </Link>
     ));
   }
+
+  console.log(catalog);
+
+  useEffect(() => () => setCatalog(''), [setCatalog]);
 
   return (
     <div>

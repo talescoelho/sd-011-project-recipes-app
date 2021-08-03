@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../components/css/RecipeDetails.css';
+import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
@@ -9,10 +10,17 @@ function RecipeDetails(props) {
 
   const [searchIdURL, setSearchIdURL] = useState('');
   const [recipe, setRecipe] = useState('');
+  const [type, setType] = useState('');
 
   useEffect(() => {
-    if (url.includes('comidas')) setSearchIdURL('https://www.themealdb.com/api/json/v1/1/lookup.php?i=');
-    if (url.includes('bebidas')) setSearchIdURL('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=');
+    if (url.includes('comidas')) {
+      setSearchIdURL('https://www.themealdb.com/api/json/v1/1/lookup.php?i=');
+      setType('meals');
+    }
+    if (url.includes('bebidas')) {
+      setSearchIdURL('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=');
+      setType('drinks');
+    }
   }, [url]);
 
   useEffect(() => {
@@ -23,9 +31,11 @@ function RecipeDetails(props) {
 
   const [ingredients, setIngredients] = useState([]);
 
+  console.log(recipe);
+
   useEffect(() => {
     if (recipe) {
-      const recipeKeys = Object.keys(recipe.meals[0]);
+      const recipeKeys = Object.keys(recipe[type][0]);
 
       const ingredientsKeys = [];
       recipeKeys.forEach((key) => {
@@ -34,7 +44,7 @@ function RecipeDetails(props) {
 
       const recipeIngredints = [];
       ingredientsKeys.forEach((ingredient) => {
-        recipeIngredints.push(recipe.meals[0][ingredient]);
+        recipeIngredints.push(recipe[type][0][ingredient]);
       });
 
       const filteredIngredints = recipeIngredints.filter((ingredient) => ingredient);
@@ -42,50 +52,140 @@ function RecipeDetails(props) {
     }
   }, [recipe]);
 
-  console.log(recipe);
+  function getCorrectYoutubeURL(urlLink) {
+    console.log(urlLink);
+    const youtubeVideoId = urlLink.split('?v=', 2)[1];
+    console.log(youtubeVideoId);
+    const IFrameYtLink = `https://www.youtube.com/embed/${youtubeVideoId}`;
+
+    return IFrameYtLink;
+  }
+
+  function renderMealDetails() {
+    return (
+      <div className="supply-card">
+
+        <img
+          data-testid="recipe-photo"
+          src={ recipe.meals[0].strMealThumb }
+          alt={ recipe.meals[0].strMeal }
+        />
+        <h1 data-testid="recipe-title">{ recipe.meals[0].strMeal }</h1>
+        <button type="button" data-testid="share-btn">
+          <img src={ shareIcon } alt="shareIcon" />
+        </button>
+        <button type="button" data-testid="favorite-btn">
+          <img src={ whiteHeartIcon } alt="whiteHeartIcon" />
+        </button>
+        <h3 data-testid="recipe-category">
+          {recipe.meals[0].strCategory}
+        </h3>
+        <h2>Ingredientes</h2>
+        <ul>
+          {ingredients.map((ingredient, index) => (
+            <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+              {ingredient}
+            </li>
+          ))}
+        </ul>
+        <h2>Intruções</h2>
+        <p data-testid="instructions">
+          {recipe.meals[0].strInstructions}
+        </p>
+        <iframe
+          data-testid="video"
+          title={ recipe.meals[0].strMeal }
+          src={ getCorrectYoutubeURL(recipe.meals[0].strYoutube) }
+        />
+        <h2>Recomendações</h2>
+        <div>
+          <span data-testid="0-recomendation-card"> Video1 </span>
+          <span data-testid="1-recomendation-card"> Video2 </span>
+          <span data-testid="2-recomendation-card"> Video3 </span>
+          <span data-testid="3-recomendation-card"> Video4 </span>
+          <span data-testid="4-recomendation-card"> Video5 </span>
+          <span data-testid="5-recomendation-card"> Video6 </span>
+        </div>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          Iniciar Receita
+        </button>
+      </div>
+    );
+  }
+
+  function renderDrinkDetails() {
+    return (
+      <div className="supply-card">
+
+        <img
+          data-testid="recipe-photo"
+          src={ recipe.drinks[0].strDrinkThumb }
+          alt={ recipe.drinks[0].strDrink }
+        />
+        <h1 data-testid="recipe-title">{ recipe.drinks[0].strDrink }</h1>
+        <button type="button" data-testid="share-btn">
+          <img src={ shareIcon } alt="shareIcon" />
+        </button>
+        <button type="button" data-testid="favorite-btn">
+          <img src={ whiteHeartIcon } alt="whiteHeartIcon" />
+        </button>
+        <h3 data-testid="recipe-category">
+          {recipe.drinks[0].strCategory}
+        </h3>
+        <h2>Ingredientes</h2>
+        <ul>
+          {ingredients.map((ingredientDrink, index) => (
+            <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+              {ingredientDrink}
+            </li>
+          ))}
+        </ul>
+        <h2>Intruções</h2>
+        <p data-testid="instructions">
+          {recipe.drinks[0].strInstructions}
+        </p>
+        <h2>Recomendações</h2>
+        <div>
+          <span data-testid="0-recomendation-card"> Video1 </span>
+          <span data-testid="1-recomendation-card"> Video2 </span>
+          <span data-testid="2-recomendation-card"> Video3 </span>
+          <span data-testid="3-recomendation-card"> Video4 </span>
+          <span data-testid="4-recomendation-card"> Video5 </span>
+          <span data-testid="5-recomendation-card"> Video6 </span>
+        </div>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          Iniciar Receita
+        </button>
+      </div>
+    );
+  }
+
+  function chooseMealOrDrinkDetail() {
+    if (url.includes('comidas')) return renderMealDetails();
+    if (url.includes('bebidas')) return renderDrinkDetails();
+  }
 
   return (
     <>
-      {!recipe ? <div>Carregando...</div>
-        : (
-          <div className="supply-card">
-
-            <img
-              data-testid="recipe-photo"
-              src={ recipe.meals[0].strMealThumb }
-              alt={ recipe.meals[0].strMeal }
-            />
-            <h1 data-testid="recipe-title">{ recipe.meals[0].strMeal }</h1>
-            <button type="button" data-testid="share-btn">
-              <img src={ shareIcon } alt="shareIcon" />
-            </button>
-            <button type="button" data-testid="favorite-btn">
-              <img src={ whiteHeartIcon } alt="whiteHeartIcon" />
-            </button>
-            <h2 data-testid="recipe-category">
-              {recipe.meals[0].strCategory}
-            </h2>
-            <h2>Ingredientes</h2>
-            <ul>
-              {ingredients.map((ingredient, index) => (
-                <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-                  {ingredient}
-                </li>
-              ))}
-            </ul>
-            <h2>Intruções</h2>
-            <p data-testid="instructions">
-              {recipe.meals[0].strInstructions}
-            </p>
-            <iframe
-              title={ recipe.meals[0].strMeal }
-              src="https://www.youtube.com/embed/mulqW-J3Yy4"
-            />
-          </div>
-        )}
+      {!recipe ? <div>Carregando...</div> : chooseMealOrDrinkDetail() }
       <div />
     </>
   );
 }
 
 export default RecipeDetails;
+
+RecipeDetails.propTypes = {
+  match: PropTypes.shape({
+    url: PropTypes.string,
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }),
+}.isRequired;
