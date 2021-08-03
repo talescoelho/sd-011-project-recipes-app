@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '.../images/whiteHeartIcon.svg';
+import blackHeartIcon from '.../images/blackHeartIcon.svg';
 
 const mountObject = (data, recipeType) => {
   const myObject = {
-    id: recipeType === 'meals' ? data.idMeal : data.idDrink,
-    type: recipeType === 'meals' ? 'comida' : 'bebida',
-    area: recipeType === 'meals' ? data.strArea : '',
-    alcoholicOrNot: recipeType === 'meals' ? '' : data.strAlcoholic,
-    name: recipeType === 'meals' ? data.strMeal : data.strDrink,
-    image: recipeType === 'meals' ? data.strMealThumb : data.strDrinkThumb,
-    category: data.strCategory,
+    id: recipeType.id,
+    type: recipeType.type,
+    area: recipeType.area,
+    alcoholicOrNot: recipeType.alcoholicOrNot,
+    name: recipeType.name,
+    image: recipeType.image,
+    category: data.category,
   };
   return myObject;
 };
@@ -19,7 +19,7 @@ const mountObject = (data, recipeType) => {
 function FavBtn({ data, recipeType }) {
   const [render, setRender] = useState(false);
 
-  const id = recipeType === 'meals' ? data.idMeal : data.idDrink;
+  const id = recipeType === 'meals' ? data.id : data.id;
   const addFavorite = () => {
     const recipeInfo = mountObject(data, recipeType);
     if (localStorage.favoriteRecipes) {
