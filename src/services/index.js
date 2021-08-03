@@ -65,3 +65,14 @@ export async function fetchDrinksByCategoryFromCocktailsDB(category) {
     console.log(error);
   }
 }
+
+export async function fetchIngredientsFromMealsDB() {
+  try {
+    const response = await
+    fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+    const data = await response.json();
+    return data.meals;
+  } catch (err) {
+    console.log(err);
+  }
+}
