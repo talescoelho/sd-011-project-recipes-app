@@ -2,7 +2,6 @@ import { GET_RECIPES_API, REQUEST_API, GET_RECIPE_DETAILS_API } from '../actions
 
 // meals or drinks
 const INITIAL_STATE = {
-  recipeType: 'meals',
   recipesData: [],
   recipeDetailsData: [],
   isLoading: false,

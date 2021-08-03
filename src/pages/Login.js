@@ -15,6 +15,7 @@ function Login() {
     localStorage.setItem('mealsToken', [1]);
     localStorage.setItem('cocktailsToken', [1]);
   }
+
   function setUserLocalStorage() {
     const user = {
       email: login.email,
@@ -26,7 +27,7 @@ function Login() {
     const validateEmail = login.email.split('').includes('@')
       && login.email.split('.').includes('com');
     const lengthPasswords = 6;
-    const validatePassword = login.password.length >= lengthPasswords;
+    const validatePassword = login.password.length > lengthPasswords;
     if (validateEmail && validatePassword && disabled) {
       setDisabled({
         disabled: false,
@@ -70,6 +71,7 @@ function Login() {
           type="password"
           placeholder="Seu Senha"
           onChange={ handleLogin }
+          onKeyUp={ verificationLogin }
         />
       </label>
       <Link to="/comidas">

@@ -34,10 +34,9 @@ class Header extends Component {
     return (
       <button
         type="button"
-        data-testids="search-top-btn"
         onClick={ () => this.showSearch() }
       >
-        <img src={ SearchIcon } alt="searchIcon" />
+        <img src={ SearchIcon } data-testid="search-top-btn" alt="searchIcon" />
       </button>
     );
   }
@@ -56,9 +55,10 @@ class Header extends Component {
   }
 
   centralHeader() {
+    const { recipeType } = this.props;
     const { disabled } = this.state;
     return (
-      !disabled ? (<SearchBar />) : null
+      !disabled ? (<SearchBar recipeType={ recipeType } />) : null
     );
   }
 

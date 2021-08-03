@@ -75,11 +75,9 @@ function SearchBar({ recipesData, recipeType, fetch }) {
         && recipesData[recipeType].length === 1
         && (
           <Redirect
-            to={ `/${recipeType === 'meals'
-              ? 'comidas'
-              : 'bebidas'}/${recipeType === 'meals'
-              ? recipesData[recipeType][0].idMeal
-              : recipesData[recipeType][0].idDrink}` }
+            to={ recipeType === 'meals'
+              ? `comidas/${recipesData[recipeType][0].idMeal}`
+              : `bebidas/${recipesData[recipeType][0].idDrink}` }
           />
         )}
       </form>
@@ -88,7 +86,6 @@ function SearchBar({ recipesData, recipeType, fetch }) {
 }
 
 const mapStateToProps = (state) => ({
-  recipeType: state.RecipesReducer.recipeType,
   recipesData: state.RecipesReducer.recipesData,
 });
 
