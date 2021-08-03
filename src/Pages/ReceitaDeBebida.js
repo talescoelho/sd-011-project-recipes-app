@@ -13,7 +13,7 @@ function ReceitaDeBebida(props) {
     const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     const response = await fetch(url);
     const result = await response.json();
-    setRecipeDataAsObject(...result.meals);
+    setRecipeDataAsObject(...result.drinks);
   }
 
   async function fetchRecomendedMeal() {
@@ -88,7 +88,7 @@ function ReceitaDeBebida(props) {
         .slice(0, numberOfRecomendedMeals)
         .map((obj, index) => (
           <RecomendedFood
-            data-testid={ `${index}-recomendation-card` }
+            dataTestid={ `${index}-recomendation-card` }
             key={ index }
             category={ obj.strCategory }
             title={ obj.strMeal }

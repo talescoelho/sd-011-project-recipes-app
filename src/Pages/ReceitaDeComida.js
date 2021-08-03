@@ -92,7 +92,7 @@ function ReceitaDeComida(props) {
         .slice(0, numberOfRecomendedDrinks)
         .map((obj, index) => (
           <RecomendedFood
-            data-testid={ `${index}-recomendation-card` }
+            dataTestid={ `${index}-recomendation-card` }
             key={ index }
             category={ obj.strCategory }
             title={ obj.strDrink }

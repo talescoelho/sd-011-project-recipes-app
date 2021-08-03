@@ -57,7 +57,7 @@ function Cards(props) {
               key={ indexMap }
               data-testid={ `${indexMap}-recipe-card` }
             >
-              <Link to={ `/bebidas/${drink.idMeal}` }>
+              <Link to={ `/bebidas/${drink.idDrink}` }>
                 <h5 data-testid={ `${indexMap}-card-name` }>{drink.strDrink}</h5>
                 <img
                   src={ drink.strDrinkThumb }
