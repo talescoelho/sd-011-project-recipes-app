@@ -54,3 +54,7 @@ main {
 .card-footer {
   padding: 0.2rem;
 }
+
+.card-header {
+  text-align: center;
+}
