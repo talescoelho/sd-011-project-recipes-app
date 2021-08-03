@@ -8,10 +8,14 @@ export default function Drinks() {
   const recipes = useSelector((state) => state.Mechanics.searcResults);
   return (
     <main>
-      <Header title="Bebidas" haveSearchBtn searchTrigger="thecocktaildb" />
-      <div className="card-container">
+      <Header
+        title="Bebidas"
+        haveSearchBtn
+        searchTrigger="thecocktaildb"
+      />
+      <div>
         {
-          recipes.drinks !== undefined
+          recipes.drinks !== null && recipes.drinks !== undefined
             ? recipes.drinks.slice(0, qty).map((recipe, index) => (
               <RenderRecipes
                 key={ index }
@@ -19,7 +23,7 @@ export default function Drinks() {
                 index={ index }
                 srcImage={ recipe.strDrinkThumb }
               />))
-            : 'aa'
+            : ''
         }
       </div>
     </main>

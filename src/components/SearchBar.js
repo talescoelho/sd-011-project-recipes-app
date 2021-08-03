@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
@@ -11,15 +12,29 @@ export default function SearchBar({ searchTrigger }) {
   const [radioOption, setRadioOption] = useState('ingrediente');
 
   async function checkBoxSearch() {
+    if (radioOption === 'primeiraLetra' && inputValue.length > 1) {
+      return alert('Sua busca deve conter somente 1 (um) caracter');
+    }
     const results = await FetchApi(searchTrigger, radioOption, inputValue);
+    let mealOrDrink = '';
+
+    if (searchTrigger === 'themealdb') {
+      mealOrDrink = 'meals';
+    }
+
+    if (searchTrigger === 'thecocktaildb') {
+      mealOrDrink = 'drinks';
+    }
+    if (results[mealOrDrink] === null) {
+      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
     dispatch({
       type: 'MODIFY_SEARCH_RESULTS',
       payload: results,
     });
-    console.log(results);
     if (searchTrigger === 'themealdb' && results.meals.length === 1) {
       const { idMeal } = results.meals[0];
-      return history.push(`/comidas/${idMeal}`);
+      history.push(`/comidas/${idMeal}`);
     }
     if (searchTrigger === 'thecocktaildb' && results.drinks.length === 1) {
       const { idDrink } = results.drinks[0];
@@ -29,7 +44,6 @@ export default function SearchBar({ searchTrigger }) {
 
   return (
     <form action="">
-      {searchTrigger}
       <label htmlFor="search-input">
         <input
           data-testid="search-input"

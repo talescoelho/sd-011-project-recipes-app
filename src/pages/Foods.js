@@ -8,10 +8,14 @@ export default function Foods() {
   const recipes = useSelector((state) => state.Mechanics.searcResults);
   return (
     <main>
-      <Header title="Comidas" haveSearchBtn searchTrigger="themealdb" />
-      <div className="card-container">
+      <Header
+        title="Comidas"
+        haveSearchBtn
+        searchTrigger="themealdb"
+      />
+      <div>
         {
-          recipes.meals !== undefined
+          recipes.meals !== null && recipes.meals !== undefined
             ? recipes.meals.slice(0, qty).map((recipe, index) => (
               <RenderRecipes
                 key={ index }
@@ -19,7 +23,7 @@ export default function Foods() {
                 index={ index }
                 srcImage={ recipe.strMealThumb }
               />))
-            : 'aa'
+            : ''
         }
       </div>
     </main>

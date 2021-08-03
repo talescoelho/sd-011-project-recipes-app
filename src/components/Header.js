@@ -21,7 +21,10 @@ export default function Header({ title, haveSearchBtn, searchTrigger }) {
           />
         </button>
       </Link>
-      <SearchBarBtn haveSearchBtn={ haveSearchBtn } searchTrigger={ searchTrigger } />
+      <SearchBarBtn
+        haveSearchBtn={ haveSearchBtn }
+        searchTrigger={ searchTrigger }
+      />
     </header>
   );
 }

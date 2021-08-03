@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function RenderRecipes({ title, index, srcImage }) {
   // const { typeRecipes, nameRecipes } = props;
@@ -19,3 +20,9 @@ export default function RenderRecipes({ title, index, srcImage }) {
     </div>
   );
 }
+
+RenderRecipes.propTypes = {
+  title: PropTypes.string,
+  index: PropTypes.number,
+  srcImage: PropTypes.string,
+}.isRequired;
