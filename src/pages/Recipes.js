@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import getXFirstElementsFromArray from '../helpers/utils';
 import { fetchDrinks, fetchMeals } from '../actions';
 import Footer from '../components/Footer';
 import RecipeCard from '../components/RecipeCard';
 import Loading from '../components/Loading';
 
-// const recipesQuantity = 12;
+const recipesQuantity = 12;
 
 function Recipes({
   history: { location: { pathname } },
@@ -23,8 +24,14 @@ function Recipes({
   }, [pathname, dispatchFetchMeals, dispatchFetchDrinks]);
 
   React.useEffect(() => {
-    if (pathname === '/comidas') setRecipes(meals);
-    if (pathname === '/bebidas') setRecipes(drinks);
+    if (pathname === '/comidas') {
+      setRecipes(getXFirstElementsFromArray(meals, recipesQuantity));
+    }
+
+    if (pathname === '/bebidas') {
+      setRecipes(getXFirstElementsFromArray(drinks, recipesQuantity));
+    }
+
     if (mealsError || drinksError) setRecipes([]);
   }, [pathname, meals, mealsError, drinks, drinksError]);
 
@@ -41,7 +48,9 @@ function Recipes({
         {
           mealsLoading || drinksLoading
             ? <Loading />
-            : recipes.map((_, index) => <RecipeCard key={ index } index={ index } />)
+            : recipes.map((recipe, index) => (
+              <RecipeCard key={ index } index={ index } recipe={ recipe } />
+            ))
         }
       </main>
       <Footer />
