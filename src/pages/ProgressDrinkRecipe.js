@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -87,12 +88,14 @@ export default function ProgressDrinkRecipe(props) {
             <br />
             {data.drinks[0].strInstructions}
           </p>
-          <button
-            type="button"
-            data-testid="finish-recipe-btn"
-          >
-            Finalizar Receita
-          </button>
+          <Link to="/receitas-feitas">
+            <button
+              type="button"
+              data-testid="finish-recipe-btn"
+            >
+              Finalizar Receita
+            </button>
+          </Link>
         </>
       )}
     </div>

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -10,6 +11,10 @@ export default function ProgressFoodRecipe(props) {
   const { location } = history;
   const { pathname } = location;
   const id = pathname.split('/')[2];
+  const [inProgress, setInProgress] = useState({ meals: {
+    id,
+  } });
+  console.log(inProgress);
 
   useEffect(() => {
     async function fetchFoodsById() {
@@ -34,7 +39,24 @@ export default function ProgressFoodRecipe(props) {
     } else {
       target.parentNode.style.textDecoration = 'none';
     }
+    setInProgress({
+      cocktails: {},
+      meals: {
+        id: [target.innerText],
+      },
+    });
   }
+
+  useEffect(() => {
+    if (!localStorage) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+    } else {
+      const recipeProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      console.log(recipeProgress);
+      // recipeProgress.meals.push(name);
+      localStorage.setItem('inProgressRecipes', JSON.stringify(recipeProgress));
+    }
+  }, [inProgress, id]);
 
   return (
     <div>
@@ -87,12 +109,14 @@ export default function ProgressFoodRecipe(props) {
             <br />
             {data.meals[0].strInstructions}
           </p>
-          <button
-            type="button"
-            data-testid="finish-recipe-btn"
-          >
-            Finalizar Receita
-          </button>
+          <Link to="/receitas-feitas">
+            <button
+              type="button"
+              data-testid="finish-recipe-btn"
+            >
+              Finalizar Receita
+            </button>
+          </Link>
         </>
       )}
     </div>
