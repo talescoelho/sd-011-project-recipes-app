@@ -1,7 +1,7 @@
 .recomendations {
   display: flex;
   flex-direction: row;
-  gap: 30px;
+  gap: 35px;
   height: 200px;
   margin: 60px auto;
   overflow-y: auto;
