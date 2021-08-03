@@ -43,14 +43,14 @@ describe('Profile screen', () => {
     });
   });
 
-  describe.only('85 - Redirecione a pessoa usuária que, ao clicar no botão de "Receitas Favoritas", a rota deve mudar para a tela de receitas favoritas', () => {
+  describe('85 - Redirecione a pessoa usuária que, ao clicar no botão de "Receitas Favoritas", a rota deve mudar para a tela de receitas favoritas', () => {
     it('Redireciona para a rota correta', () => {
       cy.get('[data-testid="profile-done-btn"]').click();
       cy.location().should((loc) => expect(loc.pathname).to.eq('/receitas-feitas'));
     });
   });
 
-  describe('86 - Redirecione a pessoa usuária que, ao clicar no botão de "Receitas Feitas", a rota deve mudar para a tela de receitas feitas', () => {
+  describe.only('86 - Redirecione a pessoa usuária que, ao clicar no botão de "Receitas Feitas", a rota deve mudar para a tela de receitas feitas', () => {
     it('Redireciona para a rota correta', () => {
       cy.get('[data-testid="profile-favorite-btn"]').click();
       cy.location().should((loc) => expect(loc.pathname).to.eq('/receitas-favoritas'));
