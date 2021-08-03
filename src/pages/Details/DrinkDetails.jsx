@@ -32,13 +32,13 @@ function DrinkDetails({ match }) {
     };
     fetchDrink();
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    console.log(favoriteRecipes);
     const favorites = favoriteRecipes && favoriteRecipes.some((item) => item.id === id);
     if (favorites) {
       setFavorite(true);
     }
   }, [id]);
 
-  console.log(foodRecomendation);
   if (Object.keys(drinks).length === 0) {
     return (<h1>Carregando...</h1>);
   }
@@ -57,6 +57,25 @@ function DrinkDetails({ match }) {
       setCopied(false);
     }, mSeconds);
   };
+
+  const favoriteBttnHandle = () => {
+    setFavorite(!favorite);
+
+    const favoriteObj = {
+      id,
+      type: 'bebida',
+      area: drinks.strArea ? drinks.strArea : '',
+      category: drinks.strCategory,
+      alcoholicOrNot: drinks.strAlcoholic,
+      name: drinks.strDrink,
+      image: drinks.strDrinkThumb,
+    };
+
+    if (!favorite) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([favoriteObj]));
+    }
+  };
+
   return (
     <div>
 
@@ -89,7 +108,7 @@ function DrinkDetails({ match }) {
 
       <button
         type="button"
-        onClick={ () => setFavorite(!favorite) }
+        onClick={ favoriteBttnHandle }
       >
         <img
           src={ !favorite ? whiteHeart : blackHeart }
