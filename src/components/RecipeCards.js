@@ -62,13 +62,13 @@ function RecipeCards() {
               src={ recipe.strMealThumb }
               data-testid={ `${index}-card-img` }
               alt={ `${recipe.strMeal}` }
-              height="50px"
-              width="50px"
-
+              height="60px"
+              width="60px"
             />
             <p
               key={ recipe.idMeal }
               data-testid={ `${index}-card-name` }
+              className="p-text"
             >
               {recipe.strMeal}
             </p>

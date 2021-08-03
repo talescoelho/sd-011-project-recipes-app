@@ -1,3 +1,27 @@
 .card-container {
   border: 1px solid black;
+  background-color: seagreen;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  /* align-content: space-around; */
+  width: 100px;
+  height: 100px;
+}
+
+.p-text {
+  height: 20px;
+  margin: 0;
+}
+
+.library-card-container {
+ display: flex;
+ flex-direction: row;
+ flex-wrap: wrap;
+ justify-content: space-evenly;
+ align-content: space-around;
+ background-color: salmon;
+ height: 460px;
 }

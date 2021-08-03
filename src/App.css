@@ -66,3 +66,12 @@
     transform: rotate(-10deg);
   }
 }
+
+.app {
+  align-content: space-between;
+  background-color:burlywood;
+  display: flex;
+  height: 640px;
+  flex-direction: column;
+  width: 360px;
+}

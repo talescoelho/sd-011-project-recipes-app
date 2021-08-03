@@ -1,0 +1,21 @@
+.login {
+  align-items: center;
+  border: 2px solid rgb(122, 113, 113);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  justify-content: space-evenly;
+  margin-top: 20px;
+  width: 300px;
+}
+
+.login-text {
+  font-weight: 700;
+  text-align: center;
+}
+
+.button-login {
+  text-align: center;
+}
+

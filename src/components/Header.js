@@ -6,6 +6,8 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import CategoryButtons from './CategoryButtons';
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Header({ title, icon, drinks, foods }) {
   const [showSearchBar, setshowSearchBar] = useState(false);

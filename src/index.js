@@ -9,7 +9,7 @@ import RecipeAppProvider from './provider/RecipeAppProvider';
 ReactDOM.render(
   <BrowserRouter>
     <RecipeAppProvider>
-      <App />
+      <App className="app" />
     </RecipeAppProvider>
   </BrowserRouter>,
   document.getElementById('root'),
