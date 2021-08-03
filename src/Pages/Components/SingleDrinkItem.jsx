@@ -33,13 +33,13 @@ function SingleFoodItem() {
     const arrayOfMeasuresKey = Object
       .keys(drink).filter((key) => key.includes('strMeasure'));
     arrayOfIngredientsKey.map((ingredient) => {
-      if (drink[ingredient] !== '' && drink[ingredient] !== ' ' /* && drink[ingredient] !== null */) {
+      if (drink[ingredient] !== '' && drink[ingredient] !== ' ' && drink[ingredient] !== null) {
         arrayOfIngredients.push(drink[ingredient]);
       }
       return null;
     });
     arrayOfMeasuresKey.map((ingredient) => {
-      if (drink[ingredient] !== '' && drink[ingredient] !== ' ' && drink[ingredient]) {
+      if (drink[ingredient] !== '' && drink[ingredient] !== ' ' && drink[ingredient] !== null) {
         arrayOfMeasures.push(drink[ingredient]);
       }
       return null;
@@ -62,6 +62,7 @@ function SingleFoodItem() {
         alt={ `Foto da bebida chamada ${drinks[0].strDrink}` }
         data-testid="recipe-photo"
       />
+      <p data-testid="recipe-category">{drinks[0].strAlcoholic}</p>
       <button type="button" data-testid="share-btn">Compartilhar</button>
       <button data-testid="favorite-btn" type="button">Favoritar</button>
       <p data-testid="recipe-category">{drinks[0].strCategory}</p>
