@@ -1,3 +1,8 @@
+.btn-start-recipe {
+  bottom: 0;
+  position: fixed;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
@@ -11,7 +16,8 @@
 }
 
 .rocksGlass {
-  animation: shake 1s infinite ease;
+
+  /* animation: shake 1s infinite ease; */
   max-height: 80vh;
 }
 
@@ -30,39 +36,10 @@
 */
 
 .meals > .logo {
-  animation: shake 1.5s infinite ease;
+
+  /* animation: shake 1.5s infinite ease; */
   color: aliceblue;
   font-family: Montserrat , sans-serif;
   font-size: 3em;
   font-weight: 900;
-}
-
-@keyframes shake {
-
-  0% {
-    transform: rotate(5deg);
-  }
-
-  50% {
-    transform: rotate(-5deg);
-  }
-
-  100% {
-    transform: rotate(5deg);
-  }
-}
-
-@keyframes clink {
-
-  0% {
-    transform: rotate(-10deg);
-  }
-
-  50% {
-    transform: rotate(20deg);
-  }
-
-  100% {
-    transform: rotate(-10deg);
-  }
 }

@@ -1,36 +1,36 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
-import { fetchRecipesMain,
+import { fetchRecipesAPIAction,
   fetchList,
   fetchCategories, GET_CATEGORIES_MEALS } from '../redux/actions';
 import Footer from '../components/footer/Footer';
 import Header from '../components/Header';
 import RenderCategoriesMeals from '../components/RenderCategoriesMeals';
 
-function HomeRecipe() {
+function HomeRecipe({ mealsData }) {
   const MagicMikeDance = 12;
   const magicNumberFive = 5;
   const urlFetch = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const urlFetchList = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
   const [isLoading, setIsLoading] = React.useState(true);
-  const [meals, setMeals] = React.useState([]);
   const [indexOfCategory, setIndexOfCategory] = React.useState(null);
   const [typeCategories, setTypeCategories] = React.useState(true);
   const [mealsFilter, setMealsFilter] = React.useState([]);
   const [renderCategories, setRenderCategories] = React.useState(false);
   const [whoCategory, setWhoCategory] = React.useState([]);
+
   const dispatch = useDispatch();
-  const fetchRecipesMainF = (url) => dispatch(fetchRecipesMain(url));
   const fetchListApi = (url) => dispatch(fetchList(url));
   const getCategory = (url, type) => dispatch(fetchCategories(url, type));
+  const fetchMeals = (url,
+    recipeType) => dispatch(fetchRecipesAPIAction(url, recipeType));
 
   const handlerCard = async () => {
-    const response = await fetchRecipesMainF(urlFetch);
     const responseList = await fetchListApi(urlFetchList);
-    if (response.length > 1) {
-      setMeals([...response]);
+    if (responseList.length > 1) {
       setMealsFilter([...responseList]);
       setIsLoading(false);
     }
@@ -39,6 +39,7 @@ function HomeRecipe() {
   const filterCategories = async (value, index) => {
     const categories = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${value}`;
     const responseCategory = await getCategory(categories, GET_CATEGORIES_MEALS);
+    console.log(responseCategory);
     setWhoCategory([...responseCategory.meals]);
     if (typeCategories) {
       setTypeCategories(false);
@@ -55,7 +56,8 @@ function HomeRecipe() {
 
   const renderMeals = () => (
     isLoading ? <p>loading...</p>
-      : meals.slice(0, MagicMikeDance).map((itemCard, index) => (
+      : mealsData.meals
+      && mealsData.meals.slice(0, MagicMikeDance).map((itemCard, index) => (
         <Link key={ index } to={ `/comidas/${itemCard.idMeal}` }>
 
           <div data-testid={ `${index}-recipe-card` } className="card">
@@ -72,12 +74,13 @@ function HomeRecipe() {
   );
 
   React.useEffect(() => {
+    fetchMeals(urlFetch, 'meals');
     handlerCard();
   }, []);
 
   return (
     <div>
-      <Header title="Comidas" />
+      <Header title="Comidas" recipeType="meals" />
       <div>
         {' '}
         {isLoading ? <p>loading...</p>
@@ -113,4 +116,12 @@ function HomeRecipe() {
   );
 }
 
-export default connect(null, null)(HomeRecipe);
+const mapStateToProps = (state) => ({
+  mealsData: state.RecipesReducer.recipesData,
+});
+
+HomeRecipe.propTypes = {
+  mealsData: PropTypes.array,
+}.isRequired;
+
+export default connect(mapStateToProps, null)(HomeRecipe);

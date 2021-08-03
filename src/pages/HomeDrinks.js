@@ -1,14 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
-import { fetchDrinkMain,
+import { fetchRecipesAPIAction,
   fetchRecipesListDrinks,
   GET_CATEGORIES_DRINK, fetchCategories } from '../redux/actions';
 import Header from '../components/Header';
 import Footer from '../components/footer/Footer';
 import RenderCategoriesDrinks from '../components/RenderCategoriesDrinks';
 
-function HomeDrinks() {
+function HomeDrinks({ drinksData }) {
   const urlFetch = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const urlFetchList = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const [isLoading, setIsLoading] = React.useState(true);
@@ -17,21 +18,19 @@ function HomeDrinks() {
   const [typeCategories, setTypeCategories] = React.useState(true);
   const [renderCategories, setRenderCategories] = React.useState(false);
   const [drinksList, setDrinksList] = React.useState([]);
-  const [drinks, setDrinks] = React.useState([]);
 
   const dispatch = useDispatch();
   const MagicMikeDance = 12;
   const MagicNumber = 5;
-  const fetchRecipesMainF = (url) => dispatch(fetchDrinkMain(url));
+
   const fetchListApi = (url) => dispatch(fetchRecipesListDrinks(url));
   const getCategory = (url, type) => dispatch(fetchCategories(url, type));
+  const fetchDrinks = (url,
+    recipeType) => dispatch(fetchRecipesAPIAction(url, recipeType));
 
   const handlerCard = async () => {
-    const response = await fetchRecipesMainF(urlFetch);
     const responseList = await fetchListApi(urlFetchList);
-    console.log(response);
-    if (response.length > 1 && responseList.length > 1) {
-      setDrinks([...response]);
+    if (responseList.length > 1) {
       setDrinksList([...responseList]);
       setIsLoading(false);
     }
@@ -51,6 +50,7 @@ function HomeDrinks() {
   };
 
   React.useEffect(() => {
+    fetchDrinks(urlFetch, 'drinks');
     handlerCard();
   }, []);
 
@@ -60,7 +60,8 @@ function HomeDrinks() {
 
   const renderDrinks = () => (
     isLoading ? <p>loading...</p>
-      : drinks.slice(0, MagicMikeDance).map((itemCard, index) => (
+      : drinksData.drinks
+      && drinksData.drinks.slice(0, MagicMikeDance).map((itemCard, index) => (
         <Link key={ index } to={ `/bebidas/${itemCard.idDrink}` }>
           <div data-testid={ `${index}-recipe-card` } className="card">
             <img
@@ -78,7 +79,7 @@ function HomeDrinks() {
 
   return (
     <div>
-      <Header title="Bebidas" />
+      <Header title="Bebidas" recipeType="drinks" />
       { !isLoading && (drinksList.slice(0, MagicNumber).map((itemList, index) => (
         <div key={ index }>
           <button
@@ -111,4 +112,12 @@ function HomeDrinks() {
   );
 }
 
-export default connect(null, null)(HomeDrinks);
+const mapStateToProps = (state) => ({
+  drinksData: state.RecipesReducer.recipesData,
+});
+
+HomeDrinks.propTypes = {
+  drinksData: PropTypes.array,
+}.isRequired;
+
+export default connect(mapStateToProps, null)(HomeDrinks);
