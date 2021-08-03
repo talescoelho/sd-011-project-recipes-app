@@ -14,7 +14,7 @@ function CarouselRecipes({ data, recipeType }) {
   return (
     <div>
       <Carousel>
-        {data.map((recipe, index) => {
+        {data && data.map((recipe, index) => {
           if (index < SIX_CARDS && index % 2 === 0) {
             return (
               <CarouselItem key={ index }>
