@@ -6,7 +6,7 @@ afterEach(() => {
   });
 });
 
-describe.only('33 - Implemente os elementos da tela de detalhes de uma receita respeitando os atributos descritos no protótipo', () => {
+describe('33 - Implemente os elementos da tela de detalhes de uma receita respeitando os atributos descritos no protótipo', () => {
   it('A tela de comida possui todos os atributos data-testid', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {
@@ -215,7 +215,7 @@ describe('37 - Implemente os cards de recomendação, onde serão 6 cards, mas m
   });
 });
 
-describe('38 - Desenvolva um botão de nome "Iniciar Receita" que deve ficar fixo na parte de baixo da tela o tempo todo', () => {
+describe.only('38 - Desenvolva um botão de nome "Iniciar Receita" que deve ficar fixo na parte de baixo da tela o tempo todo', () => {
   it('Verifica posicionamento do botão na tela de detalhes de comida', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {

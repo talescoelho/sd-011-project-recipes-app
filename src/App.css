@@ -67,7 +67,12 @@
   }
 }
 
-[ data-testid = 'footer' ] {
+/* img{
+  max-height: 50px;
+  max-width: 50; */
+/* } */
+
+[ data-testid = ' footer' ] {
   background-color: grey;
   bottom: 0;
   display: flex;
@@ -76,3 +81,36 @@
   position: fixed;
   width: 50%;
 }
+
+[ data-testid= "start-recipe-btn" ] {
+  position: fixed;
+  bottom: 0;
+}
+
+.recommendedFoodContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: space-between;
+  width: 300px;
+  height: 200px;
+  margin: auto 50px;
+}
+
+.RecommendedContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content:space-between;
+  align-items: space-between;
+  width: fit-content;
+  text-align: center;
+  height: 200px;
+}
+
+.recommendedImage {
+  width: 400px;
+  height: 400px;
+  background-size: cover;
+}
+

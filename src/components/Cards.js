@@ -1,5 +1,6 @@
-import React, { useState, useEffect, Link } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { fetchMealsAPI, fetchCocktailsAPI } from '../Services/Data';
 
 function Cards(props) {
@@ -28,19 +29,19 @@ function Cards(props) {
       return (
         mealsAPI.filter((__, index) => index < maxListRender)
           .map((meal, indexMap) => (
-            <Link to={ `comidas/${meal.idMeal}` } key={ indexMap }>
-              <div
-                key={ indexMap }
-                data-testid={ `${indexMap}-recipe-card` }
-              >
+            <div
+              key={ indexMap }
+              data-testid={ `${indexMap}-recipe-card` }
+            >
+              <Link to={ `/comidas/${meal.idMeal}` }>
                 <h5 data-testid={ `${indexMap}-card-name` }>{meal.strMeal}</h5>
                 <img
                   src={ meal.strMealThumb }
                   alt={ meal.strMeal }
                   data-testid={ `${indexMap}-card-img` }
                 />
-              </div>
-            </Link>
+              </Link>
+            </div>
           ))
       );
     }
@@ -52,19 +53,19 @@ function Cards(props) {
       return (
         cocktailsAPI.filter((__, index) => index < maxListRender)
           .map((drink, indexMap) => (
-            <Link to={ `bebidas/${drink.idMeal}` } key={ indexMap }>
-              <div
-                key={ indexMap }
-                data-testid={ `${indexMap}-recipe-card` }
-              >
+            <div
+              key={ indexMap }
+              data-testid={ `${indexMap}-recipe-card` }
+            >
+              <Link to={ `/bebidas/${drink.idDrink}` }>
                 <h5 data-testid={ `${indexMap}-card-name` }>{drink.strDrink}</h5>
                 <img
                   src={ drink.strDrinkThumb }
                   alt={ drink.strDrink }
                   data-testid={ `${indexMap}-card-img` }
                 />
-              </div>
-            </Link>
+              </Link>
+            </div>
           ))
       );
     }
