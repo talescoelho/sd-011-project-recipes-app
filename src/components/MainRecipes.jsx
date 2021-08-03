@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function MainRecipes({ foodOrDrink }) {
   const [mainItems, setMainItems] = useState();
@@ -12,16 +14,22 @@ function MainRecipes({ foodOrDrink }) {
 
   function renderRecipes(item, index) {
     return (
-      <div data-testid={ `${index}-recipe-card` } key={ index }>
-        <img
-          src={ foodOrDrink === 'Comidas' ? item.strMealThumb : item.strDrinkThumb }
-          alt="food_image"
-          data-testid={ `${index}-card-img` }
-        />
-        <p data-testid={ `${index}-card-name` }>
-          {foodOrDrink === 'Comidas' ? item.strMeal : item.strDrink}
-        </p>
-      </div>
+      <Link
+        key={ index }
+        to={ foodOrDrink === 'Comidas' ? `/comidas/${item.idMeal}`
+          : `/bebidas/${item.idDrink}` }
+      >
+        <div data-testid={ `${index}-recipe-card` } key={ index }>
+          <img
+            src={ foodOrDrink === 'Comidas' ? item.strMealThumb : item.strDrinkThumb }
+            alt="food_image"
+            data-testid={ `${index}-card-img` }
+          />
+          <p data-testid={ `${index}-card-name` }>
+            {foodOrDrink === 'Comidas' ? item.strMeal : item.strDrink}
+          </p>
+        </div>
+      </Link>
     );
   }
 
@@ -114,3 +122,7 @@ function MainRecipes({ foodOrDrink }) {
 }
 
 export default MainRecipes;
+
+MainRecipes.propTypes = {
+  foodOrDrink: PropTypes.string.isRequired,
+};
