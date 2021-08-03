@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useRecipes } from '../../hooks';
 
 function RecipeList() {
   const { isLoading, error, recipes } = useRecipes();
   const magicalNumber = 12;
+
+  useEffect(() => {
+    if (!recipes) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+  }, [recipes]);
+
   if (isLoading) {
     return (
       <p>...carregando</p>
@@ -15,13 +22,15 @@ function RecipeList() {
       <p>deu errado filhao</p>
     );
   }
-  if (recipes.meals) {
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  }
+
   return (
     <ol>
-      {recipes.length === 1 && <Redirect to={ `/comidas/${recipes[0].idMeal}` } /> }
-      {recipes.slice(0, magicalNumber)
+      {recipes && recipes.length === 1 && <Redirect
+        to={
+          `/comidas/${recipes[0].idMeal}`
+        }
+      /> }
+      {recipes && recipes.slice(0, magicalNumber)
         .map((meals, index) => (
           <li data-testid={ `${index}-recipe-card` } key={ meals.idMeal }>
             <img

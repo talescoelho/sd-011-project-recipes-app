@@ -23,6 +23,7 @@ function CocktailsList() {
   }
 
   const magicalNumber = 12;
+
   return (
     <ol>
       {cocktails && cocktails.length === 1 && <Redirect

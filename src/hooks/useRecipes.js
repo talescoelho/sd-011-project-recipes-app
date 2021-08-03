@@ -51,6 +51,6 @@ export const fetchRecipes = ({ searchTerm, category }) => async (dispatch) => {
     const result = await response.json();
     dispatch(receiveRecipes(result.meals));
   } catch (error) {
-    dispatch(reportError(error));
+    dispatch(reportError(error.toString()));
   }
 };

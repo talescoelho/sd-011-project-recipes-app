@@ -12,6 +12,11 @@ function SearchForm({ type }) {
 
   const handleSubmitSearch = (event) => {
     event.preventDefault();
+    if (selectedCategory === 'primeira_letra' && searchTerm.length >= 2) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+      return;
+    }
+
     if (type === 'meals') {
       dispatch(fetchRecipes({ category: selectedCategory, searchTerm }));
     } else {
@@ -20,9 +25,6 @@ function SearchForm({ type }) {
   };
 
   const handleFirstLetter = () => {
-    if (selectedCategory === 'primeira_letra' && searchTerm.length >= 2) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
-    }
   };
 
   return (

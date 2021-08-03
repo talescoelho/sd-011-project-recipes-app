@@ -55,7 +55,7 @@ export const fetchCocktails = ({ searchTerm, category }) => async (dispatch) => 
     if (error instanceof SyntaxError) {
       dispatch(receiveCocktails(null));
     } else {
-      dispatch(reportError(error));
+      dispatch(reportError(error.toString()));
     }
   }
 };
