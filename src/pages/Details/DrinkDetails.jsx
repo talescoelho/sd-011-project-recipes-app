@@ -14,6 +14,10 @@ function DrinkDetails({ match }) {
   const [foodRecomendation, setRecomendation] = useState([]);
   const { id } = match.params;
   const mN = 6;
+
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  const isDone = doneRecipes && doneRecipes.some((item) => item.id === id);
+
   React.useEffect(() => {
     const fetchDrink = () => {
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
@@ -123,17 +127,19 @@ function DrinkDetails({ match }) {
           </div>
         ))}
       </div>
-      <Link
-        to={ `/bebidas/${id}/in-progress` }
-      >
-        <button
-          data-testid="start-recipe-btn"
-          type="button"
-          className={ styles.startRecipeBttn }
+      {!isDone && (
+        <Link
+          to={ `/bebidas/${id}/in-progress` }
         >
-          Iniciar Receita
-        </button>
-      </Link>
+          <button
+            data-testid="start-recipe-btn"
+            type="button"
+            className={ styles.startRecipeBttn }
+          >
+            Iniciar Receita
+          </button>
+        </Link>
+      )}
     </div>
   );
 }

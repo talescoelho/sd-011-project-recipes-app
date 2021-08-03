@@ -13,6 +13,10 @@ function FoodDetails({ match }) {
   const [copied, setCopied] = useState(false);
   const [drinkRecomendation, setRecomendation] = useState([]);
   const { id } = match.params;
+
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  const isDone = doneRecipes && doneRecipes.some((item) => item.id === id);
+
   const mN = 6;
   React.useEffect(() => {
     const fetchMeal = () => {
@@ -25,7 +29,7 @@ function FoodDetails({ match }) {
     };
     fetchMeal();
   }, [id]);
-  console.log(drinkRecomendation);
+
   if (Object.keys(meals).length === 0) {
     return (<h1>Carregando...</h1>);
   }
@@ -128,17 +132,20 @@ function FoodDetails({ match }) {
           </div>
         ))}
       </div>
-      <Link
-        to={ `/comidas/${id}/in-progress` }
-      >
-        <button
-          data-testid="start-recipe-btn"
-          type="button"
-          className={ styles.startRecipeBttn }
+      {!isDone && (
+        <Link
+          to={ `/comidas/${id}/in-progress` }
         >
-          Iniciar Receita
-        </button>
-      </Link>
+          <button
+            data-testid="start-recipe-btn"
+            type="button"
+            className={ styles.startRecipeBttn }
+          >
+            Iniciar Receita
+          </button>
+        </Link>
+      )}
+
     </div>
   );
 }
