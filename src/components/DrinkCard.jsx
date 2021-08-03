@@ -36,7 +36,7 @@ export default function DrinkCard() {
             </Card.Body>
             <Card.Footer>
               <Button
-                className="card-button"
+                className="card-button "
                 onClick={ () => history.push(`/bebidas/${idDrink}`) }
                 variant="primary"
               >

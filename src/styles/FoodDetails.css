@@ -1,0 +1,35 @@
+.imgreceita {
+  display: flex;
+  height: 20vh;
+  object-fit: cover;
+  width: 100%;
+}
+
+h1 {
+  font-size: 4vh;
+  text-align: left;
+}
+
+p {
+  font-size: 2vh;
+  text-align: justify;
+}
+
+.btnheader {
+  margin: 2%;
+  width: 45%;
+}
+
+.imgdrinks {
+  width: 100%;
+}
+
+.cardsdrinks {
+  display: flex;
+  flex-direction: row;
+}
+
+.card {
+  display: flex;
+  width: 40%;
+}
