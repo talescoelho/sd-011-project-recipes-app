@@ -7,9 +7,10 @@ import RecipesId from './pages/RecipesId';
 import Explorar from './pages/Explorar';
 import IngredienteBebida from './pages/IngredienteBebida';
 import IngredienteComida from './pages/IngredienteComida';
-import ExplorarComidas from './pages/ExplorarComidas'
-import ExplorarBebidas from './pages/ExplorarBebidas'
+import ExplorarComidas from './pages/ExplorarComidas';
+import ExplorarBebidas from './pages/ExplorarBebidas';
 import ReceitasFeitas from './pages/ReceitasFeitas';
+import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {

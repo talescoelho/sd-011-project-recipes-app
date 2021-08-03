@@ -1,43 +1,40 @@
-import React, {useState} from "react";
+import PropTypes from 'prop-types';
+import React from 'react';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import randomFetch from '../service/apiRandomRecipe';
 
-function Explore({ localOrigin,mealOrDrink }) {
+function Explore({ localOrigin, mealOrDrink }) {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [data,setData] = useState()
-  const { dataApi } = useSelector(({randomRecipe}) =>randomRecipe );
-  
+  const { dataApi } = useSelector(({ randomRecipe }) => randomRecipe);
+
   React.useEffect(() => {
     async function fetchDidMount() {
       const trar = mealOrDrink;
-      dispatch(await randomFetch(trar));     
+      dispatch(await randomFetch(trar));
     }
     fetchDidMount();
-    
-  }, [dispatch,mealOrDrink]);
- 
-  const checker =(dataApi)=>{
-   if (mealOrDrink === 'comidas'){
-  return dataApi.meals && dataApi.meals.map((e)=>
-     e.idMeal)}
-     else{
-       return dataApi.drinks && dataApi.drinks.map((e)=>
-       e.idDrink)}
-     }
-  
+  }, [dispatch, mealOrDrink]);
 
- let random = checker(dataApi)
- console.log(random)
+  const checker = () => {
+    if (mealOrDrink === 'comidas') {
+      return dataApi.meals && dataApi.meals.map((e) => e.idMeal);
+    }
+
+    return dataApi.drinks && dataApi.drinks.map((e) => e.idDrink);
+  };
+
+  const random = checker();
+  console.log(random);
   return (
     <div>
       <button
         type="button"
         data-testid="explore-by-ingredient"
-        onClick={() => {
+        onClick={ () => {
           history.push(`/explorar/${mealOrDrink}/ingredientes`);
-        }}
+        } }
       >
         Por Ingredientes
       </button>
@@ -45,9 +42,9 @@ function Explore({ localOrigin,mealOrDrink }) {
         <button
           type="button"
           data-testid="explore-by-area"
-          onClick={() => {
+          onClick={ () => {
             history.push(`/explorar/${mealOrDrink}/area`);
-          }}
+          } }
         >
           Por Local de Origem
         </button>
@@ -56,14 +53,19 @@ function Explore({ localOrigin,mealOrDrink }) {
       <button
         type="button"
         data-testid="explore-surprise"
-        onClick={() => {
+        onClick={ () => {
           history.push(`/${mealOrDrink}/${random}`);
-        }}
+        } }
       >
         Me Surpreenda!
       </button>
     </div>
   );
 }
+
+Explore.propTypes = {
+  localOrigin: PropTypes.bool.isRequired,
+  mealOrDrink: PropTypes.string.isRequired,
+};
 
 export default Explore;
