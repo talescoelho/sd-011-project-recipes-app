@@ -8,7 +8,7 @@ import TelaPrincipal from './pages/TelaPrincipal';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 import Explorar from './pages/Explorar';
-import FavoriteFoods from './pages/FavoriteFood';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function App() {
   return (
@@ -39,7 +39,7 @@ function App() {
           <Route exact path="/perfil" component={ Profile } />
           { /* não tem footer \/ */ }
           <Route exact path="/receitas-feitas" component={ NotFound } />
-          <Route exact path="/receitas-favoritas" component={ FavoriteFoods } />
+          <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
           { /* não tem footer /\ */ }
         </Switch>
       </BrowserRouter>

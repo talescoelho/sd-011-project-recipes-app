@@ -1,6 +1,6 @@
 import React from 'react';
 
-function FavoriteFoods() {
+function FavoriteRecipes() {
   return (
     <h3>
       comidas favoritas
@@ -8,4 +8,4 @@ function FavoriteFoods() {
   );
 }
 
-export default FavoriteFoods;
+export default FavoriteRecipes;
