@@ -18,7 +18,7 @@ export default function ExploreMealsByIngredients() {
   return (
     <div>
       <Header title="Explorar Ingredientes" renderButton />
-      { ingredients ? JSON.stringify(ingredients) : 'Loading...' }
+      { ingredients.length ? JSON.stringify(ingredients) : 'Loading...' }
       <LowerMenu />
     </div>
   );
