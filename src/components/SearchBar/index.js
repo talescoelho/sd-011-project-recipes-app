@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useLocation } from 'react-router';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';

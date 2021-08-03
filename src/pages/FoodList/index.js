@@ -3,8 +3,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import FooterMenu from '../../components/FooterMenu';
 import Header from '../../components/Header';
+import RenderFoods from './RenderFoods';
 
-const FoodList = ({ receiveData, fetched }) => {
+const FoodList = ({ receiveData }) => {
   document.title = 'Comidas';
   if (receiveData.meals === null) {
     // eslint-disable-next-line no-alert
@@ -13,7 +14,7 @@ const FoodList = ({ receiveData, fetched }) => {
   return (
     <div>
       <Header />
-      { fetched && receiveData.meals !== null ? receiveData.meals
+      { receiveData.length < 1 || !receiveData.meals ? <RenderFoods /> : receiveData.meals
         .map((meal, index) => (
           <div key={ index }>
             <h2 data-testid={ `${index}-card-name` }>{ meal.strMeal }</h2>
@@ -24,28 +25,20 @@ const FoodList = ({ receiveData, fetched }) => {
             />
             <h3 data-testid={ `${index}-recipe-card` }>{ meal.strInstructions }</h3>
           </div>
-        )) : <p>Pesquise por uma comida.</p> }
+        )) }
       <FooterMenu />
     </div>
   );
 };
 
 FoodList.propTypes = {
-  fetched: PropTypes.string.isRequired,
-  receiveData: PropTypes.shape({
-    meals: PropTypes.arrayOf(PropTypes.object).isRequired,
+  receiveData: PropTypes.arrayOf({
+    meals: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   receiveData: state.searchBarReducer.receiveData,
-  fetched: state.searchBarReducer.fetched,
 });
 
 export default connect(mapStateToProps)(FoodList);
-
-FoodList.propTypes = {
-  receiveData: PropTypes.func.isRequired,
-  fetched: PropTypes.bool.isRequired,
-  meals: PropTypes.objectOf(PropTypes.string).isRequired,
-};
