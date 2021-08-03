@@ -13,6 +13,9 @@ function Login() {
   function handleBtn() {
     if (patterns.email.test(email) && patterns.password.test(password)) {
       setIsDisabled(false);
+      localStorage.setItem('mealsToken', '1');
+      localStorage.setItem('cocktailsToken', '1');
+      localStorage.setItem('user', email);
     }
   }
 

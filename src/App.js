@@ -1,14 +1,15 @@
 import React from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import Login from './pages/Login';
+import Comidas from './pages/Comidas';
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" component={ Login } />
-        {/* <Route path="/comidas" component={} />
-        <Route path="/comidas:id-" component={} />
+        <Route path="/comidas" component={ Comidas } />
+        {/* <Route path="/comidas:id-" component={} />
         <Route path="/bebidas" component={} />
         <Route path="/bebidas:id" component={} />
         <Route path="/explorar" component={} />
