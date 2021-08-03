@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
+
+import { useHistory } from 'react-router-dom';
 import credentialsVerify from '../Helpers/credentialsVerify';
 import submitLocalStorage from '../Helpers/submitLocalStorage';
 
 function Login() {
+  const history = useHistory();
+  function HandlerLogin() {
+    history.push('/comidas');
+  }
   const [user, setUser] = useState({ email: '', password: '' });
   const [disabled, setDisabled] = useState(true);
 
@@ -42,18 +48,18 @@ function Login() {
             placeholder="Senha"
           />
         </label>
-        <Link
+        {/* <Link
           to="/comidas"
+        > */}
+        <button
+          disabled={ disabled }
+          type="button"
+          data-testid="login-submit-btn"
+          onClick={ () => { submitLocalStorage(user.email); HandlerLogin(); } }
         >
-          <button
-            disabled={ disabled }
-            type="button"
-            data-testid="login-submit-btn"
-            onClick={ () => submitLocalStorage(user.email) }
-          >
-            Entrar
-          </button>
-        </Link>
+          Entrar
+        </button>
+        {/* </Link> */}
       </section>
     </div>
   );
