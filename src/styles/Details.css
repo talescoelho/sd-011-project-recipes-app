@@ -23,6 +23,7 @@ img {
 }
 
 .slider {
+  -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: row;
   margin-bottom: 60px;
@@ -31,7 +32,6 @@ img {
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   text-align: center;
-  -webkit-overflow-scrolling: touch;
   width: 360px;
 }
 
