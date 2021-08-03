@@ -1,15 +1,12 @@
 import React from 'react';
-import MealsCards from '../components/MealsCards';
+import Header from '../components/Header';
+import RecipeList from '../components/RecipeList';
 
 function FavoriteRecipes() {
-  const receitasFavoritas = JSON.parse(localStorage.getItem('favorites'));
-  console.log(receitasFavoritas);
   return (
     <div>
-      <h3>
-        comidas favoritas
-      </h3>
-      <MealsCards meals={ receitasFavoritas } />
+      <Header title="Receitas Favoritas" showButton={ false } />
+      <RecipeList />
     </div>
   );
 }
