@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import RecipeAppContext from '../context/RecipeAppContext';
-import '../css/footer.css';
+import '../css/Footer.css';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
@@ -10,7 +10,7 @@ function Footer() {
   const { setFoodList, setDrinksList } = useContext(RecipeAppContext);
   return (
     <footer data-testid="footer" className="footer">
-      <p>Menu inferior</p>
+      {/* <p>Menu inferior</p> */}
 
       <Link to="/bebidas" onClick={ () => setFoodList('') }>
         <img

@@ -1,13 +1,25 @@
 .header-container {
-  background-color: aquamarine;
+  background-color: rgb(75, 66, 66);
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   align-self: flex-start;
   top: 0;
   width: 100%;
+  color: white;
 }
 
 .search-container {
-  background-color: aquamarine;
+  background-color: rgb(75, 66, 66);
+  color: white;
 }
+
+.header-buttons-container {
+  display: flex;
+}
+
+
+
+
+

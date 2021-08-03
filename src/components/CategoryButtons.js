@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import getCategories from '../services/categoriesAPI';
 import getCategory from '../services/categoryAPI';
 import RecipeAppContext from '../context/RecipeAppContext';
+import '../css/Header.css';
 
 function CategoryButtons({ foods, drinks }) {
   const { setFoodCategory,
@@ -54,6 +55,7 @@ function CategoryButtons({ foods, drinks }) {
             type="button"
             key={ index }
             name={ category.strCategory }
+            className="header-button-item"
             data-testid={ `${category.strCategory}-category-filter` }
             onClick={ (e) => filterCategory(e) }
           >
@@ -67,10 +69,11 @@ function CategoryButtons({ foods, drinks }) {
   };
 
   return (
-    <div>
+    <div className="header-buttons-container">
       <button
         type="button"
         onClick={ () => setToggleOn(false) }
+        className="header-button-item"
       >
         All
       </button>
