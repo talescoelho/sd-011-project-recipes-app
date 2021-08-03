@@ -1,11 +1,32 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchDrinks, fetchMeals } from '../actions';
 import Footer from '../components/Footer';
 import RecipeCard from '../components/RecipeCard';
+import Loading from '../components/Loading';
 
-const recipesQuantity = 12;
+// const recipesQuantity = 12;
 
-function Recipes() {
-  const recipes = new Array(recipesQuantity).fill('temp');
+function Recipes({
+  history: { location: { pathname } },
+  dispatchFetchMeals, dispatchFetchDrinks,
+  meals, mealsLoading, mealsError,
+  drinks, drinksLoading, drinksError,
+}) {
+  const [recipes, setRecipes] = React.useState([]);
+
+  React.useEffect(() => {
+    if (pathname === '/comidas') dispatchFetchMeals();
+
+    if (pathname === '/bebidas') dispatchFetchDrinks();
+  }, [pathname, dispatchFetchMeals, dispatchFetchDrinks]);
+
+  React.useEffect(() => {
+    if (pathname === '/comidas') setRecipes(meals);
+    if (pathname === '/bebidas') setRecipes(drinks);
+    if (mealsError || drinksError) setRecipes([]);
+  }, [pathname, meals, mealsError, drinks, drinksError]);
 
   return (
     <>
@@ -15,8 +36,12 @@ function Recipes() {
         <button type="button" data-testid="search-top-btn">Search</button>
       </header>
       <main data-testid="recipes-page">
+        { pathname === '/comidas' && mealsError }
+        { pathname === '/bebidas' && drinksError }
         {
-          recipes.map((_, index) => <RecipeCard key={ index } index={ index } />)
+          mealsLoading || drinksLoading
+            ? <Loading />
+            : recipes.map((_, index) => <RecipeCard key={ index } index={ index } />)
         }
       </main>
       <Footer />
@@ -24,4 +49,30 @@ function Recipes() {
   );
 }
 
-export default Recipes;
+const mapStateToProps = ({ mealsReducer, drinksReducer }) => ({
+  meals: mealsReducer.meals,
+  mealsLoading: mealsReducer.loading,
+  mealsError: mealsReducer.error,
+  drinks: drinksReducer.drinks,
+  drinksLoading: drinksReducer.loading,
+  drinksError: drinksReducer.error,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchFetchMeals: () => dispatch(fetchMeals()),
+  dispatchFetchDrinks: () => dispatch(fetchDrinks()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Recipes);
+
+Recipes.propTypes = {
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
+  }),
+  meals: PropTypes.arrayOf(PropTypes.object),
+  drinks: PropTypes.arrayOf(PropTypes.object),
+  dispatchFetchMeals: PropTypes.func,
+  dispatchFetchDrinks: PropTypes.func,
+}.isRequired;
