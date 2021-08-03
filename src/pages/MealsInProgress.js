@@ -28,8 +28,11 @@ function MealsInProgress({ fetchDetails, recipeDetailsData, match }) {
         <ShareBtn url={ (match.url).replace('/in-progress', '') } />
         <FavBtn data={ data } recipeType="meals" />
         <span data-testid="recipe-category">{ strCategory }</span>
-        <IngredientsCheckList recipeType="meals" id={ id } />
-        <p data-testid="instructions">{strInstructions}</p>
+        <IngredientsCheckList
+          recipeType="meals"
+          id={ id }
+          strInstructions={ strInstructions }
+        />
       </div>
     );
   }

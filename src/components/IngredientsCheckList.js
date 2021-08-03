@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-export default function IngredientsCheckList({ recipeType, id }) {
+export default function IngredientsCheckList({ recipeType, id, strInstructions }) {
   const [render, setrender] = useState(false);
 
   const setCheckLocalStorage = ({ target }) => {
@@ -28,11 +28,21 @@ export default function IngredientsCheckList({ recipeType, id }) {
     setrender(!render);
   };
 
+  const verifyAllCheck = () => {
+    let allCheck = true;
+    const ingredientsList = JSON.parse(localStorage.inProgressRecipes).meals[id];
+    ingredientsList.forEach((ingrediet) => {
+      if (ingrediet.check !== true) {
+        allCheck = false;
+      }
+    });
+    return allCheck;
+  };
+
   const list = JSON.parse(localStorage.inProgressRecipes)[recipeType][id];
 
   return (
-    <div>
-      {console.log(list)}
+    <>
       {list
         .map((ingredient, index) => (
           <label key={ index } htmlFor={ ingredient.name }>
@@ -47,7 +57,9 @@ export default function IngredientsCheckList({ recipeType, id }) {
             </span>
           </label>
         ))}
-    </div>
+      <p data-testid="instructions">{strInstructions}</p>
+      <button type="button" disabled={ !verifyAllCheck() }>Finalizar receita</button>
+    </>
   );
 }
 
