@@ -4,7 +4,7 @@ import getCategories from '../services/categoriesAPI';
 import getCategory from '../services/categoryAPI';
 import RecipeAppContext from '../context/RecipeAppContext';
 
-function CategoryButtons({ foods, drinks }) {
+function CategoryButtons({ foods, drinks, explore }) {
   const { setFoodCategory,
     setDrinkCategory,
     drinkCategoryList,
@@ -111,15 +111,19 @@ function CategoryButtons({ foods, drinks }) {
     return list;
   };
 
+  const renderAllButton = () => (
+    <button
+      type="button"
+      onClick={ () => setToggleOn(false) }
+      data-testid="All-category-filter"
+    >
+      All
+    </button>
+  );
+
   return (
     <div>
-      <button
-        type="button"
-        onClick={ () => setToggleOn(false) }
-        data-testid="All-category-filter"
-      >
-        All
-      </button>
+      {!explore && renderAllButton()}
       {drinks && drinkCategoryList && renderDrinkCategoryButton(drinkCategoryList)}
       {foods && foodCategoryList && renderFoodCategoryButton(foodCategoryList)}
     </div>
@@ -129,6 +133,7 @@ function CategoryButtons({ foods, drinks }) {
 CategoryButtons.propTypes = {
   foods: PropTypes.bool.isRequired,
   drinks: PropTypes.bool.isRequired,
+  explore: PropTypes.bool.isRequired,
 };
 
 export default CategoryButtons;
