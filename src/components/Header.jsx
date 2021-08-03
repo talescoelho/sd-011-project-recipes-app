@@ -1,42 +1,44 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-// import SearchBar from './SearchBar';
+import SearchBar from './SearchBar';
+import Categories from './Categories';
+import '../styles/Header.css';
 
 function Header() {
-  const [search, setSearch] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
+  const location = useLocation();
+
+  function openCloseSearchbar() {
+    setIsSearch(!isSearch);
+  }
+
   return (
-    <header>
-      <Link to="/perfil">
-        <img
-          src={ profileIcon }
-          alt="user"
-          data-testid="profile-top-btn"
-        />
-      </Link>
-      <h2 data-testid="page-title">
-        Comidas
-      </h2>
-      <button type="button" onClick={ () => setSearch((prevState) => !prevState) }>
-        <img
-          src={ searchIcon }
-          alt="search"
-          data-testid="search-top-btn"
-        />
-      </button>
-      {
-        search
-          ? (<input type="text" data-testid="search-input" />)
-          : ''
-      }
+    <header className="header-section-top">
+      <div className="header-section">
+        <Link to="/perfil">
+          <img
+            src={ profileIcon }
+            alt="user"
+            data-testid="profile-top-btn"
+          />
+        </Link>
+        { location.pathname === '/comidas'
+          ? <h2 data-testid="page-title">Comidas</h2>
+          : <h2 data-testid="page-title">Bebidas</h2> }
+        <button type="button" onClick={ () => openCloseSearchbar() }>
+          <img
+            src={ searchIcon }
+            alt="search"
+            data-testid="search-top-btn"
+          />
+        </button>
+      </div>
+      { isSearch && <SearchBar /> }
+      <Categories />
     </header>
   );
 }
-
-// Header.propTypes = {
-//   children: PropTypes.node,
-// }.isRequired;
 
 export default Header;
