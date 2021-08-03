@@ -23,11 +23,15 @@ export default function FoodCard() {
       return foodList.map((item, index) => {
         const { idMeal, strMeal, strMealThumb, strCategory, strTags } = item;
         return (
-          <Card key={ index }>
+          <Card key={ index } data-testid={ `${index}-recipe-card` }>
             <Card.Header>{strCategory}</Card.Header>
-            <Card.Img variant="top" src={ strMealThumb } />
+            <Card.Img
+              variant="top"
+              src={ strMealThumb }
+              data-testid={ `${index}-card-img` }
+            />
             <Card.Body>
-              <Card.Title>{strMeal}</Card.Title>
+              <Card.Title data-testid={ `${index}-card-name` }>{strMeal}</Card.Title>
               <Card.Text>{strTags}</Card.Text>
             </Card.Body>
             <Card.Footer>

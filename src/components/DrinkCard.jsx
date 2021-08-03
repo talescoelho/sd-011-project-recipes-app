@@ -23,11 +23,15 @@ export default function DrinkCard() {
       return drinkList.map((item, index) => {
         const { idDrink, strDrink, strDrinkThumb, strAlcoholic, strCategory } = item;
         return (
-          <Card key={ index }>
+          <Card key={ index } data-testid={ `${index}-recipe-card` }>
             <Card.Header>{strCategory}</Card.Header>
-            <Card.Img variant="top" src={ strDrinkThumb } />
+            <Card.Img
+              variant="top"
+              src={ strDrinkThumb }
+              data-testid={ `${index}-card-img` }
+            />
             <Card.Body>
-              <Card.Title>{strDrink}</Card.Title>
+              <Card.Title data-testid={ `${index}-card-name` }>{strDrink}</Card.Title>
               <Card.Text>{strAlcoholic}</Card.Text>
             </Card.Body>
             <Card.Footer>
