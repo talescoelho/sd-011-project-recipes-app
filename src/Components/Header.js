@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { bool, string } from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import MyContext from '../Context/MyContext';
@@ -10,6 +10,7 @@ export default function Header({ title, searchIconAppears = false }) {
   const { setRecipe } = useContext(MyContext);
   const [searchResult, setSearchResult] = useState('');
   const [selectedSearch, setSelectedSearch] = useState('');
+  const history = useHistory();
 
   const [searchInput, setSearchInput] = useState(false);
 
@@ -22,14 +23,17 @@ export default function Header({ title, searchIconAppears = false }) {
   }
 
   const getRecipe = () => {
+    const { pathname } = history.location;
+    const site = pathname === '/comidas' ? 'meal' : 'cocktail';
+
     switch (selectedSearch) {
     case 'ingredient':
-      return fetchIngredient(searchResult);
+      return fetchIngredient(site, searchResult);
     case 'name':
-      return fetchName(searchResult);
+      return fetchName(site, searchResult);
     case 'firstLetter':
       if (searchResult.length === 1) {
-        return fetchFirstLetter(searchResult);
+        return fetchFirstLetter(site, searchResult);
       }
       alert('Sua busca deve conter somente 1 (um) caracter');
       break;
