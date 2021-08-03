@@ -24,6 +24,7 @@ function DrinkCard(props) {
   function goToRecipeDetails({ target }) {
     const { history } = props;
     const { id } = target;
+    console.log(drinkArray);
     history.push(`/bebidas/${id}`);
   }
 

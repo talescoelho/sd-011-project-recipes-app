@@ -65,3 +65,33 @@ export async function fetchDrinksByCategoryFromCocktailsDB(category) {
     console.log(error);
   }
 }
+
+export async function fetchMealDetailsFromMealsDB(mealsId) {
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealsId}`);
+  const rawResults = await response.json();
+  const results = rawResults.meals;
+  return results;
+}
+
+export async function fetchRecommendedBeveragesFromCocktailsDB() {
+  const numberOfRecomendations = 6;
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  const rawResults = await response.json();
+  const results = rawResults.drinks;
+  return (results.slice(0, numberOfRecomendations));
+}
+
+export async function fetchDrinkDetailsFromCocktailsDB(drinksId) {
+  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinksId}`);
+  const rawResults = await response.json();
+  const results = rawResults.drinks;
+  return results;
+}
+
+export async function fetchRecommendedMealsFromMealsDB() {
+  const numberOfRecomendations = 6;
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  const rawResults = await response.json();
+  const results = rawResults.meals;
+  return (results.slice(0, numberOfRecomendations));
+}
