@@ -1,10 +1,5 @@
-body, html, #root {
+body, html {
   height: 100vh;
-}
-
-#root {
-  display: flex;
-  flex-direction: column;
 }
 
 main {
@@ -12,6 +7,6 @@ main {
 }
 
 footer {
-  position: fixed;
   bottom: 0px;
+  position: fixed;  
 }
