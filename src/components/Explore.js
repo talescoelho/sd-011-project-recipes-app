@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import randomFetch from '../service/apiRandomRecipe';
 
 function Explore({ localOrigin, mealOrDrink }) {
@@ -54,7 +53,6 @@ function Explore({ localOrigin, mealOrDrink }) {
         data-testid="explore-surprise"
         onClick={ () => {
           history.push(`/${mealOrDrink}/${random}`);
-
         } }
       >
         Me Surpreenda!
