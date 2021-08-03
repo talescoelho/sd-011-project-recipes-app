@@ -9,15 +9,16 @@ import FiltersCategories from '../components/FiltersCategories';
 import '../styles/recipesCard.css';
 
 function Drinks() {
-  const { setDrinks, setLoading,
-    dataFilter, drinks, compare, setCompare, loading } = useContext(RecipesContext);
+  const { setDrinks, setLoading, dataFilter,
+    drinks, compare, setCompare, loading, drinksByItem } = useContext(RecipesContext);
+
+  const MAX = 12;
 
   useEffect(() => {
     const fetchDrink = async () => {
       setLoading(true);
       const response = await fetchDrinks();
-      const MAX = 12;
-      const results = response.slice(0, MAX);
+      const results = response;
       setLoading(false);
       setDrinks(results);
     };
@@ -26,13 +27,16 @@ function Drinks() {
 
   useEffect(() => {
     const renderItens = () => {
+      if (drinksByItem.length > 1) {
+        return setCompare(drinksByItem);
+      }
       if (dataFilter.length === 0) {
         return setCompare(drinks);
       }
       return setCompare(dataFilter);
     };
     renderItens();
-  }, [setCompare, compare, drinks, dataFilter]);
+  }, [setCompare, drinks, dataFilter, drinksByItem]);
 
   const fnAlert = (func, message) => {
     func(message);
@@ -53,7 +57,7 @@ function Drinks() {
       <FiltersCategories />
       <section className="recipes-container">
         {loading ? <ReactBootStrap.Spinner animation="border" />
-          : compare.map((drink, index) => (
+          : compare.slice(0, MAX).map((drink, index) => (
             <div
               className="recipe-card"
               data-testid={ `${index}-recipe-card` }
