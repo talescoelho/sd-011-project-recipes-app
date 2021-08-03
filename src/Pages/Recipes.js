@@ -60,7 +60,7 @@ export default function Recipes() {
       );
     }
   };
-      
+
   const { pathname } = useHistory().location;
   const [title, setTitle] = useState('');
 

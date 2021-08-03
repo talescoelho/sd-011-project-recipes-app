@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import './App.css';
 import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -25,24 +25,15 @@ function App() {
     <div className="meals">
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/comidas/:id/in-progress" component={ MealInProgress } />
-        <Route
-          path="/comidas/:id"
-          render={ (props) => <ReceitaDeComida { ...props } /> }
-        />
-        <Route path="/comidas" component={ Recipes } />
-        <Route
-          path="/bebidas/:id/in-progress"
-          component={ DrinkInProgress }
-        />
-        <Route
-          path="/bebidas/:id"
-          render={ (props) => <ReceitaDeBebida { ...props } /> }
-        />
-        <Route path="/bebidas" component={ Bebidas } />
-        <Route path="/explorar" component={ Explore } />
-        <Route path="/explorar/comidas" component={ ExploreMeals } />
-        <Route path="/explorar/bebidas" component={ ExploreDrinks } />
+        <Route exact path="/comidas" component={ Recipes } />
+        <Route exact path="/bebidas" component={ Recipes } />
+        <Route exact path="/comidas/:id/in-progress" component={ MealInProgress } />
+        <Route exact path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
+        <Route exact path="/comidas/:id" component={ ReceitaDeComida } />
+        <Route exact path="/bebidas/:id" component={ ReceitaDeBebida } />
+        <Route exact path="/explorar" component={ Explore } />
+        <Route exact path="/explorar/comidas" component={ ExploreMeals } />
+        <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
         <Route
           exact
           path="/explorar/comidas/ingredientes"
@@ -56,7 +47,7 @@ function App() {
         <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
         <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
-        <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
+        <Route exact path="/explorar/comidas/area" component={ ExploreMealsByArea } />
       </Switch>
 
       <span className="logo">TRYBE</span>
@@ -67,6 +58,9 @@ function App() {
       >
         Glass
       </object>
+      <Link to="/receitas-feitas">
+        <button type="submit">Receitas Feitas</button>
+      </Link>
     </div>
   );
 }
