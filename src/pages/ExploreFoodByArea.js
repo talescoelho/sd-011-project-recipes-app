@@ -1,7 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import FooterMenu from '../components/FooterMenu';
 import useFetch from '../hooks/useFetch';
-import { Link } from 'react-router-dom';
 
 const ExploreFoodByArea = () => {
   const { data: filters, request: requestFilters } = useFetch();
@@ -32,7 +32,7 @@ const ExploreFoodByArea = () => {
         data-testid="explore-by-area-dropdown"
         onChange={ (e) => setFilter(e.target.value) }
       >
-        <option value="all">All</option>
+        <option data-testid="All-option" value="all">All</option>
         {filters.meals.map((value, index) => (
           <option
             data-testid={ `${value.strArea}-option` }
