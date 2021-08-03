@@ -16,6 +16,7 @@ function Foods() {
 
   // Busca por comidas ao renderizar a tela de comidas.
   useEffect(() => {
+    // lembrar de pôr uma condicional que verifica o dataFood.
     setRequestFoodParams({
       searchInput: '', searchMethod: '' });
   }, []);
