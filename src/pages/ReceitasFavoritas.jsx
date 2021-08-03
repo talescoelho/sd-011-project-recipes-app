@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import FavoriteRecipeCard from '../components/FavoriteRecipeCard';
+import Header from '../components/Header';
 
 function ReceitasFavoritas() {
   const [filter, setFilter] = useState('all');
@@ -10,6 +11,7 @@ function ReceitasFavoritas() {
   }, [force]);
   return (
     <div>
+      <Header title="Receitas Favoritas" />
       <button
         data-testid="filter-by-all-btn"
         type="button"
@@ -66,6 +68,7 @@ function ReceitasFavoritas() {
               text={ e.alcoholicOrNot }
               area={ e.area }
               index={ i }
+              forceUpdate={ () => setForce(!force) }
             />
           ))) : null}
     </div>

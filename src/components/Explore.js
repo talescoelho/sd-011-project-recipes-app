@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import randomFetch from '../service/apiRandomRecipe';
