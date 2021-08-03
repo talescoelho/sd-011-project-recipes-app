@@ -12,12 +12,14 @@ import searchIcon from '../images/searchIcon.svg';
 
 function Header({ title, search }) {
   const [showFilterInput, setShowFilter] = useState(false);
-  const [setInputTextSearch] = useState('');
+  const [inputTextSearch, setInputTextSearch] = useState('');
   const [radio, setRadio] = useState('');
+
+  const { filterFoodDrink } = UserHook();
 
   useEffect(() => {
     setShowFilter(true);
-    console.log(radio);
+    filterFoodDrink(radio);
   }, [radio]);
 
   function handleSubmitButton(e) {
@@ -54,6 +56,7 @@ function Header({ title, search }) {
             <input
               data-testid="search-input"
               type="text"
+              value={ inputTextSearch }
               onChange={ (e) => setInputTextSearch(e.target.value) }
             />
             <label htmlFor="ingredient">

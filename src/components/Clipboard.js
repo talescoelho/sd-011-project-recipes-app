@@ -15,7 +15,7 @@ function Clipboard() {
       >
         <img src={ Shareicon } alt="Share icon" width="15px" />
       </button>
-      { copied ? alert('Link copiado') : '' }
+      { copied ? (<p>Link copiado</p>) : '' }
     </div>
   );
 }
