@@ -11,6 +11,8 @@ export default function FoodCard({ type }) {
   const recipes = useSelector((state) => state.recipes);
   const { cards, formInfo, selectedCategory } = recipes;
 
+  const middle = type === 'meals' ? 'comidas' : 'bebidas';
+
   useEffect(() => {
     dispatch(getFood(formInfo, type));
   }, [formInfo, dispatch, type]);
@@ -39,7 +41,7 @@ export default function FoodCard({ type }) {
             <Card.Footer>
               <Button
                 className="card-button"
-                onClick={ () => history.push(`/comidas/${idMeal || idDrink}`) }
+                onClick={ () => history.push(`/${middle}/${idMeal || idDrink}`) }
                 variant="primary"
               >
                 Ver receita
