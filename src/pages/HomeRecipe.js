@@ -86,7 +86,7 @@ function HomeRecipe({ mealsData, isLoadingData }) {
       <Header title="Comidas" recipeType="meals" />
       <div>
         {' '}
-        {isLoading ? <p>loading...</p>
+        {isLoading || isLoadingData ? <p>loading...</p>
           : (mealsFilter.slice(0, magicNumberFive).map((itemButtons, index) => (
             <div key={ index }>
               <button

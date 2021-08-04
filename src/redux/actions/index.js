@@ -6,9 +6,13 @@ export const GET_DRINKS = 'GET_DRINKS';
 export const GET_LIST = 'GET_LIST';
 export const GET_CATEGORIES_MEALS = 'GET_CATEGORIES_MEALS';
 export const GET_CATEGORIES_DRINK = 'GET_CATEGORIES_DRINK';
+export const CLEAR_DATA = 'CLEAR_DATA';
 
 // ESTA ACTION ALTERA isLoading PARA true
 export const requestApiAction = () => ({ type: REQUEST_API });
+
+// ESTA ACTION ALTERA LIMPA O DATA MAS DEIXA UMA CHAVE PRE SETADA
+export const clearDataAction = (recipeType) => ({ type: CLEAR_DATA, recipeType });
 
 // ESTA ACTION ALTERA isLoading PARA false E SALVA O RETORNO DA API EM recipesData
 export const getRecipesAction = (data) => ({ type: GET_RECIPES_API, data });

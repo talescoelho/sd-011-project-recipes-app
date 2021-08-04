@@ -62,7 +62,7 @@ function HomeDrinks({ drinksData, isLoadingData }) {
   };
 
   const renderDrinks = () => (
-    isLoading ? <p>loading...</p>
+    isLoading || isLoadingData ? <p>loading...</p>
       : drinksData.drinks
       && drinksData.drinks.slice(0, MagicMikeDance).map((itemCard, index) => (
         <Link key={ index } to={ `/bebidas/${itemCard.idDrink}` }>

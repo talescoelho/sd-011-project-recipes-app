@@ -3,7 +3,7 @@ import { connect, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Footer from '../../components/footer/Footer';
 import Header from '../../components/Header';
-import { fetchRecipesAPIAction } from '../../redux/actions';
+import { fetchRecipesAPIAction, clearDataAction } from '../../redux/actions';
 
 function ExploreByIngredients() {
   // const urlFetch = `https://www.themealdb.com/api/json/v1/1/search.php?s=${}`;
@@ -13,6 +13,7 @@ function ExploreByIngredients() {
   const dispatch = useDispatch();
   const fetchMeals = (url,
     recipeType) => dispatch(fetchRecipesAPIAction(url, recipeType));
+  const clearData = (recipeType) => dispatch(clearDataAction(recipeType));
 
   const fetchIngredients = async () => {
     const url = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
@@ -22,6 +23,7 @@ function ExploreByIngredients() {
   };
 
   const redirectMeals = (ingrediente) => {
+    clearData('meals');
     fetchMeals(`https://www.themealdb.com/api/json/v1/1/search.php?s=${ingrediente}`, 'meals');
     setShowRedirect(true);
   };
