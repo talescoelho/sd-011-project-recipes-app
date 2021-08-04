@@ -8,8 +8,10 @@ class ReceitasFeitas extends Component {
     super();
     this.state = {
       itemsToRender: [],
+      itemsToRenderBD: [],
       shareButton: false,
     };
+    this.setItemsToRenderFiltered = this.setItemsToRenderFiltered.bind(this);
   }
 
   componentDidMount() {
@@ -20,6 +22,24 @@ class ReceitasFeitas extends Component {
     if (JSON.parse(localStorage.getItem('doneRecipes')) !== null) {
       this.setState({
         itemsToRender: JSON.parse(localStorage.getItem('doneRecipes')),
+        itemsToRenderBD: JSON.parse(localStorage.getItem('doneRecipes')),
+      });
+    }
+  }
+
+  setItemsToRenderFiltered(comidaOrBebida) {
+    const { itemsToRenderBD } = this.state;
+    if (comidaOrBebida === 'comida' || comidaOrBebida === 'bebida') {
+      const filterdPerType = itemsToRenderBD.filter(
+        (recipe) => recipe.type === comidaOrBebida,
+      );
+      this.setState({
+        itemsToRender: filterdPerType,
+      });
+    } else {
+      this.setState({
+        itemsToRender: JSON.parse(localStorage.getItem('doneRecipes')),
+        itemsToRenderBD: JSON.parse(localStorage.getItem('doneRecipes')),
       });
     }
   }
@@ -116,7 +136,7 @@ class ReceitasFeitas extends Component {
     return (
       <div>
         <Header title="Receitas Feitas" />
-        <FiltersDoneAndFavorites />
+        <FiltersDoneAndFavorites filterPerType={ this.setItemsToRenderFiltered } />
         { this.renderItems() }
       </div>
     );
