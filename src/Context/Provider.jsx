@@ -27,6 +27,9 @@ const Provider = ({ children }) => {
   const [DetailsDrinks, setDetailsDrinks] = useState([]);
   const [DetailsFoods, setDetailsFoods] = useState([]);
   const [limit] = useState([number]);
+  // * ====================================
+  const [DetailsIngredientsFiltered, setDetailsIngredientsFiltered] = useState([]);
+  const [DetailsMeasuresFiltered, setDetailsMeasuresFiltered] = useState([]);
 
   async function fetchFood() {
     if (radioBtn === 'ingredient') {
@@ -104,6 +107,10 @@ const Provider = ({ children }) => {
     setDetailsFoods,
     idFoodsAPI,
     setIdFoodsAPI,
+    DetailsIngredientsFiltered,
+    setDetailsIngredientsFiltered,
+    DetailsMeasuresFiltered,
+    setDetailsMeasuresFiltered,
   };
 
   return (
