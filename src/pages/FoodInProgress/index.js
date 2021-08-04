@@ -1,15 +1,22 @@
+import React from 'react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { fetchAPI, addIngredientMeal, deleteIngredientMeal } from '../../redux/actions';
 import RecipeInProgress from '../../components/recipeInProgress';
 
+const index = () => (
+  <div>
+    Sou página de comida em progresso.
+  </div>
+);
 function FoodInProgress() {
   const [food, setFood] = useState();
   const dispatch = useDispatch();
   const meal = useSelector((state) => state.inProgressReducer.recipeReceived);
   const ingredients = useSelector((state) => state.inProgressReducer.ingredientsMeal);
 
+export default index;
   const { pathname } = useLocation();
   const beginning = 9;
   const end = 12;
