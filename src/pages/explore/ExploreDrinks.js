@@ -10,7 +10,7 @@ export default function ExploreDrinks() {
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
     const response = await fetch(url);
     const data = await response.json();
-    setSurprise(`/comidas/${data.drinks[0].idDrink}`);
+    setSurprise(`/bebidas/${data.drinks[0].idDrink}`);
     setRedirect(true);
   };
   return (
