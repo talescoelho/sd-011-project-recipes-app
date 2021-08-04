@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setInput, getRecipes } from '../redux/slices/fetchReceitas';
 
-function RenderRecipes() {
+function RenderRecipes({ redirectedFromIngredients }) {
+  const dispatch = useDispatch();
   const [recipeType, setRecipeType] = useState({
     type: '',
     name: '',
@@ -10,6 +13,19 @@ function RenderRecipes() {
   });
   const { drinks, foods } = useSelector((state) => state.fetchReceitas);
   const [linkToGo, setLinkToGo] = useState('');
+
+  useEffect(() => {
+    console.log('redirected');
+    if (redirectedFromIngredients !== undefined) {
+      dispatch(setInput(redirectedFromIngredients));
+      const { pathname } = window.location;
+      const recipeURL = pathname.split('/')[1];
+      const action = recipeURL === 'comidas'
+        ? 'foodByIngredients'
+        : 'drinkByIngredients';
+      dispatch(getRecipes(action));
+    }
+  }, [redirectedFromIngredients, dispatch]);
 
   useEffect(() => {
     const { pathname } = window.location;
@@ -32,7 +48,7 @@ function RenderRecipes() {
         image: 'strDrinkThumb',
       });
     }
-  }, [drinks, foods]);
+  }, [drinks.drinks, foods.meals]);
 
   const { recipes, type, name, image, id } = recipeType;
   const limitRecipes = 12;
@@ -60,3 +76,7 @@ function RenderRecipes() {
 }
 
 export default RenderRecipes;
+
+RenderRecipes.propTypes = {
+  redirectedFromIngredients: PropTypes.string.isRequired,
+};

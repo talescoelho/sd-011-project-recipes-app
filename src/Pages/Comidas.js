@@ -7,7 +7,7 @@ import { getRecipes } from '../redux/slices/fetchReceitas';
 import Footer from '../components/Footer';
 import CategoryButtons from '../components/CategoryButtons';
 
-function Comidas({ title }) {
+function Comidas({ title, location: { recipeName } }) {
   const { foods } = useSelector((state) => state.fetchReceitas);
   const dispatch = useDispatch();
 
@@ -18,13 +18,14 @@ function Comidas({ title }) {
         : 'drinks';
       dispatch(getRecipes(URL));
     }
-  }, [foods]);
+  }, [foods, dispatch, title]);
 
   return (
     <div>
       <Header title={ title } />
       <CategoryButtons />
-      {Object.keys(foods).length > 0 && <RenderRecipes />}
+      {Object.keys(foods).length > 0
+        && <RenderRecipes redirectedFromIngredients={ recipeName } />}
       <Footer />
     </div>
   );
@@ -34,4 +35,7 @@ export default Comidas;
 
 Comidas.propTypes = {
   title: PropTypes.string.isRequired,
+  location: PropTypes.shape({
+    recipeName: PropTypes.string.isRequired,
+  }).isRequired,
 };

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getRecipes } from '../redux/slices/fetchReceitas';
 import './IngredientsDetails.css';
 
@@ -36,22 +37,26 @@ function IngredientsDetails() {
     return (
       <section className="ingredients-container">
         {recipeType.slice(0, limitCards).map((ingredient, index) => (
-          <div
-            data-testid={ `${index}-ingredient-card` }
+          <Link
             key={ index }
-            className="ingredient-card"
+            to={ { pathname: `/${currentURL}`, recipeName: ingredient[ingredientKey] } }
           >
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ `https://www.${imageURL}.com/images/ingredients/${ingredient[ingredientKey]}-Small.png` }
-              alt={ ingredient[ingredientKey] }
-            />
-            <p
-              data-testid={ `${index}-card-name` }
+            <div
+              data-testid={ `${index}-ingredient-card` }
+              className="ingredient-card"
             >
-              {ingredient[ingredientKey]}
-            </p>
-          </div>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ `https://www.${imageURL}.com/images/ingredients/${ingredient[ingredientKey]}-Small.png` }
+                alt={ ingredient[ingredientKey] }
+              />
+              <p
+                data-testid={ `${index}-card-name` }
+              >
+                {ingredient[ingredientKey]}
+              </p>
+            </div>
+          </Link>
         ))}
       </section>
     );

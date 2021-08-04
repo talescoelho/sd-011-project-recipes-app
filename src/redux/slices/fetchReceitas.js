@@ -8,8 +8,10 @@ const initialState = {
   drinksCategories: [],
   comidas: [],
   foodIngredients: [],
+  foodByIngredients: [],
   foodAreaList: [],
   drinkIngredients: [],
+  drinkByIngredients: [],
   randomFoodRecipe: '',
   randomDrinkRecipe: '',
   loading: false,
@@ -46,7 +48,6 @@ export const getRecipes = createAsyncThunk(
     };
     const response = await fetch(URLDictionary[actionName]).then((res) => res.json())
       .catch((error) => error);
-    console.log(response);
     return {
       response,
       actionName,
