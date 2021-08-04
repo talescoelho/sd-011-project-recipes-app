@@ -111,7 +111,7 @@ function Bebidas() {
   };
   return (
     <div>
-      <Header title="Bebidas" />
+      <Header title="Bebidas" search />
       {renderButtonsCocktails()}
       {renderCards()}
       <Footer />
