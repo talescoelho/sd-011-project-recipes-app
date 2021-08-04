@@ -12,7 +12,7 @@ function CarouselRecipes({ data, recipeType }) {
   const idType = recipeType === 'meals' ? 'idMeal' : 'idDrink';
   const titleType = recipeType === 'meals' ? 'strMeal' : 'strDrink';
   return (
-    <div>
+    <div style={ { marginBottom: '50px' } }>
       <Carousel>
         {data && data.map((recipe, index) => {
           if (index < SIX_CARDS && index % 2 === 0) {
