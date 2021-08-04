@@ -7,7 +7,8 @@ import Explorer from '../pages/Explorer';
 import Perfil from '../pages/Perfil';
 import Recipes from '../pages/Recipes';
 import FavoriteRecipes from '../pages/FavoriteRecipes';
-import RecipeDetails from '../pages/RecipeDetails';
+import RecipeDrinkDetails from '../pages/RecipeDrinkDetails';
+import RecipeMealDetails from '../pages/RecipeMealDetails';
 
 function Routes() {
   return (
@@ -15,9 +16,9 @@ function Routes() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Foods } />
-        <Route exact path="/comidas/:id" component={ RecipeDetails } />
+        <Route exact path="/comidas/:id" component={ RecipeMealDetails } />
         <Route exact path="/bebidas" component={ Drinks } />
-        <Route exact path="/bebidas/:id" component={ RecipeDetails } />
+        <Route exact path="/bebidas/:id" component={ RecipeDrinkDetails } />
         <Route path="/explorar" component={ Explorer } />
         <Route path="/perfil" component={ Perfil } />
         <Route path="/receitas-feitas" component={ Recipes } />
