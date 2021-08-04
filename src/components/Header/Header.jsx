@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   fetchIngredients,
   fetchByName,
+  fetchByFirstLetter,
 } from '../../redux/actions/IngredientsApiAction';
 
 import searchIcon from '../../images/searchIcon.svg';
@@ -30,7 +31,7 @@ const Header = ({ page, showSearchBtn, dispatch }) => {
       typeIngredient.length > 1
         // eslint-disable-next-line no-alert
         ? alert('Sua busca deve conter somente 1 (um) caracter')
-        : dispatch(fetchByName(typeIngredient));
+        : dispatch(fetchByFirstLetter(typeIngredient));
     }
   };
   return (
