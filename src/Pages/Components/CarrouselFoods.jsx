@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../../styles/carrousel.css';
 
 export default function CarrouselFoods() {
   const [foodsRecomendations, setFoodsRecomendations] = useState([]);
@@ -20,13 +21,16 @@ export default function CarrouselFoods() {
   }, []);
 
   return (
-    <section>
+    <>
       <h2>Recomendações de acompanhamentos</h2>
-      { foodsRecomendations.map(({ strMeal }, i) => (
-        <div data-testid={ `${i}-recomendation-card` } key={ `${strMeal} ${i}` }>
-          <h3 data-testid={ `${i}-recomendation-title` }>{strMeal}</h3>
-        </div>
-      ))}
-    </section>
+      <section className="scroll-recomendation">
+        { foodsRecomendations.map(({ strMeal, strMealThumb }, i) => (
+          <div data-testid={ `${i}-recomendation-card` } key={ `${strMeal} ${i}` }>
+            <h3 data-testid={ `${i}-recomendation-title` }>{strMeal}</h3>
+            <img className="img-recomendation" src={ strMealThumb } alt={ `Imagem de ${strMealThumb}` } />
+          </div>
+        ))}
+      </section>
+    </>
   );
 }
