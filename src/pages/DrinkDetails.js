@@ -9,6 +9,7 @@ import handleClickFavoriteRecipe from '../helpers/handleClickFavoriteRecipe';
 import handleClickClipboard from '../helpers/handleClickClipBoard';
 import RecomendationCard from '../components/RecomendationCard';
 import handleContinueButton from '../helpers/handleContinueButton';
+import '../styles/details.css';
 
 const FoodDetails = ({ match }) => {
   const { id } = match.params;

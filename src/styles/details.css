@@ -1,0 +1,23 @@
+.div-scroll {
+  display: flex;
+  height: 280px;
+  overflow-x: scroll;
+  width: 100%;
+}
+
+.top-img {
+  width: 100%;
+}
+
+.recomendation-card {
+  width: 180px;
+}
+
+.img-card {
+  width: 180px;
+}
+
+.start-btn {
+  bottom: 0;
+  position: fixed;
+}
