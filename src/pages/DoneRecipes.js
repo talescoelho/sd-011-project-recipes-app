@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import '../styles/doneRecipes.css';
 
 const DoneRecipes = () => {
+  document.title = 'Receitas Feitas';
   const [recipes, setRecipes] = React.useState([]);
   const [filteredRecipes, setFilteredRecipe] = React.useState([]);
   const [messageClipboard, setMessageClipboard] = React.useState(null);
@@ -41,6 +43,7 @@ const DoneRecipes = () => {
 
   return (
     <div>
+      <Header />
       <button
         type="button"
         value="all"
