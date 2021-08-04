@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useHistory } from 'react-router';
 import { connect } from 'react-redux';
-
 import {
   fetchSearchIngredients,
   fetchSearchName,
   fetchSearchFirstLetter } from '../redux/actions/searchBarActions';
 import Input from './Input';
-
 
 function HeaderSearchBar({ receiveData,
   searchByIngredients, searchByName, searchByFirstLetter }) {
