@@ -31,11 +31,15 @@ describe('Main Recipes Page', () => {
     it('should have 12 recipe cards on route "/comidas"', async () => {
       fetchMock.getOnce(`${baseMealDbUrl}/search.php?s=`, mealsMock);
 
-      renderWithRouterAndRedux(
+      const { store } = renderWithRouterAndRedux(
         <App />,
       );
 
       login();
+
+      console.log(store.getState());
+
+      await waitFor(() => fetchMock.called().toBe(true));
 
       for (let index = 0; index < initialRecipesQuantity; index += 1) {
         expect(screen.getByTestId(`${index}-recipe-card`)).toBeInTheDocument();
