@@ -1,11 +1,10 @@
 import React from 'react';
-import { CategoryFoodAPI } from '../../services/CategoryFoodAPI';
+import { CategoryFoodAPI, CategoryFoodFilter } from '../../services/CategoryFoodAPI';
 import Context from '../../Context_Configs/Context';
-import {CategoryFoodFilter} from '../../services/CategoryFoodAPI'
 
 export default function FoodCategory({ requestFoodCategories }) {
   const numberFour = 4;
-  const {setDataFoods, setRequestFoodParams, requestFoodParams, renderFoodCategory, setRenderFoodCategory} = React.useContext(Context);
+  const { setDataFoods, setRequestFoodParams, requestFoodParams, renderFoodCategory, setRenderFoodCategory } = React.useContext(Context);
   const [foodCategories, setFoodCategories] = React.useState();
 
   React.useEffect(() => {
@@ -28,7 +27,7 @@ export default function FoodCategory({ requestFoodCategories }) {
         foodCategories && foodCategories.filter((item, index) => index <= numberFour)
           .map((category, index) => (
             <button
-           //   onClick={ (e) => requestFoodCategories(e) }
+              //   onClick={ (e) => requestFoodCategories(e) }
               onClick={ (e) => requestFoodCategories(e) }
               type="button"
               key={ index }

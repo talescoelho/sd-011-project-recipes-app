@@ -9,29 +9,28 @@ import FooterBar from './Components/FooterBar';
 import { CategoryFoodAPI, CategoryFoodFilter } from '../services/CategoryFoodAPI';
 import FoodCategory from './Components/FoodCategory';
 import FoodsCards from './Components/FoodsCards';
-import FoodCategoryCards from './Components/FoodCategoryCards'
+import FoodCategoryCards from './Components/FoodCategoryCards';
 
 // import PropTypes from 'prop-types';
 
-function Foods() { 
+function Foods() {
   const history = useHistory();
-  const { dataFood, setRequestFoodParams , renderFoodCategory, setRenderFoodCategory, requestFoodParams} = useContext(Context);
+  const { dataFood, setRequestFoodParams, renderFoodCategory, setRenderFoodCategory, requestFoodParams } = useContext(Context);
   const [showSearch, setShowSearch] = useState(false);
   // const [foodCategories, setFoodCategories] = useState();
   const [foodFilter, setFoodFilter] = useState([]);
   const foods = 'foods';
   // Busca por comidas ao renderizar a tela de comidas.
 
-  useEffect(() => { 
-    if(requestFoodParams.searchInput === '' && requestFoodParams.searchMethod === ''){
-    setRequestFoodParams({
-      searchInput: '', searchMethod: '' });
-      console.log(requestFoodParams)
+  useEffect(() => {
+    if (requestFoodParams.searchInput === '' && requestFoodParams.searchMethod === '') {
+      setRequestFoodParams({
+        searchInput: '', searchMethod: '' });
+      console.log(requestFoodParams);
     } else {
       setRequestFoodParams({
-        searchInput:requestFoodParams.searchInput ,
-        searchMethod:requestFoodParams.searchMethod });
-
+        searchInput: requestFoodParams.searchInput,
+        searchMethod: requestFoodParams.searchMethod });
     }
   }, [renderFoodCategory]);
 
@@ -65,7 +64,7 @@ function Foods() {
       </div>
       <FoodCategory />
       {
-        !renderFoodCategory ? <FoodsCards /> : <FoodCategoryCards/>
+        !renderFoodCategory ? <FoodsCards /> : <FoodCategoryCards />
       }
       <FooterBar />
     </>

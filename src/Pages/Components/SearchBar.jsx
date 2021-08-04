@@ -59,7 +59,7 @@ function SearchBar({ value }) {
         <button
           type="button"
           data-testid="exec-search-btn"
-          onClick={ () => {(value === 'foods' ? setRequestFoodParams(searchParameters) : setRequestDrinksParams(searchParameters));  setRenderFoodCategory(false)} }
+          onClick={ () => { (value === 'foods' ? setRequestFoodParams(searchParameters) : setRequestDrinksParams(searchParameters)); setRenderFoodCategory(false); } }
         >
           Pesquisar
         </button>

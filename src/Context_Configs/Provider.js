@@ -10,7 +10,7 @@ const firstLetter = 'first-letter';
 const URL_FOOD_INGREDIENTS = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
 const URL_FOOD_NAME = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const URL_FOOD_FIRST_LETTER = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
-//const URL_FOOD_CATEGORY = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+// const URL_FOOD_CATEGORY = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 // ====================
 
 // endpoint de bebidas
@@ -26,7 +26,7 @@ function Provider({ children }) {
   const [dataDrinks, setDataDrinks] = useState([]);
   const [APIerror, setError] = useState(null);
   const [requestFoodParams, setRequestFoodParams] = useState({
-    searchInput: '', searchMethod: ''});
+    searchInput: '', searchMethod: '' });
   const [requestDrinksParams, setRequestDrinksParams] = useState({
     searchInput: '', searchMethod: '' });
 
@@ -48,22 +48,22 @@ function Provider({ children }) {
         }
         if (searchMethod === firstLetter) {
           response = await fetch(`${URL_FOOD_FIRST_LETTER}${searchInput}`);
-          console.log(49)
+          console.log(49);
         }
-        /*if (requestFoodParams.category === true ) {
+        /* if (requestFoodParams.category === true ) {
           setRequestFoodParams({
             ...requestFoodParams,
-            term: '', 
+            term: '',
             category: false,
           })
           response = await fetch(`${URL_FOOD_CATEGORY}${requestFoodParams.term}`);
            console.log(52)
-      }*/
-      if (searchMethod === '') {
-        response = await fetch(URL_FOOD_NAME);
-      }
-      const result = await response.json();
-      setDataFoods(twelveItems(result));
+      } */
+        if (searchMethod === '') {
+          response = await fetch(URL_FOOD_NAME);
+        }
+        const result = await response.json();
+        setDataFoods(twelveItems(result));
       } catch (error) {
         setError(error);
       }
@@ -109,8 +109,8 @@ function Provider({ children }) {
     dataDrinks,
     APIerror,
     requestFoodParams,
-    renderFoodCategory, 
-    setRenderFoodCategory
+    renderFoodCategory,
+    setRenderFoodCategory,
   };
 
   return (
