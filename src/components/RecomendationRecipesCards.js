@@ -9,6 +9,7 @@ function RecomendationRecipesCards({ identifier }) {
     id: '',
     image: '',
     title: '',
+    url: '',
   });
 
   useEffect(() => {
@@ -17,6 +18,7 @@ function RecomendationRecipesCards({ identifier }) {
         id: 'idMeal',
         image: 'strMealThumb',
         title: 'strMeal',
+        url: 'comidas',
       });
       fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
         .then((response) => response.json())
@@ -27,6 +29,7 @@ function RecomendationRecipesCards({ identifier }) {
         id: 'idDrink',
         image: 'strDrinkThumb',
         title: 'strDrink',
+        url: 'bebidas',
       });
       fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
         .then((response) => response.json())
@@ -39,14 +42,12 @@ function RecomendationRecipesCards({ identifier }) {
   const maxCardsOnPage = 6;
   const recomendationsLimited = recomendations[recipeIdentity].slice(0, maxCardsOnPage);
 
-  console.log(recomendationsLimited);
-
   return (
     <div className="recomendations">
       { recomendationsLimited.map((supply, index) => (
         <Link
           key={ index }
-          to={ `/bebidas/${supply[type.id]}` }
+          to={ `/${type.url}/${supply[type.id]}` }
         >
           <div
             data-testid={ `${index}-recomendation-card` }
