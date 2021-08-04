@@ -81,7 +81,6 @@ function Cards(props) {
                     data-testid={ `${indexMap}-card-img` }
                   />
                 </div>
-              <Link to={ `/bebidas/${drink.idDrink}` }>
                 <h5 data-testid={ `${indexMap}-card-name` }>{drink.strDrink}</h5>
                 <img
                   className="card-img"

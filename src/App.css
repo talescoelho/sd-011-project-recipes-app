@@ -63,35 +63,34 @@
   width: 50%;
 }
 
-[ data-testid= "start-recipe-btn" ] {
-  position: fixed;
+[ data-testid = 'start-recipe-btn' ] {
   bottom: 0;
+  position: fixed;
 }
 
 .recommendedFoodContainer {
+  align-items: space-between;
   display: flex;
   flex-direction: column;
-  justify-content: stretch;
-  align-items: space-between;
-  width: 300px;
   height: 200px;
+  justify-content: stretch;
   margin: auto 50px;
+  width: 300px;
 }
 
 .RecommendedContainer {
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  justify-content:space-between;
   align-items: space-between;
+  display: flex;
+  flex-flow: row wrap;
+  height: 200px;
+  justify-content: space-between;
   width: fit-content;
   text-align: center;
-  height: 200px;
 }
 
 .recommendedImage {
-  width: 400px;
   height: 400px;
+  width: 400px;
   background-size: cover;
 }
 
