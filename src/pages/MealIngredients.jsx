@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import { getFoodCard } from '../Redux/actions/index';
 import fetchIngredients from '../services/FoodIngredientAPI';
 
-export default function MealtIngredients() {
+export default function MealtIngredients(dispatch) {
   const [foodIngredients, setFoodIngredients] = useState([]);
   const numberTwelve = 12;
   const history = useHistory();
@@ -20,13 +20,16 @@ export default function MealtIngredients() {
     getIngredients();
   }, []);
 
-  const renderFilteredIngredients = async (ingredient, dispatch) => {
+  const renderFilteredIngredients = async (ingredient) => {
     const foodByIngredient = await fetchIngredients(ingredient);
-    console.log(foodByIngredient);
     const { meals } = foodByIngredient;
     console.log(meals);
-    dispatch(getFoodCard({ filtered: meals, untouched: meals }));
-    history.push('/comidas');
+    // try {
+    //   dispatch(getFoodCard({ filtered: meals, untouched: meals }));
+    // } catch (error) {
+    //   throw new Error(error);
+    // }
+    // history.push('/comidas');
   };
 
   const renderMealt = () => (
