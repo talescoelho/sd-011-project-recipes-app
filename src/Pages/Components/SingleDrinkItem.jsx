@@ -67,7 +67,8 @@ function SingleFoodItem() {
           { arrayOfIngredients.map((ingred, i) => (
             <tr key={ `${ingred}-${i}` }>
               <th data-testid={ `${i}-ingredient-name-and-measure` }>
-                {`${arrayOfIngredients[i]} - ${arrayOfMeasures[i]}`}
+                {`${arrayOfIngredients[i]} ${arrayOfMeasures[i]
+                  ? ` - ${arrayOfMeasures[i]}` : ''} `}
               </th>
             </tr>
           ))}
