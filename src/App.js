@@ -14,7 +14,7 @@ export default class App extends Component {
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Foods } />
         <Route exact path="/bebidas" component={ Drinks } />
-        <Route path="/comidas/{id-da-receita}" component={ FoodDetails } />
+        <Route path="/comidas/:id" render={ (props) => <FoodDetails { ...props } /> } />
         <Route path="/bebidas/{id-da-receita}" component={ DrinkDetails } />
         <Route path="/comidas/{id-da-receita}/in-progress" component={ FoodInProgress } />
         <Route
