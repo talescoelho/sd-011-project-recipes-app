@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import RecipesProvider from './context/RecipesProvider';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
+import Detalhes from './pages/Detalhes';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
 import ExplorarPorOrigem from './pages/ExplorarPorOrigem';
@@ -54,14 +55,14 @@ function App() {
               path="/explorar/comidas/area"
               component={ ExplorarPorOrigem }
             />
+            <Route exact path="/comidas/:id" component={ Detalhes } />
+            <Route exact path="/comidas/:id/in-progress" />
+            <Route exact path="/bebidas/:id" component={ Detalhes } />
+            <Route exact path="/bebidas/:id/in-progress" />
             <Route
               path="*"
               component={ NotFound }
             />
-            <Route path="/comidas/{id-da-receita}" />
-            <Route path="/comidas/{id-da-receita}/in-progress" />
-            <Route path="/bebidas/{id-da-receita}" />
-            <Route path="/bebidas/{id-da-receita}/in-progress" />
           </Switch>
         </RecipesProvider>
       </BrowserRouter>

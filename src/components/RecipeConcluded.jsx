@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import shareImage from '../images/shareIcon.svg';
 
 import '../styles/RecipeConcluded.css';
+import LinkCopy from './LinkCopy';
 
 function RecipeConcluded({ recipe, index }) {
-  const { id, type, area, category, alcoholicOrNot, tag, image, name, doneDate } = recipe;
+  const { id,
+    type,
+    area,
+    category,
+    alcoholicOrNot,
+    tags,
+    image,
+    name,
+    doneDate } = recipe;
 
   const history = useHistory();
 
@@ -18,22 +27,24 @@ function RecipeConcluded({ recipe, index }) {
     const DONE_RECIPES_LENGTH = -15;
     const url = window.location.href.slice(DONE_RECIPES_LENGTH);
     navigator.clipboard.writeText(url);
-    return alert('Link copiado');
+    return <LinkCopy />;
   };
 
   return (
-    <div
-      className="RecipeConcludedContainer"
-      aria-hidden="true"
-      onClick={ () => HandleRedirect(id) }
-    >
-      <img src={ image } alt="Recipe" data-testid={ `${index}-horizontal-image` } />
+    <div className="RecipeConcludedContainer">
+      <img
+        src={ image }
+        alt="Recipe"
+        data-testid={ `${index}-horizontal-image` }
+        onClick={ () => HandleRedirect(id) }
+        aria-hidden="true"
+      />
       <div className="RecipeInfoConcluded">
-        <span>
-          { type === 'comida' ? area : '' }
-        </span>
         <span data-testid={ `${index}-horizontal-top-text` }>
+          { type === 'comida' ? area : '' }
+          { ' - ' }
           { type === 'comida' ? category : alcoholicOrNot }
+
         </span>
         <p
           className="RecipesFoodName"
@@ -41,14 +52,27 @@ function RecipeConcluded({ recipe, index }) {
         >
           { name }
         </p>
-        <p data-testid={ `${index}-horizontal-done-date` }>
+        <p
+          data-testid={ `${index}-horizontal-done-date` }
+          className="doneDate"
+        >
           Feita em:
           { doneDate }
         </p>
-        <p data-testid={ `${index}-${'teste'}-horizontal-tag` }>
-          { type === 'comida' ? tag : '' }
-        </p>
+        <div className="tagContainer">
+          { type === 'comida' && tags.length > 0 ? (
+            tags.map((tagName, key) => (
+              <p
+                className="tagName"
+                key={ key }
+                data-testid={ `${index}-${tagName}-horizontal-tag` }
+              >
+                { tagName }
+              </p>))
+          ) : '' }
+        </div>
         <button
+          className="shareBTN"
           type="button"
           data-testid={ `${index}-horizontal-share-btn` }
           onClick={ () => handleShareBtn() }

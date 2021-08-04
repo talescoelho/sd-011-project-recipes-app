@@ -9,24 +9,26 @@ function DoneRecipes({ filterBy }) {
   localStorage.setItem('doneRecipes', JSON.stringify([]));
   const parsedLocalStorage = JSON.parse(localStorage.getItem('doneRecipes'));
   const obj2 = {
-    id: 9999,
+    id: '178319',
     type: 'bebida',
-    area: 'Brazil',
-    alcoholicOrNot: 'alcoholic',
-    name: 'Cachaça',
-    image: 'https://picsum.photos/160/140',
-    doneDate: new Date(),
-    tags: ['Barzinho', 'Boteco'],
+    area: '',
+    category: 'Cocktail',
+    alcoholicOrNot: 'Alcoholic',
+    name: 'Aquamarine',
+    image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+    doneDate: '23/06/2020',
+    tags: [],
   };
   const obj = {
-    id: 23123123,
+    id: '52771',
     type: 'comida',
-    area: 'Brazil',
-    category: 'categoria',
-    name: 'X TUDO',
-    image: 'https://picsum.photos/160/140',
-    doneDate: new Date(),
-    tags: ['Barzinho', 'lanches'],
+    area: 'Italian',
+    category: 'Vegetarian',
+    alcoholicOrNot: '',
+    name: 'Spicy Arrabiata Penne',
+    image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+    doneDate: '23/06/2020',
+    tags: ['Pasta', 'Curry'],
   };
   localStorage.setItem('doneRecipes', JSON.stringify([...parsedLocalStorage, obj]));
   const parsedLocalStorage2 = JSON.parse(localStorage.getItem('doneRecipes'));
