@@ -2,7 +2,27 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-export default function IngredientsCheckList({ recipeType, id, strInstructions }) {
+const currenteDate = () => {
+  const date = new Date();
+  return date.toLocaleString('pt-BR');
+};
+
+const mountObject = (data, recipeType) => {
+  const myObject = {
+    id: recipeType === 'meals' ? data.idMeal : data.idDrink,
+    type: recipeType === 'meals' ? 'comida' : 'bebida',
+    area: recipeType === 'meals' ? data.strArea : '',
+    category: data.strCategory,
+    alcoholicOrNot: recipeType === 'meals' ? '' : data.strAlcoholic,
+    name: recipeType === 'meals' ? data.strMeal : data.strDrink,
+    image: recipeType === 'meals' ? data.strMealThumb : data.strDrinkThumb,
+    doneDate: currenteDate(),
+    tags: data.strTags ? [data.strTags] : [],
+  };
+  return myObject;
+};
+
+export default function IngredientsCheckList({ recipeType, id, data }) {
   const [render, setrender] = useState(false);
 
   const setCheckLocalStorage = ({ target }) => {
@@ -40,9 +60,29 @@ export default function IngredientsCheckList({ recipeType, id, strInstructions }
     return allCheck;
   };
 
-  const list = JSON.parse(localStorage.inProgressRecipes)[recipeType][id];
+  const deleteFromInProgress = () => {
+    const inProgressRecipes = JSON.parse(localStorage.inProgressRecipes);
+    delete inProgressRecipes[recipeType][id];
+    localStorage.inProgressRecipes = JSON.stringify(inProgressRecipes);
+  };
 
-  // CRIAR UMA FUNÇAÃO QUE CASO NÃO EXISTA A COMIDA, SERÁ NECESSÁRIO CRIAR...
+  const addToDoneRecipes = () => {
+    const obj = mountObject(data, recipeType);
+    if (localStorage.doneRecipes) {
+      const doneRecipes = JSON.parse(localStorage.doneRecipes);
+      const newDoneRecipes = [...doneRecipes, obj];
+      localStorage.doneRecipes = JSON.stringify(newDoneRecipes);
+    } else {
+      localStorage.setItem('doneRecipes', JSON.stringify([obj]));
+    }
+  };
+
+  const handleFinishClick = () => {
+    deleteFromInProgress();
+    addToDoneRecipes();
+  };
+
+  const list = JSON.parse(localStorage.inProgressRecipes)[recipeType][id];
 
   return (
     <>
@@ -64,9 +104,10 @@ export default function IngredientsCheckList({ recipeType, id, strInstructions }
             </span>
           </label>
         ))}
-      <p data-testid="instructions">{strInstructions}</p>
+      <p data-testid="instructions">{data.strInstructions}</p>
       <Link to="/receitas-feitas">
         <button
+          onClick={ () => handleFinishClick() }
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ !verifyAllCheck() }

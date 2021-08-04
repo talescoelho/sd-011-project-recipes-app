@@ -49,7 +49,7 @@ function DrinksInProgress({ fetchDetails, recipeDetailsData, match }) {
   if (recipeDetailsData.drinks) {
     const { drinks } = recipeDetailsData;
     const data = drinks[0];
-    const { strDrink, strDrinkThumb, strCategory, strInstructions } = data;
+    const { strDrink, strDrinkThumb, strCategory } = data;
     checkToGenerateProgress('cocktails', id, data);
     return (
       <div>
@@ -61,7 +61,7 @@ function DrinksInProgress({ fetchDetails, recipeDetailsData, match }) {
         <IngredientsCheckList
           recipeType="cocktails"
           id={ id }
-          strInstructions={ strInstructions }
+          data={ data }
         />
       </div>
     );
