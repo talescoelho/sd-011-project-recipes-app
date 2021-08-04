@@ -1,40 +1,56 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import './styleRecipes.css';
 
 const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem }) => {
   const typeDoM = typeDrinkorMeal === 'comidas' ? 'meals' : 'cocktails';
 
-  // function addCheck(value) {
-  //   const info = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  //   localStorage.setItem('inProgressRecipes', JSON.stringify({
-  //     ...info,
-  //     [typeDoM]: {
-  //       [idItem]: [...info[typeDoM][idItem], value],
-  //     },
-  //   }));
-  // }
+  const [update, forceUpdate] = useState(false);
+  const [state, setState] = useState({});
 
-  // function removeCheck(value) {
-  //   const info = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  //   info[typeDoM][idItem].forEach((itemCheck) => {
-  //     if (itemCheck === value) {
-  //       localStorage.setItem('inProgressRecipes', JSON.stringify({
-  //         ...info,
-  //         [typeDoM]: {
-  //           [idItem]: [...info[typeDoM][idItem].filter((item) => item !== value)],
-  //         },
-  //       }));
-  //     }
-  //   });
-  // }
+  useEffect(() => {
+    const info = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (info === null) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...info,
+        [typeDoM]: {
+          [idItem]: [],
+        },
+      }));
+    } else setState(info);
+    setState(info);
+  }, [idItem, typeDoM, update]);
 
-  // function recipiesPorgress(target, value) {
-  //   if (target.checked) addCheck(value);
-  //   else removeCheck(value);
-  // }
+  function addCheck(value) {
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      ...state,
+      [typeDoM]: {
+        [idItem]: [...state[typeDoM][idItem], value],
+      },
+    }));
+  }
+
+  function removeCheck(value) {
+    state[typeDoM][idItem].forEach((itemCheck) => {
+      if (itemCheck === value) {
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          ...state,
+          [typeDoM]: {
+            [idItem]: [...state[typeDoM][idItem].filter((item) => item !== value)],
+          },
+        }));
+      }
+    });
+  }
+
+  function recipiesPorgress({ target }) {
+    const { id, checked } = target;
+    forceUpdate(!update);
+    if (checked) addCheck(Number(id));
+    else removeCheck(Number(id));
+  }
 
   function stateCheckd(value) {
-    const info = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    return info[typeDoM][idItem].includes(value);
+    return state[typeDoM][idItem].includes(value);
   }
 
   return (
@@ -43,12 +59,13 @@ const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem }) => {
         key={ index }
         htmlFor={ index }
         data-testid={ `${index}-ingredient-step` }
+        className="ingredient"
       >
         <input
           type="checkbox"
           id={ index }
-          checked={ () => stateCheckd(index) }
-        // onClick={ ({ target }) => recipiesPorgress({ target }, index) }
+          checked={ stateCheckd(index) }
+          onClick={ recipiesPorgress }
         />
         { item }
       </label>
