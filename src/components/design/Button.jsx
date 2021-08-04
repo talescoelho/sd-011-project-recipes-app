@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useTheme } from '../../hooks';
 
-export const Button = ({ children, variant = 'primary', isSubmit, ...props }) => {
+const Button = ({ children, variant = 'primary', isSubmit, ...props }) => {
   const { colors } = useTheme();
 
   const variantsColors = {
@@ -27,6 +27,8 @@ export const Button = ({ children, variant = 'primary', isSubmit, ...props }) =>
     </button>
   );
 };
+
+export default Button;
 
 Button.propTypes = {
   children: PropTypes.oneOfType([

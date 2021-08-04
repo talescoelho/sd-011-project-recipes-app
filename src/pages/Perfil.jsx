@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { Layout } from '../components';
-import { useTheme } from '../hooks';
+import { useTheme, useUser, updateEmail } from '../hooks';
 
 function Perfil() {
   const { colors } = useTheme();
+  const { email } = useUser();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!email) {
+      const storageUser = localStorage.getItem('user');
+      const parsedUser = JSON.parse(storageUser);
+      dispatch(updateEmail(parsedUser.email));
+    }
+  }, [dispatch, email]);
 
   const styles = {
     main: {
@@ -12,7 +22,6 @@ function Perfil() {
       color: colors.text400,
     },
   };
-  const emailUser = localStorage.getItem('user');
   const history = useHistory();
   const logout = () => {
     localStorage.clear();
@@ -23,7 +32,7 @@ function Perfil() {
     <Layout title="Perfil">
       <main style={ styles.main }>
         <h2 data-testid="page-title">Perfil</h2>
-        <span data-testid="profile-email">{ `Email${emailUser} `}</span>
+        <span data-testid="profile-email">{ `Email${email} `}</span>
         <button
           type="button"
           data-testid="profile-done-btn"

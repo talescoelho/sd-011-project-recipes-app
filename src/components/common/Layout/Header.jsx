@@ -6,7 +6,7 @@ import { SearchForm } from '../..';
 import ProfileIcon from '../../../images/profileIcon.svg';
 import SearchIcon from '../../../images/searchIcon.svg';
 
-function Header({ search }) {
+function Header({ search, title }) {
   const { colors } = useTheme();
 
   const [showInput, setShowInput] = useState(false);
