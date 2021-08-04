@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Footer from '../../globalComponents/Footer';
 import Header from '../../globalComponents/Header';
 import styles from './Foods.module.css';
@@ -81,7 +80,7 @@ function Foods({ match }) {
                 >
                   {item.strMeal}
                 </p>
-              </section>  
+              </section>
             </Link>
           ))}
       </div>

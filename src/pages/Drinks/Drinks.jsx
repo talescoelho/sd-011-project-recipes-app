@@ -72,18 +72,18 @@ function Drinks({ match }) {
                 data-testid={ `${index}-recipe-card` }
                 className={ styles.cardDiv }
               >
-                  <img
-                    src={ item.strDrinkThumb }
-                    alt="thumbnail"
-                    data-testid={ `${index}-card-img` }
-                    className={ styles.cardImg }
-                  />
-                  <p
-                    data-testid={ `${index}-card-name` }
-                  >
-                    {item.strDrink}
-                  </p>
-               </section>
+                <img
+                  src={ item.strDrinkThumb }
+                  alt="thumbnail"
+                  data-testid={ `${index}-card-img` }
+                  className={ styles.cardImg }
+                />
+                <p
+                  data-testid={ `${index}-card-name` }
+                >
+                  {item.strDrink}
+                </p>
+              </section>
             </Link>
           ))}
       </div>
