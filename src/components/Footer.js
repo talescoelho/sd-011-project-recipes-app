@@ -39,6 +39,7 @@ function Footer() {
       </button>
       <button
         type="button"
+        onClick={ () => handleClick('/comidas') }
       >
         <img
           src={ mealIcon }
