@@ -1,6 +1,7 @@
 import React from 'react';
 import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
+import shareIcon from '../images/shareIcon.svg';
 import Header from '../components/Header';
 
 function RecipesDone() {
@@ -93,6 +94,11 @@ function RecipesDone() {
                   </div>
                   <div className="btn-share-done">
                     <button type="button" onClick={ () => clipBoard(type, id) }>
+                      <img
+                        data-testid={ `${index}-horizontal-share-btn` }
+                        src={ shareIcon }
+                        alt="share button"
+                      />
                     </button>
                     <span>{clipBoardFood === true ? 'Link copiado!' : null}</span>
                   </div>
@@ -112,7 +118,6 @@ function RecipesDone() {
                     data-testid={ `${index}-horizontal-done-date` }
                   >
                     {doneDate}
-
                   </p>
 
                   <div className="btn-share-done">
@@ -120,6 +125,11 @@ function RecipesDone() {
                       type="button"
                       onClick={ () => clipBoard(type, id) }
                     >
+                      <img
+                        data-testid={ `${index}-horizontal-share-btn` }
+                        src={ shareIcon }
+                        alt="share button"
+                      />
                     </button>
                     <span>{clipBoardDrink === true ? 'Link copiado!' : null}</span>
                   </div>
