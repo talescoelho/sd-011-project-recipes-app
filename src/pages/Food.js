@@ -36,7 +36,11 @@ export default function Food() {
     response();
   }, []);
 
-  const { recipesDb, redirect, setRecipesDb } = useContext(RecipesContext);
+  const {
+    recipesDb,
+    redirect,
+    setRecipesDb,
+  } = useContext(RecipesContext);
 
   async function handleFetchByCategory(param) {
     const cat = await fetchMealsCategory(param);

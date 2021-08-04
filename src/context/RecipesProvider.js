@@ -5,6 +5,7 @@ import {
   fetchMealsIngredient,
   fetchMealsName,
   fetchMealsLetter,
+  fetchMealsId,
 } from '../services/MealApiService';
 
 import {
@@ -22,6 +23,8 @@ export default function RecipesProvider({ children }) {
 
   const [redirect, setRedirect] = useState(false);
   const [recipesDb, setRecipesDb] = useState([]);
+  const [mealId, setMealId] = useState({});
+  // const [drinkId, setDrinkId] = useState({});
 
   function visibleAlert(data) { // implementação do requisito 18
     if (data === null) {
@@ -85,6 +88,11 @@ export default function RecipesProvider({ children }) {
     }
   }
 
+  async function getMealId(id) {
+    const response = await fetchMealsId(id);
+    setMealId(response[0]);
+  }
+
   const context = {
     loginState,
     setLogin,
@@ -92,6 +100,8 @@ export default function RecipesProvider({ children }) {
     recipesDb,
     redirect,
     setRecipesDb,
+    mealId,
+    getMealId,
   };
 
   return (
