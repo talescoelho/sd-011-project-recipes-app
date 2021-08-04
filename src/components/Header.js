@@ -30,15 +30,15 @@ function Header({ receiveData }) {
     }
   };
 
-  if (receiveData.meals && receiveData.meals.length === 1) {
+  if (receiveData && receiveData.meals && receiveData.meals.length === 1) {
     history.push(`/comidas/${receiveData.meals[0].idMeal}`);
   }
 
-  if (receiveData.drinks && receiveData.drinks.length === 1) {
+  if (receiveData && receiveData.drinks && receiveData.drinks.length === 1) {
     history.push(`/bebidas/${receiveData.drinks[0].idDrink}`);
   }
 
-  if (receiveData.drinks === null || receiveData.meals === null) {
+  if (receiveData && (receiveData.drinks === null || receiveData.meals === null)) {
     // eslint-disable-next-line no-alert
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }

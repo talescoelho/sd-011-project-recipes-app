@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router';
 import { connect } from 'react-redux';
-
 import {
   fetchSearchIngredients,
   fetchSearchName,
