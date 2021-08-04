@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useContext } from 'react';
 import NextIcon from '../images/next.png';
 import PreviousIcon from '../images/previous.png';
+import RecipesContext from '../context/RecipesContext';
 
-function RecommendedsRecipes({ recipes }) {
+function RecommendedsRecipes() {
+  const { recommended: recipes } = useContext(RecipesContext);
   const [position, setPosition] = useState({ a: 0, b: 1 });
 
   const prevSlide = () => {
@@ -49,9 +50,5 @@ function RecommendedsRecipes({ recipes }) {
     </div>
   );
 }
-
-RecommendedsRecipes.propTypes = {
-  recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
 
 export default RecommendedsRecipes;

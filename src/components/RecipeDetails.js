@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useContext } from 'react';
 import IngredientsList from './IngredientList';
 import ShareIcon from '../images/shareIcon.svg';
 import FavIcon from '../images/whiteHeartIcon.svg';
+import RecipesContext from '../context/RecipesContext';
 
-function RecipeDetails({ recipe }) {
-  const [ingredientsListRecipe, setIngredientsRecipeList] = useState([]);
+function RecipeDetails() {
+  const { recipeDetail: recipe, setIngredientsRecipeList } = useContext(RecipesContext);
   const itemValidation = (item) => {
     if (item !== null && item !== '' && item !== undefined) {
       return true;
@@ -51,7 +51,7 @@ function RecipeDetails({ recipe }) {
             <img data-testid="favorite-btn" src={ FavIcon } alt="Fav Icon" />
           </button>
         </div>
-        <IngredientsList ingredients={ ingredientsListRecipe } />
+        <IngredientsList />
         <h2>
           Instructions
         </h2>
@@ -60,18 +60,5 @@ function RecipeDetails({ recipe }) {
     </article>
   );
 }
-
-RecipeDetails.propTypes = {
-  recipe: PropTypes.shape({
-    strMealThumb: PropTypes.string,
-    strDrinkThumb: PropTypes.string,
-    strMeal: PropTypes.string,
-    strDrink: PropTypes.string,
-    strYoutube: PropTypes.string,
-    strCategory: PropTypes.string,
-    strAlcoholic: PropTypes.string,
-    strInstructions: PropTypes.string,
-  }).isRequired,
-};
 
 export default RecipeDetails;

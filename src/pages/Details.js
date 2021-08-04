@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import * as CocktailAPI from '../services/cocktailAPI';
 import * as MealAPI from '../services/meailAPI';
 import RecipeDetails from '../components/RecipeDetails';
 import FrameVideo from '../components/FrameVideo';
 import RecommendedRecipes from '../components/RecommendedsRecipes';
+import RecipesContext from '../context/RecipesContext';
 
 function Details({ match: { url, params: { id } } }) {
-  const [recipeDetail, setRecipeDetail] = useState('');
-  const [recommended, setRecommended] = useState('');
+  const { recipeDetail, setRecipeDetail, setRecommended } = useContext(RecipesContext);
 
   const getRecipeById = async () => {
     let searchById = '';
@@ -57,9 +57,9 @@ function Details({ match: { url, params: { id } } }) {
 
   return (
     <div>
-      <RecipeDetails recipe={ recipeDetail } />
+      <RecipeDetails />
       {url.includes('comidas') && <FrameVideo recipe={ recipeDetail } />}
-      <RecommendedRecipes recipes={ recommended } />
+      <RecommendedRecipes />
       <button
         className="button-start"
         style={ { display: verifyRecipeIsDone() ? 'none' : 'block' } }

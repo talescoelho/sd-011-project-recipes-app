@@ -1,8 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
+import RecipesContext from '../context/RecipesContext';
 
-function IngredientList({ ingredients }) {
+function IngredientList() {
+  const { ingredientsListRecipe: ingredients } = useContext(RecipesContext);
   const renderListInProgress = () => (
     <div>
       <hh2>Ingredients</hh2>
@@ -39,11 +40,5 @@ function IngredientList({ ingredients }) {
   if (!location.pathname.includes('in-progress')) return renderListToDetails();
   if (location.pathname.includes('in-progress')) return renderListInProgress();
 }
-
-IngredientList.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
-  details: PropTypes.bool.isRequired,
-  inProgress: PropTypes.bool.isRequired,
-};
 
 export default IngredientList;
