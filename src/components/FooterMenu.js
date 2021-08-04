@@ -10,6 +10,7 @@ export default function FooterMenu() {
   return (
     <footer className="footer-menu" data-testid="footer">
       <button
+        className="button-footer"
         type="button"
         onClick={ () => history.push('/bebidas') }
       >
@@ -20,6 +21,7 @@ export default function FooterMenu() {
         />
       </button>
       <button
+        className="button-footer"
         type="button"
         onClick={ () => history.push('/explorar') }
       >
@@ -30,6 +32,7 @@ export default function FooterMenu() {
         />
       </button>
       <button
+        className="button-footer"
         type="button"
         onClick={ () => history.push('/comidas') }
       >

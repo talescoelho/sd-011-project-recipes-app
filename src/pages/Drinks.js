@@ -1,9 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import { fetchDrinksName, fetchDrinkCategory } from '../services/DrinksApiServices';
+import '../styles/components/cards.css';
+import '../styles/components/category.css';
 
 export default function Drinks() {
   const pageTitle = {
@@ -15,6 +17,7 @@ export default function Drinks() {
   const [categoriesDrink, setCategoriesDrink] = useState([]);
 
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     const response = async () => {
@@ -52,22 +55,24 @@ export default function Drinks() {
   function handleDrinks() {
     if (recipesDb.length === 0) {
       return (
-        <div>
+        <div className="card-container">
           {
             firstDrink.map((drink, index) => (
               (index < limits) && (
-                <div key={ index }>
-                  <div data-testid={ `${index}-recipe-card` }>
-                    <img
-                      src={ drink.strDrinkThumb }
-                      data-testid={ `${index}-card-img` }
-                      alt={ drink.strDrink }
-                    />
+                <Link to={ `/bebidas/${drink.idDrink}` } key={ index }>
+                  <div className="card-style">
+                    <div className="card-img" data-testid={ `${index}-recipe-card` }>
+                      <img
+                        src={ drink.strDrinkThumb }
+                        data-testid={ `${index}-card-img` }
+                        alt={ drink.strDrink }
+                      />
+                    </div>
+                    <div className="card-title">
+                      <span data-testid={ `${index}-card-name` }>{ drink.strDrink }</span>
+                    </div>
                   </div>
-                  <div>
-                    <span data-testid={ `${index}-card-name` }>{ drink.strDrink }</span>
-                  </div>
-                </div>
+                </Link>
               )
             ))
           }
@@ -75,22 +80,24 @@ export default function Drinks() {
       );
     }
     return (
-      <div>
+      <div className="card-container">
         {
           recipesDb.map((drink, index) => (
             (index < limits) && (
-              <div key={ index }>
-                <div data-testid={ `${index}-recipe-card` }>
-                  <img
-                    src={ drink.strDrinkThumb }
-                    data-testid={ `${index}-card-img` }
-                    alt={ drink.strDrink }
-                  />
+              <Link to={ `/bebidas/${drink.idDrink}` } key={ index }>
+                <div className="card-style">
+                  <div className="card-img" data-testid={ `${index}-recipe-card` }>
+                    <img
+                      src={ drink.strDrinkThumb }
+                      data-testid={ `${index}-card-img` }
+                      alt={ drink.strDrink }
+                    />
+                  </div>
+                  <div className="card-title">
+                    <span data-testid={ `${index}-card-name` }>{ drink.strDrink }</span>
+                  </div>
                 </div>
-                <div>
-                  <span data-testid={ `${index}-card-name` }>{ drink.strDrink }</span>
-                </div>
-              </div>
+              </Link>
             )
           ))
         }
@@ -101,33 +108,37 @@ export default function Drinks() {
   return (
     <div>
       <Header value={ pageTitle } />
-      <button
-        type="button"
-        onClick={ () => functionAll() }
-        data-testid="All-category-filter"
-      >
-        All
-      </button>
-      { categoriesDrink.map((category, index) => ((index < limitCategory
-      ) && (
+      <div className="category-container">
         <button
           type="button"
-          key={ index }
-          data-testid={ `${category.strCategory}-category-filter` }
-          name={ category.strCategory }
-          onClick={ ({ target }) => {
-            setRecipesDb([]);
-            setSelectedCategory(target.name);
-            if (selectedCategory === target.name) {
-              functionAll();
-            } else {
-              handleFetchByCategory(target.name);
-            }
-          } }
+          onClick={ () => functionAll() }
+          data-testid="All-category-filter"
         >
-          {category.strCategory}
-        </button>)
-      ))}
+          All
+        </button>
+        { categoriesDrink.map((category, index) => ((index < limitCategory
+        ) && (
+          <button
+            type="button"
+            key={ index }
+            data-testid={ `${category.strCategory}-category-filter` }
+            name={ category.strCategory }
+            onClick={ ({ target }) => {
+              setRecipesDb([]);
+              setSelectedCategory(target.name);
+              if (selectedCategory === target.name && toggle === false) {
+                setToggle(true);
+                functionAll();
+              } else {
+                setToggle(false);
+                handleFetchByCategory(target.name);
+              }
+            } }
+          >
+            {category.strCategory}
+          </button>)
+        ))}
+      </div>
       { redirect
         ? history.push(`/bebidas/${recipesDb.map((drink) => drink.idDrink)}`)
         : handleDrinks() }
