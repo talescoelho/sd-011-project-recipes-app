@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import FiltersDoneAndFavorites from '../components/FiltersDoneAndFavorites';
 import shareIcon from '../images/shareIcon.svg';
@@ -44,6 +45,11 @@ class ReceitasFeitas extends Component {
     }
   }
 
+  redirectToRecipeDetails(id, foodOrDrink) {
+    const { history } = this.props;
+    history.push(`/${foodOrDrink}/${id}`);
+  }
+
   shareLinkClick(id, foodOrDrink) {
     const magicNumber = 2000;
     navigator.clipboard.writeText(`${window.location.origin}/${foodOrDrink}/${id}`);
@@ -59,11 +65,20 @@ class ReceitasFeitas extends Component {
       if (item.type === 'comida') {
         return (
           <div key={ index }>
-            <img
-              src={ item.image }
-              alt="recipe representation"
-              data-testid={ `${index}-horizontal-image` }
-            />
+            <div
+              onClick={ () => this.redirectToRecipeDetails(item.id, 'comidas') }
+              onKeyDown={ () => this.redirectToRecipeDetails(item.id, 'comidas') }
+              role="button"
+              tabIndex="0"
+            >
+              <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
+              <img
+                src={ item.image }
+                alt="recipe representation"
+                data-testid={ `${index}-horizontal-image` }
+                style={ { width: '50px' } }
+              />
+            </div>
             <p data-testid={ `${index}-horizontal-top-text` }>
               {item.area}
               {' '}
@@ -71,7 +86,6 @@ class ReceitasFeitas extends Component {
               {' '}
               {item.category}
             </p>
-            <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
             <p data-testid={ `${index}-horizontal-done-date` }>{item.doneDate}</p>
             {
               item.tags.map(
@@ -107,13 +121,22 @@ class ReceitasFeitas extends Component {
       }
       return (
         <div key={ index }>
-          <img
-            src={ item.image }
-            alt="recipe representation"
-            data-testid={ `${index}-horizontal-image` }
-          />
+          <div
+            onClick={ () => this.redirectToRecipeDetails(item.id, 'bebidas') }
+            onKeyDown={ () => this.redirectToRecipeDetails(item.id, 'bebidas') }
+            role="button"
+            tabIndex="0"
+          >
+            <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
+            <img
+              src={ item.image }
+              alt="recipe representation"
+              data-testid={ `${index}-horizontal-image` }
+              style={ { width: '50px' } }
+            />
+
+          </div>
           <p data-testid={ `${index}-horizontal-top-text` }>{item.alcoholicOrNot}</p>
-          <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
           <p data-testid={ `${index}-horizontal-done-date` }>{item.doneDate}</p>
 
           <button
@@ -142,5 +165,11 @@ class ReceitasFeitas extends Component {
     );
   }
 }
+
+ReceitasFeitas.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
 
 export default ReceitasFeitas;
