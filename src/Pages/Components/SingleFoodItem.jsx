@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CarrouselDrinks from './CarrouselDrinks';
+import '../../styles/detail-screen.css';
 import { convertUrlToID, manageDetailAPI } from '../../Helpers/convertUrlToID';
 import embedYouTubeVideo from '../../Helpers/embedYouTubeVideo';
 
@@ -84,7 +85,13 @@ function SingleFoodItem() {
         <embed data-testid="video" src={ embedYouTubeVideo(meals[0].strYoutube) } />
       </section>
       <CarrouselDrinks />
-      <button data-testid="start-recipe-btn" type="button">Iniciar receita</button>
+      <button
+        data-testid="start-recipe-btn"
+        type="button"
+        className="start-recipe-button"
+      >
+        Iniciar receita
+      </button>
     </div>
   );
 }
