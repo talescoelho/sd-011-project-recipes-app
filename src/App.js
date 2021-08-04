@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
 import MealDetails from './pages/MealDetails';
 import DrinkDetails from './pages/DrinkDetails';
-
+import NotFound from './components/NotFound';
 import HomeRecipe from './pages/HomeRecipe';
 import HomeDrinks from './pages/HomeDrinks';
 import RecipesInProgress from './pages/RecipeInProgress';
@@ -61,6 +61,7 @@ function App() {
         <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/receitas-feitas" component={ RecipeMade } />
         <Route path="/receitas-favoritas" component={ RecipeFavorite } />
+        <Route path="*" component={ NotFound } />
       </Switch>
     </BrowserRouter>
   );
