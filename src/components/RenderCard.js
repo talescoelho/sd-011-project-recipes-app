@@ -7,6 +7,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 function RenderCard() {
   // eslint-disable-next-line global-require
   const copy = require('clipboard-copy');
+  const [copyLink, setCopyLink] = useState(false);
   const [recipes, setRecipes] = useState(
     (JSON.parse(localStorage.getItem('favoriteRecipes'))),
   );
@@ -21,12 +22,17 @@ function RenderCard() {
 
   function copyUrl({ target }) {
     const type = target.dataset.recipetype;
+    const TWO_SECONDS = 2000;
     copy(`http://localhost:3000/${type}s/${target.dataset.recipeid}`);
-    alert('Link copiado!');
+    setCopyLink(true);
+    setTimeout(() => {
+      setCopyLink(false);
+    }, TWO_SECONDS);
   }
 
   return (
     <div>
+      {copyLink ? <p>Link copiado!</p> : null}
       {recipes.map((object, index) => (
         <div key={ object.id }>
           <Link to={ `/${object.type}s/${object.id}` }>
