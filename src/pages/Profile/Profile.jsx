@@ -1,11 +1,17 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../../globalComponents/Footer';
 import Header from '../../globalComponents/Header';
 
 function Profile({ match }) {
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const [email, setEmail] = useState('');
+  useEffect(() => {
+    const emailLocalStorage = JSON.parse(localStorage.getItem('user'));
+    if (emailLocalStorage) {
+      setEmail(emailLocalStorage.email);
+    }
+  }, []);
   const history = useHistory();
   const logOut = () => {
     localStorage.clear();
