@@ -6,12 +6,14 @@ import Recommendations from '../components/Recommendations';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
 import '../styles/Details.css';
+import RecipeButton from '../components/RecipeButton';
 
 export default function Details() {
   const [recipe, setRecipe] = useState(null);
+  const [state, setState] = useState(null);
   const { pathname } = useLocation();
   const type = pathname;
-  const { id } = useParams();
+  const { id, inProgress } = useParams();
 
   useEffect(() => {
     async function asyncFunction() {
@@ -21,6 +23,27 @@ export default function Details() {
     }
     asyncFunction();
   }, [id, setRecipe, type]);
+
+  useEffect(() => {
+    // Verificações de se a receita já foi iniciada
+    const initialInProgress = JSON.stringify({ cocktails: {}, meals: {} });
+    if (!localStorage.inProgressRecipes) {
+      localStorage.setItem('inProgressRecipes', initialInProgress);
+    }
+    const inProgressRecipes = JSON.parse(localStorage.inProgressRecipes);
+    const key = (type.includes('bebida')) ? 'cocktails' : 'meals';
+    const inProgressCheck = (Object.keys(inProgressRecipes[key]).some((e) => e === id));
+    if (inProgressCheck) setState('inProgress');
+
+    // Verificações de se a receita já foi concluída
+    if (!localStorage.doneRecipes) {
+      localStorage.setItem('doneRecipes', '[]');
+    }
+    const doneRecipes = JSON.parse(localStorage.doneRecipes);
+    const doneCheck = doneRecipes.some((e) => e.id === id);
+    if (doneCheck) setState('finish');
+  }, [id, type]);
+
   if (recipe) {
     const {
       category, name, image, video, instructions, reverseType,
@@ -32,28 +55,16 @@ export default function Details() {
         <h3 data-testid="recipe-category">{ category }</h3>
         <ShareButton />
         <FavoriteButton recipe={ recipe } drinkOrFood={ type } />
-        <Ingredients recipe={ recipe } />
+        <Ingredients recipe={ recipe } inProgress={ inProgress } />
         <div>
           <h3>Instructions</h3>
           <p data-testid="instructions">{ instructions }</p>
         </div>
         {
-          (video) && (
-            <iframe
-              src={ video }
-              title="Instruções em vídeo"
-              data-testid="video"
-            />
-          )
+          (video) && <iframe src={ video } title="Instruções" data-testid="video" />
         }
         <Recommendations type={ reverseType } />
-        <button
-          type="button"
-          className="startButton"
-          data-testid="start-recipe-btn"
-        >
-          Iniciar Receita
-        </button>
+        <RecipeButton state={ state } />
       </div>
     );
   }
