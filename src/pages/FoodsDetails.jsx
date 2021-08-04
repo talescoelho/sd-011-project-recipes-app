@@ -45,7 +45,7 @@ function FoodsDetails() {
             alt="Detalhe da comida"
             data-testid="recipe-photo"
           />
-          <div>
+          <div className="details-header">
             <div>
               <span data-testid="recipe-title">{details.strMeal}</span>
               <span data-testid="recipe-category">{details.strCategory}</span>
@@ -93,17 +93,15 @@ function FoodsDetails() {
             <span>Recomendadas</span>
             <Recomendations />
           </div>
-          <div className="start-recipe-btn">
-            <button
-              data-testid="start-recipe-btn"
-              type="button"
-              onClick={ () => history.push(`/comidas/${id}/in-progress`) }
-            >
-              Iniciar Receita
-            </button>
-          </div>
         </>
       )}
+      <button
+        data-testid="start-recipe-btn"
+        type="button"
+        onClick={ () => history.push(`/comidas/${id}/in-progress`) }
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 }

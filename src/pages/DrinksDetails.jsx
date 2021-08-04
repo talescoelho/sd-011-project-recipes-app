@@ -72,16 +72,14 @@ function DrinksDetails() {
               <span>Recomendadas</span>
               <Recomendations />
             </div>
-            <div className="start-recipe-btn">
-              <button
-                data-testid="start-recipe-btn"
-                type="button"
-                onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
-              >
-                Iniciar Receita
-              </button>
-            </div>
           </>)}
+      <button
+        data-testid="start-recipe-btn"
+        type="button"
+        onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 }
