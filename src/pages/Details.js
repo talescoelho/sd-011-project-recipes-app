@@ -58,8 +58,8 @@ export default function Details() {
         setInProgressRecipes(true);
       }
     }
-  }, [foodType, idReceita, mainEndPoint,
-    recomendedEndPoint, request, requestRecomendedApi]);
+  }, [foodLocal, foodType, idReceita,
+    mainEndPoint, recomendedEndPoint, request, requestRecomendedApi]);
 
   React.useEffect(() => {
     if (data && recomendedData) {

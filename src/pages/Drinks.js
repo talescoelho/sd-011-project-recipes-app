@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Cards from '../components/Cards';
 import Footer from '../components/Footer';
-import '../css/comidas.css';
+import '../styles/comidas.css';
 
 const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
