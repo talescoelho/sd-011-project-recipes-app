@@ -8,10 +8,10 @@ function DrinkCard(props) {
   const { history } = props;
   const { drinkArray } = useContext(GlobalContext);
 
-  if (drinkArray && drinkArray.length === 1) {
-    const id = drinkArray[0].idDrink;
-    history.push(`/bebidas/${id}`);
-  }
+  // if (drinkArray && drinkArray.length === 1) {
+  //   const id = drinkArray[0].idDrink;
+  //   history.push(`/bebidas/${id}`);
+  // }
 
   function goToRecipeDetails({ target }) {
     const { id } = target;

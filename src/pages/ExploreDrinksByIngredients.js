@@ -21,6 +21,7 @@ export default function ExploreDrinksByIngredients({ history }) {
 
   const filterByIngredient = async (ingredient) => {
     const filteredDrinks = await fetchDrinksByIngredient(ingredient);
+    console.log(filteredDrinks);
     setDrinkArray(filteredDrinks);
   };
 
@@ -36,7 +37,7 @@ export default function ExploreDrinksByIngredients({ history }) {
       <Header title="Explorar Ingredientes" renderButton />
       <div className="ingredients">
         {
-          ingredients.length ? ingredients.map((ing, index) => {
+          ingredients ? ingredients.map((ing, index) => {
             const ingredientsObject = { name: ing.strIngredient1, index };
             return (
               <IngredientsCard

@@ -149,7 +149,7 @@ export async function fetchMealsByIngredient(ingredient) {
     const response = await
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
     const data = await response.json();
-    return data.meals;
+    return data.meals.slice(0, maxCount);
   } catch (err) {
     console.log(err);
   }
@@ -158,9 +158,9 @@ export async function fetchMealsByIngredient(ingredient) {
 export async function fetchDrinksByIngredient(ingredient) {
   try {
     const response = await
-    fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin${ingredient}`);
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`);
     const data = await response.json();
-    return data.drinks;
+    return data.drinks.slice(0, maxCount);
   } catch (err) {
     console.log(err);
   }
