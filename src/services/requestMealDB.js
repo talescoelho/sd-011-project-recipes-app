@@ -6,7 +6,6 @@
 //     .catch(error => console.log('error na postagem:', error));
 // };
 
-
 // busca header
 // Search meal by name
 // www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata

@@ -23,29 +23,3 @@ export default function FooterMenu() {
     </footer>
   );
 }
-
-//    {/* <Link */}
-//    <img
-//    src="src/images/drinkIcon.svg"
-//    alt=""
-//    // data-testid="drinks-bottom-btn"
-//    // type="button"
-//    // name="drink"
-//    // onClick="Colocar função redirect"
-//  />
-//  {/* <img
-//    src=""
-//    alt=""
-//    data-testid="explore-bottom-btn"
-//    type="button"
-//    name="explore"
-//    onClick=""
-//  />
-//  <img
-//    src=""
-//    alt=""
-//    data-testid=""
-//    type="button"
-//    name="food"
-//    onClick="food-bottom-btn"
-//  /> */}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import UserContext from './UserContext';
 
 function UserProvider({ children }) {
- 
+ const [data, setData]
 
   return (
     <UserContext.Provider value={}>
