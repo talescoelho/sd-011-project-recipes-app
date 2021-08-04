@@ -85,7 +85,7 @@ function SingleFoodItem() {
         type="button"
         className="start-recipe-button"
       >
-        Iniciar receita
+        Iniciar Receita
       </button>
     </div>
   );
