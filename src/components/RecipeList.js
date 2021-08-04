@@ -3,7 +3,7 @@ import RenderCard from './RenderCard';
 
 function RecipeList() {
   const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  const [typeRecipe, setTypeRecipe] = useState('all');
+  const [typeRecipe, setTypeRecipe] = useState('');
   function filterRecipe(type) {
     setTypeRecipe(type);
   }
@@ -12,21 +12,21 @@ function RecipeList() {
       <button
         type="button"
         data-testid="filter-by-all-btn"
-        onClick={ () => filterRecipe('all') }
+        onClick={ () => filterRecipe('') }
       >
         All
       </button>
       <button
         type="button"
         data-testid="filter-by-food-btn"
-        onClick={ () => filterRecipe('comidas') }
+        onClick={ () => filterRecipe('comida') }
       >
         Food
       </button>
       <button
         type="button"
         data-testid="filter-by-drink-btn"
-        onClick={ () => filterRecipe('bebidas') }
+        onClick={ () => filterRecipe('bebida') }
       >
         Drinks
       </button>

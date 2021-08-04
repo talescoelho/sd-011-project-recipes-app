@@ -1,17 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Image from 'react-bootstrap/Image';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-function RenderCard() {
+function RenderCard({ filter }) {
   // eslint-disable-next-line global-require
   const copy = require('clipboard-copy');
   const [copyLink, setCopyLink] = useState(false);
   const [recipes, setRecipes] = useState(
     (JSON.parse(localStorage.getItem('favoriteRecipes'))),
   );
-
+  useEffect(() => {
+    console.log(filter);
+    const localRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (filter !== '') {
+      const newRecipes = localRecipes.filter((recipe) => recipe.type === filter);
+      setRecipes(newRecipes);
+      console.log(recipes);
+    } else {
+      setRecipes(JSON.parse(localStorage.getItem('favoriteRecipes')));
+    }
+  }, [filter]);
   function removeItem({ target }) {
     const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
     favorite.splice(target.dataset.recipeindex, 1);
@@ -78,5 +89,9 @@ function RenderCard() {
     </div>
   );
 }
+
+RenderCard.propTypes = {
+  filter: PropTypes.string.isRequired,
+};
 
 export default RenderCard;
