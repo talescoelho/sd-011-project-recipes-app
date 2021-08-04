@@ -9,6 +9,10 @@ export default function Perfil() {
   const history = useHistory();
   const redirectToDone = () => history.push('/receitas-feitas');
   const redirectToFavorites = () => history.push('/receitas-favoritas');
+  const redirecToLogin = () => {
+    localStorage.clear();
+    history.push('/');
+  };
   return (
     <div>
       <Header title="Perfil" search={ false } />
@@ -30,6 +34,7 @@ export default function Perfil() {
       <button
         type="button"
         data-testid="profile-logout-btn"
+        onClick={ redirecToLogin }
       >
         Sair
       </button>
