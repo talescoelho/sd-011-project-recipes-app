@@ -7,6 +7,7 @@ import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
 import '../styles/Details.css';
 import RecipeButton from '../components/RecipeButton';
+import DetailsProvider from '../context/detailsProvider';
 
 export default function Details() {
   const [recipe, setRecipe] = useState(null);
@@ -23,6 +24,8 @@ export default function Details() {
     }
     asyncFunction();
   }, [id, setRecipe, type]);
+
+  useEffect(() => setState(inProgress), [inProgress]);
 
   useEffect(() => {
     // Verificações de se a receita já foi iniciada
@@ -49,23 +52,25 @@ export default function Details() {
       category, name, image, video, instructions, reverseType, type: drinkOrFood,
     } = getIds(type, recipe);
     return (
-      <div>
-        <img data-testid="recipe-photo" src={ image } alt={ name } />
-        <h2 data-testid="recipe-title">{ name }</h2>
-        <h3 data-testid="recipe-category">{ category }</h3>
-        <ShareButton type={ drinkOrFood } id={ id } />
-        <FavoriteButton recipe={ recipe } drinkOrFood={ drinkOrFood } />
-        <Ingredients recipe={ recipe } inProgress={ inProgress } />
+      <DetailsProvider>
         <div>
-          <h3>Instructions</h3>
-          <p data-testid="instructions">{ instructions }</p>
+          <img data-testid="recipe-photo" src={ image } alt={ name } />
+          <h2 data-testid="recipe-title">{ name }</h2>
+          <h3 data-testid="recipe-category">{ category }</h3>
+          <ShareButton type={ drinkOrFood } id={ id } />
+          <FavoriteButton recipe={ recipe } drinkOrFood={ drinkOrFood } />
+          <Ingredients recipe={ recipe } inProgress={ inProgress } />
+          <div>
+            <h3>Instructions</h3>
+            <p data-testid="instructions">{ instructions }</p>
+          </div>
+          {
+            (video) && <iframe src={ video } title="Instruções" data-testid="video" />
+          }
+          <Recommendations type={ reverseType } />
+          <RecipeButton state={ state } />
         </div>
-        {
-          (video) && <iframe src={ video } title="Instruções" data-testid="video" />
-        }
-        <Recommendations type={ reverseType } />
-        <RecipeButton state={ state } />
-      </div>
+      </DetailsProvider>
     );
   }
   return <p>Loading ...</p>;

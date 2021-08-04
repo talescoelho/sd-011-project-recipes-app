@@ -1,32 +1,36 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import DetailsContext from '../context/detailsContext';
 
 export default function Ingredients({ recipe, inProgress }) {
-  const ingredientsKeys = Object.keys(recipe).reduce((acc, cur) => {
-    if (cur.includes('strIngredient')) {
-      return [...acc, cur];
-    }
-    return acc;
-  }, []);
-  const measureKeys = Object.keys(recipe).reduce((acc, cur) => {
-    if (cur.includes('strMeasure')) {
-      return [...acc, cur];
-    }
-    return acc;
-  }, []);
-
-  const ingredients = measureKeys.reduce((acc, cur, index) => {
-    if (recipe[cur] && recipe[cur].length > 1) {
-      const obj = { name: recipe[ingredientsKeys[index]], measure: recipe[cur] };
-      return [...acc, obj];
-    }
-    return acc;
-  }, []);
+  const { ingredients: ing, setIngredients } = useContext(DetailsContext);
+  useEffect(() => {
+    const ingredientsKeys = Object.keys(recipe).reduce((acc, cur) => {
+      if (cur.includes('strIngredient')) {
+        return [...acc, cur];
+      }
+      return acc;
+    }, []);
+    const measureKeys = Object.keys(recipe).reduce((acc, cur) => {
+      if (cur.includes('strMeasure')) {
+        return [...acc, cur];
+      }
+      return acc;
+    }, []);
+    const ingredients = measureKeys.reduce((acc, cur, index) => {
+      if (recipe[cur] && recipe[cur].length > 1) {
+        const obj = { name: recipe[ingredientsKeys[index]], measure: recipe[cur] };
+        return [...acc, obj];
+      }
+      return acc;
+    }, []);
+    setIngredients(ingredients);
+  }, [recipe]);
 
   return (
     <ol>
       {
-        ingredients.map(({ name, measure }, index) => (
+        (ing) && ing.map(({ name, measure }, index) => (
           (inProgress) ? (
             <label key={ index } htmlFor={ name }>
               <input

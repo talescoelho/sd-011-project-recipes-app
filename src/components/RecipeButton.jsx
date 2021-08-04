@@ -29,6 +29,12 @@ export default function RecipeButton({ state }) {
       </button>
     );
   }
+  if (state === 'in-progress') {
+    if (state) {
+      return <div>teste</div>;
+    }
+    return <>teste</>;
+  }
   return <h3>Finalizada</h3>;
 }
 
