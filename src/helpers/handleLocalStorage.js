@@ -5,6 +5,34 @@ export function saveTokensAndEmail(email) {
   localStorage.setItem('user', JSON.stringify({ email }));
 }
 
-export function defaultFun() {
+export function saveInProgressFoodRecipes(id, usedIngredients) {
+  const getLocalRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (!getLocalRecipe) {
+    const inProgressRecipes = {
+      cocktails: {},
+      meals: {
+        [id]: usedIngredients,
+      },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  } else {
+    getLocalRecipe.meals = { ...getLocalRecipe.meals, [id]: usedIngredients };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(getLocalRecipe));
+  }
+}
 
+export function saveInProgressDrinkRecipes(id, usedIngredients) {
+  const getLocalRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (!getLocalRecipe) {
+    const inProgressRecipes = {
+      meals: {},
+      cocktails: {
+        [id]: usedIngredients,
+      },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  } else {
+    getLocalRecipe.cocktails = { ...getLocalRecipe.cocktails, [id]: usedIngredients };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(getLocalRecipe));
+  }
 }

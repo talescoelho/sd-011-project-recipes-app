@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { getMealDetail } from '../services/theMealAPI';
-// import '../App.css';
+import { saveInProgressFoodRecipes } from '../helpers/handleLocalStorage';
 
 function FoodRecipeInProgress({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState({});
+  const [usedIngredients, setUsedIngredients] = useState([]);
 
   function listIngredients() {
     const maxIngredients = 20;
@@ -19,7 +20,7 @@ function FoodRecipeInProgress({ match: { params: { id } } }) {
     return list;
   }
 
-  function checkboxLineThrough({ target }) {
+  function lineThroughUsedIngredients({ target }) {
     const label = target.parentElement;
     const labelClass = 'ingredient-checked';
     if (label.className === labelClass) {
@@ -27,12 +28,39 @@ function FoodRecipeInProgress({ match: { params: { id } } }) {
     } else {
       label.classList.add(labelClass);
     }
+    if (target.checked) {
+      setUsedIngredients([...usedIngredients, target.value]);
+    } else {
+      const remainingIngredients = usedIngredients
+        .filter((ingredient) => ingredient !== target.value);
+      setUsedIngredients(remainingIngredients);
+    }
   }
+
+  useEffect(() => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const { meals } = inProgressRecipes;
+    if (meals[id]) {
+      const ingredients = document.getElementsByClassName('ingredient-input');
+      console.log([...ingredients]);
+    //   for (key in ingredients) {
+    //     if (meals[id].includes(key.value)) key.checked = true;
+    //   }
+    }
+    // ingredients.forEach((ingredient) => {
+    //   if (meals[id].includes(ingredient.value)) ingredient.checked = true;
+    // });
+    // }
+  }, [id]);
 
   useEffect(() => {
     getMealDetail(id)
       .then((result) => setRecipe(...result));
   }, [setRecipe, id]);
+
+  useEffect(() => {
+    saveInProgressFoodRecipes(id, usedIngredients);
+  }, [id, usedIngredients]);
 
   const { strMealThumb, strMeal, strCategory, strInstructions } = recipe;
   return (
@@ -51,10 +79,12 @@ function FoodRecipeInProgress({ match: { params: { id } } }) {
               key={ index }
             >
               <input
+                className="ingredient-input"
+                value={ ingredient }
                 type="checkbox"
                 id={ index }
                 name="ingredients"
-                onClick={ checkboxLineThrough }
+                onClick={ lineThroughUsedIngredients }
               />
               { ingredient }
 

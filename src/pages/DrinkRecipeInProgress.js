@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { getDrinkDetail } from '../services/theCockTailAPI';
+import { saveInProgressDrinkRecipes } from '../helpers/handleLocalStorage';
 
 function DrinkRecipeInProgress({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState({});
+  const [usedIngredients, setUsedIngredients] = useState([]);
 
   function listIngredients() {
     const maxIngredients = 20;
@@ -18,7 +20,7 @@ function DrinkRecipeInProgress({ match: { params: { id } } }) {
     return list;
   }
 
-  function checkboxLineThrough({ target }) {
+  function lineThroughUsedIngredients({ target }) {
     const label = target.parentElement;
     const labelClass = 'ingredient-checked';
     if (label.className === labelClass) {
@@ -26,12 +28,23 @@ function DrinkRecipeInProgress({ match: { params: { id } } }) {
     } else {
       label.classList.add(labelClass);
     }
+    if (target.checked) {
+      setUsedIngredients([...usedIngredients, target.value]);
+    } else {
+      const remainingIngredients = usedIngredients
+        .filter((ingredient) => ingredient !== target.value);
+      setUsedIngredients(remainingIngredients);
+    }
   }
 
   useEffect(() => {
     getDrinkDetail(id)
       .then((result) => setRecipe(...result));
   }, [setRecipe, id]);
+
+  useEffect(() => {
+    saveInProgressDrinkRecipes(id, usedIngredients);
+  }, [id, usedIngredients]);
 
   const { strDrinkThumb, strDrink, strCategory, strInstructions, strAlcoholic } = recipe;
   return (
@@ -51,10 +64,11 @@ function DrinkRecipeInProgress({ match: { params: { id } } }) {
               data-testid={ `${index}-ingredient-step` }
             >
               <input
+                value={ ingredient }
                 type="checkbox"
                 id={ index }
                 name="ingredients"
-                onClick={ checkboxLineThrough }
+                onClick={ lineThroughUsedIngredients }
               />
               { `${ingredient}` }
 
