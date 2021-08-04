@@ -18,6 +18,7 @@ function SingleFoodItem() {
       setItemDetail(manageDetailAPI(detailRequest));
     };
     return FetchDrink();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Parte que separa os ingredientes da receitas
