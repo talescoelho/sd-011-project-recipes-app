@@ -29,11 +29,13 @@ function ExploreByIngredients() {
   };
 
   React.useEffect(() => {
+    clearData('meals');
     fetchIngredients();
   }, []);
   return (
     <div>
       <Header title="Explorar Ingredientes" />
+      OLA
       {data && data.slice(0, magicNumberFive).map((item, index) => (
         <div key={ index }>
           <button

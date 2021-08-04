@@ -55,7 +55,7 @@ function HomeRecipe({ mealsData, isLoadingData }) {
   };
 
   const renderMeals = () => (
-    isLoading ? <p>loading...</p>
+    isLoading || isLoadingData ? <p>loading...</p>
       : mealsData.meals
       && mealsData.meals.slice(0, MagicMikeDance).map((itemCard, index) => (
         <Link key={ index } to={ `/comidas/${itemCard.idMeal}` }>
@@ -86,7 +86,7 @@ function HomeRecipe({ mealsData, isLoadingData }) {
       <Header title="Comidas" recipeType="meals" />
       <div>
         {' '}
-        {isLoading || isLoadingData ? <p>loading...</p>
+        {isLoading ? <p>loading...</p>
           : (mealsFilter.slice(0, magicNumberFive).map((itemButtons, index) => (
             <div key={ index }>
               <button
