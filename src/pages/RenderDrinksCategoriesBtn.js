@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router';
-import { fetchSearchBtnIngredients } from '../../redux/actions/searchBarActions';
+import { fetchSearchBtnIngredients } from '../redux/actions/searchBarActions';
 
 function RenderDrinksCategoriesBtn({ filterByIngredients }) {
   const [categoryBtn, setCategoryBtn] = useState(undefined);
