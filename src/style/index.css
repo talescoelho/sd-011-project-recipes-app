@@ -36,7 +36,6 @@
 }
 
 /* Details Page */
-
 .carousel {
   display: flex;
   flex-direction: row;
@@ -44,17 +43,13 @@
 
 .button-carousel {
   border: none;
-  width: 40px;
   height: 40px;
+  width: 40px;
 }
 
 .button-carousel-icon {
-  width: 40px;
   height: 40px;
-}
-
-.card-recipe {
-
+  width: 40px;
 }
 
 .carousel-image {
@@ -66,6 +61,6 @@
 }
 
 .button-start {
-  position: fixed;
   bottom: 0;
+  position: fixed;
 }
