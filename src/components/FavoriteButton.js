@@ -4,6 +4,12 @@ import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 
 function addFavorite(idReceita, type, data, foodType) {
+  if (type === 'comidas') {
+    type = 'comida';
+  } else {
+    type = 'bebida';
+  }
+
   const food = {
     id: idReceita,
     type,
