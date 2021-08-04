@@ -13,6 +13,11 @@ function AppProvider({ children }) {
   const [buttonFilter, setButtonFilter] = useState();
   const [loadingMainRecipes, setLoadingMainRecipes] = useState(true);
   const [filterButtonActive, setFilterButtonActive] = useState(false);
+  const [selectedIngredientVerify, setSelectedIngredientVerify] = useState(false);
+  const [selectedIngredientFood, setSelectedIngredientFood] = useState('');
+  const [selectedIngredientDrink, setSelectedIngredientDrink] = useState('');
+  const [ingredients, setIngredients] = useState();
+  const [loadingExplore, setLoadingExplore] = useState(true);
 
   async function fetchFood() {
     let endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?${filterRadio}=${filterText}`;
@@ -53,6 +58,12 @@ function AppProvider({ children }) {
       endPointItems = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
       endPointCategory = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
     }
+    if (selectedIngredientVerify) {
+      endPointItems = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${selectedIngredientFood}`;
+      if (foodOrDrink === 'Bebidas') {
+        endPointItems = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${selectedIngredientDrink}`;
+      }
+    }
     if (filterButtonActive) {
       endPointItems = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${buttonFilter}`;
       if (foodOrDrink === 'Bebidas') {
@@ -67,9 +78,35 @@ function AppProvider({ children }) {
     const responseCategory = await requireCategory.json();
     const dataCategory = foodOrDrink === 'Bebidas' ? responseCategory.drinks
       : responseCategory.meals;
+    setSelectedIngredientFood('');
+    setSelectedIngredientDrink('');
     setMainItems(dataItems);
     setCategories(dataCategory);
     setLoadingMainRecipes(false);
+    setSelectedIngredientVerify(false);
+  }
+
+  async function fetchIngredients(foodOrDrink) {
+    let endPoint = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+    if (foodOrDrink === 'Bebidas') {
+      endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+    }
+    const request = await fetch(endPoint);
+    const response = await request.json();
+    const data = foodOrDrink === 'Comidas' ? response.meals : response.drinks;
+    setIngredients(data);
+    setLoadingExplore(false);
+  }
+
+  function selectIngredient(e, foodOrDrink) {
+    setSelectedIngredientVerify(true);
+    if (foodOrDrink === 'Comidas') {
+      setSelectedIngredientFood(e.currentTarget.value);
+      console.log(e.currentTarget.value);
+    }
+    if (foodOrDrink === 'Bebidas') {
+      setSelectedIngredientDrink(e.currentTarget.value);
+    }
   }
 
   const contextValue = {
@@ -96,6 +133,18 @@ function AppProvider({ children }) {
     filterButtonActive,
     setFilterButtonActive,
     fetchMainRecipes,
+    selectedIngredientVerify,
+    setSelectedIngredientVerify,
+    setSelectedIngredientFood,
+    setSelectedIngredientDrink,
+    selectedIngredientFood,
+    selectedIngredientDrink,
+    ingredients,
+    setIngredients,
+    loadingExplore,
+    setLoadingExplore,
+    fetchIngredients,
+    selectIngredient,
   };
 
   return (
