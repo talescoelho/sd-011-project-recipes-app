@@ -1,15 +1,17 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import React from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../../globalComponents/Footer';
 import Header from '../../globalComponents/Header';
 import styles from './Drinks.module.css';
 import { fetchDrink } from '../../redux/actions';
+import DrinksCategoriesComponent from './DrinksComponents/DrinksCategoriesComponent';
 
 function Drinks({ match }) {
   const { isLoading, drinks } = useSelector((state) => state.Drinks);
   const { data, render } = useSelector((state) => state.Filter);
+  const { drinksByCategories, toogle } = useSelector((state) => state.DrinksByCategories);
   const dispatch = useDispatch();
   const mn = 12;
 
@@ -47,6 +49,7 @@ function Drinks({ match }) {
                     {item.strDrink}
                   </p>
                 </div>
+
               </Link>
             ))}
         </div>
@@ -69,6 +72,37 @@ function Drinks({ match }) {
                 data-testid={ `${index}-recipe-card` }
                 className={ styles.cardDiv }
               >
+                  <img
+                    src={ item.strDrinkThumb }
+                    alt="thumbnail"
+                    data-testid={ `${index}-card-img` }
+                    className={ styles.cardImg }
+                  />
+                  <p
+                    data-testid={ `${index}-card-name` }
+                  >
+                    {item.strDrink}
+                  </p>
+               </section>
+            </Link>
+          ))}
+      </div>
+    );
+  }
+
+  function renderByCategories() {
+    return (
+      <div className={ styles.drinksCardContainer }>
+        {drinksByCategories.drinks && drinksByCategories.drinks
+          .filter((_, index) => index < mn)
+          .map((item, index) => (
+            <Link
+              to={ `/bebidas/${item.idDrink}` }
+              key={ index }
+              data-testid={ `${index}-recipe-card` }
+              className={ styles.cardDiv }
+            >
+              <div>
                 <img
                   src={ item.strDrinkThumb }
                   alt="thumbnail"
@@ -80,7 +114,7 @@ function Drinks({ match }) {
                 >
                   {item.strDrink}
                 </p>
-              </section>
+              </div>
             </Link>
           ))}
       </div>
@@ -94,7 +128,8 @@ function Drinks({ match }) {
   return (
     <div className={ styles.drinksContainer }>
       <Header title="Bebidas" glass="true" match={ match } />
-      {renderDrinks()}
+      <DrinksCategoriesComponent />
+      {toogle ? renderByCategories() : renderDrinks()}
       <Footer />
     </div>
   );
