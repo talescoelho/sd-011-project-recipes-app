@@ -10,7 +10,7 @@ import Footer from '../components/footer/Footer';
 import Header from '../components/Header';
 import RenderCategoriesMeals from '../components/RenderCategoriesMeals';
 
-function HomeRecipe({ mealsData }) {
+function HomeRecipe({ mealsData, isLoadingData }) {
   const MagicMikeDance = 12;
   const magicNumberFive = 5;
   const urlFetch = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -74,7 +74,10 @@ function HomeRecipe({ mealsData }) {
   );
 
   React.useEffect(() => {
-    fetchMeals(urlFetch, 'meals');
+    if (!mealsData.meals && !isLoadingData) {
+      console.log('fez fetch');
+      fetchMeals(urlFetch, 'meals');
+    }
     handlerCard();
   }, []);
 
@@ -118,6 +121,7 @@ function HomeRecipe({ mealsData }) {
 
 const mapStateToProps = (state) => ({
   mealsData: state.RecipesReducer.recipesData,
+  isLoadingData: state.RecipesReducer.isLoading,
 });
 
 HomeRecipe.propTypes = {
