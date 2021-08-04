@@ -42,13 +42,14 @@ export default function IngredientsCheckList({ recipeType, id, strInstructions }
 
   const list = JSON.parse(localStorage.inProgressRecipes)[recipeType][id];
 
+  // CRIAR UMA FUNÇAÃO QUE CASO NÃO EXISTA A COMIDA, SERÁ NECESSÁRIO CRIAR...
+
   return (
     <>
       {list
         .map((ingredient, index) => (
-          <label key={ index } htmlFor={ ingredient.name }>
+          <label key={ index } data-testid={ `${index}-ingredient-step` } htmlFor={ ingredient.name }>
             <input
-              data-testid={ `${index}-ingredient-step` }
               type="checkbox"
               checked={ ingredient.check }
               name={ ingredient.name }
