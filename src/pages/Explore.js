@@ -7,7 +7,7 @@ function Explore() {
       <Header withSearch={ false } pageTitle="Explorar" />
       <br />
       <main>
-        <h1>Algo para contéudo à EXPLORAR</h1>
+        <h1>Conteúdo da tela de EXPLORAR</h1>
       </main>
     </>
   );
