@@ -3,16 +3,15 @@ main {
   flex-flow: column nowrap;
 }
 
-.card {
+.food-cards .card {
   background: white;
   border-radius: 10px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-flow: column nowrap;
-  height: 20em;
+  height: 100%;
   justify-content: space-between;
-  margin: 2em 0.5em;
-  width: 10em;
+  width: 100%;
 }
 
 .card img {
@@ -45,6 +44,7 @@ main {
 .food-cards {
   display: flex;
   flex-flow: row wrap;
+  justify-content: center;
 }
 
 .card-button {
@@ -57,4 +57,11 @@ main {
 
 .card-header {
   text-align: center;
+}
+
+.food-cards a {
+  color : black;
+  margin: 2em 0.5em;
+  text-decoration: none;
+  width: 40%;
 }

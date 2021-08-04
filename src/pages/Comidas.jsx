@@ -12,7 +12,7 @@ export default function Home() {
       <Header pageName="Comidas" renderButton />
       <main>
         <FilterButtons type="meals" />
-        <FoodCard />
+        <FoodCard type="meals" />
       </main>
       <Footer />
     </>

@@ -1,49 +1,59 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { Card, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import propTypes from 'prop-types';
 import getFood from '../services/SearchRecipe';
-import { getFoodCard } from '../Redux/actions/index';
 
-export default function FoodCard() {
+export default function FoodCard({ type }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const recipes = useSelector((state) => state.recipes);
-  const { cards, formInfo } = recipes;
+  const { cards, formInfo, selectedCategory } = recipes;
+
+  const middle = type === 'meals' ? 'comidas' : 'bebidas';
 
   useEffect(() => {
-    (async () => {
-      const food = await getFood(formInfo, 'meals');
-      dispatch(getFoodCard(food));
-    })();
-  }, [formInfo, dispatch]);
+    dispatch(getFood(formInfo, type));
+  }, [formInfo, dispatch, type]);
 
   const getCards = () => {
     if (cards) {
       return cards.map((item, index) => {
-        const { idMeal, strMeal, strMealThumb, strCategory, strTags } = item;
+        const { idMeal, strMeal, strMealThumb,
+          strCategory, strTags, idDrink, strDrink, strDrinkThumb, strAlcoholic } = item;
+        const cat = strCategory || selectedCategory;
         return (
-          <Card key={ index } data-testid={ `${index}-recipe-card` }>
-            <Card.Header>{strCategory}</Card.Header>
-            <Card.Img
-              variant="top"
-              src={ strMealThumb }
-              data-testid={ `${index}-card-img` }
-            />
-            <Card.Body>
-              <Card.Title data-testid={ `${index}-card-name` }>{strMeal}</Card.Title>
-              <Card.Text>{strTags}</Card.Text>
-            </Card.Body>
-            <Card.Footer>
-              <Button
-                className="card-button"
-                onClick={ () => history.push(`/comidas/${idMeal}`) }
-                variant="primary"
-              >
-                Ver receita
-              </Button>
-            </Card.Footer>
-          </Card>
+          <Link
+            to={ `/${middle}/${idMeal || idDrink}` }
+            key={ index }
+            data-testid={ `${index}-recipe-card` }
+          >
+            <Card>
+              <Card.Header>{cat}</Card.Header>
+              <Card.Img
+                variant="top"
+                src={ strMealThumb || strDrinkThumb }
+                data-testid={ `${index}-card-img` }
+              />
+              <Card.Body>
+                <Card.Title data-testid={ `${index}-card-name` }>
+                  {strMeal
+                || strDrink}
+                </Card.Title>
+                <Card.Text>{strTags || strAlcoholic}</Card.Text>
+              </Card.Body>
+              <Card.Footer>
+                <Button
+                  className="card-button"
+                  onClick={ () => history.push(`/${middle}/${idMeal || idDrink}`) }
+                  variant="primary"
+                >
+                  Ver receita
+                </Button>
+              </Card.Footer>
+            </Card>
+          </Link>
         );
       });
     }
@@ -51,3 +61,7 @@ export default function FoodCard() {
 
   return <div className="food-cards">{getCards()}</div>;
 }
+
+FoodCard.propTypes = {
+  type: propTypes.string.isRequired,
+};
