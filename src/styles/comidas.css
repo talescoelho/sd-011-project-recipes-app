@@ -19,12 +19,12 @@
 }
 
 .in-progress-card {
+  align-items: center;
   display: flex;
-  margin-top: 25px;
-  width: 100%;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  margin-top: 25px;
+  width: 100%;
 }
 
 .in-progress-card img {
