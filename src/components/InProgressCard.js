@@ -6,6 +6,8 @@ function InProgressCard() {
   const [drinkDetail, setDrinkDetail] = useState([]);
   const { inProgress } = useContext(RecipesContext);
 
+  console.log(drinkDetail);
+
   const foodToDetail = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
   const drinkToDetail = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
@@ -34,6 +36,8 @@ function InProgressCard() {
     strMeal,
     strMealThumb,
   } = mealDetail;
+
+  console.log(idMeal);
 
   const objIngred = Object.entries(mealDetail).map((e) => {
     if (e[0].includes('strIngredient') && e[1] !== '') {
