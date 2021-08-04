@@ -27,11 +27,11 @@ const Header = ({ page, showSearchBtn, dispatch }) => {
       dispatch(fetchByName(typeIngredient));
     }
     if (selectedRadio === 'first-letter') {
-      // eslint-disable-next-line no-unused-expressions
-      typeIngredient.length > 1
-        // eslint-disable-next-line no-alert
-        ? alert('Sua busca deve conter somente 1 (um) caracter')
-        : dispatch(fetchByFirstLetter(typeIngredient));
+      if (typeIngredient.length > 1) {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      } else {
+        dispatch(fetchByFirstLetter(typeIngredient));
+      }
     }
   };
   return (
