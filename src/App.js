@@ -5,9 +5,9 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" component={Login} />
-        {/* <Route path="/comidas" component={} />
-        <Route path="/comidas:id-" component={} />
+        <Route path="/" component={ Login } />
+        <Route path="/comidas" component={} />
+        <Route path="/comidas:id-" component={ } />
         <Route path="/bebidas" component={} />
         <Route path="/bebidas:id" component={} />
         <Route path="/explorar" component={} />
@@ -20,10 +20,9 @@ function App() {
         <Route path="/perfil" component={} />
         <Route path="/receitas-feitas" component={} />
         <Route path="/receitas-favoritas" component={} />
-        <Route path="*" component={NotFound} /> */}
+        <Route path="*" component={NotFound} />
       </Switch>
     </BrowserRouter>
-  
   );
 }
 
