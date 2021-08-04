@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -48,6 +49,14 @@ class ProcessoBebidas extends Component {
             return acc;
           }, {}),
           setIngredients: verifyLocal,
+        });
+      }
+    }
+    if (localStorage.favoriteRecipes) {
+      const verifyLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (verifyLocal) {
+        this.setState({
+          favoriteButton: true,
         });
       }
     }
@@ -178,19 +187,11 @@ class ProcessoBebidas extends Component {
             type="button"
             onClick={ this.favoriteButtonClick }
           >
-            { !favoriteButton
-              ? (
-                <img
-                  data-testid="favorite-btn"
-                  src={ whiteHeartIcon }
-                  alt="no-favorite"
-                />)
-              : (
-                <img
-                  data-testid="favorite-btn"
-                  src={ blackHeartIcon }
-                  alt="yes-favorite"
-                />)}
+            <img
+              data-testid="favorite-btn"
+              src={ !favoriteButton ? whiteHeartIcon : blackHeartIcon }
+              alt="favorite"
+            />
           </button>
           {shareButton ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
           <p data-testid="recipe-category">{ strAlcoholic }</p>
@@ -218,15 +219,17 @@ class ProcessoBebidas extends Component {
           )) }
           <p data-testid="instructions">{ strInstructions }</p>
         </div>
-        <button
-          data-testid="finish-recipe-btn"
-          type="button"
-          className="btn-start"
-          disabled={ setIngredients.cocktails[urlId]
-            && setIngredients.cocktails[urlId].length !== onlyIngredientes.length }
-        >
-          Finalizar Receita
-        </button>
+        <Link to="/receitas-feitas">
+          <button
+            data-testid="finish-recipe-btn"
+            type="button"
+            className="btn-start"
+            disabled={ !setIngredients.cocktails[urlId]
+              || setIngredients.cocktails[urlId].length !== onlyIngredientes.length }
+          >
+            Finalizar Receita
+          </button>
+        </Link>
       </div>
     );
   }
