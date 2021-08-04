@@ -24,7 +24,7 @@ function FoodCard(props) {
         <div
           className="card"
           data-testid={ `${index}-recipe-card` }
-          // id={ meal.idMeal }
+          id={ meal.idMeal }
           key={ index }
           onClick={ goToRecipeDetails }
           onKeyUp={ goToRecipeDetails }
@@ -34,12 +34,12 @@ function FoodCard(props) {
           <img
             alt=""
             data-testid={ `${index}-card-img` }
-            // id={ meal.idMeal }
+            id={ meal.idMeal }
             src={ meal.strMealThumb }
           />
           <span
             data-testid={ `${index}-card-name` }
-            // id={ meal.idMeal }
+            id={ meal.idMeal }
           >
             {meal.strMeal}
           </span>

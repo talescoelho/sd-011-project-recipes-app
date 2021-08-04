@@ -1,49 +1,44 @@
-export const fetchApiMeals = async (url, search) => {
-  const resultMeals = await fetch(`${url}${search}`)
-    .then((response) => response.json())
-    .then(({ meals }) => {
-      if (meals) {
-        return meals;
-      }
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    })
-    .catch((error) => console.log(error));
+const maxCount = 12;
 
-  return resultMeals;
+export const fetchApiMeals = async (url, search) => {
+  const response = await fetch(`${url}${search}`);
+  const results = await response.json();
+  const { meals } = await (response.ok ? Promise.resolve(results)
+    : Promise.reject(results));
+  if (meals === null) {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
+  return meals.slice(0, maxCount);
 };
 
 export const fetchApiDrinks = async (url, search) => {
-  const resultDrinks = await fetch(`${url}${search}`)
-    .then((response) => response.json())
-    .then(({ drinks }) => {
-      if (drinks) {
-        return drinks;
-      }
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    })
-    .catch((error) => console.log(error));
-
-  return resultDrinks;
+  const response = await fetch(`${url}${search}`);
+  const results = await response.json();
+  const { drinks } = await (response.ok ? Promise.resolve(results)
+    : Promise.reject(results));
+  if (drinks === null) {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
+  return drinks.slice(0, maxCount);
 };
+
 export async function fetchDefaultFoodsFromMealsDB() {
-  const recipeMaxCount = 12;
   try {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     const rawResults = await response.json();
     const results = rawResults.meals;
-    return results.slice(0, recipeMaxCount);
+    return results.slice(0, maxCount);
   } catch (error) {
     console.log(error);
   }
 }
 
 export async function fetchDefaultDrinksFromCocktailsDB() {
-  const drinksMaxCount = 12;
   try {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     const rawResults = await response.json();
     const results = rawResults.drinks;
-    return results.slice(0, drinksMaxCount);
+    return results.slice(0, maxCount);
   } catch (error) {
     console.log(error);
   }

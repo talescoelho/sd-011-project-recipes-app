@@ -15,7 +15,6 @@ function DrinkCard(props) {
 
   function goToRecipeDetails({ target }) {
     const { id } = target;
-    console.log(drinkArray);
     history.push(`/bebidas/${id}`);
   }
 
@@ -25,7 +24,7 @@ function DrinkCard(props) {
         <div
           className="card"
           data-testid={ `${index}-recipe-card` }
-          // id={ drink.idDrink }
+          id={ drink.idDrink }
           key={ index }
           onClick={ goToRecipeDetails }
           onKeyUp={ goToRecipeDetails }
@@ -35,12 +34,12 @@ function DrinkCard(props) {
           <img
             alt=""
             data-testid={ `${index}-card-img` }
-            // id={ drink.idDrink }
+            id={ drink.idDrink }
             src={ drink.strDrinkThumb }
           />
           <span
             data-testid={ `${index}-card-name` }
-            // id={ drink.idDrink }
+            id={ drink.idDrink }
           >
             {drink.strDrink}
           </span>

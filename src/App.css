@@ -16,11 +16,11 @@
 }
 
 .center-items {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
+  justify-content: center;
 }
 
 .input-email, .input-password {

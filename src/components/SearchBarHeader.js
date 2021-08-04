@@ -23,40 +23,41 @@ function SearchBarHeader(props) {
     const endPointNameMeals = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
     const endPointFirstLetterMeals = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
 
-    const endPointIngredientDrink = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
-    const endPointNameDrink = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-    const endPointFirstLetterDrink = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
+    const endPointIngredientDrinks = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
+    const endPointNameDrinks = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    const endPointFirstLetterDrinks = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
 
     const firstLetter = 'primeira-letra';
 
     const { history: { location: { pathname } } } = props;
-    if (pathname === '/comidas' && option === 'ingrediente') {
-      getDataFromFoods(endPointIngredientMeals, searchInput);
+
+    if (pathname === '/comidas') {
+      if (option === 'ingrediente') {
+        getDataFromFoods(endPointIngredientMeals, searchInput);
+      } else if (option === 'nome') {
+        getDataFromFoods(endPointNameMeals, searchInput);
+      } else if (option === firstLetter && searchInput.length > 1) {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      } else {
+        getDataFromFoods(endPointFirstLetterMeals, searchInput);
+      }
+    } else if (pathname === '/bebidas') {
+      if (option === 'ingrediente') {
+        getDataFromDrinks(endPointIngredientDrinks, searchInput);
+      } else if (option === 'nome') {
+        getDataFromDrinks(endPointNameDrinks, searchInput);
+      } else if (option === firstLetter && searchInput.length > 1) {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      } else {
+        getDataFromDrinks(endPointFirstLetterDrinks, searchInput);
+      }
     }
-    if (pathname === '/comidas' && option === 'nome') {
-      getDataFromFoods(endPointNameMeals, searchInput);
-    }
-    if (pathname === '/comidas' && option === firstLetter && searchInput.length > 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
-    } else {
-      getDataFromFoods(endPointFirstLetterMeals, searchInput);
-    }
-    if (pathname === '/bebidas' && option === 'ingrediente') {
-      getDataFromDrinks(endPointIngredientDrink, searchInput);
-    }
-    if (pathname === '/bebidas' && option === 'nome') {
-      getDataFromDrinks(endPointNameDrink, searchInput);
-    }
-    if (pathname === '/bebidas' && option === firstLetter && searchInput.length > 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
-    } else {
-      getDataFromDrinks(endPointFirstLetterDrink, searchInput);
-    }
+
+    setOption('');
+    setSearchInput('');
   };
 
   const requestApi = () => {
-    setOption('');
-    setSearchInput('');
     requestApiFoodDrink();
   };
 
