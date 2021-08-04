@@ -4,7 +4,6 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function Profile() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
   const user = localStorage.getItem('user');
 
   const getEmail = () => {
