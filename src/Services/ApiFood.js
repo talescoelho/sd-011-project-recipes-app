@@ -25,3 +25,10 @@ export const getFoodsInitial = () => fetch('https://www.themealdb.com/api/json/v
       .json()
       .then((json) => (initial.ok ? Promise.resolve(json) : Promise.reject(json)))
   ));
+
+export const getFoodsCategory = () => fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
+  .then((categories) => (
+    categories
+      .json()
+      .then((json) => (categories.ok ? Promise.resolve(json) : Promise.reject(json)))
+  ));

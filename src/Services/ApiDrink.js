@@ -25,3 +25,10 @@ export const getDrinksInitial = () => fetch('https://www.thecocktaildb.com/api/j
       .json()
       .then((json) => (initial.ok ? Promise.resolve(json) : Promise.reject(json)))
   ));
+
+export const getDrinksCategory = () => fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
+  .then((categories) => (
+    categories
+      .json()
+      .then((json) => (categories.ok ? Promise.resolve(json) : Promise.reject(json)))
+  ));

@@ -5,6 +5,7 @@ import HeaderDrinks from '../../Components/headers/HeaderDrinks';
 import LowerMenu from '../../Components/footer/LowerMenu';
 import '../../css/Drinks.css';
 import DrinkCards from '../../Components/cards/DrinkCards';
+import FilterButtonsDrink from '../../Components/FilterButtons/FilterButtonsDrink';
 
 function Drinks() {
   const { setPage, dataDrinks } = useContext(MainContext);
@@ -24,6 +25,7 @@ function Drinks() {
   return (
     <div className="drink-page">
       <HeaderDrinks />
+      <FilterButtonsDrink />
       <DrinkCards />
       <LowerMenu />
     </div>

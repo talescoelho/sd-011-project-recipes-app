@@ -4,6 +4,7 @@ import MainContext from '../../Context/MainContext';
 import HeaderFoods from '../../Components/headers/HeaderFoods';
 import LowerMenu from '../../Components/footer/LowerMenu';
 import FoodCards from '../../Components/cards/FoodCards';
+import FilterButtonsFood from '../../Components/FilterButtons/FilterButtonsFood';
 import '../../css/Foods.css';
 
 function Foods() {
@@ -24,6 +25,7 @@ function Foods() {
   return (
     <div className="food-page">
       <HeaderFoods />
+      <FilterButtonsFood />
       <FoodCards />
       <LowerMenu />
     </div>

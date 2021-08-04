@@ -15,8 +15,6 @@ function FoodCards() {
     fetchFoodsInitial();
   }, []);
 
-  console.log(initialFoods);
-
   if (inputSearch) {
     return (
       <div className="card-foods">
