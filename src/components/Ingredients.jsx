@@ -16,7 +16,7 @@ export default function Ingredients({ recipe }) {
   }, []);
 
   const ingredients = measureKeys.reduce((acc, cur, index) => {
-    if (recipe[cur]) {
+    if (recipe[cur] && recipe[cur].length > 1) {
       const obj = { name: recipe[ingredientsKeys[index]], measure: recipe[cur] };
       return [...acc, obj];
     }

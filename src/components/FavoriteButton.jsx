@@ -2,65 +2,53 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import { getIds } from '../services';
 
 export default function FavoriteButton({ recipe, drinkOrFood }) {
-  const [getLocalStorage, setGetLocalStorage] = useState();
   const [isFavorite, setFavorite] = useState(false);
-  // const { idMeal, strMeal, strCategory, strArea, strMealThumb } = recipe;
-  // const { strDrink, strAlcoholic, strInstructions, strDrinkThumb } = recipe;
+  const { id, type, category, name, image, area } = getIds(drinkOrFood, recipe);
 
   useEffect(() => {
-    const getFromLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    setGetLocalStorage(getFromLocalStorage);
-  }, []);
-
-
-  useEffect(() => {
-    const id = drinkOrFood === 'comida' ? recipe.idMeal : recipe.idDrink;
-    if (getLocalStorage) {
-      const verifyFav = getLocalStorage.some((element) => element.id === id);
-      setFavorite(verifyFav);
+    if (!localStorage.favoriteRecipes) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
-  }, [getLocalStorage]);
-
-  const favorites = {
-    id: drinkOrFood === 'comida' ? recipe.idMeal : recipe.idDrink,
-    type: drinkOrFood === 'comida' ? 'comida' : 'bebida',
-    area: drinkOrFood === 'comida' ? recipe.strArea : '',
-    category: drinkOrFood === 'comida' ? recipe.strCategory : '',
-    alcoholicOrNot: drinkOrFood === 'comida' ? '' : recipe.strAlcoholic,
-    name: drinkOrFood === 'comida' ? recipe.strMeal : recipe.strDrink,
-    image: drinkOrFood === 'comida' ? recipe.strMealThumb : recipe.srtDrinkThumb,
-  };
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const verifyFav = favoriteRecipes.some((e) => e.id === id);
+    setFavorite(verifyFav);
+  }, [setFavorite, drinkOrFood, recipe, id]);
 
   function handleHeart() {
-    const id = drinkOrFood === 'comida' ? recipe.idMeal : recipe.idDrink;
-    const verifyFav = getLocalStorage.reduce((acc, cur) => {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const verifyFav = favoriteRecipes.reduce((acc, cur) => {
       if (cur.id !== id) {
         return [...acc, cur];
       }
       return acc;
     }, []);
-    const newFavorites = (isFavorite) ? verifyFav : [...verifyFav, favorites];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
+    const newFavorite = {
+      id,
+      type,
+      area: (type === 'comida') ? area : '',
+      category: (type === 'comida') ? category : 'Cocktail',
+      alcoholicOrNot: (type === 'comida') ? '' : category,
+      name,
+      image,
+    };
+    const favorites = (isFavorite) ? verifyFav : [...verifyFav, newFavorite];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
     setFavorite(!isFavorite);
   }
 
-  if (getLocalStorage) {
-    return (
-      <div>
-        <button type="button" onClick={ () => handleHeart() }>
-          <img
-            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-            alt="Favourite Button"
-            data-testid="favorite-btn"
-          />
-        </button>
-      </div>);
-  }
   return (
-    <h3> Carregando </h3>
-  );
+    <div>
+      <button type="button" onClick={ () => handleHeart() }>
+        <img
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          alt="Favourite Button"
+          data-testid="favorite-btn"
+        />
+      </button>
+    </div>);
 }
 
 FavoriteButton.propTypes = {
