@@ -75,7 +75,7 @@ describe.only('10 - Implemente um ícone para a tela de perfil, um título e um 
     hasNoHeader();
   });
 
-  it.only('O header tem os ícones corretos na tela de explorar', () => {
+  it('O header tem os ícones corretos na tela de explorar', () => {
     cy.visit('http://localhost:3000/explorar');
 
     hasHeader('Explorar', false);
@@ -117,7 +117,7 @@ describe.only('10 - Implemente um ícone para a tela de perfil, um título e um 
     hasHeader('Perfil', false);
   });
 
-  it('O header tem os ícones corretos na tela de receitas feitas', () => {
+  it.only('O header tem os ícones corretos na tela de receitas feitas', () => {
     cy.visit('http://localhost:3000/receitas-feitas');
 
     hasHeader('Receitas Feitas', false);

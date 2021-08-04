@@ -125,7 +125,7 @@ describe('Requeriment 10', () => {
     hasNoHeader();
   });
 
-  it.only('There is no Header on the Drink Recipes progress screen', () => {
+  it('There is no Header on the Drink Recipes progress screen', () => {
     const history = createMemoryHistory();
     render(
       <Router history={ history }>
@@ -134,5 +134,104 @@ describe('Requeriment 10', () => {
     );
     history.push('/bebidas/178319/in-progress');
     hasNoHeader();
+  });
+
+  it('There is correct icon on the Explore screen', () => {
+    const history = createMemoryHistory();
+    render(
+      <Router history={ history }>
+        <App />
+      </Router>,
+    );
+    history.push('/explorar');
+    hasHeader('Explorar', false);
+  });
+
+  it('There is correct icon on the Explore Food screen', () => {
+    const history = createMemoryHistory();
+    render(
+      <Router history={ history }>
+        <App />
+      </Router>,
+    );
+    history.push('/explorar/comidas');
+    hasHeader('Explorar Comidas', false);
+  });
+
+  it('There is correct icon on the Explore Drink screen', () => {
+    const history = createMemoryHistory();
+    render(
+      <Router history={ history }>
+        <App />
+      </Router>,
+    );
+    history.push('/explorar/bebidas');
+    hasHeader('Explorar Bebidas', false);
+  });
+
+  it('There is correct icon on the Explore Food by ingredients screen', () => {
+    const history = createMemoryHistory();
+    render(
+      <Router history={ history }>
+        <App />
+      </Router>,
+    );
+    history.push('/explorar/comidas/ingredientes');
+    hasHeader('Explorar Ingredientes', false);
+  });
+
+  it('There is correct icon on the Explore drink by ingredients screen', () => {
+    const history = createMemoryHistory();
+    render(
+      <Router history={ history }>
+        <App />
+      </Router>,
+    );
+    history.push('/explorar/bebidas/ingredientes');
+    hasHeader('Explorar Ingredientes', false);
+  });
+
+  it('There is correct icon on the "Explore food by location" screen', () => {
+    const history = createMemoryHistory();
+    render(
+      <Router history={ history }>
+        <App />
+      </Router>,
+    );
+    history.push('/explorar/comidas/area');
+    hasHeader('Explorar Origem');
+  });
+
+  it('There is correct icon on the "profile" header screen', () => {
+    const history = createMemoryHistory();
+    render(
+      <Router history={ history }>
+        <App />
+      </Router>,
+    );
+    history.push('/perfil');
+    hasHeader('Perfil', false);
+  });
+
+  it('There is correct icon on the "Recipes done" header screen', () => {
+    const history = createMemoryHistory();
+    render(
+      <Router history={ history }>
+        <App />
+      </Router>,
+    );
+    history.push('/receitas-feitas');
+    hasHeader('Receitas Feitas', false);
+  });
+
+  it('There is correct icon on the "Recipes favorite" header screen', () => {
+    const history = createMemoryHistory();
+    render(
+      <Router history={ history }>
+        <App />
+      </Router>,
+    );
+    history.push('/receitas-favoritas');
+    hasHeader('Receitas Favoritas', false);
   });
 });
