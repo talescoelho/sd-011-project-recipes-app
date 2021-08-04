@@ -3,20 +3,33 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addDoneRecipe } from '../redux/actions';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
+import handleClickFavoriteRecipe from '../helpers/handleClickFavoriteRecipe';
 
 function RecipeInProgress({
   typeURL,
   ingQuant,
   checkIng,
+  urlId,
   arrayCheckedIngredients,
-  favorite }) {
-  // eslint-disable-next-line global-require
-  const copy = require('clipboard-copy');
+}) {
   const [copied, setCopied] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const dispatch = useDispatch();
   const ingredients = [];
+
+  const [isFavorite, setIsFavorite] = React.useState(false);
+
+  React.useEffect(() => {
+    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
+    if (favoriteRecipes) {
+      const favoriteRecipesArray = JSON.parse(favoriteRecipes);
+      if (favoriteRecipesArray.some((recipe) => recipe.id === urlId)) {
+        setIsFavorite(true);
+      }
+    }
+  }, [urlId]);
 
   const dateSlice = 10;
   const utc = new Date().toJSON().slice(0, dateSlice).replace(/-/g, '/');
@@ -41,7 +54,7 @@ function RecipeInProgress({
   const copyLink = () => {
     const end = 12;
     const url = window.location.href;
-    copy(url.slice(0, url.length - end));
+    navigator.clipboard.writeText(url.slice(0, url.length - end));
     setCopied(true);
   };
 
@@ -71,15 +84,28 @@ function RecipeInProgress({
         >
           <img src={ shareIcon } alt="compartilhar" />
         </button>
-        <button
-          type="button"
-          data-testid="favorite-btn"
-          onClick={ favorite }
-          src={ blackHeartIcon }
-          className="favorite"
-        >
-          <img src={ blackHeartIcon } alt="favoritar" className="favorite" />
-        </button>
+        { isFavorite ? (
+          <button
+            type="button"
+            data-testid="favorite-btn"
+            onClick={ () => handleClickFavoriteRecipe(urlId,
+              recipeType, setIsFavorite, isFavorite) }
+            src={ blackHeartIcon }
+            className="favorite"
+          >
+            <img src={ blackHeartIcon } alt="" />
+          </button>)
+          : (
+            <button
+              type="button"
+              data-testid="favorite-btn"
+              onClick={ () => handleClickFavoriteRecipe(urlId,
+                recipeType, setIsFavorite, isFavorite) }
+              src={ whiteHeartIcon }
+              className="favorite"
+            >
+              <img src={ whiteHeartIcon } alt="" />
+            </button>) }
         {copied ? <p>Link copiado!</p> : null}
         <p data-testid="recipe-category">{recipeType.strCategory}</p>
         <ul>

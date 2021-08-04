@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import FooterMenu from '../../components/FooterMenu';
-import Header from '../../components/Header';
+import FooterMenu from '../components/FooterMenu';
+import Header from '../components/Header';
 import RenderFoods from './RenderFoods';
 
 const FoodList = ({ receiveData }) => {

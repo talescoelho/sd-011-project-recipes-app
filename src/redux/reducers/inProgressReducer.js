@@ -8,7 +8,7 @@ import { REQUEST_API,
   UPDATE_ARRAY } from '../actions';
 
 const INITIAL_STATE = {
-  ingredientsMeal: [],
+  ingredients: [],
   ingredientsDrink: [],
   recipeReceived: [],
   error: '',
@@ -35,31 +35,22 @@ function inProgressReducer(state = INITIAL_STATE, action) {
       fetching: false,
     };
   case ADD_INGREDIENT_DRINK:
-    return {
-      ...state,
-      ingredientsDrink: [...state.ingredientsDrink, action.ingredient],
-    };
   case ADD_INGREDIENT_MEAL:
     return {
       ...state,
-      ingredientsMeal: [...state.ingredientsMeal, action.ingredient],
+      ingredients: [...state.ingredients, action.ingredient],
     };
   case DELETE_INGREDIENT_DRINK:
-    return {
-      ...state,
-      ingredientsDrink: [...state.ingredientsDrink
-        .filter((ing) => ing !== action.ingredient)],
-    };
   case DELETE_INGREDIENT_MEAL:
     return {
       ...state,
-      ingredientsMeal: [...state.ingredientsMeal
+      ingredients: [...state.ingredients
         .filter((ing) => ing !== action.ingredient)],
     };
   case UPDATE_ARRAY:
     return {
       ...state,
-      ingredientsMeal: action.payload,
+      ingredients: action.payload,
     };
   default:
     return state;

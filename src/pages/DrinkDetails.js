@@ -1,17 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useFetch from '../../hooks/useFetch';
-import './styles.css';
-import shareIcon from '../../images/shareIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../../images/blackHeartIcon.svg';
-import handleClickFavoriteRecipe from '../../helpers/handleClickFavoriteRecipe';
-import handleClickClipboard from '../../helpers/handleClickClipBoard';
-import RecomendationCard from '../../components/recomendationCard.js';
-import handleContinueButton from '../../helpers/handleContinueButton';
+import useFetch from '../hooks/useFetch';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import handleClickFavoriteRecipe from '../helpers/handleClickFavoriteRecipe';
+import handleClickClipboard from '../helpers/handleClickClipBoard';
+import RecomendationCard from '../components/RecomendationCard';
+import handleContinueButton from '../helpers/handleContinueButton';
 
-const FoodDetails = ({ match }) => {
+const DrinkDetails = ({ match }) => {
   const { id } = match.params;
   const { data, request } = useFetch();
   const { data: mealsData, request: requestMeals } = useFetch();
@@ -125,7 +124,7 @@ const FoodDetails = ({ match }) => {
   );
 };
 
-FoodDetails.propTypes = {
+DrinkDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -133,4 +132,4 @@ FoodDetails.propTypes = {
   }).isRequired,
 };
 
-export default FoodDetails;
+export default DrinkDetails;

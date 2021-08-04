@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useFetch from '../../hooks/useFetch';
-import shareIcon from '../../images/shareIcon.svg';
-import blackHeartIcon from '../../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-import handleClickFavoriteRecipe from '../../helpers/handleClickFavoriteRecipe';
-import handleClickClipboard from '../../helpers/handleClickClipBoard';
-import RecomendationCard from '../../components/recomendationCard.js';
-import handleContinueButton from '../../helpers/handleContinueButton';
+import useFetch from '../hooks/useFetch';
+import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import handleClickFavoriteRecipe from '../helpers/handleClickFavoriteRecipe';
+import handleClickClipboard from '../helpers/handleClickClipBoard';
+import RecomendationCard from '../components/RecomendationCard';
+import handleContinueButton from '../helpers/handleContinueButton';
 
 const FoodDetails = ({ match }) => {
   const { id } = match.params;
