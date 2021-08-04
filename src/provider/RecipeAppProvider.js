@@ -9,14 +9,17 @@ function RecipeAppProvider({ children }) {
   const [drinkCategoryList, setDrinkCategory] = useState('');
   const [foodCategoryList, setFoodCategory] = useState('');
   const [toggleOn, setToggleOn] = useState(false);
+  const mockName = 'Spicy Arrabiata Penne';
+  const mockImage = 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg';
+  const mockImageDrinks = 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg';
   const [recipesDone, setRecipesDone] = useState([{
     id: '52771',
     type: 'comida',
     area: 'Italian',
     category: 'Vegetarian',
     alcoholicOrNot: '',
-    name: 'Spicy Arrabiata Penne',
-    image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+    name: mockName,
+    image: mockImage,
     doneDate: '23/05/2020',
     tags: ['Pasta', 'Curry'],
   },
@@ -27,7 +30,7 @@ function RecipeAppProvider({ children }) {
     category: 'Cocktail',
     alcoholicOrNot: 'Alcoholic',
     name: 'Aquamarine',
-    image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+    image: mockImageDrinks,
     doneDate: '24/06/2020',
     tags: [],
   },
@@ -39,8 +42,8 @@ function RecipeAppProvider({ children }) {
     area: 'Italian',
     category: 'Vegetarian',
     alcoholicOrNot: '',
-    name: 'Spicy Arrabiata Penne',
-    image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+    name: mockName,
+    image: mockImage,
     doneDate: '23/06/2020',
     tags: ['Pasta', 'Curry'],
   },
@@ -51,10 +54,52 @@ function RecipeAppProvider({ children }) {
     category: 'Cocktail',
     alcoholicOrNot: 'Alcoholic',
     name: 'Aquamarine',
-    image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+    image: mockImageDrinks,
     doneDate: '23/06/2020',
     tags: [],
   },
+  ]);
+
+  const [favoritesRecipes, setFavoritesRecipes] = useState([
+    {
+      id: '52771',
+      type: 'comida',
+      area: 'Italian',
+      category: 'Vegetarian',
+      alcoholicOrNot: '',
+      name: mockName,
+      image: mockImage,
+    },
+    {
+      id: '178319',
+      type: 'bebida',
+      area: '',
+      category: 'Cocktail',
+      alcoholicOrNot: 'Alcoholic',
+      name: 'Aquamarine',
+      image: mockImageDrinks,
+    },
+  ]);
+
+  const [filteredFavoritesRecipes, setFilteredFavoritesRecipes] = useState([
+    {
+      id: '52771',
+      type: 'comida',
+      area: 'Italian',
+      category: 'Vegetarian',
+      alcoholicOrNot: '',
+      name: 'Spicy Arrabiata Penne',
+      image: mockImage,
+    },
+    {
+      id: '178319',
+      type: 'bebida',
+      area: '',
+      category: 'Cocktail',
+      alcoholicOrNot: 'Alcoholic',
+      name: 'Aquamarine',
+      image: mockImageDrinks,
+    },
   ]);
 
   const handleChange = (e) => {
@@ -92,6 +137,10 @@ function RecipeAppProvider({ children }) {
     setRecipesDone,
     filteredRecipesDone,
     setFilteredRecipesDone,
+    filteredFavoritesRecipes,
+    setFilteredFavoritesRecipes,
+    favoritesRecipes,
+    setFavoritesRecipes,
   };
 
   return (
