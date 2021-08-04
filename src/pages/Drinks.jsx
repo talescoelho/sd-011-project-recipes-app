@@ -10,7 +10,8 @@ import '../styles/recipesCard.css';
 
 function Drinks() {
   const { setDrinks, setLoading, dataFilter, setDataFilter,
-    drinks, compare, setCompare, loading, drinksByItem } = useContext(RecipesContext);
+    drinks, compare, setCompare, loading,
+    drinksByItem, searchBar } = useContext(RecipesContext);
 
   const MAX = 12;
 
@@ -38,23 +39,12 @@ function Drinks() {
     renderItens();
   }, [setCompare, drinks, dataFilter, drinksByItem, setDataFilter]);
 
-  const fnAlert = (func, message) => {
-    func(message);
-  };
-
-  if (dataFilter === null) {
-    const msg = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
-    return fnAlert(alert, msg);
-  }
-
-  if (dataFilter.length === 1) {
-    return <Redirect to={ `/bebidas/${dataFilter[0].idDrink}` } />;
-  }
-
   return (
     <>
+      { dataFilter && dataFilter.length
+        === 1 && <Redirect to={ `/bebidas/${dataFilter[0].idDrink}` } />}
       <Header />
-      <FiltersCategories />
+      {searchBar ? null : <FiltersCategories /> }
       <section className="recipes-container">
         {loading ? <ReactBootStrap.Spinner animation="border" />
           : compare.slice(0, MAX).map((drink, index) => (

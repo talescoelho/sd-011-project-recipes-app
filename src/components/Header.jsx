@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import RecipesContext from '../context/RecipesContext';
 import SearchBar from './subcomponents/SearchBar';
 import TopHeaderBar from './subcomponents/TopHeaderBar';
 
 function Header() {
-  const [searchBar, setSearchBar] = useState(false);
+  const { searchBar, setSearchBar } = useContext(RecipesContext);
   return (
     <header>
       <TopHeaderBar toggleSearchBar={ { searchBar, setSearchBar } } />
