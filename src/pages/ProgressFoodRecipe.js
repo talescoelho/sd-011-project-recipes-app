@@ -1,20 +1,23 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import MyContext from '../context/MyContext';
+import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import handleClickCheckbox from '../helpers/handleClickCheckbox';
 
 export default function ProgressFoodRecipe(props) {
   const [data, setData] = useState([]);
+  const [favorite, setFavorite] = useState(false);
+  const [copied, setCopied] = useState('');
+  const [disable, setDisable] = useState(true);
   const { history } = props;
   const { location } = history;
   const { pathname } = location;
+  const toShare = pathname.replace('/in-progress', '');
   const id = pathname.split('/')[2];
-  const [inProgress, setInProgress] = useState({ meals: {
-    id,
-  } });
-  console.log(inProgress);
+  const [inProgress, setInProgress] = useState({ cocktails: {}, meals: {} });
 
   useEffect(() => {
     async function fetchFoodsById() {
@@ -32,32 +35,37 @@ export default function ProgressFoodRecipe(props) {
       .map((element) => data.meals[0][element])
       .filter((value) => value);
 
-  function handleClickCheckbox({ target }) {
-    const { checked } = target;
-    if (checked) {
-      target.parentNode.style.textDecoration = 'line-through';
-    } else {
-      target.parentNode.style.textDecoration = 'none';
+  useEffect(() => {
+    const getLocalProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (localStorage.inProgressRecipes) {
+      setInProgress(getLocalProgress);
     }
-    setInProgress({
-      cocktails: {},
-      meals: {
-        id: [target.innerText],
-      },
-    });
-  }
+  }, []);
 
   useEffect(() => {
-    if (!localStorage) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
-    } else {
-      const recipeProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      console.log(recipeProgress);
-      // recipeProgress.meals.push(name);
-      localStorage.setItem('inProgressRecipes', JSON.stringify(recipeProgress));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+    function finishRecipe() {
+      if (inProgress.meals[id] && inProgress.meals[id].length === ingredientes.length) {
+        setDisable(false);
+      } else {
+        setDisable(true);
+      }
     }
-  }, [inProgress, id]);
+    finishRecipe();
+  }, [inProgress, id, ingredientes]);
 
+  function handleShared() {
+    copy(`http://localhost:3000${toShare}`);
+    setCopied('Link copiado!');
+  }
+
+  function handleFavorite() {
+    setFavorite(!favorite);
+  }
+
+  const paramFunction = {
+    inProgress, setInProgress, id, type: 'meals',
+  };
   return (
     <div>
       <h1>Progresso Comida</h1>
@@ -72,14 +80,20 @@ export default function ProgressFoodRecipe(props) {
           <button
             type="button"
             data-testid="share-btn"
+            onClick={ handleShared }
           >
             <img src={ shareIcon } alt="compartilhar" />
           </button>
+          {copied && <p>{ copied }</p>}
           <button
             type="button"
-            data-testid="favorite-btn"
+            onClick={ handleFavorite }
           >
-            <img src={ whiteHeartIcon } alt="favoritar" />
+            <img
+              src={ !favorite ? whiteHeartIcon : blackHeartIcon }
+              data-testid="favorite-btn"
+              alt="favoritar"
+            />
           </button>
           <p data-testid="recipe-category">
             {' '}
@@ -94,7 +108,9 @@ export default function ProgressFoodRecipe(props) {
                 <input
                   type="checkbox"
                   id={ `${index}-ingredient-step` }
-                  onClick={ handleClickCheckbox }
+                  onClick={ (e) => handleClickCheckbox(e, item, paramFunction) }
+                  checked={ inProgress.meals[id] && inProgress.meals[id]
+                    .includes(item) }
                 />
                 {' '}
                 { item }
@@ -113,6 +129,7 @@ export default function ProgressFoodRecipe(props) {
             <button
               type="button"
               data-testid="finish-recipe-btn"
+              disabled={ disable }
             >
               Finalizar Receita
             </button>
@@ -132,5 +149,3 @@ ProgressFoodRecipe.propTypes = {
     }),
   }),
 }.isRequired;
-
-ProgressFoodRecipe.contextType = MyContext;

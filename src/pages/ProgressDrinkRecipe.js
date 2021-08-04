@@ -1,16 +1,23 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import MyContext from '../context/MyContext';
+import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import handleClickCheckbox from '../helpers/handleClickCheckbox';
 
 export default function ProgressDrinkRecipe(props) {
   const [data, setData] = useState([]);
+  const [favorite, setFavorite] = useState(false);
+  const [copied, setCopied] = useState('');
+  const [disable, setDisable] = useState(true);
   const { history } = props;
   const { location } = history;
   const { pathname } = location;
+  const toShare = pathname.replace('/in-progress', '');
   const id = pathname.split('/')[2];
+  const [inProgress, setInProgress] = useState({ cocktails: {}, meals: {} });
 
   useEffect(() => {
     async function fetchDrinksById() {
@@ -28,14 +35,38 @@ export default function ProgressDrinkRecipe(props) {
       .map((element) => data.drinks[0][element])
       .filter((value) => value);
 
-  function handleClickCheckbox({ target }) {
-    const { checked } = target;
-    if (checked) {
-      target.parentNode.style.textDecoration = 'line-through';
-    } else {
-      target.parentNode.style.textDecoration = 'none';
+  useEffect(() => {
+    const getLocalProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (localStorage.inProgressRecipes) {
+      setInProgress(getLocalProgress);
     }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+    function finishRecipe() {
+      if (inProgress.cocktails[id]
+        && inProgress.cocktails[id].length === ingredientes.length) {
+        setDisable(false);
+      } else {
+        setDisable(true);
+      }
+    }
+    finishRecipe();
+  }, [inProgress, id, ingredientes]);
+
+  function handleShared() {
+    copy(`http://localhost:3000${toShare}`);
+    setCopied('Link copiado!');
   }
+
+  function handleFavorite() {
+    setFavorite(!favorite);
+  }
+
+  const paramFunction = {
+    inProgress, setInProgress, id, type: 'cocktails',
+  };
 
   return (
     <div>
@@ -51,14 +82,20 @@ export default function ProgressDrinkRecipe(props) {
           <button
             type="button"
             data-testid="share-btn"
+            onClick={ handleShared }
           >
             <img src={ shareIcon } alt="compartilhar" />
           </button>
+          {copied && <p>{ copied }</p>}
           <button
             type="button"
             data-testid="favorite-btn"
+            onClick={ handleFavorite }
           >
-            <img src={ whiteHeartIcon } alt="favoritar" />
+            <img
+              src={ !favorite ? whiteHeartIcon : blackHeartIcon }
+              alt="favoritar"
+            />
           </button>
           <p data-testid="recipe-category">
             {' '}
@@ -73,7 +110,9 @@ export default function ProgressDrinkRecipe(props) {
                 <input
                   type="checkbox"
                   id={ `${index}-ingredient-step` }
-                  onClick={ handleClickCheckbox }
+                  onClick={ (e) => handleClickCheckbox(e, item, paramFunction) }
+                  checked={ inProgress.cocktails[id] && inProgress.cocktails[id]
+                    .includes(item) }
                 />
                 {' '}
                 { item }
@@ -92,6 +131,7 @@ export default function ProgressDrinkRecipe(props) {
             <button
               type="button"
               data-testid="finish-recipe-btn"
+              disabled={ disable }
             >
               Finalizar Receita
             </button>
@@ -111,5 +151,3 @@ ProgressDrinkRecipe.propTypes = {
     }),
   }),
 }.isRequired;
-
-ProgressDrinkRecipe.contextType = MyContext;
