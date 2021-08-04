@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Login from './pages/Login';
+import Meals from './pages/Meals';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route path="/header" component={ Header } />
+        <Route path="/comidas" component={ Meals } />
         {/* <Route path="/comidas" component={} />
         <Route path="/comidas:id-" component={} />
         <Route path="/bebidas" component={} />
