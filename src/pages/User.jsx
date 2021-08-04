@@ -5,7 +5,6 @@ import '../styles/User.css';
 
 export default function User() {
   const getEmail = JSON.parse(localStorage.getItem('user'));
-  const { email } = getEmail;
 
   const exitButton = () => {
     localStorage.clear();
@@ -15,7 +14,7 @@ export default function User() {
     <>
       <Header pageName="Perfil" />
       <div className="userButtons">
-        <p data-testid="profile-email">{ email }</p>
+        <p data-testid="profile-email">{ getEmail ? getEmail.email : 'ghost' }</p>
         <Link to="/receitas-feitas">
           <button data-testid="profile-done-btn" type="button">Receitas Feitas</button>
         </Link>
