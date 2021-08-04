@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import React, { useContext, useEffect } from 'react';
 import AppContext from '../context/AppContext';
 
 function SearchCategories({ type }) {
@@ -14,16 +15,26 @@ function SearchCategories({ type }) {
   const CATEGORY_NUMER = 5;
 
   const searchByCategory = (category) => {
-    switchFilter(category);
-
     switch (type) {
     case 'food':
+      if (category === 'All') {
+        fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+          .then((result) => result.json())
+          .then((rdata) => setData(rdata));
+        return;
+      }
       fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
         .then((response) => response.json())
         .then((rdata) => setData(rdata));
       break;
 
     case 'drink':
+      if (category === 'All') {
+        fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+          .then((result) => result.json())
+          .then((rdata) => setData(rdata));
+        return;
+      }
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`)
         .then((response) => response.json())
         .then((rdata) => setData(rdata));
@@ -34,12 +45,15 @@ function SearchCategories({ type }) {
     }
   };
 
+  useEffect(() => { searchByCategory(filter); }, [filter]);
+
   return (
     <div>
       <button
+        data-testid="All-category-filter"
         type="button"
         value="All"
-        onClick={ ({ target }) => searchByCategory(target.value) }
+        onClick={ ({ target }) => switchFilter(target.value) }
       >
         All
       </button>
@@ -51,7 +65,7 @@ function SearchCategories({ type }) {
             key={ index }
             data-testid={ `${category.strCategory}-category-filter` }
             onClick={ ({ target }) => {
-              searchByCategory(target.value);
+              switchFilter(target.value);
             } }
           >
             {category.strCategory}
@@ -60,5 +74,9 @@ function SearchCategories({ type }) {
     </div>
   );
 }
+
+SearchCategories.propTypes = {
+  type: PropTypes.string.isRequired,
+};
 
 export default SearchCategories;

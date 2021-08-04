@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import AppContext from './AppContext';
 
 function Provider({ children }) {
@@ -18,10 +19,42 @@ function Provider({ children }) {
     setFilter(filterValue);
   };
 
+  const foodVerification = (vdata) => {
+    if (vdata.meals !== null) {
+      if (vdata.meals.length > 1) return setData(vdata);
+      if (vdata.meals.length === 1) return <Redirect to="/comidas/teste" />;
+      // eslint-disable-next-line no-alert
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+  };
+
+  const drinkVerification = (vdata) => {
+    if (vdata.drinks !== null) {
+      if (vdata.drinks.length > 1) return setData(vdata);
+      if (vdata.drinks.length === 1) return <Redirect to="/bebidas/teste" />;
+      // eslint-disable-next-line no-alert
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+  };
+
   const fetchSearchHeader = (URL) => {
     fetch(URL)
       .then((response) => response.json())
-      .then((dataValue) => setData(dataValue));
+      .then((dataValue) => {
+        const value = Object.keys(dataValue).toString();
+        switch (value) {
+        case 'meals':
+          foodVerification(dataValue);
+          break;
+
+        case 'drinks':
+          drinkVerification(dataValue);
+          break;
+
+        default:
+          break;
+        }
+      });
   };
 
   const filterFoodSearchHeader = () => {
@@ -43,7 +76,7 @@ function Provider({ children }) {
       break;
     default:
       // eslint-disable-next-line no-alert
-      alert('Nenhum filtro selecionado.');
+      alert('Nenhum filtro foi selecionado!');
     }
   };
 
@@ -66,7 +99,7 @@ function Provider({ children }) {
       break;
     default:
       // eslint-disable-next-line no-alert
-      alert('Nenhum filtro selecionado.');
+      alert('Nenhum filtro foi selecionado!');
     }
   };
 
