@@ -49,13 +49,13 @@ export default function FoodsInProgress() {
   const [checkIngredients, setCheckIngredients] = useState(null);
   let foodType = 'meals';
   let recipe = 'meals';
-  let type = 'comida';
+  let type = 'comidas';
   let idRecipe = 'idMeal';
 
   if (window.location.pathname.split('/')[1] === 'bebidas') {
     foodType = 'drinks';
     recipe = 'cocktails';
-    type = 'bebida';
+    type = 'bebidas';
     idRecipe = 'idDrink';
   }
 

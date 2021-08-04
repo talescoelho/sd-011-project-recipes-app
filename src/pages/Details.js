@@ -90,7 +90,9 @@ export default function Details() {
         height="100px"
       />
       <h1 data-testid="recipe-title">{ data[foodType][0][`str${food}`] }</h1>
-      <h4 data-testid="recipe-category">{ data[foodType][0].strCategory }</h4>
+      <h4 data-testid="recipe-category">
+        { data[foodType][0].strAlcoholic || data[foodType][0].strCategory }
+      </h4>
       { ingredients.filter((value) => data[foodType][0][value] !== ' ')
         .filter((ingrediente) => data[foodType][0][ingrediente])
         .map((ingredient, index) => (
