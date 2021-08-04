@@ -23,43 +23,43 @@ jest
 afterEach(() => jest.clearAllMocks());
 beforeEach(() => jest.clearAllMocks());
 
-describe(`31 - Desenvolva o filtro de categorias com a opção de filtrar por todas as 
-categorias`, () => {
-  it(`Caso as receitas sejam de comida deve existir a opção de filtrar por todas as 
-  categorias`, async () => {
-    renderWithRouterAndStore(<Foods />, '/comidas');
-    mockFilterMealByCategory(mealsFilterByBeef);
+describe('31 - Develop the category filter with the option to filter by all categories',
+  () => {
+    it('If the recipes are for food, there must be an option to filter by all categories',
+      async () => {
+        renderWithRouterAndStore(<Foods />, '/comidas');
+        mockFilterMealByCategory(mealsFilterByBeef);
 
-    const beefFilterOption = await screen.findByTestId('Beef-category-filter');
-    fireEvent.click(beefFilterOption);
+        const beefFilterOption = await screen.findByTestId('Beef-category-filter');
+        fireEvent.click(beefFilterOption);
 
-    const { meals: mealsOptions } = mealsFilterByBeef;
-    await testMealsRecipeCard(mealsOptions, maxDefaultCards);
+        const { meals: mealsOptions } = mealsFilterByBeef;
+        await testMealsRecipeCard(mealsOptions, maxDefaultCards);
 
-    const allFilterOption = await screen.findByTestId('All-category-filter');
-    fireEvent.click(allFilterOption);
+        const allFilterOption = await screen.findByTestId('All-category-filter');
+        fireEvent.click(allFilterOption);
 
-    const { meals: allOptions } = mealsFiltersByAll;
-    await testMealsRecipeCard(allOptions, maxDefaultCards);
+        const { meals: allOptions } = mealsFiltersByAll;
+        await testMealsRecipeCard(allOptions, maxDefaultCards);
+      });
+
+    it(`If the recipes are for drinks, there must be the option to filter by all 
+    categories`, async () => {
+      renderWithRouterAndStore(<Drinks />, '/bebidas');
+      mockFilterDrinkByCategory(drinksFilterByOrdinaryDrink);
+
+      const ordinaryDrinkFilterOption = await screen.findByTestId(
+        'Ordinary Drink-category-filter',
+      );
+      fireEvent.click(ordinaryDrinkFilterOption);
+
+      const { drinks: orinaryDrinksOptions } = drinksFilterByOrdinaryDrink;
+      await testDrinksRecipeCard(orinaryDrinksOptions, maxDefaultCards);
+
+      const allFilterOption = await screen.findByTestId('All-category-filter');
+      fireEvent.click(allFilterOption);
+
+      const { drinks: allOptions } = drinksFiltersByAll;
+      await testDrinksRecipeCard(allOptions, maxDefaultCards);
+    });
   });
-
-  it(`Caso as receitas sejam de bebida deve existir a opção de filtrar por todas as 
-  categorias`, async () => {
-    renderWithRouterAndStore(<Drinks />, '/bebidas');
-    mockFilterDrinkByCategory(drinksFilterByOrdinaryDrink);
-
-    const ordinaryDrinkFilterOption = await screen.findByTestId(
-      'Ordinary Drink-category-filter',
-    );
-    fireEvent.click(ordinaryDrinkFilterOption);
-
-    const { drinks: orinaryDrinksOptions } = drinksFilterByOrdinaryDrink;
-    await testDrinksRecipeCard(orinaryDrinksOptions, maxDefaultCards);
-
-    const allFilterOption = await screen.findByTestId('All-category-filter');
-    fireEvent.click(allFilterOption);
-
-    const { drinks: allOptions } = drinksFiltersByAll;
-    await testDrinksRecipeCard(allOptions, maxDefaultCards);
-  });
-});

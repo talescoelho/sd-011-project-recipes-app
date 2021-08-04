@@ -12,9 +12,9 @@ const maxDefaultCards = 12;
 afterEach(() => jest.clearAllMocks());
 beforeEach(() => jest.clearAllMocks());
 
-describe('26 - Carregue as 12 primeiras receitas de comidas, uma em cada card',
+describe('26 - Load the first 12 food recipes, one on each card',
   () => {
-    it('Deve carregar as 12 primeiras receitas de comida', async () => {
+    it('Must load the first 12 food recipes', async () => {
       renderWithRouterAndStore(<Foods />, '/comidas');
       const { meals } = mealsFiltersByAll;
       await testMealsRecipeCard(meals, maxDefaultCards);
@@ -24,7 +24,7 @@ describe('26 - Carregue as 12 primeiras receitas de comidas, uma em cada card',
       expect(screen.queryByTestId('12-recipe-name')).toBeNull();
     });
 
-    it('Deve carregar as 12 primeiras receitas de bebida', async () => {
+    it('Must load the first 12 drink recipes', async () => {
       renderWithRouterAndStore(<Drinks />, '/bebidas');
       const { drinks } = drinksFiltersByAll;
       await testDrinksRecipeCard(drinks, maxDefaultCards);

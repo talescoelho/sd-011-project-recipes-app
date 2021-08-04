@@ -31,115 +31,115 @@ jest
 afterEach(() => jest.clearAllMocks());
 beforeEach(() => jest.clearAllMocks());
 
-describe(`30 - Implemente o filtro de categoria para que apenas um seja selecionado por 
-vez`, () => {
-  it(`Caso as receitas sejam de comida apenas um filtro de categoria deve poder ser 
-  selecionado por vez`, async () => {
-    renderWithRouterAndStore(<Foods />, '/comidas');
+describe('30 - Implement the category filter so that only one is selected at a time',
+  () => {
+    it(`If the recipes are for food, only one category filter must be able to be 
+    selected at a time`, async () => {
+      renderWithRouterAndStore(<Foods />, '/comidas');
 
-    mockFilterMealByCategory(mealsFilterByBeef);
+      mockFilterMealByCategory(mealsFilterByBeef);
 
-    const beefFilterOption = await screen.findByTestId(
-      'Beef-category-filter',
-    );
-    fireEvent.click(beefFilterOption);
+      const beefFilterOption = await screen.findByTestId(
+        'Beef-category-filter',
+      );
+      fireEvent.click(beefFilterOption);
 
-    const { meals: beefMeals } = mealsFilterByBeef;
-    await testMealsRecipeCard(beefMeals, maxDefaultCards);
+      const { meals: beefMeals } = mealsFilterByBeef;
+      await testMealsRecipeCard(beefMeals, maxDefaultCards);
 
-    mockFilterMealByCategory(mealsFilterByBreakfast);
+      mockFilterMealByCategory(mealsFilterByBreakfast);
 
-    const breakfastFilterOption = await screen.findByTestId(
-      'Breakfast-category-filter',
-    );
-    fireEvent.click(breakfastFilterOption);
+      const breakfastFilterOption = await screen.findByTestId(
+        'Breakfast-category-filter',
+      );
+      fireEvent.click(breakfastFilterOption);
 
-    const { meals: breakfastMeals } = mealsFilterByBreakfast;
-    await testMealsRecipeCard(breakfastMeals, maxDefaultCards);
+      const { meals: breakfastMeals } = mealsFilterByBreakfast;
+      await testMealsRecipeCard(breakfastMeals, maxDefaultCards);
 
-    mockFilterMealByCategory(mealsFilterByChicken);
+      mockFilterMealByCategory(mealsFilterByChicken);
 
-    const chickenFilterOption = await screen.findByTestId(
-      'Chicken-category-filter',
-    );
-    fireEvent.click(chickenFilterOption);
+      const chickenFilterOption = await screen.findByTestId(
+        'Chicken-category-filter',
+      );
+      fireEvent.click(chickenFilterOption);
 
-    const { meals: chickenMeals } = mealsFilterByChicken;
-    await testMealsRecipeCard(chickenMeals, maxDefaultCards);
+      const { meals: chickenMeals } = mealsFilterByChicken;
+      await testMealsRecipeCard(chickenMeals, maxDefaultCards);
 
-    mockFilterMealByCategory(mealsFilterByDessert);
+      mockFilterMealByCategory(mealsFilterByDessert);
 
-    const dessertFilterOption = await screen.findByTestId(
-      'Dessert-category-filter',
-    );
-    fireEvent.click(dessertFilterOption);
+      const dessertFilterOption = await screen.findByTestId(
+        'Dessert-category-filter',
+      );
+      fireEvent.click(dessertFilterOption);
 
-    const { meals: dessertMeals } = mealsFilterByDessert;
-    await testMealsRecipeCard(dessertMeals, maxDefaultCards);
+      const { meals: dessertMeals } = mealsFilterByDessert;
+      await testMealsRecipeCard(dessertMeals, maxDefaultCards);
 
-    mockFilterMealByCategory(mealsFilterByGoat);
+      mockFilterMealByCategory(mealsFilterByGoat);
 
-    const goatFilterOption = await screen.findByTestId(
-      'Goat-category-filter',
-    );
-    fireEvent.click(goatFilterOption);
+      const goatFilterOption = await screen.findByTestId(
+        'Goat-category-filter',
+      );
+      fireEvent.click(goatFilterOption);
 
-    const { meals: goatMeals } = mealsFilterByGoat;
-    await testMealsRecipeCard(goatMeals, maxDefaultCards);
+      const { meals: goatMeals } = mealsFilterByGoat;
+      await testMealsRecipeCard(goatMeals, maxDefaultCards);
+    });
+
+    it(`If the recipes are for drinks, only one category filter must be able to be 
+    selected at a time`, async () => {
+      renderWithRouterAndStore(<Drinks />, '/bebidas');
+
+      mockFilterDrinkByCategory(drinksFilterByOrdinaryDrink);
+
+      const ordinaryDrinkFilterOption = await screen.findByTestId(
+        'Ordinary Drink-category-filter',
+      );
+      fireEvent.click(ordinaryDrinkFilterOption);
+
+      const { drinks: ordinaryDrinks } = drinksFilterByOrdinaryDrink;
+      await testDrinksRecipeCard(ordinaryDrinks, maxDefaultCards);
+
+      mockFilterDrinkByCategory(drinksFilterByCocktail);
+
+      const cocktailFilterOption = await screen.findByTestId(
+        'Cocktail-category-filter',
+      );
+      fireEvent.click(cocktailFilterOption);
+
+      const { drinks: cocktailDrinks } = drinksFilterByCocktail;
+      await testDrinksRecipeCard(cocktailDrinks, maxDefaultCards);
+
+      mockFilterDrinkByCategory(drinksFilterByMilkFloatShake);
+
+      const MilkFloatShakeFilterOption = await screen.findByTestId(
+        'Milk / Float / Shake-category-filter',
+      );
+      fireEvent.click(MilkFloatShakeFilterOption);
+
+      const { drinks: milkFloatShakeDrinks } = drinksFilterByMilkFloatShake;
+      await testDrinksRecipeCard(milkFloatShakeDrinks, maxDefaultCards);
+
+      mockFilterDrinkByCategory(drinksFilterByOtherUnknown);
+
+      const otherUnknownFilterOption = await screen.findByTestId(
+        'Other/Unknown-category-filter',
+      );
+      fireEvent.click(otherUnknownFilterOption);
+
+      const { drinks: otherUnknownDrinks } = drinksFilterByOtherUnknown;
+      await testDrinksRecipeCard(otherUnknownDrinks, maxDefaultCards);
+
+      mockFilterDrinkByCategory(drinksFilterByCocoa);
+
+      const cocoaFilterOption = await screen.findByTestId(
+        'Cocoa-category-filter',
+      );
+      fireEvent.click(cocoaFilterOption);
+
+      const { drinks: cocoaDrinks } = drinksFilterByCocoa;
+      await testDrinksRecipeCard(cocoaDrinks, maxDefaultCards);
+    });
   });
-
-  it(`Caso as receitas sejam de bebida apenas um filtro de categoria deve poder ser 
-  selecionado por vez`, async () => {
-    renderWithRouterAndStore(<Drinks />, '/bebidas');
-
-    mockFilterDrinkByCategory(drinksFilterByOrdinaryDrink);
-
-    const ordinaryDrinkFilterOption = await screen.findByTestId(
-      'Ordinary Drink-category-filter',
-    );
-    fireEvent.click(ordinaryDrinkFilterOption);
-
-    const { drinks: ordinaryDrinks } = drinksFilterByOrdinaryDrink;
-    await testDrinksRecipeCard(ordinaryDrinks, maxDefaultCards);
-
-    mockFilterDrinkByCategory(drinksFilterByCocktail);
-
-    const cocktailFilterOption = await screen.findByTestId(
-      'Cocktail-category-filter',
-    );
-    fireEvent.click(cocktailFilterOption);
-
-    const { drinks: cocktailDrinks } = drinksFilterByCocktail;
-    await testDrinksRecipeCard(cocktailDrinks, maxDefaultCards);
-
-    mockFilterDrinkByCategory(drinksFilterByMilkFloatShake);
-
-    const MilkFloatShakeFilterOption = await screen.findByTestId(
-      'Milk / Float / Shake-category-filter',
-    );
-    fireEvent.click(MilkFloatShakeFilterOption);
-
-    const { drinks: milkFloatShakeDrinks } = drinksFilterByMilkFloatShake;
-    await testDrinksRecipeCard(milkFloatShakeDrinks, maxDefaultCards);
-
-    mockFilterDrinkByCategory(drinksFilterByOtherUnknown);
-
-    const otherUnknownFilterOption = await screen.findByTestId(
-      'Other/Unknown-category-filter',
-    );
-    fireEvent.click(otherUnknownFilterOption);
-
-    const { drinks: otherUnknownDrinks } = drinksFilterByOtherUnknown;
-    await testDrinksRecipeCard(otherUnknownDrinks, maxDefaultCards);
-
-    mockFilterDrinkByCategory(drinksFilterByCocoa);
-
-    const cocoaFilterOption = await screen.findByTestId(
-      'Cocoa-category-filter',
-    );
-    fireEvent.click(cocoaFilterOption);
-
-    const { drinks: cocoaDrinks } = drinksFilterByCocoa;
-    await testDrinksRecipeCard(cocoaDrinks, maxDefaultCards);
-  });
-});
