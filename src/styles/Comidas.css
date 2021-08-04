@@ -7,8 +7,6 @@
 
 .foodRecipesContainer {
   align-items: center;
-
-  /* background-color: brown; */
   background-color: black;
   display: flex;
   flex-flow: row wrap;

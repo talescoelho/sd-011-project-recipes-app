@@ -11,6 +11,13 @@ function RecipesProvider({ children }) {
   const [dataRecipes, setDataRecipes] = useState([]);
   const [categorysList, setCategorysList] = useState(pathname);
   const [currentCategory, setCurrentCategory] = useState('All');
+  const [doneRecipes, setDoneRecipes] = useState('');
+
+  useEffect(() => {
+    localStorage.setItem('doneRecipes', JSON.stringify([]));
+    const RecipesConcludeds = JSON.parse(localStorage.getItem('doneRecipes'));
+    setDoneRecipes(RecipesConcludeds);
+  }, []);
 
   useEffect(() => {
     setRecipeType(pathname);
@@ -40,6 +47,7 @@ function RecipesProvider({ children }) {
     currentCategory,
     setCurrentCategory,
     setDataRecipes,
+    doneRecipes,
   };
 
   RecipesProvider.propTypes = {

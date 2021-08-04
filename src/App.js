@@ -5,11 +5,13 @@ import { Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import Header from './components/Header';
 import Perfil from './pages/Perfil';
-// import Footer from './components/Footer';
 import Explorar from './pages/Explorar';
 import Comidas from './pages/Comidas';
 import Login from './pages/Login';
 import RecipesProvider from './context/RecipesProvider';
+import ReceitasFeitas from './pages/ReceitasFeitas';
+import ReceitasFavoritas from './pages/ReceitasFavoritas';
+import Detalhes from './pages/Detalhes';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
 import ExplorarPorOrigem from './pages/ExplorarPorOrigem';
@@ -26,6 +28,8 @@ function App() {
             <Route exact path="/bebidas" component={ Comidas } />
             <Route exact path="/explorar" component={ Explorar } />
             <Route exact path="/perfil" component={ Perfil } />
+            <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
+            <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
             <Route
               exact
               path="/explorar/comidas"
@@ -51,21 +55,17 @@ function App() {
               path="/explorar/comidas/area"
               component={ ExplorarPorOrigem }
             />
+            <Route exact path="/comidas/:id" component={ Detalhes } />
+            <Route exact path="/comidas/:id/in-progress" />
+            <Route exact path="/bebidas/:id" component={ Detalhes } />
+            <Route exact path="/bebidas/:id/in-progress" />
             <Route
               path="*"
               component={ NotFound }
             />
-            <Route path="/comidas/{id-da-receita}" />
-            <Route path="/comidas/{id-da-receita}/in-progress" />
-            <Route path="/bebidas/{id-da-receita}" />
-            <Route path="/bebidas/{id-da-receita}/in-progress" />
             <Route
-              path="/receitas-feitas"
-              component={ () => <Header title="Receitas Feitas" /> }
-            />
-            <Route
-              path="/receitas-favoritas"
-              component={ () => <Header title="Receitas Favoritas" /> }
+              path="*"
+              component={ NotFound }
             />
           </Switch>
         </RecipesProvider>

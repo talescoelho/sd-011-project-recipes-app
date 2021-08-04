@@ -1,0 +1,11 @@
+.TypeOfRecipesConcludedsContainer {
+  background-color: red;
+  display: flex;
+  justify-content: space-evenly;
+  height: 50px;
+  width: 100%;
+}
+
+.TypeOfRecipesConcludedsContainer button {
+  width: 80px;
+}
