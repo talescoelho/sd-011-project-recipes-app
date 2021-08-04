@@ -12,10 +12,11 @@ import FoodExplore from './pages/FoodExplore';
 import DrinkExplore from './pages/DrinkExplore';
 import FoodIngredients from './pages/FoodIngredients';
 import DrinkIngredients from './pages/DrinkIngredients';
-import MadeRecipes from './pages/MadeRecipes';
+import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import ExploreFoodByArea from './pages/ExploreFoodByArea';
 import Profilepage from './pages/ProfilePage';
+import NotFound from './pages/NotFound';
 
 function Routes() {
   return (
@@ -48,10 +49,11 @@ function Routes() {
       <Route exact path="/explorar/bebidas" component={ DrinkExplore } />
       <Route path="/explorar/comidas/ingredientes" component={ FoodIngredients } />
       <Route path="/explorar/bebidas/ingredientes" component={ DrinkIngredients } />
-      <Route path="/receitas-feitas" component={ MadeRecipes } />
+      <Route path="/receitas-feitas" component={ DoneRecipes } />
       <Route path="/explorar/comidas/area" component={ ExploreFoodByArea } />
       <Route path="/perfil" component={ Profilepage } />
       <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+      <Route component={ NotFound } />
     </Switch>
   );
 }

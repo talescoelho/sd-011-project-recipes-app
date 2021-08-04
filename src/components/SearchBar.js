@@ -9,6 +9,7 @@ import {
   fetchSearchFirstLetter } from '../redux/actions/searchBarActions';
 import Input from './Input';
 
+
 function HeaderSearchBar({ receiveData,
   searchByIngredients, searchByName, searchByFirstLetter }) {
   const [searchInput, setSearchInput] = useState('');
