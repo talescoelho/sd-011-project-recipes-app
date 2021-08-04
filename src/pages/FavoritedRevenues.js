@@ -16,7 +16,6 @@ export default function FavoritedRevenues() {
     }
   }, []);
 
-  console.log(recipe);
   if (!recipe) {
     return (<p>Carregando</p>);
   }
