@@ -11,6 +11,7 @@ export default function RenderRecipes({ title, index, srcImage }) {
     >
       <img
         src={ srcImage }
+        className="cardImage"
         data-testid={ `${index}-card-img` }
         alt="logo"
       />
