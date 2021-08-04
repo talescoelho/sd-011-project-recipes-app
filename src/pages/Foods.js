@@ -6,10 +6,12 @@ import Footer from '../components/Footer';
 import FetchApi from '../services/ApiFetch';
 
 export default function Foods() {
+  const [toggleValue, setToggle] = useState(false);
   const [catItens, setCatItens] = useState([]);
   const qty = 12;
   const dispatch = useDispatch();
   const recipes = useSelector((state) => state.Mechanics.searcResults);
+
   useEffect(() => {
     async function fetchApi() {
       const results = await FetchApi('themealdb', 'nome', '');
@@ -31,15 +33,22 @@ export default function Foods() {
     fetchApi();
   }, []);
 
-  function categoryOnClickBtn(catName) {
-    async function fetchApi() {
+  async function categoryOnClickBtn(catName) {
+    if (toggleValue === false) {
       const results = await FetchApi('themealdb', null, null, [catName]);
       dispatch({
         type: 'MODIFY_SEARCH_RESULTS',
         payload: results,
       });
     }
-    fetchApi();
+    setToggle(!toggleValue);
+    if (toggleValue === true) {
+      const results = await FetchApi('themealdb', 'nome', '');
+      dispatch({
+        type: 'MODIFY_SEARCH_RESULTS',
+        payload: results,
+      });
+    }
   }
 
   return (
