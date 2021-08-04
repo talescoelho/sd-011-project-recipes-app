@@ -48,7 +48,11 @@ export default function IngredientsCheckList({ recipeType, id, strInstructions }
     <>
       {list
         .map((ingredient, index) => (
-          <label key={ index } data-testid={ `${index}-ingredient-step` } htmlFor={ ingredient.name }>
+          <label
+            key={ index }
+            data-testid={ `${index}-ingredient-step` }
+            htmlFor={ ingredient.name }
+          >
             <input
               type="checkbox"
               checked={ ingredient.check }
