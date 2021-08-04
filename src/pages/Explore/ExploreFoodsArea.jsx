@@ -8,7 +8,7 @@ function ExploreFoodsArea({ match }) {
     <>
       <Header title="Explorar Origem" glass="true" match={ match } />
       <div>
-        Foods Area
+        Explore Foods Area
       </div>
       <Footer />
     </>

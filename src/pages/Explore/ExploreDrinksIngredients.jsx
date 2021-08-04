@@ -8,7 +8,7 @@ function ExploreDrinksIngredients({ match }) {
     <>
       <Header title="Explorar Ingredientes" match={ match } />
       <div>
-        Ingredients
+        Bebidas Ingredientes
       </div>
       <Footer />
     </>

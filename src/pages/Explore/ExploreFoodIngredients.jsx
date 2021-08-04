@@ -7,7 +7,9 @@ function ExploreFoodIngredients({ match }) {
   return (
     <>
       <Header title="Explorar Ingredientes" match={ match } />
-      <div />
+      <div>
+        Explore by Ingredients
+      </div>
       <Footer />
     </>
   );
