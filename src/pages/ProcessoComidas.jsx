@@ -222,8 +222,8 @@ class ProcessoComidas extends Component {
             data-testid="finish-recipe-btn"
             type="button"
             className="btn-start"
-            disabled={ setIngredients.meals[urlId]
-              && setIngredients.meals[urlId].length !== onlyIngredientes.length }
+            disabled={ !setIngredients.meals[urlId]
+              || setIngredients.meals[urlId].length !== onlyIngredientes.length }
           >
             Finalizar Receita
           </button>
