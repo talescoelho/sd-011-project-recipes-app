@@ -72,7 +72,7 @@ export default function RecipeFavorite() {
             </button>
           </Link>
           <div>
-            <button onClick={ handleClick }type='button'>
+            <button onClick={ handleClick } type="button">
 
               {ShareBtnFav(`${item.type}s/${item.id}`, index)}
             </button>
