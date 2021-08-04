@@ -1,10 +1,15 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function ExploreLocation() {
   return (
-    <main>
-      <h1>Tela de Explorar por Local de Origem/Area</h1>
-    </main>
+    <>
+      <Header withSearch pageTitle="Explorar Origem" />
+      <br />
+      <main>
+        <h1>Colocar algo qui</h1>
+      </main>
+    </>
   );
 }
 

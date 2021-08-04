@@ -10,7 +10,7 @@ function ExploreFoodOrDrink({ history }) {
         <Header withSearch={ false } pageTitle="Explorar Comidas" />
         <br />
         <main data-testid="recipes-page">
-          <h1>Conteúdo de Explorar COMIDAS</h1>
+          <h1>Conteúdo da tela de Explorar COMIDAS</h1>
           &nbsp;  &nbsp;  &nbsp;
         </main>
       </>
@@ -23,7 +23,7 @@ function ExploreFoodOrDrink({ history }) {
         <Header withSearch={ false } pageTitle="Explorar Bebidas" />
         <br />
         <main data-testid="recipes-page">
-          <h1>Conteúdo de explorar BEBIDAS</h1>
+          <h1>Conteúdo da tela de explorar BEBIDAS</h1>
           &nbsp;  &nbsp;  &nbsp;
         </main>
       </>

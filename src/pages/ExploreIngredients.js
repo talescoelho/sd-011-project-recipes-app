@@ -7,7 +7,7 @@ function ExploreIngredients({ history }) {
   function comidasHeaderAndMain() {
     return (
       <main data-testid="recipes-page">
-        <h1>Conteúdo de Explorar Ingredientes de COMIDAS</h1>
+        <h1>Conteúdo da tela de Explorar Ingredientes de COMIDAS</h1>
         &nbsp;  &nbsp;  &nbsp;
       </main>
     );
@@ -16,7 +16,7 @@ function ExploreIngredients({ history }) {
   function bebidasHeaderAndMain() {
     return (
       <main data-testid="recipes-page">
-        <h1>Conteúdo de explorar Ingredientes de BEBIDAS</h1>
+        <h1>Conteúdo da tela Explorar Ingredientes de BEBIDAS</h1>
         &nbsp;  &nbsp;  &nbsp;
       </main>
     );

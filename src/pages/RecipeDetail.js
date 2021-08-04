@@ -3,7 +3,7 @@ import React from 'react';
 function RecipeDetail() {
   return (
     <main>
-      <h1>Tela de Detalhes de uma Receita</h1>
+      <h1>Conteúdo da Tela de Detalhes de uma Receita</h1>
     </main>
   );
 }

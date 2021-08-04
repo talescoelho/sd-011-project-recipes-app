@@ -1,14 +1,13 @@
 import React from 'react';
-import profile from '../images/profileIcon.svg';
 import Header from '../components/Header';
 
 function Profile() {
   return (
     <>
-      <Header withSearch pageTitle/>
+      <Header withSearch={ false } pageTitle="Perfil" />
       <br />
       <main>
-        <h1>Colocar algo qui</h1>
+        <h1>Conteúdo da tela de Perfil</h1>
       </main>
     </>
   );

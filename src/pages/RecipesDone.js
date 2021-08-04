@@ -1,10 +1,15 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function RecipesDone() {
   return (
-    <main>
-      <h1>Tela de Receitas Feitas</h1>
-    </main>
+    <>
+      <Header withSearch={ false } pageTitle="Receitas Feitasl" />
+      <br />
+      <main>
+        <h1>Conteúdo da tela de Receitas Feitas</h1>
+      </main>
+    </>
   );
 }
 
