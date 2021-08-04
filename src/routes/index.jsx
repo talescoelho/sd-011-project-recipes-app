@@ -1,8 +1,9 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
 import {
-  LoginPage, NotFound, User, Bebidas, Explore, Comidas,
-  FoodDetails, MealtIngredients, DrinkIngredients } from '../pages';
+  LoginPage, NotFound, User, Bebidas, Explore, Comidas, DrinkDetails,
+  FoodDetails, MealtIngredients, DrinkIngredients, RecipeProgress } from '../pages';
+import DrinkProgress from '../pages/DrinkProgress';
 
 function Routes() {
   return (
@@ -14,6 +15,11 @@ function Routes() {
         exact
         path="/comidas/:id"
         render={ (props) => <FoodDetails { ...props } /> }
+      />
+      <Route
+        exact
+        path="/bebidas/:id"
+        render={ (props) => <DrinkDetails { ...props } /> }
       />
       <Route
         exact
@@ -31,6 +37,18 @@ function Routes() {
         render={ (props) => <DrinkIngredients { ...props } /> }
       />
       <Route exact path="/perfil" render={ (props) => <User { ...props } /> } />
+
+      <Route
+        exact
+        path="/comidas/:id/in-progress"
+        render={ (props) => <RecipeProgress { ...props } /> }
+      />
+      <Route
+        exact
+        path="/bebidas/:id/in-progress"
+        render={ (props) => <DrinkProgress { ...props } /> }
+      />
+
       <Route path="*" component={ NotFound } />
     </Switch>
   );
