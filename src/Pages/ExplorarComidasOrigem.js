@@ -7,23 +7,21 @@ import Footer from '../components/Footer';
 import RenderFoodAreaOptions from '../components/RenderFoodAreaOptions';
 
 function ExplorarComidasOrigem({ title }) {
-  const { foodAreaList } = useSelector((state) => state.fetchReceitas);
+  // const { foodAreaList } = useSelector((state) => state.fetchReceitas);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getRecipes('foodAreaList'));
   }, [dispatch]);
 
-  if (foodAreaList.length !== 0) {
-    return (
-      <div>
-        <Header title={ title } />
-        <RenderFoodAreaOptions />
-        <Footer />
-      </div>
-    );
-  }
-  return null;
+  return (
+    <div>
+      <Header title={ title } />
+      <RenderFoodAreaOptions />
+      <Footer />
+    </div>
+  );
+
 }
 
 export default ExplorarComidasOrigem;

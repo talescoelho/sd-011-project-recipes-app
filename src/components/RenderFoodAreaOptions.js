@@ -10,21 +10,24 @@ function RenderFoodAreaOptions() {
     dispatch(getRecipes('foodAreaList'));
   }, [dispatch]);
 
-  if (foodAreaList.length !== 0) {
-    return (
-      <label htmlFor="recipe-origin">
-        <select
-          id="recipe-origin"
-          data-testid="explore-by-area-dropdown"
-        >
-          {foodAreaList.meals.map(({ strArea }, index) => (
-            <option key={ index }>{strArea}</option>
-          ))}
-        </select>
-      </label>
+  
 
-    );
-  }
+  // if (foodAreaList.length !== 0) {
+  //   console.log(foodAreaList)
+  //   return (
+  //     <label htmlFor="recipe-origin">
+  //       <select
+  //         id="recipe-origin"
+  //         data-testid="explore-by-area-dropdown"
+  //       >
+  //         {foodAreaList.meals.map(({ strArea }, index) => (
+  //           <option key={ index }>{strArea}</option>
+  //         ))}
+  //       </select>
+  //     </label>
+
+  //   );
+  // }
   return null;
 }
 

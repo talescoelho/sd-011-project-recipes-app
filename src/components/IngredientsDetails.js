@@ -1,9 +1,11 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getRecipes } from '../redux/slices/fetchReceitas';
 import './IngredientsDetails.css';
 
 function IngredientsDetails() {
+  const dispatch = useDispatch();
   const {
     foodIngredients,
     drinkIngredients,
@@ -11,6 +13,19 @@ function IngredientsDetails() {
 
   const { pathname } = window.location;
   const currentURL = pathname.split('/')[2];
+
+  function getIngredientsByRecipeType() {
+    if (currentURL === 'comidas') {
+      dispatch(getRecipes('foodIngredients'));
+    }
+    if (currentURL === 'bebidas') {
+      dispatch(getRecipes('drinkIngredients'));
+    }
+  }
+
+  useEffect(() => {
+    getIngredientsByRecipeType();
+  }, []);
 
   if (foodIngredients.length !== 0 || drinkIngredients.length !== 0) {
     const limitCards = 12;

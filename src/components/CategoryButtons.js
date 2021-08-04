@@ -42,6 +42,7 @@ function CategoryButtons() {
   if (loading || !categories || categories.length === 0) {
     return (<div>Loading</div>);
   }
+
   return (
     <nav>
       <button
