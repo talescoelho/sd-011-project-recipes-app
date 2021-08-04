@@ -8,6 +8,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 function RenderCard({ filter }) {
   // eslint-disable-next-line global-require
   const copy = require('clipboard-copy');
+  // eslint-enable-next-line global-require
   const [copyLink, setCopyLink] = useState(false);
   const [recipes, setRecipes] = useState(
     (JSON.parse(localStorage.getItem('favoriteRecipes'))),
