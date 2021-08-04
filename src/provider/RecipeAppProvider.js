@@ -102,9 +102,6 @@ function RecipeAppProvider({ children }) {
     },
   ]);
 
-  const favoriteRecipesJSON = JSON.stringify(filteredFavoritesRecipes);
-  localStorage.setItem('favoriteRecipes', favoriteRecipesJSON);
-
   const handleChange = (e) => {
     const { target } = e;
     const { name, value } = target;

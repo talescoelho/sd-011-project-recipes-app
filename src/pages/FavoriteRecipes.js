@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
@@ -16,6 +16,11 @@ function FavoriteRecipes() {
     favoritesRecipes,
     setFavoritesRecipes,
   } = useContext(RecipeAppContext);
+
+  useEffect(() => {
+    const favoriteRecipesJSON = JSON.stringify(filteredFavoritesRecipes);
+    localStorage.setItem('favoriteRecipes', favoriteRecipesJSON);
+  }, []);
 
   const history = useHistory();
 
