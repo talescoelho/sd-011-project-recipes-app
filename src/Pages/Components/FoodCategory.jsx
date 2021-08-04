@@ -2,9 +2,10 @@ import React from 'react';
 import { CategoryFoodAPI, CategoryFoodFilter } from '../../services/CategoryFoodAPI';
 import Context from '../../Context_Configs/Context';
 
-export default function FoodCategory({ requestFoodCategories }) {
+export default function FoodCategory() {
   const numberFour = 4;
-  const { setDataFoods, setRequestFoodParams, requestFoodParams, renderFoodCategory, setRenderFoodCategory } = React.useContext(Context);
+  const { /*  setDataFoods, setRequestFoodParams, requestFoodParams, renderFoodCategory,  */
+    setRenderFoodCategory } = React.useContext(Context);
   const [foodCategories, setFoodCategories] = React.useState();
 
   React.useEffect(() => {
@@ -16,9 +17,10 @@ export default function FoodCategory({ requestFoodCategories }) {
   }, []);
 
   async function requestFoodCategories({ target }) {
+    const twelveItems = 12;
     const { value } = target;
     const meals = await CategoryFoodFilter(value);
-    setRenderFoodCategory(meals.filter((item, index) => index <= 11));
+    setRenderFoodCategory(meals.filter((item, index) => index <= twelveItems));
   }
 
   return (

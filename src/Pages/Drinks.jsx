@@ -26,11 +26,10 @@ function Drinks() {
     fetchDrinkParams();
   }, []);
 
-  // console.log(drinkCategories);
-
   // Busca por bebidas quando monta a tela de bebidas
   useEffect(() => {
     setRequestDrinksParams({ searchInput: '', searchMethod: '' });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (dataDrinks !== null && dataDrinks.length === 1) {

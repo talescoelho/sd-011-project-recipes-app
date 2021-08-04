@@ -48,7 +48,6 @@ function Provider({ children }) {
         }
         if (searchMethod === firstLetter) {
           response = await fetch(`${URL_FOOD_FIRST_LETTER}${searchInput}`);
-          console.log(49);
         }
         /* if (requestFoodParams.category === true ) {
           setRequestFoodParams({

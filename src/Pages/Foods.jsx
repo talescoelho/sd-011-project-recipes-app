@@ -6,7 +6,6 @@ import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './Components/SearchBar';
 import FooterBar from './Components/FooterBar';
-import { CategoryFoodAPI, CategoryFoodFilter } from '../services/CategoryFoodAPI';
 import FoodCategory from './Components/FoodCategory';
 import FoodsCards from './Components/FoodsCards';
 import FoodCategoryCards from './Components/FoodCategoryCards';
@@ -15,10 +14,15 @@ import FoodCategoryCards from './Components/FoodCategoryCards';
 
 function Foods() {
   const history = useHistory();
-  const { dataFood, setRequestFoodParams, renderFoodCategory, setRenderFoodCategory, requestFoodParams } = useContext(Context);
+  const { dataFood,
+    setRequestFoodParams,
+    renderFoodCategory,
+    // setRenderFoodCategory,
+    requestFoodParams,
+  } = useContext(Context);
   const [showSearch, setShowSearch] = useState(false);
   // const [foodCategories, setFoodCategories] = useState();
-  const [foodFilter, setFoodFilter] = useState([]);
+  // const [foodFilter, setFoodFilter] = useState([]);
   const foods = 'foods';
   // Busca por comidas ao renderizar a tela de comidas.
 
@@ -32,6 +36,7 @@ function Foods() {
         searchInput: requestFoodParams.searchInput,
         searchMethod: requestFoodParams.searchMethod });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [renderFoodCategory]);
 
   if (dataFood !== null && dataFood.length === 1) {
