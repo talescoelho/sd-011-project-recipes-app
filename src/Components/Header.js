@@ -10,7 +10,10 @@ export default function Header({ title, searchIconAppears = false }) {
   const { setRecipe, recipe } = useContext(MyContext);
   const [searchResult, setSearchResult] = useState('');
   const [selectedSearch, setSelectedSearch] = useState('');
+
   const history = useHistory();
+  const { pathname } = history.location;
+  const recipeName = pathname === '/comidas' ? 'meals' : 'drinks';
 
   const [searchInput, setSearchInput] = useState(false);
 
@@ -23,7 +26,6 @@ export default function Header({ title, searchIconAppears = false }) {
   }
 
   const getRecipe = () => {
-    const { pathname } = history.location;
     const site = pathname === '/comidas' ? 'meal' : 'cocktail';
 
     switch (selectedSearch) {
@@ -43,9 +45,20 @@ export default function Header({ title, searchIconAppears = false }) {
   };
 
   const getSearch = async () => {
-    const recipe = await getRecipe();
-    setRecipe(recipe);
+    const recipeResult = await getRecipe();
+    setRecipe(recipeResult);
   };
+
+  const redirectByChoice = () => {
+    const food = recipe[recipeName];
+    const idFood = pathname === '/comidas' ? 'idMeal' : 'idDrink';
+
+    if (food.length === 1 && food) {
+      history.push(`${pathname}/${foods[0][idFood]}`);
+    }
+  };
+
+  redirectByChoice();
 
   return (
     <div>
