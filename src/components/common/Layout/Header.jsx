@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../../hooks';
@@ -6,7 +6,7 @@ import { SearchForm } from '../..';
 import ProfileIcon from '../../../images/profileIcon.svg';
 import SearchIcon from '../../../images/searchIcon.svg';
 
-function Header({ search }) {
+function Header({ search, title }) {
   const { colors } = useTheme();
 
   const [showInput, setShowInput] = useState(false);
@@ -54,10 +54,12 @@ function Header({ search }) {
 
 Header.defaultProps = {
   search: false,
+  title: 'Comidas',
 };
 
 Header.propTypes = {
   search: PropTypes.bool,
+  title: PropTypes.string,
 };
 
 export default Header;
