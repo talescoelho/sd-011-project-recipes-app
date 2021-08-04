@@ -8,7 +8,7 @@ import getFood from '../services/SearchRecipe';
 export default function FoodCard({ type }) {
   const history = useHistory();
   const dispatch = useDispatch();
-  const number = 11;
+  const number = 12;
   const recipes = useSelector((state) => state.recipes);
   const { cards, formInfo, selectedCategory } = recipes;
 
@@ -23,7 +23,7 @@ export default function FoodCard({ type }) {
     cardsRender.map(({ idMeal, strMeal, strMealThumb,
       strCategory, strTags, idDrink, strDrink, strDrinkThumb, strAlcoholic,
     }, index) => (
-      index <= number ? (
+      index < number ? (
         <Link
           to={ `/${middle}/${idMeal || idDrink}` }
           key={ index }
