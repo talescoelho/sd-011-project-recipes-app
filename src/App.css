@@ -29,6 +29,7 @@
 }
 */
 
+/* https://codeburst.io/how-to-create-horizontal-scrolling-containers-d8069651e9c6 */
 .start-btn {
   bottom: 0;
   display: flex;
@@ -74,8 +75,6 @@
   font-weight: 400;
   margin: 0 5px;
 }
-
-/* https://codeburst.io/how-to-create-horizontal-scrolling-containers-d8069651e9c6 */
 
 .meals > .logo {
   animation: shake 1.5s infinite ease;
