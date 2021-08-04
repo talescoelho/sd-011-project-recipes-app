@@ -18,3 +18,10 @@ export const fetchFirstLetter = async (firstLetter) => {
   const data = await response.json();
   return data;
 };
+
+export const fetchDetailsRecipe = async () => {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772';
+  const response = await fetch(URL);
+  const data = await response.json();
+  return data;
+};
