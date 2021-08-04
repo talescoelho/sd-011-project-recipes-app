@@ -16,6 +16,10 @@ export default function Routes() {
       <Route path="/bebidas/:id" component={ DetailsRecipe } />
       <Route exact path="/perfil" component={ Perfil } />
       <Route exact path="/explorar" component={ Explore } />
+      <Route path="/explorar/comidas" component={ Explore } />
+      <Route path="/explorar/bebidas" component={ Explore } />
+      <Route path="/explorar/comidas/ingredientes" component={ Explore } />
+      <Route path="/explorar/bebidas/ingredientes" component={ Explore } />
     </Switch>
   );
 }

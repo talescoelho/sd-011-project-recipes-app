@@ -20,7 +20,6 @@ export default function Recipes() {
 
   function checkOneRecipe() {
     if (isFilterByCategory === false) {
-      console.log(isFilterByCategory);
       if (mealRecipes.length === 1 && location.pathname === '/comidas') {
         const id = mealRecipes[0].idMeal;
         const path = `/comidas/${id}`;
@@ -31,7 +30,6 @@ export default function Recipes() {
         history.push(path);
       }
     }
-    console.log('chamou');
   }
   useEffect(checkOneRecipe, [
     isFilterByCategory,
