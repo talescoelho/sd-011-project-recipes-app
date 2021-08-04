@@ -33,3 +33,9 @@ p {
   display: flex;
   width: 40%;
 }
+
+.btnstart {
+  bottom: 0%;
+  position: fixed;
+  z-index: 9999;
+}

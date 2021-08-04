@@ -9,3 +9,6 @@ export { default as MealtIngredients } from './MealIngredients';
 export { default as DrinkIngredients } from './DrinkIngredients';
 export { default as ExploreFood } from './ExploreMeals';
 export { default as ExploreDrink } from './ExploreDrinks';
+export { default as DrinkDetails } from './DrinkDetails';
+export { default as RecipeProgress } from './RecipeProgress';
+export { default as DrinkProgress } from './DrinkProgress';

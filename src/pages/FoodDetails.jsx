@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { fetchFood } from '../services/FoodAPI';
-import CardsDrinks from './CardsDrinks';
+import CardsDrinks from '../components/CardsDrinks';
 import '../styles/FoodDetails.css';
-import imageHeart from '../images/whiteHeartIcon.svg';
-import imageShare from '../images/shareIcon.svg';
+import { isRecipeDone } from '../services/RecipesLocalStorage';
+import ShareBtn from '../components/ShareBtn';
+import FavoriteBtn from '../components/FavoriteBtn';
 
 export default function FoodDetails() {
   const params = useParams();
@@ -43,8 +44,12 @@ export default function FoodDetails() {
         returnRecipe()[`strIngredient${index}`] !== ''
         && returnRecipe()[`strIngredient${index}`] !== null
       ) {
+        const indexDataTest = index - 1;
         retorno.push(
-          <li>
+          <li
+            data-testid={ `${indexDataTest}-ingredient-name-and-measure` }
+            key={ `${indexDataTest}-ingrname-id` }
+          >
             {returnRecipe()[`strIngredient${index}`]}
             {' '}
             -
@@ -68,22 +73,18 @@ export default function FoodDetails() {
           alt="img"
         />
         <h1 data-testid="recipe-title">{returnRecipe().strMeal}</h1>
-        <button className="btnheader" type="button" data-testid="share-btn">
-          <img src={ imageShare } alt="share" />
-        </button>
-        <button className="btnheader" type="button" data-testid="favorite-btn">
-          <img src={ imageHeart } alt="favorite" />
-        </button>
+        <ShareBtn />
+        <FavoriteBtn />
         <p data-testid="instructions">{returnRecipe().strInstructions}</p>
         <p data-testid="recipe-category">
           Categoria:
           {returnRecipe().strCategory}
         </p>
-        <p data-testid={ `${listIngradient()}-ingredient-name-and-measure` }>
+        <p>
           {listIngradient()}
         </p>
+        <h1>Vídeo</h1>
         <p>
-          <h1>Vídeo</h1>
           <iframe
             data-testid="video"
             title="Vídeo da Receita"
@@ -94,9 +95,13 @@ export default function FoodDetails() {
             width="100%"
           />
         </p>
-        <Button type="button" data-testid="start-recipe-btn">
-          Iniciar Receita
-        </Button>
+        {(isRecipeDone(params.id) === false) ? (
+          <Link to={ `/comidas/${params.id}/in-progress` }>
+            <Button className="btnstart" type="button" data-testid="start-recipe-btn">
+              Iniciar Receita
+            </Button>
+          </Link>
+        ) : ('') }
       </div>
       <div>
         <CardsDrinks />

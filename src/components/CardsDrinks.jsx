@@ -43,17 +43,25 @@ export default function FoodDrinks() {
     const drinks = [];
     const drinksMax = 6;
 
-    for (let index = 1; index <= drinksMax; index += 1) {
+    for (let index = 0; index < drinksMax; index += 1) {
       if (returnDrink(index) !== '') {
         drinks.push(
-          <div className="card">
+          <div
+            data-testid={ `${index}-recomendation-card` }
+            className="card"
+            key={ `${index}-card-drink` }
+          >
             <img
               className="imgdrinks"
               src={ returnDrink(index).strDrinkThumb }
               alt="imagem drink"
             />
             <p>{returnDrink(index).strAlcoholic}</p>
-            <p>{returnDrink(index).strDrink}</p>
+            <p
+              data-testid={ `${index}-recomendation-title` }
+            >
+              {returnDrink(index).strDrink}
+            </p>
           </div>,
         );
       }
