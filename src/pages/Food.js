@@ -4,6 +4,8 @@ import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
 import { fetchMealsLetter, fetchMealsCategory } from '../services/MealApiService';
+import '../styles/components/cards.css';
+import '../styles/components/category.css';
 
 export default function Food() {
   const pageTitle = {
@@ -53,20 +55,20 @@ export default function Food() {
   function handleMeals() {
     if (recipesDb.length === 0) {
       return (
-        <div>
+        <div className="card-container">
           {
             firstFood.map((meal, index) => (
               (index < limits) && (
                 <Link to={ `/comidas/${meal.idMeal}` } key={ index }>
-                  <div>
-                    <div data-testid={ `${index}-recipe-card` }>
+                  <div className="card-style">
+                    <div className="card-img" data-testid={ `${index}-recipe-card` }>
                       <img
                         src={ meal.strMealThumb }
                         data-testid={ `${index}-card-img` }
                         alt={ meal.strMeal }
                       />
                     </div>
-                    <div>
+                    <div className="card-title">
                       <span data-testid={ `${index}-card-name` }>{ meal.strMeal }</span>
                     </div>
                   </div>
@@ -78,20 +80,20 @@ export default function Food() {
       );
     }
     return (
-      <div>
+      <div className="card-container">
         {
           recipesDb.map((meal, index) => (
             (index < limits) && (
               <Link to={ `/comidas/${meal.idMeal}` } key={ index }>
-                <div>
-                  <div data-testid={ `${index}-recipe-card` }>
+                <div className="card-style">
+                  <div className="card-img" data-testid={ `${index}-recipe-card` }>
                     <img
                       src={ meal.strMealThumb }
                       data-testid={ `${index}-card-img` }
                       alt={ meal.strMeal }
                     />
                   </div>
-                  <div>
+                  <div className="card-title">
                     <span data-testid={ `${index}-card-name` }>{ meal.strMeal }</span>
                   </div>
                 </div>
@@ -106,35 +108,37 @@ export default function Food() {
   return (
     <div>
       <Header value={ pageTitle } />
-      <button
-        type="button"
-        onClick={ () => functionAll() }
-        data-testid="All-category-filter"
-      >
-        All
-      </button>
-      { categoriesFood.map((category, index) => ((index < limitCategory
-      ) && (
+      <div className="category-container">
         <button
           type="button"
-          key={ index }
-          data-testid={ `${category.strCategory}-category-filter` }
-          name={ category.strCategory }
-          onClick={ ({ target }) => {
-            setRecipesDb([]);
-            setSelectedCategory(target.name);
-            if (selectedCategory === target.name && toggle === false) {
-              setToggle(true);
-              functionAll();
-            } else {
-              setToggle(false);
-              handleFetchByCategory(target.name);
-            }
-          } }
+          onClick={ () => functionAll() }
+          data-testid="All-category-filter"
         >
-          {category.strCategory}
-        </button>)
-      ))}
+          All
+        </button>
+        { categoriesFood.map((category, index) => ((index < limitCategory
+        ) && (
+          <button
+            type="button"
+            key={ index }
+            data-testid={ `${category.strCategory}-category-filter` }
+            name={ category.strCategory }
+            onClick={ ({ target }) => {
+              setRecipesDb([]);
+              setSelectedCategory(target.name);
+              if (selectedCategory === target.name && toggle === false) {
+                setToggle(true);
+                functionAll();
+              } else {
+                setToggle(false);
+                handleFetchByCategory(target.name);
+              }
+            } }
+          >
+            {category.strCategory}
+          </button>)
+        ))}
+      </div>
       { redirect
         ? history.push(`/comidas/${recipesDb.map((meal) => meal.idMeal)}`)
         : handleMeals()}

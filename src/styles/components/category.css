@@ -1,0 +1,16 @@
+.category-container {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-evenly;
+  margin-top: 5%;
+  width: 100vw;
+}
+
+.category-container button {
+  background-color: rgb(246, 232, 201);
+  border-radius: 20px;
+  border: 0;
+  width: 100px;
+}
