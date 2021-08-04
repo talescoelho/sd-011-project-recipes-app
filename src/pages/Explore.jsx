@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import Header from '../components/Header';
 import '../styles/Explore.css';
 
@@ -9,22 +10,22 @@ export default function Explore() {
       <Header pageName="Explorar" />
       <div className="explore-buttons">
         <Link to="/explorar/comidas">
-          <button
+          <Button
             data-testid="explore-food"
             type="button"
             className="explore-button"
           >
             Explorar Comidas
-          </button>
+          </Button>
         </Link>
         <Link to="/explorar/bebidas">
-          <button
+          <Button
             data-testid="explore-drinks"
             type="button"
             className="explore-button"
           >
             Explorar Bebidas
-          </button>
+          </Button>
         </Link>
       </div>
     </div>

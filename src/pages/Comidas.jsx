@@ -3,7 +3,7 @@ import FoodCard from '../components/FoodCard';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import '../styles/Main.css';
-import '../styles/Cards.css';
+import '../styles/Cards.scss';
 import FilterButtons from '../components/FilterButtons';
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
       <Header pageName="Comidas" renderButton />
       <main>
         <FilterButtons type="meals" />
-        <FoodCard />
+        <FoodCard type="meals" />
       </main>
       <Footer />
     </>

@@ -27,11 +27,15 @@ function Header(props) {
         {renderButton ? (
           <button
             className="header-button"
-            data-testid="search-top-btn"
             type="button"
             onClick={ () => setRenderSearchBar(!renderSearchBar) }
           >
-            <img className="header-img" src={ searchIcon } alt="search button" />
+            <img
+              data-testid="search-top-btn"
+              className="header-img"
+              src={ searchIcon }
+              alt="search button"
+            />
           </button>
         ) : null}
       </nav>

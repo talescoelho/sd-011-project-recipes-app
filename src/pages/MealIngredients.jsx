@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Header from '../components/Header';
 
 export default function MealtIngredients() {
   const [foodIngredients, setFoodIngredients] = useState([]);
@@ -32,6 +33,7 @@ export default function MealtIngredients() {
 
   return (
     <div>
+      <Header pageName="Explorar Ingredientes" />
       <h1>Explore Mealt Ingredients</h1>
       {renderMealt()}
     </div>

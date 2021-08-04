@@ -1,6 +1,9 @@
 const initialState = {
   formInfo: '',
   cards: [],
+  categories: { drinks: [], meals: [] },
+  untouched: '',
+  selectedCategory: '',
 };
 
 const recipe = (state = initialState, action) => {
@@ -9,12 +12,14 @@ const recipe = (state = initialState, action) => {
   case 'SEND_FORM_DATA': {
     return { ...state, formInfo: payload };
   }
-  case 'GET_SEARCH_API': {
-    const { data } = payload;
-    return { ...state, data };
-  }
   case 'FETCH_FOOD_CARD': {
-    return { ...state, cards: payload };
+    const { filtered, selectedCategory } = payload;
+    console.log(payload);
+    return { ...state, cards: filtered, selectedCategory };
+  }
+  case 'FETCH_FOOD_CATEGORIES': {
+    const { array } = payload;
+    return { ...state, categories: { ...state.categories, [payload.type]: array } };
   }
 
   default:
