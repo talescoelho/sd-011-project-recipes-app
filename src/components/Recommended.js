@@ -51,11 +51,8 @@ function Recommended({ value, type }) {
 }
 
 export default Recommended;
-<<<<<<< HEAD
-=======
 
 Recommended.propTypes = {
   value: PropTypes.string,
   type: PropTypes.string,
 }.isRequired;
->>>>>>> 82a63d4d9f0611bb3d61321a33c34dc7c2bf47a3
