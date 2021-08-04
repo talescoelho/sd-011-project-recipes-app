@@ -7,7 +7,7 @@ function FavoriteDrinks() {
   const getFavoriteLocalStorage = () => {
     const Local = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (Local) {
-      return Local.map((item, index) => (
+      return Local.filter(({ category }) => category === 'bebidas').map((item, index) => (
         <div key={ index }>
           <span
             data-testid={ `${index}-horizontal-top-text` }
