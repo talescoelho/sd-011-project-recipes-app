@@ -5,32 +5,22 @@ import GlobalContext from '../context';
 import '../styles/Comidas.css';
 
 function DrinkCard(props) {
+  const { history } = props;
   const { drinkArray } = useContext(GlobalContext);
 
-  const eleven = 11;
-
-  function filter() {
-    const twelveRecepies = [];
-    drinkArray.forEach((meal, index) => {
-      if (index <= eleven) {
-        twelveRecepies.push(meal);
-      }
-    });
-    return twelveRecepies;
+  if (drinkArray && drinkArray.length === 1) {
+    const id = drinkArray[0].idDrink;
+    history.push(`/bebidas/${id}`);
   }
 
-  const drinksArray = filter();
-
   function goToRecipeDetails({ target }) {
-    const { history } = props;
     const { id } = target;
-    console.log(drinkArray);
     history.push(`/bebidas/${id}`);
   }
 
   return (
     <section className="card-list">
-      {drinksArray ? drinksArray.map((drink, index) => (
+      {drinkArray ? drinkArray.map((drink, index) => (
         <div
           className="card"
           data-testid={ `${index}-recipe-card` }

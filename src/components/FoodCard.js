@@ -5,31 +5,22 @@ import GlobalContext from '../context';
 import '../styles/Comidas.css';
 
 function FoodCard(props) {
+  const { history } = props;
   const { foodArray } = useContext(GlobalContext);
 
-  const eleven = 11;
-
-  function filter() {
-    const twelveRecepies = [];
-    foodArray.forEach((meal, index) => {
-      if (index <= eleven) {
-        twelveRecepies.push(meal);
-      }
-    });
-    return twelveRecepies;
+  if (foodArray && foodArray.length === 1) {
+    const id = foodArray[0].idMeal;
+    history.push(`/comidas/${id}`);
   }
 
-  const mealsArray = filter();
-
   function goToRecipeDetails({ target }) {
-    const { history } = props;
     const { id } = target;
     history.push(`/comidas/${id}`);
   }
 
   return (
     <section className="card-list">
-      {mealsArray ? mealsArray.map((meal, index) => (
+      {foodArray ? foodArray.map((meal, index) => (
         <div
           className="card"
           data-testid={ `${index}-recipe-card` }
