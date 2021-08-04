@@ -33,7 +33,7 @@ function ButtonStart({ detail, typeDrinkorMeal }) {
     localStorage.setItem('inProgressRecipes', JSON.stringify({
       ...info,
       [typeDoM]: {
-        [idItem]: [detail],
+        [idItem]: [],
       },
     }));
     history.push(`${idItem}/in-progress`);

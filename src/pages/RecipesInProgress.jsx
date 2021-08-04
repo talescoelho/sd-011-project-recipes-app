@@ -30,7 +30,7 @@ function RecipesId({ match }) {
     update: true,
   });
 
-  const { title, imgThumb, category,
+  const { idItem, title, imgThumb, category,
     instructions, video, update, ingredient } = detail;
 
   function getReduxMealsOrDrinks() {
@@ -111,7 +111,11 @@ function RecipesId({ match }) {
         id={ id }
       />
       <span data-testid="recipe-category">{ category }</span>
-      <IngredientRecipes ingredient={ ingredient } />
+      <IngredientRecipes
+        ingredient={ ingredient }
+        typeDrinkorMeal={ typeDrinkorMeal }
+        idItem={ idItem }
+      />
       <span data-testid="instructions">{ instructions }</span>
       { video && <div data-testid="video">{ video }</div> }
       <button
