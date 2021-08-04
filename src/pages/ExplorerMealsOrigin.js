@@ -8,7 +8,7 @@ import RecipesContext from '../context/RecipesContext';
 function ExplorerMealsOrigin() {
   const [optionsArea, setOptions] = useState([]);
   const [area, setArea] = useState('Canadian');
-  const { mealsData, setMealsData } = useContext(RecipesContext);
+  const { mealsData, setMealsData, resetFilter } = useContext(RecipesContext);
 
   useEffect(() => {
     const fetchMealsByArea = () => {
@@ -36,7 +36,9 @@ function ExplorerMealsOrigin() {
           setMealsData(meals);
         });
     };
-    filterMealsByArea(area);
+    const handlerFilterOption = () => (
+      area === 'All' ? resetFilter() : filterMealsByArea(area));
+    handlerFilterOption();
   }, [area]);
 
   return (
@@ -46,10 +48,12 @@ function ExplorerMealsOrigin() {
         data-testid="explore-by-area-dropdown"
         onChange={ ({ target }) => setArea(target.value) }
       >
+        <option data-testid="All-option" value="All">All</option>
         {optionsArea.map(({ strArea }, index) => (
           <option key={ index } data-testid={ `${strArea}-option` } value={ strArea }>
             {strArea}
-          </option>))}
+          </option>
+        ))}
       </select>
       { mealsData !== [] && mealsData.map((recipe, index) => (
         <Link
