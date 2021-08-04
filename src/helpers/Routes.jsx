@@ -13,6 +13,7 @@ import ExploreFoodsIngredients from '../pages/ExploreFoodsIngredients';
 import ExploreDrinksIngredients from '../pages/ExploreDrinksIngredients';
 import ExploreFoodsArea from '../pages/ExploreFoodsArea';
 import DrinksDetails from '../pages/DrinksDetails';
+import NotFound from '../pages/NotFound';
 
 function Routes() {
   return (
@@ -39,6 +40,7 @@ function Routes() {
         <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/receitas-feitas" component={ DoneRecipes } />
         <Route exact path="/receitas-favoritas" component={ FavoritesRecipes } />
+        <Route exact path="/explorar/bebidas/area" component={ NotFound } />
       </Switch>
     </BrowserRouter>
   );
