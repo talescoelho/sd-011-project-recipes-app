@@ -1,4 +1,5 @@
 import React from 'react';
+import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 
@@ -6,6 +7,8 @@ function RecipesDone() {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
   const [filterRecipes, setFilterRecipes] = React.useState(doneRecipes);
+  const [clipBoardFood, setClipBoardFood] = useState(false);
+  const [clipBoardDrink, setClipBoardDrink] = useState(false);
 
   function filterByType(parameter) {
     if (parameter === 'all') {
@@ -17,6 +20,15 @@ function RecipesDone() {
     } if (parameter === 'drinks') {
       setFilterRecipes(doneRecipes
         && doneRecipes.filter(({ type }) => type === 'bebida'));
+    }
+  }
+
+  function clipBoard(type, id) {
+    copy(`http://localhost:3000/${type}s/${id}`);
+    if (type === 'comida') {
+      setClipBoardFood(true);
+    } if (type === 'bebida') {
+      setClipBoardDrink(true);
     }
   }
 
