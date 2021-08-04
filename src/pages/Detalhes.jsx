@@ -25,7 +25,6 @@ function Detalhes(props) {
     async function effectFetch() {
       const fetchRequest = await handleFetchRequest();
       setRecipeData(fetchRequest);
-      console.log(fetchRequest, 'ola');
     }
     effectFetch();
   }, []);

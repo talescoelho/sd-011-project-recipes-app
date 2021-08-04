@@ -8,6 +8,7 @@ export const mealsObjectFormater = (recipeData) => {
   const mealObject = {
     ingredients,
     ingredientsQuantity,
+    area: recipeData.strArea,
     imgUrl: recipeData.strMealThumb,
     instructions: recipeData.strInstructions,
     title: recipeData.strMeal,
