@@ -3,19 +3,26 @@ import PropTypes from 'prop-types';
 import * as CocktailAPI from '../services/cocktailAPI';
 import * as MealAPI from '../services/meailAPI';
 import RecipeDetails from '../components/RecipeDetails';
+import FrameVideo from '../components/FrameVideo';
+import Recommended from '../components/Recommended';
 
 function Details({ match: { url, params: { id } } }) {
   const [recipeDetail, setRecipeDetail] = useState('');
+  const [recommendedRecipes, setRecommendedRecipes] = useState('');
 
   const getRecipeById = async () => {
-    let response = '';
+    let searchById = '';
+    let searchRecommendedRecipe = '';
     if (url.includes('comidas')) {
-      response = await MealAPI.fetchMealById(id);
+      searchById = await MealAPI.fetchMealById(id);
+      searchRecommendedRecipe = await CocktailAPI.fetchCocktailsRecommended();
     }
     if (url.includes('bebidas')) {
-      response = await CocktailAPI.fetchCocktailById(id);
+      searchById = await CocktailAPI.fetchCocktailById(id);
+      searchRecommendedRecipe = await MealAPI.fetchMealsRecommended();
     }
-    return setRecipeDetail(...response);
+    setRecipeDetail(...searchById);
+    setRecommendedRecipes(searchRecommendedRecipe);
   };
 
   // didMount getRecipeById
@@ -24,7 +31,11 @@ function Details({ match: { url, params: { id } } }) {
   }, []);
 
   return (
-    <RecipeDetails recipe={ recipeDetail } />
+    <div>
+      <RecipeDetails recipe={ recipeDetail } />
+      {url.includes('comidas') && <FrameVideo recipe={ recipeDetail } />}
+      <Recommended recipe={ recommendedRecipes } />
+    </div>
   );
 }
 

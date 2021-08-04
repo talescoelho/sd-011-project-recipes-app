@@ -35,7 +35,7 @@ function IngredientList({ ingredients, status }) {
   );
 
   if (status === 'details') return renderListToDetails();
-  if (status === 'inProgress') return renderListToDetails();
+  if (status === 'inProgress') return renderListInProgress();
 }
 
 IngredientList.propTypes = {

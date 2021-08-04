@@ -40,7 +40,9 @@ function RecipeDetails({ recipe }) {
           alt={ recipe.strMeal || recipe.strDrink }
         />
         <h2 data-testid="recipe-title">{ recipe.strMeal || recipe.strDrink }</h2>
-        <h3 data-testid="recipe-category">{ recipe.strCategory }</h3>
+        <h3 data-testid="recipe-category">
+          { recipe.strYoutube ? recipe.strCategory : recipe.strAlcoholic }
+        </h3>
         <div className="buttons">
           <button type="button">
             <img data-testid="share-btn" src={ ShareIcon } alt="Share Icon" />
