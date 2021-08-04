@@ -21,15 +21,15 @@ function DrinkDetailCard() {
       return response;
     };
     const getRecomend = async () => {
-      const recomend = await fetch(`${drinkRecommend}`)
+      const recomend = await fetch(`${drinkRecommend}`);
       const resRecom = recomend.json().then((res) => setRec(res.drinks));
       return resRecom;
-    }
+    };
 
     getRecomend();
     getUrlDrink();
   }, [path]);
-  
+
   const {
     idDrink,
     strAlcoholic,
@@ -39,6 +39,8 @@ function DrinkDetailCard() {
     strDrinkThumb,
     strYoutube,
   } = drinkDetail;
+
+  console.log(idDrink);
 
   const objIngred = Object.entries(drinkDetail).map((e) => {
     if (e[0].includes('strIngredient') && (e[1] !== null)) {
@@ -58,7 +60,7 @@ function DrinkDetailCard() {
     setData([drinkDetail]);
 
     return data;
-  }
+  };
 
   return (
     <div>
@@ -66,9 +68,9 @@ function DrinkDetailCard() {
       <img data-testid="recipe-photo" width="150px" src={ strDrinkThumb } alt="tumb" />
       <h4 data-testid="recipe-category">{strCategory}</h4>
       <p>{strAlcoholic}</p>
-      <div style={{display: 'flex', justifyContent: 'space-around',}}>
+      <div style={ { display: 'flex', justifyContent: 'space-around' } }>
         <button type="button" data-testid="share-btn">Gostei</button>
-        <button type="button"  data-testid="share-btn">Share</button>
+        <button type="button" data-testid="share-btn">Share</button>
       </div>
       <table>
         <tbody>
@@ -78,29 +80,28 @@ function DrinkDetailCard() {
                 if (e !== null) {
                   return (
                     <div
-                      data-testid={`${i+1}-${e}-${objMeasure[i]}`}
-                      key={i}
+                      data-testid={ `${i + 1}-${e}-${objMeasure[i]}` }
+                      key={ i }
                     >
                       {objMeasure[i] !== undefined ? `${e} - ${objMeasure[i]}` : `${e}`}
                     </div>
-                  )
+                  );
                 }
                 return undefined;
-              } ) }
+              }) }
             </td>
           </tr>
         </tbody>
       </table>
       <h6>{strInstructions}</h6>
-      { strYoutube &&
-        <RenderVideo
-          src={strYoutube}
-          title={`Recipe ${strDrink}`}
-          id={"video"}
-        />
-      }
+      { strYoutube
+        && <RenderVideo
+          src={ strYoutube }
+          title={ `Recipe ${strDrink}` }
+          id="video"
+        />}
       <div>
-        <Recommended value={rec} type={"drink"}/>
+        <Recommended value={ rec } type="drink" />
       </div>
       <ButtonToProgress data={ callData } />
     </div>

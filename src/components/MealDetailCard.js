@@ -18,19 +18,19 @@ function MealDetailCard() {
     const getUrlMeal = async () => {
       const meal = await fetch(`${foodToDetail}${window.location.pathname
         .split('/')[2]}`);
-        const response = meal.json().then((res) => setMealDetail(res.meals[0]));
-        return response;
-      };
+      const response = meal.json().then((res) => setMealDetail(res.meals[0]));
+      return response;
+    };
     const getRecomend = async () => {
-      const recomend = await fetch(`${foodRecomend}`)
+      const recomend = await fetch(`${foodRecomend}`);
       const resRecom = recomend.json().then((res) => setRec(res.meals));
       return resRecom;
-    }
+    };
 
     getRecomend();
     getUrlMeal();
   }, [path]);
-  
+
   const {
     idMeal,
     strArea,
@@ -42,7 +42,8 @@ function MealDetailCard() {
   } = mealDetail;
 
   console.log((rec.meals));
-  
+  console.log((idMeal));
+
   const objIngred = Object.entries(mealDetail).map((e) => {
     if (e[0].includes('strIngredient') && e[1] !== '') {
       return e[1];
@@ -61,7 +62,7 @@ function MealDetailCard() {
     setData([mealDetail]);
 
     return data;
-  }
+  };
 
   return (
     <div>
@@ -69,7 +70,7 @@ function MealDetailCard() {
       <img data-testid="recipe-photo" width="150px" src={ strMealThumb } alt="tumb" />
       <h4>{strArea}</h4>
       <h4 data-testid="recipe-category">{strCategory}</h4>
-      <div style={{display: 'flex', justifyContent: 'space-around',}}>
+      <div style={ { display: 'flex', justifyContent: 'space-around' } }>
         <button type="button" data-testid="share-btn">Gostei</button>
         <ButtonShare />
       </div>
@@ -77,30 +78,27 @@ function MealDetailCard() {
         <tbody>
           <tr>
             <td>
-              { objIngred.map((e, i) => {
-                return (
-                  <div
-                    data-testid={`${i+1}-${e}-${objMeasure[i]}`}
-                    key={i}
-                  >
-                    {objMeasure[i] !== undefined ? `${e} - ${objMeasure[i]}` : `${e}`}
-                  </div>
-                )
-              } ) }
+              { objIngred.map((e, i) => (
+                <div
+                  data-testid={ `${i + 1}-${e}-${objMeasure[i]}` }
+                  key={ i }
+                >
+                  {objMeasure[i] !== undefined ? `${e} - ${objMeasure[i]}` : `${e}`}
+                </div>
+              )) }
             </td>
           </tr>
         </tbody>
       </table>
       <h6 data-testid="instructions">{strInstructions}</h6>
-      { strYoutube && 
-        <RenderVideo
-          src={strYoutube}
-          title={`Recipe ${strMeal}`}
-          id={"video"}
-        />
-      }
+      { strYoutube
+        && <RenderVideo
+          src={ strYoutube }
+          title={ `Recipe ${strMeal}` }
+          id="video"
+        />}
       <div>
-        <Recommended value={rec} type={"meal"} />
+        <Recommended value={ rec } type="meal" />
       </div>
       <ButtonToProgress data={ callData } />
     </div>

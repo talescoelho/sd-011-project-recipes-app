@@ -32,7 +32,6 @@ export function RecipesProvider({ children }) {
   const five = 5;
   const twelve = 12;
 
-
   useEffect(() => {
     const getRecipes = async () => {
       const { meals } = await fetchApi(foodApi);
