@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function ExploreFoodOrDrink({ history }) {
-  function comidasHeaderAndMain() {
+  function mealsHeaderAndMain() {
     return (
       <>
         <Header withSearch={ false } pageTitle="Explorar Comidas" />
