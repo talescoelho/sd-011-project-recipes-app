@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function RenderFoods() {
   const [receiveFoodRecipes, setReceiveFoodRecipes] = useState(undefined);
@@ -19,19 +20,21 @@ function RenderFoods() {
   return (
     <div>
       { filterRecipes.map((meal, index) => (
-        <div key={ index }>
-          <h1
-            data-testid={ `${index}-card-name` }
-          >
-            { meal.strMeal }
-          </h1>
-          <img
-            src={ meal.strMealThumb }
-            alt={ meal.idMeal }
-            data-testid={ `${index}-card-img` }
-          />
-          <h2 data-testid={ `${index}-recipe-card` }>{ meal.strInstructions }</h2>
-        </div>
+        <Link to={ `/comidas/${meal.idMeal}` } key={ index }>
+          <div data-testid={ `${index}-recipe-card` }>
+            <h1
+              data-testid={ `${index}-card-name` }
+            >
+              { meal.strMeal }
+            </h1>
+            <img
+              src={ meal.strMealThumb }
+              alt={ meal.idMeal }
+              data-testid={ `${index}-card-img` }
+              style={ { width: '150px' } }
+            />
+          </div>
+        </Link>
       )) }
     </div>
   );

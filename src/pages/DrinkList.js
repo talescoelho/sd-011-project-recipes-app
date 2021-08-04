@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
 import RenderDrinks from './RenderDrinks';
@@ -21,15 +22,17 @@ const DrinkList = ({ receiveData, isFetching }) => {
         <div>
           { filteredData
             .map((drink, index) => (
-              <div key={ index }>
-                <h2 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h2>
-                <img
-                  src={ drink.strDrinkThumb }
-                  alt={ drink.strDrink }
-                  data-testid={ `${index}-card-img` }
-                />
-                <h3 data-testid={ `${index}-recipe-card` }>{ drink.strInstructions }</h3>
-              </div>))}
+              <Link to={ `/bebidas/${drink.idDrink}` } key={ index }>
+                <div data-testid={ `${index}-recipe-card` }>
+                  <h2 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h2>
+                  <img
+                    src={ drink.strDrinkThumb }
+                    alt={ drink.strDrink }
+                    data-testid={ `${index}-card-img` }
+                  />
+                </div>
+              </Link>
+            ))}
         </div>
       );
     }
