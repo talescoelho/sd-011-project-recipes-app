@@ -1,20 +1,46 @@
-.recommendation-carroussel {
-	display: flex;
-	overflow: hidden;
-	width: max-content;
-	background-color: blue;
-	justify-content: center;
-	align-items: center;
-	transition: 0.2ms ease;
+.recommendation-title {
+  margin-bottom: 0;
 }
 
-.foodCardContainer {
-  background-color: white;
-  border-radius: 5px;
+.recommendation-carroussel {
+  align-items: center;
   display: flex;
-  flex-direction: column;
-  height: 172px;
-  justify-content: space-between;
-  margin: 10px 1px 3px;
-  width: 162px;
+  overflow: hidden;
+  transform: translateX(0);
+  transition: 0.2s ease;
+}
+
+.carroussel-content {
+  display: flex;
+  margin-bottom: 10px;
+  transform: translateX(-178px);
+  transition: 0.2s ease;
+  width: fit-content;
+}
+
+.carroussel-item {
+  margin: 0 8px;
+}
+
+.arrow-r {
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  margin-top: -100px;
+  outline: none;
+  position: absolute;
+  width: 23%;
+  z-index: 10;
+}
+
+.arrow-l {
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  margin-top: -100px;
+  outline: none;
+  position: absolute;
+  right: 0;
+  width: 23%;
+  z-index: 10;
 }

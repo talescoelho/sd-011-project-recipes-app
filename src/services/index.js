@@ -1,3 +1,5 @@
+const fetchAllMeals = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+
 export const fetchAllRecipesOrByCategory = async (recipeType, category) => {
   if (recipeType === '/bebidas') {
     if (category === 'All') {
@@ -10,7 +12,7 @@ export const fetchAllRecipesOrByCategory = async (recipeType, category) => {
     return drinks;
   }
   if (category === 'All') {
-    const recipes = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    const recipes = await fetch(fetchAllMeals);
     const { meals } = await recipes.json();
     return meals;
   }
@@ -62,7 +64,7 @@ export const listAllAreas = async () => {
 
 export const searchByArea = async (area) => {
   if (area === 'all') {
-    const recipes = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    const recipes = await fetch(fetchAllMeals);
     const json = await recipes.json();
     return json;
   }
@@ -77,7 +79,7 @@ export const searchRecommendation = async (type) => {
     const json = await recipes.json();
     return json.drinks;
   }
-  const recipes = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  const recipes = await fetch(fetchAllMeals);
   const json = await recipes.json();
   return json.meals;
-}
+};
