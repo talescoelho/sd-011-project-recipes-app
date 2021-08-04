@@ -1,0 +1,24 @@
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgba(128, 128, 128, 0.5);
+}
+
+.alltoggle-search {
+  display: none;
+}
+
+.toggle-search {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.input-radios {
+  display: flex;
+}
+
+.btn-search {
+  display: flex;
+}

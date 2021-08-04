@@ -1,21 +1,25 @@
 import React from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import Header from './components/Header';
 import Login from './pages/Login';
-import Comidas from './pages/Comidas';
+import Meals from './pages/Meals';
 import Bebidas from './pages/Bebidas';
 import Explorar from './pages/Explorar';
-import Perfil from './pages/Profile';
+import Profile from './pages/Profile';
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/comidas" component={ Comidas } />
+        <Route path="/header" component={ Header } />
+        <Route path="/comidas" component={ Meals } />
         <Route path="/bebidas" component={ Bebidas } />
         <Route path="/explorar" component={ Explorar } />
-        <Route path="/perfil" component={ Perfil } />
-        {/* <Route path="/comidas:id-" component={} />
+        <Route path="/profile" component={ Profile } />
+        {/* <Route path="/comidas" component={} />
+        <Route path="/comidas:id-" component={} />
+        <Route path="/bebidas:id" component={} />
         <Route path="/explorar/comidas" component={} />
         <Route path="/explorar/bebidas" component={} />
         <Route path="/bebidas:id" component={} />
