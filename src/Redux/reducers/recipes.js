@@ -14,7 +14,6 @@ const recipe = (state = initialState, action) => {
   }
   case 'FETCH_FOOD_CARD': {
     const { filtered, selectedCategory } = payload;
-    console.log(payload);
     return { ...state, cards: filtered, selectedCategory };
   }
   case 'FETCH_FOOD_CATEGORIES': {

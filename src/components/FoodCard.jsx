@@ -14,8 +14,9 @@ export default function FoodCard({ type }) {
   const middle = type === 'meals' ? 'comidas' : 'bebidas';
 
   useEffect(() => {
-    dispatch(getFood(formInfo, type));
-  }, [formInfo, dispatch, type]);
+    (() => (!cards.length ? dispatch(getFood(formInfo, type)) : null))();
+  },
+  [formInfo, dispatch, type, cards.length]);
 
   const getCards = () => {
     if (cards) {
