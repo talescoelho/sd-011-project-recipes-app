@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
@@ -33,13 +33,13 @@ function Recommended({ value, type }) {
   }
 
   const settings = {
-      dots: true,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 2,
-      slidesToScroll: 2,
-      arrows: true
-    };
+    arrows: true,
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 2,
+  };
 
   return (
     <div style={ {textAlign: '-webkit-center'} }>

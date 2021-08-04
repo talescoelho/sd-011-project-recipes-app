@@ -1,4 +1,3 @@
-import { Button } from 'bootstrap';
 import React, { useEffect, useState } from 'react';
 import ButtonToProgress from './ButtonToProgress';
 import Recommended from './Recommended';
@@ -8,6 +7,8 @@ function DrinkDetailCard() {
   const [drinkDetail, setDrinkDetail] = useState([]);
   const [rec, setRec] = useState([]);
   const [data, setData] = useState([]);
+
+  const path = window.location.pathname.split('/')[2];
 
   const drinkToDetail = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
   const drinkRecommend = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -27,7 +28,7 @@ function DrinkDetailCard() {
 
     getRecomend();
     getUrlDrink();
-  }, [window.location.pathname.split('/')[2]]);
+  }, [path]);
   
   const {
     idDrink,
@@ -53,17 +54,11 @@ function DrinkDetailCard() {
     return undefined;
   }).filter((i) => i !== undefined);
 
-  setData([
-    idDrink,
-    strAlcoholic,
-    strCategory,
-    strInstructions,
-    strDrink,
-    strDrinkThumb,
-    strYoutube,
-  ]);
-  console.log(data);
+  const callData = () => {
+    setData([drinkDetail]);
 
+    return data;
+  }
 
   return (
     <div>
@@ -90,6 +85,7 @@ function DrinkDetailCard() {
                     </div>
                   )
                 }
+                return undefined;
               } ) }
             </td>
           </tr>
@@ -106,7 +102,7 @@ function DrinkDetailCard() {
       <div>
         <Recommended value={rec} type={"drink"}/>
       </div>
-      <ButtonToProgress data={data} />
+      <ButtonToProgress data={ callData } />
     </div>
   );
 }

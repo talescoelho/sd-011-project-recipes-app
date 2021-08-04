@@ -5,7 +5,7 @@ function ButtonToProgress({data}) {
   const [toRedirect, setToRedirect] = useState(false);
 
   const handleClick = () => {
-    setToRedirect(true);
+    return setToRedirect(true);
   }
 
   return (

@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import ButtonToProgress from './ButtonToProgress';
+import ButtonShare from './ButtonShare';
 import Recommended from './Recommended';
 import RenderVideo from './RenderVideo';
 
 function MealDetailCard() {
   const [mealDetail, setMealDetail] = useState([]);
   const [rec, setRec] = useState([]);
+  const [data, setData] = useState([]);
+
+  const path = window.location.pathname.split('/')[2];
 
   const foodToDetail = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
   const foodRecomend = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -24,7 +29,7 @@ function MealDetailCard() {
 
     getRecomend();
     getUrlMeal();
-  }, [window.location.pathname.split('/')[2]]);
+  }, [path]);
   
   const {
     idMeal,
@@ -52,6 +57,12 @@ function MealDetailCard() {
     return undefined;
   }).filter((i) => i !== undefined);
 
+  const callData = () => {
+    setData([mealDetail]);
+
+    return data;
+  }
+
   return (
     <div>
       <h3 data-testid="recipe-title">{strMeal}</h3>
@@ -60,7 +71,7 @@ function MealDetailCard() {
       <h4 data-testid="recipe-category">{strCategory}</h4>
       <div style={{display: 'flex', justifyContent: 'space-around',}}>
         <button type="button" data-testid="share-btn">Gostei</button>
-        <button type="button"  data-testid="share-btn">Share</button>
+        <ButtonShare />
       </div>
       <table>
         <tbody>
@@ -91,9 +102,7 @@ function MealDetailCard() {
       <div>
         <Recommended value={rec} type={"meal"} />
       </div>
-      <button type="button" data-testid="start-recipe-btn">
-        Iniciar Receita
-      </button>
+      <ButtonToProgress data={ callData } />
     </div>
   );
 }
