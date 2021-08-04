@@ -10,7 +10,7 @@ const drinks = {
       'strDrinkZH-HANS': null,
       'strDrinkZH-HANT': null,
       'strTags': null,
-      'strVideo': null,
+      'strVideo': null,w
       'strCategory': 'Ordinary Drink',
       'strIBA': null,
       'strAlcoholic': 'Optional alcohol',
