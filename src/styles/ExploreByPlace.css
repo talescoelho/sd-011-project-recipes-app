@@ -1,0 +1,32 @@
+.dropdown {
+  left: 25%;
+  position: relative;
+  text-align: -webkit-center;
+  top: 10vh;
+  width: 50%;
+}
+
+.origem {
+  cursor: pointer;
+  left: 15px;
+  position: relative;
+}
+
+.origem:hover {
+  border-color: gainsboro;
+}
+
+.dropdown-menu.show {
+  bottom: auto;
+  left: 0;
+  margin: 0;
+  position: absolute;
+  right: auto;
+  text-align: center;
+  top: 1;
+  transform: translate(435px, 102px);
+}
+
+.dropdown-menu.show:hover {
+  border-color: #c4c4c4;
+}
