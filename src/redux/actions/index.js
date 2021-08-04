@@ -1,7 +1,6 @@
 export const ADD_EMAIL = 'ADD_EMAIL';
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
-export const ADD_DONE_RECIPE = 'ADD_DONE_RECIPE';
 export const RECEIVE_API = 'RECEIVE_API';
 export const REQUEST_API = 'REQUEST_API';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
@@ -20,12 +19,6 @@ export const addIngredient = (ingredient) => ({
 export const deleteIngredient = (ingredient) => ({
   type: DELETE_INGREDIENT,
   ingredient,
-});
-
-export const addDoneRecipe = (recipe, date) => ({
-  type: ADD_DONE_RECIPE,
-  recipe,
-  date,
 });
 
 const receiveAPI = (json) => ({

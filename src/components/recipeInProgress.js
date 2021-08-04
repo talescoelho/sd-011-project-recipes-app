@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { addDoneRecipe } from '../redux/actions';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import handleClickFavoriteRecipe from '../helpers/handleClickFavoriteRecipe';
+import handleClickDoneRecipe from '../helpers/handleClickDoneRecipe';
 import '../styles/recipesInProgress.css';
 
 function RecipeInProgress({
@@ -17,7 +16,6 @@ function RecipeInProgress({
 }) {
   const [copied, setCopied] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const dispatch = useDispatch();
   const ingredients = [];
 
   const [isFavorite, setIsFavorite] = React.useState(false);
@@ -33,7 +31,7 @@ function RecipeInProgress({
   }, [urlId]);
 
   const dateSlice = 10;
-  const utc = new Date().toJSON().slice(0, dateSlice).replace(/-/g, '/');
+  const date = new Date().toJSON().slice(0, dateSlice).replace(/-/g, '/');
 
   const capitalizeLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
   const lastLetterInd = -1;
@@ -150,7 +148,7 @@ function RecipeInProgress({
             data-testid="finish-recipe-btn"
             id="finish-btn"
             disabled={ disabled }
-            onClick={ () => { dispatch(addDoneRecipe(recipeType, utc)); } }
+            onClick={ () => handleClickDoneRecipe(urlId, recipeType, date) }
           >
             Finalizar
           </button>
@@ -161,3 +159,15 @@ function RecipeInProgress({
 }
 
 export default RecipeInProgress;
+
+// [{
+//   id: id-da-receita,
+//   type: comida-ou-bebida,
+//   area: area-da-receita-ou-texto-vazio,
+//   category: categoria-da-receita-ou-texto-vazio,
+//   alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
+//   name: nome-da-receita,
+//   image: imagem-da-receita,
+//   doneDate: quando-a-receita-foi-concluida,
+//   tags: array-de-tags-da-receita-ou-array-vazio
+// }]

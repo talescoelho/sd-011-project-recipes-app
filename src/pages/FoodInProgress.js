@@ -65,6 +65,7 @@ function FoodInProgress() {
     if (checked === true) {
       parentNode.className = 'checkedIngredient';
       dispatch(addIngredient(ingName));
+      console.log(meal.meals[0].strTags.split(','));
     } else {
       parentNode.className = '';
       dispatch(deleteIngredient(ingName));
