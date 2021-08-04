@@ -11,7 +11,7 @@ import RecomendationCard from '../components/RecomendationCard';
 import handleContinueButton from '../helpers/handleContinueButton';
 import '../styles/details.css';
 
-const FoodDetails = ({ match }) => {
+const DrinkDetails = ({ match }) => {
   const { id } = match.params;
   const { data, request } = useFetch();
   const { data: mealsData, request: requestMeals } = useFetch();
@@ -125,7 +125,7 @@ const FoodDetails = ({ match }) => {
   );
 };
 
-FoodDetails.propTypes = {
+DrinkDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -133,4 +133,4 @@ FoodDetails.propTypes = {
   }).isRequired,
 };
 
-export default FoodDetails;
+export default DrinkDetails;
