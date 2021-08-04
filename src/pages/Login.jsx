@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import LoginAux from '../components/LoginAux';
 import { saveEmail } from '../redux/actions';
-import IngredientsListWithCheckbox from '../components/foodRecipe/IngredientsListWithCheckbox';
+import IngListWithCheckbox from '../components/foodRecipe/IngListWithCheckbox';
 
 const Login = () => {
   const [email, emailSet] = useState('');
@@ -39,7 +39,7 @@ const Login = () => {
 
   return (
     <div>
-      <IngredientsListWithCheckbox ingredients={ ingredientsList } />
+      <IngListWithCheckbox ingredients={ ingredientsList } />
       <form>
         <LoginAux
           name="email"

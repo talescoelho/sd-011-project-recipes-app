@@ -1,5 +1,5 @@
 import React from 'react';
-import IngredientsListWithCheckbox from '../components/foodRecipe/IngredientsListWithCheckbox';
+import IngredientsListWithCheckbox from '../components/foodRecipe/IngListWithCheckbox';
 
 const ingredientsList = ['tomate, pinhao, alface, frango'];
 
