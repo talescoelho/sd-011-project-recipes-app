@@ -12,11 +12,10 @@ import handleContinueButton from '../helpers/handleContinueButton';
 
 const FoodDetails = ({ match }) => {
   const { id } = match.params;
-  const { data, request } = useFetch();
   const { data: mealsData, request: requestMeals } = useFetch();
+  const { data, request } = useFetch();
   const [messageClipboard, setMessageClipboard] = React.useState(null);
   const [isFavorite, setIsFavorite] = React.useState(false);
-
   React.useEffect(() => {
     const favoriteRecipes = localStorage.getItem('favoriteRecipes');
     if (favoriteRecipes) {
@@ -35,10 +34,9 @@ const FoodDetails = ({ match }) => {
     requestMeals('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   }, [requestMeals]);
 
-  if (!data || !mealsData) {
+  if (!data || !mealsData || !data.drinks) {
     return null;
   }
-
   const { drinks } = data;
   const drink = drinks[0];
   const { strDrinkThumb, strDrink, strAlcoholic, strInstructions } = drink;
@@ -52,7 +50,6 @@ const FoodDetails = ({ match }) => {
     const doneRecipesArray = JSON.parse(doneRecipes);
     buttonShoulBeVisible = !doneRecipesArray.some((recipe) => recipe.id.includes(id));
   }
-
   return (
     <div>
       <img
