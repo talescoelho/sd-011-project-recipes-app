@@ -5,10 +5,9 @@ import Image from 'react-bootstrap/Image';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
+const copy = require('clipboard-copy');
+
 function RenderCard({ filter }) {
-  // eslint-disable-next-line global-require
-  const copy = require('clipboard-copy');
-  // eslint-enable-next-line global-require
   const [copyLink, setCopyLink] = useState(false);
   const [recipes, setRecipes] = useState(
     (JSON.parse(localStorage.getItem('favoriteRecipes'))),
