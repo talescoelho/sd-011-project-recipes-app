@@ -4,11 +4,11 @@ import * as CocktailAPI from '../services/cocktailAPI';
 import * as MealAPI from '../services/meailAPI';
 import RecipeDetails from '../components/RecipeDetails';
 import FrameVideo from '../components/FrameVideo';
-import Recommended from '../components/Recommended';
+import RecommendedRecipes from '../components/RecommendedsRecipes';
 
 function Details({ match: { url, params: { id } } }) {
   const [recipeDetail, setRecipeDetail] = useState('');
-  const [recommendedRecipes, setRecommendedRecipes] = useState('');
+  const [recommended, setRecommended] = useState('');
 
   const getRecipeById = async () => {
     let searchById = '';
@@ -22,7 +22,7 @@ function Details({ match: { url, params: { id } } }) {
       searchRecommendedRecipe = await MealAPI.fetchMealsRecommended();
     }
     setRecipeDetail(...searchById);
-    setRecommendedRecipes(searchRecommendedRecipe);
+    setRecommended(searchRecommendedRecipe);
   };
 
   // didMount getRecipeById
@@ -34,7 +34,10 @@ function Details({ match: { url, params: { id } } }) {
     <div>
       <RecipeDetails recipe={ recipeDetail } />
       {url.includes('comidas') && <FrameVideo recipe={ recipeDetail } />}
-      <Recommended recipe={ recommendedRecipes } />
+      <RecommendedRecipes recipes={ recommended } />
+      <button type="button" data-testid="start-recipe-btn">
+        Iniciar Receita
+      </button>
     </div>
   );
 }

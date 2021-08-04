@@ -34,3 +34,33 @@
   height: 40px;
   width: 40px;
 }
+
+/* Details Page */
+
+.carousel {
+  display: flex;
+  flex-direction: row;
+}
+
+.button-carousel {
+  border: none;
+  width: 40px;
+  height: 40px;
+}
+
+.button-carousel-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.card-recipe {
+
+}
+
+.carousel-image {
+  width: 128px;
+}
+
+.hide {
+  display: none;
+}

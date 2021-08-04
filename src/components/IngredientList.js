@@ -20,7 +20,7 @@ function IngredientList({ ingredients, status }) {
 
   const renderListToDetails = () => (
     <div>
-      <hh2>Ingredients</hh2>
+      <h2>Ingredients</h2>
       <ul>
         {ingredients.map((item, index) => (
           <li

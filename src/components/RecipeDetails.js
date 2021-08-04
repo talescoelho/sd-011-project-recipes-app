@@ -62,7 +62,16 @@ function RecipeDetails({ recipe }) {
 }
 
 RecipeDetails.propTypes = {
-  recipe: PropTypes.objectOf(PropTypes.string).isRequired,
+  recipe: PropTypes.shape({
+    strMealThumb: PropTypes.string,
+    strDrinkThumb: PropTypes.string,
+    strMeal: PropTypes.string,
+    strDrink: PropTypes.string,
+    strYoutube: PropTypes.string,
+    strCategory: PropTypes.string,
+    strAlcoholic: PropTypes.string,
+    strInstructions: PropTypes.string,
+  }).isRequired,
 };
 
 export default RecipeDetails;
