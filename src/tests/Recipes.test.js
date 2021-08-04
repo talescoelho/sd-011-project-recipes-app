@@ -29,9 +29,7 @@ describe('Main Recipes Page', () => {
 
   describe('Requirement 25', () => {
     it('should have 12 recipe cards on route "/comidas"', async () => {
-      fetchMock.getOnce(`${baseMealDbUrl}/search.php?s=`, {
-        meals: mealsMock,
-      });
+      fetchMock.getOnce(`${baseMealDbUrl}/search.php?s=`, mealsMock);
 
       renderWithRouterAndRedux(
         <App />,
