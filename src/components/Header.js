@@ -16,7 +16,7 @@ export default function Header({ text, lupa }) {
   };
 
   return (
-    <div className="navbar navbar-expand-lg navbar-light bg-light">
+    <div className="navbar navbar-expand-lg navbar-light bg-light height='100%'">
       <Link to="/perfil">
         <img src={ profileIcon } data-testid="profile-top-btn" alt="profileIcon" />
       </Link>
