@@ -18,7 +18,7 @@ const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem, setEnable }) =
     } else {
       setInfo(getStorage);
     }
-  }, [idItem, typeDoM, update, setEnable]);
+  }, [idItem, typeDoM, update]);
 
   const addCheck = (value) => (
     info && info[typeDoM][idItem].length > 0
@@ -48,6 +48,8 @@ const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem, setEnable }) =
   }
 
   function recipiesPorgress(target, value) {
+    // if (info[typeDoM][idItem].length === ingredient.length) setEnable(true);
+    // else setEnable(false);
     forceUpdate(!update);
     if (target.checked) addCheck(value);
     else removeCheck(value);
