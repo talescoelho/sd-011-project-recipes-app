@@ -30,7 +30,7 @@ function Favorite(typeFilter) {
             {FavoriteButton(item.id, index)}
           </Link>
           <div>
-            {ShareBtnFav(`${item.type}/${item.id}`, index)}
+            {ShareBtnFav(`${item.type}s/${item.id}`, index)}
           </div>
 
         </div>));
