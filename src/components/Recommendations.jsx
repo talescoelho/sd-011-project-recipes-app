@@ -14,7 +14,6 @@ export default function Recommendations() {
   const [number, setNumber] = useState(START_POSITION);
   const type = pathname.includes('bebidas') ? 'drinks' : 'meals';
 
-
   useEffect(() => {
     const getRecommendation = async () => {
       const location = pathname.includes('bebidas') ? 'bebidas' : 'comidas';

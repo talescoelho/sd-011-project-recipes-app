@@ -1,25 +1,26 @@
 import React from 'react';
-// import { useHistory } from 'react-router-dom';
-// import shareImage from '../images/shareIcon.svg';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import shareImage from '../images/shareIcon.svg';
 
 import '../styles/RecipeConcluded.css';
 
-function RecipeConcluded({ recipe, index }) {
-  // const { id, type, area, category, alcoholicOrNot, tag, image, name, doneDate } = recipe;
+function RecipeFavorite({ recipe, index }) {
+  const { id, type, area, category, alcoholicOrNot, tag, image, name, doneDate } = recipe;
 
-  // const history = useHistory();
+  const history = useHistory();
 
-  // const HandleRedirect = (recipeId) => {
-  //   if (type === 'comida') history.push(`comidas/${recipeId}`);
-  //   if (type === 'bebida') history.push(`bebidas/${recipeId}`);
-  // };
+  const HandleRedirect = (recipeId) => {
+    if (type === 'comida') history.push(`comidas/${recipeId}`);
+    if (type === 'bebida') history.push(`bebidas/${recipeId}`);
+  };
 
-  // const handleShareBtn = () => {
-  //   const DONE_RECIPES_LENGTH = -15;
-  //   const url = window.location.href.slice(DONE_RECIPES_LENGTH);
-  //   navigator.clipboard.writeText(url);
-  //   return alert('Link copiado');
-  // };
+  const handleShareBtn = () => {
+    const DONE_RECIPES_LENGTH = -15;
+    const url = window.location.href.slice(DONE_RECIPES_LENGTH);
+    navigator.clipboard.writeText(url);
+    return alert('Link copiado');
+  };
 
   return (
     <div
@@ -50,14 +51,22 @@ function RecipeConcluded({ recipe, index }) {
         </p>
         <button
           type="button"
-          data-testid={ `${index}-horizontal-share-btn` }
           onClick={ () => handleShareBtn() }
         >
-          <img src={ shareImage } alt="Compartilhar" />
+          <img
+            src={ shareImage }
+            alt="Compartilhar"
+            data-testid={ `${index}-horizontal-share-btn` }
+          />
         </button>
       </div>
     </div>
   );
 }
 
-export default RecipeConcluded;
+RecipeFavorite.propTypes = {
+  recipe: PropTypes.objectOf(String).isRequired,
+  index: PropTypes.number.isRequired,
+};
+
+export default RecipeFavorite;

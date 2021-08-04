@@ -1,12 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
-
 import WhiteHeart from '../images/whiteHeartIcon.svg';
 import BlackHeart from '../images/blackHeartIcon.svg';
 
-function ButtonFavoriteRecipe({ recipes, favorite, setFavorite}) {
+function ButtonFavoriteRecipe({ recipes, favorite, setFavorite }) {
   const location = useLocation();
-  const { id, type, area, category, strAlcoholic, title, imgUrl } = recipes;
+  const { id, area, category, strAlcoholic, title, imgUrl } = recipes;
   const createFavoriteObject = () => {
     let favoriteRecipeObj = {};
     if (location.pathname.includes('comidas')) {
@@ -65,5 +65,10 @@ function ButtonFavoriteRecipe({ recipes, favorite, setFavorite}) {
     </button>
   );
 }
+
+ButtonFavoriteRecipe.propTypes = {
+  recipes: PropTypes.objectOf(String),
+  setFavorite: PropTypes.func,
+}.isRequired;
 
 export default ButtonFavoriteRecipe;

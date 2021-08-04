@@ -1,11 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react';
-import RecipeConcluded from './RecipeConcluded';
-// import RecipesContext from '../context/RecipesContext';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import '../styles/FavoriteRecipes.css';
+import RecipeConcluded from './RecipeConcluded';
 
 function FavoriteRecipes({ filterBy }) {
-  // const { doneRecipes } = useContext(RecipesContext);a
   localStorage.setItem('favoriteRecipes', JSON.stringify([]));
   const parsedLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const obj2 = {
@@ -44,15 +43,19 @@ function FavoriteRecipes({ filterBy }) {
   }, [filterBy]);
   return (
     <div className="FavoriteRecipesContainer">
-      {/* {
+      {
         favoriteItens.map(
           (recipe, index) => (
             <RecipeConcluded key={ index } index={ index } recipe={ recipe } />
           ),
         )
-      } */}
+      }
     </div>
   );
 }
+
+FavoriteRecipes.propTypes = {
+  filterBy: PropTypes.func.isRequired,
+};
 
 export default FavoriteRecipes;

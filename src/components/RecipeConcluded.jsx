@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import shareImage from '../images/shareIcon.svg';
 
@@ -83,5 +84,10 @@ function RecipeConcluded({ recipe, index }) {
     </div>
   );
 }
+
+RecipeConcluded.propTypes = {
+  recipe: PropTypes.objectOf(String),
+  index: PropTypes.number,
+}.isRequired;
 
 export default RecipeConcluded;

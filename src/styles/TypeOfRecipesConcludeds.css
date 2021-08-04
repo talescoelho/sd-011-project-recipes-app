@@ -1,8 +1,8 @@
 .TypeOfRecipesConcludedsContainer {
   background-color: red;
   display: flex;
-  justify-content: space-evenly;
   height: 50px;
+  justify-content: space-evenly;
   width: 100%;
 }
 

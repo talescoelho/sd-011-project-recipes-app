@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/TypeOfRecipesConcludeds.css';
+import PropTypes from 'prop-types';
 
 function TypeOfRecipesConcludeds({ filterByCategory }) {
   const handleChangeFilter = (value) => {
@@ -35,5 +36,9 @@ function TypeOfRecipesConcludeds({ filterByCategory }) {
     </div>
   );
 }
+
+TypeOfRecipesConcludeds.propTypes = {
+  filterByCategory: PropTypes.func.isRequired,
+};
 
 export default TypeOfRecipesConcludeds;

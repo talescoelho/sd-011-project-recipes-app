@@ -1,11 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import RecipeConcluded from './RecipeConcluded';
-// import RecipesContext from '../context/RecipesContext';
 
 import '../styles/DoneRecipes.css';
 
 function DoneRecipes({ filterBy }) {
-  // const { doneRecipes } = useContext(RecipesContext);a
   localStorage.setItem('doneRecipes', JSON.stringify([]));
   const parsedLocalStorage = JSON.parse(localStorage.getItem('doneRecipes'));
   const obj2 = {
@@ -58,5 +57,9 @@ function DoneRecipes({ filterBy }) {
     </div>
   );
 }
+
+DoneRecipes.propTypes = {
+  filterBy: PropTypes.func.isRequired,
+};
 
 export default DoneRecipes;
