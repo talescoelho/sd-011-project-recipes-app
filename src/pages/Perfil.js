@@ -5,7 +5,6 @@ import Header from '../components/Header';
 
 export default function Perfil() {
   const userEmail = JSON.parse(localStorage.user);
-  console.log(userEmail.email);
   const history = useHistory();
   const redirectToDone = () => history.push('/receitas-feitas');
   const redirectToFavorites = () => history.push('/receitas-favoritas');
