@@ -9,15 +9,15 @@ export default function FooterMenu() {
   return (
     <footer data-testid="footer" className="footer">
       <Link to="/bebidas">
-        <img src={ drink } alt="icon drink" />
+        <img data-testid="drinks-bottom-btn" src={ drink } alt="icon drink" />
       </Link>
 
       <Link to="/explorar">
-        <img src={ explore } alt="icon explore" />
+        <img data-testid="explore-bottom-btn" src={ explore } alt="icon explore" />
       </Link>
 
       <Link to="/comidas">
-        <img src={ food } alt="icon food" />
+        <img data-testid="food-bottom-btn" src={ food } alt="icon food" />
       </Link>
 
     </footer>
