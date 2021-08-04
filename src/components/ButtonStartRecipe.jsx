@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import '../styles/StartRecipeBtn.css';
 import { useHistory, useLocation } from 'react-router-dom';
 import handleLocation from '../helpers/handleLocation';
@@ -17,14 +18,14 @@ function ButtonStartRecipe({ id }) {
     return key;
   };
 
-  const handleLocalStorage = (id) => {
+  const handleLocalStorage = (recipeId) => {
     const key = handleObjectKey();
     const doneRecipesLocal = JSON.parse(localStorage.getItem('doneRecipes'));
     const inProgressLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (doneRecipesLocal && doneRecipesLocal[key][id]) {
+    if (doneRecipesLocal[key] && doneRecipesLocal[key][recipeId]) {
       setDisabled(true);
     }
-    if (inProgressLocal && inProgressLocal[key][id]) {
+    if (inProgressLocal && inProgressLocal[key][recipeId]) {
       setDisabled(false);
       setBtnName(false);
     }
@@ -51,5 +52,9 @@ function ButtonStartRecipe({ id }) {
     </button>
   );
 }
+
+ButtonStartRecipe.propTypes = {
+  id: PropTypes.number.isRequired,
+};
 
 export default ButtonStartRecipe;

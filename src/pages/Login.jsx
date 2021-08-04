@@ -10,9 +10,10 @@ export default function Login() {
   const history = useHistory();
 
   useEffect(() => {
+    const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     const minLength = 6;
     setLoginButtonStatus(true);
-    if (loginPassword.length >= minLength) {
+    if (regex.test(loginEmail) && loginPassword.length > minLength) {
       setLoginButtonStatus(false);
     }
   }, [loginPassword]);

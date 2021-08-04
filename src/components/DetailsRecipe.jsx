@@ -8,6 +8,7 @@ import LinkCopy from './LinkCopy';
 import '../styles/DetailsRecipe.css';
 import ButtonStartRecipe from './ButtonStartRecipe';
 import ButtonFavoriteRecipe from './ButtonFavoriteRecipe';
+import Recommendations from './Recommendations';
 
 function DetailsRecipe(props) {
   // comentario
@@ -76,6 +77,7 @@ function DetailsRecipe(props) {
         data-testid="video"
         allowFullScreen
       /> }
+      <Recommendations />
       <ButtonStartRecipe id={ id } />
     </div>
   );
