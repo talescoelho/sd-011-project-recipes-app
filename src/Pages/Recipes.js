@@ -19,10 +19,10 @@ export default function Recipes() {
     categorie={ buttonCategorie }
   />);
 
-  const toggleButton = (setButton, listCategorie, index) => {
-    console.log('false começa', toggleClick);
-    if (toggleClick) {
+  const toggleButton = (setButton, listCategorie, index, categorie) => {
+    if (toggleClick && buttonCategorie === categorie) {
       setToggleClick(false);
+
       return setButton(null);
     }
     setToggleClick(true);
@@ -47,6 +47,7 @@ export default function Recipes() {
               setButtonCategorie,
               listMealsCategorie,
               '0',
+              `${listMealsCategorie[0].strCategory}-category-filter`,
             ) }
           >
             {listMealsCategorie[0].strCategory}
@@ -58,6 +59,7 @@ export default function Recipes() {
               setButtonCategorie,
               listMealsCategorie,
               '1',
+              `${listMealsCategorie[1].strCategory}-category-filter`,
             ) }
           >
             {listMealsCategorie[1].strCategory}
@@ -70,6 +72,7 @@ export default function Recipes() {
               setButtonCategorie,
               listMealsCategorie,
               '2',
+              `${listMealsCategorie[2].strCategory}-category-filter`,
             ) }
           >
             {listMealsCategorie[2].strCategory}
@@ -82,6 +85,7 @@ export default function Recipes() {
               setButtonCategorie,
               listMealsCategorie,
               '3',
+              `${listMealsCategorie[3].strCategory}-category-filter`,
             ) }
           >
             {listMealsCategorie[3].strCategory}
@@ -94,6 +98,7 @@ export default function Recipes() {
               setButtonCategorie,
               listMealsCategorie,
               '4',
+              `${listMealsCategorie[4].strCategory}-category-filter`,
             ) }
           >
             {listMealsCategorie[4].strCategory}

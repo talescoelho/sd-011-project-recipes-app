@@ -16,9 +16,8 @@ function Bebidas() {
     categorie={ buttonCategorie }
   />);
 
-  const toggleButton = (setButton, listCategorie, index) => {
-    console.log('false começa', toggleClick);
-    if (toggleClick) {
+  const toggleButton = (setButton, listCategorie, index, categorie) => {
+    if (toggleClick && buttonCategorie === categorie) {
       setToggleClick(false);
       return setButton(null);
     }
@@ -42,6 +41,7 @@ function Bebidas() {
               setButtonCategorie,
               listCocktailsCategorie,
               '0',
+              `${listCocktailsCategorie[0].strCategory}-category-filter`,
             ) }
           >
             {listCocktailsCategorie[0].strCategory}
@@ -53,6 +53,7 @@ function Bebidas() {
               setButtonCategorie,
               listCocktailsCategorie,
               '1',
+              `${listCocktailsCategorie[1].strCategory}-category-filter`,
             ) }
           >
             {listCocktailsCategorie[1].strCategory}
@@ -65,6 +66,7 @@ function Bebidas() {
               setButtonCategorie,
               listCocktailsCategorie,
               '2',
+              `${listCocktailsCategorie[2].strCategory}-category-filter`,
             ) }
           >
             {listCocktailsCategorie[2].strCategory}
@@ -77,6 +79,7 @@ function Bebidas() {
               setButtonCategorie,
               listCocktailsCategorie,
               '3',
+              `${listCocktailsCategorie[3].strCategory}-category-filter`,
             ) }
           >
             {listCocktailsCategorie[3].strCategory}
@@ -89,6 +92,7 @@ function Bebidas() {
               setButtonCategorie,
               listCocktailsCategorie,
               '4',
+              `${listCocktailsCategorie[4].strCategory}-category-filter`,
             ) }
           >
             {listCocktailsCategorie[4].strCategory}
