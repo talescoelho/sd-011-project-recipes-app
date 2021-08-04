@@ -4,6 +4,7 @@ import RecipesContext from '../context/RecipesContext';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import CategoriesBar from '../components/CategoriesBar';
 
 function Drinks() {
   const { drinksData } = useContext(RecipesContext);
@@ -17,6 +18,7 @@ function Drinks() {
       { drinksData.length === 1
         && <Redirect to={ `/bebidas/${drinksData[0].idDrink}` } /> }
       <Header title="Bebidas" recipeType="drinks" searchButton />
+      <CategoriesBar recipeType="bebidas" />
       { drinksData !== [] && drinksData.map((recipe, index) => (
         <Link
           to={ `/bebidas/${recipe.idDrink}` }
