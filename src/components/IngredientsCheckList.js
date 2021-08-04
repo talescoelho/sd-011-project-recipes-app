@@ -62,7 +62,6 @@ export default function IngredientsCheckList({ recipeType, id, data }) {
 
   const deleteFromInProgress = () => {
     const inProgressRecipes = JSON.parse(localStorage.inProgressRecipes);
-    console.log(inProgressRecipes);
     delete inProgressRecipes[recipeType][id];
     localStorage.inProgressRecipes = JSON.stringify(inProgressRecipes);
   };
