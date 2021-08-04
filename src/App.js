@@ -10,6 +10,7 @@ import Explorar from './pages/Explorar';
 import Comidas from './pages/Comidas';
 import Login from './pages/Login';
 import RecipesProvider from './context/RecipesProvider';
+import Detalhes from './pages/Detalhes';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
 import ExplorarPorOrigem from './pages/ExplorarPorOrigem';
@@ -54,11 +55,11 @@ function App() {
             <Route
               path="*"
               component={ NotFound }
-            />
-            <Route path="/comidas/{id-da-receita}" />
-            <Route path="/comidas/{id-da-receita}/in-progress" />
-            <Route path="/bebidas/{id-da-receita}" />
-            <Route path="/bebidas/{id-da-receita}/in-progress" />
+            />            
+            <Route exact path="/comidas/:id" component={ Detalhes } />
+            <Route exact path="/comidas/:id/in-progress" />
+            <Route exact path="/bebidas/:id" component={ Detalhes } />
+            <Route exact path="/bebidas/:id/in-progress" />
             <Route
               path="/receitas-feitas"
               component={ () => <Header title="Receitas Feitas" /> }

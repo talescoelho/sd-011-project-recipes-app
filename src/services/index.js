@@ -1,3 +1,8 @@
+import {
+  mealsObjectFormater,
+  drinksObjectFormater,
+} from '../helpers/detailsObjectFormater';
+
 export const fetchAllRecipesOrByCategory = async (recipeType, category) => {
   if (recipeType === '/bebidas') {
     if (category === 'All') {
@@ -54,6 +59,18 @@ export const searchByFirstLetter = async (firstLetter, pathname) => {
   window.alert('Sua busca deve conter somente 1 (um) caracter');
 };
 
+export const searchById = async (id, type) => {
+  if (type === 'comidas') {
+    const recipes = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const { meals } = await recipes.json();
+    const mealsObject = mealsObjectFormater(meals[0]);
+    return mealsObject;
+  } if (type === 'bebidas') {
+    const recipes = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const { drinks } = await recipes.json();
+    const drinksObject = drinksObjectFormater(drinks[0]);
+    return drinksObject;
+  }
 export const listAllAreas = async () => {
   const areas = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
   const json = await areas.json();
