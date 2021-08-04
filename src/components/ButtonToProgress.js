@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import { Redirect } from 'react-router-dom';
 
-function ButtonToProgress({data}) {
+function ButtonToProgress({ data }) {
   const [toRedirect, setToRedirect] = useState(false);
 
-  const handleClick = () => {
-    return setToRedirect(true);
-  }
+  const handleClick = () => setToRedirect(true);
 
   return (
     <div>
@@ -14,9 +14,9 @@ function ButtonToProgress({data}) {
         Iniciar Receita
       </button>
       {
-        toRedirect &&
-          <Redirect 
-            to={`/comidas/${window.location.pathname.split("/")[2]}/in-progress`}
+        toRedirect
+          && <Redirect
+            to={ `/comidas/${window.location.pathname.split('/')[2]}/in-progress` }
             data={ data }
           />
       }
@@ -25,3 +25,7 @@ function ButtonToProgress({data}) {
 }
 
 export default ButtonToProgress;
+
+ButtonToProgress.propTypes = {
+  data: PropTypes.object,
+}.isRequired;

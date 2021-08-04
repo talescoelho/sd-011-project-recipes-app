@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -11,6 +11,16 @@ const copy = require('clipboard-copy');
 export default function ButtonShare(props) {
   const [isCopied, setIsCopied] = useState(false);
   const { path } = props;
+
+  useEffect(() => {
+    if (isCopied) {
+      const SECONDS = 2000;
+      setInterval(() => {
+        setIsCopied(false);
+      }, SECONDS);
+    }
+  }, [isCopied]);
+
   const onClickButtonShare = () => {
     copy(path);
     setIsCopied(true);
@@ -18,13 +28,15 @@ export default function ButtonShare(props) {
 
   return (
     <div style={ { display: 'flex' } }>
-      <button
+      <div
         data-testid="share-btn"
-        type="button"
+        role="button"
+        onKeyPress={ onClickButtonShare }
+        tabIndex="0"
         onClick={ onClickButtonShare }
       >
         <img data-testid="food-bottom-btn" src={ shareIcon } alt="share icon" />
-      </button>
+      </div>
       { isCopied && <p>Link copiado!</p>}
     </div>
 

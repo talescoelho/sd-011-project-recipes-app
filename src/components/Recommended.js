@@ -1,11 +1,13 @@
 import React from 'react';
 import Slider from 'react-slick';
+import PropTypes from 'prop-types';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 function Recommended({ value, type }) {
-  const sixCards = value.map((e) => e).slice(0, 6);
+  const MAX_CARDS = 6;
+  const sixCards = value.map((e) => e).slice(0, MAX_CARDS);
   console.log(sixCards);
   const kind = () => {
     if (type === 'meal') {
@@ -49,3 +51,11 @@ function Recommended({ value, type }) {
 }
 
 export default Recommended;
+<<<<<<< HEAD
+=======
+
+Recommended.propTypes = {
+  value: PropTypes.string,
+  type: PropTypes.string,
+}.isRequired;
+>>>>>>> 82a63d4d9f0611bb3d61321a33c34dc7c2bf47a3

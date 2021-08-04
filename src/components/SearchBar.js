@@ -76,28 +76,16 @@ export default function SearchBar(props) {
 
   const handleClick = async () => {
     const urlToFetch = `https://www.${fetchType}.com/api/json/v1/1/${radio}${input}`;
+    if (radio === 'search.php?f=' && input.length > 1) {
+      // eslint-disable-next-line no-alert
+      return alert('Sua busca deve conter somente 1 (um) caracter');
+    }
 
     const dataFromApi = await fetchByFilter(urlToFetch);
     setData(dataFromApi);
     setNewSearch(true);
     setNewSearch(false);
   };
-
-  // Passei o renderCards para dentro do CardsList
-
-  // const renderCards = () => {
-  //   const MAX_CARDS = 12;
-  //   if (shouldCallCards && dataValues.length > 1) {
-  //     return dataValues.slice(0, MAX_CARDS).map((eachRecipe, index) => (
-  //       <Cards
-  //         recipe={ eachRecipe }
-  //         type={ fetchType }
-  //         index={ index }
-  //         key={ index }
-  //       />
-  //     ));
-  //   }
-  // };
 
   return (
     <nav>
@@ -153,9 +141,6 @@ export default function SearchBar(props) {
           />
           Primeira letra
         </label>
-        {/* <section>
-          { shouldCallCards && dataValues && renderCards() }
-        </section> */}
       </section>
     </nav>
   );
