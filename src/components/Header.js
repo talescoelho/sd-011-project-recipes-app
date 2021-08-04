@@ -1,35 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import SearchBarBtn from './SearchBarBtn';
 
 import ProfileIcon from '../images/profileIcon.svg';
-import SearchIcon from '../images/searchIcon.svg';
 
-export default function Header({ title, haveSearchBtn }) {
+export default function Header({ title, haveSearchBtn, searchTrigger }) {
   return (
     <header>
+      <h1 data-testid="page-title">{title}</h1>
       <Link to="/perfil">
         <button
-          src={ ProfileIcon }
           alt="Incone do profile"
           type="button"
-          data-testid="profile-top-btn"
-        />
-      </Link>
-      <h1 data-testid="page-title">{title}</h1>
-      {
-        haveSearchBtn
-      && (
-        <label htmlFor="search-top">
-          <input
-            type="button"
-            src={ SearchIcon }
-            id="search-top"
-            data-testid="search-top-btn"
+        >
+          <img
+            src={ ProfileIcon }
+            alt="Icone do profile"
+            data-testid="profile-top-btn"
           />
-        </label>
-      )
-      }
+        </button>
+      </Link>
+      <SearchBarBtn
+        haveSearchBtn={ haveSearchBtn }
+        searchTrigger={ searchTrigger }
+      />
     </header>
   );
 }
@@ -37,4 +32,5 @@ export default function Header({ title, haveSearchBtn }) {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   haveSearchBtn: PropTypes.bool.isRequired,
+  searchTrigger: PropTypes.string.isRequired,
 };

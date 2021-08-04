@@ -66,3 +66,13 @@
     transform: rotate(-10deg);
   }
 }
+
+.footer {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+
+.cardImage {
+  max-width: 150px;
+}
