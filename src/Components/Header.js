@@ -5,6 +5,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import MyContext from '../Context/MyContext';
 import { fetchIngredient, fetchName, fetchFirstLetter } from '../Services/FetchApi';
+import './Header.css';
 
 export default function Header({ title, searchIconAppears = false }) {
   const { setRecipe } = useContext(MyContext);
@@ -31,6 +32,7 @@ export default function Header({ title, searchIconAppears = false }) {
       if (searchResult.length === 1) {
         return fetchFirstLetter(searchResult);
       }
+      // eslint-disable-next-line no-alert
       alert('Sua busca deve conter somente 1 (um) caracter');
       break;
     default:
@@ -44,31 +46,30 @@ export default function Header({ title, searchIconAppears = false }) {
   };
 
   return (
-    <div>
-      <header>
-        <Link to="/perfil">
-          <button
-            type="button"
-          >
-            <img
-              data-testid="profile-top-btn"
-              src={ profileIcon }
-              alt="Icone de perfil"
-            />
-          </button>
+    <div className="headerbox">
+      <header className="header">
+        <Link to="/perfil" className="intheader">
+          <img
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="Icone de perfil"
+            width="40px"
+            height="40px"
+          />
         </Link>
-        <h1 data-testid="page-title">{title}</h1>
+        <h2 className="title intheader" data-testid="page-title">{title}</h2>
         {searchIconAppears && (
-          <button
-            type="button"
+          <img
+            data-testid="search-top-btn"
+            src={ searchIcon }
+            alt="Barra de pesquisa"
+            width="40px"
+            height="40px"
             onClick={ toggleInput }
-          >
-            <img
-              data-testid="search-top-btn"
-              src={ searchIcon }
-              alt="Barra de pesquisa"
-            />
-          </button>
+            onKeyDown={ toggleInput }
+            role="presentation"
+            className="intheader"
+          />
         )}
       </header>
       {searchInput && (
@@ -120,6 +121,13 @@ export default function Header({ title, searchIconAppears = false }) {
           </button>
         </form>
       )}
+      { searchInput ? <input
+        className="inputsearch"
+        type="text"
+        data-testid="search-input"
+        placeholder="Buscar Receita"
+      />
+        : null}
     </div>
   );
 }
