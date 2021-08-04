@@ -2,8 +2,10 @@
   border: 2px grey;
   display: flex;
   flex-direction: column;
+  height: 360px;
   margin-top: 30vh;
   text-align: center;
+  width: 640px;
 }
 
 video {

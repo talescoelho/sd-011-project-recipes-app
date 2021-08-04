@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Login.css';
-import loginbg from '../loginbg.mp4';
 import Button from 'react-bootstrap/Button';
+import loginbg from '../loginbg.mp4';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -37,8 +37,8 @@ export default function Login() {
     <div className="loginBox">
        <h2 className="title">Cozinhando com Gosto</h2>
       <video
-        width="360"
-        height="640"
+        width="360px"
+        height="640px"
         playsinline
         autoPlay
         muted
