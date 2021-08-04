@@ -15,13 +15,54 @@ class FoodDetails extends Component {
       ingredient: [],
       measure: [],
       recomandation: [],
+      disableButton: false,
     };
     this.fetchDetail = this.fetchDetail.bind(this);
     this.renderRecomendations = this.renderRecomendations.bind(this);
+    this.saveOnLocalStorage = this.saveOnLocalStorage.bind(this);
   }
 
   componentDidMount() {
     this.fetchDetail();
+    const { match: { params: { id } } } = this.props;
+    this.newFunction = () => {
+      const favRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+      let newFavLocal;
+      if (favRecipes !== null) {
+        const newFavRecipe = favRecipes[0].id;
+        newFavLocal = newFavRecipe;
+      }
+      console.log(JSON.stringify(newFavLocal));
+      if (newFavLocal === id) {
+        this.setState({
+          disableButton: true,
+        });
+      }
+    };
+    this.newFunction();
+  }
+
+  saveOnLocalStorage() {
+    const { match: { params: { id } } } = this.props;
+    const { foodDetail } = this.state;
+    const doneRecipes = [{
+      id: foodDetail[0].idMeal,
+      type: foodDetail[0].strMeal,
+      area: foodDetail[0].strArea,
+      category: foodDetail[0].strCategory,
+      alcoholicOrNot: '',
+      name: foodDetail[0].strMeal,
+      image: foodDetail[0].strSource,
+      doneDate: new Date(),
+      tags: foodDetail[0].strTags,
+    }];
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    const favRecipes = JSON.parse(localStorage.getItem('doneRecipes'))[0].id;
+    if (favRecipes === id) {
+      this.setState({
+        disableButton: true,
+      });
+    }
   }
 
   async fetchDetail() {
@@ -80,7 +121,7 @@ class FoodDetails extends Component {
   }
 
   render() {
-    const { foodDetail, ingredient, measure, recomandation } = this.state;
+    const { foodDetail, ingredient, measure, recomandation, disableButton } = this.state;
     return (
       <div className="detailContainer">
         {foodDetail && foodDetail.map((result, index) => (
@@ -140,7 +181,9 @@ class FoodDetails extends Component {
             <button
               id="initRecipe"
               type="button"
+              style={ { display: disableButton ? 'none' : 'initial' } }
               data-testid="start-recipe-btn"
+              onClick={ () => this.saveOnLocalStorage() }
             >
               Iniciar Receita
             </button>
