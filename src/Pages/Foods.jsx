@@ -15,17 +15,24 @@ import FoodCategoryCards from './Components/FoodCategoryCards'
 
 function Foods() { 
   const history = useHistory();
-  const { dataFood, setRequestFoodParams , renderFoodCategory, setRenderFoodCategory} = useContext(Context);
+  const { dataFood, setRequestFoodParams , renderFoodCategory, setRenderFoodCategory, requestFoodParams} = useContext(Context);
   const [showSearch, setShowSearch] = useState(false);
   // const [foodCategories, setFoodCategories] = useState();
   const [foodFilter, setFoodFilter] = useState([]);
   const foods = 'foods';
   // Busca por comidas ao renderizar a tela de comidas.
 
-  useEffect(() => {
+  useEffect(() => { 
+    if(requestFoodParams.searchInput === '' && requestFoodParams.searchMethod === ''){
     setRequestFoodParams({
       searchInput: '', searchMethod: '' });
-      console.log(renderFoodCategory)
+      console.log(requestFoodParams)
+    } else {
+      setRequestFoodParams({
+        searchInput:requestFoodParams.searchInput ,
+        searchMethod:requestFoodParams.searchMethod });
+
+    }
   }, [renderFoodCategory]);
 
   if (dataFood !== null && dataFood.length === 1) {

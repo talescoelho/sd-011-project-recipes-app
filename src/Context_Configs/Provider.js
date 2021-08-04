@@ -26,7 +26,7 @@ function Provider({ children }) {
   const [dataDrinks, setDataDrinks] = useState([]);
   const [APIerror, setError] = useState(null);
   const [requestFoodParams, setRequestFoodParams] = useState({
-    searchInput: '', searchMethod: '', category: false, term : ''});
+    searchInput: '', searchMethod: ''});
   const [requestDrinksParams, setRequestDrinksParams] = useState({
     searchInput: '', searchMethod: '' });
 
