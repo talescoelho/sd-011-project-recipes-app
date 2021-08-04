@@ -63,6 +63,10 @@ function App() {
               path="*"
               component={ NotFound }
             />
+            <Route
+              path="*"
+              component={ NotFound }
+            />
           </Switch>
         </RecipesProvider>
       </BrowserRouter>
