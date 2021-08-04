@@ -1,3 +1,5 @@
-input:checked>.ingredient {
-  text-decoration: line-through;
+.ingredient {
+  margin: 0 2px;
 }
+
+/* text-decoration: line-through; */
