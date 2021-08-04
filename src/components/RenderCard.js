@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-function RenderCard({ recipes }) {
+function RenderCard() {
   // eslint-disable-next-line global-require
   const copy = require('clipboard-copy');
+  const [recipes, setRecipes] = useState(
+    (JSON.parse(localStorage.getItem('favoriteRecipes'))),
+  );
+  function removeItem({ target }) {
+    const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    favorite.splice(target.dataset.recipeindex, 1);
+    console.log(favorite);
+    setRecipes(favorite);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favorite));
+  }
+
   function copyUrl({ target }) {
     const type = target.dataset.recipetype;
     copy(`http://localhost:3000/${type}s/${target.dataset.recipeid}`);
     alert('Link copiado!');
   }
+
   return (
     <div>
       {recipes.map((object, index) => (
@@ -42,6 +54,7 @@ function RenderCard({ recipes }) {
             data-testid={ `${index}-horizontal-share-btn` }
           />
           <input
+            onClick={ (event) => removeItem(event) }
             data-recipeIndex={ index }
             alt="botao de favoritar"
             type="image"

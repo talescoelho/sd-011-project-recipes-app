@@ -23,8 +23,8 @@ function RecipeList() {
       >
         Drinks
       </button>
-      {recipes !== null
-        ? <RenderCard recipes={ recipes } /> : null}
+      {recipes.lenght > 0
+        ? null : <RenderCard recipes={ recipes } />}
     </div>
   );
 }
