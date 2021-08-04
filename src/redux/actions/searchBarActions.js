@@ -1,5 +1,6 @@
 export const REQUEST_TYPE_API = 'REQUEST_API';
 export const RECEIVE_TYPE_API = 'RECEIVE_API';
+export const CLEAR_DATA = 'CLEAR_DATA';
 
 const requestTypeApi = () => ({
   type: REQUEST_TYPE_API,
@@ -8,6 +9,10 @@ const requestTypeApi = () => ({
 const receiveTypeApi = (data) => ({
   type: RECEIVE_TYPE_API,
   data,
+});
+
+export const clearData = () => ({
+  type: CLEAR_DATA,
 });
 
 export function fetchSearchIngredients(searchIngredient, pathname) {

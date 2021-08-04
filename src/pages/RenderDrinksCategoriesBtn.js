@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router';
-import { fetchSearchBtnIngredients } from '../redux/actions/searchBarActions';
+import { fetchSearchBtnIngredients, clearData } from '../redux/actions/searchBarActions';
 
-function RenderDrinksCategoriesBtn({ filterByIngredients }) {
+function RenderDrinksCategoriesBtn({ filterByIngredients, clearDrinkData }) {
   const [categoryBtn, setCategoryBtn] = useState(undefined);
+  const [toggleDrinks, setToggleDrinks] = useState('');
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -16,6 +17,22 @@ function RenderDrinksCategoriesBtn({ filterByIngredients }) {
     };
     fetchCategoryList();
   }, []);
+
+  useEffect(() => {
+    if (toggleDrinks) {
+      filterByIngredients(toggleDrinks, pathname);
+    } else {
+      clearDrinkData();
+    }
+  }, [toggleDrinks, clearDrinkData, pathname, filterByIngredients]);
+
+  const handleClick = ({ target }) => {
+    if (target.value === toggleDrinks) {
+      setToggleDrinks('');
+    } else {
+      setToggleDrinks(target.value);
+    }
+  };
 
   const handleRenderBtn = () => {
     const maxLength = 5;
@@ -28,7 +45,8 @@ function RenderDrinksCategoriesBtn({ filterByIngredients }) {
               type="button"
               data-testid={ `${category.strCategory}-category-filter` }
               key={ index }
-              onClick={ () => filterByIngredients(category.strCategory, pathname) }
+              value={ category.strCategory }
+              onClick={ (e) => handleClick(e) }
             >
               { category.strCategory }
             </button>
@@ -49,10 +67,12 @@ function RenderDrinksCategoriesBtn({ filterByIngredients }) {
 const mapDispatchToProps = (dispatch) => ({
   filterByIngredients: (searchIngredient,
     pathname) => dispatch(fetchSearchBtnIngredients(searchIngredient, pathname)),
+  clearDrinkData: () => dispatch(clearData()),
 });
 
 export default connect(null, mapDispatchToProps)(RenderDrinksCategoriesBtn);
 
 RenderDrinksCategoriesBtn.propTypes = {
   filterByIngredients: PropTypes.func.isRequired,
+  clearDrinkData: PropTypes.func.isRequired,
 };

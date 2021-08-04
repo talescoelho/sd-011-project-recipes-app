@@ -1,4 +1,8 @@
-import { REQUEST_TYPE_API, RECEIVE_TYPE_API } from '../actions/searchBarActions';
+import {
+  REQUEST_TYPE_API,
+  RECEIVE_TYPE_API,
+  CLEAR_DATA,
+} from '../actions/searchBarActions';
 
 const INITIAL_STATE = {
   receiveData: [],
@@ -17,6 +21,12 @@ function searchBarReducer(state = INITIAL_STATE, action) {
       ...state,
       receiveData: action.data,
       isFetching: false,
+    };
+  case CLEAR_DATA:
+    return {
+      ...state,
+      isFetching: false,
+      receiveData: [],
     };
   default:
     return state;

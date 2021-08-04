@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
@@ -8,6 +8,7 @@ import RenderDrinksCategoriesBtn from './RenderDrinksCategoriesBtn';
 
 const DrinkList = ({ receiveData, isFetching }) => {
   document.title = 'Bebidas';
+
   const renderFilteredReceiveDataDrinks = () => {
     const maxRender = 12;
     if (receiveData.drinks === null) {

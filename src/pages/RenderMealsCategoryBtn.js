@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router';
-import { fetchSearchBtnIngredients } from '../redux/actions/searchBarActions';
+import { fetchSearchBtnIngredients, clearData } from '../redux/actions/searchBarActions';
 
-function RenderMealsCategoriesBtn({ filterByIngredients }) {
+function RenderMealsCategoriesBtn({ filterByIngredients, clearMealsData }) {
   const [categoryBtn, setCategoryBtn] = useState(undefined);
+  const [toggleMeals, setToggleMeals] = useState('');
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -17,6 +18,22 @@ function RenderMealsCategoriesBtn({ filterByIngredients }) {
     fetchCategoryList();
   }, []);
 
+  useEffect(() => {
+    if (toggleMeals) {
+      filterByIngredients(toggleMeals, pathname);
+    } else {
+      clearMealsData();
+    }
+  }, [toggleMeals, clearMealsData, pathname, filterByIngredients]);
+
+  const handleClick = ({ target }) => {
+    if (target.value === toggleMeals) {
+      setToggleMeals('');
+    } else {
+      setToggleMeals(target.value);
+    }
+  };
+
   const handleRenderBtn = () => {
     const maxLength = 5;
 
@@ -27,7 +44,8 @@ function RenderMealsCategoriesBtn({ filterByIngredients }) {
             <button
               type="button"
               data-testid={ `${strCategory}-category-filter` }
-              onClick={ () => filterByIngredients(strCategory, pathname) }
+              value={ strCategory }
+              onClick={ (e) => handleClick(e) }
             >
               { strCategory }
             </button>
@@ -48,10 +66,12 @@ function RenderMealsCategoriesBtn({ filterByIngredients }) {
 const mapDispatchToProps = (dispatch) => ({
   filterByIngredients: (searchIngredient,
     pathname) => dispatch(fetchSearchBtnIngredients(searchIngredient, pathname)),
+  clearMealsData: () => dispatch(clearData()),
 });
 
 export default connect(null, mapDispatchToProps)(RenderMealsCategoriesBtn);
 
 RenderMealsCategoriesBtn.propTypes = {
   filterByIngredients: PropTypes.func.isRequired,
+  clearMealsData: PropTypes.func.isRequired,
 };
