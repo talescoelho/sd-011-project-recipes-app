@@ -224,8 +224,8 @@ class ProcessoBebidas extends Component {
             data-testid="finish-recipe-btn"
             type="button"
             className="btn-start"
-            disabled={ setIngredients.cocktails[urlId]
-              && setIngredients.cocktails[urlId].length !== onlyIngredientes.length }
+            disabled={ !setIngredients.cocktails[urlId]
+              || setIngredients.cocktails[urlId].length !== onlyIngredientes.length }
           >
             Finalizar Receita
           </button>
