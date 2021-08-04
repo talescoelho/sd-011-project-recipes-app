@@ -14,6 +14,7 @@ export default function Header({ title, searchIconAppears = false }) {
   const history = useHistory();
   const { pathname } = history.location;
   const recipeName = pathname === '/comidas' ? 'meals' : 'drinks';
+  const food = recipe[recipeName];
 
   const [searchInput, setSearchInput] = useState(false);
 
@@ -50,15 +51,18 @@ export default function Header({ title, searchIconAppears = false }) {
   };
 
   const redirectByChoice = () => {
-    const food = recipe[recipeName];
     const idFood = pathname === '/comidas' ? 'idMeal' : 'idDrink';
 
     if (food.length === 1 && food) {
-      history.push(`${pathname}/${foods[0][idFood]}`);
+      history.push(`${pathname}/${food[0][idFood]}`);
     }
   };
 
-  redirectByChoice();
+  if (food) redirectByChoice();
+
+  if (!food) {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
 
   return (
     <div>
@@ -103,7 +107,7 @@ export default function Header({ title, searchIconAppears = false }) {
               name="search-radio"
               type="radio"
               value="ingredient"
-              onChange={ ({ target }) => setSelectedSearch(target.value) }
+              onChange={ ({ target }) => setSelectedSearch(target.value)}
             />
           </label>
           <label htmlFor="name-search-radio">
