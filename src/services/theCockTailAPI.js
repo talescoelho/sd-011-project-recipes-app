@@ -21,6 +21,12 @@ export function searchBarFetchCockTail(search, type) {
   }
 }
 
+export function getDrinkDetail(id) {
+  return fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
+    .then((result) => result.json())
+    .then(({ drinks }) => drinks);
+}
+
 export function getInitialDrinksRecipes() {
   return fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
     .then((result) => result.json())
@@ -36,5 +42,11 @@ export function getDrinksCategoryList() {
 export function getDrinksByCategory(categoryName) {
   return fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categoryName}`)
     .then((result) => result.json())
+    .then(({ drinks }) => drinks);
+}
+
+export function getDrinkRecomendations() {
+  return fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+    .then((results) => results.json())
     .then(({ drinks }) => drinks);
 }
