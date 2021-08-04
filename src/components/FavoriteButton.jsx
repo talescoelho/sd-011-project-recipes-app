@@ -5,11 +5,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 export default function FavoriteButton({ recipe, drinkOrFood }) {
   const [getLocalStorage, setGetLocalStorage] = useState();
-<<<<<<< HEAD
-  // const [isFavorite, setFavorie ] = useState();
-=======
   const [isFavorite, setFavorite] = useState(false);
->>>>>>> a3df82695031a799e61ccb36893bd70ca5a353b3
   // const { idMeal, strMeal, strCategory, strArea, strMealThumb } = recipe;
   // const { strDrink, strAlcoholic, strInstructions, strDrinkThumb } = recipe;
 
@@ -18,11 +14,7 @@ export default function FavoriteButton({ recipe, drinkOrFood }) {
     setGetLocalStorage(getFromLocalStorage);
   }, []);
 
-<<<<<<< HEAD
-  // useEffect(() => {
-  //   const id = drinkOrFood === 'comida' ? recipe.idMeal : recipe.idDrink;
-  // }, [getLocalStorage]);
-=======
+
   useEffect(() => {
     const id = drinkOrFood === 'comida' ? recipe.idMeal : recipe.idDrink;
     if (getLocalStorage) {
@@ -30,7 +22,6 @@ export default function FavoriteButton({ recipe, drinkOrFood }) {
       setFavorite(verifyFav);
     }
   }, [getLocalStorage]);
->>>>>>> a3df82695031a799e61ccb36893bd70ca5a353b3
 
   const favorites = {
     id: drinkOrFood === 'comida' ? recipe.idMeal : recipe.idDrink,
