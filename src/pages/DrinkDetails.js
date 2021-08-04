@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { searchBarFetchCockTail } from '../services/theCockTailAPI';
+import { getDrinkDetail } from '../services/theCockTailAPI';
 
 const DrinkDetails = (props) => {
   const [drinkData, setdrinkData] = useState([]);
   const { match: { params: { id } } } = props;
 
   useEffect(() => {
-    const getDrinkDetail = async () => {
-      const data = await searchBarFetchCockTail(id, 'drinkId');
+    const getDataDrinkDetail = async () => {
+      const data = await getDrinkDetail(id);
       setdrinkData(...data);
     };
     console.log('teste');
-    getDrinkDetail();
+    getDataDrinkDetail();
   }, [id]);
 
   console.log(drinkData);
@@ -22,6 +22,7 @@ const DrinkDetails = (props) => {
     strDrinkThumb,
     strCategory,
     strInstructions,
+    strAlcoholic,
   } = drinkData;
   const maxIngredients = 20;
 
@@ -44,7 +45,7 @@ const DrinkDetails = (props) => {
         <h2 data-testid="recipe-title">{ strDrink }</h2>
         <button type="button" data-testid="share-btn">Compartilhar</button>
         <button type="button" data-testid="favorite-btn">Favoritar</button>
-        <h4 data-testid="recipe-category">{ strCategory }</h4>
+        <h4 data-testid="recipe-category">{ `${strCategory} | ${strAlcoholic}` }</h4>
         <ol>
 
           {
@@ -59,7 +60,7 @@ const DrinkDetails = (props) => {
           }
         </ol>
         <p data-testid="instructions">{strInstructions}</p>
-        <p data-testid="-recomendation-card" />
+        <p data-testid="0-recomendation-card" />
         <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
       </section>
     );

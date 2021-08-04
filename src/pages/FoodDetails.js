@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { searchBarFetchMeal } from '../services/theMealAPI';
+import { getMealDetail } from '../services/theMealAPI';
 
 const FoodDetails = (props) => {
   const [foodData, setfoodData] = useState({ strYoutube: '' });
@@ -8,7 +8,7 @@ const FoodDetails = (props) => {
 
   useEffect(() => {
     const getFoodDetail = async () => {
-      const data = await searchBarFetchMeal(id, 'foodId');
+      const data = await getMealDetail(id);
       setfoodData(...data);
     };
     getFoodDetail();
@@ -72,10 +72,13 @@ const FoodDetails = (props) => {
           title="YouTube video player"
           frameBorder="0"
           data-testid="video"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allow="accelerometer;
+          autoplay; clipboard-write;
+          encrypted-media; gyroscope;
+          picture-in-picture"
           allowFullScreen
         />
-        <p data-testid="-recomendation-card" />
+        <p data-testid="0-recomendation-card" />
         <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
       </section>
     );
