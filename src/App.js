@@ -1,6 +1,6 @@
 import React from 'react';
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 import Routes from './helpers/Routes';
 import LoginProvider from './context/LoginProvider';
 import RecipesProvider from './context/RecipesProvider';
