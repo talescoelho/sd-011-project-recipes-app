@@ -3,9 +3,9 @@
 }
 
 .details-picture {
-  width: 330px;
   display: flex;
   margin: auto;
+  width: 250px;
 }
 
 .details-btn {
@@ -17,8 +17,8 @@
 }
 
 .start-btn {
-  position: fixed;
   bottom: 0;
-  margin-bottom: 5px;
   left: 120px;
+  margin-bottom: 5px;
+  position: fixed;
 }

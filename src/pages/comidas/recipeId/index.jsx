@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Carousel from 'react-bootstrap/Carousel';
+import Button from 'react-bootstrap/Button';
 import fetchDetails from '../../../services/fetchMealDetailsApi';
 import './styles.css';
 
@@ -37,8 +38,8 @@ export default function ComidasRecipeId({ match: { params: { recipeId } } }) {
       />
       <h1 data-testid="recipe-title">{ strMeal }</h1>
       <div className="details-btn">
-        <button type="button" data-testid="share-btn">Compartilhar</button>
-        <button type="button" data-testid="favorite-btn">Favoritar</button>
+        <Button type="button" data-testid="share-btn">Compartilhar</Button>
+        <Button type="button" data-testid="favorite-btn">Favoritar</Button>
       </div>
       <p>
         Categoria
@@ -82,13 +83,14 @@ export default function ComidasRecipeId({ match: { params: { recipeId } } }) {
           </Carousel.Item>
         </Carousel>
       </div>
-      <button
+      <Button
         type="button"
         className="start-btn"
         data-testid="start-recipe-btn"
+        variant="success"
       >
         Iniciar Receita
-      </button>
+      </Button>
     </div>
   );
 

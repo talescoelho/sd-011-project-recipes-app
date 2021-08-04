@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Carousel from 'react-bootstrap/Carousel';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 import fetchDetails from '../../../services/fetchDrinkDetailsApi';
 
 export default function ComidasRecipeId({ match: { params: { recipeId } } }) {
@@ -27,25 +31,53 @@ export default function ComidasRecipeId({ match: { params: { recipeId } } }) {
   const loading = () => <h1>Loading content...</h1>;
 
   const pageContent = () => (
-    <div className="details">
-      <div>
-        <img
-          className="details-picture"
-          src={ strDrinkThumb }
-          alt="Imagem"
-          data-testid="recipe-photo"
-        />
-        <h1 data-testid="recipe-title">{ strDrink }</h1>
-      </div>
-      <div className="details-btn">
-        <button type="button" data-testid="share-btn">Compartilhar</button>
-        <button type="button" data-testid="favorite-btn">Favoritar</button>
-      </div>
-      <p data-testid="recipe-category">
-        <span><strong>{ strCategory }</strong></span>
-        <span>{ strAlcoholic }</span>
-      </p>
-      <div>
+    <Container>
+      <Container>
+        <Row>
+          <Col>
+            <img
+              className="details-picture"
+              src={ strDrinkThumb }
+              alt="Imagem"
+              data-testid="recipe-photo"
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <h1 data-testid="recipe-title">{ strDrink }</h1>
+          </Col>
+        </Row>
+      </Container>
+      <Container className="details-btn">
+        <Row>
+          <Col>
+            <Button
+              variant="warning"
+              type="button"
+              data-testid="share-btn"
+            >
+              Compartilhar
+            </Button>
+          </Col>
+          <Col>
+            <Button
+              variant="danger"
+              type="button"
+              data-testid="favorite-btn"
+            >
+              Favoritar
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+      <Container>
+        <p data-testid="recipe-category">
+          <span><strong>{ strCategory }</strong></span>
+          <span>{ strAlcoholic }</span>
+        </p>
+      </Container>
+      <Container>
         <h2>Ingredientes</h2>
         <ul>
           {
@@ -63,9 +95,12 @@ export default function ComidasRecipeId({ match: { params: { recipeId } } }) {
               ))
           }
         </ul>
-      </div>
-      <p data-testid="instructions">{strInstructions}</p>
-      <div className="details-recomendation" data-testid="0-recomendation-card">
+      </Container>
+      <Container>
+        <h2>Instruções</h2>
+        <p data-testid="instructions">{strInstructions}</p>
+      </Container>
+      <Container className="details-recomendation" data-testid="0-recomendation-card">
         <h2>Receitas recomendadas</h2>
         <Carousel>
           <Carousel.Item>
@@ -75,15 +110,16 @@ export default function ComidasRecipeId({ match: { params: { recipeId } } }) {
             TESTANDO BARSA
           </Carousel.Item>
         </Carousel>
-      </div>
-      <button
+      </Container>
+      <Button
         type="button"
         className="start-btn"
         data-testid="start-recipe-btn"
+        variant="success"
       >
         Iniciar Receita
-      </button>
-    </div>
+      </Button>
+    </Container>
   );
 
   return (
