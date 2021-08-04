@@ -67,6 +67,10 @@ function FiltersCategories() {
     }
   }
 
+  async function returnAll() {
+    setDataFilter([]);
+  }
+
   return (
     <div className="container-categories">
       {categories.map((category, index) => (
@@ -80,6 +84,14 @@ function FiltersCategories() {
         >
           {category.strCategory}
         </button>))}
+      <button
+        data-testid="All-category-filter"
+        onClick={ () => returnAll() }
+        className="button-categories"
+        type="button"
+      >
+        All
+      </button>
     </div>
   );
 }
