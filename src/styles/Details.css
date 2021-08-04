@@ -1,16 +1,16 @@
 .carousel {
   display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
   min-width: 95vw;
+  overflow-x: auto;
   padding: 10px;
+  scroll-snap-type: x mandatory;
 }
 
 .carousel-item {
   flex: none;
-  width: 55vw;
-  scroll-snap-align: start;
   -webkit-overflow-scrolling: touch;
+  scroll-snap-align: start;
+  width: 55vw;
 }
 
 .carousel-item img {
