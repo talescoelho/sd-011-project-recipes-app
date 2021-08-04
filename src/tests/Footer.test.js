@@ -18,6 +18,7 @@ const footer = 'footer';
 const drinksBottomBtn = 'drinks-bottom-btn';
 const exploreBottomBtn = 'explore-bottom-btn';
 const foodBottomBtn = 'food-bottom-btn';
+const recipesPage = 'recipes-page';
 
 describe('Requirement 19 ', () => {
   it('Should have elements in the footer with specific data-testid', () => {
@@ -112,8 +113,7 @@ describe('Requirement 22', () => {
     );
 
     fireEvent.click(screen.getByTestId(drinksBottomBtn));
-    const recipesPage = screen.getByTestId('recipes-page');
-    expect(recipesPage).toBeInTheDocument();
+    expect(screen.getByTestId(recipesPage)).toBeInTheDocument();
   });
 });
 
@@ -126,7 +126,19 @@ describe('Requirement 23', () => {
     );
 
     fireEvent.click(screen.getByTestId(exploreBottomBtn));
-    const recipesPage = screen.getByTestId('recipes-page');
-    expect(recipesPage).toBeInTheDocument();
+    expect(screen.getByTestId(recipesPage)).toBeInTheDocument();
+  });
+});
+
+describe('Requirement 24', () => {
+  it('Should redirect to "/comidas" on click', () => {
+    render(
+      <MemoryRouter>
+        <Recipes />
+      </MemoryRouter>,
+    );
+
+    fireEvent.click(screen.getByTestId(foodBottomBtn));
+    expect(screen.getByTestId(recipesPage)).toBeInTheDocument();
   });
 });
