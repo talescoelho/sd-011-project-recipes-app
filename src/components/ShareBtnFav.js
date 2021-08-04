@@ -16,10 +16,13 @@ function ShareBtn({ url }, index) {
     <div>
       <button
         type="button"
-        data-testid={ `${index}-share-btn` }
         onClick={ handleClick }
       >
-        <img src={ shareIcon } alt="share icon" />
+        <img
+          src={ shareIcon }
+          data-testid={ `${index}-horizontal-share-btn` }
+          alt="share icon"
+        />
       </button>
       {copyMessage && <p>Link copiado!</p>}
     </div>

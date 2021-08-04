@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-function FavBtn(data) {
+function FavBtn(data, indexFavorite) {
   // const [render, setRender] = useState(false);
   const removeFavorite = () => {
     const favorites = JSON.parse(localStorage.favoriteRecipes);
@@ -13,7 +13,11 @@ function FavBtn(data) {
 
   return (
     <button type="button" onClick={ removeFavorite }>
-      <img src={ blackHeartIcon } data-testid="favorite-btn" alt="favorite icon" />
+      <img
+        src={ blackHeartIcon }
+        data-testid={ `${indexFavorite}-horizontal-favorite-btn` }
+        alt="favorite icon"
+      />
     </button>
   );
 }

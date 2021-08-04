@@ -1,15 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import FavoriteButton from '../components/FavBtnFavoritePage';
-import ShareBtn from '../components/ShareBtn';
+import ShareBtnFav from '../components/ShareBtnFav';
 
 function FavoriteMeals() {
   const getFavoriteLocalStorage = () => {
     const Local = JSON.parse(localStorage.getItem('favoriteRecipes'));
-     if (Local) {
+    if (Local) {
       return Local.map((item, index) => (
         <div key={ index }>
-          <span data-testid={ `${index}-horizontal-top-text` }>{`${item.area} - ${item.category}`}</span>
+          <span
+            data-testid={ `${index}-horizontal-top-text` }
+          >
+            {`${item.area} - ${item.category}`}
+          </span>
           <h2 data-testid={ `${index}-horizontal-name` }>
             {' '}
             {item.name}
@@ -20,11 +24,10 @@ function FavoriteMeals() {
             data-testid={ `${index}-horizontal-image` }
           />
           <Link to="/receitas-favoritas">
-            {FavoriteButton(item.id)}
+            {FavoriteButton(item.id, index)}
           </Link>
-          {console.log(`http://localhost:3000/comidas/${item.id}`)}
-          <div data-testid={ `${index}-horizontal-share-btn` }>
-            {ShareBtn(`http://localhost:3000/comidas/${item.id}`)}
+          <div>
+            {ShareBtnFav(`http://localhost:3000/comidas/${item.id}`, index)}
           </div>
 
         </div>));
