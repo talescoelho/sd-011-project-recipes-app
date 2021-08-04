@@ -16,6 +16,7 @@ function RecipesInProgress({ match }) {
   const { meals } = dataApi;
   const mealsOrDrinks = typeDrinkorMeal === 'comidas' ? 'meals' : 'drinks';
 
+  const [enable, setEnable] = useState(true);
   const [detail, setDetail] = useState({
     idItem: 0,
     title: '',
@@ -115,6 +116,7 @@ function RecipesInProgress({ match }) {
         ingredient={ ingredient }
         typeDrinkorMeal={ typeDrinkorMeal }
         idItem={ id }
+        setEnable={ setEnable }
       />
       <span data-testid="instructions">{ instructions }</span>
       { video && <div data-testid="video">{ video }</div> }
@@ -122,6 +124,7 @@ function RecipesInProgress({ match }) {
         className="buttonfinish"
         type="button"
         data-testid="finish-recipe-btn"
+        disabled={ enable }
       >
         Finalizar Receita
       </button>

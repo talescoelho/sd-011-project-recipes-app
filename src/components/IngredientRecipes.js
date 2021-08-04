@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './styleRecipes.css';
 
-const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem }) => {
+const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem, setEnable }) => {
   const typeDoM = typeDrinkorMeal === 'comidas' ? 'meals' : 'cocktails';
   const [update, forceUpdate] = useState(false);
   const [info, setInfo] = useState({});
@@ -18,7 +18,7 @@ const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem }) => {
     } else {
       setInfo(getStorage);
     }
-  }, [idItem, typeDoM, update]);
+  }, [idItem, typeDoM, update, setEnable]);
 
   const addCheck = (value) => (
     info && info[typeDoM][idItem].length > 0
@@ -70,9 +70,7 @@ const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem }) => {
           type="checkbox"
           id={ index }
           checked={ stateCheckd(index) }
-          onClick={ ({ target }) => {
-            recipiesPorgress(target, index);
-          } }
+          onClick={ ({ target }) => recipiesPorgress(target, index) }
         />
         { item }
       </label>
