@@ -19,6 +19,13 @@ const Provider = ({ children }) => {
   const [page, setPage] = useState('');
   const [dataDrinks, setDataDrinks] = useState([]);
   const [dataFoods, setDataFoods] = useState([]);
+  // *=====================================
+  const [idFoods, setIdFoods] = useState('');
+  const [idFoodsAPI, setIdFoodsAPI] = useState([]);
+  // *=====================================
+  const [idDrinks, setIdDrinks] = useState('');
+  const [DetailsDrinks, setDetailsDrinks] = useState([]);
+  const [DetailsFoods, setDetailsFoods] = useState([]);
   const [limit] = useState([number]);
 
   async function fetchFood() {
@@ -87,6 +94,16 @@ const Provider = ({ children }) => {
     fetchDrink,
     dataDrinks,
     limit,
+    idFoods,
+    setIdFoods,
+    idDrinks,
+    setIdDrinks,
+    DetailsDrinks,
+    setDetailsDrinks,
+    DetailsFoods,
+    setDetailsFoods,
+    idFoodsAPI,
+    setIdFoodsAPI,
   };
 
   return (

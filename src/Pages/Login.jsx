@@ -6,7 +6,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
 
   const checkEmailAndPass = (e, p) => {
-    const validEmail = /^[a-zA-Z]+@[a-zA-Z]+\.[com]{3,}$/i;
+    const validEmail = /^[a-z]+@[a-z]+\.[com]{3,}$/i;
     const passLength = 6;
     return validEmail.test(e) && p.length > passLength;
   };

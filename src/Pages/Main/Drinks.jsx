@@ -5,7 +5,8 @@ import HeaderDrinks from '../../Components/headers/HeaderDrinks';
 import LowerMenu from '../../Components/footer/LowerMenu';
 
 function Drinks() {
-  const { setPage, dataDrinks, limit } = useContext(MainContext);
+  const { setPage, dataDrinks, limit,
+    setIdDrinks, setDetailsDrinks } = useContext(MainContext);
 
   function thisPage() {
     setPage('drinks');
@@ -16,10 +17,15 @@ function Drinks() {
   }, []);
 
   if (dataDrinks.length === 1) {
+    // * ===== Prototipo forma de capturar o id da bebida selecionada ==
+    const ReceivedIdDrink = dataDrinks[0].idDrink;
+    setIdDrinks(ReceivedIdDrink);
+    // JSON.stringify(dataDrinks[0]);
+    // window.localStorage.setItem('DetailsDriks', JSON.stringify(person));
+    // * ================================================================
     return <Redirect to={ `/bebidas/${dataDrinks[0].idDrink}` } />;
   }
 
-  console.log(dataDrinks);
   return (
     <div>
       <HeaderDrinks />
