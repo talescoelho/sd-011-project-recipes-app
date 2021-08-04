@@ -16,12 +16,12 @@ export default function ExploreRecipes() {
             Por Ingredientes
           </button>
         </Link>
-        <Link to="/explorar/comidas/ingredientes">
+        <Link to="/explorar/comidas/area">
           <button
             data-testid="explore-by-area"
             type="button"
           >
-            Por Area
+            Por Local de Origem
           </button>
         </Link>
         <Link to="/explorar/comidas/ingredientes">
