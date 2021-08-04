@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Comidas from './pages/Comidas';
 import Bebidas from './pages/Bebidas';
 import Explorar from './pages/Explorar';
+import Perfil from './pages/Profile';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/comidas" component={ Comidas } />
         <Route path="/bebidas" component={ Bebidas } />
         <Route path="/explorar" component={ Explorar } />
+        <Route path="/perfil" component={ Perfil } />
         {/* <Route path="/comidas:id-" component={} />
         <Route path="/explorar/comidas" component={} />
         <Route path="/explorar/bebidas" component={} />
@@ -21,7 +23,6 @@ function App() {
         <Route path="/explorar/bebidas/ingredientes" component={} />
 
         <Route path="/explorar/comidas/area" component={} />
-        <Route path="/perfil" component={} />
         <Route path="/receitas-feitas" component={} />
         <Route path="/receitas-favoritas" component={} />
         <Route path="*" component={NotFound} /> */}

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { propTypes } from 'react-bootstrap/esm/Image';
 
 function Login({ history }) {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -60,5 +59,5 @@ function Login({ history }) {
 export default Login;
 
 Login.propTypes = {
-  history: PropTypes.objectOf(propTypes.object).isRequired,
+  history: PropTypes.objectOf(PropTypes.object).isRequired,
 };
