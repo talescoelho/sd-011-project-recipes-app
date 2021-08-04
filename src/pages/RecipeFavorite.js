@@ -58,6 +58,7 @@ export default function RecipeFavorite() {
             <img
               src={ item.image }
               alt={ item.name }
+              style={ { width: ' 30%', height: '50%' } }
               data-testid={ `${index}-horizontal-image` }
             />
           </Link>
