@@ -25,7 +25,6 @@ function ExploreIngredients({ history }) {
   return (
     <>
       <Header withSearch={ false } pageTitle="Explorar Ingredientes" />
-      <br />
       {history.location.pathname === '/explorar/comidas/ingredientes'
         ? comidasMain() : bebidasMain() }
       <Footer />
