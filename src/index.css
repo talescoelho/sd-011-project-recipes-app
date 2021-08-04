@@ -1,14 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+
 body {
   margin: 0;
+  height: 100vh;
   background-color: slategray;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* LOGIN */
+.center {
+  background-color: rgb(39, 39, 39);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height:100vh;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* IMAGENS */
+
+.recipesImg {
+  width: 100%;
+  padding: 10px;
+}
+
+.cardRecipesContainer {
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px 1px rgba(128, 128, 128, 0.411);
+  display: flex;
+  margin: 10px;
+  text-align: center;
+  flex-direction: column;
+  width: 90%;
+}
+
+/* HEADER */
+
+.header-container h1 {
+  padding-top: 10px;
+  font-size: 20px;
+}
+
+.filter-button {
+  margin: 2px;
+  width: 47%;
+}
+
+#initRecipe {
+  background-color: orange;
+  background: orange;
+  bottom: 0px;
+  padding: 10px;
+  position: fixed;
+  width: 100%;
+}
+
+.button-container {
+  display: flex;
+  margin: 5px 0px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.header-container {
+  align-items: center;
+  background-color: rgb(39, 39, 39);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile {
+  width: 30px;
+  margin-left: 30px;
+}
+
+.searchLupa {
+  width: 30px;
+  margin-right: 30px;
+}
+
+.searchButton {
+  background: none;
+  border: none;
+}
+
+.labelForFilter {
+  display: flex;
+  justify-content: center;
+}
+
+/* COMIDAS e BEBIDAS */
+
+.allContainer {
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 80px;
+}
+
+.allContainer a {
+  align-items: center;
+  display: flex;
+  width: 50%;
+  justify-content: center;
+}
+
+.allContainer a h4 {
+  text-decoration: none;
+  color: black;
+}
+
+/* Detail Container */
+
+.header-detail-recipe {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detailContainer h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.detailContainer a img {
+  margin-left: 20px;
+  width: 20px;
+}
+
+.containerForTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.containerForTitle p {
+  margin: 0;
+}
+
+.detailContainer {
+  background-color: rgb(46, 46, 46);
+  color: rgb(223, 223, 223);
+  display: flex;
+  flex-direction: column;
+}
+
+.hearth img {
+  margin-right: 20px;
+  width: 20px;
+}
+
+.instructions {
+  background: rgb(54, 54, 54);
+  padding: 20px;
+  text-align: center;
+  list-style: none;
+}
+
+#seraquevai {
+  border: solid white 0.5px;
+  transform: scale(0.4);
+  margin: 1px;
+  width: 50vw;
+}
+
+.detailContainer button {
+  background: none;
+  border: none;
+}
+
+.detailContainer {
+  padding-bottom: 20px;
+}
+
+.detailImg {
+  width: 100%;
+}
+
+.submitButton {
+  width: 95%;
+}
+
+/* react player */
+
+.wrapper {
+  position: relative;
+  padding-top: 56.25% /* Player ratio: 100 / (1280 / 720) */
+}
+
+.player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

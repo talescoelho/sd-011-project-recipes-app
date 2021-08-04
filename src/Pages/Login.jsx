@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Form, Button } from 'react-bootstrap';
+import trybe from '../images/TRYBE.gif';
 
 export default class Login extends Component {
   constructor(props) {
@@ -47,33 +49,41 @@ export default class Login extends Component {
   render() {
     const { login } = this.state;
     return (
-      <form onSubmit={ this.sendEmailAndPasswordToLocalStorage }>
-        <label htmlFor="email">
-          E-mail
-          <input
-            type="text"
-            id="email"
-            data-testid="email-input"
-            onChange={ (event) => this.saveEmail(event) }
-          />
-        </label>
-        <label htmlFor="password">
-          Password
-          <input
-            type="password"
-            id="password"
-            data-testid="password-input"
-            onChange={ (event) => this.validaLogin(event) }
-          />
-        </label>
-        <button
+      <Form
+        className="text-center center"
+        onSubmit={ this.sendEmailAndPasswordToLocalStorage }
+      >
+        <img src={ trybe } alt="trybe-logo" style={ { height: '300px' } } />
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label htmlFor="email">
+            E-mail
+            <Form.Control
+              type="text"
+              id="email"
+              data-testid="email-input"
+              onChange={ (event) => this.saveEmail(event) }
+            />
+          </Form.Label>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label htmlFor="password">
+            Password
+            <Form.Control
+              type="password"
+              id="password"
+              data-testid="password-input"
+              onChange={ (event) => this.validaLogin(event) }
+            />
+          </Form.Label>
+        </Form.Group>
+        <Button
           disabled={ !login }
           type="submit"
           data-testid="login-submit-btn"
         >
           Submit
-        </button>
-      </form>
+        </Button>
+      </Form>
     );
   }
 }

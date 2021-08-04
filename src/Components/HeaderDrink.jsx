@@ -36,9 +36,14 @@ class HeaderDrink extends Component {
     const { inputLoading } = this.state;
 
     return (
-      <div>
+      <div className="header-container">
         <Link to="/perfil" className="profilePicture">
-          <img data-testid="profile-top-btn" src={ profilePicture } alt="profileIcon" />
+          <img
+            className="profile"
+            data-testid="profile-top-btn"
+            src={ profilePicture }
+            alt="profileIcon"
+          />
         </Link>
         <h1 data-testid="page-title">{ title }</h1>
 
@@ -49,7 +54,12 @@ class HeaderDrink extends Component {
             : (
               this.setState({ inputLoading: false }))) }
         >
-          <img data-testid="search-top-btn" src={ searchIcon } alt="searchIcon" />
+          <img
+            data-testid="search-top-btn"
+            className="searchLupa"
+            src={ searchIcon }
+            alt="searchIcon"
+          />
         </button>
         { inputLoading && (
           <form

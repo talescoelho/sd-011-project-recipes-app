@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactPlayer from 'react-player';
 import Carousel from 'react-bootstrap/Carousel';
+import favoriteImg from '../images/blackHeartIcon.svg';
+import home from '../images/Home.svg';
 
 class FoodDetails extends Component {
   constructor(props) {
@@ -66,7 +69,7 @@ class FoodDetails extends Component {
             key={ `rec-${index}` }
             data-testid={ `${index}-recomendation-card` }
           >
-            <img src={ item.strDrinkThumb } alt="imagem" />
+            <img className="detailImg" src={ item.strDrinkThumb } alt="imagem" />
             <Carousel.Caption>
               <h5 data-testid={ `${index}-recomendation-title` }>{ item.strDrink }</h5>
             </Carousel.Caption>
@@ -79,40 +82,65 @@ class FoodDetails extends Component {
   render() {
     const { foodDetail, ingredient, measure, recomandation } = this.state;
     return (
-      <div>
+      <div className="detailContainer">
         {foodDetail && foodDetail.map((result, index) => (
           <div key={ index }>
-            <h1 data-testid="recipe-title">
-              { result.strMeal }
-            </h1>
-            <p data-testid="recipe-category">
-              { result.strCategory }
-            </p>
+            <div className="header-detail-recipe">
+              <Link to="/comidas">
+                <img className="homeImg" src={ home } alt="home" />
+              </Link>
+              <div className="containerForTitle">
+                <h1 data-testid="recipe-title">
+                  { result.strMeal }
+                </h1>
+                <hr id="seraquevai" />
+                <p data-testid="recipe-category">
+                  { result.strCategory }
+                </p>
+              </div>
+              <button className="hearth" type="button" data-testid="favorite-btn">
+                <img src={ favoriteImg } alt="favorite-img" />
+              </button>
+            </div>
             <img
+              className="detailImg"
               data-testid="recipe-photo"
               alt="product-detail-img"
               src={ result.strMealThumb }
             />
-            <button type="button" data-testid="favorite-btn">Favoritar</button>
-            <button type="button" data-testid="share-btn">Compartilhar</button>
-            <ReactPlayer url={ result.strYoutube } data-testid="video" />
+            <button
+              style={ { color: 'white',
+                backgroundColor: 'rgb(151, 0, 0)',
+                width: '100%' } }
+              type="button"
+              data-testid="share-btn"
+            >
+              Compartilhar
+            </button>
+            <div className="wrapper">
+              <ReactPlayer
+                className="player"
+                width="100%"
+                height="100%"
+                url={ result.strYoutube }
+                data-testid="video"
+              />
+            </div>
             { recomandation && this.renderRecomendations() }
             { ingredient && ingredient.map((item, ingredientIndex) => (
-              <ul key={ ingredientIndex }>
+              <ul className="instructions" key={ ingredientIndex }>
                 <li data-testid={ `${ingredientIndex}-ingredient-name-and-measure` }>
                   { `${item.ingredient} - ${measure[ingredientIndex]}` }
                 </li>
               </ul>
             )) }
-            <p data-testid="instructions">
+            <p className="instructions" data-testid="instructions">
               { result.strInstructions }
             </p>
             <button
+              id="initRecipe"
               type="button"
               data-testid="start-recipe-btn"
-              style={ {
-                position: 'fixed',
-                bottom: '0px' } }
             >
               Iniciar Receita
             </button>

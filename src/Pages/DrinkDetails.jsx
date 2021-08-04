@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Carousel from 'react-bootstrap/Carousel';
+import favoriteImg from '../images/blackHeartIcon.svg';
+import home from '../images/Home.svg';
 
 class DrinkDetails extends Component {
   constructor(props) {
@@ -11,7 +14,6 @@ class DrinkDetails extends Component {
       ingredient: [],
       measure: [],
       recomandation: [],
-      recipeDone: false,
     };
     this.fetchDetail = this.fetchDetail.bind(this);
     this.renderRecomendations = this.renderRecomendations.bind(this);
@@ -68,7 +70,7 @@ class DrinkDetails extends Component {
             key={ `rec-${index}` }
             data-testid={ `${index}-recomendation-card` }
           >
-            <img src={ item.strMealThumb } alt="imagem" />
+            <img className="detailImg" src={ item.strMealThumb } alt="imagem" />
             <Carousel.Caption>
               <h5 data-testid={ `${index}-recomendation-title` }>{ item.strMeal }</h5>
             </Carousel.Caption>
@@ -79,44 +81,58 @@ class DrinkDetails extends Component {
   }
 
   render() {
-    const { drinkDetail, ingredient, measure, recomandation, recipeDone } = this.state;
+    const { drinkDetail, ingredient, measure, recomandation } = this.state;
     return (
-      <div>
+      <div className="detailContainer">
         {drinkDetail && drinkDetail.map((result, index) => (
           <div key={ index }>
-            <h1 data-testid="recipe-title">
-              { result.strDrink }
-            </h1>
-            <p data-testid="recipe-category">
-              { result.strAlcoholic }
-            </p>
+            <div className="header-detail-recipe">
+              <Link to="/comidas">
+                <img className="homeImg" src={ home } alt="home" />
+              </Link>
+              <div className="containerForTitle">
+                <h1 data-testid="recipe-title">
+                  { result.strDrink }
+                </h1>
+                <hr id="seraquevai" />
+                <p data-testid="recipe-category">
+                  { result.strAlcoholic }
+                </p>
+              </div>
+              <button className="hearth" type="button" data-testid="favorite-btn">
+                <img src={ favoriteImg } alt="favorite-img" />
+              </button>
+            </div>
             <img
+              className="detailImg"
               data-testid="recipe-photo"
               alt="product-detail-img"
               src={ result.strDrinkThumb }
             />
-            <button type="button" data-testid="favorite-btn">Favoritar</button>
-            <button type="button" data-testid="share-btn">Compartilhar</button>
-            {/* <ReactPlayer url={ result.strYoutube } data-testid="video" /> */}
+            <button
+              style={ { color: 'white',
+                backgroundColor: 'rgb(151, 0, 0)',
+                width: '100%' } }
+              type="button"
+              data-testid="share-btn"
+            >
+              Compartilhar
+            </button>
             { recomandation && this.renderRecomendations() }
             { ingredient && ingredient.map((item, ingredientIndex) => (
-              <ul key={ ingredientIndex }>
+              <ul className="instructions" key={ ingredientIndex }>
                 <li data-testid={ `${ingredientIndex}-ingredient-name-and-measure` }>
                   { `${item.ingredient} - ${measure[ingredientIndex]}` }
                 </li>
               </ul>
             )) }
-            <p data-testid="instructions">
+            <p className="instructions" data-testid="instructions">
               { result.strInstructions }
             </p>
             <button
+              id="initRecipe"
               type="button"
               data-testid="start-recipe-btn"
-              style={ {
-                position: 'fixed',
-                bottom: '0px',
-                display: recipeDone ? 'none' : 'flex' } }
-              onClick={ () => this.setState({ recipeDone: true }) }
             >
               Iniciar Receita
             </button>

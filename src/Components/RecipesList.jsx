@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import PropTypes from 'prop-types';
+
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+
 import fetchReceiveFood from '../Actions/food';
 import fetchReceiveDrink from '../Actions/drink';
 
@@ -72,18 +76,22 @@ class RecipesList extends Component {
     const { filters } = this.state;
     const maxFilters = 5;
     return (
-      <div>
-        <button
+      <div className="button-container">
+        <Button
+          variant="warning"
+          className="filter-button"
           type="button"
           data-testid="All-category-filter"
           onClick={ this.fetchAllDrinksOrFoods }
         >
           All
-        </button>
+        </Button>
         {filters[mealOrDrink] && filters[mealOrDrink].map((item, index) => (
           index < maxFilters
           && (
-            <button
+            <Button
+              variant="warning"
+              className="filter-button"
               type="button"
               key={ index }
               name={ item.strCategory }
@@ -114,7 +122,7 @@ class RecipesList extends Component {
               data-testid={ `${item.strCategory}-category-filter` }
             >
               { item.strCategory }
-            </button>)
+            </Button>)
         ))}
       </div>
     );
@@ -127,13 +135,14 @@ class RecipesList extends Component {
     const maxRecipes = 12;
     if (meals.length !== 0 && pathName === '/comidas') {
       return (
-        <>
+        <div className="allContainer">
           {this.renderFilters()}
           {meals.map((meal, index) => {
             if (index < maxRecipes) {
               return (
                 <Link to={ { pathname: `/comidas/${meal.idMeal}`, state: meal } }>
                   <div
+                    className="cardRecipesContainer"
                     key={ meal.idMeal }
                     data-testid={ `${index}-recipe-card` }
                   >
@@ -141,26 +150,28 @@ class RecipesList extends Component {
                       data-testid={ `${index}-card-img` }
                       src={ meal.strMealThumb }
                       alt="Thumb Meal"
+                      className="recipesImg"
                     />
-                    <h2 data-testid={ `${index}-card-name` }>{ meal.strMeal }</h2>
+                    <h4 data-testid={ `${index}-card-name` }>{ meal.strMeal }</h4>
                   </div>
                 </Link>
               );
             }
             return undefined;
           })}
-        </>
+        </div>
       );
     }
     if (drinks.length !== 0 && pathName === '/bebidas') {
       return (
-        <>
+        <div className="allContainer">
           {this.renderFilters()}
           {drinks.map((drink, index) => {
             if (index < maxRecipes) {
               return (
                 <Link to={ { pathname: `/bebidas/${drink.idDrink}`, state: drink } }>
                   <div
+                    className="cardRecipesContainer"
                     key={ drink.idDrink }
                     data-testid={ `${index}-recipe-card` }
                   >
@@ -168,24 +179,25 @@ class RecipesList extends Component {
                       data-testid={ `${index}-card-img` }
                       src={ drink.strDrinkThumb }
                       alt="Thumb Drink"
+                      className="recipesImg"
                     />
-                    <h2 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h2>
+                    <h4 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h4>
                   </div>
                 </Link>
               );
             }
             return undefined;
           })}
-        </>
+        </div>
       );
     }
   }
 
   render() {
     return (
-      <>
+      <div className="renderRecipeContainer">
         { this.renderRecipes() }
-      </>
+      </div>
     );
   }
 }
