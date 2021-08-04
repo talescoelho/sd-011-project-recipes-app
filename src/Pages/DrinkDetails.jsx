@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Carousel from 'react-bootstrap/Carousel';
 
 class DrinkDetails extends Component {
   constructor(props) {
@@ -9,8 +10,10 @@ class DrinkDetails extends Component {
       drinkDetail: [],
       ingredient: [],
       measure: [],
+      recomandation: [],
     };
     this.fetchDetail = this.fetchDetail.bind(this);
+    this.renderRecomendations = this.renderRecomendations.bind(this);
   }
 
   componentDidMount() {
@@ -19,12 +22,20 @@ class DrinkDetails extends Component {
 
   async fetchDetail() {
     const { match: { params: { id } } } = this.props;
-    console.log(id);
+
     const result = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
     const json = await result.json();
+
     this.setState({
       drinkDetail: json.drinks,
     });
+
+    fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+      .then((item) => item.json())
+      .then((mewResult) => this.setState({
+        recomandation: mewResult.meals,
+      }));
+
     const filteredIngredients = Object.entries(json.drinks[0]).filter(
       (arr) => arr[0].includes('Ingredient', 'measure') && arr[1],
     );
@@ -45,8 +56,29 @@ class DrinkDetails extends Component {
     // AGENTE PAROU AQUI -----------------------------------------------------------;
   }
 
+  renderRecomendations() {
+    const { recomandation } = this.state;
+    const number6 = 6;
+    const sliceOfRecomandation = recomandation.slice(0, number6);
+    return (
+      <Carousel className="rec-carousel" variant="dark">
+        { sliceOfRecomandation.map((item, index) => (
+          <Carousel.Item
+            key={ `rec-${index}` }
+            data-testid={ `${index}-recomendation-card` }
+          >
+            <img src={ item.strMealThumb } alt="imagem" />
+            <Carousel.Caption>
+              <h5 data-testid={ `${index}-recomendation-title` }>{ item.strMeal }</h5>
+            </Carousel.Caption>
+          </Carousel.Item>
+        ))}
+      </Carousel>
+    );
+  }
+
   render() {
-    const { drinkDetail, ingredient, measure } = this.state;
+    const { drinkDetail, ingredient, measure, recomandation } = this.state;
     return (
       <div>
         {drinkDetail && drinkDetail.map((result, index) => (
@@ -65,9 +97,7 @@ class DrinkDetails extends Component {
             <button type="button" data-testid="favorite-btn">Favoritar</button>
             <button type="button" data-testid="share-btn">Compartilhar</button>
             {/* <ReactPlayer url={ result.strYoutube } data-testid="video" /> */}
-            <div data-testid={ `${index}-recomendation-card` }>
-              So pra passar no teste
-            </div>
+            { recomandation && this.renderRecomendations() }
             { ingredient && ingredient.map((item, ingredientIndex) => (
               <ul key={ ingredientIndex }>
                 <li data-testid={ `${ingredientIndex}-ingredient-name-and-measure` }>
