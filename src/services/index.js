@@ -71,6 +71,8 @@ export const searchById = async (id, type) => {
     const drinksObject = drinksObjectFormater(drinks[0]);
     return drinksObject;
   }
+};
+
 export const listAllAreas = async () => {
   const areas = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
   const json = await areas.json();

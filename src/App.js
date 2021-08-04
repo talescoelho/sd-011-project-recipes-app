@@ -52,10 +52,6 @@ function App() {
               path="/explorar/comidas/area"
               component={ ExplorarPorOrigem }
             />
-            <Route
-              path="*"
-              component={ NotFound }
-            />            
             <Route exact path="/comidas/:id" component={ Detalhes } />
             <Route exact path="/comidas/:id/in-progress" />
             <Route exact path="/bebidas/:id" component={ Detalhes } />
@@ -67,6 +63,10 @@ function App() {
             <Route
               path="/receitas-favoritas"
               component={ () => <Header title="Receitas Favoritas" /> }
+            />
+            <Route
+              path="*"
+              component={ NotFound }
             />
           </Switch>
         </RecipesProvider>
