@@ -36,6 +36,7 @@ export default function RecipeFavorite() {
 
     localStorage.favoriteRecipes = JSON.stringify(newFavorites);
   };
+
   const getFavoriteLocalStorage = () => {
     if (data.length) {
       return data.map((item, index) => (

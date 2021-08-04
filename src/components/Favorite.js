@@ -4,6 +4,11 @@ import FavoriteButton from './FavBtnFavoritePage';
 import ShareBtnFav from './ShareBtnFav';
 
 function Favorite(typeFilter) {
+  const [copyMessage, setCopyMessage] = useState(false);
+  const handleClick = () => {
+    setCopyMessage(true);
+  };
+
   const getFavoriteLocalStorage = () => {
     const Local = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (Local) {
@@ -34,9 +39,11 @@ function Favorite(typeFilter) {
             {FavoriteButton(item.id, index)}
           </Link>
           <div>
-            {ShareBtnFav(`${item.type}s/${item.id}`, index)}
+            <button onClick={ handleClick } type="button">
+              {ShareBtnFav(`${item.type}s/${item.id}`, index)}
+            </button>
           </div>
-
+          {copyMessage && <p>Link copiado!</p>}
         </div>));
     }
   };
