@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
-import foodReducers from './foodReducer';
+import foodReducer from './foodReducer';
+import drinkReducer from './drinkReducer';
 
-const reducer = combineReducers({ foodReducers });
+const reducer = combineReducers({ foodReducer, drinkReducer });
 
 export default reducer;

@@ -4,7 +4,7 @@ export default class FoodDetails extends Component {
   render() {
     return (
       <div>
-        detalhes da comida
+        Detalhes da receita
       </div>
     );
   }
