@@ -40,9 +40,6 @@ export async function fetchExploreFoodsIngredients() {
 export async function fetchFoodsById(id) {
   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
   const { meals } = await response.json();
-  if (!meals) {
-    alert(alertString);
-  }
   return meals;
 }
 
@@ -156,9 +153,6 @@ export async function fetchCocktailsLetter(primeiraLetra) {
 export async function fetchDrinksById(id) {
   const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
   const { drinks } = await response.json();
-  if (!drinks) {
-    alert(alertString);
-  }
   return drinks;
 }
 
@@ -182,3 +176,19 @@ export const Cocktails = {
   searchLetter: (letter) => fetchCocktailsLetter(letter),
   getById: (id) => fetchDrinksById(id),
 };
+
+export function getIds(type, recipe) {
+  const verify = type.includes('omida');
+  return {
+    id: verify ? recipe.idMeal : recipe.idDrink,
+    type: verify ? 'comida' : 'bebida',
+    reverseType: verify ? 'bebida' : 'comida',
+    area: verify ? recipe.strArea : null,
+    category: verify ? recipe.strCategory : recipe.strAlcoholic,
+    name: verify ? recipe.strMeal : recipe.strDrink,
+    image: verify ? recipe.strMealThumb : recipe.strDrinkThumb,
+    video: verify ? recipe.strYoutube : null,
+    instructions: recipe.strInstructions,
+  };
+  // { id, type, category, name, image, video, instruction }
+}

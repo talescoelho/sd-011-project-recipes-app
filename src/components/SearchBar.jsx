@@ -63,7 +63,7 @@ function SearchBar({ type }) {
 }
 
 SearchBar.propTypes = {
-  type: PropTypes.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default SearchBar;

@@ -20,6 +20,8 @@ export default function Routes() {
       <Route exact path="/perfil" component={ Profile } />
       <Route exact path="/comidas/:id" component={ Details } />
       <Route exact path="/bebidas/:id" component={ Details } />
+      <Route exact path="/comidas/:id/:inProgress" component={ Details } />
+      <Route exact path="/bebidas/:id/:inProgress" component={ Details } />
       <Route exact path="/explorar" component={ Explore } />
       <Route
         exact

@@ -25,7 +25,7 @@ export default function RecipesCards({ type }) {
 
   return (
     <div>
-      { (type.includes('Comida')) ? verifyFood() : (verifyDrink())}
+      { (type.includes('omida')) ? verifyFood() : (verifyDrink())}
     </div>
   );
 }
