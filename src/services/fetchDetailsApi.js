@@ -6,8 +6,6 @@ const filterElements = (obj) => {
   });
 };
 
-const SIX = 6;
-
 export const fetchDetails = async (selector, id) => {
   if (selector === 'meal') {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
@@ -24,6 +22,7 @@ export const fetchDetails = async (selector, id) => {
 };
 
 export const fetchRecomendation = async (selector) => {
+  const SIX = 6;
   if (selector === 'meal') {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     const result = await response.json();

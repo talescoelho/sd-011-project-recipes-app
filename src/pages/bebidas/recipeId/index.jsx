@@ -110,9 +110,9 @@ export default function BebidaDetails({ match: { params: { recipeId } } }) {
           <h2>Instruções</h2>
           <p data-testid="instructions">{strInstructions}</p>
         </Container>
-        <Container className="details-recomendation" data-testid="0-recomendation-card">
+        <Container className="details-recomendation">
           <h2>Receitas recomendadas</h2>
-          <Carousel variant="dark" data-testid="recomendation-card">
+          <Carousel variant="dark">
             {
               recomendations.map(({ strMeal, strMealThumb }, index) => (
                 <Carousel.Item

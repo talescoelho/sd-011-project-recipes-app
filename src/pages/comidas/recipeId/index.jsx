@@ -14,7 +14,6 @@ export default function ComidaDetails({ match: { params: { recipeId } } }) {
     const fetchRecomendations = async () => {
       const getRecomendations = await fetchRecomendation('meal');
       setRecomendations(getRecomendations);
-      console.log(getRecomendations);
     };
     fetchRecomendations();
   }, []);
@@ -85,14 +84,13 @@ export default function ComidaDetails({ match: { params: { recipeId } } }) {
         />
         <div className="details-recomendation">
           <h2>Receitas recomendadas</h2>
-          <Carousel variant="dark" data-testid="recomendation-card">
+          <Carousel variant="dark">
             {
               recomendations.map(({ strDrink, strDrinkThumb }, index) => (
                 <Carousel.Item
                   data-testid={ `${index}-recomendation-card` }
                   key={ strDrink }
                 >
-
                   <img
                     className="recomendation-picture"
                     src={ strDrinkThumb }
