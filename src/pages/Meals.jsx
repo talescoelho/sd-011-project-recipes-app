@@ -13,7 +13,8 @@ export default function Meals({ history }) {
   // Em seguida passa as infos para o provider;
   // Redireciona pra page de details;
   function clickDetails(id) {
-    history.push(`/comidas:${id}`);
+    history.push(`/comidas${id}`);
+    console.log(id);
   }
 
   return (
