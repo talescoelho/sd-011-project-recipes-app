@@ -39,6 +39,17 @@ function App() {
           render={ () => <ProcessoBebidaPage /> }
         />
         <Route exact path="/" render={ () => <Login /> } />
+        <Route exact path="/" render={ () => <Login /> } />
+        <Route
+          path="/comidas/:id/in-progress"
+          render={ (props) => <ProcessoComidaPage { ...props } /> }
+        />
+        <Route
+          path="/bebidas/:id/in-progress"
+          render={ (props) => <ProcessoBebidaPage { ...props } /> }
+        />
+        <Route path="/comidas/:id" render={ () => <ReceitaComidaPage /> } />
+        <Route path="/bebidas/:id" render={ () => <ReceitaBebidaPage /> } />
         <Route exact path="/comidas" render={ () => <ComidaPage /> } />
         <Route exact path="/bebidas" render={ () => <BebidaPage /> } />
         <Route exact path="/explorar" render={ () => <Explorar /> } />
