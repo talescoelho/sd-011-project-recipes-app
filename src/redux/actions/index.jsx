@@ -7,8 +7,24 @@ export const FETCH_DRINKS_ERROR = 'FETCH_DRINKS_ERROR';
 export const FETCH_BOTH_STARTED = 'FETCH_BOTH_STARTED';
 export const FETCH_BOTH_SUCESS = 'FETCH_BOTH_SUCESS';
 export const FETCH_BOTH_ERROR = 'FETCH_BOTH_ERROR';
+export const FETCH_MEALS_CATEGORIES_STARTED = 'FETCH_MEALS_CATEGORY_STARTED';
+export const FETCH_MEALS_CATEGORIES_SUCESS = 'FETCH_MEALS_CATEGORIES_SUCESS';
+export const FETCH_MEALS_CATEGORIES_ERROR = 'FETCH_MEALS_CATEGORIES_ERROR';
+export const FETCH_DRINKS_CATEGORIES_STARTED = 'FETCH_DRINKS_CATEGORIES_STARTED';
+export const FETCH_DRINKS_CATEGORIES_SUCESS = 'FETCH_DRINKS_CATEGORIES_SUCESS';
+export const FETCH_DRINKS_CATEGORIES_ERROR = 'FETCH_DRINKS_CATEGORIES_ERROR';
+export const FETCH_MEALS_BY_CATEGORIES_STARTED = 'FETCH_MEALS_BY_CATEGORIES_STARTED';
+export const FETCH_MEALS_BY_CATEGORIES_SUCESS = 'FETCH_MEALS_BY_CATEGORIES_SUCESS';
+export const FETCH_MEALS_BY_CATEGORIES_ERROR = 'FETCH_MEALS_BY_CATEGORIES_ERROR';
+export const FETCH_DRINKS_BY_CATEGORIES_STARTED = 'FETCH_DRINKS_BY_CATEGORIES_STARTED';
+export const FETCH_DRINKS_BY_CATEGORIES_SUCESS = 'FETCH_DRINKS_BY_CATEGORIES_SUCESS';
+export const FETCH_DRINKS_BY_CATEGORIES_ERROR = 'FETCH_DRINKS_BY_CATEGORIES_ERROR';
 export const INPUT_HANDLE = 'INPUT_HANDLE';
 export const RENDER_FILTER = 'RENDER_FILTER';
+export const TOOGLE_DRINKS_CATEGORIES = 'TOOGLE_DRINKS_CATEGORIES';
+export const SELECTED_DRINK_CATEGORY = 'SELECTED_DRINK_CATEGORY';
+export const TOOGLE_MEALS_CATEGORIES = 'TOOGLE_MEALS_CATEGORIES';
+export const SELECTED_MEAL_CATEGORY = 'SELECTED_MEAL_CATEGORY';
 
 export const fetchMealStarted = () => ({
   type: FETCH_MEALS_STARTED,
@@ -52,6 +68,62 @@ export const fetchBothError = (payload) => ({
   payload,
 });
 
+export const fetchMealsCategoriesStarted = () => ({
+  type: FETCH_MEALS_CATEGORIES_STARTED,
+});
+
+export const fetchMealsCategoriesSucess = (payload) => ({
+  type: FETCH_MEALS_CATEGORIES_SUCESS,
+  payload,
+});
+
+export const fetchMealsCategoriesError = (payload) => ({
+  type: FETCH_MEALS_CATEGORIES_ERROR,
+  payload,
+});
+
+export const fetchDrinksCategoriesStarted = () => ({
+  type: FETCH_DRINKS_CATEGORIES_STARTED,
+});
+
+export const fetchDrinksCategoriesSucess = (payload) => ({
+  type: FETCH_DRINKS_CATEGORIES_SUCESS,
+  payload,
+});
+
+export const fetchDrinksCategoriesError = (payload) => ({
+  type: FETCH_DRINKS_CATEGORIES_ERROR,
+  payload,
+});
+
+export const fetchMealsByCategoriesStarted = () => ({
+  type: FETCH_MEALS_BY_CATEGORIES_STARTED,
+});
+
+export const fetchMealsByCategoriesSucess = (payload) => ({
+  type: FETCH_MEALS_BY_CATEGORIES_SUCESS,
+  payload,
+});
+
+export const fetchMealsByCategoriesError = (payload) => ({
+  type: FETCH_MEALS_BY_CATEGORIES_ERROR,
+  payload,
+});
+
+export const fetchDrinksByCategoriesStarted = () => ({
+  type: FETCH_DRINKS_BY_CATEGORIES_STARTED,
+});
+
+export const fetchDrinksByCategoriesSucess = (payload) => ({
+  type: FETCH_DRINKS_BY_CATEGORIES_SUCESS,
+  payload,
+});
+
+export const fetchDrinksByCategoriesError = (payload) => ({
+  type: FETCH_DRINKS_BY_CATEGORIES_ERROR,
+  payload,
+});
+
 export const filterHandle = ({ name, value }) => ({
   type: INPUT_HANDLE,
   name,
@@ -60,6 +132,26 @@ export const filterHandle = ({ name, value }) => ({
 
 export const renderFilter = (payload) => ({
   type: RENDER_FILTER,
+  payload,
+});
+
+export const setDrinkToogle = (payload) => ({
+  type: TOOGLE_DRINKS_CATEGORIES,
+  payload,
+});
+
+export const getDrinkCategory = (payload) => ({
+  type: SELECTED_DRINK_CATEGORY,
+  payload,
+});
+
+export const setMealToogle = (payload) => ({
+  type: TOOGLE_MEALS_CATEGORIES,
+  payload,
+});
+
+export const getMealCategory = (payload) => ({
+  type: SELECTED_MEAL_CATEGORY,
   payload,
 });
 
@@ -78,10 +170,57 @@ export const fetchDrink = () => async (dispatch) => {
   try {
     dispatch(fetchDrinkStarted());
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    console.log(response);
     const data = await response.json();
     return dispatch(fetchDrinkSucess(data));
   } catch (error) {
     dispatch(fetchDrinkError(error.message));
+  }
+};
+
+export const fetchMealsCategories = () => async (dispatch) => {
+  try {
+    dispatch(fetchMealsCategoriesStarted());
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+    const data = await response.json();
+    return dispatch(fetchMealsCategoriesSucess(data));
+  } catch (error) {
+    dispatch(fetchMealsCategoriesError(error.message));
+  }
+};
+
+export const fetchDrinksCategories = () => async (dispatch) => {
+  try {
+    dispatch(fetchDrinksCategoriesStarted());
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    const data = await response.json();
+    return dispatch(fetchDrinksCategoriesSucess(data));
+  } catch (error) {
+    dispatch(fetchDrinksCategoriesError(error.message));
+  }
+};
+
+export const fetchMealsByCategories = (category) => async (dispatch) => {
+  const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
+  try {
+    dispatch(fetchMealsByCategoriesStarted());
+    const response = await fetch(`${url}${encodeURIComponent(category)}`);
+    const data = await response.json();
+    return dispatch(fetchMealsByCategoriesSucess(data));
+  } catch (error) {
+    dispatch(fetchMealsByCategoriesError(error.message));
+  }
+};
+
+export const fetchDrinksByCategories = (category) => async (dispatch) => {
+  const url = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
+  try {
+    dispatch(fetchDrinksByCategoriesStarted());
+    const response = await fetch(`${url}${category}`);
+    const data = await response.json();
+    return dispatch(fetchDrinksByCategoriesSucess(data));
+  } catch (error) {
+    dispatch(fetchDrinksByCategoriesError(error.message));
   }
 };
 
