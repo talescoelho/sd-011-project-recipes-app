@@ -25,6 +25,14 @@ function Details({ match: { url, params: { id } } }) {
     setRecommended(searchRecommendedRecipe);
   };
 
+  const verifyRecipeIsDone = () => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    if (doneRecipes.length > 0) {
+      return doneRecipes.some((recipe) => recipe.id === id);
+    }
+    return false;
+  };
+
   // didMount getRecipeById
   useEffect(() => {
     getRecipeById();
@@ -35,9 +43,15 @@ function Details({ match: { url, params: { id } } }) {
       <RecipeDetails recipe={ recipeDetail } />
       {url.includes('comidas') && <FrameVideo recipe={ recipeDetail } />}
       <RecommendedRecipes recipes={ recommended } />
-      <button type="button" data-testid="start-recipe-btn">
+      <button
+        className="button-start"
+        style={ { display: verifyRecipeIsDone() ? 'none' : 'block' } }
+        type="button"
+        data-testid="start-recipe-btn"
+      >
         Iniciar Receita
       </button>
+
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 
-function IngredientList({ ingredients, status }) {
+function IngredientList({ ingredients }) {
   const renderListInProgress = () => (
     <div>
       <hh2>Ingredients</hh2>
@@ -34,8 +35,9 @@ function IngredientList({ ingredients, status }) {
     </div>
   );
 
-  if (status === 'details') return renderListToDetails();
-  if (status === 'inProgress') return renderListInProgress();
+  const location = useLocation();
+  if (!location.pathname.includes('in-progress')) return renderListToDetails();
+  if (location.pathname.includes('in-progress')) return renderListInProgress();
 }
 
 IngredientList.propTypes = {

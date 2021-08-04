@@ -51,7 +51,7 @@ function RecipeDetails({ recipe }) {
             <img data-testid="favorite-btn" src={ FavIcon } alt="Fav Icon" />
           </button>
         </div>
-        <IngredientsList ingredients={ ingredientsListRecipe } status="details" />
+        <IngredientsList ingredients={ ingredientsListRecipe } />
         <h2>
           Instructions
         </h2>
