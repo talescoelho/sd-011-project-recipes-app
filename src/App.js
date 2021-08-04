@@ -12,6 +12,7 @@ import ExploreFoodsArea from './pages/ExploreFoodsArea';
 import Perfil from './pages/Perfil';
 import MakedRevenues from './pages/MakedRevenues';
 import FavoritedRevenues from './pages/FavoritedRevenues';
+import FoodsInProgress from './pages/FoodsInProgress';
 import Details from './pages/Details';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -25,6 +26,8 @@ function App() {
           <Route exact path="/bebidas/" component={ MainPage } />
           <Route exact path="/comidas/:id" component={ Details } />
           <Route exact path="/bebidas/:id" component={ Details } />
+          <Route exact path="/comidas/:id/in-progress" component={ FoodsInProgress } />
+          <Route exact path="/bebidas/:id/in-progress" component={ FoodsInProgress } />
           <Route exact path="/explorar/" component={ Explore } />
           <Route exact path="/explorar/comidas/" component={ ExploreFoods } />
           <Route exact path="/explorar/bebidas/" component={ ExploreDrinks } />
