@@ -7,7 +7,7 @@ import MyContext from '../Context/MyContext';
 import { fetchIngredient, fetchName, fetchFirstLetter } from '../Services/FetchApi';
 
 export default function Header({ title, searchIconAppears = false }) {
-  const { setRecipe } = useContext(MyContext);
+  const { setRecipe, recipe } = useContext(MyContext);
   const [searchResult, setSearchResult] = useState('');
   const [selectedSearch, setSelectedSearch] = useState('');
   const history = useHistory();
@@ -36,9 +36,9 @@ export default function Header({ title, searchIconAppears = false }) {
         return fetchFirstLetter(site, searchResult);
       }
       alert('Sua busca deve conter somente 1 (um) caracter');
-      break;
+      return { meals: [], drinks: [] };
     default:
-      return searchResult;
+      return { meals: [], drinks: [] };
     }
   };
 
