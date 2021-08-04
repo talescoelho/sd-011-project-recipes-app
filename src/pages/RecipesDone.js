@@ -7,8 +7,8 @@ function RecipesDone() {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
   const [filterRecipes, setFilterRecipes] = React.useState(doneRecipes);
-  const [clipBoardFood, setClipBoardFood] = useState(false);
-  const [clipBoardDrink, setClipBoardDrink] = useState(false);
+  const [clipBoardFood, setClipBoardFood] = React.useState(false);
+  const [clipBoardDrink, setClipBoardDrink] = React.useState(false);
 
   function filterByType(parameter) {
     if (parameter === 'all') {
@@ -91,6 +91,11 @@ function RecipesDone() {
                       {tags[1]}
                     </p>
                   </div>
+                  <div className="btn-share-done">
+                    <button type="button" onClick={ () => clipBoard(type, id) }>
+                    </button>
+                    <span>{clipBoardFood === true ? 'Link copiado!' : null}</span>
+                  </div>
                 </div>)
               : (
                 <div key={ id }>
@@ -109,6 +114,15 @@ function RecipesDone() {
                     {doneDate}
 
                   </p>
+
+                  <div className="btn-share-done">
+                    <button
+                      type="button"
+                      onClick={ () => clipBoard(type, id) }
+                    >
+                    </button>
+                    <span>{clipBoardDrink === true ? 'Link copiado!' : null}</span>
+                  </div>
                 </div>)
           ),
         )}
