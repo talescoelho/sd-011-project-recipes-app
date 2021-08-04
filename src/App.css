@@ -84,14 +84,14 @@
   flex-flow: row wrap;
   height: 200px;
   justify-content: space-between;
-  width: fit-content;
   text-align: center;
+  width: fit-content;
 }
 
 .recommendedImage {
+  background-size: cover;
   height: 400px;
   width: 400px;
-  background-size: cover;
 }
 
 .card-img {
