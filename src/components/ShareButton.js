@@ -18,9 +18,14 @@ export default function ShareButton() {
   return (
     <div>
       {copiedText ? (
-        <p data-testid="share-btn">Link copiado!</p>
+        <span data-testid="share-btn">Link copiado!</span>
       ) : (
-        <button data-testid="share-btn" type="button" onClick={ copyUrl }>
+        <button
+          className="remove-favorite-btn"
+          data-testid="share-btn"
+          type="button"
+          onClick={ copyUrl }
+        >
           <img src={ shareIcon } alt="share icon" />
         </button>
       )}

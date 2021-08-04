@@ -48,6 +48,7 @@ class SearchBar extends Component {
       this.invokeAlert(alert,
         'Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
+
     return (
       <div className="search">
         <div className="search-container">
@@ -127,4 +128,5 @@ SearchBar.propTypes = {
   resultFood: PropTypes.arrayOf(Object),
   resultDrink: PropTypes.arrayOf(Object),
 }.isRequired;
+
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
