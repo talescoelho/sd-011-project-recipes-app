@@ -10,7 +10,7 @@
 
 .category-container button {
   background-color: rgb(246, 232, 201);
-  border-radius: 20px;
   border: 0;
+  border-radius: 20px;
   width: 100px;
 }
