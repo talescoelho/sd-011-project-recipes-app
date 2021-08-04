@@ -18,9 +18,6 @@ import FavoriteRecipes from './Pages/FavoriteRecipes';
 import SingleFoodItem from './Pages/Components/SingleFoodItem';
 import SingleDrinkItem from './Pages/Components/SingleDrinkItem';
 // Pages Components /\
-
-import './App.css';
-// import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
