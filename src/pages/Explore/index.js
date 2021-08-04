@@ -1,13 +1,24 @@
 import React from 'react';
-import FooterMenu from '../../components/FooterMenu';
+import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
+import FooterMenu from '../../components/FooterMenu';
 
-const Explore = () => (
-  <div>
-    <Header />
-    Sou página de exploração.
-    <FooterMenu />
-  </div>
-);
-
-export default Explore;
+export default function Explore() {
+  document.title = 'Explorar';
+  return (
+    <div>
+      <Header />
+      <button type="button">
+        <Link to="/explorar/comidas" data-testid="explore-food">
+          Explorar Comidas
+        </Link>
+      </button>
+      <button type="button">
+        <Link to="/explorar/bebidas" data-testid="explore-drinks">
+          Explorar Bebidas
+        </Link>
+      </button>
+      <FooterMenu />
+    </div>
+  );
+}
