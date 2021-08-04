@@ -44,3 +44,9 @@ export function getMealsByCategory(categoryName) {
     .then((result) => result.json())
     .then(({ meals }) => meals);
 }
+
+export function getMealRecomendations() {
+  return fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+    .then((results) => results.json())
+    .then(({ meals }) => meals);
+}

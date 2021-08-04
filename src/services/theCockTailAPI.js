@@ -44,3 +44,9 @@ export function getDrinksByCategory(categoryName) {
     .then((result) => result.json())
     .then(({ drinks }) => drinks);
 }
+
+export function getDrinkRecomendations() {
+  return fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+    .then((results) => results.json())
+    .then(({ drinks }) => drinks);
+}

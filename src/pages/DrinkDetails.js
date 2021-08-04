@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getDrinkDetail } from '../services/theCockTailAPI';
+import RecomendationCardsContainer from '../components/RecomendationCardsContainer';
 
 const DrinkDetails = (props) => {
   const [drinkData, setdrinkData] = useState([]);
@@ -60,7 +61,7 @@ const DrinkDetails = (props) => {
           }
         </ol>
         <p data-testid="instructions">{strInstructions}</p>
-        <p data-testid="0-recomendation-card" />
+        <RecomendationCardsContainer />
         <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
       </section>
     );

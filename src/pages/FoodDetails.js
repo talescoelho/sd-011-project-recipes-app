@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getMealDetail } from '../services/theMealAPI';
+import RecomendationCardsContainer from '../components/RecomendationCardsContainer';
 
 const FoodDetails = (props) => {
   const [foodData, setfoodData] = useState({ strYoutube: '' });
@@ -78,7 +79,7 @@ const FoodDetails = (props) => {
           picture-in-picture"
           allowFullScreen
         />
-        <p data-testid="0-recomendation-card" />
+        <RecomendationCardsContainer />
         <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
       </section>
     );
