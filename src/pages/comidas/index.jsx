@@ -21,21 +21,34 @@ class Comidas extends Component {
   }
 
   renderFilters() {
-    let { allCategories } = this.props;
+    let { allCategories, generalRecipesFood } = this.props;
     allCategories = allCategories.slice(0, FIVE);
 
-    return allCategories.map((item, index) => (
+    return [
       <button
-        className="filter-btn"
-        type="button"
-        value={ item.strCategory }
-        data-testid={ `${item.strCategory}-category-filter` }
-        key={ index }
-        onClick={ (target) => this.handleOnClickFilter(target) }
+      data-testid="All-category-filter"
+      className="filter-btn"
+      type="button"
+      value="All"
+      onClick={generalRecipesFood}
       >
-        {item.strCategory}
-      </button>
-    ));
+      All
+      </button>,
+
+    ...allCategories.map((item, index) => (
+        <button
+          className="filter-btn"
+          type="button"
+          value={ item.strCategory }
+          data-testid={ `${item.strCategory}-category-filter` }
+          key={ index }
+          onClick={ (target) => this.handleOnClickFilter(target) }
+        >
+          {item.strCategory}
+        </button>
+    ))
+  ];
+    
   }
 
   renderFoods() {

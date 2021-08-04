@@ -22,10 +22,21 @@ class Bebidas extends Component {
   }
 
   renderFilters() {
-    let { allCategories } = this.props;
+    let { allCategories, generalRecipesDrink } = this.props;
     allCategories = allCategories.slice(0, FIVE);
 
-    return allCategories.map((item, index) => (
+    return [
+      <button
+      data-testid="All-category-filter"
+      className="filter-btn"
+      type="button"
+      value="All"
+      onClick={generalRecipesDrink}
+      >
+        All
+      </button>,
+
+      ...allCategories.map((item, index) => (
       <button
         className="filter-btn"
         type="button"
@@ -36,7 +47,7 @@ class Bebidas extends Component {
       >
         {item.strCategory}
       </button>
-    ));
+    ))];
   }
 
   renderDrinks() {
