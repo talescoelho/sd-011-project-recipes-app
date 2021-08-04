@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function ProcessoBebidaPage(props) {
   const [drinkInProgress, setDrinkID] = useState();
   const [savedRecipe, setSavedRecipe] = useState();
+  const [update, forceUpdate] = useState(false);
 
   const marked = {
     textDecoration: 'line-through',
@@ -51,6 +53,10 @@ export default function ProcessoBebidaPage(props) {
     localStorageState(setSavedRecipe);
   }, []);
 
+  useEffect(() => {
+    localStorageState(setSavedRecipe);
+  }, [update]);
+
   const ingredientLimit = 15;
   const ingredientKeys = drinkInProgress && (
     Object.keys(drinkInProgress.drinks[0]).filter((key) => key.includes('ngredient')));
@@ -92,6 +98,7 @@ export default function ProcessoBebidaPage(props) {
       target.parentNode.style.textDecoration = 'none';
       localStorage.setItem('inProgressRecipes', JSON.stringify(elseObj));
     }
+    forceUpdate(!update);
   }
 
   return (
@@ -127,7 +134,16 @@ export default function ProcessoBebidaPage(props) {
               />
             </label>))}
           <p data-testid="instructions">{drinkInProgress.drinks[0].strInstructions}</p>
-          <button data-testid="finish-recipe-btn" type="button">Finalizar receita</button>
+          <Link to="/receitas-feitas">
+            <button
+              data-testid="finish-recipe-btn"
+              type="button"
+              disabled={ savedRecipe && (
+                savedRecipe.cocktails[id].length !== ingredientFilter.length) }
+            >
+              Finalizar receita
+            </button>
+          </Link>
         </div>)}
     </div>
   );
