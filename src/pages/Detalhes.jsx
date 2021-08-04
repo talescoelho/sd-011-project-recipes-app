@@ -9,13 +9,15 @@ function Detalhes(props) {
   const { params: { id } } = match;
   const [loading, setLoading] = useState(true);
   const [recipeData, setRecipeData] = useState([]);
+  console.log(recipeData);
 
   const handleFetchRequest = async () => {
     let response = [];
+    if (match.path.includes('bebidas')) {
+      response = await searchById(id, 'bebidas');
+    }
     if (match.path.includes('comidas')) {
       response = await searchById(id, 'comidas');
-    } if (match.path.includes('bebidas')) {
-      response = await searchById(id, 'bebidas');
     }
     setLoading(false);
     return response;

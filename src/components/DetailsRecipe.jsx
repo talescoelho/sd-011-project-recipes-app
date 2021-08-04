@@ -18,6 +18,7 @@ function DetailsRecipe(props) {
     instructions,
     title,
     category,
+    strAlcoholic,
     video,
     id,
   } = recipeData;
@@ -33,15 +34,14 @@ function DetailsRecipe(props) {
     }
   }, [id]);
 
-  if (!video) return null;
   const videoParameter = -11;
-  const finalUrl = video.slice(videoParameter);
+  const finalUrl = video && video.slice(videoParameter);
 
   return (
     <div>
       <h1 data-testid="recipe-title">{ title }</h1>
       <img src={ imgUrl } alt={ title } data-testid="recipe-photo" />
-      <p data-testid="recipe-category">{ category }</p>
+      <p data-testid="recipe-category">{ !strAlcoholic ? category : strAlcoholic}</p>
       <Ingredients
         ingredients={ ingredients }
         ingredientsQuantity={ ingredientsQuantity }
@@ -59,7 +59,7 @@ function DetailsRecipe(props) {
         favorite={ favorite }
         recipes={ recipeData }
       />
-      <iframe
+      { video && <iframe
         width="560"
         height="315"
         src={ `https://www.youtube.com/embed/${finalUrl}` }
@@ -67,7 +67,7 @@ function DetailsRecipe(props) {
         frameBorder="0"
         data-testid="video"
         allowFullScreen
-      />
+      /> }
       <ButtonStartRecipe id={ id } />
     </div>
   );

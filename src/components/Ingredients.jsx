@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 function Ingredients(props) {
   const { ingredients, ingredientsQuantity } = props;
   if (!ingredients || !ingredientsQuantity) return null;
-  const ingredientsArr = ingredients.filter((ingredient) => ingredient[1] !== '');
+  const ingredientsArr = ingredients
+    .filter((ingredient) => ingredient[1] !== '' && ingredient[1] !== null);
   const ingredientsQuantityArr = ingredientsQuantity
-    .filter((ingredient) => ingredient[1] !== '');
+    .filter((ingredient) => ingredient[1] !== '' && ingredient[1] !== null);
   return (
     <div>
       <h3>Ingredients</h3>
@@ -16,7 +17,9 @@ function Ingredients(props) {
             key={ ingredient }
             data-testid={ `${index}-ingredient-name-and-measure` }
           >
-            {`${ingredientsArr[index][1]} - ${ingredientsQuantityArr[index][1]}`}
+            {`${ingredientsArr[index][1]}  
+              ${ingredientsQuantityArr[index]
+            ? `- ${ingredientsQuantityArr[index][1]}` : ''}`}
           </li>))}
 
       </ul>

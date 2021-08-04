@@ -40,6 +40,5 @@ export const drinksObjectFormater = (recipeData) => {
     strGlass: recipeData.strGlass,
 
   };
-
   return drinksObject;
 };

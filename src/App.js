@@ -24,9 +24,9 @@ function App() {
             <Route path="/explorar" component={ Explorar } />
             <Route exact path="/perfil" component={ Perfil } />
             <Route exact path="/comidas/:id" component={ Detalhes } />
+            <Route exact path="/comidas/:id/in-progress" />
             <Route exact path="/bebidas/:id" component={ Detalhes } />
-            <Route exact path="/comidas/id/in-progress" />
-            <Route exact path="/bebidas/id/in-progress" />
+            <Route exact path="/bebidas/:id/in-progress" />
           </RecipesProvider>
 
           <Route

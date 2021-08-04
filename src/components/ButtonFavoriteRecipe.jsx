@@ -55,13 +55,13 @@ function ButtonFavoriteRecipe({ recipes, favorite, setFavorite}) {
   return (
     <button
       type="button"
-      data-testid="favorite-btn"
       onClick={ () => { handleFavoriteBtn(); } }
     >
       { favorite ? <img
         src={ BlackHeart }
         alt="favorite"
-      /> : <img src={ WhiteHeart } alt="Nonfavorite" /> }
+        data-testid="favorite-btn"
+      /> : <img src={ WhiteHeart } alt="Nonfavorite" data-testid="favorite-btn" /> }
     </button>
   );
 }
