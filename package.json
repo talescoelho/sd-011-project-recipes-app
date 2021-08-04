@@ -26,7 +26,9 @@
     "redux": "^4.1.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
-    "websocket-extensions": ">=0.1.4"
+    "websocket-extensions": ">=0.1.4",
+    "node-sass": "^6.0.1",
+     "sass-loader": "^12.1.0"
   },
   "scripts": {
     "cy": "cypress run",
