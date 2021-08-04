@@ -16,7 +16,7 @@
    
 }
 
-.detail-section{
+.detail-section {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -31,7 +31,7 @@
   width: 75vw;
 }
 
-.detail-title{
+.detail-title {
   box-sizing: border-box;
   color: black;
   font-size: 1.5rem;
@@ -39,7 +39,7 @@
   padding: 0;
 }
 
-.detail-category{
+.detail-category {
   color: rgb(97, 93, 93);
   font-size: 20px;
   font-weight: 400;
@@ -50,20 +50,20 @@
   background-color: transparent;
 }
 
-.detail-video-title{
+.detail-video-title {
   font-size: 2rem;
   font-weight:600;
   padding: 10px;
 }
 
-.detail-video-box{
+.detail-video-box {
   align-items: center;
   display: flex;
   justify-content: center;
   width: 100vw;
 }
 
-.detail-iframe{
+.detail-iframe {
   border-radius: 10px;
   height: 35vh;
   width: 90%;

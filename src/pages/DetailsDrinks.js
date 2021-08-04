@@ -8,7 +8,7 @@ import DetailInstruction from '../components/DetailInstruction';
 function DetailsDrinks() {
   const { id } = useParams();
   const {
-    drinkDetails,
+    /*     drinkDetails, */
     setDrinkDetails,
     getDrinkById,
   } = useContext(MyContext);
