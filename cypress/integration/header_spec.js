@@ -75,7 +75,7 @@ describe.only('10 - Implemente um ícone para a tela de perfil, um título e um 
     hasNoHeader();
   });
 
-  it('O header tem os ícones corretos na tela de explorar', () => {
+  it.only('O header tem os ícones corretos na tela de explorar', () => {
     cy.visit('http://localhost:3000/explorar');
 
     hasHeader('Explorar', false);

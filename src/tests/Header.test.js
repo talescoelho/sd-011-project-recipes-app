@@ -47,11 +47,13 @@ describe('Requeriment 10', () => {
   };
 
   const hasHeader = (title, withSearchButton = true) => {
-    expect(screen.queryByTestId(PROFILE_TOP_BTN)).toHaveAttribute('src', 'profileIcon.svg');
+    expect(screen.queryByTestId(PROFILE_TOP_BTN))
+      .toHaveAttribute('src', 'profileIcon.svg');
     expect(screen.queryByTestId(PAGE_TITLE).innerHTML).toEqual(title);
 
     if (withSearchButton) {
-      expect(screen.queryByTestId(SEARCH_TOP_BTN)).toHaveAttribute('src', 'searchIcon.svg');
+      expect(screen.queryByTestId(SEARCH_TOP_BTN))
+        .toHaveAttribute('src', 'searchIcon.svg');
     } else {
       expect(screen.queryByTestId(SEARCH_TOP_BTN)).not.toBeInTheDocument();
     }
@@ -88,5 +90,49 @@ describe('Requeriment 10', () => {
     );
     history.push('/bebidas');
     hasHeader('Bebidas');
+  });
+
+  it('There is no Header on the Food Recipes Detail screen', () => {
+    const history = createMemoryHistory();
+    render(
+      <Router history={ history }>
+        <App />
+      </Router>,
+    );
+    history.push('/comidas/52771');
+    hasNoHeader();
+  });
+
+  it('There is no Header on the Drink Recipes Detail screen', () => {
+    const history = createMemoryHistory();
+    render(
+      <Router history={ history }>
+        <App />
+      </Router>,
+    );
+    history.push('/bebidas/178319');
+    hasNoHeader();
+  });
+
+  it('There is no Header on the Food Recipes progress screen', () => {
+    const history = createMemoryHistory();
+    render(
+      <Router history={ history }>
+        <App />
+      </Router>,
+    );
+    history.push('/comidas/178319/in-progress');
+    hasNoHeader();
+  });
+
+  it.only('There is no Header on the Drink Recipes progress screen', () => {
+    const history = createMemoryHistory();
+    render(
+      <Router history={ history }>
+        <App />
+      </Router>,
+    );
+    history.push('/bebidas/178319/in-progress');
+    hasNoHeader();
   });
 });

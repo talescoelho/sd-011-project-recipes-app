@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 
 function RecipeInProgress({ history }) {
+  const { id } = useParams();
   function comidasMain() {
     return (
       <main data-testid="recipes-page">
@@ -22,7 +24,7 @@ function RecipeInProgress({ history }) {
 
   return (
     <div>
-      {history.location.pathname === '/explorar/comidas/ingredientes'
+      {history.location.pathname === `/comidas/${id}/in-progress`
         ? comidasMain() : bebidasMain() }
     </div>
   );
