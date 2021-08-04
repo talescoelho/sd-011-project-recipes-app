@@ -1,26 +1,31 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getRecipes } from '../redux/slices/fetchReceitas';
 import './IngredientsDetails.css';
 
 function IngredientsDetails() {
+  const dispatch = useDispatch();
   const {
     foodIngredients,
     drinkIngredients,
   } = useSelector((state) => state.fetchReceitas);
-  const dispatch = useDispatch();
 
   const { pathname } = window.location;
   const currentURL = pathname.split('/')[2];
 
-  const recipeTypeDictionary = useCallback(() => ({
-    comidas: 'foodIngredients',
-    bebidas: 'drinkIngredients',
-  }), []);
+  function getIngredientsByRecipeType() {
+    if (currentURL === 'comidas') {
+      dispatch(getRecipes('foodIngredients'));
+    }
+    if (currentURL === 'bebidas') {
+      dispatch(getRecipes('drinkIngredients'));
+    }
+  }
 
   useEffect(() => {
-    dispatch(getRecipes(recipeTypeDictionary()[currentURL]));
-  }, [dispatch, currentURL, recipeTypeDictionary]);
+    getIngredientsByRecipeType();
+  }, []);
 
   if (foodIngredients.length !== 0 || drinkIngredients.length !== 0) {
     const limitCards = 12;
@@ -35,23 +40,27 @@ function IngredientsDetails() {
 
     return (
       <section className="ingredients-container">
-        {recipeType.slice(0, limitCards).map((ingredient, index) => (
-          <div
-            data-testid={ `${index}-ingredient-card` }
+        {recipeType && recipeType.slice(0, limitCards).map((ingredient, index) => (
+          <Link
             key={ index }
-            className="ingredient-card"
+            to={ { pathname: `/${currentURL}`, recipeName: ingredient[ingredientKey] } }
           >
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ `https://www.${imageURL}.com/images/ingredients/${ingredient[ingredientKey]}-Small.png` }
-              alt={ ingredient[ingredientKey] }
-            />
-            <p
-              data-testid={ `${index}-card-name` }
+            <div
+              data-testid={ `${index}-ingredient-card` }
+              className="ingredient-card"
             >
-              {ingredient[ingredientKey]}
-            </p>
-          </div>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ `https://www.${imageURL}.com/images/ingredients/${ingredient[ingredientKey]}-Small.png` }
+                alt={ ingredient[ingredientKey] }
+              />
+              <p
+                data-testid={ `${index}-card-name` }
+              >
+                {ingredient[ingredientKey]}
+              </p>
+            </div>
+          </Link>
         ))}
       </section>
     );

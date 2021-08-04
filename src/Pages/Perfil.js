@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 function Perfil({ title }) {
   return (
     <div>
+      { console.log('rendered perfil ')}
       <Header title={ title } />
       <Footer />
     </div>

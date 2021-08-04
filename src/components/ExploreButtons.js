@@ -40,12 +40,22 @@ function ExploreFoodsButtons() {
     return <Redirect to={ `/${currentURL}/${idDrink}` } />;
   }
 
+  function getIngredientsByRecipeType() {
+    if (currentURL === 'comidas') {
+      dispatch(getRecipes('foodIngredients'));
+    }
+    if (currentURL === 'bebidas') {
+      dispatch(getRecipes('drinkIngredients'));
+    }
+  }
+
   return (
     <section>
       <Link to={ `/explorar/${currentURL}/ingredientes` }>
         <button
           type="button"
           data-testid="explore-by-ingredient"
+          onClick={ getIngredientsByRecipeType }
         >
           Por Ingredientes
         </button>

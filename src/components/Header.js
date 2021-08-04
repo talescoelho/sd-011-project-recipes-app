@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import { getRecipes } from '../redux/slices/fetchReceitas';
 
 function Header({ title }) {
   const [hiddenSearchBar, setHiddentSearchBar] = useState(true);
+  const dispatch = useDispatch();
   const renderWithoutSearch = [
     'Explorar',
     'Explorar Comidas',
@@ -21,6 +24,11 @@ function Header({ title }) {
     Comidas: (<SearchBar />),
     Bebidas: (<SearchBar />),
   };
+
+  useEffect(() => {
+    dispatch(getRecipes('foodCategories'));
+    dispatch(getRecipes('drinksCategories'));
+  }, [dispatch]);
 
   return (
     <div>

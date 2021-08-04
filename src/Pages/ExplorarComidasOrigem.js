@@ -1,29 +1,28 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
-import { getRecipes } from '../redux/slices/fetchReceitas';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import RenderFoodAreaOptions from '../components/RenderFoodAreaOptions';
+//  import { useSelector, useDispatch } from 'react-redux';
+// import { getRecipes } from '../redux/slices/fetchReceitas';
+// import Header from '../components/Header';
+// import Footer from '../components/Footer';
+// import RenderFoodAreaOptions from '../components/RenderFoodAreaOptions';
 
 function ExplorarComidasOrigem({ title }) {
-  const { foodAreaList } = useSelector((state) => state.fetchReceitas);
-  const dispatch = useDispatch();
+  // const { foodAreaList } = useSelector((state) => state.fetchReceitas);
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getRecipes('foodAreaList'));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getRecipes('foodAreaList'));
+  // }, [dispatch]);
 
-  if (foodAreaList.length !== 0) {
-    return (
-      <div>
-        <Header title={ title } />
-        <RenderFoodAreaOptions />
-        <Footer />
-      </div>
-    );
-  }
-  return null;
+  // return (
+  //   <div>
+  //     <Header title={ title } />
+  //     <RenderFoodAreaOptions />
+  //     <Footer />
+  //   </div>
+  // );
+  return null
+}
 
 export default ExplorarComidasOrigem;
 
