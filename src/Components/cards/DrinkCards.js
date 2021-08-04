@@ -5,7 +5,7 @@ import '../../css/Drinks.css';
 
 function DrinkCards() {
   const [initialDrinks, setInitialDrinks] = useState([]);
-  const { dataDrinks, limit, inputSearch } = useContext(MainContext);
+  const { dataDrinks, limit, inputSearch, drinksByCategory } = useContext(MainContext);
 
   async function fetchDrinksInitial() {
     const drinksInitialAPI = await getDrinksInitial();
@@ -15,6 +15,28 @@ function DrinkCards() {
   useEffect(() => {
     fetchDrinksInitial();
   }, []);
+
+  console.log(drinksByCategory);
+
+  if (drinksByCategory.length > 0) {
+    return (
+      <div className="card-drinks">
+        { drinksByCategory.map((drink, index) => index < limit && (
+          <div key={ index } data-testid={ `${index}-recipe-card` }>
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ drink.strDrinkThumb }
+              alt={ `Drink ${drink.strDrink}` }
+              width="80"
+            />
+            <p data-testid={ `${index}-card-name` }>
+              { drink.strDrink }
+            </p>
+          </div>
+        )) }
+      </div>
+    );
+  }
 
   if (inputSearch) {
     return (

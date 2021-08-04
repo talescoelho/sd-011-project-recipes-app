@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { getFoodsCategory } from '../../Services/ApiFood';
+import React, { useState, useEffect, useContext } from 'react';
+import { getFoodsCategory, getFoodsByCategory } from '../../Services/ApiFood';
+import MainContext from '../../Context/MainContext';
 
 function FilterButtonsFood() {
   const limit = 5;
@@ -14,13 +15,22 @@ function FilterButtonsFood() {
     fetchCategories();
   }, []);
 
+  const { setFoodsByCategory } = useContext(MainContext);
+
+  async function fetchFoodsByCategory(value) {
+    const foodsByCategory = await getFoodsByCategory(value);
+    setFoodsByCategory(foodsByCategory.meals);
+  }
+
   return (
     <div>
       <button type="button">All</button>
       { categories.map((category, index) => index < limit && (
         <button
           type="button"
+          value={ category.strCategory }
           data-testid={ `${category.strCategory}-category-filter` }
+          onClick={ ({ target }) => fetchFoodsByCategory(target.value) }
         >
           { category.strCategory }
         </button>

@@ -32,3 +32,12 @@ export const getFoodsCategory = () => fetch('https://www.themealdb.com/api/json/
       .json()
       .then((json) => (categories.ok ? Promise.resolve(json) : Promise.reject(json)))
   ));
+
+export function getFoodsByCategory(value) {
+  return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${value}`)
+    .then((category) => (
+      category
+        .json()
+        .then((json) => (category.ok ? Promise.resolve(json) : Promise.reject(json)))
+    ));
+}

@@ -19,6 +19,8 @@ const Provider = ({ children }) => {
   const [page, setPage] = useState('');
   const [dataDrinks, setDataDrinks] = useState([]);
   const [dataFoods, setDataFoods] = useState([]);
+  const [foodsByCategory, setFoodsByCategory] = useState([]);
+  const [drinksByCategory, setDrinksByCategory] = useState([]);
   const [limit] = useState([number]);
 
   async function fetchFood() {
@@ -87,6 +89,10 @@ const Provider = ({ children }) => {
     fetchDrink,
     dataDrinks,
     limit,
+    foodsByCategory,
+    setFoodsByCategory,
+    drinksByCategory,
+    setDrinksByCategory,
   };
 
   return (
