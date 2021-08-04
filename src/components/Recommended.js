@@ -8,29 +8,25 @@ function Recommended({ value, type }) {
   const sixCards = value.map((e) => e).slice(0, 6);
   console.log(sixCards);
   const kind = () => {
-    if (type === "meal") {
+    if (type === 'meal') {
       return (
-        Object.entries(sixCards).map((e, i) => {
-            return (
-              <div data-testid={`${i}-recomendation-card`} key={i}>
-                <img width="100px" src={e[1].strMealThumb} alt={`img ${e[1].strMeal}`} />
-                <div>{ e[1].strMeal }</div>
-              </div>
-            );
-          })
+        Object.entries(sixCards).map((e, i) => (
+          <div data-testid={ `${i}-recomendation-card` } key={ i }>
+            <img width="100px" src={ e[1].strMealThumb } alt={ `img ${e[1].strMeal}` } />
+            <div>{ e[1].strMeal }</div>
+          </div>
+        ))
       );
     }
     return (
-      Object.entries(sixCards).map((e, i) => {
-            return (
-              <div data-testid={`${i}-recomendation-card`} key={i}>
-                <img width="100px" src={e[1].strDrinkThumb} alt={`img ${e[1].strDrink}`} />
-                <div>{ e[1].strDrink }</div>
-              </div>
-            );
-          })
+      Object.entries(sixCards).map((e, i) => (
+        <div data-testid={ `${i}-recomendation-card` } key={ i }>
+          <img width="100px" src={ e[1].strDrinkThumb } alt={ `img ${e[1].strDrink}` } />
+          <div>{ e[1].strDrink }</div>
+        </div>
+      ))
     );
-  }
+  };
 
   const settings = {
     arrows: true,
@@ -42,8 +38,8 @@ function Recommended({ value, type }) {
   };
 
   return (
-    <div style={ {textAlign: '-webkit-center'} }>
-      <Slider {...settings}>
+    <div style={ { textAlign: '-webkit-center' } }>
+      <Slider { ...settings }>
         {
           kind()
         }
