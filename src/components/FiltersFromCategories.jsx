@@ -63,7 +63,7 @@ class FiltersFromCategories extends React.Component {
   render() {
     const { categories } = this.props;
     return (
-      <div style={ { display: 'flex' } }>
+      <div style={ { display: 'flex', flexWrap: 'wrap' } }>
         <button
           data-testid="All-category-filter"
           onClick={ this.removeAllFilters }
