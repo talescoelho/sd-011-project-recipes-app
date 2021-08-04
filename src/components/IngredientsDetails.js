@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getRecipes } from '../redux/slices/fetchReceitas';
 import './IngredientsDetails.css';
 
 function IngredientsDetails() {
@@ -9,19 +8,9 @@ function IngredientsDetails() {
     foodIngredients,
     drinkIngredients,
   } = useSelector((state) => state.fetchReceitas);
-  const dispatch = useDispatch();
 
   const { pathname } = window.location;
   const currentURL = pathname.split('/')[2];
-
-  const recipeTypeDictionary = useCallback(() => ({
-    comidas: 'foodIngredients',
-    bebidas: 'drinkIngredients',
-  }), []);
-
-  useEffect(() => {
-    dispatch(getRecipes(recipeTypeDictionary()[currentURL]));
-  }, [dispatch, currentURL, recipeTypeDictionary]);
 
   if (foodIngredients.length !== 0 || drinkIngredients.length !== 0) {
     const limitCards = 12;
@@ -36,7 +25,7 @@ function IngredientsDetails() {
 
     return (
       <section className="ingredients-container">
-        {recipeType.slice(0, limitCards).map((ingredient, index) => (
+        {recipeType && recipeType.slice(0, limitCards).map((ingredient, index) => (
           <Link
             key={ index }
             to={ { pathname: `/${currentURL}`, recipeName: ingredient[ingredientKey] } }
