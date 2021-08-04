@@ -3,6 +3,7 @@ import { bool, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import './Header.css';
 
 export default function Header({ title, searchIconAppears = false }) {
   const [searchInput, setSearchInput] = useState(false);
@@ -14,39 +15,38 @@ export default function Header({ title, searchIconAppears = false }) {
     }
   }
   return (
-    <div>
-      <header>
-        <Link to="/perfil">
-          <button
-            type="button"
-          >
-            <img
-              data-testid="profile-top-btn"
-              src={ profileIcon }
-              alt="Icone de perfil"
-            />
-          </button>
+    <div className="headerbox">
+      <header className="header">
+        <Link to="/perfil" className="intheader">
+          <img
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="Icone de perfil"
+            width="40px"
+            height="40px"
+          />
         </Link>
-        <h1 data-testid="page-title">{title}</h1>
+        <h2 className="title intheader" data-testid="page-title">{title}</h2>
         {searchIconAppears && (
-          <button
-            type="button"
-            onClick={ toggleInput }
-          >
-            <img
+          <img
               data-testid="search-top-btn"
               src={ searchIcon }
               alt="Barra de pesquisa"
-            />
-          </button>
+              width="40px"
+              height="40px"
+              onClick={ toggleInput }
+              className="intheader"
+          />
         )}
-      </header>
-      { searchInput ? <input
+        { searchInput ? <input
+        className="inputsearch"
         type="text"
         data-testid="search-input"
         placeholder="Buscar Receita"
-      />
-        : null }
+        />
+        : null
+        }
+      </header>
     </div>
   );
 }

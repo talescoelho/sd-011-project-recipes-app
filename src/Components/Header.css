@@ -1,0 +1,27 @@
+.header {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  margin: 5px;
+}
+
+.headerbox {
+  align-items: center;
+  background-color: salmon;
+  display: flex-box;
+  height: 60px;
+  justify-content: space-between;
+  width: 360px;
+}
+
+.intheader {
+  align-items: center;
+  display: flex;
+}
+
+.inputsearch {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 61px;
+}
