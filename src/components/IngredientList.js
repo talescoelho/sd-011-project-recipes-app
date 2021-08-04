@@ -10,9 +10,15 @@ function IngredientList() {
       <ul>
         {ingredients.map((item, index) => (
           <div key={ index }>
-            <input type="checkbox" name="" id="" />
-            <li data-testid={ `${index}-ingredient-name-and-measure` }>
-              {item}
+            <li>
+              <label htmlFor={ item } data-testid={ `${index}-ingredient-step` }>
+                <input
+                  type="checkbox"
+                  name={ item }
+                  id={ item }
+                />
+                {item}
+              </label>
             </li>
           </div>
         ))}
