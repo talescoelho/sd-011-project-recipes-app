@@ -17,6 +17,7 @@
 .favorite-recipe-card img {
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
   margin-right: 8px;
   width: 50%;
 }
@@ -46,7 +47,7 @@
 }
 
 .filter-buttons button {
-  background-color: #90EE90;
+  background-color: lightgreen;
   border: none;
   border-radius: 10px;
   box-shadow: 7px 5px 3px rgba(124, 124, 124, 0.57);

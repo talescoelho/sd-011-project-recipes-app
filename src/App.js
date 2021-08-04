@@ -41,9 +41,9 @@ function App() {
             path="/explorar/bebidas/ingredientes/"
             component={ ExploreDrinksIngredientes }
           />
-          <Route exact path="/explorar/comidas/area/" component={ ExploreFoodsArea } />
-          <Route exact path="/perfil/" component={ Perfil } />
-          <Route exact path="/receitas-feitas/" component={ MakedRevenues } />
+          <Route exact path="/explorar/comidas/area" component={ ExploreFoodsArea } />
+          <Route exact path="/perfil" component={ Perfil } />
+          <Route exact path="/receitas-feitas" component={ MakedRevenues } />
           <Route exact path="/receitas-favoritas" component={ FavoritedRevenues } />
         </Switch>
       </BrowserRouter>

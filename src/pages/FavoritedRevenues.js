@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 import ShareButton from '../components/ShareButton';
 import blackHeart from '../images/blackHeartIcon.svg';
 import '../styles/favorite.css';
@@ -37,6 +39,7 @@ export default function FavoritedRevenues() {
 
   return (
     <div>
+      <Header title="Receitas Favoritas" search={ false } />
       <div className="filter-buttons">
         <button
           type="button"
