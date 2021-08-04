@@ -1,11 +1,11 @@
 import React from 'react';
-import InProgressCard from '../../components/InProgressCard';
+import MealDetailCard from '../../components/MealDetailCard';
 
 export default function FoodRecipes() {
   return (
     <div>
       Detalhes da comida
-      <InProgressCard />
+      <MealDetailCard />
     </div>
   );
 }
