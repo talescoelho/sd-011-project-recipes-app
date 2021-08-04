@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
-function FavoriteButton({ recipe, type }) {
+function DrinkFavoriteButton({ recipe }) {
   const [btnIsFavorited, setBtnIsFavorited] = useState(false);
-  const idType = type === 'bebidas' ? 'idDrink' : 'idMeal';
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
       const storageRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
       const verify = storageRecipes.some((recipee) => (
-        recipee[idType] === storageRecipes[idType]
+        recipee.id === recipe.idDrink
       ));
       if (verify) {
         setBtnIsFavorited(true);
@@ -19,50 +18,39 @@ function FavoriteButton({ recipe, type }) {
         setBtnIsFavorited(false);
       }
     }
-  }, [idType]);
-
-  const [status, setStatus] = useState('despreenchido');
+  }, [recipe]);
 
   function setFavoriteRecipeOnLocalStorage() {
     const drinkObj = {
       id: recipe.idDrink,
-      type,
+      type: 'bebida',
       area: '',
       category: recipe.strCategory,
       alcoholicOrNot: recipe.strAlcoholic,
       name: recipe.strDrink,
       image: recipe.strDrinkThumb,
     };
-
-    const mealObj = {
-      id: recipe.idMeal,
-      type,
-      area: recipe.strArea,
-      category: recipe.strCategory,
-      alcoholicOrNot: '',
-      name: recipe.strMeal,
-      image: recipe.strMealThumb,
-    };
-
-    const recipeFavorited = type === 'bebida' ? drinkObj : mealObj;
     const favoriteSupply = [];
-    if (status === 'despreenchido') {
+
+    if (!btnIsFavorited) {
       const recipesStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      favoriteSupply.push(recipeFavorited);
+      favoriteSupply.push(drinkObj);
+
       if (recipesStorage) {
         recipesStorage.forEach((element) => {
           favoriteSupply.push(element);
         });
       }
+
       localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteSupply));
     } else {
       const recipesStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
       const recipesFiltered = recipesStorage.filter((recipee) => {
-        return recipee[idType] !== recipe[idType];
+        console.log(recipee);
+        return recipee.id !== recipe.idDrink;
       });
       localStorage.setItem('favoriteRecipes', JSON.stringify(recipesFiltered));
     }
-    console.log(recipe);
   }
 
   return (
@@ -73,8 +61,6 @@ function FavoriteButton({ recipe, type }) {
       onClick={ () => {
         setBtnIsFavorited(!btnIsFavorited);
         setFavoriteRecipeOnLocalStorage();
-        if (status === 'despreenchido') setStatus('preenchido');
-        if (status === 'preenchido') setStatus('despreenchido');
       } }
     >
       <img
@@ -85,9 +71,8 @@ function FavoriteButton({ recipe, type }) {
   );
 }
 
-export default FavoriteButton;
+export default DrinkFavoriteButton;
 
-FavoriteButton.propTypes = {
+DrinkFavoriteButton.propTypes = {
   recipe: PropTypes.objectOf(PropTypes.string).isRequired,
-  type: PropTypes.string.isRequired,
 };

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import RecomendationRecipesCards from '../components/RecomendationRecipesCards';
 import shareIcon from '../images/shareIcon.svg';
-import FavoriteButton from '../components/FavoriteButton';
+import DrinkFavoriteButton from '../components/DrinkFavoriteButton';
 import '../components/css/RecipeDetails.css';
 
 function RecipeDrinkDetails({ match, location }) {
@@ -78,7 +78,7 @@ function RecipeDrinkDetails({ match, location }) {
             <img src={ shareIcon } alt="shareIcon" />
           </button>
           {!hidden && <div>Link copiado!</div>}
-          <FavoriteButton recipe={ recipe.drinks[0] } type="bebida" />
+          <DrinkFavoriteButton recipe={ recipe.drinks[0] } />
           <h3 data-testid="recipe-category">
             {recipe.drinks[0].strAlcoholic}
           </h3>
