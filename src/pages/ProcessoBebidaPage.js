@@ -3,6 +3,22 @@ import React, { useState, useEffect } from 'react';
 
 export default function ProcessoBebidaPage(props) {
   const [drinkInProgress, setDrinkID] = useState();
+  const [savedRecipe, setSavedRecipe] = useState();
+
+  const marked = {
+    textDecoration: 'line-through',
+  };
+
+  const unmarked = {
+    textDecoration: 'none',
+  };
+
+  function localStorageState(func) {
+    if (localStorage.inProgressRecipes) {
+      const jsonObj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      func(jsonObj);
+    }
+  }
 
   function fetchDrink() {
     const { params } = props.match;
@@ -11,8 +27,28 @@ export default function ProcessoBebidaPage(props) {
       .then((res) => res.json())
       .then((result) => setDrinkID(result));
   }
+
+  function inProgressLocalStorage() {
+    const { params } = props.match;
+    const { id } = params;
+    const inProgressObj = {
+      cocktails: {
+        [id]: [],
+      },
+      meals: {
+        id: [],
+      },
+    };
+    const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!getStorage) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressObj));
+    }
+  }
+
   useEffect(() => {
     fetchDrink();
+    inProgressLocalStorage();
+    localStorageState(setSavedRecipe);
   }, []);
 
   const ingredientLimit = 15;
@@ -24,13 +60,34 @@ export default function ProcessoBebidaPage(props) {
     .map(((ingre, index) => `${drinkInProgress.drinks[0][ingre]}-${drinkInProgress.drinks[0][measureKeys[index]]}`)).slice(0, ingredientLimit);
   const ingredientFilter = ingredientMap && ingredientMap
     .filter((value) => value !== 'null-null' && value !== '-');
-
+  const { match } = props;
+  const { params } = match;
+  const { id } = params;
   function markIngredients({ target }) {
     const { checked } = target;
+    const localObj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const ifObj = {
+      cocktails: {
+        [id]: [...localObj.cocktails[id], target.value],
+      },
+      meals: {
+        id: [],
+      },
+    };
+    const elseObj = {
+      cocktails: {
+        [id]: [...localObj.cocktails[id].filter((val) => val !== target.value)],
+      },
+      meals: {
+        id: [],
+      },
+    };
     if (checked) {
       target.parentNode.style.textDecoration = 'line-through';
+      localStorage.setItem('inProgressRecipes', JSON.stringify(ifObj));
     } else {
       target.parentNode.style.textDecoration = 'none';
+      localStorage.setItem('inProgressRecipes', JSON.stringify(elseObj));
     }
   }
 
@@ -53,6 +110,8 @@ export default function ProcessoBebidaPage(props) {
               key={ index }
               htmlFor={ ing }
               data-testid={ `${index}-ingredient-step` }
+              style={ savedRecipe && (
+                savedRecipe.cocktails[id].includes(ing) ? marked : unmarked) }
             >
               {ing}
               <input
@@ -61,6 +120,7 @@ export default function ProcessoBebidaPage(props) {
                 name={ ing }
                 key={ index }
                 value={ ing }
+                defaultChecked={ savedRecipe && savedRecipe.cocktails[id].includes(ing) }
               />
             </label>))}
           <p data-testid="instructions">{drinkInProgress.drinks[0].strInstructions}</p>
