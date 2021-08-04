@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Carousel from 'react-bootstrap/Carousel';
 import fetchDetails from '../../../services/fetchDrinkDetailsApi';
-import './styles.css';
 
 export default function ComidasRecipeId({ match: { params: { recipeId } } }) {
   const [details, setDetails] = useState({});

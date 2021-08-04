@@ -1,5 +1,4 @@
 .details {
-  /* width: 100hv; */
   padding: 5px;
 }
 
@@ -7,18 +6,14 @@
   width: 330px;
   display: flex;
   margin: auto;
-  /* margin: 10px; */
-  /* padding: 20px; */
 }
 
 .details-btn {
   display: flex;
   justify-content: center;
-  /* margin: auto; */
 }
 
 .details-recomendation {
-  /* margin-bottom: 150px; */
 }
 
 .start-btn {
