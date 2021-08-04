@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Footer from '../../globalComponents/Footer';
 import Header from '../../globalComponents/Header';
 import styles from './Foods.module.css';
@@ -31,20 +32,23 @@ function Foods({ match }) {
               <Link
                 to={ `/comidas/${item.idMeal}` }
                 key={ index }
-                data-testid={ `${index}-recipe-card` }
-                className={ styles.cardDiv }
               >
-                <img
-                  src={ item.strMealThumb }
-                  alt="thumbnail"
-                  data-testid={ `${index}-card-img` }
-                  className={ styles.cardImg }
-                />
-                <p
-                  data-testid={ `${index}-card-name` }
+                <div
+                  data-testid={ `${index}-recipe-card` }
+                  className={ styles.cardDiv }
                 >
-                  {item.strMeal}
-                </p>
+                  <img
+                    src={ item.strMealThumb }
+                    alt="thumbnail"
+                    data-testid={ `${index}-card-img` }
+                    className={ styles.cardImg }
+                  />
+                  <p
+                    data-testid={ `${index}-card-name` }
+                  >
+                    {item.strMeal}
+                  </p>
+                </div>
               </Link>
             ))}
         </div>
@@ -59,22 +63,25 @@ function Foods({ match }) {
         {meals.meals && meals.meals.filter((_, index) => index < mn)
           .map((item, index) => (
             <Link
-              to={ `/comidas/${item.idMeal}` }
               key={ index }
-              data-testid={ `${index}-recipe-card` }
-              className={ styles.cardDiv }
+              to={ `/comidas/${item.idMeal}` }
             >
-              <img
-                src={ item.strMealThumb }
-                alt="thumbnail"
-                data-testid={ `${index}-card-img` }
-                className={ styles.cardImg }
-              />
-              <p
-                data-testid={ `${index}-card-name` }
+              <section
+                data-testid={ `${index}-recipe-card` }
+                className={ styles.cardDiv }
               >
-                {item.strMeal}
-              </p>
+                <img
+                  src={ item.strMealThumb }
+                  alt="thumbnail"
+                  data-testid={ `${index}-card-img` }
+                  className={ styles.cardImg }
+                />
+                <p
+                  data-testid={ `${index}-card-name` }
+                >
+                  {item.strMeal}
+                </p>
+              </section>  
             </Link>
           ))}
       </div>

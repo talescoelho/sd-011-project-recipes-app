@@ -29,22 +29,27 @@ function Drinks({ match }) {
           {data.drinks && data.drinks.filter((_, index) => index < mn)
             .map((item, index) => (
               <Link
-                to={ `/bebidas/${item.idDrink}` }
                 key={ index }
-                data-testid={ `${index}-recipe-card` }
-                className={ styles.cardDiv }
+                to={ `/bebidas/${item.idDrink}` }
               >
-                <img
-                  src={ item.strDrinkThumb }
-                  alt="thumbnail"
-                  data-testid={ `${index}-card-img` }
-                  className={ styles.cardImg }
-                />
-                <p
-                  data-testid={ `${index}-card-name` }
+                <div
+                  key={ index }
+                  data-testid={ `${index}-recipe-card` }
+                  className={ styles.cardDiv }
                 >
-                  {item.strDrink}
-                </p>
+                  <img
+                    src={ item.strDrinkThumb }
+                    alt="thumbnail"
+                    data-testid={ `${index}-card-img` }
+                    className={ styles.cardImg }
+                  />
+                  <p
+                    data-testid={ `${index}-card-name` }
+                  >
+                    {item.strDrink}
+                  </p>
+                </div>
+
               </Link>
             ))}
         </div>
@@ -59,22 +64,26 @@ function Drinks({ match }) {
         {drinks.drinks && drinks.drinks.filter((_, index) => index < mn)
           .map((item, index) => (
             <Link
-              to={ `/bebidas/${item.idDrink}` }
               key={ index }
-              data-testid={ `${index}-recipe-card` }
-              className={ styles.cardDiv }
+              to={ `/bebidas/${item.idDrink}` }
             >
-              <img
-                src={ item.strDrinkThumb }
-                alt="thumbnail"
-                data-testid={ `${index}-card-img` }
-                className={ styles.cardImg }
-              />
-              <p
-                data-testid={ `${index}-card-name` }
+              <section
+                key={ index }
+                data-testid={ `${index}-recipe-card` }
+                className={ styles.cardDiv }
               >
-                {item.strDrink}
-              </p>
+                  <img
+                    src={ item.strDrinkThumb }
+                    alt="thumbnail"
+                    data-testid={ `${index}-card-img` }
+                    className={ styles.cardImg }
+                  />
+                  <p
+                    data-testid={ `${index}-card-name` }
+                  >
+                    {item.strDrink}
+                  </p>
+               </section>
             </Link>
           ))}
       </div>
