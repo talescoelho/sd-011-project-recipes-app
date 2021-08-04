@@ -12,17 +12,21 @@ export default function CarrouselDrinks() {
       const recomendationsArray = [];
       for (let i = 0; i < recomendationsQuantity; i += 1) {
         recomendationsArray.push(recomendationResponse.drinks[i]);
-        console.log('entrou no for');
       }
       setDrinksRecomendations(recomendationsArray);
+      console.log(recomendationsArray);
     };
     return FetchRecomendation();
   }, []);
 
   return (
-    <div>
-      
-      <h2>Nome</h2>
-    </div>
+    <section>
+      <h2>Recomendações de acompanhamentos</h2>
+      { drinkRecomendations.map(({ strDrink }, i) => (
+        <div data-testid={ `${i}-recomendation-card` } key={ `${strDrink} ${i}` }>
+          <h3 data-testid={ `${i}-recomendation-title` }>{strDrink}</h3>
+        </div>
+      ))}
+    </section>
   );
 }

@@ -7,9 +7,6 @@ function SingleFoodItem() {
   const [itemDetail, setItemDetail] = useState({
     meals: null,
   });
-  const [recomendation, setRecomendation] = useState();
-  // const [ingredients, setIngredients] = useState([]);
-  // const [measures, setMeasures] = useState([]);
 
   const itemId = convertUrlToID(window.location.pathname);
   const arrayOfIngredients = [];
@@ -87,7 +84,6 @@ function SingleFoodItem() {
         <embed data-testid="video" src={ embedYouTubeVideo(meals[0].strYoutube) } />
       </section>
       <CarrouselDrinks />
-      <p data-testid={ `${0}-recomendation-card` }>Recomendação de bebida</p>
       <button data-testid="start-recipe-btn" type="button">Iniciar receita</button>
     </div>
   );

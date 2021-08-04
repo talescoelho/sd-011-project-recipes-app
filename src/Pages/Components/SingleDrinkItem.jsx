@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { convertUrlToID, manageDetailAPI } from '../../Helpers/convertUrlToID';
+import CarrouselFoods from './CarrouselFoods';
 
 function SingleFoodItem() {
   const [itemDetail, setItemDetail] = useState({
     drinks: null,
   });
-
-  // const [recomendation, setRecomendation] = useState();
-  // const [ingredients, setIngredients] = useState([]);
-  // const [measures, setMeasures] = useState([]);
 
   const itemId = convertUrlToID(window.location.pathname);
   const arrayOfIngredients = [];
@@ -49,11 +46,6 @@ function SingleFoodItem() {
     });
   }
 
-  // console.log(itemDetail);
-  // console.log(arrayOfIngredients);
-  // console.log(arrayOfMeasures);
-  //
-
   const { drinks } = itemDetail;
   console.log(drinks);
   return itemDetail.drinks !== null && (
@@ -85,7 +77,7 @@ function SingleFoodItem() {
         <h2>Instruções</h2>
         <p data-testid="instructions">{drinks[0].strInstructions}</p>
       </section>
-      <p data-testid={ `${0}-recomendation-card` }>Recomendação de bebida</p>
+      <CarrouselFoods />
       <button data-testid="start-recipe-btn" type="button">Iniciar receita</button>
     </div>
   );
