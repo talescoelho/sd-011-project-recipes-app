@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import MainContext from '../../Context/MainContext';
+import Ingredients from '../../Components/Ingredients';
 
 function DetailsRecipesFoods() {
   const location = useLocation();
@@ -12,25 +13,23 @@ function DetailsRecipesFoods() {
     setIdFoods(id);
   }, [location, setIdFoods]);
 
-  // !===========================================================================
   useEffect(() => {
     const getAPIById = async () => {
       const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idFoods}`;
       const { meals } = await fetch(endpoint).then((data) => data.json());
-      console.log(meals[0]);
       setIdFoodsAPI(meals[0]);
     };
     getAPIById();
   }, [idFoods]);
-  // !===========================================================================
-  // const URL_VIDEO = idFoodsAPI.strYoutube;
-  console.log(idFoodsAPI);
-  console.log(idFoodsAPI.strYoutube);
-  // const newURL = URL_VIDEO.replace('watch?v=', 'embed/');
 
-  // console.log(idFoods);
-  // ? retorno da API ==> idFoodsAPI
-  console.log(idFoodsAPI);
+const getYoutubeUrl = ({ strYoutube }) => {
+  if (strYoutube) {
+    const youtubeVideoId = strYoutube.split('?v=', 2)[1];
+    const iframeLink = `https://www.youtube.com/embed/${youtubeVideoId}`;
+    return iframeLink;
+  }
+}
+
   return (
     <div>
       <img
@@ -57,25 +56,18 @@ function DetailsRecipesFoods() {
       <p data-testid="recipe-category">
         {idFoodsAPI.strCategory}
       </p>
+      <Ingredients />
       <p data-testid="instructions">
         {idFoodsAPI.strInstructions}
       </p>
-      {idFoodsAPI.strYoutube}
-      {/* <iframe
+      <iframe
         width="560"
-        src={ idFoodsAPI.strYoutube }
+        src={ getYoutubeUrl(idFoodsAPI) }
         title="YouTube video player"
         frameBorder="0"
         allow="clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
-      /> */}
-      {/* {idFoodsAPI
-      && (<iframe
-        width="420"
-        height="345"
-        src={ newURL }
-        title="youtube video"
-      />)} */}
+      />
       <button
         type="button"
         data-testid="start-recipe-btn"
