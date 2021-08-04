@@ -29,10 +29,11 @@ function Footer() {
       </button>
       <button
         type="button"
+        onClick={ () => handleClick('/explorar') }
       >
         <img
           src={ exploreIcon }
-          alt="Link para bebidas"
+          alt="Link para explorar"
           data-testid="explore-bottom-btn"
         />
       </button>
@@ -41,7 +42,7 @@ function Footer() {
       >
         <img
           src={ mealIcon }
-          alt="Link para bebidas"
+          alt="Link para comidas"
           data-testid="food-bottom-btn"
         />
       </button>

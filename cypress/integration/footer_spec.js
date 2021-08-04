@@ -157,7 +157,7 @@ describe('22 - Redirecione a pessoa usuária para uma lista de cocktails ao clic
   });
 });
 
-describe.skip('23 - Redirecione a pessoa usuária para a tela de explorar ao clicar no ícone de exploração', () => {
+describe('23 - Redirecione a pessoa usuária para a tela de explorar ao clicar no ícone de exploração', () => {
   it('Redireciona para a rota correta', () => {
     cy.visit('http://localhost:3000/comidas');
 
