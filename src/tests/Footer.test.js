@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import Footer from '../components/Footer';
 import '@testing-library/jest-dom';
 import Recipes from '../pages/Recipes';
@@ -99,5 +100,19 @@ describe('Requirement 21', () => {
   it('Should not have a footer in the recipe done page', () => {
     render(<RecipesDone />);
     hasNoFooter();
+  });
+});
+
+describe('Requirement 21', () => {
+  it('Should redirect to "/bebidas" on click', () => {
+    render(
+      <MemoryRouter>
+        <Recipes />
+      </MemoryRouter>,
+    );
+
+    fireEvent.click(screen.getByTestId(drinksBottomBtn));
+    const recipesPage = screen.getByTestId('recipes-page');
+    expect(recipesPage).toBeInTheDocument();
   });
 });
