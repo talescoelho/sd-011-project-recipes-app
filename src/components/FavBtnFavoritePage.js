@@ -6,6 +6,8 @@ function FavBtn(data, indexFavorite) {
   // const [render, setRender] = useState(false);
   const removeFavorite = () => {
     const favorites = JSON.parse(localStorage.favoriteRecipes);
+    console.log(data);
+
     const newFavorites = favorites.filter((index) => index.id !== data);
     console.log(newFavorites);
     localStorage.favoriteRecipes = JSON.stringify(newFavorites);

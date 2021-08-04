@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
 function ShareBtn(url, index) {
-  const [copyMessage, setCopyMessage] = useState(false);
+  // const [copyMessage, setCopyMessage] = useState(false);
   const handleClick = () => {
     copy(`http://localhost:3000/${url}`);
-    setCopyMessage(true);
+    // setCopyMessage(true);
     alert('Link copiado!');
   };
 
@@ -24,7 +24,6 @@ function ShareBtn(url, index) {
           alt="share icon"
         />
       </button>
-      {copyMessage && <p>Link copiado!</p>}
     </div>
 
   );

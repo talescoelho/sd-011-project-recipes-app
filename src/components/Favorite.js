@@ -15,17 +15,20 @@ function Favorite(typeFilter) {
             { item.type === 'bebida'
               ? `${item.alcoholicOrNot}` : `${item.area} - ${item.category}`}
           </span>
-          <Link to={ `/bebidas/${item.id}` }>
+          <Link to={ `/${item.type}s/${item.id}` }>
             <h2 data-testid={ `${index}-horizontal-name` }>
               {' '}
               {item.name}
             </h2>
           </Link>
-          <img
-            src={ item.image }
-            alt={ item.name }
-            data-testid={ `${index}-horizontal-image` }
-          />
+          <Link to={ `/${item.type}s/${item.id}` }>
+            <img
+              src={ item.image }
+              alt={ item.name }
+              data-testid={ `${index}-horizontal-image` }
+            />
+          </Link>
+
           <Link to="/receitas-favoritas">
             {FavoriteButton(item.id, index)}
           </Link>

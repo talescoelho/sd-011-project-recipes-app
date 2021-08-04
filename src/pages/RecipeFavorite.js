@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
-import FavoriteButton from '../components/FavBtnFavoritePage';
+// import FavoriteButton from '../components/FavBtnFavoritePage';
 import ShareBtnFav from '../components/ShareBtnFav';
 import Favorite from '../components/Favorite';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export default function RecipeFavorite() {
+  const [copyMessage, setCopyMessage] = useState(false);
   const [typeFilter, setTypeFilter] = useState('');
   const [filterFavorite, setFilterFavorite] = useState(false);
-
+  const [data, setData] = useState([]);
+  const handleClick = () => {
+    setCopyMessage(true);
+  };
   const setTypeFavorite = ({ target }) => {
     const { value } = target;
     setTypeFilter(value);
@@ -19,10 +24,21 @@ export default function RecipeFavorite() {
     setFilterFavorite(false);
   };
 
+  React.useEffect(() => {
+    const favorites = JSON.parse(localStorage.favoriteRecipes);
+    setData([...favorites]);
+  }, []);
+
+  const removeFavorite = (id) => {
+    const favorites = JSON.parse(localStorage.favoriteRecipes);
+    const newFavorites = favorites.filter((index) => index.id !== id);
+    setData([...newFavorites]);
+
+    localStorage.favoriteRecipes = JSON.stringify(newFavorites);
+  };
   const getFavoriteLocalStorage = () => {
-    const Local = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (Local) {
-      return Local.map((item, index) => (
+    if (data.length) {
+      return data.map((item, index) => (
         <div key={ index }>
           <span
             data-testid={ `${index}-horizontal-top-text` }
@@ -30,24 +46,37 @@ export default function RecipeFavorite() {
             { item.type === 'bebida'
               ? `${item.alcoholicOrNot}` : `${item.area} - ${item.category}`}
           </span>
-          <Link to={ `/bebidas/${item.id}` }>
+          <Link to={ `/${item.type}s/${item.id}` }>
             <h2 data-testid={ `${index}-horizontal-name` }>
               {' '}
               {item.name}
             </h2>
           </Link>
-          <img
-            src={ item.image }
-            alt={ item.name }
-            data-testid={ `${index}-horizontal-image` }
-          />
+
+          <Link to={ `/${item.type}s/${item.id}` }>
+
+            <img
+              src={ item.image }
+              alt={ item.name }
+              data-testid={ `${index}-horizontal-image` }
+            />
+          </Link>
           <Link to="/receitas-favoritas">
-            {FavoriteButton(item.id, index)}
+            <button type="button" onClick={ () => removeFavorite(item.id) }>
+              <img
+                src={ blackHeartIcon }
+                data-testid={ `${index}-horizontal-favorite-btn` }
+                alt="favorite icon"
+              />
+            </button>
           </Link>
           <div>
-            {ShareBtnFav(`${item.type}/${item.id}`, index)}
-          </div>
+            <button onClick={ handleClick }type='button'>
 
+              {ShareBtnFav(`${item.type}s/${item.id}`, index)}
+            </button>
+          </div>
+          {copyMessage && <p>Link copiado!</p>}
         </div>));
     }
   };
