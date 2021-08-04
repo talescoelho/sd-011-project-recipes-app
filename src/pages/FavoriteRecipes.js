@@ -11,9 +11,10 @@ function FavoriteRecipes() {
   const [click, setClick] = useState(false);
 
   const {
-    recipesDone,
-    setFilteredRecipesDone,
-    filteredRecipesDone,
+    filteredFavoritesRecipes,
+    setFilteredFavoritesRecipes,
+    favoritesRecipes,
+    setFavoritesRecipes,
   } = useContext(RecipeAppContext);
 
   const history = useHistory();
@@ -27,16 +28,25 @@ function FavoriteRecipes() {
     let filteredRecipes = [];
     switch (name) {
     case 'Food':
-      filteredRecipes = recipesDone.filter((recipe) => recipe.type === 'comida');
+      filteredRecipes = favoritesRecipes.filter((recipe) => recipe.type === 'comida');
       break;
     case 'Drink':
-      filteredRecipes = recipesDone.filter((recipe) => recipe.type === 'bebida');
+      filteredRecipes = favoritesRecipes.filter((recipe) => recipe.type === 'bebida');
       break;
     default:
-      filteredRecipes = recipesDone;
+      filteredRecipes = favoritesRecipes;
     }
-    setFilteredRecipesDone(filteredRecipes);
+    setFilteredFavoritesRecipes(filteredRecipes);
   };
+
+  function deleteFavoriteRecipe({ target: { id } }) {
+    const newFavoriteRecipes = favoritesRecipes.filter((recipe) => recipe.id !== id);
+    setFavoritesRecipes(newFavoriteRecipes);
+    setFilteredFavoritesRecipes(newFavoriteRecipes);
+    const favoriteRecipesJSON = JSON.stringify(newFavoriteRecipes);
+    localStorage.setItem('favoriteRecipes', favoriteRecipesJSON);
+    console.log(newFavoriteRecipes);
+  }
 
   return (
     <div>
@@ -72,7 +82,7 @@ function FavoriteRecipes() {
       <span>{click ? <p>Link copiado!</p> : <div />}</span>
 
       <span>
-        {filteredRecipesDone && filteredRecipesDone.map((recipes, index) => (
+        {filteredFavoritesRecipes && filteredFavoritesRecipes.map((recipes, index) => (
           <div key={ index }>
             <input
               type="image"
@@ -104,11 +114,14 @@ function FavoriteRecipes() {
                 { recipes.name }
               </a>
 
+              <br />
               <input
                 type="image"
                 data-testid={ `${index}-horizontal-favorite-btn` }
                 src={ blackHeartIcon }
                 alt={ recipes.name }
+                id={ recipes.id }
+                onClick={ (e) => deleteFavoriteRecipe(e) }
               />
 
             </ul>
