@@ -1,10 +1,10 @@
 import React from 'react';
 import FooterMenu from '../components/FooterMenu';
 
-export default function Comidas() {
+export default function Explorar() {
   return (
     <>
-      <h1>Comidas</h1>
+      <h1>Explorar</h1>
       <FooterMenu />
     </>
   );

@@ -8,16 +8,16 @@ import '../style/footerMenu.css';
 export default function FooterMenu() {
   return (
     <footer data-testid="footer" className="footer">
-      <Link to="">
-        <img src={ drink } alt="picture drink" />
+      <Link to="/bebidas">
+        <img src={ drink } alt="icon drink" />
       </Link>
 
-      <Link to="">
-        <img src={ explore } alt="explore" />
+      <Link to="/explorar">
+        <img src={ explore } alt="icon explore" />
       </Link>
 
-      <Link to="">
-        <img src={ food } alt="food" />
+      <Link to="/comidas">
+        <img src={ food } alt="icon food" />
       </Link>
 
     </footer>
