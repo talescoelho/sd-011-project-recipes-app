@@ -5,6 +5,7 @@ import copy from 'clipboard-copy';
 import RecomendationRecipesCards from '../components/RecomendationRecipesCards';
 import shareIcon from '../images/shareIcon.svg';
 import FavoriteButton from '../components/FavoriteButton';
+import '../components/css/RecipeDetails.css';
 
 function RecipeMealDetails({ match, location }) {
   const [recipe, setRecipe] = useState('');
@@ -60,6 +61,8 @@ function RecipeMealDetails({ match, location }) {
     }
   }
 
+  const [hidden, setHidden] = useState(true);
+
   function renderMealDetails() {
     if (recipe.meals) {
       return (
@@ -71,13 +74,18 @@ function RecipeMealDetails({ match, location }) {
           />
           <h1 data-testid="recipe-title">{ recipe.meals[0].strMeal }</h1>
           <button
-            onClick={ () => copy(`http://localhost:3000${pathname}`) }
+            onClick={ () => {
+              alert('Link copiado!');
+              copy(`http://localhost:3000${pathname}`);
+              setHidden(false);
+            } }
             type="button"
             data-testid="share-btn"
           >
             <img src={ shareIcon } alt="shareIcon" />
           </button>
-          <FavoriteButton />
+          {!hidden && <div>Link copiado!</div>}
+          <FavoriteButton recipe={ recipe.meals[0] } type="comida" />
           <h3 data-testid="recipe-category">
             {recipe.meals[0].strCategory}
           </h3>
@@ -113,7 +121,6 @@ function RecipeMealDetails({ match, location }) {
               Continuar Receita
             </button>
           </Link>
-          <div>Link copiado!</div>
         </div>
       );
     }

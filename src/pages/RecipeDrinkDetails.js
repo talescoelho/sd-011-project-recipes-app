@@ -5,6 +5,7 @@ import copy from 'clipboard-copy';
 import RecomendationRecipesCards from '../components/RecomendationRecipesCards';
 import shareIcon from '../images/shareIcon.svg';
 import FavoriteButton from '../components/FavoriteButton';
+import '../components/css/RecipeDetails.css';
 
 function RecipeDrinkDetails({ match, location }) {
   const [recipe, setRecipe] = useState('');
@@ -53,6 +54,8 @@ function RecipeDrinkDetails({ match, location }) {
     }
   }, [recipe]);
 
+  const [hidden, setHidden] = useState(true);
+
   function renderDrinkDetails() {
     if (recipe.drinks) {
       return (
@@ -64,13 +67,18 @@ function RecipeDrinkDetails({ match, location }) {
           />
           <h1 data-testid="recipe-title">{ recipe.drinks[0].strDrink }</h1>
           <button
-            onClick={ () => copy(pathname) }
+            onClick={ () => {
+              alert('Link copiado!');
+              copy(`http://localhost:3000${pathname}`);
+              setHidden(false);
+            } }
             type="button"
             data-testid="share-btn"
           >
             <img src={ shareIcon } alt="shareIcon" />
           </button>
-          <FavoriteButton />
+          {!hidden && <div>Link copiado!</div>}
+          <FavoriteButton recipe={ recipe.drinks[0] } type="bebida" />
           <h3 data-testid="recipe-category">
             {recipe.drinks[0].strAlcoholic}
           </h3>
