@@ -1,0 +1,23 @@
+.button-ingredients {
+  position: absolute;
+  height: 82px;
+  left: 20px;
+  top: 80px;
+  border-radius: 6px;
+}
+
+.button-place-origin {
+  position: absolute;
+  height: 82px;
+  left: 174px;
+  top: 80px;
+  border-radius: 6px;
+}
+
+.button-surprise-me {
+  position: absolute;
+  height: 82px;
+  left: 20px;
+  top: 150px;
+  border-radius: 6px;
+}

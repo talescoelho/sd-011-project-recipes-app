@@ -1,0 +1,20 @@
+.explorer-buttons-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.food-button {
+  position: absolute;
+  height: 82px;
+  top: 80px;
+  border-radius: 6px;
+}
+
+.drink-button {
+  position: absolute;
+  height: 82px;
+  top: 140px;
+  border-radius: 6px;
+}

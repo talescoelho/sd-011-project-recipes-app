@@ -13,7 +13,7 @@ function RecipesProvider({ children }) {
   const [dataRecipes, setDataRecipes] = useState([]);
   const [categorysList, setCategorysList] = useState(pathname);
   const [currentCategory, setCurrentCategory] = useState('All');
-  const [currentIngredientsList, setCurrentIngredientsList] = useState([]);
+  const [ingredientList, setIngredientList] = useState([]);
 
   useEffect(() => {
     setRecipeType(pathname);
@@ -36,25 +36,24 @@ function RecipesProvider({ children }) {
 
   useEffect(() => {
     const fetchIngredientsList = async () => {
-      setIsLoading(true);
-      const ingredients = await fetchIngredients();
-      setCurrentIngredientsList(ingredients);
-      setIsLoading(false);
+      const fetchTypeIngredientsList = await fetchIngredients(recipeType);
+      setIngredientList(fetchTypeIngredientsList);
     };
     fetchIngredientsList();
-  }, []);
+  }, [recipeType]);
 
   const contextValue = {
     dataRecipes,
     isLoading,
+    setIsLoading,
     recipeType,
     setRecipeType,
     categorysList,
     currentCategory,
     setCurrentCategory,
     setDataRecipes,
-    currentIngredientsList,
-    setCurrentIngredientsList,
+    ingredientList,
+    setIngredientList,
   };
 
   RecipesProvider.propTypes = {

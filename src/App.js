@@ -10,6 +10,8 @@ import Explorar from './pages/Explorar';
 import Login from './pages/Login';
 import RecipesProvider from './context/RecipesProvider';
 import ExplorarIngredientes from './pages/ExplorarIngredientes';
+import ExplorarComidas from './pages/ExplorarComidas';
+import ExplorarBebidas from './pages/ExplorarBebidas';
 
 function App() {
   return (
@@ -28,12 +30,12 @@ function App() {
             <Route
               exact
               path="/explorar/comidas"
-              component={ () => <Header title="Explorar Comidas" /> }
+              component={ ExplorarComidas }
             />
             <Route
               exact
               path="/explorar/bebidas"
-              component={ () => <Header title="Explorar Comidas" /> }
+              component={ ExplorarBebidas }
             />
             <Route
               exact

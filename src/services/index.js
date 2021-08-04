@@ -54,8 +54,17 @@ export const searchByFirstLetter = async (firstLetter, pathname) => {
   window.alert('Sua busca deve conter somente 1 (um) caracter');
 };
 
-export const fetchIngredients = async () => {
-  const recipes = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
-  const { meals } = await recipes.json();
-  return meals;
+export const fetchIngredients = async (pathname) => {
+  const type = pathname === '/explorar/comidas/ingredientes' ? 'meal' : 'cocktail';
+  if (type === 'meal') {
+    const recipes = await fetch(`https://www.the${type}db.com/api/json/v1/1/list.php?i=list`);
+    const { meals } = await recipes.json();
+    return meals;
+  }
+
+  if (type === 'cocktail') {
+    const recipes = await fetch(`https://www.the${type}db.com/api/json/v1/1/list.php?i=list`);
+    const { drinks } = await recipes.json();
+    return drinks;
+  }
 };

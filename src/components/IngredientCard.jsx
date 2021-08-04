@@ -1,27 +1,29 @@
 import React from 'react';
 import '../styles/IngredientCard.css';
-import PropTypes from 'prop-types';
+import PropTypes, { string } from 'prop-types';
 
-function IngredientCard({ ingredient, index }) {
+import MealsCard from './MealsCard';
+import CocktailCard from './CocktailCard';
+
+function IngredientCard({ recipeType, ingredient, index }) {
+  const pathname = '/explorar/comidas/ingredientes';
   return (
-    <div
-      className="ingredientCardContainer"
-      data-testid={ `${index}-recipe-card` }
-    >
-      <img
-        className="ingredientImageRecipe"
-        src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}.png` }
-        alt=" Recipe"
-        data-testid={ `${index}-card-img` }
-      />
-      <p
-        data-testid={ `${index}-card-name` }
-        className="ingredientNameRecipe"
-      >
-        {
-          ingredient.strIngredient
-        }
-      </p>
+    <div>
+      {
+        recipeType === pathname
+          ? (
+            <MealsCard
+              ingredient={ ingredient }
+              index={ index }
+            />
+          )
+          : (
+            <CocktailCard
+              ingredient={ ingredient }
+              index={ index }
+            />
+          )
+      }
     </div>
   );
 }
@@ -29,7 +31,7 @@ function IngredientCard({ ingredient, index }) {
 export default IngredientCard;
 
 IngredientCard.propTypes = {
-  recipe: PropTypes.objectOf(String),
+  recipeType: PropTypes.objectOf(String),
+  ingredient: PropTypes.objectOf(string),
   index: PropTypes.number,
-  type: PropTypes.string,
 }.isRequired;
