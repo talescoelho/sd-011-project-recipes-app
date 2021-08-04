@@ -7,7 +7,7 @@ function RecipesDone() {
 
   const [filterRecipes, setFilterRecipes] = React.useState(doneRecipes);
 
-  function buttonsFilters(parameter) {
+  function filterByType(parameter) {
     if (parameter === 'all') {
       setFilterRecipes(doneRecipes && doneRecipes.filter(({ type }) => type));
     }
@@ -27,21 +27,21 @@ function RecipesDone() {
         <button
           type="button"
           data-testid="filter-by-all-btn"
-          onClick={ () => buttonsFilters('all') }
+          onClick={ () => filterByType('all') }
         >
           All
         </button>
         <button
           type="button"
           data-testid="filter-by-food-btn"
-          onClick={ () => buttonsFilters('food') }
+          onClick={ () => filterByType('food') }
         >
           Food
         </button>
         <button
           type="button"
           data-testid="filter-by-drink-btn"
-          onClick={ () => buttonsFilters('drinks') }
+          onClick={ () => filterByType('drinks') }
         >
           Drinks
         </button>
