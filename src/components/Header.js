@@ -20,7 +20,7 @@ export default function Header(props) {
         role="button"
         onKeyPress={ () => setVisibleBar(!isVisibleBar) }
         onClick={ () => setVisibleBar(!isVisibleBar) }
-        tabIndex="-1"
+        tabIndex="0"
       >
         <img
           data-testid="search-top-btn"

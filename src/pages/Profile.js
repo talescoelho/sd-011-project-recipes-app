@@ -4,7 +4,15 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function Profile() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const user = localStorage.getItem('user');
+
+  const getEmail = () => {
+    if (user) {
+      return JSON.parse(user).email;
+    }
+    return 'E-mail não encontrado';
+  };
+
   const history = useHistory();
   const sectionStyle = {
     display: 'flex',
@@ -16,7 +24,7 @@ export default function Profile() {
     <div>
       <Header title="Perfil" search={ false } />
       <section style={ sectionStyle }>
-        <h5 data-testid="profile-email">{email}</h5>
+        <h5 data-testid="profile-email">{ getEmail() }</h5>
         <button
           type="button"
           data-testid="profile-done-btn"
