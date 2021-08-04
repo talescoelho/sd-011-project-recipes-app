@@ -51,3 +51,10 @@ export const fetchCocktailsByCategories = (category) => {
       return dataDrinks.slice(0, limitRender);
     });
 };
+
+export const fetchRandomCocktail = () => {
+  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => data.drinks);
+};

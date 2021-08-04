@@ -36,6 +36,7 @@ function CategoriesBar({ recipeType }) {
       }
     }
     getCategories();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentCategory]);
 
   function handleClick(strCategory) {
