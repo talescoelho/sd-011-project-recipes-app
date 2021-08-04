@@ -1,15 +1,15 @@
 .container-favorite-recipe {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
 }
 
 .favorite-recipe-card {
-  margin-top: 20px;
   border: 1px solid rgb(201, 201, 201);
-  width: 90%;
+  margin-top: 20px;
   border-radius: 10px;
+  width: 90%;
   box-shadow: 9px 7px 5px rgba(124, 124, 124, 0.77);
   display: flex;
 }
@@ -17,8 +17,8 @@
 .favorite-recipe-card img {
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
-  width: 50%;
   margin-right: 8px;
+  width: 50%;
 }
 
 .recipe-text {
@@ -41,19 +41,19 @@
 
 .filter-buttons {
   display: flex;
-  margin-top: 20px;
   justify-content: space-evenly;
+  margin-top: 20px;
 }
 
 .filter-buttons button {
   background-color: lightgreen;
   border-radius: 10px;
   height: 40px;
-  width: 100px;
-  font-size: 20px;
   border: none;
-  font-weight: 700;
+  font-size: 20px;
+  width: 100px;
   box-shadow: 7px 5px 3px rgba(124, 124, 124, 0.57);
+  font-weight: 700;
 }
 
 .filter-buttons button:active {
