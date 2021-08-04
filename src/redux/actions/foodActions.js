@@ -1,11 +1,13 @@
 import { fetchAPIName, fetchAPICategory,
   fetchAPICategoryFilter, fetchAPIByID } from '../../services/fetchAPIFood';
+import { fetchAPIName as fetchRecomendations } from '../../services/fetchAPIDrink';
 
 export const FOOD_LIST_SUCCESS = 'FOOD_LIST_SUCCESS';
 export const FOOD_CATEGORY_SUCCESS = 'FOOD_CATEGORY_SUCCESS';
 export const FOOD_LIST_CATEGORY_SUCCESS = 'FOOD_LIST_CATEGORY_SUCCESS';
 export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
 export const FOOD_DETAILS_ID_SUCCESS = 'FOOD_DETAILS_ID_SUCCESS';
+export const DRINK_RECOMENDATIONS_SUCCESS = 'DRINK_RECOMENDATIONS_SUCCESS';
 
 const foodListSuccess = (payload) => ({
   type: FOOD_LIST_SUCCESS,
@@ -31,6 +33,16 @@ const foodListByCategorySuccess = (payload) => ({
   type: FOOD_LIST_CATEGORY_SUCCESS,
   payload,
 });
+
+const drinkRecomendations = (payload) => ({
+  type: DRINK_RECOMENDATIONS_SUCCESS,
+  payload,
+});
+
+export const fetchDrinkRecomendations = (name) => async (dispatch) => {
+  const returnFetch = await fetchRecomendations(name);
+  dispatch(drinkRecomendations(returnFetch));
+};
 
 export const updateCategory = (payload) => ({
   type: UPDATE_CATEGORY,

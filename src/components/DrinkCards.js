@@ -5,11 +5,14 @@ import { Link } from 'react-router-dom';
 
 class DrinkCards extends Component {
   render() {
-    const { drinkCardsList } = this.props;
-    console.log(drinkCardsList);
+    const { drinkCardsList, drinkRecomendations, recomendation } = this.props;
+    let list = drinkCardsList;
+    if (recomendation === true) {
+      list = [...drinkRecomendations];
+    }
     return (
       <ul>
-        { drinkCardsList.map((item, index) => (
+        { list.map((item, index) => (
           <li key={ item.idDrink } data-testid={ `${index}-recipe-card` }>
             <Link to={ `/bebidas/${item.idDrink}` }>
               <img
@@ -30,6 +33,7 @@ class DrinkCards extends Component {
 
 const mapStateToProps = (state) => ({
   drinkCardsList: state.drinkReducer.drinkCardsList,
+  drinkRecomendations: state.foodReducer.drinkRecomendations,
 });
 
 DrinkCards.propTypes = {
