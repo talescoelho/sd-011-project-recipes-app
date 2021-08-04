@@ -13,20 +13,18 @@ function RenderCard({ filter }) {
     (JSON.parse(localStorage.getItem('favoriteRecipes'))),
   );
   useEffect(() => {
-    console.log(filter);
     const localRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (filter !== '') {
       const newRecipes = localRecipes.filter((recipe) => recipe.type === filter);
       setRecipes(newRecipes);
-      console.log(recipes);
     } else {
       setRecipes(JSON.parse(localStorage.getItem('favoriteRecipes')));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
   function removeItem({ target }) {
     const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
     favorite.splice(target.dataset.recipeindex, 1);
-    console.log(favorite);
     setRecipes(favorite);
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorite));
   }
