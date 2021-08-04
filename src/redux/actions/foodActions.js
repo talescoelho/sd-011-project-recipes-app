@@ -1,10 +1,11 @@
 import { fetchAPIName, fetchAPICategory,
-  fetchAPICategoryFilter } from '../../services/fetchAPIFood';
+  fetchAPICategoryFilter, fetchAPIByID } from '../../services/fetchAPIFood';
 
 export const FOOD_LIST_SUCCESS = 'FOOD_LIST_SUCCESS';
 export const FOOD_CATEGORY_SUCCESS = 'FOOD_CATEGORY_SUCCESS';
 export const FOOD_LIST_CATEGORY_SUCCESS = 'FOOD_LIST_CATEGORY_SUCCESS';
 export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
+export const FOOD_DETAILS_ID_SUCCESS = 'FOOD_DETAILS_ID_SUCCESS';
 
 const foodListSuccess = (payload) => ({
   type: FOOD_LIST_SUCCESS,
@@ -40,4 +41,14 @@ export const fetchFoodListByCategory = (category) => async (dispatch) => {
   dispatch(updateCategory(category));
   const returnFetch = await fetchAPICategoryFilter(category);
   dispatch(foodListByCategorySuccess(returnFetch));
+};
+
+const foodDetailsIDSuccess = (payload) => ({
+  type: FOOD_DETAILS_ID_SUCCESS,
+  payload,
+});
+
+export const fetchFoodID = (id) => async (dispatch) => {
+  const returnFetch = await fetchAPIByID(id);
+  dispatch(foodDetailsIDSuccess(returnFetch));
 };
