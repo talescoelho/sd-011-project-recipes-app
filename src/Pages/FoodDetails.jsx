@@ -11,6 +11,7 @@ class FoodDetails extends Component {
       foodDetail: [],
       ingredient: [],
       measure: [],
+      recomandation: [],
     };
     this.fetchDetail = this.fetchDetail.bind(this);
     this.renderRecomendations = this.renderRecomendations.bind(this);
@@ -106,7 +107,15 @@ class FoodDetails extends Component {
             <p data-testid="instructions">
               { result.strInstructions }
             </p>
-            <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              style={ {
+                position: 'fixed',
+                bottom: '0px' } }
+            >
+              Iniciar Receita
+            </button>
           </div>
         ))}
       </div>

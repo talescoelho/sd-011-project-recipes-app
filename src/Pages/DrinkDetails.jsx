@@ -11,6 +11,7 @@ class DrinkDetails extends Component {
       ingredient: [],
       measure: [],
       recomandation: [],
+      recipeDone: false,
     };
     this.fetchDetail = this.fetchDetail.bind(this);
     this.renderRecomendations = this.renderRecomendations.bind(this);
@@ -78,7 +79,7 @@ class DrinkDetails extends Component {
   }
 
   render() {
-    const { drinkDetail, ingredient, measure, recomandation } = this.state;
+    const { drinkDetail, ingredient, measure, recomandation, recipeDone } = this.state;
     return (
       <div>
         {drinkDetail && drinkDetail.map((result, index) => (
@@ -108,7 +109,17 @@ class DrinkDetails extends Component {
             <p data-testid="instructions">
               { result.strInstructions }
             </p>
-            <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              style={ {
+                position: 'fixed',
+                bottom: '0px',
+                display: recipeDone ? 'none' : 'flex' } }
+              onClick={ () => this.setState({ recipeDone: true }) }
+            >
+              Iniciar Receita
+            </button>
           </div>
         ))}
       </div>
