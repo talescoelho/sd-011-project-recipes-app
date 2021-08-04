@@ -29,7 +29,7 @@ export default function ExploreDrinksByIngredients({ history }) {
     history.push('/bebidas/');
   };
 
-  if (!ingredients.length) return <h2>Loading...</h2>;
+  // if (!ingredients.length) return <h2>Loading...</h2>;
 
   return (
     <div>
