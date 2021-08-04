@@ -5,6 +5,7 @@ import * as MealAPI from '../services/meailAPI';
 import RecipeDetails from '../components/RecipeDetails';
 import FrameVideo from '../components/FrameVideo';
 import RecommendedRecipes from '../components/RecommendedsRecipes';
+import DetailsButton from '../components/DetailsButton';
 
 function Details({ match: { url, params: { id } } }) {
   const [recipeDetail, setRecipeDetail] = useState('');
@@ -60,15 +61,12 @@ function Details({ match: { url, params: { id } } }) {
       <RecipeDetails recipe={ recipeDetail } />
       {url.includes('comidas') && <FrameVideo recipe={ recipeDetail } />}
       <RecommendedRecipes recipes={ recommended } />
-      <button
-        className="button-start"
-        style={ { display: verifyRecipeIsDone() ? 'none' : 'block' } }
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        {checkRecipeInProgress() ? 'Continuar Receita' : 'Iniciar Receita' }
-      </button>
-
+      <DetailsButton
+        verifyRecipeIsDone={ verifyRecipeIsDone }
+        checkRecipeInProgress={ checkRecipeInProgress }
+        id={ id }
+        url={ url }
+      />
     </div>
   );
 }
