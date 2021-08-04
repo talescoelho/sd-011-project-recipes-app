@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
+import DetailsContext from '../context/detailsContext';
 
 export default function RecipeButton({ state }) {
   const history = useHistory();
+  const { ingredients } = useContext(DetailsContext);
   const { pathname } = history.location;
+  const verify = (ingredients) ? ingredients.some((element) => element.checked === false) : false;
   if (!state) {
     return (
       <button
@@ -30,10 +34,18 @@ export default function RecipeButton({ state }) {
     );
   }
   if (state === 'in-progress') {
-    if (state) {
-      return <div>teste</div>;
-    }
-    return <>teste</>;
+    return (
+      <Link to="/receitas-feitas">
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          className="startButton"
+          disabled={ verify }
+        >
+          Finalizar receita
+        </button>
+      </Link>
+    );
   }
   return <h3>Finalizada</h3>;
 }

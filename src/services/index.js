@@ -189,6 +189,7 @@ export function getIds(type, recipe) {
     image: verify ? recipe.strMealThumb : recipe.strDrinkThumb,
     video: verify ? recipe.strYoutube : null,
     instructions: recipe.strInstructions,
+    similarName: verify ? 'meals' : 'cocktails',
   };
   // { id, type, category, name, image, video, instruction }
 }
