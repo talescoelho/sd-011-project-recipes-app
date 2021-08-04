@@ -9,6 +9,7 @@ import {
 } from '../services/MealApiService';
 
 import {
+  fetchDrinkId,
   fetchDrinksIngredient,
   fetchDrinksLetter,
   fetchDrinksName,
@@ -24,7 +25,7 @@ export default function RecipesProvider({ children }) {
   const [redirect, setRedirect] = useState(false);
   const [recipesDb, setRecipesDb] = useState([]);
   const [mealId, setMealId] = useState({});
-  // const [drinkId, setDrinkId] = useState({});
+  const [drinkId, setDrinkId] = useState({});
 
   function visibleAlert(data) { // implementação do requisito 18
     if (data === null) {
@@ -93,6 +94,11 @@ export default function RecipesProvider({ children }) {
     setMealId(response[0]);
   }
 
+  async function getDrinkId(id) {
+    const response = await fetchDrinkId(id);
+    setDrinkId(response[0]);
+  }
+
   const context = {
     loginState,
     setLogin,
@@ -102,6 +108,8 @@ export default function RecipesProvider({ children }) {
     setRecipesDb,
     mealId,
     getMealId,
+    drinkId,
+    getDrinkId,
   };
 
   return (
