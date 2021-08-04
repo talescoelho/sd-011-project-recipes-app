@@ -29,7 +29,7 @@ export default function ExploreRecipes() {
             data-testid="explore-surprise"
             type="button"
           >
-            Por Area
+            Me Surpreenda!
           </button>
         </Link>
       </div>
