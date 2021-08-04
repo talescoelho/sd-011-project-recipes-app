@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import FiltersDoneAndFavorites from '../components/FiltersDoneAndFavorites';
 import shareIcon from '../images/shareIcon.svg';
 
-export default class ReceitasFeitas extends Component {
+class ReceitasFeitas extends Component {
   constructor() {
     super();
     this.state = {
@@ -122,3 +122,5 @@ export default class ReceitasFeitas extends Component {
     );
   }
 }
+
+export default ReceitasFeitas;
