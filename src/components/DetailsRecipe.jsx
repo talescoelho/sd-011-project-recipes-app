@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Ingredients from './Ingredients';
 import Share from '../images/shareIcon.svg';
 import handleShareBtn from '../helpers/handleShareBtn';
+import LinkCopy from './LinkCopy';
 
 import '../styles/DetailsRecipe.css';
 import ButtonStartRecipe from './ButtonStartRecipe';
@@ -37,6 +38,12 @@ function DetailsRecipe(props) {
   const videoParameter = -11;
   const finalUrl = video && video.slice(videoParameter);
 
+  const [linkCopy, setLinkCopy] = useState(false);
+
+  const handleLinkMessage = () => {
+    setLinkCopy(true);
+  };
+
   return (
     <div>
       <h1 data-testid="recipe-title">{ title }</h1>
@@ -50,10 +57,11 @@ function DetailsRecipe(props) {
       <button
         type="button"
         data-testid="share-btn"
-        onClick={ () => { handleShareBtn(); } }
+        onClick={ () => { handleShareBtn(); handleLinkMessage(); } }
       >
         <img src={ Share } alt="share button" />
       </button>
+      { linkCopy && <LinkCopy /> }
       <ButtonFavoriteRecipe
         setFavorite={ setFavorite }
         favorite={ favorite }
