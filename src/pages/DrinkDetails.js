@@ -4,6 +4,7 @@ import { getDrinkDetail } from '../services/theCockTailAPI';
 import { getMealRecomendations } from '../services/theMealAPI';
 import shareIcon from '../images/shareIcon.svg';
 import Recommendations from '../components/Recommendations';
+import VerifyStart from '../helpers/VerifyStart';
 
 const DrinkDetails = (props) => {
   const [drinkData, setdrinkData] = useState([]);
@@ -63,7 +64,7 @@ const DrinkDetails = (props) => {
         <button
           type="button"
           data-testid="share-btn"
-          onClick={ shareLink }
+          onClick={ () => shareLink() }
         >
           {copy ? (
             <span>Link copiado!</span>
@@ -86,14 +87,7 @@ const DrinkDetails = (props) => {
         </ol>
         <p data-testid="instructions">{strInstructions}</p>
         <Recommendations recommendations={ recomendedFood.slice(0, maxResult) } />
-        <button
-          className="start-btn"
-          type="button"
-          data-testid="start-recipe-btn"
-        >
-          Iniciar Receita
-
-        </button>
+        <VerifyStart id={ id } />
       </section>
     );
   }

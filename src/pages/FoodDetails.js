@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getMealDetail } from '../services/theMealAPI';
 import { getDrinkRecomendations } from '../services/theCockTailAPI';
+import shareIcon from '../images/shareIcon.svg';
 import Recommendations from '../components/Recommendations';
+import VerifyStart from '../helpers/VerifyStart';
 
 const FoodDetails = (props) => {
   const [foodData, setfoodData] = useState({ strYoutube: '' });
   const [recomendedDrink, setRecomendedDrink] = useState([]);
+  const [copy, setCopy] = useState(false);
   const { match: { params: { id } } } = props;
 
   const maxResult = 6;
@@ -49,6 +52,11 @@ const FoodDetails = (props) => {
     return list;
   }
 
+  function shareLink() {
+    setCopy(true);
+    return navigator.clipboard.writeText(window.location.href);
+  }
+
   function getVideoTag() {
     const index = 32;
     const videoStr = strYoutube.slice(index);
@@ -60,7 +68,15 @@ const FoodDetails = (props) => {
       <section>
         <img data-testid="recipe-photo" src={ strMealThumb } alt={ strMeal } />
         <h2 data-testid="recipe-title">{ strMeal }</h2>
-        <button type="button" data-testid="share-btn">Compartilhar</button>
+        <button
+          type="button"
+          data-testid="share-btn"
+          onClick={ () => shareLink() }
+        >
+          {copy ? (
+            <span>Link copiado!</span>
+          ) : (<img src={ shareIcon } alt="Compartilhar" />)}
+        </button>
         <button type="button" data-testid="favorite-btn">Favoritar</button>
         <h4 data-testid="recipe-category">{ strCategory }</h4>
         <ol>
@@ -91,20 +107,15 @@ const FoodDetails = (props) => {
           allowFullScreen
         />
         <Recommendations recommendations={ recomendedDrink.slice(0, maxResult) } />
-        <button
-          className="start-btn"
-          type="button"
-          data-testid="start-recipe-btn"
-        >
-          Iniciar Receita
-
-        </button>
       </section>
     );
   }
 
   return (
-    <div>{ foodData && renderDetails() }</div>
+    <div>
+      { foodData && renderDetails() }
+      <VerifyStart id={ id } />
+    </div>
   );
 };
 
