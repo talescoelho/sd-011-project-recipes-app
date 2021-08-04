@@ -1,23 +1,23 @@
 .container-favorite-recipe {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .favorite-recipe-card {
   margin-top: 20px;
-  width: 90%;
   border: 1px solid rgb(201, 201, 201);
+  width: 90%;
   border-radius: 10px;
   box-shadow: 9px 7px 5px rgba(124, 124, 124, 0.77);
   display: flex;
 }
 
 .favorite-recipe-card img {
-  width: 50%;
-  border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  width: 50%;
   margin-right: 8px;
 }
 
@@ -26,40 +26,37 @@
 }
 
 .remove-favorite-btn {
-  border: none;
   background-color: rgba(136, 136, 136, 0);
-  width: 70px;
+  border: none;
   height: 50px;
+  width: 70px;
 }
 
 .container-btns {
-  display: flex;
   align-items: center;
-  width: 140px;
+  display: flex;
   margin-top: 20px;
+  width: 140px;
 }
 
 .filter-buttons {
-  margin-top: 20px;
   display: flex;
+  margin-top: 20px;
   justify-content: space-evenly;
 }
 
 .filter-buttons button {
-  width: 100px;
-  height: 40px;
+  background-color: lightgreen;
   border-radius: 10px;
-  background-color: #90EE90;
+  height: 40px;
+  width: 100px;
   font-size: 20px;
-  font-weight: 700;
   border: none;
+  font-weight: 700;
   box-shadow: 7px 5px 3px rgba(124, 124, 124, 0.57);
 }
 
 .filter-buttons button:active {
-  transform: translateY(4px);
   box-shadow: 3px 2px 1px rgba(124, 124, 124, 0.57);
-}
-
-.filter-buttons button:active:after {
+  transform: translateY(4px);
 }
