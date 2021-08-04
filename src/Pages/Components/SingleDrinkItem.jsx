@@ -78,7 +78,13 @@ function SingleFoodItem() {
         <p data-testid="instructions">{drinks[0].strInstructions}</p>
       </section>
       <CarrouselFoods />
-      <button data-testid="start-recipe-btn" type="button" className="start-recipe-button">Iniciar receita</button>
+      <button
+        data-testid="start-recipe-btn"
+        type="button"
+        className="start-recipe-button"
+      >
+        Iniciar receita
+      </button>
     </div>
   );
 }

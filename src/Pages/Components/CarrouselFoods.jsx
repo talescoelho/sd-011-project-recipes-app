@@ -27,7 +27,11 @@ export default function CarrouselFoods() {
         { foodsRecomendations.map(({ strMeal, strMealThumb }, i) => (
           <div data-testid={ `${i}-recomendation-card` } key={ `${strMeal} ${i}` }>
             <h3 data-testid={ `${i}-recomendation-title` }>{strMeal}</h3>
-            <img className="img-recomendation" src={ strMealThumb } alt={ `Imagem de ${strMealThumb}` } />
+            <img
+              className="img-recomendation"
+              src={ strMealThumb }
+              alt={ `Imagem de ${strMealThumb}` }
+            />
           </div>
         ))}
       </section>
