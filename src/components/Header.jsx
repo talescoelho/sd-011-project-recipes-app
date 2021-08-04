@@ -40,7 +40,7 @@ function Header({ title, search = true }) {
             />
           </button>)}
       </header>
-      { renderSearchBar && <SearchBar /> }
+      { renderSearchBar && <SearchBar title={ title } /> }
     </div>
   );
 }
