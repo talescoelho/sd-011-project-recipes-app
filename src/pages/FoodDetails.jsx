@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { fetchFood } from '../services/FoodAPI';
 import CardsDrinks from '../components/CardsDrinks';
-import '../styles/FoodDetails.css';
+import '../styles/FoodDetails.scss';
 import { isRecipeDone } from '../services/RecipesLocalStorage';
 import ShareBtn from '../components/ShareBtn';
 import FavoriteBtn from '../components/FavoriteBtn';
@@ -64,7 +64,7 @@ export default function FoodDetails() {
   }
 
   return (
-    <div>
+    <main className="food-details">
       <div>
         <img
           className="imgreceita"
@@ -106,6 +106,6 @@ export default function FoodDetails() {
       <div>
         <CardsDrinks />
       </div>
-    </div>
+    </main>
   );
 }

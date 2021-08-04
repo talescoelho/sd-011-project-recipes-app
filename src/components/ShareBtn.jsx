@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import clipboard from 'clipboard-copy';
+import { Button } from 'react-bootstrap';
 import imageShare from '../images/shareIcon.svg';
 
 export default function ShareBtn() {
@@ -14,17 +15,13 @@ export default function ShareBtn() {
   };
 
   return (
-    <div>
-      <button
-        className="btnheader"
-        type="button"
-        data-testid="share-btn"
-        onClick={ () => copyUrlToClipboard() }
-      >
-        {(visible
-          ? <img src={ imageShare } alt="share" />
-          : 'Link copiado!')}
-      </button>
-    </div>
+    <Button
+      className="btnheader"
+      type="button"
+      data-testid="share-btn"
+      onClick={() => copyUrlToClipboard()}
+    >
+      {visible ? <img src={imageShare} alt="share" /> : 'Link copiado!'}
+    </Button>
   );
 }

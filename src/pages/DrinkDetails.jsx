@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { fetchDrinkDetails } from '../services/DrinkDetails';
-import '../styles/FoodDetails.css';
+import '../styles/FoodDetails.scss';
 import CardsFood from '../components/CardsFood';
 import { isRecipeDone } from '../services/RecipesLocalStorage';
 import ShareBtn from '../components/ShareBtn';
