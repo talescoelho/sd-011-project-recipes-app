@@ -8,7 +8,6 @@ function FoodDetails() {
   const [error, setError] = useState(null);
   const [recipe, setRecipe] = useState(null);
   const { id } = useParams();
-  const history = useHistory();
 
   const BASE_URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php'; // TODO usar token
 

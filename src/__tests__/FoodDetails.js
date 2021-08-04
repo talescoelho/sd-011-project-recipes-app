@@ -1,22 +1,58 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
-import { waitFor } from '@testing-library/dom';
-import render from '../helpers/renderWithRouterAndStore';
+import { act } from 'react-dom/test-utils';
+import { screen, waitFor } from '@testing-library/dom';
+import { renderWithRouterAndStore as render, mockFetch } from '../helpers';
 import { FoodDetails } from '../pages';
+import { beefAndOysterPie } from '../helpers/mocks';
+
+const recipe = beefAndOysterPie.meals[0];
 
 describe('A pagina de detalhes de comida', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     jest.spyOn(global, 'fetch');
-    global.fetch = jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue([{ strMeal: 'doideira' }]),
-    });
+    global.fetch = mockFetch;
 
     const path = '/comidas/:id';
-    const history = createMemoryHistory({ initialEntries: ['/comidas/52873'] });
-    render(<FoodDetails />, { history, path });
+    const history = createMemoryHistory({ initialEntries: ['/comidas/52878'] });
+    await act(async () => {
+      render(<FoodDetails />, { history, path });
+    });
   });
 
-  it('Faz uma requisição à api com o parâmetro correto', async () => {
-    await waitFor(() => expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52873'));
+  it('Faz uma requisição à api com o parâmetro correto', () => {
+    expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52878');
+  });
+
+  describe('Mostra todas as informações na tela', () => {
+    it('Nome', () => {
+      expect(screen.getByText(recipe.strMeal)).toBeInTheDocument();
+    });
+    it('Foto', () => {
+      expect(screen.getByAltText(recipe.strMeal)).toBeInTheDocument();
+    });
+    it('Ingredientes', () => {
+      const keys = Object.keys(recipe).filter((key) => /ingredient/i.test(key));
+      keys.forEach((key) => {
+        if (recipe[key]) {
+          expect(screen.getByText(recipe[key])).toBeInTheDocument();
+        }
+      });
+    });
+    it('Instruções', () => {
+      expect(screen.getByText(recipe.strInstructions));
+    });
+    it('Video', () => {
+      expect(screen.getByTestId('video')).toBeInTheDocument();
+    });
+    it('Botão de iniciar receita', () => {
+      expect(screen.getByText('Iniciar receita')).toBeInTheDocument();
+    });
+    it('Botão de compartilhar', () => {
+      expect(screen.getByTitle('share the recipe')).toBeInTheDocument();
+    });
+    it('Botão de favoritar', () => {
+      expect(screen.getByTitle('favorite the recipe')).toBeInTheDocument();
+    });
   });
 });
