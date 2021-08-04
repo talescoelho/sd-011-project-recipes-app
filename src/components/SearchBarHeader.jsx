@@ -15,6 +15,7 @@ function SearchBarHeader({ foodOrDrink }) {
 
   const maxLength = 12;
   const history = useHistory();
+  console.log('teste', filteredItem);
 
   function renderRecipes(item, index) {
     return (

@@ -8,6 +8,7 @@ function AppProvider({ children }) {
   const [filterRadio, setFilterRadio] = useState('s');
   const [filterText, setFilterText] = useState('');
   const [filteredItem, setFilteredItem] = useState([]);
+  const [idDetails, setIdDetails] = useState([]);
   const [mainItems, setMainItems] = useState();
   const [categories, setCategories] = useState();
   const [buttonFilter, setButtonFilter] = useState();
@@ -85,6 +86,8 @@ function AppProvider({ children }) {
     setFilteredItem,
     fetchFood,
     fetchDrink,
+    idDetails,
+    setIdDetails,
     mainItems,
     setMainItems,
     categories,

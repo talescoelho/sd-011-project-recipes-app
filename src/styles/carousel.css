@@ -1,0 +1,17 @@
+.containerRecomendation {
+  display: flex;
+  overflow: auto;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.recomendationItem {
+  display: flex;
+  margin: 10px;
+  width: 50%;
+}
+
+.recomendationImg {
+  overflow: visible;
+  width: 300px;
+}
