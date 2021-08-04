@@ -4,12 +4,19 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 export default class Perfil extends Component {
+  renderEmailOrNot() {
+    if (JSON.parse(localStorage.getItem('user')) !== null) {
+      const { email } = JSON.parse(localStorage.getItem('user'));
+      return (<p data-testid="profile-email">{email}</p>);
+    }
+    return (<p data-testid="profile-email">email</p>);
+  }
+
   render() {
-    const { email } = JSON.parse(localStorage.getItem('user'));
     return (
       <div>
         <Header title="Perfil" />
-        <p data-testid="profile-email">{email}</p>
+        { this.renderEmailOrNot() }
         <Link to="/receitas-feitas">
           <button
             type="button"
