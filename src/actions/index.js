@@ -3,11 +3,11 @@ export const CATEGORIES_SUCCESS = 'CATEGORIES_SUCCESS';
 export const USER_EMAIL = 'USER_EMAIL';
 const MESSAGE_ALERT = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
-function handleRequestSuccess(result) {
+function handleRequestSuccess(result, isFiltered) {
   if (result === null) {
     result = [];
   }
-  return { type: REQUEST_SUCCESS, payload: result };
+  return { type: REQUEST_SUCCESS, payload: { allRecipes: result, isFiltered } };
 }
 
 function handleCategoriesSuccess(result) {
@@ -15,7 +15,7 @@ function handleCategoriesSuccess(result) {
 }
 
 function defaultFunctionFood(dispatch, json) {
-  dispatch(handleRequestSuccess(json.meals));
+  dispatch(handleRequestSuccess(json.meals, false));
   if (!json.meals) {
     return (
       alert(MESSAGE_ALERT)
@@ -24,7 +24,7 @@ function defaultFunctionFood(dispatch, json) {
 }
 
 function defaultFunctionDrink(dispatch, json) {
-  dispatch(handleRequestSuccess(json.drinks));
+  dispatch(handleRequestSuccess(json.drinks, false));
   if (!json.drinks) {
     return (
       alert(MESSAGE_ALERT)
@@ -128,6 +128,26 @@ export function categoriesDrink() {
       .then((response) => response.json())
       .then(
         (json) => dispatch(handleCategoriesSuccess(json.drinks)),
+      );
+  };
+}
+
+export function filteredFoods(filter) {
+  return (dispatch) => {
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${filter}`)
+      .then((response) => response.json())
+      .then(
+        (json) => dispatch(handleRequestSuccess(json.meals, true)),
+      );
+  };
+}
+
+export function filteredDrinks(filter) {
+  return (dispatch) => {
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filter}`)
+      .then((response) => response.json())
+      .then(
+        (json) => dispatch(handleRequestSuccess(json.drinks, true)),
       );
   };
 }

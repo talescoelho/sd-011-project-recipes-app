@@ -1,12 +1,10 @@
 .footer {
   background-color: #fafafaee;
-  bottom: 0;
   display: flex;
   justify-content: space-between;
-  left: 0;
   padding: 10px;
-  position: fixed;
   width: 100%;
+  flex: none;
 }
 
 .footer-link {

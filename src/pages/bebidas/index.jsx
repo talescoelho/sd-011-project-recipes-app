@@ -16,6 +16,11 @@ class Bebidas extends Component {
     categoriesDrink();
   }
 
+  handleOnClickFilter(element) {
+    const { filteredDrinks } = this.props;
+    filteredDrinks(element.target.value);
+  }
+
   renderFilters() {
     let { allCategories } = this.props;
     allCategories = allCategories.slice(0, FIVE);
@@ -26,6 +31,8 @@ class Bebidas extends Component {
         type="button"
         data-testid={ `${item.strCategory}-category-filter` }
         key={ index }
+        value={ item.strCategory }
+        onClick={ (target) => this.handleOnClickFilter(target) }
       >
         {item.strCategory}
       </button>
@@ -33,14 +40,14 @@ class Bebidas extends Component {
   }
 
   renderDrinks() {
-    let { allRecipes } = this.props;
-    allRecipes = allRecipes.slice(0, TWELVE);
-    if (allRecipes.length === 1) {
+    const { allRecipes, isFiltered } = this.props;
+    const allRecipesSlice = allRecipes.slice(0, TWELVE);
+    if (allRecipesSlice.length === 1 && !isFiltered) {
       return (
-        <Redirect to={ `/bebidas/${allRecipes[0].idDrink}` } />
+        <Redirect to={ `/bebidas/${allRecipesSlice[0].idDrink}` } />
       );
     }
-    return allRecipes.map((item, index) => (
+    return allRecipesSlice.map((item, index) => (
       <div
         className="card-item"
         data-testid={ `${index}-recipe-card` }
@@ -65,16 +72,18 @@ class Bebidas extends Component {
 
   render() {
     return (
-      <div>
+      <>
         <Header title="Bebidas" mode="bebidas" hasSearchBar />
-        <div className="filter-list">
-          {this.renderFilters()}
-        </div>
-        <div className="card-list">
-          {this.renderDrinks()}
+        <div className="container-main">
+          <div className="filter-list">
+            {this.renderFilters()}
+          </div>
+          <div className="card-list">
+            {this.renderDrinks()}
+          </div>
         </div>
         <Footer />
-      </div>
+      </>
     );
   }
 }
@@ -82,11 +91,13 @@ class Bebidas extends Component {
 const mapStateToProps = (state) => ({
   allRecipes: state.recipes.allRecipes,
   allCategories: state.recipes.allCategories,
+  isFiltered: state.recipes.isFiltered,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   generalRecipesDrink: () => dispatch(actions.generalRecipesDrink()),
   categoriesDrink: () => dispatch(actions.categoriesDrink()),
+  filteredDrinks: (filter) => dispatch(actions.filteredDrinks(filter)),
 });
 
 Bebidas.propTypes = {
@@ -94,6 +105,8 @@ Bebidas.propTypes = {
   generalRecipesDrink: PropTypes.func.isRequired,
   categoriesDrink: PropTypes.func.isRequired,
   allCategories: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filteredDrinks: PropTypes.func.isRequired,
+  isFiltered: PropTypes.arrayOf(PropTypes.bool).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bebidas);

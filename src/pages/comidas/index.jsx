@@ -15,6 +15,11 @@ class Comidas extends Component {
     categoriesFood();
   }
 
+  handleOnClickFilter(element) {
+    const { filteredFoods } = this.props;
+    filteredFoods(element.target.value);
+  }
+
   renderFilters() {
     let { allCategories } = this.props;
     allCategories = allCategories.slice(0, FIVE);
@@ -23,8 +28,10 @@ class Comidas extends Component {
       <button
         className="filter-btn"
         type="button"
+        value={ item.strCategory }
         data-testid={ `${item.strCategory}-category-filter` }
         key={ index }
+        onClick={ (target) => this.handleOnClickFilter(target) }
       >
         {item.strCategory}
       </button>
@@ -32,14 +39,14 @@ class Comidas extends Component {
   }
 
   renderFoods() {
-    let { allRecipes } = this.props;
-    allRecipes = allRecipes.slice(0, TWELVE);
-    if (allRecipes.length === 1) {
+    const { allRecipes, isFiltered } = this.props;
+    const allRecipesSlice = allRecipes.slice(0, TWELVE);
+    if (allRecipesSlice.length === 1 && !isFiltered) {
       return (
-        <Redirect to={ `/comidas/${allRecipes[0].idMeal}` } />
+        <Redirect to={ `/comidas/${allRecipesSlice[0].idMeal}` } />
       );
     }
-    return allRecipes.map((item, index) => (
+    return allRecipesSlice.map((item, index) => (
       <div
         className="card-item"
         data-testid={ `${index}-recipe-card` }
@@ -64,16 +71,20 @@ class Comidas extends Component {
 
   render() {
     return (
-      <div>
+      <>
+
         <Header title="Comidas" mode="comidas" hasSearchBar />
-        <div className="filter-list">
-          {this.renderFilters()}
-        </div>
-        <div className="card-list">
-          {this.renderFoods()}
+        <div className="container-main">
+          <div className="filter-list">
+            {this.renderFilters()}
+          </div>
+          <div className="card-list">
+            {this.renderFoods()}
+          </div>
         </div>
         <Footer />
-      </div>
+      </>
+
     );
   }
 }
@@ -81,11 +92,13 @@ class Comidas extends Component {
 const mapStateToProps = (state) => ({
   allRecipes: state.recipes.allRecipes,
   allCategories: state.recipes.allCategories,
+  isFiltered: state.recipes.isFiltered,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   generalRecipesFood: () => dispatch(actions.generalRecipesFood()),
   categoriesFood: () => dispatch(actions.categoriesFood()),
+  filteredFoods: (filter) => dispatch(actions.filteredFoods(filter)),
 });
 
 Comidas.propTypes = {
@@ -93,6 +106,8 @@ Comidas.propTypes = {
   generalRecipesFood: PropTypes.func.isRequired,
   categoriesFood: PropTypes.func.isRequired,
   allCategories: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filteredFoods: PropTypes.func.isRequired,
+  isFiltered: PropTypes.arrayOf(PropTypes.bool).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comidas);

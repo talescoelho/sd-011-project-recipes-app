@@ -2,10 +2,8 @@
   background-color: #fafafa;
   display: flex;
   justify-content: space-between;
-  left: 0;
+  flex: none;
   padding: 10px;
-  position: absolute;
-  top: 0;
   width: 100%;
 }
 
