@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import { fetchFoodCategory, fetchFoodList } from '../redux/actions';
-import Cards from '../components/Cards';
-import Categories from '../components/Categories';
+import { fetchFoodCategory, fetchFoodList } from '../redux/actions/foodActions';
+import { FoodCards, FoodCategories, Header, Footer } from '../components';
 
 class Foods extends Component {
   componentDidMount() {
@@ -18,8 +15,8 @@ class Foods extends Component {
     return (
       <div>
         <Header />
-        <Categories />
-        <Cards />
+        <FoodCategories />
+        <FoodCards />
         <Footer />
       </div>
     );
@@ -27,7 +24,7 @@ class Foods extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  fetchFoodList: state.foodReducers.foodCardsList,
+  fetchFoodList: state.foodReducer.foodCardsList,
 });
 
 const mapDispatchToProps = (dispatch) => ({

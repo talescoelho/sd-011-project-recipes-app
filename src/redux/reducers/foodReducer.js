@@ -1,5 +1,5 @@
 import { FOOD_LIST_SUCCESS, FOOD_CATEGORY_SUCCESS,
-  FOOD_LIST_CATEGORY_SUCCESS, UPDATE_CATEGORY } from '../actions';
+  FOOD_LIST_CATEGORY_SUCCESS, UPDATE_CATEGORY } from '../actions/foodActions';
 
 const INITIAL_STATE = {
   foodCardsList: [],
@@ -10,7 +10,7 @@ const INITIAL_STATE = {
 const CARD_LENGTH = 12;
 const CATEGORY_LENGTH = 5;
 
-function foodReducers(state = INITIAL_STATE, action) {
+function foodReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case FOOD_LIST_CATEGORY_SUCCESS:
   case FOOD_LIST_SUCCESS:
@@ -30,4 +30,4 @@ function foodReducers(state = INITIAL_STATE, action) {
   }
 }
 
-export default foodReducers;
+export default foodReducer;

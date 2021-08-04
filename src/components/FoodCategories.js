@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchFoodListByCategory, updateCategory, fetchFoodList } from '../redux/actions';
+import { fetchFoodListByCategory, updateCategory, fetchFoodList,
+} from '../redux/actions/foodActions';
 
-class Categories extends Component {
+class FoodCategories extends Component {
   constructor() {
     super();
     this.filterByAll = this.filterByAll.bind(this);
@@ -55,8 +56,8 @@ class Categories extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  foodCategories: state.foodReducers.foodCategoriesList,
-  selectedCategory: state.foodReducers.selectedCategory,
+  foodCategories: state.foodReducer.foodCategoriesList,
+  selectedCategory: state.foodReducer.selectedCategory,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -65,7 +66,7 @@ const mapDispatchToProps = (dispatch) => ({
   actionUpdateCategory: (category) => dispatch(updateCategory(category)),
 });
 
-Categories.propTypes = {
+FoodCategories.propTypes = {
   actionFetchFoodList: PropTypes.func,
   actionFetchFoodByCategory: PropTypes.func,
   actionUpdateCategory: PropTypes.func,
@@ -73,4 +74,4 @@ Categories.propTypes = {
   selectedCategory: PropTypes.array,
 }.isRequired;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Categories);
+export default connect(mapStateToProps, mapDispatchToProps)(FoodCategories);

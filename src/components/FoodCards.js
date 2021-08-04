@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-class Cards extends Component {
+class FoodCards extends Component {
   render() {
     const { foodCardsList } = this.props;
     console.log(foodCardsList);
@@ -29,11 +29,11 @@ class Cards extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  foodCardsList: state.foodReducers.foodCardsList,
+  foodCardsList: state.foodReducer.foodCardsList,
 });
 
-Cards.propTypes = {
+FoodCards.propTypes = {
   foodCardsList: PropTypes.array,
 }.isRequired;
 
-export default connect(mapStateToProps, null)(Cards);
+export default connect(mapStateToProps, null)(FoodCards);

@@ -1,5 +1,5 @@
 import { fetchAPIName, fetchAPICategory,
-  fetchAPICategoryFilter } from '../../services/fetchAPI';
+  fetchAPICategoryFilter } from '../../services/fetchAPIFood';
 
 export const FOOD_LIST_SUCCESS = 'FOOD_LIST_SUCCESS';
 export const FOOD_CATEGORY_SUCCESS = 'FOOD_CATEGORY_SUCCESS';
