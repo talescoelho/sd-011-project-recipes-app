@@ -1,12 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-// import ExploreFoodOrDrink from '../pages/ExploreFoodOrDrink';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import App from '../App';
 
 it('basic test', () => {
-  // render(<ExploreFoodOrDrink />);
   const history = createMemoryHistory();
   render(
     <Router history={ history }>

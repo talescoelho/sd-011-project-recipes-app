@@ -7,7 +7,7 @@ function ExploreLocation() {
       <Header withSearch pageTitle="Explorar Origem" />
       <br />
       <main>
-        <h1>Colocar algo qui</h1>
+        <h1>Tela de Explorar por Local de Origem</h1>
       </main>
     </>
   );

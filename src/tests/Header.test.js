@@ -1,9 +1,7 @@
 import React from 'react';
-import { render, screen, getByTestId } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-// import Recipes from '../pages/Recipes';
-import Login from '../pages/Login';
 import App from '../App';
 
 const PROFILE_TOP_BTN = 'profile-top-btn';
@@ -12,7 +10,6 @@ const PAGE_TITLE = 'page-title';
 
 describe('Requeriment 09', () => {
   const teste = () => {
-    // render(<Recipes />);
     const history = createMemoryHistory();
     render(
       <Router history={ history }>
@@ -32,15 +29,6 @@ describe('Requeriment 09', () => {
 
 describe('Requeriment 10', () => {
   const hasNoHeader = () => {
-    // history.push('/');
-    // const profileTopBtn = screen.queryByTestId(PROFILE_TOP_BTN);
-    // const pageTitle = screen.queryByTestId(PAGE_TITLE);
-    // const searchBtn = screen.queryByTestId(SEARCH_TOP_BTN);
-
-    // expect(profileTopBtn).toBeNull();
-    // expect(pageTitle).toBeNull();
-    // expect(searchBtn).toBeNull();
-
     expect(screen.queryByTestId(PROFILE_TOP_BTN)).not.toBeInTheDocument();
     expect(screen.queryByTestId(PAGE_TITLE)).not.toBeInTheDocument();
     expect(screen.queryByTestId(SEARCH_TOP_BTN)).not.toBeInTheDocument();
@@ -60,7 +48,6 @@ describe('Requeriment 10', () => {
   };
 
   it('There is no header on the Login screen', () => {
-    // render(<Login />);
     const history = createMemoryHistory();
     render(
       <Router history={ history }>
