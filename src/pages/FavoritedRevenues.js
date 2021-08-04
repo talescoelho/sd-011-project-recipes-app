@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Footer from '../components/Footer';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import ShareButton from '../components/ShareButton';
 import blackHeart from '../images/blackHeartIcon.svg';
@@ -15,14 +15,14 @@ export default function FavoritedRevenues() {
     }
   }, []);
 
-  console.log(recipe);
   if (!recipe) {
     return (<p>Carregando</p>);
   }
 
   function removeFavorite(id) {
-    console.log(id);
     setRecipe(recipe.filter((value) => value.id !== id));
+    localStorage.setItem('favoriteRecipes', JSON.stringify(recipe
+      .filter((value) => value.id !== id)));
   }
 
   function filterFavorites(filter) {
@@ -41,18 +41,21 @@ export default function FavoritedRevenues() {
         <button
           type="button"
           onClick={ () => filterFavorites('All') }
+          data-testid="filter-by-all-btn"
         >
           All
         </button>
         <button
           type="button"
           onClick={ () => filterFavorites('comida') }
+          data-testid="filter-by-food-btn"
         >
           Food
         </button>
         <button
           type="button"
-          onClick={ () => filterFavorites('bebidas') }
+          onClick={ () => filterFavorites('bebida') }
+          data-testid="filter-by-drink-btn"
         >
           Drinks
         </button>
@@ -64,31 +67,53 @@ export default function FavoritedRevenues() {
               key={ index }
               className="favorite-recipe-card"
             >
-              <img src={ value.image } alt={ value.name } />
+              <Link to={ `/${value.alcoholicOrNot ? 'bebidas' : 'comidas'}/${value.id}` }>
+                <img
+                  src={ value.image }
+                  data-testid={ `${index}-horizontal-image` }
+                  alt={ value.name }
+                />
+              </Link>
               <div>
                 <div>
                   {
                     value.area ? (
-                      <span className="recipe-text">
+                      <span
+                        className="recipe-text"
+                        data-testid={ `${index}-horizontal-top-text` }
+                      >
                         { `${value.area} - ${value.category}` }
                       </span>
                     )
                       : (
-                        <span className="recipe-text">
+                        <span
+                          className="recipe-text"
+                          data-testid={ `${index}-horizontal-top-text` }
+                        >
                           { value.alcoholicOrNot }
                         </span>
                       )
                   }
                 </div>
-                <h1>
-                  { value.name }
-                </h1>
+                <Link
+                  to={ `/${value.alcoholicOrNot ? 'bebidas'
+                    : 'comidas'}/${value.id}` }
+                >
+                  <h1 data-testid={ `${index}-horizontal-name` }>
+                    { value.name }
+                  </h1>
+                </Link>
                 <div className="container-btns">
-                  <ShareButton />
+                  <ShareButton
+                    dataTestId={ `${index}-horizontal-share-btn` }
+                    urlLink={ `http://localhost:3000/${value.alcoholicOrNot ? 'bebidas' : 'comidas'}/${value.id}` }
+                  />
                   <button
                     className="remove-favorite-btn"
+                    data-testid={ `${index}-horizontal-favorite-btn` }
                     onClick={ () => removeFavorite(value.id) }
                     type="button"
+                    src={ blackHeart }
                   >
                     <img
                       data-testid="favorite-btn"
@@ -102,7 +127,6 @@ export default function FavoritedRevenues() {
           ))
         }
       </div>
-      <Footer />
     </div>
   );
 }
