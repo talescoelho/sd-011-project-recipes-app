@@ -11,10 +11,10 @@ export default function RecipeCard(props) {
 
   const [isRedirect, setIsRedirect] = useState(false);
   const handleValue = (key, event) => {
-    setInProgress({[key]: event});
+    setInProgress({ [key]: event });
     // localStorage.setItem('id', event);
     setIsRedirect(true);
-  }
+  };
 
   return (
     // como deixar card inteiro com tipo 'button'?
@@ -30,7 +30,12 @@ export default function RecipeCard(props) {
           {recipe[`str${type}`]}
         </h6>
       </span>
-      <button type="button" onClick={ () => handleValue(type, recipe[`id${type}`]) }>Detalhes</button>
+      <button
+        type="button"
+        onClick={ () => handleValue(type, recipe[`id${type}`]) }
+      >
+        Detalhes
+      </button>
       { isRedirect && <Redirect to={ `/${tipo}/${recipe[`id${type}`]}` } /> }
     </div>
   );
