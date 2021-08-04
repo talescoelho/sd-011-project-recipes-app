@@ -33,7 +33,7 @@ function App() {
         <Route
           exact
           path="/comidas/:id"
-          render={ (props) => <DetailsFood { ...props } /> }
+          component={ DetailsFood }
         />
         <Route
           exact
@@ -43,7 +43,8 @@ function App() {
         <Route
           exact
           path="/bebidas/:id"
-          render={ (props) => <DetailsDrinks { ...props } /> }
+          component={ DetailsDrinks }
+
         />
         <Route
           exact
