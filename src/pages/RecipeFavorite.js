@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
+import FavoriteMeals from './FavoriteMeals';
 
 export default function RecipeFavorite() {
   const [type, setType] = useState('');
@@ -36,7 +37,9 @@ export default function RecipeFavorite() {
       >
         Drinks
       </button>
-      <div />
+      <div>
+        {FavoriteMeals()}
+      </div>
     </div>
   );
 }
