@@ -1,10 +1,15 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function Explore() {
   return (
-    <main>
-      <h1>Tela de Explorar</h1>
-    </main>
+    <>
+      <Header withSearch={ false } pageTitle="Explorar" />
+      <br />
+      <main>
+        <h1>Algo para contéudo à EXPLORAR</h1>
+      </main>
+    </>
   );
 }
 

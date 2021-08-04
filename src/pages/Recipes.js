@@ -1,20 +1,48 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
-function Recipes() {
+function Recipes({ history }) {
+  function comidasHeaderAndMain() {
+    return (
+      <>
+        <Header withSearch pageTitle="Comidas" />
+        <br />
+        <main data-testid="recipes-page">
+          <h1>Algo para conteúdo de COMIDAS</h1>
+          &nbsp;  &nbsp;  &nbsp;
+        </main>
+      </>
+    );
+  }
+
+  function bebidasHeaderAndMain() {
+    return (
+      <>
+        <Header withSearch pageTitle="Bebidas" />
+        <br />
+        <main data-testid="recipes-page">
+          <h1>Algo para conteúdo de BEBIDAS</h1>
+          &nbsp;  &nbsp;  &nbsp;
+        </main>
+      </>
+    );
+  }
+
   return (
     <>
-      <header>
-        <h1 data-testid="page-title">Tela Principal de Receitas</h1>
-        <button type="button" data-testid="profile-top-btn">Profile</button>
-        <button type="button" data-testid="search-top-btn">Search</button>
-      </header>
-      <main data-testid="recipes-page">
-        <h1>Algo só pra não deixar vazio</h1>
-      </main>
+      {history.location.pathname === '/comidas'
+        ? comidasHeaderAndMain() : bebidasHeaderAndMain() }
       <Footer />
     </>
   );
 }
+
+Recipes.propTypes = {
+  history: PropTypes.shape({
+    pathname: PropTypes.string,
+  }),
+}.isRequired;
 
 export default Recipes;

@@ -174,3 +174,15 @@ describe('Requirement 08', () => {
     expect(recipesPage).toBeInTheDocument();
   });
 });
+
+describe('Requirement 04', () => {
+  it('should be able to type a password', () => {
+    render(<Login />);
+    const inputPassword = screen.getByTestId('password-input');
+    fireEvent.change(inputPassword, { target: {
+      value: '1234567',
+      type: 'password',
+    } });
+    expect(inputPassword.value).toBe('1234567');
+  });
+});
