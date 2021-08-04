@@ -7,6 +7,7 @@ import Bebidas from './pages/Bebidas';
 import Perfil from './pages/Perfil';
 import Explorar from './pages/Explorar';
 import ComidasDetalhes from './pages/ComidasDetalhes';
+import BebidasDetalhes from './pages/BebidasDetalhes';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
 import ExplorarComidasIngredientes from './pages/ExplorarComidasIngredientes';
@@ -20,8 +21,9 @@ function App() {
     <div>
       <Switch>
         <Route exact path="/bebidas" component={ Bebidas } />
-        <Route exact path="/comidas/:id" component={ ComidasDetalhes } />
         <Route exact path="/comidas" component={ Comidas } />
+        <Route path="/bebidas/:id" component={ BebidasDetalhes } />
+        <Route path="/comidas/:id" component={ ComidasDetalhes } />
         <Route exact path="/perfil" component={ Perfil } />
         <Route
           exact
