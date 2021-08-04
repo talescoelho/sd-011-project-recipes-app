@@ -83,12 +83,16 @@ export default function ComidaDetails({ match: { params: { recipeId } } }) {
           height="215"
           src={ `https://www.youtube.com/embed/${strYoutube.split('watch?v=')[1]}` }
         />
-        <div className="details-recomendation" data-testid="0-recomendation-card">
+        <div className="details-recomendation">
           <h2>Receitas recomendadas</h2>
-          <Carousel variant="dark">
+          <Carousel variant="dark" data-testid="recomendation-card">
             {
               recomendations.map(({ strDrink, strDrinkThumb }, index) => (
-                <Carousel.Item data-testid="recomendation-card" key={ strDrink }>
+                <Carousel.Item
+                  data-testid={ `${index}-recomendation-card` }
+                  key={ strDrink }
+                >
+
                   <img
                     className="recomendation-picture"
                     src={ strDrinkThumb }

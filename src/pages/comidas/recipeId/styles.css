@@ -3,9 +3,9 @@
 }
 
 .recomendation-picture {
-  width: 200px;
   display: flex;
   margin: auto;
+  width: 200px;
 }
 
 .details-picture {

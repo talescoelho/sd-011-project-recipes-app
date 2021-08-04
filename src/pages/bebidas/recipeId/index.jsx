@@ -8,7 +8,6 @@ import Button from 'react-bootstrap/Button';
 import { fetchDetails, fetchRecomendation } from '../../../services/fetchDetailsApi';
 
 export default function BebidaDetails({ match: { params: { recipeId } } }) {
-  console.log('entrou detalhes bebidas');
   const [details, setDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [recomendations, setRecomendations] = useState([]);
@@ -19,7 +18,6 @@ export default function BebidaDetails({ match: { params: { recipeId } } }) {
       setRecomendations(getRecomendations);
     };
     fetchRecomendations();
-    console.log(recomendations);
   }, []);
 
   useEffect(() => {
@@ -114,13 +112,24 @@ export default function BebidaDetails({ match: { params: { recipeId } } }) {
         </Container>
         <Container className="details-recomendation" data-testid="0-recomendation-card">
           <h2>Receitas recomendadas</h2>
-          <Carousel>
-            <Carousel.Item>
-              alo alo
-            </Carousel.Item>
-            <Carousel.Item>
-              TESTANDO BARSA
-            </Carousel.Item>
+          <Carousel variant="dark" data-testid="recomendation-card">
+            {
+              recomendations.map(({ strMeal, strMealThumb }, index) => (
+                <Carousel.Item
+                  data-testid={ `${index}-recomendation-card` }
+                  key={ strMeal }
+                >
+                  <img
+                    className="recomendation-picture"
+                    src={ strMealThumb }
+                    alt="Imagem"
+                  />
+                  <Carousel.Caption data-testid={ `${index}-recomendation-title` }>
+                    <h3>{strMeal}</h3>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              ))
+            }
           </Carousel>
         </Container>
         <Button
