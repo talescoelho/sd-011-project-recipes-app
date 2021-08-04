@@ -58,6 +58,13 @@ function RenderMealsCategoriesBtn({ filterByIngredients, clearMealsData }) {
   };
   return (
     <div>
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => clearMealsData() }
+      >
+        All
+      </button>
       { handleRenderBtn() }
     </div>
   );
