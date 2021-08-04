@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import FooterMenu from '../../components/FooterMenu';
-import Header from '../../components/Header';
+import FooterMenu from '../components/FooterMenu';
+import Header from '../components/Header';
 import RenderFoods from './RenderFoods';
 import RenderMealsCategoryBtn from './RenderMealsCategoryBtn';
 
