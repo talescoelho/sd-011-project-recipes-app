@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import * as ReactBootStrap from 'react-bootstrap';
 /* import RecipesContext from '../context/RecipesContext'; */
-import { fetchDrinksDetails } from '../services/API';
-/* import '../styles/DrinksDetails.css'; */
+import { fetchDrinksDetails, fetchFoods } from '../services/API';
+import '../styles/DrinksDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ingredientsDrinkDetails from '../helpers/ingredientsDrinkDetails';
-import Recomendations from '../components/Recomendations';
-import '../styles/Details.css';
+import FoodsRecomendations from '../components/FoodsRecomendations';
 
 function DrinksDetails() {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState({});
+  const [recomendations, setRecomendations] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
@@ -24,7 +24,15 @@ function DrinksDetails() {
     };
     foodDetails(id);
   }, [id, setLoading]);
-  console.log(details);
+
+  useEffect(() => {
+    const foodsRecomendations = async () => {
+      const fetchedRecomendations = await fetchFoods();
+      setRecomendations(fetchedRecomendations);
+    };
+    foodsRecomendations();
+  }, []);
+
   const ingredientsAndMeasures = details.idDrink
     ? ingredientsDrinkDetails(details) : [];
 
@@ -38,7 +46,7 @@ function DrinksDetails() {
               alt="Detalhe da bebida"
               data-testid="recipe-photo"
             />
-            <div>
+            <div className="details-header">
               <div>
                 <span data-testid="recipe-title">{details.strDrink}</span>
                 <span data-testid="recipe-category">{details.strAlcoholic}</span>
@@ -71,16 +79,16 @@ function DrinksDetails() {
             </div>
             <div className="recomendation-container">
               <span>Recomendadas</span>
-              <Recomendations />
+              <FoodsRecomendations recomendations={ recomendations } />
             </div>
-            <button
-              data-testid="start-recipe-btn"
-              type="button"
-              onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
-            >
-              Iniciar Receita
-            </button>
           </>)}
+      <button
+        data-testid="start-recipe-btn"
+        type="button"
+        onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 }
