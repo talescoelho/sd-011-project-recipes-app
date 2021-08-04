@@ -46,15 +46,15 @@ export default function Details() {
 
   if (recipe) {
     const {
-      category, name, image, video, instructions, reverseType,
+      category, name, image, video, instructions, reverseType, type: drinkOrFood,
     } = getIds(type, recipe);
     return (
       <div>
         <img data-testid="recipe-photo" src={ image } alt={ name } />
         <h2 data-testid="recipe-title">{ name }</h2>
         <h3 data-testid="recipe-category">{ category }</h3>
-        <ShareButton />
-        <FavoriteButton recipe={ recipe } drinkOrFood={ type } />
+        <ShareButton type={ drinkOrFood } id={ id } />
+        <FavoriteButton recipe={ recipe } drinkOrFood={ drinkOrFood } />
         <Ingredients recipe={ recipe } inProgress={ inProgress } />
         <div>
           <h3>Instructions</h3>

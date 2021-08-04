@@ -41,3 +41,5 @@ export default function Ingredients({ recipe }) {
 Ingredients.propTypes = {
   recipe: PropTypes.isRequired,
 };
+
+// data-testid*="ingredient-step";
