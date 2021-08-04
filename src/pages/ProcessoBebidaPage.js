@@ -24,7 +24,6 @@ export default function ProcessoBebidaPage(props) {
     .map(((ingre, index) => `${drinkInProgress.drinks[0][ingre]}-${drinkInProgress.drinks[0][measureKeys[index]]}`)).slice(0, ingredientLimit);
   const ingredientFilter = ingredientMap && ingredientMap
     .filter((value) => value !== 'null-null' && value !== '-');
-  console.log(ingredientFilter);
 
   function markIngredients({ target }) {
     const { checked } = target;
@@ -50,7 +49,11 @@ export default function ProcessoBebidaPage(props) {
           <button type="button" data-testid="favorite-btn">favoritar</button>
           <p data-testid="recipe-category">{drinkInProgress.drinks[0].strCategory}</p>
           {ingredientFilter && ingredientFilter.map((ing, index) => (
-            <label key={ index } htmlFor={ ing } data-testid={ `${index}-ingredient-step` }>
+            <label
+              key={ index }
+              htmlFor={ ing }
+              data-testid={ `${index}-ingredient-step` }
+            >
               {ing}
               <input
                 onClick={ markIngredients }
