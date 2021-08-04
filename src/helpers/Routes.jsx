@@ -14,6 +14,7 @@ import ExploreDrinksIngredients from '../pages/ExploreDrinksIngredients';
 import ExploreFoodsArea from '../pages/ExploreFoodsArea';
 import DrinksDetails from '../pages/DrinksDetails';
 import NotFound from '../pages/NotFound';
+import FoodsDetails from '../pages/FoodsDetails';
 
 function Routes() {
   return (
@@ -25,6 +26,7 @@ function Routes() {
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ ExploreFoods } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
+        <Route exact path="/comidas/:id" component={ FoodsDetails } />
         <Route exact path="/bebidas/:id" component={ DrinksDetails } />
         <Route
           exact

@@ -7,7 +7,8 @@ function FiltersCategories() {
   const history = useHistory();
   const { location: { pathname } } = history;
   const [categories, setCategories] = useState([]);
-  const { setCompare, setLoading } = useContext(RecipesContext);
+  const { setCompare, setLoading, setDataFilter } = useContext(RecipesContext);
+  const [resetFilter, setResetFilter] = useState('');
 
   useEffect(() => {
     const requisitionFilters = async () => {
@@ -28,7 +29,7 @@ function FiltersCategories() {
     requisitionFilters();
   }, [pathname]);
 
-  async function categoryFilter({ target }) {
+  async function categoryFilter(target) {
     const doze = 12;
     if (pathname === '/comidas') {
       setLoading(true);
@@ -48,6 +49,24 @@ function FiltersCategories() {
     }
   }
 
+  function resetSetFilter({ target }) {
+    if (resetFilter === target.name && pathname === '/comidas') {
+      setResetFilter('');
+      setDataFilter([]);
+      console.log('entrei1');
+    }
+    if (resetFilter === target.name && pathname === '/bebidas') {
+      setResetFilter('');
+      setDataFilter([]);
+      console.log('entrei1');
+    }
+    if (resetFilter !== target.name) {
+      setResetFilter(target.name);
+      categoryFilter(target);
+      console.log('entrei2');
+    }
+  }
+
   return (
     <div className="container-categories">
       {categories.map((category, index) => (
@@ -57,7 +76,7 @@ function FiltersCategories() {
           type="button"
           name={ category.strCategory }
           key={ index }
-          onClick={ (e) => categoryFilter(e) }
+          onClick={ (e) => resetSetFilter(e) }
         >
           {category.strCategory}
         </button>))}
