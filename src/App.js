@@ -22,8 +22,14 @@ function App() {
   return (
     <div className="meals">
       <Switch>
-        <Route path="/comidas/:id" render={ () => <ReceitaComidaPage /> } />
-        <Route path="/bebidas/:id" render={ () => <ReceitaBebidaPage /> } />
+        <Route
+          path="/comidas/:id"
+          render={ (props) => <ReceitaComidaPage { ...props } /> }
+        />
+        <Route
+          path="/bebidas/:id"
+          render={ (props) => <ReceitaBebidaPage { ...props } /> }
+        />
         <Route
           path="/comidas/:id/in-progress"
           render={ () => <ProcessoComidaPage /> }

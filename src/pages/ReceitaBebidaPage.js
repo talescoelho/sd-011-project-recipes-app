@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Button, Image, Badge } from 'react-bootstrap';
+import ShareFavBtn from '../components/ShareFavBtn';
 
-export default function ReceitaBebidaPage() {
+export default function ReceitaBebidaPage(props) {
   const [drinkDetails, setDrinkDetails] = useState();
   const location = useLocation();
   const DRINK_DETAILS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
@@ -27,7 +28,7 @@ export default function ReceitaBebidaPage() {
       return data.drinks[0];
     };
     drinkRequestById().then((data) => setDrinkDetails(data));
-  });
+  }, [props]);
 
   return (
     <div>
@@ -39,8 +40,7 @@ export default function ReceitaBebidaPage() {
         data-testid="recipe-photo"
       />
       <h1 data-testid="recipe-title">Nome da receita</h1>
-      <Button data-testid="share-btn">Compartilhar</Button>
-      <Button data-testid="favorite-btn">Favoritar</Button>
+      <ShareFavBtn url={ props.match.url } />
       <Badge data-testid="recipe-category">Categoria</Badge>
 
       <div>
