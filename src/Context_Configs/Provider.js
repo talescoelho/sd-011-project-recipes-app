@@ -10,20 +10,23 @@ const firstLetter = 'first-letter';
 const URL_FOOD_INGREDIENTS = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
 const URL_FOOD_NAME = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const URL_FOOD_FIRST_LETTER = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
+//const URL_FOOD_CATEGORY = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 // ====================
 
 // endpoint de bebidas
 const URL_DRINK_INGREDIENTS = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
 const URL_DRINK_NAME = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const URL_DRINK_FIRST_LETTER = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
+
 // ====================
 
 function Provider({ children }) {
+  const [renderFoodCategory, setRenderFoodCategory] = useState(false);
   const [dataFood, setDataFoods] = useState([]);
   const [dataDrinks, setDataDrinks] = useState([]);
   const [APIerror, setError] = useState(null);
   const [requestFoodParams, setRequestFoodParams] = useState({
-    searchInput: '', searchMethod: '' });
+    searchInput: '', searchMethod: '', category: false, term : ''});
   const [requestDrinksParams, setRequestDrinksParams] = useState({
     searchInput: '', searchMethod: '' });
 
@@ -45,12 +48,22 @@ function Provider({ children }) {
         }
         if (searchMethod === firstLetter) {
           response = await fetch(`${URL_FOOD_FIRST_LETTER}${searchInput}`);
+          console.log(49)
         }
-        if (searchMethod === '') {
-          response = await fetch(URL_FOOD_NAME);
-        }
-        const result = await response.json();
-        setDataFoods(twelveItems(result));
+        /*if (requestFoodParams.category === true ) {
+          setRequestFoodParams({
+            ...requestFoodParams,
+            term: '', 
+            category: false,
+          })
+          response = await fetch(`${URL_FOOD_CATEGORY}${requestFoodParams.term}`);
+           console.log(52)
+      }*/
+      if (searchMethod === '') {
+        response = await fetch(URL_FOOD_NAME);
+      }
+      const result = await response.json();
+      setDataFoods(twelveItems(result));
       } catch (error) {
         setError(error);
       }
@@ -95,6 +108,9 @@ function Provider({ children }) {
     setRequestDrinksParams,
     dataDrinks,
     APIerror,
+    requestFoodParams,
+    renderFoodCategory, 
+    setRenderFoodCategory
   };
 
   return (

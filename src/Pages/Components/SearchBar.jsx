@@ -8,7 +8,7 @@ function SearchBar({ value }) {
     searchMethod: '',
   });
 
-  const { setRequestFoodParams, setRequestDrinksParams } = useContext(Context);
+  const { setRequestFoodParams, setRequestDrinksParams, setRenderFoodCategory } = useContext(Context);
 
   return (
     <div className="search-bar">

@@ -6,11 +6,9 @@ export async function CategoryFoodAPI() {
 // return awaitFoodToJSON;
 }
 
-export async function CategoryFoodFilter(param){
+export async function CategoryFoodFilter(param) {
   const linkFoodCategory = `https://www.themealdb.com/api/json/v1/1/search.php?s=${param}`;
   const awaitFood = await fetch(linkFoodCategory);
   const awaitFoodToJSON = await awaitFood.json();
-  console.log(awaitFoodToJSON)
-  return awaitFoodToJSON
-
+  return awaitFoodToJSON.meals;
 }

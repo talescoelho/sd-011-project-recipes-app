@@ -6,45 +6,31 @@ import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './Components/SearchBar';
 import FooterBar from './Components/FooterBar';
-import {CategoryFoodAPI ,CategoryFoodFilter} from '../services/CategoryFoodAPI';
-
+import { CategoryFoodAPI, CategoryFoodFilter } from '../services/CategoryFoodAPI';
+import FoodCategory from './Components/FoodCategory';
+import FoodsCards from './Components/FoodsCards';
+import FoodCategoryCards from './Components/FoodCategoryCards'
 
 // import PropTypes from 'prop-types';
 
-function Foods() {
+function Foods() { 
   const history = useHistory();
-  const { dataFood, setRequestFoodParams } = useContext(Context);
+  const { dataFood, setRequestFoodParams , renderFoodCategory, setRenderFoodCategory} = useContext(Context);
   const [showSearch, setShowSearch] = useState(false);
-  const [foodCategories, setFoodCategories] = useState();
+  // const [foodCategories, setFoodCategories] = useState();
   const [foodFilter, setFoodFilter] = useState([]);
   const foods = 'foods';
-  const numberFour = 4;
   // Busca por comidas ao renderizar a tela de comidas.
-
-  useEffect(() => {
-    async function fetchFoodParams() {
-      const CategoryFood = await CategoryFoodAPI();
-      setFoodCategories(CategoryFood);
-    }
-    fetchFoodParams();
-  }, []);
-
 
   useEffect(() => {
     setRequestFoodParams({
       searchInput: '', searchMethod: '' });
-  }, []);
+      console.log(renderFoodCategory)
+  }, [renderFoodCategory]);
 
   if (dataFood !== null && dataFood.length === 1) {
     const oneResult = dataFood[0];
     history.push(`/comidas/${oneResult.idMeal}`);
-  }
-
-  function requestFoodCategories({target}){
-    const {value} = target;
-    const meals = CategoryFoodFilter(value)
-  meals && setFoodFilter(meals.filter((item , index) => index <= 11))
-  console.log(foodFilter)
   }
 
   return (
@@ -70,37 +56,10 @@ function Foods() {
           />
         </button>
       </div>
-      <div>
-        {foodCategories
-          ? foodCategories.filter((item, index) => index <= numberFour)
-            .map((category, index) => (
-              <button
-                onClick={(e) => requestFoodCategories(e)}
-                type="button"
-                key={ index }
-                data-testid={ `${category}-category-filter` }
-                name="category"
-                value={category}
-              >
-                {category}
-              </button>
-            ))
-          : 'carregando' }
-      </div>
-      <div>
-        {/* necessidade de componentizar os itens abaixo */}
-        { dataFood !== null ? dataFood.map(({ strMeal, strMealThumb, idMeal }, index) => (
-          <div data-testid={ `${index}-recipe-card` } key={ idMeal }>
-            <h3 data-testid={ `${index}-card-name` }>{strMeal}</h3>
-            <img
-              src={ strMealThumb }
-              data-testid={ `${index}-card-img` }
-              alt="Imagem de comida"
-            />
-          </div>
-        // eslint-disable-next-line no-alert
-        )) : alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')}
-      </div>
+      <FoodCategory />
+      {
+        !renderFoodCategory ? <FoodsCards /> : <FoodCategoryCards/>
+      }
       <FooterBar />
     </>
   );
