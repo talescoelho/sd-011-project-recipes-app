@@ -33,7 +33,7 @@ class Cards extends React.Component {
                 data-testid={ `${index}-card-img` }
                 src={ item.strMealThumb }
                 alt="food card"
-                width="50px"
+                width="49px"
               />
             </div>
           </Link>
