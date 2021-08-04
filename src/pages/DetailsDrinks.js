@@ -1,9 +1,45 @@
-import React from 'react';
+import React, { useContext, useState, useCallback, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import MyContext from '../context/MyContext';
+import DetailHeader from '../components/DetailHeader';
+import DetailIngredient from '../components/DetailIngredient';
+import DetailInstruction from '../components/DetailInstruction';
 
-export default function DetailsDrinks() {
-  return (
-    <div>
-      <h1>Detalhes da Bebida</h1>
-    </div>
-  );
+function DetailsDrinks() {
+  const { id } = useParams();
+  const {
+    drinkDetails,
+    setDrinkDetails,
+    getDrinkById,
+  } = useContext(MyContext);
+
+  const [load, setLoad] = useState(true);
+
+  const drink = useCallback(async () => {
+    const fetch = await getDrinkById(id);
+    setDrinkDetails(fetch[0]);
+    console.log(fetch);
+    setLoad(false);
+  }, [
+    setDrinkDetails,
+    getDrinkById,
+    id,
+  ]);
+
+  useEffect(() => {
+    drink();
+    return (
+      setDrinkDetails([])
+    );
+  }, [drink, setDrinkDetails]);
+
+  return !load ? (
+    <main>
+      <DetailHeader />
+      <DetailIngredient />
+      <DetailInstruction />
+    </main>
+  ) : <h1>Loading</h1>;
 }
+
+export default DetailsDrinks;
