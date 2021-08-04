@@ -17,8 +17,13 @@ class Bebidas extends Component {
   }
 
   handleOnClickFilter(element) {
-    const { filteredDrinks } = this.props;
-    filteredDrinks(element.target.value);
+    const { filteredDrinks, generalRecipesDrink } = this.props;
+    console.log(element.target.checked);
+    if (element.target.checked === true) {
+      filteredDrinks(element.target.value);
+    } else {
+      generalRecipesDrink();
+    }
   }
 
   renderFilters() {
@@ -39,16 +44,22 @@ class Bebidas extends Component {
       </button>,
 
       ...allCategories.map((item, index) => (
-        <button
-          className="filter-btn"
-          type="button"
-          data-testid={ `${item.strCategory}-category-filter` }
+        <label
+          className="switch"
           key={ index }
-          value={ item.strCategory }
-          onClick={ (target) => this.handleOnClickFilter(target) }
+          htmlFor="id"
         >
+          <input
+            id="id"
+            className="filter-toggle"
+            type="checkbox"
+            data-testid={ `${item.strCategory}-category-filter` }
+            value={ item.strCategory }
+            onChange={ (target) => this.handleOnClickFilter(target) }
+          />
           {item.strCategory}
-        </button>
+          <span className="slider round" />
+        </label>
       ))];
   }
 

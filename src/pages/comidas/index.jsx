@@ -16,8 +16,12 @@ class Comidas extends Component {
   }
 
   handleOnClickFilter(element) {
-    const { filteredFoods } = this.props;
-    filteredFoods(element.target.value);
+    const { filteredFoods, generalRecipesFood } = this.props;
+    if (element.target.checked === true) {
+      filteredFoods(element.target.value);
+    } else {
+      generalRecipesFood();
+    }
   }
 
   renderFilters() {
@@ -38,16 +42,23 @@ class Comidas extends Component {
       </button>,
 
       ...allCategories.map((item, index) => (
-        <button
-          className="filter-btn"
-          type="button"
-          value={ item.strCategory }
-          data-testid={ `${item.strCategory}-category-filter` }
+        <label
+          className="switch"
           key={ index }
-          onClick={ (element) => this.handleOnClickFilter(element) }
+          htmlFor="id"
         >
+          <input
+            id="id"
+            className="filter-toggle"
+            type="checkbox"
+            value={ item.strCategory }
+            data-testid={ `${item.strCategory}-category-filter` }
+            onChange={ (element) => this.handleOnClickFilter(element) }
+          />
+          {' '}
           {item.strCategory}
-        </button>
+          <span className="slider round" />
+        </label>
       )),
     ];
   }
