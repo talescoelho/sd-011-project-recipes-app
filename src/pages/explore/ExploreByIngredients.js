@@ -1,15 +1,29 @@
 import React from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import Footer from '../../components/footer/Footer';
 import Header from '../../components/Header';
+import { fetchRecipesAPIAction } from '../../redux/actions';
 
-export default function ExploreByIngredients() {
+function ExploreByIngredients() {
+  // const urlFetch = `https://www.themealdb.com/api/json/v1/1/search.php?s=${}`;
   const magicNumberFive = 12;
+  const [showRedirect, setShowRedirect] = React.useState(false);
   const [data, setData] = React.useState([]);
+  const dispatch = useDispatch();
+  const fetchMeals = (url,
+    recipeType) => dispatch(fetchRecipesAPIAction(url, recipeType));
+
   const fetchIngredients = async () => {
     const url = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
     const response = await fetch(url);
     const dataFetch = await response.json();
     setData([...dataFetch.meals]);
+  };
+
+  const redirectMeals = (ingrediente) => {
+    fetchMeals(`https://www.themealdb.com/api/json/v1/1/search.php?s=${ingrediente}`, 'meals');
+    setShowRedirect(true);
   };
 
   React.useEffect(() => {
@@ -19,7 +33,16 @@ export default function ExploreByIngredients() {
     <div>
       <Header title="Explorar Ingredientes" />
       {data && data.slice(0, magicNumberFive).map((item, index) => (
-        <div key={ index } data-testid={ `${index}-ingredient-card` }>
+        <div key={ index }>
+          <button
+            data-testid={ `${index}-ingredient-card` }
+            type="button"
+            onClick={ () => redirectMeals(item.strIngredient) }
+          >
+            {' '}
+            oi
+            {' '}
+          </button>
           <h2
             data-testid={ `${index}-card-name` }
           >
@@ -31,7 +54,10 @@ export default function ExploreByIngredients() {
             alt={ item.strIngredient }
           />
         </div>))}
+      {showRedirect && <Redirect to="/comidas" />}
       <Footer />
     </div>
   );
 }
+
+export default connect(null, null)(ExploreByIngredients);
