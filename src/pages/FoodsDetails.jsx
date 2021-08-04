@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import * as ReactBootStrap from 'react-bootstrap';
 /* import RecipesContext from '../context/RecipesContext'; */
-import { fetchFoodDetails } from '../services/API';
+import { fetchFoodDetails, fetchDrinks } from '../services/API';
 import '../styles/FoodsDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ingredientsMealDetails from '../helpers/ingredientsMealDetails';
-import Recomendations from '../components/Recomendations';
+import DrinksRecomendations from '../components/DrinksRecomendations';
 
 function FoodsDetails() {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState({});
+  const [recomendations, setRecomendations] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
@@ -23,7 +24,15 @@ function FoodsDetails() {
     };
     foodDetails(id);
   }, [id, setLoading]);
-  console.log(details);
+
+  useEffect(() => {
+    const drinksRecomendations = async () => {
+      const fetchedRecomendations = await fetchDrinks();
+      setRecomendations(fetchedRecomendations);
+    };
+    drinksRecomendations();
+  }, []);
+
   const ingredientsAndMeasures = details.idMeal
     ? ingredientsMealDetails(details)
     : [];
@@ -91,7 +100,7 @@ function FoodsDetails() {
           </div>
           <div className="recomendation-container">
             <span>Recomendadas</span>
-            <Recomendations />
+            <DrinksRecomendations recomendations={ recomendations } />
           </div>
         </>
       )}

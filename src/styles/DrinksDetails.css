@@ -24,7 +24,7 @@
 .details-container > button {
   background-color: #6ce34f;
   border-radius: 0.8rem;
-  bottom: 0.4rem;
+  bottom: 0;
   display: inline-block;
   height: 2.8rem;
   left: 50%;
