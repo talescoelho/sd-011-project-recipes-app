@@ -6,6 +6,8 @@ import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import '../styles/header.css';
 
+// update
+
 function Header({ title, search = true }) {
   const history = useHistory();
   const redirectToPerfil = () => history.push('/perfil');
