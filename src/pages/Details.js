@@ -6,30 +6,6 @@ import StartButton from '../components/StartButton';
 import useDetailsFetch from '../hooks/useDetailsFetch';
 import useRecomendedItemsFetch from '../hooks/useRecomendedItemsFetch';
 
-function addFavorite(idReceita, type, data, foodType) {
-  const food = {
-    id: idReceita,
-    type,
-    area: data[foodType][0].strArea || '',
-    category: data[foodType][0].strCategory || '',
-    alcoholicOrNot: data[foodType][0].strAlcoholic || '',
-    name: data[foodType][0].strMeal || data[foodType][0].strDrink,
-    image: data[foodType][0].strMealThumb || data[foodType][0].strDrinkThumb,
-  };
-  if (!localStorage.favoriteRecipes) {
-    localStorage.setItem('favoriteRecipes', JSON.stringify([food]));
-  } else {
-    const favoriteLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (favoriteLocalStorage.some((value) => value.id === idReceita)) {
-      const favorite = favoriteLocalStorage.filter((value) => value.id !== idReceita);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(favorite));
-    } else {
-      localStorage.setItem('favoriteRecipes', JSON
-        .stringify([...favoriteLocalStorage, food]));
-    }
-  }
-}
-
 function verifyDoneRecipes(id, setRecipeExists) {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   if (doneRecipes && doneRecipes.find((recipes) => recipes.id === id)) {
@@ -47,19 +23,21 @@ export default function Details() {
   const [inProgressRecipes, setInProgressRecipes] = React.useState(false);
   const idReceita = window.location.pathname.split('/')[2];
   let foodType = 'meals';
+  let foodLocal = 'meals';
   let food = 'Meal';
   let recomendedFood = 'Drink';
   let recomendedType = 'drinks';
-  let type = 'comida';
+  let type = 'comidas';
   let mainEndPoint = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
   let recomendedEndPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
   if (window.location.pathname.split('/')[1] === 'bebidas') {
     foodType = 'drinks';
+    foodLocal = 'cocktails';
     food = 'Drink';
     recomendedFood = 'Meal';
     recomendedType = 'meals';
-    type = 'bebida';
+    type = 'bebidas';
     mainEndPoint = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
     recomendedEndPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   }
@@ -76,12 +54,12 @@ export default function Details() {
     verifyDoneRecipes(idReceita, setRecipeExists);
     if (localStorage.inProgressRecipes) {
       const progressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      if (progressRecipes && progressRecipes[foodType][idReceita]) {
+      if (progressRecipes && progressRecipes[foodLocal][idReceita]) {
         setInProgressRecipes(true);
       }
     }
-  }, [foodType, idReceita, mainEndPoint,
-    recomendedEndPoint, request, requestRecomendedApi]);
+  }, [foodLocal, foodType, idReceita,
+    mainEndPoint, recomendedEndPoint, request, requestRecomendedApi]);
 
   React.useEffect(() => {
     if (data && recomendedData) {
@@ -155,9 +133,17 @@ export default function Details() {
         ))}
       </div>
       <ShareButton />
-      <FavoriteButton items={ items } addFavorite={ addFavorite } />
-      <ContinueButton inProgressRecipes={ inProgressRecipes } />
-      <StartButton page="comidas" idReceita={ idReceita } recipeExists={ recipeExists } />
+      <FavoriteButton items={ items } />
+      <ContinueButton
+        inProgressRecipes={ inProgressRecipes }
+        idReceita={ idReceita }
+        type={ type }
+      />
+      <StartButton
+        page={ type }
+        idReceita={ idReceita }
+        recipeExists={ recipeExists }
+      />
     </main>
   );
 }

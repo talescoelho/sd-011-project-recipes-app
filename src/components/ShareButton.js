@@ -8,13 +8,17 @@ export default function ShareButton() {
 
   function copyUrl() {
     setCopiedText(true);
-    copy(window.location.href);
+    const location = window.location.href.split('/');
+    if (location[location.length - 1] === 'in-progress') {
+      location.pop();
+    }
+    copy(location.join('/'));
   }
 
   return (
     <div>
       {copiedText ? (
-        <p>Link copiado!</p>
+        <p data-testid="share-btn">Link copiado!</p>
       ) : (
         <button data-testid="share-btn" type="button" onClick={ copyUrl }>
           <img src={ shareIcon } alt="share icon" />

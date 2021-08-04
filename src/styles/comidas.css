@@ -17,3 +17,20 @@
 .card img {
   width: 100%;
 }
+
+.in-progress-card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 25px;
+  width: 100%;
+}
+
+.in-progress-card img {
+  width: 80%;
+}
+
+.teste {
+  text-decoration: line-through;
+}
