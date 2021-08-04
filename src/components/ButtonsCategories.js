@@ -26,7 +26,6 @@ function ButtonsCategories({ categoryName }) {
   }, [categoryName]);
 
   useEffect(() => {
-    console.log(URLCategoryToSearch);
     if (URLCategoryToSearch && filterActive) {
       if (categoryName === 'Comidas') {
         fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${URLCategoryToSearch}`)

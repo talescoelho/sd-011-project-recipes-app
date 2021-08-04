@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import GlobalContext from '../context/GlobalContext';
 import './css/CardCatalog.css';
 
 function CardCatalog() {
-  const { catalog } = useContext(GlobalContext);
+  const { catalog, setCatalog } = useContext(GlobalContext);
 
   const supplyIdentity = Object.keys(catalog)[0];
 
@@ -13,7 +13,10 @@ function CardCatalog() {
 
   function renderMealsCards() {
     return catalogLimited.map((food, index) => (
-      <Link key={ index } to={ `/comidas/${food.idMeal}` }>
+      <Link
+        key={ index }
+        to={ `/comidas/${food.idMeal}` }
+      >
         <div data-testid={ `${index}-recipe-card` } className="supply-card">
           <img
             className="supply-card"
@@ -33,7 +36,10 @@ function CardCatalog() {
 
   function renderDrinksCards() {
     return catalogLimited.map((drink, index) => (
-      <Link key={ index } to={ `/bebidas/${drink.idDrink}` }>
+      <Link
+        key={ index }
+        to={ `/bebidas/${drink.idDrink}` }
+      >
         <div data-testid={ `${index}-recipe-card` } className="supply-card">
           <img
             className="supply-card"
@@ -50,6 +56,10 @@ function CardCatalog() {
       </Link>
     ));
   }
+
+  console.log(catalog);
+
+  useEffect(() => () => setCatalog(''), [setCatalog]);
 
   return (
     <div>
