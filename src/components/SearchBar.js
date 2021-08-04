@@ -56,8 +56,6 @@ function SearchBar() {
     dispatch(getRecipes(action));
   }
 
-  if (redirectURL !== '') return (<Redirect to={ redirectURL } />);
-
   return (
     <form>
       <label htmlFor="search-bar">

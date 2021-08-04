@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import RenderRecipes from '../components/RenderRecipes';
 import { getRecipes } from '../redux/slices/fetchReceitas';
 import Footer from '../components/Footer';
+import CategoryButtons from '../components/CategoryButtons';
 
 function Comidas({ title }) {
   const { foods } = useSelector((state) => state.fetchReceitas);
@@ -22,6 +23,7 @@ function Comidas({ title }) {
   return (
     <div>
       <Header title={ title } />
+      <CategoryButtons />
       {Object.keys(foods).length > 0 && <RenderRecipes />}
       <Footer />
     </div>

@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import CategoryButtons from './CategoryButtons';
 import { getRecipes } from '../redux/slices/fetchReceitas';
 
 function Header({ title }) {
@@ -52,7 +51,6 @@ function Header({ title }) {
             </button>
             {(!hiddenSearchBar && renderSearchComponents[title])}
           </div>)}
-      <CategoryButtons />
     </div>
   );
 }
