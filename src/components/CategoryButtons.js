@@ -124,8 +124,8 @@ function CategoryButtons({ foods, drinks }) {
   return (
     <div>
       {foods && renderAllButton()}
-      {drinks && renderAllButton()}
       {foods && foodCategoryList && renderFoodCategoryButton(foodCategoryList)}
+      {drinks && renderAllButton()}
       {drinks && drinkCategoryList && renderDrinkCategoryButton(drinkCategoryList)}
     </div>
   );
