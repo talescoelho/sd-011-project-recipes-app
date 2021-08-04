@@ -103,7 +103,7 @@ describe('Requirement 21', () => {
   });
 });
 
-describe('Requirement 21', () => {
+describe('Requirement 22', () => {
   it('Should redirect to "/bebidas" on click', () => {
     render(
       <MemoryRouter>
@@ -112,6 +112,20 @@ describe('Requirement 21', () => {
     );
 
     fireEvent.click(screen.getByTestId(drinksBottomBtn));
+    const recipesPage = screen.getByTestId('recipes-page');
+    expect(recipesPage).toBeInTheDocument();
+  });
+});
+
+describe('Requirement 23', () => {
+  it('Should redirect to "/explorar" on click', () => {
+    render(
+      <MemoryRouter>
+        <Recipes />
+      </MemoryRouter>,
+    );
+
+    fireEvent.click(screen.getByTestId(exploreBottomBtn));
     const recipesPage = screen.getByTestId('recipes-page');
     expect(recipesPage).toBeInTheDocument();
   });
