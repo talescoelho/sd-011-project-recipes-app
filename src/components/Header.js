@@ -7,7 +7,7 @@ class Header extends Component {
   constructor() {
     super();
     this.withSearch = this.withSearch.bind(this);
-    this.withOutSearch = this.withOutSearch.bind(this);
+    this.withoutSearch = this.withoutSearch.bind(this);
   }
 
   withSearch() {
