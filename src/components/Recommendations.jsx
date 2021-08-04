@@ -12,11 +12,13 @@ export default function Recommendations() {
   const { pathname } = useLocation();
   const [recommendation, setRecommendations] = useState([]);
   const [number, setNumber] = useState(START_POSITION);
+  const type = pathname.includes('bebidas') ? 'drinks' : 'meals';
+
 
   useEffect(() => {
     const getRecommendation = async () => {
-      const type = pathname.includes('/bebidas') ? 'bebidas' : 'comidas';
-      const list = await searchRecommendation(type);
+      const location = pathname.includes('bebidas') ? 'bebidas' : 'comidas';
+      const list = await searchRecommendation(location);
       setRecommendations(list);
     };
 
@@ -54,6 +56,7 @@ export default function Recommendations() {
               className="carroussel-item"
             >
               <FoodCard
+                type={ type }
                 recipe={ rec }
                 index={ index }
               />
