@@ -95,3 +95,9 @@ export function getDetailsRecipesFromTheCockTailAPI(id) {
   const urlDetailCockTail = API_THECOCKTAILDB_DETAILS + id;
   getRecipesFromCocktailAPI(urlDetailCockTail);
 }
+
+export const fetchAPI = async (URL) => {
+  const API = await fetch(URL);
+  const data = await API.json();
+  return data;
+};
