@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 function ExplorarComidas() {
   return (
     <div>
-      <h1>Explorar Comidas</h1>
+      <Header title="Explorar Comidas" />
       <Link
         to="/explorar/comidas/ingredientes"
         data-testid="explore-by-ingredient"
@@ -18,8 +19,12 @@ function ExplorarComidas() {
       >
         Por Local de Origem
       </Link>
-      {/* <Link to="/explorar/comidas"
-      data-testid="explore-surprise">Me Surpreenda</Link> */}
+      <Link
+        to="/explorar/comidas"
+        data-testid="explore-surprise"
+      >
+        Me Surpreenda!
+      </Link>
       <Footer />
     </div>
   );
