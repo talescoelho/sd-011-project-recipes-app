@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function Ingredients({ recipe }) {
+export default function Ingredients({ recipe, inProgress }) {
   const ingredientsKeys = Object.keys(recipe).reduce((acc, cur) => {
     if (cur.includes('strIngredient')) {
       return [...acc, cur];
@@ -27,12 +27,24 @@ export default function Ingredients({ recipe }) {
     <ol>
       {
         ingredients.map(({ name, measure }, index) => (
-          <li
-            key={ index }
-            data-testid={ `${index}-ingredient-name-and-measure` }
-          >
-            { `${name} - ${measure}` }
-          </li>))
+          (inProgress) ? (
+            <label key={ index } htmlFor={ name }>
+              <input
+                type="checkbox"
+                id={ name }
+                data-testid={ `${index}-ingredient-step` }
+              />
+              { name }
+            </label>
+          ) : (
+            <li
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              { `${name} - ${measure}` }
+            </li>
+          )
+        ))
       }
     </ol>
   );
@@ -40,6 +52,7 @@ export default function Ingredients({ recipe }) {
 
 Ingredients.propTypes = {
   recipe: PropTypes.isRequired,
+  inProgress: PropTypes.isRequired,
 };
 
 // data-testid*="ingredient-step";
