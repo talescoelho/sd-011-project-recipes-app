@@ -1,16 +1,15 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 
 const timeout = 1000;
 
-export default function ShareButton() {
-  const history = useHistory();
+export default function ShareButton({ id, type }) {
   const [showMessage, setShowMessage] = useState(false);
 
   function handleClick() {
-    copy(`http://localhost:3000${history.location.pathname}`);
+    copy(`http://localhost:3000/${type}s/${id}`);
     setShowMessage(true);
     setTimeout(() => setShowMessage(false), timeout);
   }
@@ -23,3 +22,8 @@ export default function ShareButton() {
     </div>
   );
 }
+
+ShareButton.propTypes = {
+  id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+};
