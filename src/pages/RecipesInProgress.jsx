@@ -6,7 +6,7 @@ import './styles/styleRecipesId.css';
 import ShareAndFavorite from '../components/ShareAndFavorite';
 import IngredientRecipes from '../components/IngredientRecipes';
 
-function RecipesId({ match }) {
+function RecipesInProgress({ match }) {
   const { params, path } = match;
   const { id } = params;
   const typeDrinkorMeal = path.split('/')[1];
@@ -30,7 +30,7 @@ function RecipesId({ match }) {
     update: true,
   });
 
-  const { idItem, title, imgThumb, category,
+  const { title, imgThumb, category,
     instructions, video, update, ingredient } = detail;
 
   function getReduxMealsOrDrinks() {
@@ -114,7 +114,7 @@ function RecipesId({ match }) {
       <IngredientRecipes
         ingredient={ ingredient }
         typeDrinkorMeal={ typeDrinkorMeal }
-        idItem={ idItem }
+        idItem={ id }
       />
       <span data-testid="instructions">{ instructions }</span>
       { video && <div data-testid="video">{ video }</div> }
@@ -129,8 +129,8 @@ function RecipesId({ match }) {
   );
 }
 
-export default RecipesId;
+export default RecipesInProgress;
 
-RecipesId.propTypes = {
+RecipesInProgress.propTypes = {
   match: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };

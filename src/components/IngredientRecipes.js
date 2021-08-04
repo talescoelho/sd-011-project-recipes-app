@@ -1,40 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem }) => {
   const typeDoM = typeDrinkorMeal === 'comidas' ? 'meals' : 'cocktails';
+  const [update, forceUpdate] = useState(false);
+  const [info, setInfo] = useState({});
 
-  // function addCheck(value) {
-  //   const info = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  //   localStorage.setItem('inProgressRecipes', JSON.stringify({
-  //     ...info,
-  //     [typeDoM]: {
-  //       [idItem]: [...info[typeDoM][idItem], value],
-  //     },
-  //   }));
-  // }
+  useEffect(() => {
+    const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!getStorage) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        [typeDoM]: {
+          [idItem]: [],
+        },
+      }));
+      setInfo(getStorage);
+    } else {
+      setInfo(getStorage);
+    }
+  }, [idItem, typeDoM, update]);
 
-  // function removeCheck(value) {
-  //   const info = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  //   info[typeDoM][idItem].forEach((itemCheck) => {
-  //     if (itemCheck === value) {
-  //       localStorage.setItem('inProgressRecipes', JSON.stringify({
-  //         ...info,
-  //         [typeDoM]: {
-  //           [idItem]: [...info[typeDoM][idItem].filter((item) => item !== value)],
-  //         },
-  //       }));
-  //     }
-  //   });
-  // }
+  function addCheck(value) {
+    if (info && info[typeDoM][idItem].length > 0) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...info,
+        [typeDoM]: {
+          [idItem]: [...info[typeDoM][idItem], value],
+        },
+      }));
+    } else {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...info,
+        [typeDoM]: {
+          [idItem]: [value],
+        },
+      }));
+    }
+  }
 
-  // function recipiesPorgress(target, value) {
-  //   if (target.checked) addCheck(value);
-  //   else removeCheck(value);
-  // }
+  function removeCheck(value) {
+    info[typeDoM][idItem].forEach((itemCheck) => {
+      if (itemCheck === value) {
+        localStorage.setItem('inProgressRecipes', JSON.stringify({
+          ...info,
+          [typeDoM]: {
+            [idItem]: [...info[typeDoM][idItem].filter((item) => item !== value)],
+          },
+        }));
+      }
+    });
+  }
+
+  function recipiesPorgress(target, value) {
+    forceUpdate(!update);
+    if (target.checked) {
+      addCheck(value);
+    } else { removeCheck(value); }
+  }
 
   function stateCheckd(value) {
-    const info = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    return info[typeDoM][idItem].includes(value);
+    if (info && info[typeDoM][idItem].length > 0) {
+      return info[typeDoM][idItem].includes(value);
+    }
+    console.log('fudeu');
   }
 
   return (
@@ -47,8 +74,10 @@ const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem }) => {
         <input
           type="checkbox"
           id={ index }
-          checked={ () => stateCheckd(index) }
-        // onClick={ ({ target }) => recipiesPorgress({ target }, index) }
+          checked={ stateCheckd(index) }
+          onClick={ ({ target }) => {
+            recipiesPorgress(target, index);
+          } }
         />
         { item }
       </label>

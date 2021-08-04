@@ -28,14 +28,6 @@ function ButtonStart({ detail, typeDrinkorMeal }) {
   }, [idItem, typeDrinkorMeal]);
 
   function startRecipes() {
-    const typeDoM = typeDrinkorMeal === 'comidas' ? 'meals' : 'cocktails';
-    const info = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    localStorage.setItem('inProgressRecipes', JSON.stringify({
-      ...info,
-      [typeDoM]: {
-        [idItem]: [],
-      },
-    }));
     history.push(`${idItem}/in-progress`);
   }
 
