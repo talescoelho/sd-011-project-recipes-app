@@ -4,14 +4,15 @@ import { Link } from 'react-router-dom';
 
 function RecipeCards({ index, src, name, idItem, comidasOuBebidas }) {
   return (
-    <Link to={ `/${comidasOuBebidas}/${idItem}` }>
-      <div
+    <div>
+      <Link
+        to={ `/${comidasOuBebidas}/${idItem}` }
         data-testid={ `${index}-recipe-card` }
       >
         <img src={ src } alt={ name } data-testid={ `${index}-card-img` } width="30px" />
-        <p data-testid={ `${index}-card-name` }>{name}</p>
-      </div>
-    </Link>
+        <p data-testid={ `${index}-card-name` }>{ name }</p>
+      </Link>
+    </div>
   );
 }
 

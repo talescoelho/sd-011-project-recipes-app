@@ -2,7 +2,7 @@ import { requestAreas, requestAreaSucess } from '../actions/areaRecipe';
 
 export default async function fetchArea() {
   const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
-  let response = await fetch(endpoint);
+  const response = await fetch(endpoint);
 
   return async (dispatch) => {
     try {
@@ -12,5 +12,5 @@ export default async function fetchArea() {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 }
