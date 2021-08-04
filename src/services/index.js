@@ -119,3 +119,25 @@ export async function fetchRecommendedMealsFromMealsDB() {
   const results = rawResults.meals;
   return (results.slice(0, numberOfRecomendations));
 }
+
+export async function fetchMealsByIngredient(ingredient) {
+  try {
+    const response = await
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+    const data = await response.json();
+    return data.meals;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function fetchDrinksByIngredient(ingredient) {
+  try {
+    const response = await
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin${ingredient}`);
+    const data = await response.json();
+    return data.drinks;
+  } catch (err) {
+    console.log(err);
+  }
+}

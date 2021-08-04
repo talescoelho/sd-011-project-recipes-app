@@ -66,6 +66,8 @@ export default function Provider({ children }) {
         drinkArray,
         mealCategories,
         drinkCategories,
+        setFoodArray,
+        setDrinkArray,
         filterMealsByCategory,
         filterDrinksByCategory,
       } }

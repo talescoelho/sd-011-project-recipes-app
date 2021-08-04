@@ -7,10 +7,11 @@
   padding: 18px 24px;
 }
 
-.ingredients > div {
+.ingredient-card {
   align-items: center;
   border: 1px solid #eee;
   border-radius: 6px;
+  cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .6);
   display: flex;
   flex-grow: 1;
@@ -20,3 +21,37 @@
   padding: 10px;
   text-align: center;
 }
+
+.loading {
+  align-items: center;
+  background-color: #00000020;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.loading:after {
+  content: '';
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border: 6px solid deepskyblue;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 800ms linear infinite;
+  filter: drop-shadow(0 0 1px black);
+}
+
+@keyframes spin {
+
+  to {
+    transform: rotate(360deg);
+  }
+  
+}
+
+
