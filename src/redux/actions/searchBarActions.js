@@ -13,7 +13,8 @@ const receiveTypeApi = (data) => ({
 export function fetchSearchIngredients(searchIngredient, pathname) {
   return async (dispatch) => {
     dispatch(requestTypeApi());
-    const type = pathname === '/bebidas' ? 'cocktail' : 'meal';
+    const type = pathname.includes('/bebidas') ? 'cocktail' : 'meal';
+    console.log(searchIngredient, pathname);
     const response = await fetch(`https://www.the${type}db.com/api/json/v1/1/filter.php?i=${searchIngredient}`);
     const data = await response.json();
     return dispatch(receiveTypeApi(data));

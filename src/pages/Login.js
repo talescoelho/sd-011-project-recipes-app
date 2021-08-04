@@ -25,11 +25,6 @@ const Login = () => {
     checkEmail();
   }, [password, email]);
 
-  useEffect(() => {
-    localStorage.setItem('inProgressRecipes',
-      JSON.stringify({ cocktails: {}, meals: {} }));
-  }, []);
-
   function handleClick() {
     const emailLS = { email };
     const stringifyEmailLS = JSON.stringify(emailLS);
