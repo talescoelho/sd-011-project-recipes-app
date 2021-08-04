@@ -7,7 +7,7 @@ function FavoriteRecipes() {
       <Header withSearch={ false } pageTitle="Receitas Favoritas" />
       <br />
       <main>
-        <h1>Conteúdo da tela de Receitas Favoritasl</h1>
+        <h1>Conteúdo da tela de Receitas Favoritas</h1>
       </main>
     </>
   );
