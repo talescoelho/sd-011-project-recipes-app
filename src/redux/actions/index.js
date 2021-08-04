@@ -7,6 +7,7 @@ export const ADD_DONE_RECIPE = 'ADD_DONE_RECIPE';
 export const RECEIVE_API = 'RECEIVE_API';
 export const REQUEST_API = 'REQUEST_API';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
+export const UPDATE_ARRAY = 'UPDATE_ARRAY';
 
 export const addEmail = (email) => ({
   type: ADD_EMAIL,
@@ -65,3 +66,8 @@ export function fetchAPI(urlType, id) {
         ));
   };
 }
+
+export const updateArray = (array) => ({
+  type: UPDATE_ARRAY,
+  payload: array,
+});

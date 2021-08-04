@@ -4,7 +4,8 @@ import { REQUEST_API,
   ADD_INGREDIENT_DRINK,
   ADD_INGREDIENT_MEAL,
   DELETE_INGREDIENT_DRINK,
-  DELETE_INGREDIENT_MEAL } from '../actions';
+  DELETE_INGREDIENT_MEAL,
+  UPDATE_ARRAY } from '../actions';
 
 const INITIAL_STATE = {
   ingredientsMeal: [],
@@ -21,47 +22,45 @@ function inProgressReducer(state = INITIAL_STATE, action) {
       ...state,
       fetching: true,
     };
-
   case RECEIVE_API:
     return {
       ...state,
       fetching: false,
       recipeReceived: action.payload,
     };
-
   case FAILED_REQUEST:
     return {
       ...state,
       error: action.payload,
       fetching: false,
     };
-
   case ADD_INGREDIENT_DRINK:
     return {
       ...state,
       ingredientsDrink: [...state.ingredientsDrink, action.ingredient],
     };
-
   case ADD_INGREDIENT_MEAL:
     return {
       ...state,
       ingredientsMeal: [...state.ingredientsMeal, action.ingredient],
     };
-
   case DELETE_INGREDIENT_DRINK:
     return {
       ...state,
       ingredientsDrink: [...state.ingredientsDrink
         .filter((ing) => ing !== action.ingredient)],
     };
-
   case DELETE_INGREDIENT_MEAL:
     return {
       ...state,
       ingredientsMeal: [...state.ingredientsMeal
         .filter((ing) => ing !== action.ingredient)],
     };
-
+  case UPDATE_ARRAY:
+    return {
+      ...state,
+      ingredientsMeal: action.payload,
+    };
   default:
     return state;
   }

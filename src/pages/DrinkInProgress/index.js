@@ -42,7 +42,7 @@ function FoodInProgress() {
       typeURL={ drink }
       ingQuant="15"
       checkIng={ checkIngredients }
-      array={ ingredients }
+      arrayCheckedIngredients={ ingredients }
     /> : null
   );
 }

@@ -5,7 +5,12 @@ import { addDoneRecipe } from '../redux/actions';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
-function RecipeInProgress({ typeURL, ingQuant, checkIng, array, favorite }) {
+function RecipeInProgress({
+  typeURL,
+  ingQuant,
+  checkIng,
+  arrayCheckedIngredients,
+  favorite }) {
   // eslint-disable-next-line global-require
   const copy = require('clipboard-copy');
   const [copied, setCopied] = useState(false);
@@ -18,19 +23,20 @@ function RecipeInProgress({ typeURL, ingQuant, checkIng, array, favorite }) {
 
   const capitalizeLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
   const lastLetterInd = -1;
-  const key = Object.keys(typeURL);
-  const newType = capitalizeLetter(key[0]).slice(0, lastLetterInd);
-  const recipe = typeURL[key[0]];
+  const key = Object.keys(typeURL); // meals ou drinks
+
+  const newType = capitalizeLetter(key[0]).slice(0, lastLetterInd); // Meal ou Drink
+  const recipe = typeURL[key[0]]; // retorno da api
 
   useEffect(() => {
     if (ingredients.length > 0) {
-      if (array.length === ingredients.length) {
+      if (arrayCheckedIngredients.length === ingredients.length) {
         setDisabled(false);
       } else {
         setDisabled(true);
       }
     }
-  }, [array.length, ingredients.length]);
+  }, [arrayCheckedIngredients.length, ingredients.length]);
 
   const copyLink = () => {
     const end = 12;
@@ -45,7 +51,7 @@ function RecipeInProgress({ typeURL, ingQuant, checkIng, array, favorite }) {
     for (let i = 1; i <= maxIngredient; i += 1) {
       if (recipeType[`strIngredient${i}`] !== null
         && recipeType[`strIngredient${i}`].length > 0) {
-        ingredients.push(recipeType[`strIngredient${i}`]);
+        ingredients.push(i);
       }
     }
 
@@ -77,15 +83,38 @@ function RecipeInProgress({ typeURL, ingQuant, checkIng, array, favorite }) {
         {copied ? <p>Link copiado!</p> : null}
         <p data-testid="recipe-category">{recipeType.strCategory}</p>
         <ul>
-          {ingredients.map((ingredient, i) => (
-            <li key={ i } data-testid={ `${i}-ingredient-step` } className="ingredients">
-              <input
-                type="checkbox"
-                id={ i }
-                onClick={ (e) => checkIng(e) }
-              />
-              {ingredient}
-            </li>
+          {ingredients.map((n, i) => (
+            arrayCheckedIngredients.includes(n) ? (
+              <li
+                key={ i }
+                data-testid={ `${i}-ingredient-step` }
+                className="ingredients"
+              >
+                <input
+                  type="checkbox"
+                  id={ n }
+                  checked
+                  onClick={ (e) => checkIng(e) }
+                />
+                { recipeType[`strMeasure${n}`]
+                  ? `${recipeType[`strIngredient${n}`]} - ${recipeType[`strMeasure${n}`]}`
+                  : recipeType[`strIngredient${n}`] }
+              </li>
+            ) : (
+              <li
+                key={ i }
+                data-testid={ `${i}-ingredient-step` }
+                className="ingredients"
+              >
+                <input
+                  type="checkbox"
+                  id={ n }
+                  onClick={ (e) => checkIng(e) }
+                />
+                { recipeType[`strMeasure${n}`]
+                  ? `${recipeType[`strIngredient${n}`]} - ${recipeType[`strMeasure${n}`]}`
+                  : recipeType[`strIngredient${n}`] }
+              </li>)
           ))}
         </ul>
         <p data-testid="instructions">{recipeType.strInstructions}</p>
