@@ -66,6 +66,7 @@ function ExploreFoodByArea() {
             onChange={ (e) => setSelectedCountry(e.target.value) }
             data-testid="explore-by-area-dropdown"
           >
+            <option>-Select a Country-</option>
             <option value="all" data-testid="All-option">All</option>
             {countries.map((country, index) => (
               <option
