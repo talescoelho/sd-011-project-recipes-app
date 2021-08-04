@@ -12,11 +12,17 @@ class ProcessoComidas extends Component {
       food: {},
       shareButton: false,
       favoriteButton: false,
+      ingredients: {},
+      setIngredients: {
+        meals: {},
+        cocktails: {},
+      },
     };
     this.fetchIdMeal = this.fetchIdMeal.bind(this);
     this.shareLinkClick = this.shareLinkClick.bind(this);
     this.favoriteButtonClick = this.favoriteButtonClick.bind(this);
     this.riskDoneIngredients = this.riskDoneIngredients.bind(this);
+    this.verifyStorage = this.verifyStorage.bind(this);
   }
 
   componentDidMount() {
@@ -24,6 +30,27 @@ class ProcessoComidas extends Component {
     const { location } = history;
     const { pathname } = location;
     this.fetchIdMeal(pathname.split('/')[2]);
+    this.verifyStorage();
+  }
+
+  verifyStorage() {
+    const { history } = this.props;
+    const { location } = history;
+    const { pathname } = location;
+    const urlId = pathname.split('/')[2];
+    if (localStorage.inProgressRecipes) {
+      const verifyLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (verifyLocal.meals[urlId]) {
+        this.setState({
+          ingredients: verifyLocal.meals[urlId].reduce((acc, value) => {
+            console.log(value);
+            acc = { ...acc, [value]: true };
+            return acc;
+          }, {}),
+          setIngredients: verifyLocal,
+        });
+      }
+    }
   }
 
   fetchIdMeal(id) {
@@ -34,7 +61,9 @@ class ProcessoComidas extends Component {
 
   shareLinkClick() {
     const magicNumber = 2000;
-    navigator.clipboard.writeText(window.location.href);
+    const urlLocation = window.location.href.split('/');
+    urlLocation.pop();
+    navigator.clipboard.writeText(urlLocation.join('/'));
     this.setState({ shareButton: true });
     setTimeout(() => this.setState({
       shareButton: false,
@@ -87,16 +116,30 @@ class ProcessoComidas extends Component {
   }
 
   riskDoneIngredients({ target }) {
-    const { checked } = target;
-    if (checked) {
-      target.parentNode.style.textDecoration = 'line-through';
-    } else {
-      target.parentNode.style.textDecoration = 'none';
-    }
+    const { ingredients } = this.state;
+    const { checked, name } = target;
+    const { history } = this.props;
+    const { location } = history;
+    const { pathname } = location;
+    const urlId = pathname.split('/')[2];
+    this.setState({
+      ingredients: { ...ingredients, [name]: checked },
+    }, () => {
+      this.setState((prev) => ({
+        setIngredients:
+        { ...prev.setIngredients,
+          meals: { ...prev.setIngredients.meals,
+            [urlId]: Object.keys(prev.ingredients)
+              .filter((value) => prev.ingredients[value]) } },
+      }), () => {
+        const { setIngredients } = this.state;
+        localStorage.setItem('inProgressRecipes', JSON.stringify(setIngredients));
+      });
+    });
   }
 
   render() {
-    const { food, favoriteButton, shareButton } = this.state;
+    const { food, favoriteButton, shareButton, ingredients, setIngredients } = this.state;
     const { meals } = food;
     if (!meals) { return <p>Carregando</p>; }
     const { strMealThumb, strMeal, strCategory, strInstructions } = meals[0];
@@ -107,6 +150,10 @@ class ProcessoComidas extends Component {
     const filtradosMeasure = ingredientes.filter((value) => value.includes('strMeasure'));
     const valuesMeasure = filtradosMeasure.map((value) => meals[0][value]);
     const onlyMeasures = valuesMeasure.filter((value) => value);
+    const { history } = this.props;
+    const { location } = history;
+    const { pathname } = location;
+    const urlId = pathname.split('/')[2];
     return (
       <div>
         <div>
@@ -152,11 +199,17 @@ class ProcessoComidas extends Component {
               key={ index }
               data-testid={ `${index}-ingredient-step` }
             >
-              <label htmlFor={ `${index}-ingredient-name-and-measure` }>
+              <label
+                style={ ingredients[value]
+                  ? { textDecoration: 'line-through' } : { textDecoration: 'none' } }
+                htmlFor={ `${index}-ingredient-name-and-measure` }
+              >
                 <input
                   id={ `${index}-ingredient-name-and-measure` }
                   type="checkbox"
+                  name={ value }
                   onClick={ this.riskDoneIngredients }
+                  defaultChecked={ ingredients[value] }
                 />
                 {`${value} - ${onlyMeasures[index]}`}
               </label>
@@ -168,6 +221,8 @@ class ProcessoComidas extends Component {
           data-testid="finish-recipe-btn"
           type="button"
           className="btn-start"
+          disabled={ setIngredients.meals[urlId]
+            && setIngredients.meals[urlId].length !== onlyIngredientes.length }
         >
           Finalizar Receita
         </button>

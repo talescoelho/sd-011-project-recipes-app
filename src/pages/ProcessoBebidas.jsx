@@ -12,11 +12,17 @@ class ProcessoBebidas extends Component {
       cocktail: {},
       shareButton: false,
       favoriteButton: false,
+      ingredients: {},
+      setIngredients: {
+        meals: {},
+        cocktails: {},
+      },
     };
     this.fetchIdDrink = this.fetchIdDrink.bind(this);
     this.shareLinkClick = this.shareLinkClick.bind(this);
     this.favoriteButtonClick = this.favoriteButtonClick.bind(this);
     this.riskDoneIngredients = this.riskDoneIngredients.bind(this);
+    this.verifyStorage = this.verifyStorage.bind(this);
   }
 
   componentDidMount() {
@@ -24,6 +30,27 @@ class ProcessoBebidas extends Component {
     const { location } = history;
     const { pathname } = location;
     this.fetchIdDrink(pathname.split('/')[2]);
+    this.verifyStorage();
+  }
+
+  verifyStorage() {
+    const { history } = this.props;
+    const { location } = history;
+    const { pathname } = location;
+    const urlId = pathname.split('/')[2];
+    if (localStorage.inProgressRecipes) {
+      const verifyLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (verifyLocal.cocktails[urlId]) {
+        this.setState({
+          ingredients: verifyLocal.cocktails[urlId].reduce((acc, value) => {
+            console.log(value);
+            acc = { ...acc, [value]: true };
+            return acc;
+          }, {}),
+          setIngredients: verifyLocal,
+        });
+      }
+    }
   }
 
   fetchIdDrink(id) {
@@ -34,7 +61,9 @@ class ProcessoBebidas extends Component {
 
   shareLinkClick() {
     const magicNumber = 2000;
-    navigator.clipboard.writeText(window.location.href);
+    const urlLocation = window.location.href.split('/');
+    urlLocation.pop();
+    navigator.clipboard.writeText(urlLocation.join('/'));
     this.setState({ shareButton: true });
     setTimeout(() => this.setState({
       shareButton: false,
@@ -55,16 +84,16 @@ class ProcessoBebidas extends Component {
   }
 
   favoriteButtonClick() {
-    const { favoriteButton, food } = this.state;
-    const { meals } = food;
+    const { favoriteButton, cocktail } = this.state;
+    const { drinks } = cocktail;
     const obj = {
-      id: meals[0].idMeal,
-      type: 'comida',
-      area: meals[0].strArea,
-      category: meals[0].strCategory,
-      alcoholicOrNot: '',
-      name: meals[0].strMeal,
-      image: meals[0].strMealThumb,
+      id: drinks[0].idDrink,
+      type: 'bebida',
+      area: '',
+      category: drinks[0].strCategory,
+      alcoholicOrNot: drinks[0].strAlcoholic,
+      name: drinks[0].strDrink,
+      image: drinks[0].strDrinkThumb,
     };
 
     this.setState({
@@ -74,9 +103,9 @@ class ProcessoBebidas extends Component {
         localStorage.setItem('favoriteRecipes', JSON.stringify([obj]));
       } else {
         const favoritesRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-        if (favoritesRecipes.some((value) => value.id === meals[0].idMeal)) {
+        if (favoritesRecipes.some((value) => value.id === drinks[0].idDrink)) {
           const attFavorite = favoritesRecipes
-            .filter((value) => value.id !== meals[0].idMeal);
+            .filter((value) => value.id !== drinks[0].idDrink);
           localStorage.setItem('favoriteRecipes', JSON.stringify(attFavorite));
         } else {
           localStorage
@@ -87,16 +116,31 @@ class ProcessoBebidas extends Component {
   }
 
   riskDoneIngredients({ target }) {
-    const { checked } = target;
-    if (checked) {
-      target.parentNode.style.textDecoration = 'line-through';
-    } else {
-      target.parentNode.style.textDecoration = 'none';
-    }
+    const { ingredients } = this.state;
+    const { checked, name } = target;
+    const { history } = this.props;
+    const { location } = history;
+    const { pathname } = location;
+    const urlId = pathname.split('/')[2];
+    this.setState({
+      ingredients: { ...ingredients, [name]: checked },
+    }, () => {
+      this.setState((prev) => ({
+        setIngredients:
+        { ...prev.setIngredients,
+          cocktails: { ...prev.setIngredients.cocktails,
+            [urlId]: Object.keys(prev.ingredients)
+              .filter((value) => prev.ingredients[value]) } },
+      }), () => {
+        const { setIngredients } = this.state;
+        localStorage.setItem('inProgressRecipes', JSON.stringify(setIngredients));
+      });
+    });
   }
 
   render() {
-    const { cocktail, shareButton, favoriteButton } = this.state;
+    const { cocktail,
+      shareButton, favoriteButton, ingredients, setIngredients } = this.state;
     const { drinks } = cocktail;
     if (!drinks) return <p>Carregando</p>;
     const { strDrinkThumb, strDrink, strAlcoholic, strInstructions } = drinks[0];
@@ -107,6 +151,10 @@ class ProcessoBebidas extends Component {
     const filtradosMeasure = ingredientes.filter((value) => value.includes('strMeasure'));
     const valuesMeasure = filtradosMeasure.map((value) => drinks[0][value]);
     const onlyMeasures = valuesMeasure.filter((value) => value);
+    const { history } = this.props;
+    const { location } = history;
+    const { pathname } = location;
+    const urlId = pathname.split('/')[2];
     return (
       <div>
         <div>
@@ -152,11 +200,17 @@ class ProcessoBebidas extends Component {
               key={ index }
               data-testid={ `${index}-ingredient-step` }
             >
-              <label htmlFor={ `${index}-ingredient-name-and-measure` }>
+              <label
+                style={ ingredients[value]
+                  ? { textDecoration: 'line-through' } : { textDecoration: 'none' } }
+                htmlFor={ `${index}-ingredient-name-and-measure` }
+              >
                 <input
                   id={ `${index}-ingredient-name-and-measure` }
                   type="checkbox"
+                  name={ value }
                   onClick={ this.riskDoneIngredients }
+                  defaultChecked={ ingredients[value] }
                 />
                 {`${value} - ${onlyMeasures[index]}`}
               </label>
@@ -168,6 +222,8 @@ class ProcessoBebidas extends Component {
           data-testid="finish-recipe-btn"
           type="button"
           className="btn-start"
+          disabled={ setIngredients.cocktails[urlId]
+            && setIngredients.cocktails[urlId].length !== onlyIngredientes.length }
         >
           Finalizar Receita
         </button>
