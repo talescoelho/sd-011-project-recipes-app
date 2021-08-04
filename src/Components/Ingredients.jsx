@@ -7,14 +7,13 @@ function Ingredients() {
     setDetailsIngredientsFiltered,
     DetailsMeasuresFiltered,
     setDetailsMeasuresFiltered,
-    idFoodsAPI
+    idFoodsAPI,
   } = useContext(MainContext);
 
   useEffect(() => {
-    if (idFoodsAPI) {
-      Object.entries(idFoodsAPI).forEach( o => (
-        o[1] === null || o[1] === "" || o[1] === " " ? delete idFoodsAPI[o[0]] : 0)
-      );
+    if (idFoodsAPI){
+      Object.entries(idFoodsAPI).forEach((o) => (o[1] === null || o[1] === '' || o[1] === ' ' 
+        ? delete idFoodsAPI[o[0]] : 0));
 
       const listIngredients = Object.entries(idFoodsAPI)
         .filter((recipe) => recipe[0].includes('Ingredient') && recipe[1]);
@@ -23,7 +22,6 @@ function Ingredients() {
       const listMeasures = Object.entries(idFoodsAPI || {})
         .filter((recipe) => recipe[0].includes('Measure') && recipe[1]);
       const measuresFinal = listMeasures.map((valor) => valor[1]);
-
 
       console.log(ingredientsFinal, measuresFinal);
 
@@ -40,7 +38,10 @@ function Ingredients() {
             data-testid={ `${i}-ingredient-name-and-measure` }
             key={ i }
           >
-            { ing }{' '}-{ ' ' }
+            { ing }
+            {' '}
+            -
+            { ' ' }
             { DetailsMeasuresFiltered.map((mea, ind) => i === ind && (mea)) }
           </li>
         ))) }
