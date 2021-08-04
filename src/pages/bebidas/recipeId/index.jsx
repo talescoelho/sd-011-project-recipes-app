@@ -5,17 +5,26 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import fetchDetails from '../../../services/fetchDetailsApi';
+import { fetchDetails, fetchRecomendation } from '../../../services/fetchDetailsApi';
 
 export default function BebidaDetails({ match: { params: { recipeId } } }) {
   console.log('entrou detalhes bebidas');
   const [details, setDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [recomendations, setRecomendations] = useState([]);
+
+  useEffect(() => {
+    const fetchRecomendations = async () => {
+      const getRecomendations = await fetchRecomendation('drink');
+      setRecomendations(getRecomendations);
+    };
+    fetchRecomendations();
+    console.log(recomendations);
+  }, []);
 
   useEffect(() => {
     const fetchApi = async () => {
       const getDetails = await fetchDetails('drink', recipeId);
-      console.log(getDetails);
       setDetails(getDetails);
       setIsLoading(false);
     };

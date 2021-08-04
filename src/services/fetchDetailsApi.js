@@ -6,7 +6,9 @@ const filterElements = (obj) => {
   });
 };
 
-const fetchDetails = async (selector, id) => {
+const TWELVE = 12;
+
+export const fetchDetails = async (selector, id) => {
   if (selector === 'meal') {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
     const result = await response.json();
@@ -21,4 +23,15 @@ const fetchDetails = async (selector, id) => {
   return obj;
 };
 
-export default fetchDetails;
+export const fetchRecomendation = async (selector) => {
+  if (selector === 'meal') {
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    const result = await response.json();
+    const obj = result.drinks.slice(0, TWELVE);
+    return obj;
+  }
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  const result = await response.json();
+  const obj = result.meals.slice(0, TWELVE);
+  return obj;
+};

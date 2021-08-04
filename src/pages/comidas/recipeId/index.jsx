@@ -2,12 +2,22 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
-import fetchDetails from '../../../services/fetchDetailsApi';
+import { fetchDetails, fetchRecomendation } from '../../../services/fetchDetailsApi';
 import './styles.css';
 
 export default function ComidaDetails({ match: { params: { recipeId } } }) {
   const [details, setDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [recomendations, setRecomendations] = useState([]);
+
+  useEffect(() => {
+    const fetchRecomendations = async () => {
+      const getRecomendations = await fetchRecomendation('meal');
+      setRecomendations(getRecomendations);
+      console.log(getRecomendations);
+    };
+    fetchRecomendations();
+  }, []);
 
   useEffect(() => {
     const fetchApi = async () => {
