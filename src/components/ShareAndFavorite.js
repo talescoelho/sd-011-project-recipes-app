@@ -70,14 +70,14 @@ function ShareAndFavorite({
 
   return (
     <div>
-      {favorite && (
+      { favorite && (
         <FavoriteButton
           onClick={ handleFavorite }
           testFavorite={ testFavorite }
           favorited={ favorited }
         />
-      )}
-      {share && (
+      ) }
+      { share && (
         <button
           type="button"
           src={ shareIcon }
@@ -89,8 +89,8 @@ function ShareAndFavorite({
         >
           <img src={ shareIcon } alt="heart" />
         </button>
-      )}
-      {copiado && (<p>Link copiado!</p>)}
+      ) }
+      { copiado && (<p>Link copiado!</p>) }
     </div>
   );
 }
