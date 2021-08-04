@@ -81,13 +81,6 @@ function Cards(props) {
                     data-testid={ `${indexMap}-card-img` }
                   />
                 </div>
-                <h5 data-testid={ `${indexMap}-card-name` }>{drink.strDrink}</h5>
-                <img
-                  className="card-img"
-                  src={ drink.strDrinkThumb }
-                  alt={ drink.strDrink }
-                  data-testid={ `${indexMap}-card-img` }
-                />
               </Link>
             </div>
           ))
