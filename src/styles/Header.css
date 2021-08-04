@@ -1,42 +1,48 @@
 .btns {
-  justify-content: center; 
-  display: flex;
   background-color: rgb(218, 216, 216);
+  display: flex;
+  justify-content: center;
 }
 
 .btn-search {
+  align-items: center;
   background-color: transparent;
+
   /* margin-top: 20px;
   margin-right: 20px;
   margin-left: 20px; */
   border: none;
   border-radius: 15px;
   cursor: pointer;
-  transition: 0.2s ease-in-out;
-	/* margin-left: auto; */
-	/* display: block; */
+
+  /* margin-left: auto; */
+
+  /* display: block; */
   display: flex;
-  align-items: center;
-	width: 45px;
-  height: 55px ;
+  height: 55px;
+  transition: 0.2s ease-in-out;
+  width: 45px;
 }
 
 .title {
-  padding-right: 10px;
   padding-left: 10px;
+  padding-right: 10px;
 }
 
 .btn-perfil {
   background-color: transparent;
+
   /* margin-top: 20px;
   margin-right: 20px;
   margin-left: 20px; */
   border: none;
   border-radius: 15px;
   cursor: pointer;
+  margin-top: 10px;
   transition: all 0.2s ease-in-out;
-	/* margin-left: auto; */
-	/* display: block; */
-	width: 45px;
-	margin-top: 10px;
+
+  /* margin-left: auto; */
+
+  /* display: block; */
+  width: 45px;
 }

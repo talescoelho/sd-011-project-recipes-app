@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -5,7 +6,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 export default function FavoriteButton({ recipe, drinkOrFood }) {
   const [changeHeart, setChangeHeart] = useState(false);
   const [getLocalStorage, setGetLocalStorage] = useState();
-  const [isFavorite, setFavorie ] = useState();
+  // const [isFavorite, setFavorie ] = useState();
   // const { idMeal, strMeal, strCategory, strArea, strMealThumb } = recipe;
   // const { strDrink, strAlcoholic, strInstructions, strDrinkThumb } = recipe;
 
@@ -15,10 +16,9 @@ export default function FavoriteButton({ recipe, drinkOrFood }) {
     return getFromLocalStorage ? setChangeHeart(true) : setChangeHeart(false);
   }, []);
 
-  useEffect(() => {
-    const id = drinkOrFood === 'comida' ? recipe.idMeal : recipe.idDrink;
-    
-  }, [getLocalStorage]);
+  // useEffect(() => {
+  //   const id = drinkOrFood === 'comida' ? recipe.idMeal : recipe.idDrink;
+  // }, [getLocalStorage]);
 
   const favorites = {
     id: drinkOrFood === 'comida' ? recipe.idMeal : recipe.idDrink,
@@ -54,3 +54,8 @@ export default function FavoriteButton({ recipe, drinkOrFood }) {
     <h3> Carregando </h3>
   );
 }
+
+FavoriteButton.propTypes = {
+  drinkOrFood: PropTypes.string.isRequired,
+  recipe: PropTypes.isRequired,
+};
