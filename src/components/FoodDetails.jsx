@@ -1,48 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import propTypes from 'prop-types';
 import { fetchFood } from '../services/FoodAPI';
-import CardsDrinks from '../components/CardsDrinks';
+import CardsDrinks from './CardsDrinks';
 import '../styles/FoodDetails.scss';
 import { isRecipeDone } from '../services/RecipesLocalStorage';
-import ShareBtn from '../components/ShareBtn';
-import FavoriteBtn from '../components/FavoriteBtn';
+import ShareBtn from './ShareBtn';
+import FavoriteBtn from './FavoriteBtn';
 
-export default function FoodDetails() {
+export default function FoodDetails({ type }) {
   const params = useParams();
-  const [food, setFood] = useState();
+  const [food, setFood] = useState({});
+  console.log(food);
 
   useEffect(() => {
     const getFood = async () => {
-      const data = await fetchFood(params.id);
+      const data = await fetchFood(params.id, type);
       setFood(data);
     };
     getFood();
-  }, [params.id]);
+  }, [params.id, type]);
 
-  function returnRecipe() {
-    if (food) {
-      return food.meals[0];
-    }
-    return '';
-  }
+  // function getVideoId() {
+  //   if (food.strYoutube) {
+  //     const urlYT = food.strYoutube;
 
-  function getVideoId() {
-    if (food) {
-      const urlYT = food.meals[0].strYoutube;
+  //     return urlYT.substring(urlYT.indexOf('v=') + 2);
+  //   }
+  //   return '';
+  // }
 
-      return urlYT.substring(urlYT.indexOf('v=') + 2);
-    }
-    return '';
-  }
-
-  function listIngradient() {
+  function listIngradient(item) {
     const retorno = [];
     const qtdMax = 20;
     for (let index = 1; index <= qtdMax; index += 1) {
       if (
-        returnRecipe()[`strIngredient${index}`] !== ''
-        && returnRecipe()[`strIngredient${index}`] !== null
+        item[`strIngredient${index}`] !== ''
+        && item[`strIngredient${index}`] !== null
       ) {
         const indexDataTest = index - 1;
         retorno.push(
@@ -50,11 +45,11 @@ export default function FoodDetails() {
             data-testid={ `${indexDataTest}-ingredient-name-and-measure` }
             key={ `${indexDataTest}-ingrname-id` }
           >
-            {returnRecipe()[`strIngredient${index}`]}
+            {item[`strIngredient${index}`]}
             {' '}
             -
             {' '}
-            {returnRecipe()[`strMeasure${index}`]}
+            {item[`strMeasure${index}`]}
           </li>,
         );
       }
@@ -63,29 +58,30 @@ export default function FoodDetails() {
     return retorno;
   }
 
+  const { strMealThumb, strDrinkThumb, strMeal, strInstructions, strCategory } = food;
   return (
     <main className="food-details">
       <div>
         <img
           className="imgreceita"
           data-testid="recipe-photo"
-          src={ returnRecipe().strMealThumb }
+          src={ strMealThumb || strDrinkThumb }
           alt="img"
         />
-        <h1 data-testid="recipe-title">{returnRecipe().strMeal}</h1>
+        <h1 data-testid="recipe-title">{strMeal}</h1>
         <ShareBtn />
         <FavoriteBtn />
-        <p data-testid="instructions">{returnRecipe().strInstructions}</p>
+        <p data-testid="instructions">{strInstructions}</p>
         <p data-testid="recipe-category">
           Categoria:
-          {returnRecipe().strCategory}
+          {strCategory}
         </p>
         <p>
-          {listIngradient()}
+          {listIngradient(food)}
         </p>
         <h1>Vídeo</h1>
         <p>
-          <iframe
+          {/* <iframe
             data-testid="video"
             title="Vídeo da Receita"
             frameBorder="0"
@@ -93,7 +89,7 @@ export default function FoodDetails() {
             allowFullScreen
             src={ `https://www.youtube.com/embed/${getVideoId()}` }
             width="100%"
-          />
+          /> */}
         </p>
         {(isRecipeDone(params.id) === false) ? (
           <Link to={ `/comidas/${params.id}/in-progress` }>
@@ -109,3 +105,7 @@ export default function FoodDetails() {
     </main>
   );
 }
+
+FoodDetails.propTypes = {
+  type: propTypes.string.isRequired,
+};

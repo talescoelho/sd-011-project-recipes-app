@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router';
 import {
   LoginPage, NotFound, User, Bebidas, Explore, Comidas,
   FoodDetails, MealtIngredients, DrinkIngredients, ExploreFood,
-  ExploreDrink, RecipeProgress, DrinkDetails } from '../pages';
+  ExploreDrink, RecipeProgress, DrinkDetails, MealDetails } from '../pages';
 
 import DrinkProgress from '../pages/DrinkProgress';
 
@@ -18,7 +18,7 @@ function Routes() {
       <Route
         exact
         path="/comidas/:id"
-        render={ (props) => <FoodDetails { ...props } /> }
+        render={ (props) => <MealDetails { ...props } /> }
       />
       <Route
         exact
