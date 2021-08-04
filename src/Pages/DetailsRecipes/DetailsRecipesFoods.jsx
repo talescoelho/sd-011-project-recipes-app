@@ -22,13 +22,13 @@ function DetailsRecipesFoods() {
     getAPIById();
   }, [idFoods]);
 
-const getYoutubeUrl = ({ strYoutube }) => {
-  if (strYoutube) {
-    const youtubeVideoId = strYoutube.split('?v=', 2)[1];
-    const iframeLink = `https://www.youtube.com/embed/${youtubeVideoId}`;
-    return iframeLink;
-  }
-}
+  const getYoutubeUrl = ({ strYoutube }) => {
+    if (strYoutube) {
+      const youtubeVideoId = strYoutube.split('?v=', 2)[1];
+      const iframeLink = `https://www.youtube.com/embed/${youtubeVideoId}`;
+      return iframeLink;
+    }
+  };
 
   return (
     <div>
