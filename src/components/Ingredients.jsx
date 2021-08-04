@@ -23,6 +23,14 @@ export default function Ingredients({ recipe, inProgress }) {
     return acc;
   }, []);
 
+  function checkedIgredient({ target: { checked, parentNode } }) {
+    if (checked) {
+      parentNode.style.textDecoration = 'line-through';
+    } else {
+      parentNode.style.textDecoration = 'none';
+    }
+  }
+
   return (
     <ol>
       {
@@ -30,6 +38,7 @@ export default function Ingredients({ recipe, inProgress }) {
           (inProgress) ? (
             <label key={ index } htmlFor={ name }>
               <input
+                onClick={ checkedIgredient }
                 type="checkbox"
                 id={ name }
                 data-testid={ `${index}-ingredient-step` }
