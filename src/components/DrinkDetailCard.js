@@ -1,10 +1,13 @@
+import { Button } from 'bootstrap';
 import React, { useEffect, useState } from 'react';
+import ButtonToProgress from './ButtonToProgress';
 import Recommended from './Recommended';
 import RenderVideo from './RenderVideo';
 
 function DrinkDetailCard() {
   const [drinkDetail, setDrinkDetail] = useState([]);
   const [rec, setRec] = useState([]);
+  const [data, setData] = useState([]);
 
   const drinkToDetail = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
   const drinkRecommend = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -28,7 +31,7 @@ function DrinkDetailCard() {
   
   const {
     idDrink,
-    strArea,
+    strAlcoholic,
     strCategory,
     strInstructions,
     strDrink,
@@ -50,14 +53,24 @@ function DrinkDetailCard() {
     return undefined;
   }).filter((i) => i !== undefined);
 
-  console.log(rec);
+  setData([
+    idDrink,
+    strAlcoholic,
+    strCategory,
+    strInstructions,
+    strDrink,
+    strDrinkThumb,
+    strYoutube,
+  ]);
+  console.log(data);
+
 
   return (
     <div>
       <h3 data-testid="recipe-title">{strDrink}</h3>
       <img data-testid="recipe-photo" width="150px" src={ strDrinkThumb } alt="tumb" />
-      <h4>{strArea}</h4>
       <h4 data-testid="recipe-category">{strCategory}</h4>
+      <p>{strAlcoholic}</p>
       <div style={{display: 'flex', justifyContent: 'space-around',}}>
         <button type="button" data-testid="share-btn">Gostei</button>
         <button type="button"  data-testid="share-btn">Share</button>
@@ -93,9 +106,7 @@ function DrinkDetailCard() {
       <div>
         <Recommended value={rec} type={"drink"}/>
       </div>
-      <button type="button" data-testid="start-recipe-btn">
-        Iniciar Receita
-      </button>
+      <ButtonToProgress data={data} />
     </div>
   );
 }
