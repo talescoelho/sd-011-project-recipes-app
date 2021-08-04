@@ -1,35 +1,24 @@
 export const ADD_EMAIL = 'ADD_EMAIL';
-export const ADD_INGREDIENT_MEAL = 'ADD_INGREDIENT_MEAL';
-export const ADD_INGREDIENT_DRINK = 'ADD_INGREDIENT_DRINK';
-export const DELETE_INGREDIENT_MEAL = 'DELETE_INGREDIENT_MEAL';
-export const DELETE_INGREDIENT_DRINK = 'DELETE_INGREDIENT_DRINK';
+export const ADD_INGREDIENT = 'ADD_INGREDIENT';
+export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
 export const ADD_DONE_RECIPE = 'ADD_DONE_RECIPE';
 export const RECEIVE_API = 'RECEIVE_API';
 export const REQUEST_API = 'REQUEST_API';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
+export const UPDATE_ARRAY = 'UPDATE_ARRAY';
 
 export const addEmail = (email) => ({
   type: ADD_EMAIL,
   email,
 });
 
-export const addIngredientMeal = (ingredient) => ({
-  type: ADD_INGREDIENT_MEAL,
+export const addIngredient = (ingredient) => ({
+  type: ADD_INGREDIENT,
   ingredient,
 });
 
-export const addIngredientDrink = (ingredient) => ({
-  type: ADD_INGREDIENT_DRINK,
-  ingredient,
-});
-
-export const deleteIngredientMeal = (ingredient) => ({
-  type: DELETE_INGREDIENT_MEAL,
-  ingredient,
-});
-
-export const deleteIngredientDrink = (ingredient) => ({
-  type: DELETE_INGREDIENT_DRINK,
+export const deleteIngredient = (ingredient) => ({
+  type: DELETE_INGREDIENT,
   ingredient,
 });
 
@@ -65,3 +54,8 @@ export function fetchAPI(urlType, id) {
         ));
   };
 }
+
+export const updateArray = (array) => ({
+  type: UPDATE_ARRAY,
+  payload: array,
+});

@@ -1,18 +1,17 @@
-import React from 'react';
-import renderWithRouter from './renderWithRouter';
-import FooterMenu from '../components/FooterMenu';
-// import '@testing-library/jest-dom/extend-expect';
+// import React from 'react';
+// import renderWithRouter from './renderWithRouter';
+// import FooterMenu from '../components/FooterMenu';
 
-describe('19 - Implemente os elementos do menu inferior', () => {
-  it('Tem os data-testids', () => {
-    const { getByTestId } = renderWithRouter(<FooterMenu />);
+// describe('19 - Implemente os elementos do menu inferior', () => {
+//   it('Tem os data-testids', () => {
+//     const { getByTestId } = renderWithRouter(<FooterMenu />);
 
-    expect(getByTestId('footer')).toBeInTheDocument();
-    expect(getByTestId('drinks-bottom-btn')).toBeTruthy();
-    expect(getByTestId('explore-bottom-btn')).toBeTruthy();
-    expect(getByTestId('food-bottom-btn')).toBeTruthy();
-  });
-});
+//     expect(getByTestId('footer')).toBeInTheDocument();
+//     expect(getByTestId('drinks-bottom-btn')).toBeTruthy();
+//     expect(getByTestId('explore-bottom-btn')).toBeTruthy();
+//     expect(getByTestId('food-bottom-btn')).toBeTruthy();
+//   });
+// });
 
 // describe('20 - Posicione o menu inferior de forma fixa e apresente 3 ícones', () => {
 //   ('O menu inferior deve ficar fixado sempre ao final da página', () => {
@@ -24,7 +23,6 @@ describe('19 - Implemente os elementos do menu inferior', () => {
 //     // const { getByTestId } = renderWithRouter(<FooterMenu />);
 //     // const icon = getByTestId('drinks-bottom-btn');
 //     // const src = icon.node.props.src
-//     // console.log(src);
 //     // expect(getByTestId('drinks-bottom-btn')).
 //     // cy.get('[data-testid="drinks-bottom-btn"]')
 //     //   .should('have.attr', 'src')
