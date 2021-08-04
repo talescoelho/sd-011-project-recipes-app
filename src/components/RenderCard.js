@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -9,6 +10,7 @@ function RenderCard() {
   const [recipes, setRecipes] = useState(
     (JSON.parse(localStorage.getItem('favoriteRecipes'))),
   );
+
   function removeItem({ target }) {
     const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
     favorite.splice(target.dataset.recipeindex, 1);
@@ -27,12 +29,14 @@ function RenderCard() {
     <div>
       {recipes.map((object, index) => (
         <div key={ object.id }>
-          <Image
-            thumbnail
-            alt="imagem da receita"
-            src={ object.image }
-            data-testid={ `${index}-horizontal-image` }
-          />
+          <Link to={ `/${object.type}s/${object.id}` }>
+            <Image
+              thumbnail
+              alt="imagem da receita"
+              src={ object.image }
+              data-testid={ `${index}-horizontal-image` }
+            />
+          </Link>
           {object.type === 'comida'
             ? (
               <span data-testid={ `${index}-horizontal-top-text` }>
@@ -43,7 +47,9 @@ function RenderCard() {
                 {object.alcoholicOrNot}
               </span>
             )}
-          <h4 data-testid={ `${index}-horizontal-name` }>{object.name}</h4>
+          <Link to={ `/${object.type}s/${object.id}` }>
+            <h4 data-testid={ `${index}-horizontal-name` }>{object.name}</h4>
+          </Link>
           <input
             data-recipetype={ object.type }
             onClick={ (event) => copyUrl(event) }
