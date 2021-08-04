@@ -1,11 +1,11 @@
 .detail-header {
-  display: flex;
-  border-radius: 0 0 20px 20px;
-  height: 40px;
   background-color: #ece3e3;
-  flex-direction: column;
+  border-radius: 0 0 20px 20px;
   box-shadow: 2px 4px 10px #bdb6b7;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 40px;
   max-width: 100vw;
 }
 
