@@ -31,6 +31,17 @@ export default function Foods() {
     fetchApi();
   }, []);
 
+  function categoryOnClickBtn(catName) {
+    async function fetchApi() {
+      const results = await FetchApi('themealdb', null, null, [catName]);
+      dispatch({
+        type: 'MODIFY_SEARCH_RESULTS',
+        payload: results,
+      });
+    }
+    fetchApi();
+  }
+
   return (
     <div>
       <Header
@@ -45,6 +56,7 @@ export default function Foods() {
               key={ item.strCategory }
               type="button"
               data-testid={ `${item.strCategory}-category-filter` }
+              onClick={ () => categoryOnClickBtn(item.strCategory) }
             >
               {item.strCategory}
             </button>))

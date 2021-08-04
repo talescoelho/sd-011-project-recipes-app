@@ -12,6 +12,11 @@ const FetchApi = async (trigger, radioOption, inputValue, list) => {
   if (list === 'list') {
     url = 'list.php?c=list';
   }
+  if (Array.isArray(list)) {
+    console.log('entrei no if');
+    const catName = list[0];
+    url = `filter.php?c=${catName}`;
+  }
   try {
     const feth = await fetch(`https://www.${trigger}.com/api/json/v1/1/${url}`);
     const feth2 = await feth.json();
