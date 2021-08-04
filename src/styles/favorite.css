@@ -60,6 +60,3 @@
   transform: translateY(4px);
   box-shadow: 3px 2px 1px rgba(124, 124, 124, 0.57);
 }
-
-.filter-buttons button:active:after {
-}

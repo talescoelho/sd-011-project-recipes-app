@@ -3,12 +3,11 @@ import copy from 'clipboard-copy';
 import { PropTypes } from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
-export default function ShareButton() {
+function ShareButton({ dataTestId = 'share-btn', urlLink = window.location.href }) {
   const [copiedText, setCopiedText] = React.useState(false);
-
   function copyUrl() {
     setCopiedText(true);
-    const location = window.location.href.split('/');
+    const location = urlLink.split('/');
     if (location[location.length - 1] === 'in-progress') {
       location.pop();
     }
@@ -22,9 +21,10 @@ export default function ShareButton() {
       ) : (
         <button
           className="remove-favorite-btn"
-          data-testid="share-btn"
+          data-testid={ dataTestId }
           type="button"
           onClick={ copyUrl }
+          src={ shareIcon }
         >
           <img src={ shareIcon } alt="share icon" />
         </button>
@@ -36,3 +36,5 @@ export default function ShareButton() {
 ShareButton.propTypes = {
   setCopiedText: PropTypes.func,
 }.isRequired;
+
+export default ShareButton;
