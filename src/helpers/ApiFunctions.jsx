@@ -1,3 +1,5 @@
+const mensagem = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+
 export const handleFoods = async (radioButton, searchText, setDataFilter, setLoading) => {
   if (radioButton === 'ingrediente') {
     setLoading(true);
@@ -5,7 +7,7 @@ export const handleFoods = async (radioButton, searchText, setDataFilter, setLoa
     const { meals } = await response.json();
     if (!meals) {
       // eslint-disable-next-line
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      alert(mensagem);
       setLoading(false);
       return setDataFilter([]);
     }
@@ -40,7 +42,7 @@ export const handleFoods = async (radioButton, searchText, setDataFilter, setLoa
   const { meals } = await response.json();
   if (!meals) {
     // eslint-disable-next-line
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    alert(mensagem);
     setLoading(false);
     return setDataFilter([]);
   }
@@ -59,7 +61,7 @@ export const handleDrinks = async (radioButton, searchText, setDataFilter,
     } catch (error) {
       console.log(error);
       // eslint-disable-next-line
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      alert(mensagem);
       setLoading(false);
       return setDataFilter([]);
     }
@@ -71,7 +73,7 @@ export const handleDrinks = async (radioButton, searchText, setDataFilter,
     const { drinks } = await response.json();
     if (drinks === null) {
       // eslint-disable-next-line
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      alert(mensagem);
       setLoading(false);
       return setDataFilter([]);
     }
@@ -93,7 +95,7 @@ export const handleDrinks = async (radioButton, searchText, setDataFilter,
   const { drinks } = await response.json();
   if (drinks === null) {
     // eslint-disable-next-line
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    alert(mensagem);
     setLoading(false);
     return setDataFilter([]);
   }
