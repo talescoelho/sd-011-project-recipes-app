@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Header from '../components/Header';
 // import { Link } from 'react-router-dom';
 
 export default function DrinkIngredients() {
@@ -36,6 +37,7 @@ export default function DrinkIngredients() {
 
   return (
     <div>
+      <Header pageName="Explorar Ingredientes" />
       <h1>Explore Drink Ingredients</h1>
       {renderDrink()}
     </div>
