@@ -1,0 +1,12 @@
+.ingredient-button {
+  border: none;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+p {
+  text-align: center;
+}

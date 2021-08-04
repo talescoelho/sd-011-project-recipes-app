@@ -8,54 +8,56 @@ import getFood from '../services/SearchRecipe';
 export default function FoodCard({ type }) {
   const history = useHistory();
   const dispatch = useDispatch();
+  const number = 11;
   const recipes = useSelector((state) => state.recipes);
   const { cards, formInfo, selectedCategory } = recipes;
 
   const middle = type === 'meals' ? 'comidas' : 'bebidas';
 
   useEffect(() => {
-    dispatch(getFood(formInfo, type));
-  }, [formInfo, dispatch, type]);
+    (() => (!cards.length ? dispatch(getFood(formInfo, type)) : null))();
+  },
+  [formInfo, dispatch, type, cards.length]);
+
+  const cardsToRender = (cardsRender) => (
+    cardsRender.map(({ idMeal, strMeal, strMealThumb,
+      strCategory, strTags, idDrink, strDrink, strDrinkThumb, strAlcoholic,
+    }, index) => (
+      index <= number ? (
+        <Link
+          to={ `/${middle}/${idMeal || idDrink}` }
+          key={ index }
+          data-testid={ `${index}-recipe-card` }
+        >
+          <Card>
+            <Card.Header>{strCategory || selectedCategory}</Card.Header>
+            <Card.Img
+              variant="top"
+              src={ strMealThumb || strDrinkThumb }
+              data-testid={ `${index}-card-img` }
+            />
+            <Card.Body>
+              <Card.Title data-testid={ `${index}-card-name` }>
+                {strMeal
+              || strDrink}
+              </Card.Title>
+              <Card.Text>{strTags || strAlcoholic}</Card.Text>
+            </Card.Body>
+            <Card.Footer>
+              <Button
+                className="card-button"
+                onClick={ () => history.push(`/${middle}/${idMeal || idDrink}`) }
+                variant="primary"
+              >
+                Ver receita
+              </Button>
+            </Card.Footer>
+          </Card>
+        </Link>) : null)));
 
   const getCards = () => {
     if (cards) {
-      return cards.map((item, index) => {
-        const { idMeal, strMeal, strMealThumb,
-          strCategory, strTags, idDrink, strDrink, strDrinkThumb, strAlcoholic } = item;
-        const cat = strCategory || selectedCategory;
-        return (
-          <Link
-            to={ `/${middle}/${idMeal || idDrink}` }
-            key={ index }
-            data-testid={ `${index}-recipe-card` }
-          >
-            <Card>
-              <Card.Header>{cat}</Card.Header>
-              <Card.Img
-                variant="top"
-                src={ strMealThumb || strDrinkThumb }
-                data-testid={ `${index}-card-img` }
-              />
-              <Card.Body>
-                <Card.Title data-testid={ `${index}-card-name` }>
-                  {strMeal
-                || strDrink}
-                </Card.Title>
-                <Card.Text>{strTags || strAlcoholic}</Card.Text>
-              </Card.Body>
-              <Card.Footer>
-                <Button
-                  className="card-button"
-                  onClick={ () => history.push(`/${middle}/${idMeal || idDrink}`) }
-                  variant="primary"
-                >
-                  Ver receita
-                </Button>
-              </Card.Footer>
-            </Card>
-          </Link>
-        );
-      });
+      return cardsToRender(cards);
     }
   };
 
