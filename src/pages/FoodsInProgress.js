@@ -46,6 +46,7 @@ export default function FoodsInProgress() {
     cocktails: {},
     meals: {},
   });
+  const [checkIngredients, setCheckIngredients] = useState(null);
   let foodType = 'meals';
   let recipe = 'meals';
   let type = 'comida';
@@ -64,10 +65,12 @@ export default function FoodsInProgress() {
       .then((response) => setState(response));
   };
 
+  // componentDidMount
   useEffect(() => {
     loadLocalStorage(setSavedRecipe);
   }, []);
 
+  // componentDidUpdate
   useEffect(() => {
     localStorage.setItem('inProgressRecipes', JSON.stringify(savedRecipe));
   }, [savedRecipe]);
@@ -102,7 +105,12 @@ export default function FoodsInProgress() {
   const items = { idReceita, type, data, foodType };
   const newItems = { savedRecipe, recipe, idRecipe, setSavedRecipe };
   const verifyrecipe = savedRecipe[recipe][data[foodType][0][idRecipe]] || false;
-
+  if (!checkIngredients) {
+    ingredients.forEach((ingredient) => {
+      console.log([food[ingredient]]);
+      setCheckIngredients({ ...checkIngredients, [food[ingredient]]: false });
+    });
+  }
   return (
     <div>
       <div className="in-progress-card">
