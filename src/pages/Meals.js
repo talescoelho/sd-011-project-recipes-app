@@ -8,7 +8,9 @@ export default function Meals() {
   return (
     <div>
       <h2>Food Page</h2>
-      <Header title="Comidas" />
+
+      <Header title="Comidas" renderSearchBar />
+
       <MealCategoryButton />
       <FoodCard />
       <LowerMenu path="/bebidas" />

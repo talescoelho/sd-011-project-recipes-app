@@ -1,9 +1,33 @@
+const maxCount = 12;
+
+export const fetchApiMeals = async (url, search) => {
+  const response = await fetch(`${url}${search}`);
+  const results = await response.json();
+  const { meals } = await (response.ok ? Promise.resolve(results)
+    : Promise.reject(results));
+  if (meals === null) {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
+  return meals.slice(0, maxCount);
+};
+
+export const fetchApiDrinks = async (url, search) => {
+  const response = await fetch(`${url}${search}`);
+  const results = await response.json();
+  const { drinks } = await (response.ok ? Promise.resolve(results)
+    : Promise.reject(results));
+  if (drinks === null) {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
+  return drinks.slice(0, maxCount);
+};
+
 export async function fetchDefaultFoodsFromMealsDB() {
   try {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     const rawResults = await response.json();
     const results = rawResults.meals;
-    return results;
+    return results.slice(0, maxCount);
   } catch (error) {
     console.log(error);
   }
@@ -14,7 +38,7 @@ export async function fetchDefaultDrinksFromCocktailsDB() {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     const rawResults = await response.json();
     const results = rawResults.drinks;
-    return results;
+    return results.slice(0, maxCount);
   } catch (error) {
     console.log(error);
   }

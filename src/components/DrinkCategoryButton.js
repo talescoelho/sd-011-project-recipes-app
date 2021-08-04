@@ -43,7 +43,7 @@ export default function DrinkCategoryButton() {
         >
           {category.strCategory}
         </button>
-      )) : <span>Loading</span>}
+      )) : <span className="loading" />}
     </div>
   );
 }
