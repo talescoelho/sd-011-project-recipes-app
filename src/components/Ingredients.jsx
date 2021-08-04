@@ -101,8 +101,9 @@ export default function Ingredients({ recipe, inProgress, type }) {
 }
 
 Ingredients.propTypes = {
-  recipe: PropTypes.isRequired,
   inProgress: PropTypes.isRequired,
+  recipe: PropTypes.isRequired,
+  type: PropTypes.isRequired,
 };
 
 // data-testid*="ingredient-step";

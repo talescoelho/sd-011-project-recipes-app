@@ -8,7 +8,7 @@ export default function RecipeButton({ state }) {
   const history = useHistory();
   const { ingredients } = useContext(DetailsContext);
   const { pathname } = history.location;
-  const verify = (ingredients) ? ingredients.some((element) => element.checked === false) : false;
+  const verify = (ingredients) ? ingredients.some((e) => e.checked === false) : false;
   if (!state) {
     return (
       <button

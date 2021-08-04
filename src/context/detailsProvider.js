@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import DetailsContext from './detailsContext';
 
@@ -9,3 +10,7 @@ export default function DetailsProvider({ children }) {
     </DetailsContext.Provider>
   );
 }
+
+DetailsProvider.propTypes = {
+  children: PropTypes.isRequired,
+};
