@@ -15,7 +15,7 @@ function RenderFoods() {
   if (!receiveFoodRecipes) return <p>Carregando...</p>;
   const maxLength = 12;
   const filterRecipes = receiveFoodRecipes.meals
-    .filter((item, index) => index < maxLength);
+    .filter((_, index) => index < maxLength);
   return (
     <div>
       { filterRecipes.map((meal, index) => (

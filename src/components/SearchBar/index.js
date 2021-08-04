@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router';
+import { useLocation, useHistory } from 'react-router';
 import { connect } from 'react-redux';
 
 import {
@@ -9,11 +9,13 @@ import {
   fetchSearchFirstLetter } from '../../redux/actions/searchBarActions';
 import Input from '../Input';
 
-function HeaderSearchBar(props) {
+function HeaderSearchBar({ receiveData,
+  searchByIngredients, searchByName, searchByFirstLetter }) {
   const [searchInput, setSearchInput] = useState('');
   const [radioValue, setRadioValue] = useState('Ingrediente');
   const [searchDataType, setSearchDataType] = useState('');
   const { pathname } = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
     const type = pathname === '/bebidas' ? 'drinks' : 'meals';
@@ -21,20 +23,32 @@ function HeaderSearchBar(props) {
   }, [pathname]);
 
   const fetchSearchData = async () => {
-    const { searchByIngredients, searchByName, searchByFirstLetter } = props;
-    let receiveData;
+    let fetchReceiveData;
 
     if (radioValue === 'Ingrediente') {
-      receiveData = await searchByIngredients(searchInput, pathname);
+      fetchReceiveData = await searchByIngredients(searchInput, pathname);
     } else if (radioValue === 'Nome') {
-      receiveData = await searchByName(searchInput, pathname);
+      fetchReceiveData = await searchByName(searchInput, pathname);
     } else {
-      receiveData = await searchByFirstLetter(searchInput, pathname);
+      fetchReceiveData = await searchByFirstLetter(searchInput, pathname);
     }
-    if (receiveData) {
-      setSearchDataType(receiveData[searchDataType]);
+    if (fetchReceiveData) {
+      setSearchDataType(fetchReceiveData[searchDataType]);
     }
   };
+
+  if (receiveData.meals && receiveData.meals.length === 1) {
+    history.push(`/comidas/${receiveData.meals[0].idMeal}`);
+  }
+
+  if (receiveData.drinks && receiveData.drinks.length === 1) {
+    history.push(`/bebidas/${receiveData.drinks[0].idDrink}`);
+  }
+
+  if (receiveData.drinks === null || receiveData.meals === null) {
+    // eslint-disable-next-line no-alert
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
 
   return (
     <>
@@ -103,4 +117,5 @@ HeaderSearchBar.propTypes = {
   searchByIngredients: PropTypes.func.isRequired,
   searchByName: PropTypes.func.isRequired,
   searchByFirstLetter: PropTypes.func.isRequired,
+  receiveData: PropTypes.arrayOf(PropTypes.array).isRequired,
 };

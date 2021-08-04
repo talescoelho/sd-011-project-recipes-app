@@ -43,3 +43,13 @@ export function fetchSearchFirstLetter(searchFirstLetter, pathname) {
     alert('Sua busca deve conter somente 1 (um) caracter');
   };
 }
+
+export function fetchSearchBtnIngredients(searchIngredient, pathname) {
+  return async (dispatch) => {
+    dispatch(requestTypeApi());
+    const type = pathname === '/bebidas' ? 'cocktail' : 'meal';
+    const response = await fetch(`https://www.the${type}db.com/api/json/v1/1/filter.php?c=${searchIngredient}`);
+    const data = await response.json();
+    return dispatch(receiveTypeApi(data));
+  };
+}

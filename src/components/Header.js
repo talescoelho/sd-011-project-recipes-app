@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import HeaderSearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 // colocar type depois de searchBar
-function Header({ receiveData }) {
+function Header() {
   const [showSearchBar, toggleShowSearchBar] = useState(false);
-  const history = useHistory();
   const { pathname } = useLocation();
 
   const [showSearchIcon, setShowSearchIcon] = useState(false);
@@ -29,19 +27,6 @@ function Header({ receiveData }) {
       toggleShowSearchBar(true);
     }
   };
-
-  if (receiveData.meals && receiveData.meals.length === 1) {
-    history.push(`/comidas/${receiveData.meals[0].idMeal}`);
-  }
-
-  if (receiveData.drinks && receiveData.drinks.length === 1) {
-    history.push(`/bebidas/${receiveData.drinks[0].idDrink}`);
-  }
-
-  if (receiveData.drinks === null || receiveData.meals === null) {
-    // eslint-disable-next-line no-alert
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  }
 
   return (
     <>
@@ -71,11 +56,7 @@ function Header({ receiveData }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  receiveData: state.searchBarReducer.receiveData,
-});
-
-export default connect(mapStateToProps)(Header);
+export default Header;
 
 Header.propTypes = {
   título: PropTypes.string,
