@@ -57,7 +57,9 @@ export default function ProcessoComidaPage(props) {
   const measureKeys = foodInProgress && (
     Object.keys(foodInProgress.meals[0]).filter((key) => key.includes('easure')));
   const ingredientMap = ingredientKeys && ingredientKeys
-    .map(((ingre, index) => `${foodInProgress.meals[0][ingre]}-${foodInProgress.meals[0][measureKeys[index]]}`)).slice(0, ingredientLimit);
+    .map(((ingre, index) => (
+      `${foodInProgress.meals[0][ingre]}-${foodInProgress.meals[0][measureKeys[index]]}`)
+    )).slice(0, ingredientLimit);
   const ingredientFilter = ingredientMap && ingredientMap
     .filter((value) => value !== '-');
   const { match } = props;

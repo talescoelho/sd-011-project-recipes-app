@@ -57,7 +57,10 @@ export default function ProcessoBebidaPage(props) {
   const measureKeys = drinkInProgress && (
     Object.keys(drinkInProgress.drinks[0]).filter((key) => key.includes('easure')));
   const ingredientMap = ingredientKeys && ingredientKeys
-    .map(((ingre, index) => `${drinkInProgress.drinks[0][ingre]}-${drinkInProgress.drinks[0][measureKeys[index]]}`)).slice(0, ingredientLimit);
+    .map(((ingre, index) => (
+      `${drinkInProgress.drinks[0][ingre]}-${drinkInProgress.drinks[0][measureKeys[index]]
+      }`)
+    )).slice(0, ingredientLimit);
   const ingredientFilter = ingredientMap && ingredientMap
     .filter((value) => value !== 'null-null' && value !== '-');
   const { match } = props;
