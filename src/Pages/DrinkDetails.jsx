@@ -37,9 +37,7 @@ class DrinkDetails extends Component {
     const filteredMeasure = Object.entries(json.drinks[0]).filter(
       (arr) => arr[0].includes('Measure') && arr[1],
     );
-    const measure = filteredMeasure.map((ing) => ({
-      measure: ing[1],
-    }));
+    const measure = filteredMeasure.map((eachIngredient) => eachIngredient[1]);
     this.setState({
       measure,
     });
@@ -57,7 +55,7 @@ class DrinkDetails extends Component {
               { result.strDrink }
             </h1>
             <p data-testid="recipe-category">
-              { result.strCategory }
+              { result.strAlcoholic }
             </p>
             <img
               data-testid="recipe-photo"
@@ -70,19 +68,12 @@ class DrinkDetails extends Component {
             <div data-testid={ `${index}-recomendation-card` }>
               So pra passar no teste
             </div>
-            { ingredient && ingredient.map((item) => (
-              <ul key={ index }>
-                <li data-testid={ `${index}-ingredient-name-and-measure` }>
-                  { item.ingredient }
+            { ingredient && ingredient.map((item, ingredientIndex) => (
+              <ul key={ ingredientIndex }>
+                <li data-testid={ `${ingredientIndex}-ingredient-name-and-measure` }>
+                  { `${item.ingredient} - ${measure[ingredientIndex]}` }
                 </li>
               </ul>
-            )) }
-            { measure && measure.map((item) => (
-              <ol key={ index }>
-                <li data-testid={ `${index}-ingredient-name-and-measure` }>
-                  { item.measure }
-                </li>
-              </ol>
             )) }
             <p data-testid="instructions">
               { result.strInstructions }

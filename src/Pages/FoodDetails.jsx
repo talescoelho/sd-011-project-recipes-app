@@ -9,6 +9,7 @@ class FoodDetails extends Component {
     this.state = {
       foodDetail: [],
       ingredient: [],
+      measure: [],
     };
     this.fetchDetail = this.fetchDetail.bind(this);
   }
@@ -34,10 +35,20 @@ class FoodDetails extends Component {
     this.setState({
       ingredient: ingredients,
     });
+    const filteredMeasure = Object.entries(json.meals[0]).filter(
+      (arr) => arr[0].includes('Measure') && arr[1],
+    );
+    const measure = filteredMeasure.map((eachIngredient) => eachIngredient[1]);
+    // const measure = filteredMeasure.map((ing) => ({
+    //   measure: ing[1],
+    // }));
+    this.setState({
+      measure,
+    });
   }
 
   render() {
-    const { foodDetail, ingredient } = this.state;
+    const { foodDetail, ingredient, measure } = this.state;
     return (
       <div>
         {foodDetail && foodDetail.map((result, index) => (
@@ -59,10 +70,10 @@ class FoodDetails extends Component {
             <div data-testid={ `${index}-recomendation-card` }>
               So pra passar no teste
             </div>
-            { ingredient && ingredient.map((item) => (
-              <ul key={ index }>
-                <li data-testid={ `${index}-ingredient-name-and-measure` }>
-                  { item.ingredient }
+            { ingredient && ingredient.map((item, ingredientIndex) => (
+              <ul key={ ingredientIndex }>
+                <li data-testid={ `${ingredientIndex}-ingredient-name-and-measure` }>
+                  { `${item.ingredient} - ${measure[ingredientIndex]}` }
                 </li>
               </ul>
             )) }
