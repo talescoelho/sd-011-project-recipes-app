@@ -16,7 +16,7 @@
   overflow: hidden;
   padding: 10px;
   transition: 0.5s linear;
-  width: 250px;
+  width: 150px;
 }
 
 a:link {
@@ -40,10 +40,6 @@ a:link {
 
 .recipe-card img {
   display: flex;
-  height: 100%;
   margin: 0 auto;
-  max-height: 200px;
-  max-width: 200px;
-  object-fit: cover;
   width: 100%;
 }
