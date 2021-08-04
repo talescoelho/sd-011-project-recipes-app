@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
@@ -21,34 +21,35 @@ class Comidas extends Component {
   }
 
   renderFilters() {
-    let { allCategories, generalRecipesFood } = this.props;
+    let { allCategories } = this.props;
+    const { generalRecipesFood } = this.props;
     allCategories = allCategories.slice(0, FIVE);
 
     return [
       <button
-      data-testid="All-category-filter"
-      className="filter-btn"
-      type="button"
-      value="All"
-      onClick={generalRecipesFood}
+        key="All-btn"
+        data-testid="All-category-filter"
+        className="filter-btn"
+        type="button"
+        value="All"
+        onClick={ generalRecipesFood }
       >
-      All
+        All
       </button>,
 
-    ...allCategories.map((item, index) => (
+      ...allCategories.map((item, index) => (
         <button
           className="filter-btn"
           type="button"
           value={ item.strCategory }
           data-testid={ `${item.strCategory}-category-filter` }
           key={ index }
-          onClick={ (target) => this.handleOnClickFilter(target) }
+          onClick={ (element) => this.handleOnClickFilter(element) }
         >
           {item.strCategory}
         </button>
-    ))
-  ];
-    
+      )),
+    ];
   }
 
   renderFoods() {
@@ -60,25 +61,26 @@ class Comidas extends Component {
       );
     }
     return allRecipesSlice.map((item, index) => (
-      <div
-        className="card-item"
-        data-testid={ `${index}-recipe-card` }
-        key={ item.idMeal }
-      >
-        <img
-          className="img-card"
-          alt="food"
-          src={ item.strMealThumb }
-          data-testid={ `${index}-card-img` }
-        />
-        <div>
-          <span
-            data-testid={ `${index}-card-name` }
-          >
-            {item.strMeal}
-          </span>
+      <Link to={ `/comidas/${item.idMeal}` } key={ index }>
+        <div
+          className="card-item"
+          data-testid={ `${index}-recipe-card` }
+        >
+          <img
+            className="img-card"
+            alt={ item.strMeal }
+            src={ item.strMealThumb }
+            data-testid={ `${index}-card-img` }
+          />
+          <div>
+            <span
+              data-testid={ `${index}-card-name` }
+            >
+              {item.strMeal}
+            </span>
+          </div>
         </div>
-      </div>
+      </Link>
     ));
   }
 
