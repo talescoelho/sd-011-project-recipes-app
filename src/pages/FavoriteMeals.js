@@ -12,22 +12,24 @@ function FavoriteMeals() {
           <span
             data-testid={ `${index}-horizontal-top-text` }
           >
-            {`${item.area} - ${item.category}`}
+            {item.alcoholicOrNot}
           </span>
           <h2 data-testid={ `${index}-horizontal-name` }>
             {' '}
             {item.name}
           </h2>
-          <img
-            src={ item.image }
-            alt={ item.name }
-            data-testid={ `${index}-horizontal-image` }
-          />
+          <Link to={ `/comidas/${item.id}` }>
+            <img
+              src={ item.image }
+              alt={ item.name }
+              data-testid={ `${index}-horizontal-image` }
+            />
+          </Link>
           <Link to="/receitas-favoritas">
             {FavoriteButton(item.id, index)}
           </Link>
           <div>
-            {ShareBtnFav(`http://localhost:3000/comidas/${item.id}`, index)}
+            {ShareBtnFav(`comidas/${item.id}`, index)}
           </div>
 
         </div>));

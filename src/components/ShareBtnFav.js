@@ -4,10 +4,10 @@ import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
-function ShareBtn({ url }, index) {
+function ShareBtn(url, index) {
   const [copyMessage, setCopyMessage] = useState(false);
   const handleClick = () => {
-    copy(`http://localhost:3000${url}`);
+    copy(`http://localhost:3000/${url}`);
     setCopyMessage(true);
     alert('Link copiado!');
   };
