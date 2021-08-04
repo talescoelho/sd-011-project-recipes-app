@@ -1,5 +1,5 @@
 import React from 'react';
-import MadeRecipeCard from '../components/MadeRecipeCard';
+// import MadeRecipeCard from '../components/MadeRecipeCard';
 
 function RecipesMade() {
   return (
@@ -25,7 +25,7 @@ function RecipesMade() {
       >
         Drinks
       </button>
-      <MadeRecipeCard />
+      { /* <MadeRecipeCard /> */ }
     </div>
   );
 }
