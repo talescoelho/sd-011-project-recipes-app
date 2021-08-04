@@ -36,7 +36,7 @@ function Explore({ localOrigin, mealOrDrink }) {
       >
         Por Ingredientes
       </button>
-      {localOrigin && (
+      { localOrigin && (
         <button
           type="button"
           data-testid="explore-by-area"
@@ -46,7 +46,7 @@ function Explore({ localOrigin, mealOrDrink }) {
         >
           Por Local de Origem
         </button>
-      )}
+      ) }
 
       <button
         type="button"

@@ -71,7 +71,7 @@ describe('48 - Desenvolva um checkbox para cada item da lista de ingredientes', 
 describe('49 - Implemente uma lógica que, ao clicar no checkbox de um ingrediente, o nome dele deve ser "riscado" da lista', () => {
   const getIngredients = () => (
     cy.get('[data-testid*="ingredient-step"]')
-      .find('input[type="checkbox"]')
+    .find('input[type="checkbox"]')
   );
 
   it('verifica se é possível marcar todos os passos da receita de comida', () => {
@@ -363,17 +363,15 @@ describe('51 - Desenvolva a lógica de favoritar e compartilhar, a lógica da te
 
     cy.get('[data-testid="favorite-btn"]').click().then(() => {
       const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const expectedFavoriteRecipes = [
-        {
-          id: '52771',
-          type: 'comida',
-          area: 'Italian',
-          category: 'Vegetarian',
-          alcoholicOrNot: '',
-          name: 'Spicy Arrabiata Penne',
-          image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-        },
-      ];
+      const expectedFavoriteRecipes = [{
+        id: '52771',
+        type: 'comida',
+        area: 'Italian',
+        category: 'Vegetarian',
+        alcoholicOrNot: '',
+        name: 'Spicy Arrabiata Penne',
+        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+      }, ];
 
       expect(favoriteRecipes).to.deep.eq(expectedFavoriteRecipes);
       localStorage.clear();
@@ -389,17 +387,15 @@ describe('51 - Desenvolva a lógica de favoritar e compartilhar, a lógica da te
 
     cy.get('[data-testid="favorite-btn"]').click().then(() => {
       const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const expectedFavoriteRecipes = [
-        {
-          id: '178319',
-          type: 'bebida',
-          area: '',
-          category: 'Cocktail',
-          alcoholicOrNot:  'Alcoholic',
-          name: 'Aquamarine',
-          image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-        },
-      ];
+      const expectedFavoriteRecipes = [{
+        id: '178319',
+        type: 'bebida',
+        area: '',
+        category: 'Cocktail',
+        alcoholicOrNot: 'Alcoholic',
+        name: 'Aquamarine',
+        image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+      }, ];
 
       expect(favoriteRecipes).to.deep.eq(expectedFavoriteRecipes);
       localStorage.clear();

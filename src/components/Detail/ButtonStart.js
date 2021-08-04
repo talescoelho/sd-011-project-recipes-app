@@ -14,13 +14,12 @@ function ButtonStart({ detail, typeDrinkorMeal }) {
         recipesLocalstorage.forEach((element) => element.id === idItem
           && setButtonStart(true));
       }
-      const continuerecipesLocalstorage = JSON.parse(
-        localStorage.getItem('inProgressRecipes'),
-      );
 
+      const continueRecipies = JSON.parse(localStorage.getItem('inProgressRecipes'));
       const typeDoM = typeDrinkorMeal === 'comidas' ? 'meals' : 'cocktails';
-      if (continuerecipesLocalstorage !== null) {
-        Object.keys(continuerecipesLocalstorage[typeDoM]).forEach((idItemEdit) => (
+      if (continueRecipies !== null
+        && continueRecipies[typeDoM] !== undefined) {
+        Object.keys(continueRecipies[typeDoM]).forEach((idItemEdit) => (
           idItemEdit === idItem && setButtonContinue(true)
         ));
       }
@@ -29,7 +28,6 @@ function ButtonStart({ detail, typeDrinkorMeal }) {
   }, [idItem, typeDrinkorMeal]);
 
   function startRecipes() {
-    console.log(detail);
     const typeDoM = typeDrinkorMeal === 'comidas' ? 'meals' : 'cocktails';
     const info = JSON.parse(localStorage.getItem('inProgressRecipes'));
     localStorage.setItem('inProgressRecipes', JSON.stringify({
