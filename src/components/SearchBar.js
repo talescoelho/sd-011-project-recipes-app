@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router';
 import { connect } from 'react-redux';
 
 import {
   fetchSearchIngredients,
   fetchSearchName,
-  fetchSearchFirstLetter } from '../../redux/actions/searchBarActions';
-import Input from '../Input';
+  fetchSearchFirstLetter } from '../redux/actions/searchBarActions';
+import Input from './Input';
 
 function HeaderSearchBar(props) {
   const [searchInput, setSearchInput] = useState('');
@@ -84,6 +84,12 @@ function HeaderSearchBar(props) {
   );
 }
 
+HeaderSearchBar.propTypes = {
+  searchByFirstLetter: PropTypes.func.isRequired,
+  searchByIngredients: PropTypes.func.isRequired,
+  searchByName: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => ({
   receiveData: state.searchBarReducer.receiveData,
 });
@@ -98,9 +104,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderSearchBar);
-
-HeaderSearchBar.propTypes = {
-  searchByIngredients: PropTypes.func.isRequired,
-  searchByName: PropTypes.func.isRequired,
-  searchByFirstLetter: PropTypes.func.isRequired,
-};

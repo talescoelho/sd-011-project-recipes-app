@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 const RecomendationCard = ({ arrayOfRecomendations }) => {
-  console.log(arrayOfRecomendations);
   if (arrayOfRecomendations.meals) {
     const { meals } = arrayOfRecomendations;
     const numberOfMeals = 6;

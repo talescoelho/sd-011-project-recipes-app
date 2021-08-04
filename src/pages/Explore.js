@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../../components/Header';
-import FooterMenu from '../../components/FooterMenu';
+import Header from '../components/Header';
+import FooterMenu from '../components/FooterMenu';
 
 export default function Explore() {
   document.title = 'Explorar';
