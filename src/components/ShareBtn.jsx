@@ -19,9 +19,9 @@ export default function ShareBtn() {
       className="btnheader"
       type="button"
       data-testid="share-btn"
-      onClick={() => copyUrlToClipboard()}
+      onClick={ () => copyUrlToClipboard() }
     >
-      {visible ? <img src={imageShare} alt="share" /> : 'Link copiado!'}
+      {visible ? <img src={ imageShare } alt="share" /> : 'Link copiado!'}
     </Button>
   );
 }

@@ -10,7 +10,7 @@ export default function FavoriteBtn() {
       type="button"
       data-testid="favorite-btn"
     >
-      <img data-testid="favorite-btn" src={imageHeart} alt="favorite" />
+      <img data-testid="favorite-btn" src={ imageHeart } alt="favorite" />
     </Button>
   );
 }
