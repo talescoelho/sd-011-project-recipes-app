@@ -31,7 +31,7 @@ export default function IngredientsCheckList({ recipeType, id, strInstructions }
 
   const verifyAllCheck = () => {
     let allCheck = true;
-    const ingredientsList = JSON.parse(localStorage.inProgressRecipes).meals[id];
+    const ingredientsList = JSON.parse(localStorage.inProgressRecipes)[recipeType][id];
     ingredientsList.forEach((ingrediet) => {
       if (ingrediet.check !== true) {
         allCheck = false;
@@ -48,6 +48,7 @@ export default function IngredientsCheckList({ recipeType, id, strInstructions }
         .map((ingredient, index) => (
           <label key={ index } htmlFor={ ingredient.name }>
             <input
+              data-testid={ `${index}-ingredient-step` }
               type="checkbox"
               checked={ ingredient.check }
               name={ ingredient.name }
@@ -60,7 +61,13 @@ export default function IngredientsCheckList({ recipeType, id, strInstructions }
         ))}
       <p data-testid="instructions">{strInstructions}</p>
       <Link to="/receitas-feitas">
-        <button type="button" disabled={ !verifyAllCheck() }>Finalizar receita</button>
+        <button
+          data-testid="finish-recipe-btn"
+          type="button"
+          disabled={ !verifyAllCheck() }
+        >
+          Finalizar receita
+        </button>
       </Link>
     </>
   );
