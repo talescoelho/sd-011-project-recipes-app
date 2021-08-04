@@ -18,6 +18,7 @@ import ExploreByLocal from './pages/explore/ExploreByLocal';
 import Profile from './pages/Profile';
 import RecipeMade from './pages/RecipeMade';
 import RecipeFavorite from './pages/RecipeFavorite';
+import ExploreByIngredientsDrinks from './pages/explore/ExploreByIngredientsDrinks';
 
 function App() {
   return (
@@ -55,7 +56,7 @@ function App() {
         <Route
           exact
           path="/explorar/bebidas/ingredientes"
-          component={ ExploreByIngredients }
+          component={ ExploreByIngredientsDrinks }
         />
         <Route exact path="/explorar/comidas/area" component={ ExploreByLocal } />
         <Route exact path="/perfil" component={ Profile } />

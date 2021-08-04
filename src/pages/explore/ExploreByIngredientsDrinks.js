@@ -2,14 +2,15 @@ import React from 'react';
 import Footer from '../../components/footer/Footer';
 import Header from '../../components/Header';
 
-export default function ExploreByIngredients() {
+export default function ExploreByIngredientsDrinks() {
   const magicNumberFive = 12;
   const [data, setData] = React.useState([]);
   const fetchIngredients = async () => {
-    const url = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+    const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
     const response = await fetch(url);
     const dataFetch = await response.json();
-    setData([...dataFetch.meals]);
+    console.log(dataFetch.drinks);
+    setData([...dataFetch.drinks]);
   };
 
   React.useEffect(() => {
@@ -23,12 +24,12 @@ export default function ExploreByIngredients() {
           <h2
             data-testid={ `${index}-card-name` }
           >
-            { item.strIngredient }
+            { item.strIngredient1 }
           </h2>
           <img
             data-testid={ `${index}-card-img` }
-            src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
-            alt={ item.strIngredient }
+            src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` }
+            alt={ item.strIngredient1 }
           />
         </div>))}
       <Footer />
