@@ -13,7 +13,7 @@ function MealRecipeCard() {
       <CategoryText />
       <ShareButton />
       <FavoriteButton />
-      <p data-testid={ `${index}-ingredient-name-and-measure` }>
+      <p data-testid={ `${0}-ingredient-name-and-measure` }>
         Rascunho dos ingredientes
       </p>
       <p data-testid="instructions">
@@ -22,7 +22,7 @@ function MealRecipeCard() {
       <div data-testid="video">
         Videozinho (apenas para comidas)
       </div>
-      <div data-testid={ `${index}-recomendation-card` }>
+      <div data-testid={ `${0}-recomendation-card` }>
         Comidas recomendadas
       </div>
       <button type="button" data-testid="start-recipe-btn">

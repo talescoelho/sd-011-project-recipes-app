@@ -10,7 +10,9 @@ import Header from './components/Header';
 import Login from './pages/Login';
 import Meals from './pages/Meals';
 import Bebidas from './pages/Bebidas';
-import Profile from './pages/Profile';
+// import Profile from './pages/Profile';
+import RecipeDetails from './pages/RecipeDetails';
+// import MealRecipeCard from './components/MealRecipeCard';
 
 function App() {
   return (
@@ -26,11 +28,10 @@ function App() {
         <Route path="/header" component={ Header } />
         <Route path="/comidas" component={ Meals } />
         <Route path="/bebidas" component={ Bebidas } />
-        <Route path="/profile" component={ Profile } />
-        { /* <Route path="/comidas:id-" component={} />
-        <Route path="/bebidas:id" component={} />
-        <Route path="/bebidas:id" component={} />
+        <Route path="/comidas:id" component={ RecipeDetails } />
+        { /* <Route path="/profile" component={ Profile } />
         <Route path="/receitas-feitas" component={} />
+        <Route path="/bebidas:id" component={} />
         <Route path="/receitas-favoritas" component={} />
         <Route path="*" component={ NotFound } /> */ }
       </Switch>
