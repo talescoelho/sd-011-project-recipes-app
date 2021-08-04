@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
+//  import { useSelector, useDispatch } from 'react-redux';
 import { getRecipes } from '../redux/slices/fetchReceitas';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -21,7 +21,6 @@ function ExplorarComidasOrigem({ title }) {
       <Footer />
     </div>
   );
-
 }
 
 export default ExplorarComidasOrigem;
