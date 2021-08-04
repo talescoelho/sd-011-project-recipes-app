@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './styleRecipes.css';
 
 const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem }) => {
   const typeDoM = typeDrinkorMeal === 'comidas' ? 'meals' : 'cocktails';
@@ -19,23 +20,20 @@ const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem }) => {
     }
   }, [idItem, typeDoM, update]);
 
-  function addCheck(value) {
-    if (info && info[typeDoM][idItem].length > 0) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
+  const addCheck = (value) => (
+    info && info[typeDoM][idItem].length > 0
+      ? localStorage.setItem('inProgressRecipes', JSON.stringify({
         ...info,
         [typeDoM]: {
           [idItem]: [...info[typeDoM][idItem], value],
         },
-      }));
-    } else {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({
+      })) : localStorage.setItem('inProgressRecipes', JSON.stringify({
         ...info,
         [typeDoM]: {
           [idItem]: [value],
         },
-      }));
-    }
-  }
+      }))
+  );
 
   function removeCheck(value) {
     info[typeDoM][idItem].forEach((itemCheck) => (
@@ -55,11 +53,10 @@ const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem }) => {
     else removeCheck(value);
   }
 
-  function stateCheckd(value) {
-    if (info && info[typeDoM][idItem].length > 0) {
-      return info[typeDoM][idItem].includes(value);
-    }
-  }
+  const stateCheckd = (value) => (
+    info && info[typeDoM][idItem].length > 0
+    && info[typeDoM][idItem].includes(value)
+  );
 
   return (
     ingredient.map((item, index) => (
