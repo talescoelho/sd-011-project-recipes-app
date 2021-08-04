@@ -12,7 +12,7 @@ function DetailsDrinkHeader() {
       />
       <div>
         <h3 data-testid="recipe-title">{ drinkId.strDrink }</h3>
-        <p data-testid="recipe-category">{ drinkId.strCategory }</p>
+        <p data-testid="recipe-category">{ drinkId.strAlcoholic }</p>
       </div>
     </div>
   );

@@ -8,9 +8,7 @@ DetailsDrinkFavoriteButton
 import
 DetailsDrinkIngredientList
   from '../components/details/detailsDrink/DetailsDrinkIngredientList';
-import
-DetailsDrinkInstruction
-  from '../components/details/detailsDrink/DetailsDrinkInstruction';
+
 import RecipesContext from '../context/RecipesContext';
 
 function DrinksDetails() {
@@ -36,7 +34,10 @@ function DrinksDetails() {
           </div>
           <div>
             <DetailsDrinkIngredientList />
-            <DetailsDrinkInstruction />
+            <div>
+              <h4>Instruction</h4>
+              <p data-testid="instructions">{ drinkId.strInstructions }</p>
+            </div>
           </div>
           <div>
             <h4>recomendações</h4>
