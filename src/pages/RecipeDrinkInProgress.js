@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import DrinkFavoriteButton from '../components/DrinkFavoriteButton';
+import CheckboxDrink from '../components/CheckboxDrink';
 import '../components/css/RecipeDetails.css';
 
 function RecipeDrinkInProgress({ match, location }) {
@@ -82,31 +82,15 @@ function RecipeDrinkInProgress({ match, location }) {
             {recipe.drinks[0].strAlcoholic}
           </h3>
           <h2>Ingredientes</h2>
-          <ul>
-            {ingredients.map((ingredientDrink, index) => (
-              <div key={ index } data-testid={ `${index}-ingredient-step` }>
-                <input type="checkbox" id={ measures[index] } />
-                <label htmlFor={ measures[index] }>
-                  {ingredientDrink}
-                  {' '}
-                  <strong>{measures[index]}</strong>
-                </label>
-              </div>
-            ))}
-          </ul>
+          <CheckboxDrink
+            ingredients={ ingredients }
+            measures={ measures }
+            pathname={ pathname }
+          />
           <h2>Intruções</h2>
           <p data-testid="instructions">
             {recipe.drinks[0].strInstructions}
           </p>
-          <Link to={ `${pathname}/in-progress` }>
-            <button
-              className="start-recipe"
-              type="button"
-              data-testid="finish-recipe-btn"
-            >
-              Finalizar Receita
-            </button>
-          </Link>
         </div>
       );
     }
