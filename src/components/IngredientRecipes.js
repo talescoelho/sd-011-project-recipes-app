@@ -1,56 +1,64 @@
 import React, { useEffect, useState } from 'react';
-import './styleRecipes.css';
 
 const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem }) => {
   const typeDoM = typeDrinkorMeal === 'comidas' ? 'meals' : 'cocktails';
-
   const [update, forceUpdate] = useState(false);
-  const [state, setState] = useState({});
+  const [info, setInfo] = useState({});
 
   useEffect(() => {
-    const info = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (info === null) {
+    const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!getStorage) {
       localStorage.setItem('inProgressRecipes', JSON.stringify({
-        ...info,
         [typeDoM]: {
           [idItem]: [],
         },
       }));
-    } else setState(info);
-    setState(info);
+      setInfo(getStorage);
+    } else {
+      setInfo(getStorage);
+    }
   }, [idItem, typeDoM, update]);
 
   function addCheck(value) {
-    localStorage.setItem('inProgressRecipes', JSON.stringify({
-      ...state,
-      [typeDoM]: {
-        [idItem]: [...state[typeDoM][idItem], value],
-      },
-    }));
+    if (info && info[typeDoM][idItem].length > 0) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...info,
+        [typeDoM]: {
+          [idItem]: [...info[typeDoM][idItem], value],
+        },
+      }));
+    } else {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...info,
+        [typeDoM]: {
+          [idItem]: [value],
+        },
+      }));
+    }
   }
 
   function removeCheck(value) {
-    state[typeDoM][idItem].forEach((itemCheck) => {
-      if (itemCheck === value) {
-        localStorage.setItem('inProgressRecipes', JSON.stringify({
-          ...state,
-          [typeDoM]: {
-            [idItem]: [...state[typeDoM][idItem].filter((item) => item !== value)],
-          },
-        }));
-      }
-    });
+    info[typeDoM][idItem].forEach((itemCheck) => (
+      itemCheck === value
+      && localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...info,
+        [typeDoM]: {
+          [idItem]: [...info[typeDoM][idItem].filter((item) => item !== value)],
+        },
+      }))
+    ));
   }
 
-  function recipiesPorgress({ target }) {
-    const { id, checked } = target;
+  function recipiesPorgress(target, value) {
     forceUpdate(!update);
-    if (checked) addCheck(Number(id));
-    else removeCheck(Number(id));
+    if (target.checked) addCheck(value);
+    else removeCheck(value);
   }
 
   function stateCheckd(value) {
-    return state[typeDoM][idItem].includes(value);
+    if (info && info[typeDoM][idItem].length > 0) {
+      return info[typeDoM][idItem].includes(value);
+    }
   }
 
   return (
@@ -65,7 +73,9 @@ const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem }) => {
           type="checkbox"
           id={ index }
           checked={ stateCheckd(index) }
-          onClick={ recipiesPorgress }
+          onClick={ ({ target }) => {
+            recipiesPorgress(target, index);
+          } }
         />
         { item }
       </label>
