@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import cooktail from '../../images/drinkIcon.svg';
-import explore from '../../images/exploreIcon.svg';
-import meal from '../../images/mealIcon.svg';
-import './styles.css';
+import cooktail from '../images/drinkIcon.svg';
+import explore from '../images/exploreIcon.svg';
+import meal from '../images/mealIcon.svg';
 
 const FooterMenu = () => (
   <footer data-testid="footer">

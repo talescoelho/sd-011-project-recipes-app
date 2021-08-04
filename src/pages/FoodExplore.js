@@ -1,6 +1,6 @@
 import React from 'react';
-import FooterMenu from '../../components/FooterMenu';
-import Header from '../../components/Header';
+import FooterMenu from '../components/FooterMenu';
+import Header from '../components/Header';
 
 const FoodExplore = () => {
   document.title = 'Explorar Comidas';
