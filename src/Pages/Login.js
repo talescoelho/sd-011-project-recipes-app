@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import loginbg from '../loginbg.mp4';
 import './Login.css';
 
 export default function Login() {
@@ -33,6 +34,18 @@ export default function Login() {
   }
   return (
     <div className="loginBox">
+      <h2 className="title">Cozinhando com Gosto</h2>
+      <video
+        width="360"
+        height="640"
+        playsinline
+        autoPlay
+        muted
+        loop
+        className="bgVideo"
+      >
+        <source src={ loginbg } type="video/mp4" />
+      </video>
       <label htmlFor="email">
         <input
           data-testid="email-input"
