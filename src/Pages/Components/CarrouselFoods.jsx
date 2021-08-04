@@ -15,7 +15,6 @@ export default function CarrouselFoods() {
         recomendationsArray.push(recomendationResponse.meals[i]);
       }
       setFoodsRecomendations(recomendationsArray);
-      console.log(recomendationsArray);
     };
     return FetchRecomendation();
   }, []);
