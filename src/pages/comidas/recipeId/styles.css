@@ -2,6 +2,12 @@
   padding: 5px;
 }
 
+.recomendation-picture {
+  width: 200px;
+  display: flex;
+  margin: auto;
+}
+
 .details-picture {
   display: flex;
   margin: auto;

@@ -85,13 +85,21 @@ export default function ComidaDetails({ match: { params: { recipeId } } }) {
         />
         <div className="details-recomendation" data-testid="0-recomendation-card">
           <h2>Receitas recomendadas</h2>
-          <Carousel>
-            <Carousel.Item>
-              alo alo
-            </Carousel.Item>
-            <Carousel.Item>
-              TESTANDO BARSA
-            </Carousel.Item>
+          <Carousel variant="dark">
+            {
+              recomendations.map(({ strDrink, strDrinkThumb }, index) => (
+                <Carousel.Item data-testid="recomendation-card" key={ strDrink }>
+                  <img
+                    className="recomendation-picture"
+                    src={ strDrinkThumb }
+                    alt="Imagem"
+                  />
+                  <Carousel.Caption data-testid={ `${index}-recomendation-title` }>
+                    <h3>{strDrink}</h3>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              ))
+            }
           </Carousel>
         </div>
         <Button

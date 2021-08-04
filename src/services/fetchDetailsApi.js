@@ -6,7 +6,7 @@ const filterElements = (obj) => {
   });
 };
 
-const TWELVE = 12;
+const FIVE = 5;
 
 export const fetchDetails = async (selector, id) => {
   if (selector === 'meal') {
@@ -27,11 +27,11 @@ export const fetchRecomendation = async (selector) => {
   if (selector === 'meal') {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     const result = await response.json();
-    const obj = result.drinks.slice(0, TWELVE);
+    const obj = result.drinks.slice(0, FIVE);
     return obj;
   }
   const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   const result = await response.json();
-  const obj = result.meals.slice(0, TWELVE);
+  const obj = result.meals.slice(0, FIVE);
   return obj;
 };
