@@ -8,7 +8,7 @@ function foodPage() {
 
   return (
     <div>
-      <Header title="Bebidas" search />
+      <Header title="Comidas" search />
 
       { filteredFood.length > 0
         ? filteredFood.map((food) => (

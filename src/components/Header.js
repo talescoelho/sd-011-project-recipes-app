@@ -40,6 +40,7 @@ function Header({ title, search }) {
     case (firstLetter):
       if (inputTextSearch.length > 1) {
         alert('Sua busca deve conter somente 1 (um) caracter');
+        break;
       }
       setFilteredFood(filterByFirstLetterFood(inputTextSearch));
       break;
