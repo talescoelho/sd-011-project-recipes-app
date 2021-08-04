@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -43,11 +44,18 @@ class ProcessoComidas extends Component {
       if (verifyLocal.meals[urlId]) {
         this.setState({
           ingredients: verifyLocal.meals[urlId].reduce((acc, value) => {
-            console.log(value);
             acc = { ...acc, [value]: true };
             return acc;
           }, {}),
           setIngredients: verifyLocal,
+        });
+      }
+    }
+    if (localStorage.favoriteRecipes) {
+      const verifyLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (verifyLocal) {
+        this.setState({
+          favoriteButton: true,
         });
       }
     }
@@ -177,19 +185,11 @@ class ProcessoComidas extends Component {
             type="button"
             onClick={ this.favoriteButtonClick }
           >
-            { !favoriteButton
-              ? (
-                <img
-                  data-testid="favorite-btn"
-                  src={ whiteHeartIcon }
-                  alt="no-favorite"
-                />)
-              : (
-                <img
-                  data-testid="favorite-btn"
-                  src={ blackHeartIcon }
-                  alt="yes-favorite"
-                />)}
+            <img
+              data-testid="favorite-btn"
+              src={ !favoriteButton ? whiteHeartIcon : blackHeartIcon }
+              alt="favorite"
+            />
           </button>
           {shareButton ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
           <p data-testid="recipe-category">{ strCategory }</p>
@@ -217,15 +217,17 @@ class ProcessoComidas extends Component {
           )) }
           <p data-testid="instructions">{ strInstructions }</p>
         </div>
-        <button
-          data-testid="finish-recipe-btn"
-          type="button"
-          className="btn-start"
-          disabled={ setIngredients.meals[urlId]
-            && setIngredients.meals[urlId].length !== onlyIngredientes.length }
-        >
-          Finalizar Receita
-        </button>
+        <Link to="/receitas-feitas">
+          <button
+            data-testid="finish-recipe-btn"
+            type="button"
+            className="btn-start"
+            disabled={ setIngredients.meals[urlId]
+              && setIngredients.meals[urlId].length !== onlyIngredientes.length }
+          >
+            Finalizar Receita
+          </button>
+        </Link>
       </div>
     );
   }
