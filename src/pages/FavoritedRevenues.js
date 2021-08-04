@@ -22,7 +22,6 @@ export default function FavoritedRevenues() {
   }
 
   function removeFavorite(id) {
-    console.log(id);
     setRecipe(recipe.filter((value) => value.id !== id));
     localStorage.setItem('favoriteRecipes', JSON.stringify(recipe
       .filter((value) => value.id !== id)));
