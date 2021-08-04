@@ -66,13 +66,3 @@
     transform: rotate(-10deg);
   }
 }
-
-footer {
-  align-items: center;
-  bottom: 0;
-  display: flex;
-  height: 40px;   /* Height of the footer */
-  justify-content: space-around;
-  position: fixed;
-  width: 100%;
-}

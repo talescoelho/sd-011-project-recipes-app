@@ -1,4 +1,5 @@
 import React from 'react';
+import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
 import useFetch from '../hooks/useFetch';
 
@@ -35,6 +36,7 @@ const FoodIngredients = () => {
           </div>
         );
       }) }
+      <FooterMenu />
     </div>
   );
 };
