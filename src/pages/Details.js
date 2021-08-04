@@ -6,6 +6,7 @@ import RecipeDetails from '../components/RecipeDetails';
 import FrameVideo from '../components/FrameVideo';
 import RecommendedRecipes from '../components/RecommendedsRecipes';
 import RecipesContext from '../context/RecipesContext';
+import DetailsButton from '../components/DetailsButton';
 
 function Details({ match: { url, params: { id } } }) {
   const { recipeDetail, setRecipeDetail, setRecommended } = useContext(RecipesContext);
@@ -60,15 +61,12 @@ function Details({ match: { url, params: { id } } }) {
       <RecipeDetails />
       {url.includes('comidas') && <FrameVideo recipe={ recipeDetail } />}
       <RecommendedRecipes />
-      <button
-        className="button-start"
-        style={ { display: verifyRecipeIsDone() ? 'none' : 'block' } }
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        {checkRecipeInProgress() ? 'Continuar Receita' : 'Iniciar Receita' }
-      </button>
-
+      <DetailsButton
+        verifyRecipeIsDone={ verifyRecipeIsDone }
+        checkRecipeInProgress={ checkRecipeInProgress }
+        id={ id }
+        url={ url }
+      />
     </div>
   );
 }
