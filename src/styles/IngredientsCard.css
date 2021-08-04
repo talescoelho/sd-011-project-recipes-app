@@ -11,8 +11,8 @@
   align-items: center;
   border: 1px solid #eee;
   border-radius: 6px;
-  cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .6);
+  cursor: pointer;
   display: flex;
   flex-grow: 1;
   flex-basis: 160px;
@@ -35,15 +35,15 @@
 }
 
 .loading:after {
+  animation: spin 800ms linear infinite;
+  border: 6px solid deepskyblue;
+  border-radius: 50%;
+  border-top-color: transparent;
   content: '';
+  filter: drop-shadow(0 0 1px black);
+  height: 35px;
   justify-content: center;
   width: 35px;
-  height: 35px;
-  border: 6px solid deepskyblue;
-  border-top-color: transparent;
-  border-radius: 50%;
-  animation: spin 800ms linear infinite;
-  filter: drop-shadow(0 0 1px black);
 }
 
 @keyframes spin {
@@ -53,5 +53,3 @@
   }
   
 }
-
-
