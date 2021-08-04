@@ -8,6 +8,7 @@ function AppProvider({ children }) {
   const [filterRadio, setFilterRadio] = useState('s');
   const [filterText, setFilterText] = useState('');
   const [filteredItem, setFilteredItem] = useState([]);
+  const [idDetails, setIdDetails] = useState([]);
 
   async function fetchFood() {
     let endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?${filterRadio}=${filterText}`;
@@ -54,6 +55,8 @@ function AppProvider({ children }) {
     setFilteredItem,
     fetchFood,
     fetchDrink,
+    idDetails,
+    setIdDetails,
   };
 
   return (
