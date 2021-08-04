@@ -1,16 +1,15 @@
-import React from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import '../styles/header.css';
 import SearchBar from './SearchBar';
-
-// Codigo do Eraldo funcionando...
+import '../styles/header.css';
 
 function Header({ title, search = true }) {
-  const redirectToPerfil = () => <Redirect to="/perfil" />;
-  const renderSearchBar = () => <SearchBar />;
+  const history = useHistory();
+  const redirectToPerfil = () => history.push('/perfil');
+  const [renderSearchBar, setRenderSearchBar] = useState(false);
   return (
     <div>
       <header className="header-container">
@@ -25,13 +24,13 @@ function Header({ title, search = true }) {
             alt="profile top button"
           />
         </button>
-        <h1 data-testid="page-title">{ title }</h1>
+        <h1 className="Title" data-testid="page-title">{ title }</h1>
         { search && (
           <button
             type="button"
             data-testid="search-top-btn"
             src={ searchIcon }
-            onClick={ renderSearchBar }
+            onClick={ () => setRenderSearchBar(!renderSearchBar) }
           >
             <img
               src={ searchIcon }
@@ -39,6 +38,7 @@ function Header({ title, search = true }) {
             />
           </button>)}
       </header>
+      { renderSearchBar && <SearchBar /> }
     </div>
   );
 }
