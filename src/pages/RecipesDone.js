@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import Header from '../components/Header';
 
+import '../style/recipesDone.css';
+
 function RecipesDone() {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
@@ -71,6 +73,7 @@ function RecipesDone() {
                   <div>
                     <Link to={ `/${type}s/${id}` }>
                       <img
+                        className="recipe-images"
                         src={ image }
                         alt="recipe"
                         data-testid={ `${index}-horizontal-image` }
@@ -107,6 +110,7 @@ function RecipesDone() {
                 <div key={ id }>
                   <Link to={ `/${type}s/${id}` }>
                     <img
+                      className="recipe-images"
                       src={ image }
                       alt="recipe"
                       data-testid={ `${index}-horizontal-image` }
