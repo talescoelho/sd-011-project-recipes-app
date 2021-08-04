@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import FooterMenu from '../components/FooterMenu';
+import Header from '../components/Header';
 import useFetch from '../hooks/useFetch';
 
 const ExploreFoodByArea = () => {
+  document.title = 'Explorar Origem';
   const { data: filters, request: requestFilters } = useFetch();
   const { data, request: requestData } = useFetch();
   const [filter, setFilter] = React.useState('all');
@@ -28,6 +30,7 @@ const ExploreFoodByArea = () => {
 
   return (
     <div>
+      <Header />
       <select
         data-testid="explore-by-area-dropdown"
         onChange={ (e) => setFilter(e.target.value) }

@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import useFetch from '../hooks/useFetch';
 
 const DrinkIngredients = () => {
+  document.title = 'Explorar Ingredientes';
   const { data, request } = useFetch();
 
   React.useEffect(() => {

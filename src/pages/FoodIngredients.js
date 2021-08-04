@@ -1,7 +1,9 @@
 import React from 'react';
+import Header from '../components/Header';
 import useFetch from '../hooks/useFetch';
 
-const FoodInProgress = () => {
+const FoodIngredients = () => {
+  document.title = 'Explorar Ingredientes';
   const { data, request } = useFetch();
 
   React.useEffect(() => {
@@ -17,6 +19,7 @@ const FoodInProgress = () => {
 
   return (
     <div>
+      <Header />
       { filteredData.map((item, index) => {
         const { strIngredient } = item;
         return (
@@ -36,4 +39,4 @@ const FoodInProgress = () => {
   );
 };
 
-export default FoodInProgress;
+export default FoodIngredients;
