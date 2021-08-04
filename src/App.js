@@ -11,10 +11,10 @@ function App() {
         <Route path="/comidas" component={ Comidas } />
         {/* <Route path="/comidas:id-" component={} />
         <Route path="/bebidas" component={} />
-        <Route path="/bebidas:id" component={} />
         <Route path="/explorar" component={} />
         <Route path="/explorar/comidas" component={} />
         <Route path="/explorar/bebidas" component={} />
+        <Route path="/bebidas:id" component={} />
         <Route path="/explorar/comidas/ingredientes" component={} />
         <Route path="/explorar/bebidas/ingredientes" component={} />
 
