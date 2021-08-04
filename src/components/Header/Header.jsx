@@ -25,6 +25,13 @@ const Header = ({ page, showSearchBtn, dispatch }) => {
     if (selectedRadio === 'name') {
       dispatch(fetchByName(typeIngredient));
     }
+    if (selectedRadio === 'first-letter') {
+      // eslint-disable-next-line no-unused-expressions
+      typeIngredient.length > 1
+        // eslint-disable-next-line no-alert
+        ? alert('Sua busca deve conter somente 1 (um) caracter')
+        : dispatch(fetchByName(typeIngredient));
+    }
   };
   return (
     <>

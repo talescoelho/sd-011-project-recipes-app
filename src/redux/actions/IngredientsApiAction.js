@@ -1,36 +1,39 @@
-export const FETCH_INGREDIENTS = 'FETCH_INGREDIENTS';
-export const FETCH_INGREDIENTS_SUCCESS = 'FETCH_INGREDIENTS_SUCCESS';
-export const FETCH_BY_NAME = 'FETCH_BY_NAME';
-export const FETCH_BY_NAME_SUCCESS = 'FETCH_BY_NAME_SUCCESS';
-
-export const getIngredients = () => ({
-  type: FETCH_INGREDIENTS,
-});
-
-export const getIngredientsSuccess = (payload) => ({
-  type: FETCH_INGREDIENTS_SUCCESS,
-  payload,
-});
-
-export const getByName = () => ({
-  type: FETCH_BY_NAME,
-});
-
-export const getByNameSuccess = (payload) => ({
-  type: FETCH_BY_NAME_SUCCESS,
-  payload,
-});
+import {
+  menuRequest,
+  handleMealsResponse,
+  menuReceiveSuccess,
+  menuReceiveFailure,
+} from './menuReducerActions';
 
 export const fetchIngredients = (ingredients) => (dispatch) => {
-  dispatch(getIngredients());
+  dispatch(menuRequest());
   return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredients}`)
     .then((response) => response.json())
-    .then((success) => dispatch(getIngredientsSuccess(success)));
+    .then(async ({ meals }) => {
+      const response = await handleMealsResponse(meals);
+      dispatch(menuReceiveSuccess(response));
+    })
+    .catch((error) => dispatch(menuReceiveFailure(error)));
 };
 
 export const fetchByName = (byName) => (dispatch) => {
-  dispatch(getIngredients());
+  dispatch(menuRequest());
   return fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${byName}`)
     .then((response) => response.json())
-    .then((success) => dispatch(getByNameSuccess(success)));
+    .then(async ({ meals }) => {
+      const response = await handleMealsResponse(meals);
+      dispatch(menuReceiveSuccess(response));
+    })
+    .catch((error) => dispatch(menuReceiveFailure(error)));
+};
+
+export const fetchByFirstLetter = (firstLetter) => (dispatch) => {
+  dispatch(menuRequest());
+  return fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`)
+    .then((response) => response.json())
+    .then(async ({ meals }) => {
+      const response = await handleMealsResponse(meals);
+      dispatch(menuReceiveSuccess(response));
+    })
+    .catch((error) => dispatch(menuReceiveFailure(error)));
 };

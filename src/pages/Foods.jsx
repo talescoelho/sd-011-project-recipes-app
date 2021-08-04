@@ -42,19 +42,18 @@ const Foods = ({
           !loading && ingredients.map(
             (value, index) => (
               <li key={ index }>
-                <h3>{value.strMeal}</h3>
-                <img src={ value.strMealThumb } alt="Imagem com ingredientes" />
+                {value}
               </li>),
           )
         }
 
         {/* {
-          !loading && !ingredients && name.map(
+          !loading && !ingredients && byName.map(
             (value, index) => (
               <li key={ index }>
-
+                {value}
               </li>
-            )
+            ),
           )
         } */}
       </ul>
@@ -106,8 +105,8 @@ const mapStateToProps = (state) => ({
   meals: state.menuReducer.menu,
   loadingMeals: state.menuReducer.isLoading,
   error: state.menuReducer.error,
-  ingredients: state.handleIngredients.ingredient,
-  loading: state.handleIngredients.loading,
+  ingredients: state.menuReducer.ingredient,
+  loading: state.menuReducer.isLoading,
 });
 
 Foods.propTypes = {

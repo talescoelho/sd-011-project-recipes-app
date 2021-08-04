@@ -9,6 +9,7 @@ import {
 
 const INITIAL_STATE = {
   menu: [],
+  ingredient: [],
   error: null,
   isLoading: false,
   filters: {
