@@ -59,6 +59,7 @@ class Header extends Component {
 
 Header.propTypes = {
   withSearch: PropTypes.bool,
+  pageTitle: PropTypes.string,
 }.isRequired;
 
 export default Header;
