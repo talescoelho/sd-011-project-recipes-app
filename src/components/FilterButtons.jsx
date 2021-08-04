@@ -18,16 +18,29 @@ export default function FilterButtons({ type }) {
     dispatch(getFilteredFoodList(cat, type));
   };
 
-  const filterButtons = () => categories[type].map((categoryName) => (
-    <Button
-      key={ categoryName }
-      onClick={ () => handleFilterButton(categoryName) }
-      data-testid={ `${categoryName}-category-filter` }
-      className="filter-button"
-    >
-      {categoryName}
-    </Button>
-  ));
+  const replaced = {
+    drinks: {
+      'Milk / Float / Shake': 'Milk Shake',
+      'Other/Unknown': 'Others',
+      'Ordinary Drink': 'Ordinary',
+      All: 'All',
+      Cocktail: 'Cocktail',
+      Cocoa: 'Cocoa',
+    },
+  };
+
+  const filterButtons = () => categories[type].map((categoryName) => {
+    const repl = type === 'drinks' ? replaced[type][categoryName] : categoryName;
+    return (
+      <Button
+        key={ categoryName }
+        onClick={ () => handleFilterButton(categoryName) }
+        data-testid={ `${categoryName}-category-filter` }
+        className="filter-button"
+      >
+        {repl}
+      </Button>);
+  });
 
   return (
     <div className="filter-buttons">

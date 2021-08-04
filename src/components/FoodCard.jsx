@@ -22,6 +22,7 @@ export default function FoodCard({ type }) {
       return cards.map((item, index) => {
         const { idMeal, strMeal, strMealThumb,
           strCategory, strTags, idDrink, strDrink, strDrinkThumb, strAlcoholic } = item;
+        const cat = strCategory || selectedCategory;
         return (
           <Link
             to={ `/${middle}/${idMeal || idDrink}` }
@@ -29,7 +30,7 @@ export default function FoodCard({ type }) {
             data-testid={ `${index}-recipe-card` }
           >
             <Card>
-              <Card.Header>{strCategory || selectedCategory}</Card.Header>
+              <Card.Header>{cat}</Card.Header>
               <Card.Img
                 variant="top"
                 src={ strMealThumb || strDrinkThumb }
