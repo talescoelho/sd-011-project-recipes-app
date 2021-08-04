@@ -25,7 +25,7 @@ function ExploreFoodByArea() {
     const dataCountries = resultCounties.meals;
     setCountries(dataCountries);
     setRecipesByLocal(dataItems);
-    setLoading(false);
+    setLoading(false) ;
   }
 
   function renderRecipesArea(item, index) {
