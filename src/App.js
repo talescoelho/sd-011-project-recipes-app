@@ -11,13 +11,13 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={ Login } />
+        <Route path="/" component={ Login } />
         <Route path="/header" component={ Header } />
         <Route path="/comidas" component={ Meals } />
         <Route path="/bebidas" component={ Bebidas } />
         <Route path="/explorar" component={ Explorar } />
         <Route path="/profile" component={ Profile } />
-        {/* <Route path="/comidas" component={} />
+        { /* <Route path="/comidas" component={} />
         <Route path="/comidas:id-" component={} />
         <Route path="/bebidas:id" component={} />
         <Route path="/explorar/comidas" component={} />
@@ -29,7 +29,7 @@ function App() {
         <Route path="/explorar/comidas/area" component={} />
         <Route path="/receitas-feitas" component={} />
         <Route path="/receitas-favoritas" component={} />
-        <Route path="*" component={NotFound} /> */}
+        <Route path="*" component={ NotFound } /> */ }
       </Switch>
     </BrowserRouter>
   );
