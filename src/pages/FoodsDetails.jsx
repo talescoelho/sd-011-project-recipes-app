@@ -8,7 +8,6 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ingredientsMealDetails from '../helpers/ingredientsMealDetails';
 import Recomendations from '../components/Recomendations';
-import '../styles/Details.css';
 
 function FoodsDetails() {
   const { id } = useParams();
@@ -26,7 +25,8 @@ function FoodsDetails() {
   }, [id, setLoading]);
   console.log(details);
   const ingredientsAndMeasures = details.idMeal
-    ? ingredientsMealDetails(details) : [];
+    ? ingredientsMealDetails(details)
+    : [];
 
   function videoSrc(youtubeLink) {
     const [partialLink, watchID] = youtubeLink.split('.com/');
@@ -36,71 +36,74 @@ function FoodsDetails() {
 
   return (
     <div className="details-container">
-      {loading ? <ReactBootStrap.Spinner animation="border" />
-        : (
-          <>
-            <img
-              src={ details.strMealThumb }
-              alt="Detalhe da comida"
-              data-testid="recipe-photo"
-            />
+      {loading ? (
+        <ReactBootStrap.Spinner animation="border" />
+      ) : (
+        <>
+          <img
+            src={ details.strMealThumb }
+            alt="Detalhe da comida"
+            data-testid="recipe-photo"
+          />
+          <div>
             <div>
-              <div>
-                <span data-testid="recipe-title">{details.strMeal}</span>
-                <span data-testid="recipe-category">{details.strCategory}</span>
-              </div>
-              <div>
-                <button type="button" data-testid="share-btn">
-                  <img src={ shareIcon } alt="Botão compartilhar" />
-                </button>
-                <button type="button" data-testid="favorite-btn">
-                  <img src={ whiteHeartIcon } alt="Botão favoritar" />
-                </button>
-              </div>
+              <span data-testid="recipe-title">{details.strMeal}</span>
+              <span data-testid="recipe-category">{details.strCategory}</span>
             </div>
-            <div className="ingredients-container">
-              <span>Ingredients</span>
-              <ul>
-                {ingredientsAndMeasures.map((ingredient, index) => (
-                  <li
-                    key={ index }
-                    data-testid={ `${index}-ingredient-name-and-measure` }
-                  >
-                    {ingredient}
-                  </li>
-                ))}
-              </ul>
+            <div>
+              <button type="button" data-testid="share-btn">
+                <img src={ shareIcon } alt="Botão compartilhar" />
+              </button>
+              <button type="button" data-testid="favorite-btn">
+                <img src={ whiteHeartIcon } alt="Botão favoritar" />
+              </button>
             </div>
-            <div className="instructions-container">
-              <span>Instruções</span>
-              <p data-testid="instructions">{details.strInstructions}</p>
-            </div>
-            <div className="video-container">
-              <span>Video</span>
-              <iframe
-                data-testid="video"
-                width="340"
-                height="240"
-                src={ videoSrc(details.strYoutube) }
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-            <div className="recomendation-container">
-              <span>Recomendadas</span>
-              <Recomendations />
-            </div>
+          </div>
+          <div className="ingredients-container">
+            <span>Ingredients</span>
+            <ul>
+              {ingredientsAndMeasures.map((ingredient, index) => (
+                <li
+                  key={ index }
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                >
+                  {ingredient}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="instructions-container">
+            <span>Instruções</span>
+            <p data-testid="instructions">{details.strInstructions}</p>
+          </div>
+          <div className="video-container">
+            <span>Video</span>
+            <iframe
+              data-testid="video"
+              width="340"
+              height="240"
+              src={ videoSrc(details.strYoutube) }
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+          <div className="recomendation-container">
+            <span>Recomendadas</span>
+            <Recomendations />
+          </div>
+          <div className="start-recipe-btn">
             <button
-              style={ { position: 'fixed', bottom: 0 } }
               data-testid="start-recipe-btn"
               type="button"
               onClick={ () => history.push(`/comidas/${id}/in-progress`) }
             >
               Iniciar Receita
             </button>
-          </>)}
+          </div>
+        </>
+      )}
     </div>
   );
 }

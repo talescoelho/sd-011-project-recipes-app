@@ -3,12 +3,11 @@ import { useParams, useHistory } from 'react-router-dom';
 import * as ReactBootStrap from 'react-bootstrap';
 /* import RecipesContext from '../context/RecipesContext'; */
 import { fetchDrinksDetails } from '../services/API';
-/* import '../styles/DrinksDetails.css'; */
+import '../styles/DrinksDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ingredientsDrinkDetails from '../helpers/ingredientsDrinkDetails';
 import Recomendations from '../components/Recomendations';
-import '../styles/Details.css';
 
 function DrinksDetails() {
   const { id } = useParams();
@@ -73,13 +72,15 @@ function DrinksDetails() {
               <span>Recomendadas</span>
               <Recomendations />
             </div>
-            <button
-              data-testid="start-recipe-btn"
-              type="button"
-              onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
-            >
-              Iniciar Receita
-            </button>
+            <div className="start-recipe-btn">
+              <button
+                data-testid="start-recipe-btn"
+                type="button"
+                onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
+              >
+                Iniciar Receita
+              </button>
+            </div>
           </>)}
     </div>
   );
