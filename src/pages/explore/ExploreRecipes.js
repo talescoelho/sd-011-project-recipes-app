@@ -4,6 +4,9 @@ import Footer from '../../components/footer/Footer';
 import Header from '../../components/Header';
 
 export default function ExploreRecipes() {
+  const handlerSurprise = () => {
+    const url = 'https://www.themealdb.com/api/json/v1/1/random.php';
+  };
   return (
     <div>
       <Header title="Explorar Comidas" />
