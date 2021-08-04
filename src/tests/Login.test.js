@@ -181,7 +181,6 @@ describe('Requirement 04', () => {
     const inputPassword = screen.getByTestId('password-input');
     fireEvent.change(inputPassword, { target: {
       value: '1234567',
-      type: 'password',
     } });
     expect(inputPassword.value).toBe('1234567');
   });
