@@ -8,7 +8,7 @@ import styles from './Drinks.module.css';
 import { fetchDrink } from '../../redux/actions';
 import DrinksCategoriesComponent from './DrinksComponents/DrinksCategoriesComponent';
 
-function Drinks({ match }) {
+function Drinks({ match, location }) {
   const { isLoading, drinks } = useSelector((state) => state.Drinks);
   const { data, render } = useSelector((state) => state.Filter);
   const { drinksByCategories, toogle } = useSelector((state) => state.DrinksByCategories);
@@ -16,11 +16,16 @@ function Drinks({ match }) {
   const mn = 12;
 
   React.useEffect(() => {
-    async function getDrinks() {
-      await dispatch(fetchDrink());
+    async function getDrinks(url) {
+      await dispatch(fetchDrink(url));
     }
-    getDrinks();
-  }, [dispatch]);
+    if (location.ingredient) {
+      console.log(location.ingredient);
+      getDrinks(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${location.ingredient}`);
+    } else {
+      getDrinks('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    }
+  }, [dispatch, location.ingredient]);
 
   function renderDrinks() {
     if (render && data.drinks) {
@@ -136,6 +141,10 @@ function Drinks({ match }) {
 }
 
 Drinks.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+    ingredient: PropTypes.string.isRequired,
+  }).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       name: PropTypes.string.isRequired,

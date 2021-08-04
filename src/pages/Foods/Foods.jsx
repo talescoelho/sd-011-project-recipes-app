@@ -8,7 +8,7 @@ import styles from './Foods.module.css';
 import { fetchMeal } from '../../redux/actions';
 import FoodsCategories from './FoodsComponents/FoodsCategories';
 
-function Foods({ match }) {
+function Foods({ match, location }) {
   const { meals, isLoading } = useSelector((state) => state.Meals);
   const { data, render } = useSelector((state) => state.Filter);
   const { mealsByCategories, toogle } = useSelector((state) => state.MealsByCategories);
@@ -16,11 +16,15 @@ function Foods({ match }) {
   const mn = 12;
 
   React.useEffect(() => {
-    async function getMeals() {
-      await dispatch(fetchMeal());
+    async function getMeals(url) {
+      await dispatch(fetchMeal(url));
     }
-    getMeals();
-  }, [dispatch]);
+    if (location.ingredient) {
+      getMeals(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${location.ingredient}`);
+    } else {
+      getMeals('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    }
+  }, [dispatch, location.ingredient]);
 
   function renderFoods() {
     if (render && data.meals) {
@@ -133,6 +137,10 @@ function Foods({ match }) {
 }
 
 Foods.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+    ingredient: PropTypes.string.isRequired,
+  }).isRequired,
   match: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
