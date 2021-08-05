@@ -76,14 +76,18 @@ function DrinkRecipeInProgress({ match: { params: { id } } }) {
                 onClick={ lineThroughUsedIngredients }
               />
               { `${ingredient}` }
-
             </label>
           ))
         }
       </form>
       <p data-testid="instructions">{ strInstructions }</p>
-      <button type="button" data-testid="finish-recipe-btn">Finalizar Receita</button>
-
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        disabled={ listIngredients().length !== usedIngredients.length }
+      >
+        Finalizar Receita
+      </button>
     </div>
   );
 }
