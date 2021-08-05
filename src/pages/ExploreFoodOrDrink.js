@@ -32,8 +32,8 @@ function ExploreFoodOrDrink({ history }) {
 
   return (
     <>
-      {history.location.pathname === '/explorar/comidas'
-        ? mealsHeaderAndMain() : drinksHeaderAndMain() }
+      {history.location.pathname === '/explorar/comidas' && mealsHeaderAndMain()}
+      {history.location.pathname === '/explorar/bebidas' && drinksHeaderAndMain()}
       <Footer />
     </>
   );
