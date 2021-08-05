@@ -19,6 +19,7 @@ import SingleFoodItem from './Pages/Components/SingleFoodItem';
 import SingleDrinkItem from './Pages/Components/SingleDrinkItem';
 // Pages Components /\
 import 'bootstrap/dist/css/bootstrap.min.css';
+import InprogressFood from './Pages/Components/InprogressFood';
 
 function App() {
   return (
@@ -33,7 +34,8 @@ function App() {
           <Route exact path="/perfil" component={ Profile } />
           <Route exact path="/explorar" component={ Explore } />
           <Route exact path="/explorar/comidas" component={ ExploreFoods } />
-          <Route exact path="/explorar/bebidas/" component={ ExploreDrinks } />
+          <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
+          <Route exact path="/comidas/:id/in-progress" component={ InprogressFood } />
           <Route
             exact
             path="/explorar/comidas/ingredientes"

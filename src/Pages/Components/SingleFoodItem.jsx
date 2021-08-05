@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import CarrouselDrinks from './CarrouselDrinks';
 import '../../styles/detail-screen.css';
-import { convertUrlToID, manageDetailAPI, managePathname } from '../../Helpers/convertUrlToID';
+import {
+  convertUrlToID,
+  manageDetailAPI,
+  managePathname } from '../../Helpers/convertUrlToID';
 import embedYouTubeVideo from '../../Helpers/embedYouTubeVideo';
 
 function SingleFoodItem() {
   const history = useHistory();
-  console.log(history);
   const currentURL = window.location.pathname;
   const [itemDetail, setItemDetail] = useState({
     meals: null,
@@ -24,6 +26,7 @@ function SingleFoodItem() {
       setItemDetail(manageDetailAPI(detailRequest));
     };
     return FetchFood();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Parte que separa os ingredientes da receitas
@@ -51,7 +54,6 @@ function SingleFoodItem() {
       return null;
     });
   }
-  //
 
   const { meals } = itemDetail;
   return itemDetail.meals !== null && (

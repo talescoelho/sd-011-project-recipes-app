@@ -20,10 +20,11 @@ function SingleFoodItem() {
     return FetchDrink();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  if (itemDetail.meals) return null;
   // Parte que separa os ingredientes da receitas
   if (itemDetail.drinks !== null) {
     const drink = itemDetail.drinks[0];
+    console.log(drink);
 
     const arrayOfIngredientsKey = Object
       .keys(drink).filter((key) => key.includes('strIngredient'));
@@ -46,9 +47,8 @@ function SingleFoodItem() {
       return null;
     });
   }
-
   const { drinks } = itemDetail;
-  console.log(drinks);
+
   return itemDetail.drinks !== null && (
     <div>
       <h1 data-testid="recipe-title">{drinks[0].strDrink}</h1>

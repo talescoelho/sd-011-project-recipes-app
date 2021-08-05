@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Context from '../../Context_Configs/Context';
 
 export default function DrinkCards() {
-  const { dataDrinks } = React.useContext(Context);
+  const { dataDrinks } = useContext(Context);
   return (
     <div>
       {
