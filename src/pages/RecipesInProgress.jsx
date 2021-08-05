@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { apiDetailsId } from '../service/apiDetailsId';
 import './styles/styleRecipesId.css';
@@ -7,6 +8,7 @@ import ShareAndFavorite from '../components/ShareAndFavorite';
 import IngredientRecipes from '../components/IngredientRecipes';
 
 function RecipesInProgress({ match }) {
+  const history = useHistory();
   const { params, path } = match;
   const { id } = params;
   const typeDrinkorMeal = path.split('/')[1];
@@ -125,6 +127,7 @@ function RecipesInProgress({ match }) {
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ enable }
+        onClick={ () => history.push('/receitas-feitas') }
       >
         Finalizar Receita
       </button>
