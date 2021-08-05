@@ -37,7 +37,11 @@ export default function Drinks() {
   }, []);
 
   const history = useHistory();
-  const { recipesDb, redirect, setRecipesDb } = useContext(RecipesContext);
+  const {
+    recipesDb,
+    redirect,
+    setRecipesDb,
+  } = useContext(RecipesContext);
   const limits = 12;
   const limitCategory = 5;
 
