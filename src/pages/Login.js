@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import './css/Login.css';
+import foodLogo from '../images/foodLogo.png';
 
 function Login(props) {
   const [email, setEmail] = useState('');
@@ -34,33 +36,37 @@ function Login(props) {
   }
 
   return (
-    <div>
-      <label htmlFor="email">
-        Email:
-        <input
-          data-testid="email-input"
-          type="email"
-          id="email"
-          onChange={ (e) => setEmail(e.target.value) }
-        />
-      </label>
-      <label htmlFor="password">
-        Senha:
-        <input
-          data-testid="password-input"
-          type="password"
-          id="password"
-          onChange={ (e) => setPassword(e.target.value) }
-        />
-      </label>
-      <button
-        disabled={ btnDisable }
-        data-testid="login-submit-btn"
-        type="button"
-        onClick={ sendInfoToLocalStorangeAndRedirect }
-      >
-        Entrar
-      </button>
+    <div className="login-page">
+      <div className="container">
+        <h1>Recipes App</h1>
+        <div className="imgcontainer">
+          <img src={ foodLogo } alt="food-logo" />
+        </div>
+        <div>
+          <input
+            data-testid="email-input"
+            type="email"
+            id="email"
+            onChange={ (e) => setEmail(e.target.value) }
+            placeholder="Email:"
+          />
+          <input
+            data-testid="password-input"
+            type="password"
+            id="password"
+            onChange={ (e) => setPassword(e.target.value) }
+            placeholder="Senha:"
+          />
+        </div>
+        <button
+          disabled={ btnDisable }
+          data-testid="login-submit-btn"
+          type="button"
+          onClick={ sendInfoToLocalStorangeAndRedirect }
+        >
+          Entrar
+        </button>
+      </div>
     </div>
   );
 }
