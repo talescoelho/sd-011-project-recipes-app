@@ -7,6 +7,7 @@ import {
   Col,
   Button,
 } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import { fetchDetails, fetchRecomendation } from '../../../services/fetchDetailsApi';
 import {
   retrieveDoneRecipes,
@@ -54,28 +55,9 @@ export default function BebidaDetails({ match: { params: { recipeId } } }) {
     fetchApi();
   }, [recipeId]);
 
+  const history = useHistory();
   const handleStartRecipe = () => {
-    // const {
-    //   idDrink,
-    //   strDrink,
-    //   strCategory,
-    //   strTags,
-    //   strDrinkThumb,
-    //   strAlcoholic,
-    // } = details;
-    // const timeNow = Date.now();
-    // const obj = {
-    //   id: idDrink,
-    //   type: 'bebida',
-    //   area: '',
-    //   category: strCategory || '',
-    //   alcoholicOrNot: strAlcoholic || '',
-    //   name: strDrink,
-    //   image: strDrinkThumb,
-    //   doneDate: timeNow,
-    //   tags: strTags ? strTags.split(',') : [],
-    // };
-    // saveNewDoneRecipe(obj);
+    history.push(`/bebidas/${recipeId}/in-progress`);
   };
 
   const loading = () => <h1>Loading content...</h1>;

@@ -7,6 +7,7 @@ import {
   Col,
   Button,
 } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import { fetchDetails, fetchRecomendation } from '../../../services/fetchDetailsApi';
 import {
   retrieveDoneRecipes,
@@ -54,6 +55,11 @@ export default function ComidaDetails({ match: { params: { recipeId } } }) {
     };
     fetchApi();
   }, [recipeId]);
+
+  const history = useHistory();
+  const handleStartRecipe = () => {
+    history.push(`/comidas/${recipeId}/in-progress`);
+  };
 
   const loading = () => <h1>Loading content...</h1>;
 
@@ -190,6 +196,7 @@ export default function ComidaDetails({ match: { params: { recipeId } } }) {
                     className="fixed-bottom m-auto"
                     data-testid="start-recipe-btn"
                     variant="success"
+                    onClick={ handleStartRecipe }
                   >
                     {startBtnText}
                   </Button>
