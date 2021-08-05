@@ -78,8 +78,9 @@ function HomeRecipe({ mealsData, isLoadingData, location }) {
     if (!location.state) {
       console.log('fez fetch');
       fetchMeals(urlFetch, 'meals');
+    } else {
+      redirectMeals(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${location.state}`);
     }
-    redirectMeals(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${location.state}`);
     handlerCard();
   }, []);
 
