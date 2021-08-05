@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import propTypes from 'prop-types';
 import { fetchFood } from '../services/FoodAPI';
 import CardsDrinks from './CardsDrinks';
+import CardsFood from './CardsFood';
 import '../styles/FoodDetails.scss';
 import { isRecipeDone } from '../services/RecipesLocalStorage';
 import ShareBtn from './ShareBtn';
@@ -22,14 +23,14 @@ export default function FoodDetails({ type }) {
     getFood();
   }, [params.id, type]);
 
-  // function getVideoId() {
-  //   if (food.strYoutube) {
-  //     const urlYT = food.strYoutube;
+  function getVideoId() {
+    if (food.strYoutube) {
+      const urlYT = food.strYoutube;
 
-  //     return urlYT.substring(urlYT.indexOf('v=') + 2);
-  //   }
-  //   return '';
-  // }
+      return urlYT.substring(urlYT.indexOf('v=') + 2);
+    }
+    return '';
+  }
 
   function listIngradient(item) {
     const retorno = [];
@@ -58,6 +59,16 @@ export default function FoodDetails({ type }) {
     return retorno;
   }
 
+  const showFrame = () => (<iframe
+    data-testid="video"
+    title="Vídeo da Receita"
+    frameBorder="0"
+    allow="encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen
+    src={ `https://www.youtube.com/embed/${getVideoId()}` }
+    width="100%"
+  />);
+
   const { strMealThumb, strDrinkThumb, strMeal, strInstructions, strCategory } = food;
   return (
     <main className="food-details">
@@ -76,21 +87,12 @@ export default function FoodDetails({ type }) {
           Categoria:
           {strCategory}
         </p>
-        <p>
+        <ul>
           {listIngradient(food)}
-        </p>
-        <h1>Vídeo</h1>
-        <p>
-          {/* <iframe
-            data-testid="video"
-            title="Vídeo da Receita"
-            frameBorder="0"
-            allow="encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            src={ `https://www.youtube.com/embed/${getVideoId()}` }
-            width="100%"
-          /> */}
-        </p>
+        </ul>
+        <h2>Recommend Cards</h2>
+        {type === 'meals' && showFrame()}
+
         {(isRecipeDone(params.id) === false) ? (
           <Link to={ `/comidas/${params.id}/in-progress` }>
             <Button className="btnstart" type="button" data-testid="start-recipe-btn">
@@ -100,7 +102,8 @@ export default function FoodDetails({ type }) {
         ) : ('') }
       </div>
       <div>
-        <CardsDrinks />
+        { type === 'drinks' && (<CardsFood />)}
+        {type === 'meals' && (<CardsDrinks />)}
       </div>
     </main>
   );
