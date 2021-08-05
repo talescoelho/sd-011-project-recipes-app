@@ -14,7 +14,7 @@ export default function Perfil() {
   };
   return (
     <div>
-      <Header title="Perfil" search={ false } />
+      <Header title="Perfil" searchIcon />
       <h2 data-testid="profile-email">{ userEmail.email }</h2>
       <button
         type="button"
