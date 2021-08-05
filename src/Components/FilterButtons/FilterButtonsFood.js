@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { getFoodsCategory, getFoodsByCategory } from '../../Services/ApiFood';
+import {
+  getFoodsCategory,
+  getFoodsByCategory,
+  getFoodsInitial } from '../../Services/ApiFood';
 import MainContext from '../../Context/MainContext';
 
 function FilterButtonsFood() {
   const limit = 5;
+  const [categorySelected, setCategorySelected] = useState('');
   const [categories, setCategories] = useState([]);
 
   async function fetchCategories() {
@@ -18,8 +22,14 @@ function FilterButtonsFood() {
   const { setFoodsByCategory } = useContext(MainContext);
 
   async function fetchFoodsByCategory(value) {
-    const foodsByCategory = await getFoodsByCategory(value);
-    setFoodsByCategory(foodsByCategory.meals);
+    if (categorySelected === value) {
+      const foodsInitialAPI = await getFoodsInitial();
+      setFoodsByCategory(foodsInitialAPI.meals);
+    } else {
+      setCategorySelected(value);
+      const foodsByCategory = await getFoodsByCategory(value);
+      setFoodsByCategory(foodsByCategory.meals);
+    }
   }
 
   return (
