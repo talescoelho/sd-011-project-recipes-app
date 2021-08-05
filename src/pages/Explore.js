@@ -5,7 +5,8 @@ function Explore() {
   return (
     <div>
       <Header title="Explorar" />
-      Explorar
+      Explorarar comidas
+      Explorarar bebidas
     </div>
   );
 }

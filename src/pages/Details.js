@@ -1,13 +1,15 @@
 import React from 'react';
 
 function Details() {
-  // function teste(e) {
-  //     e.preventDefault();
-  //     setEmail(`Hello ${user}!`);
-  // }
   return (
     <div>
-      olar
+      Image
+      Nome
+      ingredientes
+      instruções
+      video
+      recomendadas
+      botao inicia receita
     </div>
   );
 }

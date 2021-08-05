@@ -5,7 +5,9 @@ function exploreFood() {
   return (
     <div>
       <Header title="Explorar Comidas" />
-      Explorar comidas
+      Por ingredientes
+      Por local de origin
+      Me surpreenda
     </div>
   );
 }
