@@ -39,8 +39,8 @@ export function saveInProgressDrinkRecipes(id, usedIngredients) {
     };
   }
   localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-
-  export function saveFavorites(recipe) {
+}
+export function saveFavorites(recipe) {
   const getFavorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   if (getFavorites.some(
     (favorite) => favorite.id === recipe.id,
