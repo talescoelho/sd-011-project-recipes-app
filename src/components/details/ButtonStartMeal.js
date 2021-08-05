@@ -3,22 +3,27 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 function ButtonStartMeal({ id, type }) {
-  const [inProgressRecipes, setInProgressRecipes] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
   const [showStartBtn, setShowStartBtn] = useState(true);
   const history = useHistory();
 
   function handleStartRecipe() {
     console.log('inProgress');
-    setInProgressRecipes(true);
+    setInProgress(true);
   }
 
   useEffect(() => {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    if ((doneRecipes !== null)
-      && (doneRecipes.some((doneRecipe) => doneRecipe.id === id))) {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));// implementação com base nos cy testes por enquanto que a tela in progress não está pronta
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));// falta a implementação da tela das receitas feitas
+    if ((inProgressRecipes !== null)// implementação com base nos cy testes por enquanto que a tela in progress não está pronta
+      && (inProgressRecipes[type] !== undefined)
+      && (inProgressRecipes[type][id] !== undefined)) {
+      setInProgress(true);
+    }
+    if (doneRecipes !== null) {
       setShowStartBtn(false);
     }
-  }, [id]);
+  }, [id, type]);
   return (
     <div>
       { (showStartBtn) && (
@@ -32,7 +37,7 @@ function ButtonStartMeal({ id, type }) {
             handleStartRecipe();
           } }
         >
-          { inProgressRecipes ? 'Continuar Receita' : 'Iniciar Receita'}
+          { inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
           {' '}
           {/* requisito 40 passara depois que implementado o inprogress */}
         </button>
