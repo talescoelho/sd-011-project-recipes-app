@@ -14,7 +14,6 @@ export default function Meals({ history }) {
   // Redireciona pra page de details;
   function clickDetails(id) {
     history.push(`/comidas${id}`);
-    console.log(id);
   }
 
   const comidas = 'Comidas';

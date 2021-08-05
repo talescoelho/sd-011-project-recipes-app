@@ -2,9 +2,10 @@ const URLdrinks = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const URLmeals = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
 export const APImealById = async (id) => {
-  const URLmealsid = `www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const URLmealsid = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const APIfetch = await fetch(URLmealsid);
   const APIjson = await APIfetch.json();
+  console.log('rodou no services');
   return APIjson;
 };
 

@@ -4,13 +4,19 @@ import { APImealById } from '../services/APImealsANDdrinks';
 
 // Falta implementar o await da promisse;
 function RecipeDetails({ match: { params } }) {
-  const [FetchAPI, setFetchAPI] = useState({});
+  const [FetchAPI, setFetchAPI] = useState([]);
   useEffect(() => {
     const { id } = params;
-    setFetchAPI(APImealById(id));
+    const requestMeal = async () => {
+      const response = await APImealById(id);
+      setFetchAPI(response.meals[0]);
+    };
+    requestMeal();
   }, []);
 
-  console.log(FetchAPI.meals[0].idMeal);
+  console.log(FetchAPI.idMeal);
+  // Adicionar loading
+  // 
   return (
     <div>
       <RecipeCard />
