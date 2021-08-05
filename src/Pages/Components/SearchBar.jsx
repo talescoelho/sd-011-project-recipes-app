@@ -19,7 +19,7 @@ function SearchBar({ value }) {
     } else {
       setRequestDrinksParams(searchParameters);
     }
-    setRenderFoodCategory(false);
+    setRenderFoodCategory(true);
   }
 
   return (

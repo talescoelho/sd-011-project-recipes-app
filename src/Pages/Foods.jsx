@@ -24,17 +24,16 @@ function Foods() {
   // const [foodCategories, setFoodCategories] = useState();
   // const [foodFilter, setFoodFilter] = useState([]);
   const foods = 'foods';
-  // Busca por comidas ao renderizar a tela de comidas.
 
+  // Busca por comidas ao renderizar a tela de comidas.
   useEffect(() => {
     if (requestFoodParams.searchInput === '' && requestFoodParams.searchMethod === '') {
       setRequestFoodParams({
         searchInput: '', searchMethod: '' });
-      console.log(requestFoodParams);
     } else {
-      setRequestFoodParams({
-        searchInput: requestFoodParams.searchInput,
-        searchMethod: requestFoodParams.searchMethod });
+      // setRequestFoodParams({
+      //   searchInput: requestFoodParams.searchInput,
+      //   searchMethod: requestFoodParams.searchMethod });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [renderFoodCategory]);
@@ -69,7 +68,7 @@ function Foods() {
       </div>
       <FoodCategory />
       {
-        !renderFoodCategory ? <FoodsCards /> : <FoodCategoryCards />
+        renderFoodCategory ? <FoodsCards /> : <FoodCategoryCards />
       }
       <FooterBar />
     </>

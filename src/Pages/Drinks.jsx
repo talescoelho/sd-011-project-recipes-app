@@ -16,7 +16,6 @@ function Drinks() {
   const [showSearch, setShowSearch] = useState(false);
   const [drinkCategories, setDrinkCategories] = useState();
   const drinks = 'drinks';
-  const numberFour = 4;
 
   useEffect(() => {
     async function fetchDrinkParams() {
@@ -36,7 +35,7 @@ function Drinks() {
     const oneResult = dataDrinks[0];
     history.push(`/bebidas/${oneResult.idDrink}`);
   }
-
+  const numberFour = 4;
   return (
     <div>
       <h1 data-testid="page-title">Bebidas</h1>
