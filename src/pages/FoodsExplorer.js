@@ -9,7 +9,7 @@ export default function FoodsExplorer() {
     setIcon: false,
   };
   const [surpriseMeal, setSurpriseMeal] = useState(0);
-
+  
   useEffect(() => {
     const getRandmomMeal = async () => {
       const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php')
