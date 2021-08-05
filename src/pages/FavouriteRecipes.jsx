@@ -4,17 +4,18 @@ import FavoriteCard from '../components/FavoriteCard';
 
 export default function FavouriteRecipes() {
   const name = 'Receitas Favoritas';
+  const localStore = [];
   return (
     <div>
       <Header pageName={ name } />
-      Receitas Favoritass
+      Receitas Favoritas
       <div>
         <button type="button" data-testid="filter-by-all-btn">All</button>
         <button type="button" data-testid="filter-by-food-btn">Food</button>
         <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
       </div>
-      {/* Fazer map dos favoritos */}
-      {/* <FavoriteCard /> */}
+      { localStore.map((element, index) => (
+        <FavoriteCard recipe={ element } key={ index } />)) }
     </div>
   );
 }

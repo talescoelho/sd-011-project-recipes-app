@@ -10,7 +10,7 @@ export default function FavoriteButton({ recipe, drinkOrFood }) {
 
   useEffect(() => {
     if (!localStorage.favoriteRecipes) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+      localStorage.setItem('favoriteRecipes', '[]');
     }
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const verifyFav = favoriteRecipes.some((e) => e.id === id);
