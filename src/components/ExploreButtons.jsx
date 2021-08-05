@@ -14,7 +14,6 @@ export default function ExploreButtons({ type }) {
 
   const handleClickMeal = async () => {
     const foodAleatory = await FoodSurprise(type);
-    console.log(foodAleatory);
     const { idMeal, idDrink } = foodAleatory[0];
     history.push(`/${food[type]}/${idMeal || idDrink}`);
   };
