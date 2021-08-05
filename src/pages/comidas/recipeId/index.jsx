@@ -6,39 +6,22 @@ import {
   Col,
   Button,
 } from 'react-bootstrap';
-import copy from 'clipboard-copy';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { fetchDetails } from '../../../services/fetchDetailsApi';
 import {
   retrieveDoneRecipes,
   retrieveInProgressRecipes,
-  retrieveFavoriteRecipes,
 } from '../../../services/handleLocalStorage';
 import DetailsCarousel from '../../../components/Details/Carousel';
-import shareIcon from '../../../images/shareIcon.svg';
-import whiteHeartIcon from '../../../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../../../images/blackHeartIcon.svg';
 import './styles.css';
+import FavoriteButton from '../../../components/Details/FavoriteButton';
+import CopyButton from '../../../components/Details/CopyButton';
 
 export default function ComidaDetails({ match: { params: { recipeId } } }) {
   const [details, setDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isRecipeDone, setIsRecipeDone] = useState(false);
   const [startBtnText, setStartBtnText] = useState('Iniciar Receita');
-  const [copyBtnText, setCopyBtnText] = useState('');
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [favoriteSrc, setFavoriteSrc] = useState(whiteHeartIcon);
-
-  useEffect(() => {
-    const favoriteRecipes = retrieveFavoriteRecipes();
-    favoriteRecipes.forEach((obj) => {
-      if (obj.id.includes(recipeId)) {
-        setIsFavorite(true);
-        setFavoriteSrc(blackHeartIcon);
-        console.log('isFavorite');
-      }
-    });
-  }, [recipeId]);
 
   useEffect(() => {
     const inProgress = retrieveInProgressRecipes();
@@ -72,22 +55,6 @@ export default function ComidaDetails({ match: { params: { recipeId } } }) {
     history.push(`/comidas/${recipeId}/in-progress`);
   };
 
-  const location = useLocation();
-
-  const handleCopyBtn = () => {
-    setCopyBtnText('Link copiado!');
-    copy(`http://localhost:3000${location.pathname}`);
-  };
-
-  const handleFavoriteBtn = () => {
-    setIsFavorite(!isFavorite);
-    if (favoriteSrc === whiteHeartIcon) {
-      setFavoriteSrc(blackHeartIcon);
-    } else {
-      setFavoriteSrc(whiteHeartIcon);
-    }
-  };
-
   const loading = () => <h1>Loading content...</h1>;
 
   const pageContent = () => {
@@ -118,29 +85,10 @@ export default function ComidaDetails({ match: { params: { recipeId } } }) {
         </Row>
         <Row as="nav" className="mb-3 m-auto">
           <Col className="col-6">
-            <Button
-              variant="primary"
-              type="button"
-              onClick={ handleCopyBtn }
-              data-testid="share-btn"
-            >
-              <img alt="Botão de copiar link" src={ shareIcon } />
-            </Button>
-            <br />
-            <span>{copyBtnText}</span>
+            <CopyButton />
           </Col>
           <Col className="col-6">
-            <Button
-              variant="danger"
-              type="button"
-              data-testid="favorite-btn"
-              onClick={ handleFavoriteBtn }
-              src={ favoriteSrc }
-            >
-              { isFavorite
-                ? <img alt="coração" src={ blackHeartIcon } />
-                : <img alt="coração" src={ whiteHeartIcon } />}
-            </Button>
+            <FavoriteButton recipeId={ recipeId } selector="meal" details={ details } />
           </Col>
         </Row>
         <Row className="mt-3 text-center justify-content-center">

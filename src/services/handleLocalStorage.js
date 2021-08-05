@@ -22,26 +22,14 @@ export const retrieveFavoriteRecipes = () => {
   return favoriteRecipes;
 };
 
-// const handleStartRecipe = () => {
-//   const {
-//     idDrink,
-//     strDrink,
-//     strCategory,
-//     strTags,
-//     strDrinkThumb,
-//     strAlcoholic,
-//   } = details;
-//   const timeNow = Date.now();
-//   const obj = {
-//     id: idDrink,
-//     type: 'bebida',
-//     area: '',
-//     category: strCategory || '',
-//     alcoholicOrNot: strAlcoholic || '',
-//     name: strDrink,
-//     image: strDrinkThumb,
-//     doneDate: timeNow,
-//     tags: strTags ? strTags.split(',') : [],
-//   };
-//   saveNewDoneRecipe(obj);
-// };
+export const setNewFavoriteRecipe = (obj) => {
+  const favoriteRecipes = retrieveFavoriteRecipes();
+  localStorage.setItem('favoriteRecipes', JSON.stringify([...favoriteRecipes, obj]));
+};
+
+export const removeFavoriteRecipe = (obj) => {
+  const favoriteRecipes = retrieveFavoriteRecipes();
+  const filteredFavoriteRecipes = favoriteRecipes
+    .filter((el) => el === obj);
+  localStorage.setItem('favoriteRecipes', JSON.stringify([...filteredFavoriteRecipes]));
+};
