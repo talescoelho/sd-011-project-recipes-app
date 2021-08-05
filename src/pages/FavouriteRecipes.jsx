@@ -14,7 +14,7 @@ export default function FavouriteRecipes() {
         <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
       </div>
       {/* Fazer map dos favoritos */}
-      <FavoriteCard />
+      {/* <FavoriteCard /> */}
     </div>
   );
 }

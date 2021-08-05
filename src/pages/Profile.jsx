@@ -6,11 +6,16 @@ import Header from '../components/Header';
 export default function Profile() {
   const name = 'Perfil';
   const showSearchButton = false;
+  const { email } = JSON.parse(localStorage.getItem('user'));
   return (
     <div>
       <Header pageName={ name } showSearchButton={ showSearchButton } />
       Perfil
-      <h2 data-testid="profile-email"> E-mail </h2>
+      <h2 data-testid="profile-email">
+        {' '}
+        { email }
+        {' '}
+      </h2>
       <Link to="/receitas-feitas">
         <button type="button" data-testid="profile-done-btn">Receitas Feitas</button>
       </Link>
