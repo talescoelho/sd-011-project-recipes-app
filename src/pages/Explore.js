@@ -8,11 +8,21 @@ function Explore() {
       <Header withSearch={ false } pageTitle="Explorar" />
       <br />
       <main>
-        <section data-testid="explore-food">
-          <h1>Comidas</h1>
+        <section>
+          <button
+            type="button"
+            data-testid="explore-food"
+          >
+            Explorar Comidas
+          </button>
         </section>
-        <section data-testid="explore-drinks">
-          <h1>Bebidas</h1>
+        <section>
+          <button
+            type="button"
+            data-testid="explore-drinks"
+          >
+            Explorar Bebidas
+          </button>
         </section>
       </main>
       <Footer />
