@@ -55,10 +55,12 @@ const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem/* , setEnable *
     else removeCheck(value);
   }
 
-  const stateCheckd = (value) => (
-    info && info[typeDoM][idItem].length > 0
-    && info[typeDoM][idItem].includes(value)
-  );
+  const stateCheckd = (value) => {
+    const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (getStorage !== null) {
+      return getStorage[typeDoM][idItem].includes(value);
+    }
+  };
 
   return (
     ingredient.map((item, index) => (
