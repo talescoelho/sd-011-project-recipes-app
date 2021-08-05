@@ -3,9 +3,10 @@ import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Login from './pages/Login';
 import Meals from './pages/Meals';
-import Bebidas from './pages/Bebidas';
+// import Bebidas from './pages/Bebidas';
 import Explorar from './pages/Explorar';
 import Profile from './pages/Profile';
+import Drinks from './pages/Drinks';
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route path="/header" component={ Header } />
         <Route path="/comidas" component={ Meals } />
-        <Route path="/bebidas" component={ Bebidas } />
+        <Route path="/bebidas" component={ Drinks } />
         <Route path="/explorar" component={ Explorar } />
         <Route path="/profile" component={ Profile } />
         {/* <Route path="/comidas" component={} />

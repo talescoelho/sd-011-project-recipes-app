@@ -6,7 +6,7 @@ import searchIcon from '../images/searchIcon.svg';
 import '../css/header.css';
 import SearchBar from './SearchBar';
 
-export default function Header() {
+export default function Header({ title }) {
   const toggleSearch = () => {
     const displayRarios = document.querySelector('.alltoggle-search');
     displayRarios.style.display = 'block';
@@ -23,7 +23,7 @@ export default function Header() {
             alt="icone de perfil"
           />
         </Link>
-        <h1 data-testid="page-title">Comidas</h1>
+        <h1 data-testid="page-title">{ title }</h1>
         <input
           type="image"
           data-testid="search-top-btn"
