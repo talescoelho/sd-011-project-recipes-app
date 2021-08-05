@@ -1,0 +1,46 @@
+.recommendation-title {
+  margin-bottom: 0;
+}
+
+.recommendation-carroussel {
+  align-items: center;
+  display: flex;
+  overflow: hidden;
+  transform: translateX(0);
+  transition: 0.2s ease;
+}
+
+.carroussel-content {
+  display: flex;
+  margin-bottom: 10px;
+  transform: translateX(-178px);
+  transition: 0.2s ease;
+  width: fit-content;
+}
+
+.carroussel-item {
+  margin: 0 8px;
+}
+
+.arrow-r {
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  margin-top: -100px;
+  outline: none;
+  position: absolute;
+  width: 23%;
+  z-index: 10;
+}
+
+.arrow-l {
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  margin-top: -100px;
+  outline: none;
+  position: absolute;
+  right: 0;
+  width: 23%;
+  z-index: 10;
+}

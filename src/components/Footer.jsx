@@ -9,24 +9,26 @@ import '../styles/Footer.css';
 function Footer() {
   const { setCurrentCategory } = useContext(RecipesContext);
 
+  const reload = (type) => {
+    window.location.href = `/${type}`;
+  };
+
   return (
     <footer data-testid="footer" className="footer">
       <Link
-        data-testid="drinks-bottom-btn"
         to="/bebidas"
-        onClick={ () => setCurrentCategory('All') }
+        onClick={ () => { setCurrentCategory('All'); reload('bebidas'); } }
       >
-        <img src={ drinkIcon } alt="drink icon" />
+        <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="drink icon" />
       </Link>
-      <Link data-testid="explore-bottom-btn" to="/explorar">
-        <img src={ exploreIcon } alt="explore icon" />
+      <Link to="/explorar">
+        <img data-testid="explore-bottom-btn" src={ exploreIcon } alt="explore icon" />
       </Link>
       <Link
-        data-testid="food-bottom-btn"
         to="/comidas"
-        onClick={ () => setCurrentCategory('All') }
+        onClick={ () => { setCurrentCategory('All'); reload('comidas'); } }
       >
-        <img src={ mealIcon } alt="meal icon" />
+        <img data-testid="food-bottom-btn" src={ mealIcon } alt="meal icon" />
       </Link>
     </footer>
   );

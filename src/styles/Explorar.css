@@ -18,3 +18,8 @@
   position: absolute;
   top: 140px;
 }
+
+.explorar-container {
+  height: 640px;
+  width: 360px;
+}

@@ -31,9 +31,7 @@ export default function SearchBar() {
       api = await searchByFirstLetter(searchQuery, pathname);
     }
     if (api && api[foodType] !== null) {
-      setFoodList(api[foodType]);
       setDataRecipes(api[foodType]);
-      dispatch(setRecipeList(api[foodType]));
     } else {
       setDataRecipes([]);
       window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');

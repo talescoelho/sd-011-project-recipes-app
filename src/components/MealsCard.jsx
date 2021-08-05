@@ -7,13 +7,14 @@ import { searchByIngredient } from '../services';
 import RecipesContext from '../context/RecipesContext';
 
 function MealsCard({ ingredient: { strIngredient }, index }) {
-  const { setFilteredRecipes } = useContext(RecipesContext);
+  const { setDataRecipes, setJhonata } = useContext(RecipesContext);
   const [clickOnIngredient, setClickOnIngredient] = useState(false);
 
   const searchRecipesByIngredient = async () => {
     const pathname = '/comidas';
     const { meals } = await searchByIngredient(strIngredient, pathname);
-    setFilteredRecipes(meals);
+    setJhonata(strIngredient);
+    setDataRecipes(meals);
     setClickOnIngredient(true);
   };
 

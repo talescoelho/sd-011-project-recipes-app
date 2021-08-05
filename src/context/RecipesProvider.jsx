@@ -9,12 +9,19 @@ import { fetchAllRecipesOrByCategory,
 function RecipesProvider({ children }) {
   const { pathname } = useLocation();
   const [isLoading, setIsLoading] = useState(true);
-  const [recipeType, setRecipeType] = useState(pathname);
+  const [recipeType, setRecipeType] = useState('');
   const [dataRecipes, setDataRecipes] = useState([]);
   const [categorysList, setCategorysList] = useState(pathname);
   const [currentCategory, setCurrentCategory] = useState('All');
   const [ingredientList, setIngredientList] = useState([]);
-  const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [doneRecipes, setDoneRecipes] = useState('');
+  const [jhonata, setJhonata] = useState('');
+
+  useEffect(() => {
+    localStorage.setItem('doneRecipes', JSON.stringify([]));
+    const RecipesConcludeds = JSON.parse(localStorage.getItem('doneRecipes'));
+    setDoneRecipes(RecipesConcludeds);
+  }, []);
 
   useEffect(() => {
     setRecipeType(pathname);
@@ -24,7 +31,10 @@ function RecipesProvider({ children }) {
     const fetchRecipes = async (recipeTypeToFetch, category) => {
       setIsLoading(true);
       const recipes = await fetchAllRecipesOrByCategory(recipeTypeToFetch, category);
-      setDataRecipes(recipes);
+      console.log('RecipesProvider');
+      if (jhonata === '') {
+        setDataRecipes(recipes);
+      }
       setIsLoading(false);
     };
     const fetchCategorys = async () => {
@@ -55,8 +65,9 @@ function RecipesProvider({ children }) {
     setDataRecipes,
     ingredientList,
     setIngredientList,
-    filteredRecipes,
-    setFilteredRecipes,
+    doneRecipes,
+    jhonata,
+    setJhonata,
   };
 
   RecipesProvider.propTypes = {
