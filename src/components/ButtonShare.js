@@ -6,11 +6,12 @@ const copy = require('clipboard-copy');
 
 // Para incluir o botão, basta chamar componente da seguinte forma:
 // <ButtonShare path={ window.location.href } testid={ COLOCAR O TESTID QUE O REQUISITO PEDE } />
-// Obs.: "window.location.href" pega a url toda
-// Obs2.: se quiserem colocar um path diferente da tela aberta, como da tela de detalhes, pode-se fazer assim:
-// const href = window.location.origin;
+// Obs.: "window.location.href" pega a url toda da tela aberta. Exemplo: se está na página de perfil, vai copiar http://localhost:3000/perfil
+// Se quiserem colocar um path diferente da tela aberta, como da tela de detalhes, pode-se fazer assim:
+// const href = window.location.origin; ==> isso pega o http://localhost:3000 (ou como estiver aberto na máquina da pessoa)
 // <ButtonShare path={ `${href}/comidas/${id}` } testid={ COLOCAR O TESTID QUE O REQUISITO PEDE } />
-// Obs3.: O 'id' foi criado dinamicamente
+// Obs2.: Nesse caso, 'id' foi criado dinamicamente
+// Dúvidas: Ana Clara
 
 export default function ButtonShare(props) {
   const [isCopied, setIsCopied] = useState(false);
@@ -33,7 +34,6 @@ export default function ButtonShare(props) {
   return (
     <div style={ { display: 'flex' } }>
       <div
-        data-testid="share-btn"
         role="button"
         onKeyPress={ onClickButtonShare }
         tabIndex="0"
