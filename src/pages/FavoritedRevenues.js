@@ -36,7 +36,7 @@ export default function FavoritedRevenues() {
 
   return (
     <div>
-      <Header title="Receitas Favoritas" search={ false } />
+      <Header title="Receitas Feitas" searchIcon />
       <div className="filter-buttons">
         <button
           type="button"
@@ -99,9 +99,9 @@ export default function FavoritedRevenues() {
                   to={ `/${value.alcoholicOrNot ? 'bebidas'
                     : 'comidas'}/${value.id}` }
                 >
-                  <h1 data-testid={ `${index}-horizontal-name` }>
+                  <h3 data-testid={ `${index}-horizontal-name` }>
                     { value.name }
-                  </h1>
+                  </h3>
                 </Link>
                 <div className="container-btns">
                   <ShareButton

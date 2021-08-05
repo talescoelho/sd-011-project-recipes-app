@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import Card from '../components/Cards';
+import Cards from '../components/Cards';
 import Footer from '../components/Footer';
 import {
   fetchCategorieDrinkFilterAction,
@@ -42,8 +42,8 @@ function handleChange(props, location, target, strCategory) {
 }
 
 function MainPage(props) {
+  const { location: { state } } = props;
   const { requestDrink, requestFood } = props;
-  const [testFetch, setTestFetch] = useState({});
   const [categories, setCategories] = useState({});
   const [categoryType, setCategoryType] = useState('');
   const [headerTittle, setHeaderTittle] = useState('');
@@ -57,15 +57,11 @@ function MainPage(props) {
   };
 
   useEffect(() => {
-    fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
-      .then((resolve) => resolve.json())
-      .then((response) => setTestFetch(response));
-  }, []);
-
-  useEffect(() => {
-    requestDrink();
-    requestFood();
-  }, [requestDrink, requestFood]);
+    if (!state) {
+      requestDrink();
+      requestFood();
+    }
+  }, [requestDrink, requestFood, state]);
 
   useEffect(() => {
     if (location === '/bebidas') {
@@ -83,17 +79,13 @@ function MainPage(props) {
     setLocation(window.location.pathname);
   }
 
-  if (!testFetch) {
-    return (<p>Carreagando...</p>);
-  }
-
   if (!categories[categoryType]) {
     return (
       <div>
         <Header title={ headerTittle } />
         Carregando...
         <div className="foods-cards">
-          <Card location={ location } />
+          <Cards location={ location } state={ state } />
         </div>
         <Footer />
       </div>);
@@ -132,7 +124,7 @@ function MainPage(props) {
           ))
       }
       <div className="foods-cards">
-        <Card location={ location } />
+        <Cards location={ location } state={ state } />
       </div>
       <Footer />
     </div>

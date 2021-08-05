@@ -18,7 +18,7 @@
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
   margin-right: 8px;
-  width: 50%;
+  width: 80%;
 }
 
 .recipe-text {
@@ -46,10 +46,11 @@
 }
 
 .filter-buttons button {
-  background-color: lightgreen;
+  background-color: #252525;
   border: none;
   border-radius: 10px;
   box-shadow: 7px 5px 3px rgba(124, 124, 124, 0.57);
+  color: white;
   font-size: 20px;
   font-weight: 700;
   height: 40px;

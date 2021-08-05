@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchDrinkAction, fetchFoodAction } from '../redux/actions';
+import { fetchIngrentAction, fetchDrinksAction } from '../redux/actions';
 
 function DrinkCard(props) {
-  const { location, resultDrink, resultFood } = props;
+  const { location, resultDrink, resultFood, state } = props;
   const [strType, setStrType] = useState('');
   const [resultType, setResultType] = useState('');
   const totalRecipes = 12;
@@ -15,6 +15,15 @@ function DrinkCard(props) {
   };
 
   useEffect(() => {
+    const { requestFoodRecipes, requestDrinkRecipes } = props;
+    if (state && window.location.pathname.split('/')[1] === 'comidas') {
+      requestFoodRecipes(state, 'ingrediente');
+    } else if (state && window.location.pathname.split('/')[1] === 'bebidas') {
+      requestDrinkRecipes(state, 'ingrediente');
+    }
+  }, [props, result.bebidas, result.comidas, state]);
+
+  useEffect(() => {
     if (location === '/bebidas') {
       setStrType('Drink');
       setResultType('bebidas');
@@ -22,9 +31,9 @@ function DrinkCard(props) {
       setStrType('Meal');
       setResultType('comidas');
     }
-  }, [location, resultType]);
+  }, [location, resultType, state]);
 
-  if (result[resultType] == null) {
+  if (result[resultType] === null) {
     return <p>Comida ou Bebida não encontrada</p>;
   }
 
@@ -62,8 +71,11 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  requestDrink: () => dispatch(fetchDrinkAction()),
-  requestFood: () => dispatch(fetchFoodAction()),
+  requestFoodRecipes: (searchInput, searchFilter) => (
+    dispatch(fetchIngrentAction(searchInput, searchFilter))),
+  requestDrinkRecipes: (searchInput, searchFilter) => (
+    dispatch(fetchDrinksAction(searchInput, searchFilter))
+  ),
 });
 
 DrinkCard.propTypes = {
