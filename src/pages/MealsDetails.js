@@ -31,7 +31,7 @@ function MealsDetails() {
           <DetailsMealHeader />
           <div>
             <DetailsShareMeals />
-            <DetailsFavoriteButton />
+            <DetailsFavoriteButton id={ id } />
           </div>
           <div>
             <DetailsIngredientList />

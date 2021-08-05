@@ -37,7 +37,7 @@ function DrinksDetails() {
           <DetailsDrinkHeader />
           <div>
             <DetailsShareDrinks />
-            <DetailsDrinkFavoriteButton />
+            <DetailsDrinkFavoriteButton id={ id } />
           </div>
           <div>
             <DetailsDrinkIngredientList />

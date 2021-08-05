@@ -1,16 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
-// import { Container } from './styles';
+function DetailsFavoriteButton({ id }) {
+  const [favorited, setFavorited] = useState(false);
 
-function DetailsFavoriteButton() {
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if ((favorites !== null)) {
+      setFavorited(true);
+    }
+  }, [id]);
+
   return (
     <button
       type="button"
-      data-testid="favorite-btn"
     >
-      Favorite
+      <img
+        src={ (favorited) ? blackHeartIcon : whiteHeartIcon }
+        alt="blackHeartIcon"
+        data-testid="favorite-btn"
+      />
     </button>
   );
 }
+
+DetailsFavoriteButton.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default DetailsFavoriteButton;
