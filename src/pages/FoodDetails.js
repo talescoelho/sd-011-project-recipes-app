@@ -7,6 +7,7 @@ import Recommendations from '../components/Recommendations';
 import VerifyStart from '../components/VerifyStart';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { saveFavorites } from '../helpers/handleLocalStorage';
 
 const FoodDetails = (props) => {
   const [foodData, setfoodData] = useState({ strYoutube: '' });
@@ -15,6 +16,7 @@ const FoodDetails = (props) => {
   const favoriteRecipes = JSON.parse(
     localStorage.getItem('favoriteRecipes'),
   ) || [{ id: '' }];
+  const [lsFavorite, setLsFavorite] = useState(favoriteRecipes);
   const { match: { params: { id } } } = props;
 
   const maxResult = 6;
@@ -41,6 +43,7 @@ const FoodDetails = (props) => {
     strCategory,
     strInstructions,
     strYoutube,
+    strArea,
   } = foodData;
   const maxIngredients = 20;
 
@@ -59,6 +62,22 @@ const FoodDetails = (props) => {
   function shareLink() {
     setCopy(true);
     return navigator.clipboard.writeText(window.location.href);
+  }
+
+  function setFavorites() {
+    const recipe = {
+      id,
+      type: 'comida',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    };
+    saveFavorites(recipe);
+    setLsFavorite(JSON.parse(
+      localStorage.getItem('favoriteRecipes'),
+    ) || [{ id: '' }]);
   }
 
   function getVideoTag() {
@@ -81,9 +100,9 @@ const FoodDetails = (props) => {
             <span>Link copiado!</span>
           ) : (<img src={ shareIcon } alt="Compartilhar" />)}
         </button>
-        <button type="button">
+        <button type="button" onClick={ setFavorites }>
           <img
-            src={ favoriteRecipes.some(
+            src={ lsFavorite.some(
               (favorite) => favorite.id === id,
             ) ? blackHeartIcon : whiteHeartIcon }
             alt="Favorite"

@@ -7,6 +7,7 @@ import Recommendations from '../components/Recommendations';
 import VerifyStart from '../components/VerifyStart';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { saveFavorites } from '../helpers/handleLocalStorage';
 
 const DrinkDetails = (props) => {
   const [drinkData, setdrinkData] = useState([]);
@@ -15,6 +16,7 @@ const DrinkDetails = (props) => {
   const favoriteRecipes = JSON.parse(
     localStorage.getItem('favoriteRecipes'),
   ) || [{ id: '' }];
+  const [lsFavorite, setLsFavorite] = useState(favoriteRecipes);
   const { match: { params: { id } } } = props;
 
   const maxResult = 6;
@@ -49,6 +51,22 @@ const DrinkDetails = (props) => {
     return navigator.clipboard.writeText(window.location.href);
   }
 
+  function setFavorites() {
+    const recipe = {
+      id,
+      type: 'bebida',
+      area: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+    };
+    saveFavorites(recipe);
+    setLsFavorite(JSON.parse(
+      localStorage.getItem('favoriteRecipes'),
+    ) || [{ id: '' }]);
+  }
+
   function listIngredients() {
     const list = [];
     for (let index = 1; index <= maxIngredients; index += 1) {
@@ -75,9 +93,9 @@ const DrinkDetails = (props) => {
             <span>Link copiado!</span>
           ) : (<img src={ shareIcon } alt="Compartilhar" />)}
         </button>
-        <button type="button">
+        <button type="button" onClick={ setFavorites }>
           <img
-            src={ favoriteRecipes.some(
+            src={ lsFavorite.some(
               (favorite) => favorite.id === id,
             ) ? blackHeartIcon : whiteHeartIcon }
             alt="Favorite"
