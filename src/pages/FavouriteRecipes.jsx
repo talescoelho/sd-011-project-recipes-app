@@ -7,7 +7,7 @@ export default function FavouriteRecipes() {
   return (
     <div>
       <Header pageName={ name } />
-      Receitas Favoritas
+      Receitas Favoritass
       <div>
         <button type="button" data-testid="filter-by-all-btn">All</button>
         <button type="button" data-testid="filter-by-food-btn">Food</button>
