@@ -1,30 +1,30 @@
 import { fetchFood } from './FoodAPI';
 
-export default function doneRecipe(idReceita) {
-  fetchFood(idReceita).then((data) => {
-    let objFormatado = [];
+export const doneRecipe = async (idReceita, type) => {
+  const data = await fetchFood(idReceita, type);
+  console.log(data);
+  let objFormatado = [];
 
-    if (localStorage.getItem('doneRecipes')) {
-      objFormatado = JSON.parse(localStorage.getItem('doneRecipes'));
-    }
+  if (localStorage.getItem('doneRecipes')) {
+    objFormatado = JSON.parse(localStorage.getItem('doneRecipes'));
+  }
 
-    if (!objFormatado.find((x) => x.id === idReceita)) {
-      objFormatado.push({
-        id: idReceita,
-        type: 'comida',
-        area: data.meals[0].strArea,
-        category: data.meals[0].strCategory,
-        alcoholicOrNot: '',
-        name: data.meals[0].strMeal,
-        image: data.meals[0].strMealThumb,
-        doneDate: Date.now(),
-        tags: data.meals[0].strTags,
-      });
+  if (!objFormatado.find((x) => x.id === idReceita)) {
+    objFormatado.push({
+      id: idReceita,
+      type: 'comida',
+      area: data.strArea,
+      category: data.strCategory,
+      alcoholicOrNot: '',
+      name: data.strMeal,
+      image: data.strMealThumb,
+      doneDate: Date.now(),
+      tags: data.strTags,
+    });
 
-      localStorage.setItem('doneRecipes', JSON.stringify(objFormatado));
-    }
-  });
-}
+    localStorage.setItem('doneRecipes', JSON.stringify(objFormatado));
+  }
+};
 
 export function isRecipeDone(idReceita) {
   const data = JSON.parse(localStorage.getItem('doneRecipes'));

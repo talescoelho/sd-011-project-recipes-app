@@ -5,7 +5,7 @@ import propTypes from 'prop-types';
 import { fetchFood } from '../services/FoodAPI';
 import CardsDrinks from './CardsDrinks';
 import CardsFood from './CardsFood';
-import { isRecipeDone } from '../services/RecipesLocalStorage';
+import { isRecipeDone, doneRecipe } from '../services/RecipesLocalStorage';
 import ShareBtn from './ShareBtn';
 import FavoriteBtn from './FavoriteBtn';
 import '../styles/FoodDetails.scss';
@@ -60,6 +60,15 @@ export default function FoodDetails({ type }) {
 
   const { strMealThumb, strDrinkThumb,
     strDrink, strMeal, strInstructions, strCategory, strAlcoholic } = food;
+
+  const path = {
+    meals: `/comidas/${params.id}/in-progress`,
+    drinks: `/bebidas/${params.id}/in-progress`,
+  };
+
+  const handleRecipeButton = () => {
+    doneRecipe(params.id, type);
+  };
   return (
     <main className="food-details">
       <div>
@@ -92,8 +101,13 @@ export default function FoodDetails({ type }) {
       </div>
 
       {(isRecipeDone(params.id) === false) ? (
-        <Link to={ `/comidas/${params.id}/in-progress` }>
-          <Button className="btnstart" type="button" data-testid="start-recipe-btn">
+        <Link to={ path[type] }>
+          <Button
+            onClick={ handleRecipeButton }
+            className="btnstart"
+            type="button"
+            data-testid="start-recipe-btn"
+          >
             Iniciar Receita
           </Button>
         </Link>
