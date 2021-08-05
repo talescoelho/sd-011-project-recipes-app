@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import RecipesCards from '../components/RecipesCards';
 import CategoriesButtons from '../components/CategoriesButtons';
 
-export default function Foods({ type }) {
+export default function initialScreen({ type }) {
   const showSearchButton = true;
   return (
     <SearchBarProvider type={ type }>
@@ -18,6 +18,6 @@ export default function Foods({ type }) {
   );
 }
 
-Foods.propTypes = {
+initialScreen.propTypes = {
   type: PropTypes.string.isRequired,
 };

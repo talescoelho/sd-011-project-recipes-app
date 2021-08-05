@@ -1,0 +1,24 @@
+.carousel {
+  display: flex;
+  min-width: 95vw;
+  overflow-x: auto;
+  padding: 10px;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel-item {
+  flex: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-align: start;
+  width: 55vw;
+}
+
+.carousel-item img {
+  width: 45vw;
+}
+
+.startButton {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
