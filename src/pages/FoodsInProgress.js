@@ -129,7 +129,6 @@ export default function FoodsInProgress() {
   const verifyrecipe = savedRecipe[recipe][data[foodType][0][idRecipe]] || false;
   if (!checkIngredients) {
     ingredients.forEach((ingredient) => {
-      console.log([food[ingredient]]);
       setCheckIngredients({ ...checkIngredients, [food[ingredient]]: false });
     });
   }
