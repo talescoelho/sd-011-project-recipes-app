@@ -25,6 +25,7 @@ export const TOOGLE_DRINKS_CATEGORIES = 'TOOGLE_DRINKS_CATEGORIES';
 export const SELECTED_DRINK_CATEGORY = 'SELECTED_DRINK_CATEGORY';
 export const TOOGLE_MEALS_CATEGORIES = 'TOOGLE_MEALS_CATEGORIES';
 export const SELECTED_MEAL_CATEGORY = 'SELECTED_MEAL_CATEGORY';
+export const MEALS_BY_AREA = 'MEALS_BY_AREA';
 
 export const fetchMealStarted = () => ({
   type: FETCH_MEALS_STARTED,
@@ -155,6 +156,11 @@ export const getMealCategory = (payload) => ({
   payload,
 });
 
+export const getMealsByArea = (payload) => ({
+  type: MEALS_BY_AREA,
+  payload,
+});
+
 export const fetchMeal = (url) => async (dispatch) => {
   try {
     dispatch(fetchMealStarted());
@@ -187,6 +193,12 @@ export const fetchMealsCategories = () => async (dispatch) => {
   } catch (error) {
     dispatch(fetchMealsCategoriesError(error.message));
   }
+};
+
+export const fetchExploreMealsArea = (url) => (dispatch) => {
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => dispatch(getMealsByArea(data)));
 };
 
 export const fetchDrinksCategories = () => async (dispatch) => {
