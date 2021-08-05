@@ -8,7 +8,6 @@ function DrinksRecomendations(props) {
     <div className="recomendations-container">
       {recomendations.map((element, index) => {
         if (index < recomendationsNumber) {
-          console.log(element);
           return (
             <div key={ element.idDrink } data-testid={ `${index}-recomendation-card` }>
               <img src={ element.strDrinkThumb } alt="Bebida recomendada" />
@@ -27,8 +26,8 @@ function DrinksRecomendations(props) {
   );
 }
 
-DrinksRecomendations.propTypes = {
+DrinksRecomendations.propTypes = ({
   recomendations: PropTypes.arrayOf.isRequired,
-};
+});
 
 export default DrinksRecomendations;
