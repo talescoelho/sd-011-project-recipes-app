@@ -21,6 +21,12 @@ export function searchBarFetchMeal(search, type) {
   }
 }
 
+export function getMealDetail(id) {
+  return fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+    .then((result) => result.json())
+    .then(({ meals }) => meals);
+}
+
 export function getInitialMealsRecipes() {
   return fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=pie')
     .then((result) => result.json())
@@ -36,5 +42,11 @@ export function getMealsCategoryList() {
 export function getMealsByCategory(categoryName) {
   return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryName}`)
     .then((result) => result.json())
+    .then(({ meals }) => meals);
+}
+
+export function getMealRecomendations() {
+  return fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+    .then((results) => results.json())
     .then(({ meals }) => meals);
 }
