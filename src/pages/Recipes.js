@@ -43,8 +43,8 @@ function Recipes({
       { renderHeader() }
       <main data-testid="recipes-page">
         <RecipesFilterButtons pathname={ pathname } />
-        { pathname === '/comidas' && `${mealsError}` }
-        { pathname === '/bebidas' && `${drinksError}` }
+        { pathname === '/comidas' && mealsError && `${mealsError}` }
+        { pathname === '/bebidas' && drinksError && `${drinksError}` }
         {
           mealsLoading || drinksLoading
             ? <Loading />
