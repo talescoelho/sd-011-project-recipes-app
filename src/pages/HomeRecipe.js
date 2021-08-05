@@ -36,11 +36,9 @@ function HomeRecipe({ mealsData, isLoadingData, location }) {
       setIsLoading(false);
     }
   };
-  console.log(location.state);
   const filterCategories = async (value, index) => {
     const categories = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${value}`;
     const responseCategory = await getCategory(categories, GET_CATEGORIES_MEALS);
-    console.log(responseCategory);
     setWhoCategory([...responseCategory.meals]);
     if (typeCategories) {
       setTypeCategories(false);
@@ -76,7 +74,6 @@ function HomeRecipe({ mealsData, isLoadingData, location }) {
 
   React.useEffect(() => {
     if (!location.state) {
-      console.log('fez fetch');
       fetchMeals(urlFetch, 'meals');
     } else {
       redirectMeals(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${location.state}`);

@@ -12,7 +12,6 @@ function ExploreByIngredientsDrinks() {
     const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
     const response = await fetch(url);
     const dataFetch = await response.json();
-    console.log(dataFetch.drinks);
     setData([...dataFetch.drinks]);
   };
 

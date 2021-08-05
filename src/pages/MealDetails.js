@@ -35,7 +35,6 @@ function MealDetails(
 
     return (
       <div>
-        {console.log(ingredientsAndMesure)}
         <ThumbDetails thumb={ strMealThumb } />
         <h1 data-testid="recipe-title">{ strMeal }</h1>
         <ShareBtn url={ match.url } />

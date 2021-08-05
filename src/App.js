@@ -37,6 +37,7 @@ function App() {
         />
         <Route exact path="/comidas" component={ HomeRecipe } />
         <Route exact path="/bebidas" component={ HomeDrinks } />
+        <Route path="/receitas-favoritas" component={ RecipeFavorite } />
         <Route
           path="/comidas/:id/in-progress"
           component={ RecipesInProgress }
@@ -61,7 +62,6 @@ function App() {
         <Route exact path="/explorar/comidas/area" component={ ExploreByLocal } />
         <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/receitas-feitas" component={ RecipeMade } />
-        <Route exact path="/receitas-favoritas" component={ RecipeFavorite } />
         <Route path="*" component={ NotFound } />
       </Switch>
     </BrowserRouter>
