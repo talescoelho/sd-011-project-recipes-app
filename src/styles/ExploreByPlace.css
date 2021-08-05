@@ -1,5 +1,5 @@
 .dropdown {
-  left: 25%;
+  left: 21%;
   position: relative;
   text-align: -webkit-center;
   top: 10vh;
@@ -22,6 +22,7 @@
   text-align: center;
   top: 100;
   transform: translate(209px, 39px);
+  z-index: 0;
 }
 
 .dropdown-menu.show:hover {
@@ -49,4 +50,14 @@
   border: 2px solid white;
   color: black;
   transition: 1.7s;
+}
+
+.section-place {
+  display: flex;
+  justify-content: center;
+  left: 26vw;
+  position: relative;
+  top: 10vh;
+  width: 50%;
+  z-index: 0;
 }
