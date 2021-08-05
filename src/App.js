@@ -23,7 +23,6 @@ import ExploreByIngredientsDrinks from './pages/explore/ExploreByIngredientsDrin
 import MealsInProgress from './pages/MealsInProgress';
 import DrinksInProgress from './pages/DrinksInProgress';
 
-
 function App() {
   return (
     <BrowserRouter>
