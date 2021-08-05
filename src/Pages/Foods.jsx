@@ -6,7 +6,7 @@ import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './Components/SearchBar';
 import FooterBar from './Components/FooterBar';
-import FoodCategory from './Components/FoodCategory';
+import FoodCategoryButtons from './Components/FoodCategoryButtons';
 import FoodsCards from './Components/FoodsCards';
 import FoodCategoryCards from './Components/FoodCategoryCards';
 
@@ -66,7 +66,7 @@ function Foods() {
           />
         </button>
       </div>
-      <FoodCategory />
+      <FoodCategoryButtons />
       {
         renderFoodCategory ? <FoodsCards /> : <FoodCategoryCards />
       }

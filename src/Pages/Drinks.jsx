@@ -60,7 +60,7 @@ function Drinks() {
       </button>
       <div>
         {drinkCategories
-          ? drinkCategories.filter((item, index) => index <= numberFour)
+          ? drinkCategories.filter((_, index) => index <= numberFour)
             .map((category, index) => (
               <button
                 type="button"
@@ -72,9 +72,7 @@ function Drinks() {
             ))
           : 'carregando' }
       </div>
-      <div>
-        <DrinkCards />
-      </div>
+      { true && <DrinkCards /> }
       <FooterBar />
     </div>
   );
