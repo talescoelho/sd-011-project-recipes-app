@@ -1,12 +1,10 @@
 import React from 'react';
-import IngredientsListWithCheckbox from '../components/foodRecipe/IngListWithCheckbox';
-
-const ingredientsList = ['tomate, pinhao, alface, frango'];
+import IngListWithCheckbox from '../components/RecipeProgress/IngListWithCheckbox';
 
 const FoodRecipeProgress = () => (
   <>
     <div>Tela de receita em processo de comidas</div>
-    <IngredientsListWithCheckbox ingredients={ ingredientsList } />
+    <IngListWithCheckbox />
   </>
 );
 
