@@ -23,7 +23,7 @@ export default function FoodCategory() {
     setSelectedCategory(value);
     const lastCategory = selectedCategory;
 
-    if (target.value === lastCategory) {
+    if (target.value === lastCategory || target.value === 'All') {
       setRenderCategory(true);
     } else {
       const twelveItems = 12;
@@ -50,6 +50,13 @@ export default function FoodCategory() {
             </button>
           ))
       }
+      <button
+        type="button"
+        onClick={ (e) => requestFoodsComingFromCategories(e) }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
     </div>
   );
 }

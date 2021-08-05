@@ -21,7 +21,7 @@ export default function DrinkCategoryButtons() {
     setSelectedCategory(target.innerHTML);
     const lastCategory = selectedCategory;
 
-    if (target.innerHTML === lastCategory) {
+    if (target.innerHTML === lastCategory || target.innerHTML === 'All') {
       setRenderCategory(true);
     } else {
       const twelveItems = 12;
@@ -44,6 +44,13 @@ export default function DrinkCategoryButtons() {
             {category}
           </button>
         ))}
+      <button
+        type="button"
+        onClick={ (e) => requestDrinksComingFromCategories(e) }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
     </div>
   );
 }
