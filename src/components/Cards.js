@@ -49,7 +49,7 @@ function DrinkCard(props) {
           key={ recipe[`id${strType}`] }
           to={ `/${resultType}/${recipe[`id${strType}`]}` }
         >
-          <div data-testid={ `${index}-recipe-card` }>
+          <div data-testid={ `${index}-recipe-card` } className="card-container">
             <div key={ recipe[`id${strType}`] }>
               <img
                 data-testid={ `${index}-card-img` }

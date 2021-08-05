@@ -22,13 +22,15 @@ class SearchBar extends Component {
 
   buscaReceita() {
     const { searchInput, searchFilter } = this.state;
-    const { requestFoodRecipes, title, requestDrinkRecipes } = this.props;
-    if (searchFilter === 'primeira-letra' && searchInput.length > 1) {
-      this.invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
-    } else if (title === 'Comidas') {
-      requestFoodRecipes(searchInput, searchFilter);
-    } else if (title === 'Bebidas') {
-      requestDrinkRecipes(searchInput, searchFilter);
+    if (searchInput) {
+      const { requestFoodRecipes, title, requestDrinkRecipes } = this.props;
+      if (searchFilter === 'primeira-letra' && searchInput.length > 1) {
+        this.invokeAlert(alert, 'Sua busca deve conter somente 1 (um) caracter');
+      } else if (title === 'Comidas') {
+        requestFoodRecipes(searchInput, searchFilter);
+      } else if (title === 'Bebidas') {
+        requestDrinkRecipes(searchInput, searchFilter);
+      }
     }
   }
 
@@ -55,11 +57,25 @@ class SearchBar extends Component {
           <input
             data-testid="search-input"
             type="text"
+            className="search-input"
             placeholder="Buscar Receita"
             name="searchInput"
             onChange={ (event) => this.handleChange(event) }
           />
           <form action="">
+            <label htmlFor="radio-name">
+              <input
+                type="radio"
+                id="radio-name"
+                value="nome"
+                checked
+                name="searchFilter"
+                data-testid="name-search-radio"
+                onChange={ (event) => this.handleChange(event) }
+              />
+              { ' Nome ' }
+            </label>
+            { ' ' }
             <label htmlFor="radio-ingredient">
               <input
                 type="radio"
@@ -69,19 +85,9 @@ class SearchBar extends Component {
                 data-testid="ingredient-search-radio"
                 onChange={ (event) => this.handleChange(event) }
               />
-              Ingrediente
+              { ' Ingrediente ' }
             </label>
-            <label htmlFor="radio-name">
-              <input
-                type="radio"
-                id="radio-name"
-                value="nome"
-                name="searchFilter"
-                data-testid="name-search-radio"
-                onChange={ (event) => this.handleChange(event) }
-              />
-              Nome
-            </label>
+            { ' ' }
             <label htmlFor="radio-first-letter">
               <input
                 type="radio"
@@ -91,7 +97,7 @@ class SearchBar extends Component {
                 data-testid="first-letter-search-radio"
                 onChange={ (event) => this.handleChange(event) }
               />
-              Primeira Letra
+              { ' Primeira Letra ' }
             </label>
           </form>
           <button

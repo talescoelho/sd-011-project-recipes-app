@@ -16,3 +16,64 @@ header div button {
   margin-right: 10px;
   margin-top: 5px;
 }
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.search {
+  align-items: center;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 15px;
+  width: 340px;
+}
+
+.search-input {
+  border: 1px solid rgb(172, 172, 172);
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.btt-search {
+  border: 1px solid rgb(172, 172, 172);
+  border-radius: 10px;
+  color: #252525;
+  height: 30px;
+  width: 100px;
+}
+
+.btt-search {
+  border: none;
+  border: 1px solid rgb(220, 220, 220);
+  border-radius: 10px;
+  box-shadow: 7px 5px 3px rgba(124, 124, 124, 0.57);
+  color: #252525;
+  font-size: 20px;
+  font-weight: 700;
+  height: 40px;
+  margin-bottom: 15px;
+  width: 100px;
+}
+
+.btt-search:active {
+  box-shadow: 3px 2px 1px rgba(124, 124, 124, 0.57);
+  transform: translateY(4px);
+}

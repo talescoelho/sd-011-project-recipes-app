@@ -12,43 +12,46 @@ import {
 } from '../redux/actions';
 import '../styles/comidas.css';
 
-function handleChange(props, location, target, strCategory) {
+function handleChange(props, location, selectCategory, strCategory) {
   const { searchAllDrinks, searchDrink, searchAllFoods, searchFood } = props;
-  const checkboxes = document.querySelectorAll('input[type=checkbox]');
-  checkboxes.forEach((checkbox) => {
-    if (target.id !== checkbox.id) {
-      checkbox.checked = false;
-    }
-  });
+  const { selectedCategory, setSelectedCategory } = selectCategory;
   if (location === '/bebidas') {
-    if (target.checked) {
-      if (strCategory === 'All') {
-        searchAllDrinks();
-      } else {
+    if (selectedCategory !== strCategory) {
+      if (strCategory !== 'All') {
         searchDrink(strCategory);
+        setSelectedCategory(strCategory);
       }
     } else {
       searchAllDrinks();
+      setSelectedCategory('All');
     }
-  } else if (target.checked) {
-    if (strCategory === 'All') {
-      searchAllFoods();
+  } else if (location === '/comidas') {
+    if (selectedCategory !== strCategory) {
+      if (strCategory !== 'All') {
+        searchFood(strCategory);
+        setSelectedCategory(strCategory);
+      }
     } else {
-      searchFood(strCategory);
+      searchAllFoods();
+      setSelectedCategory('All');
     }
-  } else {
-    searchAllFoods();
   }
 }
 
 function MainPage(props) {
   const { location: { state } } = props;
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const { requestDrink, requestFood } = props;
   const [categories, setCategories] = useState({});
   const [categoryType, setCategoryType] = useState('');
   const [headerTittle, setHeaderTittle] = useState('');
+  const [classNameItem, setClassNameItem] = useState('foods-cards');
   const categoriesLength = 5;
   const [location, setLocation] = useState(window.location.pathname);
+  const selectCategory = {
+    selectedCategory,
+    setSelectedCategory,
+  };
 
   const fetchCategory = (endPointFetch, setState) => {
     fetch(endPointFetch)
@@ -84,7 +87,7 @@ function MainPage(props) {
       <div>
         <Header title={ headerTittle } />
         Carregando...
-        <div className="foods-cards">
+        <div className={ classNameItem }>
           <Cards location={ location } state={ state } />
         </div>
         <Footer />
@@ -93,37 +96,45 @@ function MainPage(props) {
 
   return (
     <div>
-      <Header title={ headerTittle } />
-      <label htmlFor="All">
-        <input
+      <Header
+        title={ headerTittle }
+        setClassNameItem={ setClassNameItem }
+        classNameItem={ classNameItem }
+      />
+      <div className="buttons-container">
+        <button
           data-testid="All-category-filter"
           id="All"
-          type="checkbox"
+          type="button"
           name="category"
-          value="All"
-          onClick={ ({ target }) => handleChange(props, location, target, 'All') }
-        />
-        All
-      </label>
-      {
-        categories[categoryType].filter((_, index) => index < categoriesLength)
-          .map((category, index) => (
-            <label htmlFor={ category.strCategory } key={ index }>
-              <input
+          className="category-button"
+          onClick={ () => {
+            handleChange(props, location, selectCategory, 'All');
+          } }
+        >
+          All
+        </button>
+        {
+          categories[categoryType].filter((_, index) => index < categoriesLength)
+            .map((category, index) => (
+              <button
+                key={ index }
                 data-testid={ `${category.strCategory}-category-filter` }
                 id={ category.strCategory }
-                type="checkbox"
+                type="button"
                 name="category"
+                className="category-button"
                 value={ category.strCategory }
-                onClick={ ({ target }) => {
-                  handleChange(props, location, target, category.strCategory);
+                onClick={ () => {
+                  handleChange(props, location, selectCategory, category.strCategory);
                 } }
-              />
-              { category.strCategory }
-            </label>
-          ))
-      }
-      <div className="foods-cards">
+              >
+                { category.strCategory }
+              </button>
+            ))
+        }
+      </div>
+      <div className={ classNameItem }>
         <Cards location={ location } state={ state } />
       </div>
       <Footer />
