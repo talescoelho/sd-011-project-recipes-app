@@ -1,64 +1,76 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
-// import Footer from '../components/Footer';
+import { useHistory } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import Header from '../Components/Header';
-// import SearchbarContext from '../contexts/SearchbarContext';
-// import UserContext from '../contexts/UserContext';
-// import '../styles/ProfilePage.css';
+import Footer from '../Components/Footer';
+import './Profile.css';
+import perfilbg from './perfilbg.mp4';
 
 function Profile() {
-//   const [userEmailProfile, setUserEmailProfile] = useState('');
-//   const { setHideSearchBtn, setPageName } = useContext(SearchbarContext);
-//   const { userEmail } = useContext(UserContext);
+  const history = useHistory();
+  /* const [userEmailProfile, setUserEmailProfile] = useState('');
+  const { userEmail } = useContext(UserContext);
 
-  //   useEffect(() => {
-  //     const userEmailStorageString = JSON.parse(localStorage.getItem('user'));
-  //     if (userEmailStorageString === null) setUserEmailProfile(userEmail);
-  //     else setUserEmailProfile(userEmailStorageString.email);
-  //     setHideSearchBtn(false);
-  //     setPageName('Perfil');
-  //   }, []);
+  useEffect(() => {
+    const userEmailStorageString = JSON.parse(localStorage.getItem('user'));
+    if (userEmailStorageString === null) setUserEmailProfile(userEmail);
+    else setUserEmailProfile(userEmailStorageString.email);
+    setHideSearchBtn(false);
+    setPageName('Perfil');
+    }, []);
 
-  //   const clearStorage = () => localStorage.clear();
-
+  const clearStorage = () => localStorage.clear();
+    */
   return (
-    <>
+    <div>
+      <video
+        width="360"
+        height="640"
+        playsinline
+        autoPlay
+        muted
+        loop
+        className="bgVideo"
+      >
+        <source src={ perfilbg } type="video/mp4" />
+      </video>
       <Header title="Perfil" />
-      {/* <main className="main-profile">
-        <section className="profile-section">
-          <p data-testid="profile-email">{userEmailProfile}</p>
-          <Link to="/receitas-feitas">
-            <button
+      <div className="perfilpage">
+        <main className="main-profile">
+          <section className="profile-section">
+            <p data-testid="profile-email">userEmailProfile</p>
+            <Button
               type="button"
+              onClick={ () => history.push('/receitas-feitas') }
               data-testid="profile-done-btn"
-              className="button profile-btns"
+              className="button-one"
+              variant="outline-success"
             >
               Receitas Feitas
-            </button>
-          </Link>
-          <Link to="/receitas-favoritas">
-            <button
+            </Button>
+            <Button
               type="button"
+              onClick={ () => history.push('/receitas-favoritas') }
               data-testid="profile-favorite-btn"
-              className="button profile-btns"
+              className="button-two"
+              variant="outline-dark"
             >
               Receitas Favoritas
-            </button>
-          </Link>
-          <Link to="/">
-            <button
+            </Button>
+            <Button
               type="button"
+              onClick={ () => history.push('/') }
               data-testid="profile-logout-btn"
-              className="button profile-btns"
-              onClick={ clearStorage }
+              className="button-three"
+              variant="outline-danger"
             >
               Sair
-            </button>
-          </Link>
-        </section>
-      </main>
-      <Footer /> */}
-    </>
+            </Button>
+          </section>
+        </main>
+      </div>
+      <Footer />
+    </div>
   );
 }
 
