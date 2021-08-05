@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { setEmail } from '../../actions';
 
 class Login extends Component {
@@ -92,16 +91,14 @@ class Login extends Component {
             />
           </label>
         </form>
-        <Link to="/comidas">
-          <button
-            type="submit"
-            data-testid="login-submit-btn"
-            onClick={ (event) => this.submitLogin(event) }
-            disabled={ isDisable }
-          >
-            Entrar
-          </button>
-        </Link>
+        <button
+          type="submit"
+          data-testid="login-submit-btn"
+          onClick={ (event) => this.submitLogin(event) }
+          disabled={ isDisable }
+        >
+          Entrar
+        </button>
       </div>
     );
   }
