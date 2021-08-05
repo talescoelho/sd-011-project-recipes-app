@@ -26,6 +26,10 @@ function Provider({ children }) {
   const [foodsForCategory, setFoodsForCategory] = useState([]);
   const [drinksForCategory, setDrinksForCategory] = useState([]);
   // /\ Responsáveis pelos dados das categorias
+  
+// ====================
+
+function Provider({ children }) {
 
   const [dataFood, setDataFoods] = useState([]);
   const [dataDrinks, setDataDrinks] = useState([]);
@@ -45,6 +49,7 @@ function Provider({ children }) {
         return;
       }
       try {
+
         setDataFoods([]);
         if (searchMethod === 'ingredients') {
           response = await fetch(`${URL_FOOD_INGREDIENTS}${searchInput}`);

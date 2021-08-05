@@ -13,12 +13,14 @@ import DrinkCategoryCards from './Components/DrinkCategoryCards';
 function Drinks() {
   const history = useHistory();
   const { dataDrinks, setRequestDrinksParams, renderCategory } = useContext(Context);
+
   const [showSearch, setShowSearch] = useState(false);
   const drinks = 'drinks';
 
   // Busca por bebidas quando monta a tela de bebidas
   useEffect(() => {
     setRequestDrinksParams({ searchInput: '', searchMethod: '' });
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -50,6 +52,7 @@ function Drinks() {
       </button>
       <DrinkCategoryButtons />
       { renderCategory ? <DrinkCards /> : <DrinkCategoryCards />}
+
       <FooterBar />
     </div>
   );

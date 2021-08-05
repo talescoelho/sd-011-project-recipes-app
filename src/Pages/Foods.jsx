@@ -20,6 +20,7 @@ function Foods() {
     // setRenderFoodCategory,
     requestFoodParams,
   } = useContext(Context);
+
   const [showSearch, setShowSearch] = useState(false);
   const foods = 'foods';
 
@@ -35,6 +36,7 @@ function Foods() {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [renderCategory]);
+
 
   if (dataFood !== null && dataFood.length === 1) {
     const oneResult = dataFood[0];
@@ -68,6 +70,7 @@ function Foods() {
       {
         renderCategory ? <FoodsCards /> : <FoodCategoryCards />
       }
+
       <FooterBar />
     </>
   );
