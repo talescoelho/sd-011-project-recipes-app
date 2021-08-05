@@ -9,7 +9,6 @@ import ShareAndFavorite from '../components/ShareAndFavorite';
 
 function RecipesId({ match }) {
   const { params, path } = match;
-  console.log(match);
   const { id } = params;
   const typeDrinkorMeal = path.split('/')[1];
   const dispatch = useDispatch();

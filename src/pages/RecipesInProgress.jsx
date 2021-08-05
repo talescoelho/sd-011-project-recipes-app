@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { apiDetailsId } from '../service/apiDetailsId';
 import './styles/styleRecipesId.css';
 import ShareAndFavorite from '../components/ShareAndFavorite';
 import IngredientRecipes from '../components/IngredientRecipes';
 
-function RecipesId({ match }) {
+function RecipesInProgress({ match }) {
+  const history = useHistory();
   const { params, path } = match;
   const { id } = params;
   const typeDrinkorMeal = path.split('/')[1];
@@ -16,6 +18,7 @@ function RecipesId({ match }) {
   const { meals } = dataApi;
   const mealsOrDrinks = typeDrinkorMeal === 'comidas' ? 'meals' : 'drinks';
 
+  const [enable, setEnable] = useState(true);
   const [detail, setDetail] = useState({
     idItem: 0,
     title: '',
@@ -111,13 +114,20 @@ function RecipesId({ match }) {
         id={ id }
       />
       <span data-testid="recipe-category">{ category }</span>
-      <IngredientRecipes ingredient={ ingredient } />
+      <IngredientRecipes
+        ingredient={ ingredient }
+        typeDrinkorMeal={ typeDrinkorMeal }
+        idItem={ id }
+        setEnable={ setEnable }
+      />
       <span data-testid="instructions">{ instructions }</span>
       { video && <div data-testid="video">{ video }</div> }
       <button
         className="buttonfinish"
         type="button"
         data-testid="finish-recipe-btn"
+        disabled={ enable }
+        onClick={ () => history.push('/receitas-feitas') }
       >
         Finalizar Receita
       </button>
@@ -125,8 +135,8 @@ function RecipesId({ match }) {
   );
 }
 
-export default RecipesId;
+export default RecipesInProgress;
 
-RecipesId.propTypes = {
+RecipesInProgress.propTypes = {
   match: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
