@@ -13,3 +13,5 @@ export default class ComidasIngredientes extends Component {
     );
   }
 }
+
+// Inicia desenvolvimento
