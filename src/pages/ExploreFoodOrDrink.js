@@ -41,7 +41,9 @@ function ExploreFoodOrDrink({ history }) {
 
 ExploreFoodOrDrink.propTypes = {
   history: PropTypes.shape({
-    pathname: PropTypes.string,
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
   }),
 }.isRequired;
 
