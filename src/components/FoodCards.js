@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 class FoodCards extends Component {
   render() {
     const { foodCardsList } = this.props;
-    console.log(foodCardsList);
     return (
       <ul>
         { foodCardsList.map((item, index) => (
