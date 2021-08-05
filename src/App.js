@@ -6,6 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
 import MealDetails from './pages/MealDetails';
 import DrinkDetails from './pages/DrinkDetails';
+import NotFound from './components/NotFound';
+
 import HomeRecipe from './pages/HomeRecipe';
 import HomeDrinks from './pages/HomeDrinks';
 import Explore from './pages/explore/Explore';
@@ -16,6 +18,8 @@ import ExploreByLocal from './pages/explore/ExploreByLocal';
 import Profile from './pages/Profile';
 import RecipesDone from './pages/RecipesDone';
 import RecipeFavorite from './pages/RecipeFavorite';
+import ExploreByIngredientsDrinks from './pages/explore/ExploreByIngredientsDrinks';
+
 import MealsInProgress from './pages/MealsInProgress';
 import DrinksInProgress from './pages/DrinksInProgress';
 
@@ -36,6 +40,7 @@ function App() {
         />
         <Route exact path="/comidas" component={ HomeRecipe } />
         <Route exact path="/bebidas" component={ HomeDrinks } />
+        <Route path="/receitas-favoritas" component={ RecipeFavorite } />
         <Route
           path="/comidas/:id/in-progress"
           render={ (props) => <MealsInProgress { ...props } /> }
@@ -55,10 +60,11 @@ function App() {
         <Route
           exact
           path="/explorar/bebidas/ingredientes"
-          component={ ExploreByIngredients }
+          component={ ExploreByIngredientsDrinks }
         />
         <Route exact path="/explorar/comidas/area" component={ ExploreByLocal } />
         <Route exact path="/perfil" component={ Profile } />
+        <Route path="*" component={ NotFound } />
         <Route exact path="/receitas-feitas" component={ RecipesDone } />
         <Route path="/receitas-favoritas" component={ RecipeFavorite } />
       </Switch>

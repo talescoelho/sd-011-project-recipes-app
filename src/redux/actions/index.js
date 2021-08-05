@@ -6,9 +6,15 @@ export const GET_DRINKS = 'GET_DRINKS';
 export const GET_LIST = 'GET_LIST';
 export const GET_CATEGORIES_MEALS = 'GET_CATEGORIES_MEALS';
 export const GET_CATEGORIES_DRINK = 'GET_CATEGORIES_DRINK';
+export const GET_RECIPES_PAGES = 'GET_RECIPES_PAGES';
+export const REQUEST_RECIPES_PAGES = 'REQUEST_RECIPES_PAGES';
 
+const requestApiRecipesPage = () => ({ type: REQUEST_RECIPES_PAGES });
 // ESTA ACTION ALTERA isLoading PARA true
 export const requestApiAction = () => ({ type: REQUEST_API });
+
+// ESTA ACTION ALTERA LIMPA O DATA MAS DEIXA UMA CHAVE PRE SETADA
+export const getDataRecipes = (data) => ({ type: GET_RECIPES_PAGES, data });
 
 // ESTA ACTION ALTERA isLoading PARA false E SALVA O RETORNO DA API EM recipesData
 export const getRecipesAction = (data) => ({ type: GET_RECIPES_API, data });
@@ -22,7 +28,6 @@ export const fetchRecipesAPIAction = (url, recipeType) => async (dispatch) => {
   try {
     const response = await fetch(url);
     const json = await response.json();
-    console.log(json);
     if (!json[recipeType]) {
       // eslint-disable-next-line no-alert
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -39,7 +44,6 @@ export const fetchRecipeDetailsAPIAction = (url) => async (dispatch) => {
   try {
     const response = await fetch(url);
     const json = await response.json();
-    console.log(json);
     dispatch(getRecipeDetailsAction(json));
   } catch (error) {
     console.log(error);
@@ -110,6 +114,17 @@ export const fetchCategories = (url, type) => async (dispatch) => {
     const request = await fetch(url);
     const response = await request.json();
     return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchByIngredients = (url) => async (dispatch) => {
+  dispatch(requestApiRecipesPage());
+  try {
+    const request = await fetch(url);
+    const response = await request.json();
+    dispatch(getRecipesAction(response));
   } catch (error) {
     console.log(error);
   }

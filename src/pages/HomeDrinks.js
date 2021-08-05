@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import { fetchRecipesAPIAction,
   fetchRecipesListDrinks,
+  fetchByIngredients,
   GET_CATEGORIES_DRINK, fetchCategories } from '../redux/actions';
 import Header from '../components/Header';
 import Footer from '../components/footer/Footer';
 import RenderCategoriesDrinks from '../components/RenderCategoriesDrinks';
 
-function HomeDrinks({ drinksData }) {
+function HomeDrinks({ drinksData, isLoadingData, location }) {
   const urlFetch = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const urlFetchList = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const [isLoading, setIsLoading] = React.useState(true);
@@ -27,6 +28,7 @@ function HomeDrinks({ drinksData }) {
   const getCategory = (url, type) => dispatch(fetchCategories(url, type));
   const fetchDrinks = (url,
     recipeType) => dispatch(fetchRecipesAPIAction(url, recipeType));
+  const redirectMeals = (recipeType) => dispatch(fetchByIngredients(recipeType));
 
   const handlerCard = async () => {
     const responseList = await fetchListApi(urlFetchList);
@@ -50,7 +52,12 @@ function HomeDrinks({ drinksData }) {
   };
 
   React.useEffect(() => {
-    fetchDrinks(urlFetch, 'drinks');
+    if (!location.state) {
+      console.log('fez fetch');
+      fetchDrinks(urlFetch, 'drinks');
+    } else {
+      redirectMeals(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${location.state}`);
+    }
     handlerCard();
   }, []);
 
@@ -59,7 +66,7 @@ function HomeDrinks({ drinksData }) {
   };
 
   const renderDrinks = () => (
-    isLoading ? <p>loading...</p>
+    isLoading || isLoadingData ? <p>loading...</p>
       : drinksData.drinks
       && drinksData.drinks.slice(0, MagicMikeDance).map((itemCard, index) => (
         <Link key={ index } to={ `/bebidas/${itemCard.idDrink}` }>
@@ -114,6 +121,7 @@ function HomeDrinks({ drinksData }) {
 
 const mapStateToProps = (state) => ({
   drinksData: state.RecipesReducer.recipesData,
+  isLoadingData: state.RecipesReducer.isLoading,
 });
 
 HomeDrinks.propTypes = {

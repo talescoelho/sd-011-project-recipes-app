@@ -4,16 +4,15 @@ import { Link } from 'react-router-dom';
 import Footer from '../../components/footer/Footer';
 import Header from '../../components/Header';
 
-function ExploreByIngredients() {
-  // const urlFetch = `https://www.themealdb.com/api/json/v1/1/search.php?s=${}`;
+function ExploreByIngredientsDrinks() {
   const magicNumberFive = 12;
   const [data, setData] = React.useState([]);
 
   const fetchIngredients = async () => {
-    const url = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+    const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
     const response = await fetch(url);
     const dataFetch = await response.json();
-    setData([...dataFetch.meals]);
+    setData([...dataFetch.drinks]);
   };
 
   React.useEffect(() => {
@@ -25,33 +24,24 @@ function ExploreByIngredients() {
       {data && data.slice(0, magicNumberFive).map((item, index) => (
         <Link
           key={ index }
-          to={ { pathname: '/comidas', state: item.strIngredient } }
+          to={ { pathname: '/bebidas', state: item.strIngredient1 } }
         >
-          <div key={ index }>
-            <button
-              data-testid={ `${index}-ingredient-card` }
-              type="button"
-            >
-              {' '}
-              oi
-              {' '}
-            </button>
+          <div data-testid={ `${index}-ingredient-card` }>
             <h2
               data-testid={ `${index}-card-name` }
             >
-              { item.strIngredient }
+              { item.strIngredient1 }
             </h2>
             <img
               data-testid={ `${index}-card-img` }
-              src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
-              alt={ item.strIngredient }
+              src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` }
+              alt={ item.strIngredient1 }
             />
           </div>
         </Link>))}
-
       <Footer />
     </div>
   );
 }
 
-export default connect(null, null)(ExploreByIngredients);
+export default connect(null, null)(ExploreByIngredientsDrinks);
