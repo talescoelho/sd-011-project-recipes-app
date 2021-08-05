@@ -126,7 +126,7 @@ export const fetchByArea = (url) => async (dispatch) => {
   try {
     const request = await fetch(url);
     const response = await request.json();
-    dispatch(getDataRecipes(response.drinks));
+    dispatch(getDataRecipes(response.meals));
   } catch (error) {
     console.log(error);
   }
