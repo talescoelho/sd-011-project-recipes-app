@@ -1,9 +1,12 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
+import DrinkProgress from '../pages/DrinkProgress';
 import {
   LoginPage, NotFound, User, Bebidas, Explore, Comidas,
-  FoodDetails, MealtIngredients, DrinkIngredients, ExploreFood,
-  ExploreDrink } from '../pages';
+  MealtIngredients, DrinkIngredients, ExploreFood,
+  ExploreDrink, RecipeProgress, DrinkDetails, MealDetails,
+  ExploreByPlace,
+} from '../pages';
 
 function Routes() {
   return (
@@ -13,10 +16,17 @@ function Routes() {
       <Route exact path="/bebidas" render={ (props) => <Bebidas { ...props } /> } />
       <Route exact path="/explorar/comidas" component={ ExploreFood } />
       <Route exact path="/explorar/bebidas" component={ ExploreDrink } />
+      <Route exact path="/explorar/comidas/area" component={ ExploreByPlace } />
+      <Route exact path="/explorar/bebidas/area" component={ NotFound } />
       <Route
         exact
         path="/comidas/:id"
-        render={ (props) => <FoodDetails { ...props } /> }
+        render={ (props) => <MealDetails { ...props } /> }
+      />
+      <Route
+        exact
+        path="/bebidas/:id"
+        render={ (props) => <DrinkDetails { ...props } /> }
       />
       <Route
         exact
@@ -34,6 +44,18 @@ function Routes() {
         render={ (props) => <DrinkIngredients { ...props } /> }
       />
       <Route exact path="/perfil" render={ (props) => <User { ...props } /> } />
+
+      <Route
+        exact
+        path="/comidas/:id/in-progress"
+        render={ (props) => <RecipeProgress { ...props } /> }
+      />
+      <Route
+        exact
+        path="/bebidas/:id/in-progress"
+        render={ (props) => <DrinkProgress { ...props } /> }
+      />
+
       <Route path="*" component={ NotFound } />
     </Switch>
   );

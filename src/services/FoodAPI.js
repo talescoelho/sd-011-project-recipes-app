@@ -1,12 +1,16 @@
 import { getFoodCategories, getFoodCard } from '../Redux/actions/index';
 
-export const fetchFood = async (id) => {
-  const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-  const response = await fetch(URL);
+export const fetchFood = async (id, type) => {
+  const categories = {
+    meals: `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`,
+    drinks: `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`,
+  };
+  const response = await fetch(categories[type]);
   const json = await response.json();
 
   try {
-    return json;
+    const s = [...Object.values(json)[0]];
+    return s[0];
   } catch (error) {
     throw new Error(error);
   }

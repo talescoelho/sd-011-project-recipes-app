@@ -14,7 +14,6 @@ export default function ExploreButtons({ type }) {
 
   const handleClickMeal = async () => {
     const foodAleatory = await FoodSurprise(type);
-    console.log(foodAleatory);
     const { idMeal, idDrink } = foodAleatory[0];
     history.push(`/${food[type]}/${idMeal || idDrink}`);
   };
@@ -31,16 +30,16 @@ export default function ExploreButtons({ type }) {
         Por Ingredientes
       </Button>
       {type === 'meals'
-       && (
-         <Button
-           className="m-1"
-           data-testid="explore-by-area"
-           onClick={ () => {
-             history.push(`/explorar/${food[type]}/area`);
-           } }
-         >
-           Por Local de Origem
-         </Button>)}
+      && (
+        <Button
+          className="m-1"
+          data-testid="explore-by-area"
+          onClick={ () => {
+            history.push(`/explorar/${food[type]}/area`);
+          } }
+        >
+          Por Local de Origem
+        </Button>)}
       <Button
         className="m-1"
         data-testid="explore-surprise"

@@ -1,0 +1,52 @@
+.dropdown {
+  left: 25%;
+  position: relative;
+  text-align: -webkit-center;
+  top: 10vh;
+  width: 50%;
+}
+
+.origem {
+  border: 2px solid black;
+  cursor: pointer;
+  left: 15px;
+  position: relative;
+}
+
+.dropdown-menu.show {
+  bottom: auto;
+  left: 0;
+  margin: 0;
+  position: absolute;
+  right: auto;
+  text-align: center;
+  top: 100;
+  transform: translate(209px, 39px);
+}
+
+.dropdown-menu.show:hover {
+  border-color: black;
+  box-sizing: border-box;
+}
+
+.itemDark {
+  background-color: #565e64;
+  color: white;
+}
+
+.itemDark:hover {
+  background-color: #565e64;
+  border: 1px solid black;
+  color: white;
+  transition: 1.7s;
+}
+
+.itemLight {
+  background-color: whitesmoke;
+}
+
+.itemLight:hover {
+  border: 2px solid white;
+  color: black;
+  transition: 1.7s;
+}
