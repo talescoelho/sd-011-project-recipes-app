@@ -1,8 +1,15 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function Explore() {
+  const history = useHistory();
+
+  function handleClick(path) {
+    history.push(path);
+  }
+
   return (
     <>
       <Header withSearch={ false } pageTitle="Explorar" />
@@ -11,6 +18,7 @@ function Explore() {
         <section>
           <button
             type="button"
+            onClick={ () => handleClick('/explorar/comidas') }
             data-testid="explore-food"
           >
             Explorar Comidas
@@ -19,6 +27,7 @@ function Explore() {
         <section>
           <button
             type="button"
+            onClick={ () => handleClick('/explorar/bebidas') }
             data-testid="explore-drinks"
           >
             Explorar Bebidas
