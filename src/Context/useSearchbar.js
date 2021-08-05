@@ -25,6 +25,7 @@ export default function useSearchbar() {
       if (searchResult.length === 1) {
         return fetchFirstLetter(site, searchResult);
       }
+      // eslint-disable-next-line no-alert
       alert('Sua busca deve conter somente 1 (um) caracter');
       return { meals: [], drinks: [] };
     default:
@@ -44,6 +45,13 @@ export default function useSearchbar() {
       history.push(`${pathname}/${food[0][idFood]}`);
     }
   };
+
+  if (food) redirectByChoice();
+
+  if (!food) {
+    // eslint-disable-next-line no-alert
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
 
   return {
     setSelectedSearch,

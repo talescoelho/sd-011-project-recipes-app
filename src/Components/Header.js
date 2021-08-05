@@ -11,8 +11,6 @@ export default function Header({ title, searchIconAppears = false }) {
     setSearchResult,
     setSelectedSearch,
     getSearch,
-    redirectByChoice,
-    food,
   } = useSearchbar();
 
   const [searchInput, setSearchInput] = useState(false);
@@ -23,12 +21,6 @@ export default function Header({ title, searchIconAppears = false }) {
     } else {
       setSearchInput(false);
     }
-  }
-
-  if (food) redirectByChoice();
-
-  if (!food) {
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
 
   return (
