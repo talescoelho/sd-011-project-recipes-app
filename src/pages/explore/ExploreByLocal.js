@@ -4,7 +4,7 @@ import Header from '../../components/Header';
 
 export default function ExploreByLocal() {
   const [country, setCountry] = React.useState([]);
-  const [countryList, setCountryList] = React.useState('Canadian');
+  const [countryList, setCountryList] = React.useState('American');
   const [recipes, setRecipes] = React.useState([]);
 
   const urlCountryList = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
@@ -25,12 +25,28 @@ export default function ExploreByLocal() {
 
   const getFood = async () => {
     try {
-      const response = await fetch();
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${countryList}`);
       const data = await response.json();
+      setRecipes([...data.meals]);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const handlerFood = () => (
+    <div>
+      {recipes.length && recipes.slice(0, 12).map((item, index) => (
+        <div key={ index } data-testid={ `${index}-recipe-card` }>
+          <h2 data-testid={ `${index}-card-name` }>{item.strMeal}</h2>
+          <img
+            src={ item.strMealThumb }
+            data-testid={ `${index}-card-img` }
+            alt={ item.strMeal }
+          />
+        </div>
+      ))}
+    </div>
+  );
 
   React.useEffect(() => {
     getFood();
@@ -66,6 +82,7 @@ export default function ExploreByLocal() {
     <div>
       <Header title="Explorar Origem" />
       {handlerCountries()}
+      {handlerFood()}
       <Footer />
     </div>
   );
