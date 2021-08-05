@@ -1,11 +1,12 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
+import DrinkProgress from '../pages/DrinkProgress';
 import {
   LoginPage, NotFound, User, Bebidas, Explore, Comidas,
   MealtIngredients, DrinkIngredients, ExploreFood,
-  ExploreDrink, RecipeProgress, DrinkDetails, MealDetails } from '../pages';
-
-import DrinkProgress from '../pages/DrinkProgress';
+  ExploreDrink, RecipeProgress, DrinkDetails, MealDetails,
+  ExploreByPlace,
+} from '../pages';
 
 function Routes() {
   return (
@@ -15,6 +16,8 @@ function Routes() {
       <Route exact path="/bebidas" render={ (props) => <Bebidas { ...props } /> } />
       <Route exact path="/explorar/comidas" component={ ExploreFood } />
       <Route exact path="/explorar/bebidas" component={ ExploreDrink } />
+      <Route exact path="/explorar/comidas/area" component={ ExploreByPlace } />
+      <Route exact path="/explorar/bebidas/area" component={ NotFound } />
       <Route
         exact
         path="/comidas/:id"
