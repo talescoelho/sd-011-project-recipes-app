@@ -7,6 +7,7 @@ export default function FoodCategory() {
 
   const { setRenderCategory, setFoodsForCategory } = React.useContext(Context);
   const [foodCategories, setFoodCategories] = React.useState();
+  const [selectedCategory, setSelectedCategory] = React.useState('');
 
   React.useEffect(() => {
     async function fetchFoodParamsButtons() {
@@ -17,11 +18,19 @@ export default function FoodCategory() {
   }, []);
 
   async function requestFoodsComingFromCategories({ target }) {
-    const twelveItems = 12;
     const { value } = target;
-    const meals = await CategoryFoodFilter(value);
-    setFoodsForCategory(meals.filter((_, index) => index < twelveItems));
-    setRenderCategory(false);
+
+    setSelectedCategory(value);
+    const lastCategory = selectedCategory;
+
+    if (target.value === lastCategory) {
+      setRenderCategory(true);
+    } else {
+      const twelveItems = 12;
+      const meals = await CategoryFoodFilter(value);
+      setFoodsForCategory(meals.filter((_, index) => index < twelveItems));
+      setRenderCategory(false);
+    }
   }
 
   return (

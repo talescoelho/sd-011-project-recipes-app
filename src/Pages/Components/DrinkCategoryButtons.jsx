@@ -7,6 +7,7 @@ export default function DrinkCategoryButtons() {
 
   const { setDrinksForCategory, setRenderCategory } = React.useContext(Context);
   const [drinkCategories, setDrinkCategories] = React.useState();
+  const [selectedCategory, setSelectedCategory] = React.useState('');
 
   React.useEffect(() => {
     async function fetchDrinkParams() {
@@ -17,10 +18,17 @@ export default function DrinkCategoryButtons() {
   }, []);
 
   async function requestDrinksComingFromCategories({ target }) {
-    const twelveItems = 12;
-    const drinks = await CategoryDrinkFilter(target.innerHTML);
-    setDrinksForCategory(drinks.filter((_, index) => index < twelveItems));
-    setRenderCategory(false);
+    setSelectedCategory(target.innerHTML);
+    const lastCategory = selectedCategory;
+
+    if (target.innerHTML === lastCategory) {
+      setRenderCategory(true);
+    } else {
+      const twelveItems = 12;
+      const drinks = await CategoryDrinkFilter(target.innerHTML);
+      setDrinksForCategory(drinks.filter((_, index) => index < twelveItems));
+      setRenderCategory(false);
+    }
   }
 
   return (
