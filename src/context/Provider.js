@@ -5,7 +5,9 @@ import {
   getDrinkById,
   getFoodById,
   getRandomFood,
-  getRandomDrink } from '../services/RecipesServices';
+  getRandomDrink,
+  getFoodsIngredients,
+  getDrinksIngredients } from '../services/RecipesServices';
 
 function Provider({ children }) {
   const foodsSearchLinks = {
@@ -97,6 +99,8 @@ function Provider({ children }) {
     addLocalStore,
     getRandomFood,
     getRandomDrink,
+    getFoodsIngredients,
+    getDrinksIngredients,
   };
 
   return (
