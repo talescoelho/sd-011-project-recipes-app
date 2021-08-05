@@ -18,7 +18,6 @@ function DetailsDrinks() {
   const drink = useCallback(async () => {
     const fetch = await getDrinkById(id);
     setDrinkDetails(fetch[0]);
-    console.log(fetch);
     setLoad(false);
   }, [
     setDrinkDetails,
