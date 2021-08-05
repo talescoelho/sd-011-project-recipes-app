@@ -1,4 +1,5 @@
 import React, { useContext, useState, useCallback, useEffect } from 'react';
+import { Card } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import DetailHeader from '../components/DetailHeader';
@@ -56,22 +57,20 @@ function DetailsFood() {
       <DetailHeader />
       <DetailIngredient />
       <DetailInstruction />
+      <Card>
+        <Card.Title>Video</Card.Title>
+        <Card className="detail-video-box">
+          <iframe
+            className="iframe"
+            title={ foodDetails.strMeal }
+            src={ foodDetails.url }
+            frameBorder="0"
+            data-testid="video"
+          />
+        </Card>
+      </Card>
     </main>
   ) : <h1>Loading</h1>;
 }
 
 export default DetailsFood;
-
-/* { /*  VIDEO DA RECEITA - FAZER UM COMPONENTE
- <section className="detail-video">
-  <h1 className="detail-video-title">Video</h1>
-  <div className="detail-video-box">
-    <iframe
-      className="detail-iframe"
-      title={ foodDetails.strMeal }
-      src={ foodDetails.url }
-      frameBorder="0"
-      data-testid="video"
-    />
-  </div>
-</section> */
