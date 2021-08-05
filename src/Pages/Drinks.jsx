@@ -8,6 +8,7 @@ import SearchBar from './Components/SearchBar';
 import FooterBar from './Components/FooterBar';
 import CategoryDrinksAPI from '../services/CategoryDrinksAPI';
 import DrinkCards from './Components/DrinkCards';
+import DrinkCategoryButtons from './Components/DrinkCategoryButtons';
 
 // import PropTypes from 'prop-types';
 
@@ -15,16 +16,7 @@ function Drinks() {
   const history = useHistory();
   const { dataDrinks, setRequestDrinksParams } = useContext(Context);
   const [showSearch, setShowSearch] = useState(false);
-  const [drinkCategories, setDrinkCategories] = useState();
   const drinks = 'drinks';
-
-  useEffect(() => {
-    async function fetchDrinkParams() {
-      const categoryDrink = await CategoryDrinksAPI();
-      setDrinkCategories(categoryDrink);
-    }
-    fetchDrinkParams();
-  }, []);
 
   // Busca por bebidas quando monta a tela de bebidas
   useEffect(() => {
@@ -58,20 +50,7 @@ function Drinks() {
           alt="Botão com imagem de uma lupa: abre uma barra de pesquisa"
         />
       </button>
-      <div>
-        {drinkCategories
-          ? drinkCategories.filter((_, index) => index <= numberFour)
-            .map((category, index) => (
-              <button
-                type="button"
-                key={ index }
-                data-testid={ `${category}-category-filter` }
-              >
-                {category}
-              </button>
-            ))
-          : 'carregando' }
-      </div>
+      <DrinkCategoryButtons />
       { true && <DrinkCards /> }
       <FooterBar />
     </div>
