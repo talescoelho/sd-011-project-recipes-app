@@ -144,7 +144,48 @@ describe('Caso a receita esteja em progresso', () => {
 
   it('o botão de Iniciar Receita se torna Continuar Receita', async () => {
     expect(screen.queryByText('Iniciar Receita')).not.toBeInTheDocument();
-    console.log(screen.getByTestId('start-recipe-btn'));
     expect(screen.queryByText('Continuar Receita')).toBeInTheDocument();
   })
+});
+
+describe('O icone de coração', () => {
+  it('não vem preenchido caso a receita não seja favorita', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch = mockFetch;
+
+
+    const path = '/comidas/:id';
+    const history = createMemoryHistory({ initialEntries: ['/comidas/52878'] });
+    await act(async () => {
+      render(<FoodDetails />, { history, path });
+    });
+
+    const heartIcon = screen.getByAltText('icon representing favorite');
+    expect(heartIcon.src).toMatch(/whiteheart/i);
+  });
+
+  it('vem preenchido caso a receita seja favorita', async () => {
+    const favoriteRecipes = [{
+      "id": "52878",
+      "type": "comida",
+      "area": "Italian",
+      "category": "Vegetarian",
+      "alcoholicOrNot": "",
+      "name": "Spicy Arrabiata Penne",
+      "image": "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg",
+    }];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+
+    jest.spyOn(global, 'fetch');
+    global.fetch = mockFetch;
+
+    const path = '/comidas/:id';
+    const history = createMemoryHistory({ initialEntries: ['/comidas/52878'] });
+    await act(async () => {
+      render(<FoodDetails />, { history, path });
+    });
+
+    const heartIcon = screen.getByAltText('icon representing favorite');
+    expect(heartIcon.src).toMatch(/blackheart/i);
+  });
 })

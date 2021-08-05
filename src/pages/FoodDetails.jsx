@@ -13,6 +13,7 @@ function FoodDetails() {
   const [isInProgress, setIsInProgress] = useState(false);
   const [drinks, setDrinks] = useState([]);
   const [toastIsVisible, setToastIsVisible] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   const { id } = useParams();
 
   const BASE_URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php'; // TODO usar token
@@ -41,6 +42,12 @@ function FoodDetails() {
     const parsedInProgressRecipes = storedInProgressRecipes ? JSON.parse(storedInProgressRecipes) : { meals: [] };
     if (parsedInProgressRecipes.meals[id]) {
       setIsInProgress(true);
+    }
+
+    const storedFavoriteRecipes = localStorage.getItem('favoriteRecipes');
+    const parsedFavoriteRecipes = storedFavoriteRecipes ? JSON.parse(storedFavoriteRecipes) : [];
+    if (parsedFavoriteRecipes.findIndex((parsedRecipe) => parsedRecipe.id == id) > -1) {
+      setIsFavorite(true);
     }
   }, [id]);
 
@@ -113,6 +120,7 @@ function FoodDetails() {
                   />
                   <ActionButton
                     action="favorite"
+                    reverse={ isFavorite }
                     onClick={ () => console.log('oi') }
                   />
                 </div>
