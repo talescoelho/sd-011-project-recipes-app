@@ -5,4 +5,5 @@ export const requestAreas = () => ({ type: REQUEST_AREAS });
 
 export const requestAreaSucess = (payload) => ({
   type: REQUEST_AREAS_SUCESS,
-  payload });
+  payload,
+});

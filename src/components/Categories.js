@@ -26,7 +26,7 @@ function Categories({ mealOrDrink }) {
       >
         All
       </button>
-      {!stateReduxMainPage.loading && stateReduxMainPage.dataApi[mealsOrDrinks]
+      { !stateReduxMainPage.loading && stateReduxMainPage.dataApi[mealsOrDrinks]
         .map(({ strCategory }, i) => i < limitCategories && (
           <button
             key={ i }
@@ -47,8 +47,8 @@ function Categories({ mealOrDrink }) {
               }
             } }
           >
-            {strCategory}
-          </button>))}
+            { strCategory }
+          </button>)) }
     </div>
   );
 }

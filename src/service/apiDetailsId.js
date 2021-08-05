@@ -4,7 +4,7 @@ import {
   requestRecomendation,
 } from '../actions';
 
-export async function apiDetailsId(mealOrDrink, id) {
+export function apiDetailsId(mealOrDrink, id) {
   let responseDetail;
   if (mealOrDrink === 'meals') {
     responseDetail = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
@@ -23,6 +23,7 @@ export async function apiDetailsId(mealOrDrink, id) {
     }
   };
 }
+
 export async function apiRecomendation(mealOrDrink) {
   let responseRecomendation;
   let data = [];

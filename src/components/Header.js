@@ -29,9 +29,9 @@ function Header({ mealOrDrink, buttonExists, title, searchOrSelect }) {
         />
       </button>
 
-      <span data-testid="page-title">{title}</span>
+      <span data-testid="page-title">{ title }</span>
 
-      {buttonExists && (
+      { buttonExists && (
         <button
           data-testid="search-top-btn"
           type="button"
@@ -46,9 +46,9 @@ function Header({ mealOrDrink, buttonExists, title, searchOrSelect }) {
             src={ searchIcon }
           />
         </button>
-      )}
+      ) }
 
-      {searchClicked && checker()}
+      { searchClicked && checker() }
     </div>
   );
 }

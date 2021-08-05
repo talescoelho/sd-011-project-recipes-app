@@ -1,9 +1,7 @@
 import { requestAreas, requestAreaSucess } from '../actions/areaRecipe';
 
 export default async function fetchArea() {
-  const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
-  const response = await fetch(endpoint);
-
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
   return async (dispatch) => {
     try {
       dispatch(requestAreas());
