@@ -26,7 +26,7 @@ class FoodDetailsCard extends Component {
         />
         <h1 data-testid="recipe-title">{ foodDetails.strMeal }</h1>
         <ShareButton id={ foodDetails.idMeal } />
-        <FavoriteButton />
+        <FavoriteButton id={ foodDetails.idMeal } />
         <p data-testid="recipe-category">{ foodDetails.strCategory }</p>
         <ul>
           { ingredients
