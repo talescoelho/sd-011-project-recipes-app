@@ -11,14 +11,14 @@ export default function Recipes() {
   const location = useLocation();
   const history = useHistory();
 
-  function renderDrinks() {
-    return (
-      <div>
-        <Header />
-        <h3>Receitas Drinks</h3>
-      </div>
-    );
-  }
+  // function renderDrinks() {
+  //   return (
+  //     <div>
+  //       <Header />
+  //       <h3>Receitas Drinks</h3>
+  //     </div>
+  //   );
+  // }
 
   useEffect(checkOneRecipe, [mealRecipes, drinkRecipes, history, location]);
 
