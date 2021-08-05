@@ -8,11 +8,8 @@ import CategoriesBar from '../components/CategoriesBar';
 
 function Meals() {
   const { mealsData, currentCategory } = useContext(RecipesContext);
-  console.log(mealsData);
-  console.log(currentCategory);
+
   if (mealsData.length === 1 && currentCategory === 'All') {
-    console.log(currentCategory);
-    console.log('redirecinou');
     return <Redirect to={ `/comidas/${mealsData[0].idMeal}` } />;
   }
 
