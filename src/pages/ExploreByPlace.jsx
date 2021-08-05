@@ -9,6 +9,7 @@ import '../styles/ExploreByPlace.css';
 function ExploreByPlace() {
   const foodLength = 12;
   const history = useHistory();
+  console.log(history);
 
   const [areaFood, setAreaFood] = useState([]);
 
