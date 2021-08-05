@@ -3,5 +3,4 @@ export default async function CategoryDrinksAPI() {
   const awaitDrink = await fetch(linkDrinkCategory);
   const awaitDrinkToJSON = await awaitDrink.json();
   return awaitDrinkToJSON.drinks.map((item) => Object.values(item)[0]);
-  // return awaitFoodToJSON;
 }

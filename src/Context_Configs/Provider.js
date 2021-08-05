@@ -10,7 +10,6 @@ const firstLetter = 'first-letter';
 const URL_FOOD_INGREDIENTS = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
 const URL_FOOD_NAME = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const URL_FOOD_FIRST_LETTER = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
-// const URL_FOOD_CATEGORY = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 // ====================
 
 // endpoint de bebidas

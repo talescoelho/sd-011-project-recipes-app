@@ -7,6 +7,7 @@ import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './Components/SearchBar';
 import FooterBar from './Components/FooterBar';
 import CategoryDrinksAPI from '../services/CategoryDrinksAPI';
+import DrinkCards from './Components/DrinkCards';
 
 // import PropTypes from 'prop-types';
 
@@ -72,19 +73,7 @@ function Drinks() {
           : 'carregando' }
       </div>
       <div>
-        {/* necessidade de componentizar os itens abaixo */}
-        { dataDrinks !== null ? dataDrinks
-          .map(({ strDrink, strDrinkThumb, idDrink }, index) => (
-            <div data-testid={ `${index}-recipe-card` } key={ idDrink }>
-              <h3 data-testid={ `${index}-card-name` }>{ strDrink }</h3>
-              <img
-                src={ strDrinkThumb }
-                data-testid={ `${index}-card-img` }
-                alt="Imagem de bebida"
-              />
-            </div>
-          // eslint-disable-next-line no-alert
-          )) : alert('Sinto muito, não encontramos nenhuma receita para esses filtros.') }
+        <DrinkCards />
       </div>
       <FooterBar />
     </div>
