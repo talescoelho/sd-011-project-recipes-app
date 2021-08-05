@@ -16,6 +16,7 @@ const ConcludeRecipe = ({ id, ingredients, recipeType }) => (
       type="button"
       disabled={ isRecipeDone(id, ingredients, recipeType) }
     />
+    Finalizar receita
   </label>
 );
 
