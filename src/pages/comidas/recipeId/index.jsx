@@ -79,6 +79,15 @@ export default function ComidaDetails({ match: { params: { recipeId } } }) {
     copy(`http://localhost:3000${location.pathname}`);
   };
 
+  const handleFavoriteBtn = () => {
+    setIsFavorite(!isFavorite);
+    if (favoriteSrc === whiteHeartIcon) {
+      setFavoriteSrc(blackHeartIcon);
+    } else {
+      setFavoriteSrc(whiteHeartIcon);
+    }
+  };
+
   const loading = () => <h1>Loading content...</h1>;
 
   const pageContent = () => {
@@ -125,6 +134,7 @@ export default function ComidaDetails({ match: { params: { recipeId } } }) {
               variant="danger"
               type="button"
               data-testid="favorite-btn"
+              onClick={ handleFavoriteBtn }
               src={ favoriteSrc }
             >
               { isFavorite
