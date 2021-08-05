@@ -32,15 +32,16 @@ console.log(favoriteRecipes);
 export default function FavoriteRecipes() {
   // const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   // console.log(favoriteRecipes);
-  const [setFilteredRecipes] = useState(favoriteRecipes);
+  const [filteredRecipes, setFilteredRecipes] = useState(favoriteRecipes);
   const [type, setType] = useState('all');
+
   useEffect(() => {
     let newFilteredRecipes = [...favoriteRecipes];
     if (type !== 'all') {
       newFilteredRecipes = newFilteredRecipes.filter((recipe) => recipe.type === type);
     }
     setFilteredRecipes(newFilteredRecipes);
-  });
+  }, [type]);
 
   const handleChange = (btn) => setType(btn);
 
@@ -63,7 +64,7 @@ export default function FavoriteRecipes() {
           Drink
         </ToggleButton>
       </ToggleButtonGroup>
-      {favoriteRecipes.map((recipe, index) => (
+      {filteredRecipes.map((recipe, index) => (
         <section key={ index }>
           <img
             src={ recipe.image }
