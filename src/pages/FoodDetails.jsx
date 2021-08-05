@@ -21,11 +21,9 @@ function FoodDetails() {
 
   const renderNoRecipeMessage = () => {
     if (isLoading) return <p>Carregando...</p>;
-
-    console.log(error);
-
-    if (error) return <p>Opa... alguma coisa deu errado</p>;
   };
+
+  console.log(recipe);
 
   return (
     <Layout title="App de Receitas">
@@ -57,7 +55,39 @@ function FoodDetails() {
                 </div>
               </section>
               <section>
-                <h1>Ingredients</h1>
+                <h1>Ingredientes</h1>
+
+                <ol>
+                  { Object.keys(recipe)
+                    .filter((key) => /strIngredient/i.test(key))
+                    .filter((key) => recipe[key] !== '')
+                    .map((key) => {
+                      const index = parseInt(key.replace('strIngredient', ''));
+                      return (
+                        <li key={ index } data-testid={`${index - 1}-ingredient-name-and-measure`}>
+                          <span>{ recipe[key] }</span>
+                          <span> - </span>
+                          <span>{ recipe[`strMeasure${index}`]  }</span>
+                        </li>
+                      )
+                    }) }
+                </ol>
+              </section>
+
+              <section>
+                <h1>Instruções</h1>
+
+                <p data-testid="instructions">{ recipe.strInstructions }</p>
+              </section>
+
+              <section>
+                <iframe data-testid="video" width="560" height="315" src={ recipe.strYoutube.replace('watch?v=', 'embed/') } title="YouTube video player" frameborder="0" allow="accelerometer;clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </section>
+
+              <section>
+                <button type="button" data-testid="start-recipe-btn">
+                  Iniciar receita
+                </button>
               </section>
             </>
           ) }

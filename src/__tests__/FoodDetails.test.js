@@ -55,4 +55,22 @@ describe('A pagina de detalhes de comida', () => {
       expect(screen.getByTitle('favorite the recipe')).toBeInTheDocument();
     });
   });
+
+  describe('Procura recomendações', () => {
+    it('chamando a API correta', () => {
+      expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    });
+
+    it('e possui 6 resultados', () => {
+      const allDrinkCards = screen.getAllByTestId(/.-recomendation-card/);
+      expect(allDrinkCards.length).toBe(6);
+    });
+
+    it('e mostra apenas 2 a princípio', () => {
+      const allDrinkCards = screen.getAllByTestId(/.-recomendation-card/);
+      expect(allDrinkCards[0]).toBeVisible();
+      expect(allDrinkCards[1]).toBeVisible();
+      expect(allDrinkCards[2]).not.toBeVisible();
+    })
+  });
 });
