@@ -1,10 +1,14 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import IngredientsList from './IngredientList';
 import ShareIcon from '../images/shareIcon.svg';
-import FavIcon from '../images/whiteHeartIcon.svg';
+import whiteHearth from '../images/whiteHeartIcon.svg';
+import blackHearth from '../images/blackHeartIcon.svg';
 import RecipesContext from '../context/RecipesContext';
 
 function RecipeDetails() {
+  const URL = window.location.href;
+  const [share, setShare] = useState(false);
+  const [favIcon, setFavIcon] = useState(true);
   const { recipeDetail: recipe, setIngredientsRecipeList } = useContext(RecipesContext);
   const itemValidation = (item) => {
     if (item !== null && item !== '' && item !== undefined) {
@@ -12,6 +16,14 @@ function RecipeDetails() {
     }
     return false;
   };
+
+  useEffect(() => {
+    const ONE_SEC = 1500;
+    const timeout = setInterval(() => {
+      setShare(false);
+    }, ONE_SEC);
+    return () => clearInterval(timeout);
+  }, [share]);
 
   const getListOfIngredients = () => {
     const limit = 20;
@@ -44,12 +56,24 @@ function RecipeDetails() {
           { recipe.strYoutube ? recipe.strCategory : recipe.strAlcoholic }
         </h3>
         <div className="buttons">
-          <button type="button">
-            <img data-testid="share-btn" src={ ShareIcon } alt="Share Icon" />
+          <button
+            type="button"
+            onClick={
+              () => { navigator.clipboard.writeText(URL); setShare(!share); }
+            }
+          >
+            <img data-testid="share-btn" src={ ShareIcon } alt="Share" />
           </button>
-          <button type="button">
-            <img data-testid="favorite-btn" src={ FavIcon } alt="Fav Icon" />
+          <button type="button" onClick={ () => setFavIcon(!favIcon) }>
+            <img
+              data-testid="favorite-btn"
+              src={ favIcon ? whiteHearth : blackHearth }
+              alt="Fav Icon"
+            />
           </button>
+          <div>
+            <h4>{share && 'Link copiado!'}</h4>
+          </div>
         </div>
         <IngredientsList />
         <h2>
