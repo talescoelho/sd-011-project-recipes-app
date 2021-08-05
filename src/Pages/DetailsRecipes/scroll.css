@@ -1,0 +1,33 @@
+ul.scrollmenu {
+  display: grid;
+  /* grid-template-columns: 50% 50% 50% 50% 50% 50%; */
+  /* overflow: scroll; */
+  border: 2px solid var(--gs0);
+  border-radius: 8px;
+  height: 10vh;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+
+ul.scrollmenu li {
+  scroll-snap-align: start;
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: rem;
+  background: rgb(143, 204, 145);
+}
+
+ul.scrollmenu li:nth-child(2) {
+  background: rgb(227, 243, 243);
+}
+
+ul.scrollmenu li:nth-child(4) {
+  background: rgb(227, 243, 243);
+}
+
+ul.scrollmenu li:nth-child(6) {
+  background: rgb(227, 243, 243);
+}

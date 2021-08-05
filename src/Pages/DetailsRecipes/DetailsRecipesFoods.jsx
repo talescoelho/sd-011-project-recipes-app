@@ -2,12 +2,23 @@ import React, { useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import MainContext from '../../Context/MainContext';
 import IngredientsFoods from '../../Components/IngredientsFoods';
+import { getDrinksInitial } from '../../Services/ApiDrink';
+import './scroll.css';
 
 function DetailsRecipesFoods() {
   const location = useLocation();
   const { idFoods, setIdFoods, idFoodsAPI, setIdFoodsAPI,
-    setDataRandomDrinks, dataRandomDrinks, newDataDrinks,
-    setNewDataDrinks } = useContext(MainContext);
+    newDataDrinks, setNewDataDrinks } = useContext(MainContext);
+
+  async function fetchDrinksInitial() {
+    const drinksInitialAPI = await getDrinksInitial();
+    setNewDataDrinks(drinksInitialAPI.drinks);
+  }
+
+  useEffect(() => {
+    fetchDrinksInitial();
+  }, []);
+  console.log(newDataDrinks);
 
   useEffect(() => {
     const URL = location.pathname;
@@ -24,26 +35,6 @@ function DetailsRecipesFoods() {
     getAPIById();
   }, [idFoods, setIdFoodsAPI]);
 
-  useEffect(() => {
-    const getAPIRandomly = async () => {
-      const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
-      const { drinks } = await fetch(endpoint).then((data) => data.json());
-      setDataRandomDrinks(drinks[0].strDrink);
-    };
-    getAPIRandomly();
-  }, [setDataRandomDrinks]);
-  console.log(dataRandomDrinks);
-
-  useEffect(() => {
-    const getAPIByName = async () => {
-      const endp = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${dataRandomDrinks}`;
-      const { drinks } = await fetch(endp).then((data) => data.json());
-      setNewDataDrinks(drinks);
-    };
-    getAPIByName();
-  }, [dataRandomDrinks, setNewDataDrinks]);
-  console.log(newDataDrinks);
-
   const getYoutubeUrl = ({ strYoutube }) => {
     if (strYoutube) {
       const youtubeVideoId = strYoutube.split('?v=', 2)[1];
@@ -51,6 +42,8 @@ function DetailsRecipesFoods() {
       return iframeLink;
     }
   };
+  // ! Limita a quantidade de recomendação
+  const magicNumber = 6;
 
   return (
     <div>
@@ -90,14 +83,18 @@ function DetailsRecipesFoods() {
         allowFullScreen
       />
       {/* //!===========================Implementar=============================== */}
-      { newDataDrinks.map((drink, i) => (
-        <li
-          data-testid={ `${i}-recomendation-card` }
-          key={ i }
-        >
-          { drink.strDrink }
-        </li>
-      )) }
+      <ul className="scrollmenu">
+        { newDataDrinks.map((drink, i) => i < magicNumber && (
+          <li
+            data-testid={ `${i}-recomendation-card` }
+            key={ i }
+          >
+            <p data-testid={ `${i}-recomendation-title` }>
+              { drink.strDrink }
+            </p>
+          </li>
+        )) }
+      </ul>
       {/* //!=======================Recomendation Cards============================ */}
       <button
         type="button"

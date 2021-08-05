@@ -2,12 +2,23 @@ import React, { useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import MainContext from '../../Context/MainContext';
 import IngredientsDrinks from '../../Components/IngredientsDrinks';
+import { getFoodsInitial } from '../../Services/ApiFood';
+import './scroll.css';
 
 function DetailsRecipesFoods() {
   const location = useLocation();
-  const { idDrinks, setIdDrinks, idDrinksAPI, setIdDrinksAPI,
-    setDataRandomFoods, dataRandomFoods, newDataFoods,
+  const { idDrinks, setIdDrinks, idDrinksAPI, setIdDrinksAPI, newDataFoods,
     setNewDataFoods } = useContext(MainContext);
+
+  async function fetchFoodsInitial() {
+    const foodsInitialAPI = await getFoodsInitial();
+    setNewDataFoods(foodsInitialAPI.meals);
+  }
+
+  useEffect(() => {
+    fetchFoodsInitial();
+  }, []);
+  console.log(newDataFoods);
 
   useEffect(() => {
     const URL = location.pathname;
@@ -24,23 +35,8 @@ function DetailsRecipesFoods() {
     getAPIById();
   }, [idDrinks, setIdDrinksAPI]);
 
-  useEffect(() => {
-    const getAPIRandomly = async () => {
-      const endpoint = 'https://www.themealdb.com/api/json/v1/1/random.php';
-      const { meals } = await fetch(endpoint).then((data) => data.json());
-      setDataRandomFoods(meals[0].strMeal);
-    };
-    getAPIRandomly();
-  }, [setDataRandomFoods]);
-
-  useEffect(() => {
-    const getAPIByName = async () => {
-      const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${dataRandomFoods}`;
-      const { meals } = await fetch(endpoint).then((data) => data.json());
-      setNewDataFoods(meals);
-    };
-    getAPIByName();
-  }, [dataRandomFoods, setNewDataFoods]);
+  // ! Limita a quantidade de recomendação
+  const magicNumber = 6;
 
   return (
     <div>
@@ -73,14 +69,18 @@ function DetailsRecipesFoods() {
       </p>
       <IngredientsDrinks />
       {/* //!===========================Implementar=============================== */}
-      { newDataFoods.map((food, i) => (
-        <li
-          data-testid={ `${i}-recomendation-card` }
-          key={ i }
-        >
-          { food.strMeal }
-        </li>
-      )) }
+      <ul className="scrollmenu">
+        { newDataFoods.map((food, i) => i < magicNumber && (
+          <li
+            data-testid={ `${i}-recomendation-card` }
+            key={ i }
+          >
+            <p data-testid={ `${i}-recomendation-title` }>
+              { food.strMeal }
+            </p>
+          </li>
+        )) }
+      </ul>
       {/* //!=======================Recomendation Cards============================ */}
       <button
         type="button"
