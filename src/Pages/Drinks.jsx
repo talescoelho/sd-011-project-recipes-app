@@ -6,18 +6,22 @@ import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './Components/SearchBar';
 import FooterBar from './Components/FooterBar';
-
-// import PropTypes from 'prop-types';
+import DrinkCards from './Components/DrinkCards';
+import DrinkCategoryButtons from './Components/DrinkCategoryButtons';
+import DrinkCategoryCards from './Components/DrinkCategoryCards';
 
 function Drinks() {
   const history = useHistory();
-  const { dataDrinks, setRequestDrinksParams } = useContext(Context);
+  const { dataDrinks, setRequestDrinksParams, renderCategory } = useContext(Context);
+
   const [showSearch, setShowSearch] = useState(false);
   const drinks = 'drinks';
 
   // Busca por bebidas quando monta a tela de bebidas
   useEffect(() => {
     setRequestDrinksParams({ searchInput: '', searchMethod: '' });
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (dataDrinks !== null && dataDrinks.length === 1) {
@@ -46,21 +50,9 @@ function Drinks() {
           alt="Botão com imagem de uma lupa: abre uma barra de pesquisa"
         />
       </button>
-      <div>
-        {/* necessidade de componentizar os itens abaixo */}
-        { dataDrinks !== null ? dataDrinks
-          .map(({ strDrink, strDrinkThumb, idDrink }, index) => (
-            <div data-testid={ `${index}-recipe-card` } key={ idDrink }>
-              <h3 data-testid={ `${index}-card-name` }>{ strDrink }</h3>
-              <img
-                src={ strDrinkThumb }
-                data-testid={ `${index}-card-img` }
-                alt="Imagem de bebida"
-              />
-            </div>
-          // eslint-disable-next-line no-alert
-          )) : alert('Sinto muito, não encontramos nenhuma receita para esses filtros.') }
-      </div>
+      <DrinkCategoryButtons />
+      { renderCategory ? <DrinkCards /> : <DrinkCategoryCards />}
+
       <FooterBar />
     </div>
   );

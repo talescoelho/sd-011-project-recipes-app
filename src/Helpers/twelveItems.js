@@ -8,6 +8,7 @@ function twelveItems(dataResult) {
     return null;
   }
 
+  // Refatoração certamente se encaixaria aqui, fica de lembrete.
   if (whichMethod === 'drinks' && dataResult.drinks.length >= quantityItems) {
     array = [];
     for (let i = 0; i !== quantityItems; i += 1) {
@@ -24,6 +25,7 @@ function twelveItems(dataResult) {
     return array;
   }
 
+  // Refatoração certamente se encaixaria aqui, fica de lembrete.
   // condicionais caso o tamanho seja menor que 12
   if (whichMethod === 'drinks' && dataResult.drinks !== null) {
     return dataResult.drinks;

@@ -16,9 +16,21 @@ const URL_FOOD_FIRST_LETTER = 'https://www.themealdb.com/api/json/v1/1/search.ph
 const URL_DRINK_INGREDIENTS = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
 const URL_DRINK_NAME = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const URL_DRINK_FIRST_LETTER = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
+
 // ====================
 
 function Provider({ children }) {
+  const [renderCategory, setRenderCategory] = useState(true);
+
+  // \/ Responsáveis pelos dados das categorias
+  const [foodsForCategory, setFoodsForCategory] = useState([]);
+  const [drinksForCategory, setDrinksForCategory] = useState([]);
+  // /\ Responsáveis pelos dados das categorias
+  
+// ====================
+
+function Provider({ children }) {
+
   const [dataFood, setDataFoods] = useState([]);
   const [dataDrinks, setDataDrinks] = useState([]);
   const [APIerror, setError] = useState(null);
@@ -37,6 +49,8 @@ function Provider({ children }) {
         return;
       }
       try {
+
+        setDataFoods([]);
         if (searchMethod === 'ingredients') {
           response = await fetch(`${URL_FOOD_INGREDIENTS}${searchInput}`);
         }
@@ -68,6 +82,7 @@ function Provider({ children }) {
         return;
       }
       try {
+        setDataDrinks([]);
         if (searchMethod === 'ingredients') {
           response = await fetch(`${URL_DRINK_INGREDIENTS}${searchInput}`);
         }
@@ -95,6 +110,13 @@ function Provider({ children }) {
     setRequestDrinksParams,
     dataDrinks,
     APIerror,
+    requestFoodParams,
+    renderCategory,
+    setRenderCategory,
+    foodsForCategory,
+    setFoodsForCategory,
+    drinksForCategory,
+    setDrinksForCategory,
   };
 
   return (
