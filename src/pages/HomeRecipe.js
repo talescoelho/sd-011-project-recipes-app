@@ -74,7 +74,7 @@ function HomeRecipe({ mealsData, isLoadingData }) {
   );
 
   React.useEffect(() => {
-    if (!mealsData.meals && !isLoadingData) {
+    if (showRecipe) {
       console.log('fez fetch');
       fetchMeals(urlFetch, 'meals');
     }
@@ -121,7 +121,7 @@ function HomeRecipe({ mealsData, isLoadingData }) {
 
 const mapStateToProps = (state) => ({
   mealsData: state.RecipesReducer.recipesData,
-  isLoadingData: state.RecipesReducer.isLoading,
+  showRecipe: state.RecipesReducer.showRecipe,
 });
 
 HomeRecipe.propTypes = {
