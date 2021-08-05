@@ -36,10 +36,14 @@ function ReceitasFeitas({ match }) {
       </div>);
   };
 
-  const shareButtonHandle = () => {
+  const shareButtonHandle = (id, type) => {
     setCopied(true);
     const mSeconds = 2000;
-    copy(window.location.href);
+    if (type === 'comida') {
+      copy(`http://localhost:3000/comidas/${id}`);
+    } else {
+      copy(`http://localhost:3000/bebidas/${id}`);
+    }
     setTimeout(() => {
       setCopied(false);
     }, mSeconds);
@@ -51,61 +55,65 @@ function ReceitasFeitas({ match }) {
       bebida: 'bebidas',
     };
     return (
-      <div>
+      <section>
         {recipesToRender && recipesToRender.map((recipe, index) => (
           <div key={ recipe.id }>
-            <Link
-              to={ `/${alterURL[recipe.type]}/${recipe.id}` }
-            >
-              <img
-                width="300px"
-                src={ recipe.image }
-                alt={ recipe.name }
-                data-testid={ `${index}-horizontal-image` }
-              />
-            </Link>
-            {recipe.type === 'comida'
-              ? (
-                <p
-                  data-testid={ `${index}-horizontal-top-text` }
-                >
-                  {`${recipe.area} - ${recipe.category}`}
-                </p>)
-              : (
-                <p
-                  data-testid={ `${index}-horizontal-top-text` }
-                >
-                  {`${recipe.alcoholicOrNot}`}
-                </p>)}
-            <button type="button" onClick={ () => shareButtonHandle() }>
-              <img
-                src={ shareIcon }
-                alt="shareIcon"
-                data-testid={ `${index}-horizontal-share-btn` }
-              />
-            </button>
-            <p className={ copied }>Link copiado!</p>
-            <Link
-              to={ `/${alterURL[recipe.type]}/${recipe.id}` }
-              data-testid={ `${index}-horizontal-name` }
-            >
-              {recipe.name}
-            </Link>
-            <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-            <p>
-              {recipe.tags && recipe.tags.map((tag, indexIn) => (
-                <div
-                  key={ indexIn }
-                  data-testid={ `${index}-${tag}-horizontal-tag` }
-                >
-                  {tag}
-                </div>
-              ))}
-
-            </p>
+            <div>
+              <Link
+                to={ `/${alterURL[recipe.type]}/${recipe.id}` }
+              >
+                <img
+                  width="300px"
+                  src={ recipe.image }
+                  alt={ recipe.name }
+                  data-testid={ `${index}-horizontal-image` }
+                />
+              </Link>
+              {recipe.type === 'comida'
+                ? (
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    {`${recipe.area} - ${recipe.category}`}
+                  </p>)
+                : (
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    {`${recipe.alcoholicOrNot}`}
+                  </p>)}
+              <button
+                type="button"
+                onClick={ () => shareButtonHandle(recipe.id, recipe.type) }
+              >
+                <img
+                  src={ shareIcon }
+                  alt="shareIcon"
+                  data-testid={ `${index}-horizontal-share-btn` }
+                />
+              </button>
+              <p className={ copied }>Link copiado!</p>
+              <Link
+                to={ `/${alterURL[recipe.type]}/${recipe.id}` }
+                data-testid={ `${index}-horizontal-name` }
+              >
+                {recipe.name}
+              </Link>
+              <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
+              <p>
+                {recipe.tags && recipe.tags.map((tag, indexIn) => (
+                  <div
+                    key={ indexIn }
+                    data-testid={ `${index}-${tag}-horizontal-tag` }
+                  >
+                    {tag}
+                  </div>
+                ))}
+              </p>
+            </div>
           </div>
         ))}
-      </div>
+      </section>
     );
   };
 
