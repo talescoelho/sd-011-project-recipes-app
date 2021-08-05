@@ -1,11 +1,12 @@
 import { GET_RECIPES_API, REQUEST_API,
-  GET_RECIPE_DETAILS_API, CLEAR_DATA } from '../actions';
+  GET_RECIPE_DETAILS_API, GET_RECIPES_PAGES } from '../actions';
 
 // meals or drinks
 const INITIAL_STATE = {
   recipesData: [],
   recipeDetailsData: [],
   isLoading: false,
+  showRecipe: true,
 };
 
 function RecipesReducer(state = INITIAL_STATE, action) {
@@ -14,23 +15,27 @@ function RecipesReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       isLoading: true,
+      showRecipe: true,
     };
   case GET_RECIPES_API:
     return {
       ...state,
       recipesData: action.data,
       isLoading: false,
+      showRecipe: true,
     };
   case GET_RECIPE_DETAILS_API:
     return {
       ...state,
       recipeDetailsData: action.data,
       isLoading: false,
+      showRecipe: true,
     };
-  case CLEAR_DATA:
+  case GET_RECIPES_PAGES:
     return {
       ...state,
-      recipesData: { [action.recipeType]: [] },
+      recipesData: action.data,
+      showRecipe: false,
     };
   default:
     return state;

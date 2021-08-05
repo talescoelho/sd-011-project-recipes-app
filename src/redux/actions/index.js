@@ -9,7 +9,7 @@ export const GET_CATEGORIES_DRINK = 'GET_CATEGORIES_DRINK';
 export const GET_RECIPES_PAGES = 'GET_RECIPES_PAGES';
 export const REQUEST_RECIPES_PAGES = 'REQUEST_RECIPES_PAGES';
 
-const requestApiRecipesPage = () => ({ type: REQUEST_RECIPES_PAGES })
+const requestApiRecipesPage = () => ({ type: REQUEST_RECIPES_PAGES });
 // ESTA ACTION ALTERA isLoading PARA true
 export const requestApiAction = () => ({ type: REQUEST_API });
 
