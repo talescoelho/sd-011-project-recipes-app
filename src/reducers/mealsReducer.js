@@ -24,7 +24,7 @@ const mealsReducer = (state = INITIAL_STATE, { type, payload }) => {
     return {
       ...state,
       loading: false,
-      error: `${payload}`,
+      error: payload,
     };
   default:
     return state;

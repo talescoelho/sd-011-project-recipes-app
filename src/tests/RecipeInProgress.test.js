@@ -1,9 +1,20 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import RecipeInProgress from '../pages/RecipeInProgress';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+import App from '../App';
 
 it('basic test', () => {
-  render(<RecipeInProgress />);
-
-  expect(screen.getByText(/Tela de Receita em Progresso/i)).toBeInTheDocument();
+  const history = createMemoryHistory();
+  render(
+    <Router history={ history }>
+      <App />
+    </Router>,
+  );
+  history.push('/comidas/178319/in-progress');
+  expect(screen.getByText(/Conteúdo da tela de Receita de COMIDAS em Processo/i))
+    .toBeInTheDocument();
+  history.push('/bebidas/178319/in-progress');
+  expect(screen.getByText(/Conteúdo da tela de Receita de BEBIDAS em Processo/i))
+    .toBeInTheDocument();
 });

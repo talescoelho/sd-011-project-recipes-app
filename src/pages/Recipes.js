@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import getXFirstElementsFromArray from '../helpers/utils';
 import { fetchDrinks, fetchMeals } from '../actions';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 import RecipeCard from '../components/RecipeCard';
 import Loading from '../components/Loading';
 import RecipesFilterButtons from '../components/RecipesFilterButtons';
@@ -12,7 +13,7 @@ const recipesQuantity = 12;
 
 function Recipes({
   history: { location: { pathname } },
-  dispatchFetchMeals, dispatchFetchDrinks, dispatchFetchMealsCategories,
+  dispatchFetchMeals, dispatchFetchDrinks,
   meals, mealsLoading, mealsError,
   drinks, drinksLoading, drinksError,
 }) {
@@ -20,33 +21,30 @@ function Recipes({
 
   React.useEffect(() => {
     if (pathname === '/comidas') dispatchFetchMeals();
-
-    if (pathname === '/bebidas') dispatchFetchDrinks();
-  }, [pathname, dispatchFetchMeals, dispatchFetchDrinks, dispatchFetchMealsCategories]);
+    else dispatchFetchDrinks();
+  }, [pathname, dispatchFetchMeals, dispatchFetchDrinks]);
 
   React.useEffect(() => {
     if (pathname === '/comidas') {
       setRecipes(getXFirstElementsFromArray(meals, recipesQuantity));
-    }
-
-    if (pathname === '/bebidas') {
-      setRecipes(getXFirstElementsFromArray(drinks, recipesQuantity));
-    }
+    } else setRecipes(getXFirstElementsFromArray(drinks, recipesQuantity));
 
     if (mealsError || drinksError) setRecipes([]);
   }, [pathname, meals, mealsError, drinks, drinksError]);
 
+  function renderHeader() {
+    return pathname === '/comidas'
+      ? <Header withSearch pageTitle="Comidas" />
+      : <Header withSearch pageTitle="Bebidas" />;
+  }
+
   return (
     <>
-      <header>
-        <h1 data-testid="page-title">Tela Principal de Receitas</h1>
-        <button type="button" data-testid="profile-top-btn">Profile</button>
-        <button type="button" data-testid="search-top-btn">Search</button>
-      </header>
+      { renderHeader() }
       <main data-testid="recipes-page">
         <RecipesFilterButtons pathname={ pathname } />
-        { pathname === '/comidas' && mealsError }
-        { pathname === '/bebidas' && drinksError }
+        { pathname === '/comidas' && `${mealsError}` }
+        { pathname === '/bebidas' && `${drinksError}` }
         {
           mealsLoading || drinksLoading
             ? <Loading />
