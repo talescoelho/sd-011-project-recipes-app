@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import PropTypes from 'prop-types';
 import Carousel from 'react-bootstrap/Carousel';
 import favoriteImg from '../images/blackHeartIcon.svg';
 import home from '../images/Home.svg';
+import fullHearth from '../images/whiteHeartIcon.svg';
 
 class DrinkDetails extends Component {
   constructor(props) {
@@ -15,10 +17,16 @@ class DrinkDetails extends Component {
       measure: [],
       recomandation: [],
       disableButton: false,
+      copyToClipboard: false,
+      favoriteFood: false,
     };
     this.fetchDetail = this.fetchDetail.bind(this);
     this.renderRecomendations = this.renderRecomendations.bind(this);
     this.saveOnLocalStorage = this.saveOnLocalStorage.bind(this);
+    this.saveOnLocalStorage = this.saveOnLocalStorage.bind(this);
+    this.addMealInProgress = this.addMealInProgress.bind(this);
+    this.verifyRecipeIsDone = this.verifyRecipeIsDone.bind(this);
+    this.saveFavoriteRecipes = this.saveFavoriteRecipes.bind(this);
   }
 
   componentDidMount() {
@@ -26,12 +34,22 @@ class DrinkDetails extends Component {
     const { match: { params: { id } } } = this.props;
     this.newFunction = () => {
       const favRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+      const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
       let newFavLocal;
+      let favRecipeLocalStorage;
+      if (favoriteRecipes !== null) {
+        const favRecipenew = favoriteRecipes[0].id;
+        favRecipeLocalStorage = favRecipenew;
+      }
+      if (favRecipeLocalStorage === id) {
+        this.setState({
+          favoriteFood: true,
+        });
+      }
       if (favRecipes !== null) {
         const newFavRecipe = favRecipes[0].id;
         newFavLocal = newFavRecipe;
       }
-      console.log(JSON.stringify(newFavLocal));
       if (newFavLocal === id) {
         this.setState({
           disableButton: true,
@@ -41,8 +59,56 @@ class DrinkDetails extends Component {
     this.newFunction();
   }
 
-  saveOnLocalStorage() {
+  verifyRecipeIsDone() {
     const { match: { params: { id } } } = this.props;
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    if (doneRecipes.length > 0) {
+      return doneRecipes.some((recipe) => recipe.id === id);
+    }
+    return false;
+  }
+
+  addMealInProgress() {
+    const { match: { params: { id } } } = this.props;
+    const inProgress = {
+      cocktails: {},
+      meals: {},
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+    const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    recipe.cocktails = { ...recipe.cocktails, [id]: [] };
+    localStorage.setItem('inProgressRecipes',
+      JSON.stringify(recipe));
+  }
+
+  checkRecipeInProgress() {
+    const { match: { params: { id } } } = this.props;
+    const recipeInProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    if (Object.keys(recipeInProgress).length > 0) {
+      return Object.keys(recipeInProgress.cocktails)
+        .some((recipeId) => recipeId === id);
+    }
+    return false;
+  }
+
+  saveFavoriteRecipes() {
+    const { drinkDetail } = this.state;
+    const favoriteRecipes = [
+      {
+        id: drinkDetail[0].idDrink,
+        type: 'bebida',
+        area: drinkDetail[0].strArea || '',
+        category: drinkDetail[0].strCategory || '',
+        alcoholicOrNot: drinkDetail[0].strAlcoholic || '',
+        name: drinkDetail[0].strDrink,
+        image: drinkDetail[0].strDrinkThumb,
+      },
+    ];
+    console.log(favoriteRecipes);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  }
+
+  saveOnLocalStorage() {
     const { drinkDetail } = this.state;
     const doneRecipes = [{
       id: drinkDetail[0].idDrink,
@@ -56,12 +122,6 @@ class DrinkDetails extends Component {
       tags: drinkDetail[0].strTags,
     }];
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-    const favRecipes = JSON.parse(localStorage.getItem('doneRecipes'))[0].id;
-    if (favRecipes === id) {
-      this.setState({
-        disableButton: true,
-      });
-    }
   }
 
   async fetchDetail() {
@@ -122,7 +182,9 @@ class DrinkDetails extends Component {
   }
 
   render() {
-    const { drinkDetail, ingredient, measure, recomandation, disableButton } = this.state;
+    const { drinkDetail,
+      ingredient, measure, recomandation, copyToClipboard, favoriteFood } = this.state;
+    const { match: { params: { id } } } = this.props;
     return (
       <div className="detailContainer">
         {drinkDetail && drinkDetail.map((result, index) => (
@@ -140,8 +202,19 @@ class DrinkDetails extends Component {
                   { result.strAlcoholic }
                 </p>
               </div>
-              <button className="hearth" type="button" data-testid="favorite-btn">
-                <img src={ favoriteImg } alt="favorite-img" />
+              <button
+                className="hearth"
+                type="button"
+                onClick={ () => {
+                  this.setState({ favoriteFood: !favoriteFood });
+                  this.saveFavoriteRecipes();
+                } }
+              >
+                <img
+                  data-testid="favorite-btn"
+                  src={ favoriteFood ? favoriteImg : fullHearth }
+                  alt="favorite-img"
+                />
               </button>
             </div>
             <img
@@ -150,15 +223,18 @@ class DrinkDetails extends Component {
               alt="product-detail-img"
               src={ result.strDrinkThumb }
             />
-            <button
-              style={ { color: 'white',
-                backgroundColor: 'rgb(151, 0, 0)',
-                width: '100%' } }
-              type="button"
-              data-testid="share-btn"
-            >
-              Compartilhar
-            </button>
+            <CopyToClipboard text={ window.location.href }>
+              <button
+                style={ { color: 'white',
+                  backgroundColor: 'rgb(151, 0, 0)',
+                  width: '100%' } }
+                type="button"
+                data-testid="share-btn"
+                onClick={ () => this.setState({ copyToClipboard: true }) }
+              >
+                { copyToClipboard ? 'Link copiado!' : 'Compartilhar' }
+              </button>
+            </CopyToClipboard>
             { recomandation && this.renderRecomendations() }
             { ingredient && ingredient.map((item, ingredientIndex) => (
               <ul className="instructions" key={ ingredientIndex }>
@@ -170,15 +246,19 @@ class DrinkDetails extends Component {
             <p className="instructions" data-testid="instructions">
               { result.strInstructions }
             </p>
-            <button
-              id="initRecipe"
-              type="button"
-              style={ { display: disableButton ? 'none' : 'initial' } }
-              data-testid="start-recipe-btn"
-              onClick={ () => this.saveOnLocalStorage() }
-            >
-              Iniciar Receita
-            </button>
+            <Link to={ `/bebidas/${id}/in-progress` }>
+              <button
+                id="initRecipe"
+                type="button"
+                style={ { display: this.verifyRecipeIsDone() ? 'none' : 'initial' } }
+                data-testid="start-recipe-btn"
+                onClick={ () => {
+                  this.addMealInProgress();
+                } }
+              >
+                { this.checkRecipeInProgress() ? 'Continuar Receita' : 'Iniciar Receita' }
+              </button>
+            </Link>
           </div>
         ))}
       </div>
