@@ -9,8 +9,6 @@ function ExploreByIngredients() {
   // const urlFetch = `https://www.themealdb.com/api/json/v1/1/search.php?s=${}`;
   const magicNumberFive = 12;
   const [data, setData] = React.useState([]);
-  const dispatch = useDispatch();
-  const clearData = (recipeType) => dispatch(fetchByIngredients(recipeType));
 
   const fetchIngredients = async () => {
     const url = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
@@ -20,7 +18,6 @@ function ExploreByIngredients() {
   };
 
   React.useEffect(() => {
-    clearData('meals');
     fetchIngredients();
   }, []);
   return (

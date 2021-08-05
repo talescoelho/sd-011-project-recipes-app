@@ -9,7 +9,7 @@ import Header from '../components/Header';
 import Footer from '../components/footer/Footer';
 import RenderCategoriesDrinks from '../components/RenderCategoriesDrinks';
 
-function HomeDrinks({ drinksData, isLoadingData }) {
+function HomeDrinks({ drinksData, isLoadingData, location }) {
   const urlFetch = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const urlFetchList = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const [isLoading, setIsLoading] = React.useState(true);
@@ -50,7 +50,7 @@ function HomeDrinks({ drinksData, isLoadingData }) {
   };
 
   React.useEffect(() => {
-    if (!drinksData.drinks && !isLoadingData) {
+    if (!location.state) {
       console.log('fez fetch');
       fetchDrinks(urlFetch, 'drinks');
     }
