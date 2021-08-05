@@ -27,14 +27,10 @@ function FoodRecipeInProgress({ match: { params: { id } } }) {
   }
 
   function lineThroughUsedIngredients({ target }) {
-    const label = target.parentElement;
-    const labelClass = 'ingredient-checked';
     if (target.checked) {
-      label.classList.add(labelClass);
       setUsedIngredients([...usedIngredients, target.value]);
       saveInProgressFoodRecipes(id, [...usedIngredients, target.value]);
     } else {
-      label.classList.remove(labelClass);
       const remainingIngredients = usedIngredients
         .filter((ingredient) => ingredient !== target.value);
       setUsedIngredients(remainingIngredients);
@@ -50,10 +46,6 @@ function FoodRecipeInProgress({ match: { params: { id } } }) {
         setLoading(false);
       });
   }, [setRecipe, setLoading, id]);
-
-  useEffect(() => {
-    saveInProgressFoodRecipes(id, usedIngredients);
-  }, [id, usedIngredients]);
 
   const { strMealThumb, strMeal, strCategory, strInstructions } = recipe;
   return (

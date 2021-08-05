@@ -27,14 +27,10 @@ function DrinkRecipeInProgress({ match: { params: { id } } }) {
   }
 
   function lineThroughUsedIngredients({ target }) {
-    const label = target.parentElement;
-    const labelClass = 'ingredient-checked';
     if (target.checked) {
-      label.classList.add(labelClass);
       setUsedIngredients([...usedIngredients, target.value]);
       saveInProgressDrinkRecipes(id, [...usedIngredients, target.value]);
     } else {
-      label.classList.remove(labelClass);
       const remainingIngredients = usedIngredients
         .filter((ingredient) => ingredient !== target.value);
       setUsedIngredients(remainingIngredients);
@@ -50,10 +46,6 @@ function DrinkRecipeInProgress({ match: { params: { id } } }) {
         setLoading(false);
       });
   }, [setRecipe, setLoading, id]);
-
-  useEffect(() => {
-    saveInProgressDrinkRecipes(id, usedIngredients);
-  }, [id, usedIngredients]);
 
   const { strDrinkThumb, strDrink, strCategory, strInstructions, strAlcoholic } = recipe;
   return (
