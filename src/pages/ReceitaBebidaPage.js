@@ -8,10 +8,10 @@ export default function ReceitaBebidaPage(props) {
   const location = useLocation();
   const DRINK_DETAILS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
   const ingredients = [
-    // 'white flour',
-    // 'salt',
-    // 'yeast',
-    // 'butter',
+    'white flour',
+    'salt',
+    'yeast',
+    'butter',
   ];
 
   const recommendedRecipes = [
