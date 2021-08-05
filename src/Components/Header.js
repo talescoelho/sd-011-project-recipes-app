@@ -1,53 +1,29 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { bool, string } from 'prop-types';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import MyContext from '../Context/MyContext';
-import { fetchIngredient, fetchName, fetchFirstLetter } from '../Services/FetchApi';
 import './Header.css';
+import useSearchbar from '../Context/useSearchbar';
 
 export default function Header({ title, searchIconAppears = false }) {
-  const { setRecipe, recipe } = useContext(MyContext);
-  const [searchResult, setSearchResult] = useState('');
-  const [selectedSearch, setSelectedSearch] = useState('');
+  const {
+    setSearchResult,
+    setSelectedSearch,
+    getSearch,
+    redirectByChoice,
+    food,
+  } = useSearchbar();
 
-  const history = useHistory();
-  const { pathname } = history.location;
-  const recipeName = pathname === '/comidas' ? 'meals' : 'drinks';
-  const food = recipe[recipeName];
+  const [searchInput, setSearchInput] = useState(false);
 
-  const getRecipe = () => {
-    const site = pathname === '/comidas' ? 'meal' : 'cocktail';
-
-    switch (selectedSearch) {
-    case 'ingredient':
-      return fetchIngredient(site, searchResult);
-    case 'name':
-      return fetchName(site, searchResult);
-    case 'firstLetter':
-      if (searchResult.length === 1) {
-        return fetchFirstLetter(site, searchResult);
-      }
-      alert('Sua busca deve conter somente 1 (um) caracter');
-      return { meals: [], drinks: [] };
-    default:
-      return { meals: [], drinks: [] };
+  function toggleInput() {
+    if (!searchInput) {
+      setSearchInput(true);
+    } else {
+      setSearchInput(false);
     }
-  };
-
-  const getSearch = async () => {
-    const recipeResult = await getRecipe();
-    setRecipe(recipeResult);
-  };
-
-  const redirectByChoice = () => {
-    const idFood = pathname === '/comidas' ? 'idMeal' : 'idDrink';
-
-    if (food.length === 1 && food) {
-      history.push(`${pathname}/${food[0][idFood]}`);
-    }
-  };
+  }
 
   if (food) redirectByChoice();
 
