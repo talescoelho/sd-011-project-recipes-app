@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useState, useCallback } from 'react';
 import MyContext from './MyContext';
-import { getDrinkById, getFoodById } from '../services/RecipesServices';
+import {
+  getDrinkById,
+  getFoodById,
+  getRandomFood,
+  getRandomDrink } from '../services/RecipesServices';
 
 function Provider({ children }) {
   const foodsSearchLinks = {
@@ -91,7 +95,8 @@ function Provider({ children }) {
     /*   getLocalStore, */
     removeLocalStorage,
     addLocalStore,
-
+    getRandomFood,
+    getRandomDrink,
   };
 
   return (

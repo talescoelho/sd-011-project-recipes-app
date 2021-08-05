@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import MyContext from '../context/MyContext';
 
 export default function ExplorerFoods() {
+  const { getRandomFood } = useContext(MyContext);
+  const [id, setId] = useState('');
+
+  useEffect(() => {
+    const getId = async () => {
+      setId(await getRandomFood(id));
+    };
+    getId();
+  });
+
   return (
     <main>
       <Header title="Explorar Comidas" disable />
@@ -23,7 +34,7 @@ export default function ExplorerFoods() {
           Por Local de Origem
         </button>
       </Link>
-      <Link to="/comidas/:id">
+      <Link to={ `/comidas/${id}` }>
         <button
           type="button"
           data-testid="explore-surprise"
