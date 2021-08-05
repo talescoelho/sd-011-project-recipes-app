@@ -27,9 +27,11 @@ export default function FoodCard({ type }) {
         <Link
           to={ `/${middle}/${idMeal || idDrink}` }
           key={ index }
-          data-testid={ `${index}-recipe-card` }
         >
-          <Card>
+          <Card
+            onClick={ () => history.push(`/${middle}/${idMeal || idDrink}`) }
+            data-testid={ `${index}-recipe-card` }
+          >
             <Card.Header>{strCategory || selectedCategory}</Card.Header>
             <Card.Img
               variant="top"
@@ -46,7 +48,7 @@ export default function FoodCard({ type }) {
             <Card.Footer>
               <Button
                 className="card-button"
-                onClick={ () => history.push(`/${middle}/${idMeal || idDrink}`) }
+                // onClick={ () => history.push(`/${middle}/${idMeal || idDrink}`) }
                 variant="primary"
               >
                 Ver receita

@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
-import { Dropdown } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { getFoodCard } from '../Redux/actions/index';
 import FoodOrigin from '../services/FoodOrigin';
+import FoodCard from '../components/FoodCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/ExploreByPlace.css';
 
 function ExploreByPlace() {
-  const foodLength = 12;
-  const history = useHistory();
-  console.log(history);
+  const dispatch = useDispatch();
 
   const [areaFood, setAreaFood] = useState([]);
 
@@ -30,49 +29,40 @@ function ExploreByPlace() {
     const API_URL = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
     const response = await fetch(API_URL);
     const json = await response.json();
-    console.log(json);
+    const { meals } = json;
+    dispatch(getFoodCard({ filtered: meals }));
   };
+
   const dropdownOptions = () => (
-    <Dropdown.Menu
-      variant="dark"
-      className="item"
+    <select
+      data-testid="explore-by-area-dropdown"
+      onClick={ ({ target }) => renderingFilterFoodByArea(target.value) }
     >
+      <option data-testid="All-option" value="all">All</option>
       {
         areaFood.map((area, index) => (
-          index < foodLength ? (
-            <Dropdown.Item
-              className={ index % 2 === 0 ? 'itemDark' : 'itemLight' }
-              key={ index }
-              name={ area }
-              value={ area }
-              data-testid={ `${area}-option` }
-              onClick={ () => renderingFilterFoodByArea(area) }
-            >
-              {area}
-            </Dropdown.Item>)
-            : null))
+          <option
+            className={ index % 2 === 0 ? 'itemDark' : 'itemLight' }
+            key={ index }
+            name={ area }
+            value={ area }
+            data-testid={ `${area}-option` }
+          >
+            {area}
+          </option>))
       }
-    </Dropdown.Menu>
+    </select>
   );
 
   return (
-    <main>
-      <Header pageName="Explorar por local de origem" />
-      {dropdownOptions()}
-      <Dropdown
-        className="dropdown"
-        data-testid="explore-by-area-dropdown"
-      >
-        <Dropdown.Toggle
-          variant="secondary"
-          className="origem"
-        >
-          Local de origem
-        </Dropdown.Toggle>
+    <div>
+      <main>
+        <Header pageName="Explorar por local de origem" />
         {dropdownOptions()}
-      </Dropdown>
-      <Footer />
-    </main>
+        <Footer />
+      </main>
+      <FoodCard type="meals" />
+    </div>
   );
 }
 
