@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { fetchDrink } from '../services/DrinksApi';
-import '../styles/FoodDetails.css';
+import '../styles/FoodDetails.scss';
 
 export default function FoodDrinks() {
   const params = useParams();
@@ -32,7 +32,6 @@ export default function FoodDrinks() {
     const getDrink = async () => {
       const data = await fetchDrink(params.id);
       setDrink(data);
-      console.log(data);
     };
     getDrink();
   }, [params.id]);
@@ -43,17 +42,25 @@ export default function FoodDrinks() {
     const drinks = [];
     const drinksMax = 6;
 
-    for (let index = 1; index <= drinksMax; index += 1) {
+    for (let index = 0; index < drinksMax; index += 1) {
       if (returnDrink(index) !== '') {
         drinks.push(
-          <div className="card">
+          <div
+            data-testid={ `${index}-recomendation-card` }
+            className="card"
+            key={ `${index}-card-drink` }
+          >
             <img
               className="imgdrinks"
               src={ returnDrink(index).strDrinkThumb }
               alt="imagem drink"
             />
             <p>{returnDrink(index).strAlcoholic}</p>
-            <p>{returnDrink(index).strDrink}</p>
+            <p
+              data-testid={ `${index}-recomendation-title` }
+            >
+              {returnDrink(index).strDrink}
+            </p>
           </div>,
         );
       }
