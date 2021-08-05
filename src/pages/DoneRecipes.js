@@ -32,11 +32,13 @@ export default function DoneRecipes() {
   const [filteredRecipes, setFilteredRecipes] = useState(parsedDoneRecipe);
   const [type, setType] = useState('all');
   useEffect(() => {
-    let newFilteredRecipes = [...parsedDoneRecipe];
-    if (type !== 'all') {
-      newFilteredRecipes = newFilteredRecipes.filter((recipe) => recipe.type === type);
+    if (doneRecipes) {
+      let newFilteredRecipes = [...parsedDoneRecipe];
+      if (type !== 'all') {
+        newFilteredRecipes = newFilteredRecipes.filter((recipe) => recipe.type === type);
+      }
+      setFilteredRecipes(newFilteredRecipes);
     }
-    setFilteredRecipes(newFilteredRecipes);
   }, [type]);
 
   const handleChange = (val) => setType(val);
