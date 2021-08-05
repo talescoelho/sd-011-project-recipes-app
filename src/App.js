@@ -19,11 +19,12 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Explorer from './pages/Explorer';
 import './App.css';
-import { RecipesProvider } from './context/RecipesContext';
 
 function App() {
-  const pathFoods = '/explorar/comidas/ingredientes';
-  const pathDrinks = '/explorar/bebidas/ingredientes';
+  const pFoods = '/explorar/comidas/ingredientes';
+  const pDrinks = '/explorar/bebidas/ingredientes';
+  const pFIP = '/comidas/:id/in-progress';
+  const pDIP = '/bebidas/:id/in-progress';
   return (
     <BrowserRouter>
       <Switch>
@@ -32,20 +33,18 @@ function App() {
         <Route exact path="/explorar" component={ Explorer } />
         <Route exact path="/explorar/comidas" component={ FoodExplorer } />
         <Route exact path="/explorar/bebidas" component={ DrinkExplorer } />
-        <RecipesProvider>
-          <Route exact path="/comidas/:id" component={ FoodRecipes } />
-          <Route exact path="/bebidas/:id" component={ DrinkRecipes } />
-          <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
-          <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
-          <Route path={ pathFoods } component={ FoodExplorerByIngredients } />
-          <Route path={ pathDrinks } component={ DrinkExplorerByIngredients } />
-          <Route path="/explorar/comidas/area" component={ FoodExplorerByCountry } />
-          <Route path="/perfil" component={ Profile } />
-          <Route path="/receitas-feitas" component={ DoneRecipes } />
-          <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
-          <Route exact path="/comidas" component={ Foods } />
-          <Route exact path="/bebidas" component={ Drinks } />
-        </RecipesProvider>
+        <Route exact path="/comidas/:id" component={ FoodRecipes } />
+        <Route exact path="/bebidas/:id" component={ DrinkRecipes } />
+        <Route path={ pFIP } render={ (props) => <FoodInProgress { ...props } /> } />
+        <Route path={ pDIP } render={ (props) => <DrinkInProgress { ...props } /> } />
+        <Route path={ pFoods } component={ FoodExplorerByIngredients } />
+        <Route path={ pDrinks } component={ DrinkExplorerByIngredients } />
+        <Route path="/explorar/comidas/area" component={ FoodExplorerByCountry } />
+        <Route path="/perfil" component={ Profile } />
+        <Route path="/receitas-feitas" component={ DoneRecipes } />
+        <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+        <Route exact path="/comidas" component={ Foods } />
+        <Route exact path="/bebidas" component={ Drinks } />
         <Route path="*" component={ NotFound } />
       </Switch>
     </BrowserRouter>

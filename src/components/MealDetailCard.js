@@ -72,7 +72,7 @@ function MealDetailCard() {
       <h4 data-testid="recipe-category">{strCategory}</h4>
       <div style={ { display: 'flex', justifyContent: 'space-around' } }>
         <button type="button" data-testid="share-btn">Gostei</button>
-        <ButtonShare />
+        <ButtonShare path={ window.location.href } />
       </div>
       <table>
         <tbody>

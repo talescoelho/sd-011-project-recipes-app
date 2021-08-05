@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { RecipesContext } from '../context/RecipesContext';
+import { SearchBarContext } from '../context/SearchBar';
 
 export default function RecipeCard(props) {
-  const { setInProgress } = useContext(RecipesContext);
+  const { setInProgress } = useContext(SearchBarContext);
   const { recipe, index, type } = props;
   let tipo = 'comidas';
   if (type === 'Drink') { tipo = 'bebidas'; }
