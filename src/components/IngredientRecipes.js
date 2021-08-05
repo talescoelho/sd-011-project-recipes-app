@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './styleRecipes.css';
 
-const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem/* , setEnable */ }) => {
+const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem, setEnable }) => {
   const typeDoM = typeDrinkorMeal === 'comidas' ? 'meals' : 'cocktails';
   const [update, forceUpdate] = useState(false);
   const [info, setInfo] = useState({});
@@ -47,19 +47,25 @@ const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem/* , setEnable *
     ));
   }
 
+  const enableButtonFinish = () => {
+    const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    return (getStorage !== null
+      && getStorage[typeDoM][idItem].length === ingredient.length ? setEnable(false)
+      : setEnable(true));
+  };
+
   function recipiesPorgress(target, value) {
-    // if (info[typeDoM][idItem].length === ingredient.length) setEnable(true);
-    // else setEnable(false);
     forceUpdate(!update);
-    if (target.checked) addCheck(value);
-    else removeCheck(value);
+    enableButtonFinish();
+    return target.checked ? addCheck(value)
+      : removeCheck(value);
   }
 
   const stateCheckd = (value) => {
     const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (getStorage !== null) {
-      return getStorage[typeDoM][idItem].includes(value);
-    }
+    enableButtonFinish();
+    return getStorage !== null
+      && getStorage[typeDoM][idItem].includes(value);
   };
 
   return (
