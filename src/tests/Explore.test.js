@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import Explore from '../pages/Explore';
 
 const exploreFood = 'explore-food';
@@ -19,5 +20,29 @@ describe('Requirement - 68', () => {
     render(<Explore />);
     expect(screen.getByTestId(exploreFood)).contains('Explorar Comidas');
     expect(screen.getByTestId(exploreDrinks)).contains('Explorar Bebidas');
+  });
+});
+
+describe('Requirement - 69', () => {
+  it('Should redirect to "/explorar/comidas" on click', () => {
+    render(
+      <MemoryRouter>
+        <Explore />
+      </MemoryRouter>,
+    );
+
+    fireEvent.click(screen.getByTestId(exploreFood));
+    expect(screen.getByText('Explorar Comidas')).toBeInTheDocument();
+  });
+
+  it('Should redirect to "explorar/bebidas" on click', () => {
+    render(
+      <MemoryRouter>
+        <Explore />
+      </MemoryRouter>,
+    );
+
+    fireEvent.click(screen.getByTestId(exploreDrinks));
+    expect(screen.getByText('Explorar Bebidas')).toBeInTheDocument();
   });
 });
