@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 export default function ProcessoBebidaPage(props) {
   const [drinkInProgress, setDrinkID] = useState();
   const [savedRecipe, setSavedRecipe] = useState();
-  const [update, forceUpdate] = useState(false);
 
   const marked = {
     textDecoration: 'line-through',
@@ -37,12 +36,16 @@ export default function ProcessoBebidaPage(props) {
       cocktails: {
         [id]: [],
       },
-      meals: {
-        id: [],
-      },
+      meals: {},
     };
     const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (!getStorage) {
+    if (getStorage) {
+      if (!getStorage.cocktails[id]) {
+        inProgressObj.cocktails = { ...getStorage.cocktails, ...inProgressObj.cocktails };
+        inProgressObj.meals = { ...getStorage.meals };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressObj));
+      }
+    } else {
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressObj));
     }
   }
@@ -54,8 +57,8 @@ export default function ProcessoBebidaPage(props) {
   }, []);
 
   useEffect(() => {
-    localStorageState(setSavedRecipe);
-  }, [update]);
+    localStorage.setItem('inProgressRecipes', JSON.stringify(savedRecipe));
+  }, [savedRecipe]);
 
   const ingredientLimit = 15;
   const ingredientKeys = drinkInProgress && (
@@ -63,42 +66,67 @@ export default function ProcessoBebidaPage(props) {
   const measureKeys = drinkInProgress && (
     Object.keys(drinkInProgress.drinks[0]).filter((key) => key.includes('easure')));
   const ingredientMap = ingredientKeys && ingredientKeys
+    .filter((value) => drinkInProgress.drinks[0][value])
     .map(((ingre, index) => (
       `${drinkInProgress.drinks[0][ingre]}-${drinkInProgress.drinks[0][measureKeys[index]]
       }`)
     )).slice(0, ingredientLimit);
   const ingredientFilter = ingredientMap && ingredientMap
     .filter((value) => value !== 'null-null' && value !== '-');
+
   const { match } = props;
   const { params } = match;
   const { id } = params;
+
   function markIngredients({ target }) {
     const { checked } = target;
-    const localObj = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const ifObj = {
-      cocktails: {
-        [id]: [...localObj.cocktails[id], target.value],
-      },
-      meals: {
-        id: [],
-      },
-    };
-    const elseObj = {
-      cocktails: {
-        [id]: [...localObj.cocktails[id].filter((val) => val !== target.value)],
-      },
-      meals: {
-        id: [],
-      },
-    };
     if (checked) {
       target.parentNode.style.textDecoration = 'line-through';
-      localStorage.setItem('inProgressRecipes', JSON.stringify(ifObj));
+      setSavedRecipe({
+        ...savedRecipe,
+        cocktails: { ...savedRecipe.cocktails,
+          [id]: [...savedRecipe.cocktails[id], target.value] },
+      });
     } else {
       target.parentNode.style.textDecoration = 'none';
-      localStorage.setItem('inProgressRecipes', JSON.stringify(elseObj));
+      setSavedRecipe({
+        ...savedRecipe,
+        cocktails: { ...savedRecipe.cocktails,
+          [id]: [...savedRecipe.cocktails[id]
+            .filter((value) => value !== target.value)] },
+      });
     }
-    forceUpdate(!update);
+  }
+
+  function mountDoneRecipes() {
+    const ifDoneRecipesObj = [{
+      id,
+      type: 'drinks',
+      area: '',
+      category: drinkInProgress.drinks[0].strCategory,
+      alcoholicOrNot: drinkInProgress.drinks[0].strAlcoholic,
+      name: drinkInProgress.drinks[0].strDrink,
+      image: drinkInProgress.drinks[0].strDrinkThumb,
+      doneDate: new Date().toLocaleDateString('PT-BR'),
+      tags: [''],
+    }];
+    const getDoneStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!getDoneStorage) {
+      localStorage.setItem('doneRecipes', JSON.stringify(ifDoneRecipesObj));
+    } else {
+      const elseDoneRecipesObj = [...getDoneStorage, {
+        id,
+        type: 'drinks',
+        area: '',
+        category: drinkInProgress.drinks[0].strCategory,
+        alcoholicOrNot: drinkInProgress.drinks[0].strAlcoholic,
+        name: drinkInProgress.drinks[0].strDrink,
+        image: drinkInProgress.drinks[0].strDrinkThumb,
+        doneDate: new Date().toLocaleDateString('PT-BR'),
+        tags: [''],
+      }];
+      localStorage.setItem('doneRecipes', JSON.stringify(elseDoneRecipesObj));
+    }
   }
 
   return (
@@ -137,6 +165,7 @@ export default function ProcessoBebidaPage(props) {
           <Link to="/receitas-feitas">
             <button
               data-testid="finish-recipe-btn"
+              onClick={ mountDoneRecipes }
               type="button"
               disabled={ savedRecipe && (
                 savedRecipe.cocktails[id].length !== ingredientFilter.length) }
