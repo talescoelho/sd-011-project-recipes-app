@@ -54,6 +54,12 @@ export default function Login() {
       >
         DEV BUTTON
       </button>
+      <button
+        type="button"
+        onClick={ () => localStorage.clear() }
+      >
+        CLEAR LOCAL STORAGE
+      </button>
     </form>
   );
 }
