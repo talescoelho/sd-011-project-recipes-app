@@ -16,16 +16,18 @@ export default function Header(props) {
 
   const buttonSearch = () => (
     <>
-      <button
-        type="button"
+      <div
+        role="button"
+        onKeyPress={ () => setVisibleBar(!isVisibleBar) }
         onClick={ () => setVisibleBar(!isVisibleBar) }
+        tabIndex="0"
       >
         <img
           data-testid="search-top-btn"
           alt="search button"
           src={ searchIcon }
         />
-      </button>
+      </div>
       <section>
         { isVisibleBar ? renderSearchBar() : renderFiltersBar() }
       </section>
@@ -35,18 +37,20 @@ export default function Header(props) {
   return (
     <header>
       <section>
-        <button
-          type="button"
+        <div
+          role="button"
+          onKeyPress={ () => history.push('/perfil') }
           onClick={ () => history.push('/perfil') }
+          tabIndex="0"
         >
           <img
             data-testid="profile-top-btn"
             src={ profileIcon }
             alt="profile icon"
           />
-        </button>
+        </div>
+        <h3 data-testid="page-title">{ title }</h3>
       </section>
-      <h3 data-testid="page-title">{ title }</h3>
       { search && buttonSearch() }
     </header>
   );

@@ -11,7 +11,10 @@ function ButtonToProgress({ data }) {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   useEffect(() => {
     if (inProgress === null) {
-      return localStorage.setItem('inProgressRecipes', JSON.stringify([]));
+      return localStorage.setItem('inProgressRecipes', JSON.stringify({
+        concktails: [],
+        meals: [],
+      }));
     }
     if (Object.keys(inProgress.cocktails).find((e) => (e === path))) {
       setProgress(true);
@@ -23,7 +26,7 @@ function ButtonToProgress({ data }) {
     }
     console.log('start antes', start);
     if (doneRecipes === null) {
-      return localStorage.setItem('doneRecipes', JSON.stringify([]));
+      return localStorage.setItem('doneRecipes', JSON.stringify([{}]));
     }
     if (doneRecipes.find((e) => (e.id === parseInt(path, 10)))) {
       setStart(false);
