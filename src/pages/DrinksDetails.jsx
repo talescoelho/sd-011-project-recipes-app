@@ -36,9 +36,15 @@ function DrinksDetails() {
   const ingredientsAndMeasures = details.idDrink
     ? ingredientsDrinkDetails(details) : [];
 
+  function copyLink() {
+    navigator.clipboard.writeText(window.location.href);
+  }
+
   return (
     <div className="details-container">
-      {loading ? <ReactBootStrap.Spinner animation="border" />
+      {loading ? (
+        <ReactBootStrap.Spinner animation="border" />
+      )
         : (
           <>
             <img
@@ -52,7 +58,11 @@ function DrinksDetails() {
                 <span data-testid="recipe-category">{details.strAlcoholic}</span>
               </div>
               <div>
-                <button type="button" data-testid="share-btn">
+                <button
+                  type="button"
+                  data-testid="share-btn"
+                  onClick={ () => copyLink() }
+                >
                   <img src={ shareIcon } alt="Botão compartilhar" />
                 </button>
                 <button type="button" data-testid="favorite-btn">
