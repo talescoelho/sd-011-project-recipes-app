@@ -10,7 +10,6 @@ function CheckboxDrink({ ingredients, measures, pathname }) {
     setAllCheckbox([...allCheckbox, true]);
 
     if (allCheckbox.length + 1 === ingredients.length) {
-      console.log('a');
       setAllCheckboxMarkup(!allCheckboxMarkup);
     } else {
       setAllCheckboxMarkup(false);

@@ -3,13 +3,14 @@
 }
 
 .btn-categories button {
-  background-color: rgb(252, 255, 57);
+  background-color: rgb(100, 198, 255);
   border: none;
+  border-radius: 5px;
   color: black;
   display: inline-block;
-  font-size: 15px;
+  font-size: 20px;
   margin: 4px 2px;
-  padding: 8px;
+  padding: 10px;
   text-align: center;
 }
 

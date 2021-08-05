@@ -18,17 +18,15 @@ function CardCatalog() {
         to={ `/comidas/${food.idMeal}` }
       >
         <div data-testid={ `${index}-recipe-card` } className="supply-card">
+          <div data-testid={ `${index}-card-name` }>
+            <h1>{food.strMeal}</h1>
+          </div>
           <img
-            className="supply-card"
+            className="supply-img"
             src={ food.strMealThumb }
             alt={ food.strMeal }
             data-testid={ `${index}-card-img` }
           />
-          <div
-            data-testid={ `${index}-card-name` }
-          >
-            <h1>{food.strMeal}</h1>
-          </div>
         </div>
       </Link>
     ));
@@ -41,17 +39,17 @@ function CardCatalog() {
         to={ `/bebidas/${drink.idDrink}` }
       >
         <div data-testid={ `${index}-recipe-card` } className="supply-card">
+          <div
+            data-testid={ `${index}-card-name` }
+          >
+            <h1>{drink.strDrink}</h1>
+          </div>
           <img
             className="supply-card"
             src={ drink.strDrinkThumb }
             alt={ drink.strDrink }
             data-testid={ `${index}-card-img` }
           />
-          <div
-            data-testid={ `${index}-card-name` }
-          >
-            <h1>{drink.strDrink}</h1>
-          </div>
         </div>
       </Link>
     ));

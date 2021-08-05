@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import GlobalContext from '../context/GlobalContext';
+import './css/SearchBar.css';
 
 function SearchBar({ title }) {
   const [inputIngredient, setinputIngredient] = useState(false);
