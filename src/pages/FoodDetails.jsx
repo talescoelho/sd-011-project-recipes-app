@@ -9,6 +9,7 @@ function FoodDetails() {
   const [recipe, setRecipe] = useState(null);
   const [drinksLoading, setDrinksLoading] = useState(true);
   const [drinksError, setDrinksError] = useState(null);
+  const [isDone, setIsDone] = useState(false);
   const [drinks, setDrinks] = useState([]);
   const { id } = useParams();
 
@@ -27,6 +28,12 @@ function FoodDetails() {
       .then((result) => setDrinks(result.drinks))
       .catch(setDrinksError)
       .finally(() => setDrinksLoading(false));
+
+    const storedRecipes = localStorage.getItem('doneRecipes');
+    const parsedRecipes = storedRecipes ? JSON.parse(storedRecipes) : [];
+    if (parsedRecipes.findIndex((parsedRecipe) => parsedRecipe.id == id) > -1) {
+      setIsDone(true);
+    }
   }, [id]);
 
   const renderNoRecipeMessage = () => {
@@ -121,11 +128,10 @@ function FoodDetails() {
                 <iframe data-testid="video" width="560" height="315" src={ recipe.strYoutube.replace('watch?v=', 'embed/') } title="YouTube video player" frameBorder="0" allow="accelerometer;clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
               </section>
 
-              <section>
-                <button type="button" data-testid="start-recipe-btn">
-                  Iniciar receita
-                </button>
-              </section>
+              { !isDone && (
+                  <button type="button" data-testid="start-recipe-btn" style={{ position: 'fixed', bottom: '100px' }}>
+                    Iniciar receita
+                  </button>)}
 
               <section>
                 <h1>Recomendações de bebida</h1>
@@ -135,7 +141,7 @@ function FoodDetails() {
                     { drinks.slice(0, 6).map((drink, index) => (
                       <li style={ styles.drinksRecommendationCard } data-testid={`${index}-recomendation-card`} key={drink.idDrink}>
                         <img style={ styles.drinksRecommendationImage } src={ drink.strDrinkThumb } alt={ drink.strDrink } />
-                        <h1>{ drink.strDrink }</h1>
+                        <h1 data-testid={`${index}-recomendation-title`}>{ drink.strDrink }</h1>
                       </li>
                     )) }
                   </ol>

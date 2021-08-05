@@ -20,6 +20,10 @@ describe('A pagina de detalhes de comida', () => {
     });
   });
 
+  afterEach(() => {
+    localStorage.clear();
+  })
+
   it('Faz uma requisição à api com o parâmetro correto', () => {
     expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52878');
   });
@@ -66,4 +70,35 @@ describe('A pagina de detalhes de comida', () => {
       expect(allDrinkCards.length).toBe(6);
     });
   });
+});
+
+
+describe('Caso a receita já tenha sido feita', () => {
+  beforeEach(async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch = mockFetch;
+
+    const doneRecipes = [{
+      "id": "52878",
+      "type": "comida",
+      "area": "Italian",
+      "category": "Vegetarian",
+      "alcoholicOrNot": "",
+      "name": "Spicy Arrabiata Penne",
+      "image": "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg",
+      "doneDate": "22/6/2020",
+      "tags": ["Pasta", "Curry"]
+    }];
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+
+    const path = '/comidas/:id';
+    const history = createMemoryHistory({ initialEntries: ['/comidas/52878'] });
+    await act(async () => {
+      render(<FoodDetails />, { history, path });
+    });
+  });
+
+  it('o botão de Iniciar Receita não aparece', () => {
+    expect(screen.queryByText('Iniciar receita')).not.toBeInTheDocument();
+  })
 });
