@@ -22,11 +22,13 @@ export default function RecipeFavorite() {
   const allFavorites = () => {
     setFilterFavorite(false);
   };
-
   React.useEffect(() => {
-    const favorites = JSON.parse(localStorage.favoriteRecipes);
-    setData([...favorites]);
+    if (localStorage.favoriteRecipes) {
+      const favorites = JSON.parse(localStorage.favoriteRecipes);
+      setData([...favorites]);
+    }
   }, []);
+
 
   const removeFavorite = (id) => {
     const favorites = JSON.parse(localStorage.favoriteRecipes);
