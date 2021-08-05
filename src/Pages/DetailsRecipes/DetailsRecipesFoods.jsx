@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import MainContext from '../../Context/MainContext';
-import Ingredients from '../../Components/Ingredients';
+import IngredientsFoods from '../../Components/IngredientsFoods';
 
 function DetailsRecipesFoods() {
   const location = useLocation();
@@ -56,18 +56,23 @@ function DetailsRecipesFoods() {
       <p data-testid="recipe-category">
         {idFoodsAPI.strCategory}
       </p>
-      <Ingredients />
+      <IngredientsFoods />
       <p data-testid="instructions">
         {idFoodsAPI.strInstructions}
       </p>
       <iframe
-        width="560"
+        data-testid="video"
+        width="280"
         src={ getYoutubeUrl(idFoodsAPI) }
         title="YouTube video player"
-        frameBorder="0"
-        allow="clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       />
+      <p data-testid="0-recomendation-card">
+        teste
+      </p>
+      {/* <p data-testid=`${index}-recomendation-card`>
+        teste
+      </p> */}
       <button
         type="button"
         data-testid="start-recipe-btn"
