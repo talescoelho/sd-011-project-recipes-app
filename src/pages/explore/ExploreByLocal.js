@@ -37,14 +37,17 @@ export default function ExploreByLocal() {
   const handlerFood = () => (
     <div>
       {recipes.length && recipes.slice(0, 12).map((item, index) => (
-        <div key={ index } data-testid={ `${index}-recipe-card` }>
-          <h2 data-testid={ `${index}-card-name` }>{item.strMeal}</h2>
-          <img
-            src={ item.strMealThumb }
-            data-testid={ `${index}-card-img` }
-            alt={ item.strMeal }
-          />
-        </div>
+        <Link key={ index } to={ `/comidas/${item.idMeal}` }>
+          <div data-testid={ `${index}-recipe-card` }>
+            <h2 data-testid={ `${index}-card-name` }>{item.strMeal}</h2>
+            <img
+              style={ { width: ' 30%', height: '50%' } }
+              src={ item.strMealThumb }
+              data-testid={ `${index}-card-img` }
+              alt={ item.strMeal }
+            />
+          </div>
+        </Link>
       ))}
     </div>
   );
