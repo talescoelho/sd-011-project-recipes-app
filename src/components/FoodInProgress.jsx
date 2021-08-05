@@ -29,23 +29,16 @@ export default function FoodInProgress({ type }) {
       const msr = item[`strMeasure${el[0].replace(/\D/g, '')}`];
       const innerText = msr ? `${el[1]} - ${msr || ''}` : `${el[1]}`;
       return (
-        <div key={ el }>
+        <div key={ el } data-testid={ `${i}-ingredient-step` }>
           <label htmlFor={ `ingredient${i}` }>
+            <input
+              id={ `ingredient${i}` }
+              type="checkbox"
+            />
             {innerText}
           </label>
-          <input
-            id={ `ingredient${i}` }
-            type="checkbox"
-            data-testid={ `${i + 1}-ingredient-step` }
-          />
         </div>
 
-      // <li
-      //   data-testid={ `${i}-ingredient-step` }
-      //   key={ `${i}-ingrname-id` }
-      // >
-      //   {msr ? `${el[1]} - ${msr || ''}` : `${el[1]}`}
-      // </li>
       );
     });
   }
@@ -71,9 +64,7 @@ export default function FoodInProgress({ type }) {
           Categoria:
           {strCategory}
         </p>
-        <ul>
-          {listIngredients(food)}
-        </ul>
+        <form>{listIngredients(food)}</form>
         <h2>Recommended Cards</h2>
 
       </div>

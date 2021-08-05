@@ -20,6 +20,9 @@ const recipe = (state = initialState, action) => {
     const { array } = payload;
     return { ...state, categories: { ...state.categories, [payload.type]: array } };
   }
+  case 'CLEAR_FORM_INFO': {
+    return { ...state, formInfo: '' };
+  }
 
   default:
     return { ...state };
