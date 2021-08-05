@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Carousel from './Carousel';
 
 class BebidasDetalhes extends Component {
@@ -74,6 +75,11 @@ class BebidasDetalhes extends Component {
         <button type="button" data-testid="favorite-btn">
           Favoritar
         </button>
+        <Link to="/bebidas">
+          <button type="button">
+            Voltar para página de comidas
+          </button>
+        </Link>
         <p data-testid="recipe-category">{strAlcoholic}</p>
         <span>Ingredients</span>
         <ul>

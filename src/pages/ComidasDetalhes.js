@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Carousel from './Carousel';
+import { addRecipeOngoing, addRecipeFavorite } from '../actions';
 
 class ComidasDetalhes extends Component {
   constructor(props) {
@@ -8,6 +11,7 @@ class ComidasDetalhes extends Component {
     this.state = {
       mealDetails: {},
       ingredientList: [],
+      finalList: [],
     };
 
     this.recipeDetailsFetchAPI = this.recipeDetailsFetchAPI.bind(this);
@@ -47,12 +51,29 @@ class ComidasDetalhes extends Component {
     this.setState({
       mealDetails: data.meals[0],
       ingredientList: ingredientListBuffer,
+    }, () => {
+      const { ingredientList, mealDetails } = this.state;
+      const doneList = ingredientList.map((e) => (mealDetails[e]
+        ? `${mealDetails[e]} - ${mealDetails[`strMeasure${e.match(/\d+/)[0]}`]}`
+        : null)).filter(Boolean);
+      this.setState({
+        finalList: doneList,
+      });
     });
   }
 
   render() {
-    const { mealDetails, ingredientList } = this.state;
-
+    const { mealDetails, ingredientList, finalList } = this.state;
+    const { addRecipeOngoing, addRecipeFavorite } = this.props;
+    const obj = {
+      id: mealDetails.idMeal,
+      type: 'comida',
+      area: mealDetails.strArea,
+      category: mealDetails.strCategory,
+      alcoholicOrNot: '',
+      name: mealDetails.strMeal,
+      image: mealDetails.strMealThumb,
+    };
     const {
       strMealThumb,
       strMeal,
@@ -75,9 +96,18 @@ class ComidasDetalhes extends Component {
         >
           Compartilhe
         </button>
-        <button type="button" data-testid="favorite-btn">
+        <button
+          type="button"
+          data-testid="favorite-btn"
+          onClick={ () => addRecipeFavorite(obj) }
+        >
           Favoritar
         </button>
+        <Link to="/comidas">
+          <button type="button">
+            Voltar para página de comidas
+          </button>
+        </Link>
         <h1 data-testid="recipe-title">{strMeal}</h1>
         <p data-testid="recipe-category">{strCategory}</p>
         <span>Ingredients</span>
@@ -112,6 +142,7 @@ class ComidasDetalhes extends Component {
           type="button"
           data-testid="start-recipe-btn"
           className="start-recipe"
+          onClick={ () => addRecipeOngoing(mealDetails.idMeal, finalList) }
         >
           Iniciar Receita
         </button>
@@ -119,7 +150,13 @@ class ComidasDetalhes extends Component {
     );
   }
 }
-export default ComidasDetalhes;
+
+const mapDispatchToProps = (dispatch) => ({
+  addRecipeOngoing: (id, list) => dispatch(addRecipeOngoing(id, list)),
+  addRecipeFavorite: (meal) => dispatch(addRecipeFavorite(meal)),
+});
+
+export default connect(null, mapDispatchToProps)(ComidasDetalhes);
 
 ComidasDetalhes.propTypes = {
   match: PropTypes.shape({
