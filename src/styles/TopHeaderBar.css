@@ -1,6 +1,6 @@
 .top-header-bar {
   align-items: center;
-  background-color: salmon;
+  background-color: rgb(54, 211, 14);
   display: flex;
   height: 2.5rem;
   justify-content: space-between;
@@ -8,19 +8,25 @@
 }
 
 .top-header-bar button {
-  background-color: salmon;
+  background-color: rgb(54, 211, 14);
   border: none;
   height: 87%;
   margin: 0 1rem;
+  outline: none;
   width: 9%;
 }
 
 .top-header-bar span {
   align-self: center;
+  color: white;
   font-size: large;
   font-weight: 700;
   justify-self: center;
   left: 50%;
   position: absolute;
   transform: translateX(-50%);
+}
+
+.altSvg {
+  filter: invert(100%);
 }

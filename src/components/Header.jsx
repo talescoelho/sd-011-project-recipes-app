@@ -9,7 +9,6 @@ function Header() {
     <header>
       <TopHeaderBar toggleSearchBar={ { searchBar, setSearchBar } } />
       {searchBar ? <SearchBar /> : null}
-
       {/*  <h3 data-testid="page-title">{title}</h3> */}
     </header>
   );
