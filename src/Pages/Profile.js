@@ -1,23 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import './Profile.css';
-import Button from 'react-bootstrap/Button';
 import perfilbg from './perfilbg.mp4';
-
-
 
 function Profile() {
   /* const [userEmailProfile, setUserEmailProfile] = useState('');
-   const { userEmail } = useContext(UserContext);
+  const { userEmail } = useContext(UserContext);
 
-   useEffect(() => {
-     const userEmailStorageString = JSON.parse(localStorage.getItem('user'));
-     if (userEmailStorageString === null) setUserEmailProfile(userEmail);
-     else setUserEmailProfile(userEmailStorageString.email);
-     setHideSearchBtn(false);
-     setPageName('Perfil');
+  useEffect(() => {
+    const userEmailStorageString = JSON.parse(localStorage.getItem('user'));
+    if (userEmailStorageString === null) setUserEmailProfile(userEmail);
+    else setUserEmailProfile(userEmailStorageString.email);
+    setHideSearchBtn(false);
+    setPageName('Perfil');
     }, []);
 
   const clearStorage = () => localStorage.clear();

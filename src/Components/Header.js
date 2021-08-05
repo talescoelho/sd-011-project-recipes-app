@@ -5,6 +5,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import MyContext from '../Context/MyContext';
 import { fetchIngredient, fetchName, fetchFirstLetter } from '../Services/FetchApi';
+import './Header.css';
 
 export default function Header({ title, searchIconAppears = false }) {
   const { setRecipe, recipe } = useContext(MyContext);
@@ -65,31 +66,29 @@ export default function Header({ title, searchIconAppears = false }) {
   }
 
   return (
-    <div>
-      <header>
-        <Link to="/perfil">
-          <button
-            type="button"
-          >
-            <img
-              data-testid="profile-top-btn"
-              src={ profileIcon }
-              alt="Icone de perfil"
-            />
-          </button>
+    <div className="headerbox">
+      <header className="header">
+        <Link to="/perfil" className="intheader">
+          <img
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="Icone de perfil"
+            width="40px"
+            height="40px"
+          />
         </Link>
         <h1 data-testid="page-title">{title}</h1>
         {searchIconAppears && (
-          <button
-            type="button"
+          <img
+            data-testid="search-top-btn"
+            src={ searchIcon }
+            alt="Barra de pesquisa"
+            width="40px"
+            height="40px"
             onClick={ toggleInput }
-          >
-            <img
-              data-testid="search-top-btn"
-              src={ searchIcon }
-              alt="Barra de pesquisa"
-            />
-          </button>
+            role="presentation"
+            className="intheader"
+          />
         )}
       </header>
       {searchInput && (
@@ -107,7 +106,7 @@ export default function Header({ title, searchIconAppears = false }) {
               name="search-radio"
               type="radio"
               value="ingredient"
-              onChange={ ({ target }) => setSelectedSearch(target.value)}
+              onChange={ ({ target }) => setSelectedSearch(target.value) }
             />
           </label>
           <label htmlFor="name-search-radio">
