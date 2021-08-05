@@ -33,13 +33,13 @@ export default function Recomendation({ foodOrDrink }) {
       >
         <img
           data-testid="recomendation-photo"
-          src={ foodOrDrink === 'Comidas' ? item.strMealThumb : item.strDrinkThumb }
+          src={ foodOrDrink === 'Bebidas' ? item.strMealThumb : item.strDrinkThumb }
           alt="image_of_recipe"
           className="recomendationImg"
         />
 
         <h4 data-testid={ `${index}-recomendation-title` }>
-          { foodOrDrink === 'Comidas' ? item.strMeal : item.strDrink }
+          { foodOrDrink === 'Bebidas' ? item.strMeal : item.strDrink }
         </h4>
       </div>
     );
