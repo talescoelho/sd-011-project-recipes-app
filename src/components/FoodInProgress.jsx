@@ -71,13 +71,9 @@ export default function FoodInProgress({ type }) {
         {type === 'meals' && (<CardsDrinks />)}
       </div>
 
-      {/* {(isRecipeDone(params.id) === false) ? (
-        <Link to={ `/comidas/${params.id}/in-progress` }> */}
       <Button className="btnstart" type="button" data-testid="finish-recipe-btn">
         Finalizar receita
       </Button>
-      {/* </Link> */}
-      {/* ) : ('') } */}
 
     </main>
   );
