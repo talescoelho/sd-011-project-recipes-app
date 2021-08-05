@@ -17,6 +17,8 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import DetailsFood from './pages/DetailsFood';
 import DetailsDrinks from './pages/DetailsDrinks';
+import ProgressFoodRecipe from './pages/ProgressFoodRecipe';
+import ProgressDrinkRecipe from './pages/ProgressDrinkRecipe';
 
 function App() {
   return (
@@ -35,9 +37,19 @@ function App() {
         />
         <Route
           exact
+          path="/comidas/:id/in-progress"
+          render={ (props) => <ProgressFoodRecipe { ...props } /> }
+        />
+        <Route
+          exact
           path="/bebidas/:id"
           component={ DetailsDrinks }
 
+        />
+        <Route
+          exact
+          path="/bebidas/:id/in-progress"
+          render={ (props) => <ProgressDrinkRecipe { ...props } /> }
         />
         <Route
           exact
