@@ -21,26 +21,30 @@ export default class ReceitasFavoritas extends Component {
   }
 
   setItemsToRender() {
-    this.setState({
-      itemsToRender: JSON.parse(localStorage.getItem('favoriteRecipes')),
-      itemsToRenderBD: JSON.parse(localStorage.getItem('favoriteRecipes')),
-    });
-  }
-
-  setItemsToRenderFiltered(comidaOrBebida) {
-    const { itemsToRenderBD } = this.state;
-    if (comidaOrBebida === 'comida' || comidaOrBebida === 'bebida') {
-      const filterdPerType = itemsToRenderBD.filter(
-        (recipe) => recipe.type === comidaOrBebida,
-      );
-      this.setState({
-        itemsToRender: filterdPerType,
-      });
-    } else {
+    if (JSON.parse(localStorage.getItem('favoriteRecipes')) !== null) {
       this.setState({
         itemsToRender: JSON.parse(localStorage.getItem('favoriteRecipes')),
         itemsToRenderBD: JSON.parse(localStorage.getItem('favoriteRecipes')),
       });
+    }
+  }
+
+  setItemsToRenderFiltered(comidaOrBebida) {
+    if (localStorage.getItem('favoriteRecipes') !== null) {
+      const { itemsToRenderBD } = this.state;
+      if (comidaOrBebida === 'comida' || comidaOrBebida === 'bebida') {
+        const filterdPerType = itemsToRenderBD.filter(
+          (recipe) => recipe.type === comidaOrBebida,
+        );
+        this.setState({
+          itemsToRender: filterdPerType,
+        });
+      } else {
+        this.setState({
+          itemsToRender: JSON.parse(localStorage.getItem('favoriteRecipes')),
+          itemsToRenderBD: JSON.parse(localStorage.getItem('favoriteRecipes')),
+        });
+      }
     }
   }
 
