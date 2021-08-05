@@ -23,7 +23,6 @@ function FoodsSearchBar() {
     } else if (!input) return null;
     const response = await fetch(endpoint);
     const { meals } = await response.json();
-    console.log(meals);
     if (meals === null) return alert(alertMsg);
     if (meals.length === 1) return history.push(`/comidas/${meals[0].idMeal}`);
     setFoodList(meals);
