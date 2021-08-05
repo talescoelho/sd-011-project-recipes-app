@@ -32,8 +32,10 @@ export default function Drinks() {
     fetchApi();
   }, []);
 
-  async function categoryOnClickBtn(catName) {
+  async function categoryOnClickBtn(catName, index) {
     if (toggleValue === false) {
+      const btn = document.querySelectorAll('#drinkCatBtn');
+      btn[index].style.backgroundColor = 'grey';
       const results = await FetchApi('thecocktaildb', null, null, [catName]);
       dispatch({
         type: 'MODIFY_SEARCH_RESULTS',
@@ -42,6 +44,8 @@ export default function Drinks() {
     }
     setToggle(!toggleValue);
     if (toggleValue === true) {
+      const btn = document.querySelectorAll('#drinkCatBtn');
+      btn[index].style.backgroundColor = 'rgb(239, 239, 239)';
       const results = await FetchApi('thecocktaildb', 'nome', '');
       dispatch({
         type: 'MODIFY_SEARCH_RESULTS',
@@ -59,12 +63,13 @@ export default function Drinks() {
       />
       <div className="catBtns">
         {
-          catItens.map((item) => (
+          catItens.map((item, index) => (
             <button
               key={ item.strCategory }
               type="button"
+              id="drinkCatBtn"
               data-testid={ `${item.strCategory}-category-filter` }
-              onClick={ () => categoryOnClickBtn(item.strCategory) }
+              onClick={ () => categoryOnClickBtn(item.strCategory, index) }
             >
               {item.strCategory}
             </button>))
