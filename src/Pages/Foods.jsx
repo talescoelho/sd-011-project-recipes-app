@@ -37,7 +37,6 @@ function Foods() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [renderCategory]);
 
-
   if (dataFood !== null && dataFood.length === 1) {
     const oneResult = dataFood[0];
     history.push(`/comidas/${oneResult.idMeal}`);
