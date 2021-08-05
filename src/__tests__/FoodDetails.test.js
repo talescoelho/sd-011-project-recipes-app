@@ -35,12 +35,12 @@ describe('A pagina de detalhes de comida', () => {
       const keys = Object.keys(recipe).filter((key) => /ingredient/i.test(key));
       keys.forEach((key) => {
         if (recipe[key]) {
-          expect(screen.getByText(recipe[key])).toBeInTheDocument();
+          expect(screen.getAllByText(recipe[key])[0]).toBeInTheDocument();
         }
       });
     });
     it('Instruções', () => {
-      expect(screen.getByText(recipe.strInstructions));
+      expect(screen.getByTestId('instructions')).toBeInTheDocument();
     });
     it('Video', () => {
       expect(screen.getByTestId('video')).toBeInTheDocument();
@@ -61,16 +61,9 @@ describe('A pagina de detalhes de comida', () => {
       expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     });
 
-    it('e possui 6 resultados', () => {
-      const allDrinkCards = screen.getAllByTestId(/.-recomendation-card/);
+    it('e mostra 6 resultados', () => {
+      const allDrinkCards = screen.getAllByTestId('recomendation-card', { exact: false });
       expect(allDrinkCards.length).toBe(6);
     });
-
-    it('e mostra apenas 2 a princípio', () => {
-      const allDrinkCards = screen.getAllByTestId(/.-recomendation-card/);
-      expect(allDrinkCards[0]).toBeVisible();
-      expect(allDrinkCards[1]).toBeVisible();
-      expect(allDrinkCards[2]).not.toBeVisible();
-    })
   });
 });

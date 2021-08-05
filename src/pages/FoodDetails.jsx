@@ -7,9 +7,13 @@ function FoodDetails() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [recipe, setRecipe] = useState(null);
+  const [drinksLoading, setDrinksLoading] = useState(true);
+  const [drinksError, setDrinksError] = useState(null);
+  const [drinks, setDrinks] = useState([]);
   const { id } = useParams();
 
   const BASE_URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php'; // TODO usar token
+  const DRINKS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
   useEffect(() => {
     fetch(`${BASE_URL}?i=${id}`)
@@ -17,13 +21,46 @@ function FoodDetails() {
       .then((result) => setRecipe(result.meals[0]))
       .catch(setError)
       .finally(() => setIsLoading(false));
+
+    fetch(DRINKS_URL)
+      .then((response) => response.json())
+      .then((result) => setDrinks(result.drinks))
+      .catch(setDrinksError)
+      .finally(() => setDrinksLoading(false));
   }, [id]);
 
   const renderNoRecipeMessage = () => {
     if (isLoading) return <p>Carregando...</p>;
+
+    if (error) return <p>Opa... algo deu errado</p>;
   };
 
-  console.log(recipe);
+  const renderNoDrinksMessage = () => {
+    if (drinksLoading) return <p>Carregando...</p>;
+
+    if (drinksError) return <p>Opa... algo deu errado</p>;
+
+    return false;
+  };
+
+  const styles = {
+    drinkRecommendationList: {
+      display: 'flex',
+      gap: '32px',
+      overflowX: 'auto',
+      width: '460px',
+      height: '260px',
+      listStyle: 'none',
+    },
+    drinksRecommendationCard: {
+      width: '200px',
+      flexShrink: '0',
+    },
+    drinksRecommendationImage: {
+      display: 'block',
+      width: '100%',
+    },
+  }
 
   return (
     <Layout title="App de Receitas">
@@ -33,8 +70,8 @@ function FoodDetails() {
             <>
               <section>
                 <img
-                  src="https://www.themealdb.com/images/media/meals/sytuqu1511553755.jpg"
-                  alt="Beef and Mustard Pie"
+                  src={ recipe.strMealThumb }
+                  alt={ recipe.strMeal }
                   data-testid="recipe-photo"
                 />
               </section>
@@ -81,13 +118,28 @@ function FoodDetails() {
               </section>
 
               <section>
-                <iframe data-testid="video" width="560" height="315" src={ recipe.strYoutube.replace('watch?v=', 'embed/') } title="YouTube video player" frameborder="0" allow="accelerometer;clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe data-testid="video" width="560" height="315" src={ recipe.strYoutube.replace('watch?v=', 'embed/') } title="YouTube video player" frameBorder="0" allow="accelerometer;clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
               </section>
 
               <section>
                 <button type="button" data-testid="start-recipe-btn">
                   Iniciar receita
                 </button>
+              </section>
+
+              <section>
+                <h1>Recomendações de bebida</h1>
+
+                { renderNoDrinksMessage() || (
+                  <ol style={ styles.drinkRecommendationList }>
+                    { drinks.slice(0, 6).map((drink, index) => (
+                      <li style={ styles.drinksRecommendationCard } data-testid={`${index}-recomendation-card`} key={drink.idDrink}>
+                        <img style={ styles.drinksRecommendationImage } src={ drink.strDrinkThumb } alt={ drink.strDrink } />
+                        <h1>{ drink.strDrink }</h1>
+                      </li>
+                    )) }
+                  </ol>
+                ) }
               </section>
             </>
           ) }
