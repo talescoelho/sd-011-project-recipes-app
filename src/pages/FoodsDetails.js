@@ -22,8 +22,8 @@ function FoodsDetails(props) {
     setRecomDrink,
     isRecipeDone,
     setIsRecipeDone,
-    inProgressRecipes,
-    setInProgressRecipes,
+    // inProgressRecipes,
+    // setInProgressRecipes,
   } = useContext(RecipeAppContext);
 
   function copyLink(drinkId) {

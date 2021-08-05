@@ -63,7 +63,7 @@ function DrinksDetails(props) {
     checkIsRecipeDone(localStorageDoneRecipes, drink);
   }, [drink]);
 
-   // inProgressRecipes
+  // inProgressRecipes
   // {
   //   cocktails: {
   //       id-da-bebida: [lista-de-ingredientes-utilizados],
