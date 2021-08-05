@@ -47,15 +47,29 @@ export default function SearchBar() {
     return resultValidation;
   };
 
+  const noResultsAlert = () => {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  };
+
+  const checkJson = (json) => {
+    const { typeFilterKey } = searchLinks;
+    if (json[typeFilterKey]) setData({ ...data, results: json });
+    else {
+      setData({ ...data });
+      noResultsAlert();
+    }
+  };
+
   const onClickHandler = () => {
     console.log(searchLinks);
     const { searchParameter, searchTerms } = searchInputs;
+
     if (searchParameter === 'firstLetter' && firstLetterValidation()) {
       const search = async () => {
         const { firstLetter } = searchLinks;
         const response = await fetch(`${firstLetter}${searchTerms}`);
         const json = await response.json();
-        setData({ ...data, results: json });
+        checkJson(json);
       };
       search();
     }
@@ -64,7 +78,8 @@ export default function SearchBar() {
         const { name } = searchLinks;
         const response = await fetch(`${name}${searchTerms}`);
         const json = await response.json();
-        setData({ ...data, results: json });
+        console.log(json);
+        checkJson(json);
       };
       search();
     }
@@ -73,7 +88,8 @@ export default function SearchBar() {
         const { ingredient } = searchLinks;
         const response = await fetch(`${ingredient}${searchTerms}`);
         const json = await response.json();
-        setData({ ...data, results: json });
+        console.log(json);
+        checkJson(json);
       };
       search();
     }
@@ -94,7 +110,7 @@ export default function SearchBar() {
       {
         !searchInputs.validation
           && (
-            <p>só uma letra bacana</p>
+            alert('Sua busca deve conter somente 1 (um) caracter')
           )
       }
 

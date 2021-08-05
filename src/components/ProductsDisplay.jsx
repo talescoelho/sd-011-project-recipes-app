@@ -4,8 +4,9 @@ import React, {
   useContext,
   useLayoutEffect,
 } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import MyContext from '../context/MyContext';
+import ProductRenderHelper from '../helpers/ProductRenderHelper';
 
 function ProductsDisplay() {
   const {
@@ -28,16 +29,7 @@ function ProductsDisplay() {
     }
   });
 
-  // const [data, setData] = useState([]);
-
-  console.log(searchLinks);
-
   const { typeFilterKey, typeFilter } = searchLinks;
-  const infos = {
-    id: `id${typeFilter}`,
-    str: `str${typeFilter}`,
-    thumb: `str${typeFilter}Thumb`,
-  };
 
   useEffect(() => {
     async function productCategories() {
@@ -121,26 +113,13 @@ function ProductsDisplay() {
               </div>
             ))
       }
-      {
-        data.location !== pathname
-          ? <p>Loading</p>
-          : data
-            .results[typeFilterKey]
-            .slice(0, maxArrayProducts)
-            .map((product, index) => (
-              <Link to={ `${pathname}/${product[infos.id]}` } key={ index }>
-                <div data-testid={ `${index}-recipe-card` }>
-                  <img
-                    src={ product[infos.thumb] }
-                    alt="comida_principal"
-                    data-testid={ `${index}-card-img` }
-                    width="50px"
-                  />
-                  <p data-testid={ `${index}-card-name` }>{product[infos.str]}</p>
-                </div>
-              </Link>
-            ))
-      }
+      { ProductRenderHelper(
+        data,
+        typeFilter,
+        typeFilterKey,
+        maxArrayProducts,
+      ) }
+
     </main>
   );
 }
