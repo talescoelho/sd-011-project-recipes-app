@@ -6,17 +6,9 @@ import { getDrinkById, getFoodById } from '../services/RecipesServices';
 function Provider({ children }) {
   const [drinkDetails, setDrinkDetails] = useState([]);
   const [foodDetails, setFoodDetails] = useState([]);
-  const [drinkIngredients] = useState([]);
-  const [foodIngredients] = useState([]);
+  const [drinkIngredients, setDrinkIngredients] = useState([]);
+  const [foodIngredients, setFoodIngredients] = useState([]);
 
-  /*   const getLocalStore = useCallback((id) => {
-    if (localStorage.favoriteRecipes) {
-      const getRecipes = JSON.parse('favoriteRecipes');
-      const response = getRecipes.map((item) => (item.id).includes(id));
-      return response;
-    }
-  }, []);
- */
   const addLocalStore = useCallback((id, condition, drink, food) => {
     const newFavorite = {
       id,
@@ -61,9 +53,10 @@ function Provider({ children }) {
         getFoodById,
         foodIngredients,
         drinkIngredients,
-        /*   getLocalStore, */
         removeLocalStorage,
         addLocalStore,
+        setFoodIngredients,
+        setDrinkIngredients,
       } }
     >
       {children}

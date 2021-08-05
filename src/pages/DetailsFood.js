@@ -9,7 +9,11 @@ import '../components/styles/details.css';
 
 function DetailsFood() {
   const { id } = useParams();
-  const { setFoodDetails, getFoodById } = useContext(MyContext);
+  const { setFoodDetails,
+    getFoodById,
+    foodDetails,
+    setFoodIngredients,
+  } = useContext(MyContext);
 
   const [load, setLoad] = useState(true);
   const food = useCallback(async () => {
@@ -29,6 +33,23 @@ function DetailsFood() {
   useEffect(() => {
     food();
   }, [food]);
+
+  useEffect(() => {
+    const length = -1;
+    const takeIngredients = Object.keys(foodDetails)
+      .map((key) => (key.indexOf('strIngredient') > length ? foodDetails[key] : ''))
+      .filter((value) => value !== '' && value !== null && value);
+
+    const ingredientAmount = Object.keys(foodDetails)
+      .map((key) => (key.indexOf('strMeasure') > length ? foodDetails[key] : ''))
+      .filter((value) => value !== '' && value !== ' ' && value !== null && value);
+
+    const ingredients = ingredientAmount.map(
+      (item, index) => `${item} ${takeIngredients[index]}`,
+    );
+
+    setFoodIngredients(ingredients);
+  }, [foodDetails, setFoodIngredients]);
 
   return !load ? (
     <main>

@@ -20,7 +20,7 @@ function DetailInstruction() {
   ) : (
     <Card>
       <Card.Title>Instructions</Card.Title>
-      <p data-testid="instructions">{foodDetails.strInstructions}</p>
+      <Card.Text data-testid="instructions">{foodDetails.strInstructions}</Card.Text>
     </Card>
   );
 }
