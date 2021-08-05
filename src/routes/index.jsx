@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router';
 import {
   LoginPage, NotFound, User, Bebidas, Explore, Comidas,
-  FoodDetails, MealtIngredients, DrinkIngredients, ExploreFood,
+  MealtIngredients, DrinkIngredients, ExploreFood,
   ExploreDrink, RecipeProgress, DrinkDetails, MealDetails } from '../pages';
 
 import DrinkProgress from '../pages/DrinkProgress';

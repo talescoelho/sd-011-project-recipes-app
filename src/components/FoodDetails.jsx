@@ -12,7 +12,7 @@ import FavoriteBtn from './FavoriteBtn';
 
 export default function FoodDetails({ type }) {
   const params = useParams();
-  const [food, setFood] = useState({});
+  const [food, setFood] = useState([]);
   console.log(food);
 
   useEffect(() => {
@@ -33,30 +33,19 @@ export default function FoodDetails({ type }) {
   }
 
   function listIngradient(item) {
-    const retorno = [];
-    const qtdMax = 20;
-    for (let index = 1; index <= qtdMax; index += 1) {
-      if (
-        item[`strIngredient${index}`] !== ''
-        && item[`strIngredient${index}`] !== null
-      ) {
-        const indexDataTest = index - 1;
-        retorno.push(
-          <li
-            data-testid={ `${indexDataTest}-ingredient-name-and-measure` }
-            key={ `${indexDataTest}-ingrname-id` }
-          >
-            {item[`strIngredient${index}`]}
-            {' '}
-            -
-            {' '}
-            {item[`strMeasure${index}`]}
-          </li>,
-        );
-      }
-    }
+    const ingredient = Object.entries(item).filter(([key,
+      value]) => key.includes('Ingredient') && value);
 
-    return retorno;
+    return ingredient.map((el, i) => {
+      const msr = item[`strMeasure${el[0].replace(/\D/g, '')}`];
+      return (
+        <li
+          data-testid={ `${i}-ingredient-name-and-measure` }
+          key={ `${i}-ingrname-id` }
+        >
+          {`${el[1]} - ${msr}`}
+        </li>);
+    });
   }
 
   const showFrame = () => (<iframe
@@ -69,7 +58,8 @@ export default function FoodDetails({ type }) {
     width="100%"
   />);
 
-  const { strMealThumb, strDrinkThumb, strMeal, strInstructions, strCategory } = food;
+  const { strMealThumb, strDrinkThumb,
+    strDrink, strMeal, strInstructions, strCategory, strAlcoholic } = food;
   return (
     <main className="food-details">
       <div>
@@ -79,9 +69,10 @@ export default function FoodDetails({ type }) {
           src={ strMealThumb || strDrinkThumb }
           alt="img"
         />
-        <h1 data-testid="recipe-title">{strMeal}</h1>
+        <h1 data-testid="recipe-title">{strMeal || strDrink}</h1>
         <ShareBtn />
         <FavoriteBtn />
+        <p>{strAlcoholic}</p>
         <p data-testid="instructions">{strInstructions}</p>
         <p data-testid="recipe-category">
           Categoria:
@@ -90,7 +81,7 @@ export default function FoodDetails({ type }) {
         <ul>
           {listIngradient(food)}
         </ul>
-        <h2>Recommend Cards</h2>
+        <h2>Recommended Cards</h2>
         {type === 'meals' && showFrame()}
 
         {(isRecipeDone(params.id) === false) ? (

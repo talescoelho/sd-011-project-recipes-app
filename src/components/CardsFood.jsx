@@ -32,7 +32,6 @@ export default function DrinksFood() {
     const getCard = async () => {
       const data = await fetchFoodCards(params.id);
       setCardsFood(data);
-      console.log(data);
     };
     getCard();
   }, [params.id]);
