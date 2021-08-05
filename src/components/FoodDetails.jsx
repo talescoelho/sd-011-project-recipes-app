@@ -32,18 +32,19 @@ export default function FoodDetails({ type }) {
     return '';
   }
 
-  function listIngradient(item) {
+  function listIngredients(item) {
     const ingredient = Object.entries(item).filter(([key,
       value]) => key.includes('Ingredient') && value);
 
     return ingredient.map((el, i) => {
       const msr = item[`strMeasure${el[0].replace(/\D/g, '')}`];
+
       return (
         <li
           data-testid={ `${i}-ingredient-name-and-measure` }
           key={ `${i}-ingrname-id` }
         >
-          {`${el[1]} - ${msr}`}
+          {msr ? `${el[1]} - ${msr || ''}` : `${el[1]}`}
         </li>);
     });
   }
@@ -79,7 +80,7 @@ export default function FoodDetails({ type }) {
           {strCategory}
         </p>
         <ul>
-          {listIngradient(food)}
+          {listIngredients(food)}
         </ul>
         <h2>Recommended Cards</h2>
         {type === 'meals' && showFrame()}
