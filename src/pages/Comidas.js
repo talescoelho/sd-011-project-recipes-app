@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Categories from '../components/Categories';
+import { saveRecipes } from '../actions';
 import * as api from '../services/API';
 
 class Comidas extends Component {
@@ -27,6 +29,8 @@ class Comidas extends Component {
   }
 
   async fetchAPI() {
+    const { recipes } = this.props;
+    // const getAPI = await recipes;
     const getAPI = await api.fetchAPIFoodList();
     this.setState({
       meals: getAPI,
@@ -47,7 +51,10 @@ class Comidas extends Component {
     }
   }
 
-  listAll() {
+  async listAll() {
+    const { fetchRecipes } = this.props;
+    const recipes = await api.fetchAPIFoodList();
+    fetchRecipes(recipes);
     this.fetchAPI();
     this.setState({
       filter: false,
@@ -62,13 +69,16 @@ class Comidas extends Component {
 
   async fetchAPIByCategory(category) {
     const { filter, selectedFilter } = this.state;
+    const { fetchRecipes } = this.props;
     const getAPI = await api.fetchAPIByFoodCategory(category);
+    // const fetchRecipes = await api.fetchAPIByFoodCategory(category);
     if (filter === false || selectedFilter !== category) {
       this.setState({
         meals: getAPI,
         filter: true,
         selectedFilter: category,
       });
+      fetchRecipes(getAPI);
     } else {
       this.listAll();
     }
@@ -76,6 +86,7 @@ class Comidas extends Component {
 
   render() {
     const { title, meals, isFetchDone, lupa, modus } = this.state;
+    const { recipes } = this.props;
     const elements = 12;
     return (
       <div>
@@ -94,7 +105,8 @@ class Comidas extends Component {
                   filterByCategory={ this.filterByCategory }
                   listAll={ this.listAll }
                 />
-                {meals.slice(0, elements).map((recipe, index) => (
+                {/* {meals.slice(0, elements).map((recipe, index) => ( */}
+                {recipes.slice(0, elements).map((recipe, index) => (
                   <div key={ index } data-testid={ `${index}-recipe-card` }>
                     <Link to={ `/comidas/${recipe.idMeal}` }>
                       <img
@@ -118,4 +130,14 @@ class Comidas extends Component {
   }
 }
 
-export default Comidas;
+const mapStateToProps = (state) => ({
+  recipes: state.recipes.recipes,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchRecipes: (recipes) => dispatch(saveRecipes(recipes)),
+});
+
+// export default Comidas;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Comidas);

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { sendLoginInfo } from '../actions';
+import { sendLoginInfo, saveRecipes } from '../actions';
+import * as api from '../services/API';
 
 class Login extends Component {
   constructor() {
@@ -14,6 +15,7 @@ class Login extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleButton = this.handleButton.bind(this);
+    this.handletest = this.handletest.bind(this);
   }
 
   handleChange({ target }) {
@@ -33,9 +35,16 @@ class Login extends Component {
     return true;
   }
 
+  async handletest(email, password) {
+    const { sendLogin, fetchRecipes } = this.props;
+    sendLogin(email, password);
+    const recipes = await api.fetchAPIFoodList();
+    fetchRecipes(recipes);
+  }
+
   render() {
     const { email, password } = this.state;
-    const { sendLogin } = this.props;
+    // const { sendLogin } = this.props;
     const isEnabled = this.handleButton();
     return (
       <main>
@@ -62,9 +71,10 @@ class Login extends Component {
                 type="button"
                 data-testid="login-submit-btn"
                 disabled={ isEnabled }
-                onClick={ () => {
-                  sendLogin(email, password);
-                } }
+                onClick={ () => this.handletest(email, password) }
+                // onClick={ () => {
+                //   sendLogin(email, password);
+                // } }
               >
                 Login
               </button>
@@ -78,6 +88,7 @@ class Login extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   sendLogin: (email, password) => dispatch(sendLoginInfo(email, password)),
+  fetchRecipes: (recipes) => dispatch(saveRecipes(recipes)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

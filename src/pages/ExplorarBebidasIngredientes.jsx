@@ -44,7 +44,7 @@ class ExplorarBebidasIngredientes extends Component {
             <Link to="/comidas/">
               <img
                 className="photo"
-                src={ `https://www.themealdb.com/images/ingredients/${Ingredient.strIngredient1}.png` }
+                src={ `https://www.thecocktaildb.com/images/ingredients/${Ingredient.strIngredient1}-Small.png` }
                 data-testid={ `${index}-card-img` }
                 alt="Imagem da receita"
               />
