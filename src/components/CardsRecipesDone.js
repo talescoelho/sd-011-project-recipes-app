@@ -5,18 +5,19 @@ import { Card } from 'react-bootstrap';
 import ButtonShare from './ButtonShare';
 
 export default function CardsRecipesDone(props) {
-  const { key, recipe } = props;
+  const { index, recipe } = props;
+  // console.log(key);
   const { type, name, image, doneDate, category, id } = recipe;
   const { tags, alcoholicOrNot, area } = recipe;
   const history = useHistory();
-  const firstTags = tags.filter((_tag, index) => index < 2);
+  const firstTags = tags.filter((_tag, ind) => ind < 2);
 
   const href = window.location.origin;
   const getPath = () => (
-    type === 'meal' ? `${href}/comidas/${id}` : `${href}/bebidas/${id}`);
+    type === 'comida' ? `${href}/comidas/${id}` : `${href}/bebidas/${id}`);
 
   const onClickTitleOrImage = () => (
-    type === 'meal' ? history.push(`/comidas/${id}`) : history.push(`/bebidas/${id}`));
+    type === 'comida' ? history.push(`/comidas/${id}`) : history.push(`/bebidas/${id}`));
 
   const card = {
     display: 'flex',
@@ -42,7 +43,7 @@ export default function CardsRecipesDone(props) {
     <div style={ card }>
       <Card.Img
         style={ { width: '130px' } }
-        data-testid={ `${key}-horizontal-image` }
+        data-testid={ `${index}-horizontal-image` }
         src={ image }
         alt="Foto da receita"
         role="button"
@@ -53,7 +54,7 @@ export default function CardsRecipesDone(props) {
       <Card.Body style={ { width: '160px' } }>
         <div style={ cardTitle }>
           <Card.Title
-            data-testid={ `${key}-horizontal-name` }
+            data-testid={ `${index}-horizontal-name` }
             role="button"
             tabIndex="0"
             onClick={ onClickTitleOrImage }
@@ -61,22 +62,19 @@ export default function CardsRecipesDone(props) {
           >
             { name }
           </Card.Title>
-          <div data-testid={ `${key}-horizontal-horizontal-share-btn` }>
-            <ButtonShare path={ getPath() } />
-          </div>
+          <ButtonShare
+            testid={ `${index}-horizontal-share-btn` }
+            path={ getPath() }
+          />
         </div>
         <Card.Text>
-          { area && <span>{ `${area} | ` }</span>}
-          <span
-            data-testid={ `${key}-horizontal-horizontal-top-text` }
-          >
-            { category }
-          </span>
-          { alcoholicOrNot && <p>{ alcoholicOrNot }</p>}
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            { area ? `${area} - ${category}` : alcoholicOrNot }
+          </p>
           <p style={ { fontSize: '13px' } }>
             Feita em:
             { ' ' }
-            <span data-testid={ `${key}-horizontal-done-date` }>{ doneDate }</span>
+            <span data-testid={ `${index}-horizontal-done-date` }>{ doneDate }</span>
           </p>
         </Card.Text>
         <div style={ { display: 'flex', flexWrap: 'wrap', width: '160px' } }>
@@ -85,7 +83,7 @@ export default function CardsRecipesDone(props) {
               style={ cardTags }
               className="tags"
               key={ tag }
-              data-testid={ `${key}-${tag}-horizontal-tag` }
+              data-testid={ `${index}-${tag}-horizontal-tag` }
             >
               { tag }
             </span>
