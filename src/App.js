@@ -22,8 +22,8 @@ export default class App extends Component {
           component={ DrinkInProgress }
         />
         <Route exact path="/explorar" component={ Explore } />
-        <Route path="/explorar/comidas" component={ ExploreFoods } />
-        <Route path="/explorar/bebidas" component={ ExploreDrinks } />
+        <Route exact path="/explorar/comidas" component={ ExploreFoods } />
+        <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
         <Route
           exact
           path="/explorar/comidas/ingredientes"

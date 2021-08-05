@@ -14,7 +14,7 @@ class Foods extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="Comidas" search />
         <FoodCategories />
         <FoodCards />
         <Footer />

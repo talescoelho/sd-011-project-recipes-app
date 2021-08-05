@@ -14,7 +14,7 @@ class Drinks extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="Bebidas" search />
         <DrinkCategories />
         <DrinkCards />
         <Footer />

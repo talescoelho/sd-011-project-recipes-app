@@ -6,7 +6,7 @@ export default class Explore extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="Explorar" search={ false } />
         Explorar
         <Footer />
       </div>
