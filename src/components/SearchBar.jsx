@@ -1,4 +1,6 @@
 import React, { useState, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import { InputGroup, Form, Button } from 'react-bootstrap';
 import MyContext from '../context/MyContext';
 import searchIcon from '../images/searchIcon.svg';
@@ -10,8 +12,22 @@ export default function SearchBar() {
     validation: true,
   };
 
-  const { searchLinks } = useContext(MyContext);
-  console.log(searchLinks);
+  const {
+    foodsSearchLinks,
+    drinksSearchLinks,
+    data,
+    setData,
+  } = useContext(MyContext);
+
+  const { pathname } = useLocation();
+
+  const [searchLinks] = useState(() => {
+    if (pathname === '/comidas') {
+      return foodsSearchLinks;
+    } if (pathname === '/bebidas') {
+      return drinksSearchLinks;
+    }
+  });
 
   const [searchInputs, setSearchInputs] = useState(initialState);
 
@@ -32,11 +48,35 @@ export default function SearchBar() {
   };
 
   const onClickHandler = () => {
-    const { searchParameter } = searchInputs;
+    console.log(searchLinks);
+    const { searchParameter, searchTerms } = searchInputs;
     if (searchParameter === 'firstLetter' && firstLetterValidation()) {
-      console.log('pesquisou');
+      const search = async () => {
+        const { firstLetter } = searchLinks;
+        const response = await fetch(`${firstLetter}${searchTerms}`);
+        const json = await response.json();
+        setData({ ...data, results: json });
+      };
+      search();
     }
-    console.log(searchInputs);
+    if (searchParameter === 'name') {
+      const search = async () => {
+        const { name } = searchLinks;
+        const response = await fetch(`${name}${searchTerms}`);
+        const json = await response.json();
+        setData({ ...data, results: json });
+      };
+      search();
+    }
+    if (searchParameter === 'ingredient') {
+      const search = async () => {
+        const { ingredient } = searchLinks;
+        const response = await fetch(`${ingredient}${searchTerms}`);
+        const json = await response.json();
+        setData({ ...data, results: json });
+      };
+      search();
+    }
   };
 
   return (

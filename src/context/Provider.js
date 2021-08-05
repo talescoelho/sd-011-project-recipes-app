@@ -15,9 +15,9 @@ function Provider({ children }) {
   };
 
   const drinksSearchLinks = {
-    ingredients: 'www.thecocktaildb.com/api/json/v1/1/search.php?i=',
-    name: 'www.thecocktaildb.com/api/json/v1/1/search.php?s=',
-    firstLetter: 'www.thecocktaildb.com/api/json/v1/1/search.php?f=a',
+    ingredient: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=',
+    name: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
+    firstLetter: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=',
     fetchAll: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
     fetchCategories: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
     filterByCategory: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=',
@@ -25,16 +25,13 @@ function Provider({ children }) {
     typeFilterKey: 'drinks',
   };
 
-  const [data, setData] = useState([]);
-
-  const setResultsAsData = (results) => (setData(results));
+  const [data, setData] = useState({ results: [], location: '' });
 
   const contextValue = {
     foodsSearchLinks,
     drinksSearchLinks,
     data,
     setData,
-    setResultsAsData,
 
   };
 

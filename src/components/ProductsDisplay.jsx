@@ -11,9 +11,8 @@ function ProductsDisplay() {
   const {
     foodsSearchLinks,
     drinksSearchLinks,
-    // data,
-    // setData,
-    // setResultsAsData,
+    data,
+    setData,
   } = useContext(MyContext);
 
   const { pathname } = useLocation();
@@ -29,7 +28,7 @@ function ProductsDisplay() {
     }
   });
 
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
   console.log(searchLinks);
 
@@ -56,16 +55,14 @@ function ProductsDisplay() {
       const { fetchAll: endpoint } = searchLinks;
       const response = await fetch(endpoint);
       const json = await response.json();
-      await setData(json);
-      console.log(data);
-      console.log(searchLinks);
+      setData({ results: json, location: pathname });
     }
     if (toggle) {
       const changeCategorieFood = async () => {
         const { filterByCategory: endpoint } = searchLinks;
         const response = await fetch(`${endpoint}${toggle}`);
         const json = await response.json();
-        setData(json);
+        setData({ results: json, location: pathname });
       };
       changeCategorieFood();
     } else {
@@ -125,12 +122,13 @@ function ProductsDisplay() {
             ))
       }
       {
-        data.length === 0
+        data.location !== pathname
           ? <p>Loading</p>
-          : data[typeFilterKey]
+          : data
+            .results[typeFilterKey]
             .slice(0, maxArrayProducts)
             .map((product, index) => (
-              <Link to={ `/comidas/${product[infos.id]}` } key={ index }>
+              <Link to={ `${pathname}/${product[infos.id]}` } key={ index }>
                 <div data-testid={ `${index}-recipe-card` }>
                   <img
                     src={ product[infos.thumb] }
