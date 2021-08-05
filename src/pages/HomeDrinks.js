@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import { fetchRecipesAPIAction,
   fetchRecipesListDrinks,
+  fetchByIngredients,
   GET_CATEGORIES_DRINK, fetchCategories } from '../redux/actions';
 import Header from '../components/Header';
 import Footer from '../components/footer/Footer';
@@ -27,6 +28,7 @@ function HomeDrinks({ drinksData, isLoadingData, location }) {
   const getCategory = (url, type) => dispatch(fetchCategories(url, type));
   const fetchDrinks = (url,
     recipeType) => dispatch(fetchRecipesAPIAction(url, recipeType));
+  const redirectMeals = (recipeType) => dispatch(fetchByIngredients(recipeType));
 
   const handlerCard = async () => {
     const responseList = await fetchListApi(urlFetchList);
@@ -54,6 +56,7 @@ function HomeDrinks({ drinksData, isLoadingData, location }) {
       console.log('fez fetch');
       fetchDrinks(urlFetch, 'drinks');
     }
+    redirectMeals(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${location.state}`);
     handlerCard();
   }, []);
 

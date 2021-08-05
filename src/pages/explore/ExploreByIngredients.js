@@ -1,9 +1,8 @@
 import React from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Footer from '../../components/footer/Footer';
 import Header from '../../components/Header';
-import { fetchByIngredients } from '../../redux/actions';
 
 function ExploreByIngredients() {
   // const urlFetch = `https://www.themealdb.com/api/json/v1/1/search.php?s=${}`;
