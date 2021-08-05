@@ -8,11 +8,16 @@
   display: flex;
   flex-direction: row;
   font-size: 0.5em;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 0 auto;
   width: 100%;
 }
 
+.header-section h3 {
+  display: inline;
+  font-size: 2.3em;
+}
+
 .header-section button {
-  width: 50px;
+  width: 30px;
 }
