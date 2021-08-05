@@ -30,14 +30,20 @@ function App() {
         <Route exact path="/bebidas" component={ Drinks } />
         <Route path="/perfil" component={ Profile } />
         <Route
+          exact
           path="/comidas/:id"
           component={ FoodDetails }
         />
         <Route
+          exact
           path="/bebidas/:id"
-          render={ (props) => <DrinkDetails { ...props } /> }
+          component={ DrinkDetails }
         />
-        <Route exact path="/comidas/:id/in-progress" componet={ FoodProcess } />
+        <Route
+          exact
+          path="/comidas/:id/in-progress"
+          component={ FoodProcess }
+        />
         <Route exact path="/bebidas/:id/in-progress" component={ DrinkProcess } />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ ExploreFoods } />

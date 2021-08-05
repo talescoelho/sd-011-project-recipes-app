@@ -6,37 +6,25 @@ import '../styles/carousel.css';
 export default function Recomendation({ foodOrDrink }) {
   const [recomendation, setRecomendation] = useState([]);
 
-  async function fetchRecomendedDrinks() {
-    const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  async function fetchRecomendedItem() {
+    let endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    if (foodOrDrink === 'Bebidas') {
+      endPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    }
     const request = await fetch(endPoint);
     const response = await request.json();
-    const data = response.drinks;
+    const data = foodOrDrink === 'Bebidas' ? response.meals : response.drinks;
     setRecomendation(data);
-    console.log('recomendationDrinks', data);
   }
 
-  async function fetchRecomendedMeals() {
-    const endPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-    const request = await fetch(endPoint);
-    const response = await request.json();
-    const data = response.meals;
-    setRecomendation(data);
-    console.log('recomendationComidas', data);
-  }
-
-  useEffect(
-    () => {
-      if (foodOrDrink === 'Comidas') {
-        return fetchRecomendedDrinks();
-      }
-      return fetchRecomendedMeals();
-    }, [foodOrDrink],
-  );
+  useEffect(() => {
+    fetchRecomendedItem();
+  }, []);
 
   console.log('stateRec', recomendation);
   const maxLength = 6;
 
-  function renderDrinksRecomendations(item, index) {
+  function renderRecomendations(item, index) {
     return (
       <div
         key={ index }
@@ -45,52 +33,30 @@ export default function Recomendation({ foodOrDrink }) {
       >
         <img
           data-testid="recomendation-photo"
-          src={ item.strDrinkThumb }
+          src={ foodOrDrink === 'Comidas' ? item.strMealThumb : item.strDrinkThumb }
           alt="image_of_recipe"
           className="recomendationImg"
         />
 
         <h4 data-testid={ `${index}-recomendation-title` }>
-          { item.strDrink }
+          { foodOrDrink === 'Comidas' ? item.strMeal : item.strDrink }
         </h4>
       </div>
     );
   }
-
-  function renderMealsRecomendations(item, index) {
-    return (
-
-      <div
-        key={ index }
-        data-testid={ `${index}-recomendation-card` }
-        className="recomendationItem"
-      >
-        <img
-          data-testid="recomendation-photo"
-          src={ item.strMealThumb }
-          alt="image_of_recipe"
-          className="recomendationImg"
-        />
-
-        <h4 data-testid={ `${index}-recomendation-title` }>
-          { item.strMeal }
-        </h4>
-      </div>
-
-    );
-  }
-
-  if (recomendation.length === 0) return <div>Loading...</div>;
 
   return (
     <div>
-      <h3>Recomendations</h3>
-      <section className="containerRecomendation">
-        {recomendation.filter((_, index) => index < maxLength)
-          .map(foodOrDrink === 'Comidas'
-            ? renderDrinksRecomendations : renderMealsRecomendations)}
-      </section>
-    </div>);
+      {recomendation.length === 0 ? <span>Carregando...</span> : (
+        <div>
+          <h3>Recomendations</h3>
+          <section className="containerRecomendation">
+            {recomendation.filter((_, index) => index < maxLength)
+              .map(renderRecomendations)}
+          </section>
+        </div>)}
+    </div>
+  );
 }
 
 Recomendation.propTypes = {
