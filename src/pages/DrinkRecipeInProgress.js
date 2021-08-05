@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { getDrinkDetail } from '../services/theCockTailAPI';
 import { saveInProgressDrinkRecipes } from '../helpers/handleLocalStorage';
+import MainContext from '../context/MainContext';
 
 function DrinkRecipeInProgress({ match: { params: { id } } }) {
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+  const cocktailsIngredients = inProgressRecipes.cocktails
+    ? inProgressRecipes.cocktails[id] || []
+    : [];
   const [recipe, setRecipe] = useState({});
-  const [usedIngredients, setUsedIngredients] = useState([]);
+  const [usedIngredients, setUsedIngredients] = useState(cocktailsIngredients);
+  const { setLoading } = useContext(MainContext);
 
   function listIngredients() {
-    const maxIngredients = 20;
+    const MAX_INGREDIENTS = 20;
     const list = [];
-    for (let index = 1; index <= maxIngredients; index += 1) {
+    for (let index = 1; index <= MAX_INGREDIENTS; index += 1) {
       if (recipe[`strIngredient${index}`]) {
         list.push(
           `${recipe[`strIngredient${index}`]} - ${recipe[`strMeasure${index}`]}`,
@@ -23,24 +29,27 @@ function DrinkRecipeInProgress({ match: { params: { id } } }) {
   function lineThroughUsedIngredients({ target }) {
     const label = target.parentElement;
     const labelClass = 'ingredient-checked';
-    if (label.className === labelClass) {
-      label.classList.remove(labelClass);
-    } else {
-      label.classList.add(labelClass);
-    }
     if (target.checked) {
+      label.classList.add(labelClass);
       setUsedIngredients([...usedIngredients, target.value]);
+      saveInProgressDrinkRecipes(id, [...usedIngredients, target.value]);
     } else {
+      label.classList.remove(labelClass);
       const remainingIngredients = usedIngredients
         .filter((ingredient) => ingredient !== target.value);
       setUsedIngredients(remainingIngredients);
+      saveInProgressDrinkRecipes(id, remainingIngredients);
     }
   }
 
   useEffect(() => {
+    setLoading(true);
     getDrinkDetail(id)
-      .then((result) => setRecipe(...result));
-  }, [setRecipe, id]);
+      .then((result) => {
+        setRecipe(...result);
+        setLoading(false);
+      });
+  }, [setRecipe, setLoading, id]);
 
   useEffect(() => {
     saveInProgressDrinkRecipes(id, usedIngredients);
@@ -59,12 +68,16 @@ function DrinkRecipeInProgress({ match: { params: { id } } }) {
         {
           listIngredients().map((ingredient, index) => (
             <label
+              className={
+                usedIngredients.includes(ingredient) ? 'ingredient-checked' : ''
+              }
               htmlFor={ index }
               key={ index }
               data-testid={ `${index}-ingredient-step` }
             >
               <input
                 value={ ingredient }
+                checked={ usedIngredients.includes(ingredient) }
                 type="checkbox"
                 id={ index }
                 name="ingredients"

@@ -6,33 +6,37 @@ export function saveTokensAndEmail(email) {
 }
 
 export function saveInProgressFoodRecipes(id, usedIngredients) {
-  const getLocalRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  if (!getLocalRecipe) {
-    const inProgressRecipes = {
+  let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (!inProgressRecipes) {
+    inProgressRecipes = {
       cocktails: {},
       meals: {
         [id]: usedIngredients,
       },
     };
-    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   } else {
-    getLocalRecipe.meals = { ...getLocalRecipe.meals, [id]: usedIngredients };
-    localStorage.setItem('inProgressRecipes', JSON.stringify(getLocalRecipe));
+    inProgressRecipes.meals = {
+      ...inProgressRecipes.meals,
+      [id]: usedIngredients,
+    };
   }
+  localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
 }
 
 export function saveInProgressDrinkRecipes(id, usedIngredients) {
-  const getLocalRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  if (!getLocalRecipe) {
-    const inProgressRecipes = {
+  let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (!inProgressRecipes) {
+    inProgressRecipes = {
       meals: {},
       cocktails: {
         [id]: usedIngredients,
       },
     };
-    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   } else {
-    getLocalRecipe.cocktails = { ...getLocalRecipe.cocktails, [id]: usedIngredients };
-    localStorage.setItem('inProgressRecipes', JSON.stringify(getLocalRecipe));
+    inProgressRecipes.cocktails = {
+      ...inProgressRecipes.cocktails,
+      [id]: usedIngredients,
+    };
   }
+  localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
 }
