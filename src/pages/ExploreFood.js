@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function exploreFood() {
@@ -8,6 +9,7 @@ function exploreFood() {
       Por ingredientes
       Por local de origin
       Me surpreenda
+      <Footer />
     </div>
   );
 }

@@ -20,9 +20,8 @@ export function RequestProvider({ children }) {
   const [filteredDrink, setFilteredDrink] = useState([]);
 
   async function filterByNameFood(filterText) {
-    if (!filterText) return;
     const items = await searchByName(filterText);
-    if (items !== null && items.length > 1) {
+    if (items !== null && items.length >= 1) {
       setFilteredFood(items);
     }
   }
@@ -44,7 +43,7 @@ export function RequestProvider({ children }) {
   async function filterByNameDrink(filterText) {
     if (!filterText) return;
     const items = await searchName(filterText);
-    if (items !== null && items.length > 1) {
+    if (items !== null && items.length >= 1) {
       setFilteredDrink(items);
     }
   }
