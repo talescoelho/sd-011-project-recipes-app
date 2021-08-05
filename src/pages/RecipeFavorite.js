@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
-// import FavoriteButton from '../components/FavBtnFavoritePage';
 import ShareBtnFav from '../components/ShareBtnFav';
 import Favorite from '../components/Favorite';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
