@@ -36,10 +36,14 @@ function ReceitasFeitas({ match }) {
       </div>);
   };
 
-  const shareButtonHandle = (id) => {
+  const shareButtonHandle = (id, type) => {
     setCopied(true);
     const mSeconds = 2000;
-    copy(`http://localhost:3000/comidas/${id}`);
+    if (type === 'comida') {
+      copy(`http://localhost:3000/comidas/${id}`);
+    } else {
+      copy(`http://localhost:3000/bebidas/${id}`);
+    }
     setTimeout(() => {
       setCopied(false);
     }, mSeconds);
@@ -80,7 +84,7 @@ function ReceitasFeitas({ match }) {
                   </p>)}
               <button
                 type="button"
-                onClick={ () => shareButtonHandle(recipe.id) }
+                onClick={ () => shareButtonHandle(recipe.id, recipe.type) }
               >
                 <img
                   src={ shareIcon }
