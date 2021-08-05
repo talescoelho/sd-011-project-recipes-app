@@ -13,7 +13,7 @@ import searchIcon from '../images/searchIcon.svg';
 function Header({ title, search }) {
   const [showFilterInput, setShowFilter] = useState(false);
   const [setInputTextSearch] = useState('');
-  const [radio, setRadio] = useState('');
+  const [radio, setRadio] = useState('ingredient');
 
   useEffect(() => {
     setShowFilter(true);
@@ -25,7 +25,7 @@ function Header({ title, search }) {
     console.log(radio);
     // if (radio === 'ingredient') {
 
-    // }
+    // // }
   }
 
   return (
