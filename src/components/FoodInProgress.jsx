@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import propTypes from 'prop-types';
 import { fetchFood } from '../services/FoodAPI';
 import CardsDrinks from './CardsDrinks';
@@ -30,13 +30,11 @@ export default function FoodInProgress({ type }) {
       const innerText = msr ? `${el[1]} - ${msr || ''}` : `${el[1]}`;
       return (
         <div key={ el } data-testid={ `${i}-ingredient-step` }>
-          <label htmlFor={ `ingredient${i}` }>
-            <input
-              id={ `ingredient${i}` }
-              type="checkbox"
-            />
-            {innerText}
-          </label>
+          <Form.Check
+            type="checkbox"
+            id={ `default-${type}` }
+            label={ innerText }
+          />
         </div>
 
       );
