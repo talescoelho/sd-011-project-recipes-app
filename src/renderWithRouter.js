@@ -1,4 +1,4 @@
-// função retirada do conteúdo da Trybe.
+// Função retirada do conteúdo da Trybe.
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
