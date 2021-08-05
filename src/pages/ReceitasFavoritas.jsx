@@ -30,19 +30,21 @@ export default class ReceitasFavoritas extends Component {
   }
 
   setItemsToRenderFiltered(comidaOrBebida) {
-    const { itemsToRenderBD } = this.state;
-    if (comidaOrBebida === 'comida' || comidaOrBebida === 'bebida') {
-      const filterdPerType = itemsToRenderBD.filter(
-        (recipe) => recipe.type === comidaOrBebida,
-      );
-      this.setState({
-        itemsToRender: filterdPerType,
-      });
-    } else {
-      this.setState({
-        itemsToRender: JSON.parse(localStorage.getItem('favoriteRecipes')),
-        itemsToRenderBD: JSON.parse(localStorage.getItem('favoriteRecipes')),
-      });
+    if (localStorage.getItem('favoriteRecipes') !== null) {
+      const { itemsToRenderBD } = this.state;
+      if (comidaOrBebida === 'comida' || comidaOrBebida === 'bebida') {
+        const filterdPerType = itemsToRenderBD.filter(
+          (recipe) => recipe.type === comidaOrBebida,
+        );
+        this.setState({
+          itemsToRender: filterdPerType,
+        });
+      } else {
+        this.setState({
+          itemsToRender: JSON.parse(localStorage.getItem('favoriteRecipes')),
+          itemsToRenderBD: JSON.parse(localStorage.getItem('favoriteRecipes')),
+        });
+      }
     }
   }
 
