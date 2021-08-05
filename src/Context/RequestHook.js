@@ -22,8 +22,9 @@ export function RequestProvider({ children }) {
   async function filterByNameFood(filterText) {
     if (!filterText) return;
     const items = await searchByName(filterText);
-
-    setFilteredFood(items);
+    if (items !== null && items.length > 1) {
+      setFilteredFood(items);
+    }
   }
 
   async function filterByIngredientFood(filterText) {
@@ -43,8 +44,9 @@ export function RequestProvider({ children }) {
   async function filterByNameDrink(filterText) {
     if (!filterText) return;
     const items = await searchName(filterText);
-
-    setFilteredDrink(items);
+    if (items !== null && items.length > 1) {
+      setFilteredDrink(items);
+    }
   }
 
   async function filterByIngredientDrink(filterText) {

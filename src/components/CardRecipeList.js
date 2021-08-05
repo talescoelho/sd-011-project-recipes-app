@@ -20,18 +20,21 @@ function CardRecipeList() {
 
   return (
     <div>
-      { (filterType.length === 1)
+      { (filterType.length !== undefined && filterType.length === 1)
         && filterType.map((item) => (
           (filterType === filteredFood)
             ? history.push(`comidas/${item.idMeal}`)
             : history.push(`bebidas/${item.idDrink}`)
         )) }
 
-      { filterType.length > 1
-        ? filterType.slice(0, MAX_RESULT).map((item, index) => (
+      { (filterType.length !== undefined && filterType.length > 1)
+        && filterType.slice(0, MAX_RESULT).map((item, index) => (
           <CardRecipe key={ index } item={ item } index={ index } />
-        ))
-        : '' }
+        )) }
+
+      { (filterType.length === undefined)
+        && alert('Sinto muito, não encontramos nenhuma receita para esses filtros.') }
+
     </div>
   );
 }
