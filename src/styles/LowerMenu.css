@@ -7,8 +7,12 @@ footer {
   background-color: salmon;
   bottom: 0;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   padding: 10px;
   position: fixed;
   width: 100vw;
+}
+
+.altSvg {
+  filter: invert(100%);
 }

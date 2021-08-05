@@ -15,13 +15,28 @@ function LowerMenu() {
   return (
     <footer data-testid="footer">
       <Link to="/bebidas" onClick={ clearFilteredState }>
-        <img data-testid="drinks-bottom-btn" alt="Drink" src={ drinkIcon } />
+        <img
+          className="altSvg"
+          data-testid="drinks-bottom-btn"
+          alt="Drink"
+          src={ drinkIcon }
+        />
       </Link>
       <Link to="/explorar">
-        <img data-testid="explore-bottom-btn" alt="Explorer" src={ exploreIcon } />
+        <img
+          className="altSvg"
+          data-testid="explore-bottom-btn"
+          alt="Explorer"
+          src={ exploreIcon }
+        />
       </Link>
       <Link to="/comidas" onClick={ clearFilteredState }>
-        <img data-testid="food-bottom-btn" alt="Food" src={ mealIcon } />
+        <img
+          className="altSvg"
+          data-testid="food-bottom-btn"
+          alt="Food"
+          src={ mealIcon }
+        />
       </Link>
     </footer>
   );

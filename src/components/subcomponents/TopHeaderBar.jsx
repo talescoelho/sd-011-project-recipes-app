@@ -22,7 +22,7 @@ function TopHeaderBar(props) {
         onClick={ () => history.push('/perfil') }
         src={ profileIcon }
       >
-        <img src={ profileIcon } alt="Ir para perfil" />
+        <img className="altSvg" src={ profileIcon } alt="Ir para perfil" />
       </button>
       <span data-testid="page-title">
         {pageTitle}
@@ -35,7 +35,7 @@ function TopHeaderBar(props) {
             onClick={ () => setSearchBar(!searchBar) }
             src={ searchIcon }
           >
-            <img src={ searchIcon } alt="Abrir busca" />
+            <img className="altSvg" src={ searchIcon } alt="Abrir busca" />
           </button>) : null}
     </div>
   );

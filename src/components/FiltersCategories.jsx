@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import * as ReactBootStrap from 'react-bootstrap';
 import '../styles/FiltersCategories.css';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
@@ -70,7 +71,8 @@ function FiltersCategories() {
   return (
     <div className="container-categories">
       {categories.map((category, index) => (
-        <button
+        <ReactBootStrap.Button
+          variant="warning"
           data-testid={ `${category.strCategory}-category-filter` }
           className="button-categories"
           type="button"
@@ -79,7 +81,7 @@ function FiltersCategories() {
           onClick={ (e) => resetSetFilter(e) }
         >
           {category.strCategory}
-        </button>))}
+        </ReactBootStrap.Button>))}
     </div>
   );
 }

@@ -1,45 +1,90 @@
-.search-bar {
-  background-color: salmon;
-  display: flex;
-  height: 4rem;
-  margin-top: 0.4rem;
-  position: absolute;
-  top: 2.1rem;
-  width: 100%;
-}
-
 .search-bar form {
-  display: flex;
-  flex-wrap: wrap;
-  height: 100%;
-  width: 100%;
-}
-
-.search-bar label:nth-child( 1 ) {
   align-items: center;
+  box-shadow: 0 0 5px #ccc;
   display: flex;
-  flex-grow: 1;
+  flex-direction: column;
   justify-content: center;
+  margin: 0 auto;
+  margin-top: 5px;
+  padding: 15px 10px;
+  width: 95%;
+}
+
+.search-input {
+  align-items: center;
+  background: none;
+  background-color: salmon;
+  border: 2px solid #ffc107;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  height: 40px;
+  outline: none;
+  text-align: center;
+  width: 300px;
+}
+
+.search-input::placeholder {
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.search-btn {
+  color: white;
+  font-weight: 900;
+  width: 150px;
+}
+
+.search-btn:hover {
+  color: white;
+  font-weight: 900;
+}
+
+.search-input:focus {
+  background-color: #ffc107;
+  border: 2px solid #ffc107;
+  color: white;
+  font-weight: 900;
+}
+
+.radios {
+  display: flex;
+  flex-flow: wrap;
+  flex-direction: row;
+  justify-content: space-around;
   width: 100%;
 }
 
-.search-bar label:nth-child( 2 ) {
-  width: 33%;
+.radios input {
+  margin-right: 5px;
 }
 
-.search-bar label:nth-child( 3 ) {
-  width: 33%;
+.radios input:after {
+  background-color: #d1d3d1;
+  border: 2px solid white;
+  border-radius: 15px;
+  content: '';
+  display: inline-block;
+  height: 15px;
+  left: -1px;
+  position: relative;
+  top: -2px;
+  visibility: visible;
+  width: 15px;
 }
 
-.search-bar label:nth-child( 4 ) {
-  width: 33%;
-}
-
-.search-bar label:nth-child( 1 ) input {
-  border-radius: 5px;
-  border-style: none;
-  height: 95%;
-  justify-self: center;
-  margin-top: 0.1rem;
-  width: 95%;
+.radios input:checked:after {
+  background-color: orange;
+  border: 2px solid white;
+  border-radius: 15px;
+  content: '';
+  display: inline-block;
+  height: 15px;
+  left: -1px;
+  position: relative;
+  top: -2px;
+  visibility: visible;
+  width: 15px;
 }
