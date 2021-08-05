@@ -5,7 +5,7 @@ import Header from '../components/Header';
 
 const doneRecipes = [{
   id: '52785',
-  type: 'meal',
+  type: 'comida',
   area: 'Indian',
   category: 'Vegetarian',
   alcoholicOrNot: '',
@@ -16,7 +16,7 @@ const doneRecipes = [{
 },
 {
   id: '178319',
-  type: 'drink',
+  type: 'bebida',
   area: '',
   category: 'Cocktail',
   alcoholicOrNot: 'Alcoholic',
@@ -27,15 +27,18 @@ const doneRecipes = [{
 }];
 
 export default function DoneRecipes() {
-  // const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  // const doneRecipes = localStorage.getItem('doneRecipes');
+  // const parsedDoneRecipe = JSON.parse(doneRecipes);
   const [filteredRecipes, setFilteredRecipes] = useState(doneRecipes);
   const [type, setType] = useState('all');
   useEffect(() => {
-    let newFilteredRecipes = [...doneRecipes];
-    if (type !== 'all') {
-      newFilteredRecipes = newFilteredRecipes.filter((recipe) => recipe.type === type);
+    if (doneRecipes) {
+      let newFilteredRecipes = [...doneRecipes];
+      if (type !== 'all') {
+        newFilteredRecipes = newFilteredRecipes.filter((recipe) => recipe.type === type);
+      }
+      setFilteredRecipes(newFilteredRecipes);
     }
-    setFilteredRecipes(newFilteredRecipes);
   }, [type]);
 
   const handleChange = (val) => setType(val);
@@ -53,17 +56,17 @@ export default function DoneRecipes() {
           <ToggleButton name="type" data-testid="filter-by-all-btn" value="all">
             All
           </ToggleButton>
-          <ToggleButton name="type" data-testid="filter-by-food-btn" value="meal">
+          <ToggleButton name="type" data-testid="filter-by-food-btn" value="comida">
             Food
           </ToggleButton>
-          <ToggleButton name="type" data-testid="filter-by-drink-btn" value="drink">
+          <ToggleButton name="type" data-testid="filter-by-drink-btn" value="bebida">
             Drink
           </ToggleButton>
         </ToggleButtonGroup>
       </section>
       <section>
-        { filteredRecipes.map((recipe, index) => (
-          <CardsRecipesDone recipe={ recipe } key={ index } />))}
+        { doneRecipes && filteredRecipes.map((recipe, index) => (
+          <CardsRecipesDone recipe={ recipe } index={ index } key={ index } />))}
       </section>
     </div>
   );
