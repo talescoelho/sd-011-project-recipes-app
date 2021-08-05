@@ -6,12 +6,13 @@ import { fetchDrinks, fetchMeals } from '../actions';
 import Footer from '../components/Footer';
 import RecipeCard from '../components/RecipeCard';
 import Loading from '../components/Loading';
+import RecipesFilterButtons from '../components/RecipesFilterButtons';
 
 const recipesQuantity = 12;
 
 function Recipes({
   history: { location: { pathname } },
-  dispatchFetchMeals, dispatchFetchDrinks,
+  dispatchFetchMeals, dispatchFetchDrinks, dispatchFetchMealsCategories,
   meals, mealsLoading, mealsError,
   drinks, drinksLoading, drinksError,
 }) {
@@ -21,7 +22,7 @@ function Recipes({
     if (pathname === '/comidas') dispatchFetchMeals();
 
     if (pathname === '/bebidas') dispatchFetchDrinks();
-  }, [pathname, dispatchFetchMeals, dispatchFetchDrinks]);
+  }, [pathname, dispatchFetchMeals, dispatchFetchDrinks, dispatchFetchMealsCategories]);
 
   React.useEffect(() => {
     if (pathname === '/comidas') {
@@ -43,6 +44,7 @@ function Recipes({
         <button type="button" data-testid="search-top-btn">Search</button>
       </header>
       <main data-testid="recipes-page">
+        <RecipesFilterButtons pathname={ pathname } />
         { pathname === '/comidas' && mealsError }
         { pathname === '/bebidas' && drinksError }
         {
@@ -81,7 +83,11 @@ Recipes.propTypes = {
     }),
   }),
   meals: PropTypes.arrayOf(PropTypes.object),
+  mealsLoading: PropTypes.bool,
+  mealsError: PropTypes.string,
   drinks: PropTypes.arrayOf(PropTypes.object),
+  drinksLoading: PropTypes.bool,
+  drinksError: PropTypes.string,
   dispatchFetchMeals: PropTypes.func,
   dispatchFetchDrinks: PropTypes.func,
 }.isRequired;
