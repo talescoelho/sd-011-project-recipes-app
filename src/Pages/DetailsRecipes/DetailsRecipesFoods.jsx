@@ -5,7 +5,9 @@ import IngredientsFoods from '../../Components/IngredientsFoods';
 
 function DetailsRecipesFoods() {
   const location = useLocation();
-  const { idFoods, setIdFoods, idFoodsAPI, setIdFoodsAPI } = useContext(MainContext);
+  const { idFoods, setIdFoods, idFoodsAPI, setIdFoodsAPI,
+    setDataRandomDrinks, dataRandomDrinks, newDataDrinks,
+    setNewDataDrinks } = useContext(MainContext);
 
   useEffect(() => {
     const URL = location.pathname;
@@ -21,6 +23,26 @@ function DetailsRecipesFoods() {
     };
     getAPIById();
   }, [idFoods, setIdFoodsAPI]);
+
+  useEffect(() => {
+    const getAPIRandomly = async () => {
+      const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+      const { drinks } = await fetch(endpoint).then((data) => data.json());
+      setDataRandomDrinks(drinks[0].strDrink);
+    };
+    getAPIRandomly();
+  }, [setDataRandomDrinks]);
+  console.log(dataRandomDrinks);
+
+  useEffect(() => {
+    const getAPIByName = async () => {
+      const endp = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${dataRandomDrinks}`;
+      const { drinks } = await fetch(endp).then((data) => data.json());
+      setNewDataDrinks(drinks);
+    };
+    getAPIByName();
+  }, [dataRandomDrinks, setNewDataDrinks]);
+  console.log(newDataDrinks);
 
   const getYoutubeUrl = ({ strYoutube }) => {
     if (strYoutube) {
@@ -68,9 +90,14 @@ function DetailsRecipesFoods() {
         allowFullScreen
       />
       {/* //!===========================Implementar=============================== */}
-      <p data-testid="0-recomendation-card">
-        teste
-      </p>
+      { newDataDrinks.map((drink, i) => (
+        <li
+          data-testid={ `${i}-recomendation-card` }
+          key={ i }
+        >
+          { drink.strDrink }
+        </li>
+      )) }
       {/* //!=======================Recomendation Cards============================ */}
       <button
         type="button"

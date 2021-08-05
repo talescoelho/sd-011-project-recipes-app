@@ -33,6 +33,10 @@ const Provider = ({ children }) => {
   const [DetailsMeasFilterForDrinks, setDetailsMeasFilterForDrinks] = useState([]);
   const [DetailsInstrucFilterForDrinks, setDetailsInstrucFilterForDrinks] = useState([]);
   // * ============================================================
+  const [dataRandomFoods, setDataRandomFoods] = useState([]);
+  const [newDataFoods, setNewDataFoods] = useState([]);
+  const [newDataDrinks, setNewDataDrinks] = useState([]);
+  const [dataRandomDrinks, setDataRandomDrinks] = useState([]);
   const [limit] = useState([number]);
 
   async function fetchFood() {
@@ -119,6 +123,14 @@ const Provider = ({ children }) => {
     setDetailsMeasFilterForDrinks,
     DetailsInstrucFilterForDrinks,
     setDetailsInstrucFilterForDrinks,
+    dataRandomFoods,
+    setDataRandomFoods,
+    dataRandomDrinks,
+    setDataRandomDrinks,
+    newDataFoods,
+    setNewDataFoods,
+    newDataDrinks,
+    setNewDataDrinks,
   };
 
   return (

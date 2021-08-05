@@ -5,13 +5,16 @@ import IngredientsDrinks from '../../Components/IngredientsDrinks';
 
 function DetailsRecipesFoods() {
   const location = useLocation();
-  const { idDrinks, setIdDrinks, idDrinksAPI, setIdDrinksAPI } = useContext(MainContext);
+  const { idDrinks, setIdDrinks, idDrinksAPI, setIdDrinksAPI,
+    setDataRandomFoods, dataRandomFoods, newDataFoods,
+    setNewDataFoods } = useContext(MainContext);
 
   useEffect(() => {
     const URL = location.pathname;
     const id = URL.replace('/bebidas/', '');
     setIdDrinks(id);
   }, [location, setIdDrinks]);
+
   useEffect(() => {
     const getAPIById = async () => {
       const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrinks}`;
@@ -20,6 +23,24 @@ function DetailsRecipesFoods() {
     };
     getAPIById();
   }, [idDrinks, setIdDrinksAPI]);
+
+  useEffect(() => {
+    const getAPIRandomly = async () => {
+      const endpoint = 'https://www.themealdb.com/api/json/v1/1/random.php';
+      const { meals } = await fetch(endpoint).then((data) => data.json());
+      setDataRandomFoods(meals[0].strMeal);
+    };
+    getAPIRandomly();
+  }, [setDataRandomFoods]);
+
+  useEffect(() => {
+    const getAPIByName = async () => {
+      const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${dataRandomFoods}`;
+      const { meals } = await fetch(endpoint).then((data) => data.json());
+      setNewDataFoods(meals);
+    };
+    getAPIByName();
+  }, [dataRandomFoods, setNewDataFoods]);
 
   return (
     <div>
@@ -52,9 +73,14 @@ function DetailsRecipesFoods() {
       </p>
       <IngredientsDrinks />
       {/* //!===========================Implementar=============================== */}
-      <p data-testid="0-recomendation-card">
-        teste
-      </p>
+      { newDataFoods.map((food, i) => (
+        <li
+          data-testid={ `${i}-recomendation-card` }
+          key={ i }
+        >
+          { food.strMeal }
+        </li>
+      )) }
       {/* //!=======================Recomendation Cards============================ */}
       <button
         type="button"
