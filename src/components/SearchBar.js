@@ -8,7 +8,7 @@ function SearchBar() {
   const [search, setSearch] = useState('');
   const [radio, setRadio] = useState('');
   const { pathname } = useLocation();
-  const { data, setData, loading } = useContext(MainContext);
+  const { data, setData } = useContext(MainContext);
   const history = useHistory();
 
   useEffect(() => {
