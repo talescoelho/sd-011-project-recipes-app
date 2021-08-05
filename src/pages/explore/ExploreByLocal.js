@@ -78,6 +78,11 @@ export default function ExploreByLocal() {
         >
           {strArea}
         </option>))}
+          <option
+            data-testid="All-option"
+          >
+            All
+          </option>
         </select>
       </label>
     </div>
