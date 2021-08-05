@@ -8,6 +8,10 @@ import { beefAndOysterPie } from '../helpers/mocks';
 
 const recipe = beefAndOysterPie.meals[0];
 
+afterEach(() => {
+  localStorage.clear();
+});
+
 describe('A pagina de detalhes de comida', () => {
   beforeEach(async () => {
     jest.spyOn(global, 'fetch');
@@ -19,10 +23,6 @@ describe('A pagina de detalhes de comida', () => {
       render(<FoodDetails />, { history, path });
     });
   });
-
-  afterEach(() => {
-    localStorage.clear();
-  })
 
   it('Faz uma requisição à api com o parâmetro correto', () => {
     expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52878');
@@ -49,8 +49,8 @@ describe('A pagina de detalhes de comida', () => {
     it('Video', () => {
       expect(screen.getByTestId('video')).toBeInTheDocument();
     });
-    it('Botão de iniciar receita', () => {
-      expect(screen.getByText('Iniciar receita')).toBeInTheDocument();
+    it('Botão de iniciar Receita', () => {
+      expect(screen.getByText('Iniciar Receita')).toBeInTheDocument();
     });
     it('Botão de compartilhar', () => {
       expect(screen.getByTitle('share the recipe')).toBeInTheDocument();
@@ -99,6 +99,32 @@ describe('Caso a receita já tenha sido feita', () => {
   });
 
   it('o botão de Iniciar Receita não aparece', () => {
-    expect(screen.queryByText('Iniciar receita')).not.toBeInTheDocument();
+    expect(screen.queryByText('Iniciar Receita')).not.toBeInTheDocument();
   })
 });
+
+describe('Caso a receita esteja em progresso', () => {
+  beforeEach(async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch = mockFetch;
+
+    const inProgressRecipes = {
+      meals: {
+        52878: [],
+      },
+    };
+
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+
+    const path = '/comidas/:id';
+    const history = createMemoryHistory({ initialEntries: ['/comidas/52878'] });
+    await act(async () => {
+      render(<FoodDetails />, { history, path });
+    });
+  });
+
+  it('o botão de Iniciar Receita se torna Continuar Receita', () => {
+    expect(screen.queryByText('Iniciar Receita')).not.toBeInTheDocument();
+    expect(screen.queryByText('Continuar Receita')).toBeInTheDocument();
+  })
+})

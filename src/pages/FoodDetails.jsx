@@ -10,6 +10,7 @@ function FoodDetails() {
   const [drinksLoading, setDrinksLoading] = useState(true);
   const [drinksError, setDrinksError] = useState(null);
   const [isDone, setIsDone] = useState(false);
+  const [isInProgress, setIsInProgress] = useState(false);
   const [drinks, setDrinks] = useState([]);
   const { id } = useParams();
 
@@ -29,10 +30,16 @@ function FoodDetails() {
       .catch(setDrinksError)
       .finally(() => setDrinksLoading(false));
 
-    const storedRecipes = localStorage.getItem('doneRecipes');
-    const parsedRecipes = storedRecipes ? JSON.parse(storedRecipes) : [];
-    if (parsedRecipes.findIndex((parsedRecipe) => parsedRecipe.id == id) > -1) {
+    const storedDoneRecipes = localStorage.getItem('doneRecipes');
+    const parsedDoneRecipes = storedDoneRecipes ? JSON.parse(storedDoneRecipes) : [];
+    if (parsedDoneRecipes.findIndex((parsedRecipe) => parsedRecipe.id == id) > -1) {
       setIsDone(true);
+    }
+
+    const storedInProgressRecipes = localStorage.getItem('inProgressRecipes');
+    const parsedInProgressRecipes = storedInProgressRecipes ? JSON.parse(storedInProgressRecipes) : { meals: [] };
+    if (parsedInProgressRecipes.meals[id]) {
+      setIsInProgress(true);
     }
   }, [id]);
 
@@ -130,7 +137,7 @@ function FoodDetails() {
 
               { !isDone && (
                   <button type="button" data-testid="start-recipe-btn" style={{ position: 'fixed', bottom: '100px' }}>
-                    Iniciar receita
+                    { isInProgress ? <>Continuar Receita</> :  <>Iniciar Receita</> }
                   </button>)}
 
               <section>
