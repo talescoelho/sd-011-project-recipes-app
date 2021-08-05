@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
@@ -7,6 +7,7 @@ import './Profile.css';
 import perfilbg from './perfilbg.mp4';
 
 function Profile() {
+  const history = useHistory();
   /* const [userEmailProfile, setUserEmailProfile] = useState('');
   const { userEmail } = useContext(UserContext);
 
@@ -38,36 +39,33 @@ function Profile() {
         <main className="main-profile">
           <section className="profile-section">
             <p data-testid="profile-email">userEmailProfile</p>
-            <Link className="button-one" to="/receitas-feitas">
-              <Button
-                type="button"
-                data-testid="profile-done-btn"
-                className="button-one"
-                variant="outline-success"
-              >
-                Receitas Feitas
-              </Button>
-            </Link>
-            <Link className="button-two" to="/receitas-favoritas">
-              <Button
-                type="button"
-                data-testid="profile-favorite-btn"
-                className="button-two"
-                variant="outline-dark"
-              >
-                Receitas Favoritas
-              </Button>
-            </Link>
-            <Link className="button-three" to="/">
-              <Button
-                type="button"
-                data-testid="profile-logout-btn"
-                className="button-three"
-                variant="outline-danger"
-              >
-                Sair
-              </Button>
-            </Link>
+            <Button
+              type="button"
+              onClick={ () => history.push('/receitas-feitas') }
+              data-testid="profile-done-btn"
+              className="button-one"
+              variant="outline-success"
+            >
+              Receitas Feitas
+            </Button>
+            <Button
+              type="button"
+              onClick={ () => history.push('/receitas-favoritas') }
+              data-testid="profile-favorite-btn"
+              className="button-two"
+              variant="outline-dark"
+            >
+              Receitas Favoritas
+            </Button>
+            <Button
+              type="button"
+              onClick={ () => history.push('/') }
+              data-testid="profile-logout-btn"
+              className="button-three"
+              variant="outline-danger"
+            >
+              Sair
+            </Button>
           </section>
         </main>
       </div>

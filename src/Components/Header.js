@@ -17,16 +17,6 @@ export default function Header({ title, searchIconAppears = false }) {
   const recipeName = pathname === '/comidas' ? 'meals' : 'drinks';
   const food = recipe[recipeName];
 
-  const [searchInput, setSearchInput] = useState(false);
-
-  function toggleInput() {
-    if (!searchInput) {
-      setSearchInput(true);
-    } else {
-      setSearchInput(false);
-    }
-  }
-
   const getRecipe = () => {
     const site = pathname === '/comidas' ? 'meal' : 'cocktail';
 
@@ -99,7 +89,7 @@ export default function Header({ title, searchIconAppears = false }) {
             onChange={ ({ target }) => setSearchResult(target.value) }
           />
           <label htmlFor="ingredient-search-radio">
-            Ingrediente:
+            Ingrediente
             <input
               data-testid="ingredient-search-radio"
               id="ingredient-search-radio"
@@ -110,7 +100,7 @@ export default function Header({ title, searchIconAppears = false }) {
             />
           </label>
           <label htmlFor="name-search-radio">
-            Nome:
+            Nome
             <input
               data-testid="name-search-radio"
               id="name-search-radio"
@@ -121,7 +111,7 @@ export default function Header({ title, searchIconAppears = false }) {
             />
           </label>
           <label htmlFor="first-letter-search-radio">
-            Primeira Letra:
+            Primeira Letra
             <input
               data-testid="first-letter-search-radio"
               id="first-letter-search-radio"
