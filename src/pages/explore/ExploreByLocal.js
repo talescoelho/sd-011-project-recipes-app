@@ -23,8 +23,8 @@ export default function ExploreByLocal() {
     const magicNumberFive = 12;
     return (
       <div>
-        <label >
-          <select>
+        <label htmlFor="country">
+          <select className="country">
             {country.length
         && country.slice(0, magicNumberFive).map(({ strArea }, index) => (
           <option key={ index }>{strArea}</option>))}
