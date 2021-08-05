@@ -45,7 +45,7 @@ function CardCatalog() {
             <h1>{drink.strDrink}</h1>
           </div>
           <img
-            className="supply-card"
+            className="supply-img"
             src={ drink.strDrinkThumb }
             alt={ drink.strDrink }
             data-testid={ `${index}-card-img` }
