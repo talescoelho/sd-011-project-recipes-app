@@ -36,46 +36,51 @@ function FoodsSearchBar() {
         data-testid="search-input"
         onChange={ ({ target: { value } }) => setSearchText(value) }
       />
-      <label htmlFor="ingredient">
-        <input
-          type="radio"
-          name="search-foods"
-          id="ingredient"
-          value="ingredient"
-          data-testid="ingredient-search-radio"
-          onChange={ ({ target: { value } }) => setInput(value) }
-        />
-        Ingredientes
-      </label>
-
-      <label htmlFor="name">
-        <input
-          type="radio"
-          name="search-foods"
-          id="name"
-          value="name"
-          data-testid="name-search-radio"
-          onChange={ ({ target: { value } }) => setInput(value) }
-        />
-        Nome
-      </label>
-
-      <label htmlFor="firstLetter">
-        <input
-          type="radio"
-          name="search-foods"
-          id="firstLetter"
-          value="firstLetter"
-          data-testid="first-letter-search-radio"
-          onChange={ ({ target: { value } }) => setInput(value) }
-        />
-        Primeira letra
-      </label>
       <br />
+
+      <div className="options-search-bar">
+        <label htmlFor="ingredient">
+          <input
+            type="radio"
+            name="search-foods"
+            id="ingredient"
+            value="ingredient"
+            data-testid="ingredient-search-radio"
+            onChange={ ({ target: { value } }) => setInput(value) }
+          />
+          Ingredientes
+        </label>
+
+        <label htmlFor="name">
+          <input
+            type="radio"
+            name="search-foods"
+            id="name"
+            value="name"
+            data-testid="name-search-radio"
+            onChange={ ({ target: { value } }) => setInput(value) }
+          />
+          Nome
+        </label>
+
+        <label htmlFor="firstLetter">
+          <input
+            type="radio"
+            name="search-foods"
+            id="firstLetter"
+            value="firstLetter"
+            data-testid="first-letter-search-radio"
+            onChange={ ({ target: { value } }) => setInput(value) }
+          />
+          Primeira letra
+        </label>
+      </div>
+
       <button
         type="button"
         data-testid="exec-search-btn"
         onClick={ () => requestFoodEndpoint(searchText) }
+        className="button-search-bar"
       >
         Buscar
       </button>

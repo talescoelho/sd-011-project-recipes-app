@@ -5,6 +5,7 @@ import RecipeAppContext from '../context/RecipeAppContext';
 
 function RecipeCards() {
   const { drinksList, foodsList } = useContext(RecipeAppContext);
+  console.log(foodsList);
   const history = useHistory();
 
   const redirectToDetails = (id, foods, drinks) => {
@@ -33,12 +34,13 @@ function RecipeCards() {
               src={ recipe.strDrinkThumb }
               data-testid={ `${index}-card-img` }
               alt={ `${recipe.strDrink}` }
-              height="50px"
-              width="50px"
+              height="25px"
+              width="25px"
             />
             <p
               key={ recipe.idDrink }
               data-testid={ `${index}-card-name` }
+              className="p-text"
             >
               {recipe.strDrink}
             </p>
@@ -74,6 +76,7 @@ function RecipeCards() {
             <p
               key={ recipe.idMeal }
               data-testid={ `${index}-card-name` }
+              className="p-text"
             >
               {recipe.strMeal}
             </p>

@@ -18,32 +18,43 @@ function ExploreFoods() {
 
   return (
     <div>
-      <h1>My Explore Foods Page</h1>
       <Header title="Explorar Comidas" />
+      <div className="explore-container">
+        <Link to="/explorar/comidas/ingredientes">
+          <button
+            type="button"
+            data-testid="explore-by-ingredient"
+            className="button-explore"
+          >
+            Por Ingredientes
+          </button>
+        </Link>
+        <br />
 
-      <Link to="/explorar/comidas/ingredientes">
-        <button type="button" data-testid="explore-by-ingredient">
-          Por Ingredientes
+        <Link to="/explorar/comidas/area">
+          <button
+            type="button"
+            data-testid="explore-by-area"
+            className="button-explore"
+          >
+            Por Local de Origem
+          </button>
+        </Link>
+        <br />
+
+        <button
+          type="button"
+          data-testid="explore-surprise"
+          className="button-explore"
+          onClick={ () => fetchApiSurprise() }
+        >
+          Me Surpreenda!
         </button>
-      </Link>
-      <br />
 
-      <Link to="/explorar/comidas/area">
-        <button type="button" data-testid="explore-by-area">
-          Por Local de Origem
-        </button>
-      </Link>
-      <br />
-
-      <button
-        type="button"
-        data-testid="explore-surprise"
-        onClick={ () => fetchApiSurprise() }
-      >
-        Me Surpreenda!
-      </button>
-
-      <span>{ shouldRedirect ? <Redirect to={ `/comidas/${idMeal}` } /> : <div /> }</span>
+        <span>
+          { shouldRedirect ? <Redirect to={ `/comidas/${idMeal}` } /> : <div /> }
+        </span>
+      </div>
 
       <Footer />
     </div>

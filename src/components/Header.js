@@ -11,25 +11,22 @@ function Header({ title, icon, drinks, foods }) {
   const [showSearchBar, setshowSearchBar] = useState(false);
 
   const renderSearchButtonIcon = () => (
-    <button
-      type="button"
+    <input
+      type="image"
+      src={ searchIcon }
+      alt="icone de uma lupa"
+      data-testid="search-top-btn"
       onClick={ () => setshowSearchBar(!showSearchBar) }
-    >
-      <img src={ searchIcon } alt="icone de uma lupa" data-testid="search-top-btn" />
-    </button>
+    />
   );
 
   return (
     <header>
       <div className="header-container">
         <Link to="/perfil">
-          <button
-            type="button"
-          >
-            <img src={ profileIcon } alt="Profile Icon" data-testid="profile-top-btn" />
-          </button>
+          <img src={ profileIcon } alt="Profile Icon" data-testid="profile-top-btn" />
         </Link>
-        <h3 data-testid="page-title">{`${title}`}</h3>
+        <h3 data-testid="page-title" className="title-header">{`${title}`}</h3>
         {icon && renderSearchButtonIcon()}
       </div>
       {showSearchBar && <SearchBar drinks={ drinks } foods={ foods } />}

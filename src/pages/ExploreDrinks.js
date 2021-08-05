@@ -18,27 +18,33 @@ function ExploreDrinks() {
 
   return (
     <div>
-      <h1>My Explore Drinks Page</h1>
       <Header title="Explorar Bebidas" />
+      <div className="explore-container">
 
-      <Link to="/explorar/bebidas/ingredientes">
-        <button type="button" data-testid="explore-by-ingredient">
-          Por Ingredientes
+        <Link to="/explorar/bebidas/ingredientes">
+          <button
+            type="button"
+            data-testid="explore-by-ingredient"
+            className="button-explore"
+          >
+            Por Ingredientes
+          </button>
+        </Link>
+        <br />
+
+        <button
+          type="button"
+          data-testid="explore-surprise"
+          className="button-explore"
+          onClick={ () => fetchApiSurprise() }
+        >
+          Me Surpreenda!
         </button>
-      </Link>
-      <br />
 
-      <button
-        type="button"
-        data-testid="explore-surprise"
-        onClick={ () => fetchApiSurprise() }
-      >
-        Me Surpreenda!
-      </button>
-
-      <span>
-        { shouldRedirect ? <Redirect to={ `/bebidas/${idDrink}` } /> : <div /> }
-      </span>
+        <span>
+          { shouldRedirect ? <Redirect to={ `/bebidas/${idDrink}` } /> : <div /> }
+        </span>
+      </div>
 
       <Footer />
     </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import '../css/explore.css';
+import '../css/Explore.css';
 
 function ExploreFoodsByArea() {
   const [isLoading, setIsLoading] = useState(true);
@@ -38,12 +38,14 @@ function ExploreFoodsByArea() {
           <Link key={ recipe.idMeal } to={ `/comidas/${recipe.idMeal}` }>
             <div className="card-ingredients" data-testid={ `${index}-recipe-card` }>
               <img
-                height="25"
+                height="50"
                 alt="recipe"
                 src={ recipe.strMealThumb }
                 data-testid={ `${index}-card-img` }
               />
-              <p data-testid={ `${index}-card-name` }>{ recipe.strMeal }</p>
+              <p data-testid={ `${index}-card-name` } className="name-recipe-area">
+                { recipe.strMeal }
+              </p>
             </div>
           </Link>
         );
@@ -74,21 +76,34 @@ function ExploreFoodsByArea() {
       <select
         onChange={ (event) => setChosenArea(event.target.value) }
         data-testid="explore-by-area-dropdown"
+        className="explore-select-dropdown"
       >
-        { allOption }
         { options }
+        { allOption }
       </select>
     );
   }
 
   return (
     <div>
-      <h1>My Explore Foods By Area Page</h1>
       <Header title="Explorar Origem" icon />
 
-      <span>{ isLoading ? <div /> : renderDropDownAreas() }</span>
+      <span>
+        {
+          isLoading
+            ? <div />
+            : <div className="dropdown-areas">{ renderDropDownAreas() }</div>
+        }
+        {' '}
+      </span>
 
-      <span>{ isLoading ? <p>Carregando Receitas...</p> : renderRecipesByArea() }</span>
+      <span>
+        {
+          isLoading
+            ? <p>Carregando Receitas...</p>
+            : <div className="explore-card-container">{ renderRecipesByArea() }</div>
+        }
+      </span>
 
       <Footer />
     </div>

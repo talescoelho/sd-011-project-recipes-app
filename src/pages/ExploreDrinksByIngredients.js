@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import RecipeAppContext from '../context/RecipeAppContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import '../css/explore.css';
+import '../css/Explore.css';
 
 function ExploreDrinksByIngredients() {
   const [isLoading, setIsLoading] = useState(true);
@@ -49,8 +49,13 @@ function ExploreDrinksByIngredients() {
             onClick={ (event) => redirectToPageDrinks(event) }
             onKeyDown={ (event) => redirectToPageDrinks(event) }
           >
-            <img alt="thumbnail drink" height="25" src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` } data-testid={ `${index}-card-img` } />
-            <p data-testid={ `${index}-card-name` }>{ingredient.strIngredient1}</p>
+            <img id={ ingredient.strIngredient1 } alt="thumbnail drink" height="50" src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` } data-testid={ `${index}-card-img` } />
+            <p
+              id={ ingredient.strIngredient1 }
+              data-testid={ `${index}-card-name` }
+            >
+              {ingredient.strIngredient1}
+            </p>
           </div>
         );
       } return null;
@@ -60,11 +65,14 @@ function ExploreDrinksByIngredients() {
 
   return (
     <div>
-      <h1>My Explore Drinks By Ingredients Page</h1>
       <Header title="Explorar Ingredientes" />
 
       <div>
-        { isLoading ? <p>Carregando...</p> : renderIngredientsCard() }
+        {
+          isLoading
+            ? <p>Carregando...</p>
+            : <div className="explore-card-container">{ renderIngredientsCard() }</div>
+        }
       </div>
 
       <span>
