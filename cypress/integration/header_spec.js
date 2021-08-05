@@ -10,7 +10,7 @@ describe.only('9 - Implemente os elementos do header na tela principal de receit
   });
 });
 
-describe('10 - Implemente um ícone para a tela de perfil, um título e um ícone para a busca, caso exista no protótipo', () => {
+describe.only('10 - Implemente um ícone para a tela de perfil, um título e um ícone para a busca, caso exista no protótipo', () => {
   const hasNoHeader = () => {
     cy.get('[data-testid="profile-top-btn"]').should('not.exist');
     cy.get('[data-testid="page-title"]').should('not.exist');
@@ -117,7 +117,7 @@ describe('10 - Implemente um ícone para a tela de perfil, um título e um ícon
     hasHeader('Perfil', false);
   });
 
-  it('O header tem os ícones corretos na tela de receitas feitas', () => {
+  it.only('O header tem os ícones corretos na tela de receitas feitas', () => {
     cy.visit('http://localhost:3000/receitas-feitas');
 
     hasHeader('Receitas Feitas', false);
