@@ -23,21 +23,24 @@ function RenderDrinkIngred() {
   const measureList = createMeasuArray();
 
   return (
-    <ul>
-      {ingredList.map((ingred, index) => {
-        if (ingred) {
-          return (
-            <li
-              key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              {`${ingred} - ${measureList[index]}`}
-            </li>
-          );
-        }
-        return null;
-      })}
-    </ul>
+    <div>
+      <p className="recipe-details-title">Ingredients</p>
+      <ul className="recipe-details-ingredients-list">
+        {ingredList.map((ingred, index) => {
+          if (ingred) {
+            return (
+              <li
+                key={ index }
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
+                {`${ingred} - ${measureList[index]}`}
+              </li>
+            );
+          }
+          return null;
+        })}
+      </ul>
+    </div>
   );
 }
 

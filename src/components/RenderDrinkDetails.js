@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import RecipeAppContext from '../context/RecipeAppContext';
+import '../css/RecipeDetails.css';
 
 function RenderDrinkDetails({ copyLink }) {
   const { drink, shareIcon, bkHeart } = useContext(RecipeAppContext);
@@ -12,7 +13,7 @@ function RenderDrinkDetails({ copyLink }) {
         src={ drink.strDrinkThumb }
         height="350px"
       />
-      <div>
+      <div className="recipe-details-legend">
         <h3 data-testid="recipe-title">{ drink.strDrink }</h3>
         <input
           type="image"
@@ -28,7 +29,12 @@ function RenderDrinkDetails({ copyLink }) {
           src={ bkHeart }
         />
       </div>
-      <p data-testid="recipe-category">{ drink.strAlcoholic }</p>
+      <p
+        data-testid="recipe-category"
+        className="recipe-details-category"
+      >
+        { drink.strAlcoholic }
+      </p>
     </div>
   );
 }

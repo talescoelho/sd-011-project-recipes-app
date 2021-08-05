@@ -5,7 +5,10 @@ function RenderDrinkInstruction() {
   const { drink } = useContext(RecipeAppContext);
   return (
     <p data-testid="instructions">
-      { drink.strInstructions }
+      <p className="recipe-details-title">Instructions</p>
+      <div className="recipe-details-instruction-test">
+        { drink.strInstructions }
+      </div>
     </p>
   );
 }
