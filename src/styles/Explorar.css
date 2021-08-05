@@ -6,15 +6,15 @@
 }
 
 .food-button {
-  position: absolute;
-  height: 82px;
-  top: 80px;
   border-radius: 6px;
+  height: 82px;
+  position: absolute;
+  top: 80px;
 }
 
 .drink-button {
-  position: absolute;
-  height: 82px;
-  top: 140px;
   border-radius: 6px;
+  height: 82px;
+  position: absolute;
+  top: 140px;
 }

@@ -1,0 +1,22 @@
+.container-geral {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container-email {
+  font-size: 20px;
+  position: absolute;
+  top: 100px;
+}
+
+.container-buttons {
+  position: absolute;
+  top: 160px;
+}
+
+button {
+  padding: 4px;
+  width: 100%;
+}

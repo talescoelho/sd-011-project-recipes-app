@@ -14,6 +14,7 @@ function RecipesProvider({ children }) {
   const [categorysList, setCategorysList] = useState(pathname);
   const [currentCategory, setCurrentCategory] = useState('All');
   const [ingredientList, setIngredientList] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
 
   useEffect(() => {
     setRecipeType(pathname);
@@ -54,6 +55,8 @@ function RecipesProvider({ children }) {
     setDataRecipes,
     ingredientList,
     setIngredientList,
+    filteredRecipes,
+    setFilteredRecipes,
   };
 
   RecipesProvider.propTypes = {

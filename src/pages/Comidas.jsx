@@ -16,10 +16,14 @@ function Comidas() {
   const type = pathname === '/bebidas' ? 'drinks' : 'meals';
   const title = type === 'drinks' ? 'Bebidas' : 'Comidas';
 
-  const { isLoading, dataRecipes, setRecipeType } = useContext(RecipesContext);
+  const { isLoading,
+    dataRecipes,
+    setRecipeType,
+    filteredRecipes,
+    setFilteredRecipes } = useContext(RecipesContext);
   const { route } = useState(pathname);
   // const [isLoading, setIsLoading] = useState(true);
-  const [filteredRecipes, setFilteredRecipes] = useState([]);
+  // const [filteredRecipes, setFilteredRecipes] = useState([]);
 
   // useEffect(() => {
   //   console.log('isLoading: ', isLoading);
@@ -36,7 +40,9 @@ function Comidas() {
     // Foi necessário o timeout, pois estava executando antes o effect, VERIFICAR O PQ;
     // setTimeout(() => {
     // }, ONE_SECOND);
-    setFilteredRecipes(dataRecipes);
+    if (filteredRecipes.length === 0) {
+      setFilteredRecipes(dataRecipes);
+    }
   }, [dataRecipes, filteredRecipes]);
 
   return (
