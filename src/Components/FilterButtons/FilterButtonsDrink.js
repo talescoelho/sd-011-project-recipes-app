@@ -22,7 +22,7 @@ function FilterButtonsDrink() {
   const { setDrinksByCategory } = useContext(MainContext);
 
   async function fetchDrinksByCategory(value) {
-    if (categorySelected === value) {
+    if (categorySelected === value || value === 'all') {
       const drinksInitialAPI = await getDrinksInitial();
       setDrinksByCategory(drinksInitialAPI.drinks);
     } else {
@@ -34,7 +34,14 @@ function FilterButtonsDrink() {
 
   return (
     <div>
-      <button type="button">All</button>
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        value="all"
+        onClick={ ({ target }) => fetchDrinksByCategory(target.value) }
+      >
+        All
+      </button>
       { categories.map((category, index) => index < limit && (
         <button
           type="button"
