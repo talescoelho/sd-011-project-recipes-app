@@ -168,11 +168,11 @@ describe('O icone de coração', () => {
     const favoriteRecipes = [{
       "id": "52878",
       "type": "comida",
-      "area": "Italian",
-      "category": "Vegetarian",
+      "area": "Brittish",
+      "category": "Beef",
       "alcoholicOrNot": "",
-      "name": "Spicy Arrabiata Penne",
-      "image": "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg",
+      "name": "Beef and Oyster pie",
+      "image": "https://www.themealdb.com/images/media/meals/wrssvt1511556563.jpg",
     }];
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
 
@@ -187,5 +187,36 @@ describe('O icone de coração', () => {
 
     const heartIcon = screen.getByAltText('icon representing favorite');
     expect(heartIcon.src).toMatch(/blackheart/i);
+  });
+
+  it('favorita a receita caso ela ainda não seja favorita', async () => {
+    const favoriteRecipe = {
+      "id": "52878",
+      "type": "comida",
+      "area": "British",
+      "category": "Beef",
+      "alcoholicOrNot": "",
+      "name": "Beef and Oyster pie",
+      "image": "https://www.themealdb.com/images/media/meals/wrssvt1511556563.jpg",
+    };
+
+    jest.spyOn(global, 'fetch');
+    global.fetch = mockFetch;
+
+    const path = '/comidas/:id';
+    const history = createMemoryHistory({ initialEntries: ['/comidas/52878'] });
+    await act(async () => {
+      render(<FoodDetails />, { history, path });
+    });
+
+    const favoriteButton = screen.getByTitle('favorite the recipe');
+    await act(async () => {
+      fireEvent.click(favoriteButton);
+    });
+
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const foundRecipe = favoriteRecipes.find(({ id }) => id === favoriteRecipe.id);
+
+    expect(foundRecipe).toEqual(favoriteRecipe);
   });
 })

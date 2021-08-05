@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useHistory } from 'react-router';
+import copy from 'clipboard-copy';
 import { Layout, ActionButton } from '../components';
 
 function FoodDetails() {
@@ -114,14 +115,37 @@ function FoodDetails() {
                   <ActionButton
                     action="share"
                     onClick={ () => {
-                      navigator.clipboard.writeText('eaeeee');
+                      copy(`https://localhost:3000/comidas/${id}`)
                       showToast();
                     } }
                   />
                   <ActionButton
                     action="favorite"
                     reverse={ isFavorite }
-                    onClick={ () => console.log('oi') }
+                    onClick={ () => {
+                      const storedFavoriteRecipes = localStorage.getItem('favoriteRecipes');
+                      const parsedFavoriteRecipes = storedFavoriteRecipes ? JSON.parse(storedFavoriteRecipes) : [];
+
+                      let favoriteRecipesToStore;
+
+                      if (isFavorite) {
+                        favoriteRecipesToStore = parsedFavoriteRecipes.filter((recipe) => recipe.id !== id);
+                      } else {
+                        favoriteRecipesToStore = [...parsedFavoriteRecipes, {
+                          id,
+                          type: 'comida',
+                          area: recipe.strArea,
+                          category: recipe.strCategory,
+                          alcoholicOrNot: '',
+                          name: recipe.strMeal,
+                          image: recipe.strMealThumb,
+                        }];
+                      }
+
+                      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipesToStore));
+
+                      setIsFavorite((previously) => !previously);
+                    } }
                   />
                 </div>
               </section>
@@ -156,7 +180,7 @@ function FoodDetails() {
               </section>
 
               { !isDone && (
-                  <button type="button" data-testid="start-recipe-btn" style={{ position: 'fixed', bottom: '100px' }}>
+                  <button type="button" data-testid="start-recipe-btn" style={{ position: 'fixed', bottom: '0' }}>
                     { isInProgress ? <>Continuar Receita</> :  <>Iniciar Receita</> }
                   </button>)}
 
