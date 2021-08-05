@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import InProgressFoodHelper from '../components/InProgressFoodHelper';
 import '../App.css';
 
 class ProcessoComidas extends Component {
@@ -14,16 +12,14 @@ class ProcessoComidas extends Component {
       shareButton: false,
       favoriteButton: false,
       ingredients: {},
-      setIngredients: {
-        meals: {},
-        cocktails: {},
-      },
+      setIngredients: { meals: {}, cocktails: {} },
     };
     this.fetchIdMeal = this.fetchIdMeal.bind(this);
     this.shareLinkClick = this.shareLinkClick.bind(this);
     this.favoriteButtonClick = this.favoriteButtonClick.bind(this);
     this.riskDoneIngredients = this.riskDoneIngredients.bind(this);
     this.verifyStorage = this.verifyStorage.bind(this);
+    this.doneRecipes = this.doneRecipes.bind(this);
   }
 
   componentDidMount() {
@@ -54,9 +50,7 @@ class ProcessoComidas extends Component {
     if (localStorage.favoriteRecipes) {
       const verifyLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
       if (verifyLocal) {
-        this.setState({
-          favoriteButton: true,
-        });
+        this.setState({ favoriteButton: true });
       }
     }
   }
@@ -73,9 +67,7 @@ class ProcessoComidas extends Component {
     urlLocation.pop();
     navigator.clipboard.writeText(urlLocation.join('/'));
     this.setState({ shareButton: true });
-    setTimeout(() => this.setState({
-      shareButton: false,
-    }), magicNumber);
+    setTimeout(() => this.setState({ shareButton: false }), magicNumber);
   }
 
   verifyButtonState() {
@@ -146,6 +138,35 @@ class ProcessoComidas extends Component {
     });
   }
 
+  doneRecipes() {
+    const { food } = this.state;
+    const { meals } = food;
+    const obj = {
+      id: meals[0].idMeal,
+      type: 'comida',
+      area: meals[0].strArea,
+      category: meals[0].strCategory,
+      alcoholicOrNot: '',
+      name: meals[0].strMeal,
+      image: meals[0].strMealThumb,
+      doneDate: new Date().toLocaleDateString('PT-BR'),
+      tags: [],
+    };
+    if (!localStorage.doneRecipes) {
+      localStorage.setItem('doneRecipes', JSON.stringify([obj]));
+    } else {
+      const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+      if (doneRecipes.some((value) => value.id === meals[0].idDrink)) {
+        const attDone = doneRecipes
+          .filter((value) => value.id !== meals[0].idDrink);
+        localStorage.setItem('doneRecipes', JSON.stringify(attDone));
+      } else {
+        localStorage
+          .setItem('doneRecipes', JSON.stringify([...doneRecipes, obj]));
+      }
+    }
+  }
+
   render() {
     const { food, favoriteButton, shareButton, ingredients, setIngredients } = this.state;
     const { meals } = food;
@@ -165,34 +186,15 @@ class ProcessoComidas extends Component {
     return (
       <div>
         <div>
-          <img
-            data-testid="recipe-photo"
-            src={ strMealThumb }
-            alt={ strMeal }
-            style={ { width: '100px' } }
+          <InProgressFoodHelper
+            strMealThumb={ strMealThumb }
+            strMeal={ strMeal }
+            shareLinkClick={ this.shareLinkClick }
+            favoriteButtonClick={ this.favoriteButtonClick }
+            favoriteButton={ favoriteButton }
+            shareButton={ shareButton }
+            strCategory={ strCategory }
           />
-        </div>
-        <div>
-          <h3 data-testid="recipe-title">{ strMeal }</h3>
-          <button
-            type="button"
-            data-testid="share-btn"
-            onClick={ this.shareLinkClick }
-          >
-            <img src={ shareIcon } alt="share" />
-          </button>
-          <button
-            type="button"
-            onClick={ this.favoriteButtonClick }
-          >
-            <img
-              data-testid="favorite-btn"
-              src={ !favoriteButton ? whiteHeartIcon : blackHeartIcon }
-              alt="favorite"
-            />
-          </button>
-          {shareButton ? <span style={ { color: 'red' } }>Link copiado!</span> : null}
-          <p data-testid="recipe-category">{ strCategory }</p>
           <p>Ingredientes:</p>
           { onlyIngredientes.map((value, index) => (
             <div
@@ -222,6 +224,7 @@ class ProcessoComidas extends Component {
             data-testid="finish-recipe-btn"
             type="button"
             className="btn-start"
+            onClick={ this.doneRecipes }
             disabled={ !setIngredients.meals[urlId]
               || setIngredients.meals[urlId].length !== onlyIngredientes.length }
           >
