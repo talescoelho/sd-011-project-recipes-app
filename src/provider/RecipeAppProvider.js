@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipeAppContext from '../context/RecipeAppContext';
+import bkHeart from '../images/blackHeartIcon.svg';
+import wtHeart from '../images/whiteHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
 function RecipeAppProvider({ children }) {
   const [login, setLogin] = useState({ email: '', password: '' });
@@ -9,6 +12,13 @@ function RecipeAppProvider({ children }) {
   const [drinkCategoryList, setDrinkCategory] = useState('');
   const [foodCategoryList, setFoodCategory] = useState('');
   const [toggleOn, setToggleOn] = useState(false);
+  const [drink, setDrink] = useState('');
+  const [meal, setMeal] = useState('');
+  const [isRecipeDone, setIsRecipeDone] = useState(true);
+  const [recomMeal, setRecomMeal] = useState('');
+  const [recomDrink, setRecomDrink] = useState('');
+  const [inProgressRecipes, setInProgressRecipes] = useState('');
+
   const mockName = 'Spicy Arrabiata Penne';
   const mockImage = 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg';
   const mockImageDrinks = 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg';
@@ -119,6 +129,21 @@ function RecipeAppProvider({ children }) {
   };
 
   const data = {
+    inProgressRecipes,
+    setInProgressRecipes,
+    setRecomDrink,
+    recomDrink,
+    setRecomMeal,
+    recomMeal,
+    setIsRecipeDone,
+    isRecipeDone,
+    meal,
+    setMeal,
+    drink,
+    setDrink,
+    bkHeart,
+    wtHeart,
+    shareIcon,
     handleChange,
     handleDisabled,
     email: login.email,
