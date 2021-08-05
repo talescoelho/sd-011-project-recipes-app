@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import profile from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
 
@@ -16,13 +17,16 @@ class Header extends Component {
   }
 
   withSearch() {
-    const { pageTitle } = this.props;
+    const { pageTitle, history } = this.props;
     const { hidden } = this.state;
 
     return (
       <header>
         <h1 data-testid="page-title">{pageTitle}</h1>
-        <button type="button">
+        <button
+          type="button"
+          onClick={ () => history.push('/perfil') }
+        >
           <img
             type="image"
             data-testid="profile-top-btn"
@@ -80,4 +84,4 @@ Header.propTypes = {
   pageTitle: PropTypes.string,
 }.isRequired;
 
-export default Header;
+export default withRouter(Header);
