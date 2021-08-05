@@ -1,8 +1,6 @@
 .recomendations {
   display: flex;
   flex-direction: row;
-  gap: 30px;
-  height: 200px;
   margin: 60px auto;
   overflow-y: auto;
   width: 350px;
@@ -11,11 +9,9 @@
 .card {
   display: flex;
   flex: none;
-  height: 150px;
-  width: 150px;
 }
 
 .card img {
   height: 150px;
-  width: 100%;
+  width: 175px;
 }
