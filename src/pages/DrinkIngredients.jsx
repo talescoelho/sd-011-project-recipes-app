@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { Card } from 'react-bootstrap';
 import Header from '../components/Header';
-// import { Link } from 'react-router-dom';
+import { getFoodCard } from '../Redux/actions/index';
+import fetchDrinkIngredients from '../services/DrinkIngredientAPI';
+import '../styles/Ingredients.css';
 
 export default function DrinkIngredients() {
+  const dispatch = useDispatch();
   const [drinkIngredients, setDrinkIngredients] = useState([]);
   const numberTwelve = 12;
+  const history = useHistory();
 
   useEffect(() => {
     const getIngredients = async () => {
@@ -17,20 +24,30 @@ export default function DrinkIngredients() {
     getIngredients();
   }, []);
 
+  const renderFilteredIngredients = async (ingredient) => {
+    const drinkByIngredient = await fetchDrinkIngredients(ingredient);
+    const { drinks } = drinkByIngredient;
+    dispatch(getFoodCard({ filtered: drinks }));
+    history.push('/bebidas');
+  };
+
   const renderDrink = () => (
     drinkIngredients.map((ingredient, index) => (
       index < numberTwelve ? (
-        <div data-testid={ `${index}-ingredient-card` }>
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` }
-            alt={ ingredient.strIngredient1 }
-          />
-          <p data-testid={ `${index}-card-name` }>{ingredient.strIngredient1}</p>
-          {/* <Link >
-            <button></button>
-          </Link> */}
-        </div>
+        <button
+          className="ingredient-button"
+          type="button"
+          onClick={ () => renderFilteredIngredients(ingredient.strIngredient1) }
+        >
+          <Card data-testid={ `${index}-ingredient-card` }>
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` }
+              alt={ ingredient.strIngredient1 }
+            />
+            <p data-testid={ `${index}-card-name` }>{ingredient.strIngredient1}</p>
+          </Card>
+        </button>
       ) : null
     ))
   );

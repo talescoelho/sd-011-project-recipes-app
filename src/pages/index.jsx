@@ -7,6 +7,7 @@ export { default as Explore } from './Explore';
 export { default as FoodDetails } from '../components/FoodDetails';
 export { default as MealtIngredients } from './MealIngredients';
 export { default as DrinkIngredients } from './DrinkIngredients';
+export { default as ExploreByPlace } from './ExploreByPlace';
 export { default as ExploreFood } from './ExploreMeals';
 export { default as ExploreDrink } from './ExploreDrinks';
 export { default as DrinkDetails } from './DrinkDetails';
