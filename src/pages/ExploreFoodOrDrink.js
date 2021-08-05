@@ -4,27 +4,41 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function ExploreFoodOrDrink({ history }) {
-  function mealsHeaderAndMain() {
+  function exploreFood() {
     return (
       <>
         <Header withSearch={ false } pageTitle="Explorar Comidas" />
-        <br />
         <main data-testid="recipes-page">
           <h1>Tela de Explorar Comidas</h1>
-          &nbsp;  &nbsp;  &nbsp;
+          <section data-testid="explore-by-ingredient">
+            <h1>Por Ingredientes</h1>
+          </section>
+          <section data-testid="explore-by-area">
+            <h1>Por Local de Origem</h1>
+          </section>
+          <section data-testid="explore-surprise">
+            <h1>Me Surpreenda!</h1>
+          </section>
         </main>
+
       </>
     );
   }
 
-  function drinksHeaderAndMain() {
+  function exploreDrinks() {
     return (
       <>
         <Header withSearch={ false } pageTitle="Explorar Bebidas" />
-        <br />
         <main data-testid="recipes-page">
           <h1>Tela de Explorar Bebidas</h1>
-          &nbsp;  &nbsp;  &nbsp;
+          <section>
+            <section data-testid="explore-by-ingredient">
+              <h1>Por Ingredientes</h1>
+            </section>
+            <section data-testid="explore-surprise">
+              <h1>Me Surpreenda!</h1>
+            </section>
+          </section>
         </main>
       </>
     );
@@ -32,8 +46,8 @@ function ExploreFoodOrDrink({ history }) {
 
   return (
     <>
-      {history.location.pathname === '/explorar/comidas' && mealsHeaderAndMain()}
-      {history.location.pathname === '/explorar/bebidas' && drinksHeaderAndMain()}
+      {history.location.pathname === '/explorar/comidas' && exploreFood()}
+      {history.location.pathname === '/explorar/bebidas' && exploreDrinks()}
       <Footer />
     </>
   );
@@ -41,6 +55,7 @@ function ExploreFoodOrDrink({ history }) {
 
 ExploreFoodOrDrink.propTypes = {
   history: PropTypes.shape({
+    push: PropTypes.func,
     location: PropTypes.shape({
       pathname: PropTypes.string,
     }),
