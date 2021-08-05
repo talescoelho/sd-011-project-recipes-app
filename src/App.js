@@ -7,9 +7,9 @@ import Login from './pages/Login';
 import MealDetails from './pages/MealDetails';
 import DrinkDetails from './pages/DrinkDetails';
 import NotFound from './components/NotFound';
+
 import HomeRecipe from './pages/HomeRecipe';
 import HomeDrinks from './pages/HomeDrinks';
-import RecipesInProgress from './pages/RecipeInProgress';
 import Explore from './pages/explore/Explore';
 import ExploreRecipes from './pages/explore/ExploreRecipes';
 import ExploreDrinks from './pages/explore/ExploreDrinks';
@@ -19,6 +19,10 @@ import Profile from './pages/Profile';
 import RecipeMade from './pages/RecipeMade';
 import RecipeFavorite from './pages/RecipeFavorite';
 import ExploreByIngredientsDrinks from './pages/explore/ExploreByIngredientsDrinks';
+
+import MealsInProgress from './pages/MealsInProgress';
+import DrinksInProgress from './pages/DrinksInProgress';
+
 
 function App() {
   return (
@@ -40,11 +44,11 @@ function App() {
         <Route path="/receitas-favoritas" component={ RecipeFavorite } />
         <Route
           path="/comidas/:id/in-progress"
-          component={ RecipesInProgress }
+          render={ (props) => <MealsInProgress { ...props } /> }
         />
         <Route
           path="/bebidas/:id/in-progress"
-          component={ RecipesInProgress }
+          render={ (props) => <DrinksInProgress { ...props } /> }
         />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ ExploreRecipes } />

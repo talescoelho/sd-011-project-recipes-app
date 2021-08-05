@@ -20,6 +20,7 @@ export default function objToArryOfObj(data) {
       const obj = {
         name: data[key],
         measure: data[measureKeys[index]],
+        check: false,
       };
       ingredientsAndMesure.push(obj);
     }
