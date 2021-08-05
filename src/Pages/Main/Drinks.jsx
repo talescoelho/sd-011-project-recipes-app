@@ -6,7 +6,7 @@ import LowerMenu from '../../Components/footer/LowerMenu';
 
 function Drinks() {
   const { setPage, dataDrinks, limit,
-    setIdDrinks, setDetailsDrinks } = useContext(MainContext);
+    setIdDrinks/* , setDetailsDrinks */ } = useContext(MainContext);
 
   function thisPage() {
     setPage('drinks');
