@@ -49,6 +49,7 @@ function DrinkDetails({ match }) {
   const measures = Object.keys(drinks)
     .filter((item) => item.includes('Measure'))
     .filter((item) => drinks[item]).map((item) => drinks[item]);
+
   const shareButtonHandle = () => {
     setCopied(true);
     const mSeconds = 2000;
