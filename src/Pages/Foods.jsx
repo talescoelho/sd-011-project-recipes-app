@@ -6,20 +6,36 @@ import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './Components/SearchBar';
 import FooterBar from './Components/FooterBar';
+import FoodCategoryButtons from './Components/FoodCategoryButtons';
+import FoodsCards from './Components/FoodsCards';
+import FoodCategoryCards from './Components/FoodCategoryCards';
+
 // import PropTypes from 'prop-types';
 
 function Foods() {
   const history = useHistory();
-  const { dataFood, setRequestFoodParams } = useContext(Context);
+  const { dataFood,
+    setRequestFoodParams,
+    renderCategory,
+    // setRenderFoodCategory,
+    requestFoodParams,
+  } = useContext(Context);
+
   const [showSearch, setShowSearch] = useState(false);
   const foods = 'foods';
 
   // Busca por comidas ao renderizar a tela de comidas.
   useEffect(() => {
-    // lembrar de pôr uma condicional que verifica o dataFood.
-    setRequestFoodParams({
-      searchInput: '', searchMethod: '' });
-  }, []);
+    if (requestFoodParams.searchInput === '' && requestFoodParams.searchMethod === '') {
+      setRequestFoodParams({
+        searchInput: '', searchMethod: '' });
+    } else {
+      // setRequestFoodParams({
+      //   searchInput: requestFoodParams.searchInput,
+      //   searchMethod: requestFoodParams.searchMethod });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [renderCategory]);
 
   if (dataFood !== null && dataFood.length === 1) {
     const oneResult = dataFood[0];
@@ -49,20 +65,11 @@ function Foods() {
           />
         </button>
       </div>
-      <div>
-        {/* necessidade de componentizar os itens abaixo */}
-        { dataFood !== null ? dataFood.map(({ strMeal, strMealThumb, idMeal }, index) => (
-          <div data-testid={ `${index}-recipe-card` } key={ idMeal }>
-            <h3 data-testid={ `${index}-card-name` }>{strMeal}</h3>
-            <img
-              src={ strMealThumb }
-              data-testid={ `${index}-card-img` }
-              alt="Imagem de comida"
-            />
-          </div>
-        // eslint-disable-next-line no-alert
-        )) : alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')}
-      </div>
+      <FoodCategoryButtons />
+      {
+        renderCategory ? <FoodsCards /> : <FoodCategoryCards />
+      }
+
       <FooterBar />
     </>
   );

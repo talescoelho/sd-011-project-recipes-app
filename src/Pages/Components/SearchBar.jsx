@@ -8,7 +8,19 @@ function SearchBar({ value }) {
     searchMethod: '',
   });
 
-  const { setRequestFoodParams, setRequestDrinksParams } = useContext(Context);
+  const {
+    setRequestFoodParams,
+    setRequestDrinksParams,
+    setRenderCategory } = useContext(Context);
+
+  function clickFunctions() {
+    if (value === 'foods') {
+      setRequestFoodParams(searchParameters);
+    } else {
+      setRequestDrinksParams(searchParameters);
+    }
+    setRenderCategory(true);
+  }
 
   return (
     <div className="search-bar">
@@ -59,9 +71,7 @@ function SearchBar({ value }) {
         <button
           type="button"
           data-testid="exec-search-btn"
-          onClick={ () => (value === 'foods'
-            ? setRequestFoodParams(searchParameters)
-            : setRequestDrinksParams(searchParameters)) }
+          onClick={ () => clickFunctions() }
         >
           Pesquisar
         </button>
