@@ -9,17 +9,8 @@
 }
 
 .details-picture {
-  /* display: flex;
-  margin: auto;
-  padding: 10px; */
   width: 250px;
 }
-
-/* .details-btn {
-  display: flex;
-  justify-content: center;
-} */
-
 .start-btn {
   bottom: 0;
   left: 120px;
