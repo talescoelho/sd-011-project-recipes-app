@@ -3,9 +3,9 @@ import { CategoryDrinksAPI, CategoryDrinkFilter } from '../../services/CategoryD
 import Context from '../../Context_Configs/Context';
 
 export default function DrinkCategoryButtons() {
-  const numberFour = 4;
+  const categories = 5;
 
-  const { drinksForCategory, setDrinksForCategory, setRenderCategory } = React.useContext(Context);
+  const { setDrinksForCategory, setRenderCategory } = React.useContext(Context);
   const [drinkCategories, setDrinkCategories] = React.useState();
 
   React.useEffect(() => {
@@ -25,7 +25,7 @@ export default function DrinkCategoryButtons() {
 
   return (
     <div>
-      {drinkCategories && drinkCategories.filter((_, index) => index <= numberFour)
+      {drinkCategories && drinkCategories.filter((_, index) => index < categories)
         .map((category, index) => (
           <button
             onClick={ (e) => requestDrinksComingFromCategories(e) }
