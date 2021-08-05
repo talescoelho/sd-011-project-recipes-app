@@ -16,14 +16,14 @@
 }
 
 .ingredient-cards h5 {
+  color: #c0c0c0;
   font-size: 1em;
-  color: #bababa;
 }
 
 header div h2 {
-  text-align: center;
   font-size: 2em;
   margin-right: 35px;
+  text-align: center;
 }
 
 header div button {
