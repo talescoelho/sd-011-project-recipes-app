@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 function RecipeInProgress({ history }) {
   const { id } = useParams();
-  function comidasMain() {
+  function mealsMain() {
     return (
       <main data-testid="recipes-page">
         <h1>Conteúdo da tela de Receita de COMIDAS em Processo </h1>
@@ -13,7 +13,7 @@ function RecipeInProgress({ history }) {
     );
   }
 
-  function bebidasMain() {
+  function drinksMain() {
     return (
       <main data-testid="recipes-page">
         <h1>Conteúdo da tela de Receita de BEBIDAS em Processo </h1>
@@ -25,14 +25,16 @@ function RecipeInProgress({ history }) {
   return (
     <div>
       {history.location.pathname === `/comidas/${id}/in-progress`
-        ? comidasMain() : bebidasMain() }
+        ? mealsMain() : drinksMain() }
     </div>
   );
 }
 
 RecipeInProgress.propTypes = {
   history: PropTypes.shape({
-    pathname: PropTypes.string,
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
   }),
 }.isRequired;
 

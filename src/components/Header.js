@@ -7,7 +7,7 @@ class Header extends Component {
   constructor() {
     super();
     this.withSearch = this.withSearch.bind(this);
-    this.withOutSearch = this.withOutSearch.bind(this);
+    this.withoutSearch = this.withoutSearch.bind(this);
   }
 
   withSearch() {
@@ -32,7 +32,7 @@ class Header extends Component {
     );
   }
 
-  withOutSearch() {
+  withoutSearch() {
     const { pageTitle } = this.props;
     return (
       <header>
@@ -51,7 +51,7 @@ class Header extends Component {
     const { withSearch } = this.props;
     return (
       <div>
-        {withSearch ? this.withSearch() : this.withOutSearch() }
+        {withSearch ? this.withSearch() : this.withoutSearch() }
       </div>
     );
   }
@@ -59,6 +59,7 @@ class Header extends Component {
 
 Header.propTypes = {
   withSearch: PropTypes.bool,
+  pageTitle: PropTypes.string,
 }.isRequired;
 
 export default Header;

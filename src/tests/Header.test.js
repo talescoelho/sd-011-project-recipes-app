@@ -9,7 +9,7 @@ const SEARCH_TOP_BTN = 'search-top-btn';
 const PAGE_TITLE = 'page-title';
 
 describe('Requeriment 09', () => {
-  const teste = () => {
+  const hasNoHeader = () => {
     const history = createMemoryHistory();
     render(
       <Router history={ history }>
@@ -23,7 +23,7 @@ describe('Requeriment 09', () => {
   };
 
   it('Header elements should have proper data-testid', () => {
-    teste();
+    hasNoHeader();
   });
 });
 

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 function RecipeDetail({ history }) {
   const { id } = useParams();
-  function comidasMain() {
+  function mealMain() {
     return (
       <main data-testid="recipes-page">
         <h1>Conteúdo da tela de DETALHES de COMIDAS</h1>
@@ -13,7 +13,7 @@ function RecipeDetail({ history }) {
     );
   }
 
-  function bebidasMain() {
+  function drinkMain() {
     return (
       <main data-testid="recipes-page">
         <h1>Conteúdo da tela de DETALHES de BEBIDAS</h1>
@@ -25,14 +25,16 @@ function RecipeDetail({ history }) {
   return (
     <div>
       {history.location.pathname === `/comidas/${id}`
-        ? comidasMain() : bebidasMain() }
+        ? mealMain() : drinkMain() }
     </div>
   );
 }
 
 RecipeDetail.propTypes = {
   history: PropTypes.shape({
-    pathname: PropTypes.string,
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
   }),
 }.isRequired;
 

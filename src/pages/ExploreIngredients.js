@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function ExploreIngredients({ history }) {
-  function comidasMain() {
+  function mealsMain() {
     return (
       <main data-testid="recipes-page">
         <h1>Conteúdo da tela de Explorar Ingredientes de COMIDAS</h1>
@@ -13,7 +13,7 @@ function ExploreIngredients({ history }) {
     );
   }
 
-  function bebidasMain() {
+  function drinksMain() {
     return (
       <main data-testid="recipes-page">
         <h1>Conteúdo da tela de Explorar Ingredientes de BEBIDAS</h1>
@@ -26,7 +26,7 @@ function ExploreIngredients({ history }) {
     <>
       <Header withSearch={ false } pageTitle="Explorar Ingredientes" />
       {history.location.pathname === '/explorar/comidas/ingredientes'
-        ? comidasMain() : bebidasMain() }
+        ? mealsMain() : drinksMain() }
       <Footer />
     </>
   );
@@ -34,7 +34,9 @@ function ExploreIngredients({ history }) {
 
 ExploreIngredients.propTypes = {
   history: PropTypes.shape({
-    pathname: PropTypes.string,
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
   }),
 }.isRequired;
 
