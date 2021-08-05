@@ -23,17 +23,15 @@ function Ingredients() {
         .filter((recipe) => recipe[0].includes('Measure') && recipe[1]);
       const measuresFinal = listMeasures.map((valor) => valor[1]);
 
-      console.log(ingredientsFinal, measuresFinal);
-
       setDetailsIngredientsFiltered(ingredientsFinal);
       setDetailsMeasuresFiltered(measuresFinal);
     }
-  }, [idFoodsAPI]);
+  }, [idFoodsAPI, setDetailsIngredientsFiltered, setDetailsMeasuresFiltered]);
 
   return (
     <div>
       <ul>
-        { DetailsIngredientsFiltered.map((ing, i) => ((
+        { DetailsIngredientsFiltered.map((ing, i) => (
           <li
             data-testid={ `${i}-ingredient-name-and-measure` }
             key={ i }
@@ -44,7 +42,7 @@ function Ingredients() {
             { ' ' }
             { DetailsMeasuresFiltered.map((mea, ind) => i === ind && (mea)) }
           </li>
-        ))) }
+        )) }
       </ul>
     </div>
   );

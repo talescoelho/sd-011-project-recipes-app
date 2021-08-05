@@ -20,7 +20,7 @@ function DetailsRecipesFoods() {
       setIdFoodsAPI(meals[0]);
     };
     getAPIById();
-  }, [idFoods]);
+  }, [idFoods, setIdFoodsAPI]);
 
   const getYoutubeUrl = ({ strYoutube }) => {
     if (strYoutube) {
@@ -67,12 +67,11 @@ function DetailsRecipesFoods() {
         title="YouTube video player"
         allowFullScreen
       />
+      {/* //!===========================Implementar=============================== */}
       <p data-testid="0-recomendation-card">
         teste
       </p>
-      {/* <p data-testid=`${index}-recomendation-card`>
-        teste
-      </p> */}
+      {/* //!=======================Recomendation Cards============================ */}
       <button
         type="button"
         data-testid="start-recipe-btn"

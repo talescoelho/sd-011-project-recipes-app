@@ -18,13 +18,3 @@ export const getFoodByFirstLetter = (input) => fetch(`https://www.themealdb.com/
       .json()
       .then((json) => (results.ok ? Promise.resolve(json) : Promise.reject(json)))
   ));
-
-//! ====================================================================
-export const getDetailsFoodById = (id) => {
-  fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
-    .then((details) => (
-      details
-        .json()
-        .then((json) => (details.ok ? Promise.resolve(json) : Promise.reject(json)))
-    ));
-};

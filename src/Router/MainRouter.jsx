@@ -14,10 +14,8 @@ import RecipesDone from '../Pages/RecipesDone';
 import FavoriteRecipes from '../Pages/FavoriteRecipes';
 import DetailsRecipesDrinks from '../Pages/DetailsRecipes/DetailsRecipesDrinks';
 import DetailsRecipesFoods from '../Pages/DetailsRecipes/DetailsRecipesFoods';
-// import MainContext from '../Context/MainContext';
 
 const MainRouter = () => (
-  // const { idFoods, idDrinks } = useContext(MainContext);
   <Switch>
     <Route exact path="/" render={ () => <Home /> } />
     <Route

@@ -19,17 +19,21 @@ const Provider = ({ children }) => {
   const [page, setPage] = useState('');
   const [dataDrinks, setDataDrinks] = useState([]);
   const [dataFoods, setDataFoods] = useState([]);
-  // *=====================================
+  // *================Captura o id da comida=====================
   const [idFoods, setIdFoods] = useState('');
   const [idFoodsAPI, setIdFoodsAPI] = useState([]);
-  // *=====================================
+  // *================Captura o id da bebida=====================
   const [idDrinks, setIdDrinks] = useState('');
-  const [DetailsDrinks, setDetailsDrinks] = useState([]);
-  const [DetailsFoods, setDetailsFoods] = useState([]);
-  const [limit] = useState([number]);
-  // * ====================================
+  const [idDrinksAPI, setIdDrinksAPI] = useState([]);
+  // #==========================Comidas==================================
   const [DetailsIngredientsFiltered, setDetailsIngredientsFiltered] = useState([]);
   const [DetailsMeasuresFiltered, setDetailsMeasuresFiltered] = useState([]);
+  // #==========================Bebidas==================================
+  const [DetailsIngredFilterForDrinks, setDetailsIngredFilterForDrinks] = useState([]);
+  const [DetailsMeasFilterForDrinks, setDetailsMeasFilterForDrinks] = useState([]);
+  const [DetailsInstrucFilterForDrinks, setDetailsInstrucFilterForDrinks] = useState([]);
+  // * ============================================================
+  const [limit] = useState([number]);
 
   async function fetchFood() {
     if (radioBtn === 'ingredient') {
@@ -101,16 +105,20 @@ const Provider = ({ children }) => {
     setIdFoods,
     idDrinks,
     setIdDrinks,
-    DetailsDrinks,
-    setDetailsDrinks,
-    DetailsFoods,
-    setDetailsFoods,
     idFoodsAPI,
     setIdFoodsAPI,
     DetailsIngredientsFiltered,
     setDetailsIngredientsFiltered,
     DetailsMeasuresFiltered,
     setDetailsMeasuresFiltered,
+    idDrinksAPI,
+    setIdDrinksAPI,
+    DetailsIngredFilterForDrinks,
+    setDetailsIngredFilterForDrinks,
+    DetailsMeasFilterForDrinks,
+    setDetailsMeasFilterForDrinks,
+    DetailsInstrucFilterForDrinks,
+    setDetailsInstrucFilterForDrinks,
   };
 
   return (
