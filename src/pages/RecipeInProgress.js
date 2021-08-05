@@ -41,9 +41,11 @@ function RecipeInProgress({ match: { url, params: { id } } }) {
   return (
     <div>
       <RecipeDetails />
-      <button data-testid="finish-recipe-btn" type="button">
-        Finalizar Receita
-      </button>
+      <div className="container-start-button">
+        <button data-testid="finish-recipe-btn" className="button-finish" type="button">
+          Finalizar Receita
+        </button>
+      </div>
     </div>
   );
 }

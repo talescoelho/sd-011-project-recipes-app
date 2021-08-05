@@ -7,7 +7,7 @@ import RecipesContext from '../context/RecipesContext';
 import DetailsButton from '../components/DetailsButton';
 
 function Details({ match: { url, params: { id } } }) {
-  const { recipeDetail, getRecipeById } = useContext(RecipesContext);
+  const { getRecipeById } = useContext(RecipesContext);
 
   // Verifica se a receita foi finalizada a partir do id dela no localStorage
   const verifyRecipeIsDone = () => {
@@ -40,9 +40,9 @@ function Details({ match: { url, params: { id } } }) {
   }, []);
 
   return (
-    <div className="details-page">
+    <div className="container">
       <RecipeDetails />
-      {url.includes('comidas') && <FrameVideo recipe={ recipeDetail } />}
+      {url.includes('comidas') && <FrameVideo />}
       <RecommendedRecipes />
       <DetailsButton
         verifyRecipeIsDone={ verifyRecipeIsDone }

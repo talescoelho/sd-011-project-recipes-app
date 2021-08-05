@@ -19,16 +19,23 @@ function RecommendedsRecipes() {
   };
 
   return (
-    <div className="row carousel">
-      <button type="button" onClick={ prevSlide } className="button-carousel">
-        <img src={ PreviousIcon } alt="Previous Icon" className="button-carousel-icon" />
-      </button>
-      {Array.isArray(recipes)
+    <>
+      <h2 className="text-center">Recommendations</h2>
+      <div className="carousel">
+        <button type="button" onClick={ prevSlide } className="button-carousel">
+          <img
+            src={ PreviousIcon }
+            alt="Previous Icon"
+            className="button-carousel-icon"
+          />
+        </button>
+        {Array.isArray(recipes)
        && recipes.map((recipe, index) => (
          <div
            key={ index }
            data-testid={ `${index}-recomendation-card` }
-           className={ index !== position.a && index !== position.b ? 'hide' : '' }
+           className={ index !== position.a && index !== position.b
+             ? 'hide' : 'card-carousel rounded' }
          >
            <div className="card-recipe">
              <img
@@ -36,16 +43,17 @@ function RecommendedsRecipes() {
                src={ recipe.strMealThumb || recipe.strDrinkThumb }
                alt={ recipe.strMeal || recipe.strDrink }
              />
-             <h3 data-testid={ `${index}-recomendation-title` }>
+             <h4 className="text-center" data-testid={ `${index}-recomendation-title` }>
                { recipe.strMeal || recipe.strDrink }
-             </h3>
+             </h4>
            </div>
          </div>
        ))}
-      <button type="button" onClick={ nextSlide } className="button-carousel">
-        <img src={ NextIcon } alt="Next Icon" className="button-carousel-icon" />
-      </button>
-    </div>
+        <button type="button" onClick={ nextSlide } className="button-carousel">
+          <img src={ NextIcon } alt="Next Icon" className="button-carousel-icon" />
+        </button>
+      </div>
+    </>
   );
 }
 

@@ -33,31 +33,38 @@ function RecipeDetails() {
 
   return (
     <section>
-      <div>
+      <div className="card">
         <img
-          className="details-img-recipe"
+          className="card-img-top rounded"
           data-testid="recipe-photo"
           src={ recipe.strMealThumb || recipe.strDrinkThumb }
           alt={ recipe.strMeal || recipe.strDrink }
         />
-        <h2 data-testid="recipe-title">{ recipe.strMeal || recipe.strDrink }</h2>
-        <h3 data-testid="recipe-category">
-          { recipe.strYoutube ? recipe.strCategory : recipe.strAlcoholic }
-        </h3>
-        <div className="buttons">
-          <button type="button">
-            <img data-testid="share-btn" src={ ShareIcon } alt="Share Icon" />
-          </button>
-          <button type="button">
-            <img data-testid="favorite-btn" src={ FavIcon } alt="Fav Icon" />
-          </button>
+        <div className="card-body rounded">
+          <h2 className="card-title" data-testid="recipe-title">
+            { recipe.strMeal || recipe.strDrink }
+          </h2>
+          <h3 data-testid="recipe-category">
+            { recipe.strYoutube ? recipe.strCategory : recipe.strAlcoholic }
+          </h3>
         </div>
-        <IngredientsList />
-        <h2>
-          Instructions
-        </h2>
-        <p data-testid="instructions">{ recipe.strInstructions }</p>
       </div>
+      <div className="buttons-actions">
+        <button type="button">
+          <img data-testid="share-btn" src={ ShareIcon } alt="Share Icon" />
+        </button>
+        <button type="button">
+          <img data-testid="favorite-btn" src={ FavIcon } alt="Fav Icon" />
+        </button>
+      </div>
+      <IngredientsList />
+      <h2 className="text-center">
+        Instructions
+      </h2>
+      <p className="text-justify" data-testid="instructions">
+        { recipe.strInstructions }
+      </p>
+
     </section>
   );
 }

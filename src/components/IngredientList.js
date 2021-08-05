@@ -8,8 +8,8 @@ function IngredientList() {
 
   const renderListInProgress = () => (
     <div>
-      <h2>Ingredients</h2>
-      <ul>
+      <h2 className="text-center">Ingredients</h2>
+      <ul className="ingredient-list">
         {ingredients.map((item, index) => (
           <div key={ index }>
             <li>
@@ -33,8 +33,8 @@ function IngredientList() {
 
   const renderListToDetails = () => (
     <div>
-      <h2>Ingredients</h2>
-      <ul>
+      <h2 className="text-center">Ingredients</h2>
+      <ul className="ingredient-list">
         {ingredients.map((item, index) => (
           <li
             data-testid={ `${index}-ingredient-name-and-measure` }

@@ -9,15 +9,17 @@ export default function DetailsButton({
   url }) {
   const history = useHistory();
   return (
-    <button
-      onClick={ () => history.push(`${url.replace(/[0-9]/ig, '')}${id}/in-progress`) }
-      className="button-start"
-      style={ { display: verifyRecipeIsDone() ? 'none' : 'block' } }
-      type="button"
-      data-testid="start-recipe-btn"
-    >
-      {checkRecipeInProgress() ? 'Continuar Receita' : 'Iniciar Receita' }
-    </button>
+    <div className="container-start-button">
+      <button
+        onClick={ () => history.push(`${url.replace(/[0-9]/ig, '')}${id}/in-progress`) }
+        className="button-start"
+        style={ { display: verifyRecipeIsDone() ? 'none' : 'block' } }
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        {checkRecipeInProgress() ? 'Continuar Receita' : 'Iniciar Receita' }
+      </button>
+    </div>
   );
 }
 
