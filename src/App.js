@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Login from './pages/Login';
-import Explorer from './pages/Explorer';
 import Foods from './pages/foods/Foods';
 import FoodExplorer from './pages/foods/FoodExplorer';
 import FoodExplorerByIngredients from './pages/foods/FoodExplorerByIngredients';
@@ -18,11 +17,14 @@ import DrinkRecipes from './pages/drinks/DrinkRecipes';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import Explorer from './pages/Explorer';
 import NotFound from './pages/NotFound';
+import { RecipeDetailsProvider } from './context/RecipeDetails';
 
 function App() {
   const pathFoods = '/explorar/comidas/ingredientes';
   const pathDrinks = '/explorar/bebidas/ingredientes';
+
   return (
     <BrowserRouter>
       <Switch>
@@ -37,8 +39,10 @@ function App() {
         <Route exact path="/bebidas" component={ Drinks } />
         <Route exact path="/comidas/:id" component={ FoodRecipes } />
         <Route exact path="/bebidas/:id" component={ DrinkRecipes } />
-        <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
-        <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
+        <RecipeDetailsProvider>
+          <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
+          <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
+        </RecipeDetailsProvider>
         <Route path="/perfil" component={ Profile } />
         <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
