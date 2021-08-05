@@ -19,6 +19,8 @@ function DrinksDetails() {
     mealsRecommend,
   } = useContext(RecipesContext);
 
+  const maximum = 6;
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -48,7 +50,7 @@ function DrinksDetails() {
               height="200px"
             >
               {
-                mealsRecommend.map((meal, index) => (
+                mealsRecommend.slice(0, maximum).map((meal, index) => (
                   <Carousel.Item
                     key={ index }
                     data-testid={ `${index}-recomendation-card` }
