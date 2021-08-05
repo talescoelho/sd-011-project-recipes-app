@@ -4,18 +4,29 @@ import PropTypes from 'prop-types';
 const local = window.location.href;
 const url = 'http://localhost:3000/comidas';
 
-function CardRecipe({ item }) {
+function CardRecipe({ item, index }) {
   return (
-    <div>
+    <div data-testid={ `${index}-recipe-card` }>
       { local === url
         ? (
           <div>
-            { item.strMeal }
+            <p data-testid={ `${index}-card-name` }>{ item.strMeal }</p>
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ item.strMealThumb }
+              alt={ item.strMeal }
+              width="50px"
+            />
           </div>
         ) : (
           <div>
-            { item.strDrink }
-            <img src={ item.strDrinkThumb } alt={ item.strDrink } width="50px" />
+            <p data-testid={ `${index}-card-name` }>{ item.strDrink }</p>
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ item.strDrinkThumb }
+              alt={ item.strDrink }
+              width="50px"
+            />
           </div>
         ) }
     </div>
@@ -24,6 +35,7 @@ function CardRecipe({ item }) {
 
 CardRecipe.propTypes = {
   item: PropTypes.objectOf(PropTypes.string).isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default CardRecipe;

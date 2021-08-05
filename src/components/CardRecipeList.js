@@ -8,6 +8,7 @@ import CardRecipe from './CardRecipe';
 function CardRecipeList() {
   const { filteredFood, filteredDrink } = RequestHook();
   const history = useHistory();
+  const MAX_RESULT = 12;
 
   const local = window.location.href;
   const url = 'http://localhost:3000/comidas';
@@ -27,8 +28,8 @@ function CardRecipeList() {
         )) }
 
       { filterType.length > 1
-        ? filterType.map((item, index) => (
-          <CardRecipe key={ index } item={ item } />
+        ? filterType.slice(0, MAX_RESULT).map((item, index) => (
+          <CardRecipe key={ index } item={ item } index={ index } />
         ))
         : '' }
     </div>
