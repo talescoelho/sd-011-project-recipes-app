@@ -32,7 +32,7 @@ class Food extends Component {
     const { foodAPIResponse: { meals } } = this.props;
     const { buttonClicked } = this.state;
     return (
-      <div>
+      <div className="background">
         <HeaderFood onClick={ this.handleClick } title="Comidas" />
         { meals.length === 1 && !buttonClicked
           ? <Redirect to={ { pathname: `/comidas/${meals[0].idMeal}`, state: meals } } />

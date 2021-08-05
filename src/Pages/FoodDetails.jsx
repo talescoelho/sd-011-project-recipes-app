@@ -35,7 +35,7 @@ class FoodDetails extends Component {
       const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
       let favRecipeLocalStorage;
       if (favoriteRecipes !== null) {
-        const favRecipenew = favoriteRecipes[0].id;
+        const favRecipenew = favoriteRecipes.id;
         favRecipeLocalStorage = favRecipenew;
       }
       if (favRecipeLocalStorage === id) {
@@ -169,6 +169,7 @@ class FoodDetails extends Component {
               </div>
               <button
                 className="hearth"
+                id="hearth"
                 type="button"
                 onClick={ () => {
                   this.setState({ favoriteFood: !favoriteFood });
