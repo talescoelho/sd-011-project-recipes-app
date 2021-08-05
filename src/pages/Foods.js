@@ -33,8 +33,10 @@ export default function Foods() {
     fetchApi();
   }, []);
 
-  async function categoryOnClickBtn(catName) {
+  async function categoryOnClickBtn(catName, index) {
     if (toggleValue === false) {
+      const btn = document.querySelectorAll('#catBtn');
+      btn[index].style.backgroundColor = 'grey';
       const results = await FetchApi('themealdb', null, null, [catName]);
       dispatch({
         type: 'MODIFY_SEARCH_RESULTS',
@@ -43,6 +45,8 @@ export default function Foods() {
     }
     setToggle(!toggleValue);
     if (toggleValue === true) {
+      const btn = document.querySelectorAll('#catBtn');
+      btn[index].style.backgroundColor = 'rgb(239, 239, 239)';
       const results = await FetchApi('themealdb', 'nome', '');
       dispatch({
         type: 'MODIFY_SEARCH_RESULTS',
@@ -60,12 +64,13 @@ export default function Foods() {
       />
       <div className="catBtns">
         {
-          catItens.map((item) => (
+          catItens.map((item, index) => (
             <button
               key={ item.strCategory }
               type="button"
+              id="catBtn"
               data-testid={ `${item.strCategory}-category-filter` }
-              onClick={ () => categoryOnClickBtn(item.strCategory) }
+              onClick={ () => categoryOnClickBtn(item.strCategory, index) }
             >
               {item.strCategory}
             </button>))
