@@ -8,12 +8,11 @@ import SearchBar from './Components/SearchBar';
 import FooterBar from './Components/FooterBar';
 import DrinkCards from './Components/DrinkCards';
 import DrinkCategoryButtons from './Components/DrinkCategoryButtons';
-
-// import PropTypes from 'prop-types';
+import DrinkCategoryCards from './Components/DrinkCategoryCards';
 
 function Drinks() {
   const history = useHistory();
-  const { dataDrinks, setRequestDrinksParams } = useContext(Context);
+  const { dataDrinks, setRequestDrinksParams, renderCategory } = useContext(Context);
   const [showSearch, setShowSearch] = useState(false);
   const drinks = 'drinks';
 
@@ -50,7 +49,7 @@ function Drinks() {
         />
       </button>
       <DrinkCategoryButtons />
-      { true && <DrinkCards /> }
+      { renderCategory ? <DrinkCards /> : <DrinkCategoryCards />}
       <FooterBar />
     </div>
   );

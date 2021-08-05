@@ -20,8 +20,13 @@ const URL_DRINK_FIRST_LETTER = 'https://www.thecocktaildb.com/api/json/v1/1/sear
 // ====================
 
 function Provider({ children }) {
-  const [renderFoodCategory, setRenderFoodCategory] = useState(true);
+  const [renderCategory, setRenderCategory] = useState(true);
+
+  // \/ Responsáveis pelos dados das categorias
   const [foodsForCategory, setFoodsForCategory] = useState([]);
+  const [drinksForCategory, setDrinksForCategory] = useState([]);
+  // /\ Responsáveis pelos dados das categorias
+
   const [dataFood, setDataFoods] = useState([]);
   const [dataDrinks, setDataDrinks] = useState([]);
   const [APIerror, setError] = useState(null);
@@ -72,6 +77,7 @@ function Provider({ children }) {
         return;
       }
       try {
+        setDataDrinks([]);
         if (searchMethod === 'ingredients') {
           response = await fetch(`${URL_DRINK_INGREDIENTS}${searchInput}`);
         }
@@ -100,10 +106,12 @@ function Provider({ children }) {
     dataDrinks,
     APIerror,
     requestFoodParams,
-    renderFoodCategory,
-    setRenderFoodCategory,
+    renderCategory,
+    setRenderCategory,
     foodsForCategory,
     setFoodsForCategory,
+    drinksForCategory,
+    setDrinksForCategory,
   };
 
   return (

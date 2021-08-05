@@ -16,13 +16,11 @@ function Foods() {
   const history = useHistory();
   const { dataFood,
     setRequestFoodParams,
-    renderFoodCategory,
+    renderCategory,
     // setRenderFoodCategory,
     requestFoodParams,
   } = useContext(Context);
   const [showSearch, setShowSearch] = useState(false);
-  // const [foodCategories, setFoodCategories] = useState();
-  // const [foodFilter, setFoodFilter] = useState([]);
   const foods = 'foods';
 
   // Busca por comidas ao renderizar a tela de comidas.
@@ -36,7 +34,7 @@ function Foods() {
       //   searchMethod: requestFoodParams.searchMethod });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [renderFoodCategory]);
+  }, [renderCategory]);
 
   if (dataFood !== null && dataFood.length === 1) {
     const oneResult = dataFood[0];
@@ -68,7 +66,7 @@ function Foods() {
       </div>
       <FoodCategoryButtons />
       {
-        renderFoodCategory ? <FoodsCards /> : <FoodCategoryCards />
+        renderCategory ? <FoodsCards /> : <FoodCategoryCards />
       }
       <FooterBar />
     </>

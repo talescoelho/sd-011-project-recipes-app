@@ -1,10 +1,13 @@
 import React from 'react';
-import CategoryDrinksAPI from '../../services/CategoryDrinksAPI';
-
-const numberFour = 4;
+import { CategoryDrinksAPI, CategoryDrinkFilter } from '../../services/CategoryDrinksAPI';
+import Context from '../../Context_Configs/Context';
 
 export default function DrinkCategoryButtons() {
+  const numberFour = 4;
+
+  const { drinksForCategory, setDrinksForCategory, setRenderCategory } = React.useContext(Context);
   const [drinkCategories, setDrinkCategories] = React.useState();
+
   React.useEffect(() => {
     async function fetchDrinkParams() {
       const categoryDrink = await CategoryDrinksAPI();
@@ -13,11 +16,19 @@ export default function DrinkCategoryButtons() {
     fetchDrinkParams();
   }, []);
 
+  async function requestDrinksComingFromCategories({ target }) {
+    const twelveItems = 12;
+    const drinks = await CategoryDrinkFilter(target.innerHTML);
+    setDrinksForCategory(drinks.filter((_, index) => index < twelveItems));
+    setRenderCategory(false);
+  }
+
   return (
     <div>
       {drinkCategories && drinkCategories.filter((_, index) => index <= numberFour)
         .map((category, index) => (
           <button
+            onClick={ (e) => requestDrinksComingFromCategories(e) }
             type="button"
             key={ index }
             data-testid={ `${category}-category-filter` }

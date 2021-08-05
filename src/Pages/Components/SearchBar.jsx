@@ -11,7 +11,7 @@ function SearchBar({ value }) {
   const {
     setRequestFoodParams,
     setRequestDrinksParams,
-    setRenderFoodCategory } = useContext(Context);
+    setRenderCategory } = useContext(Context);
 
   function clickFunctions() {
     if (value === 'foods') {
@@ -19,7 +19,7 @@ function SearchBar({ value }) {
     } else {
       setRequestDrinksParams(searchParameters);
     }
-    setRenderFoodCategory(true);
+    setRenderCategory(true);
   }
 
   return (

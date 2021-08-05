@@ -7,7 +7,7 @@ export async function CategoryFoodAPI() {
 }
 
 export async function CategoryFoodFilter(param) {
-  const linkFoodCategory = `www.themealdb.com/api/json/v1/1/filter.php?c=${param}`;
+  const linkFoodCategory = `https://https://www.themealdb.com/api/json/v1/1/filter.php?c=${param}`;
   const awaitFood = await fetch(linkFoodCategory);
   const awaitFoodToJSON = await awaitFood.json();
   return awaitFoodToJSON.meals;

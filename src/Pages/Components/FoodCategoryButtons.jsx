@@ -4,7 +4,8 @@ import Context from '../../Context_Configs/Context';
 
 export default function FoodCategory() {
   const numberFour = 4;
-  const { setRenderFoodCategory, setFoodsForCategory } = React.useContext(Context);
+
+  const { setRenderCategory, setFoodsForCategory } = React.useContext(Context);
   const [foodCategories, setFoodCategories] = React.useState();
 
   React.useEffect(() => {
@@ -15,12 +16,12 @@ export default function FoodCategory() {
     fetchFoodParamsButtons();
   }, []);
 
-  async function requestFoodCategories({ target }) {
+  async function requestFoodsComingFromCategories({ target }) {
     const twelveItems = 12;
     const { value } = target;
     const meals = await CategoryFoodFilter(value);
     setFoodsForCategory(meals.filter((_, index) => index < twelveItems));
-    setRenderFoodCategory(false);
+    setRenderCategory(false);
   }
 
   return (
@@ -29,14 +30,14 @@ export default function FoodCategory() {
         foodCategories && foodCategories.filter((item, index) => index <= numberFour)
           .map((category, index) => (
             <button
-              onClick={ (e) => requestFoodCategories(e) }
+              onClick={ (e) => requestFoodsComingFromCategories(e) }
               type="button"
               key={ index }
               data-testid={ `${category}-category-filter` }
               name="category"
               value={ category }
             >
-              {category}
+              {category }
             </button>
           ))
       }
