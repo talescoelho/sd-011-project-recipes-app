@@ -3,10 +3,7 @@ import { Link } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
-<<<<<<< HEAD
-=======
 import './Footer.css';
->>>>>>> 530c023ed58d591217c2807363c0ad2394510ad4
 
 function Footer() {
   return (
