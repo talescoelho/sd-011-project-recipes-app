@@ -45,6 +45,7 @@ function DetailsRecipesFoods() {
   };
   // ! Limita a quantidade de recomendação
   const magicNumber = 6;
+
   return (
     <div>
       <img
@@ -84,13 +85,17 @@ function DetailsRecipesFoods() {
       />
       {/* //!===========================Implementar=============================== */}
       <ul className="scrollmenu">
-        { newDataDrinks.map((drink, i) => i < magicNumber && (
+        { newDataDrinks.map((drink, index) => index < magicNumber && (
           <li
-            data-testid={ `${i}-recomendation-card` }
-            key={ i }
+            data-testid={ `${index}-recomendation-card` }
+            key={ index }
           >
-            <p data-testid={ `${i}-recomendation-title` }>
+            <p
+              data-testid={ `${index}-recomendation-title` }
+              key={ index }
+            >
               { drink.strDrink }
+              { console.log(drink.strDrink) }
             </p>
           </li>
         )) }
