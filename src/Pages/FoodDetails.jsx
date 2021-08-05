@@ -17,7 +17,6 @@ class FoodDetails extends Component {
       ingredient: [],
       measure: [],
       recomandation: [],
-      disableButton: false,
       copyToClipboard: false,
       favoriteFood: false,
     };
@@ -33,9 +32,7 @@ class FoodDetails extends Component {
     this.fetchDetail();
     const { match: { params: { id } } } = this.props;
     this.newFunction = () => {
-      const favRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
       const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      let newFavLocal;
       let favRecipeLocalStorage;
       if (favoriteRecipes !== null) {
         const favRecipenew = favoriteRecipes[0].id;
@@ -44,15 +41,6 @@ class FoodDetails extends Component {
       if (favRecipeLocalStorage === id) {
         this.setState({
           favoriteFood: true,
-        });
-      }
-      if (favRecipes !== null) {
-        const newFavRecipe = favRecipes[0].id;
-        newFavLocal = newFavRecipe;
-      }
-      if (newFavLocal === id) {
-        this.setState({
-          disableButton: true,
         });
       }
     };
@@ -93,24 +81,19 @@ class FoodDetails extends Component {
 
   saveFavoriteRecipes() {
     const { foodDetail } = this.state;
-    const favoriteRecipes = [
-      {
-        id: foodDetail[0].idMeal,
-        type: 'comida',
-        area: foodDetail[0].strArea || '',
-        category: foodDetail[0].strCategory || '',
-        alcoholicOrNot: foodDetail[0].strAlcoholic || '',
-        name: foodDetail[0].strMeal,
-        image: foodDetail[0].strMealThumb,
-      },
-    ];
+    const favoriteRecipes = [{ id: foodDetail[0].idMeal,
+      type: 'comida',
+      area: foodDetail[0].strArea || '',
+      category: foodDetail[0].strCategory || '',
+      alcoholicOrNot: foodDetail[0].strAlcoholic || '',
+      name: foodDetail[0].strMeal,
+      image: foodDetail[0].strMealThumb }];
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
   }
 
   saveOnLocalStorage() {
     const { foodDetail } = this.state;
-    const doneRecipes = [{
-      id: foodDetail[0].idMeal,
+    const doneRecipes = [{ id: foodDetail[0].idMeal,
       type: foodDetail[0].strMeal,
       area: foodDetail[0].strArea,
       category: foodDetail[0].strCategory,
@@ -118,43 +101,28 @@ class FoodDetails extends Component {
       name: foodDetail[0].strMeal,
       image: foodDetail[0].strSource,
       doneDate: new Date(),
-      tags: foodDetail[0].strTags,
-    }];
+      tags: foodDetail[0].strTags }];
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   }
 
   async fetchDetail() {
     const { match: { params: { id } } } = this.props;
-
     const result = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
     const json = await result.json();
-
-    this.setState({
-      foodDetail: json.meals,
-    });
-
+    this.setState({ foodDetail: json.meals });
     fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
       .then((item) => item.json())
-      .then((mewResult) => this.setState({
-        recomandation: mewResult.drinks,
-      }));
-
+      .then((mewResult) => this.setState({ recomandation: mewResult.drinks }));
     const filteredIngredients = Object.entries(json.meals[0]).filter(
       (arr) => arr[0].includes('Ingredient') && arr[1],
     );
-    const ingredients = filteredIngredients.map((ing) => ({
-      ingredient: ing[1],
-    }));
-    this.setState({
-      ingredient: ingredients,
-    });
+    const ingredients = filteredIngredients.map((ing) => ({ ingredient: ing[1] }));
+    this.setState({ ingredient: ingredients });
     const filteredMeasure = Object.entries(json.meals[0]).filter(
       (arr) => arr[0].includes('Measure') && arr[1],
     );
     const measure = filteredMeasure.map((eachIngredient) => eachIngredient[1]);
-    this.setState({
-      measure,
-    });
+    this.setState({ measure });
   }
 
   renderRecomendations() {
@@ -195,7 +163,6 @@ class FoodDetails extends Component {
                 <h1 data-testid="recipe-title">
                   { result.strMeal }
                 </h1>
-                <hr id="seraquevai" />
                 <p data-testid="recipe-category">
                   { result.strCategory }
                 </p>
@@ -259,9 +226,7 @@ class FoodDetails extends Component {
                 type="button"
                 style={ { display: this.verifyRecipeIsDone() ? 'none' : 'initial' } }
                 data-testid="start-recipe-btn"
-                onClick={ () => {
-                  this.addMealInProgress();
-                } }
+                onClick={ () => { this.addMealInProgress(); } }
               >
                 { this.checkRecipeInProgress() ? 'Continuar Receita' : 'Iniciar Receita' }
               </button>
@@ -272,15 +237,12 @@ class FoodDetails extends Component {
     );
   }
 }
-
 const mapStateToProps = (state) => ({
   foodAPIResponse: state.recipeReducer.foodRecipes,
 });
-
 FoodDetails.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.objectOf(),
   }),
 }.isRequired;
-
 export default connect(mapStateToProps)(FoodDetails);

@@ -16,7 +16,6 @@ class DrinkDetails extends Component {
       ingredient: [],
       measure: [],
       recomandation: [],
-      disableButton: false,
       copyToClipboard: false,
       favoriteFood: false,
     };
@@ -33,9 +32,7 @@ class DrinkDetails extends Component {
     this.fetchDetail();
     const { match: { params: { id } } } = this.props;
     this.newFunction = () => {
-      const favRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
       const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      let newFavLocal;
       let favRecipeLocalStorage;
       if (favoriteRecipes !== null) {
         const favRecipenew = favoriteRecipes[0].id;
@@ -44,15 +41,6 @@ class DrinkDetails extends Component {
       if (favRecipeLocalStorage === id) {
         this.setState({
           favoriteFood: true,
-        });
-      }
-      if (favRecipes !== null) {
-        const newFavRecipe = favRecipes[0].id;
-        newFavLocal = newFavRecipe;
-      }
-      if (newFavLocal === id) {
-        this.setState({
-          disableButton: true,
         });
       }
     };
@@ -70,10 +58,7 @@ class DrinkDetails extends Component {
 
   addMealInProgress() {
     const { match: { params: { id } } } = this.props;
-    const inProgress = {
-      cocktails: {},
-      meals: {},
-    };
+    const inProgress = { cocktails: {}, meals: {} };
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
     const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
     recipe.cocktails = { ...recipe.cocktails, [id]: [] };
@@ -85,33 +70,26 @@ class DrinkDetails extends Component {
     const { match: { params: { id } } } = this.props;
     const recipeInProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
     if (Object.keys(recipeInProgress).length > 0) {
-      return Object.keys(recipeInProgress.cocktails)
-        .some((recipeId) => recipeId === id);
+      return Object.keys(recipeInProgress.cocktails).some((recipeId) => recipeId === id);
     }
     return false;
   }
 
   saveFavoriteRecipes() {
     const { drinkDetail } = this.state;
-    const favoriteRecipes = [
-      {
-        id: drinkDetail[0].idDrink,
-        type: 'bebida',
-        area: drinkDetail[0].strArea || '',
-        category: drinkDetail[0].strCategory || '',
-        alcoholicOrNot: drinkDetail[0].strAlcoholic || '',
-        name: drinkDetail[0].strDrink,
-        image: drinkDetail[0].strDrinkThumb,
-      },
-    ];
-    console.log(favoriteRecipes);
+    const favoriteRecipes = [{ id: drinkDetail[0].idDrink,
+      type: 'bebida',
+      area: drinkDetail[0].strArea || '',
+      category: drinkDetail[0].strCategory || '',
+      alcoholicOrNot: drinkDetail[0].strAlcoholic || '',
+      name: drinkDetail[0].strDrink,
+      image: drinkDetail[0].strDrinkThumb }];
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
   }
 
   saveOnLocalStorage() {
     const { drinkDetail } = this.state;
-    const doneRecipes = [{
-      id: drinkDetail[0].idDrink,
+    const doneRecipes = [{ id: drinkDetail[0].idDrink,
       type: drinkDetail[0].strDrink,
       area: drinkDetail[0].strArea,
       category: drinkDetail[0].strCategory,
@@ -119,8 +97,7 @@ class DrinkDetails extends Component {
       name: drinkDetail[0].strDrink,
       image: drinkDetail[0].strSource,
       doneDate: new Date(),
-      tags: drinkDetail[0].strTags,
-    }];
+      tags: drinkDetail[0].strTags }];
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   }
 
@@ -136,28 +113,18 @@ class DrinkDetails extends Component {
 
     fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
       .then((item) => item.json())
-      .then((mewResult) => this.setState({
-        recomandation: mewResult.meals,
-      }));
+      .then((mewResult) => this.setState({ recomandation: mewResult.meals }));
 
     const filteredIngredients = Object.entries(json.drinks[0]).filter(
       (arr) => arr[0].includes('Ingredient', 'measure') && arr[1],
     );
-    const ingredients = filteredIngredients.map((ing) => ({
-      ingredient: ing[1],
-    }));
-    this.setState({
-      ingredient: ingredients,
-    });
+    const ingredients = filteredIngredients.map((ing) => ({ ingredient: ing[1] }));
+    this.setState({ ingredient: ingredients });
     const filteredMeasure = Object.entries(json.drinks[0]).filter(
       (arr) => arr[0].includes('Measure') && arr[1],
     );
     const measure = filteredMeasure.map((eachIngredient) => eachIngredient[1]);
-    this.setState({
-      measure,
-    });
-
-    // AGENTE PAROU AQUI -----------------------------------------------------------;
+    this.setState({ measure });
   }
 
   renderRecomendations() {
