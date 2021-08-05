@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ButtonToProgress from './ButtonToProgress';
 import ButtonShare from './ButtonShare';
 import Recommended from './Recommended';
 import RenderVideo from './RenderVideo';
+import { RecipeDetailsContext } from '../context/RecipeDetails';
 
 function MealDetailCard() {
   const [mealDetail, setMealDetail] = useState([]);
   const [rec, setRec] = useState([]);
-  const [data, setData] = useState([]);
+  const { setRecipe } = useContext(RecipeDetailsContext);
 
   const path = window.location.pathname.split('/')[2];
 
@@ -18,13 +19,11 @@ function MealDetailCard() {
     const getUrlMeal = async () => {
       const meal = await fetch(`${foodToDetail}${window.location.pathname
         .split('/')[2]}`);
-      const response = meal.json().then((res) => setMealDetail(res.meals[0]));
-      return response;
+      meal.json().then((res) => setMealDetail(res.meals[0]));
     };
     const getRecomend = async () => {
       const recomend = await fetch(`${foodRecomend}`);
-      const resRecom = recomend.json().then((res) => setRec(res.meals));
-      return resRecom;
+      recomend.json().then((res) => setRec(res.meals));
     };
 
     getRecomend();
@@ -41,8 +40,9 @@ function MealDetailCard() {
     strYoutube,
   } = mealDetail;
 
-  console.log((rec.meals));
-  console.log((idMeal));
+  useEffect(() => {
+    setRecipe(mealDetail);
+  }, [mealDetail, setRecipe]);
 
   const objIngred = Object.entries(mealDetail).map((e) => {
     if (e[0].includes('strIngredient') && e[1] !== '') {
@@ -58,11 +58,11 @@ function MealDetailCard() {
     return undefined;
   }).filter((i) => i !== undefined);
 
-  const callData = () => {
-    setData([mealDetail]);
+  // const callData = () => {
+  //   setData([mealDetail]);
 
-    return data;
-  };
+  //   return data;
+  // };
 
   return (
     <div>
@@ -100,7 +100,7 @@ function MealDetailCard() {
       <div>
         <Recommended value={ rec } type="meal" />
       </div>
-      <ButtonToProgress data={ callData } />
+      <ButtonToProgress />
     </div>
   );
 }
