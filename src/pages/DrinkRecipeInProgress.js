@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { getDrinkDetail } from '../services/theCockTailAPI';
 import { saveInProgressDrinkRecipes } from '../helpers/handleLocalStorage';
 import MainContext from '../context/MainContext';
+import { Link } from 'react-router-dom';
 
 function DrinkRecipeInProgress({ match: { params: { id } } }) {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
@@ -81,13 +82,15 @@ function DrinkRecipeInProgress({ match: { params: { id } } }) {
         }
       </form>
       <p data-testid="instructions">{ strInstructions }</p>
-      <button
-        type="button"
-        data-testid="finish-recipe-btn"
-        disabled={ listIngredients().length !== usedIngredients.length }
-      >
-        Finalizar Receita
-      </button>
+      <Link to="/receitas-feitas">
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          disabled={ listIngredients().length !== usedIngredients.length }
+        >
+          Finalizar Receita
+        </button>
+      </Link>
     </div>
   );
 }

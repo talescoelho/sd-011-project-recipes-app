@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { getMealDetail } from '../services/theMealAPI';
 import { saveInProgressFoodRecipes } from '../helpers/handleLocalStorage';
 import MainContext from '../context/MainContext';
+import { Link } from 'react-router-dom';
 
 function FoodRecipeInProgress({ match: { params: { id } } }) {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
@@ -81,13 +82,15 @@ function FoodRecipeInProgress({ match: { params: { id } } }) {
         }
       </form>
       <p data-testid="instructions">{ strInstructions }</p>
-      <button
-        type="button"
-        data-testid="finish-recipe-btn"
-        disabled={ listIngredients().length !== usedIngredients.length }
-      >
-        Finalizar Receita
-      </button>
+      <Link to="/receitas-feitas">
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          disabled={ listIngredients().length !== usedIngredients.length }
+        >
+          Finalizar Receita
+        </button>
+      </Link>
     </div>
   );
 }
