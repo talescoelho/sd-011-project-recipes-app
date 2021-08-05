@@ -3,11 +3,11 @@ import copy from 'clipboard-copy';
 import { useHistory } from 'react-router-dom';
 import '../styles/DetailsRecipe.css';
 import * as api from '../services/API';
-import DetailsMealsComp from './DetailsMealsComp';
+import DetailsDrinkComp from '../components/DetailsDrinkComp';
 
-export default function DetailsMeals() {
+export default function DetailsDrink() {
   const [recipesDetails, setRecipesDetails] = useState({});
-  const [setDrinkRecipeId] = useState('');
+  const [setRecipeId] = useState('');
   const [copyText, setCopyText] = useState('');
   const [buttonHiddenClass, setButtonHiddenClass] = useState('hiddenButton');
   const [buttonText] = useState('Continuar Receita');
@@ -16,27 +16,24 @@ export default function DetailsMeals() {
 
   const history = useHistory();
   const { pathname } = history.location;
-  const recipesSelectedId = pathname.split('/')[2];
-
-  // console.log(drinkRecipeId);
-  // console.log(mealRecipeId);
+  const recipesDrinkSelectedId = pathname.split('/')[2];
 
   useEffect(() => {
-    const getApiDetailsRecipesFood = async () => {
-      const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipesSelectedId}`;
-      const requestFood = await api.fetchAPI(URL);
-      const responseFood = await requestFood.meals;
-      setRecipesDetails(responseFood[0]);
-      console.log(responseFood);
+    const getApiDetailsRecipesDrink = async () => {
+      const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipesDrinkSelectedId}`;
+      const requestDrink = await api.fetchAPI(URL);
+      const responseDrink = await requestDrink.drinks;
+      setRecipesDetails(responseDrink[0]);
+      console.log(responseDrink);
     };
-    getApiDetailsRecipesFood();
-  }, [setRecipesDetails, recipesSelectedId]);
+    getApiDetailsRecipesDrink();
+  }, [setRecipesDetails, recipesDrinkSelectedId]);
 
-  const getNull = (measure) => {
-    if (measure === null) {
+  const getNull = (drink) => {
+    if (drink === null) {
       return '';
     }
-    return `- ${measure}`;
+    return `- ${drink}`;
   };
 
   const getIngredients = (recipe) => {
@@ -57,10 +54,9 @@ export default function DetailsMeals() {
 
   useEffect(() => {
     const recommendationFetch = async () => {
-      const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-      const requestDrink = await api.fetchAPI(URL);
-      const responseDrink = await requestDrink.drinks;
-      setRecipesRecommendation(responseDrink);
+      const requestFood = await api.fetchAPI('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+      const responseFood = await requestFood.meals;
+      setRecipesRecommendation(responseFood);
     };
     recommendationFetch();
   }, []);
@@ -68,13 +64,13 @@ export default function DetailsMeals() {
   useEffect(() => {
     if (!localStorage.doneRecipes) localStorage.doneRecipes = JSON.stringify([]);
     const doneRecipesLCstorage = JSON.parse(localStorage.doneRecipes)
-      .filter((item) => item.id === recipesSelectedId);
+      .filter((item) => item.id === recipesDrinkSelectedId);
     if (doneRecipesLCstorage.length >= 1) {
       setButtonHiddenClass('hiddenButton-hidden');
     } else {
       setButtonHiddenClass('hiddenButton');
     }
-  }, [recipesSelectedId]);
+  }, [recipesDrinkSelectedId]);
 
   const handleClickCopy = () => {
     copy(window.location.href);
@@ -86,34 +82,34 @@ export default function DetailsMeals() {
   useEffect(() => {
     const retriveFavoties = () => {
       const atualStorage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-      return setFavorite(atualStorage.some((item) => item.id === recipesSelectedId));
+      return setFavorite(atualStorage.some((item) => item.id === recipesDrinkSelectedId));
     };
     retriveFavoties();
-  }, [recipesSelectedId]);
+  }, [recipesDrinkSelectedId]);
 
   const handleClickFavorites = () => {
     const favoriteObj = [
       {
-        id: recipesDetails.idMeal,
-        type: 'comida',
+        id: recipesDetails.idDrink,
+        type: 'bebida',
         area: recipesDetails.strArea,
         category: recipesDetails.strCategory,
-        alcoholicOrNot: '',
-        name: recipesDetails.strMeal,
-        image: recipesDetails.strMealThumb,
+        alcoholicOrNot: recipesDetails.strAlcoholic,
+        name: recipesDetails.strDrink,
+        image: recipesDetails.strDrinkThumb,
       },
     ];
-    const storageFavorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const stgFavorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     if (favorite) {
-      const rmvFavorite = storageFavorite.filter((item) => item.id !== recipesSelectedId);
-      const rmvFavoriteStringfy = JSON.stringify(rmvFavorite);
+      const rmFavorite = stgFavorite.filter((item) => item.id !== recipesDrinkSelectedId);
+      const rmvFavoriteStringfy = JSON.stringify(rmFavorite);
       setFavorite(false);
       localStorage.setItem('favoriteRecipes', rmvFavoriteStringfy);
     } else {
       setFavorite(true);
       const newRecipeStringfy = JSON.stringify([
         ...favoriteObj,
-        ...storageFavorite,
+        ...stgFavorite,
       ]);
       localStorage.setItem('favoriteRecipes', newRecipeStringfy);
     }
@@ -127,15 +123,15 @@ export default function DetailsMeals() {
     copyText,
     getIngredients,
     recipesRecommendation,
-    recipesSelectedId,
+    setRecipeId,
     buttonHiddenClass,
     buttonText,
-    setDrinkRecipeId,
+    recipesDrinkSelectedId,
   };
 
   return (
     <div className="container">
-      <DetailsMealsComp propsDrink={ propsDrink } />
+      <DetailsDrinkComp propsDrink={ propsDrink } />
     </div>
   );
 }

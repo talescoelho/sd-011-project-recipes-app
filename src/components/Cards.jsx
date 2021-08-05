@@ -1,29 +1,16 @@
-import React, { useContext, useEffect } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
-import MealCard from './MealCard';
+import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import DrinkCard from './DrinkCard';
+import MealCard from './MealCard';
+import Header from './Header';
 import RecipesAppContext from '../context/RecipesAppContext';
-import Header from './Header';
-import '../styles/Recipes.css';
-import Header from './Header';
+import '../styles/Cards.css';
 
-export default function Recipes() {
-  const { mealRecipes, drinkRecipes, haveRecipes } = useContext(RecipesAppContext);
+export default function Cards() {
+  const { haveRecipes, mealRecipes, drinkRecipes } = useContext(RecipesAppContext);
   const location = useLocation();
-  const history = useHistory();
-
-  function renderDrinks() {
-    return (
-      <div>
-        <Header />
-        <h3>Receitas Drinks</h3>
-      </div>
-    );
-  }
-
-  useEffect(checkOneRecipe, [mealRecipes, drinkRecipes, history, location]);
-
   const limit = 12;
+
   function renderRecipes() {
     if (haveRecipes && location.pathname === '/comidas') {
       const recipes = mealRecipes.filter((recipe, index) => index < limit);
@@ -40,11 +27,12 @@ export default function Recipes() {
       );
     }
   }
-
   return (
-    <div className="recipes-section">
+    <div className="cards-section">
       <Header />
-      { renderRecipes() }
+      { haveRecipes
+        ? renderRecipes()
+        : <h3>Loading...</h3> }
     </div>
   );
 }

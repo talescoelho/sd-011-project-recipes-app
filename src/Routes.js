@@ -1,9 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
-import Recipes from './components/Recipes';
-import DetailsMeals from './components/DetailsMeals';
-import DetailsDrink from './components/DetailsDrink';
+import Recipes from './pages/Recipes';
+import DetailsMeals from './pages/DetailsMeals';
+import DetailsDrink from './pages/DetailsDrink';
+import Perfil from './components/Perfil';
 
 export default function Routes() {
   return (
@@ -13,6 +14,7 @@ export default function Routes() {
       <Route exact path="/Bebidas" component={ Recipes } />
       <Route path="/comidas/:id" component={ DetailsMeals } />
       <Route path="/bebidas/:id" component={ DetailsDrink } />
+      <Route exact path="/perfil" component={ Perfil } />
     </Switch>
   );
 }
