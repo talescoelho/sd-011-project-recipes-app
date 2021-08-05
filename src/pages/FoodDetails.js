@@ -4,12 +4,17 @@ import { getMealDetail } from '../services/theMealAPI';
 import { getDrinkRecomendations } from '../services/theCockTailAPI';
 import shareIcon from '../images/shareIcon.svg';
 import Recommendations from '../components/Recommendations';
-import VerifyStart from '../helpers/VerifyStart';
+import VerifyStart from '../components/VerifyStart';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const FoodDetails = (props) => {
   const [foodData, setfoodData] = useState({ strYoutube: '' });
   const [recomendedDrink, setRecomendedDrink] = useState([]);
   const [copy, setCopy] = useState(false);
+  const favoriteRecipes = JSON.parse(
+    localStorage.getItem('favoriteRecipes'),
+  ) || [{ id: '' }];
   const { match: { params: { id } } } = props;
 
   const maxResult = 6;
@@ -26,7 +31,6 @@ const FoodDetails = (props) => {
     const fetchRecomended = async () => {
       const recomendedArray = await getDrinkRecomendations();
       setRecomendedDrink(recomendedArray);
-      console.log(recomendedArray);
     };
     fetchRecomended();
   }, []);
@@ -77,7 +81,15 @@ const FoodDetails = (props) => {
             <span>Link copiado!</span>
           ) : (<img src={ shareIcon } alt="Compartilhar" />)}
         </button>
-        <button type="button" data-testid="favorite-btn">Favoritar</button>
+        <button type="button">
+          <img
+            src={ favoriteRecipes.some(
+              (favorite) => favorite.id === id,
+            ) ? blackHeartIcon : whiteHeartIcon }
+            alt="Favorite"
+            data-testid="favorite-btn"
+          />
+        </button>
         <h4 data-testid="recipe-category">{ strCategory }</h4>
         <ol>
 

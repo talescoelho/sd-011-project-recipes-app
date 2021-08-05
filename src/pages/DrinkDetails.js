@@ -4,12 +4,17 @@ import { getDrinkDetail } from '../services/theCockTailAPI';
 import { getMealRecomendations } from '../services/theMealAPI';
 import shareIcon from '../images/shareIcon.svg';
 import Recommendations from '../components/Recommendations';
-import VerifyStart from '../helpers/VerifyStart';
+import VerifyStart from '../components/VerifyStart';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const DrinkDetails = (props) => {
   const [drinkData, setdrinkData] = useState([]);
   const [recomendedFood, setRecomendedFood] = useState([]);
   const [copy, setCopy] = useState(false);
+  const favoriteRecipes = JSON.parse(
+    localStorage.getItem('favoriteRecipes'),
+  ) || [{ id: '' }];
   const { match: { params: { id } } } = props;
 
   const maxResult = 6;
@@ -70,7 +75,15 @@ const DrinkDetails = (props) => {
             <span>Link copiado!</span>
           ) : (<img src={ shareIcon } alt="Compartilhar" />)}
         </button>
-        <button type="button" data-testid="favorite-btn">Favoritar</button>
+        <button type="button">
+          <img
+            src={ favoriteRecipes.some(
+              (favorite) => favorite.id === id,
+            ) ? blackHeartIcon : whiteHeartIcon }
+            alt="Favorite"
+            data-testid="favorite-btn"
+          />
+        </button>
         <h4 data-testid="recipe-category">{ `${strCategory} | ${strAlcoholic}` }</h4>
         <ol>
 
