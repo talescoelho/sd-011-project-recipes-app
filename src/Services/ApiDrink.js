@@ -18,3 +18,26 @@ export const getDrinkByFirstLetter = (input) => fetch(`https://www.thecocktaildb
       .json()
       .then((json) => (results.ok ? Promise.resolve(json) : Promise.reject(json)))
   ));
+
+export const getDrinksInitial = () => fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+  .then((initial) => (
+    initial
+      .json()
+      .then((json) => (initial.ok ? Promise.resolve(json) : Promise.reject(json)))
+  ));
+
+export const getDrinksCategory = () => fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
+  .then((categories) => (
+    categories
+      .json()
+      .then((json) => (categories.ok ? Promise.resolve(json) : Promise.reject(json)))
+  ));
+
+export function getDrinksByCategory(value) {
+  return fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${value}`)
+    .then((category) => (
+      category
+        .json()
+        .then((json) => (category.ok ? Promise.resolve(json) : Promise.reject(json)))
+    ));
+}

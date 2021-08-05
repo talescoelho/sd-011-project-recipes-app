@@ -1,11 +1,14 @@
-header {
-  align-items: stretch;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-  margin-top: 1%;
-}
+@media screen and ( max-width : 640px ) {
 
-h1 {
-  font-size: 30px;
+  header {
+    align-items: stretch;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    margin-top: 1%;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
 }
