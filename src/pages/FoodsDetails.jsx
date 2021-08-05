@@ -14,7 +14,9 @@ function FoodsDetails() {
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState({});
   const [recomendations, setRecomendations] = useState([]);
+  const [linkCopied, setLinkCopied] = useState('');
   const history = useHistory();
+  const { location: { pathname } } = history;
 
   useEffect(() => {
     const foodDetails = async (foodId) => {
@@ -43,6 +45,12 @@ function FoodsDetails() {
     return `${partialLink}.com/embed/${videoID}`;
   }
 
+  function copyUrlToClipboard() {
+    setLinkCopied('Link copiado!');
+    // verificar possibilidade de obter a url completa para qualquer servidor
+    navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
+  }
+
   return (
     <div className="details-container">
       {loading ? (
@@ -60,7 +68,12 @@ function FoodsDetails() {
               <span data-testid="recipe-category">{details.strCategory}</span>
             </div>
             <div>
-              <button type="button" data-testid="share-btn">
+              {linkCopied}
+              <button
+                type="button"
+                data-testid="share-btn"
+                onClick={ () => copyUrlToClipboard() }
+              >
                 <img src={ shareIcon } alt="Botão compartilhar" />
               </button>
               <button type="button" data-testid="favorite-btn">

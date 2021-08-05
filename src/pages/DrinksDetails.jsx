@@ -14,7 +14,9 @@ function DrinksDetails() {
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState({});
   const [recomendations, setRecomendations] = useState([]);
+  const [linkCopied, setLinkCopied] = useState('');
   const history = useHistory();
+  const { location: { pathname } } = history;
 
   useEffect(() => {
     const foodDetails = async (drinkId) => {
@@ -36,9 +38,17 @@ function DrinksDetails() {
   const ingredientsAndMeasures = details.idDrink
     ? ingredientsDrinkDetails(details) : [];
 
+  function copyUrlToClipboard() {
+    setLinkCopied('Link copiado!');
+    // verificar possibilidade de obter a url completa para qualquer servidor
+    navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
+  }
+
   return (
     <div className="details-container">
-      {loading ? <ReactBootStrap.Spinner animation="border" />
+      {loading ? (
+        <ReactBootStrap.Spinner animation="border" />
+      )
         : (
           <>
             <img
@@ -52,7 +62,12 @@ function DrinksDetails() {
                 <span data-testid="recipe-category">{details.strAlcoholic}</span>
               </div>
               <div>
-                <button type="button" data-testid="share-btn">
+                {linkCopied}
+                <button
+                  type="button"
+                  data-testid="share-btn"
+                  onClick={ () => copyUrlToClipboard() }
+                >
                   <img src={ shareIcon } alt="Botão compartilhar" />
                 </button>
                 <button type="button" data-testid="favorite-btn">

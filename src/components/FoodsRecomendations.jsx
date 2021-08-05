@@ -8,7 +8,6 @@ function FoodsRecomendations(props) {
     <div className="recomendations-container">
       {recomendations.map((element, index) => {
         if (index < recomendationsNumber) {
-          console.log(element);
           return (
             <div key={ element.idMeal } data-testid={ `${index}-recomendation-card` }>
               <img src={ element.strMealThumb } alt="Comida recomendada" />
@@ -27,8 +26,8 @@ function FoodsRecomendations(props) {
   );
 }
 
-FoodsRecomendations.propTypes = {
+FoodsRecomendations.propTypes = ({
   recomendations: PropTypes.arrayOf.isRequired,
-};
+});
 
 export default FoodsRecomendations;
