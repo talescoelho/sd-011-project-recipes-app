@@ -7,6 +7,7 @@ const INITIAL_STATE = {
 const drinkReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case REQUEST_INGREDIENT_DRINK:
+    console.log(action);
     return {
       ...state,
       recipes: action.payload.result.drinks,
