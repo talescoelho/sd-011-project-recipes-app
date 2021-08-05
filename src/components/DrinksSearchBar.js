@@ -1,3 +1,4 @@
+
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router';
 import RecipeAppContext from '../context/RecipeAppContext';
@@ -23,7 +24,6 @@ function DrinksSearchBar() {
     } else if (!input) return null;
     const response = await fetch(endpoint);
     const { drinks } = await response.json();
-    console.log(drinks);
     if (drinks === null) return alert(alertMsg);
     if (drinks.length === 1) return history.push(`/bebidas/${drinks[0].idDrink}`);
     setDrinksList(drinks);
