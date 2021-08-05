@@ -13,3 +13,11 @@ describe('Requirement - 67', () => {
     expect(screen.getByTestId(exploreDrinks)).toBeInTheDocument();
   });
 });
+
+describe('Requirement - 68', () => {
+  it('Should have 2 buttons with names "Explorar Comidas" and "Explorar Bebidas"', () => {
+    render(<Explore />);
+    expect(screen.getByTestId(exploreFood)).contains('Explorar Comidas');
+    expect(screen.getByTestId(exploreDrinks)).contains('Explorar Bebidas');
+  });
+});
