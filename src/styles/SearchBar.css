@@ -13,29 +13,26 @@
 .search-input {
   align-items: center;
   background: none;
-  background-color: white;
-  border: 2px solid #ffc107;
+  background-color: #ffc107;
+  border: none;
   border-radius: 10px;
-  color: black;
+  color: white;
   font-weight: 600;
   height: 40px;
   outline: none;
   text-align: center;
-  width: 300px;
+  width: 70vw;
 }
 
 .search-input::placeholder {
-  color: black;
-  font-size: 15px;
-  font-weight: 600;
-  text-align: center;
-}
-
-.search-input::placeholder:focus {
   color: white;
   font-size: 15px;
   font-weight: 600;
   text-align: center;
+}
+
+input:focus::placeholder {
+  color: rgb(54, 211, 14);
 }
 
 .search-btn {
@@ -45,13 +42,14 @@
 }
 
 .search-btn:hover {
+  background-color: rgb(54, 211, 14);
   color: white;
   font-weight: 900;
 }
 
 .search-input:focus {
-  background-color: #ffc107;
-  border: 2px solid #ffc107;
+  background-color: rgb(54, 211, 14);
+  border: none;
   color: white;
   font-weight: 900;
 }
@@ -83,7 +81,7 @@
 }
 
 .radios input:checked:after {
-  background-color: orange;
+  background-color: rgb(54, 211, 14);
   border: 2px solid white;
   border-radius: 15px;
   content: '';
