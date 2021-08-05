@@ -24,10 +24,10 @@ export default function ExploreByLocal() {
     return (
       <div>
         <label htmlFor="country">
-          <select className="country">
+          <select className="country" data-testid="explore-by-area-dropdown">
             {country.length
         && country.slice(0, magicNumberFive).map(({ strArea }, index) => (
-          <option key={ index }>{strArea}</option>))}
+          <option data-testid={ `${strArea}-option` } key={ index }>{strArea}</option>))}
           </select>
         </label>
       </div>
