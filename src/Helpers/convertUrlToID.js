@@ -15,3 +15,7 @@ export function manageDetailAPI(object) {
 
   return object;
 }
+
+export function managePathname(pathname) {
+  return pathname.split('/')[2];
+}

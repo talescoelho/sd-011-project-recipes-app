@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import CarrouselDrinks from './CarrouselDrinks';
 import '../../styles/detail-screen.css';
-import { convertUrlToID, manageDetailAPI } from '../../Helpers/convertUrlToID';
+import { convertUrlToID, manageDetailAPI, managePathname } from '../../Helpers/convertUrlToID';
 import embedYouTubeVideo from '../../Helpers/embedYouTubeVideo';
 
 function SingleFoodItem() {
+  const history = useHistory();
+  console.log(history);
+  const currentURL = window.location.pathname;
   const [itemDetail, setItemDetail] = useState({
     meals: null,
   });
@@ -89,6 +93,7 @@ function SingleFoodItem() {
         data-testid="start-recipe-btn"
         type="button"
         className="start-recipe-button"
+        onClick={ () => history.push(`/comidas/${managePathname(currentURL)}/in-progress`) }
       >
         Iniciar Receita
       </button>
