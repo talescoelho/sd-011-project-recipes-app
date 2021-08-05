@@ -13,9 +13,9 @@ import {
   retrieveInProgressRecipes,
 } from '../../../services/handleLocalStorage';
 import DetailsCarousel from '../../../components/Details/Carousel';
-import './styles.css';
 import FavoriteButton from '../../../components/Details/FavoriteButton';
 import CopyButton from '../../../components/Details/CopyButton';
+import './styles.css';
 
 export default function ComidaDetails({ match: { params: { recipeId } } }) {
   const [details, setDetails] = useState({});
