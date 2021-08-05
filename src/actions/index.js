@@ -4,6 +4,9 @@ export const GET_MEALS_ERROR = 'GET_MEALS_ERROR';
 export const GET_DRINKS = 'GET_DRINKS';
 export const GET_DRINKS_SUCCESS = 'GET_DRINKS_SUCCESS';
 export const GET_DRINKS_ERROR = 'GET_DRINKS_ERROR';
+export const GET_RECIPES_CATEGORIES = 'GET_RECIPES_CATEGORIES';
+export const GET_RECIPES_CATEGORIES_SUCCESS = 'GET_RECIPES_CATEGORIES_SUCCESS';
+export const GET_RECIPES_CATEGORIES_ERROR = 'GET_RECIPES_CATEGORIES_ERROR';
 
 const baseMealDbUrl = 'https://www.themealdb.com/api/json/v1/1';
 const baseCocktailDbUrl = 'https://www.thecocktaildb.com/api/json/v1/1';
@@ -56,4 +59,33 @@ export const fetchDrinks = () => (dispatch) => {
     .then((response) => response.json())
     .then(({ drinks }) => dispatch(getDrinksSuccess(drinks)))
     .catch((error) => dispatch(getDrinksError(error)));
+};
+
+const getDrinksCategories = () => ({
+  type: GET_RECIPES_CATEGORIES,
+});
+
+const getDrinksCategoriesSuccess = (payload) => ({
+  type: GET_RECIPES_CATEGORIES_SUCCESS,
+  payload,
+});
+
+const getDrinksCategoriesError = (error) => ({
+  type: GET_RECIPES_CATEGORIES_ERROR,
+  payload: error,
+});
+
+export const fetchRecipesCategories = (type) => (dispatch) => {
+  dispatch(getDrinksCategories());
+
+  const url = `${type === 'comidas' ? baseMealDbUrl : baseCocktailDbUrl}/list.php?c=list`;
+
+  return fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      const info = type === 'comidas' ? data.meals : data.drinks;
+      const categories = info.map(({ strCategory }) => strCategory);
+      dispatch(getDrinksCategoriesSuccess({ categories, type }));
+    })
+    .catch((error) => dispatch(getDrinksCategoriesError(error)));
 };
