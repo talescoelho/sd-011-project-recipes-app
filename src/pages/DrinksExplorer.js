@@ -11,12 +11,12 @@ export default function DrinksExplorer() {
   const [surpriseDrink, setSurpriseDrink] = useState(0);
 
   useEffect(() => {
-    const getRandmomMeal = async () => {
+    const getRandmomDrink = async () => {
       const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
         .then((res) => res.json());
       return setSurpriseDrink(response.drinks[0].idDrink);
     };
-    getRandmomMeal();
+    getRandmomDrink();
   }, []);
   const randomId = surpriseDrink;
 
