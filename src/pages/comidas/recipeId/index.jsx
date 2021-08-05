@@ -1,26 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Carousel,
   Container,
   Row,
   Col,
   Button,
 } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
-import { fetchDetails, fetchRecomendation } from '../../../services/fetchDetailsApi';
+import copy from 'clipboard-copy';
+import { useHistory, useLocation } from 'react-router-dom';
+import { fetchDetails } from '../../../services/fetchDetailsApi';
 import {
   retrieveDoneRecipes,
   retrieveInProgressRecipes,
+  retrieveFavoriteRecipes,
 } from '../../../services/handleLocalStorage';
+import DetailsCarousel from '../../../components/Details/Carousel';
+import shareIcon from '../../../images/shareIcon.svg';
+import whiteHeartIcon from '../../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../../images/blackHeartIcon.svg';
 import './styles.css';
 
 export default function ComidaDetails({ match: { params: { recipeId } } }) {
   const [details, setDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [recomendations, setRecomendations] = useState([]);
   const [isRecipeDone, setIsRecipeDone] = useState(false);
   const [startBtnText, setStartBtnText] = useState('Iniciar Receita');
+  const [copyBtnText, setCopyBtnText] = useState('');
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favoriteSrc, setFavoriteSrc] = useState(whiteHeartIcon);
+
+  useEffect(() => {
+    const favoriteRecipes = retrieveFavoriteRecipes();
+    favoriteRecipes.forEach((obj) => {
+      if (obj.id.includes(recipeId)) {
+        setIsFavorite(true);
+        setFavoriteSrc(blackHeartIcon);
+        console.log('isFavorite');
+      }
+    });
+  }, [recipeId]);
 
   useEffect(() => {
     const inProgress = retrieveInProgressRecipes();
@@ -40,14 +58,6 @@ export default function ComidaDetails({ match: { params: { recipeId } } }) {
   }, [recipeId]);
 
   useEffect(() => {
-    const fetchRecomendations = async () => {
-      const getRecomendations = await fetchRecomendation('meal');
-      setRecomendations(getRecomendations);
-    };
-    fetchRecomendations();
-  }, []);
-
-  useEffect(() => {
     const fetchApi = async () => {
       const getDetails = await fetchDetails('meal', recipeId);
       setDetails(getDetails);
@@ -57,8 +67,16 @@ export default function ComidaDetails({ match: { params: { recipeId } } }) {
   }, [recipeId]);
 
   const history = useHistory();
+
   const handleStartRecipe = () => {
     history.push(`/comidas/${recipeId}/in-progress`);
+  };
+
+  const location = useLocation();
+
+  const handleCopyBtn = () => {
+    setCopyBtnText('Link copiado!');
+    copy(`http://localhost:3000${location.pathname}`);
   };
 
   const loading = () => <h1>Loading content...</h1>;
@@ -94,18 +112,24 @@ export default function ComidaDetails({ match: { params: { recipeId } } }) {
             <Button
               variant="primary"
               type="button"
+              onClick={ handleCopyBtn }
               data-testid="share-btn"
             >
-              Compartilhar
+              <img alt="Botão de copiar link" src={ shareIcon } />
             </Button>
+            <br />
+            <span>{copyBtnText}</span>
           </Col>
           <Col className="col-6">
             <Button
               variant="danger"
               type="button"
               data-testid="favorite-btn"
+              src={ favoriteSrc }
             >
-              Favoritar
+              { isFavorite
+                ? <img alt="coração" src={ blackHeartIcon } />
+                : <img alt="coração" src={ whiteHeartIcon } />}
             </Button>
           </Col>
         </Row>
@@ -164,28 +188,8 @@ export default function ComidaDetails({ match: { params: { recipeId } } }) {
             <h2>Receitas recomendadas</h2>
           </Col>
         </Row>
-        <Row as="nav">
-          <Col className="col-12">
-            <Carousel className="m-auto w-85" variant="dark">
-              {
-                recomendations.map(({ strDrink, strDrinkThumb }, index) => (
-                  <Carousel.Item
-                    data-testid={ `${index}-recomendation-card` }
-                    key={ strDrink }
-                  >
-                    <img
-                      className="recomendation-picture"
-                      src={ strDrinkThumb }
-                      alt="Imagem"
-                    />
-                    <Carousel.Caption data-testid={ `${index}-recomendation-title` }>
-                      <h3>{strDrink}</h3>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-                ))
-              }
-            </Carousel>
-          </Col>
+        <Row className="mb-5 justify-content-center">
+          <DetailsCarousel selector="meal" />
         </Row>
         <Row>
           <Col className="col-12">

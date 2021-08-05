@@ -17,6 +17,11 @@ export const retrieveInProgressRecipes = () => {
   return inProgress;
 };
 
+export const retrieveFavoriteRecipes = () => {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  return favoriteRecipes;
+};
+
 // const handleStartRecipe = () => {
 //   const {
 //     idDrink,
