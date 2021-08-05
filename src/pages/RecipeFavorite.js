@@ -29,7 +29,6 @@ export default function RecipeFavorite() {
     }
   }, []);
 
-
   const removeFavorite = (id) => {
     const favorites = JSON.parse(localStorage.favoriteRecipes);
     const newFavorites = favorites.filter((index) => index.id !== id);
