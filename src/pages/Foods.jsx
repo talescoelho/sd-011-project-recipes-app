@@ -9,8 +9,9 @@ import FiltersCategories from '../components/FiltersCategories';
 
 function Foods() {
   const { setFoods,
-    dataFilter, foods,
-    compare, setCompare, loading, setLoading } = useContext(RecipesContext);
+    dataFilter, foods, compare, setDataFilter,
+    setCompare, loading, setLoading,
+    foodsByItem, searchBar } = useContext(RecipesContext);
 
   const MAX = 12;
 
@@ -27,31 +28,23 @@ function Foods() {
 
   useEffect(() => {
     const renderItens = () => {
+      if (foodsByItem.length > 1) {
+        return setCompare(foodsByItem);
+      }
       if (dataFilter.length === 0) {
         return setCompare(foods);
       }
       return setCompare(dataFilter);
     };
     renderItens();
-  }, [setCompare, foods, dataFilter]);
-
-  const fnAlert = (func, message) => {
-    func(message);
-  };
-
-  if (dataFilter === null) {
-    const msg = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
-    return fnAlert(alert, msg);
-  }
-
-  if (dataFilter.length === 1) {
-    return <Redirect to={ `/comidas/${dataFilter[0].idMeal}` } />;
-  }
+  }, [setCompare, foods, dataFilter, foodsByItem, setDataFilter]);
 
   return (
     <>
+      { dataFilter && dataFilter.length
+        === 1 && <Redirect to={ `/comidas/${dataFilter[0].idMeal}` } />}
       <Header />
-      <FiltersCategories />
+      {searchBar ? null : <FiltersCategories /> }
       <section className="recipes-container">
         {loading ? <ReactBootStrap.Spinner animation="border" />
           : compare.slice(0, MAX).map((food, index) => (

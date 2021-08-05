@@ -7,7 +7,8 @@ function FiltersCategories() {
   const history = useHistory();
   const { location: { pathname } } = history;
   const [categories, setCategories] = useState([]);
-  const { setCompare } = useContext(RecipesContext);
+  const { setCompare, setLoading, setDataFilter } = useContext(RecipesContext);
+  const [resetFilter, setResetFilter] = useState('');
 
   useEffect(() => {
     const requisitionFilters = async () => {
@@ -16,37 +17,58 @@ function FiltersCategories() {
         const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
         const responseFoods = await response.json();
         const { meals } = responseFoods;
-        console.log(meals);
         return setCategories(meals.slice(0, cinco));
       }
       if (pathname === '/bebidas') {
         const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
         const responseDrinks = await response.json();
         const { drinks } = responseDrinks;
-        console.log(drinks);
         return setCategories(drinks.slice(0, cinco));
       }
     };
     requisitionFilters();
   }, [pathname]);
 
-  async function categoryFilter({ target }) {
-    console.log(target.name);
+  async function categoryFilter(target) {
     const doze = 12;
     if (pathname === '/comidas') {
+      setLoading(true);
       const ConsultAPICategories = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${target.name}`);
       const response = await ConsultAPICategories.json();
       const { meals } = response;
       setCompare(!meals ? [] : meals.slice(0, doze));
-      console.log(meals);
+      setLoading(false);
     }
     if (pathname === '/bebidas') {
+      setLoading(true);
       const ConsultAPICategories = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${target.name}`);
       const response = await ConsultAPICategories.json();
       const { drinks } = response;
       setCompare(!drinks ? [] : drinks.slice(0, doze));
-      console.log(drinks);
+      setLoading(false);
     }
+  }
+
+  function resetSetFilter({ target }) {
+    if (resetFilter === target.name && pathname === '/comidas') {
+      setResetFilter('');
+      setDataFilter([]);
+      console.log('entrei1');
+    }
+    if (resetFilter === target.name && pathname === '/bebidas') {
+      setResetFilter('');
+      setDataFilter([]);
+      console.log('entrei1');
+    }
+    if (resetFilter !== target.name) {
+      setResetFilter(target.name);
+      categoryFilter(target);
+      console.log('entrei2');
+    }
+  }
+
+  async function returnAll() {
+    setDataFilter([]);
   }
 
   return (
@@ -58,10 +80,18 @@ function FiltersCategories() {
           type="button"
           name={ category.strCategory }
           key={ index }
-          onClick={ (e) => categoryFilter(e) }
+          onClick={ (e) => resetSetFilter(e) }
         >
           {category.strCategory}
         </button>))}
+      <button
+        data-testid="All-category-filter"
+        onClick={ () => returnAll() }
+        className="button-categories"
+        type="button"
+      >
+        All
+      </button>
     </div>
   );
 }
