@@ -9,7 +9,7 @@ describe('67 - Implemente os elementos da tela de explorar respeitando os atribu
   });
 });
 
-describe.skip('68 - Desenvolva a tela de maneira que tenha 2 botões: um para explorar comidas e o outro para explorar bebidas', () => {
+describe('68 - Desenvolva a tela de maneira que tenha 2 botões: um para explorar comidas e o outro para explorar bebidas', () => {
   it('O nomes dos botões devem ser "Explorar Comidas" e "Explorar Bebidas"', () => {
     cy.visit('http://localhost:3000/explorar');
 
