@@ -3,7 +3,8 @@ import React from 'react';
 const InprogressFood = () => {
   return (
     <div>
-      a
+      renderizou o progresso
+      {/* {alert('oi')} */}
     </div>
   );
 };

@@ -16,7 +16,7 @@ export default function CarrouselFoods() {
       }
       setFoodsRecomendations(recomendationsArray);
     };
-    return FetchRecomendation();
+    FetchRecomendation();
   }, []);
 
   return (

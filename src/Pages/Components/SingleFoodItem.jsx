@@ -20,12 +20,12 @@ function SingleFoodItem() {
   const arrayOfMeasures = [];
 
   useEffect(() => {
-    const FetchFood = async () => {
+    const fetchFood = async () => {
       const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${itemId}`);
       const detailRequest = await response.json();
       setItemDetail(manageDetailAPI(detailRequest));
     };
-    return FetchFood();
+    fetchFood();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

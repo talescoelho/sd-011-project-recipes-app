@@ -17,7 +17,7 @@ function SingleFoodItem() {
       const detailRequest = await response.json();
       setItemDetail(manageDetailAPI(detailRequest));
     };
-    return FetchDrink();
+    FetchDrink();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   if (itemDetail.meals) return null;

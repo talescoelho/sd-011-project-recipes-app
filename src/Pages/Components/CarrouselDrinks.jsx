@@ -16,7 +16,7 @@ export default function CarrouselDrinks() {
       }
       setDrinksRecomendations(recomendationsArray);
     };
-    return FetchRecomendation();
+    FetchRecomendation();
   }, []);
 
   return (
