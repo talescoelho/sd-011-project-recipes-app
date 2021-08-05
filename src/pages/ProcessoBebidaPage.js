@@ -98,6 +98,37 @@ export default function ProcessoBebidaPage(props) {
     }
   }
 
+  function mountDoneRecipes() {
+    const ifDoneRecipesObj = [{
+      id,
+      type: 'drinks',
+      area: '',
+      category: drinkInProgress.drinks[0].strCategory,
+      alcoholicOrNot: drinkInProgress.drinks[0].strAlcoholic,
+      name: drinkInProgress.drinks[0].strDrink,
+      image: drinkInProgress.drinks[0].strDrinkThumb,
+      doneDate: new Date().toLocaleDateString('PT-BR'),
+      tags: [''],
+    }];
+    const getDoneStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!getDoneStorage) {
+      localStorage.setItem('doneRecipes', JSON.stringify(ifDoneRecipesObj));
+    } else {
+      const elseDoneRecipesObj = [...getDoneStorage, {
+        id,
+        type: 'drinks',
+        area: '',
+        category: drinkInProgress.drinks[0].strCategory,
+        alcoholicOrNot: drinkInProgress.drinks[0].strAlcoholic,
+        name: drinkInProgress.drinks[0].strDrink,
+        image: drinkInProgress.drinks[0].strDrinkThumb,
+        doneDate: new Date().toLocaleDateString('PT-BR'),
+        tags: [''],
+      }];
+      localStorage.setItem('doneRecipes', JSON.stringify(elseDoneRecipesObj));
+    }
+  }
+
   return (
     <div>
       {drinkInProgress && (
@@ -134,6 +165,7 @@ export default function ProcessoBebidaPage(props) {
           <Link to="/receitas-feitas">
             <button
               data-testid="finish-recipe-btn"
+              onClick={ mountDoneRecipes }
               type="button"
               disabled={ savedRecipe && (
                 savedRecipe.cocktails[id].length !== ingredientFilter.length) }
