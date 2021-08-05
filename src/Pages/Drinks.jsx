@@ -6,7 +6,6 @@ import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import SearchBar from './Components/SearchBar';
 import FooterBar from './Components/FooterBar';
-import CategoryDrinksAPI from '../services/CategoryDrinksAPI';
 import DrinkCards from './Components/DrinkCards';
 import DrinkCategoryButtons from './Components/DrinkCategoryButtons';
 
@@ -28,7 +27,7 @@ function Drinks() {
     const oneResult = dataDrinks[0];
     history.push(`/bebidas/${oneResult.idDrink}`);
   }
-  const numberFour = 4;
+
   return (
     <div>
       <h1 data-testid="page-title">Bebidas</h1>
