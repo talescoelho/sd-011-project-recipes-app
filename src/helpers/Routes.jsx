@@ -15,6 +15,7 @@ import ExploreFoodsArea from '../pages/ExploreFoodsArea';
 import DrinksDetails from '../pages/DrinksDetails';
 import NotFound from '../pages/NotFound';
 import FoodsDetails from '../pages/FoodsDetails';
+import RecipesInProgress from '../pages/RecipesInProgress';
 
 function Routes() {
   return (
@@ -28,6 +29,16 @@ function Routes() {
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
         <Route exact path="/comidas/:id" component={ FoodsDetails } />
         <Route exact path="/bebidas/:id" component={ DrinksDetails } />
+        <Route
+          exact
+          path="/comidas/:id/in-progress"
+          component={ RecipesInProgress }
+        />
+        <Route
+          exact
+          path="/bebidas/:id/in-progress"
+          component={ RecipesInProgress }
+        />
         <Route
           exact
           path="/explorar/comidas/ingredientes"
