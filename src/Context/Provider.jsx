@@ -33,7 +33,7 @@ const Provider = ({ children }) => {
   const [DetailsMeasFilterForDrinks, setDetailsMeasFilterForDrinks] = useState([]);
   const [DetailsInstrucFilterForDrinks, setDetailsInstrucFilterForDrinks] = useState([]);
   // * ============================================================
-  const [dataRandomFoods, setDataRandomFoods] = useState([]);
+  const [startButton, setStartButton] = useState('Iniciar receita');
   const [newDataFoods, setNewDataFoods] = useState([]);
   const [newDataDrinks, setNewDataDrinks] = useState([]);
   const [dataRandomDrinks, setDataRandomDrinks] = useState([]);
@@ -123,8 +123,8 @@ const Provider = ({ children }) => {
     setDetailsMeasFilterForDrinks,
     DetailsInstrucFilterForDrinks,
     setDetailsInstrucFilterForDrinks,
-    dataRandomFoods,
-    setDataRandomFoods,
+    startButton,
+    setStartButton,
     dataRandomDrinks,
     setDataRandomDrinks,
     newDataFoods,

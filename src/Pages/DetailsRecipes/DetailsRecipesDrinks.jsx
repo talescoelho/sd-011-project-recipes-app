@@ -85,6 +85,7 @@ function DetailsRecipesFoods() {
       <button
         type="button"
         data-testid="start-recipe-btn"
+        className="fixed-btn"
       >
         Iniciar receita
       </button>
