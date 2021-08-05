@@ -5,7 +5,6 @@ import DrinkCard from './DrinkCard';
 import RecipesAppContext from '../context/RecipesAppContext';
 import Header from './Header';
 import '../styles/Recipes.css';
-import Header from './Header';
 
 export default function Recipes() {
   const { mealRecipes, drinkRecipes, haveRecipes } = useContext(RecipesAppContext);
