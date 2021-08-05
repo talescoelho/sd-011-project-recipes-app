@@ -1,15 +1,39 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
+<<<<<<< HEAD
 import Loading from '../Components/Loading';
+=======
+>>>>>>> 530c023ed58d591217c2807363c0ad2394510ad4
 import './RecipesFoods.css';
+import CardRecipes from '../Components/CardRecipes';
+import MyContext from '../Context/MyContext';
 
 export default function RecipesFood() {
+  const { recipe } = useContext(MyContext);
+
+  const renderCardRecipes = () => {
+    const showMaxRecipes = 12;
+
+    if (recipe.meals) {
+      const filteredRecipe = recipe.meals.filter(
+        (meals, index) => index < showMaxRecipes,
+      );
+      return filteredRecipe.map((recp, index) => (
+        <CardRecipes
+          key={ index }
+          index={ index }
+          thumb={ recp.strMealThumb }
+          title={ recp.strMeal }
+        />
+      ));
+    }
+  };
+
   return (
     <div>
       <Header className="title" title="Comidas" searchIconAppears />
-      <h2 className="title">Tela principal de comidas</h2>
-      
+      {renderCardRecipes()}
       <Footer />
     </div>
   );

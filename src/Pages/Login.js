@@ -35,7 +35,7 @@ export default function Login() {
   }
   return (
     <div className="loginBox">
-       <h2 className="title">Cozinhando com Gosto</h2>
+      <h2 className="title">Cozinhando com Gosto</h2>
       <video
         width="360px"
         height="640px"

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from './MyContext';
 
-const HomeRecipes = ({ children }) => {
+export default function MyProvider({ children }) {
+  const [recipe, setRecipe] = useState({ meals: [], drinks: [] });
+
   const context = {
-    // valores...
+    recipe,
+    setRecipe,
   };
 
   return (
@@ -12,8 +15,8 @@ const HomeRecipes = ({ children }) => {
       { children }
     </MyContext.Provider>
   );
-};
+}
 
-HomeRecipes.propTypes = {
+MyProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
