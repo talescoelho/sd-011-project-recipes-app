@@ -1,5 +1,6 @@
 import React from 'react';
-import Header from '../components/Header';
+import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
+// import Header from '../components/Header';
 
 // const objFavoriteRecipes = [{
 //   id: id-da-receita,
@@ -14,7 +15,24 @@ import Header from '../components/Header';
 export default function FavoriteRecipes() {
   return (
     <div>
-      <Header title="Receitas Favoritas" search={ false } />
+      <section style={ { textAlign: 'center' } }>
+        <ToggleButtonGroup
+          type="radio"
+          name="type"
+          value={ type }
+          // onChange={ handleChange }
+        >
+          <ToggleButton name="type" data-testid="filter-by-all-btn" value="all">
+            All
+          </ToggleButton>
+          <ToggleButton name="type" data-testid="filter-by-food-btn" value="meal">
+            Food
+          </ToggleButton>
+          <ToggleButton name="type" data-testid="filter-by-drink-btn" value="drink">
+            Drink
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </section>
     </div>
   );
 }

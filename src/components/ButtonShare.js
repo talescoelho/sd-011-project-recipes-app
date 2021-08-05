@@ -35,7 +35,7 @@ export default function ButtonShare(props) {
         tabIndex="0"
         onClick={ onClickButtonShare }
       >
-        <img data-testid="food-bottom-btn" src={ shareIcon } alt="share icon" />
+        <img src={ shareIcon } alt="share icon" />
       </div>
       { isCopied && <p>Link copiado!</p>}
     </div>
