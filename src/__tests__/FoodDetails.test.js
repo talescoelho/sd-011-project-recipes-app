@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { act } from 'react-dom/test-utils';
-import { screen, waitFor } from '@testing-library/dom';
+import { screen, fireEvent } from '@testing-library/dom';
 import { renderWithRouterAndStore as render, mockFetch } from '../helpers';
 import { FoodDetails } from '../pages';
 import { beefAndOysterPie } from '../helpers/mocks';
@@ -70,6 +70,25 @@ describe('A pagina de detalhes de comida', () => {
       expect(allDrinkCards.length).toBe(6);
     });
   });
+
+  // describe('Ao clicar no botão de compartilhar', () => {
+    // it('o link é copiado para o clipboard', async () => {
+    //   await act(async () => {
+    //     fireEvent.click(screen.getByTitle('share the recipe'));
+    //   });
+    //   const clipBoardContent = await navigator.clipboard.readText();
+    //   console.log(clipBoardContent);
+    //   expect(clipBoardContent).toBe('https://localhost.3000/comidas/52878');
+    // });
+
+  //   it('uma mensagem de confirmação aparece na tela', async () => {
+  //     await act(async () => {
+  //       fireEvent.click(screen.getByTitle('share the recipe'));
+  //     });
+
+  //     expect(screen.findByText('Link copiado!')).toBeInTheDocument();
+  //   })
+  // });
 });
 
 
@@ -123,8 +142,9 @@ describe('Caso a receita esteja em progresso', () => {
     });
   });
 
-  it('o botão de Iniciar Receita se torna Continuar Receita', () => {
+  it('o botão de Iniciar Receita se torna Continuar Receita', async () => {
     expect(screen.queryByText('Iniciar Receita')).not.toBeInTheDocument();
+    console.log(screen.getByTestId('start-recipe-btn'));
     expect(screen.queryByText('Continuar Receita')).toBeInTheDocument();
   })
 })

@@ -12,6 +12,7 @@ function FoodDetails() {
   const [isDone, setIsDone] = useState(false);
   const [isInProgress, setIsInProgress] = useState(false);
   const [drinks, setDrinks] = useState([]);
+  const [toastIsVisible, setToastIsVisible] = useState(false);
   const { id } = useParams();
 
   const BASE_URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php'; // TODO usar token
@@ -42,6 +43,14 @@ function FoodDetails() {
       setIsInProgress(true);
     }
   }, [id]);
+
+  function showToast() {
+    setToastIsVisible(true);
+
+    setTimeout(() => {
+      setToastIsVisible(false);
+    }, 3000);
+  }
 
   const renderNoRecipeMessage = () => {
     if (isLoading) return <p>Carregando...</p>;
@@ -97,7 +106,10 @@ function FoodDetails() {
                 <div>
                   <ActionButton
                     action="share"
-                    onClick={ () => console.log('oi') }
+                    onClick={ () => {
+                      navigator.clipboard.writeText('eaeeee');
+                      showToast();
+                    } }
                   />
                   <ActionButton
                     action="favorite"
@@ -156,6 +168,11 @@ function FoodDetails() {
               </section>
             </>
           ) }
+        { toastIsVisible && (
+          <div style={{ position: 'fixed', right: '25px', bottom: '25px' }}>
+            <p>Link copiado!</p>
+          </div>
+        ) }
       </main>
     </Layout>
   );
