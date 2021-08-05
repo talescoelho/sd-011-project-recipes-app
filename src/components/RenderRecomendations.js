@@ -32,17 +32,22 @@ function RenderRecomendations({ typeReco }) {
   }, [drinks.drinks, foods.meals]);
 
   const { recipes, type, name, image, id } = recipeType;
-  const limitRecipes = 2;
+  const limitRecipes = 6;
 
   if (recipes === undefined) return <p>Loading</p>;
 
+  // Melhor implementar
   return (
     <section>
       {(type !== '' && recipes !== null)
         && recipes.slice(0, limitRecipes).map((recipe, index) => (
           <Link to={ `bebidas/${recipe[id]}` } key={ index }>
-            <div data-testid={ `${index}-recomendation-card` } key={ index }>
-              <p data-testid={ `${index}-card-name` }>{recipe[name]}</p>
+            <div
+              data-testid={ `${index}-recomendation-card` }
+              key={ index }
+              hidden={ index > 1 }
+            >
+              <p data-testid={ `${index}-recomendation-title` }>{recipe[name]}</p>
               <img
                 data-testid={ `${index}-card-img` }
                 src={ recipe[image] }
