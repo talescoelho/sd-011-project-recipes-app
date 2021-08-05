@@ -28,7 +28,6 @@ export const fetchRecipesAPIAction = (url, recipeType) => async (dispatch) => {
   try {
     const response = await fetch(url);
     const json = await response.json();
-    console.log(json);
     if (!json[recipeType]) {
       // eslint-disable-next-line no-alert
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -45,7 +44,6 @@ export const fetchRecipeDetailsAPIAction = (url) => async (dispatch) => {
   try {
     const response = await fetch(url);
     const json = await response.json();
-    console.log(json);
     dispatch(getRecipeDetailsAction(json));
   } catch (error) {
     console.log(error);
@@ -121,12 +119,12 @@ export const fetchCategories = (url, type) => async (dispatch) => {
   }
 };
 
-export const fetchByArea = (url) => async (dispatch) => {
+export const fetchByIngredients = (url) => async (dispatch) => {
   dispatch(requestApiRecipesPage());
   try {
     const request = await fetch(url);
     const response = await request.json();
-    dispatch(getDataRecipes(response.meals));
+    dispatch(getRecipesAction(response));
   } catch (error) {
     console.log(error);
   }

@@ -5,8 +5,9 @@ import { GET_RECIPES_API, REQUEST_API,
 const INITIAL_STATE = {
   recipesData: [],
   recipeDetailsData: [],
+  recipesRedirectData: [],
   isLoading: false,
-  showRecipe: true,
+  showRecipe: false,
 };
 
 function RecipesReducer(state = INITIAL_STATE, action) {
@@ -15,7 +16,6 @@ function RecipesReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       isLoading: true,
-      showRecipe: true,
     };
   case GET_RECIPES_API:
     return {
@@ -23,19 +23,19 @@ function RecipesReducer(state = INITIAL_STATE, action) {
       recipesData: action.data,
       isLoading: false,
       showRecipe: true,
+
     };
   case GET_RECIPE_DETAILS_API:
     return {
       ...state,
       recipeDetailsData: action.data,
       isLoading: false,
-      showRecipe: true,
     };
   case GET_RECIPES_PAGES:
     return {
       ...state,
-      recipesData: action.data,
-      showRecipe: false,
+      recipesRedirectData: [...action.data.meals],
+      showRecipe: true,
     };
   default:
     return state;
