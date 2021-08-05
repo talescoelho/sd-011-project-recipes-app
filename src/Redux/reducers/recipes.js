@@ -21,6 +21,10 @@ const recipe = (state = initialState, action) => {
     return { ...state, categories: { ...state.categories, [payload.type]: array } };
   }
 
+  case 'CLEAR_FORM_INFO': {
+    return { ...state, formeInfo: '' };
+  }
+
   default:
     return { ...state };
   }

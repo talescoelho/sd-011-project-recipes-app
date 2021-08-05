@@ -28,6 +28,7 @@ export default function DrinkIngredients() {
     const drinkByIngredient = await fetchDrinkIngredients(ingredient);
     const { drinks } = drinkByIngredient;
     dispatch(getFoodCard({ filtered: drinks }));
+    dispatch({ type: 'CLEAR_FORM_INFO' });
     history.push('/bebidas');
   };
 

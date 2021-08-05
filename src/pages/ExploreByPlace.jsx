@@ -26,19 +26,27 @@ function ExploreByPlace() {
   }, []);
 
   const renderingFilterFoodByArea = async (area) => {
-    const API_URL = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
-    const response = await fetch(API_URL);
-    const json = await response.json();
-    const { meals } = json;
-    dispatch(getFoodCard({ filtered: meals }));
+    if (area !== 'All') {
+      const API_URL = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+      const response = await fetch(API_URL);
+      const json = await response.json();
+      const { meals } = json;
+      dispatch(getFoodCard({ filtered: meals }));
+    } else {
+      const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+      const response = await fetch(URL);
+      const json = await response.json();
+      const { meals } = json;
+      dispatch(getFoodCard({ filtered: meals }));
+    }
   };
 
   const dropdownOptions = () => (
     <select
       data-testid="explore-by-area-dropdown"
-      onClick={ ({ target }) => renderingFilterFoodByArea(target.value) }
+      onChange={ ({ target }) => renderingFilterFoodByArea(target.value) }
     >
-      <option data-testid="All-option" value="all">All</option>
+      <option data-testid="All-option" value="All">All</option>
       {
         areaFood.map((area, index) => (
           <option

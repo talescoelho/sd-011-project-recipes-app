@@ -28,6 +28,7 @@ export default function MealtIngredients() {
     const foodByIngredient = await fetchIngredients(ingredient);
     const { meals } = foodByIngredient;
     dispatch(getFoodCard({ filtered: meals }));
+    dispatch({ type: 'CLEAR_FORM_INFO' });
     history.push('/comidas');
   };
 
