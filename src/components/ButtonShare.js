@@ -8,9 +8,9 @@ const copy = require('clipboard-copy');
 // <ButtonShare path={ window.location.href } />
 // Obs.: "window.location.href" pega a url toda
 
-export default function ButtonShare(props) {
+export default function ButtonShare({props}) {
   const [isCopied, setIsCopied] = useState(false);
-  const { path } = props;
+  const path = props;
   const onClickButtonShare = () => {
     copy(path);
     setIsCopied(true);

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ButtonShare from './ButtonShare';
 import ButtonToProgress from './ButtonToProgress';
 import Recommended from './Recommended';
 import RenderVideo from './RenderVideo';
@@ -7,6 +8,7 @@ function DrinkDetailCard() {
   const [drinkDetail, setDrinkDetail] = useState([]);
   const [rec, setRec] = useState([]);
   const [data, setData] = useState([]);
+  const [min, setMin] = useState([]);
 
   const path = window.location.pathname.split('/')[2];
 
@@ -23,6 +25,7 @@ function DrinkDetailCard() {
     const getRecomend = async () => {
       const recomend = await fetch(`${drinkRecommend}`)
       const resRecom = recomend.json().then((res) => setRec(res.drinks));
+      setMin(parseInt(Math.random() * (20 - 0) + 0, 10));
       return resRecom;
     }
 
@@ -31,7 +34,7 @@ function DrinkDetailCard() {
   }, [path]);
   
   const {
-    idDrink,
+    // idDrink,
     strAlcoholic,
     strCategory,
     strInstructions,
@@ -68,7 +71,7 @@ function DrinkDetailCard() {
       <p>{strAlcoholic}</p>
       <div style={{display: 'flex', justifyContent: 'space-around',}}>
         <button type="button" data-testid="share-btn">Gostei</button>
-        <button type="button"  data-testid="share-btn">Share</button>
+        <ButtonShare props={window.location.href} />
       </div>
       <table>
         <tbody>
@@ -100,7 +103,7 @@ function DrinkDetailCard() {
         />
       }
       <div>
-        <Recommended value={rec} type={"drink"}/>
+        <Recommended value={rec} type={"drink"} min={min} />
       </div>
       <ButtonToProgress data={ callData } />
     </div>

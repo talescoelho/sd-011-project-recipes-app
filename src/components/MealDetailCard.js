@@ -3,11 +3,13 @@ import ButtonToProgress from './ButtonToProgress';
 import ButtonShare from './ButtonShare';
 import Recommended from './Recommended';
 import RenderVideo from './RenderVideo';
+import ButtonFavorite from './ButtonFavorite';
 
 function MealDetailCard() {
   const [mealDetail, setMealDetail] = useState([]);
   const [rec, setRec] = useState([]);
   const [data, setData] = useState([]);
+  const [min, setMin] = useState([]);
 
   const path = window.location.pathname.split('/')[2];
 
@@ -24,6 +26,7 @@ function MealDetailCard() {
     const getRecomend = async () => {
       const recomend = await fetch(`${foodRecomend}`)
       const resRecom = recomend.json().then((res) => setRec(res.meals));
+      setMin(parseInt(Math.random() * (20 - 0) + 0, 10));
       return resRecom;
     }
 
@@ -32,7 +35,7 @@ function MealDetailCard() {
   }, [path]);
   
   const {
-    idMeal,
+    // idMeal,
     strArea,
     strCategory,
     strInstructions,
@@ -59,7 +62,6 @@ function MealDetailCard() {
 
   const callData = () => {
     setData([mealDetail]);
-
     return data;
   }
 
@@ -68,10 +70,10 @@ function MealDetailCard() {
       <h3 data-testid="recipe-title">{strMeal}</h3>
       <img data-testid="recipe-photo" width="150px" src={ strMealThumb } alt="tumb" />
       <h4>{strArea}</h4>
-      <h4 data-testid="recipe-category">{strCategory}</h4>
+      <p data-testid="recipe-category">{strCategory}</p>
       <div style={{display: 'flex', justifyContent: 'space-around',}}>
-        <button type="button" data-testid="share-btn">Gostei</button>
-        <ButtonShare />
+        <ButtonFavorite objData={ mealDetail } />
+        <ButtonShare props={window.location.href} />
       </div>
       <table>
         <tbody>
@@ -100,7 +102,7 @@ function MealDetailCard() {
         />
       }
       <div>
-        <Recommended value={rec} type={"meal"} />
+        <Recommended value={rec} type={"meal"} min={min} />
       </div>
       <ButtonToProgress data={ callData } />
     </div>
