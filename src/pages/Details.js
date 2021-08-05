@@ -58,7 +58,7 @@ function Details({ match: { url, params: { id } } }) {
 
   return (
     <div>
-      <RecipeDetails />
+      <RecipeDetails url={ url } recipeDetail={ recipeDetail } />
       {url.includes('comidas') && <FrameVideo recipe={ recipeDetail } />}
       <RecommendedRecipes />
       <DetailsButton

@@ -1,14 +1,15 @@
 import React, { useEffect, useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import IngredientsList from './IngredientList';
 import ShareIcon from '../images/shareIcon.svg';
 import whiteHearth from '../images/whiteHeartIcon.svg';
 import blackHearth from '../images/blackHeartIcon.svg';
 import RecipesContext from '../context/RecipesContext';
 
-function RecipeDetails() {
+function RecipeDetails({ url }) {
   const URL = window.location.href;
   const [share, setShare] = useState(false);
-  const [favIcon, setFavIcon] = useState(true);
+  const [favIcon, setFavIcon] = useState(false);
   const { recipeDetail: recipe, setIngredientsRecipeList } = useContext(RecipesContext);
   const itemValidation = (item) => {
     if (item !== null && item !== '' && item !== undefined) {
@@ -16,7 +17,7 @@ function RecipeDetails() {
     }
     return false;
   };
-
+  // acrescentar ao localstorage o estado do favIcon
   useEffect(() => {
     const ONE_SEC = 1500;
     const timeout = setInterval(() => {
@@ -43,6 +44,18 @@ function RecipeDetails() {
     getListOfIngredients();
   }, [recipe]);
 
+  const handleClick = () => {
+    const type = url.replace(/\//ig, '').replace(/[0-9]/g, '');
+    const { idMeal, idDrink } = recipe;
+    const newItem = {
+      id: idMeal || idDrink,
+      type,
+    };
+    localStorage.setItem('favoriteRecipes', JSON.stringify([newItem]));
+    setFavIcon(!favIcon);
+    console.log('click', newItem);
+  };
+
   return (
     <article>
       <div>
@@ -62,12 +75,12 @@ function RecipeDetails() {
               () => { navigator.clipboard.writeText(URL); setShare(!share); }
             }
           >
-            <img data-testid="share-btn" src={ ShareIcon } alt="Share" />
+            <img data-testid="share-btn" src={ ShareIcon } alt="Share Icon" />
           </button>
-          <button type="button" onClick={ () => setFavIcon(!favIcon) }>
+          <button type="button" onClick={ handleClick }>
             <img
               data-testid="favorite-btn"
-              src={ favIcon ? whiteHearth : blackHearth }
+              src={ favIcon ? blackHearth : whiteHearth }
               alt="Fav Icon"
             />
           </button>
@@ -84,5 +97,9 @@ function RecipeDetails() {
     </article>
   );
 }
+
+RecipeDetails.propTypes = {
+  url: PropTypes.string.isRequired,
+}.isRequired;
 
 export default RecipeDetails;
