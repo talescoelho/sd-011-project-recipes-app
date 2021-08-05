@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 import {
@@ -6,10 +6,12 @@ import {
   fetchMealsName,
   fetchMealsLetter,
   fetchMealsId,
+  fetchMealsRecommended,
 } from '../services/MealApiService';
 
 import {
   fetchDrinkId,
+  fetchDrinkRecommanded,
   fetchDrinksIngredient,
   fetchDrinksLetter,
   fetchDrinksName,
@@ -26,6 +28,8 @@ export default function RecipesProvider({ children }) {
   const [recipesDb, setRecipesDb] = useState([]);
   const [mealId, setMealId] = useState({});
   const [drinkId, setDrinkId] = useState({});
+  const [drinkRecommend, setDrinkRecommend] = useState([]);
+  const [mealsRecommend, setMealsRecommend] = useState([]);
 
   function visibleAlert(data) { // implementação do requisito 18
     if (data === null) {
@@ -99,6 +103,21 @@ export default function RecipesProvider({ children }) {
     setDrinkId(response[0]);
   }
 
+  async function getDrinkRecommanded() {
+    const response = await fetchDrinkRecommanded();
+    setDrinkRecommend(response);
+  }
+
+  async function getMealRecommend() {
+    const response = await fetchMealsRecommended();
+    setMealsRecommend(response);
+  }
+
+  useEffect(() => {
+    getDrinkRecommanded();
+    getMealRecommend();
+  }, []);
+
   const context = {
     loginState,
     setLogin,
@@ -110,6 +129,8 @@ export default function RecipesProvider({ children }) {
     getMealId,
     drinkId,
     getDrinkId,
+    drinkRecommend,
+    mealsRecommend,
   };
 
   return (

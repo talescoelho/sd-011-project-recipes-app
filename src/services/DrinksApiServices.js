@@ -27,3 +27,9 @@ export async function fetchDrinkId(id) {
   const data = await response.json();
   return data.drinks;
 }
+
+export async function fetchDrinkRecommanded() {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  const data = await response.json();
+  return data.drinks;
+}

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Carousel from 'react-bootstrap/Carousel';
 import DetailsDrinkHeader from '../components/details/detailsDrink/DetailsDrinkHeader';
 import DetailsShareDrinks from '../components/details/detailsDrink/DetailsShareDrinks';
 import
@@ -15,6 +16,7 @@ function DrinksDetails() {
   const {
     drinkId,
     getDrinkId,
+    mealsRecommend,
   } = useContext(RecipesContext);
 
   const { id } = useParams();
@@ -41,8 +43,31 @@ function DrinksDetails() {
           </div>
           <div>
             <h4>recomendações</h4>
-            <span data-testid="0-recomendation-card">recomendações test</span>
-            <span data-testid="0-recomendation-title">titulo recomendações</span>
+            <Carousel
+              width="100%"
+              height="200px"
+            >
+              {
+                mealsRecommend.map((meal, index) => (
+                  <Carousel.Item
+                    key={ index }
+                    data-testid={ `${index}-recomendation-card` }
+                  >
+                    <img
+                      alt="Recomendation"
+                      src={ meal.strMealThumb }
+                    />
+                    <Carousel.Caption>
+                      <p data-testid={ `${index}-recomendation-title` }>
+                        {meal.strMeal}
+                      </p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                ))
+              }
+            </Carousel>
+            {/* <span data-testid="0-recomendation-card">recomendações test</span>
+            <span data-testid="0-recomendation-title">titulo recomendações</span> */}
           </div>
           <div>
             <button
