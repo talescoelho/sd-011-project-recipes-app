@@ -18,13 +18,13 @@ export default function ButtonShare({props}) {
 
   return (
     <div style={ { display: 'flex' } }>
-      <button
+      <a
         data-testid="share-btn"
         type="button"
         onClick={ onClickButtonShare }
       >
         <img data-testid="food-bottom-btn" src={ shareIcon } alt="share icon" />
-      </button>
+      </a>
       { isCopied && <p>Link copiado!</p>}
     </div>
 

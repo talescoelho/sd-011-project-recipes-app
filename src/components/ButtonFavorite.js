@@ -1,81 +1,79 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function ButtonFavorite({ objData }) {
   const [black, setBlack] = useState(false);
-  const path = window.location.pathname.split("/")[2];
-  const l = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  useEffect(() => {
-    if (l === null) {
-      return localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-    };
-    const acumulate = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    acumulate.forEach((e) => {
-        if (e.id === path) {
-          console.log('tem', acumulate);
-          return setBlack(true);
-        }
-      })
-  }, [path, l]);
-  
-  const handleClickToBlack = () => {
-    const {
-      idMeal,
-      strArea,
-      strCategory,
-      strMeal,
-      strMealThumb,
-      strAlcoholic,
-      strDrink,
-      strDrinkThumb
-    } = objData;
+  const path = window.location.pathname.split('/')[2];
 
+  useEffect(() => {
+    const acumulate = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (acumulate === null) {
+      return localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+    acumulate.forEach((e) => (e.id === path) && setBlack(true));
+  }, [path]);
+
+  const handleClickToBlack = () => {
     const objToStorage = {
-      id: idMeal,
-      type: window.location.pathname.split("/")[1],
-      area: strArea !== null ? strArea : '',
-      category: strCategory !== null ? strCategory : '',
-      alcoholicOrNot: strAlcoholic !== null ? strAlcoholic : '',
-      name: strMeal !== null ? strMeal : strDrink,
-      image: strMealThumb !== null ? strMealThumb : strDrinkThumb,
+      id: objData.idMeal !== undefined ? objData.idMeal : objData.idDrink,
+      type: window.location.pathname.split('/')[1],
+      area: objData.strArea !== null ? objData.strArea : '',
+      category: objData.strCategory !== null ? objData.strCategory : '',
+      alcoholicOrNot: objData.strAlcoholic !== null ? objData.strAlcoholic : '',
+      name: objData.strMeal !== undefined ? objData.strMeal : objData.strDrink,
+      image: objData
+        .strMealThumb !== undefined ? objData.strMealThumb : objData.strDrinkThumb,
     };
 
     const acumulate = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const update = JSON.stringify([...acumulate, objToStorage]);
     localStorage.setItem('favoriteRecipes', update);
     return setBlack(true);
-  }
+  };
 
   const handleClickToWhite = () => {
     const acumulate = JSON.parse(localStorage.getItem('favoriteRecipes'));
     console.log('fora', acumulate);
     const update = acumulate
-      .filter((e) => (e.id !== window.location.pathname.split("/")[2]));
+      .filter((e) => (e.id !== window.location.pathname.split('/')[2]));
     console.log('update', update);
     localStorage.setItem('favoriteRecipes', JSON.stringify(update));
     return setBlack(false);
-  }
-  
+  };
+
   const whiteHeart = () => {
-    return (
-      <button type="button" onClick={ () => handleClickToBlack() }>
-        <img data-testid="share-btn" src={whiteHeartIcon} alt="not-favorite btn" />
-      </button>
+    const ret = (
+      <a type="button" onClick={ () => handleClickToBlack() }>
+        <img data-testid="share-btn" src={ whiteHeartIcon } alt="not-favorite btn" />
+      </a>
     );
-  }
+    return ret;
+  };
 
   const blackHeart = () => {
-    return (
-      <button type="button" onClick={ () => handleClickToWhite() }>
-        <img data-testid="share-btn" src={blackHeartIcon} alt="favorite btn" />
-      </button>
+    const ret = (
+      <a type="button" onClick={ () => handleClickToWhite() }>
+        <img data-testid="share-btn" src={ blackHeartIcon } alt="favorite btn" />
+      </a>
     );
-  }
+    return ret;
+  };
 
   return (
-      black === false ? whiteHeart() : blackHeart()
+    <>
+      { black && blackHeart() }
+      { !black && whiteHeart() }
+    </>
+    // black === false ? whiteHeart() : blackHeart()
   );
 }
+
+ButtonFavorite.propTypes = {
+  objData: PropTypes.shape(
+    PropTypes.string,
+  ).isRequired,
+};
 
 export default ButtonFavorite;

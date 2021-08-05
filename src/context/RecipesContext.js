@@ -27,7 +27,6 @@ export function RecipesProvider({ children }) {
   const [foodCategories, setFoodCategories] = useState([]);
   const [drinkCategories, setDrinkCategories] = useState([]);
   const [foodsFilter, setFoodsFilter] = useState('');
-  // const [drinksFilter, setDrinksFilter] = useState('all');
   const [inProgress, setInProgress] = useState([]);
   const five = 5;
   const twelve = 12;

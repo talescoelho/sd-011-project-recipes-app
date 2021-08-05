@@ -1,22 +1,27 @@
 import React from 'react';
 import Slider from 'react-slick';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 function Recommended({ value, type, min }) {
   console.log(min);
-  const sixCards = value.map((e) => e).slice(min, min+6);
+  const magicN = 6;
+  const sixCards = value.map((e) => e).slice(min, min + magicN);
   console.log(sixCards);
   const kind = () => {
-    if (type === "meal") {
+    if (type === 'meal') {
       return (
         Object.entries(sixCards).map((e, i) => {
           return (
-            <a href={`/comidas/${e[1].idMeal}`}>
-              <div data-testid={`${i}-recomendation-card`} key={i}>
-                <img width="100px" src={e[1].strMealThumb} alt={`img ${e[1].strMeal}`} />
+            <a href={ `/comidas/${e[1].idMeal}` } key={ i }>
+              <div data-testid={ `${i}-recomendation-card` } key={ i }>
+                <img
+                  width="100px"
+                  src={ e[1].strMealThumb }
+                  alt={ `img ${e[1].strMeal}` }
+                />
                 <div>{ e[1].strMeal }</div>
               </div>
             </a>
@@ -27,16 +32,20 @@ function Recommended({ value, type, min }) {
     return (
       Object.entries(sixCards).map((e, i) => {
         return (
-          <Link to={`/comidas/${e[1].idDrink}`}>
-            <div data-testid={`${i}-recomendation-card`} key={i}>
-              <img width="100px" src={e[1].strDrinkThumb} alt={`img ${e[1].strDrink}`} />
+          <a href={ `/bebidas/${e[1].idDrink}` } key={ i }>
+            <div data-testid={ `${i}-recomendation-card` } key={ i }>
+              <img
+                width="100px"
+                src={ e[1].strDrinkThumb }
+                alt={ `img ${e[1].strDrink}` }
+              />
               <div>{ e[1].strDrink }</div>
             </div>
-          </Link>
+          </a>
         );
       })
     );
-  }
+  };
 
   const settings = {
     arrows: true,
@@ -48,8 +57,8 @@ function Recommended({ value, type, min }) {
   };
 
   return (
-    <div style={ {textAlign: '-webkit-center'} }>
-      <Slider {...settings}>
+    <div style={ { textAlign: '-webkit-center' } }>
+      <Slider { ...settings }>
         {
           kind()
         }
@@ -57,5 +66,11 @@ function Recommended({ value, type, min }) {
     </div>
   );
 }
+
+Recommended.propTypes = {
+  value: PropTypes.arrayOf(PropTypes.object).isRequired,
+  type: PropTypes.string.isRequired,
+  min: PropTypes.number.isRequired,
+};
 
 export default Recommended;

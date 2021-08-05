@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ButtonFavorite from './ButtonFavorite';
 import ButtonShare from './ButtonShare';
 import ButtonToProgress from './ButtonToProgress';
 import Recommended from './Recommended';
@@ -23,16 +24,17 @@ function DrinkDetailCard() {
       return response;
     };
     const getRecomend = async () => {
-      const recomend = await fetch(`${drinkRecommend}`)
+      const recomend = await fetch(`${drinkRecommend}`);
       const resRecom = recomend.json().then((res) => setRec(res.drinks));
-      setMin(parseInt(Math.random() * (20 - 0) + 0, 10));
+      const magicN = 20;
+      setMin(parseInt(Math.random() * (magicN - 0) + 0, 10));
       return resRecom;
-    }
+    };
 
     getRecomend();
     getUrlDrink();
   }, [path]);
-  
+
   const {
     // idDrink,
     strAlcoholic,
@@ -61,7 +63,7 @@ function DrinkDetailCard() {
     setData([drinkDetail]);
 
     return data;
-  }
+  };
 
   return (
     <div>
@@ -69,9 +71,9 @@ function DrinkDetailCard() {
       <img data-testid="recipe-photo" width="150px" src={ strDrinkThumb } alt="tumb" />
       <h4 data-testid="recipe-category">{strCategory}</h4>
       <p>{strAlcoholic}</p>
-      <div style={{display: 'flex', justifyContent: 'space-around',}}>
-        <button type="button" data-testid="share-btn">Gostei</button>
-        <ButtonShare props={window.location.href} />
+      <div style={ { display: 'flex', justifyContent: 'space-around' } }>
+        <ButtonFavorite objData={ drinkDetail } />
+        <ButtonShare props={ window.location.href } />
       </div>
       <table>
         <tbody>
@@ -81,29 +83,28 @@ function DrinkDetailCard() {
                 if (e !== null) {
                   return (
                     <div
-                      data-testid={`${i+1}-${e}-${objMeasure[i]}`}
-                      key={i}
+                      data-testid={ `${i + 1}-${e}-${objMeasure[i]}` }
+                      key={ i }
                     >
-                      {objMeasure[i] !== undefined ? `${e} - ${objMeasure[i]}` : `${e}`}
+                      { objMeasure[i] !== undefined ? `${e} - ${objMeasure[i]}` : `${e}` }
                     </div>
-                  )
+                  );
                 }
                 return undefined;
-              } ) }
+              }) }
             </td>
           </tr>
         </tbody>
       </table>
       <h6>{strInstructions}</h6>
-      { strYoutube &&
-        <RenderVideo
-          src={strYoutube}
-          title={`Recipe ${strDrink}`}
-          id={"video"}
-        />
-      }
+      { strYoutube
+        && <RenderVideo
+          src={ strYoutube }
+          title={ `Recipe ${strDrink}` }
+          id="video"
+        /> }
       <div>
-        <Recommended value={rec} type={"drink"} min={min} />
+        <Recommended value={ rec } type="drink" min={ min } />
       </div>
       <ButtonToProgress data={ callData } />
     </div>
