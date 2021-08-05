@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { Button, Form } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import propTypes from 'prop-types';
 import { fetchFood } from '../services/FoodAPI';
 import CardsDrinks from './CardsDrinks';
 import CardsFood from './CardsFood';
-import { isRecipeDone } from '../services/RecipesLocalStorage';
 import ShareBtn from './ShareBtn';
 import FavoriteBtn from './FavoriteBtn';
 import '../styles/FoodDetails.scss';
@@ -22,33 +21,31 @@ export default function FoodInProgress({ type }) {
     getFood();
   }, [params.id, type]);
 
-  function getVideoId() {
-    if (food.strYoutube) {
-      const urlYT = food.strYoutube;
-
-      return urlYT.substring(urlYT.indexOf('v=') + 2);
-    }
-    return '';
-  }
-
   function listIngredients(item) {
     const ingredient = Object.entries(item).filter(([key,
       value]) => key.includes('Ingredient') && value);
 
     return ingredient.map((el, i) => {
       const msr = item[`strMeasure${el[0].replace(/\D/g, '')}`];
-
+      const innerText = msr ? `${el[1]} - ${msr || ''}` : `${el[1]}`;
       return (
-        // <label key={ el } htmlFor={ `ingredient${i}` }>
-        //   {msr ? `${el[1]} - ${msr || ''}` : `${el[1]}`}
-        <input key={ i } type="checkbox" data-testid={ `${i}-ingredient-step` } />
-        // </label>
-        // <li
-        //   data-testid={ `${i}-ingredient-step` }
-        //   key={ `${i}-ingrname-id` }
-        // >
-        //   {msr ? `${el[1]} - ${msr || ''}` : `${el[1]}`}
-        // </li>
+        <div key={ el }>
+          <label htmlFor={ `ingredient${i}` }>
+            {innerText}
+          </label>
+          <input
+            id={ `ingredient${i}` }
+            type="checkbox"
+            data-testid={ `${i + 1}-ingredient-step` }
+          />
+        </div>
+
+      // <li
+      //   data-testid={ `${i}-ingredient-step` }
+      //   key={ `${i}-ingrname-id` }
+      // >
+      //   {msr ? `${el[1]} - ${msr || ''}` : `${el[1]}`}
+      // </li>
       );
     });
   }
@@ -86,12 +83,12 @@ export default function FoodInProgress({ type }) {
       </div>
 
       {/* {(isRecipeDone(params.id) === false) ? (
-        <Link to={ `/comidas/${params.id}/in-progress` }>
-          <Button className="btnstart" type="button" data-testid="finish-recipe-btn">
-            Iniciar Receita
-          </Button>
-        </Link>
-      ) : ('') } */}
+        <Link to={ `/comidas/${params.id}/in-progress` }> */}
+      <Button className="btnstart" type="button" data-testid="finish-recipe-btn">
+        Finalizar receita
+      </Button>
+      {/* </Link> */}
+      {/* ) : ('') } */}
 
     </main>
   );
