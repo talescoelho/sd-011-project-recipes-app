@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useLocation } from 'react-router';
+import { Card } from 'react-bootstrap';
 import MyContext from '../context/MyContext';
 
 function DetailInstruction() {
@@ -12,19 +13,15 @@ function DetailInstruction() {
   const getDrinksDetails = pathname.indexOf('bebidas') > numberOfVerification;
 
   return getDrinksDetails ? (
-    <section>
-      <h1>Instructions</h1>
-      <div>
-        <p data-testid="instructions">{drinkDetails.strInstructions}</p>
-      </div>
-    </section>
+    <Card style={ { width: '18rem' } }>
+      <Card.Title>Instructions</Card.Title>
+      <Card.Text data-testid="instructions">{drinkDetails.strInstructions}</Card.Text>
+    </Card>
   ) : (
-    <section>
-      <h1>Instructions</h1>
-      <div>
-        <p data-testid="instructions">{foodDetails.strInstructions}</p>
-      </div>
-    </section>
+    <Card>
+      <Card.Title>Instructions</Card.Title>
+      <p data-testid="instructions">{foodDetails.strInstructions}</p>
+    </Card>
   );
 }
 
