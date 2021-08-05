@@ -34,6 +34,8 @@ function App() {
           <Route exact path="/explorar/comidas/area" component={ FoodsByLocal } />
           <Route exact path="/comidas/:id" component={ MealsDetails } />
           <Route exact path="/bebidas/:id" component={ DrinksDetails } />
+          <Route exact path="/comidas/:id/in-progress" component={ MealsDetails } />
+          <Route exact path="/bebidas/:id/in-progress" component={ DrinksDetails } />
           <Route
             exact
             path="/explorar/comidas/ingredientes"

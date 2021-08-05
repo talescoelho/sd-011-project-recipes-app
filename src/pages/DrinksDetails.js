@@ -13,6 +13,7 @@ DetailsDrinkIngredientList
 import '../styles/components/footer.css';
 
 import RecipesContext from '../context/RecipesContext';
+import ButtonStartMeal from '../components/details/ButtonStartMeal';
 
 function DrinksDetails() {
   const {
@@ -74,13 +75,9 @@ function DrinksDetails() {
             <span data-testid="0-recomendation-title">titulo recomendações</span> */}
           </div>
           <div>
-            <button
-              className="button-start"
-              type="button"
-              data-testid="start-recipe-btn"
-            >
-              Iniciar
-            </button>
+            <div>
+              <ButtonStartMeal id={ id } type="cocktails" />
+            </div>
           </div>
         </div>
       ) : 'Carregando...' }

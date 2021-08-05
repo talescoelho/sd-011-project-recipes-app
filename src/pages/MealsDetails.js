@@ -8,6 +8,7 @@ import DetailsShareMeals from '../components/details/DetailsShareMeals';
 import DetailsVideosMeal from '../components/details/DetailsVideosMeal';
 import RecipesContext from '../context/RecipesContext';
 import '../styles/components/footer.css';
+import ButtonStartMeal from '../components/details/ButtonStartMeal';
 
 function MealsDetails() {
   const {
@@ -65,17 +66,9 @@ function MealsDetails() {
                 ))
               }
             </Carousel>
-            {/* <span data-testid="0-recomendation-card">recomendações test</span>
-            <span data-testid="0-recomendation-title">titulo recomendações</span> */}
           </div>
           <div>
-            <button
-              className="button-start"
-              type="button"
-              data-testid="start-recipe-btn"
-            >
-              Iniciar Receita
-            </button>
+            <ButtonStartMeal id={ id } type="meals" />
           </div>
         </div>
       ) : 'Carregando...' }
