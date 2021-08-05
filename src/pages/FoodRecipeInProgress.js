@@ -42,7 +42,7 @@ function FoodRecipeInProgress({ match: { params: { id } } }) {
     const { meals } = inProgressRecipes;
     if (meals[id]) {
       const ingredients = document.getElementsByClassName('ingredient-input');
-      console.log([...ingredients]);
+      console.log(ingredients);
     //   for (key in ingredients) {
     //     if (meals[id].includes(key.value)) key.checked = true;
     //   }
