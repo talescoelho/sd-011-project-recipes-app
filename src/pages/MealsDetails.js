@@ -7,6 +7,7 @@ import DetailsMealHeader from '../components/details/DetailsMealHeader';
 import DetailsShareMeals from '../components/details/DetailsShareMeals';
 import DetailsVideosMeal from '../components/details/DetailsVideosMeal';
 import RecipesContext from '../context/RecipesContext';
+import '../styles/components/footer.css';
 
 function MealsDetails() {
   const {
@@ -69,10 +70,11 @@ function MealsDetails() {
           </div>
           <div>
             <button
+              className="button-start"
               type="button"
               data-testid="start-recipe-btn"
             >
-              Iniciar
+              Iniciar Receita
             </button>
           </div>
         </div>

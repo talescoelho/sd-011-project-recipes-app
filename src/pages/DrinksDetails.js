@@ -10,6 +10,8 @@ import
 DetailsDrinkIngredientList
   from '../components/details/detailsDrink/DetailsDrinkIngredientList';
 
+import '../styles/components/footer.css';
+
 import RecipesContext from '../context/RecipesContext';
 
 function DrinksDetails() {
@@ -73,6 +75,7 @@ function DrinksDetails() {
           </div>
           <div>
             <button
+              className="button-start"
               type="button"
               data-testid="start-recipe-btn"
             >

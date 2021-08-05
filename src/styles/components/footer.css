@@ -15,3 +15,13 @@
   border-radius: 10px;
   height: 40px;
 }
+
+.button-start {
+  align-items: center;
+  background-color: rgb(182, 182, 182);
+  bottom: 0;
+  height: 40px;
+  position: fixed;
+  text-decoration: none;
+  width: 100%;
+}
