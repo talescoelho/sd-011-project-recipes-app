@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import propTypes from 'prop-types';
 import { fetchFood } from '../services/FoodAPI';
 import CardsDrinks from './CardsDrinks';
@@ -10,7 +10,7 @@ import ShareBtn from './ShareBtn';
 import FavoriteBtn from './FavoriteBtn';
 import '../styles/FoodDetails.scss';
 
-export default function FoodDetails({ type }) {
+export default function FoodInProgress({ type }) {
   const params = useParams();
   const [food, setFood] = useState([]);
 
@@ -39,24 +39,19 @@ export default function FoodDetails({ type }) {
       const msr = item[`strMeasure${el[0].replace(/\D/g, '')}`];
 
       return (
-        <li
-          data-testid={ `${i}-ingredient-name-and-measure` }
-          key={ `${i}-ingrname-id` }
-        >
-          {msr ? `${el[1]} - ${msr || ''}` : `${el[1]}`}
-        </li>);
+        // <label key={ el } htmlFor={ `ingredient${i}` }>
+        //   {msr ? `${el[1]} - ${msr || ''}` : `${el[1]}`}
+        <input key={ i } type="checkbox" data-testid={ `${i}-ingredient-step` } />
+        // </label>
+        // <li
+        //   data-testid={ `${i}-ingredient-step` }
+        //   key={ `${i}-ingrname-id` }
+        // >
+        //   {msr ? `${el[1]} - ${msr || ''}` : `${el[1]}`}
+        // </li>
+      );
     });
   }
-
-  const showFrame = () => (<iframe
-    data-testid="video"
-    title="Vídeo da Receita"
-    frameBorder="0"
-    allow="encrypted-media; gyroscope; picture-in-picture"
-    allowFullScreen
-    src={ `https://www.youtube.com/embed/${getVideoId()}` }
-    width="100%"
-  />);
 
   const { strMealThumb, strDrinkThumb,
     strDrink, strMeal, strInstructions, strCategory, strAlcoholic } = food;
@@ -83,7 +78,6 @@ export default function FoodDetails({ type }) {
           {listIngredients(food)}
         </ul>
         <h2>Recommended Cards</h2>
-        {type === 'meals' && showFrame()}
 
       </div>
       <div>
@@ -93,7 +87,7 @@ export default function FoodDetails({ type }) {
 
       {(isRecipeDone(params.id) === false) ? (
         <Link to={ `/comidas/${params.id}/in-progress` }>
-          <Button className="btnstart" type="button" data-testid="start-recipe-btn">
+          <Button className="btnstart" type="button" data-testid="finish-recipe-btn">
             Iniciar Receita
           </Button>
         </Link>
@@ -103,6 +97,6 @@ export default function FoodDetails({ type }) {
   );
 }
 
-FoodDetails.propTypes = {
+FoodInProgress.propTypes = {
   type: propTypes.string.isRequired,
 };

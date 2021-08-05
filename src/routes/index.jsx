@@ -4,7 +4,7 @@ import DrinkProgress from '../pages/DrinkProgress';
 import {
   LoginPage, NotFound, User, Bebidas, Explore, Comidas,
   MealtIngredients, DrinkIngredients, ExploreFood,
-  ExploreDrink, RecipeProgress, DrinkDetails, MealDetails,
+  ExploreDrink, MealInProgress, DrinkDetails, MealDetails,
   ExploreByPlace,
 } from '../pages';
 
@@ -48,7 +48,7 @@ function Routes() {
       <Route
         exact
         path="/comidas/:id/in-progress"
-        render={ (props) => <RecipeProgress { ...props } /> }
+        render={ (props) => <MealInProgress { ...props } /> }
       />
       <Route
         exact

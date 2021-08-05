@@ -1,9 +1,10 @@
 import React from 'react';
+import FoodInProgress from '../components/FoodInProgress';
 
 export default function DrinkProgress() {
   return (
     <div>
-      Tela de Drinks em progresso.
+      <FoodInProgress type="drinks" />
     </div>
   );
 }
