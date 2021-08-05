@@ -101,14 +101,14 @@ export default function ProcessoBebidaPage(props) {
   function mountDoneRecipes() {
     const ifDoneRecipesObj = [{
       id,
-      type: 'drinks',
+      type: 'bebida',
       area: '',
       category: drinkInProgress.drinks[0].strCategory,
       alcoholicOrNot: drinkInProgress.drinks[0].strAlcoholic,
       name: drinkInProgress.drinks[0].strDrink,
       image: drinkInProgress.drinks[0].strDrinkThumb,
       doneDate: new Date().toLocaleDateString('PT-BR'),
-      tags: [''],
+      tags: [drinkInProgress.drinks[0].strTags] || [],
     }];
     const getDoneStorage = JSON.parse(localStorage.getItem('doneRecipes'));
     if (!getDoneStorage) {
@@ -116,14 +116,14 @@ export default function ProcessoBebidaPage(props) {
     } else {
       const elseDoneRecipesObj = [...getDoneStorage, {
         id,
-        type: 'drinks',
+        type: 'bebida',
         area: '',
         category: drinkInProgress.drinks[0].strCategory,
         alcoholicOrNot: drinkInProgress.drinks[0].strAlcoholic,
         name: drinkInProgress.drinks[0].strDrink,
         image: drinkInProgress.drinks[0].strDrinkThumb,
         doneDate: new Date().toLocaleDateString('PT-BR'),
-        tags: [''],
+        tags: [drinkInProgress.drinks[0].strTags] || [],
       }];
       localStorage.setItem('doneRecipes', JSON.stringify(elseDoneRecipesObj));
     }
