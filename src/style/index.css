@@ -36,9 +36,26 @@
 }
 
 /* Details Page */
-.carousel {
+
+.details-page {
+  width: 100vw;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.details-img-recipe{
+  border: 2px solid var(--dark-color-1);
+  padding: 5px;
+  width: 240px;
+}
+
+.carousel {
+  width: 80vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .button-carousel {

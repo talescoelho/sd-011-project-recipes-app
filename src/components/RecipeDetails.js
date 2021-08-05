@@ -32,9 +32,10 @@ function RecipeDetails() {
   }, [recipe]);
 
   return (
-    <article>
+    <section>
       <div>
         <img
+          className="details-img-recipe"
           data-testid="recipe-photo"
           src={ recipe.strMealThumb || recipe.strDrinkThumb }
           alt={ recipe.strMeal || recipe.strDrink }
@@ -57,7 +58,7 @@ function RecipeDetails() {
         </h2>
         <p data-testid="instructions">{ recipe.strInstructions }</p>
       </div>
-    </article>
+    </section>
   );
 }
 

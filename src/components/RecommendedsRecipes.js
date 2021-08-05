@@ -19,12 +19,11 @@ function RecommendedsRecipes() {
   };
 
   return (
-    <div classList="carousel">
+    <div className="row carousel">
       <button type="button" onClick={ prevSlide } className="button-carousel">
         <img src={ PreviousIcon } alt="Previous Icon" className="button-carousel-icon" />
       </button>
-      <div>
-        {Array.isArray(recipes)
+      {Array.isArray(recipes)
        && recipes.map((recipe, index) => (
          <div
            key={ index }
@@ -43,7 +42,6 @@ function RecommendedsRecipes() {
            </div>
          </div>
        ))}
-      </div>
       <button type="button" onClick={ nextSlide } className="button-carousel">
         <img src={ NextIcon } alt="Next Icon" className="button-carousel-icon" />
       </button>

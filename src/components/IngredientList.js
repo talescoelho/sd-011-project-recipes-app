@@ -4,14 +4,19 @@ import RecipesContext from '../context/RecipesContext';
 
 function IngredientList() {
   const { ingredientsListRecipe: ingredients } = useContext(RecipesContext);
+  const location = useLocation();
+
   const renderListInProgress = () => (
     <div>
-      <hh2>Ingredients</hh2>
+      <h2>Ingredients</h2>
       <ul>
         {ingredients.map((item, index) => (
           <div key={ index }>
             <li>
-              <label htmlFor={ item } data-testid={ `${index}-ingredient-step` }>
+              <label
+                htmlFor={ item }
+                data-testid={ `${index}-ingredient-step` }
+              >
                 <input
                   type="checkbox"
                   name={ item }
@@ -42,7 +47,6 @@ function IngredientList() {
     </div>
   );
 
-  const location = useLocation();
   if (!location.pathname.includes('in-progress')) return renderListToDetails();
   if (location.pathname.includes('in-progress')) return renderListInProgress();
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import { createLocalStorage } from '../functions';
 
 function Login() {
   const [login, setLogin] = useState({
@@ -17,6 +18,7 @@ function Login() {
   }
 
   useEffect(() => {
+    createLocalStorage();
     const { email, password } = login;
     const minLength = 6;
     const emailFormat = /^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,15}$/;
