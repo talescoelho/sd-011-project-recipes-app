@@ -2,9 +2,7 @@
   border: 3px solid #f1f1f1;
   display: flex;
   flex-direction: column;
-  height: 640px;
   justify-content: space-evenly;
-  width: 360px;
 }
 
 .login-page .container {
@@ -30,9 +28,9 @@
 }
 
 .login-page button {
-  background-color: rgb(10, 177, 19);
+  background-color: rgb(252, 255, 57);
   border: none;
-  color: white;
+  color: black;
   cursor: pointer;
   margin: 8px 0;
   padding: 14px 20px;
@@ -41,10 +39,11 @@
 
 .login-page button:disabled {
   background-color: rgb(107, 107, 107);
+  color: black;
 }
 
 .login-page button:hover {
-  opacity: 0.9;
+  opacity: 0.7;
 }
 
 .login-page .imgcontainer {

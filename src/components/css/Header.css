@@ -1,6 +1,7 @@
 .header {
   display: flex;
   flex-wrap: wrap;
+  font-family: Times , serif;
   justify-content: space-between;
 }
 

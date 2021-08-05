@@ -36,14 +36,7 @@ function Header({ props: { title, enableSearchButton, enableProfileButton } }) {
           >
             <img src={ searchIcon } alt="Lens" />
           </button>)}
-      {showSearchBar && (<SearchBar title={ title } />
-      // <input
-      //   data-testid="search-input"
-      //   className="search-bar"
-      //   type="search"
-      //   placeholder="Pesquisar..."
-      // />)}
-      )}
+      {showSearchBar && (<SearchBar title={ title } />)}
     </header>
   );
 }
