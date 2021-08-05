@@ -9,7 +9,7 @@ function CardRecipe({ item, index }) {
     <div data-testid={ `${index}-recipe-card` }>
       { local === url
         ? (
-          <div>
+          <div data-testid={ `${index}-recipe-card` }>
             <p data-testid={ `${index}-card-name` }>{ item.strMeal }</p>
             <img
               data-testid={ `${index}-card-img` }
