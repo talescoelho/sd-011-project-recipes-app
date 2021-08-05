@@ -1,4 +1,5 @@
 * {
+  background: #fc7d28;
   margin: 0 auto;
   padding: 0;
 }
@@ -26,7 +27,6 @@
   opacity: 0.6;
   transform-origin: 36px 66px;
 }
-
 #iceRight {
   animation: clink .8s .2s infinite ease;
   opacity: 0.6;

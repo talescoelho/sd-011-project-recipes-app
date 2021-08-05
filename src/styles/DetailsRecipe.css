@@ -1,0 +1,56 @@
+/* .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: green solid;
+  width: 550px;
+  height: 550vh;
+} */
+
+.containerDetailsFood {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.recomend-container {
+  display: flex;
+  overflow-x: scroll;
+}
+
+.video {
+  align-items: center;
+  height: 250px;
+  margin-bottom: 20px;
+  width: 327px;
+}
+
+.recomend-img {
+  padding: 10px;
+  width: 180px;
+}
+
+.hiddenButton {
+  bottom: 0;
+  margin-top: 30px;
+  position: fixed;
+  right: 10px;
+}
+
+.hiddenButton-hidden {
+  visibility: hidden;
+}
+
+.h2teste {
+  display: flex;
+}
+
+.buttons-share-favorite {
+  display: flex;
+  justify-content: end;
+  margin-left: 180px;
+}
+
+.buttons-heart-favorite {
+  margin-left: 5px;
+}

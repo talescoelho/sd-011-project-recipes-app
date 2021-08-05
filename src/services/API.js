@@ -125,3 +125,9 @@ export function getRecipiesByCategories(category, path, callback) {
     getRecipesFromCocktailAPI(url, callback);
   }
 }
+
+export const fetchAPI = async (URL) => {
+  const API = await fetch(URL);
+  const data = await API.json();
+  return data;
+};
