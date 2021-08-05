@@ -20,24 +20,22 @@ function SearchBar() {
   }, [pathname, data, history]);
 
   async function searchButton() {
-    if (!loading) {
-      if (pathname === '/comidas') {
-        const newResults = await searchBarFetchMeal(search, radio) || [];
-        if (typeof (newResults) === 'string') {
-          // eslint-disable-next-line no-alert
-          alert(newResults);
-        } else {
-          setData(newResults);
-        }
+    if (pathname === '/comidas') {
+      const newResults = await searchBarFetchMeal(search, radio) || [];
+      if (typeof (newResults) === 'string') {
+        // eslint-disable-next-line no-alert
+        alert(newResults);
+      } else {
+        setData(newResults);
       }
-      if (pathname === '/bebidas') {
-        const newResults = await searchBarFetchCockTail(search, radio) || [];
-        if (typeof (newResults) === 'string') {
-          // eslint-disable-next-line no-alert
-          alert(newResults);
-        } else {
-          setData(newResults);
-        }
+    }
+    if (pathname === '/bebidas') {
+      const newResults = await searchBarFetchCockTail(search, radio) || [];
+      if (typeof (newResults) === 'string') {
+        // eslint-disable-next-line no-alert
+        alert(newResults);
+      } else {
+        setData(newResults);
       }
     }
   }

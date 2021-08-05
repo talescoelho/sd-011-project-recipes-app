@@ -57,7 +57,7 @@ function DrinkRecipeInProgress({ match: { params: { id } } }) {
       <img src={ strDrinkThumb } data-testid="recipe-photo" alt={ strDrink } />
       <h3 data-testid="recipe-title">{ strDrink }</h3>
       <ShareButton link={ window.location.href.slice(0, SLICE_NUMBER) } />
-      <FavoriteButton id={ id } />
+      <FavoriteButton recipeData={ recipe } type="bebida" />
       <p>{ strAlcoholic }</p>
       <p data-testid="recipe-category">{ strCategory }</p>
       <form>

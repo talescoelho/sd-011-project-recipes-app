@@ -57,7 +57,7 @@ function FoodRecipeInProgress({ match: { params: { id } } }) {
       <img src={ strMealThumb } data-testid="recipe-photo" alt={ strMeal } />
       <h3 data-testid="recipe-title">{ strMeal }</h3>
       <ShareButton link={ window.location.href.slice(0, SLICE_NUMBER) } />
-      <FavoriteButton id={ id } />
+      <FavoriteButton recipeData={ recipe } type="comida" />
       <p data-testid="recipe-category">{ strCategory }</p>
       <form>
         {

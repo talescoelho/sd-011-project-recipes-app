@@ -2,21 +2,14 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getMealDetail } from '../services/theMealAPI';
 import { getDrinkRecomendations } from '../services/theCockTailAPI';
-import shareIcon from '../images/shareIcon.svg';
 import Recommendations from '../components/Recommendations';
 import VerifyStart from '../components/VerifyStart';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { saveFavorites } from '../helpers/handleLocalStorage';
+import ShareButton from '../components/ShareButton';
+import FavoriteButton from '../components/FavoriteButton';
 
 const FoodDetails = (props) => {
   const [foodData, setfoodData] = useState({ strYoutube: '' });
   const [recomendedDrink, setRecomendedDrink] = useState([]);
-  const [copy, setCopy] = useState(false);
-  const favoriteRecipes = JSON.parse(
-    localStorage.getItem('favoriteRecipes'),
-  ) || [{ id: '' }];
-  const [lsFavorite, setLsFavorite] = useState(favoriteRecipes);
   const { match: { params: { id } } } = props;
 
   const maxResult = 6;
@@ -43,7 +36,6 @@ const FoodDetails = (props) => {
     strCategory,
     strInstructions,
     strYoutube,
-    strArea,
   } = foodData;
   const maxIngredients = 20;
 
@@ -59,27 +51,6 @@ const FoodDetails = (props) => {
     return list;
   }
 
-  function shareLink() {
-    setCopy(true);
-    return navigator.clipboard.writeText(window.location.href);
-  }
-
-  function setFavorites() {
-    const recipe = {
-      id,
-      type: 'comida',
-      area: strArea,
-      category: strCategory,
-      alcoholicOrNot: '',
-      name: strMeal,
-      image: strMealThumb,
-    };
-    saveFavorites(recipe);
-    setLsFavorite(JSON.parse(
-      localStorage.getItem('favoriteRecipes'),
-    ) || [{ id: '' }]);
-  }
-
   function getVideoTag() {
     const index = 32;
     const videoStr = strYoutube.slice(index);
@@ -91,27 +62,10 @@ const FoodDetails = (props) => {
       <section>
         <img data-testid="recipe-photo" src={ strMealThumb } alt={ strMeal } />
         <h2 data-testid="recipe-title">{ strMeal }</h2>
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ () => shareLink() }
-        >
-          {copy ? (
-            <span>Link copiado!</span>
-          ) : (<img src={ shareIcon } alt="Compartilhar" />)}
-        </button>
-        <button type="button" onClick={ setFavorites }>
-          <img
-            src={ lsFavorite.some(
-              (favorite) => favorite.id === id,
-            ) ? blackHeartIcon : whiteHeartIcon }
-            alt="Favorite"
-            data-testid="favorite-btn"
-          />
-        </button>
+        <ShareButton link={ window.location.href } />
+        <FavoriteButton recipeData={ foodData } type="comida" />
         <h4 data-testid="recipe-category">{ strCategory }</h4>
         <ol>
-
           {
             listIngredients().map((ingredient, index) => (
               <li
