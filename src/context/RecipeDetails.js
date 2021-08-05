@@ -12,9 +12,9 @@ export function RecipeDetailsProvider({ children }) {
   };
 
   return (
-    <RecipeDetailsProvider.Provider value={ value }>
+    <RecipeDetailsContext.Provider value={ value }>
       { children }
-    </RecipeDetailsProvider.Provider>
+    </RecipeDetailsContext.Provider>
   );
 }
 

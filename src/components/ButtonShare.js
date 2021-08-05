@@ -5,12 +5,16 @@ import shareIcon from '../images/shareIcon.svg';
 const copy = require('clipboard-copy');
 
 // Para incluir o botão, basta chamar componente da seguinte forma:
-// <ButtonShare path={ window.location.href } />
+// <ButtonShare path={ window.location.href } testid={ COLOCAR O TESTID QUE O REQUISITO PEDE } />
 // Obs.: "window.location.href" pega a url toda
+// Obs2.: se quiserem colocar um path diferente da tela aberta, como da tela de detalhes, pode-se fazer assim:
+// const href = window.location.origin;
+// <ButtonShare path={ `${href}/comidas/${id}` } testid={ COLOCAR O TESTID QUE O REQUISITO PEDE } />
+// Obs3.: O 'id' foi criado dinamicamente
 
 export default function ButtonShare(props) {
   const [isCopied, setIsCopied] = useState(false);
-  const { path } = props;
+  const { path, testid } = props;
 
   useEffect(() => {
     if (isCopied) {
@@ -35,7 +39,7 @@ export default function ButtonShare(props) {
         tabIndex="0"
         onClick={ onClickButtonShare }
       >
-        <img data-testid="food-bottom-btn" src={ shareIcon } alt="share icon" />
+        <img src={ shareIcon } alt="share icon" data-testid={ testid } />
       </div>
       { isCopied && <p>Link copiado!</p>}
     </div>
@@ -45,4 +49,5 @@ export default function ButtonShare(props) {
 
 ButtonShare.propTypes = {
   path: PropTypes.string.isRequired,
+  testid: PropTypes.string.isRequired,
 };

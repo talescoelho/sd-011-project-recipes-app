@@ -1,14 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ButtonToProgress from './ButtonToProgress';
 import ButtonShare from './ButtonShare';
 import Recommended from './Recommended';
 import RenderVideo from './RenderVideo';
-import { RecipeDetailsContext } from '../context/RecipeDetails';
+// import { RecipeDetailsContext } from '../context/RecipeDetails';
 
 function MealDetailCard() {
   const [mealDetail, setMealDetail] = useState([]);
   const [rec, setRec] = useState([]);
-  const { setRecipe } = useContext(RecipeDetailsContext);
+
+  // Testar com instrução porque recipe não é passada por context para foodInProgress
+  // const { setRecipe, recipe } = useContext(RecipeDetailsContext);
 
   const path = window.location.pathname.split('/')[2];
 
@@ -19,7 +21,10 @@ function MealDetailCard() {
     const getUrlMeal = async () => {
       const meal = await fetch(`${foodToDetail}${window.location.pathname
         .split('/')[2]}`);
-      meal.json().then((res) => setMealDetail(res.meals[0]));
+      meal.json().then((res) => {
+        // setRecipe(res.meals[0]);
+        setMealDetail(res.meals[0]);
+      });
     };
     const getRecomend = async () => {
       const recomend = await fetch(`${foodRecomend}`);
@@ -31,7 +36,6 @@ function MealDetailCard() {
   }, [path]);
 
   const {
-    idMeal,
     strArea,
     strCategory,
     strInstructions,
@@ -39,10 +43,6 @@ function MealDetailCard() {
     strMealThumb,
     strYoutube,
   } = mealDetail;
-
-  useEffect(() => {
-    setRecipe(mealDetail);
-  }, [mealDetail, setRecipe]);
 
   const objIngred = Object.entries(mealDetail).map((e) => {
     if (e[0].includes('strIngredient') && e[1] !== '') {
@@ -58,12 +58,6 @@ function MealDetailCard() {
     return undefined;
   }).filter((i) => i !== undefined);
 
-  // const callData = () => {
-  //   setData([mealDetail]);
-
-  //   return data;
-  // };
-
   return (
     <div>
       <h3 data-testid="recipe-title">{strMeal}</h3>
@@ -72,7 +66,7 @@ function MealDetailCard() {
       <h4 data-testid="recipe-category">{strCategory}</h4>
       <div style={ { display: 'flex', justifyContent: 'space-around' } }>
         <button type="button" data-testid="share-btn">Gostei</button>
-        <ButtonShare path={ window.location.href } />
+        <ButtonShare path={ window.location.href } data-testid="share-btn" />
       </div>
       <table>
         <tbody>
@@ -100,7 +94,7 @@ function MealDetailCard() {
       <div>
         <Recommended value={ rec } type="meal" />
       </div>
-      <ButtonToProgress />
+      <ButtonToProgress mealDetail={ mealDetail } />
     </div>
   );
 }
