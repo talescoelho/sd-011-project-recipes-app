@@ -14,7 +14,9 @@ function DrinksDetails() {
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState({});
   const [recomendations, setRecomendations] = useState([]);
+  const [linkCopied, setLinkCopied] = useState('');
   const history = useHistory();
+  const { location: { pathname } } = history;
 
   useEffect(() => {
     const foodDetails = async (drinkId) => {
@@ -36,8 +38,10 @@ function DrinksDetails() {
   const ingredientsAndMeasures = details.idDrink
     ? ingredientsDrinkDetails(details) : [];
 
-  function copyLink() {
-    navigator.clipboard.writeText(window.location.href);
+  function copyUrlToClipboard() {
+    setLinkCopied('Link copiado!');
+    // verificar possibilidade de obter a url completa para qualquer servidor
+    navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
   }
 
   return (
@@ -58,10 +62,11 @@ function DrinksDetails() {
                 <span data-testid="recipe-category">{details.strAlcoholic}</span>
               </div>
               <div>
+                {linkCopied}
                 <button
                   type="button"
                   data-testid="share-btn"
-                  onClick={ () => copyLink() }
+                  onClick={ () => copyUrlToClipboard() }
                 >
                   <img src={ shareIcon } alt="Botão compartilhar" />
                 </button>

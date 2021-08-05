@@ -55,3 +55,7 @@
 .details-container > div:nth-child( 1 ) div button {
   width: 10%;
 }
+
+.recomendations-container > div > img {
+  width: 100vw;
+}
