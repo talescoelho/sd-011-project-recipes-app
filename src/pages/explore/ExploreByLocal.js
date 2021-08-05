@@ -4,6 +4,7 @@ import Footer from '../../components/footer/Footer';
 import Header from '../../components/Header';
 
 export default function ExploreByLocal() {
+  const numberSlice = 12;
   const [country, setCountry] = React.useState([]);
   const [countryList, setCountryList] = React.useState('American');
   const [recipes, setRecipes] = React.useState([]);
@@ -36,7 +37,7 @@ export default function ExploreByLocal() {
 
   const handlerFood = () => (
     <div>
-      {recipes.length && recipes.slice(0, 12).map((item, index) => (
+      {recipes.length && recipes.slice(0, numberSlice).map((item, index) => (
         <Link key={ index } to={ `/comidas/${item.idMeal}` }>
           <div data-testid={ `${index}-recipe-card` }>
             <h2 data-testid={ `${index}-card-name` }>{item.strMeal}</h2>
