@@ -17,10 +17,10 @@ export default function Routes() {
       <Route path="/bebidas/:id" component={ DetailsDrink } />
       <Route exact path="/perfil" component={ Perfil } />
       <Route exact path="/explorar" component={ Explore } />
-      <Route path="/explorar/comidas" component={ Explore } />
-      <Route path="/explorar/bebidas" component={ Explore } />
-      <Route path="/explorar/comidas/ingredientes" component={ Explore } />
-      <Route path="/explorar/bebidas/ingredientes" component={ Explore } />
+      <Route exact path="/explorar/comidas" component={ Explore } />
+      <Route exact path="/explorar/bebidas" component={ Explore } />
+      <Route exact path="/explorar/comidas/ingredientes" component={ Explore } />
+      <Route exact path="/explorar/bebidas/ingredientes" component={ Explore } />
     </Switch>
   );
 }

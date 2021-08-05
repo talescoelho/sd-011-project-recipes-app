@@ -1,0 +1,5 @@
+.explore-cards-section {
+  display: flex;
+  flex-flow: row wrap;
+  width: 90%;
+}

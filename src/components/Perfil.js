@@ -13,7 +13,7 @@ function Perfil() {
   return (
     <>
       <h2 data-testid="page-title">Perfil</h2>
-      <span data-testid="profile-email">{`Email: ${emailUser}`}</span>
+      <span data-testid="profile-email">{`Email: ${emailUser.email}`}</span>
       <button
         type="button"
         data-testid="profile-done-btn"

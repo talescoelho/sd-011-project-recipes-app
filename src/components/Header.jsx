@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import Categories from './Categories';
+import ButtonSearchTop from './ButtonSearchTop';
 import '../styles/Header.css';
 
 function Header() {
@@ -27,9 +27,10 @@ function Header() {
     return pageTitle;
   }
 
-  function openCloseSearchbar() {
-    setIsSearch(!isSearch);
-  }
+  const searchButtonElements = {
+    setIsSearch,
+    isSearch,
+  };
 
   return (
     <header className="header-section-top">
@@ -42,13 +43,12 @@ function Header() {
           />
         </Link>
         <h3>{ getPageTitle() }</h3>
-        <button type="button" onClick={ () => openCloseSearchbar() }>
-          <img
-            src={ searchIcon }
-            alt="search"
-            data-testid="search-top-btn"
-          />
-        </button>
+        { location.pathname === '/comidas'
+          && <ButtonSearchTop openSearchBar={ searchButtonElements } />}
+        { location.pathname === '/bebidas'
+          && <ButtonSearchTop openSearchBar={ searchButtonElements } />}
+        { location.pathname === '/explorar/area'
+          && <ButtonSearchTop openSearchBar={ searchButtonElements } />}
       </div>
       { isSearch && <SearchBar /> }
       { location.pathname === '/comidas' && <Categories /> }

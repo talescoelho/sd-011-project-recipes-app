@@ -1,6 +1,5 @@
 import React from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import Header from './Header';
 
 export default function ExploreFoodAndDrink() {
   const location = useLocation().pathname;
@@ -22,7 +21,6 @@ export default function ExploreFoodAndDrink() {
   }
   return (
     <>
-      <Header />
       <button
         type="button"
         onClick={ () => history.push(`${location}/ingredientes`) }
