@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchDrinkCategory, fetchDrinkList } from '../redux/actions/drinkActions';
-import { DrinkCards, DrinkCategories, Header, Footer } from '../components';
+import { DrinkCard, DrinkCategories, Header, Footer } from '../components';
 
 class Drinks extends Component {
   componentDidMount() {
@@ -12,11 +12,16 @@ class Drinks extends Component {
   }
 
   render() {
+    const { drinkCardsList } = this.props;
+    console.log(drinkCardsList);
     return (
       <div>
         <Header title="Bebidas" search />
         <DrinkCategories />
-        <DrinkCards />
+        <ul>
+          { drinkCardsList.map((item, index) => (
+            <DrinkCard key={ item.idDrink } drink={ item } index={ index } />)) }
+        </ul>
         <Footer />
       </div>
     );
@@ -24,7 +29,7 @@ class Drinks extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  fetchDrinkList: state.drinkReducer.drinkCardsList,
+  drinkCardsList: state.drinkReducer.drinkCardsList,
 });
 
 const mapDispatchToProps = (dispatch) => ({

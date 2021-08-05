@@ -5,3 +5,5 @@ export { default as FoodCards } from './FoodCards';
 export { default as FoodCategories } from './FoodCategories';
 export { default as DrinkCards } from './DrinkCards';
 export { default as DrinkCategories } from './DrinkCategories';
+export { default as FoodCard } from './FoodCard';
+export { default as DrinkCard } from './DrinkCard';
