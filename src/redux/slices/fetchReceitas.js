@@ -45,6 +45,8 @@ export const getRecipes = createAsyncThunk(
       drinkFirstLetter: `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${input}`,
       foodByName: `https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`,
       drinkByName: `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${input}`,
+      foodDetails: `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${input}`,
+      drinkDetails: `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${input}`,
     };
     const response = await fetch(URLDictionary[actionName]).then((res) => res.json())
       .catch((error) => error);
@@ -88,6 +90,9 @@ const fetchReceitasSlice = createSlice({
       }
       if (response instanceof Error) {
         state.error = response;
+      }
+      if (actionName === 'foodDetails' || actionName === 'drinkDetails') {
+        state.data = response;
       }
       state.loading = false;
     },
