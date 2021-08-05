@@ -68,9 +68,22 @@ function FiltersCategories() {
     }
   }
 
+  async function returnAll() {
+    setDataFilter([]);
+  }
+
   return (
     <div className="container-categories">
-      {categories.map((category, index) => (
+      <ReactBootStrap.Button
+        variant="warning"
+        data-testid="All-category-filter"
+        onClick={ () => returnAll() }
+        className="button-categories"
+        type="button"
+      >
+        All
+      </ReactBootStrap.Button>
+      { categories.map((category, index) => (
         <ReactBootStrap.Button
           variant="warning"
           data-testid={ `${category.strCategory}-category-filter` }
