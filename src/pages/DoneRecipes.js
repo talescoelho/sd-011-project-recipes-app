@@ -22,7 +22,6 @@ const DoneRecipes = () => (
     >
       Drinks
     </button>
-    
   </>
 );
 
