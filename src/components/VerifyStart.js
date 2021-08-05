@@ -15,7 +15,6 @@ function VerifyStart({ id }) {
     ...JSON.parse(
       localStorage.getItem('inProgressRecipes'),
     ) } || inProgress;
-  console.log(recipeInProgress);
   if (recipeInProgress
     && ((Object
       .keys(recipeInProgress.cocktails)).includes(id) || (Object
@@ -35,8 +34,6 @@ function VerifyStart({ id }) {
     );
   }
   if (recipeDone.length === 0 || recipeDone.find((recipe) => id !== recipe.id)) {
-    console.log(0);
-    console.log(Object.keys(recipeInProgress.meals));
     return (
       <Link
         to={ `${window.location.pathname}/in-progress` }

@@ -125,3 +125,7 @@
 .footer > * {
   padding: 10px;
 }
+
+.ingredient-checked {
+  text-decoration: line-through;
+}

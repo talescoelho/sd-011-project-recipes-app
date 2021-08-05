@@ -8,7 +8,7 @@ function SearchBar() {
   const [search, setSearch] = useState('');
   const [radio, setRadio] = useState('');
   const { pathname } = useLocation();
-  const { data, setData, loading } = useContext(MainContext);
+  const { data, setData } = useContext(MainContext);
   const history = useHistory();
 
   useEffect(() => {
@@ -20,24 +20,22 @@ function SearchBar() {
   }, [pathname, data, history]);
 
   async function searchButton() {
-    if (!loading) {
-      if (pathname === '/comidas') {
-        const newResults = await searchBarFetchMeal(search, radio) || [];
-        if (typeof (newResults) === 'string') {
-          // eslint-disable-next-line no-alert
-          alert(newResults);
-        } else {
-          setData(newResults);
-        }
+    if (pathname === '/comidas') {
+      const newResults = await searchBarFetchMeal(search, radio) || [];
+      if (typeof (newResults) === 'string') {
+        // eslint-disable-next-line no-alert
+        alert(newResults);
+      } else {
+        setData(newResults);
       }
-      if (pathname === '/bebidas') {
-        const newResults = await searchBarFetchCockTail(search, radio) || [];
-        if (typeof (newResults) === 'string') {
-          // eslint-disable-next-line no-alert
-          alert(newResults);
-        } else {
-          setData(newResults);
-        }
+    }
+    if (pathname === '/bebidas') {
+      const newResults = await searchBarFetchCockTail(search, radio) || [];
+      if (typeof (newResults) === 'string') {
+        // eslint-disable-next-line no-alert
+        alert(newResults);
+      } else {
+        setData(newResults);
       }
     }
   }
