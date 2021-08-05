@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 export default function ProcessoComidaPage(props) {
   const [foodInProgress, setFoodIP] = useState();
   const [savedRecipe, setSavedRecipe] = useState();
-  const [update, forceUpdate] = useState(false);
 
   const marked = {
     textDecoration: 'line-through',
@@ -34,15 +33,19 @@ export default function ProcessoComidaPage(props) {
     const { params } = props.match;
     const { id } = params;
     const inProgressObj = {
-      cocktails: {
-        id: [],
-      },
+      cocktails: {},
       meals: {
         [id]: [],
       },
     };
     const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (!getStorage) {
+    if (getStorage) {
+      if (!getStorage.meals[id]) {
+        inProgressObj.meals = { ...getStorage.meals, ...inProgressObj.meals };
+        inProgressObj.cocktails = { ...getStorage.cocktails };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressObj));
+      }
+    } else {
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressObj));
     }
   }
@@ -54,8 +57,8 @@ export default function ProcessoComidaPage(props) {
   }, []);
 
   useEffect(() => {
-    localStorageState(setSavedRecipe);
-  }, [update]);
+    localStorage.setItem('inProgressRecipes', JSON.stringify(savedRecipe));
+  }, [savedRecipe]);
 
   const ingredientLimit = 15;
   const ingredientKeys = foodInProgress && (
@@ -63,41 +66,64 @@ export default function ProcessoComidaPage(props) {
   const measureKeys = foodInProgress && (
     Object.keys(foodInProgress.meals[0]).filter((key) => key.includes('easure')));
   const ingredientMap = ingredientKeys && ingredientKeys
+    .filter((value) => foodInProgress.meals[0][value])
     .map(((ingre, index) => (
       `${foodInProgress.meals[0][ingre]}-${foodInProgress.meals[0][measureKeys[index]]}`)
     )).slice(0, ingredientLimit);
   const ingredientFilter = ingredientMap && ingredientMap
-    .filter((value) => value !== '-');
+    .filter((value) => value !== 'null-null' && value !== '-');
+
   const { match } = props;
   const { params } = match;
   const { id } = params;
+
   function markIngredients({ target }) {
     const { checked } = target;
-    const localObj = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const ifObj = {
-      cocktails: {
-        id: [],
-      },
-      meals: {
-        [id]: [...localObj.meals[id], target.value],
-      },
-    };
-    const elseObj = {
-      cocktails: {
-        id: [],
-      },
-      meals: {
-        [id]: [...localObj.meals[id].filter((val) => val !== target.value)],
-      },
-    };
     if (checked) {
       target.parentNode.style.textDecoration = 'line-through';
-      localStorage.setItem('inProgressRecipes', JSON.stringify(ifObj));
+      setSavedRecipe({
+        ...savedRecipe,
+        meals: { ...savedRecipe.meals, [id]: [...savedRecipe.meals[id], target.value] },
+      });
     } else {
       target.parentNode.style.textDecoration = 'none';
-      localStorage.setItem('inProgressRecipes', JSON.stringify(elseObj));
+      setSavedRecipe({
+        ...savedRecipe,
+        meals: { ...savedRecipe.meals,
+          [id]: [...savedRecipe.meals[id].filter((value) => value !== target.value)] },
+      });
     }
-    forceUpdate(!update);
+  }
+
+  function mountDoneRecipes() {
+    const ifDoneRecipesObj = [{
+      id,
+      type: 'food',
+      area: foodInProgress.meals[0].strArea,
+      category: foodInProgress.meals[0].strCategory,
+      alcoholicOrNot: '',
+      name: foodInProgress.meals[0].strMeal,
+      image: foodInProgress.meals[0].strMealThumb,
+      doneDate: new Date().toLocaleDateString('PT-BR'),
+      tags: [foodInProgress.meals[0].strTags],
+    }];
+    const getDoneStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!getDoneStorage) {
+      localStorage.setItem('doneRecipes', JSON.stringify(ifDoneRecipesObj));
+    } else {
+      const elseDoneRecipesObj = [...getDoneStorage, {
+        id,
+        type: 'food',
+        area: foodInProgress.meals[0].strArea,
+        category: foodInProgress.meals[0].strCategory,
+        alcoholicOrNot: '',
+        name: foodInProgress.meals[0].strMeal,
+        image: foodInProgress.meals[0].strMealThumb,
+        doneDate: new Date().toLocaleDateString('PT-BR'),
+        tags: [foodInProgress.meals[0].strTags],
+      }];
+      localStorage.setItem('doneRecipes', JSON.stringify(elseDoneRecipesObj));
+    }
   }
 
   return (
@@ -119,7 +145,7 @@ export default function ProcessoComidaPage(props) {
               key={ index }
               htmlFor={ ing }
               data-testid={ `${index}-ingredient-step` }
-              style={ savedRecipe && (
+              style={ savedRecipe.meals[id] && (
                 savedRecipe.meals[id].includes(ing) ? marked : unmarked) }
             >
               {ing}
@@ -129,15 +155,17 @@ export default function ProcessoComidaPage(props) {
                 name={ ing }
                 key={ index }
                 value={ ing }
-                defaultChecked={ savedRecipe && savedRecipe.meals[id].includes(ing) }
+                defaultChecked={ savedRecipe.meals[id] && (
+                  savedRecipe.meals[id].includes(ing)) }
               />
             </label>))}
           <p data-testid="instructions">{foodInProgress.meals[0].strInstructions}</p>
           <Link to="/receitas-feitas">
             <button
               data-testid="finish-recipe-btn"
+              onClick={ mountDoneRecipes }
               type="button"
-              disabled={ savedRecipe && (
+              disabled={ savedRecipe.meals[id] && (
                 savedRecipe.meals[id].length !== ingredientFilter.length) }
             >
               Finalizar receita
