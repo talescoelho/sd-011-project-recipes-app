@@ -9,7 +9,7 @@ import '../styles/Recipes.css';
 export default function Recipes() {
   const { mealRecipes, drinkRecipes, haveRecipes } = useContext(RecipesAppContext);
   const location = useLocation();
-  const history = useHistory();
+  // const history = useHistory();
 
   // function renderDrinks() {
   //   return (
@@ -20,7 +20,7 @@ export default function Recipes() {
   //   );
   // }
 
-  useEffect(checkOneRecipe, [mealRecipes, drinkRecipes, history, location]);
+  // useEffect(checkOneRecipe, [mealRecipes, drinkRecipes, history, location]);
 
   const limit = 12;
   function renderRecipes() {

@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import RecipesAppContext from '../context/RecipesAppContext';
 
 export default function IngredientDrinkCard({ ingredient, i }) {
-  const { saveDrinkRecipes } = useContext(RecipesAppContext);
+  const { saveDrinkRecipes, changeHaveRecipes } = useContext(RecipesAppContext);
 
   const history = useHistory();
 
   function getRecipesByIngredient() {
+    changeHaveRecipes(false);
     fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${ingredient.strIngredient1}`)
       .then((response) => response.json())
       .then((data) => saveDrinkRecipes(data))

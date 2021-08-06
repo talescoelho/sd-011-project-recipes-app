@@ -5,11 +5,12 @@ import RecipesAppContext from '../context/RecipesAppContext';
 import '../styles/IngredientMealCard.css';
 
 export default function IngredientMealCard({ ingredient, i }) {
-  const { saveMealRecipes } = useContext(RecipesAppContext);
+  const { saveMealRecipes, changeHaveRecipes } = useContext(RecipesAppContext);
 
   const history = useHistory();
 
   function getRecipesByIngredient() {
+    changeHaveRecipes(false);
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${ingredient.strIngredient}`)
       .then((response) => response.json())
       .then((data) => saveMealRecipes(data))
