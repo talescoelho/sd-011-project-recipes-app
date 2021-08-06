@@ -58,11 +58,10 @@ class FoodDetails extends Component {
 
   addMealInProgress() {
     const { match: { params: { id } } } = this.props;
-    const inProgress = {
-      cocktails: {},
-      meals: {},
-    };
-    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+    const inProgress = { cocktails: {}, meals: {} };
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+    }
     const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
     recipe.meals = { ...recipe.meals, [id]: [] };
     localStorage.setItem('inProgressRecipes',

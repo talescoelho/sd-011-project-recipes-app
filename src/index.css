@@ -167,6 +167,14 @@ code {
   list-style: none;
 }
 
+.instructions-checked {
+  background: rgb(54, 54, 54);
+  padding: 20px;
+  text-align: center;
+  list-style: none;
+  text-decoration: line-through;
+}
+
 #seraquevai {
   border: solid white 0.5px;
   transform: scale(0.4);
