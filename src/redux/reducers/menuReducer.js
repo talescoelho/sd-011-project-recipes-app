@@ -9,6 +9,8 @@ import {
 
 const INITIAL_STATE = {
   menu: [],
+  mealId: [],
+  drinkId: [],
   error: null,
   isLoading: false,
   filters: {
@@ -17,7 +19,7 @@ const INITIAL_STATE = {
     error: null,
   },
 };
-console.log(INITIAL_STATE.menu);
+console.log(INITIAL_STATE.mealId);
 
 const menuReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -30,6 +32,8 @@ const menuReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       menu: action.menu,
+      mealId: action.menu[0].idMeal,
+      drinkId: action.menu[0].idDrink,
       isLoading: false,
     };
   case RECEIVE_MENU_FAILURE:

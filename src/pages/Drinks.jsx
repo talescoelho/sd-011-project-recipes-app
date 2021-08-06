@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import {
   requestDrinkMenu,
   requestDrinksFilters,
@@ -24,6 +24,7 @@ const Drinks = ({
   categoryNames,
   loadingDrinks,
   drinks,
+  drinkId,
 }) => {
   const [selectedRadio, setSelectedRadio] = useState('');
   const [typeIngredient, setTypeIngredient] = useState('');
@@ -52,6 +53,10 @@ const Drinks = ({
 
   if (error) {
     return (<div>Erro</div>);
+  }
+
+  if (drinks.length === 1) {
+    return <Redirect to={ `/bebidas/${drinkId}` } />;
   }
   return (
     <>
@@ -108,6 +113,7 @@ const mapStateToProps = (state) => ({
   loadingFilterOptions: state.menuReducer.filters.isLoading,
   categoryNames: state.menuReducer.filters.options,
   drinks: state.menuReducer.menu,
+  drinkId: state.menuReducer.drinkId,
   loadingDrinks: state.menuReducer.isLoading,
   error: state.menuReducer.error,
 });
@@ -119,6 +125,7 @@ Drinks.propTypes = {
   loadingDrinks: PropTypes.bool.isRequired,
   error: PropTypes.string,
   drinks: PropTypes.arrayOf(PropTypes.object),
+  drinkId: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 Drinks.defaultProps = {

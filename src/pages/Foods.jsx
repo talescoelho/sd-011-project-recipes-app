@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import {
   requestMealsMenu,
   requestMealsFilters,
@@ -25,6 +25,7 @@ const Foods = ({
   categoryNames,
   loadingMeals,
   meals,
+  mealId,
 }) => {
   const [selectedRadio, setSelectedRadio] = useState('');
   const [typeIngredient, setTypeIngredient] = useState('');
@@ -53,6 +54,10 @@ const Foods = ({
 
   if (error) {
     return (<div>Erro</div>);
+  }
+
+  if (meals.length === 1) {
+    return <Redirect to={ `/comidas/${mealId}` } />;
   }
   return (
     <>
@@ -109,6 +114,7 @@ const mapStateToProps = (state) => ({
   loadingFilterOptions: state.menuReducer.filters.isLoading,
   categoryNames: state.menuReducer.filters.options,
   meals: state.menuReducer.menu,
+  mealId: state.menuReducer.mealId,
   loadingMeals: state.menuReducer.isLoading,
   error: state.menuReducer.error,
 });
@@ -120,6 +126,7 @@ Foods.propTypes = {
   loadingMeals: PropTypes.bool.isRequired,
   error: PropTypes.string,
   meals: PropTypes.arrayOf(PropTypes.object),
+  mealId: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 Foods.defaultProps = {
