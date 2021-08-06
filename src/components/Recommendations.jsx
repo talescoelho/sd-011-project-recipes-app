@@ -9,7 +9,6 @@ export default function Recommendations() {
   const CHANGER = 360;
   const MULTIPLIER = 2;
   const SIX = 6;
-  const FIVE = 5;
 
   const { pathname } = useLocation();
   const [recommendation, setRecommendations] = useState([]);
@@ -32,6 +31,9 @@ export default function Recommendations() {
       const carroussel = document.querySelector('.carroussel-content');
       const firstItem = document.querySelector(`.carroussel-item-${item}`);
       const secItem = document.querySelector(`.carroussel-item-${item + 1}`);
+      if (item < SIX) {
+        setItem(item + 2);
+      }
 
       if (firstItem !== null) {
         firstItem.style.display = 'block';
@@ -55,7 +57,6 @@ export default function Recommendations() {
             id="right"
             onClick={ () => {
               if (number < 0) setNumber(number + CHANGER);
-              if (item > 2) setItem(item - 2);
             } }
           />
         </label>
@@ -80,8 +81,10 @@ export default function Recommendations() {
             id="left"
             className="arrow-l"
             onClick={ () => {
+              // click();
+
               if (number > -CHANGER * MULTIPLIER) setNumber(number - CHANGER);
-              if (item < FIVE) setItem(item + 2);
+              // if (item < FIVE) setItem(item + 2);
             } }
           />
         </label>
