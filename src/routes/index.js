@@ -1,10 +1,10 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
-import Login from '../pages/Login';
+import Login from '../pages/login';
 import Comidas from '../pages/comidas';
 import Bebidas from '../pages/bebidas';
-import ComidasRecipeId from '../pages/comidas/recipeId';
-import BebidasRecipeId from '../pages/bebidas/recipeId';
+import ComidaDetails from '../pages/comidas/recipeId';
+import BebidaDetails from '../pages/bebidas/recipeId';
 import ComidasInProgress from '../pages/comidas/recipeId/in-progress';
 import BebidasInProgress from '../pages/bebidas/recipeId/in-progress';
 import Explorar from '../pages/explorar';
@@ -26,13 +26,13 @@ function Routes() {
       <Route path="/explorar/comidas/ingredientes" component={ ComidasIngredientes } />
       <Route path="/explorar/bebidas/ingredientes" component={ BebidasIngredientes } />
       <Route path="/explorar/comidas/area" component={ ComidasArea } />
-      <Route path="/comidas/:recipeId" component={ ComidasRecipeId } />
-      <Route path="/bebidas/:recipeId" component={ BebidasRecipeId } />
       <Route path="/explorar/comidas" component={ ExplorarComidas } />
       <Route path="/explorar/bebidas" component={ ExplorarBebidas } />
+      <Route path="/comidas/:recipeId" component={ ComidaDetails } />
+      <Route path="/bebidas/:recipeId" component={ BebidaDetails } />
       <Route path="/explorar" component={ Explorar } />
-      <Route path="/bebidas" component={ Bebidas } />
       <Route path="/comidas" component={ Comidas } />
+      <Route path="/bebidas" component={ Bebidas } />
       <Route path="/perfil" component={ Perfil } />
       <Route path="/receitas-feitas" component={ ReceitasFeitas } />
       <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
