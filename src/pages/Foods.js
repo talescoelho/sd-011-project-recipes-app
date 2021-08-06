@@ -80,7 +80,7 @@ function Foods() {
         All
       </button>
       {loading ? null : categoryButtons()}
-      <RecipesCardsContainer />
+      <RecipesCardsContainer test="recipe" />
       <FooterMenu />
     </div>
 
