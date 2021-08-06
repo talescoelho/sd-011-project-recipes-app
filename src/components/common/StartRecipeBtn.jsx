@@ -22,6 +22,7 @@ const StartRecipeBtn = ({ routeInfo: { id, url } }) => {
     <Link
       className={ (showBtn) ? 'start-recipe-btn' : 'disable-recipe-btn' }
       data-testid="start-recipe-btn"
+      style={ { position: 'fixed', bottom: '0px' } }
       to={ choiceRoute() }
       type="button"
     >
