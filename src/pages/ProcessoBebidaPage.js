@@ -108,7 +108,7 @@ export default function ProcessoBebidaPage(props) {
       name: drinkInProgress.drinks[0].strDrink,
       image: drinkInProgress.drinks[0].strDrinkThumb,
       doneDate: new Date().toLocaleDateString('PT-BR'),
-      tags: [''],
+      tags: [drinkInProgress.drinks[0].strTags],
     }];
     const getDoneStorage = JSON.parse(localStorage.getItem('doneRecipes'));
     if (!getDoneStorage) {
@@ -123,7 +123,7 @@ export default function ProcessoBebidaPage(props) {
         name: drinkInProgress.drinks[0].strDrink,
         image: drinkInProgress.drinks[0].strDrinkThumb,
         doneDate: new Date().toLocaleDateString('PT-BR'),
-        tags: [''],
+        tags: [drinkInProgress.drinks[0].strTags],
       }];
       localStorage.setItem('doneRecipes', JSON.stringify(elseDoneRecipesObj));
     }

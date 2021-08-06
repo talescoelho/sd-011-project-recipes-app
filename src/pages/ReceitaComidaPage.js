@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Button, Badge } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import ShareFavBtn from '../components/ShareFavBtn';
 
 export default function ReceitaComidaPage(props) {
@@ -8,10 +8,10 @@ export default function ReceitaComidaPage(props) {
   const location = useLocation();
   const FOOD_DETAILS_URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
   const ingredients = [
-    // 'white flour',
-    // 'salt',
-    // 'yeast',
-    // 'butter',
+    'white flour',
+    'salt',
+    'yeast',
+    'butter',
   ];
 
   const recommendedRecipes = [
@@ -28,7 +28,6 @@ export default function ReceitaComidaPage(props) {
   }, []);
 
   function renderFoods() {
-    console.log(foodDetails);
     return (
       <div>
         <p>{foodDetails ? foodDetails.idMeal : ''}</p>
@@ -37,9 +36,9 @@ export default function ReceitaComidaPage(props) {
           alt="Foto"
           data-testid="recipe-photo"
         />
-        <h1 data-testid="recipe-title">Nome da receita</h1>
+        <h1 data-testid="recipe-title">{ foodDetails.meals[0].strMeal }</h1>
         <ShareFavBtn url={ props.match.url } />
-        <Badge data-testid="recipe-category">Categoria</Badge>
+        <h5 data-testid="recipe-category">{ foodDetails.meals[0].strCategory }</h5>
 
         <div>
           <h3>Ingredients</h3>

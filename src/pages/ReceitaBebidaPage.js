@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Button, Badge } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import ShareFavBtn from '../components/ShareFavBtn';
 
 export default function ReceitaBebidaPage(props) {
   const [drinkDetails, setDrinkDetails] = useState();
   const location = useLocation();
   const DRINK_DETAILS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+  const FOOD_RECOMENDATIONS = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const ingredients = [
     'white flour',
     'salt',
@@ -27,7 +28,15 @@ export default function ReceitaBebidaPage(props) {
       .then((data) => setDrinkDetails(data));
   }, []);
 
+  const foodRecomendations = async () => {
+    const response = await fetch(FOOD_RECOMENDATIONS);
+    const data = await response.json();
+    return data.drinks;
+  };
+  foodRecomendations();
+
   function renderDrinks() {
+    console.log(drinkDetails);
     return (
       <div>
         <p>{ drinkDetails.idDrink }</p>
@@ -36,9 +45,10 @@ export default function ReceitaBebidaPage(props) {
           alt="foto"
           data-testid="recipe-photo"
         />
-        <h1 data-testid="recipe-title">Nome da receita</h1>
+        <h1 data-testid="recipe-title">{ drinkDetails.drinks[0].strDrink }</h1>
         <ShareFavBtn url={ props.match.url } />
-        <Badge data-testid="recipe-category">Categoria</Badge>
+        <h5 data-testid="recipe-category">{ drinkDetails.drinks[0].strCategory }</h5>
+        <p>{ drinkDetails.drinks[0].strAlcoholic }</p>
 
         <div>
           <h3>Ingredients</h3>
@@ -55,10 +65,8 @@ export default function ReceitaBebidaPage(props) {
         </div>
         <div>
           <h3>Instructions</h3>
-          <p
-            data-testid="instructions"
-          >
-            Aqui as instruções de como fazer essa receitinha maravilhosa
+          <p data-testid="instructions">
+            { drinkDetails.drinks[0].strInstructions }
           </p>
         </div>
         <div>
