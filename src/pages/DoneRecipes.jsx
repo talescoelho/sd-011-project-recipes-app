@@ -7,17 +7,17 @@ import BtnFilters from '../components/BtnFilters';
 import { getStorage } from '../helpers/Storage';
 
 function DoneRecipes() {
-  const [linkCopied, setLinkCopied] = useState('');
-  // const [doneRecipes, setDoneRecipes] = useState(() => getStorage(DONE_RECIPES));
-
   const recipesDone = getStorage('doneRecipes');
-  const history = useHistory();
-  const { location: { pathname } } = history;
+
+  const [linkCopied, setLinkCopied] = useState('');
+  const [doneRecipes] = useState(recipesDone);
+  console.log(doneRecipes);
 
   function copyUrlToClipboard() {
+    const { type, id } = doneRecipes[0];
     setLinkCopied('Link copiado!');
     // verificar possibilidade de obter a url completa para qualquer servidor
-    navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
+    navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
   }
 
   function mealInfo(index, category, area) {

@@ -12,7 +12,7 @@ export const dateToday = () => {
 export const newDoneRecipe = (returnedDetail, typeFoods) => {
   const r = returnedDetail;
   const maxTags = 2;
-  const newDoneRecipE = {
+  const newDoneRecip = {
     id: r.idMeal || r.idDrink,
     type: typeFoods,
     area: r.strArea || '',
@@ -23,5 +23,5 @@ export const newDoneRecipe = (returnedDetail, typeFoods) => {
     doneDate: dateToday(),
     tags: r.strTags ? r.strTags.split(',').slice(0, maxTags) : [],
   };
-  return newDoneRecipE;
+  return newDoneRecip;
 };
