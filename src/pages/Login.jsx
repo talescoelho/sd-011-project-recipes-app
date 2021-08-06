@@ -16,7 +16,7 @@ export default function Login() {
     if (regex.test(loginEmail) && loginPassword.length > minLength) {
       setLoginButtonStatus(false);
     }
-  }, [loginPassword]);
+  }, [loginPassword, loginEmail]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

@@ -10,7 +10,6 @@ function Detalhes(props) {
   const { params: { id } } = match;
   const [loading, setLoading] = useState(true);
   const [recipeData, setRecipeData] = useState([]);
-  console.log(recipeData);
 
   const handleFetchRequest = async () => {
     let response = [];
