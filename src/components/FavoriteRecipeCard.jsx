@@ -24,9 +24,6 @@ function FavoriteRecipeCard({ recipe, index }) {
 
   const handleShareBtn = (recipeType, recipeId) => {
     const hostURL = window.location.host;
-    console.log(hostURL);
-    console.log(recipeType, recipeId);
-
     if (recipeType === 'comida') {
       navigator.clipboard.writeText(`${hostURL}/comidas/${recipeId}`);
     }

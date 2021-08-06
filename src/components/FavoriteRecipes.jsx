@@ -23,6 +23,16 @@ function FavoriteRecipes({ filterBy }) {
     }
     setIsEmpty(true);
   }, [favoriteRecipes]);
+
+  useEffect(() => {
+    if (filterBy === 'All') setFavoriteRecipes(parsedLocalStorage);
+    if (filterBy === 'Foods') {
+      setFavoriteRecipes(favoriteRecipes.filter((recipe) => recipe.type === 'comida'));
+    }
+    if (filterBy === 'Drinks') {
+      setFavoriteRecipes(favoriteRecipes.filter((recipe) => recipe.type === 'bebida'));
+    }
+  }, [filterBy]);
   return (
     <div className="FavoriteRecipesContainer">
       {
