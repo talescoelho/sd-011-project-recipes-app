@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import '../styles/StartRecipeBtn.css';
 import { useHistory, useLocation } from 'react-router-dom';
 import handleLocation from '../helpers/handleLocation';
+import ingredientsArrFormater from '../helpers/ingredientsArrFormater';
 
-function ButtonStartRecipe({ id }) {
+function ButtonStartRecipe({ id, recipeData }) {
   const history = useHistory();
   const location = useLocation();
   const [disabled, setDisabled] = useState(false);
@@ -25,18 +26,33 @@ function ButtonStartRecipe({ id }) {
     if (doneRecipesLocal[key] && doneRecipesLocal[key][recipeId]) {
       setDisabled(true);
     }
-    if (inProgressLocal && inProgressLocal[key][recipeId]) {
+    if (inProgressLocal[key] !== undefined && inProgressLocal[key][recipeId]) {
       setDisabled(false);
       setBtnName(false);
     }
   };
 
   useEffect(() => {
+    if (!localStorage.getItem('inProgressRecipes')) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        cocktails: {},
+        meals: {},
+      }));
+    }
     handleLocalStorage(id);
   }, [id]);
 
   const handleStartClickBtn = () => {
+    const ingredientsItensArr = ingredientsArrFormater(recipeData);
+    const key = handleObjectKey();
     const type = handleLocation(location);
+    const startedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(
+      { ...startedRecipes,
+        [key]: { ...startedRecipes[key],
+          [id]: ingredientsItensArr },
+      },
+    ));
     history.push(`/${type}/${id}/in-progress`);
   };
 
@@ -55,6 +71,7 @@ function ButtonStartRecipe({ id }) {
 
 ButtonStartRecipe.propTypes = {
   id: PropTypes.number.isRequired,
+  recipeData: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default ButtonStartRecipe;

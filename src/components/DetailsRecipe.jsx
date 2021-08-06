@@ -83,7 +83,10 @@ function DetailsRecipe(props) {
         allowFullScreen
       /> }
       <Recommendations />
-      <ButtonStartRecipe id={ id } />
+      <ButtonStartRecipe
+        id={ id }
+        recipeData={ recipeData }
+      />
     </div>
   );
 }
