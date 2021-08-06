@@ -55,7 +55,7 @@ function DetailsRecipe() {
   return (
     <div>
       <img
-        id="img-recipe"
+        className="img-recipe"
         src={ recipes.strMealThumb }
         data-testid="recipe-photo"
         alt="Imagem da receita"
@@ -78,9 +78,9 @@ function DetailsRecipe() {
         />
       </div>
       {/* <h3 data-testid={ `${index}-recomendation-card"` }>Recomendadas</h3> */}
-      <div id="recommended"><h4>oi</h4></div>
+      <div className="recommended"><h4>oi</h4></div>
       <button
-        id="start-recipe-btn"
+        className="start-recipe-btn"
         type="button"
         data-testid="start-recipe-btn"
       >
