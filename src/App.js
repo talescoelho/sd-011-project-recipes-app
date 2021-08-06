@@ -17,6 +17,8 @@ import Profile from './pages/Profile';
 import MealsDetails from './pages/MealsDetails';
 import DrinksDetails from './pages/DrinksDetails';
 import ExploreDrinkByIngredients from './pages/ExploreDrinkByIngredients';
+import InProgressMeal from './pages/InProgressMeal';
+import InProgressDrink from './pages/InProgressDrink';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -36,8 +38,8 @@ function App() {
           <Route exact path="/explorar/bebidas/area" component={ NotFound } />
           <Route exact path="/comidas/:id" component={ MealsDetails } />
           <Route exact path="/bebidas/:id" component={ DrinksDetails } />
-          <Route exact path="/comidas/:id/in-progress" component={ MealsDetails } />
-          <Route exact path="/bebidas/:id/in-progress" component={ DrinksDetails } />
+          <Route exact path="/comidas/:id/in-progress" component={ InProgressMeal } />
+          <Route exact path="/bebidas/:id/in-progress" component={ InProgressDrink } />
           <Route
             exact
             path="/explorar/comidas/ingredientes"

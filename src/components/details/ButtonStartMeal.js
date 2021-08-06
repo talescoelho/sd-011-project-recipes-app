@@ -8,7 +8,6 @@ function ButtonStartMeal({ id, type }) {
   const history = useHistory();
 
   function handleStartRecipe() {
-    console.log('inProgress');
     setInProgress(true);
   }
 

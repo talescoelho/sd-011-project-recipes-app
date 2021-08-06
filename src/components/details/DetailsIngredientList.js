@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 
 function DetailsIngredientList() {
@@ -18,22 +19,48 @@ function DetailsIngredientList() {
   }
 
   const ingredients = gettingIngredients();
+  const checkPath = useLocation();
+  const isInProgress = checkPath.pathname.includes('in-progress');
 
   return (
     <div>
       <h4>Ingredientes</h4>
-      <ol>
-        {
-          ingredients.map((ingredient, index) => (
-            <li
-              key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              { ingredient }
-            </li>
-          ))
-        }
-      </ol>
+      <div>
+        {!isInProgress
+          ? (
+            <ol>
+              {
+                ingredients.map((ingredient, index) => (
+                  <li
+                    key={ index }
+                    data-testid={ `${index}-ingredient-name-and-measure` }
+                  >
+                    { ingredient }
+                  </li>
+                ))
+              }
+            </ol>)
+          : (
+            <div>
+              {
+                ingredients.map((ingredient, index) => (
+                  <div key={ index }>
+                    <input
+                      data-testid={ `${index}-ingredient-step` }
+                      type="checkbox"
+                      name={ `ingredient-${index}` }
+                    />
+                    <label
+                      htmlFor={ `ingredient-${index}` }
+                    >
+                      {ingredient}
+                    </label>
+                  </div>
+                ))
+              }
+            </div>
+          ) }
+      </div>
     </div>
   );
 }
