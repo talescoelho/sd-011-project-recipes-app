@@ -1,7 +1,3 @@
-const messageAlert = () => (
-  // eslint-disable-next-line no-alert
-  alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
-);
 export const requestIngredient = async (ingrediente, type) => {
   if (type === 'comidas') {
     return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediente}`)
