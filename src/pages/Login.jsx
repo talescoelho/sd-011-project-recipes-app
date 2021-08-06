@@ -16,12 +16,13 @@ export default function Login() {
     if (regex.test(loginEmail) && loginPassword.length > minLength) {
       setLoginButtonStatus(false);
     }
-  }, [loginPassword]);
+  }, [loginPassword, loginEmail]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const emailObject = { email: loginEmail };
     localStorage.setItem('user', JSON.stringify(emailObject));
+    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     localStorage.setItem('mealsToken', JSON.stringify(1));
     localStorage.setItem('cocktailsToken', JSON.stringify(1));
     history.push('/comidas');

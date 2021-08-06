@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import Recommendations from '../components/Recommendations';
 
 function ExplorarComidas() {
   return (
@@ -26,7 +25,6 @@ function ExplorarComidas() {
       >
         Me Surpreenda!
       </Link>
-      <Recommendations />
       <Footer />
     </div>
   );

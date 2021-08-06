@@ -1,0 +1,50 @@
+.FavoriteRecipeCardContainer {
+  align-items: center;
+  border: 2px solid;
+  box-sizing: border-box;
+  display: flex;
+  height: 150px;
+  margin-top: 50px;
+  width: 97%;
+}
+
+.FavoriteRecipeImage {
+  height: 100%;
+}
+
+.RecipeFavoriteInfoContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.RecipeFavoriteNameInfo {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+.FavoriteRecipeButtonsContainer {
+  display: flex;
+  height: 35%;
+}
+
+.FavoriteRecipeButtonsContainer .Favorite-Page-Button-Styles {
+  background: none;
+  background-color: white;
+  border: none;
+  width: 49.5%;
+}
+
+.FavoriteRecipeShareButton {
+  background: none;
+  background-color: white;
+  border: none;
+  width: 49.5%;
+}

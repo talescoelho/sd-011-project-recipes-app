@@ -36,7 +36,6 @@ function DoneRecipes({ filterBy }) {
   const [doneItens, setDoneItens] = useState(doneReceitas);
 
   useEffect(() => {
-    // ESTÁ BUGADO POIS NÃO ESTOU PEGANDO O DONE RECIPES DO CONTEXT AINDA PRECISA PEGAR OS DONE RECIPES DE LÁ PARA FILTRAR!
     if (filterBy === 'All') setDoneItens(doneReceitas);
     if (filterBy === 'Foods') {
       setDoneItens(doneItens.filter((recipe) => recipe.type === 'comida'));

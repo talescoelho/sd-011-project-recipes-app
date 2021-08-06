@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { searchRecommendation } from '../services';
-import FoodCard from './FoodCard';
 import '../styles/Recommendations.css';
+import RecommendationCard from './RecommendationCard';
 
 export default function Recommendations() {
-  const START_POSITION = -1170;
-  const CHANGER = 180;
-  const MULTIPLIER = 23;
+  const START_POSITION = 0;
+  const CHANGER = 360;
+  const MULTIPLIER = 2;
+  const SIX = 6;
 
   const { pathname } = useLocation();
   const [recommendation, setRecommendations] = useState([]);
   const [number, setNumber] = useState(START_POSITION);
-  const type = pathname.includes('bebidas') ? 'drinks' : 'meals';
+  const [item, setItem] = useState(0);
+  const type = pathname.includes('comidas') ? 'drinks' : 'meals';
 
   useEffect(() => {
     const getRecommendation = async () => {
@@ -27,6 +29,17 @@ export default function Recommendations() {
   useEffect(() => {
     const changeRecommendation = () => {
       const carroussel = document.querySelector('.carroussel-content');
+      const firstItem = document.querySelector(`.carroussel-item-${item}`);
+      const secItem = document.querySelector(`.carroussel-item-${item + 1}`);
+      if (item < SIX) {
+        setItem(item + 2);
+      }
+
+      if (firstItem !== null) {
+        firstItem.style.display = 'block';
+        secItem.style.display = 'block';
+      }
+
       carroussel.style.transform = `translateX(${number}px)`;
     };
 
@@ -48,13 +61,13 @@ export default function Recommendations() {
           />
         </label>
         <div className="carroussel-content">
-          {recommendation && recommendation.map((rec, index) => (
+          {recommendation && recommendation.slice(0, SIX).map((rec, index) => (
             <div
               key={ index }
+              className={ `carroussel-item carroussel-item-${index}` }
               data-testid={ `${index}-recomendation-card` }
-              className="carroussel-item"
             >
-              <FoodCard
+              <RecommendationCard
                 type={ type }
                 recipe={ rec }
                 index={ index }
@@ -68,7 +81,10 @@ export default function Recommendations() {
             id="left"
             className="arrow-l"
             onClick={ () => {
+              // click();
+
               if (number > -CHANGER * MULTIPLIER) setNumber(number - CHANGER);
+              // if (item < FIVE) setItem(item + 2);
             } }
           />
         </label>
