@@ -5,11 +5,12 @@ import explore from '../images/exploreIcon.svg';
 import food from '../images/mealIcon.svg';
 
 export default function Footer() {
-  const fixed = { display: 'flex',
+  const fixed = {
+    display: 'flex',
     justifyContent: 'space-around',
     position: 'fixed',
     bottom: '0px',
-    backgroundColor: '#5E7056',
+    backgroundColor: 'rgb(236, 239, 244)',
     width: '100%',
     padding: '15px 0',
   };

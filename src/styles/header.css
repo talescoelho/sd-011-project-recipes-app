@@ -1,6 +1,11 @@
+header {
+  background-color: rgb(236, 239, 244);
+}
+
 header div {
+  margin-top: 0px;
   display: flex;
-  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 header div h2 {
@@ -15,6 +20,7 @@ header div button {
   margin-left: 10px;
   margin-right: 10px;
   margin-top: 5px;
+  background-color: rgb(236, 239, 244);
 }
 
 .search-container {
@@ -23,17 +29,17 @@ header div button {
 }
 
 .search-bar {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
 .search-container {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
 .search {

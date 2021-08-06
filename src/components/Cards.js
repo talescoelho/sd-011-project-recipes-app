@@ -45,7 +45,7 @@ function DrinkCard(props) {
     <>
       {result[resultType].map((recipe, index) => (
         <Link
-          className="card"
+          className="card-recipe"
           key={ recipe[`id${strType}`] }
           to={ `/${resultType}/${recipe[`id${strType}`]}` }
         >

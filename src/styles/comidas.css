@@ -3,7 +3,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  height: 60vh;
+  height: 65vh;
   overflow: auto;
 }
 
@@ -12,26 +12,29 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  height: 35vh;
+  height: 40vh;
   overflow: auto;
 }
 
-.card {
+.card-recipe {
   margin-top: 25px;
   width: 40%;
 }
 
 .card-container {
-  border: 1px solid silver;
+  border: none;
   border-radius: 10px;
+  height: 172px;
 }
 
 .card-container img {
   border-radius: 100%;
-  width: 100%;
+  width: 144px;
 }
 
-.card h4 {
+.card-recipe h4 {
+  color: #1e2b20;
+  font-weight: bolder;
   text-align: center;
 }
 

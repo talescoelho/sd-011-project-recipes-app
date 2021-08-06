@@ -26,7 +26,7 @@ export default function DataUserLogin() {
   }, [userEmail, userPassword]);
 
   return (
-    <main>
+    <main className="login-container">
       <input
         value={ userEmail }
         onChange={ ({ target }) => setUserEmail(target.value) }
