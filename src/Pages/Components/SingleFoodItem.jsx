@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import CarrouselDrinks from './CarrouselDrinks';
 import '../../styles/detail-screen.css';
 import {
@@ -9,6 +9,9 @@ import {
 import embedYouTubeVideo from '../../Helpers/embedYouTubeVideo';
 
 function SingleFoodItem() {
+  const { id } = useParams();
+  const currentStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  console.log(currentStorage);
   const history = useHistory();
   const currentURL = window.location.pathname;
   const [itemDetail, setItemDetail] = useState({ meals: null });
@@ -95,18 +98,10 @@ function SingleFoodItem() {
         onClick={ () => history
           .push(`/comidas/${managePathname(currentURL)}/in-progress`) }
       >
-        Iniciar Receita
+        { currentStorage && currentStorage.meals[id] ? 'Continuar Receita' : 'Iniciar Receita'}
       </button>
     </div>
   );
 }
 
 export default SingleFoodItem;
-
-// SingleFoodItem.propTypes = {
-//   history: PropTypes.shape({
-//     location: PropTypes.shape({
-//       pathname: PropTypes.string.isRequired,
-//     }).isRequired,
-//   }).isRequired,
-// };
