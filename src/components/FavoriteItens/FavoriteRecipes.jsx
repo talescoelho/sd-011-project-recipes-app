@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import '../styles/FavoriteRecipes.css';
+import '../../styles/FavoriteRecipes.css';
 import FavoriteRecipeCard from './FavoriteRecipeCard';
 
 function FavoriteRecipes({ filterBy }) {
   const parsedLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [favoriteRecipes, setFavoriteRecipes] = useState(parsedLocalStorage);
   const [isEmpty, setIsEmpty] = useState('');
+  const [newRender, setNewRender] = useState(true);
 
   useEffect(() => {
     setFavoriteRecipes(parsedLocalStorage);
@@ -17,8 +18,7 @@ function FavoriteRecipes({ filterBy }) {
   }, []);
 
   useEffect(() => {
-    if (favoriteRecipes.length !== 0) {
-      console.log('vem aqui?');
+    if (favoriteRecipes[0] !== '') {
       return setIsEmpty(false);
     }
     setIsEmpty(true);
@@ -33,12 +33,18 @@ function FavoriteRecipes({ filterBy }) {
       setFavoriteRecipes(favoriteRecipes.filter((recipe) => recipe.type === 'bebida'));
     }
   }, [filterBy]);
+
   return (
     <div className="FavoriteRecipesContainer">
       {
         isEmpty ? 'Lista vazia' : favoriteRecipes.map(
           (recipe, index) => (
-            <FavoriteRecipeCard key={ index } index={ index } recipe={ recipe } />
+            <FavoriteRecipeCard
+              key={ index }
+              index={ index }
+              recipe={ recipe }
+              newRender={ setNewRender }
+            />
           ),
         )
       }

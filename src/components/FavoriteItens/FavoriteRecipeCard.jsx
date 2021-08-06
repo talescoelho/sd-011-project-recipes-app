@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import shareImage from '../images/shareIcon.svg';
+import shareImage from '../../images/shareIcon.svg';
 
 // import '../styles/RecipeConcluded.css';
-import LinkCopy from './LinkCopy';
+import LinkCopy from '../LinkCopy';
+import ButtonFavoriteRecipe from '../ButtonFavoriteRecipe';
 
 function FavoriteRecipeCard({ recipe, index }) {
   const [linkCopy, setLinkCopy] = useState(false);
+  const [favorite, setFavorite] = useState(true);
   const { id,
     type,
     area,
@@ -67,6 +69,11 @@ function FavoriteRecipeCard({ recipe, index }) {
           <img src={ shareImage } alt="Compartilhar" />
         </button>
         { linkCopy && <LinkCopy /> }
+        <ButtonFavoriteRecipe
+          setFavorite={ setFavorite }
+          favorite={ favorite }
+          recipes={ recipe }
+        />
       </div>
     </div>
   );

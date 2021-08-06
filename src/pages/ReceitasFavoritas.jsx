@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import FavoriteRecipes from '../components/FavoriteRecipes';
+import FavoriteRecipes from '../components/FavoriteItens/FavoriteRecipes';
 import Header from '../components/Header';
 import TypeOfRecipesConcludeds from '../components/TypeOfRecipesConcludeds';
-// import DoneRecipes from '../components/DoneRecipes';
 
 import '../styles/ReceitasFeitas.css';
 
-function ReceitasFeitas() {
+function ReceitasFavoritas() {
   const [filterByCategory, setFilterByCategory] = useState('All');
   return (
     <div className="ReceitasFavoritasContainer">
@@ -17,4 +16,4 @@ function ReceitasFeitas() {
   );
 }
 
-export default ReceitasFeitas;
+export default ReceitasFavoritas;
