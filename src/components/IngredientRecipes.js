@@ -21,7 +21,8 @@ const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem, setEnable }) =
   }, [idItem, typeDoM, update]);
 
   const addCheck = (value) => (
-    info && info[typeDoM][idItem].length > 0
+    info && info[typeDoM][idItem] !== undefined
+      && info[typeDoM][idItem].length > 0
       ? localStorage.setItem('inProgressRecipes', JSON.stringify({
         ...info,
         [typeDoM]: {
@@ -50,6 +51,7 @@ const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem, setEnable }) =
   const enableButtonFinish = () => {
     const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     return (getStorage !== null
+      && getStorage[typeDoM][idItem] !== undefined
       && getStorage[typeDoM][idItem].length === ingredient.length ? setEnable(false)
       : setEnable(true));
   };
@@ -65,6 +67,7 @@ const IngredientRecipes = ({ ingredient, typeDrinkorMeal, idItem, setEnable }) =
     const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     enableButtonFinish();
     return getStorage !== null
+      && getStorage[typeDoM][idItem] !== undefined
       && getStorage[typeDoM][idItem].includes(value);
   };
 

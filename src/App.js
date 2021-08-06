@@ -15,6 +15,7 @@ import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Profile from './pages/Profile';
 import RecipesInProgress from './pages/RecipesInProgress';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
           path="/receitas-favoritas"
           component={ ReceitasFavoritas }
         />
+        <Route component={ NotFound } />
       </Switch>
     </div>
   );
