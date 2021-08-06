@@ -5,6 +5,7 @@ import DetailHeader from '../components/DetailHeader';
 import DetailIngredient from '../components/DetailIngredient';
 import DetailInstruction from '../components/DetailInstruction';
 import Recommendations from '../components/Recommendations';
+import StartButton from '../components/StartButton';
 
 function DetailsDrinks() {
   const { id } = useParams();
@@ -58,6 +59,7 @@ function DetailsDrinks() {
       <DetailIngredient />
       <DetailInstruction />
       <Recommendations />
+      <StartButton />
     </main>
   ) : <h1>Loading</h1>;
 }

@@ -71,7 +71,7 @@ describe('34 - Realize uma request para a API passando o `id` da receita que dev
   });
 });
 
-describe.only('35 - Desenvolva a tela de forma que contenha uma imagem da receita, o título, a categoria (ou se é ou não alcoólico), uma lista de ingredientes seguidos pelas quantidades, instruções, um vídeo do youtube "embedado" e recomendações', () => {
+describe('35 - Desenvolva a tela de forma que contenha uma imagem da receita, o título, a categoria (ou se é ou não alcoólico), uma lista de ingredientes seguidos pelas quantidades, instruções, um vídeo do youtube "embedado" e recomendações', () => {
   it('Verifica se os elementos descritos no protótipo existem na tela de detalhes de comida', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {
@@ -321,7 +321,7 @@ describe('40 - Implemente a solução de modo que caso a receita tenha sido inic
   });
 });
 
-describe('41 - Redirecione a pessoa usuário caso o botão "Iniciar Receita" seja clicado, a rota deve mudar para a tela de receita em processo', () => {
+describe.only('41 - Redirecione a pessoa usuário caso o botão "Iniciar Receita" seja clicado, a rota deve mudar para a tela de receita em processo', () => {
   it('Redireciona para tela de receita da comida em processo', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {

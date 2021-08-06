@@ -6,6 +6,7 @@ import DetailHeader from '../components/DetailHeader';
 import DetailIngredient from '../components/DetailIngredient';
 import DetailInstruction from '../components/DetailInstruction';
 import Recommendations from '../components/Recommendations';
+import StartButton from '../components/StartButton';
 import '../components/styles/details.css';
 
 function DetailsFood() {
@@ -69,6 +70,7 @@ function DetailsFood() {
           />
         </Card>
         <Recommendations />
+        <StartButton />
       </Card>
     </main>
   ) : <h1>Loading</h1>;
