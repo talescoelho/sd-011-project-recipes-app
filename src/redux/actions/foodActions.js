@@ -68,13 +68,13 @@ export const fetchFoodID = (id) => async (dispatch) => {
 export const saveFavoriteRecipe = (id) => async () => {
   const returnFetch = await fetchAPIByID(id);
   const genericObj = {
-    id: returnFetch.idMeal,
+    id: returnFetch[0].idMeal,
     type: 'comida',
-    area: returnFetch.strArea,
-    category: returnFetch.strCategory,
+    area: returnFetch[0].strArea,
+    category: returnFetch[0].strCategory,
     alcoholicOrNot: '',
-    name: returnFetch.strMeal,
-    image: returnFetch.strThumb,
+    name: returnFetch[0].strMeal,
+    image: returnFetch[0].strMealThumb,
   };
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   if (favoriteRecipes === null) {

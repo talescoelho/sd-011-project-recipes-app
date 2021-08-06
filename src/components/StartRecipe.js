@@ -47,7 +47,7 @@ class StartRecipe extends Component {
 }
 
 StartRecipe.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default StartRecipe;

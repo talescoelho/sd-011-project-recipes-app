@@ -16,7 +16,7 @@ class Drinks extends Component {
       <div>
         <Header />
         <DrinkCategories />
-        <DrinkCards />
+        <DrinkCards test="-recipe-card" />
         <Footer />
       </div>
     );

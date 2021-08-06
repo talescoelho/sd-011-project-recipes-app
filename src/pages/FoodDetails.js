@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchFoodID, fetchDrinkRecomendations } from '../redux/actions/foodActions';
-import { DrinkCards, FoodDetailsCard } from '../components';
+import { DrinkRecomendation, FoodDetailsCard } from '../components';
 import StartRecipe from '../components/StartRecipe';
 
 class FoodDetails extends Component {
@@ -17,7 +17,7 @@ class FoodDetails extends Component {
     return (
       <div>
         <FoodDetailsCard />
-        <DrinkCards recomendation />
+        <DrinkRecomendation />
         <StartRecipe id={ id } />
       </div>
     );
