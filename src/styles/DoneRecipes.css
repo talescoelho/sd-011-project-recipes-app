@@ -2,10 +2,11 @@
   display: flex;
   flex-direction: column;
 }
+
 .done-recipe-cards {
   border: 1px solid #eee;
   box-shadow: 2px 8px 20px #ddd;
-  display:flex;
+  display: flex;
   flex-direction: row;
   margin: 10px;
   min-height: 150px;
@@ -22,15 +23,15 @@
 }
 
 .btn-filter {
+  background-color: #ffc107;
   border: none;
   border-radius: 10px;
-  background-color: #ffc107;
   color: white;
   display: flex;
   flex-direction: row;
-  height: 30px;
-  justify-content:center;
   font-weight: 600;
+  height: 30px;
+  justify-content: center;
   margin-top: 5px;
   white-space: nowrap;
   width: 110px;
@@ -39,8 +40,8 @@
 .btn-filter:hover {
   background-color: rgb(54, 211, 14);
   color: white;
-  outline: none;
   font-weight: 900;
+  outline: none;
 }
 
 .btn-filter:focus {
@@ -51,9 +52,9 @@
 }
 
 .infos {
-  width: 50%;
   margin: 0 auto;
   text-align: center;
+  width: 50%;
 }
 
 .name {
@@ -61,8 +62,8 @@
   color: rgb(54, 211, 14);
   font-size: 1.2rem;
   font-weight: 600;
-  text-align: center;
   padding-left: 10px;
+  text-align: center;
   width: 125%;
 }
 
@@ -76,14 +77,13 @@ a:link {
 
 .recipe-image {
   display: flex;
-  height: 150px;
+  height: 100%;
   margin: 0 auto;
   width: 140px;
-  height: 100%;
 }
 
 .done-category {
-  color:rgb(126, 134, 134);
+  color: rgb(126, 134, 134);
 }
 
 .tag {
@@ -99,10 +99,10 @@ a:link {
   display: flex;
 }
 
-.date, .done-tags  {
-  width: 125%;
+.date, .done-tags {
   color: black;
   font-weight: 500;
+  width: 125%;
 }
 
 .share {
