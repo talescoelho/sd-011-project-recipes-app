@@ -59,7 +59,15 @@ function DrinkProgress(props) {
                   data-testid={ `${i}-ingredient-step` }
                   key={ i }
                 >
-                  { Object.values(ingredient) }
+                  <label
+                    htmlFor={ i }
+                  >
+                    <input
+                      id={ i }
+                      type="checkbox"
+                    />
+                    { Object.values(ingredient) }
+                  </label>
                 </li>
               ))
             }

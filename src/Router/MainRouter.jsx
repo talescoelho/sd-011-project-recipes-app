@@ -13,7 +13,7 @@ import Home from '../Pages/Home';
 import RecipesDone from '../Pages/RecipesDone';
 import FavoriteRecipes from '../Pages/FavoriteRecipes';
 import DrinkProgress from '../Pages/DrinkProgress';
-import FoodProgress from '../Pages/Main/FoodProgress';
+import FoodProgress from '../Pages/FoodProgress';
 
 const MainRouter = () => (
   <Switch>

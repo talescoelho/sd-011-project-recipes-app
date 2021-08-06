@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { getFoodsByID } from '../../Services/ApiFood';
+import { getFoodsByID } from '../Services/ApiFood';
 
 function FoodProgress(props) {
   const [foodById, setFoodById] = useState([]);
@@ -59,7 +59,15 @@ function FoodProgress(props) {
                   data-testid={ `${i}-ingredient-step` }
                   key={ i }
                 >
-                  { Object.values(ingredient) }
+                  <label
+                    htmlFor={ i }
+                  >
+                    <input
+                      id={ i }
+                      type="checkbox"
+                    />
+                    { Object.values(ingredient) }
+                  </label>
                 </li>
               ))
             }
