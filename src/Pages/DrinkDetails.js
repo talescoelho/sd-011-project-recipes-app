@@ -17,7 +17,6 @@ function DetailsRecipe() {
     };
     getApi();
   }, []);
-  console.log(recipes);
   // retorna o array com os ingredientes
   const ingredientsRecipe = () => {
     const arrayIndredientKids = Object.keys(recipes)
