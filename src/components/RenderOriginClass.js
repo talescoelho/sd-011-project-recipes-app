@@ -51,8 +51,8 @@ export default class RenderOriginClass extends Component {
   }
 
   render() {
-    const { selectedOptions, data } = this.state;
-    console.log(data)
+    const { selectedOptions, data, area } = this.state;
+    console.log(area)
     const limitCards = 12;
     if (selectedOptions === null || data === null) return <p>Loading...</p>;
     return (
