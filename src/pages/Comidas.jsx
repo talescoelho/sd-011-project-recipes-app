@@ -8,16 +8,17 @@ import Categories from '../components/Categories';
 
 function Comidas() {
   const stateReduxSearch = useSelector(({ searchItems }) => searchItems);
-  const { dataApi } = stateReduxSearch;
+  const { dataApi, newFilter } = stateReduxSearch;
+
   const dispatch = useDispatch();
   const limitSearch = 12;
 
   React.useEffect(() => {
     async function fetchDidMount() {
-      dispatch(await searchCase('meal'));
+      if (!newFilter) dispatch(await searchCase('meal'));
     }
     fetchDidMount();
-  }, [dispatch]);
+  }, [dispatch, newFilter]);
 
   return (
     <div>

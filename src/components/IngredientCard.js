@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import searchCase from '../service/apiSearchBar';
+import { requestNewFilterCategories } from '../actions/mainPageRecipe';
 
 function IngredientCard({ name, index, comidasOuBebidas }) {
   const typeMoD = comidasOuBebidas === 'comidas'
@@ -14,6 +15,7 @@ function IngredientCard({ name, index, comidasOuBebidas }) {
   async function filterIngredient(nameFilter) {
     const typeSearch = comidasOuBebidas === 'comidas'
       ? 'meal' : 'drink';
+    dispatch(requestNewFilterCategories(true));
     dispatch(await searchCase(typeSearch, 'ingrediente', nameFilter));
   }
 
