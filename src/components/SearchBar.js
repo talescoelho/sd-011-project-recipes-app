@@ -68,7 +68,6 @@ class SearchBar extends Component {
                 type="radio"
                 id="radio-name"
                 value="nome"
-                checked
                 name="searchFilter"
                 data-testid="name-search-radio"
                 onChange={ (event) => this.handleChange(event) }
