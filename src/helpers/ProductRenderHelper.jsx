@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Redirect, useLocation } from 'react-router-dom';
-import 
+import { Card, Container } from 'react-bootstrap';
 
 export default function ProductRenderHelper(
   data,
@@ -27,21 +27,41 @@ export default function ProductRenderHelper(
     return <Redirect to={ `${pathname}/${product[infos.id]}` } />;
   }
   return (
-    data
-      .results[typeFilterKey]
-      .slice(0, maxArrayProducts)
-      .map((product, index) => (
-        <Link to={ `${pathname}/${product[infos.id]}` } key={ index }>
-          <div data-testid={ `${index}-recipe-card` }>
-            <img
-              src={ product[infos.thumb] }
-              alt="comida_principal"
-              data-testid={ `${index}-card-img` }
-              width="50px"
-            />
-            <p data-testid={ `${index}-card-name` }>{product[infos.str]}</p>
-          </div>
-        </Link>
-      ))
+    <Container fluid className="card-container">
+      {data
+        .results[typeFilterKey]
+        .slice(0, maxArrayProducts)
+        .map((product, index) => (
+          <Link
+            to={ `${pathname}/${product[infos.id]}` }
+            key={ index }
+            className="link-container"
+          >
+            <Card
+              style={ { width: '100%' } }
+              data-testid={ `${index}-recipe-card` }
+              border="dark"
+              className="main-card"
+              text="light"
+            >
+              <Card.Img
+                variant="top"
+                src={ product[infos.thumb] }
+                alt="comida_principal"
+                data-testid={ `${index}-card-img` }
+                width="50px"
+                className="main-card-img"
+              />
+              <Card.Title
+                as="h2"
+                className="main-card-title"
+                data-testid={ `${index}-card-name` }
+              >
+                {product[infos.str]}
+              </Card.Title>
+            </Card>
+          </Link>
+        ))}
+    </Container>
   );
 }

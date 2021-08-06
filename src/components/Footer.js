@@ -6,7 +6,7 @@ import mealIcon from '../images/mealIcon.svg';
 
 function Footer() {
   return (
-    <footer data-testid="footer" className="footer">
+    <footer data-testid="footer container" className="footer">
 
       <Link to="/bebidas">
         <img

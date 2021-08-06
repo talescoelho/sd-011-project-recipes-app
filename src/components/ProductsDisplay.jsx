@@ -5,6 +5,7 @@ import React, {
   useLayoutEffect,
 } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import MyContext from '../context/MyContext';
 import ProductRenderHelper from '../helpers/ProductRenderHelper';
 
@@ -87,32 +88,35 @@ function ProductsDisplay() {
 
   return (
     <main>
-      <button
-        type="button"
-        onClick={ (e) => searchByCategory(e) }
-        data-testid="All-category-filter"
-        name="All"
-      >
-        All
-      </button>
-      {
-        categories.length === 0
-          ? <p>Loading</p>
-          : categories[typeFilterKey]
-            .slice(0, maxArrayCategories)
-            .map((categorie, index) => (
-              <div key={ index }>
-                <button
+      <ButtonGroup className="main-button-group">
+        <Button
+          variant="success"
+          type="button"
+          onClick={ (e) => searchByCategory(e) }
+          data-testid="All-category-filter"
+          name="All"
+        >
+          All
+        </Button>
+        {
+          categories.length === 0
+            ? <p>Loading</p>
+            : categories[typeFilterKey]
+              .slice(0, maxArrayCategories)
+              .map((categorie, index) => (
+                <Button
+                  variant="success"
+                  key={ index }
                   type="button"
                   data-testid={ `${categorie.strCategory}-category-filter` }
                   onClick={ (e) => searchByCategory(e) }
                   name={ categorie.strCategory }
                 >
                   {categorie.strCategory}
-                </button>
-              </div>
-            ))
-      }
+                </Button>
+              ))
+        }
+      </ButtonGroup>
       { ProductRenderHelper(
         data,
         typeFilter,
