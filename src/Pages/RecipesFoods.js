@@ -3,6 +3,7 @@ import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import './RecipesFoods.css';
 import CardRecipes from '../Components/CardRecipes';
+import { Link } from 'react-router-dom';
 //import MyContext from '../Context/MyContext';
 
 export default function RecipesFood() {
@@ -26,20 +27,22 @@ export default function RecipesFood() {
       );
        return filteredRecipe;
     }
-    
   }
-  console.log(renderCardRecipes());
   return (
     <div>
       <Header className="title" title="Comidas" searchIconAppears />
-      
+      <div className="cardlist">
       {renderCardRecipes().map((recp, index) => (
+         <Link
+         to = '/details-recipe'>
          <CardRecipes
           key={ index }
           index={ index }
           thumb={ recp.strMealThumb }
           title={ recp.strMeal }
-         />))}
+          />
+          </Link>))}  
+      </div>
        <Footer />
     </div>
   );
