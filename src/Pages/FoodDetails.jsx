@@ -59,10 +59,7 @@ class FoodDetails extends Component {
 
   addMealInProgress() {
     const { match: { params: { id } } } = this.props;
-    const inProgress = {
-      cocktails: {},
-      meals: {},
-    };
+    const inProgress = { cocktails: {}, meals: {} };
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
     const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
     recipe.meals = { ...recipe.meals, [id]: [] };
@@ -88,8 +85,9 @@ class FoodDetails extends Component {
       category: foodDetail[0].strCategory || '',
       alcoholicOrNot: foodDetail[0].strAlcoholic || '',
       name: foodDetail[0].strMeal,
-      image: foodDetail[0].strMealThumb };
-    saveRecipesOnLocalStorage(favoriteRecipes);
+      image: foodDetail[0].strMealThumb,
+    };
+    saveRecipesOnLocalStorage(favoriteRecipes, window.location.href);
   }
 
   saveOnLocalStorage() {
