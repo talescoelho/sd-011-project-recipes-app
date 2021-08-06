@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import '../styles/DoneRecipes.css';
@@ -16,7 +16,6 @@ function DoneRecipes() {
   function copyUrlToClipboard() {
     const { type, id } = doneRecipes[0];
     setLinkCopied('Link copiado!');
-    // verificar possibilidade de obter a url completa para qualquer servidor
     navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
   }
 
