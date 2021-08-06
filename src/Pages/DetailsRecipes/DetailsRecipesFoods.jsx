@@ -8,8 +8,8 @@ import './scroll.css';
 function DetailsRecipesFoods() {
   const location = useLocation();
   const { idFoods, setIdFoods, idFoodsAPI, setIdFoodsAPI,
-    newDataDrinks, setNewDataDrinks,
-    setStartButton, count /* , selected */ } = useContext(MainContext);
+    newDataDrinks, setNewDataDrinks, setDoneRecipes,
+    setStartButton, count, setCount /* , selected */ } = useContext(MainContext);
 
   async function fetchDrinksInitial() {
     const drinksInitialAPI = await getDrinksInitial();
@@ -45,6 +45,22 @@ function DetailsRecipesFoods() {
   };
   // ! Limita a quantidade de recomendação
   const magicNumber = 6;
+  // * ===================================================================================
+  setDoneRecipes(JSON.stringify([{
+    id: idFoodsAPI.idMeal,
+    type: 'comida',
+    area: idFoodsAPI.strArea,
+    category: idFoodsAPI.strCategory,
+    alcoholicOrNot: '',
+    name: idFoodsAPI.strMeal,
+    image: idFoodsAPI.strMealThumb,
+    doneDate: idFoodsAPI.dateModified,
+    tags: idFoodsAPI.strTags,
+  }]));
+  const doneRecipesStorage = JSON.parse(localStorage.getItem('doneRecipes'))[0];
+  if (doneRecipesStorage.id === idFoods) {
+    setCount(true);
+  }
 
   return (
     <div>
@@ -105,7 +121,6 @@ function DetailsRecipesFoods() {
         type="button"
         data-testid="start-recipe-btn"
         className="fixed-btn"
-        // #teste - não funcionou
         onClick={ () => setStartButton(true) }
         hidden={ count }
       >

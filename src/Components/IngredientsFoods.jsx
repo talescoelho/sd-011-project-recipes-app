@@ -1,6 +1,6 @@
 import React, { useEffect, useContext/* , useState */ } from 'react';
 import MainContext from '../Context/MainContext';
-import OnChangeCheckList from './OnChangeCheckList';
+import OnChangeCheckListFoods from './OnChangeCheckListFoods';
 
 function Ingredients() {
   const {
@@ -39,6 +39,7 @@ function Ingredients() {
 
   return (
     <div>
+      <h4>Receitas</h4>
       <ul>
         { !startButton && DetailsIngredientsFiltered.map((ing, i) => (
           <li
@@ -57,7 +58,7 @@ function Ingredients() {
       <summary>
         {selected > 0 ? selected : null}
       </summary>
-      <OnChangeCheckList />
+      <OnChangeCheckListFoods />
     </div>
   );
 }

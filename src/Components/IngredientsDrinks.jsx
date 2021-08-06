@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import MainContext from '../Context/MainContext';
+import OnChangeCheckListDrinks from './OnChangeCheckListDrinks';
 
 function Ingredients() {
   const {
@@ -9,7 +10,7 @@ function Ingredients() {
     setDetailsMeasFilterForDrinks,
     DetailsInstrucFilterForDrinks,
     setDetailsInstrucFilterForDrinks,
-    idDrinksAPI,
+    idDrinksAPI, startButton, selected,
   } = useContext(MainContext);
 
   useEffect(() => {
@@ -39,8 +40,9 @@ function Ingredients() {
 
   return (
     <div>
+      <h4>Receitas</h4>
       <ul>
-        { DetailsIngredFilterForDrinks.map((ing, i) => (
+        { !startButton && DetailsIngredFilterForDrinks.map((ing, i) => (
           <li
             data-testid={ `${i}-ingredient-name-and-measure` }
             key={ i }
@@ -53,6 +55,11 @@ function Ingredients() {
           </li>
         )) }
       </ul>
+      <summary>
+        {selected > 0 ? selected : null}
+      </summary>
+      <OnChangeCheckListDrinks />
+      <h4>Instruções</h4>
       <ul>
         { DetailsInstrucFilterForDrinks.map((instructions, i) => (
           <li

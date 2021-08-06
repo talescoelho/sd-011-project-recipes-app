@@ -1,10 +1,10 @@
 import React, { useContext /* , useState */ } from 'react';
 import MainContext from '../Context/MainContext';
 
-function OnChangeCheckList() {
+function OnChangeCheckListDrinks() {
   const {
-    setCount, DetailsIngredientsFiltered,
-    selected, setSelected, startButton, DetailsMeasuresFiltered,
+    setCount, DetailsIngredFilterForDrinks, doneRecipes,
+    selected, setSelected, startButton, DetailsMeasFilterForDrinks,
   } = useContext(MainContext);
 
   function onChange(event) {
@@ -13,15 +13,16 @@ function OnChangeCheckList() {
     } else {
       setSelected(selected - 1);
     }
-    if (startButton && selected === DetailsIngredientsFiltered.length - 1) {
+    if (startButton && selected === DetailsIngredFilterForDrinks.length - 1) {
       setCount(true);
+      localStorage.setItem('doneRecipes', doneRecipes);
     } else {
       setCount(false);
     }
   }
   return (
     <ul>
-      { startButton && DetailsIngredientsFiltered.map((ing, i) => (
+      { startButton && DetailsIngredFilterForDrinks.map((ing, i) => (
         <section
           key={ i }
           data-testid={ `${i}-ingredient-name-and-measure` }
@@ -40,7 +41,7 @@ function OnChangeCheckList() {
                 {' '}
                 -
                 { ' ' }
-                { DetailsMeasuresFiltered.map((mea, ind) => i === ind && (mea)) }
+                { DetailsMeasFilterForDrinks.map((mea, ind) => i === ind && (mea)) }
               </label>
             </div>
           </div>
@@ -50,4 +51,4 @@ function OnChangeCheckList() {
   );
 }
 
-export default OnChangeCheckList;
+export default OnChangeCheckListDrinks;

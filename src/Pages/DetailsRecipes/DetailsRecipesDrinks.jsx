@@ -8,7 +8,8 @@ import './scroll.css';
 function DetailsRecipesFoods() {
   const location = useLocation();
   const { idDrinks, setIdDrinks, idDrinksAPI, setIdDrinksAPI, newDataFoods,
-    setNewDataFoods } = useContext(MainContext);
+    setCount, setDoneRecipes,
+    setNewDataFoods, count, setStartButton } = useContext(MainContext);
 
   async function fetchFoodsInitial() {
     const foodsInitialAPI = await getFoodsInitial();
@@ -37,6 +38,22 @@ function DetailsRecipesFoods() {
 
   // ! Limita a quantidade de recomendação
   const magicNumber = 6;
+  // * ===================================================================================
+  setDoneRecipes(JSON.stringify([{
+    id: idDrinksAPI.idDrink,
+    type: 'bebida',
+    area: '',
+    category: idDrinksAPI.strCategory,
+    alcoholicOrNot: idDrinksAPI.strAlcoholic,
+    name: idDrinksAPI.strDrink,
+    image: idDrinksAPI.strDrinkThumb,
+    doneDate: idDrinksAPI.dateModified,
+    tags: idDrinksAPI.strTags,
+  }]));
+  const doneRecipesStorage = JSON.parse(localStorage.getItem('doneRecipes'))[0];
+  if (doneRecipesStorage.id === idDrinks) {
+    setCount(true);
+  }
 
   return (
     <div>
@@ -86,6 +103,8 @@ function DetailsRecipesFoods() {
         type="button"
         data-testid="start-recipe-btn"
         className="fixed-btn"
+        onClick={ () => setStartButton(true) }
+        hidden={ count }
       >
         Iniciar receita
       </button>
