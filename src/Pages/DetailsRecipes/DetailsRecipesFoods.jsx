@@ -1,15 +1,17 @@
 import React, { useEffect, useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import MainContext from '../../Context/MainContext';
 import IngredientsFoods from '../../Components/IngredientsFoods';
-import { getDrinksInitial } from '../../Services/ApiDrink';
+import { getDrinksInitial, copyLink } from '../../Services/ApiDrink';
 import './scroll.css';
 
 function DetailsRecipesFoods() {
   const location = useLocation();
   const { idFoods, setIdFoods, idFoodsAPI, setIdFoodsAPI,
-    newDataDrinks, setNewDataDrinks, setDoneRecipes,
-    setStartButton, count, setCount /* , selected */ } = useContext(MainContext);
+    newDataDrinks, setNewDataDrinks, setDoneRecipes, show,
+    setStartButton, count,
+    setShow /* , setCount /* , selected */ } = useContext(MainContext);
 
   async function fetchDrinksInitial() {
     const drinksInitialAPI = await getDrinksInitial();
@@ -57,10 +59,14 @@ function DetailsRecipesFoods() {
     doneDate: idFoodsAPI.dateModified,
     tags: idFoodsAPI.strTags,
   }]));
-  const doneRecipesStorage = JSON.parse(localStorage.getItem('doneRecipes'))[0];
-  if (doneRecipesStorage.id === idFoods) {
-    setCount(true);
-  }
+  // # ======================será?????======================================================================================
+  // const [doneRecipesNew, setDoneRecipesNew] = useState([]);
+  // setDoneRecipesNew(...doneRecipesNew, JSON.parse(localStorage.getItem('doneRecipes')));
+  // useEffect(() => {
+  //   if (doneRecipesNew[0].id === idFoods) {
+  //     setCount(true);
+  //   }
+  // }, [doneRecipesNew, idFoods, setCount]);
 
   return (
     <div>
@@ -76,14 +82,16 @@ function DetailsRecipesFoods() {
       <button
         type="button"
         data-testid="share-btn"
+        onClick={ () => copyLink(copy, setShow, 'comidas', idFoods) }
       >
-        compartilhar
+        Compartilhar
       </button>
+      <p>{ show && 'Link copiado!'}</p>
       <button
         type="button"
         data-testid="favorite-btn"
       >
-        favoritar
+        Favoritar
       </button>
       <p data-testid="recipe-category">
         {idFoodsAPI.strCategory}
@@ -117,15 +125,17 @@ function DetailsRecipesFoods() {
         )) }
       </ul>
       {/* //!=======================Recomendation Cards============================ */}
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="fixed-btn"
-        onClick={ () => setStartButton(true) }
-        hidden={ count }
-      >
-        Iniciar receita
-      </button>
+      <NavLink to={ `/comidas/${idFoods}/in-progress` }>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="fixed-btn"
+          onClick={ () => setStartButton(true) }
+          hidden={ count }
+        >
+          Iniciar receita
+        </button>
+      </NavLink>
     </div>
   );
 }

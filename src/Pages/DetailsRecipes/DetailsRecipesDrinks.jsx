@@ -1,14 +1,15 @@
 import React, { useEffect, useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import MainContext from '../../Context/MainContext';
 import IngredientsDrinks from '../../Components/IngredientsDrinks';
-import { getFoodsInitial } from '../../Services/ApiFood';
+import { getFoodsInitial, copyLink } from '../../Services/ApiFood';
 import './scroll.css';
 
 function DetailsRecipesFoods() {
   const location = useLocation();
   const { idDrinks, setIdDrinks, idDrinksAPI, setIdDrinksAPI, newDataFoods,
-    setCount, setDoneRecipes,
+    /* setCount, */ setDoneRecipes, show, setShow,
     setNewDataFoods, count, setStartButton } = useContext(MainContext);
 
   async function fetchFoodsInitial() {
@@ -50,10 +51,14 @@ function DetailsRecipesFoods() {
     doneDate: idDrinksAPI.dateModified,
     tags: idDrinksAPI.strTags,
   }]));
-  const doneRecipesStorage = JSON.parse(localStorage.getItem('doneRecipes'))[0];
-  if (doneRecipesStorage.id === idDrinks) {
-    setCount(true);
-  }
+  // # ===================================================================================
+  // const [doneRecipesNew, setDoneRecipesNew] = useState([]);
+  // setDoneRecipesNew(JSON.parse(localStorage.getItem('doneRecipes')));
+  // useEffect(() => {
+  //   if (doneRecipesNew[0].id === idDrinks) {
+  //     setCount(true);
+  //   }
+  // }, [doneRecipesNew, idDrinks, setCount]);
 
   return (
     <div>
@@ -72,14 +77,16 @@ function DetailsRecipesFoods() {
       <button
         type="button"
         data-testid="share-btn"
+        onClick={ () => copyLink(copy, setShow, 'bebidas', idDrinks) }
       >
-        compartilhar
+        Compartilhar
       </button>
+      <p>{ show && 'Link copiado!'}</p>
       <button
         type="button"
         data-testid="favorite-btn"
       >
-        favoritar
+        Favoritar
       </button>
       <p>
         {idDrinksAPI.strCategory}
@@ -99,15 +106,17 @@ function DetailsRecipesFoods() {
         )) }
       </ul>
       {/* //!=======================Recomendation Cards============================ */}
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="fixed-btn"
-        onClick={ () => setStartButton(true) }
-        hidden={ count }
-      >
-        Iniciar receita
-      </button>
+      <NavLink to={ `/bebidas/${idDrinks}/in-progress` }>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="fixed-btn"
+          onClick={ () => setStartButton(true) }
+          hidden={ count }
+        >
+          Iniciar receita
+        </button>
+      </NavLink>
     </div>
   );
 }

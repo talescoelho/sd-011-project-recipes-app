@@ -25,3 +25,8 @@ export const getDrinksInitial = () => fetch('https://www.thecocktaildb.com/api/j
       .json()
       .then((json) => (initial.ok ? Promise.resolve(json) : Promise.reject(json)))
   ));
+
+export async function copyLink(copy, setShow, typeRecipe, idRecipe) {
+  await copy(`http://localhost:3000/${typeRecipe}/${idRecipe}`);
+  setShow(true);
+}

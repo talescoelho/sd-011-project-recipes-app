@@ -42,6 +42,7 @@ const Provider = ({ children }) => {
   const [count, setCount] = useState(false);
   const [selected, setSelected] = useState(0);
   const [doneRecipes, setDoneRecipes] = useState('');
+  const [show, setShow] = useState(false);
 
   async function fetchFood() {
     if (radioBtn === 'ingredient') {
@@ -141,6 +142,8 @@ const Provider = ({ children }) => {
     setSelected,
     doneRecipes,
     setDoneRecipes,
+    show,
+    setShow,
   };
 
   return (
