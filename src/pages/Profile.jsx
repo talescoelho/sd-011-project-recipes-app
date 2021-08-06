@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Footer from '../components/common/Footer';
 
@@ -16,6 +17,12 @@ const Profile = ({ history: { push } }) => {
   return (
     <>
       <p data-testid="profile-email">{ userEmail }</p>
+      <Link
+        data-testid="profile-done-btn"
+        to="/receitas-feitas"
+      >
+        Receitas Feitas
+      </Link>
       <Footer />
     </>
   );
