@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { saveFavorites } from '../helpers/handleLocalStorage';
+import LSContext from '../context/LSContext';
 
 function FavoriteButton({ recipeData, type }) {
   const {
@@ -14,10 +15,8 @@ function FavoriteButton({ recipeData, type }) {
     strCategory,
     strArea,
   } = recipeData;
-  const favoriteRecipes = JSON.parse(
-    localStorage.getItem('favoriteRecipes'),
-  ) || [{ id: '' }];
-  const [lsFavorite, setLsFavorite] = useState(favoriteRecipes);
+  const { LSValues: { favoriteRecipes } } = useContext(LSContext);
+  const { LSFunctions: { setFavoriteRecipes } } = useContext(LSContext);
   const id = recipeData.idMeal || recipeData.idDrink;
 
   function setFavorites() {
@@ -30,18 +29,14 @@ function FavoriteButton({ recipeData, type }) {
       name: strMeal || strDrink,
       image: strMealThumb || strDrinkThumb,
     };
-    saveFavorites(recipe);
-    setLsFavorite(JSON.parse(
-      localStorage.getItem('favoriteRecipes'),
-    ) || [{ id: '' }]);
+    saveFavorites(recipe, setFavoriteRecipes);
   }
 
   return (
     <button type="button" onClick={ setFavorites }>
       <img
-        src={ lsFavorite.some(
+        src={ favoriteRecipes.some(
           (favorite) => {
-            console.log(recipeData.id);
             return favorite.id === id;
           },
         ) ? blackHeartIcon : whiteHeartIcon }

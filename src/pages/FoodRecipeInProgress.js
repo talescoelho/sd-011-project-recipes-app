@@ -4,16 +4,15 @@ import { Link } from 'react-router-dom';
 import { getMealDetail } from '../services/theMealAPI';
 import { saveInProgressFoodRecipes } from '../helpers/handleLocalStorage';
 import MainContext from '../context/MainContext';
+import LSContext from '../context/LSContext';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
 
 function FoodRecipeInProgress({ match: { params: { id } } }) {
-  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-  const mealsIngredients = inProgressRecipes.meals
-    ? inProgressRecipes.meals[id] || []
-    : [];
+  const { LSValues: { inProgressRecipes } } = useContext(LSContext);
+  const { LSFunctions: { setInProgressRecipes } } = useContext(LSContext);
   const [recipe, setRecipe] = useState({});
-  const [usedIngredients, setUsedIngredients] = useState(mealsIngredients);
+  const [usedIngredients, setUsedIngredients] = useState([]);
   const { setLoading } = useContext(MainContext);
   const SLICE_NUMBER = -12;
 
@@ -32,13 +31,14 @@ function FoodRecipeInProgress({ match: { params: { id } } }) {
 
   function lineThroughUsedIngredients({ target }) {
     if (target.checked) {
-      setUsedIngredients([...usedIngredients, target.value]);
-      saveInProgressFoodRecipes(id, [...usedIngredients, target.value]);
+      const updatedUsedIngredients = [...usedIngredients, target.value];
+      setUsedIngredients(updatedUsedIngredients);
+      saveInProgressFoodRecipes(id, updatedUsedIngredients, setInProgressRecipes);
     } else {
       const remainingIngredients = usedIngredients
         .filter((ingredient) => ingredient !== target.value);
       setUsedIngredients(remainingIngredients);
-      saveInProgressFoodRecipes(id, remainingIngredients);
+      saveInProgressFoodRecipes(id, remainingIngredients, setInProgressRecipes);
     }
   }
 
@@ -50,6 +50,13 @@ function FoodRecipeInProgress({ match: { params: { id } } }) {
         setLoading(false);
       });
   }, [setRecipe, setLoading, id]);
+
+  useEffect(() => {
+    const mealsIngredients = inProgressRecipes.meals
+      ? inProgressRecipes.meals[id] || []
+      : [];
+    setUsedIngredients(mealsIngredients);
+  }, [id, inProgressRecipes]);
 
   const { strMealThumb, strMeal, strCategory, strInstructions } = recipe;
   return (
@@ -101,4 +108,5 @@ function FoodRecipeInProgress({ match: { params: { id } } }) {
 FoodRecipeInProgress.propTypes = {
   match: PropTypes.shape(PropTypes.any).isRequired,
 };
+
 export default FoodRecipeInProgress;

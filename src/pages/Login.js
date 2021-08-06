@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { saveTokensAndEmail } from '../helpers/handleLocalStorage';
+import LSContext from '../context/LSContext';
 
-// Página de Login, redireciona para página Foods ao entrar
 function Login() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [email, setEmail] = useState('');
+  const { LSFunctions: { setEmail: setLSEmail } } = useContext(LSContext);
 
-  // Valida os inputs de Login para habilitar o Button
   function validateLogin() {
     const formLogin = document.querySelector('.form-login');
     setIsButtonDisabled(!formLogin.checkValidity());
@@ -42,7 +42,7 @@ function Login() {
           type="button"
           data-testid="login-submit-btn"
           disabled={ isButtonDisabled }
-          onClick={ () => saveTokensAndEmail(email) }
+          onClick={ () => saveTokensAndEmail(email, setLSEmail) }
         >
           Entrar
         </button>

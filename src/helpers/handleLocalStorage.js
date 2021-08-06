@@ -1,11 +1,12 @@
 // Seta as chaves pedidas no LS ao fazer Login
-export function saveTokensAndEmail(email) {
+export function saveTokensAndEmail(email, updateLSContext) {
   localStorage.setItem('mealsToken', 1);
   localStorage.setItem('cocktailsToken', 1);
   localStorage.setItem('user', JSON.stringify({ email }));
+  updateLSContext(email);
 }
 
-export function saveInProgressFoodRecipes(id, usedIngredients) {
+export function saveInProgressFoodRecipes(id, usedIngredients, updateLSContext) {
   let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (!inProgressRecipes) {
     inProgressRecipes = {
@@ -21,9 +22,10 @@ export function saveInProgressFoodRecipes(id, usedIngredients) {
     };
   }
   localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  updateLSContext(inProgressRecipes);
 }
 
-export function saveInProgressDrinkRecipes(id, usedIngredients) {
+export function saveInProgressDrinkRecipes(id, usedIngredients, updateLSContext) {
   let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (!inProgressRecipes) {
     inProgressRecipes = {
@@ -39,18 +41,20 @@ export function saveInProgressDrinkRecipes(id, usedIngredients) {
     };
   }
   localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  updateLSContext(inProgressRecipes);
 }
-export function saveFavorites(recipe) {
-  const getFavorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+
+export function saveFavorites(recipe, updateLSContext) {
+  let getFavorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   if (getFavorites.some(
     (favorite) => favorite.id === recipe.id,
   )) {
-    const remainingRecipes = getFavorites.filter(
+    getFavorites = getFavorites.filter(
       (favorite) => favorite.id !== recipe.id,
     );
-    localStorage.setItem('favoriteRecipes', JSON.stringify(remainingRecipes));
   } else {
     getFavorites.push(recipe);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(getFavorites));
   }
+  localStorage.setItem('favoriteRecipes', JSON.stringify(getFavorites));
+  updateLSContext(getFavorites);
 }

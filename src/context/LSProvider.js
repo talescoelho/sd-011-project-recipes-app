@@ -3,25 +3,27 @@ import PropTypes from 'prop-types';
 import LSContext from './LSContext';
 
 function LSProvider({ children }) {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState({ email: '' });
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
-  const [cocktailsInProgress, setCocktailsInProgress] = useState({});
-  const [mealsInProgress, setMealsInProgress] = useState({});
+  const [
+    inProgressRecipes,
+    setInProgressRecipes,
+  ] = useState({ cocktails: {}, meals: {} });
+
+  const getLSItem = (item) => JSON.parse(localStorage.getItem(item));
 
   useEffect(() => {
-    const emailLS = JSON.parse(localStorage.getItem('user')).email;
-    const doneRecipesLS = JSON.parse(localStorage.getItem('doneRecipes'));
-    const favoriteRecipesLS = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const cocktailsInProgressLS = JSON.parse(localStorage.getItem('inProgressRecipes'))
-      .cocktails;
-    const mealsInProgressLS = JSON.parse(localStorage.getItem('inProgressRecipes'))
-      .meals;
+    const userLS = getLSItem('user') || { email: '' };
+    const emailLS = userLS.email;
+    const doneRecipesLS = getLSItem('doneRecipes') || [];
+    const favoriteRecipesLS = getLSItem('favoriteRecipes') || [];
+    const inProgressRecipesLS = getLSItem('inProgressRecipes')
+      || { cocktails: {}, meals: {} };
     setEmail(emailLS);
     setDoneRecipes(doneRecipesLS);
     setFavoriteRecipes(favoriteRecipesLS);
-    setCocktailsInProgress(cocktailsInProgressLS);
-    setMealsInProgress(mealsInProgressLS);
+    setInProgressRecipes(inProgressRecipesLS);
   }, []);
 
   const contextValue = {
@@ -31,17 +33,13 @@ function LSProvider({ children }) {
       user: { email },
       doneRecipes,
       favoriteRecipes,
-      inProgressRecipes: {
-        cocktails: cocktailsInProgress,
-        meals: mealsInProgress,
-      },
+      inProgressRecipes,
     },
     LSFunctions: {
       setEmail,
       setDoneRecipes,
       setFavoriteRecipes,
-      setCocktailsInProgress,
-      setMealsInProgress,
+      setInProgressRecipes,
     },
   };
 
