@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+
 import { useHistory, useParams } from 'react-router-dom';
 import CarrouselDrinks from './CarrouselDrinks';
+import ShareButton from './ShareButton';
 import '../../styles/detail-screen.css';
 import {
   convertUrlToID,
@@ -11,7 +13,6 @@ import embedYouTubeVideo from '../../Helpers/embedYouTubeVideo';
 function SingleFoodItem() {
   const { id } = useParams();
   const currentStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  console.log(currentStorage);
   const history = useHistory();
   const currentURL = window.location.pathname;
   const [itemDetail, setItemDetail] = useState({ meals: null });
@@ -65,8 +66,8 @@ function SingleFoodItem() {
         alt={ `Foto da comida chamada ${meals[0].strMeal}` }
         data-testid="recipe-photo"
       />
-      <button type="button" data-testid="share-btn">Compartilhar</button>
       <button data-testid="favorite-btn" type="button">Favoritar</button>
+      <ShareButton />
       <p data-testid="recipe-category">{meals[0].strCategory}</p>
       <section>
         <h2>Ingredientes</h2>

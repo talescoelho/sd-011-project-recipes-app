@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../../styles/InProgressFood.css';
 import { manageDetailAPI } from '../../Helpers/convertUrlToID';
+import ShareButton from './ShareButton';
 
 function InProgressFood() {
   const { id } = useParams();
@@ -100,8 +101,8 @@ function InProgressFood() {
         alt={ `Foto da comida chamada ${anyFood[0].strMeal}` }
         data-testid="recipe-photo"
       />
-      <button type="button" data-testid="share-btn">Compartilhar</button>
       <button data-testid="favorite-btn" type="button">Favoritar</button>
+      <ShareButton />
       <p data-testid="recipe-category">{anyFood[0].strCategory}</p>
       <section>
         <h2>Ingredientes</h2>
