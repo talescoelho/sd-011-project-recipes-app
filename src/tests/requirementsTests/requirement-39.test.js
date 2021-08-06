@@ -23,7 +23,7 @@ describe(`39 - Implement the solution so that if the recipe has already been mad
         tags: ['Pasta', 'Curry'],
       }];
       localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-      const match = { params: { id: '52771' }, url: '/bebidas/52771' };
+      const match = { params: { id: '52771' }, url: '/comidas/52771' };
 
       renderWithRouterAndStore(<FoodDetails match={ match } />, '/comidas/52771');
 

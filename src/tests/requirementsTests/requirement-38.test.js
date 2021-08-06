@@ -6,7 +6,7 @@ import { FoodDetails, DrinkDetails } from '../../pages';
 describe(`38 - Develop a button named "Start Recipe" that should stay fixed at the 
 bottom of the screen at all times`, () => {
   it('Check button placement on food details screen', () => {
-    const match = { params: { id: '52771' }, url: '/bebidas/52771' };
+    const match = { params: { id: '52771' }, url: '/comidas/52771' };
     renderWithRouterAndStore(<FoodDetails match={ match } />, '/comidas/52771');
 
     const startRecipeBtn = screen.getByTestId('start-recipe-btn');
