@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
-// import blackHeartIcon from '../images/blackHeartIcon';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+// import shareIcon from '../images/shareIcon.svg';
 
 const favoriteRecipes = [{
   id: '52785',
@@ -22,17 +24,10 @@ const favoriteRecipes = [{
   image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
 }];
 
-const renderParagraph = (
-  <p data-testid={ `${favoriteRecipes.index}-horizontal-top-text` }>
-    {`${favoriteRecipes.area}-${favoriteRecipes.category}`}
-  </p>);
-
-console.log(favoriteRecipes);
-
 export default function FavoriteRecipes() {
   // const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  // console.log(favoriteRecipes);
   const [filteredRecipes, setFilteredRecipes] = useState(favoriteRecipes);
+  console.log(filteredRecipes);
   const [type, setType] = useState('all');
 
   useEffect(() => {
@@ -44,6 +39,13 @@ export default function FavoriteRecipes() {
   }, [type]);
 
   const handleChange = (btn) => setType(btn);
+
+  // const deleteFavorite = () => {
+  //   // const favorites = JSON.parse(localStorage.favoriteRecipes);
+  //   // localStorage.removeItem(favorites);
+  // };
+
+  // const copy = require('clipboard-copy');
 
   return (
     <>
@@ -68,17 +70,35 @@ export default function FavoriteRecipes() {
         <section key={ index }>
           <img
             src={ recipe.image }
-            alt="imagem da receita"
+            alt={ recipe.name }
             data-testid={ `${index}-horizontal-image` }
+            style={ { width: ' 30%', height: '30%' } }
           />
-          { recipe.area && renderParagraph }
-          {!recipe.area && <p>{ `${recipe.category}` }</p>}
-          <h2 data-testid={ `${index}-horizontal-name` }>
-            { recipe.name }
-          </h2>
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            { recipe.type === 'drink'
+              ? `${recipe.alcoholicOrNot}` : `${recipe.area} - ${recipe.category}`}
+          </p>
+          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <h2 data-testid={ `${index}-horizontal-name` }>
+              { recipe.name }
+            </h2>
+          </Link>
+          <button type="button">
+            <img
+              src={ blackHeartIcon }
+              data-testid={ `${recipe.index}-horizontal-favorite-btn` }
+              alt="icone de favoritar"
+            />
+          </button>
+          {/* <button type="button" onClick={ handleClick }>
+            <img
+              src={ shareIcon }
+              alt="icone de compartilhar"
+              data-testid={ `${index}-horizontal-share-btn` }
+            />
+          </button> */}
         </section>
       ))}
-      ;
     </>
   );
 }
