@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 
-export default function ProductRenderHelper(
-  data,
-  typeFilter,
-  typeFilterKey,
-  maxArrayProducts,
-) {
+export default function ProductRenderHelper(items) {
+  const { data,
+    typeFilter,
+    typeFilterKey,
+    maxArrayProducts } = items;
   const infos = {
     id: `id${typeFilter}`,
     str: `str${typeFilter}`,

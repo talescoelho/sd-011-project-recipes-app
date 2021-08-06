@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, {
   useState,
   useEffect,
@@ -8,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import ProductRenderHelper from '../helpers/ProductRenderHelper';
 
-function ProductsDisplay() {
+function ProductsDisplay({ state }) {
   const {
     foodsSearchLinks,
     drinksSearchLinks,
@@ -57,8 +58,16 @@ function ProductsDisplay() {
         setData({ results: json, location: pathname });
       };
       changeCategorieFood();
-    } else {
+    } else if (!state) {
       fetchProducts();
+    } else {
+      const search = async () => {
+        const { ingredient } = searchLinks;
+        const response = await fetch(`${ingredient}${state}`);
+        const json = await response.json();
+        setData({ results: json, location: pathname });
+      };
+      search();
     }
   }, [toggle]);
 
@@ -84,7 +93,13 @@ function ProductsDisplay() {
       setToggle(target.name);
     }
   }
-
+  const items = {
+    data,
+    typeFilter,
+    typeFilterKey,
+    maxArrayProducts,
+    state,
+  };
   return (
     <main>
       <button
@@ -114,14 +129,15 @@ function ProductsDisplay() {
             ))
       }
       { ProductRenderHelper(
-        data,
-        typeFilter,
-        typeFilterKey,
-        maxArrayProducts,
+        items,
       ) }
 
     </main>
   );
 }
+
+ProductsDisplay.propTypes = {
+  state: PropTypes.string.isRequired,
+};
 
 export default ProductsDisplay;
