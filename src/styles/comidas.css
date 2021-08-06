@@ -62,7 +62,7 @@
 }
 
 .category-button {
-  background-color: #eceff4;
+  background-color: #fafafa;
   border-radius: 10px;
   box-shadow: 7px 5px 3px rgba(124, 124, 124, 0.57);
   color: #252525;
@@ -73,7 +73,7 @@
 }
 
 .category-button-active {
-  background-color: #eceff4;
+  background-color: silver;
   border-radius: 10px;
   box-shadow: 7px 5px 3px rgba(124, 124, 124, 0.57);
   color: #252525;
