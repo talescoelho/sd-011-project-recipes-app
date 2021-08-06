@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipeCard';
 import Loading from '../components/Loading';
+import RecipesFilterButtons from '../components/RecipesFilterButtons';
 
 const recipesQuantity = 12;
 
@@ -41,8 +42,9 @@ function Recipes({
     <>
       { renderHeader() }
       <main data-testid="recipes-page">
-        { pathname === '/comidas' && `${mealsError}` }
-        { pathname === '/bebidas' && `${drinksError}` }
+        <RecipesFilterButtons pathname={ pathname } />
+        { pathname === '/comidas' && mealsError && `${mealsError}` }
+        { pathname === '/bebidas' && drinksError && `${drinksError}` }
         {
           mealsLoading || drinksLoading
             ? <Loading />
@@ -80,7 +82,11 @@ Recipes.propTypes = {
     }),
   }),
   meals: PropTypes.arrayOf(PropTypes.object),
+  mealsLoading: PropTypes.bool,
+  mealsError: PropTypes.string,
   drinks: PropTypes.arrayOf(PropTypes.object),
+  drinksLoading: PropTypes.bool,
+  drinksError: PropTypes.string,
   dispatchFetchMeals: PropTypes.func,
   dispatchFetchDrinks: PropTypes.func,
 }.isRequired;
