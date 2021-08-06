@@ -11,8 +11,8 @@ import Login from './pages/Login';
 import Meals from './pages/Meals';
 import Explorar from './pages/Explorar';
 import Profile from './pages/Profile';
-import Drinks from './pages/Drinks';
 import MealDetails from './pages/MealDetails';
+import Drinks from './pages/Drinks';
 // import MealRecipeCard from './components/MealRecipeCard';
 
 function App() {

@@ -19,8 +19,6 @@ function MealDetails({ match: { params } }) {
     requestMeal();
   }, []);
 
-  console.log(MealDataAPI.idMeal);
-
   return (
     <div>
       <RecipeCard
@@ -29,7 +27,8 @@ function MealDetails({ match: { params } }) {
         category={ MealDataAPI.strCategory }
         id={ MealDataAPI.idMeal }
       />
-      <RecipeInfos />
+      <RecipeInfos meal={ MealDataAPI } />
+
       <div data-testid={ `${0}-recomendation-card` }>
         Comidas recomendadas-Usar componente dos card ja pronto
       </div>
