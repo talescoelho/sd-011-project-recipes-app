@@ -1,5 +1,18 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext/* , useState */ } from 'react';
 import MainContext from '../Context/MainContext';
+
+function onChange(event) {
+  if (event.target.checked) {
+    setSelected(selected + 1);
+  } else {
+    setSelected(selected - 1);
+  }
+  if (startButton && selected === DetailsIngredientsFiltered.length - 1) {
+    setCount(true);
+  } else {
+    setCount(false);
+  }
+}
 
 function Ingredients() {
   const {
@@ -8,8 +21,8 @@ function Ingredients() {
     DetailsMeasuresFiltered,
     setDetailsMeasuresFiltered,
     idFoodsAPI, startButton,
-    count, setCount,
-    selected, setSelected,
+    count, /* setCount, */
+    selected, /* setSelected, */
   } = useContext(MainContext);
 
   useEffect(() => {
@@ -32,18 +45,6 @@ function Ingredients() {
 
   // & teste====================================================================
 
-  function onChange(event) {
-    if (event.target.checked) {
-      setSelected(selected + 1);
-    } else {
-      setSelected(selected - 1);
-    }
-    if (startButton && selected === DetailsIngredientsFiltered.length - 1) {
-      setCount(true);
-    } else {
-      setCount(false);
-    }
-  }
   console.log(count);
   console.log(DetailsIngredientsFiltered.length);
   // & teste====================================================================

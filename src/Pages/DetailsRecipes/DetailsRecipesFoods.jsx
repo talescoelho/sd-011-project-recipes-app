@@ -9,7 +9,7 @@ function DetailsRecipesFoods() {
   const location = useLocation();
   const { idFoods, setIdFoods, idFoodsAPI, setIdFoodsAPI,
     newDataDrinks, setNewDataDrinks,
-    setStartButton, count, selected } = useContext(MainContext);
+    setStartButton, count /* , selected */ } = useContext(MainContext);
 
   async function fetchDrinksInitial() {
     const drinksInitialAPI = await getDrinksInitial();
