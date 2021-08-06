@@ -1,13 +1,29 @@
 import React, { Component } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
+import { Header, Footer } from '../components';
 
 export default class Explore extends Component {
   render() {
     return (
       <div>
         <Header title="Explorar" search={ false } />
-        Explorar
+        <Link to="/explorar/comidas">
+          <Button
+            variant="outline-secondary"
+            data-testid="explore-food"
+          >
+            Explorar Comidas
+          </Button>
+        </Link>
+        <Link to="/explorar/bebidas">
+          <Button
+            variant="outline-secondary"
+            data-testid="explore-drinks"
+          >
+            Explorar Bebidas
+          </Button>
+        </Link>
         <Footer />
       </div>
     );

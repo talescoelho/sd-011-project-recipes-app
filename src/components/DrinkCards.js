@@ -9,7 +9,10 @@ class DrinkCards extends Component {
     return (
       <ul>
         { drinkCardsList.map((item, index) => (
-          <li key={ item.idDrink } data-testid={ `${index}-recipe-card` }>
+          <li
+            key={ item.idDrink }
+            data-testid={ `${index}-recipe-card` }
+          >
             <Link to={ `/bebidas/${item.idDrink}` }>
               <img
                 height="200px"

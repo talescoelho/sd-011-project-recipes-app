@@ -18,10 +18,7 @@ class Drinks extends Component {
       <div>
         <Header title="Bebidas" search />
         <DrinkCategories />
-        <ul>
-          { drinkCardsList.map((item, index) => (
-            <DrinkCard key={ item.idDrink } drink={ item } index={ index } />)) }
-        </ul>
+        <DrinkCards test="-recipe-card" />
         <Footer />
       </div>
     );
