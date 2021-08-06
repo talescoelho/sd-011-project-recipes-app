@@ -38,7 +38,7 @@ function Recommendations() {
                       data-testid="recipe-category"
                       style={ { color: 'darkRed', fontWeight: '800' } }
                     >
-                      { drink.strCategory }
+                      { drink.strAlcoholic}
                     </h2>
                     <h1
                       data-testid={ `${index}-recomendation-title` }
