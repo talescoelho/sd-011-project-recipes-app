@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import Header from '../components/Header';
+import { Link, useHistory } from 'react-router-dom';
 import { fetchFoodDetails, fetchDrinksDetails } from '../services/API';
 import ingredientsMealDetails from '../helpers/ingredientsMealDetails';
 import ingredientsDrinksDetails from '../helpers/ingredientsDrinkDetails';
+import { setStorage, newDoneRecipe, getStorage } from '../helpers/Storage';
 
 function RecipesInProgress() {
   const history = useHistory();
@@ -11,6 +11,15 @@ function RecipesInProgress() {
 
   const [returnedDetail, setReturnedDetail] = useState([]);
   const [arrayIngredients, setArrayIngredients] = useState([]);
+  const [doneRecipes] = useState(getStorage('doneRecipes'));
+  const [typeFoods, setTypeFoods] = useState('');
+  console.log(typeFoods);
+
+  const addDoneRecipe = () => {
+    const newDoneRecip = newDoneRecipe(returnedDetail, typeFoods);
+
+    setStorage('doneRecipes', [...doneRecipes, newDoneRecip]);
+  };
 
   const tres = 3;
   const saveRoute = pathname.split('/').slice(1, tres);
@@ -22,10 +31,12 @@ function RecipesInProgress() {
       if (`/${URL}` === '/comidas') {
         const fetchedDetails = await fetchFoodDetails(recipeId);
         setReturnedDetail(fetchedDetails);
+        setTypeFoods('comida');
       }
       if (`/${URL}` === '/bebidas') {
         const fetchedDetails = await fetchDrinksDetails(recipeId);
         setReturnedDetail(fetchedDetails);
+        setTypeFoods('bebida');
       }
     };
     foodDetails(id);
@@ -42,7 +53,6 @@ function RecipesInProgress() {
 
   return (
     <div>
-      <Header />
       <div className="container-recipe">
         <img
           data-testid="recipe-photo"
@@ -61,14 +71,18 @@ function RecipesInProgress() {
             {ingredient}
           </p>))}
         <p data-testid="instructions">{returnedDetail.strInstructions}</p>
-        <button
-          type="button"
-          alt="Finish-Recipe"
-          data-testid="finish-recipe-btn"
-        >
-          Finalizar Receita
-        </button>
+        <Link to="/receitas-feitas">
+          <button
+            type="button"
+            alt="Finish-Recipe"
+            onClick={ addDoneRecipe }
+            data-testid="finish-recipe-btn"
+          >
+            Finalizar Receita
+          </button>
+        </Link>
       </div>
+
     </div>
   );
 }
