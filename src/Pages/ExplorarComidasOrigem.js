@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 // import { getRecipes } from '../redux/slices/fetchReceitas';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import RenderFoodAreaOptions from '../components/RenderFoodAreaOptions';
+// import RenderFoodAreaOptions from '../components/RenderFoodAreaOptions';
+import RenderOrigin from '../components/RenderOrigin';
 
 function ExplorarComidasOrigem({ title }) {
   // const { foodAreaList } = useSelector((state) => state.fetchReceitas);
@@ -17,7 +18,7 @@ function ExplorarComidasOrigem({ title }) {
   return (
     <div>
       <Header title={ title } />
-      <RenderFoodAreaOptions />
+      <RenderOrigin />
       <Footer />
     </div>
   );
