@@ -35,41 +35,41 @@ function Header({ title, search }) {
 
   function handleButtonFood() {
     switch (radio) {
-    case (nameSearch):
-      setFilteredFood(filterByNameFood(inputTextSearch));
-      break;
-    case (firstLetter):
-      if (inputTextSearch.length > 1) {
-        alert('Sua busca deve conter somente 1 (um) caracter');
+      case (nameSearch):
+        setFilteredFood(filterByNameFood(inputTextSearch));
         break;
-      }
-      setFilteredFood(filterByFirstLetterFood(inputTextSearch));
-      break;
-    case (ingredient):
-      setFilteredFood(filterByIngredientFood(inputTextSearch));
-      break;
-    default:
-      alert('Escolha uma opção de filtro!');
+      case (firstLetter):
+        if (inputTextSearch.length > 1) {
+          alert('Sua busca deve conter somente 1 (um) caracter');
+          break;
+        }
+        setFilteredFood(filterByFirstLetterFood(inputTextSearch));
+        break;
+      case (ingredient):
+        setFilteredFood(filterByIngredientFood(inputTextSearch));
+        break;
+      default:
+        alert('Escolha uma opção de filtro!');
     }
   }
 
   function handleButtonDrink() {
     switch (radio) {
-    case (nameSearch):
-      setFilteredDrink(filterByNameDrink(inputTextSearch));
-      break;
-    case (firstLetter):
-      if (inputTextSearch.length > 1) {
-        alert('Sua busca deve conter somente 1 (um) caracter');
+      case (nameSearch):
+        setFilteredDrink(filterByNameDrink(inputTextSearch));
         break;
-      }
-      setFilteredDrink(filterByFirstLetterDrink(inputTextSearch));
-      break;
-    case (ingredient):
-      setFilteredDrink(filterByIngredientDrink(inputTextSearch));
-      break;
-    default:
-      alert('Escolha uma opção de filtro!');
+      case (firstLetter):
+        if (inputTextSearch.length > 1) {
+          alert('Sua busca deve conter somente 1 (um) caracter');
+          break;
+        }
+        setFilteredDrink(filterByFirstLetterDrink(inputTextSearch));
+        break;
+      case (ingredient):
+        setFilteredDrink(filterByIngredientDrink(inputTextSearch));
+        break;
+      default:
+        alert('Escolha uma opção de filtro!');
     }
   }
 
