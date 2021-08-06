@@ -23,6 +23,12 @@ const Profile = ({ history: { push } }) => {
       >
         Receitas Feitas
       </Link>
+      <Link
+        data-testid="profile-favorite-btn"
+        to="/receitas-favoritas"
+      >
+        Receitas Favoritas
+      </Link>
       <Footer />
     </>
   );
