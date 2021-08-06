@@ -27,6 +27,6 @@ export async function getAllDrinks() {
 export async function getAllFoods() {
   const request = await fetch(API_URL_ALL_FOODS);
   const response = await request.json();
-  const { drinks } = response;
-  return drinks;
+  const { meals } = response;
+  return meals;
 }

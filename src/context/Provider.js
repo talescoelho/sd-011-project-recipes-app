@@ -1,13 +1,20 @@
 import PropTypes from 'prop-types';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import MyContext from './MyContext';
-import { getDrinkById, getFoodById } from '../services/RecipesServices';
+import {
+  getDrinkById,
+  getFoodById,
+  getAllFoods,
+  getAllDrinks,
+} from '../services/RecipesServices';
 
 function Provider({ children }) {
   const [drinkDetails, setDrinkDetails] = useState([]);
   const [foodDetails, setFoodDetails] = useState([]);
   const [drinkIngredients, setDrinkIngredients] = useState([]);
   const [foodIngredients, setFoodIngredients] = useState([]);
+  const [allDrinks, setAllDrinks] = useState({ drinks: [] });
+  const [allFoods, setAllFoods] = useState({ foods: [] });
 
   const addLocalStore = useCallback((id, condition, drink, food) => {
     const newFavorite = {
@@ -43,6 +50,21 @@ function Provider({ children }) {
     }
   }, []);
 
+  async function AllDrinks() {
+    const drinks = await getAllDrinks();
+    setAllDrinks({ drinks });
+  }
+
+  async function AllFoods() {
+    const foods = await getAllFoods();
+    setAllFoods({ foods });
+  }
+
+  useEffect(() => {
+    AllDrinks();
+    AllFoods();
+  }, []);
+
   return (
     <MyContext.Provider
       value={ { drinkDetails,
@@ -57,6 +79,8 @@ function Provider({ children }) {
         addLocalStore,
         setFoodIngredients,
         setDrinkIngredients,
+        allDrinks,
+        allFoods,
       } }
     >
       {children}

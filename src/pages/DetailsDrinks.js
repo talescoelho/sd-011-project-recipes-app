@@ -4,6 +4,7 @@ import MyContext from '../context/MyContext';
 import DetailHeader from '../components/DetailHeader';
 import DetailIngredient from '../components/DetailIngredient';
 import DetailInstruction from '../components/DetailInstruction';
+import Recommendations from '../components/Recommendations';
 
 function DetailsDrinks() {
   const { id } = useParams();
@@ -56,6 +57,7 @@ function DetailsDrinks() {
       <DetailHeader />
       <DetailIngredient />
       <DetailInstruction />
+      <Recommendations />
     </main>
   ) : <h1>Loading</h1>;
 }

@@ -13,12 +13,12 @@ function DetailInstruction() {
   const getDrinksDetails = pathname.indexOf('bebidas') > numberOfVerification;
 
   return getDrinksDetails ? (
-    <Card style={ { width: '18rem' } }>
+    <Card style={ { padding: '10px' } }>
       <Card.Title>Instructions</Card.Title>
       <Card.Text data-testid="instructions">{drinkDetails.strInstructions}</Card.Text>
     </Card>
   ) : (
-    <Card>
+    <Card style={ { padding: '10px' } }>
       <Card.Title>Instructions</Card.Title>
       <Card.Text data-testid="instructions">{foodDetails.strInstructions}</Card.Text>
     </Card>
