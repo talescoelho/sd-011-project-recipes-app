@@ -20,9 +20,8 @@ function IngredienteComida() {
     <div>
       <Header title="Explorar Ingredientes" />
       { meals !== undefined
-        && meals.slice(0, magicNumber).map(({ idIngredient, strIngredient }, index) => (
+        && meals.slice(0, magicNumber).map(({ strIngredient }, index) => (
           <IngredientCard
-            idItem={ idIngredient }
             name={ strIngredient }
             key={ index }
             index={ index }

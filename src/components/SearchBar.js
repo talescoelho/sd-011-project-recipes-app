@@ -7,7 +7,6 @@ import searchCase from '../service/apiSearchBar';
 
 function SearchBar({ mealOrDrink }) {
   const stateReduxSearch = useSelector(({ searchItems }) => searchItems);
-  console.log(stateReduxSearch);
   const [search, setSearch] = React.useState('');
   const [radioQuery, setRadioQuery] = React.useState('');
   const dispatch = useDispatch();

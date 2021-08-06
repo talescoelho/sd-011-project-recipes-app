@@ -6,7 +6,6 @@ async function apiIngredients(mealOrDrink, list = 'list') {
     responseIngredients = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?i=${list}`);
   }
   if (mealOrDrink === 'drinks') {
-    console.log('ok');
     responseIngredients = await
     fetch(`https://www.thecocktaildb.com/api/json/v1/1/list.php?i=${list}`);
   }
@@ -14,7 +13,6 @@ async function apiIngredients(mealOrDrink, list = 'list') {
     try {
       dispatch(requestIngredients());
       const data = await responseIngredients.json();
-      console.log(data);
       dispatch(requestSuccessIngredients(data));
     } catch (error) {
       console.error(error);

@@ -26,7 +26,6 @@ function IngredienteBebida() {
             strIngredient1 }, index,
         ) => (
           <IngredientCard
-            idItem={ index }
             name={ strIngredient1 }
             key={ index }
             index={ index }
