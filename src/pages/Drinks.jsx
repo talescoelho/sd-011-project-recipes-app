@@ -52,7 +52,7 @@ const Drinks = ({
   };
 
   if (error) {
-    return (<div>Erro</div>);
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
 
   if (drinks.length === 1) {

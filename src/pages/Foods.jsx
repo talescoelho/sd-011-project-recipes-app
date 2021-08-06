@@ -53,7 +53,7 @@ const Foods = ({
   };
 
   if (error) {
-    return (<div>Erro</div>);
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
 
   if (meals.length === 1) {
