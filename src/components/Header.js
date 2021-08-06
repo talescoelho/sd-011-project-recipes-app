@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { fetchHeaderSearch } from '../actions';
 import profile from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
 
@@ -10,15 +12,25 @@ class Header extends Component {
 
     this.state = {
       hidden: true,
+      searchInput: '',
+      radioValue: '',
     };
 
     this.withSearch = this.withSearch.bind(this);
     this.withoutSearch = this.withoutSearch.bind(this);
   }
 
+  componentDidUpdate() {
+    const { radioValue, searchInput } = this.state;
+    console.log('Estado de "Ingrediente radio Button" em Header:');
+    console.log(radioValue);
+    console.log('Estado de "Ingrediente searchInput" em Header:');
+    console.log(searchInput);
+  }
+
   withSearch() {
     const { pageTitle, history } = this.props;
-    const { hidden } = this.state;
+    const { hidden, searchInput } = this.state;
 
     return (
       <header>
@@ -58,9 +70,10 @@ class Header extends Component {
               <br />
               <input
                 data-testid="search-input"
-                value={algo}
+                value={searchInput}
                 type="text"
                 placeholder="Buscar Receita"
+                onChange={ ({ target: { value }}) => this.setState({ searchInput: value }) }
               />
                 &nbsp;  &nbsp;
               <label htmlFor="ingredient">
@@ -70,6 +83,7 @@ class Header extends Component {
                   type="radio"
                   id="ingredient"
                   name="filter"
+                  onChange={ ({ target: { value }}) => this.setState({ radioValue: value }) }
                 />
                 &nbsp;
                 Ingrediente
@@ -82,6 +96,8 @@ class Header extends Component {
                   type="radio"
                   id="name"
                   name="filter"
+                  onClick={ ({ target: { value }}) => this.setState({ radioValue: value }) }
+
                 />
                 &nbsp;
                 Nome
@@ -94,6 +110,7 @@ class Header extends Component {
                   type="radio"
                   id="first-letter"
                   name="filter"
+                  onClick={ ({ target: { value }}) => this.setState({ radioValue: value }) }
                 />
                 &nbsp;
                 Primeira letra
@@ -140,9 +157,17 @@ class Header extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  dispatchFetchHeaderSearch: (type, filter) => dispatch(fetchHeaderSearch(type, filter))
+});
+
+
 Header.propTypes = {
   withSearch: PropTypes.bool,
   pageTitle: PropTypes.string,
+  dispatchFetchHeaderSearch: PropTypes.func,
 }.isRequired;
 
-export default withRouter(Header);
+const headerWithRouter = withRouter(Header);
+export default connect(null, mapDispatchToProps)(headerWithRouter);
+// export default connect(null, mapDispatchToProps)(Header);

@@ -123,10 +123,10 @@ export const fetchHeaderSearch = (type, filter) => (dispatch) => {
   case 'primeira-letra':
     urlFilter = `${url}/search.php?f={filter}`;
   default:
-    urlFilter;
+    urlFilter = '';
   }
 
-  return fetch(url)
+  return fetch(urlFilter)
     .then((response) => response.json())
     .then((data) => {
       const info = type === 'comidas' ? data.meals : data.drinks;
