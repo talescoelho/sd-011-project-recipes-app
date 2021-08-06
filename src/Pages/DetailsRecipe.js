@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
+import { Link } from 'react-router-dom';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ShareButton from '../Components/ShareButton';
 import './Styles/detailsrecipe.css';
@@ -79,13 +80,15 @@ function DetailsRecipe() {
       </div>
       {/* <h3 data-testid={ `${index}-recomendation-card"` }>Recomendadas</h3> */}
       <div id="recommended"><h4>oi</h4></div>
-      <button
-        id="start-recipe-btn"
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Iniciar Receita
-      </button>
+      <Link to={ `/comidas/${recipes.idMeal}/in-progress` } params={ recipes.idMeal }>
+        <button
+          id="start-recipe-btn"
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          Iniciar Receita
+        </button>
+      </Link>
     </div>
   );
 }
