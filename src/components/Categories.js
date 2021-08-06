@@ -76,5 +76,4 @@ Categories.propTypes = {
   title: PropTypes.string.isRequired,
   filterByCategory: PropTypes.func.isRequired,
   listAll: PropTypes.func.isRequired,
-
 };
