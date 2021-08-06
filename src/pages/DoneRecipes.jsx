@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import '../styles/DoneRecipes.css';
-import BtnFilters from '../components/BtnFilters';
 import { getStorage } from '../helpers/Storage';
 
 function DoneRecipes() {
-  const recipesDone = getStorage('doneRecipes');
-
   const [linkCopied, setLinkCopied] = useState('');
-  const [doneRecipes] = useState(recipesDone);
+
+  function recipesDone() {
+    const storage = getStorage('doneRecipes');
+    return storage || [];
+  }
+  const [doneRecipes, setDoneRecipes] = useState(recipesDone());
   console.log(doneRecipes);
+
+  useEffect(() => {
+    setDoneRecipes(recipesDone());
+  }, []);
 
   function copyUrlToClipboard() {
     const { type, id } = doneRecipes[0];
@@ -44,9 +50,41 @@ function DoneRecipes() {
   return (
     <>
       <Header />
-      <BtnFilters />
+      <div className="buttonfilter-container">
+        <button
+          className="btn-filter"
+          data-testid="filter-by-all-btn"
+          type="button"
+          onClick={ () => setDoneRecipes(recipesDone()) }
+        >
+          All
+        </button>
+        <button
+          className="btn-filter"
+          data-testid="filter-by-food-btn"
+          type="button"
+          onClick={ () => setDoneRecipes(
+            recipesDone().filter((data) => data.type === 'comida'),
+          ) }
+        >
+          Food
+        </button>
+        <button
+          className="btn-filter"
+          data-testid="filter-by-drink-btn"
+          type="button"
+          onClick={ () => setDoneRecipes(
+            recipesDone().filter((data) => data.type === 'bebida'),
+          ) }
+        >
+          Drink
+        </button>
+      </div>
+      <p className="link">
+        {linkCopied}
+      </p>
       <section className="done-recipes-container">
-        { recipesDone.map((
+        { doneRecipes.map((
           { category,
             id, type, doneDate, tags, image, area, alcoholicOrNot, name }, index,
         ) => (
@@ -88,7 +126,6 @@ function DoneRecipes() {
                 </div>
               </Link>
             </div>
-            {linkCopied}
             <button
               type="button"
               className="share"
