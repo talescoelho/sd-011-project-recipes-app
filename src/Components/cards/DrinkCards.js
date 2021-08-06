@@ -19,6 +19,28 @@ function DrinkCards() {
 
   console.log(drinksByCategory);
 
+  if (inputSearch) {
+    return (
+      <div className="card-drinks">
+        { dataDrinks.map((item, index) => index < limit && (
+          <Link to={ `/bebidas/${item.idDrink}` }>
+            <div key={ index } data-testid={ `${index}-recipe-card` }>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ item.strDrinkThumb }
+                alt={ `Drink ${item.strDrink}` }
+                width="80"
+              />
+              <p data-testid={ `${index}-card-name` }>
+                { item.strDrink }
+              </p>
+            </div>
+          </Link>
+        )) }
+      </div>
+    );
+  }
+
   if (drinksByCategory.length > 0) {
     return (
       <div className="card-drinks">
@@ -41,27 +63,6 @@ function DrinkCards() {
     );
   }
 
-  if (inputSearch) {
-    return (
-      <div className="card-drinks">
-        { dataDrinks.map((item, index) => index < limit && (
-          <Link to={ `/bebidas/${item.idDrink}` }>
-            <div key={ index } data-testid={ `${index}-recipe-card` }>
-              <img
-                data-testid={ `${index}-card-img` }
-                src={ item.strDrinkThumb }
-                alt={ `Drink ${item.strDrink}` }
-                width="80"
-              />
-              <p data-testid={ `${index}-card-name` }>
-                { item.strDrink }
-              </p>
-            </div>
-          </Link>
-        )) }
-      </div>
-    );
-  }
   return (
     <div className="card-drinks">
       { initialDrinks.map((item, index) => index < limit && (

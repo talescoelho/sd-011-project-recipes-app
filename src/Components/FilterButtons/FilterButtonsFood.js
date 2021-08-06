@@ -44,6 +44,7 @@ function FilterButtonsFood() {
       </button>
       { categories.map((category, index) => index < limit && (
         <button
+          key={ index }
           type="button"
           value={ category.strCategory }
           data-testid={ `${category.strCategory}-category-filter` }
