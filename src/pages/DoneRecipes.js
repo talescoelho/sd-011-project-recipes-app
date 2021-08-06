@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import clipboardCopy from 'clipboard-copy';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -43,15 +44,21 @@ export default function DoneRecipes() {
       <div>
         {
           doneRecipes.map((recipe, index) => (
-            <div key={ index } data-testid={ `${index}-recipe-card` }>
+            <div key={ index }>
               {recipe.type === 'bebida' ? (
                 <div>
-                  <img
-                    data-testid={ `${index}-horizontal-image` }
-                    src={ recipe.image }
-                    alt={ recipe.name }
-                  />
-                  <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
+                  <Link
+                    to={ `/bebidas/${recipe.id}` }
+                  >
+                    <img
+                      src={ recipe.image }
+                      alt={ recipe.name }
+                      data-testid={ `${index}-horizontal-image` }
+                    />
+                  </Link>
+                  <Link to={ `/bebidas/${recipe.id}` }>
+                    <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
+                  </Link>
                   <p
                     data-testid={ `${index}-horizontal-top-text` }
                   >
@@ -76,13 +83,19 @@ export default function DoneRecipes() {
                   </button>
                 </div>
               ) : (
-                <div>
-                  <img
-                    data-testid={ `${index}-horizontal-image` }
-                    src={ recipe.image }
-                    alt={ recipe.name }
-                  />
-                  <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
+                <div key={ index }>
+                  <Link
+                    to={ `/comidas/${recipe.id}` }
+                  >
+                    <img
+                      src={ recipe.image }
+                      alt={ recipe.name }
+                      data-testid={ `${index}-horizontal-image` }
+                    />
+                  </Link>
+                  <Link to={ `/comidas/${recipe.id}` }>
+                    <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
+                  </Link>
                   <p
                     data-testid={ `${index}-horizontal-top-text` }
                   >
