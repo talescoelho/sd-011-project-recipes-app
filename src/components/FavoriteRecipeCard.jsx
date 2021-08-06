@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import shareImage from '../images/shareIcon.svg';
@@ -7,7 +7,7 @@ import shareImage from '../images/shareIcon.svg';
 import LinkCopy from './LinkCopy';
 
 function FavoriteRecipeCard({ recipe, index }) {
-  console.log(recipe);
+  const [linkCopy, setLinkCopy] = useState(false);
   const { id,
     type,
     area,
@@ -22,11 +22,22 @@ function FavoriteRecipeCard({ recipe, index }) {
     if (type === 'bebida') history.push(`bebidas/${recipeId}`);
   };
 
-  const handleShareBtn = () => {
-    const DONE_RECIPES_LENGTH = -15;
-    const url = window.location.href.slice(DONE_RECIPES_LENGTH);
-    navigator.clipboard.writeText(url);
+  const handleShareBtn = (recipeType, recipeId) => {
+    const hostURL = window.location.host;
+    console.log(hostURL);
+    console.log(recipeType, recipeId);
+
+    if (recipeType === 'comida') {
+      navigator.clipboard.writeText(`${hostURL}/comidas/${recipeId}`);
+    }
+    if (recipeType === 'bebida') {
+      navigator.clipboard.writeText(`${hostURL}/bebidas/${recipeId}`);
+    }
     return <LinkCopy />;
+  };
+
+  const handleLinkMessage = () => {
+    setLinkCopy(true);
   };
 
   return (
@@ -54,10 +65,11 @@ function FavoriteRecipeCard({ recipe, index }) {
           className="shareBTN"
           type="button"
           data-testid={ `${index}-horizontal-share-btn` }
-          onClick={ () => handleShareBtn() }
+          onClick={ () => { handleShareBtn(type, id); handleLinkMessage(); } }
         >
           <img src={ shareImage } alt="Compartilhar" />
         </button>
+        { linkCopy && <LinkCopy /> }
       </div>
     </div>
   );
