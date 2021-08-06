@@ -20,6 +20,7 @@ import exploreByOrigin from './pages/ExploreByOrigin';
 import userProfile from './pages/UserProfile';
 import finishRecipe from './pages/FinishRecipe';
 import favoriteRecipe from './pages/FavoriteRecipe';
+import Details from './pages/Details';
 
 function App() {
   useEffect(() => {
@@ -34,8 +35,8 @@ function App() {
             <Route exact path="/" component={ Login } />
             <Route exact path="/comidas" component={ foodPage } />
             <Route exact path="/bebidas" component={ drinkPage } />
-            <Route exact path="/comidas/{id-da-receita}" />
-            <Route exact path="/bebidas/{id-da-receita}" />
+            <Route exact path="/comidas/:id" component={ Details } />
+            <Route exact path="/bebidas/:id" component={ Details } />
             <Route exact path="/comidas/{id-da-receita}/in-progress" />
             <Route exact path="/bebidas/{id-da-receita}/in-progress" />
             <Route exact path="/explorar" component={ Explore } />

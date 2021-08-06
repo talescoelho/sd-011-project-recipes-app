@@ -28,6 +28,7 @@ function Header({ title, search }) {
   }, []);
 
   const local = window.location.href;
+  const url = 'http://localhost:3000/comidas';
   const nameSearch = 'name-search';
   const firstLetter = 'first-letter';
   const ingredient = 'ingredient';
@@ -60,6 +61,7 @@ function Header({ title, search }) {
     case (firstLetter):
       if (inputTextSearch.length > 1) {
         alert('Sua busca deve conter somente 1 (um) caracter');
+        break;
       }
       setFilteredDrink(filterByFirstLetterDrink(inputTextSearch));
       break;
@@ -138,7 +140,7 @@ function Header({ title, search }) {
             <button
               data-testid="exec-search-btn"
               type="button"
-              onClick={ local === 'http://localhost:3000/comidas'
+              onClick={ local === url
                 ? () => handleButtonFood()
                 : () => handleButtonDrink() }
             >

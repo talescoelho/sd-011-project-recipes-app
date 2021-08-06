@@ -58,3 +58,9 @@ export async function searchRandonDrink() {
   const result = await randomDrink.json();
   return result.drinks[0];
 }
+
+export async function searchDrinksAll() {
+  const ingredients = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  const result = await ingredients.json();
+  return result.drinks;
+}
