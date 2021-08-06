@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { getDrinkByID } from '../Services/ApiDrink';
+import { getFoodsByID } from '../../Services/ApiFood';
 
-function DrinkProgress(props) {
-  const [drinkById, setDrinkById] = useState([]);
-  const [drinkIngredient, setDrinkIngredient] = useState([]);
+function FoodProgress(props) {
+  const [foodById, setFoodById] = useState([]);
+  const [foodIngredient, setFoodIngredient] = useState([]);
   const { match } = props;
   const { id } = match.params;
 
-  async function fetchDrinkByID() {
-    const drinkByIdAPI = await getDrinkByID(id);
-    setDrinkById(drinkByIdAPI.drinks);
+  async function fetchFoodsByID() {
+    const foodByIdAPI = await getFoodsByID(id);
+    setFoodById(foodByIdAPI.meals);
   }
 
   useEffect(() => {
-    fetchDrinkByID();
+    fetchFoodsByID();
   }, []);
 
-  console.log(drinkById);
+  console.log(foodById);
 
   useEffect(() => {
-    drinkById.forEach((ingredient) => {
+    foodById.forEach((ingredient) => {
       const data = [];
       const number = 15;
       Object.entries(ingredient).filter((item) => {
@@ -32,29 +32,29 @@ function DrinkProgress(props) {
         return data;
       });
       console.log(data);
-      setDrinkIngredient(data);
+      setFoodIngredient(data);
     });
-  }, [drinkById]);
+  }, [foodById]);
 
   return (
     <div>
-      { drinkById.map((item, index) => (
+      { foodById.map((item, index) => (
         <div key={ index }>
           <img
             data-testid="recipe-photo"
-            src={ item.strDrinkThumb }
-            alt={ `Drink ${item.strDrink}` }
+            src={ item.strMealThumb }
+            alt={ `Food ${item.strMeal}` }
             width="80"
           />
           <h2 data-testid="recipe-title">
-            { item.strDrink }
+            { item.strMeal }
           </h2>
           <h3 data-testid="recipe-category">
             { item.strCategory }
           </h3>
           <ul>
             {
-              drinkIngredient.map((ingredient, i) => (
+              foodIngredient.map((ingredient, i) => (
                 <li
                   data-testid={ `${i}-ingredient-step` }
                   key={ i }
@@ -93,11 +93,11 @@ function DrinkProgress(props) {
   );
 }
 
-DrinkProgress.propTypes = {
+FoodProgress.propTypes = {
   match: PropTypes.object,
   params: PropTypes.shape({
     id: PropTypes.number,
   }),
 }.isRequired;
 
-export default DrinkProgress;
+export default FoodProgress;

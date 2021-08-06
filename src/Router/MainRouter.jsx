@@ -13,17 +13,13 @@ import Home from '../Pages/Home';
 import RecipesDone from '../Pages/RecipesDone';
 import FavoriteRecipes from '../Pages/FavoriteRecipes';
 import DrinkProgress from '../Pages/DrinkProgress';
+import FoodProgress from '../Pages/Main/FoodProgress';
 
 const MainRouter = () => (
   <Switch>
     <Route exact path="/" component={ Home } />
     <Route exact path="/comidas" component={ Foods } />
     <Route exact path="/bebidas" component={ Drinks } />
-    {/* <Route exact path={ `/comidas/${id-da-receita}`} render={ () => <MainDrinks /> }
-    <Route exact path={ `/bebidas/${id-da-receita}`} render={ () => <MainDrinks /> }
-    <Route exact path={ `/comidas/${id-da-receita}/in-progress`} render={ () => <MainDrinks /> }
-    <Route exact path={ `/bebidas/${id-da-receita}/in-progress`}
-    render={ () => <MainDrinks /> } */}
     <Route exact path="/explorar" component={ MainExplorer } />
     <Route exact path="/explorar/comidas" component={ ExplorerFoods } />
     <Route exact path="/explorar/bebidas" component={ ExplorerDrinks } />
@@ -45,6 +41,11 @@ const MainRouter = () => (
       exact
       path="/bebidas/:id/in-progress"
       component={ DrinkProgress }
+    />
+    <Route
+      exact
+      path="/comidas/:id/in-progress"
+      component={ FoodProgress }
     />
   </Switch>
 );
