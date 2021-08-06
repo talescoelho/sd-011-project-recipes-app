@@ -39,7 +39,6 @@ function AreaSelect() {
 
   async function filterArea({ target }) {
     const { value } = target;
-    console.log(value);
     dispatch(await fetchAreaFilter(value));
     if (value === 'All') setNewData(dataApi.meals);
     else setNewData(filter);

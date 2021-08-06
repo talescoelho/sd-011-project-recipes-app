@@ -28,8 +28,7 @@ function ReceitasFeitas() {
     },
   ];
   const [filter, setFilter] = useState('all');
-  console.log(mock.tags);
-  console.log(filter);
+
   return (
     <div>
       <Header title="Receitas Feitas" />
