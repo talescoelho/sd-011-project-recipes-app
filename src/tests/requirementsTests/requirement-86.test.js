@@ -19,7 +19,7 @@ afterEach(() => {
 
 describe(`86 - Redirect the user that, when clicking on the "Receitas Feitas" button, the 
 route should change to the recipes made screen`, () => {
-  it('', () => {
+  it('Redirects to correct route', () => {
     const history = createMemoryHistory();
     const { history: historyRoute } = renderWithRouterAndStore(
       <Profile history={ history } />, '/perfil',
