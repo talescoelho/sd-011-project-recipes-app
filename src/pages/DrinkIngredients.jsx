@@ -27,7 +27,8 @@ export default function DrinkIngredients() {
   const renderFilteredIngredients = async (ingredient) => {
     const drinkByIngredient = await fetchDrinkIngredients(ingredient);
     const { drinks } = drinkByIngredient;
-    dispatch(getFoodCard({ filtered: drinks }));
+    dispatch(getFoodCard({ filtered: drinks, selectedCategory: 'drinks' }));
+    dispatch({ type: 'CLEAR_FORM_INFO' });
     history.push('/bebidas');
   };
 

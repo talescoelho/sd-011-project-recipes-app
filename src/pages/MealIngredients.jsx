@@ -27,7 +27,7 @@ export default function MealtIngredients() {
   const renderFilteredIngredients = async (ingredient) => {
     const foodByIngredient = await fetchIngredients(ingredient);
     const { meals } = foodByIngredient;
-    dispatch(getFoodCard({ filtered: meals }));
+    dispatch(getFoodCard({ filtered: meals, selectedCategory: 'meals' }));
     dispatch({ type: 'CLEAR_FORM_INFO' });
     history.push('/comidas');
   };

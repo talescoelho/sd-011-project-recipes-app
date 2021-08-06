@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
-import imageHeart from '../images/whiteHeartIcon.svg';
+import { useSelector } from 'react-redux';
+import { useRouteMatch } from 'react-router-dom';
+import whiteHeart from '../images/whiteHeartIcon.svg';
+import blackHeart from '../images/blackHeartIcon.svg';
 import { bookMarkRecipe } from '../services/RecipesLocalStorage';
 
 export default function FavoriteBtn() {
-  const { id } = useParams();
+  const [bookmarked, setBookmarked] = useState();
+
+  const recipe = useSelector((state) => state.recipes);
+  const { cards } = recipe;
+  const { params: { id } } = useRouteMatch();
+
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const card = favoriteRecipes.find((el) => el.id === id);
+  const favoriteImg = card && card.image ? blackHeart : whiteHeart;
+
+  const handleBookMark = () => {
+    bookMarkRecipe(cards);
+    setBookmarked(!bookmarked);
+  };
+
+  useEffect(() => {}, [bookmarked]);
 
   return (
     <Button
@@ -13,9 +30,9 @@ export default function FavoriteBtn() {
       className="btnheader"
       type="button"
       data-testid="favorite-btn"
-      onClick={ () => bookMarkRecipe(id) }
+      onClick={ handleBookMark }
     >
-      <img data-testid="favorite-btn" src={ imageHeart } alt="favorite" />
+      <img data-testid="favorite-btn" src={ favoriteImg } alt="favorite" />
     </Button>
   );
 }

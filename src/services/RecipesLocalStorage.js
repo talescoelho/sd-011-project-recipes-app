@@ -57,31 +57,28 @@ export function isRecipeInProgress(idReceita) {
   return false;
 }
 
-export const bookMarkRecipe = async (idReceita, type) => {
+export const bookMarkRecipe = async (item) => {
+  const realId = item.idDrink || item.idMeal;
   const food = {
-    meals: 'comida',
-    drinks: 'bebida',
+    id: item.idDrink || item.idMeal,
+    type: item.idDrink ? 'bebida' : 'comida',
+    area: item.strArea || '',
+    category: item.strCategory || '',
+    alcoholicOrNot: item.strAlcoholic || '',
+    name: item.strMeal || item.strDrink,
+    image: item.strMealThumb || item.strDrinkThumb,
+
   };
-  const data = await fetchFood(idReceita, type);
-  let objFormatado = [];
 
-  if (localStorage.doneRecipes) {
-    objFormatado = JSON.parse(localStorage.doneRecipes);
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+  if (!favoriteRecipes) {
+    return localStorage.setItem('favoriteRecipes', JSON.stringify([food]));
   }
 
-  if (!objFormatado.find((x) => x.id === idReceita)) {
-    objFormatado.push({
-      id: idReceita,
-      type: food[type],
-      area: data.strArea,
-      category: data.strCategory,
-      alcoholicOrNot: '',
-      name: data.strMeal,
-      image: data.strMealThumb,
-      // doneDate: Date.now(),
-      tags: data.strTags,
-    });
-
-    localStorage.setItem('inProgressRecipes', JSON.stringify(objFormatado));
+  if (favoriteRecipes.some((el) => el.id === realId)) {
+    return localStorage.setItem('favoriteRecipes',
+      JSON.stringify([...favoriteRecipes.filter((el) => el.id !== realId)]));
   }
+  localStorage.setItem('favoriteRecipes', JSON.stringify([...favoriteRecipes, food]));
 };

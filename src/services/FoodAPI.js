@@ -7,9 +7,7 @@ export const fetchFood = ({ id, type }) => async (dispatch) => {
   };
 
   const fetchFoodCard = async () => {
-    console.log(type);
     const response = await fetch(cat[type]);
-    console.log(response);
     const json = await response.json();
 
     try {
