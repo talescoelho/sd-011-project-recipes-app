@@ -49,7 +49,64 @@ class Header extends Component {
           />
         </button>
        &nbsp;  &nbsp;  &nbsp;
-        {!hidden && <input data-testid="search-input" type="text" placeholder="Search" />}
+        {
+          !hidden
+        && (
+          <form>
+            <fieldset>
+              <legend>Filtro de busca</legend>
+              <br />
+              <input
+                data-testid="search-input"
+                type="text"
+                placeholder="Buscar Receita"
+              />
+                &nbsp;  &nbsp;
+              <label htmlFor="ingredient">
+                <input
+                  data-testid="ingredient-search-radio"
+                  type="radio"
+                  id="ingredient"
+                  name="filter"
+                />
+                &nbsp;
+                Ingredientes
+              </label>
+            &nbsp;
+              <label htmlFor="name">
+                <input
+                  data-testid="name-search-radio"
+                  type="radio"
+                  id="name"
+                  name="filter"
+                />
+                &nbsp;
+                Nome
+              </label>
+            &nbsp;
+              <label htmlFor="first-letter">
+                <input
+                  data-testid="first-letter-search-radio"
+                  type="radio"
+                  id="first-letter"
+                  name="filter"
+                />
+                &nbsp;
+                Primeira letra
+              </label>
+            &nbsp; &nbsp;
+              <button
+                data-testid="exec-search-btn"
+                type="button"
+              >
+                Buscar
+              </button>
+              <br />
+              <br />
+            </fieldset>
+          </form>)
+        }
+        <br />
       </header>
     );
   }
