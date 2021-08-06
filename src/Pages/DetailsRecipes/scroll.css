@@ -1,22 +1,22 @@
 .scrollmenu {
+  border: 2px solid var(--gs0);
+  border-radius: 8px;
   display: grid;
   grid-template-columns: 50% 50% 50% 50% 50% 50%;
-  border: 2px solid var(--gs0);
-  overflow: scroll;
-  border-radius: 8px;
   height: 10vh;
+  overflow: scroll;
   white-space: nowrap;
 }
 
 
 .scrollmenu li {
-  display: flex;
-  height: 10vh;
-  scroll-snap-align: start;
   align-items: center;
-  justify-content: center;
   background: rgb(143, 204, 145);
+  display: flex;
   font-size: rem;
+  height: 10vh;
+  justify-content: center;
+  scroll-snap-align: start;
 }
 
 .scrollmenu li:nth-child( 2 ) {
