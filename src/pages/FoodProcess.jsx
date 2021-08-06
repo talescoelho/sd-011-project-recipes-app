@@ -26,6 +26,11 @@ function FoodProcess() {
     <div>
       {loading ? <span>Loading...</span> : (
         <div>
+          <img
+            data-testid="recipe-photo"
+            src={ details.strMealThumb }
+            alt="image_of_recipe"
+          />
           <HeaderDetails foodOrDrink="Comidas" />
           <IngredientDetails inProcess />
         </div>

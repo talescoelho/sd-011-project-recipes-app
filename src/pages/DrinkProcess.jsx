@@ -22,10 +22,16 @@ function DrinkProcess() {
   useEffect(
     () => { fetchDrinkProcess(); }, [],
   );
+ 
   return (
     <div>
       {loading ? <span>Loading...</span> : (
         <div>
+          <img
+            data-testid="recipe-photo"
+            src={ details.strDrinkThumb }
+            alt="image_of_recipe"
+          />
           <HeaderDetails foodOrDrink="Bebidas" />
           <IngredientDetails inProcess />
         </div>

@@ -21,7 +21,6 @@ export default function Recomendation({ foodOrDrink }) {
     fetchRecomendedItem();
   }, []);
 
-  console.log('stateRec', recomendation);
   const maxLength = 6;
 
   function renderRecomendations(item, index) {

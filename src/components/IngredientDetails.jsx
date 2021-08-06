@@ -13,13 +13,10 @@ function IngredientDetails({ inProcess }) {
   const ingredients = Object.keys(idDetails[0])
     .filter((el) => el.includes('strIngredient'));
   const measure = Object.keys(idDetails[0]).filter((el) => el.includes('strMeasure'));
-  // console.log(ingredients);
-  // console.log(measure);
 
   const ingredientList = ingredients
     .filter((el) => idDetails[0][el])
     .map((ing, index) => `${idDetails[0][ing]} - ${idDetails[0][measure[index]]}`);
-  // console.log(ingredientList);
 
   return (
     <>
