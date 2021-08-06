@@ -1,33 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes, { string } from 'prop-types';
-import copy from 'clipboard-copy';
-import shareIcon from '../images/shareIcon.svg';
+import ShareButton from './ShareButton';
 
 class DoneRecipesCard extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      copied: false,
-    };
-
-    this.copyLink = this.copyLink.bind(this);
-  }
-
-  copyLink() {
-    this.setState({ copied: true });
-
-    const { recipe } = this.props;
-    const { type, id } = recipe;
-    copy(`http://localhost:3000/${type}s/${id}`);
-  }
-
   render() {
     const { recipe, index } = this.props;
     const {
       name, area, category, doneDate, tags, image, alcoholicOrNot, type, id } = recipe;
-    const { copied } = this.state;
     return (
       <section className="done-card-container">
 
@@ -55,19 +35,7 @@ class DoneRecipesCard extends Component {
 
           <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
           <div className="button-copy-container">
-            <button
-              className="like-and-share-page2"
-              type="button"
-              onClick={ this.copyLink }
-            >
-              {copied ? 'Link copiado!'
-                : (
-                  <img
-                    src={ shareIcon }
-                    alt="shareIcon"
-                    data-testid={ `${index}-horizontal-share-btn` }
-                  />)}
-            </button>
+            <ShareButton dataTestId={ `${index}-horizontal-share-btn` } urlLink={ `http://localhost:3000/${type}s/${id}` } />
             {tags ? tags.map((tag, indexTag) => (
               <span
                 key={ indexTag }

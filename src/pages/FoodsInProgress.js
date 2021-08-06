@@ -57,7 +57,7 @@ function setLocalStorage(items, idRecipe, type) {
   } else {
     const localGet = JSON.parse(localStorage.getItem('doneRecipes'));
     localGet.push(saveLocal);
-    localStorage.setItem('doneRecipes', JSON.stringify([localGet]));
+    localStorage.setItem('doneRecipes', JSON.stringify(localGet));
   }
 }
 
