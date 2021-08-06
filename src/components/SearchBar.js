@@ -57,10 +57,10 @@ export default function SearchBar({ type, history }) {
       resultRequest = await requestLetra(valueInputSearchBar, type);
     }
     // console.log(resultRequest);
-    if (!resultRequest) {
+    /* if (!resultRequest) {
       // eslint-disable-next-line no-alert
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    }
+    } */
     showSearchRequestResult(resultRequest);
   };
 
