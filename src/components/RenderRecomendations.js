@@ -41,7 +41,7 @@ function RenderRecomendations({ typeReco }) {
     <section>
       {(type !== '' && recipes !== null)
         && recipes.slice(0, limitRecipes).map((recipe, index) => (
-          <Link to={ `bebidas/${recipe[id]}` } key={ index }>
+          <Link to={ `/${typeReco}/${recipe[id]}` } key={ index }>
             <div
               data-testid={ `${index}-recomendation-card` }
               key={ index }
