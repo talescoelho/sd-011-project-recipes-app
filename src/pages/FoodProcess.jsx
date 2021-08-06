@@ -5,7 +5,7 @@ import IngredientDetails from '../components/IngredientDetails';
 import AppContext from '../context/AppContext';
 
 function FoodProcess() {
-  const { setIdDetails } = useContext(AppContext);
+  const { setIdDetails, idDetails } = useContext(AppContext);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
@@ -28,7 +28,7 @@ function FoodProcess() {
         <div>
           <img
             data-testid="recipe-photo"
-            src={ details.strMealThumb }
+            src={ idDetails[0].strMealThumb }
             alt="image_of_recipe"
           />
           <HeaderDetails foodOrDrink="Comidas" />
