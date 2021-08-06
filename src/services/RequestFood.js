@@ -1,7 +1,13 @@
-export async function getCategories() {
+export async function getCategoriesFood() {
   const categories = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
   const result = await categories.json();
   return result.meals;
+}
+
+export async function allCategoriesFood() {
+  const categories = await fetch(`www.themealdb.com/api/json/v1/1/categories.php`);
+  const result = await categories.json();
+  return result.categories;
 }
 
 export async function getAreas() {

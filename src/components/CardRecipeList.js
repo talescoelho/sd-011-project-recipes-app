@@ -28,23 +28,23 @@ function CardRecipeList() {
     filterType = filteredDrink;
   }
 
-  async function getInitialItensFood(filterText) {
+  async function getInitialItensDrinkAndFood(filterText) {
+    let items;
     if (!filterText) return;
-    const items = await searchFoodsAll();
-    setInitialItensFood(items);
-  }
-
-  async function getInitialItensDrink(filterText) {
-    if (!filterText) return;
-    const items = await searchDrinksAll();
-    setInitialItensDrink(items);
+    if (filterType === filteredFood) {
+      items = await searchFoodsAll();
+      setInitialItensFood(items);
+    } else if (filterType === filteredDrink) {
+      items = await searchDrinksAll();
+      setInitialItensDrink(items);
+    }
   }
 
   useEffect(() => {
     if (filterType === filteredFood) {
-      getInitialItensFood('b');
+      getInitialItensDrinkAndFood('b');
     } else if (filterType === filteredDrink) {
-      getInitialItensDrink('c');
+      getInitialItensDrinkAndFood('c');
     }
   }, []);
 

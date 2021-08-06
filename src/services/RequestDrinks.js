@@ -1,4 +1,4 @@
-export async function getCategories() {
+export async function getCategoriesDrink() {
   const categories = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
   const result = await categories.json();
   return result.drinks;
