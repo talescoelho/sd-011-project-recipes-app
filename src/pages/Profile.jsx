@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Footer from '../components/common/Footer';
+import '../styles/pages/profile.css';
 
 const Profile = ({ history: { push } }) => {
   const [userEmail, setUserEmail] = useState('');
@@ -26,26 +27,30 @@ const Profile = ({ history: { push } }) => {
 
   return (
     <>
-      <p data-testid="profile-email">{ userEmail }</p>
-      <Link
-        data-testid="profile-done-btn"
-        to="/receitas-feitas"
-      >
-        Receitas Feitas
-      </Link>
-      <Link
-        data-testid="profile-favorite-btn"
-        to="/receitas-favoritas"
-      >
-        Receitas Favoritas
-      </Link>
-      <Link
-        data-testid="profile-logout-btn"
-        onClick={ () => clearLocalStorage() }
-        to="/"
-      >
-        Sair
-      </Link>
+      <h3 className="profile-email" data-testid="profile-email">
+        { userEmail }
+      </h3>
+      <nav className="profile-nav">
+        <Link
+          data-testid="profile-done-btn"
+          to="/receitas-feitas"
+        >
+          Receitas Feitas
+        </Link>
+        <Link
+          data-testid="profile-favorite-btn"
+          to="/receitas-favoritas"
+        >
+          Receitas Favoritas
+        </Link>
+        <Link
+          data-testid="profile-logout-btn"
+          onClick={ () => clearLocalStorage() }
+          to="/"
+        >
+          Sair
+        </Link>
+      </nav>
       <Footer />
     </>
   );
