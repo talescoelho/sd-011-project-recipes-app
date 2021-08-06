@@ -14,6 +14,16 @@ const Profile = ({ history: { push } }) => {
       push('/');
     }
   }, []);
+
+  const clearLocalStorage = () => {
+    localStorage.removeItem('mealsToken');
+    localStorage.removeItem('cocktailsToken');
+    localStorage.removeItem('user');
+    localStorage.removeItem('doneRecipes');
+    localStorage.removeItem('favoriteRecipes');
+    localStorage.removeItem('inProgressRecipes');
+  };
+
   return (
     <>
       <p data-testid="profile-email">{ userEmail }</p>
@@ -28,6 +38,13 @@ const Profile = ({ history: { push } }) => {
         to="/receitas-favoritas"
       >
         Receitas Favoritas
+      </Link>
+      <Link
+        data-testid="profile-logout-btn"
+        onClick={ () => clearLocalStorage() }
+        to="/"
+      >
+        Sair
       </Link>
       <Footer />
     </>
