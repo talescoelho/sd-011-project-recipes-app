@@ -12,6 +12,22 @@ import {
 } from '../redux/actions';
 import '../styles/comidas.css';
 
+const classButton = 'category-button';
+const activeClassButton = 'category-button-active';
+
+function handleClass({ target }) {
+  const buttons = [...target.parentNode.children];
+  if (target.className !== activeClassButton) {
+    buttons.forEach((button) => {
+      button.className = classButton;
+    });
+    target.className = activeClassButton;
+  } else {
+    target.className = classButton;
+    buttons[0].className = activeClassButton;
+  }
+}
+
 function handleChange(props, location, selectCategory, strCategory) {
   const { searchAllDrinks, searchDrink, searchAllFoods, searchFood } = props;
   const { selectedCategory, setSelectedCategory } = selectCategory;
@@ -20,21 +36,25 @@ function handleChange(props, location, selectCategory, strCategory) {
       if (strCategory !== 'All') {
         searchDrink(strCategory);
         setSelectedCategory(strCategory);
+      } else {
+        searchAllDrinks();
+        setSelectedCategory('All');
       }
     } else {
       searchAllDrinks();
       setSelectedCategory('All');
     }
-  } else if (location === '/comidas') {
-    if (selectedCategory !== strCategory) {
-      if (strCategory !== 'All') {
-        searchFood(strCategory);
-        setSelectedCategory(strCategory);
-      }
+  } else if (selectedCategory !== strCategory) {
+    if (strCategory !== 'All') {
+      searchFood(strCategory);
+      setSelectedCategory(strCategory);
     } else {
       searchAllFoods();
       setSelectedCategory('All');
     }
+  } else {
+    searchAllFoods();
+    setSelectedCategory('All');
   }
 }
 
@@ -46,6 +66,7 @@ function MainPage(props) {
   const [categoryType, setCategoryType] = useState('');
   const [headerTittle, setHeaderTittle] = useState('');
   const [classNameItem, setClassNameItem] = useState('foods-cards');
+  const [filterFrom, setFilterFrom] = useState(null);
   const categoriesLength = 5;
   const [location, setLocation] = useState(window.location.pathname);
   const selectCategory = {
@@ -60,23 +81,24 @@ function MainPage(props) {
   };
 
   useEffect(() => {
-    if (!state) {
-      requestDrink();
-      requestFood();
-    }
-  }, [requestDrink, requestFood, state]);
+    setFilterFrom(state);
+  }, [state]);
 
   useEffect(() => {
-    if (location === '/bebidas') {
-      setCategoryType('drinks');
-      setHeaderTittle('Bebidas');
-      fetchCategory('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', setCategories);
-    } else {
-      setCategoryType('meals');
-      setHeaderTittle('Comidas');
-      fetchCategory('https://www.themealdb.com/api/json/v1/1/list.php?c=list', setCategories);
+    if (!filterFrom) {
+      if (location === '/bebidas') {
+        setCategoryType('drinks');
+        setHeaderTittle('Bebidas');
+        fetchCategory('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', setCategories);
+        requestDrink();
+      } else {
+        setCategoryType('meals');
+        setHeaderTittle('Comidas');
+        fetchCategory('https://www.themealdb.com/api/json/v1/1/list.php?c=list', setCategories);
+        requestFood();
+      }
     }
-  }, [location]);
+  }, [filterFrom, location, requestDrink, requestFood]);
 
   if (location !== window.location.pathname) {
     setLocation(window.location.pathname);
@@ -88,7 +110,7 @@ function MainPage(props) {
         <Header title={ headerTittle } />
         Carregando...
         <div className={ classNameItem }>
-          <Cards location={ location } state={ state } />
+          <Cards location={ location } state={ filterFrom } />
         </div>
         <Footer />
       </div>);
@@ -107,9 +129,13 @@ function MainPage(props) {
           id="All"
           type="button"
           name="category"
-          className="category-button"
-          onClick={ () => {
+          className={ filterFrom ? classButton : activeClassButton }
+          onClick={ (event) => {
             handleChange(props, location, selectCategory, 'All');
+            handleClass(event);
+            if (filterFrom) {
+              setFilterFrom(false);
+            }
           } }
         >
           All
@@ -123,10 +149,14 @@ function MainPage(props) {
                 id={ category.strCategory }
                 type="button"
                 name="category"
-                className="category-button"
+                className={ classButton }
                 value={ category.strCategory }
-                onClick={ () => {
+                onClick={ (event) => {
                   handleChange(props, location, selectCategory, category.strCategory);
+                  handleClass(event);
+                  if (filterFrom) {
+                    setFilterFrom(false);
+                  }
                 } }
               >
                 { category.strCategory }
@@ -135,7 +165,7 @@ function MainPage(props) {
         }
       </div>
       <div className={ classNameItem }>
-        <Cards location={ location } state={ state } />
+        <Cards location={ location } state={ filterFrom } />
       </div>
       <Footer />
     </div>

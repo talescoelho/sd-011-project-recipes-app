@@ -62,6 +62,7 @@
 }
 
 .category-button {
+  background-color: #ECEFF4;
   border-radius: 10px;
   box-shadow: 7px 5px 3px rgba(124, 124, 124, 0.57);
   color: #252525;
@@ -71,6 +72,21 @@
   width: 170px;
 }
 
+.category-button-active {
+  background-color: #E5E1FA;
+  border-radius: 10px;
+  box-shadow: 7px 5px 3px rgba(124, 124, 124, 0.57);
+  color: #252525;
+  font-weight: 700;
+  height: 30px;
+  margin-bottom: 5px;
+  width: 170px;
+}
+
+.category-button-active:active {
+  box-shadow: 3px 2px 1px rgba(124, 124, 124, 0.57);
+  transform: translateY(4px);
+}
 
 .category-button:active {
   box-shadow: 3px 2px 1px rgba(124, 124, 124, 0.57);
