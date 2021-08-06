@@ -20,7 +20,7 @@ describe('70 - Implemente os elementos da tela de explorar bebidas ou comidas re
   });
 });
 
-describe.skip('71 - Desenvolva 3 botões: um para explorar por ingrediente, um para explorar por local de origem e um para pegar uma receita aleatória', () => {
+describe('71 - Desenvolva 3 botões: um para explorar por ingrediente, um para explorar por local de origem e um para pegar uma receita aleatória', () => {
   it('Tem os botões "Por Ingredientes", "Por Local de Origem" e "Me Surpreenda!" para a tela de explorar comidas', () => {
     cy.visit('http://localhost:3000/explorar/comidas');
 
