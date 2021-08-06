@@ -1,14 +1,31 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import HeaderDetails from '../components/HeaderDetails';
 import IngredientDetails from '../components/IngredientDetails';
 
 function DrinkProcess() {
-  const { idDetails } = useContext(AppContext);
-  const details = idDetails[0];
+  const { setIdDetails } = useContext(AppContext);
+  const [loading, setLoading] = useState(true);
+  const { id } = useParams();
+
+  async function fetchDrinkProcess() {
+    const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const request = await fetch(endPoint);
+    const response = await request.json();
+    const data = response.drinks;
+    console.log(data);
+    setIdDetails(data);
+    setLoading(false);
+  }
+
+  useEffect(
+    () => { fetchDrinkProcess(); }, [],
+  );
+ 
   return (
     <div>
-      {idDetails.length === 0 ? <span>Loading...</span> : (
+      {loading ? <span>Loading...</span> : (
         <div>
           <img
             data-testid="recipe-photo"
@@ -16,7 +33,7 @@ function DrinkProcess() {
             alt="image_of_recipe"
           />
           <HeaderDetails foodOrDrink="Bebidas" />
-          <IngredientDetails />
+          <IngredientDetails inProcess />
         </div>
       )}
     </div>
