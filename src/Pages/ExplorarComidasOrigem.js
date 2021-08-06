@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 // import RenderFoodAreaOptions from '../components/RenderFoodAreaOptions';
-import RenderOrigin from '../components/RenderOrigin';
+// import RenderOrigin from '../components/RenderOrigin';
+import RenderOriginClass from '../components/RenderOriginClass';
 
 function ExplorarComidasOrigem({ title }) {
   // const { foodAreaList } = useSelector((state) => state.fetchReceitas);
@@ -18,7 +19,7 @@ function ExplorarComidasOrigem({ title }) {
   return (
     <div>
       <Header title={ title } />
-      <RenderOrigin />
+      <RenderOriginClass />
       <Footer />
     </div>
   );
