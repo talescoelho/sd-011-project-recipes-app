@@ -1,13 +1,14 @@
 import { requestIngredients, requestSuccessIngredients } from '../actions';
 
-async function apiIngredients(mealOrDrink, list) {
+async function apiIngredients(mealOrDrink, list = 'list') {
   let responseIngredients;
   if (mealOrDrink === 'meals') {
     responseIngredients = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?i=${list}`);
   }
   if (mealOrDrink === 'drinks') {
+    console.log('ok');
     responseIngredients = await
-    fetch(`www.thecocktaildb.com/api/json/v1/1/list.php?i=${list}`);
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/list.php?i=${list}`);
   }
   return async (dispatch) => {
     try {

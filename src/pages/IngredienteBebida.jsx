@@ -2,33 +2,35 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import searchCase from '../service/apiSearchBar';
 import IngredientCard from '../components/IngredientCard';
+import apiIngredients from '../service/apiIngredients';
 
 function IngredienteBebida() {
-  const { dataApi: { drinks } } = useSelector(({ searchItems }) => searchItems);
-  const magicNumber = 13;
+  const { dataApi: { drinks } } = useSelector(({ ingredients }) => ingredients);
+  const magicNumber = 12;
   const dispatch = useDispatch();
+
   useEffect(() => {
     async function getApi() {
-      dispatch(await searchCase('drink'));
+      dispatch(await apiIngredients('drinks'));
     }
     getApi();
   }, [dispatch]);
+
   return (
     <div>
       <Header title="Explorar Ingredientes" />
       { drinks !== undefined
-        && drinks.slice(magicNumber).map((
-          { idDrink, strDrink, strDrinkThumb }, index,
+        && drinks.slice(0, magicNumber).map((
+          {
+            strIngredient1 }, index,
         ) => (
           <IngredientCard
-            idItem={ idDrink }
-            name={ strDrink }
+            idItem={ index }
+            name={ strIngredient1 }
             key={ index }
             index={ index }
-            src={ strDrinkThumb }
-            comidasOuBebidas="comidas"
+            comidasOuBebidas="bebidas"
           />
         )) }
       <Footer />
