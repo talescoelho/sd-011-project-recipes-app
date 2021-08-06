@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import '../styles/StartRecipeBtn.css';
 import { useHistory, useLocation } from 'react-router-dom';
 import handleLocation from '../helpers/handleLocation';
+import ingredientsArrFormater from '../helpers/ingredientsArrFormater';
 
 function ButtonStartRecipe({ id, recipeData }) {
   const history = useHistory();
@@ -35,8 +36,24 @@ function ButtonStartRecipe({ id, recipeData }) {
     handleLocalStorage(id);
   }, [id]);
 
+  const objectStart = () => {
+    const ingredientsItensArr = ingredientsArrFormater(recipeData);
+    let type = handleLocation(location);
+    if (type === 'comidas') {
+      type = 'meals';
+    }
+    if (type === 'bebidas') {
+      type = 'cocktails';
+    }
+    return {
+      [id]: ingredientsItensArr,
+    };
+  };
+
   const handleStartClickBtn = () => {
     const type = handleLocation(location);
+    const objectInProgress = objectStart();
+    localStorage.setItem('inProgressRecipes', JSON.stringify({ ...objectInProgress }));
     history.push(`/${type}/${id}/in-progress`);
   };
 
@@ -55,6 +72,7 @@ function ButtonStartRecipe({ id, recipeData }) {
 
 ButtonStartRecipe.propTypes = {
   id: PropTypes.number.isRequired,
+  recipeData: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default ButtonStartRecipe;
