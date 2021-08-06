@@ -3,9 +3,10 @@ import {
 } from '../actions';
 
 const INITIAL_STATE = {
-  categories: [],
+  recipes: [],
   type: 'not defined',
   filter: '',
+  keyWord: '',
   loading: true,
   error: null,
 };
@@ -22,8 +23,10 @@ const headerSearchReducer = (state = INITIAL_STATE, { type, payload }) => {
     return {
       ...state,
       loading: false,
-      categories: payload.categories,
+      recipes: payload.results,
       type: payload.type,
+      filter: payload.filter,
+      keyWord: payload.keyWord,
     };
   case GET_HEADER_SEARCH_ERROR:
     return {

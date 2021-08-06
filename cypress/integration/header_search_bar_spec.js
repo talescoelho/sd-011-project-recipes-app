@@ -18,7 +18,7 @@ describe('13 - Implemente os elementos da barra de busca respeitando os atributo
   });
 });
 
-describe.only('14 - Posicione a barra logo abaixo do header e implemente 3 radio buttons: Ingrediente, Nome e Primeira letra', () => {
+describe('14 - Posicione a barra logo abaixo do header e implemente 3 radio buttons: Ingrediente, Nome e Primeira letra', () => {
   it('Se o radio selecionado for Ingrediente, a busca na API é feita corretamente pelo ingrediente', () => {
     cy.visit('http://localhost:3000/comidas', {
       onBeforeLoad(win) {
@@ -182,7 +182,7 @@ describe('16 - Redirecione para a tela de detalhes da receita caso apenas uma re
   });
 });
 
-describe('17 - Mostre as receitas em cards caso mais de uma receita seja encontrada', () => {
+describe.skip('17 - Mostre as receitas em cards caso mais de uma receita seja encontrada', () => {
   it('Caso mais de uma comida seja encontrada, mostrar as 12 primeiras', () => {
     cy.visit('http://localhost:3000/comidas', {
       onBeforeLoad(win) {
@@ -238,7 +238,7 @@ describe('17 - Mostre as receitas em cards caso mais de uma receita seja encontr
   });
 });
 
-describe('18 - Exiba um `alert` caso nenhuma receita seja encontrada', () => {
+describe.skip('18 - Exiba um `alert` caso nenhuma receita seja encontrada', () => {
   it('Caso nenhuma comida seja encontrada o alert deve ser exibido', () => {
     cy.visit('http://localhost:3000/comidas', {
       onBeforeLoad(win) {

@@ -93,8 +93,6 @@ export const fetchRecipesCategories = (type) => (dispatch) => {
     .catch((error) => dispatch(getDrinksCategoriesError(error)));
 };
 
-///////////////////
-
 const getHeaderSearch = () => ({
   type: GET_HEADER_SEARCH,
 });
@@ -109,19 +107,23 @@ const getHeaderSearchError = (error) => ({
   payload: error,
 });
 
-export const fetchHeaderSearch = (type, filter) => (dispatch) => {
+export const fetchHeaderSearch = (type, filter, keyWord) => (dispatch) => {
   dispatch(getHeaderSearch());
 
   const url = type === 'comidas' ? baseMealDbUrl : baseCocktailDbUrl;
-  const urlFilter = '';
 
-  switch(filter) {
+  let urlFilter = '';
+
+  switch (filter) {
   case 'ingrediente':
-    urlFilter = `${url}/filter.php?i={filter}`;
+    urlFilter = `${url}/filter.php?i=${keyWord}`;
+    break;
   case 'nome':
-    urlFilter = `${url}/search.php?s={filter}`;
+    urlFilter = `${url}/search.php?s=${keyWord}`;
+    break;
   case 'primeira-letra':
-    urlFilter = `${url}/search.php?f={filter}`;
+    urlFilter = `${url}/search.php?f=${keyWord}`;
+    break;
   default:
     urlFilter = '';
   }
@@ -131,7 +133,7 @@ export const fetchHeaderSearch = (type, filter) => (dispatch) => {
     .then((data) => {
       const info = type === 'comidas' ? data.meals : data.drinks;
       const results = info.map((item) => item);
-      dispatch(getHeaderSearchSuccess({ results, type, filter }));
+      dispatch(getHeaderSearchSuccess({ results, type, filter, keyWord }));
     })
     .catch((error) => dispatch(getHeaderSearchError(error)));
 };
