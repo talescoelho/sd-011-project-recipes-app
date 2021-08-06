@@ -35,11 +35,10 @@ function FavoriteButton({ recipeData, type }) {
   return (
     <button type="button" onClick={ setFavorites }>
       <img
-        src={ favoriteRecipes.some(
-          (favorite) => {
-            return favorite.id === id;
-          },
-        ) ? blackHeartIcon : whiteHeartIcon }
+        src={
+          favoriteRecipes
+            .some((favorite) => favorite.id === id) ? blackHeartIcon : whiteHeartIcon
+        }
         alt="Favorite"
         data-testid="favorite-btn"
       />
