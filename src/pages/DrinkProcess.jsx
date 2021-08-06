@@ -5,11 +5,16 @@ import IngredientDetails from '../components/IngredientDetails';
 
 function DrinkProcess() {
   const { idDetails } = useContext(AppContext);
-  console.log(idDetails);
+  const details = idDetails[0];
   return (
     <div>
       {idDetails.length === 0 ? <span>Loading...</span> : (
         <div>
+          <img
+            data-testid="recipe-photo"
+            src={ details.strDrinkThumb }
+            alt="image_of_recipe"
+          />
           <HeaderDetails foodOrDrink="Bebidas" />
           <IngredientDetails />
         </div>
