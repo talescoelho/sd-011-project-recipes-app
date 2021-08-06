@@ -7,7 +7,7 @@ const DrinkDetails = (
   {
     dispatch,
     match: { params: { id } },
-    drinkDetails,
+    // drinkDetails,
     loading,
     error,
   },
@@ -17,7 +17,6 @@ const DrinkDetails = (
     // eslint-disable-next-line
   }, []);
 
-  console.log(drinkDetails);
   if (error) {
     return (<div>Erro</div>);
   }
@@ -38,13 +37,13 @@ DrinkDetails.propTypes = {
       id: PropTypes.string,
     }),
   }).isRequired,
-  drinkDetails: PropTypes.objectOf(PropTypes.string),
+  // drinkDetails: PropTypes.objectOf(PropTypes.string),
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string,
 };
 
 DrinkDetails.defaultProps = {
-  drinkDetails: {},
+  // drinkDetails: {},
   error: null,
 };
 

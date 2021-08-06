@@ -7,7 +7,7 @@ const FoodDetails = (
   {
     dispatch,
     match: { params: { id } },
-    mealDetails,
+    // mealDetails,
     loading,
     error,
   },
@@ -17,7 +17,6 @@ const FoodDetails = (
     // eslint-disable-next-line
   }, []);
 
-  console.log(mealDetails.strYoutube);
   if (error) {
     return (<div>Erro</div>);
   }
@@ -36,13 +35,13 @@ FoodDetails.propTypes = {
       id: PropTypes.string,
     }),
   }).isRequired,
-  mealDetails: PropTypes.objectOf(PropTypes.string),
+  // mealDetails: PropTypes.objectOf(PropTypes.string),
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string,
 };
 
 FoodDetails.defaultProps = {
-  mealDetails: {},
+  // mealDetails: {},
   error: null,
 };
 
