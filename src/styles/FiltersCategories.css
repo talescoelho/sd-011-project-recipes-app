@@ -4,6 +4,12 @@
   justify-content: space-evenly;
 }
 
+.container-categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
 .button-categories {
   border-radius: 6px;
   color: white;

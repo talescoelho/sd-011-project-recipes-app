@@ -3,7 +3,8 @@ import { Link, useHistory } from 'react-router-dom';
 import { fetchFoodDetails, fetchDrinksDetails } from '../services/API';
 import ingredientsMealDetails from '../helpers/ingredientsMealDetails';
 import ingredientsDrinksDetails from '../helpers/ingredientsDrinkDetails';
-import { setStorage, newDoneRecipe, getStorage } from '../helpers/Storage';
+import { setStorage, newDoneRecipe, getStorage,
+  newFavoriteRecipes } from '../helpers/Storage';
 
 function RecipesInProgress() {
   const history = useHistory();
@@ -12,13 +13,19 @@ function RecipesInProgress() {
   const [returnedDetail, setReturnedDetail] = useState([]);
   const [arrayIngredients, setArrayIngredients] = useState([]);
   const [doneRecipes] = useState(getStorage('doneRecipes'));
+  const [favoriteRecipes] = useState(getStorage('favoriteRecipes'));
   const [typeFoods, setTypeFoods] = useState('');
-  console.log(typeFoods);
 
   const addDoneRecipe = () => {
     const newDoneRecip = newDoneRecipe(returnedDetail, typeFoods);
 
     setStorage('doneRecipes', [...doneRecipes, newDoneRecip]);
+  };
+
+  const addFavoriteRecipes = () => {
+    const newFavoriteRecip = newFavoriteRecipes(returnedDetail, typeFoods);
+
+    setStorage('favoriteRecipes', [...favoriteRecipes, newFavoriteRecip]);
   };
 
   const tres = 3;
@@ -63,7 +70,13 @@ function RecipesInProgress() {
         />
         <h3 data-testid="recipe-title">{returnedDetail.strMeal}</h3>
         <button type="button" data-testid="share-btn">Compartilhar</button>
-        <button type="button" data-testid="favorite-btn">Favoritar</button>
+        <button
+          onClick={ addFavoriteRecipes }
+          type="button"
+          data-testid="favorite-btn"
+        >
+          Favoritar
+        </button>
         <p data-testid="recipe-category">{returnedDetail.strCategory}</p>
         { arrayIngredients.map((ingredient, index) => (
           <p data-testid={ `${index}-ingredient-step` } key={ index }>

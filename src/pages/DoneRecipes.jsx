@@ -13,7 +13,6 @@ function DoneRecipes() {
     return storage || [];
   }
   const [doneRecipes, setDoneRecipes] = useState(recipesDone());
-  console.log(doneRecipes);
 
   useEffect(() => {
     setDoneRecipes(recipesDone());
