@@ -11,10 +11,7 @@ import embedYouTubeVideo from '../../Helpers/embedYouTubeVideo';
 function SingleFoodItem() {
   const history = useHistory();
   const currentURL = window.location.pathname;
-  const [itemDetail, setItemDetail] = useState({
-    meals: null,
-  });
-
+  const [itemDetail, setItemDetail] = useState({ meals: null });
   const itemId = convertUrlToID(window.location.pathname);
   const arrayOfIngredients = [];
   const arrayOfMeasures = [];
