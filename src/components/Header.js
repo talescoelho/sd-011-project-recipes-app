@@ -36,8 +36,8 @@ function Header({ title, search }) {
   function handleButtonFood() {
     switch (radio) {
     case (nameSearch):
-       setFilteredFood(filterByNameFood(inputTextSearch));
-       break;
+      setFilteredFood(filterByNameFood(inputTextSearch));
+      break;
     case (firstLetter):
       if (inputTextSearch.length > 1) {
         alert('Sua busca deve conter somente 1 (um) caracter');
