@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+/* eslint-disable no-alert */
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -7,9 +8,13 @@ import {
   requestDrinksFilters,
   requestDrinksByFilter,
 } from '../redux/actions/menuReducerActions';
+import {
+  fetchDrinksIngredient,
+  fetchDrinksByName,
+  fetchDrinksByFirstLetter,
+} from '../redux/actions/IngredientsApiAction';
 import FilterMenu from '../components/FilterMenu';
 import Footer from '../components/common/Footer';
-
 import Header from '../components/Header/Header';
 
 const Drinks = ({
@@ -20,21 +25,44 @@ const Drinks = ({
   loadingDrinks,
   drinks,
 }) => {
+  const [selectedRadio, setSelectedRadio] = useState('');
+  const [typeIngredient, setTypeIngredient] = useState('');
+
+  const handleIngredient = ({ target }) => { setTypeIngredient(target.value); };
+
   useEffect(() => {
     dispatch(requestDrinksFilters());
   }, [dispatch]);
 
+  const handleRadioButton = () => {
+    if (selectedRadio === 'ingrediente') {
+      dispatch(fetchDrinksIngredient(typeIngredient));
+    }
+    if (selectedRadio === 'name') {
+      dispatch(fetchDrinksByName(typeIngredient));
+    }
+    if (selectedRadio === 'first-letter') {
+      if (typeIngredient.length > 1) {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      } else {
+        dispatch(fetchDrinksByFirstLetter(typeIngredient));
+      }
+    }
+  };
+
   if (error) {
     return (<div>Erro</div>);
   }
-
   return (
     <>
-      <Header
-        page="Bebidas"
-        showSearchBtn
-      />
       <nav>
+        <Header
+          page="Bebidas"
+          showSearchBtn
+          radioOption={ ({ target: { value } }) => setSelectedRadio(value) }
+          sendRadioInfo={ () => handleRadioButton() }
+          typedIngredient={ handleIngredient }
+        />
         {
           (loadingFilterOptions)
             ? (<div>Loading...</div>)
@@ -65,7 +93,7 @@ const Drinks = ({
                     alt={ `${strDrink} recipe` }
                     width="100px"
                   />
-                  <h3 data-testid={ `${index}-card-name` }>{ strDrink }</h3>
+                  <h3 data-testid={ `${index}-card-name` }>{strDrink}</h3>
                 </Link>
               ))
             )

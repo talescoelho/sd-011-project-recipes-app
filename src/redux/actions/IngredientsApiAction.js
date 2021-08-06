@@ -1,6 +1,7 @@
 import {
   menuRequest,
   handleMealsResponse,
+  handleDrinksResponse,
   menuReceiveSuccess,
   menuReceiveFailure,
 } from './menuReducerActions';
@@ -33,6 +34,39 @@ export const fetchByFirstLetter = (firstLetter) => (dispatch) => {
     .then((response) => response.json())
     .then(async ({ meals }) => {
       const response = await handleMealsResponse(meals);
+      dispatch(menuReceiveSuccess(response));
+    })
+    .catch((error) => dispatch(menuReceiveFailure(error)));
+};
+
+export const fetchDrinksIngredient = (drinksIngredient) => (dispatch) => {
+  dispatch(menuRequest());
+  return fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drinksIngredient}`)
+    .then((response) => response.json())
+    .then(async ({ drinks }) => {
+      const response = await handleDrinksResponse(drinks);
+      dispatch(menuReceiveSuccess(response));
+    })
+    .catch((error) => dispatch(menuReceiveFailure(error)));
+};
+
+export const fetchDrinksByName = (drinksByName) => (dispatch) => {
+  dispatch(menuRequest());
+  return fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinksByName}`)
+    .then((response) => response.json())
+    .then(async ({ drinks }) => {
+      const response = await handleDrinksResponse(drinks);
+      dispatch(menuReceiveSuccess(response));
+    })
+    .catch((error) => dispatch(menuReceiveFailure(error)));
+};
+
+export const fetchDrinksByFirstLetter = (drinksByFirst) => (dispatch) => {
+  dispatch(menuRequest());
+  return fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${drinksByFirst}`)
+    .then((response) => response.json())
+    .then(async ({ drinks }) => {
+      const response = await handleDrinksResponse(drinks);
       dispatch(menuReceiveSuccess(response));
     })
     .catch((error) => dispatch(menuReceiveFailure(error)));

@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+/* eslint-disable no-alert */
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -7,6 +8,12 @@ import {
   requestMealsFilters,
   requestMealsByFilter,
 } from '../redux/actions/menuReducerActions';
+import {
+  fetchIngredients,
+  fetchByName,
+  fetchByFirstLetter,
+} from '../redux/actions/IngredientsApiAction';
+
 import FilterMenu from '../components/FilterMenu';
 import Footer from '../components/common/Footer';
 import Header from '../components/Header/Header';
@@ -18,46 +25,45 @@ const Foods = ({
   categoryNames,
   loadingMeals,
   meals,
-  ingredients,
-  loading,
 }) => {
+  const [selectedRadio, setSelectedRadio] = useState('');
+  const [typeIngredient, setTypeIngredient] = useState('');
+
+  const handleIngredient = ({ target }) => { setTypeIngredient(target.value); };
+
   useEffect(() => {
     dispatch(requestMealsFilters());
   }, [dispatch]);
 
+  const handleRadioButton = () => {
+    if (selectedRadio === 'ingrediente') {
+      dispatch(fetchIngredients(typeIngredient));
+    }
+    if (selectedRadio === 'name') {
+      dispatch(fetchByName(typeIngredient));
+    }
+    if (selectedRadio === 'first-letter') {
+      if (typeIngredient.length > 1) {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      } else {
+        dispatch(fetchByFirstLetter(typeIngredient));
+      }
+    }
+  };
+
   if (error) {
     return (<div>Erro</div>);
   }
-
   return (
     <>
-      <Header
-        page="Comidas"
-        showSearchBtn
-      />
-      {loading && <div>CARREGANDO...</div>}
-
-      <ul>
-        {
-          !loading && ingredients.map(
-            (value, index) => (
-              <li key={ index }>
-                {value}
-              </li>),
-          )
-        }
-
-        {/* {
-          !loading && !ingredients && byName.map(
-            (value, index) => (
-              <li key={ index }>
-                {value}
-              </li>
-            ),
-          )
-        } */}
-      </ul>
       <nav>
+        <Header
+          page="Comidas"
+          showSearchBtn
+          radioOption={ ({ target: { value } }) => setSelectedRadio(value) }
+          sendRadioInfo={ () => handleRadioButton() }
+          typedIngredient={ handleIngredient }
+        />
         {
           (loadingFilterOptions)
             ? (<div>Loading...</div>)
@@ -105,8 +111,6 @@ const mapStateToProps = (state) => ({
   meals: state.menuReducer.menu,
   loadingMeals: state.menuReducer.isLoading,
   error: state.menuReducer.error,
-  ingredients: state.menuReducer.ingredient,
-  loading: state.menuReducer.isLoading,
 });
 
 Foods.propTypes = {
@@ -116,8 +120,6 @@ Foods.propTypes = {
   loadingMeals: PropTypes.bool.isRequired,
   error: PropTypes.string,
   meals: PropTypes.arrayOf(PropTypes.object),
-  ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
-  loading: PropTypes.bool.isRequired,
 };
 
 Foods.defaultProps = {

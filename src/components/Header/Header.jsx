@@ -2,38 +2,19 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-  fetchIngredients,
-  fetchByName,
-  fetchByFirstLetter,
-} from '../../redux/actions/IngredientsApiAction';
 
 import searchIcon from '../../images/searchIcon.svg';
 import profileIcon from '../../images/profileIcon.svg';
 import './header.css';
 
-const Header = ({ page, showSearchBtn, dispatch }) => {
+const Header = ({
+  page,
+  showSearchBtn,
+  radioOption,
+  sendRadioInfo,
+  typedIngredient,
+}) => {
   const [showField, setShowField] = useState(false);
-  const [typeIngredient, setTypeIngredient] = useState('');
-  const [selectedRadio, setSelectedRadio] = useState('');
-  const handleIngredient = ({ target }) => {
-    setTypeIngredient(target.value);
-  };
-  const handleRadioButton = () => {
-    if (selectedRadio === 'ingrediente') {
-      dispatch(fetchIngredients(typeIngredient));
-    }
-    if (selectedRadio === 'name') {
-      dispatch(fetchByName(typeIngredient));
-    }
-    if (selectedRadio === 'first-letter') {
-      if (typeIngredient.length > 1) {
-        alert('Sua busca deve conter somente 1 (um) caracter');
-      } else {
-        dispatch(fetchByFirstLetter(typeIngredient));
-      }
-    }
-  };
   return (
     <>
       <header className="header-style">
@@ -69,7 +50,7 @@ const Header = ({ page, showSearchBtn, dispatch }) => {
               data-testid="ingredient-search-radio"
               name="ingredient"
               value="ingrediente"
-              onClick={ ({ target: { value } }) => setSelectedRadio(value) }
+              onClick={ radioOption }
             />
           </label>
 
@@ -80,7 +61,7 @@ const Header = ({ page, showSearchBtn, dispatch }) => {
               data-testid="name-search-radio"
               name="ingredient"
               value="name"
-              onClick={ ({ target: { value } }) => setSelectedRadio(value) }
+              onClick={ radioOption }
             />
           </label>
 
@@ -91,13 +72,13 @@ const Header = ({ page, showSearchBtn, dispatch }) => {
               data-testid="first-letter-search-radio"
               name="ingredient"
               value="first-letter"
-              onClick={ ({ target: { value } }) => setSelectedRadio(value) }
+              onClick={ radioOption }
             />
           </label>
           <button
             type="button"
             data-testid="exec-search-btn"
-            onClick={ () => handleRadioButton() }
+            onClick={ sendRadioInfo }
           >
             Buscar
           </button>
@@ -108,7 +89,7 @@ const Header = ({ page, showSearchBtn, dispatch }) => {
               <input
                 type="text"
                 data-testid="search-input"
-                onChange={ handleIngredient }
+                onChange={ typedIngredient }
               />
             )
             : null
@@ -121,7 +102,9 @@ const Header = ({ page, showSearchBtn, dispatch }) => {
 Header.propTypes = ({
   page: PropTypes.string,
   showSearchBtn: PropTypes.bool,
-  dispatch: PropTypes.object,
+  radioOption: PropTypes.bool,
+  sendRadioInfo: PropTypes.func,
+  typedIngredient: PropTypes.string,
 }).isRequired;
 
 export default connect()(Header);
