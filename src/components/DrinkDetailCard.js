@@ -14,7 +14,7 @@ function DrinkDetailCard() {
   const path = window.location.pathname.split('/')[2];
 
   const drinkToDetail = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
-  const drinkRecommend = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const foodRecomend = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
   useEffect(() => {
     const getUrlDrink = async () => {
@@ -23,9 +23,10 @@ function DrinkDetailCard() {
       const response = drink.json().then((res) => setDrinkDetail(res.drinks[0]));
       return response;
     };
+
     const getRecomend = async () => {
-      const recomend = await fetch(`${drinkRecommend}`);
-      const resRecom = recomend.json().then((res) => setRec(res.drinks));
+      const recomend = await fetch(`${foodRecomend}`);
+      const resRecom = recomend.json().then((res) => setRec(res.meals));
       const magicN = 20;
       setMin(parseInt(Math.random() * (magicN - 0) + 0, 10));
       return resRecom;
@@ -69,8 +70,8 @@ function DrinkDetailCard() {
     <div>
       <h3 data-testid="recipe-title">{strDrink}</h3>
       <img data-testid="recipe-photo" width="150px" src={ strDrinkThumb } alt="tumb" />
-      <h4 data-testid="recipe-category">{strCategory}</h4>
-      <p>{strAlcoholic}</p>
+      <h4>{strCategory}</h4>
+      <p data-testid="recipe-category">{strAlcoholic}</p>
       <div style={ { display: 'flex', justifyContent: 'space-around' } }>
         <ButtonFavorite objData={ drinkDetail } />
         <ButtonShare props={ window.location.href } />
@@ -83,7 +84,7 @@ function DrinkDetailCard() {
                 if (e !== null) {
                   return (
                     <div
-                      data-testid={ `${i + 1}-${e}-${objMeasure[i]}` }
+                      data-testid={ `${i}-ingredient-name-and-measure` }
                       key={ i }
                     >
                       { objMeasure[i] !== undefined ? `${e} - ${objMeasure[i]}` : `${e}` }
@@ -96,14 +97,14 @@ function DrinkDetailCard() {
           </tr>
         </tbody>
       </table>
-      <h6>{strInstructions}</h6>
+      <h6 data-testid="instructions">{strInstructions}</h6>
       { strYoutube
         && <RenderVideo
           src={ strYoutube }
           title={ `Recipe ${strDrink}` }
           id="video"
         /> }
-      <div>
+      <div style={ { margin: '40px' } }>
         <Recommended value={ rec } type="drink" min={ min } />
       </div>
       <ButtonToProgress data={ callData } />

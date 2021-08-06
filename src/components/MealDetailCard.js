@@ -13,7 +13,7 @@ function MealDetailCard() {
 
   const path = window.location.pathname.split('/')[1] === 'comidas';
   const foodToDetail = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
-  const foodRecomend = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const drinkRecommend = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
   useEffect(() => {
     const getUrlMeal = async () => {
@@ -22,9 +22,10 @@ function MealDetailCard() {
       const response = meal.json().then((res) => setMealDetail(res.meals[0]));
       return response;
     };
+
     const getRecomend = async () => {
-      const recomend = await fetch(`${foodRecomend}`);
-      const resRecom = recomend.json().then((res) => setRec(res.meals));
+      const recomend = await fetch(`${drinkRecommend}`);
+      const resRecom = recomend.json().then((res) => setRec(res.drinks));
       const magicN = 20;
       setMin(parseInt(Math.random() * (magicN - 0) + 0, 10));
       return resRecom;
@@ -83,7 +84,7 @@ function MealDetailCard() {
                 if (e !== null) {
                   return (
                     <div
-                      data-testid={ `${i + 1}-${e}-${objMeasure[i]}` }
+                      data-testid={ `${i}-ingredient-name-and-measure` }
                       key={ i }
                     >
                       {objMeasure[i] !== undefined ? `${e} - ${objMeasure[i]}` : `${e}`}
@@ -103,7 +104,7 @@ function MealDetailCard() {
           title={ `Recipe ${strMeal}` }
           id="video"
         /> }
-      <div>
+      <div style={ { margin: '40px' } }>
         <Recommended value={ rec } type="meal" min={ min } />
       </div>
       <ButtonToProgress data={ callData } />

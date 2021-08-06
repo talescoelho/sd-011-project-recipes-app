@@ -14,7 +14,8 @@ const copy = require('clipboard-copy');
 
 export default function ButtonShare({props}) {
   const [isCopied, setIsCopied] = useState(false);
-  const { path, testid } = props;
+  // console.log(props);
+  const testid = window.location.pathname.split('/')[2];
 
   useEffect(() => {
     if (isCopied) {
@@ -26,13 +27,13 @@ export default function ButtonShare({props}) {
   }, [isCopied]);
 
   const onClickButtonShare = () => {
-    copy(path);
+    copy(props);
     setIsCopied(true);
   };
 
   return (
     <div style={ { display: 'flex' } }>
-      <div
+      <a
         data-testid="share-btn"
         role="button"
         onKeyPress={ onClickButtonShare }
@@ -40,7 +41,7 @@ export default function ButtonShare({props}) {
         onClick={ onClickButtonShare }
       >
         <img src={ shareIcon } alt="share icon" data-testid={ testid } />
-      </div>
+      </a>
       { isCopied && <p>Link copiado!</p>}
     </div>
 

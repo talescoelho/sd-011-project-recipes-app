@@ -8,21 +8,21 @@ import 'slick-carousel/slick/slick-theme.css';
 function Recommended({ value, type, min }) {
   console.log(min);
   const magicN = 6;
-  const sixCards = value.map((e) => e).slice(min, min + magicN);
+  const sixCards = value.map((e) => e).slice(0, magicN);
   console.log(sixCards);
   const kind = () => {
     if (type === 'meal') {
       return (
         Object.entries(sixCards).map((e, i) => {
           return (
-            <a href={ `/comidas/${e[1].idMeal}` } key={ i }>
+            <a href={ `/bebidas/${e[1].idDrink}` } key={ i }>
               <div data-testid={ `${i}-recomendation-card` } key={ i }>
                 <img
                   width="100px"
-                  src={ e[1].strMealThumb }
-                  alt={ `img ${e[1].strMeal}` }
+                  src={ e[1].strDrinkThumb }
+                  alt={ `img ${e[1].strDrink}` }
                 />
-                <div>{ e[1].strMeal }</div>
+                <div data-testid={ `${i}-recomendation-title` }>{ e[1].strDrink }</div>
               </div>
             </a>
           );
@@ -32,14 +32,14 @@ function Recommended({ value, type, min }) {
     return (
       Object.entries(sixCards).map((e, i) => {
         return (
-          <a href={ `/bebidas/${e[1].idDrink}` } key={ i }>
+          <a href={ `/comidas/${e[1].idMeal}` } key={ i }>
             <div data-testid={ `${i}-recomendation-card` } key={ i }>
               <img
                 width="100px"
-                src={ e[1].strDrinkThumb }
-                alt={ `img ${e[1].strDrink}` }
+                src={ e[1].strMealThumb }
+                alt={ `img ${e[1].strMeal}` }
               />
-              <div>{ e[1].strDrink }</div>
+              <div data-testid={ `${i}-recomendation-title` }>{ e[1].strMeal }</div>
             </div>
           </a>
         );

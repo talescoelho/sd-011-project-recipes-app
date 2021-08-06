@@ -16,12 +16,13 @@ function ButtonFavorite({ objData }) {
   }, [path]);
 
   const handleClickToBlack = () => {
+    const magicN = -1;
     const objToStorage = {
       id: objData.idMeal !== undefined ? objData.idMeal : objData.idDrink,
-      type: window.location.pathname.split('/')[1],
-      area: objData.strArea !== null ? objData.strArea : '',
-      category: objData.strCategory !== null ? objData.strCategory : '',
-      alcoholicOrNot: objData.strAlcoholic !== null ? objData.strAlcoholic : '',
+      type: (`${window.location.pathname.split('/')[1]}`).slice(0, magicN),
+      area: objData.strArea !== undefined ? objData.strArea : '',
+      category: objData.strCategory !== undefined ? objData.strCategory : '',
+      alcoholicOrNot: objData.strAlcoholic !== undefined ? objData.strAlcoholic : '',
       name: objData.strMeal !== undefined ? objData.strMeal : objData.strDrink,
       image: objData
         .strMealThumb !== undefined ? objData.strMealThumb : objData.strDrinkThumb,
@@ -45,8 +46,8 @@ function ButtonFavorite({ objData }) {
 
   const whiteHeart = () => {
     const ret = (
-      <a type="button" onClick={ () => handleClickToBlack() }>
-        <img data-testid="share-btn" src={ whiteHeartIcon } alt="not-favorite btn" />
+      <a role="button" onClick={ () => handleClickToBlack() }>
+        <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="not-favorite btn" />
       </a>
     );
     return ret;
@@ -54,8 +55,8 @@ function ButtonFavorite({ objData }) {
 
   const blackHeart = () => {
     const ret = (
-      <a type="button" onClick={ () => handleClickToWhite() }>
-        <img data-testid="share-btn" src={ blackHeartIcon } alt="favorite btn" />
+      <a role="button" onClick={ () => handleClickToWhite() }>
+        <img data-testid="favorite-btn" src={ blackHeartIcon } alt="favorite btn" />
       </a>
     );
     return ret;
