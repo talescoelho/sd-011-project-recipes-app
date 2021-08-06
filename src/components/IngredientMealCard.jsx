@@ -5,16 +5,18 @@ import RecipesAppContext from '../context/RecipesAppContext';
 import '../styles/IngredientMealCard.css';
 
 export default function IngredientMealCard({ ingredient, i }) {
-  const { saveMealRecipes, changeHaveRecipes } = useContext(RecipesAppContext);
+  const { saveMealRecipes } = useContext(RecipesAppContext);
 
   const history = useHistory();
 
   function getRecipesByIngredient() {
-    changeHaveRecipes(false);
+    const time = 2000;
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${ingredient.strIngredient}`)
       .then((response) => response.json())
-      .then((data) => saveMealRecipes(data))
-      .then(() => history.push('/comidas'));
+      .then((data) => saveMealRecipes(data));
+    setTimeout(() => {
+      history.push('/comidas');
+    }, time);
   }
 
   return (

@@ -1,7 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-// import MealCard from '../components/MealCard';
-// import DrinkCard from '../components/DrinkCard';
 import RecipesAppContext from '../context/RecipesAppContext';
 import Cards from '../components/Cards';
 import getRecipes, { getCategoriesFromApi } from '../services/API';
@@ -11,8 +9,10 @@ export default function Recipes() {
   const {
     mealRecipes,
     drinkRecipes,
+    haveRecipes,
     isFilterByCategory,
     saveDrinkRecipes,
+    saveMealRecipes,
     saveCategories,
   } = useContext(RecipesAppContext);
   const location = useLocation();
@@ -45,12 +45,19 @@ export default function Recipes() {
   }
   useEffect(getCategories, [location, saveCategories]);
 
-  function GetRecipesDrinksFirstAccess() {
-    if (location.pathname === '/bebidas' && drinkRecipes.length === 0) {
-      getRecipes('', 's', location.pathname, saveDrinkRecipes);
+  function GetRecipesFirstAccess() {
+    if (!haveRecipes) {
+      if (location.pathname === '/bebidas' && drinkRecipes.length === 0) {
+        getRecipes('', 's', location.pathname, saveDrinkRecipes);
+      } else if (location.pathname === '/comidas' && mealRecipes.length === 0) {
+        getRecipes('', 's', location.pathname, saveMealRecipes);
+      }
     }
   }
-  useEffect(GetRecipesDrinksFirstAccess, [location, saveDrinkRecipes, drinkRecipes]);
+  useEffect(GetRecipesFirstAccess,
+    [
+      location, saveDrinkRecipes, drinkRecipes, saveMealRecipes, mealRecipes, haveRecipes,
+    ]);
 
   return (
     <div className="recipes-section">

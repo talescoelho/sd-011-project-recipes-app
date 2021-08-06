@@ -2,18 +2,21 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesAppContext from '../context/RecipesAppContext';
+import '../styles/IngredientDrinkCard.css';
 
 export default function IngredientDrinkCard({ ingredient, i }) {
-  const { saveDrinkRecipes, changeHaveRecipes } = useContext(RecipesAppContext);
+  const { saveDrinkRecipes } = useContext(RecipesAppContext);
 
   const history = useHistory();
 
   function getRecipesByIngredient() {
-    changeHaveRecipes(false);
-    fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${ingredient.strIngredient1}`)
+    const time = 2000;
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient.strIngredient1}`)
       .then((response) => response.json())
-      .then((data) => saveDrinkRecipes(data))
-      .then(() => history.push('/bebidas'));
+      .then((data) => saveDrinkRecipes(data));
+    setTimeout(() => {
+      history.push('/bebidas');
+    }, time);
   }
 
   return (

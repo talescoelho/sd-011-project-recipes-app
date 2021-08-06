@@ -27,6 +27,7 @@ export default function Cards() {
       );
     }
   }
+  // useEffect(renderRecipes, [drinkRecipes, haveRecipes, location, mealRecipes]);
   return (
     <div className="cards-section">
       <Header />
