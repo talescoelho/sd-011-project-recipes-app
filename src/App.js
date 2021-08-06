@@ -19,6 +19,7 @@ import ExploreDrinkByIngredient from './pages/ExploreDrinkByIngredient';
 import ExploreFoodByArea from './pages/ExploreFoodByArea';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -27,23 +28,24 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Foods } />
         <Route exact path="/bebidas" component={ Drinks } />
-        <Route path="/perfil" component={ Profile } />
+        <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/comidas/:id" component={ FoodDetails } />
+        <Route
+          exact
+          path="/comidas/:id"
+          component={ FoodDetails }
+        />
         <Route
           exact
           path="/bebidas/:id"
           component={ DrinkDetails }
         />
         <Route
+          exact
           path="/comidas/:id/in-progress"
-          // render={ (props) => <FoodProcess { ...props } /> }
           component={ FoodProcess }
         />
-        <Route
-          path="/bebidas/:id/in-progress"
-          // render={ (props) => <DrinkProcess { ...props } /> }
-          component={ DrinkProcess }
-        />
+        <Route exact path="/bebidas/:id/in-progress" component={ DrinkProcess } />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ ExploreFoods } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
@@ -61,6 +63,7 @@ function App() {
         />
         <Route exact path="/receitas-feitas" component={ DoneRecipes } />
         <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
+        <Route exact component={ NotFound } />
       </Switch>
     </AppProvider>
   );

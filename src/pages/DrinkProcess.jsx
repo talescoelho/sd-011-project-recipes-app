@@ -6,7 +6,6 @@ import IngredientDetails from '../components/IngredientDetails';
 function DrinkProcess() {
   const { idDetails } = useContext(AppContext);
   const details = idDetails[0];
-  console.log(idDetails);
   return (
     <div>
       {idDetails.length === 0 ? <span>Loading...</span> : (
