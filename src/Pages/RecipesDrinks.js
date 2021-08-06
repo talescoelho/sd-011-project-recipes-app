@@ -1,35 +1,49 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Header from '../Components/Header';
-import CardRecipes from '../Components/CardRecipes';
-import MyContext from '../Context/MyContext';
 import Footer from '../Components/Footer';
+import './RecipesFoods.css';
+import CardRecipes from '../Components/CardRecipes';
+import { Link } from 'react-router-dom';
+//import MyContext from '../Context/MyContext';
 
-export default function RecipesDrinks() {
-  const { recipe } = useContext(MyContext);
+export default function RecipesFood() {
+  const [recipes, setRecipes] = useState([]);
 
+  useEffect(() => {
+    const getApi = async () => {
+    const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    const response = await fetch(endPoint);
+    const results = await response.json();
+    const drinks = results.drinks;
+    setRecipes(drinks);
+    };
+    getApi();
+  },[]);
   const renderCardRecipes = () => {
     const showMaxRecipes = 12;
-
-    if (recipe.drinks) {
-      const filteredRecipe = recipe.drinks.filter(
-        (drink, index) => index < showMaxRecipes,
+    if (recipes) { 
+      let filteredRecipe = recipes.filter(
+        (drinks, index) => index < showMaxRecipes,
       );
-      return filteredRecipe.map((recp, index) => (
-        <CardRecipes
+       return filteredRecipe;
+    }
+  }
+  return (
+    <div>
+      <Header className="title" title="Bebidas" searchIconAppears />
+      <div className="cardlist">
+      {renderCardRecipes().map((recp, index) => (
+         <Link
+         to = '/bebidas/drink-details'>
+         <CardRecipes
           key={ index }
           index={ index }
           thumb={ recp.strDrinkThumb }
           title={ recp.strDrink }
-        />
-      ));
-    }
-  };
-
-  return (
-    <div>
-      <Header className="title" title="Bebidas" searchIconAppears />
-      {renderCardRecipes()}
-      <Footer />
+          />
+          </Link>))}  
+      </div>
+       <Footer />
     </div>
   );
 }
