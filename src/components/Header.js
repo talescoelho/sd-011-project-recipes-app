@@ -2,30 +2,73 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import { RequestHook } from '../Context/RequestHook';
+
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-// import {
-//   searchByFirstLetter,
-//   searchByIngredient,
-//   searchByName,
-// } from '../services/RequestFood';
 
 function Header({ title, search }) {
   const [showFilterInput, setShowFilter] = useState(false);
-  const [setInputTextSearch] = useState('');
-  const [radio, setRadio] = useState('ingredient');
+  const [inputTextSearch, setInputTextSearch] = useState('');
+  const [radio, setRadio] = useState('');
+
+  const {
+    setFilteredFood,
+    setFilteredDrink,
+    filterByNameFood,
+    filterByIngredientFood,
+    filterByFirstLetterFood,
+    filterByNameDrink,
+    filterByIngredientDrink,
+    filterByFirstLetterDrink,
+  } = RequestHook();
 
   useEffect(() => {
     setShowFilter(true);
-    console.log(radio);
-  }, [radio]);
+  }, []);
 
-  function handleSubmitButton(e) {
-    e.preventDefault();
-    console.log(radio);
-    // if (radio === 'ingredient') {
+  const local = window.location.href;
+  const nameSearch = 'name-search';
+  const firstLetter = 'first-letter';
+  const ingredient = 'ingredient';
 
-    // // }
+  function handleButtonFood() {
+    switch (radio) {
+    case (nameSearch):
+      setFilteredFood(filterByNameFood(inputTextSearch));
+      break;
+    case (firstLetter):
+      if (inputTextSearch.length > 1) {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+        break;
+      }
+      setFilteredFood(filterByFirstLetterFood(inputTextSearch));
+      break;
+    case (ingredient):
+      setFilteredFood(filterByIngredientFood(inputTextSearch));
+      break;
+    default:
+      alert('Escolha uma opção de filtro!');
+    }
+  }
+
+  function handleButtonDrink() {
+    switch (radio) {
+    case (nameSearch):
+      setFilteredDrink(filterByNameDrink(inputTextSearch));
+      break;
+    case (firstLetter):
+      if (inputTextSearch.length > 1) {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      }
+      setFilteredDrink(filterByFirstLetterDrink(inputTextSearch));
+      break;
+    case (ingredient):
+      setFilteredDrink(filterByIngredientDrink(inputTextSearch));
+      break;
+    default:
+      alert('Escolha uma opção de filtro!');
+    }
   }
 
   return (
@@ -54,6 +97,7 @@ function Header({ title, search }) {
             <input
               data-testid="search-input"
               type="text"
+              value={ inputTextSearch }
               onChange={ (e) => setInputTextSearch(e.target.value) }
             />
             <label htmlFor="ingredient">
@@ -94,13 +138,14 @@ function Header({ title, search }) {
             <button
               data-testid="exec-search-btn"
               type="button"
-              onClick={ (e) => handleSubmitButton(e.target.value) }
+              onClick={ local === 'http://localhost:3000/comidas'
+                ? () => handleButtonFood()
+                : () => handleButtonDrink() }
             >
               Buscar
             </button>
           </form>
         ) }
-
     </header>
   );
 }

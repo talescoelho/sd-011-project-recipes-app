@@ -7,8 +7,15 @@ export function UserProvider({ children }) {
   const [user, setUser] = useState('');
   const [email, setEmail] = useState('');
 
+  const contextValues = {
+    user,
+    email,
+    setUser,
+    setEmail,
+  };
+
   return (
-    <UserContext.Provider value={ { user, setUser, email, setEmail } }>
+    <UserContext.Provider value={ contextValues }>
       { children }
     </UserContext.Provider>
   );

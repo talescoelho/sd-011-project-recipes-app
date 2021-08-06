@@ -1,44 +1,50 @@
 export async function getCategories() {
   const categories = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
   const result = await categories.json();
-  return result.meals;
+  return result.drinks;
 }
 
 export async function getAreas() {
   const areas = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?a=list');
   const result = await areas.json();
-  return result.meals;
+  return result.drinks;
 }
 
 export async function getIngredients() {
   const ingredients = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
   const result = await ingredients.json();
-  return result.meals;
+  return result.drinks;
 }
 
-export async function searchByIngredient(ingredient) {
+export async function searchIngredient(ingredient) {
   const ingredients = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`);
   const result = await ingredients.json();
 
-  return result.meals;
+  return result.drinks;
 }
 
-export async function searchByFirstLetter(letter) {
+export async function searchFirstLetter(letter) {
   const ingredients = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letter}`);
   const result = await ingredients.json();
-  return result.meals;
+  return result.drinks;
 }
 
-export async function searchByArea(area) {
+export async function searchName(name) {
+  const ingredients = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`);
+  const result = await ingredients.json();
+  return result.drinks;
+}
+
+export async function searchArea(area) {
   const ingredients = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=${area}`);
   const result = await ingredients.json();
-  return result.meals;
+  return result.drinks;
 }
 
-export async function searchById(id) {
+export async function searchId(id) {
   const ingredients = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
   const result = await ingredients.json();
-  return result.meals;
+  return result.drinks;
 }
 
 export async function serachImage(ingredientImage) {
