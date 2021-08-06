@@ -7,3 +7,7 @@ export { default as DrinkCards } from './DrinkCards';
 export { default as DrinkCategories } from './DrinkCategories';
 export { default as FoodDetailsCard } from './FoodDetailsCard';
 export { default as DrinkRecomendation } from './DrinkRecomendation';
+export { default as DrinkDetailsCard } from './DrinkDetailsCard';
+export { default as FoodRecomendation } from './FoodRecomendation';
+export { default as StartRecipe } from './StartRecipe';
+export { default as DrinkStartRecipe } from './DrinkStartRecipe';

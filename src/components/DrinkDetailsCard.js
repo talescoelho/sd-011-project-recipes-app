@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ShareButton from './ShareButton';
-import FavoriteButton from './FavoriteButton';
+import DrinkShareButton from './DrinkShareButton';
+import DrinkFavoriteButton from './DrinkFavoriteButton';
 
-class FoodDetailsCard extends Component {
+class DrinkDetailsCard extends Component {
   render() {
-    const { foodDetails } = this.props;
+    const { drinkDetails } = this.props;
     let ingredients = [];
     let measurements = [];
-    const array = Array.of(Object.entries(foodDetails));
+    const array = Array.of(Object.entries(drinkDetails));
     if (array[0].length > 0) {
       ingredients = array[0].filter((item) => item[0].includes('strIngredient'))
         .filter((item) => item[1]).map((item) => item[1]);
@@ -21,14 +21,14 @@ class FoodDetailsCard extends Component {
         <img
           data-testid="recipe-photo"
           alt="Foto do prato"
-          src={ foodDetails.strMealThumb }
+          src={ drinkDetails.strDrinkThumb }
           width="300px"
           height="250px"
         />
-        <h1 data-testid="recipe-title">{ foodDetails.strMeal }</h1>
-        <ShareButton id={ foodDetails.idMeal } />
-        <FavoriteButton id={ foodDetails.idMeal } />
-        <p data-testid="recipe-category">{ foodDetails.strCategory }</p>
+        <h1 data-testid="recipe-title">{ drinkDetails.strDrink }</h1>
+        <DrinkShareButton id={ drinkDetails.idDrink } />
+        <DrinkFavoriteButton id={ drinkDetails.idDrink } />
+        <p data-testid="recipe-category">{ drinkDetails.strAlcoholic }</p>
         <ul>
           { ingredients
             .map((item, index) => (item
@@ -41,32 +41,24 @@ class FoodDetailsCard extends Component {
                 </li>)
               : ''))}
         </ul>
-        <p data-testid="instructions">{ foodDetails.strInstructions }</p>
-        <iframe
-          data-testid="video"
-          width="300px"
-          height="250px"
-          title="Vídeo da Receita"
-          src={ foodDetails.strYoutube }
-        />
+        <p data-testid="instructions">{ drinkDetails.strInstructions }</p>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  foodDetails: state.foodReducer.foodDetails,
+  drinkDetails: state.drinkReducer.drinkDetails,
 });
 
-FoodDetailsCard.propTypes = {
-  foodDetails: PropTypes.shape({
-    strMealThumb: PropTypes.string,
-    strMeal: PropTypes.string,
-    strCategory: PropTypes.string,
+DrinkDetailsCard.propTypes = {
+  drinkDetails: PropTypes.shape({
+    strDrinkThumb: PropTypes.string,
+    strDrink: PropTypes.string,
+    strAlcoholic: PropTypes.string,
     strInstructions: PropTypes.string,
-    strYoutube: PropTypes.string,
-    idMeal: PropTypes.string,
+    idDrink: PropTypes.string,
   }).isRequired,
 };
 
-export default connect(mapStateToProps)(FoodDetailsCard);
+export default connect(mapStateToProps)(DrinkDetailsCard);

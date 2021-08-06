@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchFoodID, fetchDrinkRecomendations } from '../redux/actions/foodActions';
-import { DrinkRecomendation, FoodDetailsCard } from '../components';
-import StartRecipe from '../components/StartRecipe';
+import { DrinkRecomendation, FoodDetailsCard, StartRecipe } from '../components';
 
 class FoodDetails extends Component {
   componentDidMount() {
@@ -23,6 +22,7 @@ class FoodDetails extends Component {
     );
   }
 }
+
 const mapDispatchToProps = (dispatch) => ({
   fetchFoodByID: (id) => dispatch(fetchFoodID(id)),
   fetchDrink: (name) => dispatch(fetchDrinkRecomendations(name)),
