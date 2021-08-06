@@ -93,7 +93,7 @@ export const searchByArea = async (area) => {
 };
 
 export const searchRecommendation = async (type) => {
-  if (type === 'bebidas') {
+  if (type === 'comidas') {
     const recipes = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     const json = await recipes.json();
     return json.drinks;

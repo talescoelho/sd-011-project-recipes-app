@@ -5,21 +5,29 @@
 .recommendation-carroussel {
   align-items: center;
   display: flex;
-  overflow: hidden;
+  overflow-x: scroll;
   transform: translateX(0);
   transition: 0.2s ease;
+  width: 100%;
+}
+
+.carroussel-item {
+  display: none;
+  width: 180px;
+}
+
+.carroussel-item-0, .carroussel-item-1 {
+  display: block;
+  margin-bottom: 10px;
+  transition: 0.2s ease;
+  width: fit-content;
 }
 
 .carroussel-content {
   display: flex;
   margin-bottom: 10px;
-  transform: translateX(-178px);
   transition: 0.2s ease;
   width: fit-content;
-}
-
-.carroussel-item {
-  margin: 0 8px;
 }
 
 .arrow-r {

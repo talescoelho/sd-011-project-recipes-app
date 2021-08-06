@@ -48,7 +48,12 @@ function DetailsRecipe(props) {
   return (
     <div>
       <h1 data-testid="recipe-title">{ title }</h1>
-      <img src={ imgUrl } alt={ title } data-testid="recipe-photo" />
+      <img
+        src={ imgUrl }
+        alt={ title }
+        className="recipe-img"
+        data-testid="recipe-photo"
+      />
       <p data-testid="recipe-category">{ !strAlcoholic ? category : strAlcoholic}</p>
       <Ingredients
         ingredients={ ingredients }
@@ -69,7 +74,7 @@ function DetailsRecipe(props) {
         recipes={ recipeData }
       />
       { video && <iframe
-        width="560"
+        width="260"
         height="315"
         src={ `https://www.youtube.com/embed/${finalUrl}` }
         title="YouTube video player"

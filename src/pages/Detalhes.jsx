@@ -3,6 +3,7 @@ import PropTypes, { object } from 'prop-types';
 import { searchById } from '../services';
 import DetailsRecipe from '../components/DetailsRecipe';
 import Loading from '../components/Loading';
+import '../styles/Detalhes.css';
 
 function Detalhes(props) {
   const { match } = props;
@@ -33,7 +34,7 @@ function Detalhes(props) {
   if (loading) return <Loading />;
 
   return (
-    <div className="Detalhes-container">
+    <div className="detalhes-container">
       <DetailsRecipe recipeData={ recipeData } />
     </div>
   );
