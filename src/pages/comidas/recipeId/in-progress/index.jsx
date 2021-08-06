@@ -1,11 +1,120 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+} from 'react-bootstrap';
+import { fetchDetails } from '../../../../services/fetchDetailsApi';
+import FavoriteButton from '../../../../components/Details/FavoriteButton/index';
+import CopyButton from '../../../../components/Details/CopyButton/index';
 
-export default class ComidasInProgress extends Component {
-  render() {
+export default function ComidasInProgress({ match: { params: { recipeId } } }) {
+  const [details, setDetails] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchApi = async () => {
+      const getDetails = await fetchDetails('meal', recipeId);
+      setDetails(getDetails);
+      setIsLoading(false);
+    };
+    fetchApi();
+  }, [recipeId]);
+
+  const loading = () => <h1>Loading content...</h1>;
+
+  const pageContent = () => {
+    const {
+      strMeal,
+      strCategory,
+      strInstructions,
+      strMealThumb,
+    } = details;
     return (
-      <div>
-        Comidas In Progress
-      </div>
+      <Container>
+        <Row>
+          <Col as="figure" className="col-12">
+            <img
+              className="w-100 p-4"
+              data-testid="recipe-photo"
+              src={ strMealThumb }
+              alt="Foto da receita em progresso"
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col className="col-12">
+            <h1 data-testid="recipe-title">{ strMeal }</h1>
+          </Col>
+        </Row>
+        <Row as="nav" className="mb-3 m-auto">
+          <Col className="col-6">
+            <CopyButton />
+          </Col>
+          <Col className="col-6">
+            <FavoriteButton recipeId={ recipeId } selector="meal" details={ details } />
+          </Col>
+        </Row>
+        <Row
+          data-testid="recipe-category"
+          className="mt-3 text-center justify-content-center"
+        >
+          <Col className="col-6">
+            <p>
+              <strong>{ strCategory }</strong>
+            </p>
+          </Col>
+        </Row>
+        <Row>
+          <Col className="col-12">
+            <h2>Ingredientes</h2>
+          </Col>
+          <ul>
+            {
+              Object.keys(details)
+                .filter((key) => key.includes('strIngredient'))
+                .map((key, index) => (
+                  <Col className="col-12" key={ index }>
+                    <li
+                      data-testid={ `${index}-ingredient-step` }
+                    >
+                      { details[key] }
+                      :
+                      { details[`strMeasure${index + 1}`] }
+                    </li>
+                  </Col>
+                ))
+            }
+          </ul>
+        </Row>
+        <Row>
+          <Col className="col-12">
+            <h2>Instruções</h2>
+          </Col>
+          <Col className="col-12">
+            <p className="text-justify" data-testid="instructions">{ strInstructions }</p>
+          </Col>
+        </Row>
+        <Row>
+          <Col className="col-12">
+            <Button data-testid="finish-recipe-btn">Finalizar Receita</Button>
+          </Col>
+        </Row>
+      </Container>
     );
-  }
+  };
+
+  return (
+    isLoading ? loading() : pageContent()
+  );
 }
+
+ComidasInProgress.propTypes = ({
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      recipeId: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+});
