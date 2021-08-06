@@ -3,6 +3,10 @@
   position: fixed;
 }
 
+img {
+  width: 30px;
+}
+
 .ingredientCheck {
   text-decoration: line-through;
 }
