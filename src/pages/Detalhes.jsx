@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {createBrowserHistory} from 'history';
 import PropTypes, { object } from 'prop-types';
 import { searchById } from '../services';
 import DetailsRecipe from '../components/DetailsRecipe';
 import Loading from '../components/Loading';
 
 function Detalhes(props) {
-  const browserHistory = createBrowserHistory();  
   const { match } = props;
   const { params: { id } } = match;
   const [loading, setLoading] = useState(true);

@@ -26,34 +26,33 @@ function ButtonStartRecipe({ id, recipeData }) {
     if (doneRecipesLocal[key] && doneRecipesLocal[key][recipeId]) {
       setDisabled(true);
     }
-    if (inProgressLocal && inProgressLocal[key][recipeId]) {
+    if (inProgressLocal[key] !== undefined && inProgressLocal[key][recipeId]) {
       setDisabled(false);
       setBtnName(false);
     }
   };
 
   useEffect(() => {
+    if (!localStorage.getItem('inProgressRecipes')) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        cocktails: {},
+        meals: {},
+      }));
+    }
     handleLocalStorage(id);
   }, [id]);
 
-  const objectStart = () => {
-    const ingredientsItensArr = ingredientsArrFormater(recipeData);
-    let type = handleLocation(location);
-    if (type === 'comidas') {
-      type = 'meals';
-    }
-    if (type === 'bebidas') {
-      type = 'cocktails';
-    }
-    return {
-      [id]: ingredientsItensArr,
-    };
-  };
-
   const handleStartClickBtn = () => {
+    const ingredientsItensArr = ingredientsArrFormater(recipeData);
+    const key = handleObjectKey();
     const type = handleLocation(location);
-    const objectInProgress = objectStart();
-    localStorage.setItem('inProgressRecipes', JSON.stringify({ ...objectInProgress }));
+    const startedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(
+      { ...startedRecipes,
+        [key]: { ...startedRecipes[key],
+          [id]: ingredientsItensArr },
+      },
+    ));
     history.push(`/${type}/${id}/in-progress`);
   };
 
