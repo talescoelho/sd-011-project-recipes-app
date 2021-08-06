@@ -4,6 +4,7 @@ import { getDrinkByID } from '../Services/ApiDrink';
 
 function DrinkProgress(props) {
   const [drinkById, setDrinkById] = useState([]);
+  const [drinkIngredient, setDrinkIngredient] = useState([]);
   const { match } = props;
   const { id } = match.params;
 
@@ -18,11 +19,22 @@ function DrinkProgress(props) {
 
   console.log(drinkById);
 
-  drinkById.filter((ingredient) => {
-    const ingredients = [ingredient.match('strIngredient')];
-    console.log(ingredients);
-  });
-
+  useEffect(() => {
+    drinkById.forEach((ingredient) => {
+      const data = [];
+      const number = 15;
+      Object.entries(ingredient).filter((item) => {
+        for (let index = 0; index <= number; index += 1) {
+          if (item.includes(`strIngredient${index}`)) {
+            data.push(item);
+          }
+        }
+        return data;
+      });
+      console.log(data);
+      setDrinkIngredient(data);
+    });
+  }, [drinkById]);
 
   return (
     <div>
@@ -37,9 +49,20 @@ function DrinkProgress(props) {
           <h2 data-testid="recipe-title">
             { item.strDrink }
           </h2>
-          <h4 data-testid="recipe-category">
+          <h3 data-testid="recipe-category">
             { item.strCategory }
-          </h4>
+          </h3>
+          <ul>
+            {
+              drinkIngredient.map((ingredient, i) => (
+                <li
+                  key={ i }
+                >
+                  { Object.values(ingredient) }
+                </li>
+              ))
+            }
+          </ul>
           <p data-testid="instructions">
             { item.strInstructions }
           </p>
