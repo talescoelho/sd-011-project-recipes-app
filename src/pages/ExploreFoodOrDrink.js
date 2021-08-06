@@ -10,17 +10,33 @@ function ExploreFoodOrDrink({ history }) {
         <Header withSearch={ false } pageTitle="Explorar Comidas" />
         <main data-testid="recipes-page">
           <h1>Tela de Explorar Comidas</h1>
-          <section data-testid="explore-by-ingredient">
-            <h1>Por Ingredientes</h1>
+          <section>
+            <button
+              type="button"
+              onClick={ () => history.push('/explorar/comidas/ingredientes') }
+              data-testid="explore-by-ingredient"
+            >
+              Por Ingredientes
+            </button>
           </section>
-          <section data-testid="explore-by-area">
-            <h1>Por Local de Origem</h1>
+          <section>
+            <button
+              type="button"
+              onClick={ () => history.push('/explorar/comidas/area') }
+              data-testid="explore-by-area"
+            >
+              Por Local de Origem
+            </button>
           </section>
-          <section data-testid="explore-surprise">
-            <h1>Me Surpreenda!</h1>
+          <section>
+            <button
+              type="button"
+              data-testid="explore-surprise"
+            >
+              Me Surpreenda!
+            </button>
           </section>
         </main>
-
       </>
     );
   }
@@ -32,12 +48,21 @@ function ExploreFoodOrDrink({ history }) {
         <main data-testid="recipes-page">
           <h1>Tela de Explorar Bebidas</h1>
           <section>
-            <section data-testid="explore-by-ingredient">
-              <h1>Por Ingredientes</h1>
-            </section>
-            <section data-testid="explore-surprise">
-              <h1>Me Surpreenda!</h1>
-            </section>
+            <button
+              type="button"
+              onClick={ () => history.push('/explorar/bebidas/ingredientes') }
+              data-testid="explore-by-ingredient"
+            >
+              Por Ingredientes
+            </button>
+          </section>
+          <section>
+            <button
+              type="button"
+              data-testid="explore-surprise"
+            >
+              Me Surpreenda!
+            </button>
           </section>
         </main>
       </>
