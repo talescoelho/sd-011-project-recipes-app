@@ -1,4 +1,6 @@
-import { getFoodCategories, getFoodCard } from '../Redux/actions/index';
+import { getFoodCategories,
+  getFoodCard,
+  getFilteredCategory } from '../Redux/actions/index';
 
 export const fetchFood = ({ id, type }) => async (dispatch) => {
   const cat = {
@@ -40,7 +42,6 @@ export const fetchFoodCategory = (type) => async (dispatch) => {
 };
 
 export const getFilteredFoodList = (food, type) => async (dispatch) => {
-  console.log(food, type);
   const magic = 12;
   const allCat = {
     meals: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
@@ -56,7 +57,7 @@ export const getFilteredFoodList = (food, type) => async (dispatch) => {
   try {
     const array = Object.values(json)[0].filter((el,
       index) => index < magic);
-    return dispatch(getFoodCard({ filtered: array, selectedCategory: food }));
+    return dispatch(getFilteredCategory({ filtered: array, filteredCategory: food }));
   } catch (error) {
     throw new Error(error);
   }

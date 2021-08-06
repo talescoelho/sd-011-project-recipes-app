@@ -18,3 +18,8 @@ export const getFoodCategories = (payload) => ({
   type: 'FETCH_FOOD_CATEGORIES',
   payload,
 });
+
+export const getFilteredCategory = (payload) => ({
+  type: 'FETCH_FILTERED_CATEGORY',
+  payload,
+});

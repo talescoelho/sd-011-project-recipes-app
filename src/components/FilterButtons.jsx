@@ -14,7 +14,7 @@ export default function FilterButtons({ type }) {
   }, [dispatch, type]);
 
   const handleFilterButton = (selectedCategory) => {
-    const cat = recipes.selectedCategory === selectedCategory ? 'All' : selectedCategory;
+    const cat = recipes.filteredCategory === selectedCategory ? 'All' : selectedCategory;
     dispatch(getFilteredFoodList(cat, type));
   };
 

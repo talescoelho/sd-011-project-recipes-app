@@ -24,6 +24,12 @@ const recipe = (state = initialState, action) => {
     return { ...state, formInfo: '' };
   }
 
+  case 'FETCH_FILTERED_CATEGORY': {
+    const { filtered, filteredCategory } = payload;
+    console.log(filteredCategory);
+    return { ...state, cards: filtered, filteredCategory };
+  }
+
   default:
     return { ...state };
   }

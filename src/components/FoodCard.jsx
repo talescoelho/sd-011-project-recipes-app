@@ -35,9 +35,9 @@ export default function FoodCard({ type }) {
         <Link
           to={ `/${middle[type]}/${idMeal || idDrink}` }
           key={ index }
-          data-testid={ `${index}-recipe-card` }
+
         >
-          <Card>
+          <Card data-testid={ `${index}-recipe-card` }>
             <Card.Header>{strCategory}</Card.Header>
             <Card.Img
               variant="top"
