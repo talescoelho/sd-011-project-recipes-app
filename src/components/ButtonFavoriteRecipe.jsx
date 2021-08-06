@@ -37,7 +37,9 @@ function ButtonFavoriteRecipe({ recipes, favorite, setFavorite }) {
   const favoriteRecipe = createFavoriteObject();
 
   const handleFavoriteBtn = () => {
-    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    if (!localStorage.getItem('favoriteRecipes')) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
     const parsedLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (!favorite) {
       setFavorite(true);

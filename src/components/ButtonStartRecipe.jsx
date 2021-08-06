@@ -4,7 +4,7 @@ import '../styles/StartRecipeBtn.css';
 import { useHistory, useLocation } from 'react-router-dom';
 import handleLocation from '../helpers/handleLocation';
 
-function ButtonStartRecipe({ id }) {
+function ButtonStartRecipe({ id, recipeData }) {
   const history = useHistory();
   const location = useLocation();
   const [disabled, setDisabled] = useState(false);
