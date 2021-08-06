@@ -12,7 +12,7 @@ const copy = require('clipboard-copy');
 // <ButtonShare path={ `${href}/comidas/${id}` } testid={ COLOCAR O TESTID QUE O REQUISITO PEDE } />
 // Obs3.: O 'id' foi criado dinamicamente
 
-export default function ButtonShare({props}) {
+export default function ButtonShare({ props }) {
   const [isCopied, setIsCopied] = useState(false);
   // console.log(props);
   const testid = window.location.pathname.split('/')[2];
@@ -33,15 +33,14 @@ export default function ButtonShare({props}) {
 
   return (
     <div style={ { display: 'flex' } }>
-      <a
+      <button
+        style={ { background: 'none', opacity: 'none', border: 'none' } }
         data-testid="share-btn"
-        role="button"
-        onKeyPress={ onClickButtonShare }
-        tabIndex="0"
+        type="button"
         onClick={ onClickButtonShare }
       >
         <img src={ shareIcon } alt="share icon" data-testid={ testid } />
-      </a>
+      </button>
       { isCopied && <p>Link copiado!</p>}
     </div>
 
@@ -49,6 +48,5 @@ export default function ButtonShare({props}) {
 }
 
 ButtonShare.propTypes = {
-  path: PropTypes.string.isRequired,
-  testid: PropTypes.string.isRequired,
+  props: PropTypes.string.isRequired,
 };

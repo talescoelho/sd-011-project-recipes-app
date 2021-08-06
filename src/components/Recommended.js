@@ -13,37 +13,33 @@ function Recommended({ value, type, min }) {
   const kind = () => {
     if (type === 'meal') {
       return (
-        Object.entries(sixCards).map((e, i) => {
-          return (
-            <a href={ `/bebidas/${e[1].idDrink}` } key={ i }>
-              <div data-testid={ `${i}-recomendation-card` } key={ i }>
-                <img
-                  width="100px"
-                  src={ e[1].strDrinkThumb }
-                  alt={ `img ${e[1].strDrink}` }
-                />
-                <div data-testid={ `${i}-recomendation-title` }>{ e[1].strDrink }</div>
-              </div>
-            </a>
-          );
-        })
-      );
-    }
-    return (
-      Object.entries(sixCards).map((e, i) => {
-        return (
-          <a href={ `/comidas/${e[1].idMeal}` } key={ i }>
+        Object.entries(sixCards).map((e, i) => (
+          <a href={ `/bebidas/${e[1].idDrink}` } key={ i }>
             <div data-testid={ `${i}-recomendation-card` } key={ i }>
               <img
                 width="100px"
-                src={ e[1].strMealThumb }
-                alt={ `img ${e[1].strMeal}` }
+                src={ e[1].strDrinkThumb }
+                alt={ `img ${e[1].strDrink}` }
               />
-              <div data-testid={ `${i}-recomendation-title` }>{ e[1].strMeal }</div>
+              <div data-testid={ `${i}-recomendation-title` }>{ e[1].strDrink }</div>
             </div>
           </a>
-        );
-      })
+        ))
+      );
+    }
+    return (
+      Object.entries(sixCards).map((e, i) => (
+        <a href={ `/comidas/${e[1].idMeal}` } key={ i }>
+          <div data-testid={ `${i}-recomendation-card` } key={ i }>
+            <img
+              width="100px"
+              src={ e[1].strMealThumb }
+              alt={ `img ${e[1].strMeal}` }
+            />
+            <div data-testid={ `${i}-recomendation-title` }>{ e[1].strMeal }</div>
+          </div>
+        </a>
+      ))
     );
   };
 

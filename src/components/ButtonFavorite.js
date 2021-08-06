@@ -46,18 +46,26 @@ function ButtonFavorite({ objData }) {
 
   const whiteHeart = () => {
     const ret = (
-      <a role="button" onClick={ () => handleClickToBlack() }>
+      <button
+        type="button"
+        style={ { background: 'none', opacity: 'none', border: 'none' } }
+        onClick={ () => handleClickToBlack() }
+      >
         <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="not-favorite btn" />
-      </a>
+      </button>
     );
     return ret;
   };
 
   const blackHeart = () => {
     const ret = (
-      <a role="button" onClick={ () => handleClickToWhite() }>
+      <button
+        style={ { background: 'none', opacity: 'none', border: 'none' } }
+        type="button"
+        onClick={ () => handleClickToWhite() }
+      >
         <img data-testid="favorite-btn" src={ blackHeartIcon } alt="favorite btn" />
-      </a>
+      </button>
     );
     return ret;
   };
@@ -67,7 +75,6 @@ function ButtonFavorite({ objData }) {
       { black && blackHeart() }
       { !black && whiteHeart() }
     </>
-    // black === false ? whiteHeart() : blackHeart()
   );
 }
 

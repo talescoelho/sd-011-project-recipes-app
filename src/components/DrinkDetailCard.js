@@ -81,13 +81,15 @@ function DrinkDetailCard() {
           <tr>
             <td>
               { objIngred.map((e, i) => {
+                console.log(e);
                 if (e !== null) {
                   return (
                     <div
                       data-testid={ `${i}-ingredient-name-and-measure` }
                       key={ i }
                     >
-                      { objMeasure[i] !== undefined ? `${e} - ${objMeasure[i]}` : `${e}` }
+                      { objMeasure[i] !== (undefined || '')
+                        ? `${e} - ${objMeasure[i]}` : `${e}` }
                     </div>
                   );
                 }

@@ -87,7 +87,8 @@ function MealDetailCard() {
                       data-testid={ `${i}-ingredient-name-and-measure` }
                       key={ i }
                     >
-                      {objMeasure[i] !== undefined ? `${e} - ${objMeasure[i]}` : `${e}`}
+                      {objMeasure[i] !== (undefined || '')
+                        ? `${e} - ${objMeasure[i]}` : `${e}`}
                     </div>
                   );
                 }
