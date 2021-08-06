@@ -14,8 +14,13 @@ export default function FavoriteBtn() {
   const { params: { id } } = useRouteMatch();
 
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  const card = favoriteRecipes.find((el) => el.id === id);
-  const favoriteImg = card && card.image ? blackHeart : whiteHeart;
+
+  const favoriteImg = () => {
+    if (favoriteRecipes && favoriteRecipes.some((el) => el.id === id)) {
+      return blackHeart;
+    }
+    return whiteHeart;
+  };
 
   const handleBookMark = () => {
     bookMarkRecipe(cards);
@@ -29,10 +34,9 @@ export default function FavoriteBtn() {
       variant="danger"
       className="btnheader"
       type="button"
-      data-testid="favorite-btn"
       onClick={ handleBookMark }
     >
-      <img data-testid="favorite-btn" src={ favoriteImg } alt="favorite" />
+      <img data-testid="favorite-btn" src={ favoriteImg() } alt="favorite" />
     </Button>
   );
 }

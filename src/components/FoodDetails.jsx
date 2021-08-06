@@ -89,7 +89,7 @@ export default function FoodDetails({ type }) {
         <h1 data-testid="recipe-title">{strMeal || strDrink}</h1>
         <ShareBtn />
         <FavoriteBtn />
-        <p>{strAlcoholic}</p>
+        <p data-testid="recipe-category">{strAlcoholic}</p>
         <p data-testid="instructions">{strInstructions}</p>
         <p data-testid="recipe-category">
           Categoria:
@@ -107,7 +107,7 @@ export default function FoodDetails({ type }) {
         {type === 'meals' && (<CardsDrinks />)}
       </div>
 
-      {(!isRecipeDone(id) || isRecipeInProgress(id)) ? (
+      {(isRecipeDone(id) || isRecipeInProgress(id)) ? (
         <Link to={ path[type] }>
           <Button
             onClick={ handleRecipeButton }

@@ -47,7 +47,7 @@ export function isRecipeInProgress(idReceita) {
   const data = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
   const idInteiro = parseInt(idReceita, 10);
-  if (data) {
+  if (data && data.some((x) => parseInt(x.id, 10) === idInteiro)) {
     const receipt = data.find((x) => parseInt(x.id, 10) === idInteiro);
     if (receipt && parseInt(receipt.id, 10) === idInteiro) {
       return true;
