@@ -12,7 +12,7 @@ export default function ContinueButton({ idReceita, page, storageType }) {
         setRecipeExist(true);
       }
     }
-  }, [idReceita]);
+  }, [idReceita, storageType]);
 
   return (
     <Link to={ `/${page}/${idReceita}/in-progress` }>
