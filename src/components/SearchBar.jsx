@@ -1,19 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router';
-import { setRecipeList } from '../action';
+import { useHistory, useLocation } from 'react-router';
 import RecipesContext from '../context/RecipesContext';
 import { searchByFirstLetter, searchByIngredient, searchByName } from '../services';
 import '../styles/SearchBar.css';
 
 export default function SearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
+  const history = useHistory();
   const [radioValue, setRadioValue] = useState('');
-  const [foodList, setFoodList] = useState([]);
   const [foodType, setFoodType] = useState('');
-  const dispatch = useDispatch();
   const { pathname } = useLocation();
-  console.log(foodList);
   const { setDataRecipes } = useContext(RecipesContext);
 
   useEffect(() => {
@@ -31,9 +27,13 @@ export default function SearchBar() {
       api = await searchByFirstLetter(searchQuery, pathname);
     }
     if (api && api[foodType] !== null) {
-      setFoodList(api[foodType]);
       setDataRecipes(api[foodType]);
-      dispatch(setRecipeList(api[foodType]));
+      if (api[foodType].length === 1) {
+        const idType = foodType === 'meals' ? 'idMeal' : 'idDrink';
+        const id = api[foodType][0][idType];
+        history
+          .push(`/${pathname.includes('/bebidas') ? 'bebidas' : 'comidas'}/${id}`);
+      }
     } else {
       setDataRecipes([]);
       window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');

@@ -26,7 +26,6 @@ function ExplorarComidas() {
       >
         Me Surpreenda!
       </Link>
-      <Recommendations />
       <Footer />
     </div>
   );
