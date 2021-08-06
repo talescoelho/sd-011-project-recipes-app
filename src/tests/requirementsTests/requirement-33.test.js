@@ -9,7 +9,10 @@ attributes described in the prototype`, () => {
     const match = { params: { id: '52771' }, url: '/comidas/52771' };
     renderWithRouterAndStore(<FoodDetails match={ match } />, '/comidas/52771');
 
+    const instructions = await screen.findByTestId('instructions');
     const startRecipeBtn = await screen.findByTestId('start-recipe-btn');
+
+    expect(instructions).toBeInTheDocument();
     expect(startRecipeBtn).toBeInTheDocument();
   });
 
@@ -17,7 +20,10 @@ attributes described in the prototype`, () => {
     const match = { params: { id: '178319' }, url: '/bebidas/178319' };
     renderWithRouterAndStore(<DrinkDetails match={ match } />, '/bebidas/178319');
 
+    const instructions = await screen.findByTestId('instructions');
     const startRecipeBtn = await screen.findByTestId('start-recipe-btn');
+
+    expect(instructions).toBeInTheDocument();
     expect(startRecipeBtn).toBeInTheDocument();
   });
 });
