@@ -13,6 +13,7 @@ import MakedRevenues from './pages/MakedRevenues';
 import FavoritedRevenues from './pages/FavoritedRevenues';
 import FoodsInProgress from './pages/FoodsInProgress';
 import Details from './pages/Details';
+import NotFound from './pages/NotFound';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
           <Route exact path="/perfil" component={ Perfil } />
           <Route exact path="/receitas-feitas" component={ MakedRevenues } />
           <Route exact path="/receitas-favoritas" component={ FavoritedRevenues } />
+          <Route exact path="/explorar/bebidas/area" component={ NotFound } />
         </Switch>
       </BrowserRouter>
     </div>
