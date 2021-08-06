@@ -35,11 +35,12 @@ function ButtonToProgress({ data }) {
       console.log(doneRecipes.includes(path), doneRecipes);
       setStart(true);
     }
-
-  }, [path]);
+  }, [path, doneRecipes, inProgress]);
 
   const handleClick = () => {
-    (window.location.pathname.split('/')[1] === 'bebidas') && setType('bebidas');
+    if (window.location.pathname.split('/')[1] === 'bebidas') {
+      setType('bebidas');
+    }
     return setToRedirect(true);
   };
 
@@ -66,11 +67,7 @@ function ButtonToProgress({ data }) {
     return btn;
   };
 
-  return (
-    <>
-      { !start && startButton() }
-    </>
-  );
+  return !start && startButton();
 }
 
 ButtonToProgress.propTypes = {
