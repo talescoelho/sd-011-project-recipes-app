@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -82,16 +83,20 @@ export default function ReceitaFeita() {
         if (rec.type === 'comida') {
           return (
             <div key={ index }>
-              <img
-                src={ rec.image }
-                alt={ rec.name }
-                data-testid={ `${index}-horizontal-image` }
-                width="100px"
-              />
+              <Link to={ `/comidas/${rec.id}` }>
+                <img
+                  src={ rec.image }
+                  alt={ rec.name }
+                  data-testid={ `${index}-horizontal-image` }
+                  width="100px"
+                />
+              </Link>
               <p data-testid={ `${index}-horizontal-top-text` }>
                 {`${rec.area} - ${rec.category}`}
               </p>
-              <h3 data-testid={ `${index}-horizontal-name` }>{rec.name}</h3>
+              <Link to={ `/comidas/${rec.id}` }>
+                <h3 data-testid={ `${index}-horizontal-name` }>{rec.name}</h3>
+              </Link>
               <h4 data-testid={ `${index}-horizontal-done-date` }>{rec.doneDate}</h4>
               <button type="button" onClick={ () => handleClick(rec.id) }>
                 <img
@@ -110,17 +115,21 @@ export default function ReceitaFeita() {
         }
         return (
           <div key={ index }>
-            <img
-              src={ rec.image }
-              alt={ rec.name }
-              data-testid={ `${index}-horizontal-image` }
-              width="100px"
-            />
+            <Link to={ `/bebidas/${rec.id}` }>
+              <img
+                src={ rec.image }
+                alt={ rec.name }
+                data-testid={ `${index}-horizontal-image` }
+                width="100px"
+              />
+            </Link>
             <h4 data-testid={ `${index}-horizontal-top-text` }>{rec.category}</h4>
             { rec.alcoholicOrNot !== '' ? (
               <p data-testid={ `${index}-horizontal-top-text` }>{rec.alcoholicOrNot}</p>
             ) : null }
-            <h3 data-testid={ `${index}-horizontal-name` }>{rec.name}</h3>
+            <Link to={ `/bebidas/${rec.id}` }>
+              <h3 data-testid={ `${index}-horizontal-name` }>{rec.name}</h3>
+            </Link>
             <h4 data-testid={ `${index}-horizontal-done-date` }>{rec.doneDate}</h4>
             <button type="button">
               <img
