@@ -18,6 +18,8 @@ const RequestContext = createContext();
 export function RequestProvider({ children }) {
   const [filteredFood, setFilteredFood] = useState([]);
   const [filteredDrink, setFilteredDrink] = useState([]);
+  const [initialItensFood, setInitialItensFood] = useState([]);
+  const [initialItensDrink, setInitialItensDrink] = useState([]);
 
   async function filterByNameFood(filterText) {
     const items = await searchByName(filterText);
@@ -73,6 +75,10 @@ export function RequestProvider({ children }) {
     filterByNameDrink,
     filterByIngredientDrink,
     filterByFirstLetterDrink,
+    initialItensFood,
+    setInitialItensFood,
+    initialItensDrink,
+    setInitialItensDrink,
   };
 
   return (

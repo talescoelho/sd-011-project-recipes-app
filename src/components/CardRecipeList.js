@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
 
 import { RequestHook } from '../Context/RequestHook';
@@ -14,11 +14,15 @@ import {
 } from '../services/RequestDrinks';
 
 function CardRecipeList() {
-  const { filteredFood, filteredDrink } = RequestHook();
+  const { filteredFood,
+    filteredDrink,
+    initialItensFood,
+    setInitialItensFood,
+    initialItensDrink,
+    setInitialItensDrink,
+  } = RequestHook();
   const history = useHistory();
   const MAX_RESULT = 12;
-  const [initialItensFood, setInitialItensFood] = useState([]);
-  const [initialItensDrink, setInitialItensDrink] = useState([]);
 
   const local = window.location.href;
   const url = 'http://localhost:3000/comidas';

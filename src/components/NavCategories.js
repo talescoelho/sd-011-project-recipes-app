@@ -1,40 +1,59 @@
 import React, { useState, useEffect } from 'react';
-import { getCategoriesDrink } from '../services/RequestDrinks';
-import { getCategoriesFood } from '../services/RequestFood';
+import { getCategoriesDrink, searchByCategoryDrink } from '../services/RequestDrinks';
+import { getCategoriesFood, searchByCategoryFood } from '../services/RequestFood';
+import { RequestHook } from '../Context/RequestHook';
 
 function NavCategories() {
   const [category, setCategory] = useState([]);
+  const {
+    setInitialItensFood,
+    setInitialItensDrink,
+  } = RequestHook();
 
   const local = window.location.href;
   const url = 'http://localhost:3000/comidas';
   const MAX_RESULT = 5;
-  
+
   async function getCategoriesDrinkAndFood() {
     if (local === url) {
-    const items = await getCategoriesFood();
-    setCategory(items);
+      const items = await getCategoriesFood();
+      setCategory(items);
     } else {
       const itemsDrink = await getCategoriesDrink();
-    setCategory(itemsDrink);
+      setCategory(itemsDrink);
     }
   }
 
-useEffect(() => {
-  getCategoriesDrinkAndFood();
-  
-}, [])
+  useEffect(() => {
+    getCategoriesDrinkAndFood();
+  }, []);
+
+  async function searchByCategoryDrinkAndFood(text) {
+    if (local === url) {
+      const items = await searchByCategoryFood(text);
+      setInitialItensFood(items);
+    } else {
+      const itemsDrink = await searchByCategoryDrink(text);
+      setInitialItensDrink(itemsDrink);
+    }
+  }
 
   return (
     <div>
-      { console.log(category) }
-      { !category ? <p>Loading...</p> : category.slice(0, MAX_RESULT)
+      { category.slice(0, MAX_RESULT)
         .map((item, index) => (
-          <button type="button" key={ index } data-testid={`${item.strCategory}-category-filter`} >
+          <button
+            type="button"
+            key={ index }
+            data-testid={ `${item.strCategory}-category-filter` }
+            onClick={ (e) => searchByCategoryDrinkAndFood(e.target.value) }
+            value={ item.strCategory }
+          >
             { item.strCategory }
           </button>
         )) }
     </div>
-  )
+  );
 }
 
 export default NavCategories;
