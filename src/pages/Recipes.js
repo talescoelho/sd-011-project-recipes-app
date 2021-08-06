@@ -83,8 +83,4 @@ Recipes.propTypes = {
   drinks: PropTypes.arrayOf(PropTypes.object),
   dispatchFetchMeals: PropTypes.func,
   dispatchFetchDrinks: PropTypes.func,
-  mealsLoading: PropTypes.bool,
-  drinksLoading: PropTypes.bool,
-  drinksError: PropTypes.string,
-  mealsError: PropTypes.string,
 }.isRequired;
