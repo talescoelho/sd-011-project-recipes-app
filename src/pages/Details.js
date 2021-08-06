@@ -1,68 +1,43 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
-import ContinueButton from '../components/ContinueButton';
 import StartButton from '../components/StartButton';
 import useDetailsFetch from '../hooks/useDetailsFetch';
 import useRecomendedItemsFetch from '../hooks/useRecomendedItemsFetch';
 
-function verifyDoneRecipes(id, setRecipeExists) {
-  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  if (doneRecipes && doneRecipes.find((recipes) => recipes.id === id)) {
-    setRecipeExists(true);
-  }
-}
-
 export default function Details() {
   const { data, request } = useDetailsFetch();
   const { recomendedData, requestRecomendedApi } = useRecomendedItemsFetch();
-  const [ingredients, setIngredients] = React.useState([]);
-  const [measures, setMeasures] = React.useState([]);
-  const [recomendedDrinks, setRecomendedDrinks] = React.useState([]);
-  const [recipeExists, setRecipeExists] = React.useState(false);
-  const [inProgressRecipes, setInProgressRecipes] = React.useState(false);
+  const [ingredients, setIngredients] = useState([]);
+  const [measures, setMeasures] = useState([]);
+  const [recomendedDrinks, setRecomendedDrinks] = useState([]);
   const idReceita = window.location.pathname.split('/')[2];
-  let foodType = 'meals';
-  let foodLocal = 'meals';
-  let food = 'Meal';
-  let recomendedFood = 'Drink';
-  let recomendedType = 'drinks';
-  let type = 'comidas';
-  let mainEndPoint = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
-  let recomendedEndPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-
-  if (window.location.pathname.split('/')[1] === 'bebidas') {
-    foodType = 'drinks';
-    foodLocal = 'cocktails';
-    food = 'Drink';
-    recomendedFood = 'Meal';
-    recomendedType = 'meals';
-    type = 'bebidas';
-    mainEndPoint = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
-    recomendedEndPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-  }
+  const [foodType, setFoodType] = useState('meals');
+  const [storageType, setStorageType] = useState('meals');
+  const [food, setFood] = useState('Meal');
+  const [recomendedFood, setRecomendedFood] = useState('Drink');
+  const [recomendedType, setRecomendedType] = useState('drinks');
+  const [type, setType] = useState('comidas');
+  const locationPathName = window.location.pathname.split('/')[1];
 
   useEffect(() => {
-    function fetchFoodApi() {
-      request(`${mainEndPoint}${idReceita}`);
+    if (locationPathName === 'bebidas') {
+      setFoodType('drinks');
+      setStorageType('cocktails');
+      setFood('Drink');
+      setRecomendedFood('Meal');
+      setRecomendedType('meals');
+      setType('bebidas');
+      request(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idReceita}`);
+      requestRecomendedApi('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    } else {
+      request(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idReceita}`);
+      requestRecomendedApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     }
-    function fetchDrinkRecomendedApi() {
-      requestRecomendedApi(recomendedEndPoint);
-    }
-    fetchFoodApi();
-    fetchDrinkRecomendedApi();
-    verifyDoneRecipes(idReceita, setRecipeExists);
-    if (localStorage.inProgressRecipes) {
-      const progressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      if (progressRecipes && progressRecipes[foodLocal][idReceita]) {
-        setInProgressRecipes(true);
-      }
-    }
-  }, [foodLocal, foodType, idReceita,
-    mainEndPoint, recomendedEndPoint, request, requestRecomendedApi]);
+  }, [idReceita, locationPathName, request, requestRecomendedApi]);
 
-  React.useEffect(() => {
-    if (data && recomendedData) {
+  useEffect(() => {
+    if (data && data[foodType] && recomendedData) {
       const maxRecomendedItems = 6;
       const dataKeys = Object.keys(data[foodType][0]);
       setIngredients(dataKeys.filter((key) => key.includes('strIngredient')));
@@ -74,9 +49,7 @@ export default function Details() {
     }
   }, [data, foodType, recomendedData, recomendedType]);
 
-  if (!data || !recomendedData) return <p>Loading...</p>;
-
-  const videoId = data.meals && data[foodType][0].strYoutube.split('=')[1];
+  if (!(data && data[foodType]) || !recomendedData) return <p>Loading...</p>;
 
   const items = { idReceita, type, data, foodType };
 
@@ -108,7 +81,7 @@ export default function Details() {
       { data.meals && <iframe
         title={ data[foodType][0][`str${food}`] }
         data-testid="video"
-        src={ `https://www.youtube.com/embed/${videoId}` }
+        src={ `https://www.youtube.com/embed/${data[foodType][0].strYoutube.split('=')[1]}` }
         width="420"
         height="345"
       /> }
@@ -136,15 +109,10 @@ export default function Details() {
       </div>
       <ShareButton />
       <FavoriteButton items={ items } />
-      <ContinueButton
-        inProgressRecipes={ inProgressRecipes }
-        idReceita={ idReceita }
-        type={ type }
-      />
       <StartButton
         page={ type }
         idReceita={ idReceita }
-        recipeExists={ recipeExists }
+        storageType={ storageType }
       />
     </main>
   );

@@ -6,7 +6,7 @@ import Header from '../components/Header';
 export default function Explore() {
   return (
     <div>
-      <Header title="Explorar" search={ false } />
+      <Header title="Explorar" searchIcon />
       <Link to="/explorar/comidas">
         <button type="button" data-testid="explore-food">Explorar Comidas</button>
       </Link>

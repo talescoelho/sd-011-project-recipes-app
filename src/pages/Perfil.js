@@ -4,7 +4,10 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function Perfil() {
-  const userEmail = JSON.parse(localStorage.user);
+  let userEmail = '';
+  if (localStorage.user) {
+    userEmail = JSON.parse(localStorage.user);
+  }
   const history = useHistory();
   const redirectToDone = () => history.push('/receitas-feitas');
   const redirectToFavorites = () => history.push('/receitas-favoritas');
@@ -14,7 +17,7 @@ export default function Perfil() {
   };
   return (
     <div>
-      <Header title="Perfil" search={ false } />
+      <Header title="Perfil" searchIcon />
       <h2 data-testid="profile-email">{ userEmail.email }</h2>
       <button
         type="button"

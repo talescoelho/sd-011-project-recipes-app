@@ -30,7 +30,7 @@ class Header extends Component {
   }
 
   render() {
-    const { title } = this.props;
+    const { title, setClassNameItem, classNameItem } = this.props;
     const { redirect, hydeInput, hydeSearch } = this.state;
     if (redirect) return <Redirect to="/perfil" />;
     return (
@@ -45,24 +45,36 @@ class Header extends Component {
             <img src={ profile } alt="profile-icon" />
           </button>
           <h2 data-testid="page-title">{title}</h2>
-          { !hydeSearch ? (
+          { !hydeSearch && (
             <button
-              onClick={ this.showInput }
+              onClick={ (event) => {
+                this.showInput(event);
+                if (setClassNameItem) {
+                  if (classNameItem === 'foods-cards-active') {
+                    setClassNameItem('foods-cards');
+                  } else {
+                    setClassNameItem('foods-cards-active');
+                  }
+                }
+              } }
               type="button"
               page-title="search-top-btn"
               data-testid="search-top-btn"
               src={ search }
             >
               <img src={ search } alt="search-icon" />
-            </button>)
-            : null}
+            </button>)}
+        </div>
+        <div className="search-bar">
           { !hydeInput
             ? (
               <input
                 type="hidden"
               />)
             : (
-              <SearchBar title={ title } />
+              <div className="container-header">
+                <SearchBar title={ title } />
+              </div>
             )}
         </div>
       </header>

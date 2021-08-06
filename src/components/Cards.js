@@ -4,8 +4,17 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchIngrentAction, fetchDrinksAction } from '../redux/actions';
 
+function loadFetch(state, requestFoodRecipes, requestDrinkRecipes) {
+  if (state && window.location.pathname.split('/')[1] === 'comidas') {
+    requestFoodRecipes(state, 'ingrediente');
+  } else if (state && window.location.pathname.split('/')[1] === 'bebidas') {
+    requestDrinkRecipes(state, 'ingrediente');
+  }
+}
+
 function DrinkCard(props) {
-  const { location, resultDrink, resultFood, state } = props;
+  const { location, resultDrink, resultFood } = props;
+  const { state, requestFoodRecipes, requestDrinkRecipes } = props;
   const [strType, setStrType] = useState('');
   const [resultType, setResultType] = useState('');
   const totalRecipes = 12;
@@ -15,13 +24,10 @@ function DrinkCard(props) {
   };
 
   useEffect(() => {
-    const { requestFoodRecipes, requestDrinkRecipes } = props;
-    if (state && window.location.pathname.split('/')[1] === 'comidas') {
-      requestFoodRecipes(state, 'ingrediente');
-    } else if (state && window.location.pathname.split('/')[1] === 'bebidas') {
-      requestDrinkRecipes(state, 'ingrediente');
+    if (state) {
+      loadFetch(state, requestFoodRecipes, requestDrinkRecipes);
     }
-  }, [props, result.bebidas, result.comidas, state]);
+  }, [requestDrinkRecipes, requestFoodRecipes, state]);
 
   useEffect(() => {
     if (location === '/bebidas') {
@@ -31,7 +37,7 @@ function DrinkCard(props) {
       setStrType('Meal');
       setResultType('comidas');
     }
-  }, [location, resultType, state]);
+  }, [location, resultType]);
 
   if (result[resultType] === null) {
     return <p>Comida ou Bebida não encontrada</p>;
@@ -45,11 +51,11 @@ function DrinkCard(props) {
     <>
       {result[resultType].map((recipe, index) => (
         <Link
-          className="card"
+          className="card-recipe"
           key={ recipe[`id${strType}`] }
           to={ `/${resultType}/${recipe[`id${strType}`]}` }
         >
-          <div data-testid={ `${index}-recipe-card` }>
+          <div data-testid={ `${index}-recipe-card` } className="card-container">
             <div key={ recipe[`id${strType}`] }>
               <img
                 data-testid={ `${index}-card-img` }

@@ -6,7 +6,7 @@ import blackHeart from '../images/blackHeartIcon.svg';
 import '../styles/favorite.css';
 
 export default function FavoritedRevenues() {
-  const [recipe, setRecipe] = useState(null);
+  const [recipe, setRecipe] = useState([]);
 
   useEffect(() => {
     if (localStorage.favoriteRecipes) {
@@ -14,10 +14,6 @@ export default function FavoritedRevenues() {
       setRecipe(favoriteRecipe);
     }
   }, []);
-
-  if (!recipe) {
-    return (<p>Carregando</p>);
-  }
 
   function removeFavorite(id) {
     setRecipe(recipe.filter((value) => value.id !== id));
@@ -36,7 +32,7 @@ export default function FavoritedRevenues() {
 
   return (
     <div>
-      <Header title="Receitas Feitas" searchIcon />
+      <Header title="Receitas Favoritas" searchIcon />
       <div className="filter-buttons">
         <button
           type="button"

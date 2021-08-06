@@ -22,7 +22,7 @@ export default function ExploreFoods() {
 
   return (
     <div>
-      <Header title="Explorar Comidas" search={ false } />
+      <Header title="Explorar Comidas" searchIcon />
       <Link to="/explorar/comidas/ingredientes">
         <button
           type="button"

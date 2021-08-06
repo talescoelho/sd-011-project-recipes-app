@@ -9,7 +9,7 @@ export default function ExploreDrinks() {
     fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
       .then((response) => response.json())
       .then((data) => setId(data.drinks[0].idDrink))
-      .catch((error) => console.log(error.message));
+      .catch((error) => error.message);
   }
 
   React.useEffect(() => {
@@ -22,7 +22,7 @@ export default function ExploreDrinks() {
 
   return (
     <div>
-      <Header title="Explorar Bebidas" search={ false } />
+      <Header title="Explorar Bebidas" searchIcon />
       <Link to="/explorar/bebidas/ingredientes">
         <button
           type="button"

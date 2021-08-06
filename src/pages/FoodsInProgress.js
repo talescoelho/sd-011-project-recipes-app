@@ -39,6 +39,28 @@ function handleClick({ target }, items, newItems) {
   }
 }
 
+function setLocalStorage(items, idRecipe, type) {
+  const { data, foodType } = items;
+  const saveLocal = {
+    id: idRecipe,
+    type,
+    area: data[foodType][0].strArea || '',
+    category: data[foodType][0].strCategory || '',
+    alcoholicOrNot: data[foodType][0].strAlcoholic || '',
+    name: data[foodType][0].strMeal || data[foodType][0].strDrink,
+    image: data[foodType][0].strMealThumb || data[foodType][0].strDrinkThumb,
+    doneDate: new Date().toLocaleDateString('PT-BR'),
+    tags: [data[foodType][0].strTags] || [],
+  };
+  if (!localStorage.doneRecipes) {
+    localStorage.setItem('doneRecipes', JSON.stringify([saveLocal]));
+  } else {
+    const localGet = JSON.parse(localStorage.getItem('doneRecipes'));
+    localGet.push(saveLocal);
+    localStorage.setItem('doneRecipes', JSON.stringify(localGet));
+  }
+}
+
 export default function FoodsInProgress() {
   const [data, setData] = useState({});
   const idReceita = window.location.pathname.split('/')[2];
@@ -107,10 +129,10 @@ export default function FoodsInProgress() {
   const verifyrecipe = savedRecipe[recipe][data[foodType][0][idRecipe]] || false;
   if (!checkIngredients) {
     ingredients.forEach((ingredient) => {
-      console.log([food[ingredient]]);
       setCheckIngredients({ ...checkIngredients, [food[ingredient]]: false });
     });
   }
+
   return (
     <div>
       <div className="in-progress-card">
@@ -158,6 +180,7 @@ export default function FoodsInProgress() {
             type="button"
             data-testid="finish-recipe-btn"
             disabled={ ingredients.length !== verifyrecipe.length }
+            onClick={ () => setLocalStorage(items, idRecipe, type) }
           >
             Finalizar
           </button>
