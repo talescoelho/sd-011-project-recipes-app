@@ -58,6 +58,7 @@ class Header extends Component {
               <br />
               <input
                 data-testid="search-input"
+                value={algo}
                 type="text"
                 placeholder="Buscar Receita"
               />
@@ -65,17 +66,19 @@ class Header extends Component {
               <label htmlFor="ingredient">
                 <input
                   data-testid="ingredient-search-radio"
+                  value="ingrediente"
                   type="radio"
                   id="ingredient"
                   name="filter"
                 />
                 &nbsp;
-                Ingredientes
+                Ingrediente
               </label>
             &nbsp;
               <label htmlFor="name">
                 <input
                   data-testid="name-search-radio"
+                  value="nome"
                   type="radio"
                   id="name"
                   name="filter"
@@ -87,6 +90,7 @@ class Header extends Component {
               <label htmlFor="first-letter">
                 <input
                   data-testid="first-letter-search-radio"
+                  value="primeira-letra"
                   type="radio"
                   id="first-letter"
                   name="filter"

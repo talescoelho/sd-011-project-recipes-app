@@ -7,6 +7,9 @@ export const GET_DRINKS_ERROR = 'GET_DRINKS_ERROR';
 export const GET_RECIPES_CATEGORIES = 'GET_RECIPES_CATEGORIES';
 export const GET_RECIPES_CATEGORIES_SUCCESS = 'GET_RECIPES_CATEGORIES_SUCCESS';
 export const GET_RECIPES_CATEGORIES_ERROR = 'GET_RECIPES_CATEGORIES_ERROR';
+export const GET_HEADER_SEARCH = 'GET_HEADER_SEARCH';
+export const GET_HEADER_SEARCH_SUCCESS = 'GET_HEADER_SEARCH_SUCCESS';
+export const GET_HEADER_SEARCH_ERROR = 'GET_HEADER_SEARCH_ERROR';
 
 const baseMealDbUrl = 'https://www.themealdb.com/api/json/v1/1';
 const baseCocktailDbUrl = 'https://www.thecocktaildb.com/api/json/v1/1';
@@ -88,4 +91,47 @@ export const fetchRecipesCategories = (type) => (dispatch) => {
       dispatch(getDrinksCategoriesSuccess({ categories, type }));
     })
     .catch((error) => dispatch(getDrinksCategoriesError(error)));
+};
+
+///////////////////
+
+const getHeaderSearch = () => ({
+  type: GET_HEADER_SEARCH,
+});
+
+const getHeaderSearchSuccess = (payload) => ({
+  type: GET_HEADER_SEARCH_SUCCESS,
+  payload,
+});
+
+const getHeaderSearchError = (error) => ({
+  type: GET_HEADER_SEARCH_ERROR,
+  payload: error,
+});
+
+export const fetchHeaderSearch = (type, filter) => (dispatch) => {
+  dispatch(getHeaderSearch());
+
+  const url = type === 'comidas' ? baseMealDbUrl : baseCocktailDbUrl;
+  const urlFilter = '';
+
+  switch(filter) {
+  case 'ingrediente':
+    urlFilter = `${url}/filter.php?i={filter}`;
+  case 'nome':
+    urlFilter = `${url}/search.php?s={filter}`;
+  case 'primeira-letra':
+    urlFilter = `${url}/search.php?f={filter}`;
+  default:
+    urlFilter;
+  }
+
+  return fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      const info = type === 'comidas' ? data.meals : data.drinks;
+      const results = info.map((item) => item);
+      dispatch(getHeaderSearchSuccess({ results, type, filter }));
+    })
+    .catch((error) => dispatch(getHeaderSearchError(error)));
 };
