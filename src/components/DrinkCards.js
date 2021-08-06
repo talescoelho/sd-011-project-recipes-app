@@ -6,11 +6,13 @@ import { Link } from 'react-router-dom';
 class DrinkCards extends Component {
   render() {
     const { drinkCardsList } = this.props;
-    console.log(drinkCardsList);
     return (
       <ul>
         { drinkCardsList.map((item, index) => (
-          <li key={ item.idDrink } data-testid={ `${index}-recipe-card` }>
+          <li
+            key={ item.idDrink }
+            data-testid={ `${index}-recipe-card` }
+          >
             <Link to={ `/bebidas/${item.idDrink}` }>
               <img
                 height="200px"

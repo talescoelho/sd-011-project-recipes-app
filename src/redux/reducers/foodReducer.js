@@ -1,14 +1,18 @@
 import { FOOD_LIST_SUCCESS, FOOD_CATEGORY_SUCCESS,
-  FOOD_LIST_CATEGORY_SUCCESS, UPDATE_CATEGORY } from '../actions/foodActions';
+  FOOD_LIST_CATEGORY_SUCCESS, UPDATE_CATEGORY,
+  FOOD_DETAILS_ID_SUCCESS, DRINK_RECOMENDATIONS_SUCCESS } from '../actions/foodActions';
 
 const INITIAL_STATE = {
   foodCardsList: [],
   foodCategoriesList: [],
   selectedCategory: 'All',
+  foodDetails: {},
+  drinkRecomendations: [],
 };
 
 const CARD_LENGTH = 12;
 const CATEGORY_LENGTH = 5;
+const DRINK_RECOMENDATION = 6;
 
 function foodReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -25,6 +29,14 @@ function foodReducer(state = INITIAL_STATE, action) {
     };
   case UPDATE_CATEGORY:
     return { ...state, selectedCategory: action.payload };
+  case FOOD_DETAILS_ID_SUCCESS:
+    return {
+      ...state,
+      foodDetails: { ...action.payload[0] },
+    };
+  case DRINK_RECOMENDATIONS_SUCCESS:
+    return { ...state,
+      drinkRecomendations: action.payload.slice(0, DRINK_RECOMENDATION) };
   default:
     return state;
   }
