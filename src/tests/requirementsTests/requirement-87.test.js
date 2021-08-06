@@ -17,7 +17,7 @@ afterEach(() => {
   localStorage.clear();
 });
 
-describe(`86 - Redirect the user that, when clicking the "Sair" button, the 
+describe(`87 - Redirect the user that, when clicking the "Sair" button, the 
 'localStorage' should be cleared and the route should change to the login screen`,
 () => {
   it('Clear all keys from localStorage', () => {
