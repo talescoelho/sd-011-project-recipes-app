@@ -12,7 +12,7 @@ import Meals from './pages/Meals';
 import Explorar from './pages/Explorar';
 import Profile from './pages/Profile';
 import Drinks from './pages/Drinks';
-import RecipeDetails from './pages/RecipeDetails';
+import MealDetails from './pages/MealDetails';
 // import MealRecipeCard from './components/MealRecipeCard';
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
         <Route path="/bebidas" component={ Drinks } />
         <Route path="/explorar" component={ Explorar } />
         <Route path="/profile" component={ Profile } />
-        <Route path="/comidas:id" component={ RecipeDetails } />
+        <Route path="/comidas:id" component={ MealDetails } />
         {/* <Route path="/comidas" component={} />
         <Route path="/bebidas:id" component={} />
         <Route path="/explorar/comidas" component={} />

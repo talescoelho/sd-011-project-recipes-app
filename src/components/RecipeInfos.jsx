@@ -1,5 +1,6 @@
 import React from 'react';
-
+// colocar o id de ingredientes do datatest
+// Video so mostra para comidas - Pensar logca if
 function RecipeInfos() {
   return (
     <div>
