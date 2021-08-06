@@ -113,7 +113,7 @@ export default function FoodDetails({ type }) {
         {type === 'meals' && (<CardsDrinks />)}
       </div>
 
-      {showRecipe({ id, fd }) ? (
+      {showRecipe(id) ? (
         <Link to={ path[type] }>
           <Button
             onClick={ handleRecipeButton }

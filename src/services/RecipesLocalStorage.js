@@ -51,7 +51,7 @@ export const bookMarkRecipe = async (item) => {
   localStorage.setItem('favoriteRecipes', JSON.stringify([...favoriteRecipes, food]));
 };
 
-export const showRecipe = ({ id, fd }) => {
+export const showRecipe = (id) => {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   if (!doneRecipes) {
     return true;
