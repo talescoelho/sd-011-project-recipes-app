@@ -33,11 +33,14 @@ const Provider = ({ children }) => {
   const [DetailsMeasFilterForDrinks, setDetailsMeasFilterForDrinks] = useState([]);
   const [DetailsInstrucFilterForDrinks, setDetailsInstrucFilterForDrinks] = useState([]);
   // * ============================================================
-  const [startButton, setStartButton] = useState('Iniciar receita');
+  const [startButton, setStartButton] = useState(false);
   const [newDataFoods, setNewDataFoods] = useState([]);
   const [newDataDrinks, setNewDataDrinks] = useState([]);
   const [dataRandomDrinks, setDataRandomDrinks] = useState([]);
   const [limit] = useState([number]);
+  // # =============================================================================
+  const [count, setCount] = useState(false);
+  const [selected, setSelected] = useState(0);
 
   async function fetchFood() {
     if (radioBtn === 'ingredient') {
@@ -131,6 +134,10 @@ const Provider = ({ children }) => {
     setNewDataFoods,
     newDataDrinks,
     setNewDataDrinks,
+    count,
+    setCount,
+    selected,
+    setSelected,
   };
 
   return (

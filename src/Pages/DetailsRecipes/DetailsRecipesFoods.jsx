@@ -8,8 +8,8 @@ import './scroll.css';
 function DetailsRecipesFoods() {
   const location = useLocation();
   const { idFoods, setIdFoods, idFoodsAPI, setIdFoodsAPI,
-    newDataDrinks, setNewDataDrinks, startButton,
-    setStartButton } = useContext(MainContext);
+    newDataDrinks, setNewDataDrinks,
+    setStartButton, count, selected } = useContext(MainContext);
 
   async function fetchDrinksInitial() {
     const drinksInitialAPI = await getDrinksInitial();
@@ -106,9 +106,10 @@ function DetailsRecipesFoods() {
         data-testid="start-recipe-btn"
         className="fixed-btn"
         // #teste - não funcionou
-        onClick={ () => setStartButton('Continuar receita') }
+        onClick={ () => setStartButton(true) }
+        hidden={ count }
       >
-        {startButton}
+        Iniciar receita
       </button>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import MainContext from '../Context/MainContext';
 
 function Ingredients() {
@@ -7,7 +7,9 @@ function Ingredients() {
     setDetailsIngredientsFiltered,
     DetailsMeasuresFiltered,
     setDetailsMeasuresFiltered,
-    idFoodsAPI,
+    idFoodsAPI, startButton,
+    count, setCount,
+    selected, setSelected,
   } = useContext(MainContext);
 
   useEffect(() => {
@@ -28,10 +30,28 @@ function Ingredients() {
     }
   }, [idFoodsAPI, setDetailsIngredientsFiltered, setDetailsMeasuresFiltered]);
 
+  // & teste====================================================================
+
+  function onChange(event) {
+    if (event.target.checked) {
+      setSelected(selected + 1);
+    } else {
+      setSelected(selected - 1);
+    }
+    if (startButton && selected === DetailsIngredientsFiltered.length - 1) {
+      setCount(true);
+    } else {
+      setCount(false);
+    }
+  }
+  console.log(count);
+  console.log(DetailsIngredientsFiltered.length);
+  // & teste====================================================================
+
   return (
     <div>
       <ul>
-        { DetailsIngredientsFiltered.map((ing, i) => (
+        { !startButton && DetailsIngredientsFiltered.map((ing, i) => (
           <li
             data-testid={ `${i}-ingredient-name-and-measure` }
             key={ i }
@@ -42,6 +62,37 @@ function Ingredients() {
             { ' ' }
             { DetailsMeasuresFiltered.map((mea, ind) => i === ind && (mea)) }
           </li>
+        )) }
+      </ul>
+      {/* //& ========================================================== */}
+      <summary>
+        {selected > 0 ? selected : null}
+      </summary>
+      <ul>
+        { startButton && DetailsIngredientsFiltered.map((ing, i) => (
+          <section
+            key={ i }
+            data-testid={ `${i}-ingredient-name-and-measure` }
+          >
+            <div className="toppings-list-item">
+              <div className="left-section">
+                <input
+                  type="checkbox"
+                  id={ ing }
+                  name={ ing }
+                  value={ ing }
+                  onChange={ (event) => onChange(event) }
+                />
+                <label htmlFor={ ing }>
+                  { ing }
+                  {' '}
+                  -
+                  { ' ' }
+                  { DetailsMeasuresFiltered.map((mea, ind) => i === ind && (mea)) }
+                </label>
+              </div>
+            </div>
+          </section>
         )) }
       </ul>
     </div>
