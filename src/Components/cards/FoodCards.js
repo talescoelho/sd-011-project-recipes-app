@@ -16,31 +16,6 @@ function FoodCards() {
     fetchFoodsInitial();
   }, []);
 
-  if (foodsByCategory.length > 0) {
-    return (
-      <div className="card-foods">
-        { foodsByCategory.map((food, index) => index < limit && (
-          <Link to={ `/comidas/${food.idMeal}` }>
-            <div
-              key={ index }
-              data-testid={ `${index}-recipe-card` }
-            >
-              <img
-                data-testid={ `${index}-card-img` }
-                src={ food.strMealThumb }
-                alt={ `Food ${food.strMeal}` }
-                width="80"
-              />
-              <p data-testid={ `${index}-card-name` }>
-                { food.strMeal }
-              </p>
-            </div>
-          </Link>
-        )) }
-      </div>
-    );
-  }
-
   if (inputSearch) {
     return (
       <div className="card-foods">
@@ -58,6 +33,31 @@ function FoodCards() {
               />
               <p data-testid={ `${index}-card-name` }>
                 { item.strMeal }
+              </p>
+            </div>
+          </Link>
+        )) }
+      </div>
+    );
+  }
+
+  if (foodsByCategory.length > 0) {
+    return (
+      <div className="card-foods">
+        { foodsByCategory.map((food, index) => index < limit && (
+          <Link to={ `/comidas/${food.idMeal}` }>
+            <div
+              key={ index }
+              data-testid={ `${index}-recipe-card` }
+            >
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ food.strMealThumb }
+                alt={ `Food ${food.strMeal}` }
+                width="80"
+              />
+              <p data-testid={ `${index}-card-name` }>
+                { food.strMeal }
               </p>
             </div>
           </Link>
