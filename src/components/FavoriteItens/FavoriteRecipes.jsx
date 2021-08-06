@@ -27,7 +27,6 @@ function FavoriteRecipes({ filterBy }) {
     if (render) setFavoriteRecipes(parsedLocalStorage);
   }, [render]);
 
-  console.log(filterBy)
   useEffect(() => {
     if (filterBy === 'All') setFavoriteRecipes(parsedLocalStorage);
     if (filterBy === 'Foods') {

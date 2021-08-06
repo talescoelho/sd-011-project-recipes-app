@@ -67,7 +67,7 @@ function ButtonFavoriteRecipe({ recipes, favorite, setFavorite, index }) {
         src={ BlackHeart }
         alt="favorite"
         data-testid={ testIds }
-      /> : <img src={ WhiteHeart } alt="Nonfavorite" data-testid='favorite-btn' /> }
+      /> : <img src={ WhiteHeart } alt="Nonfavorite" data-testid="favorite-btn" /> }
     </button>
   );
 }
