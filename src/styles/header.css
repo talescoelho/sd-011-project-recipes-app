@@ -5,7 +5,7 @@ header {
 header div {
   display: flex;
   margin-bottom: 5px;
-  margin-top: 0px;
+  margin-top: 0;
 }
 
 header div h2 {
@@ -16,7 +16,6 @@ header div h2 {
 
 header div button {
   background-color: rgb(236, 239, 244);
-  background-color: white;
   border: none;
   margin-left: 10px;
   margin-right: 10px;
@@ -59,17 +58,16 @@ header div button {
 }
 
 .btt-search {
-  border-radius: 10px;
   border: 1px solid rgb(172, 172, 172);
+  border-radius: 10px;
   color: #252525;
   height: 30px;
   width: 100px;
 }
 
 .btt-search {
+  border: 1px solid gainsboro;
   border-radius: 10px;
-  border: 1px solid rgb(220, 220, 220);
-  border: none;
   box-shadow: 7px 5px 3px rgba(124, 124, 124, 0.57);
   color: #252525;
   font-size: 20px;

@@ -22,8 +22,8 @@
 }
 
 .card-container {
-  border-radius: 10px;
   border: none;
+  border-radius: 10px;
   height: 172px;
 }
 
@@ -34,7 +34,7 @@
 
 .card-recipe h4 {
   color: #1e2b20;
-  font-weight: bolder;
+  font-weight: 900;
   text-align: center;
 }
 
@@ -63,8 +63,6 @@
 
 .category-button {
   border-radius: 10px;
-  border: 1px solid rgb(220, 220, 220);
-  border: none;
   box-shadow: 7px 5px 3px rgba(124, 124, 124, 0.57);
   color: #252525;
   font-weight: 700;

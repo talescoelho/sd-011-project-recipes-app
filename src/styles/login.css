@@ -6,8 +6,8 @@
 }
 
 .login-container input {
-  border-radius: 10px;
   border: 1px solid silver;
+  border-radius: 10px;
   box-shadow: 7px 5px 5px rgb(89, 89, 89);
   margin-bottom: 5px;
   text-align: center;
@@ -15,8 +15,8 @@
 
 .login-container button {
   background-color: #252525;
-  border-radius: 10px;
   border: 1px solid silver;
+  border-radius: 10px;
   box-shadow: 7px 5px 5px rgba(124, 124, 124, 0.57);
   color: white;
   font-weight: 750;
