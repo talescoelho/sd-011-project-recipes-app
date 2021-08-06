@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import propTypes from 'prop-types';
@@ -7,7 +7,7 @@ import { fetchFood } from '../services/FoodAPI';
 import CardsDrinks from './CardsDrinks';
 import CardsFood from './CardsFood';
 import {
-  isRecipeDone,
+  showRecipe,
   progressRecipe,
   isRecipeInProgress,
 } from '../services/RecipesLocalStorage';
@@ -20,6 +20,12 @@ export default function FoodDetails({ type }) {
   const food = recipes.cards;
   const dispatch = useDispatch();
   const { id } = useParams();
+  const lStFoods = {
+    drinks: 'cocktails',
+    meals: 'meals',
+  };
+
+  const fd = lStFoods[type];
 
   useEffect(() => {
     dispatch(fetchFood({ id, type }));
@@ -63,7 +69,7 @@ export default function FoodDetails({ type }) {
     />);
 
   const buttonName = () => (
-    isRecipeInProgress(id) ? 'Continuar Receita' : 'Iniciar Receita');
+    isRecipeInProgress({ id, fd }) ? 'Continuar Receita' : 'Iniciar Receita');
 
   const { strMealThumb, strDrinkThumb,
     strDrink, strMeal, strInstructions, strCategory, strAlcoholic } = food;
@@ -74,7 +80,7 @@ export default function FoodDetails({ type }) {
   };
 
   const handleRecipeButton = () => {
-    progressRecipe(id, type);
+    progressRecipe({ id, fd });
   };
   return (
     <main className="food-details">
@@ -107,7 +113,7 @@ export default function FoodDetails({ type }) {
         {type === 'meals' && (<CardsDrinks />)}
       </div>
 
-      {(isRecipeDone(id) || isRecipeInProgress(id)) ? (
+      {showRecipe({ id, fd }) ? (
         <Link to={ path[type] }>
           <Button
             onClick={ handleRecipeButton }

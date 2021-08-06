@@ -1,60 +1,28 @@
-import { fetchFood } from './FoodAPI';
+export const progressRecipe = ({ id, fd }) => {
+  const inProgressRecipes = localStorage.getItem('inProgressRecipes');
 
-export const progressRecipe = async (idReceita, type) => {
-  const food = {
-    meals: 'comida',
-    drinks: 'bebida',
-  };
-  const data = await fetchFood(idReceita, type);
-  let objFormatado = [];
+  const oldProgress = JSON.parse(inProgressRecipes);
 
-  if (localStorage.doneRecipes) {
-    objFormatado = JSON.parse(localStorage.doneRecipes);
-  }
+  const toLocal = { ...oldProgress, [fd]: { [id]: [] } };
 
-  if (!objFormatado.find((x) => x.id === idReceita)) {
-    objFormatado.push({
-      id: idReceita,
-      type: food[type],
-      area: data.strArea,
-      category: data.strCategory,
-      alcoholicOrNot: '',
-      name: data.strMeal,
-      image: data.strMealThumb,
-      // doneDate: Date.now(),
-      tags: data.strTags,
-    });
-
-    localStorage.setItem('inProgressRecipes', JSON.stringify(objFormatado));
-  }
+  localStorage.setItem('inProgressRecipes', JSON.stringify(toLocal));
 };
 
-export function isRecipeDone(idReceita) {
+export const isRecipeDone = (idReceita) => {
   const data = JSON.parse(localStorage.getItem('doneRecipes'));
-
   const idInteiro = parseInt(idReceita, 10);
-  if (data) {
-    const receipt = data.find((x) => parseInt(x.id, 10) === idInteiro);
-    if (receipt && parseInt(receipt.id, 10) === idInteiro) {
-      return false;
-    }
+  return data && data.some((x) => parseInt(x.id, 10) === idInteiro);
+};
+
+export function isRecipeInProgress({ id, fd }) {
+  const data = (JSON.parse(localStorage.getItem('inProgressRecipes')));
+  if (!data) {
+    return false;
   }
 
-  return true;
-}
-
-export function isRecipeInProgress(idReceita) {
-  const data = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-  const idInteiro = parseInt(idReceita, 10);
-  if (data && data.some((x) => parseInt(x.id, 10) === idInteiro)) {
-    const receipt = data.find((x) => parseInt(x.id, 10) === idInteiro);
-    if (receipt && parseInt(receipt.id, 10) === idInteiro) {
-      return true;
-    }
+  if (data && data[fd] && data[fd][id]) {
+    return true;
   }
-
-  return false;
 }
 
 export const bookMarkRecipe = async (item) => {
@@ -67,7 +35,6 @@ export const bookMarkRecipe = async (item) => {
     alcoholicOrNot: item.strAlcoholic || '',
     name: item.strMeal || item.strDrink,
     image: item.strMealThumb || item.strDrinkThumb,
-
   };
 
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -80,5 +47,16 @@ export const bookMarkRecipe = async (item) => {
     return localStorage.setItem('favoriteRecipes',
       JSON.stringify([...favoriteRecipes.filter((el) => el.id !== realId)]));
   }
+
   localStorage.setItem('favoriteRecipes', JSON.stringify([...favoriteRecipes, food]));
+};
+
+export const showRecipe = ({ id, fd }) => {
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (!doneRecipes) {
+    return true;
+  }
+  if (doneRecipes && doneRecipes.find((el) => el.id === id)) {
+    return false;
+  }
 };
