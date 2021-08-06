@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { convertUrlToID, manageDetailAPI } from '../../Helpers/convertUrlToID';
+import { useHistory } from 'react-router-dom';
+import { convertUrlToID,
+  manageDetailAPI,
+  managePathname } from '../../Helpers/convertUrlToID';
 import CarrouselFoods from './CarrouselFoods';
 
 function SingleFoodItem() {
+  const history = useHistory();
+  const currentURL = window.location.pathname;
   const [itemDetail, setItemDetail] = useState({
     drinks: null,
   });
@@ -84,6 +89,8 @@ function SingleFoodItem() {
         data-testid="start-recipe-btn"
         type="button"
         className="start-recipe-button"
+        onClick={ () => history
+          .push(`/bebidas/${managePathname(currentURL)}/in-progress`) }
       >
         Iniciar Receita
       </button>
