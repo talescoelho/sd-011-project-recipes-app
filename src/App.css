@@ -23,6 +23,10 @@ img {
   width: 100%;
 }
 
+.recipe-instructions {
+  font-size: 10px;
+}
+
 .rocksGlass {
 
   /* animation: shake 1s infinite ease; */

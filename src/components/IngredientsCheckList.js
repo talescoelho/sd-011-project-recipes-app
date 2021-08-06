@@ -104,7 +104,12 @@ export default function IngredientsCheckList({ recipeType, id, data }) {
             </span>
           </label>
         ))}
-      <p data-testid="instructions">{data.strInstructions}</p>
+      <p
+        data-testid="instructions"
+        className="recipe-instructions"
+      >
+        {data.strInstructions}
+      </p>
       <Link to="/receitas-feitas">
         <button
           onClick={ () => handleFinishClick() }
