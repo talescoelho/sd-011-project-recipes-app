@@ -5,15 +5,10 @@ import ShareFavBtn from '../components/ShareFavBtn';
 
 export default function ReceitaBebidaPage(props) {
   const [drinkDetails, setDrinkDetails] = useState();
+  const [drinkIngredients, setDrinkIngredients] = useState();
   const location = useLocation();
   const DRINK_DETAILS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
   const FOOD_RECOMENDATIONS = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-  const ingredients = [
-    'white flour',
-    'salt',
-    'yeast',
-    'butter',
-  ];
 
   const recommendedRecipes = [
     'receita 1',
@@ -28,6 +23,23 @@ export default function ReceitaBebidaPage(props) {
       .then((data) => setDrinkDetails(data));
   }, []);
 
+  function ingredientsDetailsRender() {
+    const array = [];
+    const level1 = Object.values(drinkDetails);
+    const level2 = Object.values(level1[0]);
+    Object.keys(level2[0]).forEach((key) => {
+      array.push(`${key}: ${level2[0][key]}`);
+    });
+    const test2 = array.filter((item) => item.includes('strIngredient'));
+    const test3 = test2.map((item) => item.split(': ')[1]);
+    const test4 = test3.filter((item) => item !== 'null');
+    return setDrinkIngredients(test4);
+  }
+
+  useEffect(() => {
+    if (drinkDetails) { return ingredientsDetailsRender(); }
+  }, [drinkDetails]);
+
   const foodRecomendations = async () => {
     const response = await fetch(FOOD_RECOMENDATIONS);
     const data = await response.json();
@@ -36,7 +48,6 @@ export default function ReceitaBebidaPage(props) {
   foodRecomendations();
 
   function renderDrinks() {
-    console.log(drinkDetails);
     return (
       <div>
         <p>{ drinkDetails.idDrink }</p>
@@ -48,19 +59,18 @@ export default function ReceitaBebidaPage(props) {
         <h1 data-testid="recipe-title">{ drinkDetails.drinks[0].strDrink }</h1>
         <ShareFavBtn url={ props.match.url } />
         <h5 data-testid="recipe-category">{ drinkDetails.drinks[0].strCategory }</h5>
-        <p>{ drinkDetails.drinks[0].strAlcoholic }</p>
+        <p data-testid="recipe-category">{ drinkDetails.drinks[0].strAlcoholic }</p>
 
         <div>
           <h3>Ingredients</h3>
           <ul>
-            {ingredients.map((name, index) => (
-              <li
+            { drinkIngredients ? drinkIngredients.map((item, index) => (
+              <p
                 key={ index }
                 data-testid={ `${index}-ingredient-name-and-measure` }
               >
-                {name}
-              </li>
-            ))}
+                { item }
+              </p>)) : '' }
           </ul>
         </div>
         <div>

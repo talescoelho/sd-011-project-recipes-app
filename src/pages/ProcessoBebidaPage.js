@@ -101,7 +101,7 @@ export default function ProcessoBebidaPage(props) {
   function mountDoneRecipes() {
     const ifDoneRecipesObj = [{
       id,
-      type: 'drinks',
+      type: 'bebida',
       area: '',
       category: drinkInProgress.drinks[0].strCategory,
       alcoholicOrNot: drinkInProgress.drinks[0].strAlcoholic,
@@ -116,7 +116,7 @@ export default function ProcessoBebidaPage(props) {
     } else {
       const elseDoneRecipesObj = [...getDoneStorage, {
         id,
-        type: 'drinks',
+        type: 'bebida',
         area: '',
         category: drinkInProgress.drinks[0].strCategory,
         alcoholicOrNot: drinkInProgress.drinks[0].strAlcoholic,

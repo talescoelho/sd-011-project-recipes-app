@@ -98,7 +98,7 @@ export default function ProcessoComidaPage(props) {
   function mountDoneRecipes() {
     const ifDoneRecipesObj = [{
       id,
-      type: 'food',
+      type: 'comida',
       area: foodInProgress.meals[0].strArea,
       category: foodInProgress.meals[0].strCategory,
       alcoholicOrNot: '',
@@ -113,7 +113,7 @@ export default function ProcessoComidaPage(props) {
     } else {
       const elseDoneRecipesObj = [...getDoneStorage, {
         id,
-        type: 'food',
+        type: 'comida',
         area: foodInProgress.meals[0].strArea,
         category: foodInProgress.meals[0].strCategory,
         alcoholicOrNot: '',
