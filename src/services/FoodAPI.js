@@ -1,19 +1,25 @@
 import { getFoodCategories, getFoodCard } from '../Redux/actions/index';
 
-export const fetchFood = async (id, type) => {
-  const categories = {
+export const fetchFood = ({ id, type }) => async (dispatch) => {
+  const cat = {
     meals: `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`,
     drinks: `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`,
   };
-  const response = await fetch(categories[type]);
-  const json = await response.json();
 
-  try {
-    const s = [...Object.values(json)[0]];
-    return s[0];
-  } catch (error) {
-    throw new Error(error);
-  }
+  const fetchFoodCard = async () => {
+    console.log(type);
+    const response = await fetch(cat[type]);
+    console.log(response);
+    const json = await response.json();
+
+    try {
+      const s = [...Object.values(json)[0]];
+      return dispatch(getFoodCard({ filtered: s[0], selectedCategory: type }));
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+  return fetchFoodCard();
 };
 
 export const fetchFoodCategory = (type) => async (dispatch) => {

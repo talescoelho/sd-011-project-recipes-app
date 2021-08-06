@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import propTypes from 'prop-types';
 import { fetchFood } from '../services/FoodAPI';
 import CardsDrinks from './CardsDrinks';
@@ -8,18 +9,17 @@ import CardsFood from './CardsFood';
 import ShareBtn from './ShareBtn';
 import FavoriteBtn from './FavoriteBtn';
 import '../styles/FoodDetails.scss';
+import { isRecipeDone } from '../services/RecipesLocalStorage';
 
 export default function FoodInProgress({ type }) {
-  const params = useParams();
-  const [food, setFood] = useState([]);
+  const recipes = useSelector((state) => state.recipes);
+  const food = recipes.cards;
+  const dispatch = useDispatch();
+  const { id } = useParams();
 
   useEffect(() => {
-    const getFood = async () => {
-      const data = await fetchFood(params.id, type);
-      setFood(data);
-    };
-    getFood();
-  }, [params.id, type]);
+    dispatch(fetchFood({ id, type }));
+  }, [id, type, dispatch]);
 
   function listIngredients(item) {
     const ingredient = Object.entries(item).filter(([key,
@@ -71,7 +71,12 @@ export default function FoodInProgress({ type }) {
         {type === 'meals' && (<CardsDrinks />)}
       </div>
 
-      <Button className="btnstart" type="button" data-testid="finish-recipe-btn">
+      <Button
+        disabled={ isRecipeDone(id) }
+        className="btnstart"
+        type="button"
+        data-testid="finish-recipe-btn"
+      >
         Finalizar receita
       </Button>
 

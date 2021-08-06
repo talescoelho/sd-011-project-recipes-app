@@ -16,6 +16,7 @@ export default function ShareBtn() {
 
   return (
     <Button
+      style={ { color: 'black' } }
       className="btnheader"
       type="button"
       data-testid="share-btn"

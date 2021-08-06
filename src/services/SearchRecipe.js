@@ -29,7 +29,7 @@ const getFood = (food, db) => async (dispatch) => {
 
     try {
       const list = food ? data[db] : filtered;
-      dispatch(getFoodCard({ filtered: list, untouched: list }));
+      dispatch(getFoodCard({ filtered: list, selectedCategory: db }));
     } catch (error) {
       throw new Error(error);
     }

@@ -2,25 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import propTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchFood } from '../services/FoodAPI';
 import CardsDrinks from './CardsDrinks';
 import CardsFood from './CardsFood';
-import { isRecipeDone, doneRecipe } from '../services/RecipesLocalStorage';
+import {
+  isRecipeDone,
+  progressRecipe,
+  isRecipeInProgress,
+} from '../services/RecipesLocalStorage';
 import ShareBtn from './ShareBtn';
 import FavoriteBtn from './FavoriteBtn';
 import '../styles/FoodDetails.scss';
 
 export default function FoodDetails({ type }) {
-  const params = useParams();
-  const [food, setFood] = useState([]);
+  const recipes = useSelector((state) => state.recipes);
+  const food = recipes.cards;
+  const dispatch = useDispatch();
+  const { id } = useParams();
 
   useEffect(() => {
-    const getFood = async () => {
-      const data = await fetchFood(params.id, type);
-      setFood(data);
-    };
-    getFood();
-  }, [params.id, type]);
+    dispatch(fetchFood({ id, type }));
+  }, [id, type, dispatch]);
 
   function getVideoId() {
     if (food.strYoutube) {
@@ -48,26 +51,30 @@ export default function FoodDetails({ type }) {
     });
   }
 
-  const showFrame = () => (<iframe
-    data-testid="video"
-    title="Vídeo da Receita"
-    frameBorder="0"
-    allow="encrypted-media; gyroscope; picture-in-picture"
-    allowFullScreen
-    src={ `https://www.youtube.com/embed/${getVideoId()}` }
-    width="100%"
-  />);
+  const showFrame = () => (
+    <iframe
+      data-testid="video"
+      title="Vídeo da Receita"
+      frameBorder="0"
+      allow="encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+      src={ `https://www.youtube.com/embed/${getVideoId()}` }
+      width="100%"
+    />);
+
+  const buttonName = () => (
+    isRecipeInProgress(id) ? 'Continuar Receita' : 'Iniciar Receita');
 
   const { strMealThumb, strDrinkThumb,
     strDrink, strMeal, strInstructions, strCategory, strAlcoholic } = food;
 
   const path = {
-    meals: `/comidas/${params.id}/in-progress`,
-    drinks: `/bebidas/${params.id}/in-progress`,
+    meals: `/comidas/${id}/in-progress`,
+    drinks: `/bebidas/${id}/in-progress`,
   };
 
   const handleRecipeButton = () => {
-    doneRecipe(params.id, type);
+    progressRecipe(id, type);
   };
   return (
     <main className="food-details">
@@ -100,7 +107,7 @@ export default function FoodDetails({ type }) {
         {type === 'meals' && (<CardsDrinks />)}
       </div>
 
-      {(isRecipeDone(params.id) === false) ? (
+      {(!isRecipeDone(id) || isRecipeInProgress(id)) ? (
         <Link to={ path[type] }>
           <Button
             onClick={ handleRecipeButton }
@@ -108,7 +115,7 @@ export default function FoodDetails({ type }) {
             type="button"
             data-testid="start-recipe-btn"
           >
-            Iniciar Receita
+            {buttonName()}
           </Button>
         </Link>
       ) : ('') }

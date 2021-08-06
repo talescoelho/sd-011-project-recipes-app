@@ -1,23 +1,31 @@
 import React, { useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
-import { Card, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Card } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import propTypes from 'prop-types';
 import getFood from '../services/SearchRecipe';
 
 export default function FoodCard({ type }) {
-  const history = useHistory();
   const dispatch = useDispatch();
   const number = 12;
   const recipes = useSelector((state) => state.recipes);
   const { cards, formInfo, selectedCategory } = recipes;
 
-  const middle = type === 'meals' ? 'comidas' : 'bebidas';
+  const middle = {
+    meals: 'comidas',
+    drinks: 'bebidas',
+  };
 
   useEffect(() => {
-    (() => (!cards.length || formInfo ? dispatch(getFood(formInfo, type)) : null))();
+    const getCards = () => {
+      if (!cards.length || formInfo || selectedCategory !== type) {
+        dispatch(getFood(formInfo, type));
+      }
+    };
+    getCards();
   },
-  [formInfo, dispatch, type, cards.length]);
+
+  [formInfo, dispatch, type, cards.length, selectedCategory]);
 
   const cardsToRender = (cardsRender) => (
     cardsRender.map(({ idMeal, strMeal, strMealThumb,
@@ -25,12 +33,12 @@ export default function FoodCard({ type }) {
     }, index) => (
       index < number ? (
         <Link
-          to={ `/${middle}/${idMeal || idDrink}` }
+          to={ `/${middle[type]}/${idMeal || idDrink}` }
           key={ index }
           data-testid={ `${index}-recipe-card` }
         >
           <Card>
-            <Card.Header>{strCategory || selectedCategory}</Card.Header>
+            <Card.Header>{strCategory}</Card.Header>
             <Card.Img
               variant="top"
               src={ strMealThumb || strDrinkThumb }
@@ -43,15 +51,7 @@ export default function FoodCard({ type }) {
               </Card.Title>
               <Card.Text>{strTags || strAlcoholic}</Card.Text>
             </Card.Body>
-            <Card.Footer>
-              <Button
-                className="card-button"
-                onClick={ () => history.push(`/${middle}/${idMeal || idDrink}`) }
-                variant="primary"
-              >
-                Ver receita
-              </Button>
-            </Card.Footer>
+            <Card.Footer />
           </Card>
         </Link>) : null)));
 
