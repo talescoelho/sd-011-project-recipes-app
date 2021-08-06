@@ -74,10 +74,6 @@ function CardRecipeList() {
           <CardRecipe key={ index } item={ item } index={ index } />
         )) }
 
-      {/* 
-      { (filterType === undefined || filterType === {})
-        && alert('Sinto muito, não encontramos nenhuma receita para esses filtros.') } */}
-
     </div>
   );
 }
