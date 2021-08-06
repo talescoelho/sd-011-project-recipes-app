@@ -3,7 +3,7 @@ import FavoriteRecipes from '../components/FavoriteItens/FavoriteRecipes';
 import Header from '../components/Header';
 import TypeOfRecipesConcludeds from '../components/TypeOfRecipesConcludeds';
 
-import '../styles/ReceitasFeitas.css';
+import '../styles/ReceitasFavoritas.css';
 
 function ReceitasFavoritas() {
   const [filterByCategory, setFilterByCategory] = useState('All');

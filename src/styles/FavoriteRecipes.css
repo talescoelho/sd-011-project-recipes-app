@@ -2,10 +2,12 @@
   align-items: center;
   background: white;
   border: 1px solid black;
+  box-sizing: border-box;
   border-top: none;
   display: flex;
   flex-direction: column;
-  height: calc(100% - 108px);
-  justify-content: center;
-  width: 100%;
+  height: 100%;
+  justify-content: flex-start;
+  overflow-y: auto;
+  width: 360px;
 }

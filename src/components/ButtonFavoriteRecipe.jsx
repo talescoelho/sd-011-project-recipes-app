@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import WhiteHeart from '../images/whiteHeartIcon.svg';
 import BlackHeart from '../images/blackHeartIcon.svg';
 
-function ButtonFavoriteRecipe({ recipes, favorite, setFavorite }) {
-  // const location = useLocation();
-  console.log(favorite)
-  const { id, area, category, strAlcoholic, title, imgUrl } = recipes;
-  console.log(!recipes.area);
+function ButtonFavoriteRecipe({ recipes, favorite, setFavorite, index }) {
+  const location = useLocation();
+  const testIds = location.pathname.includes('receitas-favoritas')
+    ? `${index}-horizontal-favorite-btn`
+    : 'favorite-btn';
 
+  const { id, area, category, strAlcoholic, title, imgUrl } = recipes;
   const createFavoriteObject = () => {
     let favoriteRecipeObj = {};
     // if (location.pathname.includes('comidas')) {
@@ -42,7 +43,6 @@ function ButtonFavoriteRecipe({ recipes, favorite, setFavorite }) {
   const favoriteRecipe = createFavoriteObject();
 
   const handleFavoriteBtn = () => {
-    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     const parsedLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (!favorite) {
       setFavorite(true);
@@ -53,20 +53,21 @@ function ButtonFavoriteRecipe({ recipes, favorite, setFavorite }) {
       setFavorite(false);
       const favoriteRecipeArr = JSON.parse(localStorage.getItem('favoriteRecipes'));
       const removeRecipe = favoriteRecipeArr.filter((recipe) => recipe.id !== id);
-      localStorage.setItem('favoriteRecipes', JSON.stringify([removeRecipe]));
+      localStorage.setItem('favoriteRecipes', JSON.stringify(removeRecipe));
     }
   };
 
   return (
     <button
+      className="Favorite-Page-Button-Styles"
       type="button"
       onClick={ () => { handleFavoriteBtn(); } }
     >
       { favorite ? <img
         src={ BlackHeart }
         alt="favorite"
-        data-testid="favorite-btn"
-      /> : <img src={ WhiteHeart } alt="Nonfavorite" data-testid="favorite-btn" /> }
+        data-testid={ testIds }
+      /> : <img src={ WhiteHeart } alt="Nonfavorite" data-testid='favorite-btn' /> }
     </button>
   );
 }

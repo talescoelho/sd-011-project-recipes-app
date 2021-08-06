@@ -1,29 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import '../../styles/FavoriteRecipes.css';
+import Loading from '../Loading';
 import FavoriteRecipeCard from './FavoriteRecipeCard';
+import '../../styles/FavoriteRecipes.css';
 
 function FavoriteRecipes({ filterBy }) {
   const parsedLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [favoriteRecipes, setFavoriteRecipes] = useState(parsedLocalStorage);
-  const [isEmpty, setIsEmpty] = useState('');
-  const [newRender, setNewRender] = useState(true);
+  const [isEmpty, setIsEmpty] = useState(true);
+  const [render, setRender] = useState(false);
 
   useEffect(() => {
     setFavoriteRecipes(parsedLocalStorage);
-    if (favoriteRecipes.length === 0) {
-      setIsEmpty(true);
-    }
   }, []);
 
   useEffect(() => {
-    if (favoriteRecipes[0] !== '') {
-      return setIsEmpty(false);
+    if (favoriteRecipes.length !== 0) {
+      setIsEmpty(false);
+      setRender(false);
     }
-    setIsEmpty(true);
+    if (favoriteRecipes.length === 0) setIsEmpty(true);
   }, [favoriteRecipes]);
 
+  useEffect(() => {
+    if (render) setFavoriteRecipes(parsedLocalStorage);
+  }, [render]);
+
+  console.log(filterBy)
   useEffect(() => {
     if (filterBy === 'All') setFavoriteRecipes(parsedLocalStorage);
     if (filterBy === 'Foods') {
@@ -37,16 +41,18 @@ function FavoriteRecipes({ filterBy }) {
   return (
     <div className="FavoriteRecipesContainer">
       {
-        isEmpty ? 'Lista vazia' : favoriteRecipes.map(
-          (recipe, index) => (
-            <FavoriteRecipeCard
-              key={ index }
-              index={ index }
-              recipe={ recipe }
-              newRender={ setNewRender }
-            />
-          ),
-        )
+        isEmpty
+          ? <Loading />
+          : favoriteRecipes.map(
+            (recipe, index) => (
+              <FavoriteRecipeCard
+                key={ index }
+                index={ index }
+                recipe={ recipe }
+                setRender={ setRender }
+              />
+            ),
+          )
       }
     </div>
   );

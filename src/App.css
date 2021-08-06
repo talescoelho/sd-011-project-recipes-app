@@ -1,3 +1,25 @@
+::-webkit-scrollbar {
+  background: #0fa36b;
+  border-radius: 20px;
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  box-shadow: inset 1px 0 3px white;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(173, 255, 42,0.4);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(173, 255, 42,0.8);
+  border-radius: 10px;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
