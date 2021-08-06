@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import CarrouselDrinks from './CarrouselDrinks';
 import '../../styles/detail-screen.css';
 import {
@@ -95,7 +95,8 @@ function SingleFoodItem() {
         data-testid="start-recipe-btn"
         type="button"
         className="start-recipe-button"
-        onClick={ () => history.push(`/comidas/${managePathname(currentURL)}/in-progress`) }
+        onClick={ () => history
+          .push(`/comidas/${managePathname(currentURL)}/in-progress`) }
       >
         Iniciar Receita
       </button>

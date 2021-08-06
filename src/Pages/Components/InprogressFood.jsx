@@ -1,12 +1,5 @@
 import React from 'react';
 
-const InprogressFood = () => {
-  return (
-    <div>
-      renderizou o progresso
-      {/* {alert('oi')} */}
-    </div>
-  );
-};
+const InprogressFood = () => <div>renderizou o progresso</div>;
 
 export default InprogressFood;
