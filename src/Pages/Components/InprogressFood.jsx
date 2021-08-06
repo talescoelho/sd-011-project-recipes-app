@@ -65,8 +65,15 @@ function InProgressFood() {
         <h2>Ingredientes</h2>
         <div className="steps-inputs">
           { arrayOfIngredients.map((ingredient, i) => (
-            <label htmlFor={ ingredient } key={ `${ingredient}-${i}` }>
-              <input id={ ingredient } type="checkbox" />
+            <label
+              htmlFor={ ingredient }
+              key={ `${ingredient}-${i}` }
+            >
+              <input
+                id={ ingredient }
+                type="checkbox"
+                data-testid={ `${i}-ingredient-step` }
+              />
               {`${arrayOfIngredients[i]} - ${arrayOfMeasures[i]}`}
             </label>
           ))}
