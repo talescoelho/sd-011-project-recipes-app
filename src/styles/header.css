@@ -22,10 +22,10 @@ header div button {
   margin-top: 5px;
 }
 
-.search-container {
+/* .search-container {
   display: flex;
   flex-direction: column;
-}
+} */
 
 .search-bar {
   align-items: center;
@@ -55,14 +55,6 @@ header div button {
   border: 1px solid rgb(172, 172, 172);
   margin-bottom: 15px;
   text-align: center;
-}
-
-.btt-search {
-  border: 1px solid rgb(172, 172, 172);
-  border-radius: 10px;
-  color: #252525;
-  height: 30px;
-  width: 100px;
 }
 
 .btt-search {
