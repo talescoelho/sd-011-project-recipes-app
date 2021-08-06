@@ -19,19 +19,23 @@ export default function DoneRecipes() {
         <button
           type="button"
           data-testid="filter-by-all-btn"
-          onClick={ () => console.log(setDoneRecipes) }
+          onClick={ () => setDoneRecipes(recipeStorage) }
         >
           All
         </button>
         <button
           type="button"
           data-testid="filter-by-food-btn"
+          onClick={ () => setDoneRecipes(recipeStorage
+            .filter((recipes) => recipes.type === 'comida')) }
         >
           Food
         </button>
         <button
           type="button"
           data-testid="filter-by-drink-btn"
+          onClick={ () => setDoneRecipes(recipeStorage
+            .filter((recipes) => recipes.type === 'bebida')) }
         >
           Drinks
         </button>
