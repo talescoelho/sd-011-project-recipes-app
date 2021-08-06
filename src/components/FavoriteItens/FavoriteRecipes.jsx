@@ -59,7 +59,7 @@ function FavoriteRecipes({ filterBy }) {
 }
 
 FavoriteRecipes.propTypes = {
-  filterBy: PropTypes.func.isRequired,
+  filterBy: PropTypes.string.isRequired,
 };
 
 export default FavoriteRecipes;
