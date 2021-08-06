@@ -131,3 +131,5 @@ HomeRecipe.propTypes = {
 }.isRequired;
 
 export default connect(mapStateToProps, null)(HomeRecipe);
+
+// .

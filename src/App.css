@@ -3,6 +3,10 @@
   position: fixed;
 }
 
+img {
+  width: 30px;
+}
+
 .ingredientCheck {
   text-decoration: line-through;
 }
@@ -17,6 +21,10 @@
   height: 100vh;
   justify-content: center;
   width: 100%;
+}
+
+.recipe-instructions {
+  font-size: 10px;
 }
 
 .rocksGlass {

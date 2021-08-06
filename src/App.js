@@ -64,9 +64,9 @@ function App() {
         />
         <Route exact path="/explorar/comidas/area" component={ ExploreByLocal } />
         <Route exact path="/perfil" component={ Profile } />
-        <Route path="*" component={ NotFound } />
         <Route exact path="/receitas-feitas" component={ RecipesDone } />
         <Route path="/receitas-favoritas" component={ RecipeFavorite } />
+        <Route path="*" component={ NotFound } />
       </Switch>
     </BrowserRouter>
   );
