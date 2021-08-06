@@ -1,16 +1,16 @@
 import React, { useEffect, useContext } from 'react';
-import PropTypes from 'prop-types';
-// import Button from 'react-bootstrap/Button';
+import { useParams } from 'react-router-dom';
 import HeaderDetails from '../components/HeaderDetails';
 import AppContext from '../context/AppContext';
 import IngredientDetails from '../components/IngredientDetails';
 import Recomendation from '../components/Recomendation';
 import ButtonDetails from '../components/ButtonDetails';
 
-function DrinkDetails({ match }) {
+function DrinkDetails() {
   const { idDetails, setIdDetails } = useContext(AppContext);
-  // const [button, setbutton] = useState(false);
-  const { id } = match.params;
+  const details = idDetails[0];
+  const { id } = useParams();
+  console.log('id', id);
 
   async function fetchDrinkDetails() {
     const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
@@ -29,9 +29,14 @@ function DrinkDetails({ match }) {
 
   return (
     <div>
-      <HeaderDetails foodOrDrink="Bebidas" />
+      <img
+        data-testid="recipe-photo"
+        src={ details.strDrinkThumb }
+        alt="image_of_recipe"
+      />
+      <HeaderDetails foodOrDrink="Bebidas" id={ id } />
       <IngredientDetails />
-      <Recomendation foodOrDrink="Bebidas" />
+      <Recomendation foodOrDrink="Bebidas" id={ id } />
       <ButtonDetails foodOrDrink="Bebidas" id={ id } />
     </div>
 
@@ -39,7 +44,3 @@ function DrinkDetails({ match }) {
 }
 
 export default DrinkDetails;
-
-DrinkDetails.propTypes = {
-  match: PropTypes.oneOfType([PropTypes.object]).isRequired,
-};

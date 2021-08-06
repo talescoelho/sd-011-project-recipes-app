@@ -8,6 +8,8 @@ export default function ButtonDetails({ foodOrDrink, id }) {
   const { idDetails } = useContext(AppContext);
   const [button, setbutton] = useState(false);
   const details = idDetails[0];
+  const now = Date.now();
+
   const doneRecipes = {
     id: foodOrDrink === 'Comidas' ? details.idMeal : details.idDrink,
     type: foodOrDrink === 'Comidas' ? 'comida' : 'bebida',
@@ -16,15 +18,23 @@ export default function ButtonDetails({ foodOrDrink, id }) {
     alcoholicOrNot: details.strAlcoholic || '',
     name: foodOrDrink === 'Comidas' ? details.strMeal : details.strDrink,
     image: foodOrDrink === 'Comidas' ? details.strMealThumb : details.strDrinkThumb,
-    doneDate: Date.now(),
+    doneDate: now, // não é a data
     tags: details.strTags || '',
   };
-  function handleClick() {
-    localStorage.setItem('doneRecipes', JSON.stringify([doneRecipes]));
-    setbutton(!button);
-  }
 
-  if (idDetails.length === 0) return <div>Loading...</div>;
+  const local = localStorage.getItem('favoriteRecipes');
+  const getLocal = JSON.parse(local);
+  const hasId = local && Object.keys(getLocal)
+    .map((el) => getLocal[el].id).some((x) => x === id);
+
+  function handleClick() {
+    setbutton(!button);
+    if (!local) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([doneRecipes]));
+    } else if (!hasId) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([...getLocal, doneRecipes]));
+    }
+  }
 
   return (
     <div>

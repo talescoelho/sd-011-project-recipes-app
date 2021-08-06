@@ -14,7 +14,7 @@ function Header({ title, searchButton }) {
 
   return (
     <header>
-      <Link to="perfil">
+      <Link to="/perfil">
         <button type="button">
           <img src={ profileIcon } alt="profileIcon" data-testid="profile-top-btn" />
         </button>
