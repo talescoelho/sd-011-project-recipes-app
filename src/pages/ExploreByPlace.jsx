@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { Dropdown } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { getFoodCard } from '../Redux/actions/index';
 import FoodOrigin from '../services/FoodOrigin';
-import FoodCard from '../components/FoodCard';
+import { getFoodCard } from '../Redux/actions/index';
 import Header from '../components/Header';
+import FoodCard from '../components/FoodCard';
 import Footer from '../components/Footer';
 import '../styles/ExploreByPlace.css';
+import { useRouteMatch } from 'react-router-dom';
 
 function ExploreByPlace() {
+  const route = useRouteMatch();
   const dispatch = useDispatch();
+  console.log(route);
 
   const [areaFood, setAreaFood] = useState([]);
 
@@ -26,51 +30,58 @@ function ExploreByPlace() {
   }, []);
 
   const renderingFilterFoodByArea = async (area) => {
-    if (area !== 'All') {
-      const API_URL = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
-      const response = await fetch(API_URL);
-      const json = await response.json();
-      const { meals } = json;
-      dispatch(getFoodCard({ filtered: meals }));
-    } else {
-      const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-      const response = await fetch(URL);
-      const json = await response.json();
-      const { meals } = json;
-      dispatch(getFoodCard({ filtered: meals }));
-    }
+    const API_URL = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+    const response = await fetch(API_URL);
+    const json = await response.json();
+    const { meals } = json;
+    dispatch(getFoodCard({ filtered: meals }));
   };
 
   const dropdownOptions = () => (
-    <select
+    <Dropdown.Menu
       data-testid="explore-by-area-dropdown"
       onChange={ ({ target }) => renderingFilterFoodByArea(target.value) }
     >
-      <option data-testid="All-option" value="All">All</option>
+      <Dropdown.Item data-testid="All-option" value="All">All</Dropdown.Item>
       {
         areaFood.map((area, index) => (
-          <option
+          <Dropdown.Item
             className={ index % 2 === 0 ? 'itemDark' : 'itemLight' }
             key={ index }
             name={ area }
             value={ area }
-            data-testid={ `${area}-option` }
+            data-testid={ [`${area}-option`] }
+            onClick={ () => renderingFilterFoodByArea(area) }
           >
             {area}
-          </option>))
+          </Dropdown.Item>))
       }
-    </select>
+    </Dropdown.Menu>
   );
 
   return (
-    <div>
-      <main>
+    <>
+      <main className="explore-by-place">
         <Header pageName="Explorar por local de origem" />
-        {dropdownOptions()}
-        <Footer />
+        <Dropdown
+          className="dropdown"
+          data-testid="explore-by-area-dropdown"
+        >
+          <Dropdown.Toggle
+            variant="secondary"
+            className="origem"
+          >
+            Local de origem
+          </Dropdown.Toggle>
+          {dropdownOptions()}
+        </Dropdown>
+        <section className="section-place">
+          <FoodCard type="meals" />
+        </section>
       </main>
-      <FoodCard type="meals" />
-    </div>
+      <Footer />
+    </>
+
   );
 }
 
