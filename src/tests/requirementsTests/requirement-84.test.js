@@ -17,8 +17,8 @@ afterEach(() => {
   localStorage.clear();
 });
 
-describe(`84 - Implement 3 buttons: one named "Recipes Made", one named "Favorite 
-Recipes" and one named "Exit"`, () => {
+describe(`84 - Implement 3 buttons: one named "Receitas Feitas", one named "Receitas 
+Favoritas" and one named "Sair"`, () => {
   it('The screen contains all 3 buttons.', () => {
     const history = createMemoryHistory();
     renderWithRouterAndStore(<Profile history={ history } />, '/perfil');
