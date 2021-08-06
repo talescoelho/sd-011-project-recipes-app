@@ -1,18 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function ExplorerFoodsIngredients() {
-  const { getFoodsIngredients } = useContext(MyContext);
+  const { getFoodsIngredients,
+    setData,
+    foodsSearchLinks } = useContext(MyContext);
   const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
     const getIngredient = async () => {
       setIngredients(await getFoodsIngredients());
+      const response = await fetch(foodsSearchLinks.fetchAll);
+      const results = await response.json();
+      const { meals } = results;
+      setData(meals);
     };
     getIngredient();
-  }, [getFoodsIngredients]);
+  }, [foodsSearchLinks.fetchAll, setData, getFoodsIngredients]);
 
   const maxArray = 12;
 
@@ -25,19 +32,24 @@ export default function ExplorerFoodsIngredients() {
           : ingredients
             .slice(0, maxArray)
             .map((ingredient, index) => (
-              <button
+              <Link
+                to={ { pathname: '/comidas', state: ingredient.strIngredient } }
                 key={ index }
-                type="button"
-                data-testid={ `${index}-ingredient-card` }
               >
-                <img
-                  data-testid={ `${index}-card-img` }
-                  src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
-                  alt="Imagem comida"
-                  width="150px"
-                />
-                <p data-testid={ `${index}-card-name` }>{ingredient.strIngredient}</p>
-              </button>
+                <button
+                  type="button"
+                  data-testid={ `${index}-ingredient-card` }
+                  value={ ingredient.strIngredient }
+                >
+                  <img
+                    data-testid={ `${index}-card-img` }
+                    src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
+                    alt="Imagem comida"
+                    width="75px"
+                  />
+                  <p data-testid={ `${index}-card-name` }>{ingredient.strIngredient}</p>
+                </button>
+              </Link>
             ))
       }
       <Footer />

@@ -7,7 +7,9 @@ import {
   getRandomFood,
   getRandomDrink,
   getFoodsIngredients,
-  getDrinksIngredients } from '../services/RecipesServices';
+  getDrinksIngredients,
+  getFoodsIngredientsFilter,
+  getDrinksIngredientsFilter } from '../services/RecipesServices';
 
 function Provider({ children }) {
   const foodsSearchLinks = {
@@ -101,6 +103,8 @@ function Provider({ children }) {
     getRandomDrink,
     getFoodsIngredients,
     getDrinksIngredients,
+    getFoodsIngredientsFilter,
+    getDrinksIngredientsFilter,
   };
 
   return (
