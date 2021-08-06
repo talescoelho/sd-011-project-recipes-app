@@ -16,7 +16,7 @@ function Comidas() {
   const type = pathname === '/bebidas' ? 'drinks' : 'meals';
   const title = type === 'drinks' ? 'Bebidas' : 'Comidas';
 
-  const { isLoading, dataRecipes, setRecipeType } = useContext(RecipesContext);
+  const { isLoading, dataRecipes, setRecipeType, setIngredient } = useContext(RecipesContext);
   const { route } = useState(pathname);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
 
@@ -28,6 +28,18 @@ function Comidas() {
     setFilteredRecipes(dataRecipes);
   }, [dataRecipes, filteredRecipes]);
 
+  const recipes = (
+    filteredRecipes && filteredRecipes.slice(0, NUMBER_OF_CARDS).map(
+      (recipe, index) => (<FoodCard
+        key={ index }
+        recipe={ recipe }
+        type={ type }
+        index={ index }
+      />
+      ),
+    )
+  );
+
   return (
     <div className="comidasPageContainer">
       <Header title={ title } showSearchIcon />
@@ -36,15 +48,7 @@ function Comidas() {
         {
           isLoading === true
             ? <Loading />
-            : filteredRecipes.slice(0, NUMBER_OF_CARDS).map(
-              (recipe, index) => (<FoodCard
-                key={ index }
-                recipe={ recipe }
-                type={ type }
-                index={ index }
-              />
-              ),
-            )
+            : recipes
         }
         <Footer />
       </div>

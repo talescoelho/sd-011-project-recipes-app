@@ -3,7 +3,6 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
-import Header from './components/Header';
 import Perfil from './pages/Perfil';
 import Explorar from './pages/Explorar';
 import Comidas from './pages/Comidas';
@@ -14,6 +13,7 @@ import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import Detalhes from './pages/Detalhes';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
+import ExplorarPorIngredientes from './pages/ExplorarPorIngredientes';
 import ExplorarPorOrigem from './pages/ExplorarPorOrigem';
 import NotFound from './pages/NotFound';
 
@@ -43,12 +43,12 @@ function App() {
             <Route
               exact
               path="/explorar/comidas/ingredientes"
-              component={ () => <Header title="Explorar Ingredientes" /> }
+              component={ ExplorarPorIngredientes }
             />
             <Route
               exact
               path="/explorar/bebidas/ingredientes"
-              component={ () => <Header title="Explorar Ingredientes" /> }
+              component={ ExplorarPorIngredientes }
             />
             <Route
               exact

@@ -13,7 +13,6 @@ export default function SearchBar() {
   const [foodType, setFoodType] = useState('');
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  console.log(foodList);
   const { setDataRecipes } = useContext(RecipesContext);
 
   useEffect(() => {

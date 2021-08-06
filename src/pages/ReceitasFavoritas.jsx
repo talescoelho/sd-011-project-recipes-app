@@ -12,7 +12,7 @@ function ReceitasFeitas() {
     <div className="ReceitasFavoritasContainer">
       <Header title="Receitas Favoritas" />
       <TypeOfRecipesConcludeds filterByCategory={ setFilterByCategory } />
-      <FavoriteRecipes filterBy={ filterByCategory } />
+      {/* <FavoriteRecipes filterBy={ filterByCategory } /> */}
     </div>
   );
 }
