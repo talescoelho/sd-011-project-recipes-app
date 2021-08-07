@@ -4,10 +4,10 @@ import SearchDrinks from '../pages/SearchDrinks';
 
 import { renderWithRouterAndStore } from './testConfig';
 
-describe('Screen search drinks should have Header component', () => {
+describe.only('Screen search drinks should have Header component', () => {
   it('Should have a profile button and "Explorar Bebidas" title', () => {
     renderWithRouterAndStore(<SearchDrinks />);
-    expect(queryByTestId(document.documentElement, 'profile-top-button'))
+    expect(queryByTestId(document.documentElement, 'profile-top-btn'))
       .toBeInTheDocument();
     expect(queryByTestId(document.documentElement, 'page-title'))
       .toBeInTheDocument();
