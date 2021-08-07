@@ -7,36 +7,33 @@ import SearchBar from './SearchBar';
 import FiltersBar from './FiltersBar';
 
 export default function Header(props) {
-  const [isVisibleBar, setVisibleBar] = useState(false);
+  const [isVisibleSearchBar, setVisibleSearchBar] = useState(false);
   const history = useHistory();
-  const { title, search, fetchType } = props;
+  const { title, search, fetchType, filterBar } = props;
+  console.log(filterBar);
+  console.log(search);
 
   const renderSearchBar = () => <section><SearchBar fetchType={ fetchType } /></section>;
   const renderFiltersBar = () => (<FiltersBar fetchType={ fetchType } />);
 
   const buttonSearch = () => (
-    <>
-      <div
-        role="button"
-        onKeyPress={ () => setVisibleBar(!isVisibleBar) }
-        onClick={ () => setVisibleBar(!isVisibleBar) }
-        tabIndex="0"
-      >
-        <img
-          data-testid="search-top-btn"
-          alt="search button"
-          src={ searchIcon }
-        />
-      </div>
-      <section>
-        { isVisibleBar ? renderSearchBar() : renderFiltersBar() }
-      </section>
-    </>
+    <div
+      role="button"
+      onKeyPress={ () => setVisibleSearchBar(!isVisibleSearchBar) }
+      onClick={ () => setVisibleSearchBar(!isVisibleSearchBar) }
+      tabIndex="0"
+    >
+      <img
+        data-testid="search-top-btn"
+        alt="search button"
+        src={ searchIcon }
+      />
+    </div>
   );
 
   return (
     <header>
-      <section>
+      <section style={ { display: 'flex' } }>
         <div
           role="button"
           onKeyPress={ () => history.push('/perfil') }
@@ -50,8 +47,12 @@ export default function Header(props) {
           />
         </div>
         <h3 data-testid="page-title">{ title }</h3>
+        { search && buttonSearch() }
       </section>
-      { search && buttonSearch() }
+      <section>
+        { isVisibleSearchBar && renderSearchBar() }
+        { filterBar && !isVisibleSearchBar && renderFiltersBar() }
+      </section>
     </header>
   );
 }
