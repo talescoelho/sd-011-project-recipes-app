@@ -87,7 +87,7 @@ class FoodDetails extends Component {
       name: foodDetail[0].strMeal,
       image: foodDetail[0].strMealThumb,
     };
-    saveRecipesOnLocalStorage(favoriteRecipes, window.location.href);
+    saveRecipesOnLocalStorage(favoriteRecipes);
   }
 
   saveOnLocalStorage() {

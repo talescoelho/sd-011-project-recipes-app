@@ -85,7 +85,7 @@ class DrinkDetails extends Component {
       alcoholicOrNot: drinkDetail[0].strAlcoholic || '',
       name: drinkDetail[0].strDrink,
       image: drinkDetail[0].strDrinkThumb };
-    saveRecipesOnLocalStorage(favoriteRecipes, window.location.href);
+    saveRecipesOnLocalStorage(favoriteRecipes);
   }
 
   saveOnLocalStorage() {
