@@ -34,8 +34,9 @@ export default function FavoriteButton({ currentItem, typeOf }) {
   }
 
   return (
-    <button type="button" onClick={ () => toggleFavorite() } data-testid="favorite-btn">
+    <button type="button" onClick={ () => toggleFavorite() }>
       <img
+        data-testid="favorite-btn"
         src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
         alt="Botão de receita favorita"
       />

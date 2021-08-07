@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory  } from 'react-router-dom';
 import ShareButton from './ShareButton';
 import verifyIngredients from '../../Helpers/verifyIngredients';
 import '../../styles/detail-screen.css';
@@ -7,6 +7,7 @@ import FavoriteButton from './FavoriteButton';
 import { manageDetailAPI } from '../../Helpers/convertUrlToID';
 
 function InProgressDrink() {
+  const history = useHistory();
   const { id } = useParams();
   const [usedIngredients, setUsedIngredients] = useState([]);
   const [showFinish, setShowFinish] = useState(true);
@@ -121,6 +122,7 @@ function InProgressDrink() {
         data-testid="finish-recipe-btn"
         type="button"
         disabled={ showFinish }
+        onClick={ () => history.push('/receitas-feitas') }
       >
         Finalizar Receita
       </button>

@@ -5,7 +5,7 @@ export function verifyFavoritesDrink(currentItem, id, currentFavoriteRecipes) {
   } else {
     currentFavoriteRecipes.push({
       id: currentItem.idDrink,
-      type: 'Bebida',
+      type: 'bebida',
       area: '',
       category: currentItem.strCategory,
       alcoholicOrNot: currentItem.strAlcoholic === 'Non alcoholic'
@@ -25,7 +25,7 @@ export function verifyFavoritesFood(currentItem, id, currentFavoriteRecipes) {
   } else {
     currentFavoriteRecipes.push({
       id: currentItem.idMeal,
-      type: 'Comida',
+      type: 'comida',
       area: currentItem.strArea,
       category: currentItem.strCategory,
       alcoholicOrNot: '',

@@ -1,11 +1,14 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import shareIcon from '../../images/shareIcon.svg';
 
 function ShareButton() {
+  const { id } = useParams();
   const [showCopy, setShowCopy] = React.useState(false);
   function copyToClipBoard() {
-    copy(`http://localhost:3000${window.location.pathname}`);
+    copy(`http://localhost:3000/${window.location.pathname.includes('bebidas')
+      ? 'bebidas' : 'comidas'}/${id}`);
     setShowCopy(true);
   }
   return (
