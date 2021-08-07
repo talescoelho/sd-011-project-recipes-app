@@ -59,6 +59,7 @@ function DetailHeader() {
         <Badge
           bg="info"
           text="dark"
+          data-testid="recipe-category"
         >
           {drinkDetails.strAlcoholic}
         </Badge>

@@ -12,7 +12,7 @@ function Recommendations() {
   const numberOfVerification = -1;
   const getDrinksDetails = pathname.indexOf('bebidas') > numberOfVerification;
 
-  return getDrinksDetails ? (
+  return !getDrinksDetails ? (
     <Card style={ { padding: '10px' } }>
       <Card.Title>Recommendations</Card.Title>
       <Carousel>
