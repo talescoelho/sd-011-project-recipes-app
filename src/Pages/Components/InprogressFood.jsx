@@ -4,6 +4,7 @@ import '../../styles/InProgressFood.css';
 import { manageDetailAPI } from '../../Helpers/convertUrlToID';
 import verifyIngredients from '../../Helpers/verifyIngredients';
 import ShareButton from './ShareButton';
+import FavoriteButton from './FavoriteButton';
 
 // function verifyIngredients(string, array) {
 //   return string && string !== ' ' ? array.push(string) : null;
@@ -93,7 +94,7 @@ function InProgressFood() {
         alt={ `Foto da comida chamada ${anyFood[0].strMeal}` }
         data-testid="recipe-photo"
       />
-      <button data-testid="favorite-btn" type="button">Favoritar</button>
+      <FavoriteButton currentItem={ anyFood[0] } typeOf="Meal" />
       <ShareButton />
       <p data-testid="recipe-category">{anyFood[0].strCategory}</p>
       <section>

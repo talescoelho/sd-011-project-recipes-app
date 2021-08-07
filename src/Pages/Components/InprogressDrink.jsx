@@ -90,7 +90,7 @@ function InProgressDrink() {
         alt={ `Foto da bebida chamada ${drinks[0].strDrink}` }
         data-testid="recipe-photo"
       />
-      <FavoriteButton />
+      <FavoriteButton currentItem={ drinks[0] } typeOf="Drink" />
       <ShareButton />
       <p data-testid="recipe-category">{drinks[0].strCategory}</p>
       <section>

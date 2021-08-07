@@ -6,6 +6,7 @@ import ShareButton from './ShareButton';
 import '../../styles/detail-screen.css';
 import { manageDetailAPI } from '../../Helpers/convertUrlToID';
 import embedYouTubeVideo from '../../Helpers/embedYouTubeVideo';
+import FavoriteButton from './FavoriteButton';
 
 function SingleFoodItem() {
   const { id } = useParams();
@@ -61,7 +62,7 @@ function SingleFoodItem() {
         alt={ `Foto da comida chamada ${meals[0].strMeal}` }
         data-testid="recipe-photo"
       />
-      <button data-testid="favorite-btn" type="button">Favoritar</button>
+      <FavoriteButton currentItem={ meals[0] } typeOf="Meal" />
       <ShareButton />
       <p data-testid="recipe-category">{meals[0].strCategory}</p>
       <section>

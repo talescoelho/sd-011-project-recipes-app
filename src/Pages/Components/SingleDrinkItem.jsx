@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { manageDetailAPI } from '../../Helpers/convertUrlToID';
 import CarrouselFoods from './CarrouselFoods';
+import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 
 function SingleFoodItem() {
@@ -60,8 +61,8 @@ function SingleFoodItem() {
         data-testid="recipe-photo"
       />
       <p data-testid="recipe-category">{drinks[0].strAlcoholic}</p>
+      <FavoriteButton currentItem={ drinks[0] } typeOf="Drink" />
       <ShareButton />
-      <button data-testid="favorite-btn" type="button">Favoritar</button>
       <p data-testid="recipe-category">{drinks[0].strCategory}</p>
       <section>
         <h2>Ingredientes</h2>
