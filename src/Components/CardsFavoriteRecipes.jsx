@@ -16,6 +16,23 @@ export default class CardsFavoriteRecipes extends Component {
 
     this.copySuccess = this.copySuccess.bind(this);
     this.favoriteOrNotRecipe = this.favoriteOrNotRecipe.bind(this);
+    this.setFavorites = this.setFavorites.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    // Uso típico, (não esqueça de comparar as props):
+    const { favorites } = this.props;
+    if (favorites !== prevProps.favorites) {
+      this.setFavorites();
+    }
+  }
+
+  setFavorites() {
+    const { favorites } = this.props;
+    this.setState((prevState) => ({
+      ...prevState,
+      favorites,
+    }));
   }
 
   copySuccess() {
