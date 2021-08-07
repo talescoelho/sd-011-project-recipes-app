@@ -4,7 +4,6 @@ import { useHistory } from 'react-router';
 import Profile from '../images/profileIcon.svg';
 import Search from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
-import { Nav } from './styles';
 
 export default function Header({ recipeType, title, searchButton }) {
   const [hide, setHide] = useState(false);
@@ -13,8 +12,8 @@ export default function Header({ recipeType, title, searchButton }) {
     setHide((prevState) => !prevState);
   };
   return (
-    <header>
-      <Nav>
+    <header className="container">
+      <navbar className="nav justify-content-around align-items-center">
         <button
           type="button"
           onClick={ () => history.push('/perfil') }
@@ -27,7 +26,7 @@ export default function Header({ recipeType, title, searchButton }) {
           <button type="button" onClick={ handleClick }>
             <img data-testid="search-top-btn" src={ Search } alt="user" />
           </button>)}
-      </Nav>
+      </navbar>
       { hide
        && <SearchBar recipeType={ recipeType } />}
     </header>

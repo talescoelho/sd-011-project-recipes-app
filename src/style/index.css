@@ -96,6 +96,19 @@
   }
 }
 
+/* Header CSS */
+.nav {
+  border-bottom: 5px solid var(--dark-color-2);
+  color: var(--dark-color-2);
+  font-size: 3rem !important;
+  font-weight: 900 !important;
+}
+
+.nav img {
+  width: 45px;
+  height: 45px;
+}
+
 /* Footer CSS */
 .footer {
   align-items: center;
