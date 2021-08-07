@@ -206,21 +206,46 @@
   width: 40px;
 }
 
+/* Recipes CSS */
+/* https://codepen.io/jakedx6/pen/Veqbez */
+.card {
+  background-color: var(--font-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) , 0 1px 2px rgba(0, 0, 0, 0.24);
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.card:hover {
+  box-shadow: 10px 10px 10px rgba(255, 0, 0, 0.19) , 0 6px 6px rgba(255, 0, 0, 0.23);
+}
+
+.title-recipe {
+  color: var(--dark-color-1);
+  font-weight: 300;
+  text-align: center;
+}
+
+.title-recipe:hover {
+  font-weight: 400;
+  text-align: center;
+}
+
 /* Details Page */
 .container {
-  margin: 75px 0;
+  margin: 25px 0;
 }
 
 .card-img-top {
-  border: 2px solid var(--light-color-2);
+  border-bottom: 1px solid var(--light-color-2);
   padding: 5px;
-  width: 155px;
 }
 
-.card-body {
+/* .card-body {
   border: 2px solid var(--light-color-2);
   text-align: center;
-}
+} */
 
 .carousel {
   align-items: center;

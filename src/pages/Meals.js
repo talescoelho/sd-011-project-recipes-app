@@ -14,22 +14,22 @@ function Meals() {
   }
 
   return (
-    <div>
+    <>
       <Header title="Comidas" recipeType="meals" searchButton />
       <CategoriesBar recipeType="meals" />
-      { mealsData !== [] && mealsData.map((recipe, index) => (
-        <Link
-          to={ `/comidas/${recipe.idMeal}` }
-          key={ recipe.idMeal }
-        >
-          <RecipeCard
-            recipe={ recipe }
-            index={ index }
-          />
-        </Link>
-      )) }
+      <div className="container my-5">
+        <div className="row px-5 gallery-work">
+          { mealsData !== [] && mealsData.map((recipe, index) => (
+            <div className="col-md-4 my-3" key={ recipe.idMeal }>
+              <Link to={ `/comidas/${recipe.idMeal}` }>
+                <RecipeCard recipe={ recipe } index={ index } />
+              </Link>
+            </div>
+          )) }
+        </div>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 
