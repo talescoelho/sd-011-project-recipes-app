@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getDrinkByID } from '../Services/ApiDrink';
 
@@ -95,13 +96,15 @@ function DrinkProgress(props) {
         </div>
       )) }
       <div>
-        <button
-          type="button"
-          data-testid="finish-recipe-btn"
-          disabled={ !button }
-        >
-          Finish
-        </button>
+        <Link to="/receitas-feitas">
+          <button
+            type="button"
+            data-testid="finish-recipe-btn"
+            disabled={ !button }
+          >
+            Finish
+          </button>
+        </Link>
         <button
           type="button"
           data-testid="favorite-btn"
