@@ -17,7 +17,7 @@ describe('Verify if the Header component have the atributs data-testid', () => {
     expect(pageTitle).toBeInTheDocument();
   });
 
-  it.only('Have data-testid "search-top-btn"', () => {
+  it('Have data-testid "search-top-btn"', () => {
     renderWithRouterAndStore(<Foods />, '/comidas');
     const searchButton = screen.getByTestId('search-top-btn');
     expect(searchButton).toBeInTheDocument();
