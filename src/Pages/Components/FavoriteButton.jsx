@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {verifyFavoritesDrink, verifyFavoritesFood} from '../../Helpers/VerifyFavorites';
+import PropTypes from 'prop-types';
+import { verifyFavoritesDrink, verifyFavoritesFood } from '../../Helpers/VerifyFavorites';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
@@ -20,6 +21,7 @@ export default function FavoriteButton({ currentItem, typeOf }) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
     verifyIfIsFavorite();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function toggleFavorite() {
@@ -43,3 +45,8 @@ export default function FavoriteButton({ currentItem, typeOf }) {
     </button>
   );
 }
+
+FavoriteButton.propTypes = {
+  currentItem: PropTypes.objectOf(PropTypes.object).isRequired,
+  typeOf: PropTypes.string.isRequired,
+};

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory  } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import ShareButton from './ShareButton';
 import verifyIngredients from '../../Helpers/verifyIngredients';
 import '../../styles/detail-screen.css';
