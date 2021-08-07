@@ -95,7 +95,7 @@ describe('26 - Carregue as 12 primeiras receitas de comidas ou bebidas, uma em c
   });
 });
 
-describe.only('27 - Implemente os botões de categoria para serem utilizados como filtro', () => {
+describe('27 - Implemente os botões de categoria para serem utilizados como filtro', () => {
   it('Caso as receitas sejam de comida, deve-se exibir as 5 primeiras categorias de comida', () => {
     cy.visit('http://localhost:3000/comidas', {
       onBeforeLoad(win) {
@@ -324,7 +324,7 @@ describe.only('31 - Desenvolva o filtro de categorias com a opção de filtrar p
     checkFirstTwelveRecipes(mealsMock.meals);
   });
 
-  it('Caso as receitas sejam de bebida deve existir a opção de filtrar por todas as categorias', () => {
+  it.skip('Caso as receitas sejam de bebida deve existir a opção de filtrar por todas as categorias', () => {
     cy.visit('http://localhost:3000/bebidas', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;

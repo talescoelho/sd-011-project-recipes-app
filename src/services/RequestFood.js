@@ -1,7 +1,7 @@
 export async function getCategoriesFood() {
-  const categories = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+  const categories = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php');
   const result = await categories.json();
-  return result.meals;
+  return result.categories;
 }
 
 export async function getAreas() {

@@ -13,24 +13,24 @@ function CardRecipe({ item, index }) {
             <p data-testid={ `${index}-card-name` }>
               { item.strMeal ? item.strMeal : item.strCategory }
             </p>
-            { !item.strMealThumb ? '' : (<img
+            <img
               data-testid={ `${index}-card-img` }
-              src={ item.strMealThumb }
-              alt={ item.strMeal }
+              src={ item.strMealThumb ? item.strMealThumb : item.strCategoryThumb }
+              alt={ `${index}-card-name` }
               width="50px"
-            />) }
+            />
           </div>
         ) : (
           <div>
             <p data-testid={ `${index}-card-name` }>
               { item.strDrink ? item.strDrink : item.strCategory }
             </p>
-            { !item.strDrinkThumb ? '' : (<img
+            <img
               data-testid={ `${index}-card-img` }
-              src={ item.strDrinkThumb }
-              alt={ item.strDrink }
+              src={ item.strDrinkThumb ? item.strDrinkThumb : 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg' }
+              alt={ `${index}-card-name` }
               width="50px"
-            />) }
+            />
           </div>
         ) }
     </div>
