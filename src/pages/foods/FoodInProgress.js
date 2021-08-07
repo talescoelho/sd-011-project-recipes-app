@@ -64,11 +64,10 @@ export default function FoodInProgress({ location }) {
         </button>
         <h3>Receita</h3>
         { ingredientsArray && ingredientsArray.map((ingredient, index) => (
-          <div key={ index }>
+          <div key={ index } data-testid={ `${index}-ingredient-step` }>
             <label key={ index } htmlFor={ `id${index}` }>
               <input
                 id={ `id${index}` }
-                data-testid={ `${index}-ingredient-step` }
                 key={ index }
                 type="checkbox"
                 value={ ingredient[1] }
