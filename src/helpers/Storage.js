@@ -10,18 +10,36 @@ export const dateToday = () => {
 };
 
 export const newDoneRecipe = (returnedDetail, typeFoods) => {
-  const r = returnedDetail;
+  const { idMeal, idDrink, strArea, strCategory, strAlcoholic,
+    strMeal, strDrink, strMealThumb, strDrinkThumb, strTags } = returnedDetail;
+
   const maxTags = 2;
   const newDoneRecip = {
-    id: r.idMeal || r.idDrink,
+    id: idMeal || idDrink,
     type: typeFoods,
-    area: r.strArea || '',
-    category: r.strCategory || '',
-    alcoholicOrNot: r.strAlcoholic || '',
-    name: r.strMeal || r.strDrink,
-    image: r.strMealThumb || r.strDrinkThumb,
+    area: strArea || '',
+    category: strCategory || '',
+    alcoholicOrNot: strAlcoholic || '',
+    name: strMeal || strDrink,
+    image: strMealThumb || strDrinkThumb,
     doneDate: dateToday(),
-    tags: r.strTags ? r.strTags.split(',').slice(0, maxTags) : [],
+    tags: strTags ? strTags.split(',').slice(0, maxTags) : [],
   };
   return newDoneRecip;
+};
+
+export const newFavoriteRecipes = (returnedDetail, typeFoods) => {
+  const { idMeal, idDrink, strArea, strCategory, strAlcoholic,
+    strMeal, strDrink, strMealThumb, strDrinkThumb } = returnedDetail;
+
+  const newFavoriteRecip = {
+    id: idMeal || idDrink,
+    type: typeFoods,
+    area: strArea || '',
+    category: strCategory || '',
+    alcoholicOrNot: strAlcoholic || '',
+    name: strMeal || strDrink,
+    image: strMealThumb || strDrinkThumb,
+  };
+  return newFavoriteRecip;
 };

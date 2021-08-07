@@ -93,7 +93,7 @@ function FiltersCategories() {
           key={ index }
           onClick={ (e) => resetSetFilter(e) }
         >
-          {category.strCategory}
+          {category.strCategory.split(/[ /]/, 1)}
         </ReactBootStrap.Button>))}
     </div>
   );

@@ -13,7 +13,6 @@ function DoneRecipes() {
     return storage || [];
   }
   const [doneRecipes, setDoneRecipes] = useState(recipesDone());
-  console.log(doneRecipes);
 
   useEffect(() => {
     setDoneRecipes(recipesDone());
@@ -55,7 +54,7 @@ function DoneRecipes() {
           className="btn-filter"
           data-testid="filter-by-all-btn"
           type="button"
-          onClick={ () => setDoneRecipes(recipesDone()) }
+          onClick={ () => setDoneRecipes(recipesDone) }
         >
           All
         </button>
