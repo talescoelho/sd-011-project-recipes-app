@@ -21,6 +21,11 @@
   --dark-color-2: #fb3c34;
 }
 
+.subtitle {
+  color: var(--dark-color-1);
+  font-weight: 300;
+}
+
 /* Login CSS */
 .form-login-container {
   align-items: center;
