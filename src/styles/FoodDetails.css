@@ -1,0 +1,51 @@
+.food-details {
+  margin: 0;
+}
+
+.food-details .imgreceita {
+  display: flex;
+  height: 20vh;
+  object-fit: cover;
+  width: 100%;
+}
+
+.food-details h1 {
+  font-size: 5vh;
+  margin-top: 1vh;
+  text-align: center;
+}
+
+.food-details p {
+  font-family: Abel , sans-serif;
+  font-size: 2.5vh;
+  font-weight: 400;
+  margin: 2.5vh;
+  text-align: justify;
+}
+
+.food-details .btnheader {
+  background: transparent;
+  margin: 2%;
+  width: 25%;
+}
+
+.food-details .imgdrinks {
+  width: 100%;
+}
+
+.food-details .cardsdrinks {
+  display: flex;
+  flex-direction: row;
+}
+
+.food-details .card {
+  display: flex;
+  width: 80%;
+}
+
+.food-details .btnstart {
+  bottom: 0%;
+  position: fixed;
+  z-index: 9999;
+}
+

@@ -13,7 +13,6 @@ import {
 } from '../services/RecipesLocalStorage';
 import ShareBtn from './ShareBtn';
 import FavoriteBtn from './FavoriteBtn';
-import '../styles/FoodDetails.scss';
 
 export default function FoodDetails({ type }) {
   const recipes = useSelector((state) => state.recipes);

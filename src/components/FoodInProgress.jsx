@@ -8,7 +8,6 @@ import CardsDrinks from './CardsDrinks';
 import CardsFood from './CardsFood';
 import ShareBtn from './ShareBtn';
 import FavoriteBtn from './FavoriteBtn';
-import '../styles/FoodDetails.scss';
 import { isRecipeDone } from '../services/RecipesLocalStorage';
 
 export default function FoodInProgress({ type }) {

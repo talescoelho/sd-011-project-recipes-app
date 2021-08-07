@@ -72,7 +72,7 @@ function ExploreByPlace() {
   return (
     <>
       <main className="explore-by-place">
-        <Header pageName="Explorar por local de origem" />
+        <Header pageName="Explorar Origem" />
         {dropdownOptions()}
         <section className="section-place">
           <FoodCard type="meals" />
