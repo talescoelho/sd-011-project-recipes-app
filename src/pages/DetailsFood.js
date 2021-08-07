@@ -20,7 +20,6 @@ function DetailsFood() {
   const [load, setLoad] = useState(true);
   const food = useCallback(async () => {
     const fetch = await getFoodById(id);
-    console.log(fetch);
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = fetch[0].strYoutube.match(regExp);
     if (match !== null) {
