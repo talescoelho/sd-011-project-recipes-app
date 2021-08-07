@@ -91,7 +91,6 @@ function SingleFoodItem() {
       >
         { currentStorage
         && currentStorage.cocktails[id] ? 'Continuar Receita' : 'Iniciar Receita'}
-        Iniciar Receita
       </button>
     </div>
   );
