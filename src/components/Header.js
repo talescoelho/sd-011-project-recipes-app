@@ -19,6 +19,20 @@ class Header extends Component {
     this.withSearch = this.withSearch.bind(this);
     this.withoutSearch = this.withoutSearch.bind(this);
     this.fetchHeaderSearch = this.fetchHeaderSearch.bind(this);
+    this.redirectToRecipeDetail = this.redirectToRecipeDetail.bind(this);
+  }
+
+  componentDidUpdate() {
+    this.redirectToRecipeDetail();
+  }
+
+  redirectToRecipeDetail() {
+    const { headerSearchRecipes, history: { push, location: { pathname } } } = this.props;
+    if (headerSearchRecipes.length === 1) {
+      const id = pathname === '/comidas'
+        ? headerSearchRecipes[0].idMeal : headerSearchRecipes[0].idDrink;
+      push(`${pathname}/${id}`);
+    }
   }
 
   fetchHeaderSearch() {
@@ -164,6 +178,10 @@ class Header extends Component {
   }
 }
 
+const mapStateToProps = ({ headerSearchReducer }) => ({
+  headerSearchRecipes: headerSearchReducer.recipes,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   dispatchFetchHeaderSearch:
     (type, filter, keyWord) => dispatch(fetchHeaderSearch(type, filter, keyWord)),
@@ -178,7 +196,8 @@ Header.propTypes = {
       pathname: PropTypes.string,
     }),
   }),
+  headerSearchRecipes: PropTypes.arrayOf(PropTypes.object),
 }.isRequired;
 
 const headerWithRouter = withRouter(Header);
-export default connect(null, mapDispatchToProps)(headerWithRouter);
+export default connect(mapStateToProps, mapDispatchToProps)(headerWithRouter);
