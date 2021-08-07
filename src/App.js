@@ -43,10 +43,8 @@ function App() {
         <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
         <Route path="*" component={ NotFound } />
-        <RecipeDetailsProvider>
-          <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
-          <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
-        </RecipeDetailsProvider>
+        <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
+        <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
       </Switch>
     </BrowserRouter>
   );
