@@ -10,8 +10,15 @@ export default function CopyButton() {
   const location = useLocation();
 
   const handleCopyBtn = () => {
-    setCopyBtnText('Link copiado!');
-    copy(`http://localhost:3000${location.pathname}`);
+    const id = location.pathname.split('/')[2];
+    const TEXT = 'Link copiado!';
+    if (location.pathname.includes('bebidas')) {
+      copy(`http://localhost:3000/bebidas/${id}`);
+      setCopyBtnText(TEXT);
+    } else {
+      copy(`http://localhost:3000/comidas/${id}`);
+      setCopyBtnText(TEXT);
+    }
   };
   return (
     <>
