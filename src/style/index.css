@@ -348,11 +348,21 @@
   -webkit-text-stroke-width: 3px;
 }
 
+.not-found-subtitle {
+  color: var(--font-color);
+  font-size: 3.5rem;
+  font-weight: 700;
+  text-align: center;
+  -webkit-text-stroke-color: var(--dark-color-1);
+  -webkit-text-stroke-width: 2px;
+}
+
 .not-found-text {
   color: var(--font-color);
   font-size: 2rem;
   font-weight: 400;
   text-align: center;
+  line-height: 1.5;
 }
 
 .not-found-button-back {
