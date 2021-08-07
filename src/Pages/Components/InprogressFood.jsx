@@ -73,7 +73,7 @@ function InProgressFood() {
     arrayOfIngredientsKey
       .map((ingredient) => verifyIngredients(food[ingredient], arrayOfIngredients));
     arrayOfMeasuresKey
-      .map((ingredient) => verifyIngredients(food[ingredient], arrayOfIngredients));
+      .map((ingredient) => verifyIngredients(food[ingredient], arrayOfMeasures));
   }
 
   function handleCheckBox(ingredient) {
