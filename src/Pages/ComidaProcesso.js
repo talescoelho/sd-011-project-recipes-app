@@ -127,6 +127,34 @@ function ComidaProcesso() {
     }
   };
 
+  function handleDoneRecipe() {
+    const { strMealThumb, strMeal, idMeal, strCategory, strArea, strTags } = recipe;
+
+    const currentDate = new Date(Date.now()).toLocaleString().split(',')[0];
+
+    const newFoodDone = {
+      id: idMeal,
+      type: 'comida',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+      doneDate: currentDate, //  implementar função para buscar tempo
+      tags: strTags.split(''),
+    };
+
+    let currentDoneRecipesStoraged = [];
+    if (localStorage.getItem('doneRecipes')) {
+      currentDoneRecipesStoraged = JSON.parse(localStorage.getItem('doneRecipes'));
+      localStorage.setItem('doneRecipes',
+        JSON.stringify([...currentDoneRecipesStoraged, newFoodDone]));
+    } else {
+      localStorage.setItem('doneRecipes',
+        JSON.stringify([...currentDoneRecipesStoraged, newFoodDone]));
+    }
+  }
+
   return (
     <div>
       <img
@@ -172,6 +200,7 @@ function ComidaProcesso() {
             position: 'fixed',
             bottom: '0',
           } }
+          onClick={ handleDoneRecipe }
         >
           Finalizar Receita
         </button>
