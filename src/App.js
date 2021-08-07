@@ -29,6 +29,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
+        <Route path="/perfil" component={ Profile } />
         <Route exact path="/explorar" component={ Explorer } />
         <Route exact path="/explorar/comidas" component={ FoodExplorer } />
         <Route exact path="/explorar/bebidas" component={ DrinkExplorer } />
@@ -39,14 +40,13 @@ function App() {
         <Route exact path="/bebidas" component={ Drinks } />
         <Route exact path="/comidas/:id" component={ FoodRecipes } />
         <Route exact path="/bebidas/:id" component={ DrinkRecipes } />
+        <Route path="/receitas-feitas" component={ DoneRecipes } />
+        <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+        <Route path="*" component={ NotFound } />
         <RecipeDetailsProvider>
           <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
           <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
         </RecipeDetailsProvider>
-        <Route path="/perfil" component={ Profile } />
-        <Route path="/receitas-feitas" component={ DoneRecipes } />
-        <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
-        <Route path="*" component={ NotFound } />
       </Switch>
     </BrowserRouter>
   );
