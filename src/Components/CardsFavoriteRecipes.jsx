@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -65,19 +66,23 @@ export default class CardsFavoriteRecipes extends Component {
       <div>
         {favorites.map((recipe, index) => (
           <div key={ index }>
-            <img
-              alt="imagem"
-              src={ recipe.image }
-              width="150px"
-              data-testid={ `${index}-horizontal-image` }
-            />
+            <Link to={ `/${recipe.type}s/${recipe.id}` }>
+              <img
+                alt="imagem"
+                src={ recipe.image }
+                width="150px"
+                data-testid={ `${index}-horizontal-image` }
+              />
+            </Link>
             <h6
               data-testid={ `${index}-horizontal-top-text` }
             >
               { recipe.area !== ''
                 ? `${recipe.area} - ${recipe.category}` : `${recipe.alcoholicOrNot}`}
             </h6>
-            <h4 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h4>
+            <Link to={ `/${recipe.type}s/${recipe.id}` }>
+              <h4 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h4>
+            </Link>
             <CopyToClipboard
               text={ `${window.location.origin}/${recipe.type}s/${recipe.id}` }
             >
