@@ -10,23 +10,30 @@ function CardRecipe({ item, index }) {
       { local === url
         ? (
           <div data-testid={ `${index}-recipe-card` }>
-            <p data-testid={ `${index}-card-name` }>{ item.strMeal }</p>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ item.strMealThumb }
-              alt={ item.strMeal }
-              width="50px"
-            />
+            <p data-testid={ `${index}-card-name` }>
+              { item.strMeal ? item.strMeal : item.strCategory }
+            </p>
+            { item.strMealThumb
+              ?
+                <img
+                  data-testid={ `${index}-card-img` }
+                  src={ item.strMealThumb }
+                  alt={ item.strMeal }
+                  width="50px" />
+              : ''}
           </div>
         ) : (
           <div>
-            <p data-testid={ `${index}-card-name` }>{ item.strDrink }</p>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ item.strDrinkThumb }
-              alt={ item.strDrink }
-              width="50px"
-            />
+            <p data-testid={ `${index}-card-name` }>
+              { item.strDrink ? item.strDrink : item.strCategory }
+            </p>
+            { item.strDrinkThumb ?
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ item.strDrinkThumb }
+                alt={ item.strDrink }
+                width="50px" />
+            : ''}
           </div>
         ) }
     </div>

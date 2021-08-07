@@ -4,12 +4,6 @@ export async function getCategoriesFood() {
   return result.meals;
 }
 
-export async function allCategoriesFood() {
-  const categories = await fetch('www.themealdb.com/api/json/v1/1/categories.php');
-  const result = await categories.json();
-  return result.categories;
-}
-
 export async function getAreas() {
   const areas = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
   const result = await areas.json();

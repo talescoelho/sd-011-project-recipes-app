@@ -26,7 +26,7 @@ function NavCategories() {
 
   useEffect(() => {
     getCategoriesDrinkAndFood();
-  }, []);
+  }, [setInitialItensFood, setInitialItensDrink]);
 
   async function searchByCategoryDrinkAndFood(text) {
     if (local === url) {
@@ -38,8 +38,24 @@ function NavCategories() {
     }
   }
 
+  async function searchAllCategories() {
+    if (local === url) {
+      const items = await getCategoriesFood();
+      setInitialItensFood(items);
+    } if (local !== url) {
+      const itemsDrink = await getCategoriesDrink();
+      setInitialItensDrink(itemsDrink);
+    }
+  }
+
   return (
     <div>
+      <button
+        type="button"
+        onClick={ () => searchAllCategories() }
+      >
+        All
+      </button>
       { category.slice(0, MAX_RESULT)
         .map((item, index) => (
           <button
