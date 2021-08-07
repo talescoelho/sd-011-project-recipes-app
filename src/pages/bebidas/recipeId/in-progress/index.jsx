@@ -61,7 +61,7 @@ export default function BebidasInProgress({ match: { params: { recipeId } } }) {
         <Row as="nav" className="mb-3 m-auto justify-content-center">
           <Col className="col-12 d-flex justify-content-center">
             <CopyButton />
-            <FavoriteButton recipeId={ recipeId } selector="meal" details={ details } />
+            <FavoriteButton recipeId={ recipeId } selector="drink" details={ details } />
           </Col>
         </Row>
         <Row
