@@ -24,7 +24,7 @@ export default function Profile() {
   };
   return (
     <div>
-      <Header title="Perfil" search={ false } />
+      <Header title="Perfil" />
       <section style={ sectionStyle }>
         <h5 data-testid="profile-email">{ getEmail() }</h5>
         <button
