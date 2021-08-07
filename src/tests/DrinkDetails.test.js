@@ -4,7 +4,7 @@ import { renderWithRouterAndStore } from './helper/testConfig';
 
 import DrinkDetails from '../pages/DrinkDetails';
 
-describe.only('Should not have a <Header /> component in the Drink Details screen', () => {
+describe('Should not have a <Header /> component in the Drink Details screen', () => {
   it('Cant have a <Header /> component', () => {
     renderWithRouterAndStore(<DrinkDetails />);
     expect(queryByTestId(document.documentElement, 'profile-top-btn'))
