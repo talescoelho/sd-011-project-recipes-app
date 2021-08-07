@@ -31,12 +31,14 @@ export default function FoodCard({ type }) {
 
   useEffect(() => {
     if (cards.length === 1) {
+      const thinkTime = 1500;
       const route = {
         meals: 'comidas',
         drinks: 'bebidas',
       };
-      console.log(cards[0]);
-      history.push(`/${route[type]}/${cards[0].idMeal || cards[0].idDrink}`);
+      setTimeout(() => {
+        history.push(`/${route[type]}/${cards[0].idMeal || cards[0].idDrink}`);
+      }, thinkTime);
     }
   }, [cards, history, type]);
 

@@ -83,7 +83,7 @@ export default function FoodDetails({ type }) {
   };
   return (
     <main className="food-details">
-      <div>
+      <div data-testid="0-recipe-card">
 
         <img
           className="imgreceita"
