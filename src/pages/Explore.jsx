@@ -4,6 +4,8 @@ import Header from '../components/Header';
 import ExploreFoodAndDrink from '../components/ExploreFoodAndDrink';
 import ExploreInitial from '../components/ExploreInitial';
 import ExploreCards from '../components/ExploreCards';
+import ExploreArea from '../components/ExploreArea';
+import MenuInferior from '../components/MenuInferior';
 
 export default function Explore() {
   const location = useLocation().pathname;
@@ -16,7 +18,8 @@ export default function Explore() {
       { location === '/explorar/comidas' && <ExploreFoodAndDrink />}
       { location === '/explorar/comidas/ingredientes' && <ExploreCards />}
       { location === '/explorar/bebidas/ingredientes' && <ExploreCards />}
-
+      { location === '/explorar/comidas/area' && <ExploreArea />}
+      <MenuInferior />
     </section>
   );
 }
