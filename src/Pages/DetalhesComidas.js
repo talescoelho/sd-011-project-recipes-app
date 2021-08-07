@@ -48,7 +48,6 @@ function DetalhesComidas() {
   };
 
   const setFavorite = () => {
-    console.log('Favoritar');
     const { strMealThumb, strMeal, idMeal, strArea, strCategory } = recipe; // strAlcoholic, type
     const objToStorage = {
       id: idMeal,
