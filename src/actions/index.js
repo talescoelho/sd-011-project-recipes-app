@@ -112,21 +112,11 @@ export const fetchHeaderSearch = (type, filter, keyWord) => (dispatch) => {
 
   const url = type === 'comidas' ? baseMealDbUrl : baseCocktailDbUrl;
 
-  let urlFilter = '';
+  const setUrl = { ingrediente: `${url}/filter.php?i=${keyWord}`,
+    nome: `${url}/search.php?s=${keyWord}`,
+    'primeira-letra': `${url}/search.php?f=${keyWord}` };
 
-  switch (filter) {
-  case 'ingrediente':
-    urlFilter = `${url}/filter.php?i=${keyWord}`;
-    break;
-  case 'nome':
-    urlFilter = `${url}/search.php?s=${keyWord}`;
-    break;
-  case 'primeira-letra':
-    urlFilter = `${url}/search.php?f=${keyWord}`;
-    break;
-  default:
-    urlFilter = '';
-  }
+  const urlFilter = setUrl[filter];
 
   return fetch(urlFilter)
     .then((response) => response.json())
