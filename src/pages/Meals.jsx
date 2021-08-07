@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import FooterMenu from '../components/FooterMenu';
 import UserContext from '../context/UserContext';
 import '../css/mainPage.css';
+import CategoriesMeals from '../components/CategoriesMeals';
 
 export default function Meals({ history }) {
   const { meals } = useContext(UserContext);
@@ -22,6 +24,7 @@ export default function Meals({ history }) {
   return (
     <>
       <Header title={ comidas } />
+      <CategoriesMeals />
       <section className="meals">
         {meals.map((meal) => (
           <button
@@ -39,3 +42,7 @@ export default function Meals({ history }) {
     </>
   );
 }
+
+Meals.propTypes = {
+  history: PropTypes.node.isRequired,
+};
