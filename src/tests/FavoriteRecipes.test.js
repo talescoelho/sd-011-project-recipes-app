@@ -12,4 +12,10 @@ describe('The screen CompletedRecipes should have right icon from the Header', (
     expect(queryByTestId(document.documentElement, 'page-title'))
       .toBeInTheDocument();
   });
+
+  it('Shouldnt have search button', () => {
+    renderWithRouterAndStore(<FavoriteRecipes />);
+    expect(queryByTestId(document.documentElement, 'search-top-btn'))
+      .not.toBeInTheDocument();
+  });
 });
