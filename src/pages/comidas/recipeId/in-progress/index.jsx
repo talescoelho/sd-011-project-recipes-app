@@ -5,6 +5,7 @@ import {
   Row,
   Col,
   Button,
+  Form,
 } from 'react-bootstrap';
 import { fetchDetails } from '../../../../services/fetchDetailsApi';
 import FavoriteButton from '../../../../components/Details/FavoriteButton/index';
@@ -23,7 +24,9 @@ export default function ComidasInProgress({ match: { params: { recipeId } } }) {
     fetchApi();
   }, [recipeId]);
 
-  const loading = () => <h1>Loading content...</h1>;
+  const loading = () => (
+    <h1 className=" mt-5 d-flex justify-content-center">Loading content...</h1>
+  );
 
   const pageContent = () => {
     const {
@@ -71,23 +74,26 @@ export default function ComidasInProgress({ match: { params: { recipeId } } }) {
           <Col className="col-12">
             <h2>Ingredientes</h2>
           </Col>
-          <ul>
-            {
-              Object.keys(details)
-                .filter((key) => key.includes('strIngredient'))
-                .map((key, index) => (
-                  <Col className="col-12" key={ index }>
-                    <li
-                      data-testid={ `${index}-ingredient-step` }
-                    >
-                      { details[key] }
-                      :
-                      { details[`strMeasure${index + 1}`] }
-                    </li>
-                  </Col>
-                ))
-            }
-          </ul>
+          {
+            Object.keys(details)
+              .filter((key) => key.includes('strIngredient'))
+              .map((key, index) => (
+                <Col key={ index } className="col-12">
+                  <Form.Group
+                    data-testid={ `${index}-ingredient-step` }
+                    className="ml-2 mb-3"
+                    controlId={ `item-${index}` }
+                  >
+                    <Form.Check
+                      type="checkbox"
+                      label={
+                        `${details[key]} : ${details[`strMeasure${index + 1}`]}`
+                      }
+                    />
+                  </Form.Group>
+                </Col>
+              ))
+          }
         </Row>
         <Row>
           <Col className="col-12">
