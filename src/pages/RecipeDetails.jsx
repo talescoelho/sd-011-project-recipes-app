@@ -10,7 +10,6 @@ function RecipeDetails({ match: { params } }) {
     setFetchAPI(APImealById(id));
   }, []);
 
-  console.log(FetchAPI.meals[0].idMeal);
   return (
     <div>
       <RecipeCard />
