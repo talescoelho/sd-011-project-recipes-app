@@ -36,7 +36,7 @@ export default function ComidasInProgress({ match: { params: { recipeId } } }) {
       strMealThumb,
     } = details;
     return (
-      <Container>
+      <Container style={ { backgroundColor: '#0fa36b' } } as="main">
         <Row>
           <Col as="figure" className="col-12">
             <img
@@ -52,11 +52,9 @@ export default function ComidasInProgress({ match: { params: { recipeId } } }) {
             <h1 data-testid="recipe-title">{ strMeal }</h1>
           </Col>
         </Row>
-        <Row as="nav" className="mb-3 m-auto">
-          <Col className="col-6">
+        <Row as="nav" className="mb-3 m-auto justify-content-center">
+          <Col className="col-12 d-flex justify-content-center">
             <CopyButton />
-          </Col>
-          <Col className="col-6">
             <FavoriteButton recipeId={ recipeId } selector="meal" details={ details } />
           </Col>
         </Row>

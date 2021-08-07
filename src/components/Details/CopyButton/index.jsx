@@ -24,6 +24,7 @@ export default function CopyButton() {
     <>
       <Button
         variant="primary"
+        className="rounded-circle p-2 mr-2"
         type="button"
         onClick={ handleCopyBtn }
         data-testid="share-btn"

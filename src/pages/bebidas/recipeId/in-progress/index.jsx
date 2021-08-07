@@ -38,7 +38,7 @@ export default function BebidasInProgress({ match: { params: { recipeId } } }) {
     } = details;
 
     return (
-      <Container>
+      <Container style={ { backgroundColor: '#0fa36b' } } as="main">
         <Row>
           <Col as="figure" className="col-12">
             <img
@@ -54,12 +54,10 @@ export default function BebidasInProgress({ match: { params: { recipeId } } }) {
             <h1 data-testid="recipe-title">{ strDrink }</h1>
           </Col>
         </Row>
-        <Row as="nav" className="mb-3 m-auto">
-          <Col className="col-6">
+        <Row as="nav" className="mb-3 m-auto justify-content-center">
+          <Col className="col-12 d-flex justify-content-center">
             <CopyButton />
-          </Col>
-          <Col className="col-6">
-            <FavoriteButton recipeId={ recipeId } selector="drink" details={ details } />
+            <FavoriteButton recipeId={ recipeId } selector="meal" details={ details } />
           </Col>
         </Row>
         <Row

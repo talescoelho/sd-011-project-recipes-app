@@ -88,6 +88,7 @@ export default function FavoriteButton({ recipeId, selector, details }) {
     <Button
       variant="danger"
       type="button"
+      className="rounded-circle p-2"
       data-testid="favorite-btn"
       onClick={ handleFavoriteBtn }
       src={ favoriteSrc }
