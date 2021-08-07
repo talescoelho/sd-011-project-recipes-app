@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import { getFoodCard } from '../Redux/actions/index';
 import fetchDrinkIngredients from '../services/DrinkIngredientAPI';
 import '../styles/Ingredients.css';
+import Footer from '../components/Footer';
 
 export default function DrinkIngredients() {
   const dispatch = useDispatch();
@@ -58,6 +59,7 @@ export default function DrinkIngredients() {
       <Header pageName="Explorar Ingredientes" />
       <h1>Explore Drink Ingredients</h1>
       {renderDrink()}
+      <Footer />
     </div>
   );
 }

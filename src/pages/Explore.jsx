@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import Header from '../components/Header';
 import '../styles/Explore.css';
+import Footer from '../components/Footer';
 
 export default function Explore() {
   return (
-    <div>
+    <>
       <Header pageName="Explorar" />
-      <div className="explore-buttons">
+      <main className="explore-buttons">
         <Link to="/explorar/comidas">
           <Button
             data-testid="explore-food"
@@ -27,7 +28,8 @@ export default function Explore() {
             Explorar Bebidas
           </Button>
         </Link>
-      </div>
-    </div>
+      </main>
+      <Footer />
+    </>
   );
 }
