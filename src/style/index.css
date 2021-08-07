@@ -162,8 +162,28 @@
   color: var(--light-color-2);
 }
 
-*:active, :focus { 
-    outline-style: none; 
+.category-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.category-bar-button {
+  margin: 5px;
+  background-color: var(--dark-color-1);
+  border-radius: 8px;
+  color: var(--light-color-1);
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 400;
+  padding: 5px 0;
+  width: 100%;
+  outline: none;
+}
+
+.category-bar-button:hover {
+  color: var(--light-color-2);
 }
 
 /* Footer CSS */
