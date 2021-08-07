@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import propTypes from 'prop-types';
 import getFood from '../services/SearchRecipe';
 
 export default function FoodCard({ type }) {
+  const history = useHistory();
   const dispatch = useDispatch();
   const number = 12;
   const recipes = useSelector((state) => state.recipes);
@@ -22,10 +23,22 @@ export default function FoodCard({ type }) {
         dispatch(getFood(formInfo, type));
       }
     };
+
     getCards();
   },
 
   [formInfo, dispatch, type, cards.length, selectedCategory]);
+
+  useEffect(() => {
+    if (cards.length === 1) {
+      const route = {
+        meals: 'comidas',
+        drinks: 'bebidas',
+      };
+      console.log(cards[0]);
+      history.push(`/${route[type]}/${cards[0].idMeal || cards[0].idDrink}`);
+    }
+  }, [cards, history, type]);
 
   const cardsToRender = (cardsRender) => (
     cardsRender.map(({ idMeal, strMeal, strMealThumb,
