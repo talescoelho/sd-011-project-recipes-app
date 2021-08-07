@@ -4,6 +4,8 @@ import copy from 'clipboard-copy';
 import MainContext from '../../Context/MainContext';
 import IngredientsDrinks from '../../Components/IngredientsDrinks';
 import { getFoodsInitial, copyLink } from '../../Services/ApiFood';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import './scroll.css';
 
 function DetailsRecipesFoods() {
@@ -11,6 +13,7 @@ function DetailsRecipesFoods() {
   const { idDrinks, setIdDrinks, idDrinksAPI, setIdDrinksAPI, newDataFoods,
     /* setCount, */ setDoneRecipes, show, setShow,
     setNewDataFoods, count, setStartButton } = useContext(MainContext);
+  let isFavorite = false;
 
   async function fetchFoodsInitial() {
     const foodsInitialAPI = await getFoodsInitial();
@@ -60,6 +63,12 @@ function DetailsRecipesFoods() {
   //   }
   // }, [doneRecipesNew, idDrinks, setCount]);
 
+  const handleFavorite = () => {
+    // * ainda não implementei
+    isFavorite ? isFavorite = false : isFavorite = true;
+
+  };
+
   return (
     <div>
       <img
@@ -82,6 +91,12 @@ function DetailsRecipesFoods() {
         Compartilhar
       </button>
       <p>{ show && 'Link copiado!'}</p>
+      <img
+        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+        onClick={ () => handleFavorite }
+        data-testid="favorite-btn"
+        alt="favorite icon"
+      />
       <button
         type="button"
         data-testid="favorite-btn"
