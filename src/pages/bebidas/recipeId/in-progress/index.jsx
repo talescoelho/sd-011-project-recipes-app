@@ -6,6 +6,7 @@ import {
   Col,
   Button,
   Form,
+  Spinner,
 } from 'react-bootstrap';
 import { fetchDetails } from '../../../../services/fetchDetailsApi';
 import FavoriteButton from '../../../../components/Details/FavoriteButton/index';
@@ -25,7 +26,10 @@ export default function BebidasInProgress({ match: { params: { recipeId } } }) {
   }, [recipeId]);
 
   const loading = () => (
-    <h1 className=" mt-5 d-flex justify-content-center">Loading content...</h1>
+    <Container className="d-flex m-auto flex-column justify-content-center">
+      <Spinner className="m-auto" animation="border" role="status" />
+      <h2 className="m-auto">Loading</h2>
+    </Container>
   );
 
   const pageContent = () => {

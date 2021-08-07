@@ -5,6 +5,7 @@ import {
   Row,
   Col,
   Button,
+  Spinner,
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { fetchDetails } from '../../../services/fetchDetailsApi';
@@ -54,7 +55,12 @@ export default function BebidaDetails({ match: { params: { recipeId } } }) {
     history.push(`/bebidas/${recipeId}/in-progress`);
   };
 
-  const loading = () => <h1>Loading content...</h1>;
+  const loading = () => (
+    <Container className="d-flex m-auto flex-column justify-content-center">
+      <Spinner className="m-auto" animation="border" role="status" />
+      <h2 className="m-auto">Loading</h2>
+    </Container>
+  );
 
   const pageContent = () => {
     const {
@@ -82,11 +88,9 @@ export default function BebidaDetails({ match: { params: { recipeId } } }) {
             <h1 data-testid="recipe-title">{ strDrink }</h1>
           </Col>
         </Row>
-        <Row as="nav" className="mb-3 m-auto">
-          <Col className="col-6">
+        <Row as="nav" className="mb-3 m-auto justify-content-center">
+          <Col className="col-12 d-flex justify-content-center">
             <CopyButton />
-          </Col>
-          <Col className="col-6">
             <FavoriteButton recipeId={ recipeId } selector="drink" details={ details } />
           </Col>
         </Row>
