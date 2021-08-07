@@ -19,7 +19,6 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Explorer from './pages/Explorer';
 import NotFound from './pages/NotFound';
-import { RecipeDetailsProvider } from './context/RecipeDetails';
 
 function App() {
   const pathFoods = '/explorar/comidas/ingredientes';
