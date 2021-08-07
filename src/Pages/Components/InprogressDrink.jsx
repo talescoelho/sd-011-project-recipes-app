@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import ShareButton from './ShareButton';
 import verifyIngredients from '../../Helpers/verifyIngredients';
 import '../../styles/detail-screen.css';
+import FavoriteButton from './FavoriteButton';
 import { manageDetailAPI } from '../../Helpers/convertUrlToID';
 
 function InProgressDrink() {
@@ -89,7 +90,7 @@ function InProgressDrink() {
         alt={ `Foto da bebida chamada ${drinks[0].strDrink}` }
         data-testid="recipe-photo"
       />
-      <button data-testid="favorite-btn" type="button">Favoritar</button>
+      <FavoriteButton />
       <ShareButton />
       <p data-testid="recipe-category">{drinks[0].strCategory}</p>
       <section>
