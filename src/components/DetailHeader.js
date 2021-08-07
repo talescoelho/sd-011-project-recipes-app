@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
+import { Card, Button, Badge } from 'react-bootstrap';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -45,28 +46,30 @@ function DetailHeader() {
   }, [id]);
 
   return getDrinksDetails ? (
-    <header className="detail-header">
-      <img
-        className="detail-image"
+    <Card>
+      <Card.Img
         src={ drinkDetails.strDrinkThumb }
         alt={ drinkDetails.strDrink }
         data-testid="recipe-photo"
       />
-      <section className="detail-section">
-        <div className="detail-div">
-          <h1 data-testid="recipe-title" className="detail-title">
-            { drinkDetails.strDrink}
-          </h1>
-          <h2 data-testid="recipe-category" className="detail-category">
-            {drinkDetails.strAlcoholic}
-          </h2>
-        </div>
-      </section>
-      <button type="button" onClick={ () => shareRecipe() }>
+      <Card.Body>
+        <Card.Title data-testid="recipe-title" className="detail-title">
+          { drinkDetails.strDrink}
+        </Card.Title>
+        <Badge
+          bg="info"
+          text="dark"
+          data-testid="recipe-category"
+        >
+          {drinkDetails.strAlcoholic}
+        </Badge>
+      </Card.Body>
+      <Button variant="success" type="button" onClick={ () => shareRecipe() }>
         <img data-testid="share-btn" src={ shareIcon } alt="Icon Share" />
-      </button>
+      </Button>
       {copied && <p>{copied}</p>}
-      <button
+      <Button
+        variant="danger"
         type="button"
         onClick={ () => (isFavorite ? deleteLocalStore() : setLocalStore()) }
       >
@@ -75,31 +78,29 @@ function DetailHeader() {
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
           alt="Icon Like"
         />
-      </button>
-    </header>
+      </Button>
+    </Card>
   ) : (
-    <header className="detail-header">
-      <img
-        className="detail-image"
+    <Card>
+      <Card.Img
         src={ foodDetails.strMealThumb }
         alt={ foodDetails.strMeal }
         data-testid="recipe-photo"
       />
-      <section className="detail-section">
-        <div className="detail-div">
-          <h1 data-testid="recipe-title" className="detail-title">
-            { foodDetails.strMeal}
-          </h1>
-          <h2 data-testid="recipe-category" className="detail-category">
-            {foodDetails.strCategory}
-          </h2>
-        </div>
-      </section>
-      <button type="button" onClick={ () => shareRecipe() }>
+      <Card.Body>
+        <Card.Title data-testid="recipe-title" className="detail-title">
+          { foodDetails.strMeal}
+        </Card.Title>
+        <Badge data-testid="recipe-category" className="detail-category">
+          {foodDetails.strCategory}
+        </Badge>
+      </Card.Body>
+      <Button variant="success" type="button" onClick={ () => shareRecipe() }>
         <img data-testid="share-btn" src={ shareIcon } alt="Icon Share" />
-      </button>
+      </Button>
       {copied && <p>{copied}</p>}
-      <button
+      <Button
+        variant="danger"
         type="button"
         onClick={ () => (isFavorite ? deleteLocalStore() : setLocalStore()) }
       >
@@ -108,8 +109,8 @@ function DetailHeader() {
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
           alt="Icon Like"
         />
-      </button>
-    </header>
+      </Button>
+    </Card>
   );
 }
 
