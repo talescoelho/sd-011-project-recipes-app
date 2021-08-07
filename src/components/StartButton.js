@@ -6,7 +6,6 @@ function StartButton() {
   const history = useHistory();
   const { id } = useParams();
   const { pathname } = useLocation();
-
   const numberOfVerification = -1;
   const getDrinksDetails = pathname.indexOf('bebidas') > numberOfVerification;
 
@@ -26,6 +25,7 @@ function StartButton() {
     </Button>
   )
     : (
+
       <Button
         style={ {
           position: 'fixed',
@@ -39,6 +39,7 @@ function StartButton() {
       >
         Iniciar Receita
       </Button>
+
     );
 }
 
