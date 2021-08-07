@@ -4,25 +4,20 @@ import { useHistory, useParams } from 'react-router-dom';
 import CarrouselDrinks from './CarrouselDrinks';
 import ShareButton from './ShareButton';
 import '../../styles/detail-screen.css';
-import {
-  convertUrlToID,
-  manageDetailAPI,
-  managePathname } from '../../Helpers/convertUrlToID';
+import { manageDetailAPI } from '../../Helpers/convertUrlToID';
 import embedYouTubeVideo from '../../Helpers/embedYouTubeVideo';
 
 function SingleFoodItem() {
   const { id } = useParams();
   const currentStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const history = useHistory();
-  const currentURL = window.location.pathname;
   const [itemDetail, setItemDetail] = useState({ meals: null });
-  const itemId = convertUrlToID(window.location.pathname);
   const arrayOfIngredients = [];
   const arrayOfMeasures = [];
 
   useEffect(() => {
     const fetchFood = async () => {
-      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${itemId}`);
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       const detailRequest = await response.json();
       setItemDetail(manageDetailAPI(detailRequest));
     };
@@ -97,9 +92,10 @@ function SingleFoodItem() {
         type="button"
         className="start-recipe-button"
         onClick={ () => history
-          .push(`/comidas/${managePathname(currentURL)}/in-progress`) }
+          .push(`/comidas/${id}/in-progress`) }
       >
-        { currentStorage && currentStorage.meals[id] ? 'Continuar Receita' : 'Iniciar Receita'}
+        { currentStorage
+        && currentStorage.meals[id] ? 'Continuar Receita' : 'Iniciar Receita'}
       </button>
     </div>
   );

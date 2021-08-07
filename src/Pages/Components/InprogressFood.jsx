@@ -4,6 +4,10 @@ import '../../styles/InProgressFood.css';
 import { manageDetailAPI } from '../../Helpers/convertUrlToID';
 import ShareButton from './ShareButton';
 
+function verifyIngredients(string, array) {
+  return string && string !== ' ' ? array.push(string) : null;
+}
+
 function InProgressFood() {
   const { id } = useParams();
   const [usedIngredients, setUsedIngredients] = useState([]);
@@ -29,7 +33,8 @@ function InProgressFood() {
     }
 
     const fetchFood = async () => {
-      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+      const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+      const response = await fetch(URL);
       const detailRequest = await response.json();
       setItemDetail(manageDetailAPI(detailRequest));
     };
@@ -65,30 +70,16 @@ function InProgressFood() {
       .keys(food).filter((key) => key.includes('strIngredient'));
     const arrayOfMeasuresKey = Object
       .keys(food).filter((key) => key.includes('strMeasure'));
-    arrayOfIngredientsKey.map((ingredient) => {
-      if ((food[ingredient] !== ''
-      && food[ingredient] !== ' '
-      && food[ingredient] !== null)) {
-        arrayOfIngredients.push(food[ingredient]);
-      }
-      return null;
-    });
-    arrayOfMeasuresKey.map((ingredient) => {
-      if ((food[ingredient] !== ''
-      && food[ingredient] !== ' '
-      && food[ingredient] !== null)) {
-        arrayOfMeasures.push(food[ingredient]);
-      }
-      return null;
-    });
+    arrayOfIngredientsKey
+      .map((ingredient) => verifyIngredients(food[ingredient], arrayOfIngredients));
+    arrayOfMeasuresKey
+      .map((ingredient) => verifyIngredients(food[ingredient], arrayOfIngredients));
   }
 
   function handleCheckBox(ingredient) {
-    if (usedIngredients.includes(ingredient)) {
-      setUsedIngredients(usedIngredients.filter((ing) => ing !== ingredient));
-    } else {
-      setUsedIngredients(usedIngredients.concat(ingredient));
-    }
+    return usedIngredients.includes(ingredient)
+      ? setUsedIngredients(usedIngredients.filter((ing) => ing !== ingredient))
+      : setUsedIngredients(usedIngredients.concat(ingredient));
   }
 
   const { meals: anyFood } = itemDetail;

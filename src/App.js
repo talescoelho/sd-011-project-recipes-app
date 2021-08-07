@@ -20,6 +20,7 @@ import SingleDrinkItem from './Pages/Components/SingleDrinkItem';
 // Pages Components /\
 import 'bootstrap/dist/css/bootstrap.min.css';
 import InprogressFood from './Pages/Components/InprogressFood';
+import InProgressDrink from './Pages/Components/InprogressDrink';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route exact path="/explorar/comidas" component={ ExploreFoods } />
           <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
           <Route exact path="/comidas/:id/in-progress" component={ InprogressFood } />
+          <Route exact path="/bebidas/:id/in-progress" component={ InProgressDrink } />
           <Route
             exact
             path="/explorar/comidas/ingredientes"

@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { convertUrlToID,
-  manageDetailAPI,
-  managePathname } from '../../Helpers/convertUrlToID';
+import { useHistory, useParams } from 'react-router-dom';
+import { manageDetailAPI } from '../../Helpers/convertUrlToID';
 import CarrouselFoods from './CarrouselFoods';
+import ShareButton from './ShareButton';
 
 function SingleFoodItem() {
+  const { id } = useParams();
+  const currentStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const history = useHistory();
-  const currentURL = window.location.pathname;
-  const [itemDetail, setItemDetail] = useState({
-    drinks: null,
-  });
-
-  const itemId = convertUrlToID(window.location.pathname);
+  const [itemDetail, setItemDetail] = useState({ drinks: null });
   const arrayOfIngredients = [];
   const arrayOfMeasures = [];
 
   useEffect(() => {
     const FetchDrink = async () => {
-      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${itemId}`);
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       const detailRequest = await response.json();
       setItemDetail(manageDetailAPI(detailRequest));
     };
@@ -64,7 +60,7 @@ function SingleFoodItem() {
         data-testid="recipe-photo"
       />
       <p data-testid="recipe-category">{drinks[0].strAlcoholic}</p>
-      <button type="button" data-testid="share-btn">Compartilhar</button>
+      <ShareButton />
       <button data-testid="favorite-btn" type="button">Favoritar</button>
       <p data-testid="recipe-category">{drinks[0].strCategory}</p>
       <section>
@@ -90,8 +86,10 @@ function SingleFoodItem() {
         type="button"
         className="start-recipe-button"
         onClick={ () => history
-          .push(`/bebidas/${managePathname(currentURL)}/in-progress`) }
+          .push(`/bebidas/${id}/in-progress`) }
       >
+        { currentStorage
+        && currentStorage.cocktails[id] ? 'Continuar Receita' : 'Iniciar Receita'}
         Iniciar Receita
       </button>
     </div>
