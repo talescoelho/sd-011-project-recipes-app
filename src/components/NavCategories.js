@@ -52,6 +52,7 @@ function NavCategories() {
     <div>
       <button
         type="button"
+        data-testid="All-category-filter"
         onClick={ () => searchAllCategories() }
       >
         All
