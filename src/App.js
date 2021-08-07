@@ -39,14 +39,14 @@ function App() {
         <Route exact path="/bebidas" component={ Drinks } />
         <Route exact path="/comidas/:id" component={ FoodRecipes } />
         <Route exact path="/bebidas/:id" component={ DrinkRecipes } />
-        <RecipeDetailsProvider>
-          <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
-          <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
-        </RecipeDetailsProvider>
         <Route path="/perfil" component={ Profile } />
         <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
         <Route path="*" component={ NotFound } />
+        <RecipeDetailsProvider>
+          <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
+          <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
+        </RecipeDetailsProvider>
       </Switch>
     </BrowserRouter>
   );

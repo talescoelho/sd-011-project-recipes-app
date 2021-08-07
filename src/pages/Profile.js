@@ -6,6 +6,8 @@ import Header from '../components/Header';
 export default function Profile() {
   const user = localStorage.getItem('user');
 
+  console.log('passou');
+
   const getEmail = () => {
     if (user) {
       return JSON.parse(user).email;
