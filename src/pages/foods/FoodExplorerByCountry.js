@@ -53,7 +53,7 @@ export default function FoodExplorerByCountry() {
           >
             All
           </option>
-          { areas.length > 0 && areas.map(({ strArea }) => (
+          { areas && areas.length > 0 && areas.map(({ strArea }) => (
             <option
               data-testid={ `${strArea}-option` }
               key={ strArea }
