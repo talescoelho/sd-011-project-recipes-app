@@ -1,15 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap') ;
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 * {
   border: 0;
   box-sizing: border-box;
-  font-family: Lato , sans-serif;
+  font-family: Lato, sans-serif;
   margin: 0;
   padding: 0;
 }
 
 :root {
-
   --font-color: white;
 
   --light-color-1: #e2f263;
@@ -91,14 +90,6 @@
   background-color: #ddd;
   color: var(--light-color-2);
   cursor: auto;
-}
-
-@media only screen and ( max-width : 600px ) {
-
-  .form-login {
-    min-height: 60vh;
-    min-width: 80vw;
-  }
 }
 
 /* Header CSS */
@@ -216,7 +207,7 @@
 /* https://codepen.io/jakedx6/pen/Veqbez */
 .card {
   background-color: var(--font-color);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) , 0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   box-sizing: border-box;
   margin-bottom: 10px;
   margin-top: 10px;
@@ -224,7 +215,8 @@
 }
 
 .card:hover {
-  box-shadow: 10px 10px 10px rgba(255, 0, 0, 0.19) , 0 6px 6px rgba(255, 0, 0, 0.23);
+  box-shadow: 10px 10px 10px rgba(255, 0, 0, 0.19),
+    0 6px 6px rgba(255, 0, 0, 0.23);
 }
 
 .title-recipe {
@@ -324,4 +316,68 @@
 
 .text-center {
   margin: 20px 0;
+}
+
+/* Not Found */
+
+.not-found-page {
+  align-items: center;
+  background: linear-gradient(45deg, #fb3c34, #ff9362);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.not-found-title {
+  color: var(--font-color);
+  font-weight: 900;
+  font-size: 12rem;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: var(--dark-color-1);
+  text-align: center;
+}
+
+.not-found-text {
+  color: var(--font-color);
+  font-weight: 400;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.not-found-button-back {
+  background-color: var(--font-color);
+  border-radius: 50px;
+  color: var(--dark-color-2);
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 400;
+  padding: 15px 10px;
+  width: 200px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.not-found-button-back:hover{
+  background-color: var(--dark-color-1);
+  color: var(--font-color);
+}
+
+body a:hover {
+  text-decoration: none;
+}
+
+/* MEDIA QUERY */
+@media only screen and (max-width: 600px) {
+  .form-login {
+    min-height: 60vh;
+    min-width: 80vw;
+  }
+  .not-found-title {
+    font-weight: 700;
+    font-size: 7.6rem;
+  }
+  .not-found-text {
+    font-size: 1.4rem;
+  }
 }

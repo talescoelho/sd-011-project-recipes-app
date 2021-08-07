@@ -45,6 +45,7 @@ function Routes() {
         <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/receitas-feitas" component={ RecipesDone } />
         <Route exact path="/receitas-favoritas" component={ RecipesFavorites } />
+        <Route path="*" component={ NotFound } />
       </Switch>
     </BrowserRouter>
   );
