@@ -4,13 +4,18 @@ import SearchDrinks from '../pages/SearchDrinks';
 
 import { renderWithRouterAndStore } from './testConfig';
 
-describe.only('Screen search drinks should have Header component', () => {
+describe('Screen search drinks should have Header component', () => {
   it('Should have a profile button and "Explorar Bebidas" title', () => {
     renderWithRouterAndStore(<SearchDrinks />);
     expect(queryByTestId(document.documentElement, 'profile-top-btn'))
       .toBeInTheDocument();
     expect(queryByTestId(document.documentElement, 'page-title'))
       .toBeInTheDocument();
+  });
+  it('Shouldnt have a search button', () => {
+    renderWithRouterAndStore(<SearchDrinks />);
+    expect(queryByTestId(document.documentElement, 'search-top-btn'))
+      .not.toBeInTheDocument();
   });
 });
 
