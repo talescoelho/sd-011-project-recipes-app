@@ -6,7 +6,6 @@ import ButtonShare from './ButtonShare';
 
 export default function CardsRecipesDone(props) {
   const { index, recipe } = props;
-  // console.log(key);
   const { type, name, image, doneDate, category, id } = recipe;
   const { tags, alcoholicOrNot, area } = recipe;
   const history = useHistory();

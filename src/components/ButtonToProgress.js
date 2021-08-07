@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
 function ButtonToProgress(props) {
-  const { mealDetail } = props;
-  const drinkDetail = 'a';
+  const { mealDetail, drinkDetail } = props;
   let type = 'comidas';
   if (drinkDetail) type = 'bebidas';
 
@@ -37,6 +36,9 @@ ButtonToProgress.defaultProps = {
 
 ButtonToProgress.propTypes = {
   mealDetail: PropTypes.shape({
-    mealId: PropTypes.string,
+    idMeal: PropTypes.string,
   }),
-};
+  drinkDetail: PropTypes.shape({
+    idDrink: PropTypes.string,
+  }),
+}.isRequired;

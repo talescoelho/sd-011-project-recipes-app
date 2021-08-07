@@ -19,7 +19,6 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Explorer from './pages/Explorer';
 import NotFound from './pages/NotFound';
-import { RecipeDetailsProvider } from './context/RecipeDetails';
 
 function App() {
   const pathFoods = '/explorar/comidas/ingredientes';
@@ -40,13 +39,12 @@ function App() {
         <Route exact path="/bebidas" component={ Drinks } />
         <Route exact path="/comidas/:id" component={ FoodRecipes } />
         <Route exact path="/bebidas/:id" component={ DrinkRecipes } />
+        <Route path="/perfil" component={ Profile } />
         <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+        <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
+        <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
         <Route path="*" component={ NotFound } />
-        <RecipeDetailsProvider>
-          <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
-          <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
-        </RecipeDetailsProvider>
       </Switch>
     </BrowserRouter>
   );
