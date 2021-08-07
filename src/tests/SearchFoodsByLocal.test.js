@@ -5,7 +5,7 @@ import SearchFoodsByLocal from '../pages/SearchFoodsByLocal';
 import { renderWithRouterAndStore } from './testConfig';
 
 describe('Should have the right icon in the screen search foods by local', () => {
-  it('Should have the profile and search buttons and title', () => {
+  it('Should have the profile, search buttons and title', () => {
     renderWithRouterAndStore(<SearchFoodsByLocal />);
     expect(queryByTestId(document.documentElement, 'profile-top-btn'))
       .toBeInTheDocument();
