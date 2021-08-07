@@ -93,8 +93,8 @@ export default function FavoriteButton({ recipeId, selector, details }) {
       src={ favoriteSrc }
     >
       { isFavorite
-        ? <img alt="coração" src={ blackHeartIcon } />
-        : <img alt="coração" src={ whiteHeartIcon } />}
+        ? <img alt="Botão de favoritar receita" src={ blackHeartIcon } />
+        : <img alt="Botão de favoritar receita" src={ whiteHeartIcon } />}
     </Button>
   );
 }
