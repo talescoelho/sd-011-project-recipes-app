@@ -69,3 +69,10 @@ export const fetchMealsByCategories = (category) => {
       return dataMeals.slice(0, limitRender);
     });
 };
+
+export const fetchRandomMeal = () => {
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/random.php';
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => data.meals);
+};
