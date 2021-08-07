@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Dropdown } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import FoodOrigin from '../services/FoodOrigin';
 import { getFoodCard } from '../Redux/actions/index';
