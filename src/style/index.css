@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap') ;
+
 * {
   border: 0;
   box-sizing: border-box;
+  font-family: Lato , sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -16,6 +19,81 @@
   --dark-color-1: #1b34a2;
 
   --dark-color-2: #fb3c34;
+}
+
+/* Login CSS */
+.form-login-container {
+  align-items: center;
+  background: linear-gradient(45deg, #fb3c34, #ff9362);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.form-login {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  min-height: 60vh;
+  min-width: 40vw;
+  padding: 2rem;
+  text-align: center;
+}
+
+.form-login h2 {
+  color: var(--dark-color-2);
+  font-size: 3rem;
+  font-style: italic;
+  font-weight: 700;
+  position: relative;
+}
+
+.form-login hr {
+  border: 3px solid var(--dark-color-2);
+  border-radius: 10px;
+  margin: 0 0 10px;
+}
+
+.input-field-login {
+  border: 3px solid var(--dark-color-2);
+  border-radius: 8px;
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin: 15px 0;
+  outline: none;
+  padding: 15px 10px;
+}
+
+.button-login {
+  background-color: var(--dark-color-1);
+  border-radius: 8px;
+  color: var(--dark-color-2);
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 400;
+  padding: 15px 10px;
+  width: 100%;
+}
+
+.button-login:hover {
+  color: var(--light-color-1);
+}
+
+.button-login:disabled {
+  background-color: #ddd;
+  color: var(--light-color-2);
+  cursor: auto;
+}
+
+@media only screen and ( max-width : 600px ) {
+
+  .form-login {
+    min-height: 60vh;
+    min-width: 80vw;
+  }
 }
 
 /* Footer CSS */

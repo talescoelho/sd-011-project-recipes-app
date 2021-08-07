@@ -1,11 +1,13 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router';
 import RecipeDetails from '../components/RecipeDetails';
 import RecipesContext from '../context/RecipesContext';
 import { checkRecipeInProgress, verifyRecipeIsDone } from '../functions';
 
 function RecipeInProgress({ match: { url, params: { id } } }) {
   const { getRecipeById } = useContext(RecipesContext);
+  const history = useHistory();
 
   const addMealInProgress = () => {
     const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
@@ -42,7 +44,12 @@ function RecipeInProgress({ match: { url, params: { id } } }) {
     <div>
       <RecipeDetails />
       <div className="container-start-button">
-        <button data-testid="finish-recipe-btn" className="button-finish" type="button">
+        <button
+          onClick={ () => history.push('/receitas-feitas') }
+          data-testid="finish-recipe-btn"
+          className="button-finish"
+          type="button"
+        >
           Finalizar Receita
         </button>
       </div>

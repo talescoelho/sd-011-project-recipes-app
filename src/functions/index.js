@@ -24,11 +24,13 @@ export const checkRecipeInProgress = (url, id) => {
 };
 
 export const createLocalStorage = () => {
-  const inProgress = {
+  const inProgressRecipes = {
     cocktails: {},
     meals: {},
   };
   const doneRecipes = [];
-  localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+  const favoriteRecipes = [];
+  localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
 };
