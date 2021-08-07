@@ -3,7 +3,7 @@ import { screen, cleanup, fireEvent, queryByTestId } from '@testing-library/reac
 import { renderWithRouterAndStore } from './helper/testConfig';
 import Login from '../pages/Login';
 
-describe.only('Should not have a <Header /> component in the login screen', () => {
+describe('Should not have a <Header /> component in the login screen', () => {
   it('Cant have a <Header /> component', () => {
     renderWithRouterAndStore(<Login />);
     expect(queryByTestId(document.documentElement, 'profile-top-btn'))
