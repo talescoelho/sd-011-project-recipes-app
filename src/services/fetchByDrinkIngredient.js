@@ -3,7 +3,6 @@ const fetchByDrinkIngredient = async () => {
   const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
   const result = await response.json();
   const ingredients = result.drinks.slice(0, TWELVE);
-  console.log(ingredients);
   return ingredients;
 };
 

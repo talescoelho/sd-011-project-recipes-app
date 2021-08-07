@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Footer from '../../../../components/Footer';
 import Header from '../../../../components/Header';
 import fetchByMealIngredient from '../../../../services/fetchByMealIngredient';
@@ -25,13 +26,17 @@ export default function ComidasIngredientes() {
   return !isLoading ? (
     <div>
       <Header title="Explorar Ingredientes" />
-      {ingredients.map((ingredient, index) => (
-        <div key={ index }>
+      {ingredients.map(({ strIngredient: ingredient }, index) => (
+        <Link to="/comidas" key={ index }>
           <div data-testid={ `${index}-ingredient-card` }>
-            <img src="" alt="" data-testid={ `${index}-card-img` } />
-            <h4 data-testid={ `${index}-card-name` }>{ingredient.strIngredient}</h4>
+            <img
+              src={ `https://www.themealdb.com/images/ingredients/${ingredient}-Small.png` }
+              alt=""
+              data-testid={ `${index}-card-img` }
+            />
+            <h4 data-testid={ `${index}-card-name` }>{ingredient}</h4>
           </div>
-        </div>
+        </Link>
       ))}
       <Footer />
     </div>

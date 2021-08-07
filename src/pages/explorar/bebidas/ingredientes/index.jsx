@@ -25,11 +25,15 @@ export default function BebidasIngredientes() {
   return !isLoading ? (
     <div>
       <Header title="Explorar Ingredientes" />
-      {ingredients.map((ingredient, index) => (
+      {ingredients.map(({ strIngredient1: ingredient }, index) => (
         <div key={ index }>
           <div data-testid={ `${index}-ingredient-card` }>
-            <img src="" alt="" data-testid={ `${index}-card-img` } />
-            <h4 data-testid={ `${index}-card-name` }>{ingredient.strIngredient1}</h4>
+            <img
+              src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png` }
+              alt=""
+              data-testid={ `${index}-card-img` }
+            />
+            <h4 data-testid={ `${index}-card-name` }>{ingredient}</h4>
           </div>
         </div>
       ))}
