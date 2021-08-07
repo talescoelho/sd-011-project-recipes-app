@@ -5,6 +5,7 @@ import { getFoodsByID } from '../Services/ApiFood';
 function FoodProgress(props) {
   const [foodById, setFoodById] = useState([]);
   const [foodIngredient, setFoodIngredient] = useState([]);
+  const [button, setButton] = useState(false);
   const { match } = props;
   const { id } = match.params;
 
@@ -17,7 +18,7 @@ function FoodProgress(props) {
     fetchFoodsByID();
   }, []);
 
-  console.log(foodById);
+  // console.log(foodById);
 
   useEffect(() => {
     foodById.forEach((ingredient) => {
@@ -31,10 +32,25 @@ function FoodProgress(props) {
         }
         return data;
       });
-      console.log(data);
+      // console.log(data);
       setFoodIngredient(data);
     });
   }, [foodById]);
+
+  function ingredientsChecked() {
+    let sum = 0;
+    const checkeds = document.getElementsByTagName('input');
+    for (let index = 0; index < checkeds.length; index += 1) {
+      if (checkeds[index].checked === true) {
+        sum += 1;
+        // console.log(sum);
+        if (sum === checkeds.length) {
+          setButton(true);
+        } else setButton(false);
+      }
+    }
+    return button;
+  }
 
   return (
     <div>
@@ -65,6 +81,7 @@ function FoodProgress(props) {
                     <input
                       id={ i }
                       type="checkbox"
+                      onChange={ () => ingredientsChecked() }
                     />
                     { Object.values(ingredient) }
                   </label>
@@ -81,6 +98,7 @@ function FoodProgress(props) {
         <button
           type="button"
           data-testid="finish-recipe-btn"
+          disabled={ !button }
         >
           Finish
         </button>

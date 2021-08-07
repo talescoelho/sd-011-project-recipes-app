@@ -5,6 +5,7 @@ import { getDrinkByID } from '../Services/ApiDrink';
 function DrinkProgress(props) {
   const [drinkById, setDrinkById] = useState([]);
   const [drinkIngredient, setDrinkIngredient] = useState([]);
+  const [button, setButton] = useState(false);
   const { match } = props;
   const { id } = match.params;
 
@@ -36,6 +37,21 @@ function DrinkProgress(props) {
     });
   }, [drinkById]);
 
+  function ingredientsChecked() {
+    let sum = 0;
+    const checkeds = document.getElementsByTagName('input');
+    for (let index = 0; index < checkeds.length; index += 1) {
+      if (checkeds[index].checked === true) {
+        sum += 1;
+        // console.log(sum);
+        if (sum === checkeds.length) {
+          setButton(true);
+        } else setButton(false);
+      }
+    }
+    return button;
+  }
+
   return (
     <div>
       { drinkById.map((item, index) => (
@@ -65,6 +81,7 @@ function DrinkProgress(props) {
                     <input
                       id={ i }
                       type="checkbox"
+                      onChange={ () => ingredientsChecked() }
                     />
                     { Object.values(ingredient) }
                   </label>
@@ -81,6 +98,7 @@ function DrinkProgress(props) {
         <button
           type="button"
           data-testid="finish-recipe-btn"
+          disabled={ !button }
         >
           Finish
         </button>
