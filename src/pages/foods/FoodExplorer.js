@@ -24,7 +24,7 @@ export default function FoodExplorer() {
   return (
     <>
       <SearchBarProvider>
-        <Header title="Explorar Comidas" search={ false } />
+        <Header title="Explorar Comidas" />
       </SearchBarProvider>
       <section style={ { marginTop: '50px' } }>
         <Button
