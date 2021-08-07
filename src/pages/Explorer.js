@@ -7,15 +7,27 @@ function Explorer() {
   return (
     <div>
       <Header title="Explorar" />
-      <div>
+      <div className="container">
         <div>
           <Link to="/explorar/comidas">
-            <button type="button" data-testid="explore-food">Explorar Comidas</button>
+            <button
+              className="category-bar-button"
+              type="button"
+              data-testid="explore-food"
+            >
+              Explorar Comidas
+            </button>
           </Link>
         </div>
         <div>
           <Link to="/explorar/bebidas">
-            <button type="button" data-testid="explore-drinks">Explorar Bebidas</button>
+            <button
+              className="category-bar-button"
+              type="button"
+              data-testid="explore-drinks"
+            >
+              Explorar Bebidas
+            </button>
           </Link>
         </div>
       </div>

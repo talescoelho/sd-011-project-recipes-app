@@ -42,32 +42,36 @@ function ExplorerMealsOrigin() {
   }, [area]);
 
   return (
-    <div>
+    <>
       <Header title="Explorar Origem" recipeType="drinks" searchButton />
-      <select
-        data-testid="explore-by-area-dropdown"
-        onChange={ ({ target }) => setArea(target.value) }
-      >
-        <option data-testid="All-option" value="All">All</option>
-        {optionsArea.map(({ strArea }, index) => (
-          <option key={ index } data-testid={ `${strArea}-option` } value={ strArea }>
-            {strArea}
-          </option>
-        ))}
-      </select>
-      { mealsData !== [] && mealsData.map((recipe, index) => (
-        <Link
-          to={ `/comidas/${recipe.idMeal}` }
-          key={ recipe.idMeal }
+
+      <div className="d-flex justify-content-center">
+        <select
+          className="select-countries"
+          data-testid="explore-by-area-dropdown"
+          onChange={ ({ target }) => setArea(target.value) }
         >
-          <RecipeCard
-            recipe={ recipe }
-            index={ index }
-          />
-        </Link>
-      )) }
+          <option data-testid="All-option" value="All">All</option>
+          {optionsArea.map(({ strArea }, index) => (
+            <option key={ index } data-testid={ `${strArea}-option` } value={ strArea }>
+              {strArea}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="container my-5">
+        <div className="row px-5 gallery-work">
+          { mealsData !== [] && mealsData.map((recipe, index) => (
+            <div className="col-md-4 my-3" key={ recipe.idDrink }>
+              <Link to={ `/comidas/${recipe.idMeal}` }>
+                <RecipeCard recipe={ recipe } index={ index } />
+              </Link>
+            </div>
+          )) }
+        </div>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

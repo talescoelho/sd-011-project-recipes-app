@@ -18,26 +18,40 @@ function ExplorerMeals() {
   return (
     <div>
       <Header title="Explorar Comidas" />
-      <div>
-        <Link to="/explorar/comidas/ingredientes">
-          <button type="button" data-testid="explore-by-ingredient">
-            Por Ingredientes
-          </button>
-        </Link>
-      </div>
-      <div>
-        <Link to="/explorar/comidas/area">
-          <button type="button" data-testid="explore-by-area">
-            Por Local de Origem
-          </button>
-        </Link>
-      </div>
-      <div>
-        <Link to={ `/comidas/${mealId}` }>
-          <button type="button" data-testid="explore-surprise">
-            Me Surpreenda!
-          </button>
-        </Link>
+      <div className="container">
+        <div>
+          <Link to="/explorar/comidas/ingredientes">
+            <button
+              className="category-bar-button"
+              type="button"
+              data-testid="explore-by-ingredient"
+            >
+              Por Ingredientes
+            </button>
+          </Link>
+        </div>
+        <div>
+          <Link to="/explorar/comidas/area">
+            <button
+              className="category-bar-button"
+              type="button"
+              data-testid="explore-by-area"
+            >
+              Por Local de Origem
+            </button>
+          </Link>
+        </div>
+        <div>
+          <Link to={ `/comidas/${mealId}` }>
+            <button
+              className="category-bar-button"
+              type="button"
+              data-testid="explore-surprise"
+            >
+              Me Surpreenda!
+            </button>
+          </Link>
+        </div>
       </div>
       <Footer />
     </div>
