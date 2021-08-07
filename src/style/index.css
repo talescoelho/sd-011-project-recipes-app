@@ -1,14 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap') ;
 
 * {
   border: 0;
   box-sizing: border-box;
-  font-family: Lato, sans-serif;
+  font-family: Lato , sans-serif;
   margin: 0;
   padding: 0;
 }
 
 :root {
+
   --font-color: white;
 
   --light-color-1: #e2f263;
@@ -87,7 +88,8 @@
   cursor: auto;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and ( max-width : 600px ) {
+
   .form-login {
     min-height: 60vh;
     min-width: 80vw;
@@ -98,13 +100,13 @@
 .nav {
   border-bottom: 5px solid var(--dark-color-2);
   color: var(--dark-color-2);
-  font-size: 3rem !important;
-  font-weight: 900 !important;
+  font-size: 3rem;
+  font-weight: 900;
 }
 
 .nav img {
-  width: 45px;
   height: 45px;
+  width: 45px;
 }
 
 .hide {
@@ -112,7 +114,6 @@
 }
 
 .input-field-search {
-  width: 50vw;
   border: 3px solid var(--dark-color-2);
   border-radius: 8px;
   font-size: 1.2rem;
@@ -120,21 +121,22 @@
   margin-top: -20px;
   outline: none;
   padding: 5px;
+  width: 50vw;
 }
 
 .search-content-container {
+  align-items: center;
+  border-bottom: 5px solid var(--dark-color-2);
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding-bottom: 15px;
-  border-bottom: 5px solid var(--dark-color-2);
 }
 
 .search-content-options {
-  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 15px 0;
+  width: 100%;
 }
 
 .search-label {
@@ -153,9 +155,9 @@
   cursor: pointer;
   font-size: 1.5rem;
   font-weight: 400;
+  outline: none;
   padding: 5px 20px;
   width: 100%;
-  outline: none;
 }
 
 .button-search:hover {
@@ -163,23 +165,23 @@
 }
 
 .category-bar {
-  width: 100%;
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .category-bar-button {
-  margin: 5px;
   background-color: var(--dark-color-1);
   border-radius: 8px;
   color: var(--light-color-1);
   cursor: pointer;
   font-size: 1.4rem;
   font-weight: 400;
+  margin: 5px;
+  outline: none;
   padding: 5px 0;
   width: 100%;
-  outline: none;
 }
 
 .category-bar-button:hover {
