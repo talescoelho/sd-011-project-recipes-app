@@ -41,9 +41,9 @@ function App() {
         <Route path="/perfil" component={ Profile } />
         <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
-        <Route path="*" component={ NotFound } />
         <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
         <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
+        <Route path="*" component={ NotFound } />
       </Switch>
     </BrowserRouter>
   );
