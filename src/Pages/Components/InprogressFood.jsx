@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../../styles/InProgressFood.css';
 import { manageDetailAPI } from '../../Helpers/convertUrlToID';
+import verifyIngredients from '../../Helpers/verifyIngredients';
 import ShareButton from './ShareButton';
 
-function verifyIngredients(string, array) {
-  return string && string !== ' ' ? array.push(string) : null;
-}
+// function verifyIngredients(string, array) {
+//   return string && string !== ' ' ? array.push(string) : null;
+// }
 
 function InProgressFood() {
   const { id } = useParams();

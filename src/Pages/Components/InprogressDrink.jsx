@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ShareButton from './ShareButton';
+import verifyIngredients from '../../Helpers/verifyIngredients';
 import '../../styles/detail-screen.css';
 import { manageDetailAPI } from '../../Helpers/convertUrlToID';
 
@@ -66,31 +67,16 @@ function InProgressDrink() {
       .keys(food).filter((key) => key.includes('strIngredient'));
     const arrayOfMeasuresKey = Object
       .keys(food).filter((key) => key.includes('strMeasure'));
-    arrayOfIngredientsKey.map((ingredient) => {
-      if ((food[ingredient] !== ''
-      && food[ingredient] !== ' '
-      && food[ingredient] !== null)) {
-        arrayOfIngredients.push(food[ingredient]);
-      }
-      return null;
-    });
-    arrayOfMeasuresKey.map((ingredient) => {
-      if ((food[ingredient] !== ''
-      && food[ingredient] !== ' '
-      && food[ingredient] !== null)) {
-        arrayOfMeasures.push(food[ingredient]);
-      }
-      return null;
-    });
+    arrayOfIngredientsKey
+      .map((ingredient) => verifyIngredients(food[ingredient], arrayOfIngredients));
+    arrayOfMeasuresKey
+      .map((ingredient) => verifyIngredients(food[ingredient], arrayOfMeasures));
   }
 
   function handleCheckBox(ingredient) {
-    console.log(usedIngredients);
-    if (usedIngredients.includes(ingredient)) {
-      setUsedIngredients(usedIngredients.filter((ing) => ing !== ingredient));
-    } else {
-      setUsedIngredients(usedIngredients.concat(ingredient));
-    }
+    return usedIngredients.includes(ingredient)
+      ? setUsedIngredients(usedIngredients.filter((ing) => ing !== ingredient))
+      : setUsedIngredients(usedIngredients.concat(ingredient));
   }
 
   const { drinks } = itemDetail;
