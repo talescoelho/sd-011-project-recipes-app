@@ -13,7 +13,7 @@ export default function Header({ recipeType, title, searchButton }) {
   };
   return (
     <header className="container">
-      <navbar className="nav justify-content-around align-items-center">
+      <nav className="nav justify-content-around align-items-center">
         <button
           className="buttons-navbar"
           type="button"
@@ -31,7 +31,7 @@ export default function Header({ recipeType, title, searchButton }) {
           >
             <img data-testid="search-top-btn" src={ Search } alt="user" />
           </button>)}
-      </navbar>
+      </nav>
       { hide
        && <SearchBar recipeType={ recipeType } />}
     </header>
