@@ -4,7 +4,7 @@ const fetchMock = require('../mocks/fetch');
 const soupMeals = require('../mocks/soupMeals');
 const ginDrinks = require('../mocks/ginDrinks');
 
-describe.only('13 - Implemente os elementos da barra de busca respeitando os atributos descritos no protótipo', () => {
+describe('13 - Implemente os elementos da barra de busca respeitando os atributos descritos no protótipo', () => {
   it('Tem os data-testids tanto da barra de busca quanto de todos os radio-buttons', () => {
     cy.visit('http://localhost:3000/comidas');
 
@@ -182,7 +182,7 @@ describe('16 - Redirecione para a tela de detalhes da receita caso apenas uma re
   });
 });
 
-describe('17 - Mostre as receitas em cards caso mais de uma receita seja encontrada', () => {
+describe.skip('17 - Mostre as receitas em cards caso mais de uma receita seja encontrada', () => {
   it('Caso mais de uma comida seja encontrada, mostrar as 12 primeiras', () => {
     cy.visit('http://localhost:3000/comidas', {
       onBeforeLoad(win) {
@@ -238,7 +238,7 @@ describe('17 - Mostre as receitas em cards caso mais de uma receita seja encontr
   });
 });
 
-describe('18 - Exiba um `alert` caso nenhuma receita seja encontrada', () => {
+describe.skip('18 - Exiba um `alert` caso nenhuma receita seja encontrada', () => {
   it('Caso nenhuma comida seja encontrada o alert deve ser exibido', () => {
     cy.visit('http://localhost:3000/comidas', {
       onBeforeLoad(win) {
