@@ -5,6 +5,7 @@ import RecipeCard from '../components/RecipeCard';
 import Recommendations from '../components/Recommendations';
 import IngredientsList from '../components/IngredientsList';
 import { APImealById } from '../services/APImealsANDdrinks';
+import '../css/footerMenu.css';
 
 // Falta implementar o await da promise;
 // corrigir rota e colocar o barra que está faltando. Ver se é encessario
@@ -52,6 +53,11 @@ function MealDetails({ match: { params } }) {
         </div>
       ) : <h2>Loading</h2>}
       <Recommendations />
+
+      <button className="footer" type="button" data-testid="start-recipe-btn">
+        Iniciar Receita
+        {/* no click desse botão muda a url e envia apra o receitas em prograsso que ira usar o card da receita e no lugar de ingredientes irá colocar os checkbox. */}
+      </button>
     </div>
   );
 }

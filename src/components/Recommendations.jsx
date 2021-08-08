@@ -17,12 +17,12 @@ function Recommendations() {
             drinks.map((drink, index) => (
               (index < MAGIC6) ? (
                 <div
+                  // className="carousel-item active"
                   className={ (index === 0) ? 'carousel-item active' : 'carousel-item' }
                 >
                   <img
                     src={ drink.strDrinkThumb }
-                    className="d-flex w-40"
-                    width="50%"
+                    className="d-flex w-100"
                     alt=" foto drink"
                   />
                 </div>

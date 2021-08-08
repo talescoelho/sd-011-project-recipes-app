@@ -3,4 +3,6 @@
   left: 0;
   position: fixed;
   right: 0;
+  display: flex;
+  justify-content: space-around;
 }
