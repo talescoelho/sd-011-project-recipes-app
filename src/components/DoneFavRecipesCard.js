@@ -43,13 +43,29 @@ function DoneFavRecipesCard({ recipe, index, done, fav, removeFromFavorites }) {
         >
           { recipe.alcoholicOrNot || `${recipe.area} - ${recipe.category}` }
         </h3>
+
+        <div className="d-flex justify-content-around">
+          { done && (
+            recipe.tags.map((tag, i) => (
+              <span
+                className="recipe-tag"
+                key={ i }
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+              >
+                {tag}
+              </span>
+            )))}
+        </div>
       </div>
 
-      <div className="row justify-content-around my-2">
+      <div className="d-flex justify-content-around align-items-center my-3">
         { done && (
-          <p data-testid={ `${index}-horizontal-done-date` }>
+          <span
+            className="recipe-tag"
+            data-testid={ `${index}-horizontal-done-date` }
+          >
             { recipe.doneDate }
-          </p>) }
+          </span>)}
 
         <button type="button" onClick={ () => copyToClipboard(recipe) }>
           <img
@@ -72,13 +88,6 @@ function DoneFavRecipesCard({ recipe, index, done, fav, removeFromFavorites }) {
           </button>)}
       </div>
       { isCopied && <p className="alert alert-success" role="alert">Link copiado!</p>}
-      { done && (
-        recipe.tags.map((tag, i) => (
-          <p key={ i } data-testid={ `${index}-${tag}-horizontal-tag` }>
-            {tag}
-          </p>
-        )))}
-
     </div>
   );
 }

@@ -97,6 +97,7 @@
 
 /* Header CSS */
 .nav {
+  background-color: var(--font-color);
   border-bottom: 5px solid var(--dark-color-2);
   color: var(--dark-color-2);
   font-size: 3rem;
@@ -107,6 +108,11 @@
   height: 45px;
   width: 45px;
 }
+
+.buttons-navbar {
+  background-color: var(--font-color);
+}
+
 
 .hide {
   display: none;
@@ -244,6 +250,10 @@
 .title-recipe:hover {
   font-weight: 400;
   text-align: center;
+}
+
+.recipe-tag {
+  color: var(--dark-color-1);
 }
 
 /* Details Page */

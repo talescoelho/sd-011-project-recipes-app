@@ -15,6 +15,7 @@ export default function Header({ recipeType, title, searchButton }) {
     <header className="container">
       <navbar className="nav justify-content-around align-items-center">
         <button
+          className="buttons-navbar"
           type="button"
           onClick={ () => history.push('/perfil') }
         >
@@ -23,7 +24,11 @@ export default function Header({ recipeType, title, searchButton }) {
         <h1 data-testid="page-title">{title}</h1>
         {searchButton
         && (
-          <button type="button" onClick={ handleClick }>
+          <button
+            className="buttons-navbar"
+            type="button"
+            onClick={ handleClick }
+          >
             <img data-testid="search-top-btn" src={ Search } alt="user" />
           </button>)}
       </navbar>
