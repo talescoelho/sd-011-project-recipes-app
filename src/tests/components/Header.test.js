@@ -6,7 +6,6 @@ import {
 } from '@testing-library/react';
 import { renderWithRouterAndStore } from '../testConfig';
 
-import Header from '../../components/Header/Header';
 import Foods from '../../pages/Foods';
 
 describe('Testing Header component functionalities', () => {
@@ -19,7 +18,7 @@ describe('Testing Header component functionalities', () => {
     expect(pathname).toBe('/perfil');
   });
 
-  it.only('Show and hide when click on search button', () => {
+  it('Show and hide when click on search button', () => {
     renderWithRouterAndStore(<Foods />);
     const searchButton = screen.getByTestId('search-top-btn');
 
