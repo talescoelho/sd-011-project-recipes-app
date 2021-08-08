@@ -17,11 +17,10 @@ class FavoriteButton extends Component {
     this.setFavoriteIcon = this.setFavoriteIcon.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const { id } = this.props;
-    const { whiteHeart } = this.state;
     const favoriteMeals = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (whiteHeart && favoriteMeals && favoriteMeals.find((item) => item.id === id)) {
+    if (favoriteMeals && favoriteMeals.find((item) => item.id === id)) {
       this.setFavoriteIcon();
     }
   }

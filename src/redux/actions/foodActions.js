@@ -8,6 +8,7 @@ export const FOOD_LIST_CATEGORY_SUCCESS = 'FOOD_LIST_CATEGORY_SUCCESS';
 export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
 export const FOOD_DETAILS_ID_SUCCESS = 'FOOD_DETAILS_ID_SUCCESS';
 export const DRINK_RECOMENDATIONS_SUCCESS = 'DRINK_RECOMENDATIONS_SUCCESS';
+export const SAVE_FAVORITES = 'SAVE_FAVORITES';
 
 const foodListSuccess = (payload) => ({
   type: FOOD_LIST_SUCCESS,
@@ -65,7 +66,12 @@ export const fetchFoodID = (id) => async (dispatch) => {
   dispatch(foodDetailsIDSuccess(returnFetch));
 };
 
-export const saveFavoriteRecipe = (id) => async () => {
+export const saveFavoritesRedux = (payload) => ({
+  type: SAVE_FAVORITES,
+  payload,
+});
+
+export const saveFavoriteRecipe = (id) => async (dispatch) => {
   const returnFetch = await fetchAPIByID(id);
   const genericObj = {
     id: returnFetch[0].idMeal,
@@ -79,15 +85,18 @@ export const saveFavoriteRecipe = (id) => async () => {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   if (favoriteRecipes === null) {
     localStorage.setItem('favoriteRecipes', JSON.stringify([genericObj]));
+    dispatch(saveFavoritesRedux(genericObj));
   } else {
     const newFavoriteRecipes = [...favoriteRecipes, genericObj];
     localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+    dispatch(saveFavoritesRedux(newFavoriteRecipes));
   }
 };
 
-export const removeFavoriteRecipe = (id) => async () => {
+export const removeFavoriteRecipe = (id) => (dispatch) => {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const newFavoriteRecipes = favoriteRecipes
-    .filter((item) => item.id !== id && item.type !== 'comida');
+    .filter((item) => !(item.id === id && item.type === 'comida'));
   localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+  dispatch(saveFavoritesRedux(newFavoriteRecipes));
 };
