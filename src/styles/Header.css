@@ -1,6 +1,12 @@
+.header {
+  background-color: #F6F6F6;
+  position: relative;
+  z-index: 3;
+}
+
 .container-main-header {
   align-items: center;
-  color: white;
+  color: black;
   display: flex;
   height: 58px;
   width: 360px;
@@ -11,6 +17,8 @@
   display: flex;
   justify-content: space-around;
   width: 100%;
+  /* background-color: turquoise; */
+
 }
 
 .container-buttons {
@@ -22,23 +30,46 @@
 }
 
 .container-profile-icon {
-  height: 30px;
+  height: 20px;
   left: 15px;
   top: 12px;
-  width: 30px;
+  width: 20px;
 }
 
 .container-search-icon {
-  height: 30px;
+  height: 18px;
   left: 317px;
   top: 12px;
-  width: 30px;
+  width: 18px;
 }
 
 .container-title-header {
   font-family: Roboto , sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 35.16px;
-  size: 30px;
+  margin-top: 10px;
+}
+
+.profile-icon-bg {
+  background-color: white;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.199) 0 5px 20px;
+
+}
+
+.search-icon-bg {
+  background-color: #0fa36b;
+  box-shadow: #0fa36a62 0 0 10px;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-
+import trybeCook from '../images/trybe_cook.svg';
 import '../styles/Login.css';
 
 export default function Login() {
@@ -30,26 +30,48 @@ export default function Login() {
 
   return (
     <div className="loginContainer">
-      <form onSubmit={ (event) => handleSubmit(event) }>
-        <label htmlFor="email">
-          Email:
+      <img src={trybeCook} alt="trybe_cook" />
+      <form
+        className="login-form"
+        onSubmit={ (event) => handleSubmit(event) }
+        >
+        <h1>Sign In to continue</h1>
+        <label htmlFor="email" className="email">
+          <p className="placeE">Email:</p>
           <input
             type="text"
             name="email"
             id="email"
             value={ loginEmail }
             onChange={ ({ target }) => setLoginEmail(target.value) }
+            onFocus={ () => {
+              document.querySelector('.placeE').classList.add('digitin')
+            } }
+            onBlur={ ({ target }) => {
+              if (target.value === '') {
+                document.querySelector('.placeE').classList.remove('digitin')
+              }
+            } }
             data-testid="email-input"
           />
         </label>
-        <label htmlFor="password">
-          Senha:
+        <label htmlFor="password" className="teste">
+          <p className="placeS">Senha:</p>
           <input
             type="password"
             name="password"
             id="password"
+            // placeholder="Senha"
             value={ loginPassword }
             onChange={ ({ target }) => setLoginPassword(target.value) }
+            onFocus={ () => {
+              document.querySelector('.placeS').classList.add('digitin')
+            } }
+            onBlur={ ({ target }) => {
+              if (target.value === '') {
+                document.querySelector('.placeS').classList.remove('digitin')
+              }
+            } }
             data-testid="password-input"
           />
         </label>

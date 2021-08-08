@@ -28,6 +28,18 @@ function Comidas() {
     setFilteredRecipes(dataRecipes);
   }, [dataRecipes, filteredRecipes]);
 
+  const recipes = (
+    filteredRecipes && filteredRecipes.slice(0, NUMBER_OF_CARDS).map(
+      (recipe, index) => (<FoodCard
+        key={ index }
+        recipe={ recipe }
+        type={ type }
+        index={ index }
+      />
+      ),
+    )
+  )
+
   return (
     <div className="comidasPageContainer">
       <Header title={ title } showSearchIcon />
@@ -36,16 +48,10 @@ function Comidas() {
         {
           isLoading === true
             ? <Loading />
-            : filteredRecipes.slice(0, NUMBER_OF_CARDS).map(
-              (recipe, index) => (<FoodCard
-                key={ index }
-                recipe={ recipe }
-                type={ type }
-                index={ index }
-              />
-              ),
-            )
+            : recipes
         }
+      </div>
+      <div className="footer-container">
         <Footer />
       </div>
     </div>

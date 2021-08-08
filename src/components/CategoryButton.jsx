@@ -17,6 +17,7 @@ function CategoryButton({ categoryName }) {
   return (
     <button
       type="button"
+      className="catBtn"
       data-testid={ `${categoryName}-category-filter` }
       onClick={ () => handleToggleCategory(categoryName) }
     >

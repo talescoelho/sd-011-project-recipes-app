@@ -4,5 +4,13 @@
   display: flex;
   justify-content: space-around;
   position: fixed;
-  width: 360px;
+  width: 90%;
+  height: 49px;
+  margin-bottom: 10px;
+  border-radius: 25px;
+  background-color: white;
+}
+
+.footer img {
+  width: 30px;
 }

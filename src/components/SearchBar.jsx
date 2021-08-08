@@ -57,6 +57,7 @@ export default function SearchBar() {
         type="text"
         data-testid="search-input"
         placeholder="Buscar Receita"
+        className="search-input"
         value={ searchQuery }
         onChange={ ({ target }) => setSearchQuery(target.value) }
       />

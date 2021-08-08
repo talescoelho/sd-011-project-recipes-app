@@ -4,12 +4,39 @@
 }
 
 .foodRecipesContainer {
-  align-items: center;
-  background-color: black;
+  /* align-items: center; */
+  background-color: #F6F6F6;
   display: flex;
   flex-flow: row wrap;
   height: 415px;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   overflow: auto;
   width: 360px;
+}
+
+.footer-container {
+  background-color: #F6F6F6;
+  width: 360px;
+  height: 67px;
+  display: flex;
+  justify-content: center;
+}
+
+.loading {
+  /* background-color: tomato; */
+  margin: 0 auto;
+  width: 180px;
+  animation: infinite load 1s;
+}
+
+@keyframes load {
+  0% {
+    transform: rotate(-20deg);
+  }
+  50% {
+    transform: rotate(20deg);
+  }
+  100% {
+    transform: rotate(-20deg);
+  }
 }

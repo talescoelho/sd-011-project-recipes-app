@@ -1,5 +1,6 @@
 /* width */
 .categoryFilterContainer {
+  background-color: #F6F6F6;
   align-items: center;
   display: flex;
   flex-wrap: wrap;
@@ -11,8 +12,19 @@
 .categoryFilterContainer button {
   background: none;
   border: none;
-  border-radius: 10px;
-  box-shadow: 0 1px 10px white;
-  height: 45px;
-  width: 100px;
+  border-radius: 15px;
+  background-color: white;
+  outline: none;
+  /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.062); */
+  color: black;
+  padding-top: 3px;
+  font-weight: 700;
+  font-size: 14px;
+  height: 35px;
+  width: 90px;
+  margin: 0 10px;
+}
+
+.selectedCat {
+  background-color: #0fa36b;
 }

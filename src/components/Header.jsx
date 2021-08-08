@@ -25,7 +25,7 @@ function Header(props) {
     <header data-testid="header" className="header">
       <div className="container-main-header">
         <div className="container-title-icons">
-          <Link to="/perfil">
+          <Link to="/perfil" className="profile-icon-bg">
             <img
               className="container-profile-icon"
               data-testid="profile-top-btn"
@@ -39,7 +39,7 @@ function Header(props) {
           >
             { title }
           </h3>
-          <div>
+          <div className="search-icon-bg">
             { showSearchIcon ? searchIconRender : null }
           </div>
         </div>

@@ -1,7 +1,7 @@
 ::-webkit-scrollbar {
-  background: #0fa36b;
+  /* background: #0fa36b; */
   border-radius: 20px;
-  width: 10px;
+  width: 5px;
 }
 
 /* Track */
@@ -12,18 +12,18 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgba(173, 255, 42, 0.4);
+  background: #0fa36b;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(173, 255, 42, 0.8);
+  background: #0a6945;
   border-radius: 10px;
 }
 
 .meals {
   align-items: center;
-  background: #0fa36b;
+  /* background: #0fa36b; */
   color: #464646;
   font-family: sans-serif;
   height: 640px;
