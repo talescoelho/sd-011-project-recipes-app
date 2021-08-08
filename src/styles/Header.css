@@ -49,6 +49,8 @@
   font-weight: 700;
   line-height: 35.16px;
   margin-top: 10px;
+  /* background-color: navy; */
+  max-width: 110px;
 }
 
 .profile-icon-bg {
