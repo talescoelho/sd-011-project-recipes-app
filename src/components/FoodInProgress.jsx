@@ -49,6 +49,7 @@ export default function FoodInProgress({ type }) {
   }, [check, local, id, fd, setLocal]);
 
   const handleCheckBox = (e) => {
+    document.querySelectorAll('input[type=checkbox]')[0].scrollIntoView();
     const { name, checked } = e.target;
     if (!check) {
       return setCheck([name]);
@@ -108,13 +109,14 @@ export default function FoodInProgress({ type }) {
         <h1 data-testid="recipe-title">{strMeal || strDrink}</h1>
         <ShareBtn type="inProgress" />
         <FavoriteBtn />
+        <Form className="m-3">{listIngredients(food)}</Form>
         <p>{strAlcoholic}</p>
         <p data-testid="instructions">{strInstructions}</p>
         <p data-testid="recipe-category">
           Categoria:
           {strCategory}
         </p>
-        <Form className="m-3">{listIngredients(food)}</Form>
+
         <h3 className="text-center">Recommended Cards</h3>
 
       </div>
