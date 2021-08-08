@@ -58,13 +58,14 @@ function Recipes({
   );
 }
 
-const mapStateToProps = ({ mealsReducer, drinksReducer }) => ({
-  meals: mealsReducer.meals,
-  mealsLoading: mealsReducer.loading,
-  mealsError: mealsReducer.error,
-  drinks: drinksReducer.drinks,
-  drinksLoading: drinksReducer.loading,
-  drinksError: drinksReducer.error,
+const mapStateToProps = ({ mealsAndDrinksReducer }) => ({
+  meals: mealsAndDrinksReducer.meals.meals,
+  mealsLoading: mealsAndDrinksReducer.meals.loading,
+  mealsError: mealsAndDrinksReducer.meals.error,
+
+  drinks: mealsAndDrinksReducer.drinks.drinks,
+  drinksLoading: mealsAndDrinksReducer.drinks.loading,
+  drinksError: mealsAndDrinksReducer.drinks.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({
