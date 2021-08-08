@@ -8,22 +8,9 @@ function RecipeDetail({ history: { location: { pathname } }, dispatchFetchDetail
   const { id } = useParams();
 
   React.useEffect(() => {
-    // const type = pathname.replace('/', '');
     const type = pathname.includes('comidas') ? 'comidas' : 'bebidas';
     dispatchFetchDetail(type, id);
-    // dispatchFetchDetail(pathname, id);
   }, [id, pathname, dispatchFetchDetail]);
-
-  // React.useEffect(() => {
-  //   if (pathname === '/comidas') {
-  //     setRecipes(getXFirstElementsFromArray(meals, recipesQuantity));
-  //   } else {
-  //     setRecipes(getXFirstElementsFromArray(drinks, recipesQuantity));
-  //   }
-
-  //   if (mealsError || drinksError) setRecipes([]);
-  // }, [pathname, meals, mealsError, drinks,
-  //   drinksError, dispatchFetchDrinks, dispatchFetchMeals]);
 
   function mealMain() {
     return (
@@ -153,16 +140,17 @@ function RecipeDetail({ history: { location: { pathname } }, dispatchFetchDetail
   );
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  dispatchFetchDetail: (type, id) => dispatch(fetchRecipeDetail(type, id)),
+});
+
+export default connect(null, mapDispatchToProps)(RecipeDetail);
+
 RecipeDetail.propTypes = {
   history: PropTypes.shape({
     location: PropTypes.shape({
       pathname: PropTypes.string,
     }),
   }),
+  dispatchFetchDetail: PropTypes.func,
 }.isRequired;
-
-const mapDispatchToProps = (dispatch) => ({
-  dispatchFetchDetail: (type, id) => dispatch(fetchRecipeDetail(type, id)),
-});
-
-export default connect(null, mapDispatchToProps)(RecipeDetail);
