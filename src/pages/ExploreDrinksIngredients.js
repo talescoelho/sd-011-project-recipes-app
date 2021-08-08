@@ -6,7 +6,7 @@ export default class ExploreDrinksIngredients extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="Explorar Ingredientes" search={ false } />
         Explorar bebidas por ingredientes
         <Footer />
       </div>

@@ -6,7 +6,7 @@ export default class ExploreFoods extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="Explorar Comidas" search={ false } />
         Explorar comidas
         <Footer />
       </div>
