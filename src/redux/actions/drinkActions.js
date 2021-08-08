@@ -1,5 +1,6 @@
 import { fetchAPIName, fetchAPICategory,
-  fetchAPICategoryFilter, fetchAPIByID } from '../../services/fetchAPIDrink';
+  fetchAPICategoryFilter, fetchAPIByID,
+  fetchDrinkRandom } from '../../services/fetchAPIDrink';
 import { fetchAPIName as fetchRecomendations } from '../../services/fetchAPIFood';
 
 export const DRINK_LIST_SUCCESS = 'DRINK_LIST_SUCCESS';
@@ -90,4 +91,9 @@ export const removeFavoriteRecipe = (id) => async () => {
   const newFavoriteRecipes = favoriteRecipes
     .filter((item) => item.id !== id && item.type !== 'bebida');
   localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+};
+
+export const randomDrinkId = () => async () => {
+  const returnFetch = await fetchDrinkRandom();
+  return returnFetch;
 };
