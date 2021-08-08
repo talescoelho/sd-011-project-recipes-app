@@ -1,13 +1,3 @@
-export const progressRecipe = ({ id, fd }) => {
-  const inProgressRecipes = localStorage.getItem('inProgressRecipes');
-
-  const oldProgress = JSON.parse(inProgressRecipes);
-
-  const toLocal = { ...oldProgress, [fd]: { [id]: [] } };
-
-  localStorage.setItem('inProgressRecipes', JSON.stringify(toLocal));
-};
-
 export const isRecipeDone = (idReceita) => {
   const data = JSON.parse(localStorage.getItem('doneRecipes'));
   const idInteiro = parseInt(idReceita, 10);
@@ -47,7 +37,6 @@ export const bookMarkRecipe = async (item) => {
     return localStorage.setItem('favoriteRecipes',
       JSON.stringify([...favoriteRecipes.filter((el) => el.id !== realId)]));
   }
-
   localStorage.setItem('favoriteRecipes', JSON.stringify([...favoriteRecipes, food]));
 };
 

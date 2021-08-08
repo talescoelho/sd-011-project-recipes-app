@@ -43,7 +43,7 @@ export default function FoodCard({ type }) {
   }, [cards, history, type]);
 
   const cardsToRender = (cardsRender) => (
-    cardsRender.map(({ idMeal, strMeal, strMealThumb,
+    cardsRender.length !== 0 && cardsRender.map(({ idMeal, strMeal, strMealThumb,
       strCategory, strTags, idDrink, strDrink, strDrinkThumb, strAlcoholic,
     }, index) => (
       index < number ? (

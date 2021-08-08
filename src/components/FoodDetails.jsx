@@ -78,9 +78,6 @@ export default function FoodDetails({ type }) {
     drinks: `/bebidas/${id}/in-progress`,
   };
 
-  const handleRecipeButton = () => {
-    progressRecipe({ id, fd });
-  };
   return (
     <main className="food-details">
       <div data-testid="0-recipe-card">
@@ -113,15 +110,13 @@ export default function FoodDetails({ type }) {
       </div>
 
       {showRecipe(id) ? (
-        <Link to={ path[type] }>
-          <Button
-            onClick={ handleRecipeButton }
-            className="btnstart"
-            type="button"
-            data-testid="start-recipe-btn"
-          >
-            {buttonName()}
-          </Button>
+        <Link
+          to={ path[type] }
+          className="btnstart"
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          {buttonName()}
         </Link>
       ) : ('') }
 

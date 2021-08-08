@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import propTypes from 'prop-types';
 import useLocalStorage from 'use-local-storage-state';
 import _ from 'lodash';
+import produce from 'immer';
 import { fetchFood } from '../services/FoodAPI';
 import CardsDrinks from './CardsDrinks';
 import CardsFood from './CardsFood';
@@ -32,9 +33,15 @@ export default function FoodInProgress({ type }) {
     const idObj = _.get(local, `${fd}.${id}`);
 
     if (!idObj) {
-      const newLocal = _.set({ ...local }, `${fd}.${id}`, []);
-      setLocal(newLocal);
-      console.log('vrau');
+      const newState = produce(local, (draft) => {
+        if (draft[fd]) {
+          draft[fd][id] = [];
+        } else {
+          draft[fd] = { [id]: [] };
+        }
+      });
+
+      setLocal(newState);
     }
 
     if (!check && idObj && idObj.length) {
@@ -44,12 +51,12 @@ export default function FoodInProgress({ type }) {
     if (check && check !== idObj) {
       const temp = _.cloneDeep(local);
       _.set(temp, `${fd}.${id}`, check);
+      console.log(temp[fd]);
       setLocal(temp);
     }
   }, [check, local, id, fd, setLocal]);
 
   const handleCheckBox = (e) => {
-    document.querySelectorAll('input[type=checkbox]')[0].scrollIntoView();
     const { name, checked } = e.target;
     if (!check) {
       return setCheck([name]);
