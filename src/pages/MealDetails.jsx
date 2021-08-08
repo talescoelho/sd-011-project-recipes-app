@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import UserContext from '../context/UserContext';
 import RecipeCard from '../components/RecipeCard';
 import IngredientsList from '../components/IngredientsList';
 import { APImealById } from '../services/APImealsANDdrinks';
@@ -9,6 +10,8 @@ import { APImealById } from '../services/APImealsANDdrinks';
 // Adicionar loading
 
 function MealDetails({ match: { params } }) {
+  const MAGIC6 = 6;
+  const { drinks } = useContext(UserContext);
   const [MealDataAPI, setMealDadaAPI] = useState({});
   useEffect(() => {
     const { id } = params;
@@ -48,10 +51,21 @@ function MealDetails({ match: { params } }) {
         </div>
       ) : <h2>Loading</h2>}
 
-      <div data-testid={ `${0}-recomendation-card` }>
-        <h2>Recomendadas</h2>
-        Comidas recomendadas-Usar componente dos card ja pronto
-      </div>
+      <h2>Recomendadas</h2>
+      {
+        drinks.map((drink, index) => (
+          (index < MAGIC6) ? (
+            <RecipeCard
+              key={ index }
+              title={ drink.strDrink }
+              img={ drink.strDrinkThumb }
+              category={ drink.strAlcoholic }
+              id={ drink.idDrink }
+              data-testid={ `${index}-recomendation-card` }
+            />
+          ) : null))
+      }
+
       <button type="button" data-testid="start-recipe-btn">
         Iniciar Receita
         {/* no click desse botão muda a url e envia apra o receitas em prograsso que ira usar o card da receita e no lugar de ingredientes irá colocar os checkbox. */}

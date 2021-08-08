@@ -5,20 +5,22 @@ import PropTypes from 'prop-types';
 function MealRecipeCard({ title, img, category }) {
   return (
     <div>
-      <img data-testid="recipe-photo" alt="Taste recipe done" src={ img } />
-      <h2 data-testid="recipe-title">
-        {title}
-      </h2>
-      <p data-testid="recipe-category">
-        {category}
-      </p>
+      <img data-testid="recipe-photo" alt="Foto da receita" src={ img } />
+      <br />
 
+      <span data-testid="recipe-title">
+        {`${title} `}
+      </span>
       <button type="button" data-testid="share-btn">
         botão share
       </button>
       <button type="button" data-testid="favorite-btn">
         botão favorite s2
       </button>
+
+      <p data-testid="recipe-category">
+        {category}
+      </p>
     </div>
   );
 }

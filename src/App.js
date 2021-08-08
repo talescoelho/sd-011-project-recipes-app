@@ -20,28 +20,22 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="/explorar" component={ Explore } />
-        <Route exact path="/explorar/comidas" component={ ExploreFood } />
-        <Route exact path="/explorar/bebidas" component={ ExploreDrink } />
         <Route path="/explorar/comidas/ingredientes" component={ FoodIngredient } />
         <Route path="/explorar/bebidas/ingredientes" component={ DrinkIngredient } />
         <Route path="/explorar/comidas/area" component={ FoodArea } />
-        <Route path="/header" component={ Header } />
+        <Route exact path="/explorar/comidas" component={ ExploreFood } />
+        <Route exact path="/explorar/bebidas" component={ ExploreDrink } />
+        <Route exact path="/explorar" component={ Explore } />
+        <Route path="/comidas/:id" component={ MealDetails } />
         <Route path="/comidas" component={ Meals } />
         <Route path="/bebidas" component={ Drinks } />
-        <Route path="/explorar" component={ Explorar } />
         <Route path="/profile" component={ Profile } />
-        <Route path="/comidas:id" component={ MealDetails } />
-        {/* <Route path="/comidas" component={} />
-        <Route path="/bebidas:id" component={} />
-        <Route path="/explorar/comidas" component={} />
-        <Route path="/explorar/bebidas" component={} />
-        <Route path="/bebidas:id" component={} />
-        <Route path="/explorar/comidas/ingredientes" component={} />
+        {/* <Route path="/bebidas:id" component={} />
+        <Route path="/header" component={ Header } />
+        Tela de receita em processo de comida: /comidas/{id-da-receita}/in-progress;
+        Tela de receita em processo de bebida: /bebidas/{id-da-receita}/in-progress;
         <Route path="/explorar/bebidas/ingredientes" component={} />
-        <Route path="/explorar/comidas/area" component={} />
         <Route path="/receitas-feitas" component={} />
-        <Route path="/bebidas:id" component={} />
         <Route path="/receitas-favoritas" component={} />
         <Route path="*" component={ NotFound } /> */ }
       </Switch>

@@ -23,3 +23,11 @@ export const APImeals = async () => {
   const APIjson = await APIfetch.json();
   return APIjson;
 };
+
+export const APIDrinksById = async (id) => {
+  const URLmealsid = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const APIfetch = await fetch(URLmealsid);
+  const APIjson = await APIfetch.json();
+  console.log('rodou API request drinks do service');
+  return APIjson;
+};
