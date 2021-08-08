@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchDrinkCategory, fetchDrinkList } from '../redux/actions/drinkActions';
-import { DrinkCard, DrinkCategories, Header, Footer } from '../components';
+import { DrinkCards, DrinkCategories, Header, Footer } from '../components';
 
 class Drinks extends Component {
   componentDidMount() {
