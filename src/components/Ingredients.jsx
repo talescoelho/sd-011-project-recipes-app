@@ -10,12 +10,13 @@ function Ingredients(props) {
     .filter((ingredient) => ingredient[1] !== '' && ingredient[1] !== null);
   return (
     <div>
-      <h3>Ingredients</h3>
+      <h3 className="ingredient-title">Ingredients</h3>
       <ul>
         { ingredientsArr.map((ingredient, index) => (
           <li
             key={ ingredient }
             data-testid={ `${index}-ingredient-name-and-measure` }
+            className="ingredient"
           >
             {`${ingredientsArr[index][1]}  
               ${ingredientsQuantityArr[index]

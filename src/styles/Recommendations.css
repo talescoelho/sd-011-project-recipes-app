@@ -5,7 +5,7 @@
 .recommendation-carroussel {
   align-items: center;
   display: flex;
-  overflow-x: scroll;
+  overflow-x: hide;
   transform: translateX(0);
   transition: 0.2s ease;
   width: 100%;

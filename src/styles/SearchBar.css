@@ -13,7 +13,7 @@
   animation: normal bar 0.2s;
   animation-fill-mode: forwards;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.555);
-  z-index: 10;
+  z-index: 11;
 }
 
 .searchBar-radios {
@@ -38,6 +38,7 @@
   border: none;
   border-radius: 20px;
   padding: 10px;
+  outline: none;
   /* background-color: blue; */
 }
 

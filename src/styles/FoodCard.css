@@ -6,8 +6,8 @@
   height: 172px;
   align-items: center;
   justify-content: space-around;
-  margin: 10px 0 3px 10px;
-  width: 165px;
+  margin: 10px 0 3px 13px;
+  width: 160px;
   overflow: hidden;
 }
 
@@ -19,7 +19,7 @@
   height: 172px;
   align-items: center;
   justify-content: space-around;
-  width: 165px;
+  width: 160px;
   padding-top: 15px;
   overflow: hidden;
 }

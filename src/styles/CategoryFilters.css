@@ -9,13 +9,21 @@
   width: 100%;
 }
 
+.selectedCat {
+  transition: ease 0.2s;
+  background-image: linear-gradient(212deg, rgb(122, 219, 122), rgb(42, 119, 42)) !important;
+  color: white !important;
+  /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.219) !important; */
+
+}
+
 .categoryFilterContainer button {
   background: none;
   border: none;
   border-radius: 15px;
   background-color: white;
   outline: none;
-  /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.062); */
+  /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.062); */
   color: black;
   padding-top: 3px;
   font-weight: 700;
@@ -23,8 +31,7 @@
   height: 35px;
   width: 90px;
   margin: 0 10px;
+  transition: ease 0.2s;
+  z-index: 1;
 }
 
-.selectedCat {
-  background-color: #0fa36b;
-}

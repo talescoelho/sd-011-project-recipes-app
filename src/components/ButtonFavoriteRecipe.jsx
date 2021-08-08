@@ -58,9 +58,9 @@ function ButtonFavoriteRecipe({ recipes, favorite, setFavorite, index }) {
   };
 
   return (
-    <button
+    <div
       className="Favorite-Page-Button-Styles"
-      type="button"
+      aria-hidden="true"
       onClick={ () => { handleFavoriteBtn(); } }
     >
       { favorite ? <img
@@ -68,7 +68,7 @@ function ButtonFavoriteRecipe({ recipes, favorite, setFavorite, index }) {
         alt="favorite"
         data-testid={ testIds }
       /> : <img src={ WhiteHeart } alt="Nonfavorite" data-testid="favorite-btn" /> }
-    </button>
+    </div>
   );
 }
 

@@ -4,11 +4,12 @@ import Ingredients from './Ingredients';
 import Share from '../images/shareIcon.svg';
 import handleShareBtn from '../helpers/handleShareBtn';
 import LinkCopy from './LinkCopy';
-
+import Arrow from '../images/left-arrow-next-svgrepo-com.svg';
 import '../styles/DetailsRecipe.css';
 import ButtonStartRecipe from './ButtonStartRecipe';
 import ButtonFavoriteRecipe from './ButtonFavoriteRecipe';
 import Recommendations from './Recommendations';
+import { Link, useLocation } from 'react-router-dom';
 
 function DetailsRecipe(props) {
   // comentario
@@ -25,6 +26,7 @@ function DetailsRecipe(props) {
     id,
   } = recipeData;
   const [favorite, setFavorite] = useState(false);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const getFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -46,47 +48,58 @@ function DetailsRecipe(props) {
   };
 
   return (
-    <div>
-      <h1 data-testid="recipe-title">{ title }</h1>
-      <img
-        src={ imgUrl }
-        alt={ title }
-        className="recipe-img"
-        data-testid="recipe-photo"
-      />
-      <p data-testid="recipe-category">{ !strAlcoholic ? category : strAlcoholic}</p>
-      <Ingredients
-        ingredients={ ingredients }
-        ingredientsQuantity={ ingredientsQuantity }
-      />
-      <p data-testid="instructions">{ instructions }</p>
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ () => { handleShareBtn(); handleLinkMessage(); } }
-      >
-        <img src={ Share } alt="share button" />
-      </button>
-      { linkCopy && <LinkCopy /> }
-      <ButtonFavoriteRecipe
-        setFavorite={ setFavorite }
-        favorite={ favorite }
-        recipes={ recipeData }
-      />
-      { video && <iframe
-        width="260"
-        height="315"
-        src={ `https://www.youtube.com/embed/${finalUrl}` }
-        title="YouTube video player"
-        frameBorder="0"
-        data-testid="video"
-        allowFullScreen
-      /> }
-      <Recommendations />
-      <ButtonStartRecipe
-        id={ id }
-        recipeData={ recipeData }
-      />
+    <div className="details-container">
+      <header className="details-header">
+        <Link 
+          to={pathname.includes('bebidas') ? '/bebidas' : '/comidas'}
+          className="arrow-bg"
+        >
+          <img src={Arrow} alt="arrow-left" className="arrow" />
+        </Link>
+        <h1 data-testid="recipe-category">{ !strAlcoholic ? category : strAlcoholic}</h1>
+        <ButtonFavoriteRecipe
+          setFavorite={ setFavorite }
+          favorite={ favorite }
+          recipes={ recipeData }
+        />
+      </header>
+      <div className="details-content">
+        <img
+          src={ imgUrl }
+          alt={ title }
+          className="recipe-img"
+          data-testid="recipe-photo"
+        />
+        <h2 data-testid="recipe-title" className="recipe-title">{ title }</h2>
+        <Ingredients
+          ingredients={ ingredients }
+          ingredientsQuantity={ ingredientsQuantity }
+        />
+        <h3 className="instructions-title">Instructions</h3>
+        <p data-testid="instructions" className="instructions">{ instructions }</p>
+        <button
+          type="button"
+          data-testid="share-btn"
+          onClick={ () => { handleShareBtn(); handleLinkMessage(); } }
+        >
+          <img src={ Share } alt="share button" />
+        </button>
+        { linkCopy && <LinkCopy /> }
+        { video && <iframe
+          width="300"
+          height="215"
+          src={ `https://www.youtube.com/embed/${finalUrl}` }
+          title="YouTube video player"
+          frameBorder="0"
+          data-testid="video"
+          allowFullScreen
+        /> }
+        <Recommendations />
+        <ButtonStartRecipe
+          id={ id }
+          recipeData={ recipeData }
+        />
+      </div>
     </div>
   );
 }
