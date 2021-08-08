@@ -5,15 +5,19 @@ import {
 } from '@testing-library/react';
 import { renderWithRouterAndStore } from '../testConfig';
 
-import Foods from '../../pages/Foods';
+import Header from '../../components/Header/Header';
 
 describe('Testing Header component functionalities', () => {
   it('When click on the profile button render Profile', () => {
-    const { history } = renderWithRouterAndStore(<Foods />);
+    const { history } = renderWithRouterAndStore(<Header />);
     const profileButton = screen.getByTestId('profile-top-btn');
 
     fireEvent.click(profileButton);
     const { location: { pathname } } = history;
     expect(pathname).toBe('/perfil');
   });
+
+  // it('Show and hide when click on search button', () => {
+  //   const {  }
+  // });
 });
