@@ -27,13 +27,29 @@ function MealDetails({ match: { params } }) {
         category={ MealDataAPI.strCategory }
         id={ MealDataAPI.idMeal }
       />
+
       <IngredientsList meal={ MealDataAPI } />
+
       <p data-testid="instructions">
+        <h2>Instructions</h2>
         {MealDataAPI.strInstructions}
       </p>
 
+      {(MealDataAPI.strYoutube) ? (
+        <div className="embed-responsive embed-responsive-16by9">
+          <h2>Video</h2>
+          <iframe
+            src={ MealDataAPI.strYoutube.replace('watch?v=', 'embed/') }
+            data-testid="video"
+            title="recipe Video"
+            className="embed-responsive-item"
+            allowFullScreen
+          />
+        </div>
+      ) : <h2>Loading</h2>}
+
       <div data-testid={ `${0}-recomendation-card` }>
-        <h2>Recomendações</h2>
+        <h2>Recomendadas</h2>
         Comidas recomendadas-Usar componente dos card ja pronto
       </div>
       <button type="button" data-testid="start-recipe-btn">
