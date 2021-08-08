@@ -44,8 +44,7 @@
 }
 
 .food-details .btnstart {
-  bottom: 20%;
-  left: 50%;
+  bottom: 0;
   position: fixed;
   z-index: 9999;
 }
