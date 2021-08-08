@@ -6,9 +6,10 @@ function FrameVideo() {
   return (
     <div className="container">
       <h3 className="text-center">Video</h3>
-      <div className="embed-responsive embed-responsive-1by1">
-        {
-          recipe.strYoutube !== undefined
+      <div className="container-video my-5">
+        <div className="embed-responsive embed-responsive-16by9">
+          {
+            recipe.strYoutube !== undefined
          && (<iframe
            src={ recipe.strYoutube.replace('watch?v=', 'embed/') }
            data-testid="video"
@@ -16,7 +17,8 @@ function FrameVideo() {
            allowFullScreen
            title="Youtube Video"
          />)
-        }
+          }
+        </div>
       </div>
     </div>
   );

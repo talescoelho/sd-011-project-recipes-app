@@ -41,7 +41,7 @@ function RecipeInProgress({ match: { url, params: { id } } }) {
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <RecipeDetails />
       <div className="container-start-button">
         <button

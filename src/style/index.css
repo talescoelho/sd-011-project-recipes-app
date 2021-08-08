@@ -317,16 +317,38 @@
   background-color: var(--dark-color-1);
 }
 
+.ingredient-title {
+  color: var(--dark-color-1);
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
 .ingredient-list {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   list-style-type: none;
   margin: 15px 0;
 }
 
+.ingredient-list li {
+  font-size: 1.4rem;
+}
+
+.text-instructions {
+  font-size: 1.4rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
 .text-center {
   margin: 20px 0;
+}
+
+.container-video {
+  margin: 0 auto;
+  width: 640px;
 }
 
 /* Not Found */
@@ -361,8 +383,8 @@
   color: var(--font-color);
   font-size: 2rem;
   font-weight: 400;
-  text-align: center;
   line-height: 1.5;
+  text-align: center;
 }
 
 .not-found-button-back {
@@ -421,5 +443,13 @@ body::-webkit-scrollbar-thumb {
 
   .not-found-text {
     font-size: 1.4rem;
+  }
+
+  .container-video {
+    width: auto;
+  }
+
+  .buttons-actions, .ingredient-list, .text-instructions {
+    padding: 0 35px;
   }
 }

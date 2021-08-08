@@ -20,7 +20,7 @@ function RecipeDetails() {
       const ingredient = recipe[`strIngredient${index}`];
       const measure = recipe[`strMeasure${index}`];
       if (itemValidation(ingredient) && itemValidation(measure)) {
-        const item = `${ingredient} ${measure}`;
+        const item = `${ingredient}: ${measure}`;
         listAux.push(item);
       }
     }
@@ -33,35 +33,42 @@ function RecipeDetails() {
 
   return (
     <section>
-      <div className="card">
-        <img
-          className="card-img-top rounded"
-          data-testid="recipe-photo"
-          src={ recipe.strMealThumb || recipe.strDrinkThumb }
-          alt={ recipe.strMeal || recipe.strDrink }
-        />
-        <div className="card-body rounded">
-          <h2 className="card-title" data-testid="recipe-title">
-            { recipe.strMeal || recipe.strDrink }
-          </h2>
-          <h3 data-testid="recipe-category">
-            { recipe.strYoutube ? recipe.strCategory : recipe.strAlcoholic }
-          </h3>
+      <div className="row align-items-center">
+
+        <div className="card border border-danger rounded mx-5 col-sm-5">
+          <img
+            className="img-fluid pt-3"
+            data-testid="recipe-photo"
+            src={ recipe.strMealThumb || recipe.strDrinkThumb }
+            alt={ recipe.strMeal || recipe.strDrink }
+          />
+          <div className="card-inner text-center">
+            <h2 className="title-recipe" data-testid="recipe-title">
+              { recipe.strMeal || recipe.strDrink }
+            </h2>
+            <h3 className="subtitle" data-testid="recipe-category">
+              { recipe.strYoutube ? recipe.strCategory : recipe.strAlcoholic }
+            </h3>
+          </div>
+        </div>
+        <div className="col-lg-5">
+          <IngredientsList />
+        </div>
+
+        <div className="buttons-actions">
+          <button type="button">
+            <img data-testid="share-btn" src={ ShareIcon } alt="Share Icon" />
+          </button>
+          <button type="button">
+            <img data-testid="favorite-btn" src={ FavIcon } alt="Fav Icon" />
+          </button>
         </div>
       </div>
-      <div className="buttons-actions">
-        <button type="button">
-          <img data-testid="share-btn" src={ ShareIcon } alt="Share Icon" />
-        </button>
-        <button type="button">
-          <img data-testid="favorite-btn" src={ FavIcon } alt="Fav Icon" />
-        </button>
-      </div>
-      <IngredientsList />
-      <h2 className="text-center">
+
+      <h2 className="text-center ingredient-title">
         Instructions
       </h2>
-      <p className="text-justify" data-testid="instructions">
+      <p className="text-justify my-5 text-instructions" data-testid="instructions">
         { recipe.strInstructions }
       </p>
 

@@ -7,44 +7,34 @@ function IngredientList() {
   const location = useLocation();
 
   const renderListInProgress = () => (
-    <div>
-      <h2 className="text-center">Ingredients</h2>
+    <>
+      <h2 className="ingredient-title text-center">Ingredients</h2>
       <ul className="ingredient-list">
         {ingredients.map((item, index) => (
           <div key={ index }>
             <li>
-              <label
-                htmlFor={ item }
-                data-testid={ `${index}-ingredient-step` }
-              >
-                <input
-                  type="checkbox"
-                  name={ item }
-                  id={ item }
-                />
+              <label htmlFor={ item } data-testid={ `${index}-ingredient-step` }>
+                <input className="mr-2" type="checkbox" name={ item } id={ item } />
                 {item}
               </label>
             </li>
           </div>
         ))}
       </ul>
-    </div>
+    </>
   );
 
   const renderListToDetails = () => (
-    <div>
-      <h2 className="text-center">Ingredients</h2>
+    <>
+      <h2 className="ingredient-title text-center">Ingredients</h2>
       <ul className="ingredient-list">
         {ingredients.map((item, index) => (
-          <li
-            data-testid={ `${index}-ingredient-name-and-measure` }
-            key={ index }
-          >
+          <li data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
             {item}
           </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 
   if (!location.pathname.includes('in-progress')) return renderListToDetails();
