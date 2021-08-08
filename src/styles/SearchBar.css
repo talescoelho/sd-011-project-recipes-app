@@ -17,13 +17,19 @@
 }
 
 .searchBar-radios {
+  width: 100%;
   display: flex;
   justify-content: flex-start;
 }
 
 .searchBar-radios label {
+  color: white;
   margin-bottom: 0;
   margin-right: 10px;
+}
+
+.searchBar-radios label input {
+  margin-right: 5px;
 }
 
 .searchBar-btn {
