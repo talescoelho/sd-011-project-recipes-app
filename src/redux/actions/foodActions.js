@@ -1,6 +1,6 @@
 import { fetchAPIName, fetchAPICategory,
   fetchAPICategoryFilter, fetchAPIByID,
-  fetchFoodRandom } from '../../services/fetchAPIFood';
+  fetchFoodRandom, fetchFoodIngredient } from '../../services/fetchAPIFood';
 import { fetchAPIName as fetchRecomendations } from '../../services/fetchAPIDrink';
 
 export const FOOD_LIST_SUCCESS = 'FOOD_LIST_SUCCESS';
@@ -9,6 +9,7 @@ export const FOOD_LIST_CATEGORY_SUCCESS = 'FOOD_LIST_CATEGORY_SUCCESS';
 export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
 export const FOOD_DETAILS_ID_SUCCESS = 'FOOD_DETAILS_ID_SUCCESS';
 export const DRINK_RECOMENDATIONS_SUCCESS = 'DRINK_RECOMENDATIONS_SUCCESS';
+export const FOOD_INGREDIENTS = 'FOOD_INGREDIENTS';
 
 const foodListSuccess = (payload) => ({
   type: FOOD_LIST_SUCCESS,
@@ -96,4 +97,14 @@ export const removeFavoriteRecipe = (id) => async () => {
 export const randomFoodId = () => async () => {
   const returnFetch = await fetchFoodRandom();
   return returnFetch;
+};
+
+const searchFoodIngredient = (payload) => ({
+  type: FOOD_INGREDIENTS,
+  payload,
+});
+
+export const foodIngredient = () => async (dispatch) => {
+  const returnFetch = await fetchFoodIngredient();
+  dispatch(searchFoodIngredient(returnFetch));
 };

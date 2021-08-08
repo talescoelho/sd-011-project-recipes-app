@@ -1,4 +1,4 @@
-const urlIngredients = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=list';
+const urlIngredients = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
 const urlName = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const urlCategory = 'https://www.themealdb.com/api/json/v1/1/list.php?c=';
 const urlCategoryFilter = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
@@ -65,4 +65,3 @@ export async function fetchFoodIngredient() {
     return console.log(error);
   }
 }
-console.log(fetchFoodIngredient());

@@ -1,6 +1,7 @@
 import { DRINK_LIST_SUCCESS, DRINK_CATEGORY_SUCCESS,
   DRINK_LIST_CATEGORY_SUCCESS, UPDATE_CATEGORY,
-  DRINK_DETAILS_ID_SUCCESS, FOOD_RECOMENDATIONS_SUCCESS } from '../actions/drinkActions';
+  DRINK_DETAILS_ID_SUCCESS, FOOD_RECOMENDATIONS_SUCCESS,
+  DRINK_INGREDIENTS } from '../actions/drinkActions';
 
 const INITIAL_STATE = {
   drinkCardsList: [],
@@ -8,6 +9,7 @@ const INITIAL_STATE = {
   selectedCategory: 'All',
   drinkDetails: {},
   foodRecomendations: [],
+  drinkIngredients: [],
 };
 
 const CARD_LENGTH = 12;
@@ -37,6 +39,9 @@ function drinkReducer(state = INITIAL_STATE, action) {
   case FOOD_RECOMENDATIONS_SUCCESS:
     return { ...state,
       foodRecomendations: action.payload.slice(0, FOOD_RECOMENDATION) };
+  case DRINK_INGREDIENTS:
+    return { ...state,
+      drinkIngredients: action.payload.slice(0, CARD_LENGTH) };
   default:
     return state;
   }
