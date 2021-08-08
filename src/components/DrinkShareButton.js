@@ -40,7 +40,7 @@ class DrinkShareButton extends Component {
 
 DrinkShareButton.propTypes = {
   id: PropTypes.string,
-  test: propTypes.string,
+  test: PropTypes.string,
 }.isRequired;
 
 export default DrinkShareButton;
