@@ -10,9 +10,18 @@ export const GET_RECIPES_CATEGORIES_ERROR = 'GET_RECIPES_CATEGORIES_ERROR';
 export const GET_HEADER_SEARCH = 'GET_HEADER_SEARCH';
 export const GET_HEADER_SEARCH_SUCCESS = 'GET_HEADER_SEARCH_SUCCESS';
 export const GET_HEADER_SEARCH_ERROR = 'GET_HEADER_SEARCH_ERROR';
+export const MEAL_DETAIL = 'MEAL_DETAIL';
+export const MEAL_DETAIL_SUCCESS = 'MEAL_DETAIL_SUCCESS';
+export const MEAL_DETAIL_ERROR = 'MEAL_DETAIL_ERROR';
+export const DRINK_DETAIL = 'DRINK_DETAIL';
+export const DRINK_DETAIL_SUCCESS = 'DRINK_DETAIL_SUCCESS';
+export const DRINK_DETAIL_ERROR = 'DRINK_DETAIL_ERROR';
 
 const baseMealDbUrl = 'https://www.themealdb.com/api/json/v1/1';
 const baseCocktailDbUrl = 'https://www.thecocktaildb.com/api/json/v1/1';
+
+// https://www.themealdb.com/api/json/v1/1/lookup.php?i={id-da-receita}
+// https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i={id-da-receita}
 
 const getMeals = () => ({
   type: GET_MEALS,
@@ -126,4 +135,52 @@ export const fetchHeaderSearch = (type, filter, keyWord) => (dispatch) => {
       dispatch(getHeaderSearchSuccess({ results, type, filter, keyWord }));
     })
     .catch((error) => dispatch(getHeaderSearchError(error)));
+};
+
+const mealDetail = () => ({
+  type: MEAL_DETAIL,
+});
+
+const mealDetailSuccess = (payload) => ({
+  type: MEAL_DETAIL_SUCCESS,
+  payload,
+});
+
+const mealDetailError = (payload) => ({
+  type: MEAL_DETAIL_ERROR,
+  payload,
+});
+
+const drinkDetail = () => ({
+  type: DRINK_DETAIL,
+});
+
+const drinkDetailSuccess = (payload) => ({
+  type: DRINK_DETAIL_SUCCESS,
+  payload,
+});
+
+const drinkDetailError = (payload) => ({
+  type: DRINK_DETAIL_ERROR,
+  payload,
+});
+
+export const fetchRecipeDetail = (type, id) => (dispatch) => {
+  (type === 'comidas' && dispatch(mealDetail()))();
+  (type === 'bebidas' && dispatch(drinkDetail()))();
+
+  const url = `${type === 'comidas'
+    ? baseMealDbUrl : baseCocktailDbUrl}/lookup.php?i=${id}`;
+
+  return fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      const info = type === 'comidas' ? data.meals : data.drinks;
+      (type === 'comidas' && dispatch(mealDetailSuccess(info)))();
+      (type === 'bebidas' && dispatch(drinkDetailSuccess(info)))();
+    })
+    .catch((error) => {
+      (type === 'comidas' && dispatch(mealDetailError(error)))();
+      (type === 'bebidas' && dispatch(drinkDetailError(error)))();
+    });
 };
