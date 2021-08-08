@@ -22,25 +22,27 @@ function FoodCard({ recipe, index, type }) {
       aria-hidden="true"
       onClick={ () => HandleRedirect(foodId) }
     >
-      <img
-        className="foodImageRecipe"
-        src={ recipe[foodImage] }
-        alt=" Recipe"
-        data-testid={ `${index}-card-img` }
-      />
-      <p
-        data-testid={ `${index}-card-name` }
-        className="foodNameRecipe"
-      >
-        {
-          recipe[foodName]
-        }
-      </p>
-      <p
-        className="foodCategoryRecipe"
-      >
-        {recipe["strCategory"]}
-      </p>
+      <div className="foodCardContent">
+        <img
+          className="foodImageRecipe"
+          src={ recipe[foodImage] }
+          alt=" Recipe"
+          data-testid={ `${index}-card-img` }
+        />
+        <p
+          data-testid={ `${index}-card-name` }
+          className="foodNameRecipe"
+        >
+          {
+            recipe[foodName]
+          }
+        </p>
+        <p
+          className="foodCategoryRecipe"
+        >
+          {recipe["strCategory"]}
+        </p>
+      </div>
     </div>
   );
 }

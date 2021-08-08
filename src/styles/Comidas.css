@@ -9,6 +9,7 @@
   display: flex;
   flex-flow: row wrap;
   height: 415px;
+  /* padding-left: 7.5px; */
   /* justify-content: space-around; */
   overflow: auto;
   width: 360px;

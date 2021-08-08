@@ -3,6 +3,7 @@
   position: relative;
   display: flex;
   justify-content: center;
+  background-color: #0fa36b;
 }
 
 @keyframes logo {
