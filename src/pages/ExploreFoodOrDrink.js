@@ -13,6 +13,7 @@ function ExploreFoodOrDrink({ history }) {
           <section>
             <button
               type="button"
+              onClick={ () => history.push('/explorar/comidas/ingredientes') }
               data-testid="explore-by-ingredient"
             >
               Por Ingredientes
@@ -21,6 +22,7 @@ function ExploreFoodOrDrink({ history }) {
           <section>
             <button
               type="button"
+              onClick={ () => history.push('/explorar/comidas/area') }
               data-testid="explore-by-area"
             >
               Por Local de Origem
@@ -35,7 +37,6 @@ function ExploreFoodOrDrink({ history }) {
             </button>
           </section>
         </main>
-
       </>
     );
   }
