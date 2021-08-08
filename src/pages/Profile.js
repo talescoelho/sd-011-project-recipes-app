@@ -6,7 +6,7 @@ export default class Profile extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="Perfil" search={ false } />
         Perfil
         <Footer />
       </div>

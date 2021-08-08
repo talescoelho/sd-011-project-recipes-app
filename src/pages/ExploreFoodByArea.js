@@ -6,7 +6,7 @@ export default class ExploreFoodByArea extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="Explorar Origem" search />
         Explorar comidas por area
         <Footer />
       </div>

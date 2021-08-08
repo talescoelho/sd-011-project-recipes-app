@@ -15,7 +15,7 @@ class ExploreFoodIngredients extends Component {
     const { fetchFoodIngredient } = this.props;
     return (
       <div>
-        <Header />
+        <Header title="Explorar Ingredientes" search={ false } />
         <ul>
           { fetchFoodIngredient.map((item, index) => (
             <li
