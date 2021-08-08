@@ -17,7 +17,7 @@ export default function ExploreFoodIngredient({ history }) {
   const doze = 12;
   const exploreIngredient = 'Explorar Ingredientes';
   function getRecipeByIngredient(drinks) {
-    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${drinks.strIngredient1}`)
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drinks.strIngredient1}`)
       .then((response) => response.json())
       // .then((data) => setStateusado para renderizar na página principal);
       .then(history.push('/bebidas'));
