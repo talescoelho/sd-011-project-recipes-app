@@ -6,7 +6,7 @@ export default class ExploreFoodIngredients extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="Explorar Ingredientes" search={ false } />
         Explorar comidas por ingredientes
         <Footer />
       </div>

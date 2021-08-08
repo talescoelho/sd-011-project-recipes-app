@@ -12,9 +12,11 @@ class Drinks extends Component {
   }
 
   render() {
+    const { drinkCardsList } = this.props;
+    console.log(drinkCardsList);
     return (
       <div>
-        <Header />
+        <Header title="Bebidas" search />
         <DrinkCategories />
         <DrinkCards test="-recipe-card" />
         <Footer />
@@ -24,7 +26,7 @@ class Drinks extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  fetchDrinkList: state.drinkReducer.drinkCardsList,
+  drinkCardsList: state.drinkReducer.drinkCardsList,
 });
 
 const mapDispatchToProps = (dispatch) => ({

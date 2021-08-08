@@ -22,7 +22,7 @@ class ExploreFoods extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="Explorar Comidas" search={ false } />
         <Link to="/explorar/comidas/ingredientes">
           <button type="button" data-testid="explore-by-ingredient">
             Por Ingredientes

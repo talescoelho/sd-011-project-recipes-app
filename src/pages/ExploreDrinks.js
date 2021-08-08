@@ -22,7 +22,7 @@ class ExploreDrinks extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="Explorar Bebidas" search={ false } />
         <Link to="/explorar/bebidas/ingredientes">
           <button type="button" data-testid="explore-by-ingredient">
             Por Ingredientes
