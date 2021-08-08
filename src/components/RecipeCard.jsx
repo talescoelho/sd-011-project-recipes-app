@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Adicionar biblioteca de compartilhar e imagem de coração para o favoritar.
-function MealRecipeCard({ title, img, category }) {
+function MealRecipeCard({ title, img, category, index }) {
   return (
-    <div>
+    <div data-testid={ `${index}-recomendation-card` }>
       <img data-testid="recipe-photo" alt="Foto da receita" src={ img } />
       <br />
 
@@ -31,4 +31,5 @@ MealRecipeCard.propTypes = {
   title: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };

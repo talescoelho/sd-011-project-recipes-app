@@ -9,6 +9,54 @@ import { APImealById } from '../services/APImealsANDdrinks';
 // corrigir rota e colocar o barra que está faltando. Ver se é encessario
 // Adicionar loading
 
+// {
+//   /*
+//   {
+//       drinks.map((drink, index) => (
+//         (index < MAGIC6) ? (
+//           <RecipeCard
+//             key={ index }
+//             title={ drink.strDrink }
+//             img={ drink.strDrinkThumb }
+//             category={ drink.strAlcoholic }
+//             id={ drink.idDrink }
+//             index={ index }
+//           />
+//         ) : null))
+//   } */
+// }
+
+// {/* <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+//   <ol className="carousel-indicators">
+//     <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active" />
+//     <li data-target="#carouselExampleIndicators" data-slide-to="1" />
+//     <li data-target="#carouselExampleIndicators" data-slide-to="2" />
+//   </ol>
+//   <div className="carousel-inner">
+//     <div className="carousel-item active">
+//       <img className="d-block w-100" src={ drinks[0].strDrinkThumb } alt="Primeiro Slide" />
+//     </div>
+
+//     <div className="carousel-item">
+//       <img className="d-block w-100" src={ drinks[1].strDrinkThumb } alt="Segundo Slide" />
+//     </div>
+//     <div className="carousel-item">
+//       <img className="d-block w-100" src={ drinks[2].strDrinkThumb } alt="Terceiro Slide" />
+//     </div>
+//   </div>
+//   <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+//     <span className="carousel-control-prev-icon" aria-hidden="true" />
+//     <span className="sr-only">Anterior</span>
+//   </a>
+//   <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+//     <span className="carousel-control-next-icon" aria-hidden="true" />
+//     <span className="sr-only">Próximo</span>
+//   </a>
+// </div> */}
+// <button type="button" data-testid="start-recipe-btn">
+//   Iniciar Receita
+//   {/* no click desse botão muda a url e envia apra o receitas em prograsso que ira usar o card da receita e no lugar de ingredientes irá colocar os checkbox. */}
+// </button>
 function MealDetails({ match: { params } }) {
   const MAGIC6 = 6;
   const { drinks } = useContext(UserContext);
@@ -52,24 +100,57 @@ function MealDetails({ match: { params } }) {
       ) : <h2>Loading</h2>}
 
       <h2>Recomendadas</h2>
-      {
-        drinks.map((drink, index) => (
-          (index < MAGIC6) ? (
-            <RecipeCard
-              key={ index }
-              title={ drink.strDrink }
-              img={ drink.strDrinkThumb }
-              category={ drink.strAlcoholic }
-              id={ drink.idDrink }
-              data-testid={ `${index}-recomendation-card` }
-            />
-          ) : null))
-      }
-
-      <button type="button" data-testid="start-recipe-btn">
-        Iniciar Receita
-        {/* no click desse botão muda a url e envia apra o receitas em prograsso que ira usar o card da receita e no lugar de ingredientes irá colocar os checkbox. */}
-      </button>
+      <div id="drink" className="carousel slide" data-bs-ride="carousel">
+        <div className="carousel-indicators">
+          {
+            drinks.map((drink, index) => (
+              (index < MAGIC6) ? (
+                <input
+                  type="button"
+                  data-bs-target="drink"
+                  data-bs-slide-to={ index }
+                  className={ (index === 0) ? 'active' : null }
+                  aria-label={ `Slide ${index}` }
+                  aria-current={ (index === 0) ? true : null }
+                />
+              ) : null))
+          }
+        </div>
+        <div className="carousel-inner">
+          {
+            drinks.map((drink, index) => (
+              (index < MAGIC6) ? (
+                <div
+                  className={ (index === 0) ? 'carousel-item active' : 'carousel-item' }
+                >
+                  <img
+                    src={ drink.strDrinkThumb }
+                    className="d-block w-100"
+                    alt=" foto drink"
+                  />
+                </div>
+              ) : null))
+          }
+          <button
+            className="carousel-control-prev"
+            type="button"
+            data-bs-target="#drink"
+            data-bs-slide="prev"
+          >
+            <span className="carousel-control-prev-icon" aria-hidden="true" />
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button
+            className="carousel-control-next"
+            type="button"
+            data-bs-target="#drink"
+            data-bs-slide="next"
+          >
+            <span className="carousel-control-next-icon" aria-hidden="true" />
+            <span className="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
