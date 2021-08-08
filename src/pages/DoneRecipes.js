@@ -36,7 +36,7 @@ export default class DoneRecipes extends Component {
                 <p data-testid={`${index}-horizontal-top-text`}>{item.category}</p>
                 <p>{item.area}</p>
                 <Link to={`/${item.type}/${item.id}`}>
-                  <h2 data-testid="${index}-horizontal-name">{item.name}</h2>
+                  <p data-testid="${index}-horizontal-name">{item.name}</p>
                 </Link>
                 <p data-testid={`${index}-horizontal-done-date`}>{`Feita em: ${item.doneDate}`}</p>
                 <p data-testid={`${index}-${item.tags}-horizontal-tag`}>{item.tags[0]}{item.tags[1]}</p>
@@ -57,7 +57,7 @@ export default class DoneRecipes extends Component {
                 <p data-testid={`${index}-horizontal-top-text`}>{item.category}</p>
                 <p>{item.alcoholicOrNot}</p>
                 <Link to={`/${item.type}/${item.id}`}>
-                  <h2 data-testid={`${index}-horizontal-name`}></h2>
+                  <p data-testid={`${index}-horizontal-name`}></p>
                 </Link>
                 <p data-testid={`${index}-horizontal-done-date`}>{`Feita em: ${item.doneDate}`}</p>
                 <p data-testid={`${index}-${item.tags}-horizontal-tag`}>{item.tags[0]}{item.tags[1]}</p>
