@@ -106,7 +106,7 @@ export default function FoodInProgress({ type }) {
           alt="img"
         />
         <h1 data-testid="recipe-title">{strMeal || strDrink}</h1>
-        <ShareBtn />
+        <ShareBtn type="inProgress" />
         <FavoriteBtn />
         <p>{strAlcoholic}</p>
         <p data-testid="instructions">{strInstructions}</p>

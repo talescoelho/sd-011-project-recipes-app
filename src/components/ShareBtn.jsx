@@ -3,12 +3,14 @@ import clipboard from 'clipboard-copy';
 import { Button } from 'react-bootstrap';
 import imageShare from '../images/shareIcon.svg';
 
-export default function ShareBtn() {
+export default function ShareBtn({ type }) {
   const [visible, setVisible] = useState(true);
+
+  const defaultURL = window.location.href.replace(/\/in-progress/, '');
 
   const copyUrlToClipboard = () => {
     const time = 2000;
-    clipboard(window.location.href);
+    clipboard(type === 'inProgress' ? defaultURL : window.location.href);
     setVisible(false);
 
     setTimeout(() => setVisible(true), time);
