@@ -20,9 +20,6 @@ export const DRINK_DETAIL_ERROR = 'DRINK_DETAIL_ERROR';
 const baseMealDbUrl = 'https://www.themealdb.com/api/json/v1/1';
 const baseCocktailDbUrl = 'https://www.thecocktaildb.com/api/json/v1/1';
 
-// https://www.themealdb.com/api/json/v1/1/lookup.php?i={id-da-receita}
-// https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i={id-da-receita}
-
 const getMeals = () => ({
   type: GET_MEALS,
 });
@@ -166,8 +163,8 @@ const drinkDetailError = (payload) => ({
 });
 
 export const fetchRecipeDetail = (type, id) => (dispatch) => {
-  (type === 'comidas' && dispatch(mealDetail()))();
-  (type === 'bebidas' && dispatch(drinkDetail()))();
+  if (type === 'comidas') dispatch(mealDetail());
+  else dispatch(drinkDetail());
 
   const url = `${type === 'comidas'
     ? baseMealDbUrl : baseCocktailDbUrl}/lookup.php?i=${id}`;
@@ -176,11 +173,11 @@ export const fetchRecipeDetail = (type, id) => (dispatch) => {
     .then((response) => response.json())
     .then((data) => {
       const info = type === 'comidas' ? data.meals : data.drinks;
-      (type === 'comidas' && dispatch(mealDetailSuccess(info)))();
-      (type === 'bebidas' && dispatch(drinkDetailSuccess(info)))();
+      if (type === 'comidas') dispatch(mealDetailSuccess(info));
+      else dispatch(drinkDetailSuccess(info));
     })
     .catch((error) => {
-      (type === 'comidas' && dispatch(mealDetailError(error)))();
-      (type === 'bebidas' && dispatch(drinkDetailError(error)))();
+      if (type === 'comidas') dispatch(mealDetailError(error));
+      else dispatch(drinkDetailError(error));
     });
 };

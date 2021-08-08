@@ -1,9 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { fetchRecipeDetail } from '../actions';
 
-function RecipeDetail({ history }) {
+function RecipeDetail({ history: { location: { pathname } }, dispatchFetchDetail }) {
   const { id } = useParams();
+
+  React.useEffect(() => {
+    // const type = pathname.replace('/', '');
+    const type = pathname.includes('comidas') ? 'comidas' : 'bebidas';
+    dispatchFetchDetail(type, id);
+    // dispatchFetchDetail(pathname, id);
+  }, [id, pathname, dispatchFetchDetail]);
+
+  // React.useEffect(() => {
+  //   if (pathname === '/comidas') {
+  //     setRecipes(getXFirstElementsFromArray(meals, recipesQuantity));
+  //   } else {
+  //     setRecipes(getXFirstElementsFromArray(drinks, recipesQuantity));
+  //   }
+
+  //   if (mealsError || drinksError) setRecipes([]);
+  // }, [pathname, meals, mealsError, drinks,
+  //   drinksError, dispatchFetchDrinks, dispatchFetchMeals]);
+
   function mealMain() {
     return (
       <main data-testid="recipes-page">
@@ -126,7 +147,7 @@ function RecipeDetail({ history }) {
 
   return (
     <div>
-      {history.location.pathname === `/comidas/${id}`
+      {pathname === `/comidas/${id}`
         ? mealMain() : drinkMain() }
     </div>
   );
@@ -140,4 +161,8 @@ RecipeDetail.propTypes = {
   }),
 }.isRequired;
 
-export default RecipeDetail;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchFetchDetail: (type, id) => dispatch(fetchRecipeDetail(type, id)),
+});
+
+export default connect(null, mapDispatchToProps)(RecipeDetail);
