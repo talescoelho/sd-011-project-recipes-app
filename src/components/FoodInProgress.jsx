@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Button, Form, ThemeProvider } from 'react-bootstrap';
+import { useParams, useHistory } from 'react-router-dom';
+import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import propTypes from 'prop-types';
 import useLocalStorage from 'use-local-storage-state';
@@ -10,10 +10,9 @@ import CardsDrinks from './CardsDrinks';
 import CardsFood from './CardsFood';
 import ShareBtn from './ShareBtn';
 import FavoriteBtn from './FavoriteBtn';
-import { isRecipeDone } from '../services/RecipesLocalStorage';
 
 export default function FoodInProgress({ type }) {
-  const [local, setLocal] = useLocalStorage('inProgressRecipes', []);
+  const history = useHistory();
   const [check, setCheck] = useState();
   const recipes = useSelector((state) => state.recipes);
   const food = recipes.cards;
@@ -24,16 +23,27 @@ export default function FoodInProgress({ type }) {
     drinks: 'cocktails',
   };
   const fd = foodType[type];
+  const [local, setLocal] = useLocalStorage('inProgressRecipes', { [fd]: { [id]: [] } });
+
+  const ingredientList = Object.entries(food).filter(([key,
+    value]) => value && key.match(/Ingredient/));
 
   useEffect(() => {
     const idObj = _.get(local, `${fd}.${id}`);
-    if (!check && idObj.length) {
+
+    if (!idObj) {
+      const newLocal = _.set({ ...local }, `${fd}.${id}`, []);
+      setLocal(newLocal);
+      console.log('vrau');
+    }
+
+    if (!check && idObj && idObj.length) {
       setCheck(idObj);
     }
+
     if (check && check !== idObj) {
       const temp = _.cloneDeep(local);
       _.set(temp, `${fd}.${id}`, check);
-      console.log(temp);
       setLocal(temp);
     }
   }, [check, local, id, fd, setLocal]);
@@ -57,20 +67,29 @@ export default function FoodInProgress({ type }) {
 
     return ingredient.map((el, i) => {
       const msr = item[`strMeasure${el[0].replace(/\D/g, '')}`];
-      const innerText = msr ? `${el[1]} - ${msr || ''}` : `${el[1]}`;
+      const innertext = msr ? `${el[1]} - ${msr || ''}` : `${el[1]}`;
+      const checkstatus = () => check && check.includes(innertext);
+      const styleObj = { textDecoration: checkstatus() ? 'line-through' : 'none' };
       return (
-        <div key={ el } data-testid={ `${i}-ingredient-step` }>
-          <Form.Check
-            name={ innerText }
-            checked={ check ? check.includes(innerText) : false }
-            onChange={ (e) => handleCheckBox(e) }
-            className="mx-3"
-            type="checkbox"
-            id={ `default-${type}` }
-            label={ innerText }
-          />
+        <div
+          key={ el }
+          data-testid={ `${i}-ingredient-step` }
+        >
+          <label
+            htmlFor={ `ingredient${i}` }
+            style={ styleObj }
+          >
+            <input
+              id={ `ingredient${i}` }
+              type="checkbox"
+              name={ innertext }
+              checked={ check ? check.includes(innertext) : false }
+              onChange={ (e) => handleCheckBox(e) }
+              className="mx-3"
+            />
+            {innertext}
+          </label>
         </div>
-
       );
     });
   }
@@ -105,10 +124,11 @@ export default function FoodInProgress({ type }) {
       </div>
 
       <Button
-        disabled={ isRecipeDone(id) }
+        disabled={ !(check && check.length === ingredientList.length) }
         className="btnstart"
         type="button"
         data-testid="finish-recipe-btn"
+        onClick={ () => history.push('/receitas-feitas') }
       >
         Finalizar receita
       </Button>
@@ -120,14 +140,3 @@ export default function FoodInProgress({ type }) {
 FoodInProgress.propTypes = {
   type: propTypes.string.isRequired,
 };
-// const newObj = { ...check };
-// const idObj = _.get(check, `${fd}.${id}`);
-
-// if (checked) {
-//   _.set(newObj, `${fd}.${id}`, [...idObj, name]);
-//   setCheck(newObj);
-// }
-// if (!checked) {
-//   _.set(newObj, `${fd}.${id}`, (idObj.filter((el) => el !== name)));
-//   setCheck(newObj);
-// }
