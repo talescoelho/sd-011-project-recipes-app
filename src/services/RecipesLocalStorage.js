@@ -60,3 +60,13 @@ export const showRecipe = (id) => {
     return false;
   }
 };
+
+export const updateInProgressRecipes = ({ id, type, check }) => {
+  const food = {
+    meals: 'meals',
+    drinks: 'cocktails',
+  };
+  const localSt = JSON.parse(localStorage.getItem('inProgressRecipes'))[food[type]][id];
+  console.log(localSt);
+  // console.log(id, type, check);
+};
