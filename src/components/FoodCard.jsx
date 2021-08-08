@@ -9,7 +9,6 @@ function FoodCard({ recipe, index, type }) {
   const foodId = type === 'drinks' ? 'idDrink' : 'idMeal';
   const { pathname } = useLocation();
   const history = useHistory();
-  console.log(recipe)
   const HandleRedirect = (id) => {
     history
       .push(`/${pathname.includes('/bebidas') ? 'bebidas' : 'comidas'}/${recipe[id]}`);

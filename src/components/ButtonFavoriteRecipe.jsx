@@ -59,7 +59,7 @@ function ButtonFavoriteRecipe({ recipes, favorite, setFavorite, index }) {
 
   return (
     <button
-      className="Favorite-Page-Button-Styles"
+      className="Favorite-Details-Page Favorite-Page-Button-Styles"
       type="button"
       onClick={ () => { handleFavoriteBtn(); } }
     >

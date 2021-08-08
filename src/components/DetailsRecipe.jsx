@@ -11,7 +11,6 @@ import ButtonFavoriteRecipe from './ButtonFavoriteRecipe';
 import Recommendations from './Recommendations';
 
 function DetailsRecipe(props) {
-  // comentario
   const { recipeData } = props;
   const {
     ingredients,
@@ -46,8 +45,8 @@ function DetailsRecipe(props) {
   };
 
   return (
-    <div>
-      <h1 data-testid="recipe-title">{ title }</h1>
+    <div className="recipe-container">
+      <h1 className="recipe-title" data-testid="recipe-title">{ title }</h1>
       <img
         src={ imgUrl }
         alt={ title }
@@ -60,19 +59,21 @@ function DetailsRecipe(props) {
         ingredientsQuantity={ ingredientsQuantity }
       />
       <p data-testid="instructions">{ instructions }</p>
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ () => { handleShareBtn(); handleLinkMessage(); } }
-      >
-        <img src={ Share } alt="share button" />
-      </button>
-      { linkCopy && <LinkCopy /> }
-      <ButtonFavoriteRecipe
-        setFavorite={ setFavorite }
-        favorite={ favorite }
-        recipes={ recipeData }
-      />
+      <div className="recipe-buttons-container">
+        <button
+          type="button"
+          data-testid="share-btn"
+          onClick={ () => { handleShareBtn(); handleLinkMessage(); } }
+        >
+          <img src={ Share } alt="share button" />
+        </button>
+        { linkCopy && <LinkCopy /> }
+        <ButtonFavoriteRecipe
+          setFavorite={ setFavorite }
+          favorite={ favorite }
+          recipes={ recipeData }
+        />
+      </div>
       { video && <iframe
         width="260"
         height="315"
