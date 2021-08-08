@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import clipboard from 'clipboard-copy';
 import { Button } from 'react-bootstrap';
+import propTypes from 'prop-types';
 import imageShare from '../images/shareIcon.svg';
 
 export default function ShareBtn({ type }) {
@@ -28,3 +29,7 @@ export default function ShareBtn({ type }) {
     </Button>
   );
 }
+
+ShareBtn.propTypes = {
+  type: propTypes.string.isRequired,
+};
