@@ -11,6 +11,7 @@ import CardsDrinks from './CardsDrinks';
 import CardsFood from './CardsFood';
 import ShareBtn from './ShareBtn';
 import FavoriteBtn from './FavoriteBtn';
+import { addDoneRecipe } from '../services/RecipesLocalStorage';
 
 export default function FoodInProgress({ type }) {
   const history = useHistory();
@@ -51,10 +52,14 @@ export default function FoodInProgress({ type }) {
     if (check && check !== idObj) {
       const temp = _.cloneDeep(local);
       _.set(temp, `${fd}.${id}`, check);
-      console.log(temp[fd]);
       setLocal(temp);
     }
   }, [check, local, id, fd, setLocal]);
+
+  const handleDoneRecipe = () => {
+    addDoneRecipe({ item: food });
+    // history.push('/receitas-feitas');
+  };
 
   const handleCheckBox = (e) => {
     const { name, checked } = e.target;
@@ -137,7 +142,7 @@ export default function FoodInProgress({ type }) {
         className="btnstart"
         type="button"
         data-testid="finish-recipe-btn"
-        onClick={ () => history.push('/receitas-feitas') }
+        onClick={ handleDoneRecipe }
       >
         Finalizar receita
       </Button>

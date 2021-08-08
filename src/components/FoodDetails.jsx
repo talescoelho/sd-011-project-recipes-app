@@ -112,7 +112,7 @@ export default function FoodDetails({ type }) {
       {showRecipe(id) ? (
         <Link
           to={ path[type] }
-          className="btnstart"
+          className="btnstart btn btn-primary"
           type="button"
           data-testid="start-recipe-btn"
         >
