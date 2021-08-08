@@ -26,8 +26,8 @@ class FoodDetailsCard extends Component {
           height="250px"
         />
         <h1 data-testid="recipe-title">{ foodDetails.strMeal }</h1>
-        <ShareButton id={ foodDetails.idMeal } />
-        <FavoriteButton id={ foodDetails.idMeal } />
+        <ShareButton test="share-btn" id={ foodDetails.idMeal } />
+        <FavoriteButton test="favorite-btn" id={ foodDetails.idMeal } />
         <p data-testid="recipe-category">{ foodDetails.strCategory }</p>
         <ul>
           { ingredients
