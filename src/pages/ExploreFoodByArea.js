@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import FoodCards from '../components/FoodCards';
-import { fetchFoodAreaSuccess } from '../redux/actions/foodActions';
+import FoodCard from '../components/FoodCard';
+import { fetchFoodAreaSuccess, fetchFoodList } from '../redux/actions/foodActions';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 class ExploreFoodByArea extends Component {
   componentDidMount() {
-    const { fetchFoodArea } = this.props;
+    const { fetchFoodArea, actionFetchFoodList } = this.props;
     fetchFoodArea();
+    actionFetchFoodList('');
   }
 
   render() {
-    const { foodArea } = this.props;
+    const { foodArea, foodCardsList } = this.props;
     return (
       <div>
         <Header title="Explorar Origem" search />
@@ -23,8 +24,12 @@ class ExploreFoodByArea extends Component {
               { item.strArea }
             </option>
           )) }
+          <option data-testid="All-option">All</option>
         </select>
-        <FoodCards />
+        <ul>
+          { foodCardsList.map((item, index) => (
+            <FoodCard key={ item.idMeal } food={ item } index={ index } />)) }
+        </ul>
         <Footer />
       </div>
     );
@@ -33,10 +38,12 @@ class ExploreFoodByArea extends Component {
 
 const mapStateToProps = (state) => ({
   foodArea: state.foodReducer.foodArea,
+  foodCardsList: state.foodReducer.foodCardsList,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchFoodArea: () => dispatch(fetchFoodAreaSuccess()),
+  actionFetchFoodList: (name) => dispatch(fetchFoodList(name)),
 });
 
 ExploreFoodByArea.propTypes = {
