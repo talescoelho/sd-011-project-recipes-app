@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -44,7 +45,12 @@ export default function FavoriteRecipeCard({
             }
           </h3>
           <Link to={ url }>
-            <h1 className="title" data-testid={ `${index}-horizontal-name` }>{recipe.name}</h1>
+            <h1
+              className="title"
+              data-testid={ `${index}-horizontal-name` }
+            >
+              {recipe.name}
+            </h1>
           </Link>
         </div>
         <div className="icon-buttons">
@@ -64,10 +70,30 @@ export default function FavoriteRecipeCard({
             onClick={ handleLikeButtonClick }
             src={ isFavorited ? blackHeatIcon : whiteHeartIcon }
           >
-            <img src={ isFavorited ? blackHeatIcon : whiteHeartIcon } alt="favorited-icon" />
+            <img
+              src={ isFavorited
+                ? blackHeatIcon
+                : whiteHeartIcon }
+              alt="favorited-icon"
+            />
           </button>
         </div>
       </div>
     </div>
   );
 }
+
+FavoriteRecipeCard.propTypes = {
+  index: PropTypes.number.isRequired,
+  recipe: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    area: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    alcoholicOrNot: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+  })).isRequired,
+  isFavorited: PropTypes.bool.isRequired,
+  handleLikeButtonClick: PropTypes.func.isRequired,
+};

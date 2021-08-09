@@ -8,7 +8,8 @@ export default function FavoriteRecipes() {
 
   const [favoriteRecipes, setFavoriteRecipes] = useState(() => {
     try {
-      return JSON.parse(localStorage.getItem('favoriteRecipes')).filter((item) => Boolean(item.id));
+      const favorites = localStorage.getItem('favoriteRecipes');
+      return JSON.parse(favorites).filter((item) => Boolean(item.id));
     } catch (error) {
       return [];
     }
