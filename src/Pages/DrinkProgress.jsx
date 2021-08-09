@@ -53,6 +53,32 @@ function DrinkProgress(props) {
     return button;
   }
 
+  function storageCheckeds({ name, checked }) {
+    const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || { cocktails: {
+      [id]: [],
+    } };
+    if (checked) {
+      const recipeMeals = { ...recipe,
+        cocktails:
+         { ...recipe.cocktails, [id]: [...recipe.cocktails[id], name] } };
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify(recipeMeals));
+    } else {
+      const removeLocaStorage = recipe.cocktails[id]
+        .filter((ingredient) => ingredient !== name);
+      const recipeIngredients = { ...recipe,
+        cocktails:
+        { ...recipe.cocktails, [id]: removeLocaStorage } };
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify(recipeIngredients));
+    }
+  }
+
+  function allIngredientsFunction(value) {
+    ingredientsChecked();
+    storageCheckeds(value);
+  }
+
   return (
     <div>
       { drinkById.map((item, index) => (
@@ -80,9 +106,10 @@ function DrinkProgress(props) {
                     htmlFor={ i }
                   >
                     <input
+                      name={ Object.values(ingredient) }
                       id={ i }
                       type="checkbox"
-                      onChange={ () => ingredientsChecked() }
+                      onChange={ (e) => allIngredientsFunction(e.target) }
                     />
                     { Object.values(ingredient) }
                   </label>

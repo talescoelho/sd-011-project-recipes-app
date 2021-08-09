@@ -38,30 +38,45 @@ function FoodProgress(props) {
     });
   }, [foodById]);
 
-  // useEffect(() => {
-  //   const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
-  //   recipe.meals = { ...recipe.meals, [id]: [foodIngredient] };
-  //   localStorage.setItem('inProgressRecipes',
-  //     JSON.stringify(recipe));
-  // }, [foodIngredient, id]);
-
-  function ingredientsChecked(value) {
+  function ingredientsChecked() {
     let sum = 0;
     const checkeds = document.getElementsByTagName('input');
     for (let index = 0; index < checkeds.length; index += 1) {
       if (checkeds[index].checked === true) {
         sum += 1;
         // console.log(sum);
-        const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
-        recipe.meals = { ...recipe.meals, [id]: [value] };
-        localStorage.setItem('inProgressRecipes',
-          JSON.stringify(recipe));
         if (sum === checkeds.length) {
           setButton(true);
         } else setButton(false);
       }
     }
     return button;
+  }
+
+  function storageCheckeds({ name, checked }) {
+    const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || { meals: {
+      [id]: [],
+    } };
+    if (checked) {
+      const recipeMeals = { ...recipe,
+        meals:
+         { ...recipe.meals, [id]: [...recipe.meals[id], name] } };
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify(recipeMeals));
+    } else {
+      const removeLocaStorage = recipe.meals[id]
+        .filter((ingredient) => ingredient !== name);
+      const recipeIngredients = { ...recipe,
+        meals:
+        { ...recipe.meals, [id]: removeLocaStorage } };
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify(recipeIngredients));
+    }
+  }
+
+  function allIngredientsFunction(value) {
+    ingredientsChecked();
+    storageCheckeds(value);
   }
 
   return (
@@ -94,7 +109,7 @@ function FoodProgress(props) {
                       name={ Object.values(ingredient) }
                       id={ i }
                       type="checkbox"
-                      onChange={ (e) => ingredientsChecked(e.target.name) }
+                      onChange={ (e) => allIngredientsFunction(e.target) }
                     />
                     { Object.values(ingredient) }
                   </label>
