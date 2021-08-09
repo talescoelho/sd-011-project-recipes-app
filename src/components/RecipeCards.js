@@ -5,7 +5,6 @@ import RecipeAppContext from '../context/RecipeAppContext';
 
 function RecipeCards() {
   const { drinksList, foodsList } = useContext(RecipeAppContext);
-  console.log(foodsList);
   const history = useHistory();
 
   const redirectToDetails = (id, foods, drinks) => {

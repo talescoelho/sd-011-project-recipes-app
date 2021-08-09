@@ -17,7 +17,7 @@ function RecipeAppProvider({ children }) {
   const [isRecipeDone, setIsRecipeDone] = useState(true);
   const [recomMeal, setRecomMeal] = useState('');
   const [recomDrink, setRecomDrink] = useState('');
-  const [inProgressRecipes, setInProgressRecipes] = useState('');
+  const [inProgressRecipes, setInProgressRecipes] = useState(false);
 
   const mockName = 'Spicy Arrabiata Penne';
   const mockImage = 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg';

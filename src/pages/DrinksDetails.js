@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import getMealById from '../services/getMealById';
 import randomRecipe from '../services/randomRecipe';
-import StartRecipeButton from '../components/StartRecipeButton';
+import RecipeDetailsButton from '../components/RecipeDetailsButton';
 import RecipeAppContext from '../context/RecipeAppContext';
 import RenderDrinkDetails from '../components/RenderDrinkDetails';
 import RenderDrinkIngred from '../components/RenderDrinkIngred';
@@ -21,6 +21,7 @@ function DrinksDetails(props) {
     setRecomMeal,
     isRecipeDone,
     setIsRecipeDone,
+    setInProgressRecipes,
   } = useContext(RecipeAppContext);
 
   function copyLink(drinkId) {
@@ -44,36 +45,35 @@ function DrinksDetails(props) {
     getRandomMeal();
   }, []);
 
-  function checkIsRecipeDone(arrayDoneRecipe, currentDrink) {
-    const arrayLS = arrayDoneRecipe.some(
-      (recipe) => recipe.id === Number(currentDrink.idDrink),
+  function checkIsRecipeDone(arrayDoneRecipe, currentMeal) {
+    const arrayLS = arrayDoneRecipe && arrayDoneRecipe.some(
+      (recipe) => recipe.id === Number(currentMeal.idDrink),
     );
-    if (!arrayLS) {
-      console.log('vrau');
-      setIsRecipeDone(false);
-    }
+    return arrayLS;
+  }
+
+  function checkInRecipeInProgress(InProgress, currentMeal) {
+    console.log(InProgress);
+    const arrayLS = Object.keys(InProgress);
+    const checkedArray = arrayLS.some(
+      (recipeID) => recipeID === currentMeal.idDrink,
+    );
+    console.log(arrayLS[0], currentMeal.idDrink, checkedArray);
+    return checkedArray;
   }
 
   useEffect(() => {
-    const localStorageDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (!localStorageDoneRecipes) {
-      setIsRecipeDone(false);
-      return;
+    const inProgressRecipesLS = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const DoneRecipesLS = JSON.parse(localStorage.getItem('doneRecipes'));
+    const checkedDoneRecipes = checkIsRecipeDone(DoneRecipesLS, drink);
+    setIsRecipeDone(checkedDoneRecipes);
+    if (inProgressRecipesLS && !checkedDoneRecipes) {
+      const checkedInProgressRecipes = checkInRecipeInProgress(
+        inProgressRecipesLS.cocktails, drink,
+      );
+      setInProgressRecipes(checkedInProgressRecipes);
     }
-    checkIsRecipeDone(localStorageDoneRecipes, drink);
   }, [drink]);
-
-  // inProgressRecipes
-  // {
-  //   cocktails: {
-  //       id-da-bebida: [lista-de-ingredientes-utilizados],
-  //       ...
-  //   },
-  //   meals: {
-  //       id-da-comida: [lista-de-ingredientes-utilizados],
-  //       ...
-  //   }
-  // }
 
   return (
     <div>
@@ -82,7 +82,7 @@ function DrinksDetails(props) {
       {drink && <RenderDrinkIngred />}
       {drink && <RenderDrinkInstruction />}
       {recomMeal && <RenderDrinkRecomendation />}
-      {isRecipeDone ? null : <StartRecipeButton type="bebidas" id={ id } />}
+      {!isRecipeDone && <RecipeDetailsButton type="bebidas" id={ id } />}
     </div>
   );
 }
