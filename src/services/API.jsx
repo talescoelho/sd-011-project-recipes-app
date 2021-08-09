@@ -57,13 +57,13 @@ export async function fetchAPIDrinkList() {
 }
 
 export async function fetchMealDetails(idMeal) {
-  const response = await fetch(`www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`);
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`);
   const data = await response.json();
   return data.meals;
 }
 
 export async function fetchDrinkDetails(idDrink) {
-  const response = await fetch(`www.themealdb.com/api/json/v1/1/lookup.php?i=${idDrink}`);
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idDrink}`);
   const data = await response.json();
   return data.drinks;
 }

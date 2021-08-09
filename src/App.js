@@ -25,7 +25,17 @@ function App() {
       <Switch>
         <Route exact path="/bebidas" component={ Bebidas } />
         <Route exact path="/comidas" component={ Comidas } />
+        <Route
+          exact
+          path="/bebidas/:id/in-progress"
+          component={ ReceitaEmProgressoBebida }
+        />
         <Route path="/bebidas/:id" component={ BebidasDetalhes } />
+        <Route
+          exact
+          path="/comidas/:id/in-progress"
+          component={ ReceitaEmProgressoComida }
+        />
         <Route path="/comidas/:id" component={ ComidasDetalhes } />
         <Route exact path="/perfil" component={ Perfil } />
         <Route
@@ -53,16 +63,7 @@ function App() {
         <Route exact path="/explorar" component={ Explorar } />
         <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
         <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
-        <Route
-          exact
-          path="/comidas/{id-da-receita}/in-progress"
-          component={ ReceitaEmProgressoComida }
-        />
-        <Route
-          exact
-          path="/bebidas/{id-da-receita}/in-progress"
-          component={ ReceitaEmProgressoBebida }
-        />
+
         <Route exact path="/" component={ Login } />
       </Switch>
     </div>

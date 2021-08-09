@@ -12,6 +12,7 @@ class ComidasDetalhes extends Component {
       mealDetails: {},
       ingredientList: [],
       finalList: [],
+      isMealDone: false,
     };
 
     this.recipeDetailsFetchAPI = this.recipeDetailsFetchAPI.bind(this);
@@ -27,11 +28,12 @@ class ComidasDetalhes extends Component {
     const { match: { params: { id } } } = this.props;
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes !== null) {
-      console.log(doneRecipes);
-      console.log(id);
-    } else {
-      console.log('Array vazio');
-      console.log(id);
+      const filter = doneRecipes.filter((recipe) => recipe === id);
+      if (filter.length >= 1) {
+        this.setState({
+          isMealDone: true,
+        });
+      }
     }
   }
 
@@ -76,8 +78,10 @@ class ComidasDetalhes extends Component {
   }
 
   render() {
-    const { mealDetails, ingredientList, finalList } = this.state;
-    const { addRecipeOngoing, addRecipeFavorite } = this.props;
+    const { mealDetails, ingredientList, finalList, isMealDone } = this.state;
+    const { addRecipeCurr, addRecipeFav, match: {
+      params: { id },
+    } } = this.props;
     const obj = {
       id: mealDetails.idMeal,
       type: 'comida',
@@ -112,7 +116,7 @@ class ComidasDetalhes extends Component {
         <button
           type="button"
           data-testid="favorite-btn"
-          onClick={ () => addRecipeFavorite(obj) }
+          onClick={ () => addRecipeFav(obj) }
         >
           Favoritar
         </button>
@@ -151,22 +155,31 @@ class ComidasDetalhes extends Component {
           }
         />
         <Carousel detailType="ComidasDetalhes" />
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="start-recipe"
-          onClick={ () => addRecipeOngoing(mealDetails.idMeal, finalList) }
-        >
-          Iniciar Receita
-        </button>
+
+        { isMealDone ? <div>...</div> : (
+          <Link
+            to={ {
+              pathname: `/comidas/${id}/in-progress`,
+            } }
+          >
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              className="start-recipe"
+              onClick={ () => addRecipeCurr(mealDetails.idMeal, finalList) }
+            >
+              Iniciar Receita
+            </button>
+          </Link>
+        )}
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addRecipeOngoing: (id, list) => dispatch(addRecipeOngoing(id, list)),
-  addRecipeFavorite: (meal) => dispatch(addRecipeFavorite(meal)),
+  addRecipeCurr: (id, list) => dispatch(addRecipeOngoing(id, list)),
+  addRecipeFav: (meal) => dispatch(addRecipeFavorite(meal)),
 });
 
 export default connect(null, mapDispatchToProps)(ComidasDetalhes);
@@ -176,5 +189,7 @@ ComidasDetalhes.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
     }),
-  }).isRequired,
-};
+  }),
+  addRecipeCurr: PropTypes.func,
+  addRecipeFav: PropTypes.func,
+}.isRequired;
