@@ -88,7 +88,9 @@ function ProductsDisplay() {
 
   return (
     <main>
-      <ButtonGroup className="main-button-group">
+      <ButtonGroup
+        className="main-button-group me-2"
+      >
         <Button
           variant="success"
           type="button"
