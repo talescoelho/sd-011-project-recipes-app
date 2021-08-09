@@ -44,7 +44,7 @@ function FoodCard(props) {
             {meal.strMeal}
           </span>
         </div>
-      )) : <span>Loading</span>}
+      )) : <span className="loading" />}
     </section>
   );
 }

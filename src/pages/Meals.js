@@ -13,7 +13,6 @@ export default function Meals() {
 
       <MealCategoryButton />
       <FoodCard />
-
       <LowerMenu path="/bebidas" />
     </div>
   );

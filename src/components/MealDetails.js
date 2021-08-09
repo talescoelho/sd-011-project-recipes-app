@@ -116,7 +116,7 @@ function MealDetails(props) {
       onClick={ handleStartRecipeButtonClick }
       type="button"
     >
-      {isInProgress ? 'Continuar Receita' : 'Inicar Receita'}
+      {isInProgress ? 'Continuar Receita' : 'Iniciar Receita'}
     </button>
   );
 
