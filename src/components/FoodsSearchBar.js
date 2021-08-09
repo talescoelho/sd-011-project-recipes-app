@@ -11,16 +11,21 @@ function FoodsSearchBar() {
   const requestFoodEndpoint = async (text) => {
     let endpoint = '';
     const alertMsg = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+    /// sintaxe if um em baixo do outro
+    // tirar else if
 
-    if (input === 'ingredient') {
-      endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${text}`;
-    } else if (input === 'name') {
-      endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${text}`;
-    } else if (input === 'firstLetter' && searchText.length > 1) {
+    if (input === 'ingredient') endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${text}`;
+
+    if (input === 'name') endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${text}`;
+
+    if (input === 'firstLetter' && searchText.length > 1) {
       return alert('Sua busca deve conter somente 1 (um) caracter');
-    } else if (input === 'firstLetter') {
-      endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${text}`;
-    } else if (!input) return null;
+    }
+
+    if (input === 'firstLetter') endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${text}`;
+
+    if (!input || !searchText) return null; // possivelmente corrige erro
+
     const response = await fetch(endpoint);
     const { meals } = await response.json();
     if (meals === null) return alert(alertMsg);

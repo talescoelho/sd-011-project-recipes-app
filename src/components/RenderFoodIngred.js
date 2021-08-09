@@ -3,6 +3,7 @@ import RecipeAppContext from '../context/RecipeAppContext';
 
 function RenderFoodIngred() {
   const { meal } = useContext(RecipeAppContext);
+
   function createIngredArray() {
     const ingredArray = Object.entries(meal)
       .filter((key) => key[0].includes('strIngredient'));
