@@ -1,10 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 import { Layout } from '../components';
-import { useTheme } from '../hooks';
+import { useTheme, useRecipes, fetchRecipes } from '../hooks';
 
 function DrinksExplore() {
   const { colors } = useTheme();
+  const { recipes } = useRecipes();
+  const dispatch = useDispatch();
 
   const styles = {
     main: {
@@ -12,6 +15,10 @@ function DrinksExplore() {
       color: colors.text400,
     },
   };
+
+  function surpreenda() {
+    dispatch(fetchRecipes({ searchTerm: '', category: 'receita_aleatoria' }));
+  }
 
   return (
     <Layout title="Explorar Bebidas">
@@ -25,9 +32,14 @@ function DrinksExplore() {
           </button>
         </Link>
         <Link to="/explorar/bebidas">
-          <button type="button" data-testid="explore-surprise">
+          <button
+            type="button"
+            data-testid="explore-surprise"
+            onClick={ () => surpreenda() }
+          >
             Me Surpreenda!
           </button>
+          { recipes.length ? <Redirect to={ `/comidas/${recipes[0].idMeal}` } /> : null}
         </Link>
       </main>
     </Layout>
