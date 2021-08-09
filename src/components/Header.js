@@ -43,5 +43,4 @@ Header.propTypes = {
   title: PropTypes.string.isRequired,
   search: PropTypes.bool,
 };
-
 export default Header;

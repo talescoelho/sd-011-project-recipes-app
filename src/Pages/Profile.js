@@ -2,13 +2,13 @@ import React from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-function Explore() {
+function Profile() {
   return (
     <div>
-      <Header title="Explorar" />
+      <Header title="Perfil" />
       <Footer />
     </div>
   );
 }
 
-export default Explore;
+export default Profile;
