@@ -12,12 +12,12 @@ function Profile() {
     localStorage.clear();
   };
 
-  const getUserProfile = () => {
+  const getUserProfile = async () => {
     const emailLocalStorage = JSON.parse(localStorage.getItem('user'));
+    await setEmail(emailLocalStorage.email);
     const hash = md5(emailLocalStorage.email).toString();
     const url = `https://www.gravatar.com/avatar/${hash}`;
-    setEmail(emailLocalStorage.email);
-    setImageProfile(url);
+    await setImageProfile(url);
   };
 
   useEffect(() => {
