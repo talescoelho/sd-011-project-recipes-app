@@ -1,5 +1,5 @@
 function ingredientsMealDetails(details) {
-  const four = 4;
+  const three = 3;
   const nine = 9;
   const fourtyEigth = 48;
   const twenty = 20;
@@ -10,12 +10,14 @@ function ingredientsMealDetails(details) {
     }
     return null;
   }).map((ingredient, index, array) => {
+    if (!ingredient[1]) { return null; }
     if (index < twenty) {
-      return `${ingredient[1]} - ${array[index + twenty][1]}`;
+      return `${ingredient[1]}${!array[index + twenty][1] === ''
+        ? '' : ` - ${array[index + twenty][1]}`}`;
     }
     return null;
   }).filter((ingredient) => (
-    ingredient && ingredient.length > four && !ingredient.includes('null'))));
+    ingredient && ingredient.length >= three && !ingredient.includes('null'))));
   return ingredientsList;
 }
 
