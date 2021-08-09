@@ -7,12 +7,12 @@ import { applyMiddleware, createStore } from 'redux';
 import { render } from '@testing-library/react';
 import reducer from '../reducers';
 
-export const renderWithRouterAndStore = (Component, routeConfigs = {}) => {
-  const {route = '/'}  = routeConfigs;
+const renderWithRouterAndStore = (Component, routeConfigs = {}) => {
+  const { route = '/' } = routeConfigs;
   const store = createStore(reducer, applyMiddleware(thunk));
   const history = createMemoryHistory({ initialEntries: [route] });
-
-  /* 
+  const DynamicComponent = Component.type;
+  /*
   Esse <Component.Type history={history}>
   equivale a  <Login history={history}/ >
   */
@@ -21,7 +21,7 @@ export const renderWithRouterAndStore = (Component, routeConfigs = {}) => {
     ...render(
       <Provider store={ store }>
         <Router history={ history }>
-          <Component.type history={history}/>  
+          <DynamicComponent history={ history } />
         </Router>
       </Provider>,
     ),
@@ -30,18 +30,4 @@ export const renderWithRouterAndStore = (Component, routeConfigs = {}) => {
   };
 };
 
-
-/* ANTIGO
-
-  return {
-    ...render(
-      <Provider store={ store }>
-        <Router history={ history }>
-          { Component  }
-        </Router>
-      </Provider>,
-    ),
-    history,
-    store,
-  };
-  */
+export default renderWithRouterAndStore;
