@@ -30,7 +30,7 @@ function Drinks() {
     <div>
       <Header props={ headerProps } />
       <ButtonsCategories categoryName={ headerProps.title } />
-      {catalog && <CardCatalog />}
+      {!catalog ? <div>Loading...</div> : <CardCatalog />}
       <Footer />
     </div>
   );
