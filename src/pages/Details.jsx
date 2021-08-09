@@ -48,9 +48,10 @@ export default function Details() {
   }, [id, type]);
 
   if (recipe) {
+    const recipeIds = getIds(type, recipe);
     const {
       category, name, image, video, instructions, reverseType, type: drinkOrFood,
-    } = getIds(type, recipe);
+    } = recipeIds;
     return (
       <DetailsProvider>
         <div>
@@ -58,7 +59,10 @@ export default function Details() {
           <h2 data-testid="recipe-title">{ name }</h2>
           <h3 data-testid="recipe-category">{ category }</h3>
           <ShareButton type={ drinkOrFood } id={ id } />
-          <FavoriteButton recipe={ recipe } drinkOrFood={ drinkOrFood } />
+          <FavoriteButton
+            recipe={ recipeIds }
+            dataTestid="favorite-btn"
+          />
           <Ingredients recipe={ recipe } inProgress={ inProgress } type={ drinkOrFood } />
           <div>
             <h3>Instructions</h3>
