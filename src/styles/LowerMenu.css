@@ -1,6 +1,4 @@
 * {
-  /* margin: 0;
-  padding: 0; */
   box-sizing: border-box;
 }
 
@@ -19,6 +17,6 @@ section {
 }
 
 .lower-menu__img {
-  width: 11vw;
   max-width: 50px;
+  width: 11vw;
 }

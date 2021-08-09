@@ -11,13 +11,11 @@
   align-items: center;
   border: 1px solid #eee;
   border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .6);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
   cursor: pointer;
   display: flex;
-  flex-grow: 1;
-  flex-basis: 160px;
+  flex: 1 1 160px;
   flex-direction: column;
-  flex-shrink: 1;
   padding: 10px;
   text-align: center;
 }
@@ -51,5 +49,4 @@
   to {
     transform: rotate(360deg);
   }
-  
 }
