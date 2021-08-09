@@ -26,7 +26,7 @@ function Profile() {
   return (
     <>
       <Header title="Perfil" />
-      <div className="container">
+      <div className="container profile">
 
         <div className="card border border-danger card-profile">
           <img

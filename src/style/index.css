@@ -380,6 +380,11 @@
 }
 
 /* Profile */
+
+.profile{
+  margin-bottom: 5rem;
+}
+
 .img-profile {
   border: 2px solid var(--dark-color-2);
   margin: 0 auto;
