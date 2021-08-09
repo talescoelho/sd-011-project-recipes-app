@@ -6,11 +6,55 @@ export default function DrinkInProgress({ location }) {
   const [recipe, setRecipe] = useState();
   const [ingredientsArray, setIngredientsArray] = useState([]);
   const [measurementsArray, setMeasurementsArray] = useState([]);
+  const [ingr, setIngr] = useState();
   const { state } = location;
+  const recipeId = window.location.pathname.split('/')[2];
+  const drinks = JSON.parse(localStorage.getItem('cocktails'));
 
-  const handleCheckbox = () => {
-    
-  }
+  const checkSavedItens = (item) => {
+    if (drinks[recipeId].length > 0) {
+      return drinks[recipeId].some((ing) => ing === item)
+      || (ingr && ingr[recipeId].some((ing) => ing === item));
+    }
+    return false;
+  };
+
+  const saveCheckedIngredientsInLocalStorage = ({ target }) => {
+    const cocktails = JSON.parse(localStorage.getItem('cocktails'));
+    let itemToSave;
+    if (target.checked) {
+      itemToSave = {
+        ...cocktails,
+        [recipeId]: [
+          ...cocktails[recipeId],
+          target.value,
+        ],
+      };
+    } else {
+      const ingArray = cocktails[recipeId].filter((item) => item !== target.value);
+      itemToSave = {
+        ...cocktails,
+        [recipeId]: ingArray,
+      };
+    }
+    setIngr(itemToSave);
+    localStorage.setItem('cocktails', JSON.stringify(itemToSave));
+  };
+
+  const setLocalStorage = () => {
+    if (!drinks) {
+      return { [recipeId]: '' };
+    }
+    if (drinks && !drinks[recipeId]) {
+      return { ...drinks, [recipeId]: [] };
+    }
+    return { ...drinks };
+  };
+
+  useEffect(() => {
+    const obj = setLocalStorage();
+    localStorage.setItem('cocktails', JSON.stringify(obj));
+  }, []);
 
   useEffect(() => {
     if (state && !recipe) {
@@ -20,7 +64,6 @@ export default function DrinkInProgress({ location }) {
 
   useEffect(() => {
     if (!state) {
-      const recipeId = window.location.pathname.split('/')[2];
       const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipeId}`;
       const getRecipe = async () => {
         console.log('passei');
@@ -30,19 +73,19 @@ export default function DrinkInProgress({ location }) {
       };
       getRecipe();
     }
-  }, [state]);
+  }, [recipeId, state]);
 
   useEffect(() => {
     const getItems = (searchedKey) => Object.entries(recipe).filter(
       (value) => value[0].includes(searchedKey) && value[1],
-    );
+    ).map((item) => item[1]);
     if (recipe) {
       const ingredients = getItems('Ingredient');
       const measures = getItems('Measure');
       setIngredientsArray(ingredients);
       setMeasurementsArray(measures);
     }
-  }, [ingredientsArray, recipe]);
+  }, [recipe]);
 
   if (recipe) {
     return (
@@ -63,23 +106,28 @@ export default function DrinkInProgress({ location }) {
         </button>
         <p>{ recipe.strAlcoholic }</p>
         <h3>Receita</h3>
-        { ingredientsArray && ingredientsArray.map((ingredient, index) => (
-          <div key={ index } data-testid={ `${index}-ingredient-step` }>
-            <label key={ index } htmlFor={ `id${index}` }>
-              <input
-                id={ `id${index}` }
-                key={ index }
-                type="checkbox"
-                value={ ingredient[1] }
-              />
-              {`${ingredient[1]} ${
-                measurementsArray[index]
-                  ? ` - ${measurementsArray[index][1]}`
-                  : ''
-              }`}
-            </label>
-          </div>
-        ))}
+        <section>
+          { ingredientsArray && ingredientsArray.map((ingredient, index) => (
+            <div key={ index } data-testid={ `${index}-ingredient-step` }>
+              <label key={ index } htmlFor={ `id${index}` }>
+                <input
+                  checked={ checkSavedItens(ingredient) }
+                  id={ `id${index}` }
+                  name="ingredient"
+                  onChange={ saveCheckedIngredientsInLocalStorage }
+                  key={ index }
+                  type="checkbox"
+                  value={ ingredient }
+                />
+                {`${ingredient} ${
+                  measurementsArray[index]
+                    ? ` - ${measurementsArray[index]}`
+                    : ''
+                }`}
+              </label>
+            </div>
+          ))}
+        </section>
         <h3>Instruções</h3>
         <p data-testid="instructions">{ recipe.strInstructions }</p>
         <button type="button" data-testid="finish-recipe-btn">

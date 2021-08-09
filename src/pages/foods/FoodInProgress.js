@@ -25,7 +25,7 @@ export default function FoodInProgress({ location }) {
       };
       getRecipe();
     }
-  }, [state, recipe]);
+  }, [state]);
 
   useEffect(() => {
     const getItems = (searchedKey) => Object.entries(recipe).filter(
