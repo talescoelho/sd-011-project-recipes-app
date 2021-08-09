@@ -12,7 +12,6 @@ class Login extends Component {
       password: '',
       isDisable: true,
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.enableBtnLogin = this.enableBtnLogin.bind(this);
     this.submitLogin = this.submitLogin.bind(this);
@@ -67,7 +66,7 @@ class Login extends Component {
   render() {
     const { email, password, isDisable } = this.state;
     return (
-      <div>
+      <div className="form">
         <form>
           <label htmlFor="input-email">
             <input
