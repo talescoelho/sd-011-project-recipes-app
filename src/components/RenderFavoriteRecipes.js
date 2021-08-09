@@ -102,7 +102,7 @@ function RenderFavoriteRecipes() {
               </button>
               <button
                 type="button"
-                onClick={ () => removeFromStorage(recipe) }
+                // onClick={ () => removeFromStorage(recipe) } IMPLEMENTAR
               >
                 <img
                   src={ favoriteIcon }
