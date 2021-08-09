@@ -12,9 +12,8 @@ function DetailsRecipesFoods() {
   const location = useLocation();
   const { idFoods, setIdFoods, idFoodsAPI, setIdFoodsAPI,
     newDataDrinks, setNewDataDrinks, setDoneRecipes, show,
-    setStartButton, count,
+    setStartButton, count, isFavorite, setIsFavorite,
     setShow /* , setCount /* , selected */ } = useContext(MainContext);
-  let isFavorite = false;
 
   async function fetchDrinksInitial() {
     const drinksInitialAPI = await getDrinksInitial();
@@ -72,8 +71,16 @@ function DetailsRecipesFoods() {
   // }, [doneRecipesNew, idFoods, setCount]);
 
   const handleFavorite = () => {
-    // * ainda não implementei
-    isFavorite ? isFavorite = false : isFavorite = true;
+    if (isFavorite) {
+      localStorage.setItem('isFavorited', JSON.stringify(false));
+      const favorite = Boolean(localStorage.getItem('isFavorited'));
+      setIsFavorite(favorite);
+    }
+    if (!isFavorite) {
+      localStorage.setItem('isFavorited', JSON.stringify(true));
+      const favorite = Boolean(localStorage.getItem('isFavorited'));
+      setIsFavorite(favorite);
+    }
   };
 
   return (
@@ -95,12 +102,23 @@ function DetailsRecipesFoods() {
         Compartilhar
       </button>
       <p>{ show && 'Link copiado!'}</p>
-      <img
-        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-        onClick={ () => handleFavorite }
+      <button
+        type="button"
+        onClick={ () => handleFavorite() }
+      >
+        <img
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          data-testid="favorite-btn"
+          alt="favorite icon"
+        />
+      </button>
+      <button
+        type="button"
         data-testid="favorite-btn"
-        alt="favorite icon"
-      />
+        onClick={ () => handleFavorite() }
+      >
+        Favoritar
+      </button>
       <p data-testid="recipe-category">
         {idFoodsAPI.strCategory}
       </p>

@@ -12,8 +12,8 @@ function DetailsRecipesFoods() {
   const location = useLocation();
   const { idDrinks, setIdDrinks, idDrinksAPI, setIdDrinksAPI, newDataFoods,
     /* setCount, */ setDoneRecipes, show, setShow,
-    setNewDataFoods, count, setStartButton } = useContext(MainContext);
-  let isFavorite = false;
+    setNewDataFoods, count, setStartButton, isFavorite,
+    setIsFavorite } = useContext(MainContext);
 
   async function fetchFoodsInitial() {
     const foodsInitialAPI = await getFoodsInitial();
@@ -64,9 +64,22 @@ function DetailsRecipesFoods() {
   // }, [doneRecipesNew, idDrinks, setCount]);
 
   const handleFavorite = () => {
-    // * ainda não implementei
-    isFavorite ? isFavorite = false : isFavorite = true;
-
+    if (isFavorite) {
+      const verify = JSON.stringify(false);
+      localStorage.setItem('verifyIfIsFavorite', verify);
+      const verifyIfIsFavorite = localStorage.getItem('verifyIfIsFavorite');
+      if (verifyIfIsFavorite === 'false') {
+        setIsFavorite(false);
+      }
+    }
+    if (!isFavorite) {
+      const verify = JSON.stringify(true);
+      localStorage.setItem('verifyIfIsFavorite', verify);
+      const verifyIfIsFavorite = localStorage.getItem('verifyIfIsFavorite');
+      if (verifyIfIsFavorite === 'true') {
+        setIsFavorite(true);
+      }
+    }
   };
 
   return (
@@ -91,15 +104,20 @@ function DetailsRecipesFoods() {
         Compartilhar
       </button>
       <p>{ show && 'Link copiado!'}</p>
-      <img
-        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-        onClick={ () => handleFavorite }
-        data-testid="favorite-btn"
-        alt="favorite icon"
-      />
+      <button
+        type="button"
+        onClick={ () => handleFavorite() }
+      >
+        <img
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          data-testid="favorite-btn"
+          alt="favorite icon"
+        />
+      </button>
       <button
         type="button"
         data-testid="favorite-btn"
+        onClick={ () => handleFavorite() }
       >
         Favoritar
       </button>
