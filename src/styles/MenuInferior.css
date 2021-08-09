@@ -5,11 +5,8 @@
 }
 
 .menu-bottom-imagens {
-  background-color: white;
-  bottom: 0;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  position: fixed;
   width: 95%;
 }
