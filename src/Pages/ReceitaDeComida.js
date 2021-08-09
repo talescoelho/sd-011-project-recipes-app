@@ -1,112 +1,228 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import '../images/shareIcon.svg';
-import '../images/whiteHeartIcon.svg';
-import RecomendedFood from '../components/RecomendedFood';
+import React, { useState, useEffect } from 'react';
+import Proptypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import { requestDrink, requestMealById } from '../Services/Data';
+import renderIngredients from '../components/Ingredients';
+import startButton from '../components/StartButton';
+import FavoriteButton from '../components/FavoriteButton';
+import SharedButton from '../components/SharedButton';
 
-function ReceitaDeComida(props) {
-  const { match: { params: { id } } } = props;
-  const [recipeDataAsObject, setRecipeDataAsObject] = React.useState([]);
-  const [recomendedDrink, setRecomendedDrink] = React.useState([]);
+function ReceitaDeComida({ match }) {
+  const [data, setData] = useState([]);
+  const [recomm, setRecomm] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  async function fetchMealRecipe() {
-    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-    const response = await fetch(url);
-    const result = await response.json();
-    setRecipeDataAsObject(...result.meals);
-  }
-
-  async function fetchRecomendedDrink() {
-    const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-    const response = await fetch(url);
-    const result = await response.json();
-    setRecomendedDrink(result.drinks);
-  }
+  const history = useHistory();
+  const pathToCopy = history.location.pathname;
+  const { id } = match.params;
 
   useEffect(() => {
-    fetchMealRecipe();
-    fetchRecomendedDrink();
-  }, []);
+    (async function resolved() {
+      const resolve = await requestMealById(id);
+      const resolveRecomm = await requestDrink();
+      setData(resolve);
+      setRecomm(resolveRecomm);
+      setLoading(false);
+    }());
+  }, [id]);
 
-  console.log(recomendedDrink);
+  function renderButtons(item) {
+    const mealToFav = data.meals[0];
+    const favoriteRecipes = {
+      id: mealToFav.idMeal,
+      type: 'comida',
+      area: mealToFav.strArea,
+      category: mealToFav.strCategory,
+      alcoholicOrNot: '',
+      name: mealToFav.strMeal,
+      image: mealToFav.strMealThumb,
+    };
 
-  function setIgredientAndMeasureList() {
-    const igredientStartPoint = 9;
-    const igredientEndPoint = 28;
-    const measureStartPoint = 29;
-    const measureEndPoint = 48;
+    return (
+      <>
+        <SharedButton
+          path={ `http://localhost:3000${pathToCopy}` }
+          dataTest="share-btn"
+          style={ { width: 25 } }
+          alt="share"
+        />
 
-    const igredientAndMeasureList = [];
-
-    const igredients = Object.values(recipeDataAsObject)
-      .slice(igredientStartPoint, igredientEndPoint)
-      .filter((igredient) => igredient !== '' && igredient !== null);
-
-    const measures = Object.values(recipeDataAsObject)
-      .slice(measureStartPoint, measureEndPoint)
-      .filter((measure) => measure !== '' && measure !== null);
-
-    for (let i = 0; i < igredients.length; i += 1) {
-      igredientAndMeasureList.push(`${igredients[i]} - ${measures[i]}`);
-    }
-    return igredientAndMeasureList;
+        <FavoriteButton
+          id={ item.idMeal }
+          favoriteRecipes={ favoriteRecipes }
+          dataTest="favorite-btn"
+          style={ { width: 25 } }
+          alt="favorite_icon"
+        />
+      </>
+    );
   }
 
-  const videoUrlPosition = 19;
-  const numberOfRecomendedDrinks = 6;
+  function mapRecomm(param) {
+    const { drinks } = param;
+    const magicNumber = 6;
+    return drinks
+      .filter((_, index) => index < magicNumber)
+      .map((item, index) => {
+        if (index === 0) {
+          return (
+            <div key={ index }>
+              <div
+                data-testid={ `${index}-recomendation-card` }
+              >
+                <img
+                  data-testid={ `${index}-card-img` }
+                  src={ item.strDrinkThumb }
+                  alt={ `imagem de ${item}` }
+                  id={ item.idDrink }
+                  style={ { width: 25 } }
 
-  const {
-    strMeal, strCategory, strMealThumb, strInstructions, strYoutube,
-  } = recipeDataAsObject;
+                />
+                <p
+                  style={ { width: 25 } }
+                  data-testid={ `${index}-recomendation-title` }
+                >
+                  {item.strDrink}
+                </p>
+              </div>
+              <div
+                style={ { width: 25 } }
+                data-testid={ `${index + 1}-recomendation-card` }
+              >
+                <img
+                  data-testid={ `${index + 1}-card-img` }
+                  src={ drinks[index + 1].strDrinkThumb }
+                  alt={ `imagem de ${drinks[index + 1]}` }
+                  id={ drinks[index + 1].idDrink }
+                  style={ { width: 25 } }
 
-  if (!recipeDataAsObject) return <h2>Loading...</h2>;
+                />
+                <p
+                  data-testid={ `${index + 1}-recomendation-title` }
+                  style={ { width: 25 } }
+                >
+                  {drinks[index + 1].strDrink}
+                </p>
+              </div>
+            </div>
+          );
+        }
+        if (index !== 1) {
+          return (
+            <div
+              className="carousel-item"
+              key={ index }
+              data-testid={ `${index}-recomendation-card` }
+            >
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ item.strDrinkThumb }
+                alt={ `imagem de ${item}` }
+                id={ item.idDrink }
+                style={ { width: 25 } }
+
+              />
+              <p
+                style={ { width: 25 } }
+                data-testid={ `${index}-recomendation-title` }
+              >
+                {item.strDrink}
+              </p>
+            </div>
+          );
+        }
+        return null;
+      });
+  }
+
+  function mapData(param) {
+    const { meals } = param;
+    return meals
+      .map((item, index) => {
+        const path = `/comidas/${item.idMeal}`;
+        if (path === history.location.pathname) {
+          return (
+            <div key={ index }>
+              <img
+                src={ item.strMealThumb }
+                data-testid="recipe-photo"
+                alt={ item.strMeal }
+                style={ { width: 25 } }
+
+              />
+              <h3 style={ { width: 25 } } data-testid="recipe-title">{item.strMeal}</h3>
+              {renderButtons(item)}
+              <h5
+                style={ { width: 25 } }
+                data-testid="recipe-category"
+              >
+                {item.strCategory}
+              </h5>
+              <label htmlFor="ingredients-list">
+                Ingredientes:
+                <ul id="ingredients-list">
+                  {renderIngredients(item)}
+                </ul>
+              </label>
+              <label htmlFor="instructions">
+                Instruções de preparo:
+                <p data-testid="instructions">{item.strInstructions}</p>
+              </label>
+              <embed />
+              <video id="video" data-testid="video" src={ item.strYoutube }>
+                <track kind="captions" />
+              </video>
+              <p>Recomendações:</p>
+              <div
+                id="carouselExampleControlsNoTouching"
+                data-bs-touch="false"
+                data-bs-interval="false"
+              >
+                <div className="carousel-inner" />
+                {mapRecomm(recomm)}
+                <button
+                  type="button"
+                  data-bs-target="#carouselExampleControlsNoTouching"
+                  data-bs-slide="prev"
+                >
+                  <span aria-hidden="true" />
+                  <span>Previous</span>
+                </button>
+                <button
+                  type="button"
+                  data-bs-target="#carouselExampleControlsNoTouching"
+                  data-bs-slide="next"
+                >
+                  <span aria-hidden="true" />
+                  <span>Next</span>
+                </button>
+              </div>
+              { startButton('comidas', item, history) }
+            </div>
+          );
+        }
+        return null;
+      });
+  }
+
   return (
     <div>
-      <img data-testid="recipe-photo" src={ strMealThumb } alt="imagem de comida" />
-      <h2 data-testid="recipe-title">{strMeal}</h2>
-      <img
-        data-testid="share-btn"
-        src="../images/shareIcon.svg"
-        alt="botão para compartilhar a receita"
-      />
-      <img
-        data-testid="favorite-btn"
-        src="../images/whiteHeartIcon.svg"
-        alt="botão para favoritar a receita"
-      />
-      <h5 data-testid="recipe-category">{strCategory}</h5>
-      <h3>Igredientes</h3>
-      <ol>
-        {setIgredientAndMeasureList()
-          .map((igrediente, index) => (
-            <li data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
-              {igrediente}
-            </li>
-          ))}
-      </ol>
-      <h3 data-testid="instructions">Instruções</h3>
-      <h3>{ strInstructions }</h3>
-      {strYoutube && <iframe src={ `https://youtube.com/embed/${strYoutube.substr(videoUrlPosition)}` } title="video" data-testid="video" />}
-      <h3>Receitas Recomendadas</h3>
-      <div className="RecommendedContainer">
-        {recomendedDrink
-          .slice(0, numberOfRecomendedDrinks)
-          .map((obj, index) => (
-            <RecomendedFood
-              dataTestid={ `${index}-recomendation-card` }
-              key={ index }
-              category={ obj.strCategory }
-              title={ obj.strDrink }
-              img={ obj.strDrinkThumb }
-            />))}
-      </div>
-      <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+      {
+        loading
+          ? 'Carregando...'
+          : (mapData(data))
+      }
     </div>
   );
 }
 
+//  Fonte Proptypes: https://stackoverflow.com/questions/47311310/proptypes-isrequired-on-react-router-4-params-prop
 ReceitaDeComida.propTypes = {
-  match: PropTypes.objectOf.isRequired,
-};
+  match: Proptypes.shape({
+    params: Proptypes.shape({
+      id: Proptypes.string.isRequired,
+    }),
+  }),
+}.isRequired;
 
 export default ReceitaDeComida;

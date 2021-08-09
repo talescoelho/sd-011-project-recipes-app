@@ -41,3 +41,33 @@ export function fetchCocktailsForCategorie(setListCocktail, categorie) {
       setListCocktail(jsonData.drinks);
     });
 }
+
+export async function requestDrinkById(id) {
+  const request = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const resolve = await request.json();
+  return resolve;
+}
+
+export async function requestMealById(id) {
+  const request = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const resolve = await request.json();
+  return resolve;
+}
+
+export async function requestDrink(name = '') {
+  const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const grup = url + name;
+  const request = await fetch(grup);
+  const resolve = await request.json();
+  return resolve;
+}
+
+async function requestByMeal(name = '') {
+  const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const grup = url + name;
+  const request = await fetch(grup);
+  const resolve = await request.json();
+  return resolve;
+}
+
+export default requestByMeal;

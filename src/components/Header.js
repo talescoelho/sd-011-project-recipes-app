@@ -10,7 +10,7 @@ function Header({ title, search = false }) {
 
   return (
     <>
-      <div>
+      <header>
         <Link to="/perfil">
           <img
             data-testid="profile-top-btn"
@@ -29,7 +29,7 @@ function Header({ title, search = false }) {
           />
         </button>
       )}
-      </div>
+      </header>
       { showInput && <SearchBar /> }
     </>
   );

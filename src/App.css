@@ -1,4 +1,4 @@
-.meals {
+/* .meals {
   align-items: center;
   background: #0fa36b;
   color: #464646;
@@ -63,11 +63,6 @@
   width: 50%;
 }
 
-[ data-testid = 'start-recipe-btn' ] {
-  bottom: 0;
-  position: fixed;
-}
-
 .recommendedFoodContainer {
   align-items: space-between;
   display: flex;
@@ -102,4 +97,9 @@
 .cards {
   display: inline-block;
   font-size: 2px;
+} */
+
+[ data-testid = 'start-recipe-btn' ] {
+  bottom: 0;
+  position: fixed;
 }
