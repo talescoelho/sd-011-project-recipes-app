@@ -59,7 +59,10 @@ export default function Details() {
           <h2 data-testid="recipe-title">{ name }</h2>
           <h3 data-testid="recipe-category">{ category }</h3>
           <ShareButton type={ drinkOrFood } id={ id } dataTestid="share-btn" />
-          <FavoriteButton recipe={ recipe } drinkOrFood={ drinkOrFood } />
+          <FavoriteButton
+            recipe={ recipeIds }
+            dataTestid="favorite-btn"
+          />
           <Ingredients recipe={ recipe } inProgress={ inProgress } type={ drinkOrFood } />
           <div>
             <h3>Instructions</h3>

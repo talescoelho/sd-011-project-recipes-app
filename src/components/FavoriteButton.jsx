@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
-export default function FavoriteButton({ recipe, drinkOrFood }) {
+export default function FavoriteButton({ recipe, dataTestid }) {
   const [isFavorite, setFavorite] = useState(false);
   const { id, type, category, name, image, area } = recipe;
 
@@ -14,7 +14,7 @@ export default function FavoriteButton({ recipe, drinkOrFood }) {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const verifyFav = favoriteRecipes.some((e) => e.id === id);
     setFavorite(verifyFav);
-  }, [setFavorite, drinkOrFood, recipe, id]);
+  }, [setFavorite, type, recipe, id]);
 
   function handleHeart() {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -44,13 +44,13 @@ export default function FavoriteButton({ recipe, drinkOrFood }) {
         <img
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
           alt="Favourite Button"
-          data-testid="favorite-btn"
+          data-testid={ dataTestid }
         />
       </button>
     </div>);
 }
 
 FavoriteButton.propTypes = {
-  drinkOrFood: PropTypes.string.isRequired,
   recipe: PropTypes.isRequired,
+  dataTestid: PropTypes.string.isRequired,
 };
