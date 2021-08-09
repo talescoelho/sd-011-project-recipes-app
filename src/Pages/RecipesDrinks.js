@@ -34,6 +34,7 @@ export default function RecipesFood() {
       <div className="cardlist">
       {renderCardRecipes().map((recp, index) => (
          <Link
+         className="link"
          to = '/bebidas/drink-details'>
          <CardRecipes
           key={ index }

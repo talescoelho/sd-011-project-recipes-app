@@ -33,7 +33,8 @@ export default function RecipesFood() {
       <Header className="title" title="Comidas" searchIconAppears />
       <div className="cardlist">
         {renderCardRecipes().map((recp, index) => (
-          <Link
+          <Link 
+            className="link"
             key={ index }
             to="/details-recipe"
           >
