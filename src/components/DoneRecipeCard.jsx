@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import copytoclipboard from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
+import '../styles/ReceitasFavoritas.css';
 
 export default function FavRecipeCard(props) {
   const [isTypeFood, setIsTypeFood] = useState(false);
