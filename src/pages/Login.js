@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import RecipeAppContext from '../context/RecipeAppContext';
+import '../css/Login.css';
 
 function Login() {
   const { handleChange, handleDisabled, email } = useContext(RecipeAppContext);
@@ -13,7 +14,8 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="login">
+      <p className="login-title">Login</p>
       <label htmlFor="email">
         Email
         <input
@@ -22,6 +24,7 @@ function Login() {
           type="email"
           data-testid="email-input"
           onChange={ (e) => handleChange(e) }
+          className="input-login"
         />
       </label>
       {' '}
@@ -34,6 +37,7 @@ function Login() {
           type="password"
           data-testid="password-input"
           onChange={ (e) => handleChange(e) }
+          className="input-login"
         />
       </label>
       {' '}
@@ -44,6 +48,7 @@ function Login() {
           data-testid="login-submit-btn"
           onClick={ () => submitCredentials() }
           disabled={ handleDisabled() }
+          className="button-login"
         >
           Entrar
         </button>

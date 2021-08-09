@@ -5,6 +5,7 @@ import RecipeAppContext from '../context/RecipeAppContext';
 
 function RecipeCards() {
   const { drinksList, foodsList } = useContext(RecipeAppContext);
+  console.log(foodsList);
   const history = useHistory();
 
   const redirectToDetails = (id, foods, drinks) => {
@@ -39,6 +40,7 @@ function RecipeCards() {
             <p
               key={ recipe.idDrink }
               data-testid={ `${index}-card-name` }
+              className="p-text"
             >
               {recipe.strDrink}
             </p>
@@ -74,6 +76,7 @@ function RecipeCards() {
             <p
               key={ recipe.idMeal }
               data-testid={ `${index}-card-name` }
+              className="p-text"
             >
               {recipe.strMeal}
             </p>

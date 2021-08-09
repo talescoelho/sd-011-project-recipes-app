@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import getCategories from '../services/categoriesAPI';
 import getCategory from '../services/categoryAPI';
 import RecipeAppContext from '../context/RecipeAppContext';
+import '../css/Header.css';
 
-function CategoryButtons({ foods, drinks, explore }) {
+function CategoryButtons({ foods, drinks }) {
   const { setFoodCategory,
     setDrinkCategory,
     drinkCategoryList,
@@ -80,6 +81,7 @@ function CategoryButtons({ foods, drinks, explore }) {
             name={ category.strCategory }
             data-testid={ `${category.strCategory}-category-filter` }
             onClick={ (e) => filterDrinkCategory(e) }
+            className="button-food"
           >
             {`${category.strCategory}`}
           </button>
@@ -101,6 +103,7 @@ function CategoryButtons({ foods, drinks, explore }) {
             name={ category.strCategory }
             data-testid={ `${category.strCategory}-category-filter` }
             onClick={ (e) => filterFoodCategory(e) }
+            className="button-food"
           >
             {`${category.strCategory}`}
           </button>
@@ -116,16 +119,18 @@ function CategoryButtons({ foods, drinks, explore }) {
       type="button"
       onClick={ () => setToggleOn(false) }
       data-testid="All-category-filter"
+      className="button-food"
     >
       All
     </button>
   );
 
   return (
-    <div>
-      {!explore && renderAllButton()}
-      {drinks && drinkCategoryList && renderDrinkCategoryButton(drinkCategoryList)}
+    <div className="category-buttons">
+      {foods && renderAllButton()}
       {foods && foodCategoryList && renderFoodCategoryButton(foodCategoryList)}
+      {drinks && renderAllButton()}
+      {drinks && drinkCategoryList && renderDrinkCategoryButton(drinkCategoryList)}
     </div>
   );
 }
@@ -133,7 +138,6 @@ function CategoryButtons({ foods, drinks, explore }) {
 CategoryButtons.propTypes = {
   foods: PropTypes.bool.isRequired,
   drinks: PropTypes.bool.isRequired,
-  explore: PropTypes.bool.isRequired,
 };
 
 export default CategoryButtons;

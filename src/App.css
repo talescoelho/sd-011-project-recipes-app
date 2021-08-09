@@ -66,3 +66,12 @@
     transform: rotate(-10deg);
   }
 }
+
+.app {
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  font-family: Lucida Grande , Lucida Sans , Arial , sans-serif;
+  height: 640px;
+  width: 360px;
+}
