@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import RecipesAppContext from '../context/RecipesAppContext';
+import ItemIngredient from './ItemIngredient';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import '../styles/RecipesProgress.css';
@@ -40,15 +41,15 @@ function RecipesProgress() {
     return 'none';
   }
 
-  function handleChangeCheckRisk({ target }) {
-    const { className } = target;
-    console.log('>>', target.className);
-    if (className === 'risk') {
-      className.innerHtml = '';
-    } else {
-      className.innerHtml = 'risk';
-    }
-  }
+  // function handleChangeCheckRisk({ target }) {
+  //   const { className } = target;
+  //   console.log('>>', target.className);
+  //   if (className === 'risk') {
+  //     className.innerHtml = '';
+  //   } else {
+  //     className.innerHtml = 'risk';
+  //   }
+  // }
 
   return (
     <div>
@@ -71,20 +72,8 @@ function RecipesProgress() {
             <p data-testid="recipe-category">{mealRecipes[0].strCategory}</p>
             <h3>Ingredients</h3>
             {checkBox.map((itens, key) => (
-              <label
-                className="risk"
-                htmlFor={ key }
-                key={ key }
-                style={ console.log({ textDecoration: `${risk()}` }) }
-              >
-                <input
-                  type="checkbox"
-                  id={ key }
-                  // onClick={ (e) => handleChangeCheck(e) }
-                />
-                {itens}
-              </label>))}
-
+              <ItemIngredient key={ key } item={ itens } i={ key } />
+            ))}
             <p data-testid="instructions">{mealRecipes[0].strInstructions}</p>
             <Link to="/receitas-feitas">
               <button
