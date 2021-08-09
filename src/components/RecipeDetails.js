@@ -1,10 +1,19 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import IngredientsList from './IngredientList';
 import ShareIcon from '../images/shareIcon.svg';
-import FavIcon from '../images/whiteHeartIcon.svg';
+import whiteHearthIcon from '../images/whiteHeartIcon.svg';
+import blackHearthIcon from '../images/blackHeartIcon.svg';
 import RecipesContext from '../context/RecipesContext';
 
-function RecipeDetails() {
+const getLocalStorage = () => {
+  const localItems = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  return localItems || [];
+};
+function RecipeDetails({ url }) {
+  const URL = window.location.href;
+  const [share, setShare] = useState(false);
+  const [favIcon, setFavIcon] = useState(false);
   const { recipeDetail: recipe, setIngredientsRecipeList } = useContext(RecipesContext);
   const itemValidation = (item) => {
     if (item !== null && item !== '' && item !== undefined) {
@@ -12,6 +21,15 @@ function RecipeDetails() {
     }
     return false;
   };
+
+  // acrescentar ao localstorage o estado do favIcon
+  useEffect(() => {
+    const ONE_SEC = 1500;
+    const timeout = setInterval(() => {
+      setShare(false);
+    }, ONE_SEC);
+    return () => clearInterval(timeout);
+  }, [share]);
 
   const getListOfIngredients = () => {
     const limit = 20;
@@ -30,6 +48,48 @@ function RecipeDetails() {
   useEffect(() => {
     getListOfIngredients();
   }, [recipe]);
+
+  useEffect(() => {
+    const localItems = getLocalStorage()[0];
+    if (!localItems) {
+      return;
+    }
+    setFavIcon(true);
+  }, []);
+
+  const handleClick = () => {
+    const id = recipe.idMeal || recipe.idDrink;
+    const localItems = getLocalStorage();
+    setFavIcon(!favIcon);
+    if (localItems.length) {
+      console.log(localItems[0].id);
+      const newLocalStorage = localItems.filter((item) => item.id !== id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newLocalStorage));
+    } else {
+      const type = url.replace(/\//ig, '').replace(/[0-9]/g, '');
+      const {
+        idMeal,
+        idDrink,
+        strCategory,
+        strAlcoholic,
+        // strDrink,
+        strMeal,
+        // strDrinkThumb,
+        strMealThumb,
+        strArea } = recipe;
+      const newItem = {
+        id: idMeal || idDrink,
+        type,
+        area: strArea || '',
+        category: strCategory || '',
+        alcoholicOrNot: strAlcoholic || '',
+        name: strMeal,
+        image: strMealThumb,
+      };
+      localStorage.setItem('favoriteRecipes', JSON.stringify([...localItems, newItem]));
+    }
+  };
+  console.log(recipe);
 
   return (
     <section>
@@ -56,12 +116,24 @@ function RecipeDetails() {
         </div>
 
         <div className="buttons-actions">
-          <button type="button">
+          <button
+            type="button"
+            onClick={
+              () => { navigator.clipboard.writeText(URL); setShare(!share); }
+            }
+          >
             <img data-testid="share-btn" src={ ShareIcon } alt="Share Icon" />
           </button>
-          <button type="button">
-            <img data-testid="favorite-btn" src={ FavIcon } alt="Fav Icon" />
+          <button type="button" onClick={ handleClick }>
+            <img
+              data-testid="favorite-btn"
+              src={ favIcon ? blackHearthIcon : whiteHearthIcon }
+              alt="Fav Icon"
+            />
           </button>
+          <div>
+            <h4>{share && 'Link copiado!'}</h4>
+          </div>
         </div>
       </div>
 
@@ -75,5 +147,9 @@ function RecipeDetails() {
     </section>
   );
 }
+
+RecipeDetails.propTypes = {
+  url: PropTypes.string.isRequired,
+}.isRequired;
 
 export default RecipeDetails;
