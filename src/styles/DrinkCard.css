@@ -1,0 +1,21 @@
+.drink-card {
+  background-color: #58abe5;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+  width: 45%;
+}
+
+.drink-card img {
+  border-radius: 5px;
+  padding: 5px 0;
+  width: 90%;
+}
+
+.drink-card p {
+  color: black;
+}

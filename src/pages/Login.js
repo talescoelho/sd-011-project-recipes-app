@@ -42,7 +42,7 @@ export default function Login() {
         <Button
           type="button"
           data-testid="login-submit-btn"
-          variant="primary"
+          variant="success"
           disabled={ !email || !password }
           onClick={ LoginStorage }
         >
