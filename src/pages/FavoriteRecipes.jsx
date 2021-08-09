@@ -54,43 +54,82 @@ function FavoriteRecipes() {
         Drinks
       </button>
       {
-        favorite ? favorite.map((item, index) => (
-          <section key={ index }>
-            <img
-              width="200px"
-              data-testid={ `${index}-horizontal-image` }
-              alt={ `recipe ${item.name}` }
-              src={ item.image }
-            />
-            <span
-              data-testid={ `${index}-horizontal-top-text` }
-            >
-              { item.category }
-            </span>
-            <span data-testid={ `${index}-horizontal-name` }>{ item.name }</span>
-            <button
-              type="button"
-              onClick={ () => copyLink(item) }
-            >
+        favorite ? favorite.map((item, index) => {
+          if (item.type === 'comida') {
+            return (
+              <section key={ index }>
+                <img
+                  width="200px"
+                  data-testid={ `${index}-horizontal-image` }
+                  alt={ `recipe ${item.name}` }
+                  src={ item.image }
+                />
+                <span
+                  data-testid={ `${index}-horizontal-top-text` }
+                >
+                  { `${item.area} - ${item.category}` }
+                </span>
+                <span data-testid={ `${index}-horizontal-name` }>{ item.name }</span>
+                <button
+                  type="button"
+                  onClick={ () => copyLink(item) }
+                >
+                  <img
+                    data-testid={ `${index}-horizontal-share-btn` }
+                    alt="share"
+                    src={ shareIcon }
+                  />
+                </button>
+                <button
+                  type="button"
+                  // onClick={ handleClickFavorites }
+                >
+                  <img
+                    data-testid={ `${index}-horizontal-favorite-btn` }
+                    src={ blackHeartIcon }
+                    alt="favorite"
+                  />
+                </button>
+              </section>
+            );
+          }
+          return (
+            <section key={ index }>
               <img
-                data-testid={ `${index}-horizontal-share-btn` }
-                alt="share"
-                src={ shareIcon }
+                width="200px"
+                data-testid={ `${index}-horizontal-image` }
+                alt={ `recipe ${item.name}` }
+                src={ item.image }
               />
-            </button>
-            <button
-              type="button"
-              // onClick={ handleClickFavorites }
-            >
-              <img
-                data-testid={ `${index}-horizontal-favorite-btn` }
-                src={ blackHeartIcon }
-                alt="favorite"
-              />
-            </button>
-          </section>
-        ))
-          : ''
+              <span
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                { item.category }
+              </span>
+              <span data-testid={ `${index}-horizontal-name` }>{ item.name }</span>
+              <button
+                type="button"
+                onClick={ () => copyLink(item) }
+              >
+                <img
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  alt="share"
+                  src={ shareIcon }
+                />
+              </button>
+              <button
+                type="button"
+                // onClick={ handleClickFavorites }
+              >
+                <img
+                  data-testid={ `${index}-horizontal-favorite-btn` }
+                  src={ blackHeartIcon }
+                  alt="favorite"
+                />
+              </button>
+            </section>
+          );
+        }) : ''
       }
     </>
   );
