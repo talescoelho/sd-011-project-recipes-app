@@ -61,9 +61,6 @@ function MealDetails({ match: { params } }) {
 
 export default MealDetails;
 
-// corrigir proptypes
 MealDetails.propTypes = {
-  match: PropTypes.objectOf(PropTypes.object).isRequired,
-  // params: PropTypes.objectOf(PropTypes.object).isRequired,
-  // id: PropTypes.string.isRequired,
+  match: PropTypes.objectOf(PropTypes.string).isRequired,
 };
