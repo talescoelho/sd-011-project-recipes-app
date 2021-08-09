@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useTheme } from '../../../hooks';
-import { SearchForm } from '../..';
+import useTheme from '../../../hooks/useTheme';
+import SearchForm from '../../Home/SearchForm';
 import ProfileIcon from '../../../images/profileIcon.svg';
 import SearchIcon from '../../../images/searchIcon.svg';
 
