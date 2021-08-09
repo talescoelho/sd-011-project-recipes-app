@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import IngredientsCard from '../components/IngredientsCard';
 import { fetchIngredientsFromMealsDB, fetchMealsByIngredient } from '../services';
 import GlobalContext from '../context';
+import '../styles/IngredientsCard.css';
 
 export default function ExploreMealsByIngredients({ history }) {
   const [ingredients, setIngredients] = useState([]);
