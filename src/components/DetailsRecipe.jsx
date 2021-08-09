@@ -80,19 +80,21 @@ function DetailsRecipe(props) {
         <button
           type="button"
           data-testid="share-btn"
+          className="share-btn"
           onClick={ () => { handleShareBtn(); handleLinkMessage(); } }
         >
           <img src={ Share } alt="share button" />
         </button>
         { linkCopy && <LinkCopy /> }
         { video && <iframe
-          width="300"
+          width="295"
           height="215"
           src={ `https://www.youtube.com/embed/${finalUrl}` }
           title="YouTube video player"
           frameBorder="0"
           data-testid="video"
           allowFullScreen
+          className="video"
         /> }
         <Recommendations />
         <ButtonStartRecipe

@@ -6,7 +6,7 @@ import RecommendationCard from './RecommendationCard';
 
 export default function Recommendations() {
   const START_POSITION = 0;
-  const CHANGER = 360;
+  const CHANGER = 295;
   const MULTIPLIER = 2;
   const SIX = 6;
 
@@ -22,18 +22,17 @@ export default function Recommendations() {
       const list = await searchRecommendation(location);
       setRecommendations(list);
     };
-
     getRecommendation();
   }, []);
 
   useEffect(() => {
+    if (item < SIX) {
+      setItem(number/147.5*-1);
+    }
     const changeRecommendation = () => {
       const carroussel = document.querySelector('.carroussel-content');
       const firstItem = document.querySelector(`.carroussel-item-${item}`);
       const secItem = document.querySelector(`.carroussel-item-${item + 1}`);
-      if (item < SIX) {
-        setItem(item + 2);
-      }
 
       if (firstItem !== null) {
         firstItem.style.display = 'block';
@@ -44,11 +43,11 @@ export default function Recommendations() {
     };
 
     changeRecommendation();
-  }, [number]);
+  }, [number, item]);
 
   return (
     <div className="recommendation-container">
-      <h4 className="recommendation-title">Recomendadas</h4>
+      <h3 className="recommendation-title">Recomendadas</h3>
       <div className="recommendation-carroussel">
         <label htmlFor="right">
           <input

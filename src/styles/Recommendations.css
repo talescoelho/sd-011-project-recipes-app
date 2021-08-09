@@ -1,5 +1,7 @@
 .recommendation-title {
-  margin-bottom: 0;
+  font-weight: 700;
+  font-size: 22px;
+  margin-top: 16px;
 }
 
 .recommendation-carroussel {
@@ -13,7 +15,7 @@
 
 .carroussel-item {
   display: none;
-  width: 180px;
+  width: 147.5px;
 }
 
 .carroussel-item-0, .carroussel-item-1 {

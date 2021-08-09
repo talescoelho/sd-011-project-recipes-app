@@ -1,6 +1,7 @@
 .detalhes-container {
   height: 640px;
   /* overflow: auto; */
+  overflow-x: hidden;
   background-color: #f6f6f6;
   width: 360px;
 }

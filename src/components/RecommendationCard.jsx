@@ -36,6 +36,11 @@ function RecommendationCard({ recipe, index, type }) {
       >
         { recipe[foodName] }
       </p>
+      <p
+        className="recCategoryRecipe"
+      >
+        {recipe["strCategory"]}
+      </p>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 function LinkCopy() {
   return (
-    <div>
+    <div className="copyed">
       Link copiado!
     </div>
   );

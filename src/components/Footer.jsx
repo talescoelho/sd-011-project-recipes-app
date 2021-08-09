@@ -26,7 +26,7 @@ function Footer() {
     if (className === 'link-bebidas') {
       sel.style.transform = 'translateX(-120px)'
     } else if (className === 'link-explorar') {
-      sel.style.transform = 'translateX(0px)'
+      sel.classList.add('seletcion-start');
     } else if (className === 'link-comidas') {
       sel.style.transform = 'translateX(120px)'
     }
