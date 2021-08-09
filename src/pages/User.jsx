@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import '../styles/User.css';
@@ -15,26 +16,42 @@ export default function User() {
     <>
       <Header pageName="Perfil" />
       <div className="userButtons">
-        <p data-testid="profile-email">{ getEmail ? getEmail.email : 'ghost' }</p>
+        <p>
+          E-mail:
+          {' '}
+          <span data-testid="profile-email">{ getEmail ? getEmail.email : 'ghost' }</span>
+        </p>
         <Link to="/receitas-feitas">
-          <button data-testid="profile-done-btn" type="button">Receitas Feitas</button>
+          <Button
+            variant="success"
+            className="m-2 user-btn"
+            data-testid="profile-done-btn"
+            type="button"
+          >
+            Receitas Feitas
+
+          </Button>
         </Link>
         <Link to="/receitas-favoritas">
-          <button
+          <Button
+            variant="warning"
+            className="m-2 user-btn"
             data-testid="profile-favorite-btn"
             type="button"
           >
             Receitas Favoritas
-          </button>
+          </Button>
         </Link>
-        <Link to="/">
-          <button
+        <Link className="exit-btn" to="/">
+          <Button
+            className="m-2 user-btn"
+            variant="danger"
             data-testid="profile-logout-btn"
             type="button"
             onClick={ exitButton }
           >
             Sair
-          </button>
+          </Button>
         </Link>
       </div>
       <Footer />

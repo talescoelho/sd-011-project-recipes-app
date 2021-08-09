@@ -8,6 +8,7 @@ import {
   ExploreDrink, MealInProgress, DrinkDetails, MealDetails,
   ExploreByPlace,
 } from '../pages';
+import FavoritePage from '../pages/FavoritePage';
 
 function Routes() {
   return (
@@ -60,6 +61,11 @@ function Routes() {
         exact
         path="/receitas-feitas"
         render={ (props) => <DoneRecipes { ...props } /> }
+      />
+      <Route
+        exact
+        path="/receitas-favoritas"
+        render={ (props) => <FavoritePage { ...props } /> }
       />
 
       <Route path="*" component={ NotFound } />

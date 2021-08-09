@@ -11,10 +11,12 @@ import {
 } from '../services/RecipesLocalStorage';
 import ShareBtn from './ShareBtn';
 import FavoriteBtn from './FavoriteBtn';
+import ShowFrame from './foodDetailsPage/ShowFrame';
 
 export default function FoodDetails({ type }) {
   const recipes = useSelector((state) => state.recipes);
-  const food = recipes.cards;
+  const food = recipes.cards[0];
+  console.log(food);
   const dispatch = useDispatch();
   const { id } = useParams();
   const lStFoods = {
@@ -27,15 +29,6 @@ export default function FoodDetails({ type }) {
   useEffect(() => {
     dispatch(fetchFood({ id, type }));
   }, [id, type, dispatch]);
-
-  function getVideoId() {
-    if (food.strYoutube) {
-      const urlYT = food.strYoutube;
-
-      return urlYT.substring(urlYT.indexOf('v=') + 2);
-    }
-    return '';
-  }
 
   function listIngredients(item) {
     const ingredient = Object.entries(item).filter(([key,
@@ -54,72 +47,64 @@ export default function FoodDetails({ type }) {
     });
   }
 
-  const showFrame = () => (
-    <iframe
-      data-testid="video"
-      title="Vídeo da Receita"
-      frameBorder="0"
-      allow="encrypted-media; gyroscope; picture-in-picture"
-      allowFullScreen
-      src={ `https://www.youtube.com/embed/${getVideoId()}` }
-      width="100%"
-    />);
-
   const buttonName = () => (
     isRecipeInProgress({ id, fd }) ? 'Continuar Receita' : 'Iniciar Receita');
 
-  const { strMealThumb, strDrinkThumb,
-    strDrink, strMeal, strInstructions, strCategory, strAlcoholic } = food;
+  if (food) {
+    const { strMealThumb, strDrinkThumb,
+      strDrink, strMeal, strInstructions, strCategory, strAlcoholic } = food;
 
-  const path = {
-    meals: `/comidas/${id}/in-progress`,
-    drinks: `/bebidas/${id}/in-progress`,
-  };
+    const path = {
+      meals: `/comidas/${id}/in-progress`,
+      drinks: `/bebidas/${id}/in-progress`,
+    };
 
-  return (
-    <main className="food-details">
-      <div data-testid="0-recipe-card">
+    return (
+      <main className="food-details">
+        <div data-testid="0-recipe-card">
 
-        <img
-          className="imgreceita"
-          data-testid="recipe-photo"
-          src={ strMealThumb || strDrinkThumb }
-          alt="img"
-        />
-        <h1 data-testid="recipe-title">{strMeal || strDrink}</h1>
-        <ShareBtn />
-        <FavoriteBtn />
-        <p data-testid="recipe-category">{strAlcoholic}</p>
-        <p data-testid="instructions">{strInstructions}</p>
-        <p data-testid="recipe-category">
-          Categoria:
-          {strCategory}
-        </p>
-        <ul>
-          {listIngredients(food)}
-        </ul>
-        <h2>Recommended Cards</h2>
-        {type === 'meals' && showFrame()}
+          <img
+            className="imgreceita"
+            data-testid="recipe-photo"
+            src={ strMealThumb || strDrinkThumb }
+            alt="img"
+          />
+          <h1 data-testid="recipe-title">{strMeal || strDrink}</h1>
+          <ShareBtn />
+          <FavoriteBtn />
+          <p data-testid="recipe-category">{strAlcoholic}</p>
+          <p data-testid="instructions">{strInstructions}</p>
+          <p data-testid="recipe-category">
+            Categoria:
+            {strCategory}
+          </p>
+          <ul>
+            {listIngredients(food)}
+          </ul>
+          <h2>Recommended Cards</h2>
+          {type === 'meals' && ShowFrame(food)}
 
-      </div>
-      <div>
-        { type === 'drinks' && (<CardsFood />)}
-        {type === 'meals' && (<CardsDrinks />)}
-      </div>
+        </div>
+        <div>
+          { type === 'drinks' && (<CardsFood />)}
+          {type === 'meals' && (<CardsDrinks />)}
+        </div>
 
-      {showRecipe(id) ? (
-        <Link
-          to={ path[type] }
-          className="btnstart btn btn-primary"
-          type="button"
-          data-testid="start-recipe-btn"
-        >
-          {buttonName()}
-        </Link>
-      ) : ('') }
+        {showRecipe(id) ? (
+          <Link
+            to={ path[type] }
+            className="btnstart btn btn-primary"
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            {buttonName()}
+          </Link>
+        ) : ('') }
 
-    </main>
-  );
+      </main>
+    );
+  }
+  return 'Loading...';
 }
 
 FoodDetails.propTypes = {

@@ -101,3 +101,7 @@
   width: 30px;
 }
 
+.favorite-btn {
+  background : transparent;
+  border : none;
+}
