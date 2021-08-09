@@ -21,6 +21,15 @@ export default function Profile() {
           Receitas Feitas
         </button>
       </Link>
+      <Link to="/">
+        <button
+          type="button"
+          data-testid="profile-logout-btn"
+          onClick={ handlerClick }
+        >
+          Sair
+        </button>
+      </Link>
 
       <Footer />
     </div>
