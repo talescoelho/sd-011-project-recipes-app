@@ -36,6 +36,7 @@ export default function FavoriteButton({ recipe, dataTestid }) {
     const favorites = (isFavorite) ? verifyFav : [...verifyFav, newFavorite];
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
     setFavorite(!isFavorite);
+    window.location.reload(false);
   }
 
   return (
