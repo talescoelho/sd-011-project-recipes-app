@@ -29,7 +29,7 @@ export default function ExplorarIngredientes() {
   useEffect(() => {
     fetchIngredients(domain, key)
       .then((data) => setIngredients(data));
-  }, []);
+  }, [domain, key]);
 
   function handleClick(ingredient) {
     setRedirect(true);
