@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
@@ -7,38 +7,61 @@ const copy = require('clipboard-copy');
 
 function RenderFavoriteRecipes() {
   const [copyOk, setCopyOk] = useState(false);
-  const [filterFoodRecipes, setFilterFoodRecipes] = useState(true);
-  const [filterDrinkRecipes, setFilterDrinkRecipes] = useState(true);
-  const setMakeMeRender = useState(0)[1]; //  Estado local adicionado apenas realizar uma re-renderização. Pensar em maneira mais eficientes de resolver o problema!
+  const [doneRecipes, setDoneRecipes] = useState(
+    JSON.parse(localStorage.getItem('favoriteRecipes'))
+    || [],
+  );
+  // const [filterFoodRecipes, setFilterFoodRecipes] = useState(false);
+  // const [filterDrinkRecipes, setFilterDrinkRecipes] = useState(false);
+  const [filter, setFilter] = useState('todo');
+  const [recipesToRender, setRecipesToRendes] = useState([]);
 
-  function resetFilters() {
-    setFilterFoodRecipes(true);
-    setFilterDrinkRecipes(true);
+  // function resetFilters() {
+  //   setFilterFoodRecipes(false);
+  //   setFilterDrinkRecipes(false);
+  // }
+
+  function handleClick({ target: { value } }) {
+    const filterToUse = filter === value
+      ? 'todo'
+      : value;
+    setFilter(filterToUse);
   }
 
-  const allFavoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  // useEffect(() => {
+  //   const allDoneRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  //   setDoneRecipes(allDoneRecipes);
+  //   // setRecipesToRendes(allDoneRecipes);
+  // }, []);
 
-  let filteredFavoriteRecipes = allFavoriteRecipes;
+  useEffect(() => {
+    switch (filter) {
+    case 'comida':
+      setRecipesToRendes(doneRecipes.filter((recipe) => recipe.type === 'comida'));
+      break;
+    case 'bebida':
+      setRecipesToRendes(doneRecipes.filter((recipe) => recipe.type === 'bebida'));
+      break;
+    default:
+      setRecipesToRendes(doneRecipes);
+    }
+  }, [filter]);
 
-  if (!filterFoodRecipes) {
-    filteredFavoriteRecipes = allFavoriteRecipes.filter((recipe) => (
-      recipe.type === 'comida'));
-  }
+  // useEffect(() => {
+  //   if (filterFoodRecipes || filterDrinkRecipes) {
+  //     console.log('Entrou no comidas');
+  //     setFilterDrinkRecipes(false);
+  //     setRecipesToRendes(doneRecipes.filter((recipe) => recipe.type === 'comida'));
+  //   } else if (filterDrinkRecipes) {
+  //     console.log('Entrou no bebidas');
+  //     setFilterFoodRecipes(false);
+  //     setRecipesToRendes(doneRecipes.filter((recipe) => recipe.type === 'bebida'));
+  //   } else {
+  //     setRecipesToRendes(doneRecipes);
+  //   }
+  // }, [filterFoodRecipes, filterFoodRecipes]);
 
-  if (!filterDrinkRecipes) {
-    filteredFavoriteRecipes = allFavoriteRecipes.filter((recipe) => (
-      recipe.type === 'bebida'));
-  }
-
-  function removeFromStorage(recipe) {
-    const compareRecipeId = recipe.id;
-    const updatedFavoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'))
-      .filter(({ id }) => id !== compareRecipeId);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavoriteRecipes));
-    setMakeMeRender();
-  }
-
-  if (filteredFavoriteRecipes.length !== 0) {
+  if (recipesToRender.length !== 0) {
     return (
       <div>
         <div>
@@ -46,26 +69,29 @@ function RenderFavoriteRecipes() {
             <button
               type="button"
               data-testid="filter-by-all-btn"
-              onClick={ resetFilters }
+              value="todo"
+              onClick={ handleClick }
             >
               All
             </button>
             <button
               type="button"
               data-testid="filter-by-food-btn"
-              onClick={ () => setFilterFoodRecipes(!filterFoodRecipes) }
+              value="comida"
+              onClick={ handleClick }
             >
               Food
             </button>
             <button
               type="button"
               data-testid="filter-by-drink-btn"
-              onClick={ () => setFilterDrinkRecipes(!filterDrinkRecipes) }
+              value="bebida"
+              onClick={ handleClick }
             >
               Drinks
             </button>
           </section>
-          { filteredFavoriteRecipes.map((recipe, index) => (
+          { recipesToRender.map((recipe, index) => (
             <div key={ index }>
               <Link to={ `/${recipe.type}s/${recipe.id}` }>
                 <img
@@ -98,7 +124,7 @@ function RenderFavoriteRecipes() {
               </button>
               <button
                 type="button"
-                onClick={ () => removeFromStorage(recipe) }
+                // onClick={ () => removeFromStorage(recipe) } IMPLEMENTAR
               >
                 <img
                   src={ favoriteIcon }
