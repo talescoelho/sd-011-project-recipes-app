@@ -45,7 +45,11 @@ function FoodExplore() {
           </button>
         </Link>
         {/* <Link to={ `/comidas/${!recipes && recipes[0].idMeal}` }> */}
-        <button type="button" data-testid="explore-surprise" onClick={ () => surpreenda() }>
+        <button
+          type="button"
+          data-testid="explore-surprise"
+          onClick={ () => surpreenda() }
+        >
           Me Surpreenda!
         </button>
         {/* </Link> */}
