@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ShareButton from '../Components/ShareButton';
+import RecomendedRecipes from '../Components/RecomendedRecipes';
 import './Styles/detailsrecipe.css';
 
-function DetailsRecipe() {
+function DrinkDetails(props) {
   const [recipes, setRecipes] = useState([]);
   // Didmount - Faz fetch trazendo a receita pelo id e seta o stado recipes com as receita
   useEffect(() => {
@@ -78,7 +79,7 @@ function DetailsRecipe() {
         />
       </div>
       {/* <h3 data-testid={ `${index}-recomendation-card"` }>Recomendadas</h3> */}
-      <div id="recommended"><h4>oi</h4></div>
+      <div id="recommended"><RecomendedRecipes /></div>
       <button
         id="start-recipe-btn"
         type="button"
@@ -90,4 +91,4 @@ function DetailsRecipe() {
   );
 }
 
-export default DetailsRecipe;
+export default DrinkDetails;

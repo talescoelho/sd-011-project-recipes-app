@@ -7,6 +7,7 @@ export default function useSearchbar() {
   const { setRecipe, recipe } = useContext(MyContext);
   const [searchResult, setSearchResult] = useState('');
   const [selectedSearch, setSelectedSearch] = useState('');
+  const [searchCategory, setSearchCategory, categories] = useContext('');
 
   const history = useHistory();
   const { pathname } = history.location;
@@ -58,5 +59,8 @@ export default function useSearchbar() {
     setSearchResult,
     redirectByChoice,
     getSearch,
+    searchCategory, 
+    setSearchCategory, 
+    categories,
   };
 }
