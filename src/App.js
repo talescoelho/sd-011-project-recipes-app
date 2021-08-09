@@ -4,10 +4,11 @@ import Explore from './pages/Explore';
 import ExploreDrink from './pages/ExploreDrink';
 import ExploreFood from './pages/ExploreFood';
 import FoodArea from './pages/FoodArea';
-import Header from './components/Header';
+import FoodIngredient from './pages/FoodIngredient';
 import Login from './pages/Login';
 import Meals from './pages/Meals';
 import Profile from './pages/Profile';
+import MealDetails from './pages/MealDetails';
 import Drinks from './pages/Drinks';
 import RecipeDetails from './pages/RecipeDetails';
 import ExploreDrinkIngredient from './pages/ExploreDrinkIngredient';
@@ -20,10 +21,10 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/explorar" component={ Explore } />
+        <Route path="/explorar/comidas/area" component={ FoodArea } />
         <Route exact path="/explorar/comidas" component={ ExploreFood } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrink } />
-        <Route path="/explorar/comidas/area" component={ FoodArea } />
-        <Route path="/header" component={ Header } />
+        <Route path="/comidas/:id" component={ MealDetails } />
         <Route path="/comidas" component={ Meals } />
         <Route path="/bebidas" component={ Drinks } />
         <Route path="/profile" component={ Profile } />
@@ -36,12 +37,10 @@ function App() {
           path="/explorar/bebidas/ingredientes"
           component={ ExploreDrinkIngredient }
         />
-        { /* <Route path="/comidas" component={} />
-        <Route path="/bebidas:id" component={} />
-        <Route path="/bebidas:id" component={} />
-        <Route path="/explorar/comidas/area" component={} />
+        {/* <Route path="/bebidas:id" component={} />
+        Tela de receita em processo de comida: /comidas/{id-da-receita}/in-progress;
+        Tela de receita em processo de bebida: /bebidas/{id-da-receita}/in-progress;
         <Route path="/receitas-feitas" component={} />
-        <Route path="/bebidas:id" component={} />
         <Route path="/receitas-favoritas" component={} />
         <Route path="*" component={ NotFound } /> */ }
       </Switch>

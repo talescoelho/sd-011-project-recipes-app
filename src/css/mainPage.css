@@ -1,9 +1,13 @@
 .meals {
   display: flex;
   flex-flow: row wrap;
-  padding: 15px;
   justify-content: space-around;
+  padding: 15px;
 }
+
+/* .meals button {
+  background-color: hotpink;
+} */
 
 .meal {
   border: 1px solid rgba(0, 0, 0, 0.125);
@@ -12,14 +16,14 @@
 }
 
 .meal img {
-  width: 150px;
+  width: 140px;
 }
 
 .drinks {
   display: flex;
   flex-flow: row wrap;
-  padding: 15px;
   justify-content: space-around;
+  padding: 15px;
 }
 
 .drink {
@@ -30,4 +34,13 @@
 
 .drink img {
   width: 150px;
+}
+
+.btn-categories {
+  margin: 10px 10px 0;
+}
+
+.btn-categories button {
+  margin: 5px;
+  width: 100px;
 }
