@@ -5,7 +5,7 @@ import RecipeInstructions from '../components/common/RecipeInstructions';
 import StartRecipeBtn from '../components/common/StartRecipeBtn';
 import { requestMealDetails } from '../redux/actions/recipeDetailsActions';
 
-const FoodDetails = ({ match, dispatch }) => {
+const FoodDetails = ({ dispatch, match, mealDetails }) => {
   const { params: { id }, url } = match;
 
   useEffect(() => {
@@ -16,11 +16,15 @@ const FoodDetails = ({ match, dispatch }) => {
   return (
     <>
       <div>Pagina de Detalhe de Comida</div>
-      <RecipeInstructions strInstructions="Send Recipe Instructions by props" />
+      <RecipeInstructions strInstructions={ mealDetails.strInstructions } />
       <StartRecipeBtn routeInfo={ { id, url } } />
     </>
   );
 };
+
+const mapStateToProps = (state) => ({
+  mealDetails: state.recipeDetailsReducer.meal,
+});
 
 FoodDetails.propTypes = {
   dispatch: func,
@@ -29,6 +33,9 @@ FoodDetails.propTypes = {
       id: string,
     }),
     url: string,
+  }),
+  mealDetails: shape({
+    strInstructions: string,
   }),
 }.isRequired;
 

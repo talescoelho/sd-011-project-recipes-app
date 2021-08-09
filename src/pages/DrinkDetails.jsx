@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import PropTypes, { shape, string } from 'prop-types';
 import RecipeInstructions from '../components/common/RecipeInstructions';
 import StartRecipeBtn from '../components/common/StartRecipeBtn';
 import { requestDrinkDetails } from '../redux/actions/recipeDetailsActions';
 
-const DrinkDetails = ({ match, dispatch }) => {
+const DrinkDetails = ({ dispatch, match, drinkDetails }) => {
   const { params: { id }, url } = match;
 
   useEffect(() => {
@@ -16,20 +16,27 @@ const DrinkDetails = ({ match, dispatch }) => {
   return (
     <>
       <div>Pagina de Detalhe de Bebidas</div>
-      <RecipeInstructions strInstructions="Send Recipe Instructions by props" />
+      <RecipeInstructions strInstructions={ drinkDetails.strInstructions } />
       <StartRecipeBtn routeInfo={ { id, url } } />
     </>
   );
 };
 
+const mapStateToProps = (state) => ({
+  drinkDetails: state.recipeDetailsReducer.drink,
+});
+
 DrinkDetails.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
     }),
     url: PropTypes.string,
-  }).isRequired,
-};
+  }),
+  drinkDetails: shape({
+    strInstructions: string,
+  }),
+}.isRequired;
 
-export default connect()(DrinkDetails);
+export default connect(mapStateToProps)(DrinkDetails);
