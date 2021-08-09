@@ -39,9 +39,7 @@ export default class FoodInProgress extends Component {
         favRecipeLocalStorage = favRecipenew;
       }
       if (favRecipeLocalStorage === id) {
-        this.setState({
-          favoriteFood: true,
-        });
+        this.setState({ favoriteFood: true });
       }
     };
     this.newFunction();
