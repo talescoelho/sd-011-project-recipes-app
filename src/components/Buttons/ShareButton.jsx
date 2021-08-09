@@ -3,8 +3,9 @@ import clipboard from 'clipboard-copy';
 import propTypes from 'prop-types';
 import imageShare from '../../images/shareIcon.svg';
 
-export default function ShareBtn({ url, index }) {
+export default function ShareButton({ url, index }) {
   const [visible, setVisible] = useState(true);
+
   const copyUrlToClipboard = () => {
     const time = 2000;
     clipboard(url);
@@ -29,7 +30,7 @@ export default function ShareBtn({ url, index }) {
   );
 }
 
-ShareBtn.propTypes = {
+ShareButton.propTypes = {
   url: propTypes.string.isRequired,
   index: propTypes.number.isRequired,
 };

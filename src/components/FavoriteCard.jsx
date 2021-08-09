@@ -1,20 +1,23 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import ShareButton from './Buttons/ShareButton';
 import FavoriteButton from './Buttons/FavoriteButton';
 
 export default function FavoriteCard({ el, index }) {
   const { id, type, area, category, alcoholicOrNot, doneDate, name, image, tags } = el;
   const tagsArray = tags && Array.from(tags.toString().split(',').slice(0, 2));
-  const url = window.location.href.replace(/\/receitas-feitas/, `/${type}s/${id}`);
+  const url = window.location.href.replace(/\/receitas-favoritas/, `/${type}s/${id}`);
   return (
     <div className="done-container">
       <div className="product-details">
         <div className="d-flex col justify-content-center">
-          <h1 data-testid={ `${index}-horizontal-name` }>{name}</h1>
+          <Link to={ `/${type}s/${id}` }>
+            <h1 data-testid={ `${index}-horizontal-name` }>{name}</h1>
+          </Link>
           <div>
-            <ShareButton { ...{ index, url } } />
-            <FavoriteButton { ...{ id } } />
+            <ShareButton { ...{ index, url, el } } />
+            <FavoriteButton { ...{ id, index } } />
           </div>
         </div>
         <p className="information">
@@ -38,11 +41,13 @@ export default function FavoriteCard({ el, index }) {
         </p>
       </div>
       <div className="product-image">
-        <img
-          data-testid={ `${index}-horizontal-image` }
-          src={ image }
-          alt=""
-        />
+        <Link to={ `/${type}s/${id}` }>
+          <img
+            data-testid={ `${index}-horizontal-image` }
+            src={ image }
+            alt=""
+          />
+        </Link>
 
       </div>
 

@@ -18,6 +18,10 @@ const userReducer = (state = initialState, action) => {
     return { ...state, favoriteRecipes: payload };
   }
 
+  case 'FILTER_RECIPES': {
+    return { ...state, favoriteRecipes: payload };
+  }
+
   default:
     return { ...state };
   }

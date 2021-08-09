@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import FavoriteCard from '../components/FavoriteCard';
 import '../styles/doneRecipes.css';
 import useLSHook from '../components/Hooks/useLSHook';
-import { getFavoriteRecipes } from '../Redux/actions/index';
+import { getFavoriteRecipes, filterBookmarked } from '../Redux/actions/index';
 
 export default function FavoritePage() {
   const dispatch = useDispatch();
@@ -18,14 +18,12 @@ export default function FavoritePage() {
     }
   }, [dispatch, favoriteRecipes]);
 
-  console.log(recipes);
-
   const filterRecipes = (foodEl) => {
     if (foodEl) {
       const filteredRecipes = favoriteRecipes.filter((food) => food.type === foodEl);
-      return setFavoriteRecipes(filteredRecipes);
+      return dispatch(filterBookmarked(filteredRecipes));
     }
-    return setFavoriteRecipes(favoriteRecipes);
+    return dispatch(filterBookmarked(favoriteRecipes));
   };
 
   const cardsToRender = (cardsRender) => (

@@ -29,3 +29,8 @@ export const getFavoriteRecipes = (payload) => ({
   payload,
 
 });
+
+export const filterBookmarked = (payload) => ({
+  type: 'FILTER_RECIPES',
+  payload,
+});
