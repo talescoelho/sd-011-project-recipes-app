@@ -4,6 +4,7 @@ import profileIcon from '../images/profileIcon.svg';
 
 function Explore() {
   return (
+    <>
     <div>
       <h1 data-testid="page-title">Explorar</h1>
       <img
@@ -12,6 +13,11 @@ function Explore() {
         alt="Botão que direciona para a tela de perfil"
       />
     </div>
+    <div>
+      <button type='button' data-testid="explore-food" >Explorar Comidas</button>
+      <button type='button' data-testid="explore-drinks" >Explorar Bebidas</button>
+    </div>
+    </>
   );
 }
 
