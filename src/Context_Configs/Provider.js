@@ -19,8 +19,6 @@ const URL_DRINK_FIRST_LETTER = 'https://www.thecocktaildb.com/api/json/v1/1/sear
 
 // ====================
 
-// ====================
-
 function Provider({ children }) {
   const [renderCategory, setRenderCategory] = useState(true);
 

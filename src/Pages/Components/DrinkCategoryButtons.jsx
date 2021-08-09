@@ -26,7 +26,7 @@ export default function DrinkCategoryButtons() {
     } else {
       const twelveItems = 12;
       const drinks = await CategoryDrinkFilter(target.innerHTML);
-      setDrinksForCategory(drinks.filter((_, index) => index < twelveItems));
+      setDrinksForCategory(drinks && drinks.filter((_, index) => index < twelveItems));
       setRenderCategory(false);
     }
   }

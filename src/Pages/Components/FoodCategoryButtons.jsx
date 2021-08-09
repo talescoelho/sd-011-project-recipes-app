@@ -28,7 +28,8 @@ export default function FoodCategory() {
     } else {
       const twelveItems = 12;
       const meals = await CategoryFoodFilter(value);
-      setFoodsForCategory(meals.filter((_, index) => index < twelveItems));
+      setFoodsForCategory(meals && meals.filter((_, index) => index < twelveItems));
+
       setRenderCategory(false);
     }
   }
