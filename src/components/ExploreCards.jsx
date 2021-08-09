@@ -9,14 +9,31 @@ export default function ExploreCards() {
   const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation().pathname;
-  console.log(location);
 
   const limit = 12;
 
   const food = '/explorar/comidas/ingredientes';
   const drink = '/explorar/bebidas/ingredientes';
 
-  function getIngredientesFromApi() {
+  // function getIngredientesFromApi() {
+  //   setIsLoading(true);
+  //   const URL_MEAL_INGREDIENTS = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+  //   const URL_COCKTAIL_INGREDIENTS = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+  //   if (location === food) {
+  //     fetch(URL_MEAL_INGREDIENTS)
+  //       .then((response) => response.json())
+  //       .then((data) => setIngredients(data.meals));
+  //     setIsLoading(false);
+  //   } else if (location === drink) {
+  //     fetch(URL_COCKTAIL_INGREDIENTS)
+  //       .then((response) => response.json())
+  //       .then((data) => setIngredients(data.drinks));
+  //     setIsLoading(false);
+  //   }
+  // }
+  // useEffect(getIngredientesFromApi, [location, ingredients]);
+
+  useEffect(() => {
     setIsLoading(true);
     const URL_MEAL_INGREDIENTS = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
     const URL_COCKTAIL_INGREDIENTS = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
@@ -31,8 +48,7 @@ export default function ExploreCards() {
         .then((data) => setIngredients(data.drinks));
       setIsLoading(false);
     }
-  }
-  useEffect(getIngredientesFromApi, [location, ingredients]);
+  }, [location]);
 
   return (
     <div className="explore-cards-section">

@@ -12,11 +12,14 @@ function Header() {
 
   function getPageTitle() {
     const path = location.pathname;
+    const area = '/explorar/comidas/area';
     let pageTitle = '';
     if (path.split('/').length === 2) {
       const title = `${path.split('/')[1]} `;
       pageTitle = title.charAt(0).toUpperCase() + title.slice(1);
-    } else {
+    } else if (path === area) {
+      pageTitle = 'Explorar Origem';
+    } else if (path !== area) {
       const end = path.split('/').length - 1;
       const pageTitle1 = `${path.split('/')[1]}`;
       const title1 = pageTitle1.charAt(0).toUpperCase() + pageTitle1.slice(1);
@@ -42,12 +45,14 @@ function Header() {
             data-testid="profile-top-btn"
           />
         </Link>
-        <h3>{ getPageTitle() }</h3>
+        <h3 data-testid="page-title">{ getPageTitle() }</h3>
         { location.pathname === '/comidas'
           && <ButtonSearchTop openSearchBar={ searchButtonElements } />}
         { location.pathname === '/bebidas'
           && <ButtonSearchTop openSearchBar={ searchButtonElements } />}
         { location.pathname === '/explorar/area'
+          && <ButtonSearchTop openSearchBar={ searchButtonElements } />}
+        { location.pathname === '/explorar/comidas/area'
           && <ButtonSearchTop openSearchBar={ searchButtonElements } />}
       </div>
       { isSearch && <SearchBar /> }

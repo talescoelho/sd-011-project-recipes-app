@@ -1,13 +1,14 @@
 .categories-section {
   display: flex;
   flex-flow: row wrap;
+  margin: 5px auto;
   width: 95%;
 }
 
 .categories-section button {
-  background-color: white;
-  font-size: 0.6em;
-  margin: 3px;
+  background-color: #fae8e0;
+  font-size: 0.62em;
+  margin: 5px 3px;
   padding: 3px 0;
-  width: 30%;
+  width: 31%;
 }

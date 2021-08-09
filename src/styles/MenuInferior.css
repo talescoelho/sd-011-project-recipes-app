@@ -1,0 +1,12 @@
+.menu-bottom {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+}
+
+.menu-bottom-imagens {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: 95%;
+}
