@@ -1,4 +1,4 @@
-export async function getCategories() {
+export async function getCategoriesDrink() {
   const categories = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
   const result = await categories.json();
   return result.drinks;
@@ -57,6 +57,12 @@ export async function searchRandonDrink() {
   const randomDrink = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
   const result = await randomDrink.json();
   return result.drinks[0];
+}
+
+export async function searchByCategoryDrink(category) {
+  const categories = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
+  const result = await categories.json();
+  return result.drinks;
 }
 
 export async function searchDrinksAll() {

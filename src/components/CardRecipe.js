@@ -10,21 +10,25 @@ function CardRecipe({ item, index }) {
       { local === url
         ? (
           <div data-testid={ `${index}-recipe-card` }>
-            <p data-testid={ `${index}-card-name` }>{ item.strMeal }</p>
+            <p data-testid={ `${index}-card-name` }>
+              { item.strMeal ? item.strMeal : item.strCategory }
+            </p>
             <img
               data-testid={ `${index}-card-img` }
-              src={ item.strMealThumb }
-              alt={ item.strMeal }
+              src={ item.strMealThumb ? item.strMealThumb : item.strCategoryThumb }
+              alt={ `${index}-card-name` }
               width="50px"
             />
           </div>
         ) : (
           <div>
-            <p data-testid={ `${index}-card-name` }>{ item.strDrink }</p>
+            <p data-testid={ `${index}-card-name` }>
+              { item.strDrink ? item.strDrink : item.strCategory }
+            </p>
             <img
               data-testid={ `${index}-card-img` }
-              src={ item.strDrinkThumb }
-              alt={ item.strDrink }
+              src={ item.strDrinkThumb ? item.strDrinkThumb : 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg' }
+              alt={ `${index}-card-name` }
               width="50px"
             />
           </div>
