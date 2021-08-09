@@ -29,7 +29,6 @@ function FoodInProgress() {
     if (local) {
       const array = JSON.parse(local);
       if (array.cocktails[id]) {
-        console.log(array.cocktails[id]);
         dispatch(updateArray(array.cocktails[id]));
       }
     }

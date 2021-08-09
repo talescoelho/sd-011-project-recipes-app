@@ -34,7 +34,6 @@ function FoodInProgress() {
     if (local) {
       const array = JSON.parse(local);
       if (array.meals[id]) {
-        console.log(array.meals[id]);
         dispatch(updateArray(array.meals[id]));
       }
     }
@@ -59,13 +58,11 @@ function FoodInProgress() {
   const checkIngredients = (e) => {
     const { target } = e;
     const { parentNode, checked } = target;
-    console.log(checked);
     const ingName = Number(target.id);
 
     if (checked === true) {
       parentNode.className = 'checkedIngredient';
       dispatch(addIngredient(ingName));
-      console.log(meal.meals[0].strTags.split(','));
     } else {
       parentNode.className = '';
       dispatch(deleteIngredient(ingName));

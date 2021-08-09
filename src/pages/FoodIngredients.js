@@ -21,7 +21,6 @@ const FoodIngredients = () => {
     return null;
   }
 
-  console.log(pathname);
   const magicNumber = 12;
   const filteredData = data.meals.filter((item, index) => index < magicNumber);
 
