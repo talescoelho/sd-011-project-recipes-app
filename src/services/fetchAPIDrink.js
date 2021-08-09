@@ -2,9 +2,10 @@ const urlIngredients = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=l
 const urlName = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const urlCategory = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=';
 const urlCategoryFilter = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
-// const urlFirstLetter = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f={primeira-letra}';
+const urlFirstLetter = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f={primeira-letra}';
 const urlId = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 const drinkRandom = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+const urlIngredientsFilter = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
 
 export async function fetchAPIName(name) {
   try {

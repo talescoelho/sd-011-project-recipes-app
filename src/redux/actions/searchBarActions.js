@@ -1,4 +1,5 @@
 import { fetchAPIName, fetchFoodIngredientSearch, fetchAPIFirstLetter } from "../../services/fetchAPIFood";
+import
 
 export const UPDATE_QUERY = 'UPDATE_QUERY';
 export const UPDATE_SELECTED_FILTER = 'UPDATE_SELECTED_FILTER';
