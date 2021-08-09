@@ -18,6 +18,7 @@ class FavoriteButton extends Component {
   }
 
   componentDidMount() {
+    this.handleHeart();
     const { id } = this.props;
     const favoriteMeals = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (favoriteMeals && favoriteMeals.find((item) => item.id === id)) {
@@ -26,6 +27,10 @@ class FavoriteButton extends Component {
   }
 
   componentDidUpdate() {
+    this.handleHeart();
+  }
+
+  handleHeart() {
     const { id } = this.props;
     const { whiteHeart } = this.state;
     const favoriteMeals = JSON.parse(localStorage.getItem('favoriteRecipes'));
