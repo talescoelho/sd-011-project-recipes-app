@@ -33,16 +33,25 @@ export default function RecipesFood() {
       <Header className="title" title="Bebidas" searchIconAppears />
       <div className="cardlist">
       {renderCardRecipes().map((recp, index) => (
-         <Link
-         className="link"
-         to = '/bebidas/drink-details'>
+        //  <
+        //  className="link"
+        //  to={ {
+        //   pathname: '/bebidas/drink-details',
+        //   state: ({
+        //     idDrink,
+        //     strDrink,
+        //     strAlcoholic,
+        //     strInstructions,
+        //     strDrinkThumb,
+        //  }),
+        // } }
          <CardRecipes
           key={ index }
           index={ index }
           thumb={ recp.strDrinkThumb }
           title={ recp.strDrink }
           />
-          </Link>))}  
+          ))}  
       </div>
       <Footer />
     </div>
