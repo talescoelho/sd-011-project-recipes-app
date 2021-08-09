@@ -26,6 +26,14 @@ export const APImeals = async () => {
   return APIjson;
 };
 
+export const APIDrinksById = async (id) => {
+  const URLmealsid = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const APIfetch = await fetch(URLmealsid);
+  const APIjson = await APIfetch.json();
+  console.log('rodou API request drinks do service');
+  return APIjson;
+};
+
 export const APImealsByCat = async () => { // busca o nome das categorias
   const APIfetch = await fetch(URLmealsByCat);
   const APIjson = await APIfetch.json();
