@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchRecipeDetail } from '../actions';
 
-function RecipeDetail({ history: { location: { pathname } }, dispatchFetchDetail }) {
+function RecipeDetail({ history: { location: { pathname } },
+  dispatchFetchDetail, recipeDetailMeal, recipeDetailDrink }) {
   const { id } = useParams();
 
   React.useEffect(() => {
@@ -13,13 +14,36 @@ function RecipeDetail({ history: { location: { pathname } }, dispatchFetchDetail
   }, [id, pathname, dispatchFetchDetail]);
 
   function mealMain() {
+    const { strMealThumb, strMeal, strCategory, strInstructions,
+      strYoutube } = recipeDetailMeal;
+
+    const strYoutubeEmbed = strYoutube && strYoutube.replace('watch?v=', 'embed/');
+
+    let count = 1;
+
+    const ingredientes = recipeDetailMeal && Object.keys(recipeDetailMeal)
+      .filter((item) => {
+        if (item === `strIngredient${count}` && recipeDetailMeal[item]) {
+          count += 1;
+          return true;
+        }
+        return false;
+      }).map((item, i) => {
+        if (recipeDetailMeal[item]) {
+          const strIngredient = `${recipeDetailMeal[`strIngredient${i + 1}`]} - `;
+          const strMeasure = `${recipeDetailMeal[`strMeasure${i + 1}`]}`;
+          return [strIngredient, strMeasure].join('');
+        }
+        return null;
+      });
+
     return (
       <main data-testid="recipes-page">
         <h1>Conteúdo da tela de DETALHES de COMIDAS</h1>
         <br />
-        <img data-testid="recipe-photo" alt="" />
+        <img data-testid="recipe-photo" alt="meal recipe" src={ strMealThumb } />
         <br />
-        <h2 data-testid="recipe-title"> Title here</h2>
+        <h2 data-testid="recipe-title">{ strMeal }</h2>
         <br />
         <button data-testid="share-btn" type="button">
           <img alt="" />
@@ -30,28 +54,42 @@ function RecipeDetail({ history: { location: { pathname } }, dispatchFetchDetail
         </button>
         <br />
         <br />
-        <h4 data-testid="recipe-category"> Category</h4>
+        <h4 data-testid="recipe-category">{ strCategory }</h4>
         <br />
         <br />
         <h3> Ingredientes</h3>
         <ul name="ingredients-list">
-          <li data-testid="0-ingredient-name-and-measure">Algum ingredinte aqui</li>
-          <li>Algum ingredinte aqui</li>
-          <li> E por ai vai...</li>
+          <br />
+          {ingredientes.map((mealIngred, i) => (
+            <li
+              data-testid={ `${i}-ingredient-name-and-measure` }
+              key={ i }
+            >
+              { mealIngred }
+            </li>))}
         </ul>
         <br />
         <br />
         <div data-testid="instructions">
           <h3> Instruções</h3>
           <br />
-          Texto das instrunções por aqui.
+          { strInstructions }
           <br />
         </div>
         <br />
         <div data-testid="video">
           <h3> Video </h3>
           <br />
-          Video aqui.
+          <iframe
+            width="853"
+            height="480"
+            src={ strYoutubeEmbed }
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write;
+            encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title="Embedded youtube"
+          />
         </div>
         <br />
         <div>
@@ -73,13 +111,34 @@ function RecipeDetail({ history: { location: { pathname } }, dispatchFetchDetail
   }
 
   function drinkMain() {
+    const { strDrinkThumb, strDrink, strAlcoholic,
+      strInstructions } = recipeDetailDrink;
+
+    let count = 1;
+
+    const ingredientes = recipeDetailDrink && Object.keys(recipeDetailDrink)
+      .filter((item) => {
+        if (item === `strIngredient${count}` && recipeDetailDrink[item]) {
+          count += 1;
+          return true;
+        }
+        return false;
+      }).map((item, i) => {
+        if (recipeDetailDrink[item]) {
+          const strIngredient = `${recipeDetailDrink[`strIngredient${i + 1}`]} - `;
+          const strMeasure = `${recipeDetailDrink[`strMeasure${i + 1}`]}`;
+          return [strIngredient, strMeasure].join('');
+        }
+        return null;
+      });
+
     return (
       <main data-testid="recipes-page">
         <h1>Conteúdo da tela de DETALHES de BEBIDAS</h1>
         <br />
-        <img data-testid="recipe-photo" alt="" />
+        <img data-testid="recipe-photo" alt="drink recipe" src={ strDrinkThumb } />
         <br />
-        <h2 data-testid="recipe-title"> Title here</h2>
+        <h2 data-testid="recipe-title">{strDrink}</h2>
         <br />
         <button data-testid="share-btn" type="button">
           <img alt="" />
@@ -90,21 +149,26 @@ function RecipeDetail({ history: { location: { pathname } }, dispatchFetchDetail
         </button>
         <br />
         <br />
-        <h4 data-testid="recipe-category"> Category</h4>
+        <h4 data-testid="recipe-category">{strAlcoholic}</h4>
         <br />
         <br />
         <h3> Ingredientes</h3>
         <ul name="ingredients-list">
-          <li data-testid="0-ingredient-name-and-measure">Algum ingredinte aqui</li>
-          <li>Algum ingredinte aqui</li>
-          <li> E por ai vai...</li>
+          <br />
+          {ingredientes.map((drinkIngred, i) => (
+            <li
+              data-testid={ `${i}-ingredient-name-and-measure` }
+              key={ i }
+            >
+              { drinkIngred }
+            </li>))}
         </ul>
         <br />
         <br />
         <div data-testid="instructions">
           <h3> Instruções</h3>
           <br />
-          Texto das instrunções por aqui.
+          {strInstructions}
           <br />
         </div>
         <br />
@@ -140,11 +204,16 @@ function RecipeDetail({ history: { location: { pathname } }, dispatchFetchDetail
   );
 }
 
+const mapStateToProps = ({ recipeDetailReducer }) => ({
+  recipeDetailMeal: recipeDetailReducer.meal.detail,
+  recipeDetailDrink: recipeDetailReducer.drink.detail,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   dispatchFetchDetail: (type, id) => dispatch(fetchRecipeDetail(type, id)),
 });
 
-export default connect(null, mapDispatchToProps)(RecipeDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetail);
 
 RecipeDetail.propTypes = {
   history: PropTypes.shape({
@@ -152,5 +221,7 @@ RecipeDetail.propTypes = {
       pathname: PropTypes.string,
     }),
   }),
+  recipeDetailMeal: PropTypes.object,
+  recipeDetailDrink: PropTypes.object,
   dispatchFetchDetail: PropTypes.func,
 }.isRequired;

@@ -3,12 +3,12 @@ import { MEAL_DETAIL, MEAL_DETAIL_SUCCESS, MEAL_DETAIL_ERROR,
 
 const INITIAL_STATE = {
   meal: {
-    detail: [],
+    detail: {},
     loading: false,
     error: null,
   },
   drink: {
-    detail: [],
+    detail: {},
     loading: false,
     error: null,
   },
@@ -24,7 +24,7 @@ const recipeDetailReducer = (state = INITIAL_STATE, { type, payload }) => {
   case MEAL_DETAIL_SUCCESS:
     return {
       ...state,
-      meal: { ...state.meal, loading: false, detail: payload },
+      meal: { ...state.meal, loading: false, detail: payload[0] },
     };
   case MEAL_DETAIL_ERROR:
     return {
@@ -39,7 +39,7 @@ const recipeDetailReducer = (state = INITIAL_STATE, { type, payload }) => {
   case DRINK_DETAIL_SUCCESS:
     return {
       ...state,
-      drink: { ...state.drink, loading: false, detail: payload },
+      drink: { ...state.drink, loading: false, detail: payload[0] },
     };
   case DRINK_DETAIL_ERROR:
     return {
