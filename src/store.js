@@ -5,6 +5,7 @@ import {
   recipesReducer,
   cocktailReducer,
   categoryReducer,
+  ingredientReducer,
 } from './hooks';
 
 const store = configureStore({
@@ -14,6 +15,7 @@ const store = configureStore({
     recipes: recipesReducer,
     cocktails: cocktailReducer,
     categorys: categoryReducer,
+    ingredients: ingredientReducer,
   },
 });
 
