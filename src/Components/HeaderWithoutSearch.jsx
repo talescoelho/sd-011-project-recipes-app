@@ -7,12 +7,12 @@ export default class HeaderWithoutSearch extends Component {
   render() {
     const { title } = this.props;
     return (
-      <div>
+      <>
         <Link to="/perfil" className="profilePicture">
           <img data-testid="profile-top-btn" src={ profilePicture } alt="profileIcon" />
         </Link>
-        <h1 data-testid="page-title">{ title }</h1>
-      </div>
+        <h1 className="title-header" data-testid="page-title">{ title }</h1>
+      </>
     );
   }
 }
