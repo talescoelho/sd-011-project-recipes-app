@@ -58,7 +58,7 @@ export default function Details() {
           <img data-testid="recipe-photo" src={ image } alt={ name } />
           <h2 data-testid="recipe-title">{ name }</h2>
           <h3 data-testid="recipe-category">{ category }</h3>
-          <ShareButton type={ drinkOrFood } id={ id } />
+          <ShareButton type={ drinkOrFood } id={ id } dataTestid="share-btn" />
           <FavoriteButton
             recipe={ recipeIds }
             dataTestid="favorite-btn"
@@ -72,7 +72,7 @@ export default function Details() {
             (video) && <iframe src={ video } title="Instruções" data-testid="video" />
           }
           <Recommendations type={ reverseType } />
-          <RecipeButton state={ state } />
+          <RecipeButton state={ state } recipe={ recipeIds } />
         </div>
       </DetailsProvider>
     );

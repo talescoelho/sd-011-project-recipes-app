@@ -3,7 +3,6 @@ import Header from '../components/Header';
 import FavoriteCard from '../components/FavoriteCard';
 
 export default function FavouriteRecipes() {
-  const name = 'Receitas Favoritas';
   const [recipes, setRecipes] = useState([]);
   const [filter, setFilter] = useState('all');
   useEffect(() => {
@@ -22,7 +21,7 @@ export default function FavouriteRecipes() {
   }
   return (
     <div>
-      <Header pageName={ name } />
+      <Header pageName="Receitas Favoritas" />
       Receitas Favoritas
       <div>
         <button

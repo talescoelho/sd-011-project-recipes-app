@@ -1,20 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import DoneRecipeCard from '../components/DoneRecipeCard';
 
 export default function DoneRecipes() {
-  const localStorage = [];
+  const [recipes, setRecipes] = useState([]);
+  const [filter, setFilter] = useState('all');
+
+  useEffect(() => {
+    const doneRecipes = JSON.parse(localStorage.doneRecipes);
+    if (filter === 'all') {
+      setRecipes(doneRecipes);
+    } else {
+      const filterRecipes = doneRecipes.filter((element) => element.type === filter);
+      setRecipes(filterRecipes);
+    }
+  }, [filter]);
+
   return (
     <div>
       <Header pageName="Receitas Feitas" />
       <div>
-        <button type="button" data-testid="filter-by-all-btn">All</button>
-        <button type="button" data-testid="filter-by-food-btn">Food</button>
-        <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
+        <button
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ () => setFilter('all') }
+        >
+          All
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-food-btn"
+          onClick={ () => setFilter('comida') }
+        >
+          Food
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => setFilter('bebida') }
+        >
+          Drinks
+        </button>
       </div>
       {
-        localStorage.map((element, index) => (
-          <DoneRecipeCard recipe={ element } key={ index } />))
+        recipes.map((element, index) => (
+          <DoneRecipeCard recipe={ element } key={ index } index={ index } />))
       }
     </div>
   );
