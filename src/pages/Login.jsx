@@ -59,5 +59,5 @@ function Login({ history }) {
 export default Login;
 
 Login.propTypes = {
-  history: PropTypes.objectOf(PropTypes.number).isRequired,
+  history: PropTypes.objectOf(PropTypes.object).isRequired,
 };
