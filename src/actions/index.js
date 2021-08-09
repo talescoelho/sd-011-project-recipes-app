@@ -1,4 +1,5 @@
 export const SEND_LOGIN_INFO = 'SEND_LOGIN_INFO';
+export const ADD_RECIPES = 'ADD_RECIPES';
 
 export const ADD_RECIPE_ONGOING = 'ADD_RECIPE_ONGOING';
 export const ADD_RECIPE_DONE = 'ADD_RECIPE_DONE';
@@ -24,4 +25,9 @@ export const addRecipeFavorite = (obj) => ({
 export const addRecipeDone = (obj) => ({
   type: ADD_RECIPE_DONE,
   payload: obj,
+});
+
+export const saveRecipes = (recipes) => ({
+  type: ADD_RECIPES,
+  recipes,
 });
