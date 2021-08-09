@@ -58,13 +58,14 @@ export const showRecipe = (id) => {
 };
 
 export const addDoneRecipe = ({ item }) => {
+  const magic = 10;
   const food = {
     id: item.idDrink || item.idMeal,
     type: item.idDrink ? 'bebida' : 'comida',
     area: item.strArea || '',
     category: item.strCategory || '',
     alcoholicOrNot: item.strAlcoholic || '',
-    date: Date.now(),
+    doneDate: new Date().toISOString().slice(0, magic),
     name: item.strMeal || item.strDrink,
     image: item.strMealThumb || item.strDrinkThumb,
     tags: item.strTags || '',
