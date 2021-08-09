@@ -1,8 +1,8 @@
 .meals {
   display: flex;
   flex-flow: row wrap;
-  padding: 15px;
   justify-content: space-around;
+  padding: 15px;
 }
 
 /* .meals button {
@@ -22,8 +22,8 @@
 .drinks {
   display: flex;
   flex-flow: row wrap;
-  padding: 15px;
   justify-content: space-around;
+  padding: 15px;
 }
 
 .drink {
@@ -41,6 +41,6 @@
 }
 
 .btn-categories button {
-  width: 100px;
   margin: 5px;
+  width: 100px;
 }

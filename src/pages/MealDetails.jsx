@@ -1,6 +1,5 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import UserContext from '../context/UserContext';
 import RecipeCard from '../components/RecipeCard';
 import Recommendations from '../components/Recommendations';
 import IngredientsList from '../components/IngredientsList';
@@ -12,9 +11,8 @@ import '../css/footerMenu.css';
 // Adicionar loading
 
 function MealDetails({ match: { params } }) {
-  const MAGIC6 = 6;
-  const { drinks } = useContext(UserContext);
   const [MealDataAPI, setMealDadaAPI] = useState({});
+
   useEffect(() => {
     const { id } = params;
     const requestMeal = async () => {
@@ -22,7 +20,7 @@ function MealDetails({ match: { params } }) {
       setMealDadaAPI(response.meals[0]);
     };
     requestMeal();
-  }, []);
+  }, [params]);
 
   return (
     <div>
@@ -56,7 +54,6 @@ function MealDetails({ match: { params } }) {
 
       <button className="footer" type="button" data-testid="start-recipe-btn">
         Iniciar Receita
-        {/* no click desse botão muda a url e envia apra o receitas em prograsso que ira usar o card da receita e no lugar de ingredientes irá colocar os checkbox. */}
       </button>
     </div>
   );
