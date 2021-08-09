@@ -1,9 +1,10 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
 import Login from '../pages/login';
 import renderWithRouterAndStore from './testConfig';
-import { createMemoryHistory } from 'history';
-const history = createMemoryHistory({ initialEntries: [`/`] });
+
+const history = createMemoryHistory({ initialEntries: ['/'] });
 
 const EMAIL_INPUT_TEST_ID = 'email-input';
 const PASSWORD_INPUT_TEST_ID = 'password-input';
@@ -14,14 +15,16 @@ afterEach(() => jest.clearAllMocks());
 describe('Crie uma página inicial de login', () => {
   // CAMPO EMAIL
   test('A pagina deve ter o campo de email', () => {
-    const { getByTestId } = renderWithRouterAndStore(<Login history={history} />, history);
+    const { getByTestId } = renderWithRouterAndStore(<Login
+      history={ history }
+    />, history);
     const inputEmail = getByTestId(EMAIL_INPUT_TEST_ID);
     expect(inputEmail).toBeInTheDocument();
     expect(inputEmail).toHaveValue('');
   });
 
   test('Testando o campo de email', () => {
-    const { getByTestId } = renderWithRouterAndStore(<Login history={history}  />);
+    const { getByTestId } = renderWithRouterAndStore(<Login history={ history } />);
     const TEST_EMAIL = 'email@email.com';
 
     const inputEmail = getByTestId(EMAIL_INPUT_TEST_ID);
@@ -33,14 +36,14 @@ describe('Crie uma página inicial de login', () => {
 
   // CAMPO SENHA
   test('A pagina deve ter o campo de senha', () => {
-    const { getByTestId } = renderWithRouterAndStore(<Login history={history}  />);
+    const { getByTestId } = renderWithRouterAndStore(<Login history={ history } />);
     const inputSenha = getByTestId(PASSWORD_INPUT_TEST_ID);
     expect(inputSenha).toBeInTheDocument();
     expect(inputSenha).toHaveValue('');
   });
 
   test('Testando o campo de senha valida', () => {
-    const { getByTestId } = renderWithRouterAndStore(<Login history={history}/>);
+    const { getByTestId } = renderWithRouterAndStore(<Login history={ history } />);
     const TEST_PASS = '123456';
 
     const inputSenha = getByTestId(PASSWORD_INPUT_TEST_ID);
@@ -52,7 +55,7 @@ describe('Crie uma página inicial de login', () => {
 
   // BUTTON
   test('Testando o botao Login com email invalido', () => {
-    const { getByTestId } = renderWithRouterAndStore(<Login history={history} />);
+    const { getByTestId } = renderWithRouterAndStore(<Login history={ history } />);
     const TEST_EMAIL = 'a.com';
 
     const inputEmail = getByTestId(EMAIL_INPUT_TEST_ID);
@@ -63,7 +66,7 @@ describe('Crie uma página inicial de login', () => {
   });
 
   test('Testando o botao Login com senha invalida', () => {
-    const { getByTestId } = renderWithRouterAndStore(<Login history={history}/>);
+    const { getByTestId } = renderWithRouterAndStore(<Login history={ history } />);
     const TEST_SENHA = '1';
 
     const inputSenha = getByTestId(PASSWORD_INPUT_TEST_ID);
@@ -74,7 +77,7 @@ describe('Crie uma página inicial de login', () => {
   });
 
   test('Testando o botao Login com email/senha validos', () => {
-    const { getByTestId } = renderWithRouterAndStore(<Login history={history}/>);
+    const { getByTestId } = renderWithRouterAndStore(<Login history={ history } />);
     const TEST_SENHA = '1234567';
     const TEST_EMAIL = 'email@valido.com.br';
 
@@ -89,7 +92,7 @@ describe('Crie uma página inicial de login', () => {
   });
 
   test('Testando o submit', () => {
-    const { getByTestId } = renderWithRouterAndStore(<Login history={history}/>);
+    const { getByTestId } = renderWithRouterAndStore(<Login history={ history } />);
     const TEST_SENHA = '1234567';
     const TEST_EMAIL = 'email@valido.com.br';
     const inputEmail = getByTestId(EMAIL_INPUT_TEST_ID);

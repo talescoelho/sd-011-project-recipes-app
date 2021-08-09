@@ -12,7 +12,7 @@ const renderWithRouterAndStore = (Component, history) => {
   return {
     ...render(
       <Provider store={ store }>
-        <MemoryRouter history={history}>
+        <MemoryRouter history={ history }>
           {Component}
         </MemoryRouter>
       </Provider>,
