@@ -48,6 +48,10 @@ export default function DetalhesBebida({ match }) {
   function handleShareBtn() {
     copy(window.location.href);
     setCopied(true);
+    const TWO_SECONDS = 2000;
+    setTimeout(() => {
+      setCopied(false);
+    }, TWO_SECONDS);
   }
 
   const ingredients = getIngredients(drink);

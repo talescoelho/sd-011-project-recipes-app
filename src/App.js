@@ -13,22 +13,21 @@ import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 import Explorar from './pages/Explorar';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import ExplorarIngredientes from './pages/ExplorarIngredientes';
 
 function App() {
   return (
     <RecipesProvider>
       <BrowserRouter>
         <Switch>
-          { /* não tem header/footer \/ */ }
           <Route exact path="/" component={ Login } />
-          { /* não tem header /\ */ }
+          <Route exact path="/perfil" component={ Profile } />
           <Route exact path="/comidas" render={ () => <TelaPrincipal type="meal" /> } />
           <Route
             exact
             path="/bebidas"
             render={ () => <TelaPrincipal type="cocktail" /> }
           />
-          { /* não tem header/footer \/ */ }
           <Route
             exact
             path="/comidas/:id"
@@ -53,10 +52,17 @@ function App() {
           <Route exact path="/explorar" component={ Explorar } />
           <Route exact path="/explorar/comidas" component={ NotFound } />
           <Route exact path="/explorar/bebidas" component={ NotFound } />
-          <Route exact path="/explorar/comidas/ingredientes" component={ NotFound } />
-          <Route exact path="/explorar/bebidas/ingredientes" component={ NotFound } />
+          <Route
+            exact
+            path="/explorar/comidas/ingredientes"
+            component={ ExplorarIngredientes }
+          />
+          <Route
+            exact
+            path="/explorar/bebidas/ingredientes"
+            component={ ExplorarIngredientes }
+          />
           <Route exact path="/explorar/comidas/area" component={ NotFound } />
-          <Route exact path="/perfil" component={ Profile } />
           { /* não tem footer \/ */ }
           <Route exact path="/receitas-feitas" component={ NotFound } />
           <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
