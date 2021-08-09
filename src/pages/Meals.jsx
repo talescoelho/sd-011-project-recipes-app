@@ -9,12 +9,13 @@ export default function Meals({ history }) {
   if (meals.length === 0) {
     return <div>loading</div>;
   }
+
   // A função faz uma nova requisição com um ID específico.
   // Em seguida passa as infos para o provider;
   // Redireciona pra page de details;
+
   function clickDetails(id) {
     history.push(`/comidas${id}`);
-    console.log(id);
   }
 
   const comidas = 'Comidas';
