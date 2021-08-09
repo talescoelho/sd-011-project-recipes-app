@@ -6,15 +6,10 @@ import ShareFavBtn from '../components/ShareFavBtn';
 export default function ReceitaBebidaPage(props) {
   const [drinkDetails, setDrinkDetails] = useState();
   const [drinkIngredients, setDrinkIngredients] = useState();
+  const [recomendations, setRecomendations] = useState();
   const location = useLocation();
   const DRINK_DETAILS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
-  const FOOD_RECOMENDATIONS = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-
-  const recommendedRecipes = [
-    'receita 1',
-    'receita 2',
-    'receita 3',
-  ];
+  const RECOMENDATIONS_URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
   useEffect(() => {
     const foodId = location.pathname.split('/')[2];
@@ -40,12 +35,38 @@ export default function ReceitaBebidaPage(props) {
     if (drinkDetails) { return ingredientsDetailsRender(); }
   }, [drinkDetails]);
 
-  const foodRecomendations = async () => {
-    const response = await fetch(FOOD_RECOMENDATIONS);
-    const data = await response.json();
-    return data.drinks;
-  };
-  foodRecomendations();
+  useEffect(() => {
+    fetch(RECOMENDATIONS_URL)
+      .then((response) => response.json())
+      .then((data) => setRecomendations(data));
+  }, []);
+
+  function renderRecomendation() {
+    console.log(recomendations);
+    const maxLength = 6;
+    return (
+      recomendations.meals.map((recipe, index) => {
+        if (index < maxLength) {
+          return (
+            <div
+              key={ recipe.strMeal }
+              data-testid={ `${index}-recomendation-card` }
+            >
+              <img
+                src={ recipe.strMealThumb }
+                alt={ recipe.strMeal }
+                height="100px"
+                width="100px"
+                data-testid="recipe-photo"
+              />
+              <h5>{ recipe.strMeal }</h5>
+            </div>
+          );
+        }
+        return null;
+      })
+    );
+  }
 
   function renderDrinks() {
     return (
@@ -79,17 +100,18 @@ export default function ReceitaBebidaPage(props) {
             { drinkDetails.drinks[0].strInstructions }
           </p>
         </div>
+        <iframe
+          src="https://www.youtube.com/embed/DsFpGUXpZVU"
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; gyroscope; picture-in-picture"
+          allowFullScreen
+          data-testid="video"
+        />
         <div>
           <h3>Receitas recomendadas</h3>
           <ul>
-            {recommendedRecipes.map((name, index) => (
-              <li
-                key={ index }
-                data-testid={ `${index}-recomendation-card` }
-              >
-                {name}
-              </li>
-            ))}
+            { recomendations ? renderRecomendation() : <p>Loading...</p> }
           </ul>
         </div>
         <Button data-testid="start-recipe-btn">Iniciar Receita</Button>

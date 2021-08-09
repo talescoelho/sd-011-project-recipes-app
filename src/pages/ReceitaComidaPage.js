@@ -6,10 +6,10 @@ import ShareFavBtn from '../components/ShareFavBtn';
 export default function ReceitaComidaPage(props) {
   const [foodDetails, setFoodDetails] = useState();
   const [foodIngredients, setFoodIngredients] = useState();
-  const [foodRecomendations, setFoodRecomendations] = useState();
+  const [recomendations, setRecomendations] = useState();
   const location = useLocation();
   const FOOD_DETAILS_URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
-  const FOOD_RECOMENDATION_URL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i={id-da-receita}';
+  const RECOMENDATIONS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
   useEffect(() => {
     const foodId = location.pathname.split('/')[2];
@@ -36,16 +36,15 @@ export default function ReceitaComidaPage(props) {
   }, [foodDetails]);
 
   useEffect(() => {
-    const foodIdReco = location.pathname.split('/')[2];
-    fetch(FOOD_RECOMENDATION_URL + foodIdReco)
-      .then((response2) => response2.json())
-      .then((data2) => setFoodRecomendations(data2));
-      console.log(foodIdReco);
+    fetch(RECOMENDATIONS_URL)
+      .then((response) => response.json())
+      .then((data) => setRecomendations(data));
   }, []);
-  function renderFoodRecomendation() {
+
+  function renderRecomendation() {
     const maxLength = 6;
     return (
-      foodRecomendations.map((recipe, index) => {
+      recomendations.drinks.map((recipe, index) => {
         if (index < maxLength) {
           return (
             <div
@@ -57,6 +56,7 @@ export default function ReceitaComidaPage(props) {
                 alt={ recipe.strDrink }
                 height="100px"
                 width="100px"
+                data-testid="recipe-photo"
               />
               <h5>{ recipe.strDrink }</h5>
             </div>
@@ -109,7 +109,7 @@ export default function ReceitaComidaPage(props) {
         <div>
           <h3>Receitas recomendadas</h3>
           <ul>
-            { renderFoodRecomendation() }
+            { recomendations ? renderRecomendation() : <p>Loading...</p> }
           </ul>
         </div>
         <Button data-testid="start-recipe-btn">
