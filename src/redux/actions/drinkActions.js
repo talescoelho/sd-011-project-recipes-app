@@ -12,7 +12,7 @@ export const FOOD_RECOMENDATIONS_SUCCESS = 'FOOD_RECOMENDATIONS_SUCCESS';
 export const DRINK_INGREDIENTS = 'DRINK_INGREDIENTS';
 export const SAVE_FAVORITES = 'SAVE_FAVORITES';
 
-const drinkListSuccess = (payload) => ({
+export const drinkListSuccess = (payload) => ({
   type: DRINK_LIST_SUCCESS,
   payload,
 });
