@@ -37,7 +37,3 @@ button {
 .search-radio:hover {
   background-color: chartreuse;
 }
-
-[ type = 'radio' ] {
-  display: none;
-}
