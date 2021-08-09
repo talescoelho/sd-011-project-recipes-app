@@ -9,7 +9,7 @@ export default function DoneRecipes() {
 
   const cardsToRender = (cardsRender) => (
     cardsRender.length !== 0 && cardsRender.map((
-      { category, image, type, area, alcoholicOrNot, id, name, tags }, index,
+      { category, image, type, area, alcoholicOrNot, id, name, tags, date }, index,
     ) => (
       (
         <Card key={ id } data-testid={ `${index}-recipe-card` }>
@@ -29,6 +29,7 @@ export default function DoneRecipes() {
               {name}
             </Card.Title>
             <Card.Text>{area || alcoholicOrNot}</Card.Text>
+            <Card.Text data-testid={ `${index}-horizontal-done-date` }>{date}</Card.Text>
             <Card.Text
               data-testid={ `${index}-${tags}-horizontal-tag` }
             >
