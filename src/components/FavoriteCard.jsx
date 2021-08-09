@@ -30,6 +30,7 @@ export default function FavoriteCard({ el, index }) {
         <p className="information" data-testid={ `${index}-horizontal-top-text` }>
           {area ? `${area} - ` : ''}
           {category ? `${category}` : ''}
+          {' '}
           {alcoholicOrNot}
         </p>
         <p
