@@ -11,8 +11,6 @@ const INITIAL_STATE = {
 const recipe = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case 'ADD_RECIPE_ONGOING':
-    const inProgressRecipes = 
-    localStorage.setItem('inProgressRecipes', JSON.stringify({ inProgressRecipes }));
     return {
       ...state,
       currentRecipes: {

@@ -20,6 +20,19 @@ class ComidasDetalhes extends Component {
 
   componentDidMount() {
     this.recipeDetailsFetchAPI();
+    this.fetchDoneRecipes();
+  }
+
+  fetchDoneRecipes() {
+    const { match: { params: { id } } } = this.props;
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes !== null) {
+      console.log(doneRecipes);
+      console.log(id);
+    } else {
+      console.log('Array vazio');
+      console.log(id);
+    }
   }
 
   CopyToClipboard() { // https://orclqa.com/copy-url-clipboard/
