@@ -38,13 +38,24 @@ function FoodProgress(props) {
     });
   }, [foodById]);
 
-  function ingredientsChecked() {
+  // useEffect(() => {
+  //   const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+  //   recipe.meals = { ...recipe.meals, [id]: [foodIngredient] };
+  //   localStorage.setItem('inProgressRecipes',
+  //     JSON.stringify(recipe));
+  // }, [foodIngredient, id]);
+
+  function ingredientsChecked(value) {
     let sum = 0;
     const checkeds = document.getElementsByTagName('input');
     for (let index = 0; index < checkeds.length; index += 1) {
       if (checkeds[index].checked === true) {
         sum += 1;
         // console.log(sum);
+        const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+        recipe.meals = { ...recipe.meals, [id]: [value] };
+        localStorage.setItem('inProgressRecipes',
+          JSON.stringify(recipe));
         if (sum === checkeds.length) {
           setButton(true);
         } else setButton(false);
@@ -80,9 +91,10 @@ function FoodProgress(props) {
                     htmlFor={ i }
                   >
                     <input
+                      name={ Object.values(ingredient) }
                       id={ i }
                       type="checkbox"
-                      onChange={ () => ingredientsChecked() }
+                      onChange={ (e) => ingredientsChecked(e.target.name) }
                     />
                     { Object.values(ingredient) }
                   </label>
