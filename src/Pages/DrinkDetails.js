@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
+import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ShareButton from '../Components/ShareButton';
 import './Styles/detailsrecipe.css';
 
-function DetailsRecipe() {
+function DrinkDetails({ match: { params: { id } } }) {
   const [recipes, setRecipes] = useState([]);
   // Didmount - Faz fetch trazendo a receita pelo id e seta o stado recipes com as receita
   useEffect(() => {
     const getApi = async () => {
-      const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007';
+      const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
       const response = await fetch(endPoint);
       const results = await response.json();
       const drink = results.drinks[0];
       setRecipes(drink);
     };
     getApi();
-  }, []);
+  }, [id]);
   // retorna o array com os ingredientes
   const ingredientsRecipe = () => {
     const arrayIndredientKids = Object.keys(recipes)
@@ -90,4 +91,12 @@ function DetailsRecipe() {
   );
 }
 
-export default DetailsRecipe;
+DrinkDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
+
+export default DrinkDetails;

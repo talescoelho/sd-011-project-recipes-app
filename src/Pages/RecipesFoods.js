@@ -4,7 +4,6 @@ import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import './RecipesFoods.css';
 import CardRecipes from '../Components/CardRecipes';
-// import MyContext from '../Context/MyContext';
 
 export default function RecipesFood() {
   const [recipes, setRecipes] = useState([]);
@@ -19,6 +18,7 @@ export default function RecipesFood() {
     };
     getApi();
   }, []);
+
   const renderCardRecipes = () => {
     const showMaxRecipes = 12;
     if (recipes) {
@@ -28,6 +28,7 @@ export default function RecipesFood() {
       return filteredRecipe;
     }
   };
+
   return (
     <div>
       <Header className="title" title="Comidas" searchIconAppears />
@@ -35,7 +36,9 @@ export default function RecipesFood() {
         {renderCardRecipes().map((recp, index) => (
           <Link
             key={ index }
-            to="/details-recipe"
+            to={ {
+              pathname: `/comidas/${recp.idMeal}`,
+            } }
           >
             <CardRecipes
               key={ index }

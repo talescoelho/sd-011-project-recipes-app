@@ -35,7 +35,9 @@ export default function RecipesFood() {
         {renderCardRecipes().map((recp, index) => (
           <Link
             key={ index }
-            to="/bebidas/drink-details"
+            to={ {
+              pathname: `/bebidas/${recp.idDrink}`,
+            } }
           >
             <CardRecipes
               key={ index }
