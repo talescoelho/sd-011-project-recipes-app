@@ -50,9 +50,9 @@ function NavCategories() {
 
   return (
     <div>
-      { !category ? <p>Loading...</p> :
+      { !category ? <p>Loading...</p>
 
-        (
+        : (
           <div>
             <button
               type="button"
@@ -73,11 +73,9 @@ function NavCategories() {
                 >
                   { item.strCategory }
                 </button>
-              ))
-            }
+              ))}
           </div>
-        )
-      }
+        )}
     </div>
   );
 }
