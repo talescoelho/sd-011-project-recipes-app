@@ -38,13 +38,13 @@ const recipe = (state = INITIAL_STATE, action) => {
 
 export default recipe;
 
-/* let inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    console.log(inProgress);
-    if (inProgress === null) {
-      const obj = [action.payload];
-      console.log(array);
-      localStorage.setItem('inProgressRecipes', JSON.stringify(array));
-    } else {
-      inProgress.push(action.payload);
-      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
-    } */
+// let inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+//  console.log(inProgress);
+// if (inProgress === null) {
+// const obj = [action.payload];
+// console.log(array);
+// localStorage.setItem('inProgressRecipes', JSON.stringify(array));
+// } else {
+// inProgress.push(action.payload);
+// localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+// }
