@@ -50,7 +50,6 @@ export default function FoodCard({ type }) {
         <Link
           to={ `/${middle[type]}/${idMeal || idDrink}` }
           key={ index }
-
         >
           <Card data-testid={ `${index}-recipe-card` }>
             <Card.Header>{strCategory}</Card.Header>
@@ -59,7 +58,7 @@ export default function FoodCard({ type }) {
               src={ strMealThumb || strDrinkThumb }
               data-testid={ `${index}-card-img` }
             />
-            <Card.Body>
+            <Card.Body style={ { boxSizing: 'border-box' } }>
               <Card.Title data-testid={ `${index}-card-name` }>
                 {strMeal
               || strDrink}
