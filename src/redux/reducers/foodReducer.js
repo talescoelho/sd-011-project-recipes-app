@@ -1,5 +1,5 @@
 import { FOOD_LIST_SUCCESS, FOOD_CATEGORY_SUCCESS,
-  FOOD_LIST_CATEGORY_SUCCESS, UPDATE_CATEGORY,
+  FOOD_LIST_CATEGORY_SUCCESS, UPDATE_CATEGORY, SAVE_FAVORITES,
   FOOD_DETAILS_ID_SUCCESS, DRINK_RECOMENDATIONS_SUCCESS } from '../actions/foodActions';
 
 const INITIAL_STATE = {
@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   selectedCategory: 'All',
   foodDetails: {},
   drinkRecomendations: [],
+  favorites: [],
 };
 
 const CARD_LENGTH = 12;
@@ -37,6 +38,9 @@ function foodReducer(state = INITIAL_STATE, action) {
   case DRINK_RECOMENDATIONS_SUCCESS:
     return { ...state,
       drinkRecomendations: action.payload.slice(0, DRINK_RECOMENDATION) };
+  case SAVE_FAVORITES:
+    return { ...state,
+      favorites: action.payload };
   default:
     return state;
   }

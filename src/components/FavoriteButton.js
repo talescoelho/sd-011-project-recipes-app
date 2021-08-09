@@ -17,6 +17,14 @@ class FavoriteButton extends Component {
     this.setFavoriteIcon = this.setFavoriteIcon.bind(this);
   }
 
+  componentDidMount() {
+    const { id } = this.props;
+    const favoriteMeals = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favoriteMeals && favoriteMeals.find((item) => item.id === id)) {
+      this.setFavoriteIcon();
+    }
+  }
+
   componentDidUpdate() {
     const { id } = this.props;
     const { whiteHeart } = this.state;
@@ -48,13 +56,14 @@ class FavoriteButton extends Component {
 
   render() {
     const { whiteHeart } = this.state;
+    const { test } = this.props;
     return (
       <button
         type="button"
         onClick={ () => this.handleFavoriteClick() }
       >
         <img
-          data-testid="favorite-btn"
+          data-testid={ test }
           src={ whiteHeart ? whiteHeartIcon : blackHeartIcon }
           alt="favorite food button"
         />

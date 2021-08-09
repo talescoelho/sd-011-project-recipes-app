@@ -23,15 +23,15 @@ class ShareButton extends Component {
 
   render() {
     const { clipboardMessage } = this.state;
+    const { test } = this.props;
     return (
       <>
         <p>{ clipboardMessage ? 'Link copiado!' : '' }</p>
         <button
           type="button"
-          data-testid="share-btn"
           onClick={ () => this.clipBoard() }
         >
-          <img src={ shareIcon } alt="share icon" />
+          <img data-testid={ test } src={ shareIcon } alt="share icon" />
         </button>
       </>
     );
@@ -39,7 +39,8 @@ class ShareButton extends Component {
 }
 
 ShareButton.propTypes = {
-  id: PropTypes.string.isRequired,
-};
+  id: PropTypes.string,
+  test: PropTypes.string,
+}.isRequired;
 
 export default ShareButton;
