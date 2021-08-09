@@ -7,8 +7,8 @@ export default function Profile() {
   let email = '';
   if (localStorage.user) {
     email = JSON.parse(localStorage.user);
-
   }
+
   const handlerClick = () => localStorage.clear();
   return (
     <div>
