@@ -45,11 +45,7 @@ function CardRecipeList() {
   }
 
   useEffect(() => {
-    if (filterType === filteredFood) {
-      getInitialItensDrinkAndFood('b');
-    } else if (filterType === filteredDrink) {
-      getInitialItensDrinkAndFood('c');
-    }
+    getInitialItensDrinkAndFood('c');
   }, []);
 
   return (

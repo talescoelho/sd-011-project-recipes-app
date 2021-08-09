@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { searchById } from '../services/RequestFood';
 
 function Details({ id }) {
-  const { filteredFood, filteredDrink } = RequestHook();
+  const { state } = RequestHook();
+
   async function getDetailsById(text) {
     const items = await searchById(id);
-    setInitialItensFood(items);
+    setInitialState(items);
   }
 
   useEffect(() => {
@@ -16,7 +17,8 @@ function Details({ id }) {
 
   return (
     <div>
-      { id.Image }
+      {/* state.map(()) */ }
+      Image
       Nome
       ingredientes
       instruções
