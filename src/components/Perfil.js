@@ -4,7 +4,7 @@ import Header from './Header';
 import MenuInferior from './MenuInferior';
 
 function Perfil() {
-  const emailUser = localStorage.getItem('user');
+  const emailUser = JSON.parse(localStorage.getItem('user'));
   const history = useHistory();
 
   const logout = () => {
