@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import UserContext from '../context/UserContext';
 import '../css/mainPage.css';
-import { APImealsByCat } from '../services/APImealsANDdrinks';
+import { APImeals, APImealsByCat } from '../services/APImealsANDdrinks';
 
 export default function CategoriesMeals() {
-  const { setMealsBtnCat, setBtnAll } = useContext(UserContext);
+  const { setMealsBtnCat, setMeals } = useContext(UserContext);
 
   const [mealsBtn, setMealsBtn] = useState([]);
 
@@ -16,18 +16,10 @@ export default function CategoriesMeals() {
     callAPImeals();
   }, []);
 
-  /* if (mealsBtn.length === 0) {
-    return <div>Loading</div>;
-  } */
-
-  // console.log(APImealsClickCat());
-
-  let clicks = 1;
-
-  const clickBtnAll = () => {
-    clicks += 1;
-    console.log(clicks);
-    return clicks;
+  const callAPImeals3 = async () => {
+    const callAPI = await APImeals();
+    const result = callAPI.meals;
+    setMeals(result);
   };
 
   return (
@@ -35,7 +27,7 @@ export default function CategoriesMeals() {
       <button
         type="button"
         data-testid="all-category-filter"
-        onClick={ () => setBtnAll(clickBtnAll()) }
+        onClick={ () => callAPImeals3() }
       >
         All
       </button>

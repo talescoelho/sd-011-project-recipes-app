@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import UserContext from '../context/UserContext';
 import '../css/mainPage.css';
-import { APIdrinksByCat } from '../services/APImealsANDdrinks';
+import { APIdrinks, APIdrinksByCat } from '../services/APImealsANDdrinks';
 
 export default function CategoriesDrinks() {
-  const { setDrinksBtnCat, setBtnAll } = useContext(UserContext);
+  const { setDrinksBtnCat, setDrinks } = useContext(UserContext);
 
   const [drinksBtn, setdrinksBtn] = useState([]);
 
@@ -16,12 +16,10 @@ export default function CategoriesDrinks() {
     callAPIdrinks();
   }, []);
 
-  let clicks = 1;
-
-  const clickBtnAll = () => {
-    clicks += 1;
-    console.log(clicks);
-    return clicks;
+  const callAPIdrinks = async () => {
+    const callAPI = await APIdrinks();
+    const result = callAPI.drinks;
+    setDrinks(result);
   };
 
   return (
@@ -29,7 +27,7 @@ export default function CategoriesDrinks() {
       <button
         type="button"
         data-testid="all-category-filter"
-        onClick={ () => setBtnAll(clickBtnAll()) }
+        onClick={ () => callAPIdrinks() }
       >
         All
       </button>

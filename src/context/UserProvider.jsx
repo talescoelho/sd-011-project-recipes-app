@@ -10,7 +10,6 @@ function UserProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [mealsBtnCat, setMealsBtnCat] = useState('');
   const [drinksBtnCat, setDrinksBtnCat] = useState('');
-  const [btnAll, setBtnAll] = useState(0);
 
   useEffect(() => { // renderiza as comidas na tela principal
     const callAPImeals = async () => {
@@ -20,24 +19,6 @@ function UserProvider({ children }) {
     };
     callAPImeals();
   }, []);
-
-  useEffect(() => { // renderiza as comidas na tela principal qual o btn All é clicado
-    const callAPImeals2 = async () => {
-      const callAPI2 = await APImeals();
-      const result = callAPI2.meals;
-      setMeals(result);
-    };
-    callAPImeals2();
-  }, [btnAll]);
-
-  useEffect(() => { // renderiza as bebidas na tela principal qual o btn All é clicado
-    const callAPIdrinks2 = async () => {
-      const callAPI2 = await APIdrinks();
-      const result = callAPI2.drinks;
-      setDrinks(result);
-    };
-    callAPIdrinks2();
-  }, [btnAll]);
 
   useEffect(() => { // renderiza as bebidas na tela principal
     const callAPIdrinks = async () => {
@@ -69,9 +50,10 @@ function UserProvider({ children }) {
   const provider = {
     meals,
     drinks,
+    setMeals,
+    setDrinks,
     setMealsBtnCat,
     setDrinksBtnCat,
-    setBtnAll,
   };
 
   return (
