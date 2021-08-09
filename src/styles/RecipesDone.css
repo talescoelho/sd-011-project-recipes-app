@@ -4,7 +4,8 @@ h1 {
 
 .buttons {
   background-color: rgba(63, 60, 60, 0.2);
-  margin: 0 5px 0 5px;
+  margin-left: 5px;
+  margin-right: 5px;
   text-align: center;
   width: 100px;
 }
