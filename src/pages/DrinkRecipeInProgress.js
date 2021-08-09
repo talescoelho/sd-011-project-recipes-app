@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getDrinkDetail } from '../services/theCockTailAPI';
-import { saveInProgressDrinkRecipes } from '../helpers/handleLocalStorage';
+import { saveInProgressDrinkRecipes, saveDoneRecipes } from '../helpers/handleLocalStorage';
 import MainContext from '../context/MainContext';
 import LSContext from '../context/LSContext';
 import ShareButton from '../components/ShareButton';
@@ -10,7 +10,7 @@ import FavoriteButton from '../components/FavoriteButton';
 
 function DrinkRecipeInProgress({ match: { params: { id } } }) {
   const { LSValues: { inProgressRecipes } } = useContext(LSContext);
-  const { LSFunctions: { setInProgressRecipes } } = useContext(LSContext);
+  const { LSFunctions: { setInProgressRecipes, setDoneRecipes } } = useContext(LSContext);
   const [recipe, setRecipe] = useState({});
   const [usedIngredients, setUsedIngredients] = useState([]);
   const { setLoading } = useContext(MainContext);
@@ -59,6 +59,28 @@ function DrinkRecipeInProgress({ match: { params: { id } } }) {
   }, [id, inProgressRecipes]);
 
   const { strDrinkThumb, strDrink, strCategory, strInstructions, strAlcoholic } = recipe;
+
+  function GetDate() {
+    const data = new Date();
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+    const dataAtual = `${dia}/${mes}/${ano}`;
+    return dataAtual;
+  }
+
+  const saveDone = {
+    id,
+    type: 'bebida',
+    area: '',
+    category: '',
+    alcoholicOrNot: strAlcoholic,
+    name: strDrink,
+    image: strDrinkThumb,
+    doneDate: GetDate(),
+    tags: '',
+  };
+
   return (
     <div>
       <img src={ strDrinkThumb } data-testid="recipe-photo" alt={ strDrink } />
@@ -97,6 +119,7 @@ function DrinkRecipeInProgress({ match: { params: { id } } }) {
           type="button"
           data-testid="finish-recipe-btn"
           disabled={ listIngredients().length !== usedIngredients.length }
+          onClick={ saveDoneRecipes(saveDone, setDoneRecipes) }
         >
           Finalizar Receita
         </button>

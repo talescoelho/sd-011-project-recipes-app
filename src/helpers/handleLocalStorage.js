@@ -58,3 +58,10 @@ export function saveFavorites(recipe, updateLSContext) {
   localStorage.setItem('favoriteRecipes', JSON.stringify(getFavorites));
   updateLSContext(getFavorites);
 }
+
+export function saveDoneRecipes(recipe, updateLSContext) {
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  doneRecipes.push(recipe);
+  localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  updateLSContext(doneRecipes);
+}
