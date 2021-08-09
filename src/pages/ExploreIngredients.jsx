@@ -1,6 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Button from '../components/design/Button';
 import { Layout } from '../components';
 import { useTheme } from '../hooks';
 

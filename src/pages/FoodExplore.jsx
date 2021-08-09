@@ -15,22 +15,13 @@ function FoodExplore() {
     },
   };
 
-  if (!recipes) {
-    console.log(recipes);
-    return (
-      <p> carregando!</p>);
-  }
-
   function surpreenda() {
     dispatch(fetchRecipes({ searchTerm: '', category: 'receita_aleatoria' }));
-
-    return <Redirect to={ `/comidas/${!recipes && recipes[0].idMeal}` } />;
   }
 
   return (
     <Layout title="Explorar Comidas">
       <main style={ styles.main }>
-        { console.log(recipes)}
         <Link to="/explorar/comidas/ingredientes">
           <button
             type="button"
@@ -44,7 +35,6 @@ function FoodExplore() {
             Por Local de Origem
           </button>
         </Link>
-        {/* <Link to={ `/comidas/${!recipes && recipes[0].idMeal}` }> */}
         <button
           type="button"
           data-testid="explore-surprise"
@@ -52,7 +42,7 @@ function FoodExplore() {
         >
           Me Surpreenda!
         </button>
-        {/* </Link> */}
+        { recipes.length ? <Redirect to={ `/comidas/${recipes[0].idMeal}` } /> : null}
       </main>
     </Layout>
   );
