@@ -24,9 +24,10 @@ class FoodDetails extends Component {
     this.fetchDetail = this.fetchDetail.bind(this);
     this.renderRecomendations = this.renderRecomendations.bind(this);
     this.saveOnLocalStorage = this.saveOnLocalStorage.bind(this);
-    this.addMealInProgress = this.addMealInProgress.bind(this);
+    this.checkRecipeInProgress = this.checkRecipeInProgress.bind(this);
     this.verifyRecipeIsDone = this.verifyRecipeIsDone.bind(this);
     this.saveFavoriteRecipes = this.saveFavoriteRecipes.bind(this);
+    this.addMealInProgress = this.addMealInProgress.bind(this);
   }
 
   componentDidMount() {
@@ -40,9 +41,7 @@ class FoodDetails extends Component {
         favRecipeLocalStorage = favRecipenew;
       }
       if (favRecipeLocalStorage === id) {
-        this.setState({
-          favoriteFood: true,
-        });
+        this.setState({ favoriteFood: true });
       }
     };
     this.newFunction();
@@ -57,18 +56,6 @@ class FoodDetails extends Component {
     return false;
   }
 
-  addMealInProgress() {
-    const { match: { params: { id } } } = this.props;
-    const inProgress = { cocktails: {}, meals: {} };
-    if (localStorage.getItem('inProgressRecipes') === null) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
-    }
-    const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
-    recipe.meals = { ...recipe.meals, [id]: [] };
-    localStorage.setItem('inProgressRecipes',
-      JSON.stringify(recipe));
-  }
-
   checkRecipeInProgress() {
     const { match: { params: { id } } } = this.props;
     const recipeInProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
@@ -77,6 +64,20 @@ class FoodDetails extends Component {
         .some((recipeId) => recipeId === id);
     }
     return false;
+  }
+
+  addMealInProgress() {
+    const { match: { params: { id } } } = this.props;
+    const inProgress = { cocktails: {}, meals: {} };
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+    }
+    if (!this.checkRecipeInProgress()) {
+      const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+      recipe.meals = { ...recipe.meals, [id]: [] };
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify(recipe));
+    }
   }
 
   saveFavoriteRecipes() {
@@ -147,9 +148,8 @@ class FoodDetails extends Component {
   }
 
   render() {
-    const { foodDetail,
-      ingredient, measure, recomandation, copyToClipboard,
-      favoriteFood } = this.state;
+    const { foodDetail, ingredient, measure,
+      recomandation, copyToClipboard, favoriteFood } = this.state;
     const { match: { params: { id } } } = this.props;
     return (
       <div className="detailContainer">
@@ -226,7 +226,7 @@ class FoodDetails extends Component {
                 type="button"
                 style={ { display: this.verifyRecipeIsDone() ? 'none' : 'initial' } }
                 data-testid="start-recipe-btn"
-                onClick={ () => { this.addMealInProgress(); } }
+                onClick={ () => this.addMealInProgress() }
               >
                 { this.checkRecipeInProgress() ? 'Continuar Receita' : 'Iniciar Receita' }
               </button>
