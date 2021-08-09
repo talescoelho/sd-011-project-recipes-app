@@ -73,9 +73,9 @@ function NavCategories() {
                 >
                   { item.strCategory }
                 </button>
-              ))}
+              )) }
           </div>
-        )}
+        ) }
     </div>
   );
 }
