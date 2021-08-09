@@ -11,6 +11,54 @@ import nonFavoriteIcon from '../images/whiteHeartIcon.svg';
 
 const copy = require('clipboard-copy');
 
+const getIngredients2 = (obj, type) => {
+  const keys = Object.keys(obj);
+  const values = Object.values(obj);
+  const indexes = keys.reduce(((arr, key, index) => {
+    if (key.includes(type)) return [...arr, index];
+    return arr;
+  }), []);
+  const response = [];
+  indexes.forEach((ind, index) => {
+    if (!['', ' ', null].includes(values[ind])) {
+      const tag = (
+        <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+          { values[ind] }
+        </li>
+      );
+      response.push(tag);
+    }
+  });
+  return response;
+};
+
+const deleteFavorite = (idRecipe) => {
+  const arrayStoraged = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const arrayToStorage = arrayStoraged.filter(({ id }) => id !== idRecipe);
+  localStorage.setItem('favoriteRecipes', JSON.stringify(arrayToStorage));
+};
+
+const setFavorite = (recipe) => {
+  const { strMealThumb, strMeal, idMeal, strArea, strCategory } = recipe; // strAlcoholic, type
+  const objToStorage = {
+    id: idMeal,
+    type: 'comida',
+    area: strArea,
+    category: strCategory,
+    alcoholicOrNot: '',
+    name: strMeal,
+    image: strMealThumb,
+  };
+  const arrayStoraged = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const arrayToStorage = [...arrayStoraged, objToStorage];
+  localStorage.setItem('favoriteRecipes', JSON.stringify(arrayToStorage));
+};
+
+const verifyFavorite = (idRecipe) => {
+  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  return favorites.some(({ id }) => id === idRecipe);
+};
+
 function DetalhesComidas() {
   const [recipe, setRecipe] = useState({});
   const dispatch = useDispatch();
@@ -23,64 +71,24 @@ function DetalhesComidas() {
       .then((recipeData) => setRecipe(recipeData.meals[0]));
   };
 
-  const verifyFavorite = (idRecipe) => {
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    console.log('Veify:', favorites.some(({ id }) => id === idRecipe));
-    setIsFavorite(favorites.some(({ id }) => id === idRecipe));
-  };
-
   useEffect(() => {
     const { pathname } = window.location;
     const recipeID = pathname.split('/')[2];
     const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
     fetchUrl(URL);
     dispatch(getRecipes('drinks'));
-    verifyFavorite(recipeID);
+    setIsFavorite(verifyFavorite(recipeID));
   }, []);
 
-  const getIngredients = (array, startIng, endIng, empty) => {
-    const newArray = array.slice(startIng, endIng).filter((ing) => ing !== empty);
-    return newArray.map((ingredient, index) => (
-      <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-        { ingredient }
-      </li>
-    ));
-  };
-
-  const setFavorite = () => {
-    console.log('Favoritar');
-    const { strMealThumb, strMeal, idMeal, strArea, strCategory } = recipe; // strAlcoholic, type
-    const objToStorage = {
-      id: idMeal,
-      type: 'comida',
-      area: strArea,
-      category: strCategory,
-      alcoholicOrNot: '',
-      name: strMeal,
-      image: strMealThumb,
-    };
-    const arrayStoraged = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    const arrayToStorage = [...arrayStoraged, objToStorage];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(arrayToStorage));
-    setIsFavorite(true);
-  };
-
-  const deleteFavorite = (idRecipe) => {
-    const arrayStoraged = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    const arrayToStorage = arrayStoraged.filter(({ id }) => id !== idRecipe);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(arrayToStorage));
-    setIsFavorite(false);
-  };
-
   const guide = () => {
-    if (isFavorite) deleteFavorite(recipe.idMeal);
-    else setFavorite();
+    if (isFavorite) {
+      deleteFavorite(recipe.idMeal);
+      setIsFavorite(false);
+    } else {
+      setFavorite(recipe);
+      setIsFavorite(true);
+    }
   };
-
-  const nine = 9;
-  const twentyeigth = 28;
-  const twentynine = 29;
-  const fourtynine = 49;
 
   return Object.keys(recipe).length === 0 ? (<p>Loading..</p>) : (
     <div>
@@ -114,10 +122,10 @@ function DetalhesComidas() {
       </button>
       <h5 data-testid="recipe-category">{ recipe.strCategory }</h5>
       <ol>
-        { getIngredients(Object.values(recipe), nine, twentyeigth, '') }
+        { getIngredients2(recipe, 'strIngredient') }
       </ol>
       <ol>
-        { getIngredients(Object.values(recipe), twentynine, fourtynine, ' ') }
+        { getIngredients2(recipe, 'strMeasure') }
       </ol>
       <p data-testid="instructions">{ recipe.strInstructions }</p>
       <iframe

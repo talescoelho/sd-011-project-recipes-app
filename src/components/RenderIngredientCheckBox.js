@@ -20,6 +20,12 @@ function RenderIngredientCheckBox({ index, values, id }) {
       localStorage.setItem('inProgressRecipes',
         JSON.stringify(newObject));
     }
+    if (!localStorage.inProgressRecipes.match(id)) {
+      const newObject = { ...JSON.parse(localStorage.getItem('inProgressRecipes')) };
+      newObject[recipeType][id] = [];
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify(newObject));
+    }
     if (localStorage.getItem('inProgressRecipes')
       && Object.keys(JSON.parse(localStorage.getItem('inProgressRecipes'))[recipeType])
         .includes(id)) {

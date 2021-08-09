@@ -127,6 +127,34 @@ function BebidaProcesso() {
     }
   };
 
+  function handleDoneRecipe() {
+    const { strDrinkThumb, strDrink, idDrink, strCategory, strAlcoholic } = recipe;
+
+    const currentDate = new Date(Date.now()).toLocaleString().split(',')[0];
+
+    const newDrinkDone = {
+      id: idDrink,
+      type: 'bebida',
+      area: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+      doneDate: currentDate, //  implementar função para buscar tempo
+      tags: '',
+    };
+
+    let currentDoneRecipesStoraged = [];
+    if (localStorage.getItem('doneRecipes')) {
+      currentDoneRecipesStoraged = JSON.parse(localStorage.getItem('doneRecipes'));
+      localStorage.setItem('doneRecipes',
+        JSON.stringify([...currentDoneRecipesStoraged, newDrinkDone]));
+    } else {
+      localStorage.setItem('doneRecipes',
+        JSON.stringify([...currentDoneRecipesStoraged, newDrinkDone]));
+    }
+  }
+
   return (
     <div>
       <img
@@ -172,6 +200,7 @@ function BebidaProcesso() {
             position: 'fixed',
             bottom: '0',
           } }
+          onClick={ handleDoneRecipe }
         >
           Finalizar Receita
         </button>
