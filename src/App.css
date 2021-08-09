@@ -7,3 +7,7 @@
 .cardImage {
   max-width: 150px;
 }
+
+.selectedCat {
+  background-color: grey;
+}

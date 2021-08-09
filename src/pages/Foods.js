@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import FetchApi from '../services/ApiFetch';
 
 export default function Foods() {
-  const [toggleValue, setToggle] = useState(false);
+  const [toggleValue, setToggle] = useState([false, '']);
   const [catItens, setCatItens] = useState([]);
   const qty = 12;
   const dispatch = useDispatch();
@@ -33,25 +33,30 @@ export default function Foods() {
     fetchApi();
   }, []);
 
-  async function categoryOnClickBtn(catName, index) {
-    if (toggleValue === false) {
-      const btn = document.querySelectorAll('#catBtn');
-      btn[index].style.backgroundColor = 'grey';
-      const results = await FetchApi('themealdb', null, null, [catName]);
-      dispatch({
-        type: 'MODIFY_SEARCH_RESULTS',
-        payload: results,
-      });
-    }
-    setToggle(!toggleValue);
-    if (toggleValue === true) {
-      const btn = document.querySelectorAll('#catBtn');
-      btn[index].style.backgroundColor = 'rgb(239, 239, 239)';
+  async function categoryOnClickBtn({ target }) {
+    const test = target.innerText;
+    if (test === 'All') {
       const results = await FetchApi('themealdb', 'nome', '');
       dispatch({
         type: 'MODIFY_SEARCH_RESULTS',
         payload: results,
       });
+    }
+    if ((toggleValue[0] === false || test !== toggleValue[1]) && test !== 'All') {
+      const results = await FetchApi('themealdb', null, null, [test]);
+      dispatch({
+        type: 'MODIFY_SEARCH_RESULTS',
+        payload: results,
+      });
+    }
+    setToggle([true, test]);
+    if (toggleValue[0] === true && toggleValue[1] === test) {
+      const results = await FetchApi('themealdb', 'nome', '');
+      dispatch({
+        type: 'MODIFY_SEARCH_RESULTS',
+        payload: results,
+      });
+      setToggle(!toggleValue[0]);
     }
   }
 
@@ -64,19 +69,26 @@ export default function Foods() {
       />
       <div className="catBtns">
         {
-          catItens.map((item, index) => (
+          catItens.map((item) => (
             <button
               key={ item.strCategory }
               type="button"
               id="catBtn"
+              className="catBtn"
               data-testid={ `${item.strCategory}-category-filter` }
-              onClick={ () => categoryOnClickBtn(item.strCategory, index) }
+              onClick={ (e) => categoryOnClickBtn(e) }
             >
               {item.strCategory}
             </button>))
         }
       </div>
-
+      <button
+        type="button"
+        onClick={ (event) => categoryOnClickBtn(event) }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
       <div>
         {
           recipes.meals !== null && recipes.meals !== undefined
@@ -86,6 +98,8 @@ export default function Foods() {
                 title={ recipe.strMeal }
                 index={ index }
                 srcImage={ recipe.strMealThumb }
+                id={ recipe.idMeal }
+                trigger="comidas"
               />))
             : ''
         }
