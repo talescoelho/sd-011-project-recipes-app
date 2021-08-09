@@ -14,7 +14,6 @@ const Explore = () => (
     </Link>
     <FooterMenu />
   </>
-
 );
 
 export default Explore;

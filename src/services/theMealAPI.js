@@ -50,3 +50,9 @@ export function getMealRecomendations() {
     .then((results) => results.json())
     .then(({ meals }) => meals);
 }
+
+export function getRandomMeal() {
+  return fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+    .then((results) => results.json())
+    .then(({ meals }) => meals[0].idMeal);
+}
