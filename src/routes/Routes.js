@@ -9,8 +9,7 @@ import DrinkDetails from '../pages/DrinkDetails';
 import FoodRecipeInProgress from '../pages/FoodRecipeInProgress';
 import DrinkRecipeInProgress from '../pages/DrinkRecipeInProgress';
 import Explore from '../pages/Explore';
-import FoodExplore from '../pages/FoodExplore';
-import DrinkExplore from '../pages/DrinkExplore';
+import RecipeExplore from '../pages/RecipeExplore';
 import FoodExploreIngredients from '../pages/FoodExploreIngredients';
 import DrinkExploreIngredients from '../pages/DrinkExploreIngredients';
 import FoodExploreArea from '../pages/FoodExploreArea';
@@ -63,13 +62,8 @@ const Routes = () => (
     />
     <Route
       exact
-      path="/explorar/comidas"
-      component={ FoodExplore }
-    />
-    <Route
-      exact
-      path="/explorar/bebidas"
-      component={ DrinkExplore }
+      path={ ['/explorar/comidas', '/explorar/bebidas'] }
+      component={ RecipeExplore }
     />
     <Route
       exact
