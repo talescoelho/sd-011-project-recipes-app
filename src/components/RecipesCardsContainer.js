@@ -1,8 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import MainContext from '../context/MainContext';
 import RecipeCard from './RecipeCard';
 
-function RecipesCardsContainer() {
+function RecipesCardsContainer({ test }) {
   const [showCards, setShowCards] = useState(false);
   const { data, loading } = useContext(MainContext);
   const maxCardLength = 11;
@@ -18,13 +19,21 @@ function RecipesCardsContainer() {
     }
   }, [data, loading]);
 
+  const renderCards = (recipe, index) => (
+    index > maxCardLength
+      ? null
+      : <RecipeCard test={ test } index={ index } recipe={ recipe } />
+  );
+
   return (
     <section>
-      { showCards ? data.map((recipe, index) => (
-        index > maxCardLength ? null : <RecipeCard index={ index } recipe={ recipe } />
-      )) : null }
+      { showCards ? data.map((recipe, index) => renderCards(recipe, index)) : null }
     </section>
   );
 }
+
+RecipesCardsContainer.propTypes = {
+  test: PropTypes.string.isRequired,
+};
 
 export default RecipesCardsContainer;

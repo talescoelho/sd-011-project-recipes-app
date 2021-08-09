@@ -20,9 +20,7 @@ function Recommendations({ recommendations }) {
       >
         <div
           className="recommended-box-image"
-          style={
-            { backgroundImage: `url(${strMealThumb || strDrinkThumb})` }
-          }
+          style={ { backgroundImage: `url(${strMealThumb || strDrinkThumb})` } }
         />
         <p
           className="recommended-box-category"
@@ -39,6 +37,7 @@ function Recommendations({ recommendations }) {
       </div>
     );
   };
+
   return (
     <div className="recommendations-box">
       {recommendations.map((recipe, index) => recipeBox(recipe, index))}

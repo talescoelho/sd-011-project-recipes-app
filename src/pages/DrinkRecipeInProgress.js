@@ -4,16 +4,15 @@ import { Link } from 'react-router-dom';
 import { getDrinkDetail } from '../services/theCockTailAPI';
 import { saveInProgressDrinkRecipes } from '../helpers/handleLocalStorage';
 import MainContext from '../context/MainContext';
+import LSContext from '../context/LSContext';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
 
 function DrinkRecipeInProgress({ match: { params: { id } } }) {
-  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-  const cocktailsIngredients = inProgressRecipes.cocktails
-    ? inProgressRecipes.cocktails[id] || []
-    : [];
+  const { LSValues: { inProgressRecipes } } = useContext(LSContext);
+  const { LSFunctions: { setInProgressRecipes } } = useContext(LSContext);
   const [recipe, setRecipe] = useState({});
-  const [usedIngredients, setUsedIngredients] = useState(cocktailsIngredients);
+  const [usedIngredients, setUsedIngredients] = useState([]);
   const { setLoading } = useContext(MainContext);
   const SLICE_NUMBER = -12;
 
@@ -32,13 +31,14 @@ function DrinkRecipeInProgress({ match: { params: { id } } }) {
 
   function lineThroughUsedIngredients({ target }) {
     if (target.checked) {
-      setUsedIngredients([...usedIngredients, target.value]);
-      saveInProgressDrinkRecipes(id, [...usedIngredients, target.value]);
+      const updatedUsedIngredients = [...usedIngredients, target.value];
+      setUsedIngredients(updatedUsedIngredients);
+      saveInProgressDrinkRecipes(id, updatedUsedIngredients, setInProgressRecipes);
     } else {
       const remainingIngredients = usedIngredients
         .filter((ingredient) => ingredient !== target.value);
       setUsedIngredients(remainingIngredients);
-      saveInProgressDrinkRecipes(id, remainingIngredients);
+      saveInProgressDrinkRecipes(id, remainingIngredients, setInProgressRecipes);
     }
   }
 
@@ -50,6 +50,13 @@ function DrinkRecipeInProgress({ match: { params: { id } } }) {
         setLoading(false);
       });
   }, [setRecipe, setLoading, id]);
+
+  useEffect(() => {
+    const drinksIngredients = inProgressRecipes.cocktails
+      ? inProgressRecipes.cocktails[id] || []
+      : [];
+    setUsedIngredients(drinksIngredients);
+  }, [id, inProgressRecipes]);
 
   const { strDrinkThumb, strDrink, strCategory, strInstructions, strAlcoholic } = recipe;
   return (
