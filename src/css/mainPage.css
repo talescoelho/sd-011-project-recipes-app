@@ -5,6 +5,10 @@
   justify-content: space-around;
 }
 
+/* .meals button {
+  background-color: hotpink;
+} */
+
 .meal {
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 3px;
@@ -12,7 +16,7 @@
 }
 
 .meal img {
-  width: 150px;
+  width: 140px;
 }
 
 .drinks {
@@ -30,4 +34,13 @@
 
 .drink img {
   width: 150px;
+}
+
+.btn-categories {
+  margin: 10px 10px 0;
+}
+
+.btn-categories button {
+  width: 100px;
+  margin: 5px;
 }
