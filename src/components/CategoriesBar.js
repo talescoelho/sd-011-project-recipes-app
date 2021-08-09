@@ -36,6 +36,7 @@ function CategoriesBar({ recipeType }) {
       }
     }
     getCategories();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentCategory]);
 
   function handleClick(strCategory) {
@@ -46,6 +47,7 @@ function CategoriesBar({ recipeType }) {
   function renderCategoryBar(strCategory, index) {
     return (
       <button
+        className="category-bar-button"
         key={ index }
         data-testid={ `${strCategory}-category-filter` }
         type="button"
@@ -71,8 +73,9 @@ function CategoriesBar({ recipeType }) {
   }
 
   return (
-    <>
+    <div className="container category-bar">
       <button
+        className="category-bar-button"
         type="button"
         data-testid="All-category-filter"
         onClick={ () => resetFilter() }
@@ -82,8 +85,7 @@ function CategoriesBar({ recipeType }) {
       {recipeType === 'meals'
         ? renderCategoryMeals()
         : renderCategoryDrink()}
-
-    </>
+    </div>
   );
 }
 

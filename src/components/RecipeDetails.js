@@ -38,7 +38,7 @@ function RecipeDetails({ url }) {
       const ingredient = recipe[`strIngredient${index}`];
       const measure = recipe[`strMeasure${index}`];
       if (itemValidation(ingredient) && itemValidation(measure)) {
-        const item = `${ingredient} ${measure}`;
+        const item = `${ingredient}: ${measure}`;
         listAux.push(item);
       }
     }
@@ -92,18 +92,30 @@ function RecipeDetails({ url }) {
   console.log(recipe);
 
   return (
-    <article>
-      <div>
-        <img
-          data-testid="recipe-photo"
-          src={ recipe.strMealThumb || recipe.strDrinkThumb }
-          alt={ recipe.strMeal || recipe.strDrink }
-        />
-        <h2 data-testid="recipe-title">{ recipe.strMeal || recipe.strDrink }</h2>
-        <h3 data-testid="recipe-category">
-          { recipe.strYoutube ? recipe.strCategory : recipe.strAlcoholic }
-        </h3>
-        <div className="buttons">
+    <section>
+      <div className="row align-items-center">
+
+        <div className="card border border-danger rounded mx-5 col-sm-5">
+          <img
+            className="img-fluid pt-3"
+            data-testid="recipe-photo"
+            src={ recipe.strMealThumb || recipe.strDrinkThumb }
+            alt={ recipe.strMeal || recipe.strDrink }
+          />
+          <div className="card-inner text-center">
+            <h2 className="title-recipe" data-testid="recipe-title">
+              { recipe.strMeal || recipe.strDrink }
+            </h2>
+            <h3 className="subtitle" data-testid="recipe-category">
+              { recipe.strYoutube ? recipe.strCategory : recipe.strAlcoholic }
+            </h3>
+          </div>
+        </div>
+        <div className="col-lg-5">
+          <IngredientsList />
+        </div>
+
+        <div className="buttons-actions">
           <button
             type="button"
             onClick={
@@ -123,13 +135,16 @@ function RecipeDetails({ url }) {
             <h4>{share && 'Link copiado!'}</h4>
           </div>
         </div>
-        <IngredientsList />
-        <h2>
-          Instructions
-        </h2>
-        <p data-testid="instructions">{ recipe.strInstructions }</p>
       </div>
-    </article>
+
+      <h2 className="text-center ingredient-title">
+        Instructions
+      </h2>
+      <p className="text-justify my-5 text-instructions" data-testid="instructions">
+        { recipe.strInstructions }
+      </p>
+
+    </section>
   );
 }
 

@@ -1,29 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import RecipesContext from '../context/RecipesContext';
 
-function FrameVideo({ recipe }) {
+function FrameVideo() {
+  const { recipeDetail: recipe } = useContext(RecipesContext);
   return (
-    <div>
-      <h3>Video</h3>
-      <iframe
-        data-testid="video"
-        width="400"
-        height="300"
-        src={ recipe.strYoutube }
-        frameBorder="0"
-        allow="accelerometer;
-        autoplay; clipboard-write;
-        encrypted-media; gyroscope;
-        picture-in-picture"
-        allowFullScreen
-        title="Youtube Video"
-      />
+    <div className="container">
+      <h3 className="text-center">Video</h3>
+      <div className="container-video my-5">
+        <div className="embed-responsive embed-responsive-16by9">
+          {
+            recipe.strYoutube !== undefined
+         && (<iframe
+           src={ recipe.strYoutube.replace('watch?v=', 'embed/') }
+           data-testid="video"
+           className="embed-responsive-item"
+           allowFullScreen
+           title="Youtube Video"
+         />)
+          }
+        </div>
+      </div>
     </div>
   );
 }
-
-FrameVideo.propTypes = {
-  recipe: PropTypes.objectOf(PropTypes.string).isRequired,
-};
 
 export default FrameVideo;

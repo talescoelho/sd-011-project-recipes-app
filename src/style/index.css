@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap') ;
+
 * {
+  border: 0;
   box-sizing: border-box;
+  font-family: Lato , sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -15,6 +19,210 @@
   --dark-color-1: #1b34a2;
 
   --dark-color-2: #fb3c34;
+
+  --background-gradient: linear-gradient(45deg, #fb3c34, #ff9362);
+}
+
+.subtitle {
+  color: var(--dark-color-1);
+  font-weight: 300;
+}
+
+/* Login CSS */
+.form-login-container {
+  align-items: center;
+  background: var(--background-gradient);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.form-login {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  min-height: 60vh;
+  min-width: 40vw;
+  padding: 2rem;
+  text-align: center;
+}
+
+.form-login h2 {
+  color: var(--dark-color-2);
+  font-size: 3rem;
+  font-style: italic;
+  font-weight: 700;
+  position: relative;
+}
+
+.form-login hr {
+  border: 3px solid var(--dark-color-2);
+  border-radius: 10px;
+  margin: 0 0 10px;
+}
+
+.input-field-login {
+  border: 3px solid var(--dark-color-2);
+  border-radius: 8px;
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin: 15px 0;
+  outline: none;
+  padding: 15px 10px;
+}
+
+.button-login {
+  background-color: var(--dark-color-1);
+  border-radius: 8px;
+  color: var(--dark-color-2);
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 400;
+  padding: 15px 10px;
+  width: 100%;
+}
+
+.button-login:hover {
+  color: var(--light-color-1);
+}
+
+.button-login:disabled {
+  background-color: #ddd;
+  color: var(--light-color-2);
+  cursor: auto;
+}
+
+/* Header CSS */
+.nav {
+  background-color: var(--font-color);
+  border-bottom: 5px solid var(--dark-color-2);
+  color: var(--dark-color-2);
+  font-size: 3rem;
+  font-weight: 900;
+}
+
+.nav img {
+  height: 45px;
+  width: 45px;
+}
+
+.buttons-navbar {
+  background-color: var(--font-color);
+}
+
+
+.hide {
+  display: none;
+}
+
+.input-field-search {
+  border: 3px solid var(--dark-color-2);
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-top: -20px;
+  outline: none;
+  padding: 5px;
+  width: 50vw;
+}
+
+.search-content-container {
+  align-items: center;
+  border-bottom: 5px solid var(--dark-color-2);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 15px;
+}
+
+.search-content-options {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+  width: 100%;
+}
+
+.search-label {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.search-label input {
+  margin: 0 5px;
+}
+
+.button-search {
+  background-color: var(--dark-color-1);
+  border-radius: 8px;
+  color: var(--light-color-1);
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: 400;
+  outline: none;
+  padding: 5px 20px;
+  width: 100%;
+}
+
+.button-search:hover {
+  color: var(--light-color-2);
+}
+
+.category-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.category-bar-button {
+  background-color: var(--dark-color-1);
+  border-radius: 8px;
+  color: var(--light-color-1);
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin: 5px;
+  outline: none;
+  padding: 5px 0;
+  width: 100%;
+}
+
+.category-bar-button:hover {
+  color: var(--light-color-2);
+}
+
+.category-logout-button {
+  background-color: var(--dark-color-2);
+  border-radius: 8px;
+  color: var(--light-color-1);
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin: 5px;
+  outline: none;
+  padding: 5px 0;
+  width: 100%;
+}
+
+.category-logout-button:hover {
+  color: var(--font-color);
+}
+
+
+.select-countries {
+  background-color: var(--font-color);
+  border: 3px solid var(--dark-color-2);
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin: 15px 0;
+  outline: none;
+  padding: 15px 10px;
+}
+
+.select::-ms-expand {
+  display: none;
 }
 
 /* Footer CSS */
@@ -27,7 +235,7 @@
   height: 60px;
   justify-content: space-evenly;
   position: fixed;
-  width: 100%;
+  width: 100vw;
 }
 
 .footer img {
@@ -35,16 +243,65 @@
   width: 40px;
 }
 
+/* Recipes CSS */
+
+/* https://codepen.io/jakedx6/pen/Veqbez */
+.card {
+  background-color: var(--font-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) , 0 1px 2px rgba(0, 0, 0, 0.24);
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.card:hover {
+  box-shadow: 10px 10px 10px rgba(255, 0, 0, 0.19) , 0 6px 6px rgba(255, 0, 0, 0.23);
+}
+
+.title-recipe {
+  color: var(--dark-color-1);
+  font-weight: 300;
+  text-align: center;
+}
+
+.title-recipe:hover {
+  font-weight: 400;
+  text-align: center;
+}
+
+.recipe-tag {
+  color: var(--dark-color-1);
+}
+
 /* Details Page */
+.container {
+  margin: 25px 0;
+}
+
+.card-img-top {
+  border-bottom: 1px solid var(--light-color-2);
+  padding: 5px;
+}
+
 .carousel {
+  align-items: center;
   display: flex;
-  flex-direction: row;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.buttons-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.buttons-actions img {
+  margin: 10px 20px;
 }
 
 .button-carousel {
-  border: none;
-  height: 40px;
-  width: 40px;
+  width: 25px;
 }
 
 .button-carousel-icon {
@@ -53,14 +310,195 @@
 }
 
 .carousel-image {
-  width: 128px;
+  width: 100px;
 }
 
-.hide {
-  display: none;
+.card-carousel {
+  border: 2px solid var(--light-color-2);
+}
+
+.container-start-button {
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .button-start {
+  background-color: var(--dark-color-2);
   bottom: 0;
+  color: var(--font-color);
+  padding: 15px;
   position: fixed;
+}
+
+.button-start:hover {
+  background-color: var(--dark-color-1);
+}
+
+.button-finish {
+  background-color: var(--dark-color-2);
+  color: var(--font-color);
+  padding: 15px;
+}
+
+.button-finish:hover {
+  background-color: var(--dark-color-1);
+}
+
+.ingredient-title {
+  color: var(--dark-color-1);
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+.ingredient-list {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  list-style-type: none;
+  margin: 15px 0;
+}
+
+.ingredient-list li {
+  font-size: 1.4rem;
+}
+
+.text-instructions {
+  font-size: 1.4rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.text-center {
+  margin: 20px 0;
+}
+
+.container-video {
+  margin: 0 auto;
+  width: 640px;
+}
+
+/* Profile */
+
+.profile{
+  margin-bottom: 5rem;
+}
+
+.img-profile {
+  border: 2px solid var(--dark-color-2);
+  margin: 0 auto;
+  width: 100px;
+}
+
+.text-email {
+  font-size: 1.4rem;
+  font-weight: 300;
+}
+
+.card-profile {
+  padding: 25px 0;
+}
+
+/* Not Found */
+.not-found-page {
+  align-items: center;
+  background: var(--background-gradient);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.not-found-title {
+  color: var(--font-color);
+  font-size: 12rem;
+  font-weight: 900;
+  text-align: center;
+  -webkit-text-stroke-color: var(--dark-color-1);
+  -webkit-text-stroke-width: 3px;
+}
+
+.not-found-subtitle {
+  color: var(--font-color);
+  font-size: 3.5rem;
+  font-weight: 700;
+  text-align: center;
+  -webkit-text-stroke-color: var(--dark-color-1);
+  -webkit-text-stroke-width: 2px;
+}
+
+.not-found-text {
+  color: var(--font-color);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.not-found-button-back {
+  background-color: var(--font-color);
+  border-radius: 50px;
+  color: var(--dark-color-2);
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 400;
+  padding: 15px 10px;
+  text-align: center;
+  text-decoration: none;
+  width: 200px;
+}
+
+.not-found-button-back:hover {
+  background-color: var(--dark-color-1);
+  color: var(--font-color);
+}
+
+body a:hover {
+  text-decoration: none;
+}
+
+/* Overflow bar css width */
+body::-webkit-scrollbar {
+  background-color: var(--font-color);
+  width: 7px;
+}
+
+/* Overflow bar css Track */
+body::-webkit-scrollbar-track {
+  background-color: var(--light-color-2);
+  border-radius: 10px;
+}
+
+/* Overflow bar css Handle */
+body::-webkit-scrollbar-thumb {
+  background-color: var(--dark-color-2);
+  border-radius: 10px;
+}
+
+/* MEDIA QUERY */
+
+@media only screen and ( max-width : 600px ) {
+
+  .form-login {
+    min-height: 60vh;
+    min-width: 80vw;
+  }
+
+  .not-found-title {
+    font-size: 7.6rem;
+    font-weight: 700;
+  }
+
+  .not-found-text {
+    font-size: 1.4rem;
+  }
+
+  .container-video {
+    width: auto;
+  }
+
+  .buttons-actions, .ingredient-list, .text-instructions {
+    padding: 0 35px;
+  }
 }

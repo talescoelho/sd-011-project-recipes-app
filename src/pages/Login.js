@@ -37,32 +37,39 @@ function Login() {
   }
 
   return (
-    <div>
-      {shouldRedirect ? <Redirect to="/comidas" /> : null}
-      <input
-        data-testid="email-input"
-        placeholder="Email"
-        type="email"
-        name="email"
-        onKeyUp={ handleChange }
-      />
-      <input
-        data-testid="password-input"
-        placeholder="Password"
-        type="password"
-        name="password"
-        minLength="6"
-        onKeyUp={ handleChange }
-      />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ !disabled }
-        onClick={ logInBtn }
-      >
-        Entrar
-      </button>
-    </div>
+    <section className="form-login-container">
+      <form className="form-login">
+        <h2>Login</h2>
+        {shouldRedirect ? <Redirect to="/comidas" /> : null}
+        <input
+          className="input-field-login"
+          data-testid="email-input"
+          placeholder="Email"
+          type="email"
+          name="email"
+          onKeyUp={ handleChange }
+        />
+        <input
+          className="input-field-login"
+          data-testid="password-input"
+          placeholder="Password"
+          type="password"
+          name="password"
+          minLength="6"
+          onKeyUp={ handleChange }
+        />
+        <button
+          className="button-login "
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ !disabled }
+          onClick={ logInBtn }
+        >
+          Entrar
+        </button>
+      </form>
+    </section>
+
   );
 }
 

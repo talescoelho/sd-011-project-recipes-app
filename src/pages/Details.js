@@ -1,7 +1,5 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import * as CocktailAPI from '../services/cocktailAPI';
-import * as MealAPI from '../services/meailAPI';
 import RecipeDetails from '../components/RecipeDetails';
 import FrameVideo from '../components/FrameVideo';
 import RecommendedRecipes from '../components/RecommendedsRecipes';
@@ -9,22 +7,7 @@ import RecipesContext from '../context/RecipesContext';
 import DetailsButton from '../components/DetailsButton';
 
 function Details({ match: { url, params: { id } } }) {
-  const { recipeDetail, setRecipeDetail, setRecommended } = useContext(RecipesContext);
-
-  const getRecipeById = async () => {
-    let searchById = '';
-    let searchRecommendedRecipe = '';
-    if (url.includes('comidas')) {
-      searchById = await MealAPI.fetchMealById(id);
-      searchRecommendedRecipe = await CocktailAPI.fetchCocktailsRecommended();
-    }
-    if (url.includes('bebidas')) {
-      searchById = await CocktailAPI.fetchCocktailById(id);
-      searchRecommendedRecipe = await MealAPI.fetchMealsRecommended();
-    }
-    setRecipeDetail(...searchById);
-    setRecommended(searchRecommendedRecipe);
-  };
+  const { getRecipeById } = useContext(RecipesContext);
 
   // Verifica se a receita foi finalizada a partir do id dela no localStorage
   const verifyRecipeIsDone = () => {
@@ -53,13 +36,14 @@ function Details({ match: { url, params: { id } } }) {
 
   // didMount getRecipeById
   useEffect(() => {
-    getRecipeById();
+    getRecipeById(url, id);
   }, []);
 
   return (
-    <div>
-      <RecipeDetails url={ url } recipeDetail={ recipeDetail } />
-      {url.includes('comidas') && <FrameVideo recipe={ recipeDetail } />}
+
+    <div className="container">
+      <RecipeDetails url={ url } />
+      {url.includes('comidas') && <FrameVideo />}
       <RecommendedRecipes />
       <DetailsButton
         verifyRecipeIsDone={ verifyRecipeIsDone }

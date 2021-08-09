@@ -14,24 +14,24 @@ function Drinks() {
   // }, []);
 
   return (
-    <div>
+    <>
       { drinksData.length === 1
         && <Redirect to={ `/bebidas/${drinksData[0].idDrink}` } /> }
       <Header title="Bebidas" recipeType="drinks" searchButton />
       <CategoriesBar recipeType="bebidas" />
-      { drinksData !== [] && drinksData.map((recipe, index) => (
-        <Link
-          to={ `/bebidas/${recipe.idDrink}` }
-          key={ recipe.idDrink }
-        >
-          <RecipeCard
-            recipe={ recipe }
-            index={ index }
-          />
-        </Link>
-      )) }
+      <div className="container my-5">
+        <div className="row px-5 gallery-work">
+          { drinksData !== [] && drinksData.map((recipe, index) => (
+            <div className="col-md-4 my-3" key={ recipe.idDrink }>
+              <Link to={ `/bebidas/${recipe.idDrink}` }>
+                <RecipeCard recipe={ recipe } index={ index } />
+              </Link>
+            </div>
+          )) }
+        </div>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 
