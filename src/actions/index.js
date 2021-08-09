@@ -16,6 +16,7 @@ export const MEAL_DETAIL_ERROR = 'MEAL_DETAIL_ERROR';
 export const DRINK_DETAIL = 'DRINK_DETAIL';
 export const DRINK_DETAIL_SUCCESS = 'DRINK_DETAIL_SUCCESS';
 export const DRINK_DETAIL_ERROR = 'DRINK_DETAIL_ERROR';
+export const HEADER_SEARCH_RESET_ERROR = 'HEADER_SEARCH_RESET_ERROR';
 
 const baseMealDbUrl = 'https://www.themealdb.com/api/json/v1/1';
 const baseCocktailDbUrl = 'https://www.thecocktaildb.com/api/json/v1/1';
@@ -181,3 +182,7 @@ export const fetchRecipeDetail = (type, id) => (dispatch) => {
       else dispatch(drinkDetailError(error));
     });
 };
+
+export const headerSearchResetError = () => ({
+  type: HEADER_SEARCH_RESET_ERROR,
+});

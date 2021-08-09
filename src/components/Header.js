@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchHeaderSearch } from '../actions';
+import { fetchHeaderSearch, headerSearchResetError } from '../actions';
 import profile from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
 
@@ -20,17 +20,11 @@ class Header extends Component {
     this.withoutSearch = this.withoutSearch.bind(this);
     this.fetchHeaderSearch = this.fetchHeaderSearch.bind(this);
     this.redirectToRecipeDetail = this.redirectToRecipeDetail.bind(this);
-    this.verifyThereIsRecipe = this.verifyThereIsRecipe.bind(this);
-  }
-
-  componentDidUpdate() {
-    this.redirectToRecipeDetail(); // Colocado aqui porque Cypress não espera o tempo certo da API
   }
 
   fetchHeaderSearch() {
     const { dispatchFetchHeaderSearch, history: { location: { pathname } } } = this.props;
     const { keyWord, filter } = this.state;
-    const TIME = 480;
     const type = pathname.replace('/', '');
 
     if (keyWord.length > 1 && filter === 'primeira-letra') {
@@ -38,10 +32,6 @@ class Header extends Component {
     }
 
     dispatchFetchHeaderSearch(type, filter, keyWord);
-
-    if (keyWord === 'xablau') { // Colocado essa condição porque o Cypress não espera o tempo certo da API
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    } else setTimeout(() => this.verifyThereIsRecipe(), TIME);
   }
 
   redirectToRecipeDetail() {
@@ -50,13 +40,6 @@ class Header extends Component {
       const id = pathname === '/comidas'
         ? recipes[0].idMeal : recipes[0].idDrink;
       push(`${pathname}/${id}`);
-    }
-  }
-
-  verifyThereIsRecipe() {
-    const { error } = this.props;
-    if (error === 'TypeError: info is null') {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   }
 
@@ -181,7 +164,15 @@ class Header extends Component {
   }
 
   render() {
-    const { withSearch } = this.props;
+    const { withSearch, error, dispatchResetError } = this.props;
+
+    this.redirectToRecipeDetail();
+
+    if (error) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      dispatchResetError();
+    }
+
     return (
       <div>
         {withSearch ? this.withSearch() : this.withoutSearch() }
@@ -198,6 +189,7 @@ const mapStateToProps = ({ headerSearchReducer }) => ({
 const mapDispatchToProps = (dispatch) => ({
   dispatchFetchHeaderSearch:
     (type, filter, keyWord) => dispatch(fetchHeaderSearch(type, filter, keyWord)),
+  dispatchResetError: () => dispatch(headerSearchResetError()),
 });
 
 Header.propTypes = {
