@@ -1,7 +1,7 @@
 import React from 'react';
 import { screen } from '@testing-library/dom';
 import render from '../helpers/renderWithRouterAndStore';
-import { Button } from '../components/design';
+import Button from '../components/design/Button';
 
 describe('O component Button, quando não recebe props', () => {
   beforeEach(() => {
