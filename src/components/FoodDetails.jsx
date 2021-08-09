@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 import propTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchFood } from '../services/FoodAPI';
@@ -8,7 +7,6 @@ import CardsDrinks from './CardsDrinks';
 import CardsFood from './CardsFood';
 import {
   showRecipe,
-  progressRecipe,
   isRecipeInProgress,
 } from '../services/RecipesLocalStorage';
 import ShareBtn from './ShareBtn';

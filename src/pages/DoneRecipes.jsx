@@ -4,14 +4,21 @@ import useLocalStorage from 'use-local-storage-state';
 import Header from '../components/Header';
 
 export default function DoneRecipes() {
-  const [doneRecipes, setDoneRecipes] = useLocalStorage('doneRecipes', []);
+  const [doneRecipes] = useLocalStorage('doneRecipes', []);
   console.log(doneRecipes);
 
   const cardsToRender = (cardsRender) => (
-    cardsRender.length !== 0 && cardsRender.map(({ category, image, type, area, alcoholicOrNot, id, name, tags }, index) => (
+    cardsRender.length !== 0 && cardsRender.map((
+      { category, image, type, area, alcoholicOrNot, id, name, tags }, index,
+    ) => (
       (
         <Card key={ id } data-testid={ `${index}-recipe-card` }>
-          <Card.Header data-testid={ `${index}-horizontal-top-text` }>{category}</Card.Header>
+          <Card.Header
+            data-testid={ `${index}-horizontal-top-text` }
+          >
+            {category}
+
+          </Card.Header>
           <Card.Img
             variant="top"
             src={ image }
@@ -22,7 +29,12 @@ export default function DoneRecipes() {
               {name}
             </Card.Title>
             <Card.Text>{area || alcoholicOrNot}</Card.Text>
-            <Card.Text data-testid={ `${index}-${tags}-horizontal-tag` }>{tags}</Card.Text>
+            <Card.Text
+              data-testid={ `${index}-${tags}-horizontal-tag` }
+            >
+              {tags}
+
+            </Card.Text>
           </Card.Body>
           <Card.Footer>
             {type}
