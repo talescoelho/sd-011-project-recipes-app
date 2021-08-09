@@ -1,56 +1,42 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import PropTypes, { shape, string } from 'prop-types';
+import RecipeInstructions from '../components/common/RecipeInstructions';
+import StartRecipeBtn from '../components/common/StartRecipeBtn';
 import { requestDrinkDetails } from '../redux/actions/recipeDetailsActions';
 
-const DrinkDetails = (
-  {
-    dispatch,
-    match: { params: { id } },
-    // drinkDetails,
-    loading,
-    error,
-  },
-) => {
+const DrinkDetails = ({ dispatch, match, drinkDetails }) => {
+  const { params: { id }, url } = match;
+
   useEffect(() => {
     dispatch(requestDrinkDetails(id));
     // eslint-disable-next-line
   }, []);
 
-  if (error) {
-    return (<div>Erro</div>);
-  }
-
-  if (loading) {
-    return (<div>Loading...</div>);
-  }
-
   return (
-    <div>Pagina de Detalhe de Comida</div>
+    <>
+      <div>Pagina de Detalhe de Bebidas</div>
+      <RecipeInstructions strInstructions={ drinkDetails.strInstructions } />
+      <StartRecipeBtn routeInfo={ { id, url } } />
+    </>
   );
-};
-
-DrinkDetails.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string,
-    }),
-  }).isRequired,
-  // drinkDetails: PropTypes.objectOf(PropTypes.string),
-  loading: PropTypes.bool.isRequired,
-  error: PropTypes.string,
-};
-
-DrinkDetails.defaultProps = {
-  // drinkDetails: {},
-  error: null,
 };
 
 const mapStateToProps = (state) => ({
   drinkDetails: state.recipeDetailsReducer.drink,
-  loading: state.recipeDetailsReducer.isLoading,
-  error: state.recipeDetailsReducer.error,
 });
+
+DrinkDetails.propTypes = {
+  dispatch: PropTypes.func,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+    url: PropTypes.string,
+  }),
+  drinkDetails: shape({
+    strInstructions: string,
+  }),
+}.isRequired;
 
 export default connect(mapStateToProps)(DrinkDetails);
