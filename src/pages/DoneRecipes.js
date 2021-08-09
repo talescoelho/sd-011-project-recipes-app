@@ -62,15 +62,37 @@ export default class DoneRecipes extends Component {
               <li key={ index }>
                 <Header title="Receitas Feitas" search={ false } />
                 <Link to={ `/comidas/${item.id}` }>
-                  <img data-testid={ `${index}-horizontal-image` } src={ item.image } alt="card-img" width="300px" height="200px" />
+                  <img
+                    data-testid={ `${index}-horizontal-image` }
+                    src={ item.image }
+                    alt="card-img"
+                    width="300px"
+                    height="200px"
+                  />
                 </Link>
-                <p data-testid={ `${index}-horizontal-top-text` }>{`${item.area} - ${item.category}`}</p>
+                <p
+                  data-testid={ `${index}-horizontal-top-text` }
+                >
+                  {`${item.area} - ${item.category}`}
+                </p>
                 <Link to={ `/comidas/${item.id}` }>
                   <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
                 </Link>
-                <p data-testid={ `${index}-horizontal-done-date` }>{`Feita em: ${item.doneDate}`}</p>
-                <p data-testid={ `${index}-${item.tags[0]}-horizontal-tag` }>{item.tags[0]}</p>
-                <p data-testid={ `${index}-${item.tags[1]}-horizontal-tag` }>{item.tags[1]}</p>
+                <p
+                  data-testid={ `${index}-horizontal-done-date` }
+                >
+                  {`Feita em: ${item.doneDate}`}
+                </p>
+                <p
+                  data-testid={ `${index}-${item.tags[0]}-horizontal-tag` }
+                >
+                  {item.tags[0]}
+                </p>
+                <p
+                  data-testid={ `${index}-${item.tags[1]}-horizontal-tag` }
+                >
+                  {item.tags[1]}
+                </p>
                 <ShareButton test={ `${index}-horizontal-share-btn` } id={ item.id } />
               </li>
             );
@@ -80,13 +102,23 @@ export default class DoneRecipes extends Component {
             <li key={ index }>
               <Header title="Receitas Feitas" search={ false } />
               <Link to={ `/bebidas/${item.id}` }>
-                <img data-testid={ `${index}-horizontal-image` } src={ item.image } alt="card-img" width="300px" height="200px" />
+                <img
+                  data-testid={ `${index}-horizontal-image` }
+                  src={ item.image }
+                  alt="card-img"
+                  width="300px"
+                  height="200px"
+                />
               </Link>
               <p data-testid={ `${index}-horizontal-top-text` }>{item.alcoholicOrNot}</p>
               <Link to={ `/bebidas/${item.id}` }>
                 <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
               </Link>
-              <p data-testid={ `${index}-horizontal-done-date` }>{`Feita em: ${item.doneDate}`}</p>
+              <p
+                data-testid={ `${index}-horizontal-done-date` }
+              >
+                {`Feita em: ${item.doneDate}`}
+              </p>
               <ShareButton test={ `${index}-horizontal-share-btn` } id={ item.id } />
             </li>
           );

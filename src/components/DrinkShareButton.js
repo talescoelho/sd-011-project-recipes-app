@@ -29,7 +29,6 @@ class DrinkShareButton extends Component {
         <p>{ clipboardMessage ? 'Link copiado!' : '' }</p>
         <button
           type="button"
-
           onClick={ () => this.clipBoard() }
         >
           <img data-testid={ test } src={ shareIcon } alt="share icon" />
@@ -40,7 +39,8 @@ class DrinkShareButton extends Component {
 }
 
 DrinkShareButton.propTypes = {
-  id: PropTypes.string.isRequired,
-};
+  id: PropTypes.string,
+  test: PropTypes.string,
+}.isRequired;
 
 export default DrinkShareButton;
