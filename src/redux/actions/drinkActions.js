@@ -76,13 +76,13 @@ export const saveFavoritesRedux = (payload) => ({
 export const saveFavoriteRecipe = (id) => async (dispatch) => {
   const returnFetch = await fetchAPIByID(id);
   const genericObj = {
-    id: returnFetch[0].idMeal,
+    id: returnFetch[0].idDrink,
     type: 'bebida',
     area: returnFetch[0].strArea,
     category: returnFetch[0].strCategory,
     alcoholicOrNot: '',
-    name: returnFetch[0].strMeal,
-    image: returnFetch[0].strMealThumb,
+    name: returnFetch[0].strDrink,
+    image: returnFetch[0].strDrinkThumb,
   };
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   if (favoriteRecipes === null) {

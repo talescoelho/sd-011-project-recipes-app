@@ -2,7 +2,7 @@ const urlIngredients = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=l
 const urlName = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const urlCategory = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=';
 const urlCategoryFilter = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
-const urlFirstLetter = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f={primeira-letra}';
+const urlFirstLetter = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
 const urlId = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 const drinkRandom = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 const urlIngredientsFilter = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
@@ -60,6 +60,26 @@ export async function fetchDrinkRandom() {
 export async function fetchDrinkIngredient() {
   try {
     const response = await fetch(`${urlIngredients}`);
+    const resolve = await response.json();
+    return resolve.drinks;
+  } catch (error) {
+    return console.log(error);
+  }
+}
+
+export async function fetchDrinkIngredientSearch(ingredient) {
+  try {
+    const response = await fetch(`${urlIngredientsFilter}${ingredient}`);
+    const resolve = await response.json();
+    return resolve.drinks;
+  } catch (error) {
+    return console.log(error);
+  }
+}
+
+export async function fetchAPIFirstLetter(letter) {
+  try {
+    const response = await fetch(`${urlFirstLetter}${letter}`);
     const resolve = await response.json();
     return resolve.drinks;
   } catch (error) {

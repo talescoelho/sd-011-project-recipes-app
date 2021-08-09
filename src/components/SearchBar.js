@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { executeFoodSearch, updateQuery, executeDrinkSearch, updateSelectedFilter } from '../redux/actions/searchBarActions';
+import PropTypes from 'prop-types';
+import { executeFoodSearch, updateQuery, executeDrinkSearch,
+  updateSelectedFilter } from '../redux/actions/searchBarActions';
 import { foodListSuccess } from '../redux/actions/foodActions';
 import { drinkListSuccess } from '../redux/actions/drinkActions';
 
@@ -10,45 +12,58 @@ class SearchBar extends Component {
     super();
     this.state = {
       food: false,
-    }
+    };
     this.handleSearchClick = this.handleSearchClick.bind(this);
     this.checkResults = this.checkResults.bind(this);
   }
 
   componentDidMount() {
-    const { history } = this.props;
-    this.setState({
-      food: history.location.pathname.includes('comidas')
-    });
+    this.checkHistory();
+  }
+
+  async handleSearchClick() {
+    const { query, selectedFilter, executeSearchFoodAction,
+      executeSearchDrinkAction } = this.props;
+    const { food } = this.state;
+    if (selectedFilter === 'firstLetter' && query.length !== 1) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+      return;
+    }
+    if (food) {
+      await executeSearchFoodAction(query, selectedFilter);
+    } else {
+      await executeSearchDrinkAction(query, selectedFilter);
+    }
+    this.checkResults();
   }
 
   checkResults() {
     const { searchResults, history, saveFoodList, saveDrinkList } = this.props;
     const { food } = this.state;
-    if(searchResults === null){
+    if (searchResults === null) {
       console.log(searchResults);
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       return;
-    } else if (searchResults.length === 1) {
-      (food)? history.push(`/comidas/${searchResults[0].idMeal}`) 
-      : history.push(`/bebidas/${searchResults[0].idDrink}`);
+    } if (searchResults.length === 1) {
+      if (food) {
+        history.push(`/comidas/${searchResults[0].idMeal}`);
+      } else {
+        history.push(`/bebidas/${searchResults[0].idDrink}`);
+      }
       return;
     }
-    (food) ? saveFoodList(searchResults)
-    : saveDrinkList(searchResults);
+    if (food) {
+      saveFoodList(searchResults);
+    } else {
+      saveDrinkList(searchResults);
+    }
   }
-  
 
-  async handleSearchClick() { 
-    const { query, selectedFilter, executeSearchFoodAction, executeSearchDrinkAction } = this.props;
-    const { food } = this.state;
-    if(selectedFilter === 'firstLetter' && query.length !== 1){
-      alert('Sua busca deve conter somente 1 (um) caracter');
-      return;
-    }
-    (food) ? await executeSearchFoodAction(query, selectedFilter)
-    : await executeSearchDrinkAction(query, selectedFilter);
-    this.checkResults();
+  checkHistory() {
+    const { history } = this.props;
+    this.setState({
+      food: history.location.pathname.includes('comidas'),
+    });
   }
 
   render() {
@@ -61,7 +76,7 @@ class SearchBar extends Component {
           data-testid="search-input"
           placeholder="Faça sua pequisa"
           value={ query }
-          onChange={({target})=> queryAction(target.value) }
+          onChange={ ({ target }) => queryAction(target.value) }
         />
         <label htmlFor="search-ingredient">
           Ingrediente:
@@ -71,7 +86,7 @@ class SearchBar extends Component {
             value="ingredient"
             type="radio"
             data-testid="ingredient-search-radio"
-            onChange={()=> selectedFilterAction("ingredient")}
+            onChange={ () => selectedFilterAction('ingredient') }
           />
         </label>
         <label htmlFor="search-nome">
@@ -82,7 +97,7 @@ class SearchBar extends Component {
             value="name"
             type="radio"
             data-testid="name-search-radio"
-            onChange={()=> selectedFilterAction("name")}
+            onChange={ () => selectedFilterAction('name') }
           />
         </label>
         <label htmlFor="search-first-letter">
@@ -93,7 +108,7 @@ class SearchBar extends Component {
             value="firstLetter"
             type="radio"
             data-testid="first-letter-search-radio"
-            onChange={()=> selectedFilterAction("firstLetter")}
+            onChange={ () => selectedFilterAction('firstLetter') }
           />
         </label>
         <button
@@ -118,9 +133,14 @@ const mapDispatchToProps = (dispatch) => ({
   queryAction: (query) => dispatch(updateQuery(query)),
   selectedFilterAction: (filter) => dispatch(updateSelectedFilter(filter)),
   executeSearchFoodAction: (query, filter) => dispatch(executeFoodSearch(query, filter)),
-  executeSearchDrinkAction: (query, filter) => dispatch(executeDrinkSearch(query, filter)),
+  executeSearchDrinkAction:
+   (query, filter) => dispatch(executeDrinkSearch(query, filter)),
   saveFoodList: (results) => dispatch(foodListSuccess(results)),
   saveDrinkList: (results) => dispatch(drinkListSuccess(results)),
 });
+
+SearchBar.propTypes = {
+  history: PropTypes.Object,
+}.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchBar));
