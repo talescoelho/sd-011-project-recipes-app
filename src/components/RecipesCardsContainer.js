@@ -7,6 +7,8 @@ function RecipesCardsContainer({ test }) {
   const [showCards, setShowCards] = useState(false);
   const { data, loading } = useContext(MainContext);
   const maxCardLength = 11;
+  console.log('recipeCardContainer');
+  console.log(data);
 
   useEffect(() => {
     if (!loading) {

@@ -10,8 +10,7 @@ import FoodRecipeInProgress from '../pages/FoodRecipeInProgress';
 import DrinkRecipeInProgress from '../pages/DrinkRecipeInProgress';
 import Explore from '../pages/Explore';
 import RecipeExplore from '../pages/RecipeExplore';
-import FoodExploreIngredients from '../pages/FoodExploreIngredients';
-import DrinkExploreIngredients from '../pages/DrinkExploreIngredients';
+import RecipeExploreIngredients from '../pages/RecipeExploreIngredients';
 import FoodExploreArea from '../pages/FoodExploreArea';
 import Profile from '../pages/Profile';
 import DoneRecipes from '../pages/DoneRecipes';
@@ -67,13 +66,8 @@ const Routes = () => (
     />
     <Route
       exact
-      path="/explorar/comidas/ingredientes"
-      component={ FoodExploreIngredients }
-    />
-    <Route
-      exact
-      path="/explorar/bebidas/ingredientes"
-      component={ DrinkExploreIngredients }
+      path={ ['/explorar/comidas/ingredientes', '/explorar/bebidas/ingredientes'] }
+      component={ RecipeExploreIngredients }
     />
     <Route
       exact

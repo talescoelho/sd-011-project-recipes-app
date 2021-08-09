@@ -56,3 +56,9 @@ export function getRandomMeal() {
     .then((results) => results.json())
     .then(({ meals }) => meals[0].idMeal);
 }
+
+export function getMealsIngredients() {
+  return fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
+    .then((results) => results.json())
+    .then(({ meals }) => meals);
+}

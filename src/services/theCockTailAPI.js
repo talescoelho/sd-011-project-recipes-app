@@ -56,3 +56,9 @@ export function getRandomDrink() {
     .then((results) => results.json())
     .then(({ drinks }) => drinks[0].idDrink);
 }
+
+export function getDrinksIngredients() {
+  return fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list')
+    .then((results) => results.json())
+    .then(({ drinks }) => drinks);
+}
