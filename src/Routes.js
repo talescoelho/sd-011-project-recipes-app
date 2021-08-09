@@ -6,6 +6,7 @@ import DetailsMeals from './pages/DetailsMeals';
 import DetailsDrink from './pages/DetailsDrink';
 import Perfil from './components/Perfil';
 import Explore from './pages/Explore';
+import NotFound from './pages/NotFound';
 import RecipesDone from './pages/RecipesDone';
 
 export default function Routes() {
@@ -18,11 +19,13 @@ export default function Routes() {
       <Route path="/bebidas/:id" component={ DetailsDrink } />
       <Route exact path="/perfil" component={ Perfil } />
       <Route exact path="/explorar" component={ Explore } />
-      <Route path="/explorar/comidas" component={ Explore } />
-      <Route path="/explorar/bebidas" component={ Explore } />
-      <Route path="/explorar/comidas/ingredientes" component={ Explore } />
-      <Route path="/explorar/bebidas/ingredientes" component={ Explore } />
+      <Route exact path="/explorar/comidas" component={ Explore } />
+      <Route exact path="/explorar/bebidas" component={ Explore } />
+      <Route exact path="/explorar/comidas/ingredientes" component={ Explore } />
+      <Route exact path="/explorar/bebidas/ingredientes" component={ Explore } />
+      <Route exact path="/explorar/comidas/area" component={ Explore } />
       <Route path="/receitas-feitas" component={ RecipesDone } />
+      <Route component={ NotFound } />
     </Switch>
   );
 }

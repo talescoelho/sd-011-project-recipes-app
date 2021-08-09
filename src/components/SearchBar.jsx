@@ -58,31 +58,36 @@ export default function SearchBar() {
           onChange={ (e) => handlerInputText(e) }
         />
         <div className="search-radio-div">
-          <label htmlFor="ingredient-search-radio">
+          <label className="search-radio" htmlFor="ingredient-search-radio">
             <input
               type="radio"
+              className="search-radio"
               name="search-radio"
               data-testid="ingredient-search-radio"
+              id="ingredient-search-radio"
               onClick={ (e) => handlerInputRadio(e) }
               value="i"
             />
             Ingrediente
           </label>
-          <label htmlFor="name-search-radio">
+          <label className="search-radio" htmlFor="name-search-radio">
             <input
               type="radio"
+              className="search-radio"
               name="search-radio"
               data-testid="name-search-radio"
+              id="name-search-radio"
               onClick={ (e) => handlerInputRadio(e) }
               value="s"
             />
             Nome
           </label>
-          <label htmlFor="first-letter-search-radio">
+          <label className="search-radio" htmlFor="first-letter-search-radio">
             <input
               type="radio"
               name="search-radio"
               data-testid="first-letter-search-radio"
+              id="first-letter-search-radio"
               onClick={ (e) => handlerInputRadio(e) }
               value="f"
             />

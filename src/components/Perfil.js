@@ -1,5 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import Header from './Header';
+import MenuInferior from './MenuInferior';
 
 function Perfil() {
   const emailUser = JSON.parse(localStorage.getItem('user'));
@@ -12,6 +14,7 @@ function Perfil() {
 
   return (
     <>
+      <Header />
       <h2 data-testid="page-title">Perfil</h2>
       <span data-testid="profile-email">{`Email: ${emailUser.email}`}</span>
       <button
@@ -35,6 +38,7 @@ function Perfil() {
       >
         Sair
       </button>
+      <MenuInferior />
     </>
   );
 }

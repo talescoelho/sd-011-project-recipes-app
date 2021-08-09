@@ -4,6 +4,7 @@ import DrinkCard from './DrinkCard';
 import MealCard from './MealCard';
 import Header from './Header';
 import RecipesAppContext from '../context/RecipesAppContext';
+import MenuInferior from './MenuInferior';
 import '../styles/Cards.css';
 
 export default function Cards() {
@@ -27,12 +28,14 @@ export default function Cards() {
       );
     }
   }
+  // useEffect(renderRecipes, [drinkRecipes, haveRecipes, location, mealRecipes]);
   return (
     <div className="cards-section">
       <Header />
       { haveRecipes
         ? renderRecipes()
         : <h3>Loading...</h3> }
+      <MenuInferior />
     </div>
   );
 }
