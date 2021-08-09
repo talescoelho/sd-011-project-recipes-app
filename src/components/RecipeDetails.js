@@ -6,6 +6,10 @@ import whiteHearth from '../images/whiteHeartIcon.svg';
 import blackHearth from '../images/blackHeartIcon.svg';
 import RecipesContext from '../context/RecipesContext';
 
+const getLocalStorage = () => {
+  const localItems = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  return localItems || [];
+};
 function RecipeDetails({ url }) {
   const URL = window.location.href;
   const [share, setShare] = useState(false);
@@ -17,6 +21,7 @@ function RecipeDetails({ url }) {
     }
     return false;
   };
+
   // acrescentar ao localstorage o estado do favIcon
   useEffect(() => {
     const ONE_SEC = 1500;
@@ -44,17 +49,49 @@ function RecipeDetails({ url }) {
     getListOfIngredients();
   }, [recipe]);
 
+  useEffect(() => {
+    const localItems = getLocalStorage()[0];
+    if (!localItems) {
+      return;
+    }
+    setFavIcon(localItems.fav);
+  }, []);
+
   const handleClick = () => {
-    const type = url.replace(/\//ig, '').replace(/[0-9]/g, '');
-    const { idMeal, idDrink } = recipe;
-    const newItem = {
-      id: idMeal || idDrink,
-      type,
-    };
-    localStorage.setItem('favoriteRecipes', JSON.stringify([newItem]));
-    setFavIcon(!favIcon);
-    console.log('click', newItem);
+    const id = recipe.idMeal || recipe.idDrink;
+    const localItems = getLocalStorage();
+    if (localItems.length) {
+      console.log(localItems[0].id);
+      const newLocalStorage = localItems.filter((item) => item.id !== id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newLocalStorage));
+      setFavIcon(!favIcon);
+    } else {
+      setFavIcon(!favIcon);
+      const type = url.replace(/\//ig, '').replace(/[0-9]/g, '');
+      const {
+        idMeal,
+        idDrink,
+        strCategory,
+        strAlcoholic,
+        // strDrink,
+        strMeal,
+        // strDrinkThumb,
+        strMealThumb,
+        strArea } = recipe;
+      const newItem = {
+        id: idMeal || idDrink,
+        type,
+        fav: true,
+        area: strArea || '',
+        category: strCategory || '',
+        alcoholicOrNot: strAlcoholic || '',
+        strMeal,
+        strMealThumb,
+      };
+      localStorage.setItem('favoriteRecipes', JSON.stringify([newItem]));
+    }
   };
+  console.log(recipe);
 
   return (
     <article>
