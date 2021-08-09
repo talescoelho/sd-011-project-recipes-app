@@ -7,6 +7,8 @@ import Login from './pages/Login';
 import TelaPrincipal from './pages/TelaPrincipal';
 import DetalhesComida from './pages/DetalhesComida';
 import DetalhesBebida from './pages/DetalhesBebida';
+import ComidaEmProgresso from './pages/ComidaEmProgresso';
+import BebidaEmProgresso from './pages/BebidaEmProgresso';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 import Explorar from './pages/Explorar';
@@ -37,8 +39,16 @@ function App() {
             path="/bebidas/:id"
             render={ (props) => <DetalhesBebida { ...props } /> }
           />
-          <Route exact path="/comidas/:id/in-progress" component={ NotFound } />
-          <Route exact path="/bebidas/:id/in-progress" component={ NotFound } />
+          <Route
+            exact
+            path="/comidas/:id/in-progress"
+            render={ (props) => <ComidaEmProgresso { ...props } /> }
+          />
+          <Route
+            exact
+            path="/bebidas/:id/in-progress"
+            render={ (props) => <BebidaEmProgresso { ...props } /> }
+          />
           { /* não tem header/footer /\ */ }
           <Route exact path="/explorar" component={ Explorar } />
           <Route exact path="/explorar/comidas" component={ NotFound } />

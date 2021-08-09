@@ -13,14 +13,15 @@ import {
   checkInProgressDrinks,
   checkFavorite } from '../services/localStorageChecks';
 import { handleFavoriteDrinkBtn } from '../services/favoriteButton';
+import getIngredients from '../services/getIngredients';
 
 const copy = require('clipboard-copy');
 
 export default function DetalhesBebida({ match }) {
   const { id } = match.params;
   const [drink, setDrink] = useState({});
-  const [isFavorite, setFavorite] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
+  const [isFavorite, setFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
   const cardLimit = 6;
 
@@ -49,14 +50,7 @@ export default function DetalhesBebida({ match }) {
     setCopied(true);
   }
 
-  let ingredientsKeys = [];
-  if (drink.strIngredient1) {
-    // filtra as chaves dos ingredientes
-    ingredientsKeys = Object.keys(drink)
-      .filter((key) => key.match(/strIngredient/) && drink[key]);
-    // remove os ingredientes que tem valor ""(string vazia)
-    ingredientsKeys = ingredientsKeys.filter((key) => drink[key].trim() !== '');
-  }
+  const ingredients = getIngredients(drink);
 
   const loading = !drink.idDrink && recommendations.length > 0;
 
@@ -103,17 +97,14 @@ export default function DetalhesBebida({ match }) {
           <div>
             <p>Ingredientes:</p>
             {
-              ingredientsKeys.map((ingredient, index) => {
-                const measure = `- ${drink[`strMeasure${index + 1}`]}` || '';
-                return (
-                  <p
-                    key={ index }
-                    data-testid={ `${index}-ingredient-name-and-measure` }
-                  >
-                    {`${drink[ingredient]} ${measure}`}
-                  </p>
-                );
-              })
+              ingredients.map((ingredient, index) => (
+                <p
+                  key={ index }
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                >
+                  {ingredient}
+                </p>
+              ))
             }
           </div>
           <p data-testid="instructions">{drink.strInstructions}</p>

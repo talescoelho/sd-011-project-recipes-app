@@ -14,6 +14,7 @@ import {
   checkInProgressMeals,
   checkFavorite } from '../services/localStorageChecks';
 import { handleFavoriteMealBtn } from '../services/favoriteButton';
+import getIngredients from '../services/getIngredients';
 
 const copy = require('clipboard-copy');
 
@@ -50,14 +51,7 @@ export default function DetalhesComida({ match }) {
     setCopied(true);
   }
 
-  let ingredientsKeys = [];
-  if (meal.strIngredient1) {
-    // filtra as chaves dos ingredientes
-    ingredientsKeys = Object.keys(meal)
-      .filter((key) => key.match(/strIngredient/) && meal[key]);
-    // remove os ingredientes que tem valor ""(string vazia)
-    ingredientsKeys = ingredientsKeys.filter((key) => meal[key].trim() !== '');
-  }
+  const ingredients = getIngredients(meal);
 
   const loading = !meal.idMeal && recommendations.length > 0;
 
@@ -104,17 +98,14 @@ export default function DetalhesComida({ match }) {
           <div>
             <p>Ingredientes:</p>
             {
-              ingredientsKeys.map((ingredient, index) => {
-                const measure = `- ${meal[`strMeasure${index + 1}`]}` || '';
-                return (
-                  <p
-                    key={ index }
-                    data-testid={ `${index}-ingredient-name-and-measure` }
-                  >
-                    {`${meal[ingredient]} ${measure}`}
-                  </p>
-                );
-              })
+              ingredients.map((ingredient, index) => (
+                <p
+                  key={ index }
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                >
+                  {ingredient}
+                </p>
+              ))
             }
           </div>
           <p data-testid="instructions">{meal.strInstructions}</p>

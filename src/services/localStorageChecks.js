@@ -34,3 +34,21 @@ export function checkFavorite(id) {
   }
   return isFavorite;
 }
+
+export function getMealIngredientsChecked(id) {
+  const inProgressRecipes = localStorage.getItem('inProgressRecipes');
+  let isInProgress;
+  if (inProgressRecipes) {
+    isInProgress = JSON.parse(inProgressRecipes).meals[id];
+  }
+  return isInProgress;
+}
+
+export function getDrinkIngredientsChecked(id) {
+  const inProgressRecipes = localStorage.getItem('inProgressRecipes');
+  let isInProgress;
+  if (inProgressRecipes) {
+    isInProgress = JSON.parse(inProgressRecipes).cocktails[id];
+  }
+  return isInProgress;
+}
