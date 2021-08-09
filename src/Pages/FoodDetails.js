@@ -72,12 +72,13 @@ function FoodDetails({ match: { params: { id } } }) {
       <ul>
         {
           concatIngredientWithMesure()
-            .map((igredient, index) => (<li
-              data-testid={ `${index}-ingredient-name-and-measure` }
-              key={ index }
-            >
-              {igredient}
-            </li>
+            .map((igredient, index) => (
+              <li
+                data-testid={ `${index}-ingredient-name-and-measure` }
+                key={ index }
+              >
+                {igredient}
+              </li>
             ))
         }
       </ul>
