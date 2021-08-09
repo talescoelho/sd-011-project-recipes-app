@@ -4,7 +4,7 @@ import Header from './Header';
 import MenuInferior from './MenuInferior';
 
 function Perfil() {
-  const emailUser = JSON.parse(localStorage.getItem('user'));
+  const emailUser = localStorage.getItem('user');
   const history = useHistory();
 
   const logout = () => {
@@ -16,7 +16,7 @@ function Perfil() {
     <>
       <Header />
       <h2 data-testid="page-title">Perfil</h2>
-      <span data-testid="profile-email">{`Email: ${emailUser.email}`}</span>
+      <span data-testid="profile-email">{emailUser}</span>
       <button
         type="button"
         data-testid="profile-done-btn"
