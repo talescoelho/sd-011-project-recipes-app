@@ -33,6 +33,7 @@ export default function Login() {
     //   meals: {},
     // };
   }
+
   return (
     <div className="loginBox">
       <h2 className="title">Cozinhando com Gosto</h2>
