@@ -13,7 +13,7 @@ import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 import Explorar from './pages/Explorar';
 import FavoriteRecipes from './pages/FavoriteRecipes';
-
+import ReadyRecipe from './pages/ReadyRecipe';
 function App() {
   return (
     <RecipesProvider>
@@ -58,7 +58,7 @@ function App() {
           <Route exact path="/explorar/comidas/area" component={ NotFound } />
           <Route exact path="/perfil" component={ Profile } />
           { /* não tem footer \/ */ }
-          <Route exact path="/receitas-feitas" component={ NotFound } />
+          <Route exact path="/receitas-feitas" component={ ReadyRecipe } />
           <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
           { /* não tem footer /\ */ }
         </Switch>
