@@ -22,9 +22,6 @@ const ExploreFoodByArea = () => {
     }
   }, [filter, requestData]);
 
-  console.log(filters);
-  console.log(data);
-
   if (!filters || !data) return null;
   const maxNumberOfCard = 12;
 

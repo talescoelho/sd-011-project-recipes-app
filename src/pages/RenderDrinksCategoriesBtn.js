@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { fetchSearchBtnIngredients, clearData } from '../redux/actions/searchBarActions';
 
@@ -8,6 +8,7 @@ function RenderDrinksCategoriesBtn({ filterByIngredients, clearDrinkData }) {
   const [categoryBtn, setCategoryBtn] = useState(undefined);
   const [toggleDrinks, setToggleDrinks] = useState('');
   const { pathname } = useLocation();
+  const { receiveData } = useSelector((state) => state.searchBarReducer);
 
   useEffect(() => {
     const fetchCategoryList = async () => {
@@ -21,10 +22,11 @@ function RenderDrinksCategoriesBtn({ filterByIngredients, clearDrinkData }) {
   useEffect(() => {
     if (toggleDrinks) {
       filterByIngredients(toggleDrinks, pathname);
-    } else {
+    } else if (receiveData.length !== 0) {
       clearDrinkData();
     }
-  }, [toggleDrinks, clearDrinkData, pathname, filterByIngredients]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [toggleDrinks]);
 
   const handleClick = ({ target }) => {
     if (target.value === toggleDrinks) {

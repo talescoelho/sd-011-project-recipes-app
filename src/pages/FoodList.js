@@ -8,11 +8,13 @@ import RenderMealsCategoryBtn from './RenderMealsCategoryBtn';
 const FoodList = () => {
   document.title = 'Comidas';
   const { receiveData } = useSelector((state) => state.searchBarReducer);
+
   if (receiveData.meals === null) {
     // eslint-disable-next-line no-alert
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
   const maxRender = 12;
+
   return (
     <div>
       <Header />

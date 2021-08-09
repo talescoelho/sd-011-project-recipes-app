@@ -74,7 +74,6 @@ const DoneRecipes = () => {
             image,
             type,
             id, category, name, area, alcoholicOrNot, doneDate, tags } = recipe;
-          console.log(doneDate, tags);
           return (
             <div key={ id } className="recipe-card">
               <Link to={ `/${type}s/${id}` }>
