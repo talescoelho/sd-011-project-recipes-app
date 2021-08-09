@@ -1,5 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { themeReducer, userReducer, recipesReducer, cocktailReducer } from './hooks';
+import {
+  themeReducer,
+  userReducer,
+  recipesReducer,
+  cocktailReducer,
+  categoryReducer,
+} from './hooks';
 
 const store = configureStore({
   reducer: {
@@ -7,6 +13,7 @@ const store = configureStore({
     theme: themeReducer,
     recipes: recipesReducer,
     cocktails: cocktailReducer,
+    categorys: categoryReducer,
   },
 });
 
