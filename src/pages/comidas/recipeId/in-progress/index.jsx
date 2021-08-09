@@ -80,7 +80,7 @@ export default function ComidasInProgress({ match: { params: { recipeId } } }) {
             Object.keys(details)
               .filter((key) => key.includes('strIngredient'))
               .map((key, index) => (
-                <Col key={ index } className="col-12">
+                <Col key={ index } className=" col-12">
                   <Form.Group
                     data-testid={ `${index}-ingredient-step` }
                     className="ml-2 mb-3"
@@ -90,6 +90,10 @@ export default function ComidasInProgress({ match: { params: { recipeId } } }) {
                       type="checkbox"
                       label={
                         `${details[key]} : ${details[`strMeasure${index + 1}`]}`
+                      }
+                      onClick={
+                        ({ target }) => (
+                          target.nextElementSibling.classList.toggle('line-through'))
                       }
                     />
                   </Form.Group>
