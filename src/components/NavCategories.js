@@ -50,10 +50,10 @@ function NavCategories() {
 
   return (
     <div>
-      { !category ? <p>Loading...</p>
-
-        : (
+      {
+        category.length < 1 ? <p>Loading...</p> : (
           <div>
+            { console.log(category) }
             <button
               type="button"
               data-testid="All-category-filter"
@@ -75,7 +75,8 @@ function NavCategories() {
                 </button>
               )) }
           </div>
-        ) }
+        )
+      }
     </div>
   );
 }
