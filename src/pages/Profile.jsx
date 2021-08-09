@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Header from '../components/Header/Header';
 import Footer from '../components/common/Footer';
 import '../styles/pages/profile.css';
 
@@ -27,6 +28,7 @@ const Profile = ({ history: { push } }) => {
 
   return (
     <>
+      <Header page="Perfil" showSearchBtn={ false } />
       <h3 className="profile-email" data-testid="profile-email">
         { userEmail }
       </h3>

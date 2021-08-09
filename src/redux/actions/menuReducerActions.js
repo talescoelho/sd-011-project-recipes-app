@@ -11,21 +11,21 @@ export const REQUEST_MENU = 'REQUEST_MENU';
 export const RECEIVE_MENU_SUCCESS = 'RECEIVE_MENU_SUCCESS';
 export const RECEIVE_MENU_FAILURE = 'RECEIVE_MENU_FAILURE';
 
-const menuRequest = () => ({
+export const menuRequest = () => ({
   type: REQUEST_MENU,
 });
 
-const menuReceiveSuccess = (menu) => ({
+export const menuReceiveSuccess = (menu) => ({
   type: RECEIVE_MENU_SUCCESS,
   menu,
 });
 
-const menuReceiveFailure = () => ({
+export const menuReceiveFailure = () => ({
   type: RECEIVE_MENU_FAILURE,
   error: '404',
 });
 
-const handleMealsResponse = (meals) => {
+export const handleMealsResponse = (meals) => {
   const maxMeals = 12;
   const filteredMeals = meals
     .reduce((
@@ -49,7 +49,7 @@ const handleMealsResponse = (meals) => {
   return filteredMeals;
 };
 
-const handleDrinksResponse = (drinks) => {
+export const handleDrinksResponse = (drinks) => {
   const maxDrinks = 12;
   const filteredDrinks = drinks
     .reduce((
