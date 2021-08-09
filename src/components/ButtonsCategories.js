@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import GlobalContext from '../context/GlobalContext';
+import './css/ButtonsCategories.css';
 
 function ButtonsCategories({ categoryName }) {
   const { setCatalog } = useContext(GlobalContext);
@@ -71,7 +72,7 @@ function ButtonsCategories({ categoryName }) {
   const categoriesLimited = categories[supplyIdentity].slice(0, maxCardsOnPage);
 
   return (
-    <div>
+    <div className="btn-categories">
       <button
         data-testid="All-category-filter"
         type="button"
