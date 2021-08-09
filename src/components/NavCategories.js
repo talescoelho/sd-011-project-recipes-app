@@ -26,7 +26,7 @@ function NavCategories() {
 
   useEffect(() => {
     getCategoriesDrinkAndFood();
-  }, [setInitialItensFood, setInitialItensDrink]);
+  }, []);
 
   async function searchByCategoryDrinkAndFood(text) {
     if (local === url) {
@@ -50,25 +50,34 @@ function NavCategories() {
 
   return (
     <div>
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        onClick={ () => searchAllCategories() }
-      >
-        All
-      </button>
-      { category.slice(0, MAX_RESULT)
-        .map((item, index) => (
-          <button
-            type="button"
-            key={ index }
-            data-testid={ `${item.strCategory}-category-filter` }
-            onClick={ (e) => searchByCategoryDrinkAndFood(e.target.value) }
-            value={ item.strCategory }
-          >
-            { item.strCategory }
-          </button>
-        )) }
+      { !category ? <p>Loading...</p> :
+
+        (
+          <div>
+            <button
+              type="button"
+              data-testid="All-category-filter"
+              onClick={ () => searchAllCategories() }
+            >
+              All
+            </button>
+
+            { category.slice(0, MAX_RESULT)
+              .map((item, index) => (
+                <button
+                  type="button"
+                  key={ index }
+                  data-testid={ `${item.strCategory}-category-filter` }
+                  onClick={ (e) => searchByCategoryDrinkAndFood(e.target.value) }
+                  value={ item.strCategory }
+                >
+                  { item.strCategory }
+                </button>
+              ))
+            }
+          </div>
+        )
+      }
     </div>
   );
 }
