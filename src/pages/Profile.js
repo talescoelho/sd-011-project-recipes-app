@@ -4,12 +4,16 @@ import Footer from '../components/footer/Footer';
 import Header from '../components/Header';
 
 export default function Profile() {
-  const { email } = JSON.parse(localStorage.user);
+  let email = '';
+  if (localStorage.user) {
+    email = JSON.parse(localStorage.user);
+
+  }
   const handlerClick = () => localStorage.clear();
   return (
     <div>
       <Header title="Perfil" data-testid="page-title" />
-      <h1 data-testid="profile-email">{email}</h1>
+      <h1 data-testid="profile-email">{email.email}</h1>
       <Link to="/receitas-favoritas">
         <button type="button" data-testid="profile-favorite-btn">
           Receitas Favoritas
