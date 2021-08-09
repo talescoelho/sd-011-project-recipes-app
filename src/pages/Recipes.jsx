@@ -46,7 +46,7 @@ export default function Recipes() {
   useEffect(getCategories, [location, saveCategories]);
 
   function GetRecipesFirstAccess() {
-    if (!haveRecipes) {
+    if (haveRecipes === false) {
       if (location.pathname === '/bebidas' && drinkRecipes.length === 0) {
         getRecipes('', 's', location.pathname, saveDrinkRecipes);
       } else if (location.pathname === '/comidas' && mealRecipes.length === 0) {
