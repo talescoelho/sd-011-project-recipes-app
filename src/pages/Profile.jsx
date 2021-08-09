@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Header from '../components/Header/Header';
 import Footer from '../components/common/Footer';
 import '../styles/pages/profile.css';
 
-const Profile = ({ history: { push } }) => {
+const Profile = () => {
   const [userEmail, setUserEmail] = useState('');
 
   useEffect(() => {
@@ -13,7 +12,7 @@ const Profile = ({ history: { push } }) => {
     if (localStorageEmail) {
       setUserEmail(localStorageEmail.email);
     } else {
-      push('/');
+      setUserEmail('Email não encontrado');
     }
   }, []);
 
@@ -56,12 +55,6 @@ const Profile = ({ history: { push } }) => {
       <Footer />
     </>
   );
-};
-
-Profile.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
 };
 
 export default Profile;
