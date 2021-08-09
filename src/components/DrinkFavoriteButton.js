@@ -17,7 +17,7 @@ class DrinkFavoriteButton extends Component {
     this.setFavoriteIcon = this.setFavoriteIcon.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const { id } = this.props;
     const { whiteHeart } = this.state;
     const favoriteMeals = JSON.parse(localStorage.getItem('favoriteRecipes'));

@@ -29,7 +29,7 @@ class ShareButton extends Component {
         <p>{ clipboardMessage ? 'Link copiado!' : '' }</p>
         <button
           type="button"
-          
+
           onClick={ () => this.clipBoard() }
         >
           <img data-testid={ test } src={ shareIcon } alt="share icon" />
