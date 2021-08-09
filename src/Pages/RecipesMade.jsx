@@ -1,9 +1,13 @@
 import React from 'react';
 import profileIcon from '../images/profileIcon.svg';
+import FoodOrDrinkFilter from './Components/FoodOrDrinkFilter';
 
 function RecipesMade() {
+  const [filter, setFilter] = React.useState('all');
+
   return (
     <div>
+      <FoodOrDrinkFilter setFilter={ setFilter } />
       <h1 data-testid="page-title">Receitas Feitas</h1>
       <img
         data-testid="profile-top-btn"
