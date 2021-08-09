@@ -4,7 +4,8 @@ const urlCategory = 'https://www.themealdb.com/api/json/v1/1/list.php?c=';
 const urlCategoryFilter = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 // const urlFirstLetter = 'https://www.themealdb.com/api/json/v1/1/search.php?f={primeira-letra}';
 const urlId = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
-const foodRandom = 'https://www.themealdb.com/api/json/v1/1/random.php';
+const urlFoodRandom = 'https://www.themealdb.com/api/json/v1/1/random.php';
+const urlFoodArea = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
 
 export async function fetchAPIName(name) {
   try {
@@ -48,7 +49,7 @@ export async function fetchAPIByID(id) {
 
 export async function fetchFoodRandom() {
   try {
-    const response = await fetch(`${foodRandom}`);
+    const response = await fetch(`${urlFoodRandom}`);
     const resolve = await response.json();
     return resolve.meals[0].idMeal;
   } catch (error) {
@@ -59,6 +60,16 @@ export async function fetchFoodRandom() {
 export async function fetchFoodIngredient() {
   try {
     const response = await fetch(`${urlIngredients}`);
+    const resolve = await response.json();
+    return resolve.meals;
+  } catch (error) {
+    return console.log(error);
+  }
+}
+
+export async function fetchFoodArea() {
+  try {
+    const response = await fetch(`${urlFoodArea}`);
     const resolve = await response.json();
     return resolve.meals;
   } catch (error) {
