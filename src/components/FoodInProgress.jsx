@@ -58,7 +58,7 @@ export default function FoodInProgress({ type }) {
 
   const handleDoneRecipe = () => {
     addDoneRecipe({ item: food });
-    // history.push('/receitas-feitas');
+    history.push('/receitas-feitas');
   };
 
   const handleCheckBox = (e) => {

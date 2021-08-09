@@ -64,8 +64,10 @@ export const addDoneRecipe = ({ item }) => {
     area: item.strArea || '',
     category: item.strCategory || '',
     alcoholicOrNot: item.strAlcoholic || '',
+    date: Date.now(),
     name: item.strMeal || item.strDrink,
     image: item.strMealThumb || item.strDrinkThumb,
+    tags: item.strTags || '',
   };
 
   console.log(food);
