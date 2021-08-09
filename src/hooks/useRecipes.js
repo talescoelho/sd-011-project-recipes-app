@@ -45,6 +45,7 @@ export const fetchRecipes = ({ searchTerm, category }) => async (dispatch) => {
     primeira_letra: 'search.php?f=',
     categorys: 'filter.php?c=',
     allcategorys: 'search.php?s',
+    receita_aleatoria: 'random.php',
   };
   const urlModifier = URL_SEARCH_OPTION[category] || '';
   dispatch(requestRecipes());

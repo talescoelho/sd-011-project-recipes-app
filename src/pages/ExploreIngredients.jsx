@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Button from '../components/design/Button';
 import { Layout } from '../components';
 import { useTheme } from '../hooks';
 
@@ -15,7 +17,7 @@ function ExploreIngredients() {
   return (
     <Layout title="Explorar Ingredientes">
       <main style={ styles.main }>
-        <p>ola mundo</p>
+        <h1>Ola</h1>
       </main>
     </Layout>
   );
