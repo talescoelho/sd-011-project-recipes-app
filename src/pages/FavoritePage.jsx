@@ -9,7 +9,7 @@ import { getFavoriteRecipes, filterBookmarked } from '../Redux/actions/index';
 
 export default function FavoritePage() {
   const dispatch = useDispatch();
-  const [favoriteRecipes, setFavoriteRecipes] = useLSHook();
+  const [favoriteRecipes] = useLSHook();
   const recipes = useSelector((state) => state.user.favoriteRecipes);
 
   useEffect(() => {

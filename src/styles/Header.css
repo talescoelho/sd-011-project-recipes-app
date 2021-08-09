@@ -36,6 +36,10 @@ nav {
 
 }
 
+header h1 {
+  color: rgb(83, 64, 146);
+}
+
 .nav-2 h1 {
   display: block;
   margin-left: auto;

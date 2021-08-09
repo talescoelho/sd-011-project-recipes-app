@@ -18,6 +18,7 @@ export default function FoodInProgress({ type }) {
   const [check, setCheck] = useState();
   const recipes = useSelector((state) => state.recipes);
   const food = recipes.cards;
+  console.log(food);
   const dispatch = useDispatch();
   const { id } = useParams();
   const foodType = {

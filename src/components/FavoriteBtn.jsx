@@ -23,7 +23,7 @@ export default function FavoriteBtn() {
   };
 
   const handleBookMark = () => {
-    bookMarkRecipe(cards[0]);
+    bookMarkRecipe(cards);
     setBookmarked(!bookmarked);
   };
 

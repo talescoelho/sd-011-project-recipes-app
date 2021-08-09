@@ -33,6 +33,7 @@ export default function DoneRecipes() {
       <main>
         <Form className="d-flex justify-content-evenly mt-4 mb-3">
           <Button
+            variant="outline-secondary"
             data-testid="filter-by-all-btn"
             onClick={ () => filterRecipes() }
           >
@@ -40,6 +41,7 @@ export default function DoneRecipes() {
 
           </Button>
           <Button
+            variant="outline-primary"
             data-testid="filter-by-food-btn"
             onClick={ () => filterRecipes('comida') }
           >
@@ -47,6 +49,7 @@ export default function DoneRecipes() {
 
           </Button>
           <Button
+            variant="outline-success"
             data-testid="filter-by-drink-btn"
             onClick={ () => filterRecipes('bebida') }
           >

@@ -9,10 +9,12 @@ export default function DoneRecipeCard({ el, index }) {
   const url = window.location.href.replace(/\/receitas-feitas/, `/${type}s/${id}`);
   const partialURL = `/${type}s/${id}`;
   return (
-    <Link to={ partialURL } className="done-container">
+    <div className="done-container">
       <div className="product-details">
         <div className="d-flex col justify-content-center">
-          <h1 data-testid={ `${index}-horizontal-name` }>{name}</h1>
+          <Link style={ { textDecoration: 'none' } } to={ partialURL }>
+            <h1 data-testid={ `${index}-horizontal-name` }>{name}</h1>
+          </Link>
           <ShareButton { ...{ index, url } } />
         </div>
         <p className="information">
@@ -36,15 +38,17 @@ export default function DoneRecipeCard({ el, index }) {
         </p>
       </div>
       <div className="product-image">
-        <img
-          data-testid={ `${index}-horizontal-image` }
-          src={ image }
-          alt=""
-        />
+        <Link to={ partialURL }>
+          <img
+            data-testid={ `${index}-horizontal-image` }
+            src={ image }
+            alt=""
+          />
+        </Link>
 
       </div>
 
-    </Link>
+    </div>
 
   );
 }

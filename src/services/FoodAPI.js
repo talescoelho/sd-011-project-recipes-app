@@ -14,7 +14,7 @@ export const fetchFood = ({ id, type }) => async (dispatch) => {
 
     try {
       const s = [...Object.values(json)[0]];
-      return dispatch(getFoodCard({ filtered: s, selectedCategory: type }));
+      return dispatch(getFoodCard({ filtered: s[0], selectedCategory: type }));
     } catch (error) {
       throw new Error(error);
     }

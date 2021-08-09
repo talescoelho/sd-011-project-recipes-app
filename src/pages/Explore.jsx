@@ -12,6 +12,7 @@ export default function Explore() {
       <main className="explore-buttons">
         <Link to="/explorar/comidas">
           <Button
+            variant="outline-primary"
             data-testid="explore-food"
             type="button"
             className="explore-button"
@@ -21,6 +22,7 @@ export default function Explore() {
         </Link>
         <Link to="/explorar/bebidas">
           <Button
+            variant="outline-success"
             data-testid="explore-drinks"
             type="button"
             className="explore-button"

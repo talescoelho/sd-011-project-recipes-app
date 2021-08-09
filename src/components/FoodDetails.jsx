@@ -15,8 +15,7 @@ import ShowFrame from './foodDetailsPage/ShowFrame';
 
 export default function FoodDetails({ type }) {
   const recipes = useSelector((state) => state.recipes);
-  const food = recipes.cards[0];
-  console.log(food);
+  const food = recipes.cards;
   const dispatch = useDispatch();
   const { id } = useParams();
   const lStFoods = {
