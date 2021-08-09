@@ -48,6 +48,7 @@ function MealDetails({ match: { params } }) {
             className="embed-responsive-item"
             allowFullScreen
           />
+
         </div>
       ) : <h2>Loading</h2>}
       <Recommendations />
