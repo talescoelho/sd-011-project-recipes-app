@@ -5,7 +5,7 @@ import shareIcon from '../images/shareIcon.svg';
 
 const timeout = 1000;
 
-export default function ShareButton({ id, type }) {
+export default function ShareButton({ id, type, dataTestid }) {
   const [showMessage, setShowMessage] = useState(false);
 
   function handleClick() {
@@ -16,7 +16,7 @@ export default function ShareButton({ id, type }) {
   return (
     <div>
       <button type="button" onClick={ () => handleClick() }>
-        <img src={ shareIcon } alt="Share Icon" data-testid="share-btn" />
+        <img src={ shareIcon } alt="Share Icon" data-testid={ dataTestid } />
       </button>
       { showMessage && <span> Link copiado! </span> }
     </div>
@@ -26,4 +26,7 @@ export default function ShareButton({ id, type }) {
 ShareButton.propTypes = {
   id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  dataTestid: PropTypes.string.isRequired,
 };
+
+//  data-testid="share-btn"

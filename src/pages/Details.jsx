@@ -48,16 +48,17 @@ export default function Details() {
   }, [id, type]);
 
   if (recipe) {
+    const recipeIds = getIds(type, recipe);
     const {
       category, name, image, video, instructions, reverseType, type: drinkOrFood,
-    } = getIds(type, recipe);
+    } = recipeIds;
     return (
       <DetailsProvider>
         <div>
           <img data-testid="recipe-photo" src={ image } alt={ name } />
           <h2 data-testid="recipe-title">{ name }</h2>
           <h3 data-testid="recipe-category">{ category }</h3>
-          <ShareButton type={ drinkOrFood } id={ id } />
+          <ShareButton type={ drinkOrFood } id={ id } dataTestid="share-btn" />
           <FavoriteButton recipe={ recipe } drinkOrFood={ drinkOrFood } />
           <Ingredients recipe={ recipe } inProgress={ inProgress } type={ drinkOrFood } />
           <div>
@@ -68,7 +69,7 @@ export default function Details() {
             (video) && <iframe src={ video } title="Instruções" data-testid="video" />
           }
           <Recommendations type={ reverseType } />
-          <RecipeButton state={ state } />
+          <RecipeButton state={ state } recipe={ recipeIds } />
         </div>
       </DetailsProvider>
     );

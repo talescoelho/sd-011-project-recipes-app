@@ -2,11 +2,10 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import { getIds } from '../services';
 
 export default function FavoriteButton({ recipe, drinkOrFood }) {
   const [isFavorite, setFavorite] = useState(false);
-  const { id, type, category, name, image, area } = getIds(drinkOrFood, recipe);
+  const { id, type, category, name, image, area } = recipe;
 
   useEffect(() => {
     if (!localStorage.favoriteRecipes) {
