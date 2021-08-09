@@ -8,9 +8,9 @@ export default function FoodExplorerByIngredients() {
   return (
     <>
       <SearchBarProvider>
-        <Header title="Explorar Ingredientes" search={ false } />
-        <CardsListByIngredient fetchType="themealdb" />
+        <Header title="Explorar Ingredientes" search fetchType="themealdb" />
       </SearchBarProvider>
+      <CardsListByIngredient />
       <Footer />
     </>
   );

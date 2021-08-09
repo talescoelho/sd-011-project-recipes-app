@@ -1,26 +1,67 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { SearchBarContext } from '../context/SearchBar';
-import Cards from './Cards';
+import fetchByFilter from '../services/data';
 
 /* Criei CardsList para renderizar apenas uma vez. Deixei apenas o SearchBarProvider encapsulando o Header e CardsList, já que buscam as mesmas informações */
 
 export default function CardsListByIngredient(props) {
-  const { dataValues } = useContext(SearchBarContext);
-  const { fetchType } = props;
-  const MAX_CARDS = 12;
-  console.log(dataValues);
-  if (dataValues && dataValues.length > 0) { // Ver lógica para redirecionar
-    return dataValues.slice(0, MAX_CARDS).map((eachRecipe, index) => (
-      <Cards
-        recipe={ eachRecipe }
-        type={ fetchType }
-        index={ index }
-        key={ index }
-      />
-    ));
-  }
-  return <div>Não há itens</div>;
+  const [ingredName, setIngredName] = useState([]);
+  const [imge, setImge] = useState([]);
+  const path = window.location.pathname.split('/')[2];
+
+  useEffect(() => {
+    const urlDrink = 'thecocktaildb';
+    const urlMeal = 'themealdb';
+    let url = urlMeal;
+    if (path === 'bebidas') {
+      url = urlDrink;
+    };
+    const getRecipes = async () => {
+      const urlToFetch = `https://www.${url}.com/api/json/v1/1/list.php?i=list`;
+      const recipesFromApi = await fetchByFilter(urlToFetch);
+      const recipesList = Object.values(recipesFromApi)[0];
+      const array = recipesList.map((e) => (e.strIngredient1.toLowerCase()));
+      setIngredName(array);
+      // setDataValues(recipesList);
+      // setDataList(recipesList);
+      // setShouldCallCards(true);
+    };
+
+    getRecipes();
+  }, [path]);
+
+  useEffect(() => {
+    const urlDrink = 'thecocktaildb';
+    const urlMeal = 'themealdb';
+    let url = urlMeal;
+    if (path === 'bebidas') {
+      url = urlDrink;
+    };
+    const getCategories = async () => {
+      const img = ingredName.map((e) => ({
+        fig: `https://www.${url}.com/images/ingredients/${e}.png`,
+        name: `${e}`,
+      }));
+      const imgTwelve = img.slice(0, 12);
+      setImge(imgTwelve);
+      // const categoriesFromApi = await fetchByFilter(urlToFetch);
+      // const categoriesList = Object.values(categoriesFromApi)[0];
+    };
+
+    getCategories();
+  }, [path, ingredName]);
+
+  return (
+    <div>
+      {console.log(imge)}
+      { imge.map((e) => (
+        <div>
+          <img width="50px" src={e.fig} alt="figure" />
+          <p>{e.name}</p>
+        </div>
+      )) }
+    </div>
+  );
 }
 
 CardsListByIngredient.propTypes = {
