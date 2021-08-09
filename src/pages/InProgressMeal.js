@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import DetailsFavoriteButton from '../components/details/DetailsFavoriteButton';
 import DetailsIngredientList from '../components/details/DetailsIngredientList';
 import DetailsMealHeader from '../components/details/DetailsMealHeader';
@@ -11,9 +11,11 @@ function InProgressMeal() {
   const {
     mealId,
     getMealId,
+    allIngredientsChecked,
   } = useContext(RecipesContext);
 
   const { id } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     getMealId(id);
@@ -35,7 +37,17 @@ function InProgressMeal() {
               <p data-testid="instructions">{ mealId.strInstructions }</p>
             </div>
           </div>
-          <button data-testid="finish-recipe-btn" type="button">Finalizar receita</button>
+          <button
+            data-testid="finish-recipe-btn"
+            type="button"
+            onClick={ () => {
+              history
+                .push('/receitas-feitas');
+            } }
+            disabled={ allIngredientsChecked }
+          >
+            Finalizar receita
+          </button>
         </div>
       ) : 'Carregando...' }
     </div>

@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import DetailsDrinkHeader from '../components/details/detailsDrink/DetailsDrinkHeader';
 import DetailsShareDrinks from '../components/details/detailsDrink/DetailsShareDrinks';
-import DetailsDrinkFavoriteButton from '../components/details/detailsDrink/DetailsDrinkFavoriteButton';
-import DetailsDrinkIngredientList from '../components/details/detailsDrink/DetailsDrinkIngredientList';
+import DetailsDrinkFavoriteButton
+  from '../components/details/detailsDrink/DetailsDrinkFavoriteButton';
+import DetailsDrinkIngredientList
+  from '../components/details/detailsDrink/DetailsDrinkIngredientList';
 import '../styles/components/footer.css';
 import RecipesContext from '../context/RecipesContext';
 
@@ -14,6 +16,7 @@ function InProgressDrink() {
   } = useContext(RecipesContext);
 
   const { id } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     getDrinkId(id);
@@ -35,7 +38,16 @@ function InProgressDrink() {
               <p data-testid="instructions">{ drinkId.strInstructions }</p>
             </div>
           </div>
-          <button data-testid="finish-recipe-btn" type="button">Finalizar receita</button>
+          <button
+            data-testid="finish-recipe-btn"
+            type="button"
+            onClick={ () => {
+              history
+                .push('/receitas-feitas');
+            } }
+          >
+            Finalizar receita
+          </button>
         </div>
       ) : 'Carregando...' }
     </div>

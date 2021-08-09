@@ -1,9 +1,11 @@
-import React, { useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useContext, useState, useEffect } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 
 function DetailsIngredientList() {
-  const { mealId } = useContext(RecipesContext);
+  const { mealId, setAllIngredientsChecked } = useContext(RecipesContext);
+  const [checkedIngredients, setCheckedIngredients] = useState([]);
+  const [checkedNumberIngredients, setCheckedNumberIngredients] = useState([]);
 
   function conditionFor(idx) { // função para não deixar ser iteravel no for quando igrediente fo nulo
     return (mealId[`strIngredient${idx}`]) !== null
@@ -21,6 +23,35 @@ function DetailsIngredientList() {
   const ingredients = gettingIngredients();
   const checkPath = useLocation();
   const isInProgress = checkPath.pathname.includes('in-progress');
+
+  const params = useParams();
+  const urlID = params.id;
+
+  useEffect(() => ((ingredients.length === checkedIngredients.length)
+    ? setAllIngredientsChecked(false)
+    : setAllIngredientsChecked(true)),
+  [checkedIngredients, ingredients.length, setAllIngredientsChecked]);
+
+  function localMemory() {
+    const meals = { meals: { [urlID]: checkedNumberIngredients } };
+    const test = localStorage.setItem('inProgressRecipes', JSON.stringify(meals)) || [];
+    return test;
+  }
+
+  function addToCheckedIngredient({ target }) {
+    if (checkedIngredients.includes(target.value)) {
+      const arrayIngredientsChecked = checkedIngredients.filter((ingredient) => (
+        ingredient !== target.value));
+      const indexIngredient = checkedNumberIngredients.filter((ingredientIndex) => (
+        ingredientIndex !== target.getAttribute('name')));
+      setCheckedNumberIngredients(indexIngredient);
+      setCheckedIngredients(arrayIngredientsChecked);
+      return localMemory();
+    }
+    setCheckedNumberIngredients([...checkedNumberIngredients, target.name]);
+    setCheckedIngredients([...checkedIngredients, target.value]);
+    return localMemory();
+  }
 
   return (
     <div>
@@ -48,18 +79,22 @@ function DetailsIngredientList() {
                     <input
                       data-testid={ `${index}-ingredient-step` }
                       type="checkbox"
-                      name={ `ingredient-${index}` }
+                      id={ `ingredient-${index}` }
+                      name={ index }
+                      value={ ingredient }
+                      onChange={ addToCheckedIngredient }
                     />
                     <label
                       htmlFor={ `ingredient-${index}` }
                     >
-                      {ingredient}
+                      { (checkedIngredients.includes(ingredient))
+                        ? <del>{ ingredient }</del> : ingredient }
                     </label>
                   </div>
                 ))
               }
             </div>
-          ) }
+          )}
       </div>
     </div>
   );

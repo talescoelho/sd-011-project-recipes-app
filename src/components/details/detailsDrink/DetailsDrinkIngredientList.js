@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import RecipesContext from '../../../context/RecipesContext';
 
 function DetailsDrinkIngredientList() {
   const { drinkId } = useContext(RecipesContext);
+  const [checkedIngredients, setCheckedIngredients] = useState([]);
 
   function conditionFor(idx) { // função para não deixar ser iteravel no for quando igrediente fo nulo
     return (drinkId[`strIngredient${idx}`]) !== null
@@ -21,6 +22,15 @@ function DetailsDrinkIngredientList() {
   const ingredients = gettingIngredients();
   const checkPath = useLocation();
   const isInProgress = checkPath.pathname.includes('in-progress');
+
+  function addToCheckedIngredient({ target }) {
+    if (checkedIngredients.includes(target.value)) {
+      const arrayIngredientsChecked = checkedIngredients.filter((ingredient) => (
+        ingredient !== target.value));
+      return setCheckedIngredients(arrayIngredientsChecked);
+    }
+    return setCheckedIngredients([...checkedIngredients, target.value]);
+  }
 
   return (
     <div>
@@ -48,12 +58,15 @@ function DetailsDrinkIngredientList() {
                     <input
                       data-testid={ `${index}-ingredient-step` }
                       type="checkbox"
-                      name={ `ingredient-${index}` }
+                      id={ `ingredient-${index}` }
+                      value={ ingredient }
+                      onChange={ addToCheckedIngredient }
                     />
                     <label
                       htmlFor={ `ingredient-${index}` }
                     >
-                      {ingredient}
+                      { (checkedIngredients.includes(ingredient))
+                        ? <del>{ ingredient }</del> : ingredient }
                     </label>
                   </div>
                 ))

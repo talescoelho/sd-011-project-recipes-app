@@ -13,7 +13,7 @@ function DetailsShareMeals() {
 
   function shareButton() {
     setCopied(true);
-    const url = location.pathname;
+    const url = location.pathname.split('/in-progress')[0];
     clipboardCopy(`http://localhost:3000${url}`);
     copyMsg();
   }
