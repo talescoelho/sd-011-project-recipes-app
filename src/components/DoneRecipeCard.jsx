@@ -1,13 +1,15 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import ShareButton from './Buttons/ShareButton';
 
 export default function DoneRecipeCard({ el, index }) {
   const { id, type, area, category, alcoholicOrNot, doneDate, name, image, tags } = el;
   const tagsArray = Array.from(tags.toString().split(',').slice(0, 2));
   const url = window.location.href.replace(/\/receitas-feitas/, `/${type}s/${id}`);
+  const partialURL = `/${type}s/${id}`;
   return (
-    <div className="done-container">
+    <Link to={ partialURL } className="done-container">
       <div className="product-details">
         <div className="d-flex col justify-content-center">
           <h1 data-testid={ `${index}-horizontal-name` }>{name}</h1>
@@ -42,7 +44,7 @@ export default function DoneRecipeCard({ el, index }) {
 
       </div>
 
-    </div>
+    </Link>
 
   );
 }
