@@ -6,6 +6,7 @@ import DetailsMeals from './pages/DetailsMeals';
 import DetailsDrink from './pages/DetailsDrink';
 import Perfil from './components/Perfil';
 import Explore from './pages/Explore';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 
 export default function Routes() {
   return (
@@ -21,6 +22,7 @@ export default function Routes() {
       <Route path="/explorar/bebidas" component={ Explore } />
       <Route path="/explorar/comidas/ingredientes" component={ Explore } />
       <Route path="/explorar/bebidas/ingredientes" component={ Explore } />
+      <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
     </Switch>
   );
 }
