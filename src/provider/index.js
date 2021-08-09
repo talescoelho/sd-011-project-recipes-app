@@ -4,7 +4,8 @@ import GlobalContext from '../context';
 import { fetchDefaultDrinksFromCocktailsDB,
   fetchDefaultFoodsFromMealsDB, fetchCategoriesFromMealsDB,
   fetchCategoriesFromCocktailsDB, fetchMealsByCategoryFromMealsDB,
-  fetchDrinksByCategoryFromCocktailsDB } from '../services';
+  fetchDrinksByCategoryFromCocktailsDB,
+  fetchApiDrinks, fetchApiMeals } from '../services';
 
 export default function Provider({ children }) {
   const [defaultFood, setDefaultFood] = useState([]);
@@ -26,6 +27,16 @@ export default function Provider({ children }) {
     setMealCategories(mealsCategories);
     setDrinksCategories(drinksCategories);
   }
+
+  const getDataFromFoods = async (url, search) => {
+    const getFoodArray = await fetchApiMeals(url, search);
+    setFoodArray(getFoodArray);
+  };
+
+  const getDataFromDrinks = async (url, search) => {
+    const getDrink = await fetchApiDrinks(url, search);
+    setDrinkArray(getDrink);
+  };
 
   async function filterMealsByCategory(category) {
     if (category === isFiltered || category === 'All') {
@@ -69,6 +80,10 @@ export default function Provider({ children }) {
         drinkCategories,
         isIngridientUsed,
         setIsIngridientUsed,
+        setFoodArray,
+        setDrinkArray,
+        getDataFromFoods,
+        getDataFromDrinks,
         filterMealsByCategory,
         filterDrinksByCategory,
       } }

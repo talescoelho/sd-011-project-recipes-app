@@ -37,13 +37,15 @@ function Login(props) {
   };
 
   return (
-    <form action="">
+    <form action="" className="center-items">
       <input
         value={ user.email }
         onChange={ handleChange }
         data-testid="email-input"
         type="text"
         name="email"
+        className="input-email"
+        placeholder="email"
       />
       <input
         value={ user.password }
@@ -51,6 +53,8 @@ function Login(props) {
         data-testid="password-input"
         type="password"
         name="password"
+        className="input-password"
+        placeholder="password"
       />
       <button
         onClick={ handleSubmit }

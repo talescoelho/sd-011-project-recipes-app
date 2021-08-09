@@ -1,3 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
+section {
+  margin-bottom: 70px;
+}
+
 .lower-menu {
   background-color: mediumpurple;
   bottom: 0;
@@ -9,5 +17,6 @@
 }
 
 .lower-menu__img {
+  max-width: 50px;
   width: 11vw;
 }

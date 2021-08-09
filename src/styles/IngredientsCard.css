@@ -1,0 +1,52 @@
+.ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 14vw;
+  padding: 18px 24px;
+}
+
+.ingredient-card {
+  align-items: center;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  display: flex;
+  flex: 1 1 160px;
+  flex-direction: column;
+  padding: 10px;
+  text-align: center;
+}
+
+.loading {
+  align-items: center;
+  background-color: #00000020;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.loading:after {
+  animation: spin 800ms linear infinite;
+  border: 6px solid deepskyblue;
+  border-radius: 50%;
+  border-top-color: transparent;
+  content: '';
+  filter: drop-shadow(0 0 1px black);
+  height: 35px;
+  justify-content: center;
+  width: 35px;
+}
+
+@keyframes spin {
+
+  to {
+    transform: rotate(360deg);
+  }
+}
