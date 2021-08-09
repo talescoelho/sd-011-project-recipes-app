@@ -72,7 +72,7 @@ function ExploreByPlace() {
   return (
     <>
       <main className="explore-by-place">
-        <Header pageName="Explorar Origem" />
+        <Header renderButton pageName="Explorar Origem" />
         {dropdownOptions()}
         <section className="section-place">
           <FoodCard type="meals" />
