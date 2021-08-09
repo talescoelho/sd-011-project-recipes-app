@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Card, Form, Button } from 'react-bootstrap';
+import logo from '../images/logo.png';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -33,30 +35,53 @@ export default function Login() {
   }
 
   return (
-    <div>
-      Login
-      <input
-        type="email"
-        placeholder="Email"
-        data-testid="email-input"
-        onChange={ loginInput }
+
+    <Card style={ { textAlign: 'center', margin: '0' } }>
+      <Card.Img
+        variant="top"
+        src={ `${logo}` }
       />
-      <input
-        type="password"
-        placeholder="Password"
-        data-testid="password-input"
-        onChange={ passwordInput }
-      />
-      <Link to="/comidas">
-        <button
-          type="button"
-          data-testid="login-submit-btn"
-          disabled={ status }
-          onClick={ handleClickButtonLogin }
-        >
-          Entrar
-        </button>
-      </Link>
-    </div>
+      <Card.Body>
+        <Card.Title>
+          Login
+        </Card.Title>
+        <Form style={ { textAlign: 'center' } }>
+          <Form.Group
+            className="mb-3"
+            controlId="formBasicEmail"
+          >
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              /* type="email" */
+              placeholder="Enter email"
+              data-testid="email-input"
+              onChange={ loginInput }
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              /*   type="password" */
+              placeholder="*********"
+              data-testid="password-input"
+              onChange={ passwordInput }
+            />
+          </Form.Group>
+          <Link to="/comidas">
+            <Button
+              variant="primary"
+              /*  type="button" */
+              data-testid="login-submit-btn"
+              disabled={ status }
+              onClick={ handleClickButtonLogin }
+            >
+              Entrar
+            </Button>
+          </Link>
+
+        </Form>
+      </Card.Body>
+    </Card>
+
   );
 }

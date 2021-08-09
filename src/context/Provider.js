@@ -1,11 +1,18 @@
 import PropTypes from 'prop-types';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import MyContext from './MyContext';
 import {
   getDrinkById,
   getFoodById,
+  getAllFoods,
+  getAllDrinks,
   getRandomFood,
-  getRandomDrink } from '../services/RecipesServices';
+  getRandomDrink,
+  getFoodsIngredients,
+  getDrinksIngredients,
+  getFoodsIngredientsFilter,
+  getDrinksIngredientsFilter,
+} from '../services/RecipesServices';
 
 function Provider({ children }) {
   const foodsSearchLinks = {
@@ -34,17 +41,11 @@ function Provider({ children }) {
 
   const [drinkDetails, setDrinkDetails] = useState([]);
   const [foodDetails, setFoodDetails] = useState([]);
-  const [drinkIngredients] = useState([]);
-  const [foodIngredients] = useState([]);
+  const [drinkIngredients, setDrinkIngredients] = useState([]);
+  const [foodIngredients, setFoodIngredients] = useState([]);
+  const [allDrinks, setAllDrinks] = useState({ drinks: [] });
+  const [allFoods, setAllFoods] = useState({ foods: [] });
 
-  /*   const getLocalStore = useCallback((id) => {
-    if (localStorage.favoriteRecipes) {
-      const getRecipes = JSON.parse('favoriteRecipes');
-      const response = getRecipes.map((item) => (item.id).includes(id));
-      return response;
-    }
-  }, []);
- */
   const addLocalStore = useCallback((id, condition, drink, food) => {
     const newFavorite = {
       id,
@@ -79,6 +80,21 @@ function Provider({ children }) {
     }
   }, []);
 
+  async function AllDrinks() {
+    const drinks = await getAllDrinks();
+    setAllDrinks({ drinks });
+  }
+
+  async function AllFoods() {
+    const foods = await getAllFoods();
+    setAllFoods({ foods });
+  }
+
+  useEffect(() => {
+    AllDrinks();
+    AllFoods();
+  }, []);
+
   const contextValue = {
     foodsSearchLinks,
     drinksSearchLinks,
@@ -92,11 +108,18 @@ function Provider({ children }) {
     getFoodById,
     foodIngredients,
     drinkIngredients,
-    /*   getLocalStore, */
     removeLocalStorage,
     addLocalStore,
     getRandomFood,
     getRandomDrink,
+    getFoodsIngredients,
+    getDrinksIngredients,
+    getFoodsIngredientsFilter,
+    getDrinksIngredientsFilter,
+    allDrinks,
+    allFoods,
+    setFoodIngredients,
+    setDrinkIngredients,
   };
 
   return (
