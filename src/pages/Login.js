@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import '../styles/Login.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -25,7 +26,8 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <div className="login">
+      <h1>Login</h1>
       <input
         type="text"
         placeholder="Digite seu e-mail"
