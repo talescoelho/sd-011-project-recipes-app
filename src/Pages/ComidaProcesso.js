@@ -23,6 +23,10 @@ function countIngredients(recipe, type) {
       tag += 1;
     }
   });
+  if (JSON.parse(localStorage.getItem('inProgressRecipes'))
+    && JSON.parse(localStorage.getItem('inProgressRecipes')).meals[recipe.id]) {
+    console.log(tag -= JSON.parse(localStorage.meals[recipe.id]).length);
+  }
   return tag;
 }
 
