@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import RenderRecomendations from '../components/RenderRecomendations';
 import {
   getRecipes,
-  setInput } from '../redux/slices/fetchReceitas';
+} from '../redux/slices/fetchReceitas';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
 import nonFavoriteIcon from '../images/whiteHeartIcon.svg';
@@ -58,42 +58,31 @@ const setFavorite = (recipe) => {
 
 const verifyFavorite = (idRecipe) => {
   const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-  console.log('Veify:', favorites.some(({ id }) => id === idRecipe));
   return favorites.some(({ id }) => id === idRecipe);
 };
 
 function DetalhesBebidas() {
-  const { data, loading } = useSelector((state) => state.fetchReceitas);
-  const [recipeType, setRecipeType] = useState('');
   const [recipe, setRecipe] = useState({});
   const [copyOk, setCopyOk] = useState(false);
   const dispatch = useDispatch();
   const [isFavorite, setIsFavorite] = useState();
 
+  const fetchUrl = (url) => {
+    fetch(url)
+      .then((data) => data.json())
+      .then((recipeData) => setRecipe(recipeData.drinks[0]));
+  };
+
   useEffect(() => {
     const { pathname } = window.location;
-    const recipeURL = pathname.split('/')[1];
-    const recipeId = pathname.split('/')[2];
-    const action = recipeURL === 'comidas'
-      ? 'foodDetails'
-      : 'drinkDetails';
-    dispatch(setInput(recipeId));
-    dispatch(getRecipes(action));
-    setRecipeType(recipeURL);
+    const recipeID = pathname.split('/')[2];
+    const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipeID}`;
+    fetchUrl(URL);
     dispatch(getRecipes('foods'));
-    setIsFavorite(verifyFavorite(recipeId));
-  }, [dispatch]);
+    setIsFavorite(verifyFavorite(recipeID));
+  }, []);
 
-  useEffect(() => {
-    if (recipeType !== '' && (Object.keys(data).length > 0)) {
-      const recipeObj = recipeType === 'comidas'
-        ? data.meals[0]
-        : data.drinks[0];
-      setRecipe(recipeObj);
-    }
-  }, [recipeType, data]);
-
-  if (Object.keys(recipe).length === 0 || loading) {
+  if (Object.keys(recipe).length === 0) {
     return <p>Loading..</p>;
   }
 
