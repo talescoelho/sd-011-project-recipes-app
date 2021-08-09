@@ -30,14 +30,14 @@ export default function ExploreDrinksByIngredients({ history }) {
     history.push('/bebidas/');
   };
 
-  // if (!ingredients.length) return <h2>Loading...</h2>;
-
   return (
     <div>
       <Header title="Explorar Ingredientes" renderButton />
       <div className="ingredients">
         {
-          ingredients ? ingredients.map((ing, index) => {
+          // Para visualizar a animação do spinner, adicionar
+          // .length ao ingredients
+          ingredients.length ? ingredients.map((ing, index) => {
             const ingredientsObject = { name: ing.strIngredient1, index };
             return (
               <IngredientsCard
