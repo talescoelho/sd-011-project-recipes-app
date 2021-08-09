@@ -2,8 +2,8 @@ import React, { useEffect, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import IngredientsList from './IngredientList';
 import ShareIcon from '../images/shareIcon.svg';
-import whiteHearth from '../images/whiteHeartIcon.svg';
-import blackHearth from '../images/blackHeartIcon.svg';
+import whiteHearthIcon from '../images/whiteHeartIcon.svg';
+import blackHearthIcon from '../images/blackHeartIcon.svg';
 import RecipesContext from '../context/RecipesContext';
 
 const getLocalStorage = () => {
@@ -54,19 +54,18 @@ function RecipeDetails({ url }) {
     if (!localItems) {
       return;
     }
-    setFavIcon(localItems.fav);
+    setFavIcon(true);
   }, []);
 
   const handleClick = () => {
     const id = recipe.idMeal || recipe.idDrink;
     const localItems = getLocalStorage();
+    setFavIcon(!favIcon);
     if (localItems.length) {
       console.log(localItems[0].id);
       const newLocalStorage = localItems.filter((item) => item.id !== id);
       localStorage.setItem('favoriteRecipes', JSON.stringify(newLocalStorage));
-      setFavIcon(!favIcon);
     } else {
-      setFavIcon(!favIcon);
       const type = url.replace(/\//ig, '').replace(/[0-9]/g, '');
       const {
         idMeal,
@@ -81,14 +80,13 @@ function RecipeDetails({ url }) {
       const newItem = {
         id: idMeal || idDrink,
         type,
-        fav: true,
         area: strArea || '',
         category: strCategory || '',
         alcoholicOrNot: strAlcoholic || '',
-        strMeal,
-        strMealThumb,
+        name: strMeal,
+        image: strMealThumb,
       };
-      localStorage.setItem('favoriteRecipes', JSON.stringify([newItem]));
+      localStorage.setItem('favoriteRecipes', JSON.stringify([...localItems, newItem]));
     }
   };
   console.log(recipe);
@@ -117,7 +115,7 @@ function RecipeDetails({ url }) {
           <button type="button" onClick={ handleClick }>
             <img
               data-testid="favorite-btn"
-              src={ favIcon ? blackHearth : whiteHearth }
+              src={ favIcon ? blackHearthIcon : whiteHearthIcon }
               alt="Fav Icon"
             />
           </button>
