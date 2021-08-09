@@ -5,8 +5,6 @@ import ShareButton from './Buttons/ShareButton';
 export default function DoneRecipeCard({ el, index }) {
   const { id, type, area, category, alcoholicOrNot, doneDate, name, image, tags } = el;
   const tagsArray = Array.from(tags.toString().split(',').slice(0, 2));
-  console.log(category);
-  console.log(el);
   const url = window.location.href.replace(/\/receitas-feitas/, `/${type}s/${id}`);
   return (
     <div className="done-container">
