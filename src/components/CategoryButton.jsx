@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from '../context/RecipesContext';
 import '../styles/CategoryButton.css';
+import { useLocation } from 'react-router';
 
 function CategoryButton({ categoryName }) {
   const { currentCategory, setCurrentCategory } = useContext(RecipesContext);
+  const { pathname } = useLocation();
 
   const handleToggleCategory = (category) => {
     if (currentCategory === category) {
@@ -15,7 +17,13 @@ function CategoryButton({ categoryName }) {
     }
   };
 
-  const changeStyle = (target) => {
+  useEffect(() => {
+    const ex = document.querySelector('.selectedCat');
+    if (ex) ex.classList.remove('selectedCat');
+    document.querySelector(`.${currentCategory}`).classList.add('selectedCat')
+  }, [currentCategory, pathname])
+
+  const changeStyle = () => {
     const ex = document.querySelector('.selectedCat');
     console.log(ex)
     if (ex) ex.classList.remove('selectedCat')
