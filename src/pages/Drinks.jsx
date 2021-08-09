@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import FooterMenu from '../components/FooterMenu';
 import UserContext from '../context/UserContext';
 import '../css/mainPage.css';
+import CategoriesDrinks from '../components/CategoriesDrinks';
 
 export default function Drinks() {
   const { drinks } = useContext(UserContext);
@@ -15,6 +16,7 @@ export default function Drinks() {
   return (
     <>
       <Header title={ bebidas } />
+      <CategoriesDrinks />
       <section className="drinks">
         {drinks.map((drink) => (
           <div className="drink" key={ drink.idDrink }>
