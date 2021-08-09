@@ -38,31 +38,39 @@ const Login = () => {
   }
 
   return (
-    <div>
+    <div
+      className="d-flex flex-column align-items-center justify-content-center"
+      style={ { height: '100vh' } }
+    >
       <form>
-        <Input
-          type="email"
-          data-testid="email-input"
-          id="email"
-          name="email"
-          setValue={ setEmail }
-          label="Email:"
-        />
-        <br />
-        <Input
-          type="password"
-          data-testid="password-input"
-          id="password"
-          name="password"
-          setValue={ setPassword }
-          label="Senha:"
-        />
-        <br />
+        <div className="form-group">
+          <Input
+            type="email"
+            data-testid="email-input"
+            id="email"
+            name="email"
+            setValue={ setEmail }
+            label="E-mail:"
+            className="form-control"
+          />
+        </div>
+        <div className="form-group">
+          <Input
+            type="password"
+            data-testid="password-input"
+            id="password"
+            name="password"
+            setValue={ setPassword }
+            label="Senha:"
+            className="form-control"
+          />
+        </div>
         <button
           type="button"
           data-testid="login-submit-btn"
           disabled={ disabled }
           onClick={ handleClick }
+          className="btn btn-outline-primary"
         >
           Entrar
         </button>

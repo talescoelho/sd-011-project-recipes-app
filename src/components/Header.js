@@ -30,26 +30,30 @@ function Header() {
 
   return (
     <>
-      <header className="m-Header">
-        <Link
-          to="/perfil"
-        >
-          <button src={ profileIcon } type="button" data-testid="profile-top-btn">
-            <img src={ profileIcon } alt="icone do perfil" />
-          </button>
-        </Link>
+      <header
+        className="m-Header d-flex align-items-center justify-content-between"
+      >
         <h1 data-testid="page-title">{document.title}</h1>
-
-        { showSearchIcon && (
-          <button
-            src={ searchIcon }
-            type="button"
-            data-testid="search-top-btn"
-            id="search-btn"
-            onClick={ toggleSearchBar }
+        <div>
+          <Link
+            to="/perfil"
           >
-            <img src={ searchIcon } alt="icone de pesquisa" />
-          </button>)}
+            <button src={ profileIcon } type="button" data-testid="profile-top-btn">
+              <img src={ profileIcon } alt="icone do perfil" />
+            </button>
+          </Link>
+          { showSearchIcon && (
+            <button
+              src={ searchIcon }
+              type="button"
+              data-testid="search-top-btn"
+              id="search-btn"
+              onClick={ toggleSearchBar }
+            >
+              <img src={ searchIcon } alt="icone de pesquisa" />
+            </button>
+          )}
+        </div>
       </header>
       { showSearchBar && <HeaderSearchBar /> }
     </>

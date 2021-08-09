@@ -51,45 +51,61 @@ function HeaderSearchBar({ receiveData,
 
   return (
     <>
-      <Input
-        id="searchInput"
-        name="searchInput"
-        label="Buscar receita:"
-        data-testid="search-input"
-        value={ searchInput }
-        setValue={ setSearchInput }
-      />
-      <Input
-        id="ingredientInput"
-        label="Ingrediente"
-        name="radioInput"
-        type="radio"
-        data-testid="ingredient-search-radio"
-        value="Ingrediente"
-        setValue={ setRadioValue }
-      />
-      <Input
-        id="nameInput"
-        label="Nome"
-        name="radioInput"
-        type="radio"
-        data-testid="name-search-radio"
-        value="Nome"
-        setValue={ setRadioValue }
-      />
-      <Input
-        id="firstLetterInput"
-        label="Primeira Letra"
-        name="radioInput"
-        type="radio"
-        data-testid="first-letter-search-radio"
-        value="Primeira Letra"
-        setValue={ setRadioValue }
-      />
+      <div className="form-group">
+        <Input
+          id="searchInput"
+          name="searchInput"
+          label="Buscar receita:"
+          data-testid="search-input"
+          value={ searchInput }
+          setValue={ setSearchInput }
+          className="form-control"
+        />
+      </div>
+      <div className="form-check">
+        <Input
+          id="ingredientInput"
+          label="Ingrediente"
+          name="radioInput"
+          type="radio"
+          data-testid="ingredient-search-radio"
+          value="Ingrediente"
+          setValue={ setRadioValue }
+          className="form-check-input"
+          labelClass="form-check-label"
+        />
+      </div>
+      <div className="form-check">
+        <Input
+          id="nameInput"
+          label="Nome"
+          name="radioInput"
+          type="radio"
+          data-testid="name-search-radio"
+          value="Nome"
+          setValue={ setRadioValue }
+          className="form-check-input"
+          labelClass="form-check-label"
+        />
+      </div>
+      <div className="form-check">
+        <Input
+          id="firstLetterInput"
+          label="Primeira Letra"
+          name="radioInput"
+          type="radio"
+          data-testid="first-letter-search-radio"
+          value="Primeira Letra"
+          setValue={ setRadioValue }
+          className="form-check-input"
+          labelClass="form-check-label"
+        />
+      </div>
       <button
         type="button"
         data-testid="exec-search-btn"
         onClick={ fetchSearchData }
+        className="btn btn-outline-primary"
       >
         Buscar
       </button>
