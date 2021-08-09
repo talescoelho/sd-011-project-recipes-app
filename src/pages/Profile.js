@@ -9,7 +9,7 @@ class Profile extends Component {
     const userEmail = getEmail.email;
     return (
       <div>
-        <Header />
+        <Header title="Perfil" search={ false } />
         <p data-testid="profile-email">{ userEmail }</p>
         <Link to="/receitas-feitas">
           <button type="button" data-testid="profile-done-btn">Receitas Feitas</button>

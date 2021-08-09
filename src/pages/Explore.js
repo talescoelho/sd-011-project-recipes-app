@@ -7,7 +7,7 @@ export default class Explore extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header title="Explorar" search={ false } />
         <Link to="/explorar/comidas">
           <Button
             variant="outline-secondary"

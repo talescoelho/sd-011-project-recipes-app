@@ -16,7 +16,7 @@ class ExploreFoodByArea extends Component {
     const { foodArea } = this.props;
     return (
       <div>
-        <Header />
+        <Header title="Explorar Origem" search />
         <select data-testid="explore-by-area-dropdown">
           { foodArea.map((item, index) => (
             <option key={ index } data-testid={ `${item.strArea}-option` }>
