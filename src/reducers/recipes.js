@@ -1,4 +1,7 @@
-import * as actions from '../actions';
+import {
+  REQUEST_SUCCESS,
+  CATEGORIES_SUCCESS,
+} from '../actions';
 
 const INITIAL_STATE = {
   allRecipes: [],
@@ -6,18 +9,18 @@ const INITIAL_STATE = {
   isFiltered: false,
 };
 
-export default function reducer(state = INITIAL_STATE, action) {
-  switch (action.type) {
-  case actions.REQUEST_SUCCESS:
+export default function reducer(state = INITIAL_STATE, { type, payload }) {
+  switch (type) {
+  case REQUEST_SUCCESS:
     return (
       {
         ...state,
-        allRecipes: action.payload.allRecipes,
-        isFiltered: action.payload.isFiltered,
+        allRecipes: payload.allRecipes,
+        isFiltered: payload.isFiltered,
       }
     );
-  case actions.CATEGORIES_SUCCESS:
-    return { ...state, allCategories: action.payload };
+  case CATEGORIES_SUCCESS:
+    return { ...state, allCategories: payload };
   default:
     return state;
   }

@@ -1,0 +1,20 @@
+.details {
+  padding: 5px;
+}
+
+.recomendation-picture {
+  display: flex;
+  margin: auto;
+  width: 200px;
+}
+
+.details-picture {
+  width: 250px;
+}
+
+.start-btn {
+  bottom: 0;
+  left: 120px;
+  margin-bottom: 5px;
+  position: fixed;
+}
