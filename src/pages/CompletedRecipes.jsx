@@ -1,7 +1,15 @@
 import React from 'react';
 
+import Header from '../components/Header/Header';
+
 const CompletedRecipes = () => (
-  <div>Receitas Finalizadas</div>
+  <>
+    <Header
+      page="Receitas Feitas"
+      showSearchBtn={ false }
+    />
+    <div>Receitas Finalizadas</div>
+  </>
 );
 
 export default CompletedRecipes;

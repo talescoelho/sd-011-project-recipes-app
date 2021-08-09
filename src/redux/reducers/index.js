@@ -3,6 +3,10 @@ import emailReducer from './emailReducer';
 import menuReducer from './menuReducer';
 import recipeDetailsReducer from './recipeDetailsReducer';
 
-const rootReducer = combineReducers({ emailReducer, menuReducer, recipeDetailsReducer });
+const rootReducer = combineReducers({
+  menuReducer,
+  emailReducer,
+  recipeDetailsReducer,
+});
 
 export default rootReducer;

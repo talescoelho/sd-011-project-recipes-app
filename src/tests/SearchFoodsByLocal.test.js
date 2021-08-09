@@ -1,8 +1,20 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { queryByTestId, screen } from '@testing-library/react';
 import SearchFoodsByLocal from '../pages/SearchFoodsByLocal';
 
 import { renderWithRouterAndStore } from './testConfig';
+
+describe('Should have the right icon in the screen search foods by local', () => {
+  it('Should have the profile, search buttons and title', () => {
+    renderWithRouterAndStore(<SearchFoodsByLocal />);
+    expect(queryByTestId(document.documentElement, 'profile-top-btn'))
+      .toBeInTheDocument();
+    expect(queryByTestId(document.documentElement, 'page-title'))
+      .toBeInTheDocument();
+    expect(queryByTestId(document.documentElement, 'search-top-btn'))
+      .toBeInTheDocument();
+  });
+});
 
 describe('Tests SearchFoodsByLocal Page', () => {
   const searchFoodsByLocalRoute = '/explorar/comidas/area';
