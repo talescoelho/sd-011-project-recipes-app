@@ -1,4 +1,5 @@
 const FetchApi = async (trigger, radioOption, inputValue, list) => {
+  // https://www.themealdb.com/api/json/v1/1/lookup.php?i=52965
   let url = '';
   if (radioOption === 'ingrediente') {
     url = `filter.php?i=${inputValue}`;
@@ -13,9 +14,12 @@ const FetchApi = async (trigger, radioOption, inputValue, list) => {
     url = 'list.php?c=list';
   }
   if (Array.isArray(list)) {
-    console.log('entrei no if');
     const catName = list[0];
+    const details = list[0];
     url = `filter.php?c=${catName}`;
+    if (details === 'details') {
+      url = `lookup.php?i=${list[1]}`;
+    }
   }
   try {
     const feth = await fetch(`https://www.${trigger}.com/api/json/v1/1/${url}`);
