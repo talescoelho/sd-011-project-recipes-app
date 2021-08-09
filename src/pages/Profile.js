@@ -6,6 +6,7 @@ import Header from '../components/Header';
 
 export default function Profile() {
   const { email } = JSON.parse(localStorage.user);
+  const handlerClick = () => localStorage.clear();
   return (
     <div>
       <Header title="Perfil" data-testid="page-title" />
@@ -20,6 +21,7 @@ export default function Profile() {
           Receitas Feitas
         </button>
       </Link>
+
       <Footer />
     </div>
   );
