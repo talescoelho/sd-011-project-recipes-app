@@ -2,12 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import FoodOrDrinkFilter from './Components/FoodOrDrinkFilter';
+import SecondFavoriteButton from './Components/Secondary/SecondFavoriteButton';
+import SecondShareButton from './Components/Secondary/SecondShareButton';
 
 function RecipesMade() {
   const [filter, setFilter] = React.useState('all');
+  const [update, setUpdate] = React.useState(false);
 
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  console.log(doneRecipes);
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
   return (
     <div>
@@ -27,7 +30,9 @@ function RecipesMade() {
         area,
         alcoholicOrNot,
         category,
-        type },
+        date,
+        type,
+        tags },
       index) => (
         <div key={ `${name}-${id}` }>
           <Link to={ `/${type}s/${id}` }>
@@ -45,8 +50,25 @@ function RecipesMade() {
             <Link to={ `/${type}s/${id}` }>
               <p data-testid={ `${index}-horizontal-name` }>{name}</p>
             </Link>
-            <p>Favorite</p>
-            <p>Share</p>
+            <p data-testid={ `${index}-horizontal-done-date` }>
+              {date}
+            </p>
+            <p data-testid={ `${index}-${category}-horizontal-tag` }>
+              {tags}
+            </p>
+            {/* <SecondFavoriteButton
+              itemId={ id }
+              type={ type }
+              testId={ `${index}-horizontal-favorite-btn` }
+              currentItem={ favoriteRecipes[index] }
+              setUpdate={ setUpdate }
+              update={ update }
+            /> */}
+            <SecondShareButton
+              itemId={ id }
+              type={ type }
+              testID={ `${index}-horizontal-share-btn` }
+            />
           </div>
         </div>
       ))}
