@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import profileIcon from '../images/profileIcon.svg';
 import FoodOrDrinkFilter from './Components/FoodOrDrinkFilter';
-import SecondShareButton from './Components/FinishAndFavoriteScreen/SecondShareButton';
+import SecondShareButton from './Components/Secondary/SecondShareButton';
+import SecondFavoriteButton from './Components/Secondary/SecondFavoriteButton';
 
 function FavoriteRecipes() {
   const [filter, setFilter] = useState('all');
+  const [update, setUpdate] = useState(false);
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+  useEffect(() => {
+
+  }, [filter, update]);
 
   return (
     <div>
@@ -23,6 +29,14 @@ function FavoriteRecipes() {
             <div>
               <p data-testid={ `${index}-horizontal-top-text` }>{area !== '' ? `${area} - ${category}` : alcoholicOrNot }</p>
               <p data-testid={ `${index}-horizontal-name` }>{name}</p>
+              <SecondFavoriteButton
+                itemId={ id }
+                type={ type }
+                testID={ `${index}-horizontal-share-btn` }
+                currentItem={ favoriteRecipes[index] }
+                setUpdate={ setUpdate }
+                update={ update }
+              />
               <p data-testid={ `${index}-horizontal-favorite-btn` }>Botão favoritar</p>
               <SecondShareButton itemId={ id } type={ type } testID={ `${index}-horizontal-share-btn` } />
             </div>
