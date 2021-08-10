@@ -10,9 +10,14 @@ function CardRecipe({ item, index }) {
       { local === url
         ? (
           <div data-testid={ `${index}-recipe-card` }>
-            <p data-testid={ `${index}-card-name` }>
-              { item.strMeal ? item.strMeal : item.strCategory }
-            </p>
+            {
+              item.strMeal ? <p data-testid={ `${index}-card-name` }>{ item.strMeal }</p>
+                : (
+                  <p data-testid={ `${item.strCategory}-category-filter` }>
+                    { item.strCategory }
+                  </p>)
+            }
+
             <img
               data-testid={ `${index}-card-img` }
               src={ item.strMealThumb ? item.strMealThumb : item.strCategoryThumb }
