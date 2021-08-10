@@ -1,8 +1,7 @@
 const INITIAL_STATE = {
   currentRecipes: {
-    meals: {
-    },
-    cocktails: [],
+    meals: {},
+    cocktails: {},
   },
   doneRecipes: [],
   favoriteRecipes: [],
@@ -17,6 +16,17 @@ const recipe = (state = INITIAL_STATE, action) => {
         ...state.currentRecipes,
         meals: {
           ...state.currentRecipes.meals,
+          [action.payload]: [action.payload2],
+        },
+      },
+    };
+  case 'ADD_DRINK_RECIPE_ONGOING':
+    return {
+      ...state,
+      currentRecipes: {
+        ...state.currentRecipes,
+        cocktails: {
+          ...state.currentRecipes.cocktails,
           [action.payload]: [action.payload2],
         },
       },

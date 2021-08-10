@@ -155,7 +155,6 @@ class ComidasDetalhes extends Component {
           }
         />
         <Carousel detailType="ComidasDetalhes" />
-
         { isMealDone ? <div>...</div> : (
           <Link
             to={ {

@@ -2,6 +2,7 @@ export const SEND_LOGIN_INFO = 'SEND_LOGIN_INFO';
 export const ADD_RECIPES = 'ADD_RECIPES';
 
 export const ADD_RECIPE_ONGOING = 'ADD_RECIPE_ONGOING';
+export const ADD_DRINK_RECIPE_ONGOING = 'ADD_DRINK_RECIPE_ONGOING';
 export const ADD_RECIPE_DONE = 'ADD_RECIPE_DONE';
 export const ADD_RECIPE_FAVORITE = 'ADD_RECIPE_FAVORITE';
 
@@ -13,6 +14,12 @@ export const sendLoginInfo = (email, password) => ({
 
 export const addRecipeOngoing = (id, list) => ({
   type: ADD_RECIPE_ONGOING,
+  payload: id,
+  payload2: list,
+});
+
+export const addDrinkRecipeOngoing = (id, list) => ({
+  type: ADD_DRINK_RECIPE_ONGOING,
   payload: id,
   payload2: list,
 });

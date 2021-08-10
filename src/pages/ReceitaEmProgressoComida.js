@@ -89,7 +89,9 @@ class ReceitaEmProgressoComida extends Component {
           <ul>
             {finalList.map((ing, index) => (
               <li key={ ing } data-testid={ `${index}-ingredient-step` }>
-                <span><input type="checkbox" name={ ing } /></span>
+                <span>
+                  <input type="checkbox" name={ ing } />
+                </span>
                 <span>{ing}</span>
               </li>
             ))}

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Carousel from './Carousel';
+import { addDrinkRecipeOngoing, addRecipeFavorite } from '../actions';
 
 class BebidasDetalhes extends Component {
   constructor(props) {
@@ -9,6 +11,8 @@ class BebidasDetalhes extends Component {
     this.state = {
       drinkDetails: {},
       ingredientList: [],
+      finalList: [],
+      isMealDone: false,
     };
 
     this.drinkDetailsFetchAPI = this.drinkDetailsFetchAPI.bind(this);
@@ -17,10 +21,23 @@ class BebidasDetalhes extends Component {
 
   componentDidMount() {
     this.drinkDetailsFetchAPI();
+    this.fetchDoneRecipes();
   }
 
-  CopyToClipboard() {
-    // https://orclqa.com/copy-url-clipboard/
+  fetchDoneRecipes() {
+    const { match: { params: { id } } } = this.props;
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes !== null) {
+      const filter = doneRecipes.filter((recipe) => recipe === id);
+      if (filter.length >= 1) {
+        this.setState({
+          isMealDone: true,
+        });
+      }
+    }
+  }
+
+  CopyToClipboard() { // https://orclqa.com/copy-url-clipboard/
     const inputc = document.body.appendChild(document.createElement('input'));
     inputc.value = window.location.href;
     inputc.focus();
@@ -49,16 +66,34 @@ class BebidasDetalhes extends Component {
     this.setState({
       drinkDetails: data.drinks[0],
       ingredientList: ingredientListBuffer,
+    }, () => {
+      const { ingredientList, drinkDetails } = this.state;
+      const doneList = ingredientList.map((e) => (drinkDetails[e]
+        ? `${drinkDetails[e]} - ${drinkDetails[`strMeasure${e.match(/\d+/)[0]}`]}`
+        : null)).filter(Boolean);
+      this.setState({
+        finalList: doneList,
+      });
     });
   }
 
   render() {
-    const { drinkDetails, ingredientList } = this.state;
-
+    const { drinkDetails, ingredientList, finalList, isMealDone } = this.state;
+    const { addDrinkRecipeCurr, addRecipeFav, match: {
+      params: { id },
+    } } = this.props;
+    const obj = {
+      id: drinkDetails.idDrink,
+      type: 'bebida',
+      area: '',
+      category: drinkDetails.strCategory,
+      alcoholicOrNot: drinkDetails.strAlcoholic,
+      name: drinkDetails.strDrink,
+      image: drinkDetails.strDrinkThumb,
+    };
     const { strDrink, strDrinkThumb, strAlcoholic, strInstructions } = drinkDetails;
     return (
       <div>
-        <h1 data-testid="recipe-title">{strDrink}</h1>
         <img
           data-testid="recipe-photo"
           className="recipe-photo"
@@ -72,14 +107,19 @@ class BebidasDetalhes extends Component {
         >
           Compartilhe
         </button>
-        <button type="button" data-testid="favorite-btn">
+        <button
+          type="button"
+          data-testid="favorite-btn"
+          onClick={ () => addRecipeFav(obj) }
+        >
           Favoritar
         </button>
         <Link to="/bebidas">
           <button type="button">
-            Voltar para página de comidas
+            Voltar para página de bebidas
           </button>
         </Link>
+        <h1 data-testid="recipe-title">{strDrink}</h1>
         <p data-testid="recipe-category">{strAlcoholic}</p>
         <span>Ingredients</span>
         <ul>
@@ -93,26 +133,44 @@ class BebidasDetalhes extends Component {
           ) : null))}
         </ul>
         <span>Instructions</span>
-        <section data-testid="instructions">{strInstructions}</section>
+        <section id="instructions" data-testid="instructions">
+          {strInstructions}
+        </section>
         <Carousel detailType="BebidasDetalhes" />
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="start-recipe"
-        >
-          Iniciar Receita
-        </button>
+        { isMealDone ? <div>...</div> : (
+          <Link
+            to={ {
+              pathname: `/bebidas/${id}/in-progress`,
+            } }
+          >
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              className="start-recipe"
+              onClick={ () => addDrinkRecipeCurr(drinkDetails.idDrink, finalList) }
+            >
+              Iniciar Receita
+            </button>
+          </Link>
+        )}
       </div>
     );
   }
 }
 
-export default BebidasDetalhes;
+const mapDispatchToProps = (dispatch) => ({
+  addDrinkRecipeCurr: (id, list) => dispatch(addDrinkRecipeOngoing(id, list)),
+  addRecipeFav: (meal) => dispatch(addRecipeFavorite(meal)),
+});
+
+export default connect(null, mapDispatchToProps)(BebidasDetalhes);
 
 BebidasDetalhes.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
     }),
-  }).isRequired,
-};
+  }),
+  addRecipeCurr: PropTypes.func,
+  addRecipeFav: PropTypes.func,
+}.isRequired;
