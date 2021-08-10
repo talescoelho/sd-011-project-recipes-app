@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import MenuInferior from '../components/MenuInferior';
 
 function Profile() {
-  const email = JSON.parse(localStorage.getItem('user'));
+  const email = JSON.parse(localStorage.getItem('user')) || { email: '' };
   function logoutClear() {
     localStorage.clear();
   }

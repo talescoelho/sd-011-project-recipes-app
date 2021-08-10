@@ -7,13 +7,19 @@ import mealIcon from '../images/mealIcon.svg';
 import recipesContext from '../provider/recipesContext';
 
 function MenuInferior() {
-  const { setType } = useContext(recipesContext);
+  const { setType, setUpdate } = useContext(recipesContext);
   return (
     <div
       className="fixed-bottom"
       data-testid="footer"
     >
-      <Link to="/bebidas" onClick={ () => setType('cocktail') }>
+      <Link
+        to="/bebidas"
+        onClick={ () => {
+          setType('cocktail');
+          setUpdate(true);
+        } }
+      >
         <button type="button">
           <img
             data-testid="drinks-bottom-btn"
@@ -23,7 +29,7 @@ function MenuInferior() {
         </button>
       </Link>
       <Link to="/explorar">
-        <button type="button">
+        <button type="button" onClick={ () => setUpdate(true) }>
           <img
             data-testid="explore-bottom-btn"
             src={ exploreIcon }
@@ -31,7 +37,13 @@ function MenuInferior() {
           />
         </button>
       </Link>
-      <Link to="/comidas" onClick={ () => setType('meal') }>
+      <Link
+        to="/comidas"
+        onClick={ () => {
+          setType('meal');
+          setUpdate(true);
+        } }
+      >
         <button type="button">
           <img
             data-testid="food-bottom-btn"
