@@ -23,6 +23,49 @@ export const checkRecipeInProgress = (url, id) => {
   return false;
 };
 
+// Verifica se a receita está favoritada a partir do id dela no localStorage
+export const checkRecipeIsFavorited = (id) => {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  if (favoriteRecipes.length > 0) {
+    return favoriteRecipes.some((recipe) => recipe.id === id);
+  }
+  return false;
+};
+
+// Remove Recipe de favoritos
+export const removeFromFavorites = (id) => {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const newFavorites = favoriteRecipes.filter((favRecipe) => favRecipe.id !== id);
+  localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
+};
+
+// Add recipe in localStorage
+export const addRecipeInFavorites = (recipe, url) => {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const type = url.replace(/\//ig, '').replace(/[0-9]/g, '').replace('s', '');
+  const {
+    idMeal,
+    idDrink,
+    strCategory,
+    strAlcoholic,
+    strDrink,
+    strMeal,
+    strDrinkThumb,
+    strMealThumb,
+    strArea } = recipe;
+  const newRecipe = {
+    id: idMeal || idDrink,
+    type,
+    area: strArea || '',
+    category: strCategory || '',
+    alcoholicOrNot: strAlcoholic || '',
+    name: strMeal || strDrink,
+    image: strMealThumb || strDrinkThumb,
+  };
+  localStorage.setItem('favoriteRecipes',
+    JSON.stringify([...favoriteRecipes, newRecipe]));
+};
+
 export const createLocalStorage = () => {
   const inProgressRecipes = {
     cocktails: {},

@@ -13,6 +13,8 @@ function RecipesProvider({ children }) {
   const [btnName, setBtnName] = useState('');
   const [toggle, setToggle] = useState(false);
   const [currentCategory, setCurrentCategory] = useState('All');
+  const [share, setShare] = useState(false);
+  const [favIcon, setFavIcon] = useState(false);
 
   useEffect(() => {
     async function fetchMyAPI() {
@@ -77,6 +79,10 @@ function RecipesProvider({ children }) {
     currentCategory,
     setCurrentCategory,
     getRecipeById,
+    share,
+    setShare,
+    favIcon,
+    setFavIcon,
   };
 
   return (
