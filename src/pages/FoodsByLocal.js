@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
-import { fetchMealsLetter } from '../services/MealApiService';
+import { fetchMealCountries, fetchMealsLetter } from '../services/MealApiService';
 
 export default function FoodsByLocal() {
   const pageTitle = {
@@ -24,8 +24,8 @@ export default function FoodsByLocal() {
 
   useEffect(() => {
     const response = async () => {
-      const data = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list').then((res) => res.json());
-      return setCountries(data.meals);
+      const fetchedCountries = await fetchMealCountries();
+      return setCountries(fetchedCountries);
     };
     response();
   }, []);
@@ -34,7 +34,7 @@ export default function FoodsByLocal() {
   const { recipesDb, setRecipesDb } = useContext(RecipesContext);
 
   function handleMeals() {
-    if (recipesDb.length === 0) {
+    if (recipesDb === null || recipesDb.length === 0) {
       return (
         <div className="card-container">
           {
@@ -107,7 +107,6 @@ export default function FoodsByLocal() {
           } }
           data-testid="explore-by-area-dropdown"
           name="countries"
-          id="cars"
         >
           <option
             key={ 0 }

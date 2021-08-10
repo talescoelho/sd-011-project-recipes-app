@@ -23,6 +23,12 @@ export async function fetchMealsCategory(category) {
   return response.meals;
 }
 
+export const getRandmomMeal = async () => {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+    .then((res) => res.json());
+  return response.meals[0];
+};
+
 export async function fetchMealsId(id) {
   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
   const data = await response.json();
@@ -34,3 +40,14 @@ export async function fetchMealsRecommended() {
   const data = await response.json();
   return data.meals;
 }
+
+export const getIngredients = async () => {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
+    .then((res) => res.json());
+  return response.meals;
+};
+
+export const fetchMealCountries = async () => {
+  const data = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list').then((res) => res.json());
+  return data.meals;
+};
