@@ -59,11 +59,21 @@ const verifyFavorite = (idRecipe) => {
   return favorites.some(({ id }) => id === idRecipe);
 };
 
+const checkInProgress = (id) => {
+  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {
+    cocktails: {},
+    meals: {},
+  };
+  const toCompare = inProgress.meals[id] || [];
+  return toCompare.length > 0;
+};
+
 function DetalhesComidas() {
   const [recipe, setRecipe] = useState({});
   const dispatch = useDispatch();
   const [copyOk, setCopyOk] = useState(false);
   const [isFavorite, setIsFavorite] = useState();
+  const [isInProgress, setIsInProgress] = useState(false);
 
   const fetchUrl = (url) => {
     fetch(url)
@@ -78,6 +88,7 @@ function DetalhesComidas() {
     fetchUrl(URL);
     dispatch(getRecipes('drinks'));
     setIsFavorite(verifyFavorite(recipeID));
+    setIsInProgress(checkInProgress(recipeID));
   }, []);
 
   const guide = () => {
@@ -144,7 +155,7 @@ function DetalhesComidas() {
             bottom: '0',
           } }
         >
-          Continuar Receita
+          { isInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
         </button>
       </Link>
       <RenderRecomendations typeReco="bebidas" />
