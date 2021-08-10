@@ -13,7 +13,7 @@ export default function Login() {
     const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     const minLength = 6;
     setLoginButtonStatus(true);
-    if (regex.test(loginEmail) && loginPassword.length > minLength) {
+    if (regex.test(loginEmail) && loginPassword.length >= minLength) {
       setLoginButtonStatus(false);
     }
   }, [loginPassword, loginEmail]);
