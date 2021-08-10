@@ -31,7 +31,7 @@ function ShareAndFavButton(props) {
       setFavorited(false);
       setStorage('favoriteRecipes', favoriteRecipes.filter((recipe) => recipe.id !== id));
     } else {
-      const foodType = pathname.split('/')[1].split('/')[0];
+      const foodType = pathname.includes('comida') ? 'comida' : 'bebida';
       setFavorited(true);
       const newFavoriteRecip = newFavoriteRecipes(details, foodType);
       setStorage('favoriteRecipes', [...favoriteRecipes, newFavoriteRecip]);
