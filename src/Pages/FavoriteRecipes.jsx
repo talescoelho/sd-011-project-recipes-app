@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import FoodOrDrinkFilter from './Components/FoodOrDrinkFilter';
 import SecondShareButton from './Components/Secondary/SecondShareButton';
@@ -40,18 +41,22 @@ function FavoriteRecipes() {
           category,
           type,
         }, index) => (
-          <div key>
-            <img
-              src={ image }
-              width="150"
-              data-testid={ `${index}-horizontal-image` }
-              alt="Imagem de comida"
-            />
+          <div key={ `${name}-${id}` }>
+            <Link to={ `/${type}s/${id}` }>
+              <img
+                src={ image }
+                width="150"
+                data-testid={ `${index}-horizontal-image` }
+                alt="Imagem de comida"
+              />
+            </Link>
             <div>
               <p data-testid={ `${index}-horizontal-top-text` }>
                 {area !== '' ? `${area} - ${category}` : alcoholicOrNot }
               </p>
-              <p data-testid={ `${index}-horizontal-name` }>{name}</p>
+              <Link to={ `/${type}s/${id}` }>
+                <p data-testid={ `${index}-horizontal-name` }>{name}</p>
+              </Link>
               <SecondFavoriteButton
                 itemId={ id }
                 type={ type }
