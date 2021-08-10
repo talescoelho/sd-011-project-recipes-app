@@ -11,6 +11,7 @@ import MealDetails from './pages/MealDetails';
 import Drinks from './pages/Drinks';
 import ExploreDrinkIngredient from './pages/ExploreDrinkIngredient';
 import ExploreFoodIngredient from './pages/ExploreFoodIngredient';
+import NotFound from './pages/NotFound';
 // import MealRecipeCard from './components/MealRecipeCard';
 
 function App() {
@@ -19,27 +20,29 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/explorar" component={ Explore } />
-        <Route path="/explorar/comidas/area" component={ FoodArea } />
+        <Route exact path="/explorar/comidas/area" component={ FoodArea } />
         <Route exact path="/explorar/comidas" component={ ExploreFood } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrink } />
-        <Route path="/comidas/:id" component={ MealDetails } />
-        <Route path="/comidas" component={ Meals } />
-        <Route path="/bebidas" component={ Drinks } />
-        <Route path="/profile" component={ Profile } />
+        <Route exact path="/comidas/:id" component={ MealDetails } />
+        <Route exact path="/comidas" component={ Meals } />
+        <Route exact path="/bebidas" component={ Drinks } />
+        <Route exact path="/profile" component={ Profile } />
         <Route
+          exact
           path="/explorar/comidas/ingredientes"
           component={ ExploreFoodIngredient }
         />
         <Route
+          exact
           path="/explorar/bebidas/ingredientes"
           component={ ExploreDrinkIngredient }
         />
+        <Route path="*" component={ NotFound } />
         {/* <Route path="/bebidas:id" component={} />
         Tela de receita em processo de comida: /comidas/{id-da-receita}/in-progress;
         Tela de receita em processo de bebida: /bebidas/{id-da-receita}/in-progress;
         <Route path="/receitas-feitas" component={} />
-        <Route path="/receitas-favoritas" component={} />
-        <Route path="*" component={ NotFound } /> */ }
+        <Route path="/receitas-favoritas" component={} /> */}
       </Switch>
     </BrowserRouter>
   );
