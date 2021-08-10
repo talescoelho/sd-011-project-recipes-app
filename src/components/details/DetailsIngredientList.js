@@ -73,21 +73,24 @@ function DetailsIngredientList() {
             <div>
               {
                 ingredients.map((ingredient, index) => (
-                  <label
-                    htmlFor={ `ingredient-${index}` }
-                    key={ index }
-                  >
-                    <input
+                  <>
+                    <label
+                      htmlFor={ `ingredient-${index}` }
                       data-testid={ `${index}-ingredient-step` }
-                      type="checkbox"
-                      id={ `ingredient-${index}` }
-                      name={ index }
-                      value={ ingredient }
-                      onChange={ addToCheckedIngredient }
-                    />
-                    { (checkedIngredients.includes(ingredient))
-                      ? <del>{ ingredient }</del> : ingredient }
-                  </label>
+                      key={ index }
+                    >
+                      <input
+                        type="checkbox"
+                        id={ `ingredient-${index}` }
+                        name={ index }
+                        value={ ingredient }
+                        onChange={ addToCheckedIngredient }
+                      />
+                      { (checkedIngredients.includes(ingredient))
+                        ? <del>{ ingredient }</del> : ingredient }
+                    </label>
+                    <br />
+                  </>
                 ))
               }
             </div>

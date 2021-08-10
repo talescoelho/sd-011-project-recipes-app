@@ -13,6 +13,7 @@ function InProgressDrink() {
   const {
     drinkId,
     getDrinkId,
+    allIngredientsChecked,
   } = useContext(RecipesContext);
 
   const { id } = useParams();
@@ -45,6 +46,7 @@ function InProgressDrink() {
               history
                 .push('/receitas-feitas');
             } }
+            disabled={ allIngredientsChecked }
           >
             Finalizar receita
           </button>
