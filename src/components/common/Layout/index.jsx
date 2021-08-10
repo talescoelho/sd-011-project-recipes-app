@@ -19,7 +19,7 @@ function Layout({ children, title, search, noHeader, noFooter }) {
     if (title === 'Bebidas' && !ingredients.length) {
       dispatch(fetchCocktails({ category: word, searchTerm }));
     }
-  }, [dispatch, title]);
+  }, [dispatch, title, ingredients.length]);
 
   return (
     <>
