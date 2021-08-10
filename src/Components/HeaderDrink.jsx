@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Form, Button } from 'react-bootstrap';
 import searchIcon from '../images/searchIcon.svg';
 import profilePicture from '../images/profileIcon.svg';
 import fetchReceiveDrink from '../Actions/drink';
@@ -36,86 +37,93 @@ class HeaderDrink extends Component {
     const { inputLoading } = this.state;
 
     return (
-      <div className="header-container">
-        <Link to="/perfil" className="profilePicture">
-          <img
-            className="profile"
-            data-testid="profile-top-btn"
-            src={ profilePicture }
-            alt="profileIcon"
-          />
-        </Link>
-        <h1 data-testid="page-title">{ title }</h1>
+      <div>
+        <div className="header-container">
+          <Link to="/perfil" className="profilePicture">
+            <img
+              className="profile"
+              data-testid="profile-top-btn"
+              src={ profilePicture }
+              alt="profileIcon"
+            />
+          </Link>
+          <h1 data-testid="page-title">{ title }</h1>
 
-        <button
-          type="button"
-          className="searchButton"
-          onClick={ () => (!inputLoading ? (this.setState({ inputLoading: true }))
-            : (
-              this.setState({ inputLoading: false }))) }
-        >
-          <img
-            data-testid="search-top-btn"
-            className="searchLupa"
-            src={ searchIcon }
-            alt="searchIcon"
-          />
-        </button>
+          <button
+            type="button"
+            className="searchButton"
+            onClick={ () => (!inputLoading ? (this.setState({ inputLoading: true }))
+              : (
+                this.setState({ inputLoading: false }))) }
+          >
+            <img
+              data-testid="search-top-btn"
+              className="searchLupa"
+              src={ searchIcon }
+              alt="searchIcon"
+            />
+          </button>
+        </div>
         { inputLoading && (
-          <form
+          <Form
+            className="text-center lg"
             onSubmit={ this.submitRequest }
           >
-            <input
+            <Form.Control
+              className="text-center"
               data-testid="search-input"
               type="text"
               placeholder="Procure Aqui"
               name="inputTextValue"
               onChange={ (e) => this.handleChangeRadioButtonValue(e) }
             />
-            <label htmlFor="ingredient-search-radio">
-              Ingrediente
-              <input
-                type="radio"
-                id="ingredient-search-radio"
-                name="radioInputValue"
-                data-testid="ingredient-search-radio"
-                value="ingrediente"
-                onChange={ (e) => this.handleChangeRadioButtonValue(e) }
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label className="labelForFilter" htmlFor="ingredient-search-radio">
+                Ingrediente
+                <Form.Check
+                  type="radio"
+                  id="ingredient-search-radio"
+                  name="radioInputValue"
+                  data-testid="ingredient-search-radio"
+                  value="ingrediente"
+                  onChange={ (e) => this.handleChangeRadioButtonValue(e) }
 
-              />
-            </label>
-            <label htmlFor="name-search-radio">
-              Nome
-              <input
-                type="radio"
-                id="name-search-radio"
-                name="radioInputValue"
-                data-testid="name-search-radio"
-                value="nome"
-                onChange={ (e) => this.handleChangeRadioButtonValue(e) }
+                />
+              </Form.Label>
+              <Form.Label className="labelForFilter" htmlFor="name-search-radio">
+                Nome
+                <Form.Check
+                  type="radio"
+                  id="name-search-radio"
+                  name="radioInputValue"
+                  data-testid="name-search-radio"
+                  value="nome"
+                  onChange={ (e) => this.handleChangeRadioButtonValue(e) }
 
-              />
-            </label>
-            <label htmlFor="first-letter-search-radio">
-              Primeira letra
-              <input
-                type="radio"
-                id="first-letter-search-radio"
-                name="radioInputValue"
-                data-testid="first-letter-search-radio"
-                value="primeira-letra"
-                onChange={ (e) => this.handleChangeRadioButtonValue(e) }
+                />
+              </Form.Label>
+              <Form.Label className="labelForFilter" htmlFor="first-letter-search-radio">
+                Primeira letra
+                <Form.Check
+                  type="radio"
+                  id="first-letter-search-radio"
+                  name="radioInputValue"
+                  data-testid="first-letter-search-radio"
+                  value="primeira-letra"
+                  onChange={ (e) => this.handleChangeRadioButtonValue(e) }
 
-              />
-            </label>
-            <button
+                />
+              </Form.Label>
+            </Form.Group>
+            <Button
+              className="submitButton"
               type="submit"
               data-testid="exec-search-btn"
               onClick={ () => onClick(false) }
             >
               Submit
-            </button>
-          </form>
+            </Button>
+          </Form>
         )}
 
       </div>

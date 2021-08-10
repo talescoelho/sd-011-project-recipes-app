@@ -168,6 +168,7 @@ class FoodDetails extends Component {
               </div>
               <button
                 className="hearth"
+                id="hearth"
                 type="button"
                 onClick={ () => {
                   this.setState({ favoriteFood: !favoriteFood });

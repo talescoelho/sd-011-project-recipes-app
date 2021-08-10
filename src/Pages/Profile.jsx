@@ -13,10 +13,14 @@ export default class Profile extends Component {
       renderEmail = emailUser.email;
     }
     return (
-      <div>
-        <HeaderWithoutSearch title="Perfil" />
-        <div>
+      <div className="profile-container">
+        <div className="profile-header">
+          <div className="profile-picture">
+            <HeaderWithoutSearch title="Perfil" />
+          </div>
           <h2 data-testid="profile-email">{ renderEmail }</h2>
+        </div>
+        <div className="container-link">
           <Link
             to="/receitas-feitas"
             data-testid="profile-done-btn"
