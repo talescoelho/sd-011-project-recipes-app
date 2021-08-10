@@ -11,6 +11,8 @@ import drinksFilterByOrdinaryDrink from '../mocks/drinks/mockFilterByOrdinaryDri
 import * as requestMenu from '../../services/requestMenu';
 
 const maxDefaultCards = 12;
+const cardTestId = '-recipe-card';
+const titleTestId = '-card-name';
 
 jest
   .spyOn(requestMenu, 'searchMealByName')
@@ -35,7 +37,7 @@ return recipes without any filter`, () => {
     fireEvent.click(beefFilterOption);
 
     const { meals } = mealsFiltersByAll;
-    await testMealsRecipeCard(meals, maxDefaultCards);
+    await testMealsRecipeCard(meals, maxDefaultCards, cardTestId, titleTestId);
   });
 
   it(`If the recipes are for drinks and the filter has been selected again, the first 12 
@@ -50,6 +52,6 @@ return recipes without any filter`, () => {
     fireEvent.click(ordinaryDrinkFilterOption);
 
     const { drinks } = drinksFiltersByAll;
-    await testDrinksRecipeCard(drinks, maxDefaultCards);
+    await testDrinksRecipeCard(drinks, maxDefaultCards, cardTestId, titleTestId);
   });
 });

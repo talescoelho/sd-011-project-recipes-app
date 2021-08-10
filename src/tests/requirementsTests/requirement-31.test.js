@@ -11,6 +11,8 @@ import drinksFilterByOrdinaryDrink from '../mocks/drinks/mockFilterByOrdinaryDri
 import * as requestMenu from '../../services/requestMenu';
 
 const maxDefaultCards = 12;
+const cardTestId = '-recipe-card';
+const titleTestId = '-card-name';
 
 jest
   .spyOn(requestMenu, 'searchMealByName')
@@ -34,13 +36,13 @@ describe('31 - Develop the category filter with the option to filter by all cate
         fireEvent.click(beefFilterOption);
 
         const { meals: mealsOptions } = mealsFilterByBeef;
-        await testMealsRecipeCard(mealsOptions, maxDefaultCards);
+        await testMealsRecipeCard(mealsOptions, maxDefaultCards, cardTestId, titleTestId);
 
         const allFilterOption = await screen.findByTestId('All-category-filter');
         fireEvent.click(allFilterOption);
 
         const { meals: allOptions } = mealsFiltersByAll;
-        await testMealsRecipeCard(allOptions, maxDefaultCards);
+        await testMealsRecipeCard(allOptions, maxDefaultCards, cardTestId, titleTestId);
       });
 
     it(`If the recipes are for drinks, there must be the option to filter by all 
@@ -54,12 +56,16 @@ describe('31 - Develop the category filter with the option to filter by all cate
       fireEvent.click(ordinaryDrinkFilterOption);
 
       const { drinks: orinaryDrinksOptions } = drinksFilterByOrdinaryDrink;
-      await testDrinksRecipeCard(orinaryDrinksOptions, maxDefaultCards);
+      await testDrinksRecipeCard(
+        orinaryDrinksOptions, maxDefaultCards, cardTestId, titleTestId,
+      );
 
       const allFilterOption = await screen.findByTestId('All-category-filter');
       fireEvent.click(allFilterOption);
 
       const { drinks: allOptions } = drinksFiltersByAll;
-      await testDrinksRecipeCard(allOptions, maxDefaultCards);
+      await testDrinksRecipeCard(
+        allOptions, maxDefaultCards, cardTestId, titleTestId,
+      );
     });
   });

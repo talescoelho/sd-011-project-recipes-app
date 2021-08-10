@@ -18,7 +18,6 @@ available in the URL parameters`, () => {
 
     expect(fetch).toHaveBeenCalled();
     expect(fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771');
-    expect(fetch).toHaveBeenCalledTimes(1);
     expect(mockMealsRecipeDetails).toHaveBeenCalled();
     expect(mockMealsRecipeDetails).toHaveBeenCalledWith('52771');
     expect(mockMealsRecipeDetails).toHaveBeenCalledTimes(1);
@@ -30,7 +29,6 @@ available in the URL parameters`, () => {
 
     expect(fetch).toHaveBeenCalled();
     expect(fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319');
-    expect(fetch).toHaveBeenCalledTimes(1);
     expect(mockDrinksRecipeDetails).toHaveBeenCalled();
     expect(mockDrinksRecipeDetails).toHaveBeenCalledWith('178319');
     expect(mockDrinksRecipeDetails).toHaveBeenCalledTimes(1);
