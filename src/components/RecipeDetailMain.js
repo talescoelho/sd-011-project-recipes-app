@@ -38,10 +38,10 @@ class RecipeDetailMain extends Component {
           return true;
         }
         return false;
-      }).map((item, i) => {
+      }).map((item, index) => {
         if (recipeDetail[item]) {
-          const strIngredient = `${recipeDetail[`strIngredient${i + 1}`]} - `;
-          const strMeasure = `${recipeDetail[`strMeasure${i + 1}`]}`;
+          const strIngredient = `${recipeDetail[`strIngredient${index + 1}`]} - `;
+          const strMeasure = `${recipeDetail[`strMeasure${index + 1}`]}`;
           return [strIngredient, strMeasure].join('');
         }
         return null;
@@ -70,10 +70,10 @@ class RecipeDetailMain extends Component {
         <h3> Ingredientes</h3>
         <ul name="ingredients-list">
           <br />
-          {ingredientes.map((mealIngred, i) => (
+          {ingredientes.map((mealIngred, index) => (
             <li
-              data-testid={ `${i}-ingredient-name-and-measure` }
-              key={ i }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ index }
             >
               { mealIngred }
             </li>))}
