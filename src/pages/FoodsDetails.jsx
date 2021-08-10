@@ -5,9 +5,11 @@ import * as ReactBootStrap from 'react-bootstrap';
 import { fetchFoodDetails, fetchDrinks } from '../services/API';
 import '../styles/FoodsDetails.css';
 import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ingredientsMealDetails from '../helpers/ingredientsMealDetails';
 import DrinksRecomendations from '../components/DrinksRecomendations';
+import { getStorage } from '../helpers/Storage';
 
 function FoodsDetails() {
   const { id } = useParams();
@@ -15,6 +17,7 @@ function FoodsDetails() {
   const [details, setDetails] = useState({});
   const [recomendations, setRecomendations] = useState([]);
   const [linkCopied, setLinkCopied] = useState('');
+  const [favorited, setFavorited] = useState(false);
   const history = useHistory();
   const { location: { pathname } } = history;
 
@@ -34,6 +37,11 @@ function FoodsDetails() {
     };
     drinksRecomendations();
   }, []);
+
+  useEffect(() => {
+    const favorites = getStorage('favoriteRecipes');
+    favorites.forEach((favorite) => { if (favorite.id === id) { setFavorited(true); } });
+  });
 
   const ingredientsAndMeasures = details.idMeal
     ? ingredientsMealDetails(details)
@@ -76,8 +84,15 @@ function FoodsDetails() {
               >
                 <img src={ shareIcon } alt="Botão compartilhar" />
               </button>
-              <button type="button" data-testid="favorite-btn">
-                <img src={ whiteHeartIcon } alt="Botão favoritar" />
+              <button
+                type="button"
+                data-testid="favorite-btn"
+                src={ favorited ? blackHeartIcon : whiteHeartIcon }
+              >
+                <img
+                  src={ favorited ? blackHeartIcon : whiteHeartIcon }
+                  alt="Botão favoritar"
+                />
               </button>
             </div>
           </div>
