@@ -8,11 +8,13 @@ import GlobalContext from '../context';
 
 export default function ExploreDrinksByIngredients({ history }) {
   const [ingredients, setIngredients] = useState([]);
-  const { setDrinkArray } = useContext(GlobalContext);
+  const { setDrinkArray, loading, setLoading } = useContext(GlobalContext);
 
   const getIngredients = async () => {
+    setLoading(true);
     const ingredientsData = await fetchIngredientsFromCocktailsDB();
     setIngredients(ingredientsData);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -20,9 +22,11 @@ export default function ExploreDrinksByIngredients({ history }) {
   }, []);
 
   const filterByIngredient = async (ingredient) => {
+    setLoading(true);
     const filteredDrinks = await fetchDrinksByIngredient(ingredient);
     console.log(filteredDrinks);
     setDrinkArray(filteredDrinks);
+    setLoading(false);
   };
 
   const handleClick = (name) => {
@@ -35,8 +39,6 @@ export default function ExploreDrinksByIngredients({ history }) {
       <Header title="Explorar Ingredientes" renderButton />
       <div className="ingredients">
         {
-          // Para visualizar a animação do spinner, adicionar
-          // .length ao ingredients
           ingredients ? ingredients.map((ing, index) => {
             const ingredientsObject = { name: ing.strIngredient1, index };
             return (

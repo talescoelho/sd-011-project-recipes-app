@@ -8,6 +8,7 @@ import { fetchDefaultDrinksFromCocktailsDB,
   fetchApiDrinks, fetchApiMeals } from '../services';
 
 export default function Provider({ children }) {
+  const [loading, setLoading] = useState(false);
   const [defaultFood, setDefaultFood] = useState([]);
   const [foodArray, setFoodArray] = useState([]);
   const [defaultDrink, setDefaultDrink] = useState([]);
@@ -77,6 +78,8 @@ export default function Provider({ children }) {
         drinkArray,
         mealCategories,
         drinkCategories,
+        loading,
+        setLoading,
         setFoodArray,
         setDrinkArray,
         getDataFromFoods,

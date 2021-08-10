@@ -1,26 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import LowerMenu from '../components/LowerMenu';
 import Header from '../components/Header';
 import { fetchMealsListByArea, fetchMealsByArea,
   fetchDefaultFoodsFromMealsDB } from '../services';
 import AreaDropdown from '../components/AreaDropdown';
+import GlobalContext from '../context';
 
 export default function ExploreMealsByArea({ history }) {
   const [dropdown, setDropdown] = useState([]);
   const [area, setArea] = useState([]);
+  const { loading, setLoading } = useContext(GlobalContext);
 
   const getAreas = async () => {
+    setLoading(true);
     const meals = await fetchMealsListByArea();
     setDropdown(meals);
+    setLoading(true);
   };
 
   const getAllMeals = async () => {
+    setLoading(true);
     const meals = await fetchDefaultFoodsFromMealsDB();
     setArea(meals);
+    setLoading(false);
   };
 
   const getMealsByArea = async ({ target }) => {
+    setLoading(true);
     const mealsMaxCount = 12;
     let meals;
     if (target.value === 'All') {
@@ -29,6 +36,7 @@ export default function ExploreMealsByArea({ history }) {
       meals = await fetchMealsByArea(target.value);
     }
     setArea(meals.slice(0, mealsMaxCount));
+    setLoading(false);
   };
 
   const goToRecipeDetails = (id) => {
@@ -46,7 +54,7 @@ export default function ExploreMealsByArea({ history }) {
       <AreaDropdown getMealsByArea={ getMealsByArea } dropdown={ dropdown } />
       <section className="card-list">
         {
-          area && area.map((meal, index) => (
+          !loading ? area.map((meal, index) => (
             <div
               className="card"
               data-testid={ `${index}-recipe-card` }
@@ -71,6 +79,7 @@ export default function ExploreMealsByArea({ history }) {
               </span>
             </div>
           ))
+            : <span className="loading" />
         }
       </section>
       <LowerMenu />
