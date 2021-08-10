@@ -46,10 +46,6 @@ export default function CardsListByIngredient() {
     if (path === 'bebidas') {
       url = urlDrink;
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> 2c7613bd42c5ddb793f607aa3f132b6cfe5a9e37
     const getCategories = async () => {
       const img = ingredName.map((e) => ({
         fig: `https://www.${url}.com/images/ingredients/${e}-Small.png`,
@@ -73,15 +69,6 @@ export default function CardsListByIngredient() {
   };
 
   return (
-<<<<<<< HEAD
-    <div>
-      {console.log(imge)}
-      { imge.map((e) => (
-        <div>
-          <img width="50px" src={ e.fig } alt="figure" />
-          <p>{e.name}</p>
-        </div>
-=======
     <div style={ { position: 'relative' } }>
       { imge.map((e, i) => (
         <button
@@ -111,7 +98,6 @@ export default function CardsListByIngredient() {
             <p data-testid={ `${i}-card-name` }>{e.name}</p>
           </div>
         </button>
->>>>>>> 2c7613bd42c5ddb793f607aa3f132b6cfe5a9e37
       )) }
       { redirectTo && <Redirect to={ `/${path}` } /> }
     </div>
