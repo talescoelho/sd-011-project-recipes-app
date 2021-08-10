@@ -68,40 +68,40 @@ describe('48 - Desenvolva um checkbox para cada item da lista de ingredientes', 
   });
 });
 
-// describe('49 - Implemente uma lógica que, ao clicar no checkbox de um ingrediente, o nome dele deve ser "riscado" da lista', () => {
-//   const getIngredients = () => (
-//     cy.get('[data-testid*="ingredient-step"]')
-//       .find('input[type="checkbox"]')
-//   );
+describe('49 - Implemente uma lógica que, ao clicar no checkbox de um ingrediente, o nome dele deve ser "riscado" da lista', () => {
+  const getIngredients = () => (
+    cy.get('[data-testid*="ingredient-step"]')
+      .find('input[type="checkbox"]')
+  );
 
-//   it('verifica se é possível marcar todos os passos da receita de comida', () => {
-//     cy.visit('http://localhost:3000/comidas/52771/in-progress', {
-//       onBeforeLoad(win) {
-//         win.fetch = fetchMock;
-//       },
-//     });
+  it('verifica se é possível marcar todos os passos da receita de comida', () => {
+    cy.visit('http://localhost:3000/comidas/52771/in-progress', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-//     getIngredients()
-//       .check();
+    getIngredients()
+      .check();
 
-//     getIngredients()
-//       .should('have.css', 'text-decoration', 'none solid rgb(0, 0, 0)');
-//   });
+    getIngredients()
+      .should('have.css', 'text-decoration', 'none solid rgb(0, 0, 0)');
+  });
 
-//   it('verifica se é possível marcar todos os passos da receita de bebida', () => {
-//     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
-//       onBeforeLoad(win) {
-//         win.fetch = fetchMock;
-//       },
-//     });
+  it('verifica se é possível marcar todos os passos da receita de bebida', () => {
+    cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-//     getIngredients()
-//       .check();
+    getIngredients()
+      .check();
 
-//     getIngredients()
-//       .should('have.css', 'text-decoration', 'none solid rgb(0, 0, 0)');
-//   });
-// });
+    getIngredients()
+      .should('have.css', 'text-decoration', 'none solid rgb(0, 0, 0)');
+  });
+});
 
 // describe('50 - Salve o estado do progresso, que deve ser mantido caso a pessoa atualize a página ou volte para a mesma receita', () => {
 //   it('salva o progresso de uma receita de comida em andamento', () => {
