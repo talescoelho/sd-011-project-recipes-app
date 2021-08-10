@@ -3,32 +3,31 @@ import ButtonToProgress from './ButtonToProgress';
 import ButtonShare from './ButtonShare';
 import Recommended from './Recommended';
 import RenderVideo from './RenderVideo';
-// import { RecipeDetailsContext } from '../context/RecipeDetails';
+import ButtonFavorite from './ButtonFavorite';
 
 function MealDetailCard() {
   const [mealDetail, setMealDetail] = useState([]);
   const [rec, setRec] = useState([]);
+  const [min, setMin] = useState([]);
 
-  // Testar com instrução porque recipe não é passada por context para foodInProgress
-  // const { setRecipe, recipe } = useContext(RecipeDetailsContext);
-
-  const path = window.location.pathname.split('/')[2];
-
+  const path = window.location.pathname.split('/')[1] === 'comidas';
   const foodToDetail = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
-  const foodRecomend = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const drinkRecommend = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
   useEffect(() => {
     const getUrlMeal = async () => {
       const meal = await fetch(`${foodToDetail}${window.location.pathname
         .split('/')[2]}`);
-      meal.json().then((res) => {
-        // setRecipe(res.meals[0]);
-        setMealDetail(res.meals[0]);
-      });
+      const response = meal.json().then((res) => setMealDetail(res.meals[0]));
+      return response;
     };
+
     const getRecomend = async () => {
-      const recomend = await fetch(`${foodRecomend}`);
-      recomend.json().then((res) => setRec(res.meals));
+      const recomend = await fetch(`${drinkRecommend}`);
+      const resRecom = recomend.json().then((res) => setRec(res.drinks));
+      const magicN = 20;
+      setMin(parseInt(Math.random() * (magicN - 0) + 0, 10));
+      return resRecom;
     };
 
     getRecomend();
@@ -36,6 +35,7 @@ function MealDetailCard() {
   }, [path]);
 
   const {
+    // idMeal,
     strArea,
     strCategory,
     strInstructions,
@@ -43,6 +43,8 @@ function MealDetailCard() {
     strMealThumb,
     strYoutube,
   } = mealDetail;
+
+  console.log((rec.meals));
 
   const objIngred = Object.entries(mealDetail).map((e) => {
     if (e[0].includes('strIngredient') && e[1] !== '') {
@@ -63,23 +65,29 @@ function MealDetailCard() {
       <h3 data-testid="recipe-title">{strMeal}</h3>
       <img data-testid="recipe-photo" width="150px" src={ strMealThumb } alt="tumb" />
       <h4>{strArea}</h4>
-      <h4 data-testid="recipe-category">{strCategory}</h4>
+      <p data-testid="recipe-category">{strCategory}</p>
       <div style={ { display: 'flex', justifyContent: 'space-around' } }>
-        <button type="button" data-testid="share-btn">Gostei</button>
-        <ButtonShare path={ window.location.href } data-testid="share-btn" />
+        <ButtonFavorite objData={ mealDetail } />
+        <ButtonShare props={ window.location.href } />
       </div>
       <table>
         <tbody>
           <tr>
             <td>
-              { objIngred.map((e, i) => (
-                <div
-                  data-testid={ `${i + 1}-${e}-${objMeasure[i]}` }
-                  key={ i }
-                >
-                  {objMeasure[i] !== undefined ? `${e} - ${objMeasure[i]}` : `${e}`}
-                </div>
-              )) }
+              { objIngred.map((e, i) => {
+                if (e !== null) {
+                  return (
+                    <div
+                      data-testid={ `${i}-ingredient-name-and-measure` }
+                      key={ i }
+                    >
+                      {objMeasure[i] !== (undefined || '')
+                        ? `${e} - ${objMeasure[i]}` : `${e}`}
+                    </div>
+                  );
+                }
+                return undefined;
+              }) }
             </td>
           </tr>
         </tbody>
@@ -90,11 +98,11 @@ function MealDetailCard() {
           src={ strYoutube }
           title={ `Recipe ${strMeal}` }
           id="video"
-        />}
-      <div>
-        <Recommended value={ rec } type="meal" />
+        /> }
+      <div style={ { margin: '40px' } }>
+        <Recommended value={ rec } type="meal" min={ min } />
       </div>
-      <ButtonToProgress mealDetail={ mealDetail } />
+      <ButtonToProgress data={ mealDetail } />
     </div>
   );
 }
