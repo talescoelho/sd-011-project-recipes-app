@@ -27,7 +27,10 @@ function FoodsRecipeInProgress({ match: { params: { id } } }) {
     const finalList = ingredList.map((ingredient, index) => {
       if (ingredient) {
         return (
-          <li key={ index } data-testid={ `${index}-ingredient-step` }>{ingredient}</li>
+          <li key={ index } data-testid={ `${index}-ingredient-step` }>
+            {ingredient}
+            <input type="checkbox" />
+          </li>
         );
       }
       return null;
