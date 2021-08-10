@@ -80,7 +80,7 @@ function ReceitasFavoritas() {
               alcoholicOrNot={ alcoholicOrNot }
               recipeDoneDate={ findFavoriteRecipeDoneDate(id) }
             />
-            <SharedButton path={ `http://localhost:3000/${type}/${id}` } dataTest={ `${index}-horizontal-share-btn` } />
+            <SharedButton path={ `http://localhost:3000/${type}s/${id}` } dataTest={ `${index}-horizontal-share-btn` } />
             <FavoriteButton id={ id } dataTest={ `${index}-horizontal-favorite-btn` } />
           </>
         ))}
