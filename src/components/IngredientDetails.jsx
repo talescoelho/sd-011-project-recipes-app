@@ -15,6 +15,7 @@ function IngredientDetails() {
     .map((ing, index) => `${idDetails[0][ing]} - ${idDetails[0][measure[index]]}`);
   // console.log('lista', ingredientList);
 
+
   return (
     <>
       <h3>Ingredients</h3>

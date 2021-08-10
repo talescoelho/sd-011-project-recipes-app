@@ -15,3 +15,9 @@
   overflow: visible;
   width: 300px;
 }
+
+.visible {
+  height: 300px;
+  visibility: visible;
+  width: 300px;
+}

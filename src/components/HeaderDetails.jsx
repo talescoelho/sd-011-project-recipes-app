@@ -1,15 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from '../context/AppContext';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import ShareButton from './ShareButton';
+import FavoriteButton from './FavoriteButton';
 
 function HeaderDetails({ foodOrDrink, id }) {
   const { idDetails } = useContext(AppContext);
   const details = idDetails[0];
-  const [favorite, setFavorite] = useState(false);
-
+  // const [favorite, setFavorite] = useState(false);
+  /*
   const favRecipes = {
     id: foodOrDrink === 'Comidas' ? details.idMeal : details.idDrink,
     type: foodOrDrink === 'Comidas' ? 'comida' : 'bebida',
@@ -36,7 +35,7 @@ function HeaderDetails({ foodOrDrink, id }) {
       localStorage.removeItem('favoriteRecipes');
       localStorage.setItem('favoriteRecipes', JSON.stringify(filter));
     }
-  }
+  } */
 
   return (
     <div>
@@ -44,15 +43,15 @@ function HeaderDetails({ foodOrDrink, id }) {
         <h1 data-testid="recipe-title">
           {foodOrDrink === 'Comidas' ? details.strMeal : details.strDrink }
         </h1>
-        <ShareButton />
-        <button type="button" onClick={ handleFavorite }>
-          <img
-            data-testid="favorite-btn"
-            src={ hasId ? blackHeartIcon : whiteHeartIcon }
-            alt="Imagem do ícone de favorito"
-          />
-        </button>
-
+        <ShareButton
+          foodOrDrink={ foodOrDrink === 'Comidas' ? 'comidas' : 'bebidas' }
+          id={ id }
+        />
+        <FavoriteButton
+          foodOrDrink={ foodOrDrink === 'Comidas' ? 'comidas' : 'bebidas' }
+          id={ id }
+          details={ details }
+        />
       </div>
       <h3 data-testid="recipe-category">
         { foodOrDrink === 'Comidas' ? details.strCategory : details.strAlcoholic }
