@@ -9,7 +9,7 @@ export default function Explorer() {
   return (
     <>
       <SearchBarProvider>
-        <Header title="Explorar" search={ false } />
+        <Header title="Explorar" />
       </SearchBarProvider>
       <button
         type="button"

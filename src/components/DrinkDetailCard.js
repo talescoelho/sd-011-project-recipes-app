@@ -8,7 +8,6 @@ import RenderVideo from './RenderVideo';
 function DrinkDetailCard() {
   const [drinkDetail, setDrinkDetail] = useState([]);
   const [rec, setRec] = useState([]);
-  const [data, setData] = useState([]);
   const [min, setMin] = useState([]);
 
   const path = window.location.pathname.split('/')[2];
@@ -60,12 +59,6 @@ function DrinkDetailCard() {
     return undefined;
   }).filter((i) => i !== undefined);
 
-  const callData = () => {
-    setData([drinkDetail]);
-
-    return data;
-  };
-
   return (
     <div>
       <h3 data-testid="recipe-title">{strDrink}</h3>
@@ -109,7 +102,7 @@ function DrinkDetailCard() {
       <div style={ { margin: '40px' } }>
         <Recommended value={ rec } type="drink" min={ min } />
       </div>
-      <ButtonToProgress data={ callData } />
+      <ButtonToProgress data={ drinkDetail } />
     </div>
   );
 }
