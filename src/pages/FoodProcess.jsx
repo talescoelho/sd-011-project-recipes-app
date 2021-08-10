@@ -1,23 +1,38 @@
-import React, { useContext } from 'react';
-import AppContext from '../context/AppContext';
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import HeaderDetails from '../components/HeaderDetails';
 import IngredientDetails from '../components/IngredientDetails';
+import AppContext from '../context/AppContext';
 
 function FoodProcess() {
-  const { idDetails } = useContext(AppContext);
-  const details = idDetails[0];
+  const { setIdDetails, idDetails } = useContext(AppContext);
+  const [loading, setLoading] = useState(true);
+  const { id } = useParams();
+
+  async function fetchFoodProcess() {
+    const endPoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const request = await fetch(endPoint);
+    const response = await request.json();
+    const data = response.meals;
+    setIdDetails(data);
+    setLoading(false);
+  }
+
+  useEffect(
+    () => { fetchFoodProcess(); }, [],
+  );
 
   return (
     <div>
-      {idDetails.length === 0 ? <span>Loading...</span> : (
+      {loading ? <span>Loading...</span> : (
         <div>
           <img
             data-testid="recipe-photo"
-            src={ details.strMealThumb }
+            src={ idDetails[0].strMealThumb }
             alt="image_of_recipe"
           />
           <HeaderDetails foodOrDrink="Comidas" />
-          <IngredientDetails />
+          <IngredientDetails inProcess />
         </div>
       )}
     </div>
