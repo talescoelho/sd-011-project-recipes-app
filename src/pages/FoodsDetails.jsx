@@ -5,9 +5,11 @@ import * as ReactBootStrap from 'react-bootstrap';
 import { fetchFoodDetails, fetchDrinks } from '../services/API';
 import '../styles/FoodsDetails.css';
 import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ingredientsMealDetails from '../helpers/ingredientsMealDetails';
 import DrinksRecomendations from '../components/DrinksRecomendations';
+import { getStorage, setStorage, newFavoriteRecipes } from '../helpers/Storage';
 
 function FoodsDetails() {
   const { id } = useParams();
@@ -15,6 +17,7 @@ function FoodsDetails() {
   const [details, setDetails] = useState({});
   const [recomendations, setRecomendations] = useState([]);
   const [linkCopied, setLinkCopied] = useState('');
+  const [favorited, setFavorited] = useState(false);
   const history = useHistory();
   const { location: { pathname } } = history;
 
@@ -35,6 +38,11 @@ function FoodsDetails() {
     drinksRecomendations();
   }, []);
 
+  useEffect(() => {
+    const favorites = getStorage('favoriteRecipes');
+    favorites.forEach((favorite) => { if (favorite.id === id) { setFavorited(true); } });
+  }, [id]);
+
   const ingredientsAndMeasures = details.idMeal
     ? ingredientsMealDetails(details)
     : [];
@@ -50,6 +58,18 @@ function FoodsDetails() {
     // verificar possibilidade de obter a url completa para qualquer servidor
     navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
   }
+
+  const addOrRemoveFavoriteRecipe = () => {
+    const favoriteRecipes = getStorage('favoriteRecipes');
+    if (favoriteRecipes.some((recipe) => recipe.id === id)) {
+      setFavorited(false);
+      setStorage('favoriteRecipes', favoriteRecipes.filter((recipe) => recipe.id !== id));
+    } else {
+      setFavorited(true);
+      const newFavoriteRecip = newFavoriteRecipes(details, 'comida');
+      setStorage('favoriteRecipes', [...favoriteRecipes, newFavoriteRecip]);
+    }
+  };
 
   return (
     <div className="details-container">
@@ -76,8 +96,16 @@ function FoodsDetails() {
               >
                 <img src={ shareIcon } alt="Botão compartilhar" />
               </button>
-              <button type="button" data-testid="favorite-btn">
-                <img src={ whiteHeartIcon } alt="Botão favoritar" />
+              <button
+                type="button"
+                data-testid="favorite-btn"
+                src={ favorited ? blackHeartIcon : whiteHeartIcon }
+                onClick={ () => addOrRemoveFavoriteRecipe() }
+              >
+                <img
+                  src={ favorited ? blackHeartIcon : whiteHeartIcon }
+                  alt="Botão favoritar"
+                />
               </button>
             </div>
           </div>
