@@ -1,12 +1,18 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { Card,
+  Button,
+  Badge,
+  Container,
+} from 'react-bootstrap';
 import copy from 'clipboard-copy';
 import MyContext from '../context/MyContext';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import handleClickCheckbox from '../helpers/handleClickCheckbox';
+import '../components/styles/details.css';
 
 export default function ProgressDrinkRecipe(props) {
   const {
@@ -96,72 +102,87 @@ export default function ProgressDrinkRecipe(props) {
     return <p>Loading...</p>;
   }
   return (
-    <div>
-      <h1>Progresso Bebida</h1>
-      <img
-        data-testid="recipe-photo"
-        src={ data[0].strDrinkThumb }
-        alt="foto da comida"
-      />
-      <h2 data-testid="recipe-title">{data[0].strDrink}</h2>
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ handleShared }
-      >
-        <img src={ shareIcon } alt="compartilhar" />
-      </button>
-      {copied && <p>{ copied }</p>}
-      <button
-        type="button"
-        onClick={ () => (!favorite ? setLocalStore() : deleteLocalStore()) }
-      >
-        <img
-          src={ !favorite ? whiteHeartIcon : blackHeartIcon }
-          data-testid="favorite-btn"
-          alt="favoritar"
+    <Container>
+      <Card>
+        <Card.Img
+          data-testid="recipe-photo"
+          src={ data[0].strDrinkThumb }
+          alt="foto da comida"
         />
-      </button>
-      <p data-testid="recipe-category">
-        {' '}
-        {data[0].strCategory}
-      </p>
-      <p>Ingredientes</p>
-      {ingredientes.map((item, index) => (
-        <div key={ index } data-testid={ `${index}-ingredient-step` }>
-          <label
-            htmlFor={ `${index}-ingredient-step` }
+        <Card.Body>
+          <Card.Title
+            className="detail-title"
+            data-testid="recipe-title"
           >
-            <input
-              type="checkbox"
-              id={ `${index}-ingredient-step` }
-              onClick={ (e) => handleClickCheckbox(e, item, paramFunction) }
-              checked={ inProgress.cocktails[id] && inProgress.cocktails[id]
-                .includes(item) }
-            />
+            {data[0].strDrink}
+          </Card.Title>
+          <Badge
+            bg="info"
+            text="dark"
+            data-testid="recipe-category"
+          >
             {' '}
-            { item }
-          </label>
-          <br />
-        </div>
-      ))}
-      <br />
-      <p data-testid="instructions">
-        {' '}
-        Instruções:
-        <br />
-        {data[0].strInstructions}
-      </p>
-      <Link to="/receitas-feitas">
-        <button
+            {data[0].strCategory}
+          </Badge>
+        </Card.Body>
+        <Button
+          variant="success"
           type="button"
-          data-testid="finish-recipe-btn"
-          disabled={ disable }
+          data-testid="share-btn"
+          onClick={ handleShared }
         >
-          Finalizar Receita
-        </button>
-      </Link>
-    </div>
+          <img src={ shareIcon } alt="compartilhar" />
+        </Button>
+        {copied && <p>{ copied }</p>}
+        <Button
+          variant="danger"
+          type="button"
+          onClick={ () => (!favorite ? setLocalStore() : deleteLocalStore()) }
+        >
+          <img
+            src={ !favorite ? whiteHeartIcon : blackHeartIcon }
+            data-testid="favorite-btn"
+            alt="favoritar"
+          />
+        </Button>
+        <Card.Title>Ingredientes</Card.Title>
+        {ingredientes.map((item, index) => (
+          <div key={ index } data-testid={ `${index}-ingredient-step` }>
+            <label
+              htmlFor={ `${index}-ingredient-step` }
+            >
+              <input
+                type="checkbox"
+                id={ `${index}-ingredient-step` }
+                onClick={ (e) => handleClickCheckbox(e, item, paramFunction) }
+                checked={ inProgress.cocktails[id] && inProgress.cocktails[id]
+                  .includes(item) }
+              />
+              {' '}
+              { item }
+            </label>
+          </div>
+        ))}
+        <Card style={ { padding: '10px' } }>
+          <Card.Title>Instructions</Card.Title>
+          <Card.Text data-testid="instructions">
+            {
+              data[0].strInstructions
+            }
+
+          </Card.Text>
+        </Card>
+        <Link to="/receitas-feitas">
+          <Button
+            type="button"
+            data-testid="finish-recipe-btn"
+            disabled={ disable }
+          >
+            Finalizar Receita
+          </Button>
+        </Link>
+      </Card>
+    </Container>
   );
 }
 
