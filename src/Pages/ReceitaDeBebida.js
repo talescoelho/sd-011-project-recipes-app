@@ -1,108 +1,188 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import '../images/shareIcon.svg';
-import '../images/whiteHeartIcon.svg';
-import RecomendedFood from '../components/RecomendedFood';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import Proptypes from 'prop-types';
+import requestByMeal, { requestDrinkById } from '../Services/Data';
+import renderIngredients from '../components/Ingredients';
+import StartButton from '../components/StartButton';
+import FavoriteButton from '../components/FavoriteButton';
+import SharedButton from '../components/SharedButton';
 
-function ReceitaDeBebida(props) {
-  const { match: { params: { id } } } = props;
-  const [recipeDataAsObject, setRecipeDataAsObject] = React.useState([]);
-  const [recomendedMeal, setRecomendedMeal] = React.useState([]);
+function ReceitaDeBebidas({ match }) {
+  const [data, setData] = useState([]);
+  const [recomm, setRecomm] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  async function fetchDrinkRecipe() {
-    const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-    const response = await fetch(url);
-    const result = await response.json();
-    setRecipeDataAsObject(...result.drinks);
-  }
-
-  async function fetchRecomendedMeal() {
-    const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-    const response = await fetch(url);
-    const result = await response.json();
-    setRecomendedMeal(result.meals);
-  }
+  const history = useHistory();
+  const pathToCopy = history.location.pathname;
+  const { id } = match.params;
 
   useEffect(() => {
-    fetchDrinkRecipe();
-    fetchRecomendedMeal();
-  }, []);
+    (async function resolved() {
+      const resolve = await requestDrinkById(id);
+      const resolveRecomm = await requestByMeal();
+      setData(resolve);
+      setRecomm(resolveRecomm);
+      setLoading(false);
+    }());
+  }, [id]);
 
-  function setIgredientAndMeasureList() {
-    const igredientStartPoint = 9;
-    const igredientEndPoint = 28;
-    const measureStartPoint = 29;
-    const measureEndPoint = 48;
+  function renderButtons(item) {
+    const DrinkToFav = data.drinks[0];
+    const favoriteRecipes = {
+      id: DrinkToFav.idDrink,
+      type: 'bebida',
+      area: '',
+      category: DrinkToFav.strCategory,
+      alcoholicOrNot: DrinkToFav.strAlcoholic,
+      name: DrinkToFav.strDrink,
+      image: DrinkToFav.strDrinkThumb,
+    };
 
-    const igredientAndMeasureList = [];
+    return (
+      <>
+        <SharedButton
+          path={ `http://localhost:3000${pathToCopy}` }
+          dataTest="share-btn"
+          style={ { width: 25 } }
 
-    const igredients = Object.values(recipeDataAsObject)
-      .slice(igredientStartPoint, igredientEndPoint)
-      .filter((igredient) => igredient !== '' && igredient !== null);
+        />
 
-    const measures = Object.values(recipeDataAsObject)
-      .slice(measureStartPoint, measureEndPoint)
-      .filter((measure) => measure !== '' && measure !== null);
+        <FavoriteButton
+          id={ item.idDrink }
+          favoriteRecipes={ favoriteRecipes }
+          dataTest="favorite-btn"
+          style={ { width: 25 } }
 
-    for (let i = 0; i < igredients.length; i += 1) {
-      igredientAndMeasureList.push(`${igredients[i]} - ${measures[i]}`);
-    }
-    return igredientAndMeasureList;
+        />
+      </>
+    );
   }
 
-  const numberOfRecomendedMeals = 6;
+  function AlcoholVerify(item) {
+    if (item.strAlcoholic) {
+      return <h5 data-testid="recipe-category">{item.strAlcoholic}</h5>;
+    }
+  }
 
-  const {
-    strDrink, strAlcoholic, strDrinkThumb, strInstructions,
-  } = recipeDataAsObject;
+  function mapRecomm(param) {
+    const { meals } = param;
+    const magicNumber = 6;
+    return meals
+      .filter((_, index) => index < magicNumber)
+      .map((item, index) => {
+        if (index === 0) {
+          return (
+            <div key={ index }>
+              <div
+                data-testid={ `${index}-recomendation-card` }
+              >
+                <img
+                  data-testid={ `${index}-card-img` }
+                  src={ item.strMealThumb }
+                  alt={ `imagem de ${item}` }
+                  id={ item.idMeal }
+                  style={ { width: 25 } }
 
-  if (!recipeDataAsObject) return <h2>Loading...</h2>;
+                />
+                <p data-testid={ `${index}-recomendation-title` }>{item.strMeal}</p>
+              </div>
+              <div
+                data-testid={ `${index + 1}-recomendation-card` }
+              >
+                <img
+                  data-testid={ `${index + 1}-card-img` }
+                  src={ meals[index + 1].strMealThumb }
+                  alt={ `imagem de ${meals[index + 1]}` }
+                  id={ meals[index + 1].idMeal }
+                  style={ { width: 25 } }
+
+                />
+                <p
+                  data-testid={ `${index + 1}-recomendation-title` }
+                >
+                  {meals[index + 1].strMeal}
+                </p>
+              </div>
+            </div>
+          );
+        }
+        if (index !== 1) {
+          return (
+            <div
+              className="carousel-item"
+              key={ index }
+              data-testid={ `${index}-recomendation-card` }
+            >
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ item.strMealThumb }
+                alt={ `imagem de ${item}` }
+                id={ item.idMeal }
+                style={ { width: 25 } }
+
+              />
+              <p data-testid={ `${index}-recomendation-title` }>{item.strMeal}</p>
+            </div>
+          );
+        }
+        return null;
+      });
+  }
+
+  function mapData(param) {
+    const { drinks } = param;
+    return drinks
+      .map((item, index) => {
+        const path = `/bebidas/${item.idDrink}`;
+        if (path === history.location.pathname) {
+          return (
+            <div key={ index }>
+              <img
+                src={ item.strDrinkThumb }
+                data-testid="recipe-photo"
+                alt={ item.strDrink }
+                style={ { width: 25 } }
+              />
+              <h3 data-testid="recipe-title">{item.strDrink}</h3>
+              {renderButtons(item)}
+              {AlcoholVerify(item)}
+              <label htmlFor="ingredients-list">
+                Ingredientes:
+                <ul id="ingredients-list">
+                  {renderIngredients(item)}
+                </ul>
+              </label>
+              <label htmlFor="instructions">
+                Instruções de preparo:
+                <p data-testid="instructions">{item.strInstructions}</p>
+              </label>
+              <p>Recomendações: </p>
+              {mapRecomm(recomm)}
+              {StartButton('bebidas', item, history)}
+            </div>
+          );
+        }
+        return null;
+      });
+  }
+
   return (
     <div>
-      <img data-testid="recipe-photo" src={ strDrinkThumb } alt="imagem de comida" />
-      <h2 data-testid="recipe-title">{strDrink}</h2>
-      <img
-        data-testid="share-btn"
-        src="../images/shareIcon.svg"
-        alt="botão para compartilhar a receita"
-      />
-      <img
-        data-testid="favorite-btn"
-        src="../images/whiteHeartIcon.svg"
-        alt="botão para favoritar a receita"
-      />
-      <h5 data-testid="recipe-category">{strAlcoholic}</h5>
-      <h3>Igredientes</h3>
-      <ol>
-        {setIgredientAndMeasureList()
-          .map((igrediente, index) => (
-            <li data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
-              {igrediente}
-            </li>
-          ))}
-      </ol>
-      <h3 data-testid="instructions">Instruções</h3>
-      <p>{ strInstructions }</p>
-      <h3>Receitas Recomendadas</h3>
-      <div className="RecommendedContainer">
-        {recomendedMeal
-          .slice(0, numberOfRecomendedMeals)
-          .map((obj, index) => (
-            <RecomendedFood
-              dataTestid={ `${index}-recomendation-card` }
-              key={ index }
-              category={ obj.strCategory }
-              title={ obj.strMeal }
-              img={ obj.strMealThumb }
-            />))}
-      </div>
-      <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+      {
+        loading
+          ? 'Carregando...'
+          : (mapData(data))
+      }
     </div>
   );
 }
 
-ReceitaDeBebida.propTypes = {
-  match: PropTypes.objectOf.isRequired,
-};
+ReceitaDeBebidas.propTypes = {
+  match: Proptypes.shape({
+    params: Proptypes.shape({
+      id: Proptypes.string.isRequired,
+    }),
+  }),
+}.isRequired;
 
-export default ReceitaDeBebida;
+export default ReceitaDeBebidas;

@@ -5,11 +5,11 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-function Header({ title, search = false }) {
+function Header(props) {
   const [showInput, setshowInput] = useState(false);
-
+  const { setDrinkFromSearch, setFoodFromSearch, title, search = false } = props;
   return (
-    <>
+    <header>
       <div>
         <Link to="/perfil">
           <img
@@ -30,8 +30,12 @@ function Header({ title, search = false }) {
         </button>
       )}
       </div>
-      { showInput && <SearchBar /> }
-    </>
+      { showInput && <SearchBar
+        setDrinkFromSearch={ setDrinkFromSearch }
+        setFoodFromSearch={ setFoodFromSearch }
+      /> }
+
+    </header>
   );
 }
 
@@ -42,5 +46,7 @@ Header.defaultProps = {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   search: PropTypes.bool,
+  setDrinkFromSearch: PropTypes.func.isRequired,
+  setFoodFromSearch: PropTypes.func.isRequired,
 };
 export default Header;

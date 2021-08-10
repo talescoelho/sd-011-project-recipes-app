@@ -1,4 +1,4 @@
-.meals {
+/* .meals {
   align-items: center;
   background: #0fa36b;
   color: #464646;
@@ -63,36 +63,30 @@
   width: 50%;
 }
 
-[ data-testid= "start-recipe-btn" ] {
-  position: fixed;
-  bottom: 0;
-}
-
 .recommendedFoodContainer {
+  align-items: space-between;
   display: flex;
   flex-direction: column;
-  justify-content: stretch;
-  align-items: space-between;
-  width: 300px;
   height: 200px;
+  justify-content: stretch;
   margin: auto 50px;
+  width: 300px;
 }
 
 .RecommendedContainer {
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  justify-content:space-between;
   align-items: space-between;
-  width: fit-content;
-  text-align: center;
+  display: flex;
+  flex-flow: row wrap;
   height: 200px;
+  justify-content: space-between;
+  text-align: center;
+  width: fit-content;
 }
 
 .recommendedImage {
-  width: 400px;
-  height: 400px;
   background-size: cover;
+  height: 400px;
+  width: 400px;
 }
 
 .card-img {
@@ -103,4 +97,9 @@
 .cards {
   display: inline-block;
   font-size: 2px;
+} */
+
+[ data-testid = 'start-recipe-btn' ] {
+  bottom: 0;
+  position: fixed;
 }

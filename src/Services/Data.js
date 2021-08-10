@@ -1,3 +1,4 @@
+const message = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 export function fetchMealsAPI(setListMeals) {
   // essa API aceita o parametro s vaziu
   // retorna API de lista de comida
@@ -35,11 +36,99 @@ export function fetchCocktailsCategorisAPI(setListCocktailsCategorie) {
 
 export function fetchCocktailsForCategorie(setListCocktail, categorie) {
   // retorna API de lista de bebidas pela categoria
-  console.log(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categorie}`);
   fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categorie}`)
     .then((response) => response.json())
     .then((jsonData) => {
       setListCocktail(jsonData.drinks);
-      console.log('Data', jsonData);
     });
 }
+
+export const fetchFoodsIngredienteMeail = (ingrediente, setFoods) => {
+  // retorna pesquisa por nome na pagina de comidas
+  const api = fetch(`https://www.themealdb.com/api/json/v1/1/search.php?i=${ingrediente}`);
+  if (api) {
+    api
+      .then((resp) => resp.json())
+      .then((jsonObj) => setFoods(jsonObj.meals));
+  }
+  alert(message);
+};
+
+export const fetchFoodsIngredienteDrink = (ingrediente, setFoods) => {
+  // retorna pesquisa por nome na pagina de bebidas
+  const api = fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${ingrediente}`);
+  if (api) {
+    api
+      .then((resp) => resp.json())
+      .then((jsonObj) => setFoods(jsonObj.drinks));
+  }
+  alert(message);
+};
+
+export const fetchFoodsName = (name, setFoods) => {
+  // retorna pesquisa por nome na pagina de comidas
+  const api = fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`);
+  if (api) {
+    api
+      .then((resp) => resp.json())
+      .then((jsonObj) => setFoods(jsonObj.meals));
+  }
+  alert(message);
+};
+
+export const fetchFoodsNameDrink = (name, setFoods) => {
+  // retorna pesquisa por nome na pagina de bebidas
+  const api = fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`);
+  if (api) {
+    api
+      .then((resp) => resp.json())
+      .then((jsonObj) => setFoods(jsonObj.drinks));
+  }
+  alert(message);
+};
+
+export const fetchFoodsFirstLetter = (firstLetter,
+  setFoods) => (firstLetter.length === 1
+// pesquisa pela primeira letra comida
+  ? fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`)
+    .then((resp) => resp.json())
+    .then((jsonObj) => setFoods(jsonObj.meals))
+  : alert('Sua busca deve conter somente 1 (um) caracter'));
+
+export const fetchFoodsFirstLetterDrink = (firstLetter,
+  setFoods) => (firstLetter.length === 1
+// pesquisa pela primeira letra bebida
+  ? fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`)
+    .then((resp) => resp.json())
+    .then((jsonObj) => setFoods(jsonObj.drinks))
+  : alert('Sua busca deve conter somente 1 (um) caracter'));
+
+export async function requestDrinkById(id) {
+  const request = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const resolve = await request.json();
+  return resolve;
+}
+
+export async function requestMealById(id) {
+  const request = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const resolve = await request.json();
+  return resolve;
+}
+
+export async function requestDrink(name = '') {
+  const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const grup = url + name;
+  const request = await fetch(grup);
+  const resolve = await request.json();
+  return resolve;
+}
+
+async function requestByMeal(name = '') {
+  const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const grup = url + name;
+  const request = await fetch(grup);
+  const resolve = await request.json();
+  return resolve;
+}
+
+export default requestByMeal;
