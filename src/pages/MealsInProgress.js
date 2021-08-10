@@ -55,7 +55,7 @@ function MealsInProgress({ fetchDetails, recipeDetailsData, match }) {
       <div>
         <ThumbDetails thumb={ strMealThumb } />
         <h1 data-testid="recipe-title">{ strMeal }</h1>
-        {/* <ShareBtn url={ (match.url).replace('/in-progress', '') } /> */}
+        <ShareBtn url={ (match.url).replace('/in-progress', '') } />
         <FavBtn data={ data } recipeType="meals" />
         <span data-testid="recipe-category">{ strCategory }</span>
         <IngredientsCheckList

@@ -1,7 +1,7 @@
 import React from 'react';
-import userEvent from '@testing-library/user-event';
-import Login from '../pages/Login';
+import ExploreRecipes from '../pages/explore/ExploreRecipes';
 import { renderWithRouterAndRedux } from './renderWithRouterAndRedux';
+import mockAreas from '../../cypress/mocks/areas';
 
 const INITIAL_STATE = {
   RecipesReducer: {
@@ -17,26 +17,21 @@ describe('Testes para página de Explorar comidas', () => {
   it('Verifica se há os itens procurados', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(),
+      json: jest.fn().mockResolvedValue(mockAreas),
     });
     const { findByText, findByTestId } = renderWithRouterAndRedux(
-      <Login />,
-      { route: '/' }, INITIAL_STATE,
+      <ExploreRecipes />,
+      { route: '/explorar/comidas' }, INITIAL_STATE,
     );
-    const type = await findByText(/Login/i);
-    const email = await findByTestId('email-input');
-    const password = await findByTestId('password-input');
-    const loginBtn = await findByTestId('login-submit-btn');
+    const type = await findByText(/Me Surpreenda/i);
+    const title = await findByTestId('page-title');
+    const header = await findByTestId('profile-top-btn');
+    const surpriseBtn = await findByTestId('explore-surprise');
     expect(type).toBeInTheDocument();
-    expect(email).toBeInTheDocument();
-    expect(password).toBeInTheDocument();
-    expect(loginBtn).toBeInTheDocument();
-    expect(loginBtn).toHaveAttribute('disabled');
-    userEvent.type(email, 'arthurhermann@hotmail.com');
-    userEvent.type(password, '123456789');
-    expect(loginBtn).not.toHaveAttribute('disabled');
+    expect(title).toBeInTheDocument();
+    expect(header).toBeInTheDocument();
+    expect(surpriseBtn).toBeInTheDocument();
   });
-
 });
 
 // Para utilizar o location
