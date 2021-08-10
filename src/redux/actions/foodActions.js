@@ -14,7 +14,7 @@ export const FOOD_INGREDIENTS = 'FOOD_INGREDIENTS';
 export const FOOD_AREA = 'FOOD_AREA';
 export const SAVE_FAVORITES = 'SAVE_FAVORITES';
 
-const foodListSuccess = (payload) => ({
+export const foodListSuccess = (payload) => ({
   type: FOOD_LIST_SUCCESS,
   payload,
 });

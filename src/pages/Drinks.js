@@ -12,8 +12,6 @@ class Drinks extends Component {
   }
 
   render() {
-    const { drinkCardsList } = this.props;
-    console.log(drinkCardsList);
     return (
       <div>
         <Header title="Bebidas" search />
