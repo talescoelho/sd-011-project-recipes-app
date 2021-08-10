@@ -4,22 +4,25 @@ import * as ReactBootStrap from 'react-bootstrap';
 /* import RecipesContext from '../context/RecipesContext'; */
 import { fetchDrinksDetails, fetchFoods } from '../services/API';
 import '../styles/DrinksDetails.css';
-import shareIcon from '../images/shareIcon.svg';
+/* import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg'; */
 import ingredientsDrinkDetails from '../helpers/ingredientsDrinkDetails';
 import FoodsRecomendations from '../components/FoodsRecomendations';
-import { setStorage, getStorage, newFavoriteRecipes } from '../helpers/Storage';
+/* import { setStorage, getStorage, newFavoriteRecipes } from '../helpers/Storage'; */
+import { getStorage } from '../helpers/Storage';
+import ShareAndFavButton from '../components/subcomponents/ShareAndFavButton';
 
 function DrinksDetails() {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
-  const [details, setDetails] = useState({});
+  const [details, setDetails] = useState({ id });
   const [recomendations, setRecomendations] = useState([]);
-  const [linkCopied, setLinkCopied] = useState('');
-  const [favorited, setFavorited] = useState(false);
+  /* const [linkCopied, setLinkCopied] = useState('');
+  const [favorited, setFavorited] = useState(false); */
+  const [doneRecipe, setDoneRecipe] = useState(false);
   const history = useHistory();
-  const { location: { pathname } } = history;
+  /* const { location: { pathname } } = history; */
 
   useEffect(() => {
     const foodDetails = async (drinkId) => {
@@ -39,20 +42,23 @@ function DrinksDetails() {
   }, []);
 
   useEffect(() => {
-    const favorites = getStorage('favoriteRecipes');
-    favorites.forEach((favorite) => { if (favorite.id === id) { setFavorited(true); } });
+    /* const favorites = getStorage('favoriteRecipes');
+    favorites.forEach((recipe) => { if (recipe.id === id) { setFavorited(true); } }); */
+
+    const doneRecipes = getStorage('doneRecipes');
+    doneRecipes.forEach((recipe) => { if (recipe.id === id) { setDoneRecipe(true); } });
   }, [id]);
 
   const ingredientsAndMeasures = details.idDrink
     ? ingredientsDrinkDetails(details) : [];
 
-  function copyUrlToClipboard() {
+  /* function copyUrlToClipboard() {
     setLinkCopied('Link copiado!');
     // verificar possibilidade de obter a url completa para qualquer servidor
     navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
-  }
+  } */
 
-  const addOrRemoveFavoriteRecipe = () => {
+  /* const addOrRemoveFavoriteRecipe = () => {
     const favoriteRecipes = getStorage('favoriteRecipes');
     if (favoriteRecipes.some((recipe) => recipe.id === id)) {
       setFavorited(false);
@@ -62,7 +68,7 @@ function DrinksDetails() {
       setFavorited(true);
       setStorage('favoriteRecipes', [...favoriteRecipes, newFavoriteRecip]);
     }
-  };
+  }; */
 
   return (
     <div className="details-container">
@@ -81,7 +87,8 @@ function DrinksDetails() {
                 <span data-testid="recipe-title">{details.strDrink}</span>
                 <span data-testid="recipe-category">{details.strAlcoholic}</span>
               </div>
-              <div>
+              <ShareAndFavButton />
+              {/* <div>
                 {linkCopied}
                 <button
                   type="button"
@@ -101,7 +108,7 @@ function DrinksDetails() {
                     alt="Botão favoritar"
                   />
                 </button>
-              </div>
+              </div> */}
             </div>
             <div className="ingredients-container">
               <span>Ingredients</span>
@@ -125,13 +132,14 @@ function DrinksDetails() {
               <FoodsRecomendations recomendations={ recomendations } />
             </div>
           </>)}
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-        onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
-      >
-        Iniciar Receita
-      </button>
+      {!doneRecipe && (
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
+        >
+          Iniciar Receita
+        </button>)}
     </div>
   );
 }
