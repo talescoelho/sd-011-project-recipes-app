@@ -1,9 +1,8 @@
 // HomeMeals.test.js
 import React from 'react';
-import { screen } from '@testing-library/react';
-import HomeRecipe from '../pages/HomeRecipe';
+import MealDetails from '../pages/MealDetails';
 import { renderWithRouterAndRedux } from './renderWithRouterAndRedux';
-import mockMeals from '../../cypress/mocks/meals';
+import mockMeal from '../../cypress/mocks/oneMeal';
 
 const INITIAL_STATE = {
   RecipesReducer: {
@@ -19,23 +18,25 @@ describe('Testes para página de HomeComidas', () => {
   it('Verifica se há os itens procurados', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockMeals),
+      json: jest.fn().mockResolvedValue(mockMeal),
     });
     const { findByText, findByTestId } = renderWithRouterAndRedux(
-      <HomeRecipe location={ { state: '' } } />,
-      { route: '/comidas' }, INITIAL_STATE,
+      <MealDetails match={ { params: { id: '52771' } } } />,
+      { route: '/comidas/52771' }, INITIAL_STATE,
     );
-
-    const exploreBtn = screen.getByTestId('explore-bottom-btn');
-    expect(exploreBtn).toBeInTheDocument();
-    const profileBtn = screen.getByTestId('profile-top-btn');
-    expect(profileBtn).toBeInTheDocument();
-    const pageTitle = screen.getByTestId('page-title');
-    expect(pageTitle).toBeInTheDocument();
-    const type = await findByText(/Dal fry/i);
-    const title = await findByTestId('1-recipe-card');
+    const type = await findByText(/vegetarian/i);
+    const title = await findByTestId('recipe-title');
     expect(type).toBeInTheDocument();
     expect(title).toBeInTheDocument();
+  });
+  it('Verifica se há os itens procurados', () => {
+    const { getByText } = renderWithRouterAndRedux(
+      <MealDetails match={ { params: { id: '52771' } } } />,
+      { route: '/comidas/52771' }, INITIAL_STATE,
+    );
+
+    const loading = getByText('Loading');
+    expect(loading).toBeInTheDocument();
   });
 });
 
@@ -44,3 +45,5 @@ describe('Testes para página de HomeComidas', () => {
 
 // Para utilizar o match.param
 // <HomeDetail match={ { params: { item: 'pamp' } } } />
+
+// console.log(store.getState());

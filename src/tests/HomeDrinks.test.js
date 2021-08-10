@@ -1,9 +1,9 @@
-// HomeMeals.test.js
+// HomeDrinks.test.js
 import React from 'react';
 import { screen } from '@testing-library/react';
-import HomeRecipe from '../pages/HomeRecipe';
+import HomeDrinks from '../pages/HomeDrinks';
 import { renderWithRouterAndRedux } from './renderWithRouterAndRedux';
-import mockMeals from '../../cypress/mocks/meals';
+import mockDrinks from '../../cypress/mocks/drinks';
 
 const INITIAL_STATE = {
   RecipesReducer: {
@@ -19,11 +19,11 @@ describe('Testes para página de HomeComidas', () => {
   it('Verifica se há os itens procurados', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockMeals),
+      json: jest.fn().mockResolvedValue(mockDrinks),
     });
     const { findByText, findByTestId } = renderWithRouterAndRedux(
-      <HomeRecipe location={ { state: '' } } />,
-      { route: '/comidas' }, INITIAL_STATE,
+      <HomeDrinks location={ { state: '' } } />,
+      { route: '/bebidas' }, INITIAL_STATE,
     );
 
     const exploreBtn = screen.getByTestId('explore-bottom-btn');
@@ -32,7 +32,7 @@ describe('Testes para página de HomeComidas', () => {
     expect(profileBtn).toBeInTheDocument();
     const pageTitle = screen.getByTestId('page-title');
     expect(pageTitle).toBeInTheDocument();
-    const type = await findByText(/Dal fry/i);
+    const type = await findByText(/ABC/i);
     const title = await findByTestId('1-recipe-card');
     expect(type).toBeInTheDocument();
     expect(title).toBeInTheDocument();
