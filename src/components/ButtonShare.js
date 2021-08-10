@@ -20,7 +20,7 @@ export default function ButtonShare({ props }) {
 
   useEffect(() => {
     if (isCopied) {
-      const SECONDS = 15000;
+      const SECONDS = 2000;
       setInterval(() => {
         setIsCopied(false);
       }, SECONDS);

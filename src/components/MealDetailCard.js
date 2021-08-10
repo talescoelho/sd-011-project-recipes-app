@@ -18,8 +18,10 @@ function MealDetailCard() {
     const getUrlMeal = async () => {
       const meal = await fetch(`${foodToDetail}${window.location.pathname
         .split('/')[2]}`);
-      const response = meal.json().then((res) => setMealDetail(res.meals[0]));
-      return response;
+      meal.json().then((res) => {
+        // setRecipe(res.meals[0]);
+        setMealDetail(res.meals[0]);
+      });
     };
 
     const getRecomend = async () => {

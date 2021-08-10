@@ -67,6 +67,10 @@ function ButtonToProgress(props) {
   return !start && startButton();
 }
 
+ButtonToProgress.defaultProps = {
+  mealDetail: undefined,
+};
+
 ButtonToProgress.propTypes = {
   mealDetail: PropTypes.shape({
     idMeal: PropTypes.string,
