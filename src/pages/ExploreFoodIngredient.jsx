@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import UserContext from '../context/UserContext';
 import Header from '../components/Header';
 import FooterMenu from '../components/FooterMenu';
 import { requestIngredients } from '../services/requestIngredients';
 
 export default function ExploreFoodIngredient({ history }) {
   const [ingredients, setFetchIngredients] = useState([]);
+  const { setMeals } = useContext(UserContext);
   useEffect(() => {
     const callAPIingredients = async () => {
       const callAPI = await requestIngredients();
@@ -19,7 +21,7 @@ export default function ExploreFoodIngredient({ history }) {
   function getRecipeByIngredient(meal) {
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${meal.strIngredient}`)
       .then((response) => response.json())
-      // .then((data) => setStateusado para renderizar na página principal);
+      .then((data) => setMeals(data.meals))
       .then(history.push('/comidas'));
   }
   if (!ingredients) return <div>is loading...</div>;

@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import UserContext from '../context/UserContext';
 import Header from '../components/Header';
 import FooterMenu from '../components/FooterMenu';
 import { requestDrinkIngredients } from '../services/requestIngredients';
 
 export default function ExploreFoodIngredient({ history }) {
   const [ingredients, setFetchIngredients] = useState([]);
+  const { setDrinks } = useContext(UserContext);
   useEffect(() => {
     const callAPIingredients = async () => {
       const callAPI = await requestDrinkIngredients();
@@ -19,7 +21,7 @@ export default function ExploreFoodIngredient({ history }) {
   function getRecipeByIngredient(drinks) {
     fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drinks.strIngredient1}`)
       .then((response) => response.json())
-      // .then((data) => setStateusado para renderizar na página principal);
+      .then((data) => setDrinks(data.drinks))
       .then(history.push('/bebidas'));
   }
   if (!ingredients) return <div>is loading...</div>;
