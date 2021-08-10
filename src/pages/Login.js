@@ -38,31 +38,32 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <form>
+    <div className="body d-flex j-c-center a-i-center">
+      <form className="d-flex f-d-column a-i-stretch">
         <Input
           type="email"
           data-testid="email-input"
           id="email"
           name="email"
           setValue={ setEmail }
-          label="Email:"
+          placeHolder="Email"
+          className="m-1 p-1"
         />
-        <br />
         <Input
           type="password"
           data-testid="password-input"
           id="password"
           name="password"
           setValue={ setPassword }
-          label="Senha:"
+          placeHolder="Senha"
+          className="m-1 p-1"
         />
-        <br />
         <button
           type="button"
           data-testid="login-submit-btn"
           disabled={ disabled }
           onClick={ handleClick }
+          className="m-1 btn"
         >
           Entrar
         </button>

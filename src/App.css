@@ -15,7 +15,53 @@
   max-height: 80vh;
 }
 
-/*
+.body {
+  height: 100vh;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.f-d-column {
+  flex-direction: column;
+}
+
+.j-c-center {
+  justify-content: center;
+}
+
+.a-i-center {
+  align-items: center;
+}
+
+.a-i-stretch {
+  align-items: stretch;
+}
+
+.p-1 {
+  padding: 0.5rem;
+}
+
+.btn {
+  padding: 0.5rem;
+  /* border-radius: 0.rem; */
+}
+
+.m-1 {
+  margin: 0.5rem;
+}
+
+.d-block {
+  display: block;
+}
+
+/* .w-100 {
+  
+} */
+
+
+/* 
 #iceLeft {
   animation: clink .8s infinite ease;
   opacity: 0.6;
@@ -26,8 +72,8 @@
   animation: clink .8s .2s infinite ease;
   opacity: 0.6;
   transform-origin: 60px 78px;
-}
-*/
+} */
+
 
 .meals > .logo {
   animation: shake 1.5s infinite ease;
