@@ -41,8 +41,13 @@ function handleClick({ target }, items, newItems) {
 
 function setLocalStorage(items, idRecipe, type) {
   const { data, foodType } = items;
+  if (type === 'comidas') {
+    type = 'comida';
+  } else {
+    type = 'bebida';
+  }
   const saveLocal = {
-    id: idRecipe,
+    id: data[foodType][0][idRecipe],
     type,
     area: data[foodType][0].strArea || '',
     category: data[foodType][0].strCategory || '',

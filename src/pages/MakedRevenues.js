@@ -44,6 +44,11 @@ class MakedRevenues extends Component {
 
   render() {
     const { recipes } = this.state;
+    if (!recipes) {
+      return (
+        <p>Carregando...</p>
+      )
+    }
     return (
       <div className="page">
         <div className="recipes-done-container">
