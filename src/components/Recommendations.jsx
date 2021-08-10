@@ -18,7 +18,7 @@ function Recommendations() {
               (index < MAGIC6) ? (
                 <div
                   // className="carousel-item active"
-                  className={ (index === 0) ? 'carousel-item active' : 'carousel-item' }
+                  className={ (index <= 1) ? 'carousel-item active' : 'carousel-item' }
                 >
                   <img
                     src={ drink.strDrinkThumb }

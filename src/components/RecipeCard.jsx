@@ -12,16 +12,15 @@ function MealRecipeCard({ title, img, category, index }) {
       <span data-testid="recipe-title">
         {`${title} `}
       </span>
-      <button type="button" data-testid="share-btn">
-        botão share
-      </button>
-      <button type="button" data-testid="favorite-btn">
-        botão favorite s2
-      </button>
 
       <p data-testid="recipe-category">
         {category}
       </p>
+
+      {/* <button type="button" data-testid="share-btn">
+        botão share
+      </button> */}
+
       <FavoriteButton />
     </div>
   );

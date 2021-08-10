@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function IngredientsList({ meal }) {
+function IngredientsList({ recipe }) {
   function ingredientListMaker() {
     const ingredients = [];
     const measure = [];
-    Object.keys(meal).forEach((key, index) => {
-      if (meal[`strIngredient${index}`]) ingredients.push(meal[`strIngredient${index}`]);
-      if (meal[`strMeasure${index}`]) measure.push(meal[`strMeasure${index}`]);
+    Object.keys(recipe).forEach((key, index) => {
+      if (recipe[`strIngredient${index}`]) {
+        ingredients.push(recipe[`strIngredient${index}`]);
+      }
+      if (recipe[`strMeasure${index}`]) measure.push(recipe[`strMeasure${index}`]);
     });
     return ingredients.map((ingredient, index) => `${ingredient} - ${measure[index]}`);
   }
@@ -37,5 +39,5 @@ function IngredientsList({ meal }) {
 export default IngredientsList;
 
 IngredientsList.propTypes = {
-  meal: PropTypes.objectOf(PropTypes.string).isRequired,
+  recipe: PropTypes.objectOf(PropTypes.string).isRequired,
 };
