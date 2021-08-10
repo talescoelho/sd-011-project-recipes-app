@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
-import { setCheckBoxCounter } from '../redux/slices/fetchReceitas';
+import { useDispatch } from 'react-redux';
+import { setDisableButton } from '../redux/slices/fetchReceitas';
+
+import './RenderIngredientCheckBox.css';
 
 // Verificar se o id existe no objeto
 
+const searchChecked = () => {
+  const checkboxes = document.querySelectorAll('.checkboxIngredient');
+  let response = true;
+  checkboxes.forEach((ingredient) => {
+    if (!ingredient.checked) response = false;
+  });
+  return response;
+};
+
 function RenderIngredientCheckBox({ index, values, id }) {
-  const { checkBoxCounter } = useSelector((state) => state.fetchReceitas);
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
-  const [isChecked, setIsChecked] = useState(true);
+  const [isChecked, setIsChecked] = useState();
   const { pathname } = window.location;
   const recipeURL = pathname.split('/')[1];
   const recipeType = recipeURL === 'comidas' ? 'meals' : 'cocktails';
@@ -32,7 +43,10 @@ function RenderIngredientCheckBox({ index, values, id }) {
       setIsChecked(JSON.parse(localStorage.getItem('inProgressRecipes'))[recipeType][id]
         .includes(index));
     }
+    setIsLoading(false);
   }, []);
+
+  if (isLoading) return <p>Loading...</p>;
 
   function handleCheck() {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -52,40 +66,23 @@ function RenderIngredientCheckBox({ index, values, id }) {
       [recipeType]: recipeToStorage,
     };
     localStorage.setItem('inProgressRecipes', JSON.stringify(currentProgress));
-    const newCheckedBoxesNumber = !isChecked ? checkBoxCounter + 1 : checkBoxCounter - 1;
-    dispatch(setCheckBoxCounter(newCheckedBoxesNumber));
+    dispatch(setDisableButton(!searchChecked()));
     setIsChecked(!isChecked);
   }
-
-  // Vefiricar o porque do requisito não passar
-  // if (!isChecked) { return (
-  //   <label
-  //     data-testid={ `${index}-ingredient-step` }
-  //     htmlFor={ `${index}ingredients` }
-  //   >
-  //     <input
-  //       name={ `${index}ingredients` }
-  //       type="checkbox"
-  //       key={ index }
-  //       // checked={ isChecked }
-  //       onClick={ handleCheck }
-  //     />
-  //     {values}
-  //   </label>
-  // )}
 
   return (
     <label
       data-testid={ `${index}-ingredient-step` }
       htmlFor={ `${index}ingredients` }
+      className={ isChecked ? 'checked' : '' }
     >
       <input
         name={ `${index}ingredients` }
+        className={ `checkboxIngredient ${isChecked ? 'checked' : ''}` }
         type="checkbox"
         key={ index }
         defaultChecked={ isChecked }
         onChange={ () => setIsChecked(!isChecked) }
-        checked={ isChecked }
         onClick={ handleCheck }
       />
       {values}

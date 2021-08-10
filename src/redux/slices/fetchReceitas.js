@@ -18,6 +18,7 @@ const initialState = {
   error: null,
   input: '',
   checkBoxCounter: 0,
+  disabledButton: true,
 };
 
 // createAsyncThunk receives two parameters: 1) name of the slice, 2) function name that creates the createAsyncThunk
@@ -75,6 +76,9 @@ const fetchReceitasSlice = createSlice({
     setCheckBoxCounter: (state, action) => {
       state.checkBoxCounter = action.payload;
     },
+    setDisableButton: (state, action) => {
+      state.disabledButton = action.payload;
+    },
   },
   extraReducers: {
     [getRecipes.pending]: (state) => {
@@ -107,6 +111,7 @@ const fetchReceitasSlice = createSlice({
   },
 });
 
-export const { setInput, setCheckBoxCounter } = fetchReceitasSlice.actions;
+export const {
+  setInput, setCheckBoxCounter, setDisableButton } = fetchReceitasSlice.actions;
 
 export default fetchReceitasSlice.reducer;

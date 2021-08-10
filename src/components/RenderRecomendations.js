@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import './RenderRecomendations.css';
+
 function RenderRecomendations({ typeReco }) {
   const [recipeType, setRecipeType] = useState({
     type: '',
@@ -36,9 +38,11 @@ function RenderRecomendations({ typeReco }) {
 
   if (recipes === undefined) return <p>Loading</p>;
 
+  // Bilioteca que podemos usar: http://react-responsive-carousel.js.org/
+  // https://www.npmjs.com/package/react-responsive-carousel
   // Melhor implementar
   return (
-    <section>
+    <section className="images">
       {(type !== '' && recipes !== null)
         && recipes.slice(0, limitRecipes).map((recipe, index) => (
           <Link to={ `/${typeReco}/${recipe[id]}` } key={ index }>
@@ -49,10 +53,11 @@ function RenderRecomendations({ typeReco }) {
             >
               <p data-testid={ `${index}-recomendation-title` }>{recipe[name]}</p>
               <img
+                className="imageCard"
                 data-testid={ `${index}-card-img` }
                 src={ recipe[image] }
                 alt={ name }
-                width="50px"
+                width="150px"
               />
             </div>
           </Link>
