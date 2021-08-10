@@ -40,6 +40,7 @@ quantities, instructions, a "drunk" youtube video, and recommendations`, () => {
     async () => {
       renderWithRouterAndStore(<FoodDetails match={ mockMealsMatch } />, mockMealPath);
 
+      const recipeVideo = await screen.findByTestId('video');
       const firstRecommendationCard = await screen.findByTestId('0-recomendation-card');
       const secondRecommendationCard = await screen.findByTestId('1-recomendation-card');
       const thirdRecommendationCard = await screen.findByTestId('2-recomendation-card');
@@ -47,6 +48,8 @@ quantities, instructions, a "drunk" youtube video, and recommendations`, () => {
       const fivethRecommendationCard = await screen.findByTestId('4-recomendation-card');
       const sixthRecommendationCard = await screen.findByTestId('5-recomendation-card');
 
+      expect(recipeVideo).toBeInTheDocument();
+      expect(recipeVideo).toHaveAttribute('src', 'https://www.youtube.com/embed/VVnZd8A84z4');
       expect(firstRecommendationCard).toBeInTheDocument();
       expect(secondRecommendationCard).toBeInTheDocument();
       expect(thirdRecommendationCard).toBeInTheDocument();
@@ -59,6 +62,7 @@ quantities, instructions, a "drunk" youtube video, and recommendations`, () => {
   screen`, async () => {
     renderWithRouterAndStore(<DrinkDetails match={ mockDrinkMatch } />, mockDrinkPath);
 
+    const recipeVideo = screen.queryByTestId('video');
     const firstRecommendationCard = await screen.findByTestId('0-recomendation-card');
     const secondRecommendationCard = await screen.findByTestId('1-recomendation-card');
     const thirdRecommendationCard = await screen.findByTestId('2-recomendation-card');
@@ -66,6 +70,7 @@ quantities, instructions, a "drunk" youtube video, and recommendations`, () => {
     const fivethRecommendationCard = await screen.findByTestId('4-recomendation-card');
     const sixthRecommendationCard = await screen.findByTestId('5-recomendation-card');
 
+    expect(recipeVideo).not.toBeInTheDocument();
     expect(firstRecommendationCard).toBeInTheDocument();
     expect(secondRecommendationCard).toBeInTheDocument();
     expect(thirdRecommendationCard).toBeInTheDocument();
