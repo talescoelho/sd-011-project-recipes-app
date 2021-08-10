@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import SurpriseButton from '../components/Explorer/SurpriseButton';
 import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
+import { getRandmomDrink } from '../services/DrinksApiServices';
 
 export default function DrinksExplorer() {
   const pageTitle = {
@@ -11,31 +13,13 @@ export default function DrinksExplorer() {
   const [surpriseDrink, setSurpriseDrink] = useState(0);
 
   useEffect(() => {
-    const getRandmomDrink = async () => {
-      const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
-        .then((res) => res.json());
-      return setSurpriseDrink(response.drinks[0].idDrink);
+    const randmomDrink = async () => {
+      const fetchRandomDrink = await getRandmomDrink();
+      return setSurpriseDrink(fetchRandomDrink.idDrink);
     };
-    getRandmomDrink();
+    randmomDrink();
   }, []);
   const randomId = surpriseDrink;
-
-  function surprise() {
-    if (randomId > 0) {
-      return (
-        <Link to={ `/bebidas/${randomId}` }>
-          <button
-            type="button"
-            data-testid="explore-surprise"
-            name="Me Surpreenda!"
-          >
-            Me Surpreenda!
-          </button>
-        </Link>
-      );
-    }
-    return <span> carregando...</span>;
-  }
 
   return (
     <div>
@@ -50,7 +34,7 @@ export default function DrinksExplorer() {
         </button>
       </Link>
       {
-        surprise()
+        SurpriseButton('bebidas', randomId)
       }
       <FooterMenu />
     </div>

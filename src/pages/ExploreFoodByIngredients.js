@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
+import { getIngredients, fetchMealsIngredient } from '../services/MealApiService';
 
 export default function ExploreFoodByIngredients() {
   const pageTitle = {
@@ -14,20 +15,17 @@ export default function ExploreFoodByIngredients() {
   const history = useHistory();
   const limits = 12;
   useEffect(() => {
-    const getIngredients = async () => {
-      const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
-        .then((res) => res.json());
-      setIngredients(response.meals);
+    const fetchIngredients = async () => {
+      const fetchedIngredients = await getIngredients();
+      return setIngredients(fetchedIngredients);
     };
-    getIngredients();
+    fetchIngredients();
   }, []);
 
   async function getMealFromIngredient(param) {
-    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${param}`);
-    const data = await response.json();
-
+    const data = await fetchMealsIngredient(param);
     setRecipesDb([]);
-    return setRecipesDb(data.meals);
+    return setRecipesDb(data);
   }
 
   return (
@@ -38,6 +36,7 @@ export default function ExploreFoodByIngredients() {
           ingredients.map((meal, index) => (
             (index < limits) && (
               <button
+                key={ index }
                 name={ meal.strIngredient }
                 type="button"
                 onClick={ ({ target }) => {
