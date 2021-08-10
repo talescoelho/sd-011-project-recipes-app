@@ -18,7 +18,7 @@ const recipesCategoriesReducer = (state = INITIAL_STATE, { type, payload }) => {
       ...state,
       loading: true,
       error: null,
-      selectedCategory: null,
+      selectedCategory: 'all',
     };
   case GET_RECIPES_CATEGORIES_SUCCESS:
     return {
