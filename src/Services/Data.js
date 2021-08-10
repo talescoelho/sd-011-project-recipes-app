@@ -132,4 +132,3 @@ async function requestByMeal(name = '') {
 }
 
 export default requestByMeal;
-

@@ -9,8 +9,8 @@ function Header(props) {
   const [showInput, setshowInput] = useState(false);
   const { setDrinkFromSearch, setFoodFromSearch, title, search = false } = props;
   return (
-    <>
-      <header>
+    <header>
+      <div>
         <Link to="/perfil">
           <img
             data-testid="profile-top-btn"
@@ -35,8 +35,7 @@ function Header(props) {
         setFoodFromSearch={ setFoodFromSearch }
       /> }
 
-      </header>
-    </>
+    </header>
   );
 }
 
