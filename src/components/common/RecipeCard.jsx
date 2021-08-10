@@ -1,6 +1,7 @@
 import React from 'react';
 import { string } from 'prop-types';
 import { Link } from 'react-router-dom';
+import '../../styles/components/recipeCard.css';
 
 const RecipeCard = ({
   cardType,
@@ -12,6 +13,7 @@ const RecipeCard = ({
 }) => (
   <Link
     aria-label="card-menu"
+    className="card-menu"
     data-testid={ `${index}${dataTestId}` }
     key={ index }
     to={ (cardType === 'comida') ? `/comidas/${recipeId}` : `/bebidas/${recipeId}` }
@@ -20,7 +22,6 @@ const RecipeCard = ({
       data-testid={ `${index}-card-img` }
       src={ recipeThumb }
       alt={ `${recipeName} recipe` }
-      width="100px"
     />
     <h3 data-testid={ `${index}-card-name` }>{ recipeName }</h3>
   </Link>
