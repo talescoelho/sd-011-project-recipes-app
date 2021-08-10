@@ -6,15 +6,17 @@ import {
   cocktailReducer,
   categoryReducer,
   ingredientReducer,
+  areasReducer,
 } from './hooks';
 
 const store = configureStore({
   reducer: {
     user: userReducer,
     theme: themeReducer,
+    areas: areasReducer,
     recipes: recipesReducer,
-    cocktails: cocktailReducer,
     categorys: categoryReducer,
+    cocktails: cocktailReducer,
     ingredients: ingredientReducer,
   },
 });

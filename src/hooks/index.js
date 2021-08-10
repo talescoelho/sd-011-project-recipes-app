@@ -6,3 +6,4 @@ export { reducer as categoryReducer,
   fetchCategory, useCategory } from './useCategory';
 export { reducer as ingredientReducer,
   fetchIngredients, useIngredients } from './useIngredients';
+export { reducer as areasReducer, fetchAreas, useAreas } from './useAreas';

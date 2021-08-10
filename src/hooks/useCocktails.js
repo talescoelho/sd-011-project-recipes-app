@@ -48,6 +48,7 @@ export const fetchCocktails = ({ searchTerm, category }) => async (dispatch) => 
     allcategorys: 'search.php?s=',
     cocktail_aleatoria: 'random.php',
     cocktail_ingredient_list: 'list.php?i=list',
+    drink_by_area: 'filter.php?a=',
   };
   const urlModifier = URL_SEARCH_OPTION[category] || '';
   dispatch(requestCocktails());

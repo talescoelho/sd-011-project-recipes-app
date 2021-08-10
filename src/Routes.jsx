@@ -13,6 +13,7 @@ import {
   ExploreOrigin,
   ExploreFoodsIngredients,
   ExploreCocktailsIngredients,
+  NotFound,
 } from './pages';
 
 const Routes = () => (
@@ -94,6 +95,7 @@ const Routes = () => (
         exact
         path="/bebidas/:id-da-receitas/in-progress"
       />
+      <Route component={ NotFound } />
     </Switch>
   </BrowserRouter>
 );
