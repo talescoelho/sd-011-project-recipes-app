@@ -57,6 +57,7 @@ function DrinkProgress(props) {
     let recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || { cocktails: {
       [id]: [],
     } };
+
     if (!recipe.cocktails) {
       recipe = { ...recipe,
         cocktails: {
@@ -67,11 +68,11 @@ function DrinkProgress(props) {
 
     if (checked) {
       if (!!recipe.cocktails[id] === false) {
-        const recipe = { ...recipe.cocktails,
-          [id]: [],
+        const recipeCock = { ...recipe,
+          [id]: [name],
         };
         localStorage.setItem('inProgressRecipes',
-           JSON.stringify(recipe));
+          JSON.stringify(recipeCock));
       } else {
         // console.log(!!recipe.cocktails[id]);
         // console.log('Eu sou o recipe.cock', recipe.cocktails[17222], id);
