@@ -5,7 +5,7 @@ function FrameVideo() {
   const { recipeDetail: recipe } = useContext(RecipesContext);
   return (
     <div className="container">
-      <h3 className="text-center">Video</h3>
+      <h3 className="text-center ingredient-title">Video</h3>
       <div className="container-video my-5">
         <div className="embed-responsive embed-responsive-16by9">
           {

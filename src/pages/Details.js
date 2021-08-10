@@ -9,31 +9,6 @@ import DetailsButton from '../components/DetailsButton';
 function Details({ match: { url, params: { id } } }) {
   const { getRecipeById } = useContext(RecipesContext);
 
-  // Verifica se a receita foi finalizada a partir do id dela no localStorage
-  const verifyRecipeIsDone = () => {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    if (doneRecipes.length > 0) {
-      return doneRecipes.some((recipe) => recipe.id === id);
-    }
-    return false;
-  };
-
-  // Verifica se a receita está "em progresso" a partir do id no localStorage
-  const checkRecipeInProgress = () => {
-    const recipeInProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
-    if (Object.keys(recipeInProgress).length > 0) {
-      if (url.includes('comidas')) {
-        return Object.keys(recipeInProgress.meals)
-          .some((recipeId) => recipeId === id);
-      }
-      if (url.includes('bebidas')) {
-        return Object.keys(recipeInProgress.cocktails)
-          .some((recipeId) => recipeId === id);
-      }
-    }
-    return false;
-  };
-
   // didMount getRecipeById
   useEffect(() => {
     getRecipeById(url, id);
@@ -45,12 +20,7 @@ function Details({ match: { url, params: { id } } }) {
       <RecipeDetails url={ url } />
       {url.includes('comidas') && <FrameVideo />}
       <RecommendedRecipes />
-      <DetailsButton
-        verifyRecipeIsDone={ verifyRecipeIsDone }
-        checkRecipeInProgress={ checkRecipeInProgress }
-        id={ id }
-        url={ url }
-      />
+      <DetailsButton />
     </div>
   );
 }

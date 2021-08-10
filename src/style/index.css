@@ -300,11 +300,8 @@
   margin: 10px 20px;
 }
 
-.button-carousel {
-  width: 25px;
-}
-
 .button-carousel-icon {
+  background-color: var(--dark-color-2);
   height: 40px;
   width: 40px;
 }

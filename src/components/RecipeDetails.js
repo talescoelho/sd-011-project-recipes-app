@@ -62,7 +62,6 @@ function RecipeDetails({ url }) {
     const localItems = getLocalStorage();
     setFavIcon(!favIcon);
     if (localItems.length) {
-      console.log(localItems[0].id);
       const newLocalStorage = localItems.filter((item) => item.id !== id);
       localStorage.setItem('favoriteRecipes', JSON.stringify(newLocalStorage));
     } else {
@@ -89,7 +88,6 @@ function RecipeDetails({ url }) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([...localItems, newItem]));
     }
   };
-  console.log(recipe);
 
   return (
     <section>

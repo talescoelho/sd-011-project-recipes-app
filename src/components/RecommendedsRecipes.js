@@ -20,9 +20,9 @@ function RecommendedsRecipes() {
 
   return (
     <div className="py-5">
-      <h2 className="text-center">Recommendations</h2>
+      <h2 className="text-center ingredient-title">Recommendations</h2>
       <div className="carousel">
-        <button type="button" onClick={ prevSlide } className="button-carousel">
+        <button type="button" onClick={ prevSlide }>
           <img
             src={ PreviousIcon }
             alt="Previous Icon"
@@ -56,7 +56,7 @@ function RecommendedsRecipes() {
            </div>
          </div>
        ))}
-        <button type="button" onClick={ nextSlide } className="button-carousel">
+        <button type="button" onClick={ nextSlide }>
           <img src={ NextIcon } alt="Next Icon" className="button-carousel-icon" />
         </button>
       </div>
