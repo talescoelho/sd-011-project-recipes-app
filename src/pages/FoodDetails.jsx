@@ -115,7 +115,7 @@ function FoodDetails() {
                   <ActionButton
                     action="share"
                     onClick={ () => {
-                      copy(`https://localhost:3000/comidas/${id}`)
+                      copy(`http://localhost:3000/comidas/${id}`)
                       showToast();
                     } }
                   />
