@@ -9,6 +9,7 @@ const RecipeExplore = () => {
   const { pathname } = useLocation();
   const [randomSurprise, setRandomSurprise] = useState('');
   const explorarComidas = '/explorar/comidas';
+  const title = pathname.includes('comidas') ? 'Explorar Comidas' : 'Explorar Bebidas';
 
   useEffect(() => {
     if (pathname === explorarComidas) {
@@ -21,7 +22,7 @@ const RecipeExplore = () => {
   }, [pathname]);
   return (
     <>
-      <Header title="Explorar Comidas" />
+      <Header title={ title } />
       <Link to={ `${pathname}/ingredientes` }>
         <button
           type="button"

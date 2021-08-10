@@ -27,6 +27,7 @@ function RecipeCard({ recipe, index, test }) {
   const history = useHistory();
 
   function handleClick() {
+    console.log(strIngredient1);
     if (strIngredient) {
       setLoading(true);
       searchBarFetchMeal(title, 'ingredient')
@@ -35,7 +36,9 @@ function RecipeCard({ recipe, index, test }) {
           setLoading(false);
           history.push('/comidas');
         });
-    } else if (strIngredient1) {
+    } else if (thumb) {
+      history.push(path);
+    } else {
       setLoading(true);
       searchBarFetchCockTail(title, 'ingredient')
         .then((result) => {
@@ -43,7 +46,7 @@ function RecipeCard({ recipe, index, test }) {
           setLoading(false);
           history.push('/bebidas');
         });
-    } else history.push(path);
+    }
   }
 
   return (
@@ -53,8 +56,7 @@ function RecipeCard({ recipe, index, test }) {
       onClick={ handleClick }
     >
       <img
-        src={ (strIngredient || strIngredient1)
-          ? ingredientThumb : thumb }
+        src={ thumb || ingredientThumb }
         alt={ title }
         data-testid={ `${index}-card-img` }
       />
