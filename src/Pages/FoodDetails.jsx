@@ -75,8 +75,7 @@ class FoodDetails extends Component {
     if (!this.checkRecipeInProgress()) {
       const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
       recipe.meals = { ...recipe.meals, [id]: [] };
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify(recipe));
+      localStorage.setItem('inProgressRecipes', JSON.stringify(recipe));
     }
   }
 
