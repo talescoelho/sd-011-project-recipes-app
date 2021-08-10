@@ -1,11 +1,14 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 
 function DetailsIngredientList() {
-  const { mealId, setAllIngredientsChecked } = useContext(RecipesContext);
-  const [checkedIngredients, setCheckedIngredients] = useState([]);
-  const [checkedNumberIngredients, setCheckedNumberIngredients] = useState([]);
+  const { mealId,
+    setAllIngredientsChecked,
+    checkedIngredients,
+    setCheckedIngredients,
+    checkedNumberIngredients,
+    setCheckedNumberIngredients } = useContext(RecipesContext);
 
   function conditionFor(idx) { // função para não deixar ser iteravel no for quando igrediente fo nulo
     return (mealId[`strIngredient${idx}`]) !== null
@@ -33,9 +36,13 @@ function DetailsIngredientList() {
   [checkedIngredients, ingredients.length, setAllIngredientsChecked]);
 
   useEffect(() => {
+    // const checkIndex = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+    // console.log(checkIndex);
+    // // const test = checkIndex.meals[urlID];
+    // // setCheckedNumberIngredients(test);
     const meals = { meals: { [urlID]: checkedNumberIngredients } };
     localStorage.setItem('inProgressRecipes', JSON.stringify(meals));
-  }, [checkedNumberIngredients, urlID]);
+  }, [checkedNumberIngredients, urlID, setCheckedNumberIngredients]);
 
   function addToCheckedIngredient({ target }) {
     if (checkedIngredients.includes(target.value)) {
