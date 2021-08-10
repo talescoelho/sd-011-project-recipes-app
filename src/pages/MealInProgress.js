@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
@@ -9,11 +9,14 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeatIcon from '../images/blackHeartIcon.svg';
 import '../styles/Details.css';
-import RecommendedBeverages from './RecommendedBeverages';
-import MapIngredients from './MapIngredients';
+import RecommendedBeverages from '../components/RecommendedBeverages';
+import IngredientsCheckbox from '../components/IngredientsCheckbox';
+import GlobalContext from '../context';
+import { handleSaveMealRecipeInLocalStorage } from '../helpers/finishButton';
 
-function MealDetails(props) {
-  const [dataToManipulate, setDataToManipulate] = useState({});
+function MealInProgress(props) {
+  const { isIngridientUsed } = useContext(GlobalContext);
+  const [dataToManipulate, setDataTomanipulate] = useState({});
   const [beverages, setBeverages] = useState([]);
   const [statusControl, setStatusControl] = useState({
     isVisible: true,
@@ -21,20 +24,23 @@ function MealDetails(props) {
     isFavorited: false,
     isLinkCopied: false,
   });
-  const { isVisible, isInProgress, isFavorited, isLinkCopied } = statusControl;
+  const { isVisible, isFavorited, isLinkCopied } = statusControl;
   const { strYoutube, strMealThumb, strMeal, strCategory,
     strInstructions } = dataToManipulate;
 
+  const isDisabled = Object.values(isIngridientUsed)
+    .every((ingredient) => ingredient === true);
+
   const urlLengthToGetId = 30;
-  const mealsId = window.location.href.slice(urlLengthToGetId);
+  const restOfUrl = 35;
+  const mealsId = window.location.href.slice(urlLengthToGetId, restOfUrl);
   const videoURL = strYoutube ? strYoutube
     .split('https://www.youtube.com/watch?v=')[1] : '';
 
   async function fetchMealAndDrinkDataFromAPI() {
     const mealsDetails = await fetchMealDetailsFromMealsDB(mealsId);
     const recommendedDrinks = await fetchRecommendedBeveragesFromCocktailsDB();
-    setDataToManipulate(...mealsDetails);
-    console.log(dataToManipulate);
+    setDataTomanipulate(...mealsDetails);
     setBeverages(recommendedDrinks);
   }
 
@@ -66,13 +72,15 @@ function MealDetails(props) {
     }
   }
 
-  function handleStartRecipeButtonClick() {
+  function handleFinishRecipeClick() {
+    handleSaveMealRecipeInLocalStorage(dataToManipulate, mealsId);
     const { history } = props;
-    history.push(`/comidas/${mealsId}/in-progress`);
+    history.push('/receitas-feitas');
   }
 
   function handleShareButtonClick() {
-    copy(window.location.href);
+    const recipeURLLength = 35;
+    copy(window.location.href.slice(0, recipeURLLength));
     setStatusControl({
       ...statusControl,
       isLinkCopied: true,
@@ -113,11 +121,12 @@ function MealDetails(props) {
   const buttonRender = () => (
     <button
       className="start-button"
-      data-testid="start-recipe-btn"
-      onClick={ handleStartRecipeButtonClick }
+      data-testid="finish-recipe-btn"
+      disabled={ !isDisabled }
+      onClick={ handleFinishRecipeClick }
       type="button"
     >
-      {isInProgress ? 'Continuar Receita' : 'Iniciar Receita'}
+      Finalizar Receita
     </button>
   );
 
@@ -138,7 +147,7 @@ function MealDetails(props) {
         <h3 data-testid="recipe-category">{strCategory}</h3>
         <div>
           <h4>Ingredients</h4>
-          <MapIngredients dataToManipulate={ dataToManipulate } />
+          <IngredientsCheckbox dataToManipulate={ dataToManipulate } />
         </div>
         <p data-testid="instructions">{strInstructions}</p>
         <div>
@@ -158,9 +167,9 @@ function MealDetails(props) {
   );
 }
 
-MealDetails.propTypes = {
+MealInProgress.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func }).isRequired,
 };
 
-export default withRouter(MealDetails);
+export default withRouter(MealInProgress);

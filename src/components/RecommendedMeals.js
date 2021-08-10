@@ -34,5 +34,5 @@ export default function RecommendedMeals(props) {
 }
 
 RecommendedMeals.propTypes = {
-  meals: PropTypes.arrayOf.isRequired,
+  meals: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

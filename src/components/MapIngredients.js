@@ -2,20 +2,20 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 export default function MapIngredients(props) {
-  const { dataTomanipulate } = props;
+  const { dataToManipulate } = props;
   const [recipeIngredients, setRecipeIngredients] = useState([]);
 
   function listIngredientsFromMeal() {
     const ingredients = [];
-    const ingredientQuantity = Object.keys(dataTomanipulate)
+    const ingredientQuantity = Object.keys(dataToManipulate)
       .filter((key) => key.includes('strIngredient'));
-    const ingredientMeasure = Object.keys(dataTomanipulate)
+    const ingredientMeasure = Object.keys(dataToManipulate)
       .filter((key) => key.includes('strMeasure'));
     ingredientQuantity.forEach((ingredient, index) => {
-      if (dataTomanipulate[ingredient] !== null && dataTomanipulate[ingredient] !== '') {
+      if (dataToManipulate[ingredient] !== null && dataToManipulate[ingredient] !== '') {
         ingredients.push({
-          name: dataTomanipulate[ingredient],
-          quantity: dataTomanipulate[ingredientMeasure[index]],
+          name: dataToManipulate[ingredient],
+          quantity: dataToManipulate[ingredientMeasure[index]],
         });
       }
     });
@@ -24,7 +24,7 @@ export default function MapIngredients(props) {
 
   useEffect(() => {
     listIngredientsFromMeal();
-  }, [dataTomanipulate]);
+  }, [dataToManipulate]);
 
   return (
     <div>
@@ -43,5 +43,5 @@ export default function MapIngredients(props) {
 }
 
 MapIngredients.propTypes = {
-  dataTomanipulate: PropTypes.objectOf.isRequired,
+  dataToManipulate: PropTypes.objectOf(PropTypes.string).isRequired,
 };
