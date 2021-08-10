@@ -33,7 +33,7 @@ export default function FoodsDetails(props) {
       });
       const filteredIngredients = ingredients
         .filter((item2) => (
-          item2 !== '' && item2 !== 'null'));
+          item2 !== '' && item2 !== null));
       setMealIngredients(filteredIngredients);
       const filteredMeasures = measure
         .filter((item2) => (
