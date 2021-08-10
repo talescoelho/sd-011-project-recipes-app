@@ -1,28 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import '../../styles/InProgressFood.css';
 import { manageDetailAPI } from '../../Helpers/convertUrlToID';
 import verifyIngredients from '../../Helpers/verifyIngredients';
 import ShareButton from './ShareButton';
 import FavoriteButton from './FavoriteButton';
+import setDoneRecipes from '../../Helpers/setDoneRecipes';
 
 // function verifyIngredients(string, array) {
 //   return string && string !== ' ' ? array.push(string) : null;
 // }
 
 function InProgressFood() {
-  const history = useHistory();
+  // const history = useHistory();
   const { id } = useParams();
   const [usedIngredients, setUsedIngredients] = useState([]);
   const [showFinish, setShowFinish] = useState(true);
   const [itemDetail, setItemDetail] = useState({
     meals: null,
   });
+  // const [doneRecipes, setDoneRecipes] = useState([]);
 
   const arrayOfIngredients = [];
   const arrayOfMeasures = [];
 
   useEffect(() => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!doneRecipes) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
+
     const currentStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (!currentStorage) {
       localStorage.setItem('inProgressRecipes', JSON.stringify({
@@ -86,6 +93,7 @@ function InProgressFood() {
   }
 
   const { meals: anyFood } = itemDetail;
+
   return anyFood !== null && (
     <div>
       <h1 data-testid="recipe-title">{anyFood[0].strMeal}</h1>
@@ -122,14 +130,16 @@ function InProgressFood() {
         <h2>Instruções</h2>
         <p data-testid="instructions">{anyFood[0].strInstructions}</p>
       </section>
-      <button
-        data-testid="finish-recipe-btn"
-        type="button"
-        disabled={ showFinish }
-        onClick={ () => history.push('/receitas-feitas') }
-      >
-        Finalizar Receita
-      </button>
+      <Link to="/receitas-feitas">
+        <button
+          data-testid="finish-recipe-btn"
+          type="button"
+          disabled={ showFinish }
+          onClick={ () => setDoneRecipes(id, anyFood[0], 'foods') }
+        >
+          Finalizar Receita
+        </button>
+      </Link>
     </div>
   );
 }

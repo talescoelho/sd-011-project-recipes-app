@@ -1,8 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function FoodOrDrinkFilter({ setFilter }) {
-  // const doneRecipes = localStorage.getItem('doneRecipes');
-
   return (
     <div>
       <button
@@ -14,7 +13,7 @@ export default function FoodOrDrinkFilter({ setFilter }) {
       </button>
       <button
         data-testid="filter-by-food-btn"
-        onClick={ () => setFilter('food') }
+        onClick={ () => setFilter('foods') }
         type="button"
       >
         Food
@@ -29,3 +28,7 @@ export default function FoodOrDrinkFilter({ setFilter }) {
     </div>
   );
 }
+
+FoodOrDrinkFilter.propTypes = {
+  setFilter: PropTypes.func.isRequired,
+};
