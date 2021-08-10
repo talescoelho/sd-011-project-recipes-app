@@ -20,7 +20,6 @@ export default function ExplorerByLocation(props) {
     };
     getCountries();
   }, [getFoodByLocation, getAllFoods]);
-  console.log(countries);
 
   async function handleClickOption({ target }) {
     const { value } = target;
@@ -32,7 +31,7 @@ export default function ExplorerByLocation(props) {
   }
 
   const maxArrayProducts = 12;
-  console.log(pathname);
+
   if (pathname === '/explorar/bebidas/area') {
     return (
       <div>
