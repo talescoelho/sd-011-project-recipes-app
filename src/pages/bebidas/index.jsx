@@ -8,7 +8,6 @@ import * as actions from '../../actions';
 
 const TWELVE = 12;
 const FIVE = 5;
-
 class Bebidas extends Component {
   componentDidMount() {
     const { generalRecipesDrink, categoriesDrink } = this.props;
@@ -18,7 +17,6 @@ class Bebidas extends Component {
 
   handleOnClickFilter(element) {
     const { filteredDrinks, generalRecipesDrink } = this.props;
-    console.log(element.target.checked);
     if (element.target.checked === true) {
       filteredDrinks(element.target.value);
     } else {
@@ -53,25 +51,29 @@ class Bebidas extends Component {
             id="id"
             className="filter-toggle"
             type="checkbox"
-            data-testid={ `${item.strCategory}-category-filter` }
             value={ item.strCategory }
+            data-testid={ `${item.strCategory}-category-filter` }
             onChange={ (target) => this.handleOnClickFilter(target) }
           />
           {item.strCategory}
           <span className="slider round" />
         </label>
-      ))];
+      )),
+    ];
   }
 
   renderDrinks() {
-    const { allRecipes, isFiltered } = this.props;
+    const { allRecipes, isFiltered,
+      isDrinkFilter, drinkRecipeByIngredient } = this.props;
     const allRecipesSlice = allRecipes.slice(0, TWELVE);
+    const drinkRecipeByIngredientSlice = drinkRecipeByIngredient.slice(0, TWELVE);
     if (allRecipesSlice.length === 1 && !isFiltered) {
       return (
         <Redirect to={ `/bebidas/${allRecipesSlice[0].idDrink}` } />
       );
     }
-    return allRecipesSlice.map((item, index) => (
+    const recipes = !isDrinkFilter ? allRecipesSlice : drinkRecipeByIngredientSlice;
+    return recipes.map((item, index) => (
       <Link to={ `/bebidas/${item.idDrink}` } key={ index }>
         <div
           className="card-item"
@@ -118,6 +120,8 @@ const mapStateToProps = (state) => ({
   allRecipes: state.recipes.allRecipes,
   allCategories: state.recipes.allCategories,
   isFiltered: state.recipes.isFiltered,
+  drinkRecipeByIngredient: state.recipes.drinkRecipeByIngredient,
+  isDrinkFilter: state.recipes.isDrinkFilter,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -133,6 +137,8 @@ Bebidas.propTypes = {
   allCategories: PropTypes.arrayOf(PropTypes.object).isRequired,
   filteredDrinks: PropTypes.func.isRequired,
   isFiltered: PropTypes.arrayOf(PropTypes.bool).isRequired,
+  drinkRecipeByIngredient: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isDrinkFilter: PropTypes.arrayOf(PropTypes.bool).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bebidas);

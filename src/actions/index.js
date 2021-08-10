@@ -1,5 +1,7 @@
 export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 export const CATEGORIES_SUCCESS = 'CATEGORIES_SUCCESS';
+export const FILTER_FOOD_RECIPE_BY_INGREDIENT = 'FILTER_FOOD_RECIPE_BY_INGREDIENT';
+export const FILTER_DRINK_RECIPE_BY_INGREDIENT = 'FILTER_DRINK_RECIPE_BY_INGREDIENT';
 export const USER_EMAIL = 'USER_EMAIL';
 const MESSAGE_ALERT = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
@@ -12,6 +14,30 @@ function handleRequestSuccess(result, isFiltered) {
 
 function handleCategoriesSuccess(result) {
   return { type: CATEGORIES_SUCCESS, payload: result };
+}
+
+function handleFilterRecipeByIngredient(result, isRecipeFilter) {
+  if (result === null) {
+    result = [];
+  }
+  return (
+    {
+      type: FILTER_FOOD_RECIPE_BY_INGREDIENT,
+      payload: { recipesByIngredient: result, isRecipeFilter },
+    }
+  );
+}
+
+function handleFilterDrinkRecipeByIngredient(result, isDrinkFilter) {
+  if (result === null) {
+    result = [];
+  }
+  return (
+    {
+      type: FILTER_DRINK_RECIPE_BY_INGREDIENT,
+      payload: { drinkRecipeByIngredient: result, isDrinkFilter },
+    }
+  );
 }
 
 function defaultFunctionFood(dispatch, json) {
@@ -148,6 +174,26 @@ export function filteredDrinks(filter) {
       .then((response) => response.json())
       .then(
         (json) => dispatch(handleRequestSuccess(json.drinks, true)),
+      );
+  };
+}
+
+export function filterRecipeByIngredient(ingredient) {
+  return (dispatch) => {
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`)
+      .then((response) => response.json())
+      .then(
+        (json) => dispatch(handleFilterRecipeByIngredient(json.meals, true)),
+      );
+  };
+}
+
+export function filterDrinkByIngredient(ingredient) {
+  return (dispatch) => {
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`)
+      .then((response) => response.json())
+      .then(
+        (json) => dispatch(handleFilterDrinkRecipeByIngredient(json.drinks, true)),
       );
   };
 }

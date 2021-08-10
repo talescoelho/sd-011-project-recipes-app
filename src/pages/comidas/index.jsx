@@ -55,7 +55,6 @@ class Comidas extends Component {
             data-testid={ `${item.strCategory}-category-filter` }
             onChange={ (element) => this.handleOnClickFilter(element) }
           />
-          {' '}
           {item.strCategory}
           <span className="slider round" />
         </label>
@@ -64,14 +63,15 @@ class Comidas extends Component {
   }
 
   renderFoods() {
-    const { allRecipes, isFiltered } = this.props;
+    const { allRecipes, isFiltered, isRecipeFilter, recipesByIngredient } = this.props;
     const allRecipesSlice = allRecipes.slice(0, TWELVE);
     if (allRecipesSlice.length === 1 && !isFiltered) {
       return (
         <Redirect to={ `/comidas/${allRecipesSlice[0].idMeal}` } />
       );
     }
-    return allRecipesSlice.map((item, index) => (
+    const recipes = !isRecipeFilter ? allRecipesSlice : recipesByIngredient;
+    return recipes.map((item, index) => (
       <Link to={ `/comidas/${item.idMeal}` } key={ index }>
         <div
           className="card-item"
@@ -98,7 +98,6 @@ class Comidas extends Component {
   render() {
     return (
       <>
-
         <Header title="Comidas" mode="comidas" hasSearchBar />
         <div className="container-main">
           <div className="filter-list">
@@ -110,7 +109,6 @@ class Comidas extends Component {
         </div>
         <Footer />
       </>
-
     );
   }
 }
@@ -119,6 +117,8 @@ const mapStateToProps = (state) => ({
   allRecipes: state.recipes.allRecipes,
   allCategories: state.recipes.allCategories,
   isFiltered: state.recipes.isFiltered,
+  recipesByIngredient: state.recipes.recipesByIngredient,
+  isRecipeFilter: state.recipes.isRecipeFilter,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -134,6 +134,8 @@ Comidas.propTypes = {
   allCategories: PropTypes.arrayOf(PropTypes.object).isRequired,
   filteredFoods: PropTypes.func.isRequired,
   isFiltered: PropTypes.arrayOf(PropTypes.bool).isRequired,
+  recipesByIngredient: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isRecipeFilter: PropTypes.arrayOf(PropTypes.bool).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comidas);

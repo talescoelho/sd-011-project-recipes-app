@@ -54,8 +54,7 @@ class Login extends Component {
     }
   }
 
-  submitLogin(event) {
-    event.preventDefault();
+  submitLogin() {
     const { setEmailAction, history } = this.props;
     const { email } = this.state;
     setEmailAction(email);
