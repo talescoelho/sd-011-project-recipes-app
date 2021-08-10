@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from '../context/RecipesContext';
-import '../styles/CategoryButton.css';
 import { useLocation } from 'react-router';
 
 function CategoryButton({ categoryName }) {

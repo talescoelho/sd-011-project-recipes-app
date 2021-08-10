@@ -57,15 +57,31 @@ function ButtonStartRecipe({ id, recipeData }) {
   };
 
   return (
-    <button
-      type="button"
-      disabled={ disabled }
-      className="startRecipe-btn"
-      data-testid="start-recipe-btn"
-      onClick={ () => { handleStartClickBtn(); } }
-    >
-      { btnName ? 'Iniciar Receita' : 'Continuar Receita' }
-    </button>
+    <div>
+      { btnName 
+        ? (
+        <button
+          type="button"
+          disabled={ disabled }
+          className="startRecipe-btn"
+          data-testid="start-recipe-btn"
+          onClick={ () => { handleStartClickBtn(); } }
+        >
+         Iniciar Receita
+        </button>
+        )
+        : (
+          <button
+          type="button"
+          disabled={ disabled }
+          className="continueRecipe-btn"
+          onClick={ () => { handleStartClickBtn(); } }
+        >
+          Continuar Receita
+        </button>
+        )
+      }
+    </div>
   );
 }
 
