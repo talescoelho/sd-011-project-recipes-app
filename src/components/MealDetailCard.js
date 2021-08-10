@@ -68,7 +68,7 @@ function MealDetailCard() {
       <p data-testid="recipe-category">{strCategory}</p>
       <div style={ { display: 'flex', justifyContent: 'space-around' } }>
         <ButtonFavorite objData={ mealDetail } />
-        <ButtonShare props={ window.location.href } />
+        <ButtonShare path={ window.location.href } testid='share-btn' />
       </div>
       <table>
         <tbody>

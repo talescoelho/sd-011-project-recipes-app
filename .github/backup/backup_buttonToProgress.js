@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import Proptypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
-function ButtonToProgress(props) {
-  const { mealDetail, drinkDetail } = props;
-  const [type, setType] = useState('comidas');
-  // if (drinkDetail) setType('bebidas');
-
+function ButtonToProgress({ data }) {
   const [toRedirect, setToRedirect] = useState(false);
   const [progress, setProgress] = useState(false);
   const [start, setStart] = useState(false);
+  const [type, setType] = useState('comidas');
   const path = window.location.pathname.split('/')[2];
   const inProgress = localStorage.getItem('inProgressRecipes');
   const doneRecipes = localStorage.getItem('doneRecipes');
@@ -21,13 +18,19 @@ function ButtonToProgress(props) {
         meals: {},
       }));
     }
+    // Object.keys(inProgress.cocktails).find((e) => (e === path))
+    // Object.keys(inProgress.meals).find((e) => (e === path))
     if (inProgress.includes(path)) {
       setProgress(true);
     }
+    // if () {
+    //   setProgress(true);
+    // }
 
     if (doneRecipes === null) {
       return localStorage.setItem('doneRecipes', JSON.stringify([{}]));
     }
+    // doneRecipes.find((e) => (e.id === parseInt(path, 10)))
     if (doneRecipes.includes(path)) {
       console.log(doneRecipes.includes(path), doneRecipes);
       setStart(true);
@@ -56,24 +59,19 @@ function ButtonToProgress(props) {
           toRedirect
             && <Redirect
               to={ `/${type}/${window.location.pathname.split('/')[2]}/in-progress` }
-              state={ mealDetail || drinkDetail }
+              data={ data }
             />
         }
       </div>
     );
-    return btn;
+    return btn; 
+    };
+    
+    return !start && startButton();
   };
 
-  return !start && startButton();
-}
-
 ButtonToProgress.propTypes = {
-  mealDetail: PropTypes.shape({
-    idMeal: PropTypes.string,
-  }),
-  drinkDetail: PropTypes.shape({
-    idDrink: PropTypes.string,
-  }),
-}.isRequired;
+  data: Proptypes.arrayOf(Proptypes.object).isRequired,
+};
 
 export default ButtonToProgress;
