@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import FoodOrDrinkFilter from './Components/FoodOrDrinkFilter';
 import SecondShareButton from './Components/Secondary/SecondShareButton';
@@ -7,10 +8,19 @@ import SecondFavoriteButton from './Components/Secondary/SecondFavoriteButton';
 function FavoriteRecipes() {
   const [filter, setFilter] = useState('all');
   const [update, setUpdate] = useState(false);
+  const [filtereds, setFiltereds] = useState([]);
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
   useEffect(() => {
-
+    if (filter === 'drinks') {
+      setFiltereds(favoriteRecipes.filter((item) => item.type === 'bebida'));
+    }
+    if (filter === 'foods') {
+      setFiltereds(favoriteRecipes.filter((item) => item.type === 'comida'));
+    }
+    if (filter === 'all') {
+      setFiltereds(favoriteRecipes);
+    }
   }, [filter, update]);
 
   return (
@@ -23,12 +33,30 @@ function FavoriteRecipes() {
       />
       <FoodOrDrinkFilter setFilter={ setFilter } />
       <section className="favorites-recipes">
-        {favoriteRecipes.map(({ id, image, name, area, alcoholicOrNot, category, type }, index) => (
-          <div key>
-            <img src={ image } width="150" data-testid={ `${index}-horizontal-image` } alt="Imagem de comida" />
+        {filtereds.map(({ id,
+          image,
+          name,
+          area,
+          alcoholicOrNot,
+          category,
+          type,
+        }, index) => (
+          <div key={ `${name}-${id}` }>
+            <Link to={ `/${type}s/${id}` }>
+              <img
+                src={ image }
+                width="150"
+                data-testid={ `${index}-horizontal-image` }
+                alt="Imagem de comida"
+              />
+            </Link>
             <div>
-              <p data-testid={ `${index}-horizontal-top-text` }>{area !== '' ? `${area} - ${category}` : alcoholicOrNot }</p>
-              <p data-testid={ `${index}-horizontal-name` }>{name}</p>
+              <p data-testid={ `${index}-horizontal-top-text` }>
+                {area !== '' ? `${area} - ${category}` : alcoholicOrNot }
+              </p>
+              <Link to={ `/${type}s/${id}` }>
+                <p data-testid={ `${index}-horizontal-name` }>{name}</p>
+              </Link>
               <SecondFavoriteButton
                 itemId={ id }
                 type={ type }
@@ -37,7 +65,11 @@ function FavoriteRecipes() {
                 setUpdate={ setUpdate }
                 update={ update }
               />
-              <SecondShareButton itemId={ id } type={ type } testID={ `${index}-horizontal-share-btn` } />
+              <SecondShareButton
+                itemId={ id }
+                type={ type }
+                testID={ `${index}-horizontal-share-btn` }
+              />
             </div>
 
           </div>
