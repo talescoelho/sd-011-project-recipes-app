@@ -16,6 +16,7 @@ export const DRINK_DETAIL = 'DRINK_DETAIL';
 export const DRINK_DETAIL_SUCCESS = 'DRINK_DETAIL_SUCCESS';
 export const DRINK_DETAIL_ERROR = 'DRINK_DETAIL_ERROR';
 export const HEADER_SEARCH_RESET_ERROR = 'HEADER_SEARCH_RESET_ERROR';
+export const SET_SELECTED_CATEGORY = 'SET_SELECTED_CATEGORY';
 
 const recipesQuantity = 12;
 const baseMealDbUrl = 'https://www.themealdb.com/api/json/v1/1';
@@ -168,4 +169,9 @@ export const fetchRecipeDetail = (type, id) => (dispatch) => {
 
 export const headerSearchResetError = () => ({
   type: HEADER_SEARCH_RESET_ERROR,
+});
+
+export const setSelectedCategory = (payload) => ({
+  type: SET_SELECTED_CATEGORY,
+  payload,
 });
