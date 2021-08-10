@@ -18,9 +18,6 @@ export default function DetailsMeals() {
   const { pathname } = history.location;
   const recipesSelectedId = pathname.split('/')[2];
 
-  // console.log(drinkRecipeId);
-  // console.log(mealRecipeId);
-
   useEffect(() => {
     const getApiDetailsRecipesFood = async () => {
       const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipesSelectedId}`;

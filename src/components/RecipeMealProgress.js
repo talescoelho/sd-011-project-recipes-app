@@ -1,33 +1,35 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import RecipesAppContext from '../context/RecipesAppContext';
+import React, { useState, useEffect} from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import * as api from '../services/API';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import '../styles/RecipesProgress.css';
 
-function RecipesProgress() {
-  // Pega o path id exato USAR MAIS A FRENTE NO PROJETO
-  // const { location } = history;
-  // const { pathname } = location;
-  // const pathSet = pathname.replace('/in-progress', '');
-  // const id = pathname.split('/')[2];
-  // console.log(id);
-  const { mealRecipes } = useContext(RecipesAppContext);
+function RecipeMealProgress() {
+  const [recipeProgress, setRecipeProgress] = useState({});
+  const [isLoaded, setIsloaded] = useState(false);
 
-  // Atalho para criar loading enquanto página não carrega
+  const history = useHistory();
+  const { pathname } = history.location;
+  const recipesSelectedId = pathname.split('/')[2];
+
+  useEffect(() => {
+    const getApiDetailsRecipesFood = async () => {
+      const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipesSelectedId}`;
+      const requestFood = await api.fetchAPI(URL);
+      const responseFood = await requestFood.meals;
+      setRecipeProgress(responseFood[0]);
+      setIsloaded(true);
+    };
+    getApiDetailsRecipesFood();
+  }, [setRecipeProgress, recipesSelectedId]);
+
   const loading = <p>Loading...</p>;
 
-  // Função para filtrar os ingredientes
   function returnIngredients() {
-    if (mealRecipes[0]) {
-      const ingredients = (mealRecipes.length === 0) ? ''
-        : Object.keys(mealRecipes[0])
-          .filter((item) => item.includes('strIngredient'))
-          .map((itens) => mealRecipes[0][itens])
-          .filter((itensFiltereds) => itensFiltereds);
-      // const returnIngredients = mealRecipes.filter((itens) => itens.includes())
-      return ingredients;
-    }
+    return Object.keys(recipeProgress)
+      .filter((item) => item.includes('strIngredient'))
+      .map((items) => items);
   }
 
   const checkBox = returnIngredients();
@@ -36,19 +38,17 @@ function RecipesProgress() {
     target.parentElement.classList.toggle('risk');
   }
 
-  console.log(mealRecipes);
-
   return (
     <div>
       <h1>Detalhes de Comida</h1>
-      {mealRecipes.length > 0
+      { isLoaded
         ? (
           <div>
-            <h2 data-testid="recipe-title">{mealRecipes[0].strMeal}</h2>
+            <h2 data-testid="recipe-title">{recipeProgress.strMeal}</h2>
             <img
-              src={ mealRecipes[0].strMealThumb }
+              src={ recipeProgress.strMealThumb }
               data-testid="recipe-photo"
-              alt={ mealRecipes[0].strMeal }
+              alt={ recipeProgress.strMeal }
             />
             <button data-testid="share-btn" type="button">
               <img src={ shareIcon } alt="share icon" />
@@ -56,7 +56,7 @@ function RecipesProgress() {
             <button data-testid="favorite-btn" type="button">
               <img src={ whiteHeartIcon } alt="favorite icon" />
             </button>
-            <p data-testid="recipe-category">{mealRecipes[0].strCategory}</p>
+            <p data-testid="recipe-category">{recipeProgress.strCategory}</p>
             <h3>Ingredients</h3>
             {checkBox.map((itens, key) => (
               <label
@@ -71,7 +71,7 @@ function RecipesProgress() {
                 {itens}
               </label>))}
 
-            <p data-testid="instructions">{mealRecipes[0].strInstructions}</p>
+            <p data-testid="instructions">{recipeProgress.strInstructions}</p>
             <Link to="/receitas-feitas">
               <button
                 type="button"
@@ -87,4 +87,4 @@ function RecipesProgress() {
   );
 }
 
-export default RecipesProgress;
+export default RecipeMealProgress;

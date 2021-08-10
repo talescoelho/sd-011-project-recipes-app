@@ -8,7 +8,7 @@ import Perfil from './components/Perfil';
 import Explore from './pages/Explore';
 import NotFound from './pages/NotFound';
 import RecipesDone from './pages/RecipesDone';
-import RecipesProgress from './components/RecipesProgress';
+import RecipesProgress from './pages/RecipesProgress';
 
 export default function Routes() {
   return (
