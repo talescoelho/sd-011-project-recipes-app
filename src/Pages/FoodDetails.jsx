@@ -88,7 +88,8 @@ class FoodDetails extends Component {
       category: foodDetail[0].strCategory || '',
       alcoholicOrNot: foodDetail[0].strAlcoholic || '',
       name: foodDetail[0].strMeal,
-      image: foodDetail[0].strMealThumb };
+      image: foodDetail[0].strMealThumb,
+    };
     saveRecipesOnLocalStorage(favoriteRecipes);
   }
 
@@ -169,6 +170,7 @@ class FoodDetails extends Component {
               </div>
               <button
                 className="hearth"
+                id="hearth"
                 type="button"
                 onClick={ () => {
                   this.setState({ favoriteFood: !favoriteFood });

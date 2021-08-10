@@ -32,7 +32,7 @@ class Drinks extends Component {
     const { history: { location: { pathname } } } = this.props;
     const { buttonClicked } = this.state;
     return (
-      <div>
+      <div className="background">
         <HeaderDrink onClick={ this.handleClick } title="Bebidas" />
         { drinks.length === 1 && !buttonClicked
           ? <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />
