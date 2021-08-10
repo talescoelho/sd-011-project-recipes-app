@@ -9,4 +9,6 @@ const Bebidas = () => (
   </div>
 );
 
+// PR locao du Lucao
+
 export default Bebidas;
