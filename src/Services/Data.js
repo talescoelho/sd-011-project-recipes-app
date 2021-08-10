@@ -45,7 +45,7 @@ export function fetchCocktailsForCategorie(setListCocktail, categorie) {
 
 export const fetchFoodsIngredienteMeail = (ingrediente, setFoods) => {
   // retorna pesquisa por nome na pagina de comidas
-  const api = fetch(`https://www.themealdb.com/api/json/v1/1/search.php?i=${ingrediente}`);
+  const api = fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediente}`);
   if (api) {
     api
       .then((resp) => resp.json())
@@ -56,7 +56,7 @@ export const fetchFoodsIngredienteMeail = (ingrediente, setFoods) => {
 
 export const fetchFoodsIngredienteDrink = (ingrediente, setFoods) => {
   // retorna pesquisa por nome na pagina de bebidas
-  const api = fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${ingrediente}`);
+  const api = fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingrediente}`);
   if (api) {
     api
       .then((resp) => resp.json())
