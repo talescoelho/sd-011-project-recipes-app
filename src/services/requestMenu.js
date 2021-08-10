@@ -27,3 +27,13 @@ export const filterDrinkByCategory = (drink) => (
   fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${drink}`)
     .then((response) => response.json())
 );
+
+export const mealsRecipeDetails = (idMeal) => (
+  fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+    .then((response) => response.json())
+);
+
+export const drinksRecipeDetails = (idDrink) => (
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrink}`)
+    .then((response) => response.json())
+);

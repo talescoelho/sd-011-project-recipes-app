@@ -1,7 +1,19 @@
 import React from 'react';
-import { screen, cleanup, fireEvent } from '@testing-library/react';
+import { screen, cleanup, fireEvent, queryByTestId } from '@testing-library/react';
 import { renderWithRouterAndStore } from './helper/testConfig';
 import Login from '../pages/Login';
+
+describe('Should not have a <Header /> component in the login screen', () => {
+  it('Cant have a <Header /> component', () => {
+    renderWithRouterAndStore(<Login />);
+    expect(queryByTestId(document.documentElement, 'profile-top-btn'))
+      .not.toBeInTheDocument();
+    expect(queryByTestId(document.documentElement, 'page-title'))
+      .not.toBeInTheDocument();
+    expect(queryByTestId(document.documentElement, 'search-top-btn'))
+      .not.toBeInTheDocument();
+  });
+});
 
 describe('Login Page tests', () => {
   beforeEach(cleanup);
