@@ -16,6 +16,7 @@
   background-color: #f4511e;
   border: none;
   border-radius: 5px;
+  bottom: 0;
   color: white;
   cursor: pointer;
   display: inline-block;
@@ -23,6 +24,7 @@
   margin: 4px 2px;
   opacity: 0.6;
   padding: 16px 90px;
+  position: fixed;
   text-align: center;
   text-decoration: none;
   transition: 0.3s;

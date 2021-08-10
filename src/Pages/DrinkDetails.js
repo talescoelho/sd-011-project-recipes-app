@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ShareButton from '../Components/ShareButton';
-import './Styles/detailsrecipe.css';
+import './Styles/DrinkDetails.css';
 
 function DrinkDetails({ match: { params: { id } } }) {
   const [recipes, setRecipes] = useState([]);

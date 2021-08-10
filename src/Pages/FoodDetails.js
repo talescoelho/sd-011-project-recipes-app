@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ShareButton from '../Components/ShareButton';
-import './Styles/detailsrecipe.css';
+import './Styles/FoodDetails.css';
 
 function FoodDetails({ match: { params: { id } } }) {
   const [recipes, setRecipes] = useState([]);
@@ -23,11 +23,11 @@ function FoodDetails({ match: { params: { id } } }) {
 
   // retorna o array com os ingredientes
   const ingredientsRecipe = () => {
-    const arrayIndredientKids = Object.keys(recipes)
+    const arrayIngredientKeys = Object.keys(recipes)
       .filter((item) => item
         .includes('strIngredient'));
     const ingredients = [];
-    arrayIndredientKids.forEach((key) => {
+    arrayIngredientKeys.forEach((key) => {
       if (recipes[key]) {
         ingredients.push(recipes[key]);
       }
@@ -36,11 +36,11 @@ function FoodDetails({ match: { params: { id } } }) {
   };
   // retorna um array com as medidas de cada ingredientes
   const ingredientsMesure = () => {
-    const arrayIndredientKids = Object.keys(recipes)
+    const arrayIngredientKeys = Object.keys(recipes)
       .filter((item) => item
         .includes('strMeasure'));
     const ingredients2 = [];
-    arrayIndredientKids.forEach((key) => {
+    arrayIngredientKeys.forEach((key) => {
       if (recipes[key]) {
         ingredients2.push(recipes[key]);
       }
@@ -93,9 +93,10 @@ function FoodDetails({ match: { params: { id } } }) {
       </div>
       {/* <h3 data-testid={ `${index}-recomendation-card"` }>Recomendadas</h3> */}
       <div id="recommended"><h4>oi</h4></div>
-      <Link to={ `/comidas/${recipes.idMeal}/in-progress` } params={ recipes.idMeal }>
+      <Link to={ `/comidas/${recipes.idMeal}` } params={ recipes.idMeal }>
         <button
           id="start-recipe-btn"
+          className="start-recipe-btn"
           type="button"
           data-testid="start-recipe-btn"
         >
