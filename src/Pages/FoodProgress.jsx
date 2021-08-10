@@ -54,9 +54,18 @@ function FoodProgress(props) {
   }
 
   function storageCheckeds({ name, checked }) {
-    const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || { meals: {
+    let recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || { meals: {
       [id]: [],
     } };
+
+    if (!recipe.meals) {
+      recipe = { ...recipe,
+        meals: {
+          [id]: [],
+        },
+      };
+    }
+
     if (checked) {
       const recipeMeals = { ...recipe,
         meals:
