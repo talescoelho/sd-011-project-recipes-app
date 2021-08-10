@@ -38,10 +38,10 @@ class RecipeDetailMain extends Component {
           return true;
         }
         return false;
-      }).map((item, i) => {
+      }).map((item, index) => {
         if (recipeDetail[item]) {
-          const strIngredient = `${recipeDetail[`strIngredient${i + 1}`]} - `;
-          const strMeasure = `${recipeDetail[`strMeasure${i + 1}`]}`;
+          const strIngredient = `${recipeDetail[`strIngredient${index + 1}`]} - `;
+          const strMeasure = `${recipeDetail[`strMeasure${index + 1}`]}`;
           return [strIngredient, strMeasure].join('');
         }
         return null;
