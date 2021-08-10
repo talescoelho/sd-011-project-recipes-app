@@ -32,7 +32,6 @@ CardList.propTypes = {
   recipesHeaderSearch: PropTypes.arrayOf(PropTypes.object),
   recipes: PropTypes.arrayOf(PropTypes.object),
   recipesQuantity: PropTypes.number,
-
 }.isRequired;
 
 export default CardList;
