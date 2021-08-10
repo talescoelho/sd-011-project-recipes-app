@@ -23,7 +23,7 @@ function DrinkDetails({ match: { params } }) {
       <RecipeCard
         title={ DrinkDataAPI.strDrink }
         img={ DrinkDataAPI.strDrinkThumb }
-        category={ DrinkDataAPI.strCategory }
+        category={ DrinkDataAPI.strAlcoholic }
         id={ DrinkDataAPI.idDrink }
       />
 

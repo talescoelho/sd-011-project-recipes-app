@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FavoriteButton from './FavoriteButton';
+import ShareButton from './ShareButton';
 
 // Adicionar biblioteca de compartilhar e imagem de coração para o favoritar.
-function MealRecipeCard({ title, img, category, index }) {
+function MealRecipeCard({ title, img, category }) {
   return (
-    <div data-testid={ `${index}-recomendation-card` }>
+    <div>
       <img data-testid="recipe-photo" alt="Foto da receita" src={ img } />
       <br />
 
@@ -17,10 +18,7 @@ function MealRecipeCard({ title, img, category, index }) {
         {category}
       </p>
 
-      {/* <button type="button" data-testid="share-btn">
-        botão share
-      </button> */}
-
+      <ShareButton />
       <FavoriteButton />
     </div>
   );
