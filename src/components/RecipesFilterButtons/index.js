@@ -1,20 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchRecipesCategories } from '../../actions';
+import { fetchRecipes, fetchRecipesCategories } from '../../actions';
 import getXFirstElementsFromArray from '../../helpers/utils';
 import Loading from '../Loading';
 
 const filtersQuantity = 5;
 
 const RecipesFilterButtons = ({
-  pathname, categories, type, loading, error, dispatchFetchRecipesCategories,
+  pathname, categories, type, loading, error,
+  dispatchFetchRecipesCategories, dispatchFetchRecipes,
 }) => {
   React.useEffect(() => {
     if (!pathname.includes(type)) {
       dispatchFetchRecipesCategories(pathname.replace(/\//g, ''));
     }
   }, [pathname, type, dispatchFetchRecipesCategories]);
+
+  const handleCategoryClick = (category) => {
+    dispatchFetchRecipes(type === 'comidas' ? 'meals' : 'drinks', category);
+  };
 
   if (error) return <span>{`${error}`}</span>;
 
@@ -28,6 +33,7 @@ const RecipesFilterButtons = ({
               <button
                 type="button"
                 key={ category }
+                onClick={ () => handleCategoryClick(category) }
                 data-testid={ `${category}-category-filter` }
               >
                 {category}
@@ -49,6 +55,8 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchFetchRecipesCategories: (type) => dispatch(fetchRecipesCategories(type)),
+  dispatchFetchRecipes:
+    (type, category) => dispatch(fetchRecipes(type, category)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipesFilterButtons);
@@ -60,4 +68,5 @@ RecipesFilterButtons.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.string,
   dispatchFetchRecipesCategories: PropTypes.func,
+  dispatchFetchRecipes: PropTypes.func,
 }.isRequired;
