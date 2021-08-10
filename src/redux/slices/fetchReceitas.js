@@ -18,6 +18,7 @@ const initialState = {
   loading: false,
   error: null,
   input: '',
+  checkBoxCounter: 0,
 };
 
 // createAsyncThunk receives two parameters: 1) name of the slice, 2) function name that creates the createAsyncThunk
@@ -47,6 +48,8 @@ export const getRecipes = createAsyncThunk(
       drinkFirstLetter: `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${input}`,
       foodByName: `https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`,
       drinkByName: `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${input}`,
+      foodDetails: `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${input}`,
+      drinkDetails: `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${input}`,
     };
     const response = await fetch(URLDictionary[actionName]).then((res) => res.json())
       .catch((error) => error);
@@ -71,6 +74,9 @@ const fetchReceitasSlice = createSlice({
     setInput: (state, action) => {
       state.input = action.payload;
     },
+    setCheckBoxCounter: (state, action) => {
+      state.checkBoxCounter = action.payload;
+    },
   },
   extraReducers: {
     [getRecipes.pending]: (state) => {
@@ -91,6 +97,9 @@ const fetchReceitasSlice = createSlice({
       if (response instanceof Error) {
         state.error = response;
       }
+      if (actionName === 'foodDetails' || actionName === 'drinkDetails') {
+        state.data = response;
+      }
       state.loading = false;
     },
     [getRecipes.rejected]: (state, action) => {
@@ -100,6 +109,6 @@ const fetchReceitasSlice = createSlice({
   },
 });
 
-export const { setInput } = fetchReceitasSlice.actions;
+export const { setInput, setCheckBoxCounter } = fetchReceitasSlice.actions;
 
 export default fetchReceitasSlice.reducer;

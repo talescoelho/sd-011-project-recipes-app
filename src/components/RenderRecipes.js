@@ -15,7 +15,6 @@ function RenderRecipes({ redirectedFromIngredients }) {
   const [linkToGo, setLinkToGo] = useState('');
 
   useEffect(() => {
-    console.log('redirected');
     if (redirectedFromIngredients !== undefined) {
       dispatch(setInput(redirectedFromIngredients));
       const { pathname } = window.location;

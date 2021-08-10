@@ -12,10 +12,5 @@ function ExplorarComidasOrigem({ title }) {
       <Footer />
     </div>
   );
-}
 
 export default ExplorarComidasOrigem;
-
-ExplorarComidasOrigem.propTypes = {
-  title: PropTypes.string.isRequired,
-};
