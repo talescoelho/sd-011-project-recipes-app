@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import Header from '../../components/Header';
 import { SearchBarProvider } from '../../context/SearchBar';
+import ByIngredient from '../../components/ByIngredient';
 import Footer from '../../components/Footer';
 import fetchByFilter from '../../services/data';
 
@@ -27,15 +28,7 @@ export default function FoodExplorer() {
         <Header title="Explorar Comidas" />
       </SearchBarProvider>
       <section style={ { marginTop: '50px' } }>
-        <Button
-          style={ buttonStyle }
-          variant="primary"
-          data-testid="explore-by-ingredient"
-          type="button"
-          onClick={ () => history.push('/explorar/comidas/ingredientes') }
-        >
-          Por Ingredientes
-        </Button>
+        <ByIngredient />
         <Button
           style={ buttonStyle }
           variant="primary"

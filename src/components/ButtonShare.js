@@ -13,9 +13,10 @@ const copy = require('clipboard-copy');
 // Obs2.: Nesse caso, 'id' foi criado dinamicamente
 // Dúvidas: Ana Clara
 
-export default function ButtonShare(props) {
+export default function ButtonShare({ props }) {
   const [isCopied, setIsCopied] = useState(false);
-  const { path, testid } = props;
+  // console.log(props);
+  const testid = window.location.pathname.split('/')[2];
 
   useEffect(() => {
     if (isCopied) {
@@ -27,20 +28,20 @@ export default function ButtonShare(props) {
   }, [isCopied]);
 
   const onClickButtonShare = () => {
-    copy(path);
+    copy(props);
     setIsCopied(true);
   };
 
   return (
     <div style={ { display: 'flex' } }>
-      <div
-        role="button"
-        onKeyPress={ onClickButtonShare }
-        tabIndex="0"
+      <button
+        style={ { background: 'none', opacity: 'none', border: 'none' } }
+        data-testid="share-btn"
+        type="button"
         onClick={ onClickButtonShare }
       >
         <img src={ shareIcon } alt="share icon" data-testid={ testid } />
-      </div>
+      </button>
       { isCopied && <p>Link copiado!</p>}
     </div>
 
@@ -48,6 +49,5 @@ export default function ButtonShare(props) {
 }
 
 ButtonShare.propTypes = {
-  path: PropTypes.string.isRequired,
-  testid: PropTypes.string.isRequired,
+  props: PropTypes.string.isRequired,
 };

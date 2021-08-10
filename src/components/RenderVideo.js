@@ -10,23 +10,18 @@ function RenderVideo({ src, title, id }) {
       src={ url }
       title={ `Recipe ${title}` }
       frameBorder="0"
-      allow="
-        accelerometer;
-        autoplay;
-        clipboard-write;
-        encrypted-media;
-        gyroscope;
-        picture-in-picture"
+      allow="accelerometer;
+        autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowFullScreen
       data-testid={ `${id}` }
     />
   );
 }
 
-export default RenderVideo;
-
 RenderVideo.propTypes = {
-  src: PropTypes.string,
-  title: PropTypes.string,
-  id: PropTypes.string,
-}.isRequired;
+  src: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+};
+
+export default RenderVideo;
