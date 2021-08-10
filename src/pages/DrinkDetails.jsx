@@ -2,11 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router';
 
 import copy from 'clipboard-copy';
-import { Layout, ActionButton } from '../components';
+import { Layout, ActionButton, RecipeRecommendationList } from '../components';
 
-const NOT_FOUND_INDEX = 1;
+import {
+  getStoredFavorites,
+  getDoneRecipes,
+  getStoredInProgressRecipes } from '../utils/storage';
+
 const TOAST_TIMEOUT = 3000;
-const RECOMMENDATION_NUMBER = 6;
+
+const renderLoadingOrError = (error, isLoading) => {
+  if (isLoading) return <p>Carregando...</p>;
+
+  if (error) return <p>Opa... algo deu errado</p>;
+
+  return false;
+};
 
 function FoodDetails() {
   const [isLoading, setIsLoading] = useState(true);
@@ -38,29 +49,9 @@ function FoodDetails() {
       .catch(setRecipesError)
       .finally(() => setRecipesLoading(false));
 
-    const storedDoneRecipes = localStorage.getItem('doneRecipes');
-    const parsedDoneRecipes = storedDoneRecipes ? JSON.parse(storedDoneRecipes) : [];
-    if (parsedDoneRecipes
-      .findIndex((parsedRecipe) => parsedRecipe.id === id) > NOT_FOUND_INDEX) {
-      setIsDone(true);
-    }
-
-    const storedInProgressRecipes = localStorage.getItem('inProgressRecipes');
-    const parsedInProgressRecipes = storedInProgressRecipes
-      ? JSON.parse(storedInProgressRecipes)
-      : { cocktails: [] };
-    if (parsedInProgressRecipes.cocktails && parsedInProgressRecipes.cocktails[id]) {
-      setIsInProgress(true);
-    }
-
-    const storedFavoriteRecipes = localStorage.getItem('favoriteRecipes');
-    const parsedFavoriteRecipes = storedFavoriteRecipes
-      ? JSON.parse(storedFavoriteRecipes)
-      : [];
-    if (parsedFavoriteRecipes
-      .findIndex((parsedRecipe) => parsedRecipe.id === id) > NOT_FOUND_INDEX) {
-      setIsFavorite(true);
-    }
+    getDoneRecipes(id, setIsDone);
+    getStoredInProgressRecipes(id, setIsInProgress, 'cocktails');
+    getStoredFavorites(id, setIsFavorite);
   }, [id]);
 
   function showToast() {
@@ -71,38 +62,9 @@ function FoodDetails() {
     }, TOAST_TIMEOUT);
   }
 
-  const renderNoDrinkMessage = () => {
-    if (isLoading) return <p>Carregando...</p>;
+  const renderNoDrinkMessage = () => renderLoadingOrError(error, isLoading);
 
-    if (error) return <p>Opa... algo deu errado</p>;
-  };
-
-  const renderNoRecipesMessage = () => {
-    if (recipesLoading) return <p>Carregando...</p>;
-
-    if (recipesError) return <p>Opa... algo deu errado</p>;
-
-    return false;
-  };
-
-  const styles = {
-    recipeRecommendationList: {
-      display: 'flex',
-      gap: '32px',
-      overflowX: 'auto',
-      width: '460px',
-      height: '260px',
-      listStyle: 'none',
-    },
-    recipesRecommendationCard: {
-      width: '200px',
-      flexShrink: '0',
-    },
-    recipesRecommendationImage: {
-      display: 'block',
-      width: '100%',
-    },
-  };
+  const renderNoRecipesMessage = () => renderLoadingOrError(recipesError, recipesLoading);
 
   return (
     <Layout title="App de Receitas">
@@ -211,28 +173,8 @@ function FoodDetails() {
               <section>
                 <h1>Recomendações de comida</h1>
 
-                { renderNoRecipesMessage() || (
-                  <ol style={ styles.recipeRecommendationList }>
-                    { recipes.slice(0, RECOMMENDATION_NUMBER).map((meal, index) => (
-                      <li
-                        style={ styles.recipesRecommendationCard }
-                        data-testid={ `${index}-recomendation-card` }
-                        key={ meal.idMeal }
-                      >
-                        <img
-                          style={ styles.recipesRecommendationImage }
-                          src={ meal.strMealThumb }
-                          alt={ meal.strMeal }
-                        />
-                        <h1
-                          data-testid={ `${index}-recomendation-title` }
-                        >
-                          { meal.strMeal }
-                        </h1>
-                      </li>
-                    )) }
-                  </ol>
-                ) }
+                { renderNoRecipesMessage()
+                  || <RecipeRecommendationList recipes={ recipes } />}
               </section>
             </>
           ) }

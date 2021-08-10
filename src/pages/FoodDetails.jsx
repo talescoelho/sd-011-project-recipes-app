@@ -4,9 +4,21 @@ import { useParams, useHistory } from 'react-router';
 import copy from 'clipboard-copy';
 import { Layout, ActionButton } from '../components';
 
-const NOT_FOUND_INDEX = 1;
+import {
+  getStoredFavorites,
+  getDoneRecipes,
+  getStoredInProgressRecipes } from '../utils/storage';
+
 const TOAST_TIMEOUT = 3000;
 const RECOMMENDATION_NUMBER = 6;
+
+const renderLoadingOrError = (error, isLoading) => {
+  if (isLoading) return <p>Carregando...</p>;
+
+  if (error) return <p>Opa... algo deu errado</p>;
+
+  return false;
+};
 
 function FoodDetails() {
   const [isLoading, setIsLoading] = useState(true);
@@ -38,29 +50,9 @@ function FoodDetails() {
       .catch(setDrinksError)
       .finally(() => setDrinksLoading(false));
 
-    const storedDoneRecipes = localStorage.getItem('doneRecipes');
-    const parsedDoneRecipes = storedDoneRecipes ? JSON.parse(storedDoneRecipes) : [];
-    if (parsedDoneRecipes.findIndex((parsedRecipe) => (
-      parsedRecipe.id === id.toString())) > NOT_FOUND_INDEX) {
-      setIsDone(true);
-    }
-
-    const storedInProgressRecipes = localStorage.getItem('inProgressRecipes');
-    const parsedInProgressRecipes = storedInProgressRecipes
-      ? JSON.parse(storedInProgressRecipes)
-      : { meals: [] };
-    if (parsedInProgressRecipes.meals && parsedInProgressRecipes.meals[id]) {
-      setIsInProgress(true);
-    }
-
-    const storedFavoriteRecipes = localStorage.getItem('favoriteRecipes');
-    const parsedFavoriteRecipes = storedFavoriteRecipes
-      ? JSON.parse(storedFavoriteRecipes)
-      : [];
-    if (parsedFavoriteRecipes.findIndex((parsedRecipe) => (
-      parsedRecipe.id === id.toString())) > NOT_FOUND_INDEX) {
-      setIsFavorite(true);
-    }
+    getDoneRecipes(id, setIsDone);
+    getStoredInProgressRecipes(id, setIsInProgress, 'meals');
+    getStoredFavorites(id, setIsFavorite);
   }, [id]);
 
   function showToast() {
@@ -71,19 +63,9 @@ function FoodDetails() {
     }, TOAST_TIMEOUT);
   }
 
-  const renderNoRecipeMessage = () => {
-    if (isLoading) return <p>Carregando...</p>;
+  const renderNoRecipeMessage = () => renderLoadingOrError(error, isLoading);
 
-    if (error) return <p>Opa... algo deu errado</p>;
-  };
-
-  const renderNoDrinksMessage = () => {
-    if (drinksLoading) return <p>Carregando...</p>;
-
-    if (drinksError) return <p>Opa... algo deu errado</p>;
-
-    return false;
-  };
+  const renderNoDrinksMessage = () => renderLoadingOrError(drinksError, drinksLoading);
 
   const styles = {
     drinkRecommendationList: {
