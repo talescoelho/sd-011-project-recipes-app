@@ -72,7 +72,7 @@ export default function ProcessFoods() {
       <button
         id="start-recipe-btn"
         type="button"
-        data-testid="start-recipe-btn"
+        data-testid="finish-recipe-btn"
       >
         Finalizar Receita
       </button>

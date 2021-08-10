@@ -14,6 +14,7 @@ import ExploreFoods from '../Pages/ExploreFoods';
 import Explore from '../Pages/Explore';
 import DrinkDetails from '../Pages/DrinkDetails';
 import ProcessFood from '../Pages/ProcessFoods';
+import ProcessDrinks from '../Pages/ProcessDrinks';
 import FoodDetails from '../Pages/FoodDetails';
 
 function Routes() {
@@ -50,6 +51,11 @@ function Routes() {
           exact
           path="/comidas/:id/in-progress"
           component={ ProcessFood }
+        />
+        <Route
+          exact
+          path="/bebidas/:id/in-progress"
+          component={ ProcessDrinks }
         />
       </Switch>
     </BrowserRouter>
