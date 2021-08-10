@@ -12,13 +12,18 @@ const RecomendationCard = ({ arrayOfRecomendations }) => {
           const { strMealThumb, strCategory, strMeal } = meal;
           return (
             <div
-              className="recomendation-card"
+              className="recomendation-card d-flex f-d-column m-1 a-i-center"
               key={ index }
               data-testid={ `${index}-recomendation-card` }
             >
-              <img className="img-card" src={ strMealThumb } alt={ strMeal } />
+              <img src={ strMealThumb } alt={ strMeal } />
               <p>{ strCategory }</p>
-              <h3 data-testid={ `${index}-recomendation-title` }>{ strMeal }</h3>
+              <h3
+                data-testid={ `${index}-recomendation-title` }
+                className="m-25"
+              >
+                { strMeal }
+              </h3>
             </div>
           );
         }) }
@@ -34,13 +39,18 @@ const RecomendationCard = ({ arrayOfRecomendations }) => {
         const { strDrinkThumb, strCategory: strAlcoholic, strDrink } = drink;
         return (
           <div
-            className="recomendation-card"
+            className="recomendation-card d-flex f-d-column m-1 a-i-center"
             key={ index }
             data-testid={ `${index}-recomendation-card` }
           >
-            <img className="img-card" src={ strDrinkThumb } alt={ strDrink } />
+            <img src={ strDrinkThumb } alt={ strDrink } />
             <p>{ strAlcoholic }</p>
-            <h3 data-testid={ `${index}-recomendation-title` }>{ strDrink }</h3>
+            <h3
+              className="m-25"
+              data-testid={ `${index}-recomendation-title` }
+            >
+              { strDrink }
+            </h3>
           </div>
         );
       }) }

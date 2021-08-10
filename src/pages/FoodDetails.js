@@ -42,6 +42,7 @@ const FoodDetails = ({ match }) => {
   const { meals } = data;
   const meal = meals[0];
   const { strMealThumb, strYoutube, strMeal, strCategory, strInstructions } = meal;
+  const urlVideo = strYoutube.replace('watch?v=', 'embed/');
 
   const entries = Object.entries(meal);
   const ingredients = entries.filter(([value]) => value
@@ -96,7 +97,7 @@ const FoodDetails = ({ match }) => {
       </ul>
       Instructions
       <p data-testid="instructions">{ strInstructions }</p>
-      <iframe data-testid="video" src={ strYoutube } title="description" />
+      <iframe data-testid="video" src={ urlVideo } title="description" />
       Recommended
       <RecomendationCard arrayOfRecomendations={ drinksData } />
       {

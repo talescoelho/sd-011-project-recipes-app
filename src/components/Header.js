@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import HeaderSearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import '../styles/header.css';
 
 // colocar type depois de searchBar
 function Header() {
   const [showSearchBar, toggleShowSearchBar] = useState(false);
   const { pathname } = useLocation();
-
+  const history = useHistory();
   const [showSearchIcon, setShowSearchIcon] = useState(false);
   useEffect(() => {
     const urlArray = ['/explorar/comidas/area', '/comidas', '/bebidas'];
@@ -28,28 +29,36 @@ function Header() {
     }
   };
 
+  const handleClickProfile = () => {
+    history.push('/perfil');
+  };
+
   return (
     <>
-      <header className="m-Header">
-        <Link
-          to="/perfil"
-        >
-          <button src={ profileIcon } type="button" data-testid="profile-top-btn">
+      <header className="m-Header d-flex j-c-spAround a-i-center b-shadow">
+        <h1 data-testid="page-title" className="fh-4">{document.title}</h1>
+        <div>
+          <button
+            src={ profileIcon }
+            type="button"
+            data-testid="profile-top-btn"
+            onClick={ handleClickProfile }
+            className="m-1 btn btn-icon"
+          >
             <img src={ profileIcon } alt="icone do perfil" />
           </button>
-        </Link>
-        <h1 data-testid="page-title">{document.title}</h1>
-
-        { showSearchIcon && (
-          <button
-            src={ searchIcon }
-            type="button"
-            data-testid="search-top-btn"
-            id="search-btn"
-            onClick={ toggleSearchBar }
-          >
-            <img src={ searchIcon } alt="icone de pesquisa" />
-          </button>)}
+          { showSearchIcon && (
+            <button
+              className="m-1 btn btn-icon"
+              src={ searchIcon }
+              type="button"
+              data-testid="search-top-btn"
+              id="search-btn"
+              onClick={ toggleSearchBar }
+            >
+              <img src={ searchIcon } alt="icone de pesquisa" />
+            </button>)}
+        </div>
       </header>
       { showSearchBar && <HeaderSearchBar /> }
     </>

@@ -10,7 +10,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <>
+    <div className="body-b">
       <Header />
       <p data-testid="profile-email">{getItem()}</p>
       <Link
@@ -40,6 +40,6 @@ export default function ProfilePage() {
         </button>
       </Link>
       <FooterMenu />
-    </>
+    </div>
   );
 }

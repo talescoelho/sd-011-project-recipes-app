@@ -25,7 +25,7 @@ const DrinkIngredients = () => {
   const filteredData = data.drinks.filter((item, index) => index < magicNumber);
 
   return (
-    <div>
+    <div className="body-b">
       <Header />
       { filteredData.map((item, index) => {
         const { strIngredient1 } = item;

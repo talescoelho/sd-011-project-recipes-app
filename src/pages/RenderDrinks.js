@@ -18,25 +18,27 @@ function RenderDrinks() {
   const filterRecipes = receiveDrinksRecipes.drinks
     .filter((item, index) => index < maxLength);
   return (
-    <div>
-      { filterRecipes.map((drink, index) => (
-        <Link key={ index } to={ `/bebidas/${drink.idDrink}` }>
-          <div data-testid={ `${index}-recipe-card` }>
-            <h1
-              data-testid={ `${index}-card-name` }
-            >
-              { drink.strDrink }
-            </h1>
-            <img
-              src={ drink.strDrinkThumb }
-              alt={ drink.idDrink }
-              data-testid={ `${index}-card-img` }
-              style={ { width: '150px' } }
-            />
-          </div>
-        </Link>
-      )) }
-    </div>
+    filterRecipes.map((drink, index) => (
+      <Link
+        key={ index }
+        to={ `/bebidas/${drink.idDrink}` }
+        className="s-card m-25 m-y-1 d-flex f-d-column a-i-center text-center"
+        data-testid={ `${index}-recipe-card` }
+      >
+        <img
+          src={ drink.strDrinkThumb }
+          alt={ drink.idDrink }
+          data-testid={ `${index}-card-img` }
+          style={ { width: '150px' } }
+        />
+        <h2
+          className="h3"
+          data-testid={ `${index}-card-name` }
+        >
+          { drink.strDrink }
+        </h2>
+      </Link>
+    ))
   );
 }
 

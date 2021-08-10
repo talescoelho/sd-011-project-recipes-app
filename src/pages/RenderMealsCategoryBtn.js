@@ -48,6 +48,7 @@ function RenderMealsCategoriesBtn({ filterByIngredients, clearMealsData }) {
               data-testid={ `${strCategory}-category-filter` }
               value={ strCategory }
               onClick={ (e) => handleClick(e) }
+              className="btn-30"
             >
               { strCategory }
             </button>
@@ -59,11 +60,12 @@ function RenderMealsCategoriesBtn({ filterByIngredients, clearMealsData }) {
     }
   };
   return (
-    <div>
+    <div className="d-flex f-wrap m-y-1 j-c-center a-i-center">
       <button
         type="button"
         data-testid="All-category-filter"
         onClick={ () => clearMealsData() }
+        className="btn-30"
       >
         All
       </button>

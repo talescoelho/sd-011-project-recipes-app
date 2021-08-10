@@ -25,29 +25,34 @@ const FoodIngredients = () => {
   const filteredData = data.meals.filter((item, index) => index < magicNumber);
 
   return (
-    <div>
+    <div className="body-b">
       <Header />
-      { filteredData.map((item, index) => {
-        const { strIngredient } = item;
-        return (
-          <Link
-            key={ index }
-            to="/comidas"
-            onClick={ () => dispatch(fetchSearchIngredients(strIngredient, pathname)) }
-          >
-            <div data-testid={ `${index}-recipe-card` }>
-              <div data-testid={ `${index}-ingredient-card` }>
+      <div className="d-flex f-wrap j-c-center">
+        { filteredData.map((item, index) => {
+          const { strIngredient } = item;
+          return (
+            <div
+              data-testid={ `${index}-ingredient-card` }
+              key={ index }
+              className="s-card m-25 m-y-1 d-flex f-d-column a-i-center text-center"
+            >
+              <Link
+                to="/comidas"
+                onClick={ () => dispatch(fetchSearchIngredients(strIngredient,
+                  pathname)) }
+                data-testid={ `${index}-recipe-card` }
+              >
                 <img
                   src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png ` }
                   alt={ strIngredient }
                   data-testid={ `${index}-card-img` }
                 />
                 <h3 data-testid={ `${index}-card-name` }>{strIngredient}</h3>
-              </div>
+              </Link>
             </div>
-          </Link>
-        );
-      }) }
+          );
+        }) }
+      </div>
       <FooterMenu />
     </div>
   );

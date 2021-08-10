@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { fetchSearchBtnIngredients, clearData } from '../redux/actions/searchBarActions';
+import '../styles/categoryBtn.css';
 
 function RenderDrinksCategoriesBtn({ filterByIngredients, clearDrinkData }) {
   const [categoryBtn, setCategoryBtn] = useState(undefined);
@@ -49,8 +50,9 @@ function RenderDrinksCategoriesBtn({ filterByIngredients, clearDrinkData }) {
               key={ index }
               value={ category.strCategory }
               onClick={ (e) => handleClick(e) }
+              className="btn-30"
             >
-              { category.strCategory }
+              { category.strCategory.split('/')[0] }
             </button>
           );
         }
@@ -60,11 +62,12 @@ function RenderDrinksCategoriesBtn({ filterByIngredients, clearDrinkData }) {
     }
   };
   return (
-    <div>
+    <div className="d-flex f-wrap m-y-1 j-c-center a-i-center">
       <button
         type="button"
         data-testid="All-category-filter"
         onClick={ () => clearDrinkData() }
+        className="btn-30"
       >
         All
       </button>

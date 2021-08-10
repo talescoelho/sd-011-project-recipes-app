@@ -18,26 +18,26 @@ function RenderFoods() {
   const filterRecipes = receiveFoodRecipes.meals
     .filter((_, index) => index < maxLength);
   return (
-    <div>
-      { filterRecipes.map((meal, index) => (
-        <Link to={ `/comidas/${meal.idMeal}` } key={ index }>
-          <div data-testid={ `${index}-recipe-card` }>
-            <h1
-              data-testid={ `${index}-card-name` }
-            >
-              { meal.strMeal }
-            </h1>
-            <img
-              src={ meal.strMealThumb }
-              alt={ meal.idMeal }
-              data-testid={ `${index}-card-img` }
-              style={ { width: '150px' } }
-            />
-          </div>
-        </Link>
-      )) }
-    </div>
-  );
+    filterRecipes.map((meal, index) => (
+      <Link
+        className="s-card m-25 m-y-1 d-flex f-d-column a-i-center text-center"
+        to={ `/comidas/${meal.idMeal}` }
+        key={ index }
+        data-testid={ `${index}-recipe-card` }
+      >
+        <img
+          src={ meal.strMealThumb }
+          alt={ meal.idMeal }
+          data-testid={ `${index}-card-img` }
+        />
+        <h2
+          className="h3"
+          data-testid={ `${index}-card-name` }
+        >
+          { meal.strMeal }
+        </h2>
+      </Link>
+    )));
 }
 
 export default RenderFoods;

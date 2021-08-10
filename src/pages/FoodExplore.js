@@ -21,32 +21,37 @@ const FoodExplore = () => {
   }, [randomFood]);
 
   return (
-    <div>
+    <div className="body-b">
       <Header />
-      <Link to="/explorar/comidas/ingredientes">
+      <div className="b-explore d-flex f-d-column j-c-spAround m-3">
         <button
           type="button"
           data-testid="explore-by-ingredient"
+          className="btn fh-2"
         >
-          Por Ingredientes
+          <Link to="/explorar/comidas/ingredientes">
+            Por Ingredientes
+          </Link>
         </button>
-      </Link>
-      <Link to="/explorar/comidas/area">
         <button
           type="button"
           data-testid="explore-by-area"
+          className="btn fh-2"
         >
-          Por Local de Origem
+          <Link to="/explorar/comidas/area">
+            Por Local de Origem
+          </Link>
         </button>
-      </Link>
-      <Link to={ `/comidas/${randomFood}` }>
         <button
           type="button"
           data-testid="explore-surprise"
+          className="btn fh-2"
         >
-          Me Surpreenda!
+          <Link to={ `/comidas/${randomFood}` }>
+            Me Surpreenda!
+          </Link>
         </button>
-      </Link>
+      </div>
       <FooterMenu />
     </div>
   );

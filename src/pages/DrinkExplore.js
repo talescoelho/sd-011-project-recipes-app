@@ -21,7 +21,7 @@ const DrinkExplore = () => {
   }, [randomDrink]);
 
   return (
-    <div>
+    <div className="body-b">
       <Header />
       <Link to="/explorar/bebidas/ingredientes">
         <button

@@ -19,31 +19,39 @@ const DrinkList = ({ receiveData, isFetching }) => {
     if (receiveData.drinks && !isFetching && receiveData.drinks !== null) {
       const filteredData = receiveData.drinks.filter((item, index) => index < maxRender);
       return (
-        <div>
-          { filteredData
-            .map((drink, index) => (
-              <Link to={ `/bebidas/${drink.idDrink}` } key={ index }>
-                <div data-testid={ `${index}-recipe-card` }>
-                  <h2 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h2>
-                  <img
-                    src={ drink.strDrinkThumb }
-                    alt={ drink.strDrink }
-                    data-testid={ `${index}-card-img` }
-                  />
-                </div>
-              </Link>
-            ))}
-        </div>
+        filteredData
+          .map((drink, index) => (
+            <Link
+              to={ `/bebidas/${drink.idDrink}` }
+              key={ index }
+              className="s-card m-25 m-y-1 d-flex f-d-column a-i-center text-center"
+              data-testid={ `${index}-recipe-card` }
+            >
+              <img
+                src={ drink.strDrinkThumb }
+                alt={ drink.strDrink }
+                data-testid={ `${index}-card-img` }
+              />
+              <h2
+                data-testid={ `${index}-card-name` }
+                className="h3"
+              >
+                { drink.strDrink }
+              </h2>
+            </Link>
+          ))
       );
     }
   };
 
   return (
-    <div>
+    <div className="body-b">
       <Header />
       <RenderDrinksCategoriesBtn />
-      { receiveData.length < 1 || !receiveData.drinks ? <RenderDrinks />
-        : <div>{ renderFilteredReceiveDataDrinks() }</div> }
+      <div className="d-flex f-wrap j-c-center">
+        { receiveData.length < 1 || !receiveData.drinks ? <RenderDrinks />
+          : renderFilteredReceiveDataDrinks() }
+      </div>
       <FooterMenu />
     </div>
   );

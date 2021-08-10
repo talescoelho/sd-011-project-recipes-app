@@ -50,50 +50,60 @@ function HeaderSearchBar({ receiveData,
   }
 
   return (
-    <>
+    <div className="d-flex f-d-column p-1 searchBar">
       <Input
         id="searchInput"
         name="searchInput"
-        label="Buscar receita:"
+        placeHolder="Buscar receita"
         data-testid="search-input"
         value={ searchInput }
         setValue={ setSearchInput }
+        className="p-1"
       />
-      <Input
-        id="ingredientInput"
-        label="Ingrediente"
-        name="radioInput"
-        type="radio"
-        data-testid="ingredient-search-radio"
-        value="Ingrediente"
-        setValue={ setRadioValue }
-      />
-      <Input
-        id="nameInput"
-        label="Nome"
-        name="radioInput"
-        type="radio"
-        data-testid="name-search-radio"
-        value="Nome"
-        setValue={ setRadioValue }
-      />
-      <Input
-        id="firstLetterInput"
-        label="Primeira Letra"
-        name="radioInput"
-        type="radio"
-        data-testid="first-letter-search-radio"
-        value="Primeira Letra"
-        setValue={ setRadioValue }
-      />
+      <div className="d-flex m-1">
+        <div className="d-flex f-d-reverse">
+          <Input
+            id="ingredientInput"
+            label="Ingrediente"
+            name="radioInput"
+            type="radio"
+            data-testid="ingredient-search-radio"
+            value="Ingrediente"
+            setValue={ setRadioValue }
+          />
+        </div>
+        <div className="d-flex f-d-reverse">
+          <Input
+            id="nameInput"
+            label="Nome"
+            name="radioInput"
+            type="radio"
+            data-testid="name-search-radio"
+            value="Nome"
+            setValue={ setRadioValue }
+          />
+        </div>
+        <div className="d-flex f-d-reverse">
+          <Input
+            id="firstLetterInput"
+            label="Primeira Letra"
+            name="radioInput"
+            type="radio"
+            data-testid="first-letter-search-radio"
+            value="Primeira Letra"
+            setValue={ setRadioValue }
+          />
+        </div>
+      </div>
       <button
         type="button"
         data-testid="exec-search-btn"
         onClick={ fetchSearchData }
+        className="btn"
       >
         Buscar
       </button>
-    </>
+    </div>
   );
 }
 
