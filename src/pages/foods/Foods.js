@@ -9,7 +9,7 @@ export default function Foods() {
     <main>
       <section>
         <SearchBarProvider>
-          <Header title="Explorar Comidas" search fetchType="themealdb" />
+          <Header title="Explorar Comidas" search filterBar fetchType="themealdb" />
           <CardsList fetchType="themealdb" />
         </SearchBarProvider>
       </section>

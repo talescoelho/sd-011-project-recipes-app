@@ -6,6 +6,8 @@ import Header from '../components/Header';
 export default function Profile() {
   const user = localStorage.getItem('user');
 
+  console.log('passou');
+
   const getEmail = () => {
     if (user) {
       return JSON.parse(user).email;
@@ -22,7 +24,7 @@ export default function Profile() {
   };
   return (
     <div>
-      <Header title="Perfil" search={ false } />
+      <Header title="Perfil" />
       <section style={ sectionStyle }>
         <h5 data-testid="profile-email">{ getEmail() }</h5>
         <button

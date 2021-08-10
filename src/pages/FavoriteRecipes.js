@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import ButtonShare from '../components/ButtonShare';
 import Header from '../components/Header';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 // import shareIcon from '../images/shareIcon.svg';
@@ -29,6 +30,7 @@ export default function FavoriteRecipes() {
   const [filteredRecipes, setFilteredRecipes] = useState(favoriteRecipes);
   console.log(filteredRecipes);
   const [type, setType] = useState('all');
+  const [favorited, setFavorited] = useState('isFavorited');
 
   useEffect(() => {
     let newFilteredRecipes = [...favoriteRecipes];
@@ -40,12 +42,10 @@ export default function FavoriteRecipes() {
 
   const handleChange = (btn) => setType(btn);
 
-  // const deleteFavorite = () => {
-  //   // const favorites = JSON.parse(localStorage.favoriteRecipes);
-  //   // localStorage.removeItem(favorites);
-  // };
-
-  // const copy = require('clipboard-copy');
+  const deleteFavorite = () => {
+    // const favorites = JSON.parse(localStorage.favoriteRecipes);
+    // localStorage.removeItem(favorites);
+  };
 
   return (
     <>
@@ -85,18 +85,14 @@ export default function FavoriteRecipes() {
           </Link>
           <button type="button">
             <img
-              src={ blackHeartIcon }
+              src={ isFavorited
+                ? blackHeatIcon
+                : whiteHeartIcon }
               data-testid={ `${recipe.index}-horizontal-favorite-btn` }
               alt="icone de favoritar"
             />
           </button>
-          {/* <button type="button" onClick={ handleClick }>
-            <img
-              src={ shareIcon }
-              alt="icone de compartilhar"
-              data-testid={ `${index}-horizontal-share-btn` }
-            />
-          </button> */}
+          <ButtonShare />
         </section>
       ))}
     </>

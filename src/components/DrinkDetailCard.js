@@ -6,7 +6,6 @@ import RenderVideo from './RenderVideo';
 function DrinkDetailCard() {
   const [drinkDetail, setDrinkDetail] = useState([]);
   const [rec, setRec] = useState([]);
-  const [data, setData] = useState([]);
 
   const path = window.location.pathname.split('/')[2];
 
@@ -31,7 +30,6 @@ function DrinkDetailCard() {
   }, [path]);
 
   const {
-    idDrink,
     strAlcoholic,
     strCategory,
     strInstructions,
@@ -39,8 +37,6 @@ function DrinkDetailCard() {
     strDrinkThumb,
     strYoutube,
   } = drinkDetail;
-
-  console.log(idDrink);
 
   const objIngred = Object.entries(drinkDetail).map((e) => {
     if (e[0].includes('strIngredient') && (e[1] !== null)) {
@@ -55,12 +51,6 @@ function DrinkDetailCard() {
     }
     return undefined;
   }).filter((i) => i !== undefined);
-
-  const callData = () => {
-    setData([drinkDetail]);
-
-    return data;
-  };
 
   return (
     <div>
@@ -103,7 +93,7 @@ function DrinkDetailCard() {
       <div>
         <Recommended value={ rec } type="drink" />
       </div>
-      <ButtonToProgress data={ callData } />
+      <ButtonToProgress drinkDetail={ drinkDetail } />
     </div>
   );
 }

@@ -8,7 +8,6 @@ import 'slick-carousel/slick/slick-theme.css';
 function Recommended({ value, type }) {
   const MAX_CARDS = 6;
   const sixCards = value.map((e) => e).slice(0, MAX_CARDS);
-  console.log(sixCards);
   const kind = () => {
     if (type === 'meal') {
       return (

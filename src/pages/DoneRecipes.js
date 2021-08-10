@@ -40,7 +40,7 @@ export default function DoneRecipes() {
       }
       setFilteredRecipes(newFilteredRecipes);
     }
-  }, [type]);
+  }, [doneRecipes, parsedDoneRecipe, type]);
 
   const handleChange = (val) => setType(val);
 
