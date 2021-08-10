@@ -69,5 +69,5 @@ export default function ButtonDetails({ foodOrDrink, id }) {
 
 ButtonDetails.propTypes = {
   foodOrDrink: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };

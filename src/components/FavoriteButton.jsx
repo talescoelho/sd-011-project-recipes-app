@@ -10,7 +10,7 @@ function FavoriteButton({ index, foodOrDrink, id }) {
   console.log('details', details);
   const [favorite, setFavorite] = useState(false);
   const favRecipes = {
-    id: foodOrDrink === 'comidas' ? details.idMeal : details.idDrink,
+    id: foodOrDrink === 'comidas' ? details.idMeal || id : details.idDrink || id,
     type: foodOrDrink === 'comidas' ? 'comida' : 'bebida',
     area: details.strArea || '',
     category: details.strCategory || '',
@@ -55,7 +55,11 @@ function FavoriteButton({ index, foodOrDrink, id }) {
 export default FavoriteButton;
 
 FavoriteButton.propTypes = {
-  index: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  index: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   foodOrDrink: PropTypes.string.isRequired,
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+};
+
+FavoriteButton.defaultProps = {
+  index: 0,
 };

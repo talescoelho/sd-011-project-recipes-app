@@ -22,7 +22,7 @@ function DrinkProcess() {
   useEffect(
     () => { fetchDrinkProcess(); }, [],
   );
- 
+
   return (
     <div>
       {loading ? <span>Loading...</span> : (
