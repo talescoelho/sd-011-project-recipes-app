@@ -28,18 +28,17 @@ import Header from '../components/Header';
 
 export default function DoneRecipes() {
   const doneRecipes = localStorage.getItem('doneRecipes');
-  const parsedDoneRecipe = JSON.parse(doneRecipes);
+  const parsedDoneRecipe = doneRecipes ? JSON.parse(doneRecipes) : [];
   const [filteredRecipes, setFilteredRecipes] = useState(parsedDoneRecipe);
-  const [type, setType] = useState('all');
+  const [type, setType] = useState('');
   useEffect(() => {
     if (doneRecipes) {
-      let newFilteredRecipes = [...parsedDoneRecipe];
-      if (type !== 'all') {
-        newFilteredRecipes = newFilteredRecipes.filter((recipe) => recipe.type === type);
-      }
+      const newFilteredRecipes = type
+        ? [...parsedDoneRecipe.filter((recipe) => recipe.type === type)]
+        : [...parsedDoneRecipe];
       setFilteredRecipes(newFilteredRecipes);
     }
-  }, [doneRecipes, parsedDoneRecipe, type]);
+  }, [type]);
 
   const handleChange = (val) => setType(val);
 
@@ -53,7 +52,7 @@ export default function DoneRecipes() {
           value={ type }
           onChange={ handleChange }
         >
-          <ToggleButton name="type" data-testid="filter-by-all-btn" value="all">
+          <ToggleButton name="type" data-testid="filter-by-all-btn" value="">
             All
           </ToggleButton>
           <ToggleButton name="type" data-testid="filter-by-food-btn" value="comida">
@@ -65,7 +64,7 @@ export default function DoneRecipes() {
         </ToggleButtonGroup>
       </section>
       <section>
-        { doneRecipes && filteredRecipes.map((recipe, index) => (
+        { filteredRecipes.length > 0 && filteredRecipes.map((recipe, index) => (
           <CardsRecipesDone recipe={ recipe } index={ index } key={ index } />))}
       </section>
     </div>

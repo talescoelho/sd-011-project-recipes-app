@@ -10,8 +10,8 @@ export default function Header(props) {
   const [isVisibleSearchBar, setVisibleSearchBar] = useState(false);
   const history = useHistory();
   const { title, search, fetchType, filterBar } = props;
-  console.log(filterBar);
-  console.log(search);
+  console.log('header', filterBar);
+  console.log('header', search);
 
   const renderSearchBar = () => <section><SearchBar fetchType={ fetchType } /></section>;
   const renderFiltersBar = () => (<FiltersBar fetchType={ fetchType } />);
