@@ -42,9 +42,7 @@ export default class ButtonsExplorer extends Component {
     default:
       break;
     }
-    this.setState({
-      link: screenSurprise,
-    });
+    this.setState({ link: screenSurprise });
   }
 
   render() {
