@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchRecipesCategories } from '../../actions';
 import getXFirstElementsFromArray from '../../helpers/utils';
+import Loading from '../Loading';
 
 const filtersQuantity = 5;
 
 const RecipesFilterButtons = ({
-  pathname, categories, type, dispatchFetchRecipesCategories,
+  pathname, categories, type, loading, error, dispatchFetchRecipesCategories,
 }) => {
   React.useEffect(() => {
     if (!pathname.includes(type)) {
@@ -15,19 +16,23 @@ const RecipesFilterButtons = ({
     }
   }, [pathname, type, dispatchFetchRecipesCategories]);
 
+  if (error) return <span>{`${error}`}</span>;
+
   return (
     <section>
       {
-        getXFirstElementsFromArray(categories, filtersQuantity)
-          .map((category) => (
-            <button
-              type="button"
-              key={ category }
-              data-testid={ `${category}-category-filter` }
-            >
-              {category}
-            </button>
-          ))
+        loading
+          ? <Loading />
+          : getXFirstElementsFromArray(categories, filtersQuantity)
+            .map((category) => (
+              <button
+                type="button"
+                key={ category }
+                data-testid={ `${category}-category-filter` }
+              >
+                {category}
+              </button>
+            ))
       }
     </section>
   );

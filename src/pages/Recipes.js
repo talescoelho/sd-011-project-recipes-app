@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import getXFirstElementsFromArray from '../helpers/utils';
-import { fetchDrinks, fetchMeals } from '../actions';
+import { fetchRecipes } from '../actions';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
@@ -13,27 +12,14 @@ const recipesQuantity = 12;
 
 function Recipes({
   history: { location: { pathname } },
-  dispatchFetchMeals, dispatchFetchDrinks,
-  meals, mealsLoading, mealsError,
-  drinks, drinksLoading, drinksError, recipesHeaderSearch,
+  dispatchFetchRecipes,
+  recipes, loading, error,
+  recipesHeaderSearch,
 }) {
-  const [recipes, setRecipes] = React.useState([]);
-
   React.useEffect(() => {
-    if (pathname === '/comidas') dispatchFetchMeals();
-    else dispatchFetchDrinks();
-  }, [pathname, dispatchFetchMeals, dispatchFetchDrinks]);
-
-  React.useEffect(() => {
-    if (pathname === '/comidas') {
-      setRecipes(getXFirstElementsFromArray(meals, recipesQuantity));
-    } else {
-      setRecipes(getXFirstElementsFromArray(drinks, recipesQuantity));
-    }
-
-    if (mealsError || drinksError) setRecipes([]);
-  }, [pathname, meals, mealsError, drinks,
-    drinksError, dispatchFetchDrinks, dispatchFetchMeals]);
+    if (pathname === '/comidas') dispatchFetchRecipes('meals');
+    else dispatchFetchRecipes('drinks');
+  }, [pathname, dispatchFetchRecipes]);
 
   function renderHeader() {
     return pathname === '/comidas'
@@ -46,10 +32,9 @@ function Recipes({
       { renderHeader() }
       <main data-testid="recipes-page">
         <RecipesFilterButtons pathname={ pathname } />
-        { pathname === '/comidas' && mealsError && `${mealsError}` }
-        { pathname === '/bebidas' && drinksError && `${drinksError}` }
+        { error && `${error}` }
         {
-          (mealsLoading || drinksLoading)
+          loading
             ? <Loading />
             : (
               <CardsList
@@ -64,20 +49,18 @@ function Recipes({
   );
 }
 
-const mapStateToProps = ({ mealsAndDrinksReducer, headerSearchReducer }) => ({
-  meals: mealsAndDrinksReducer.meals.meals,
-  mealsLoading: mealsAndDrinksReducer.meals.loading,
-  mealsError: mealsAndDrinksReducer.meals.error,
-  drinks: mealsAndDrinksReducer.drinks.drinks,
-  drinksLoading: mealsAndDrinksReducer.drinks.loading,
-  drinksError: mealsAndDrinksReducer.drinks.error,
-
+const mapStateToProps = ({
+  recipesReducer: { recipes, loading, error },
+  headerSearchReducer,
+}) => ({
+  recipes,
+  loading,
+  error,
   recipesHeaderSearch: headerSearchReducer.recipes,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchFetchMeals: () => dispatch(fetchMeals()),
-  dispatchFetchDrinks: () => dispatch(fetchDrinks()),
+  dispatchFetchRecipes: (type) => dispatch(fetchRecipes(type)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recipes);
@@ -94,7 +77,6 @@ Recipes.propTypes = {
   drinks: PropTypes.arrayOf(PropTypes.object),
   drinksLoading: PropTypes.bool,
   drinksError: PropTypes.string,
-  dispatchFetchMeals: PropTypes.func,
-  dispatchFetchDrinks: PropTypes.func,
+  dispatchFetchRecipes: PropTypes.func,
   recipesHeaderSearch: PropTypes.arrayOf(PropTypes.object),
 }.isRequired;

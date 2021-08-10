@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import mealsAndDrinksReducer from './mealsAndDrinksReducer';
+import recipesReducer from './recipesReducer';
 import recipesCategoriesReducer from './recipesCategoriesReducer';
 import headerSearchReducer from './headerSearchReducer';
 import recipeDetailReducer from './recipeDetailReducer';
 
-const rootReducer = combineReducers({ mealsAndDrinksReducer,
+const rootReducer = combineReducers({ recipesReducer,
   recipesCategoriesReducer,
   headerSearchReducer,
   recipeDetailReducer });
