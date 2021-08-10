@@ -7,7 +7,7 @@ function ReceitasFeitas() {
   const [filter, setFilter] = useState('all');
   localStorage.setItem('doneRecipes', JSON.stringify([
     {
-      id: 52771,
+      id: '52771',
       type: 'comidas',
       area: '',
       category: 'Italian - Vegetarian',
@@ -18,7 +18,7 @@ function ReceitasFeitas() {
       tags: ['Pasta', 'Curry'],
     },
     {
-      id: 178319,
+      id: '178319',
       type: 'bebidas',
       area: '',
       category: 'Alcoholic',

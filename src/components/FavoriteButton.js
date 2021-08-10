@@ -9,7 +9,7 @@ function FavoriteButton({ id, favoriteRecipes, dataTest, reload }) {
 
   useEffect(() => {
     if (localStorage.favoriteRecipes) {
-      const recipesFavorites = JSON.parse(localStorage.favoriteRecipes);
+      const recipesFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
       const recipeFavorite = recipesFavorites.find(({ id: idRecipe }) => id === idRecipe);
 
       if (recipeFavorite) {
