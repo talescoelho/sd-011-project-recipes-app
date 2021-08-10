@@ -1,36 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+// import ButtonFavorite from '../components/ButtonFavorite';
 import ButtonShare from '../components/ButtonShare';
 import Header from '../components/Header';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-// import shareIcon from '../images/shareIcon.svg';
 
-const favoriteRecipes = [{
-  id: '52785',
-  type: 'meal',
-  area: 'Indian',
-  category: 'Vegetarian',
-  alcoholicOrNot: '',
-  name: 'Dal fry',
-  image: 'https://www.themealdb.com/images/media/meals/wuxrtu1483564410.jpg',
-},
-{
-  id: '178319',
-  type: 'drink',
-  area: '',
-  category: 'Cocktail',
-  alcoholicOrNot: 'Alcoholic',
-  name: 'Aquamarine',
-  image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-}];
+// const favoriteRecipes = [{
+//   id: '52785',
+//   type: 'meal',
+//   area: 'Indian',
+//   category: 'Vegetarian',
+//   alcoholicOrNot: '',
+//   name: 'Dal fry',
+//   image: 'https://www.themealdb.com/images/media/meals/wuxrtu1483564410.jpg',
+// },
+// {
+//   id: '178319',
+//   type: 'drink',
+//   area: '',
+//   category: 'Cocktail',
+//   alcoholicOrNot: 'Alcoholic',
+//   name: 'Aquamarine',
+//   image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+// }];
 
 export default function FavoriteRecipes() {
-  // const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [filteredRecipes, setFilteredRecipes] = useState(favoriteRecipes);
   console.log(filteredRecipes);
   const [type, setType] = useState('all');
-  const [favorited, setFavorited] = useState('isFavorited');
 
   useEffect(() => {
     let newFilteredRecipes = [...favoriteRecipes];
@@ -41,11 +39,6 @@ export default function FavoriteRecipes() {
   }, [type]);
 
   const handleChange = (btn) => setType(btn);
-
-  const deleteFavorite = () => {
-    // const favorites = JSON.parse(localStorage.favoriteRecipes);
-    // localStorage.removeItem(favorites);
-  };
 
   return (
     <>
@@ -83,15 +76,6 @@ export default function FavoriteRecipes() {
               { recipe.name }
             </h2>
           </Link>
-          <button type="button">
-            <img
-              src={ isFavorited
-                ? blackHeatIcon
-                : whiteHeartIcon }
-              data-testid={ `${recipe.index}-horizontal-favorite-btn` }
-              alt="icone de favoritar"
-            />
-          </button>
           <ButtonShare />
         </section>
       ))}

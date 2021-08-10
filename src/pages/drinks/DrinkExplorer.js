@@ -4,7 +4,7 @@ import Header from '../../components/Header';
 import { SearchBarProvider } from '../../context/SearchBar';
 import Footer from '../../components/Footer';
 import ByIngredient from '../../components/ByIngredient';
-
+import fetchByFilter from '../../services/data';
 
 export default function DrinkExplorer() {
   const history = useHistory();
