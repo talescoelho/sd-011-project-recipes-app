@@ -1,16 +1,44 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import copy from 'clipboard-copy';
+import { Link } from 'react-router-dom';
 import { Layout } from '../components';
 import { useTheme } from '../hooks';
-import doneRecipes from '../helpers/mocks/RecipeMade';
 import shareIcon from '../images/shareIcon.svg';
 
 function RecipesMade() {
   const { colors } = useTheme();
+  const [handleShareLink, sethanleShareLink] = useState(false);
+  const [filteredCompleteRecipes, setFilteredCompleteRecipes] = useState([]);
+  const storedRecipes = useRef([]);
   const styles = {
     main: {
       backgroundColor: colors.background,
       color: colors.text400,
     },
+  };
+
+  useEffect(() => {
+    try {
+      const getItemFromStored = localStorage.getItem('doneRecipes');
+      storedRecipes.current = getItemFromStored ? JSON.parse(getItemFromStored) : [];
+    } catch (error) {
+      storedRecipes.current = [];
+    }
+    setFilteredCompleteRecipes([...storedRecipes.current]);
+  }, []);
+
+  const handleShareButton = ({ type, id }) => {
+    copy(`http://localhost:3000/${type}s/${id}`);
+    sethanleShareLink(true);
+    const magicNumberTimer = 1000;
+    setTimeout(() => {
+      sethanleShareLink(false);
+    }, magicNumberTimer);
+  };
+
+  const handleClickFilter = ({ target: { value } }) => {
+    setFilteredCompleteRecipes(storedRecipes
+      .current.filter(({ type }) => type.includes(value)));
   };
 
   return (
@@ -19,40 +47,48 @@ function RecipesMade() {
 
         <button
           type="button"
+          value=""
           data-testid="filter-by-all-btn"
+          onClick={ (event) => handleClickFilter(event) }
         >
           All
         </button>
         <button
           type="button"
+          value="comida"
           data-testid="filter-by-food-btn"
+          onClick={ (event) => handleClickFilter(event) }
         >
           Food
         </button>
         <button
           type="button"
+          value="bebida"
           data-testid="filter-by-drink-btn"
+          onClick={ (event) => handleClickFilter(event) }
         >
           Drinks
         </button>
         <ul>
-          {doneRecipes.map((recipes, index) => (
+          {filteredCompleteRecipes.map((recipes, index) => (
             <li key={ recipes.id }>
-              <img
-                alt={ recipes.name }
-                data-testid={ `${index}-horizontal-image` }
-                src={ recipes.image }
-              />
+              <Link to={ `${recipes.type}s/${recipes.id}` }>
+                <img
+                  alt={ recipes.name }
+                  data-testid={ `${index}-horizontal-image` }
+                  src={ recipes.image }
+                />
+                <h2
+                  data-testid={ `${index}-horizontal-name` }
+                >
+                  { recipes.name }
+                </h2>
+              </Link>
               <h3
                 data-testid={ `${index}-horizontal-top-text` }
               >
                 {`${recipes.area || recipes.alcoholicOrNot} - ${recipes.category}` }
               </h3>
-              <h2
-                data-testid={ `${index}-horizontal-name` }
-              >
-                { recipes.name }
-              </h2>
               <h2
                 data-testid={ `${index}-horizontal-done-date` }
               >
@@ -63,7 +99,9 @@ function RecipesMade() {
                 type="image"
                 data-testid={ `${index}-horizontal-share-btn` }
                 src={ shareIcon }
+                onClick={ () => handleShareButton(recipes) }
               />
+              {handleShareLink && <span>Link copiado!</span>}
               {recipes.tags.map((tags, indextags) => (
                 <h3
                   data-testid={ `${index}-${tags}-horizontal-tag` }
