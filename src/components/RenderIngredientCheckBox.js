@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
-import { setCheckBoxCounter } from '../redux/slices/fetchReceitas';
+import { useDispatch } from 'react-redux';
+import { setDisableButton } from '../redux/slices/fetchReceitas';
 
 // Verificar se o id existe no objeto
 
+const searchChecked = () => {
+  const checkboxes = document.querySelectorAll('.checkboxIngredient');
+  let response = true;
+  checkboxes.forEach((ingredient) => {
+    if (!ingredient.checked) response = false;
+  });
+  return response;
+};
+
 function RenderIngredientCheckBox({ index, values, id }) {
-  const { checkBoxCounter } = useSelector((state) => state.fetchReceitas);
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState();
@@ -56,27 +64,9 @@ function RenderIngredientCheckBox({ index, values, id }) {
       [recipeType]: recipeToStorage,
     };
     localStorage.setItem('inProgressRecipes', JSON.stringify(currentProgress));
-    const newCheckedBoxesNumber = !isChecked ? checkBoxCounter + 1 : checkBoxCounter - 1;
-    dispatch(setCheckBoxCounter(newCheckedBoxesNumber));
+    dispatch(setDisableButton(!searchChecked()));
     setIsChecked(!isChecked);
   }
-
-  // Vefiricar o porque do requisito não passar
-  // if (!isChecked) { return (
-  //   <label
-  //     data-testid={ `${index}-ingredient-step` }
-  //     htmlFor={ `${index}ingredients` }
-  //   >
-  //     <input
-  //       name={ `${index}ingredients` }
-  //       type="checkbox"
-  //       key={ index }
-  //       // checked={ isChecked }
-  //       onClick={ handleCheck }
-  //     />
-  //     {values}
-  //   </label>
-  // )}
 
   return (
     <label
@@ -90,7 +80,6 @@ function RenderIngredientCheckBox({ index, values, id }) {
         key={ index }
         defaultChecked={ isChecked }
         onChange={ () => setIsChecked(!isChecked) }
-        // checked={ isChecked }
         onClick={ handleCheck }
       />
       {values}

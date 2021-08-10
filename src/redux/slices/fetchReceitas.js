@@ -76,6 +76,9 @@ const fetchReceitasSlice = createSlice({
     setCheckBoxCounter: (state, action) => {
       state.checkBoxCounter = action.payload;
     },
+    setDisableButton: (state, action) => {
+      state.disabledButton = action.payload;
+    },
   },
   extraReducers: {
     [getRecipes.pending]: (state) => {
@@ -108,6 +111,7 @@ const fetchReceitasSlice = createSlice({
   },
 });
 
-export const { setInput, setCheckBoxCounter } = fetchReceitasSlice.actions;
+export const {
+  setInput, setCheckBoxCounter, setDisableButton } = fetchReceitasSlice.actions;
 
 export default fetchReceitasSlice.reducer;
