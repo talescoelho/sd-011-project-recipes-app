@@ -30,6 +30,9 @@ class ExploreDrinksIngredients extends Component {
               key={ item.strIngredient1 }
               data-testid={ `${index}-ingredient-card` }
               onClick={ () => this.renderDrinkIngredient(item.strIngredient1) }
+            <li
+              key={ item.strIngredient1 }
+              data-testid={ `${index}-ingredient-card` }
             >
               <img
                 src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` }
@@ -40,6 +43,7 @@ class ExploreDrinksIngredients extends Component {
               />
               <p data-testid={ `${index}-card-name` }>{ item.strIngredient1 }</p>
             </button>
+            </li>
           )) }
         </ul>
         <Footer />
