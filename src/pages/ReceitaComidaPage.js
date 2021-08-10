@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import { Carousel } from 'react-responsive-carousel';
 import ShareFavBtn from '../components/ShareFavBtn';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
+// import '../style/pageDetails.css';
 
 export default function ReceitaComidaPage(props) {
   const [foodDetails, setFoodDetails] = useState();
-  const [foodIngredients, setFoodIngredients] = useState();
   const [recomendations, setRecomendations] = useState();
   const location = useLocation();
   const FOOD_DETAILS_URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
@@ -18,22 +21,18 @@ export default function ReceitaComidaPage(props) {
       .then((data) => setFoodDetails(data));
   }, []);
 
-  function ingredientsDetailsRender() {
-    const array = [];
-    const level1 = Object.values(foodDetails);
-    const level2 = Object.values(level1[0]);
-    Object.keys(level2[0]).forEach((key) => {
-      array.push(`${key}: ${level2[0][key]}`);
-    });
-    const test2 = array.filter((item) => item.includes('strIngredient'));
-    const test3 = test2.map((item) => item.split(': ')[1]);
-    const test4 = test3.filter((item) => item !== 'null');
-    return setFoodIngredients(test4);
-  }
-
-  useEffect(() => {
-    if (foodDetails) { return ingredientsDetailsRender(); }
-  }, [foodDetails]);
+  const ingMax = 15;
+  const ingredientsKeys = foodDetails && (
+    Object.keys(foodDetails.meals[0]).filter((key) => key.includes('ngredient')));
+  const measureKeys = foodDetails && (
+    Object.keys(foodDetails.meals[0]).filter((key) => key.includes('easure')));
+  const ingredientMap = ingredientsKeys && ingredientsKeys
+    .filter((value) => foodDetails.meals[0][value])
+    .map((ing, i) => (
+      `- ${foodDetails.meals[0][ing]} - ${foodDetails.meals[0][measureKeys[i]]}`
+    )).slice(0, ingMax);
+  const ingredientFilter = ingredientMap && ingredientMap
+    .filter((value) => value !== 'null-null' && value !== '-');
 
   useEffect(() => {
     fetch(RECOMENDATIONS_URL)
@@ -47,19 +46,21 @@ export default function ReceitaComidaPage(props) {
       recomendations.drinks.map((recipe, index) => {
         if (index < maxLength) {
           return (
-            <div
-              key={ recipe.strDrink }
-              data-testid={ `${index}-recomendation-card` }
-            >
-              <img
-                src={ recipe.strDrinkThumb }
-                alt={ recipe.strDrink }
-                height="100px"
-                width="100px"
-                data-testid="recipe-photo"
-              />
-              <h5>{ recipe.strDrink }</h5>
-            </div>
+            <Carousel>
+              <div
+                key={ recipe.strDrink }
+                data-testid={ `${index}-recomendation-card` }
+              >
+                <img
+                  src={ recipe.strDrinkThumb }
+                  alt={ recipe.strDrink }
+                  height="180px"
+                  width="180px"
+                  data-testid="recipe-photo"
+                />
+                <p className="legend">{ recipe.strDrink }</p>
+              </div>
+            </Carousel>
           );
         }
         return null;
@@ -83,7 +84,7 @@ export default function ReceitaComidaPage(props) {
         <div>
           <h3>Ingredients</h3>
           <ul>
-            { foodIngredients ? foodIngredients.map((item, index) => (
+            { ingredientFilter ? ingredientFilter.map((item, index) => (
               <p
                 key={ index }
                 data-testid={ `${index}-ingredient-name-and-measure` }
@@ -98,19 +99,16 @@ export default function ReceitaComidaPage(props) {
             { foodDetails.meals[0].strInstructions }
           </p>
         </div>
-        <iframe
-          src="https://www.youtube.com/embed/DsFpGUXpZVU"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; gyroscope; picture-in-picture"
-          allowFullScreen
+        <object
+          src={ foodDetails.meals[0].strYoutube }
           data-testid="video"
+          aria-label="meal-video"
+          width="400"
+          height="300"
         />
+        <h3>Receitas recomendadas</h3>
         <div>
-          <h3>Receitas recomendadas</h3>
-          <ul>
-            { recomendations ? renderRecomendation() : <p>Loading...</p> }
-          </ul>
+          { recomendations ? renderRecomendation() : <p>Loading...</p> }
         </div>
         <Button data-testid="start-recipe-btn">
           Iniciar Receita

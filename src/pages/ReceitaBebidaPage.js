@@ -5,7 +5,6 @@ import ShareFavBtn from '../components/ShareFavBtn';
 
 export default function ReceitaBebidaPage(props) {
   const [drinkDetails, setDrinkDetails] = useState();
-  const [drinkIngredients, setDrinkIngredients] = useState();
   const [recomendations, setRecomendations] = useState();
   const location = useLocation();
   const DRINK_DETAILS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
@@ -18,22 +17,18 @@ export default function ReceitaBebidaPage(props) {
       .then((data) => setDrinkDetails(data));
   }, []);
 
-  function ingredientsDetailsRender() {
-    const array = [];
-    const level1 = Object.values(drinkDetails);
-    const level2 = Object.values(level1[0]);
-    Object.keys(level2[0]).forEach((key) => {
-      array.push(`${key}: ${level2[0][key]}`);
-    });
-    const test2 = array.filter((item) => item.includes('strIngredient'));
-    const test3 = test2.map((item) => item.split(': ')[1]);
-    const test4 = test3.filter((item) => item !== 'null');
-    return setDrinkIngredients(test4);
-  }
-
-  useEffect(() => {
-    if (drinkDetails) { return ingredientsDetailsRender(); }
-  }, [drinkDetails]);
+  const ingMax = 15;
+  const ingredientsKeys = drinkDetails && (
+    Object.keys(drinkDetails.drinks[0]).filter((key) => key.includes('ngredient')));
+  const measureKeys = drinkDetails && (
+    Object.keys(drinkDetails.drinks[0]).filter((key) => key.includes('easure')));
+  const ingredientMap = ingredientsKeys && ingredientsKeys
+    .filter((value) => drinkDetails.drinks[0][value])
+    .map((ing, i) => (
+      `- ${drinkDetails.drinks[0][ing]} - ${drinkDetails.drinks[0][measureKeys[i]]}`
+    )).slice(0, ingMax);
+  const ingredientFilter = ingredientMap && ingredientMap
+    .filter((value) => value !== 'null-null' && value !== '-');
 
   useEffect(() => {
     fetch(RECOMENDATIONS_URL)
@@ -42,7 +37,6 @@ export default function ReceitaBebidaPage(props) {
   }, []);
 
   function renderRecomendation() {
-    console.log(recomendations);
     const maxLength = 6;
     return (
       recomendations.meals.map((recipe, index) => {
@@ -85,7 +79,7 @@ export default function ReceitaBebidaPage(props) {
         <div>
           <h3>Ingredients</h3>
           <ul>
-            { drinkIngredients ? drinkIngredients.map((item, index) => (
+            { ingredientFilter ? ingredientFilter.map((item, index) => (
               <p
                 key={ index }
                 data-testid={ `${index}-ingredient-name-and-measure` }
@@ -100,14 +94,6 @@ export default function ReceitaBebidaPage(props) {
             { drinkDetails.drinks[0].strInstructions }
           </p>
         </div>
-        <iframe
-          src="https://www.youtube.com/embed/DsFpGUXpZVU"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; gyroscope; picture-in-picture"
-          allowFullScreen
-          data-testid="video"
-        />
         <div>
           <h3>Receitas recomendadas</h3>
           <ul>
