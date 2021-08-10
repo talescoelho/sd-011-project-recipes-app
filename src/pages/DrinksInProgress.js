@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import { fetchDrinkDetailsFromCocktailsDB,
   fetchRecommendedMealsFromMealsDB } from '../services';
-import { setFavoriteMealInLocalStorage } from '../helpers';
+import { setFavoriteDrinkInLocalStorage } from '../helpers';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeatIcon from '../images/blackHeartIcon.svg';
@@ -31,15 +31,16 @@ function DrinkInProgress(props) {
   const isDisabled = Object.values(isIngridientUsed)
     .every((ingredient) => ingredient === true);
 
-  const urlLengthToGetId = 30;
-  const restOfUrl = 35;
-  const drinkId = window.location.href.slice(urlLengthToGetId, restOfUrl);
+  // const urlLengthToGetId = 30;
+  // const restOfUrl = 36;
+  // const drinkId = window.location.href.slice(urlLengthToGetId, restOfUrl);
+
+  const { match: { params: { id } } } = props;
 
   async function fetchMealAndDrinkDataFromAPI() {
-    const drinkDetails = await fetchDrinkDetailsFromCocktailsDB(drinkId);
+    const drinkDetails = await fetchDrinkDetailsFromCocktailsDB(id);
     const recommendedMeals = await fetchRecommendedMealsFromMealsDB();
     setDataTomanipulate(...drinkDetails);
-    console.log(drinkDetails);
     setMeals(recommendedMeals);
   }
 
@@ -48,14 +49,14 @@ function DrinkInProgress(props) {
     const getInProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const getFavoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (getDoneRecipes) {
-      const isRecipeDone = getDoneRecipes.some((recipe) => recipe.id === drinkId);
+      const isRecipeDone = getDoneRecipes.some((recipe) => recipe.id === id);
       setStatusControl({
         ...statusControl,
         isVisible: !isRecipeDone,
       });
     }
     if (getInProgressRecipes) {
-      const isRecipeInProgress = Boolean(getInProgressRecipes.cocktails[drinkId]);
+      const isRecipeInProgress = Boolean(getInProgressRecipes.cocktails[id]);
       setStatusControl({
         ...statusControl,
         isInProgress: isRecipeInProgress,
@@ -63,7 +64,7 @@ function DrinkInProgress(props) {
     }
     if (getFavoriteRecipes) {
       const isRecipeFavorited = getFavoriteRecipes
-        .some((recipe) => recipe.id === drinkId);
+        .some((recipe) => recipe.id === id);
       setStatusControl({
         ...statusControl,
         isFavorited: isRecipeFavorited,
@@ -72,14 +73,14 @@ function DrinkInProgress(props) {
   }
 
   function handleFinishRecipeClick() {
-    handleSaveDrinkRecipeInLocalStorage(dataToManipulate, drinkId);
+    handleSaveDrinkRecipeInLocalStorage(dataToManipulate, id);
     const { history } = props;
     history.push('/receitas-feitas');
   }
 
   function handleShareButtonClick() {
-    const recipeURLLength = 35;
-    copy(window.location.href.slice(0, recipeURLLength));
+    const recipeIdURL = window.location.pathname.match(/\d+/g)[0];
+    copy(`http://localhost:3000/bebidas/${recipeIdURL}`);
     setStatusControl({
       ...statusControl,
       isLinkCopied: true,
@@ -91,7 +92,7 @@ function DrinkInProgress(props) {
       ...statusControl,
       isFavorited: !isFavorited,
     });
-    setFavoriteMealInLocalStorage(dataToManipulate);
+    setFavoriteDrinkInLocalStorage(dataToManipulate);
   }
 
   const iconsRender = () => (
@@ -160,6 +161,9 @@ function DrinkInProgress(props) {
 DrinkInProgress.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string }) }).isRequired,
 };
 
 export default withRouter(DrinkInProgress);

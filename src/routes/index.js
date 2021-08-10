@@ -28,7 +28,11 @@ export default function Routes() {
       <Route exact path="/comidas/:id" component={ MealsDetailPage } />
       <Route exact path="/comidas/:id/in-progress" component={ MealInProgress } />
       <Route exact path="/bebidas/:id" component={ DrinkDetails } />
-      <Route exact path="/bebidas/:id/in-progress" component={ DrinksInProgress } />
+      <Route
+        exact
+        path="/bebidas/:id/in-progress"
+        render={ (props) => <DrinksInProgress { ...props } /> }
+      />
       <Route exact path="/explorar/comidas" component={ ExploreMeals } />
       <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
       <Route
