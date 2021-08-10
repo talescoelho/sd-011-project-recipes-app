@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchFoodCategory, fetchFoodList } from '../redux/actions/foodActions';
+import { fetchFoodCategory, fetchFoodList,
+  fetchFoodIngredientList, renderFoodIngredient } from '../redux/actions/foodActions';
 import { FoodCard, FoodCategories, Header, Footer } from '../components';
 
 class Foods extends Component {
   componentDidMount() {
-    const { actionFetchFoodList, actionFetchCategories } = this.props;
-    actionFetchFoodList('');
+    const { actionFetchFoodList, actionFetchCategories,
+      ingredientQuery, actionFetchIngredientFoodList,
+      actionFoodIngredient } = this.props;
+    if (ingredientQuery === '') {
+      actionFetchFoodList('');
+    } else {
+      actionFetchIngredientFoodList(ingredientQuery);
+      actionFoodIngredient('');
+    }
     actionFetchCategories('list');
   }
 
@@ -29,11 +37,16 @@ class Foods extends Component {
 
 const mapStateToProps = (state) => ({
   foodCardsList: state.foodReducer.foodCardsList,
+  ingredientQuery: state.foodReducer.ingredientFoodQuery,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   actionFetchFoodList: (name) => dispatch(fetchFoodList(name)),
   actionFetchCategories: (category) => dispatch(fetchFoodCategory(category)),
+  actionFetchIngredientFoodList: (ingredient) => {
+    dispatch(fetchFoodIngredientList(ingredient));
+  },
+  actionFoodIngredient: (ingredient) => dispatch(renderFoodIngredient(ingredient)),
 });
 
 Foods.propTypes = {

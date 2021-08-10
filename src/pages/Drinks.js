@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchDrinkCategory, fetchDrinkList } from '../redux/actions/drinkActions';
+import { fetchDrinkCategory, fetchDrinkList,
+  fetchDrinkIngredientList, renderDrinkIngredient } from '../redux/actions/drinkActions';
 import { DrinkCards, DrinkCategories, Header, Footer } from '../components';
 
 class Drinks extends Component {
   componentDidMount() {
-    const { actionFetchDrinkList, actionFetchCategories } = this.props;
-    actionFetchDrinkList('');
+    const { actionFetchDrinkList, actionFetchCategories,
+      actionFetchIngredientDrinkList, ingredientDrinkQuery,
+      actionDrinkIngredient } = this.props;
+    if (ingredientDrinkQuery === '') {
+      actionFetchDrinkList('');
+    } else {
+      actionFetchIngredientDrinkList(ingredientDrinkQuery);
+      actionDrinkIngredient('');
+    }
     actionFetchCategories('list');
   }
 
@@ -25,11 +33,16 @@ class Drinks extends Component {
 
 const mapStateToProps = (state) => ({
   drinkCardsList: state.drinkReducer.drinkCardsList,
+  ingredientDrinkQuery: state.drinkReducer.ingredientDrinkQuery,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   actionFetchDrinkList: (name) => dispatch(fetchDrinkList(name)),
   actionFetchCategories: (category) => dispatch(fetchDrinkCategory(category)),
+  actionFetchIngredientDrinkList: (ingredient) => {
+    dispatch(fetchDrinkIngredientList(ingredient));
+  },
+  actionDrinkIngredient: (ingredient) => dispatch(renderDrinkIngredient(ingredient)),
 });
 
 Drinks.propTypes = {

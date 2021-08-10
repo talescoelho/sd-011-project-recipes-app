@@ -2,6 +2,7 @@ import { FOOD_LIST_SUCCESS, FOOD_CATEGORY_SUCCESS,
   FOOD_LIST_CATEGORY_SUCCESS, UPDATE_CATEGORY,
   FOOD_DETAILS_ID_SUCCESS, DRINK_RECOMENDATIONS_SUCCESS,
   FOOD_INGREDIENTS, FOOD_AREA, SAVE_FAVORITES,
+  RENDER_FOOD_INGREDIENTS,
 } from '../actions/foodActions';
 
 const INITIAL_STATE = {
@@ -13,6 +14,7 @@ const INITIAL_STATE = {
   foodIngredients: [],
   foodArea: [],
   favorites: [],
+  ingredientFoodQuery: '',
 };
 
 const CARD_LENGTH = 12;
@@ -53,6 +55,10 @@ function foodReducer(state = INITIAL_STATE, action) {
   case SAVE_FAVORITES:
     return { ...state,
       favorites: action.payload };
+  case RENDER_FOOD_INGREDIENTS:
+    return { ...state,
+      ingredientFoodQuery: action.payload,
+    };
   default:
     return state;
   }
