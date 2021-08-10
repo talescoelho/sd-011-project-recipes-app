@@ -16,14 +16,16 @@ import drinksFilterByOtherUnknown from '../mocks/drinks/mockFilterByOtherUnknown
 import drinksFilterByCocoa from '../mocks/drinks/mockFilterByCocoa';
 
 const maxDefaultCards = 12;
+const cardTestId = '-recipe-card';
+const titleTestId = '-card-name';
 
 afterEach(() => jest.clearAllMocks());
 beforeEach(() => jest.clearAllMocks());
 
-describe(`28 - Implemente o filtro das receitas através da API ao clicar no filtro de 
-  categoria`, () => {
-  it(`Caso as receitas sejam de comida e a categoria seja "Beef", deve-se carregar as 
-    12 primeiras receitas de "Beef"`, async () => {
+describe(`28 - Implement the recipe filter through the API by clicking on the category 
+filter`, () => {
+  it(`If the recipes are for food and the category is "Beef", you must load the first 
+  12 recipes of Beef`, async () => {
     renderWithRouterAndStore(<Foods />, '/comidas');
     const mockFilterMealByBeef = mockFilterMealByCategory(mealsFilterByBeef);
 
@@ -39,11 +41,11 @@ describe(`28 - Implemente o filtro das receitas através da API ao clicar no fil
     expect(cards.length).not.toBe(maxDefaultCards + 1);
 
     const { meals } = mealsFilterByBeef;
-    await testMealsRecipeCard(meals, maxDefaultCards);
+    await testMealsRecipeCard(meals, maxDefaultCards, cardTestId, titleTestId);
   });
 
-  it(`Caso as receitas sejam de comida e a categoria seja "Breakfast", deve-se 
-  carregar as 12 primeiras receitas de "Breakfast"`, async () => {
+  it(`If the recipes are for food and the category is "Breakfast", you must load the 
+  first 12 recipes of Breakfast`, async () => {
     renderWithRouterAndStore(<Foods />, '/comidas');
     const mockFilterMealByBreakfast = mockFilterMealByCategory(mealsFilterByBreakfast);
 
@@ -61,11 +63,11 @@ describe(`28 - Implemente o filtro das receitas através da API ao clicar no fil
     expect(cards.length).not.toBe(maxBreakfastCards + 1);
 
     const { meals } = mealsFilterByBreakfast;
-    await testMealsRecipeCard(meals, maxBreakfastCards);
+    await testMealsRecipeCard(meals, maxBreakfastCards, cardTestId, titleTestId);
   });
 
-  it(`Caso as receitas sejam de comida e a categoria seja "Chicken", deve-se carregar as 
-  12 primeiras receitas de "Chicken"`, async () => {
+  it(`If the recipes are for food and the category is "Chicken", you must load the first 
+  12 recipes of Chicken`, async () => {
     renderWithRouterAndStore(<Foods />, '/comidas');
     const mockFilterMealByChicken = mockFilterMealByCategory(mealsFilterByChicken);
 
@@ -81,11 +83,11 @@ describe(`28 - Implemente o filtro das receitas através da API ao clicar no fil
     expect(cards.length).not.toBe(maxDefaultCards + 1);
 
     const { meals } = mealsFilterByChicken;
-    await testMealsRecipeCard(meals, maxDefaultCards);
+    await testMealsRecipeCard(meals, maxDefaultCards, cardTestId, titleTestId);
   });
 
-  it(`Caso as receitas sejam de comida e a categoria seja "Dessert", deve-se carregar as 
-  12 primeiras receitas de "Dessert"`, async () => {
+  it(`If the recipes are for food and the category is "Dessert", you must load the first 
+  12 recipes of Dessert`, async () => {
     renderWithRouterAndStore(<Foods />, '/comidas');
     const mockFilterMealByDessert = mockFilterMealByCategory(mealsFilterByDessert);
 
@@ -101,11 +103,11 @@ describe(`28 - Implemente o filtro das receitas através da API ao clicar no fil
     expect(cards.length).not.toBe(maxDefaultCards + 1);
 
     const { meals } = mealsFilterByDessert;
-    await testMealsRecipeCard(meals, maxDefaultCards);
+    await testMealsRecipeCard(meals, maxDefaultCards, cardTestId, titleTestId);
   });
 
-  it(`Caso as receitas sejam de comida e a categoria seja "Goat", deve-se carregar as 
-  12 primeiras receitas de "Goat"`, async () => {
+  it(`If the recipes are for food and the category is "Goat", you must load the first 12 
+  recipes of Goat`, async () => {
     renderWithRouterAndStore(<Foods />, '/comidas');
     const mockFilterMealByGoat = mockFilterMealByCategory(mealsFilterByGoat);
 
@@ -121,11 +123,11 @@ describe(`28 - Implemente o filtro das receitas através da API ao clicar no fil
     expect(cards.length).not.toBe(1 + 1);
 
     const { meals } = mealsFilterByGoat;
-    await testMealsRecipeCard(meals, 1);
+    await testMealsRecipeCard(meals, 1, cardTestId, titleTestId);
   });
 
-  it(`Caso as receitas sejam de bebidas e a categoria seja "Ordinary Drink", deve-se 
-  carregar as  12 primeiras receitas de "Ordinary Drink"`, async () => {
+  it(`If the recipes are for drinks and the category is "Ordinary Drink", you must load 
+  the first 12 recipes of Ordinary Drink`, async () => {
     renderWithRouterAndStore(<Drinks />, '/bebidas');
     const mockFilterDrinkByOrdinaryDrink = mockFilterDrinkByCategory(
       drinksFilterByOrdinaryDrink,
@@ -144,11 +146,11 @@ describe(`28 - Implemente o filtro das receitas através da API ao clicar no fil
     expect(cards.length).not.toBe(maxDefaultCards + 1);
 
     const { drinks } = drinksFilterByOrdinaryDrink;
-    await testDrinksRecipeCard(drinks, maxDefaultCards);
+    await testDrinksRecipeCard(drinks, maxDefaultCards, cardTestId, titleTestId);
   });
 
-  it(`Caso as receitas sejam de bebidas e a categoria seja "Cocktail", deve-se 
-  carregar as  12 primeiras receitas de "Cocktail"`, async () => {
+  it(`If the recipes are for drinks and the category is "Cocktail", the first 12 
+  Cocktail recipes must be loaded`, async () => {
     renderWithRouterAndStore(<Drinks />, '/bebidas');
     const mockFilterDrinkByCocktail = mockFilterDrinkByCategory(
       drinksFilterByCocktail,
@@ -167,11 +169,11 @@ describe(`28 - Implemente o filtro das receitas através da API ao clicar no fil
     expect(cards.length).not.toBe(maxDefaultCards + 1);
 
     const { drinks } = drinksFilterByCocktail;
-    await testDrinksRecipeCard(drinks, maxDefaultCards);
+    await testDrinksRecipeCard(drinks, maxDefaultCards, cardTestId, titleTestId);
   });
 
-  it(`Caso as receitas sejam de bebidas e a categoria seja "Milk/Float/Shake", deve-se 
-  carregar as  12 primeiras receitas de "Milk/Float/Shake"`, async () => {
+  it(`If the recipes are for drinks and the category is "Milk/Float/Shake", you must 
+  load the first 12 recipes of Milk/Float/Shake`, async () => {
     renderWithRouterAndStore(<Drinks />, '/bebidas');
     const mockFilterDrinkByMilkFloatShake = mockFilterDrinkByCategory(
       drinksFilterByMilkFloatShake,
@@ -190,11 +192,11 @@ describe(`28 - Implemente o filtro das receitas através da API ao clicar no fil
     expect(cards.length).not.toBe(maxDefaultCards + 1);
 
     const { drinks } = drinksFilterByMilkFloatShake;
-    await testDrinksRecipeCard(drinks, maxDefaultCards);
+    await testDrinksRecipeCard(drinks, maxDefaultCards, cardTestId, titleTestId);
   });
 
-  it(`Caso as receitas sejam de bebidas e a categoria seja "Other/Unknown", deve-se 
-  carregar as  12 primeiras receitas de "Other/Unknown"`, async () => {
+  it(`If the recipes are for drinks and the category is "Other/Unknown", the first 12 
+  recipes of Other/Unknown must be loaded`, async () => {
     renderWithRouterAndStore(<Drinks />, '/bebidas');
     const mockFilterDrinkByOtherUnknown = mockFilterDrinkByCategory(
       drinksFilterByOtherUnknown,
@@ -213,11 +215,11 @@ describe(`28 - Implemente o filtro das receitas através da API ao clicar no fil
     expect(cards.length).not.toBe(maxDefaultCards + 1);
 
     const { drinks } = drinksFilterByOtherUnknown;
-    await testDrinksRecipeCard(drinks, maxDefaultCards);
+    await testDrinksRecipeCard(drinks, maxDefaultCards, cardTestId, titleTestId);
   });
 
-  it(`Caso as receitas sejam de bebidas e a categoria seja "Cocoa", deve-se 
-  carregar as  12 primeiras receitas de "Cocoa"`, async () => {
+  it(`If the recipes are for drinks and the category is "Cocoa", you must load the first 
+  12 recipes of Cocoa`, async () => {
     renderWithRouterAndStore(<Drinks />, '/bebidas');
     const mockFilterDrinkByCocoa = mockFilterDrinkByCategory(
       drinksFilterByCocoa,
@@ -236,6 +238,6 @@ describe(`28 - Implemente o filtro das receitas através da API ao clicar no fil
     expect(cards.length).not.toBe(maxCocoaCards + 1);
 
     const { drinks } = drinksFilterByCocoa;
-    await testDrinksRecipeCard(drinks, maxCocoaCards);
+    await testDrinksRecipeCard(drinks, maxCocoaCards, cardTestId, titleTestId);
   });
 });

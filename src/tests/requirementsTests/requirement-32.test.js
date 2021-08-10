@@ -17,21 +17,21 @@ jest
 afterEach(() => jest.clearAllMocks());
 beforeEach(() => jest.clearAllMocks());
 
-describe(`32 - Redirecione a pessoa usuária, ao clicar no card, para a tela de detalhes, 
-que deve mudar a rota e conter o id da receita na URL`, () => {
-  it(`Caso as receitas sejam de comida a rota deve mudar para a tela de detalhes da 
-  receita`, async () => {
-    const { history } = renderWithRouterAndStore(<Foods />, '/comidas');
+describe(`32 - Redirect the user, by clicking on the card, to the details screen, which 
+should change the route and contain the recipe id in the URL`, () => {
+  it('If the recipes are for food, the route should change to the recipe details screen',
+    async () => {
+      const { history } = renderWithRouterAndStore(<Foods />, '/comidas');
 
-    const firstFoodCard = await screen.findByTestId('0-recipe-card');
-    fireEvent.click(firstFoodCard);
+      const firstFoodCard = await screen.findByTestId('0-recipe-card');
+      fireEvent.click(firstFoodCard);
 
-    const { location: { pathname } } = history;
-    expect(pathname).toBe('/comidas/52977');
-  });
+      const { location: { pathname } } = history;
+      expect(pathname).toBe('/comidas/52977');
+    });
 
-  it(`Caso as receitas sejam de bebida a rota deve mudar para a tela de detalhes da 
-  receita`, async () => {
+  it(`If the recipes are for drinks, the route should change to the recipe details 
+  screen`, async () => {
     const { history } = renderWithRouterAndStore(<Drinks />, '/bebidas');
 
     const firstDrinkCard = await screen.findByTestId('0-recipe-card');

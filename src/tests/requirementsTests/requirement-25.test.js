@@ -10,6 +10,8 @@ import mealsFiltersByAll from '../mocks/meals/mockFilterMealsByAll';
 import drinksFiltersByAll from '../mocks/drinks/mockFilterDrinksByAll';
 
 const maxDefaultCards = 12;
+const cardTestId = '-recipe-card';
+const titleTestId = '-card-name';
 
 const mockedSearchMealByName = jest
   .spyOn(requestMenu, 'searchMealByName')
@@ -30,9 +32,9 @@ const mockedRequestAllDrinksCategories = jest
 afterEach(() => jest.clearAllMocks());
 beforeEach(() => jest.clearAllMocks());
 
-describe(`25 - Implemente os elementos da tela principal de receitas respeitando os 
-atributos descritos no protótipo`, () => {
-  it('A tela tem os data-testids de todos os 12 cards da tela de comidas', async () => {
+describe(`25 - Implement the elements of the main recipe screen respecting the 
+attributes described in the prototype`, () => {
+  it('The screen has the data-testids of all 12 cards from the food screen', async () => {
     renderWithRouterAndStore(<Foods />, '/comidas');
 
     expect(mockedSearchMealByName).toBeCalled();
@@ -41,14 +43,14 @@ atributos descritos no protótipo`, () => {
     expect(mockedRequestAllMealCategories).toBeCalledTimes(1);
 
     const { meals } = mealsFiltersByAll;
-    await testMealsRecipeCard(meals, maxDefaultCards);
+    await testMealsRecipeCard(meals, maxDefaultCards, cardTestId, titleTestId);
 
     expect(screen.queryByTestId('12-recipe-card')).toBeNull();
     expect(screen.queryByTestId('12-recipe-img')).toBeNull();
     expect(screen.queryByTestId('12-recipe-name')).toBeNull();
   });
 
-  it('A tela tem os data-testids de todos os 12 cards da tela de bebida', async () => {
+  it('The screen has the data-testids of all 12 drink screen cards', async () => {
     renderWithRouterAndStore(<Drinks />, '/bebidas');
     expect(mockedSearchDrinkByName).toBeCalled();
     expect(mockedSearchDrinkByName).toBeCalledTimes(1);
@@ -56,7 +58,7 @@ atributos descritos no protótipo`, () => {
     expect(mockedRequestAllDrinksCategories).toBeCalledTimes(1);
 
     const { drinks } = drinksFiltersByAll;
-    await testDrinksRecipeCard(drinks, maxDefaultCards);
+    await testDrinksRecipeCard(drinks, maxDefaultCards, cardTestId, titleTestId);
 
     expect(screen.queryByTestId('12-recipe-card')).toBeNull();
     expect(screen.queryByTestId('12-recipe-img')).toBeNull();

@@ -11,6 +11,8 @@ import drinksFilterByOrdinaryDrink from '../mocks/drinks/mockFilterByOrdinaryDri
 import * as requestMenu from '../../services/requestMenu';
 
 const maxDefaultCards = 12;
+const cardTestId = '-recipe-card';
+const titleTestId = '-card-name';
 
 jest
   .spyOn(requestMenu, 'searchMealByName')
@@ -23,10 +25,10 @@ jest
 afterEach(() => jest.clearAllMocks());
 beforeEach(() => jest.clearAllMocks());
 
-describe(`29 - Implemente o filtro como um toggle, que se for selecionado de novo, o app 
-deve retornar as receitas sem nenhum filtro`, () => {
-  it(`Caso as receitas sejam de comida e o filtro tenha sido selecionado novamente, 
-  deve-se retornar as 12 primeiras receitas sem filtro`, async () => {
+describe(`29 - Implement the filter as a toggle, if selected again, the app should 
+return recipes without any filter`, () => {
+  it(`If the recipes are for food and the filter has been selected again, the first 12 
+  recipes without filter must be returned`, async () => {
     renderWithRouterAndStore(<Foods />, '/comidas');
     mockFilterMealByCategory(mealsFilterByBeef);
 
@@ -35,11 +37,11 @@ deve retornar as receitas sem nenhum filtro`, () => {
     fireEvent.click(beefFilterOption);
 
     const { meals } = mealsFiltersByAll;
-    await testMealsRecipeCard(meals, maxDefaultCards);
+    await testMealsRecipeCard(meals, maxDefaultCards, cardTestId, titleTestId);
   });
 
-  it(`Caso as receitas sejam de bebidas e o filtro tenha sido selecionado novamente, 
-  deve-se retornar as 12 primeiras receitas sem filtro`, async () => {
+  it(`If the recipes are for drinks and the filter has been selected again, the first 12 
+  recipes without filter must be returned`, async () => {
     renderWithRouterAndStore(<Drinks />, '/bebidas');
     mockFilterDrinkByCategory(drinksFilterByOrdinaryDrink);
 
@@ -50,6 +52,6 @@ deve retornar as receitas sem nenhum filtro`, () => {
     fireEvent.click(ordinaryDrinkFilterOption);
 
     const { drinks } = drinksFiltersByAll;
-    await testDrinksRecipeCard(drinks, maxDefaultCards);
+    await testDrinksRecipeCard(drinks, maxDefaultCards, cardTestId, titleTestId);
   });
 });

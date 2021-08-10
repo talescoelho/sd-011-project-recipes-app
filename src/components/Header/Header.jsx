@@ -41,60 +41,66 @@ const Header = ({
               </button>) : null
         }
       </header>
-      <span className="field-style">
-        <label htmlFor="radio-buttons-label">
-          <label htmlFor="label-ingredient-radio">
-            Ingrediente
-            <input
-              type="radio"
-              data-testid="ingredient-search-radio"
-              name="ingredient"
-              value="ingrediente"
-              onClick={ radioOption }
-            />
-          </label>
+      {
+        (showSearchBtn)
+          ? (
+            <span className="field-style">
+              <label htmlFor="radio-buttons-label">
+                <label htmlFor="label-ingredient-radio">
+                  Ingrediente
+                  <input
+                    type="radio"
+                    data-testid="ingredient-search-radio"
+                    name="ingredient"
+                    value="ingrediente"
+                    onClick={ radioOption }
+                  />
+                </label>
 
-          <label htmlFor="label-name-radio">
-            Nome
-            <input
-              type="radio"
-              data-testid="name-search-radio"
-              name="ingredient"
-              value="name"
-              onClick={ radioOption }
-            />
-          </label>
+                <label htmlFor="label-name-radio">
+                  Nome
+                  <input
+                    type="radio"
+                    data-testid="name-search-radio"
+                    name="ingredient"
+                    value="name"
+                    onClick={ radioOption }
+                  />
+                </label>
 
-          <label htmlFor="label-first-letter-radio">
-            Primeira letra
-            <input
-              type="radio"
-              data-testid="first-letter-search-radio"
-              name="ingredient"
-              value="first-letter"
-              onClick={ radioOption }
-            />
-          </label>
-          <button
-            type="button"
-            data-testid="exec-search-btn"
-            onClick={ sendRadioInfo }
-          >
-            Buscar
-          </button>
-        </label>
-        {
-          showField
-            ? (
-              <input
-                type="text"
-                data-testid="search-input"
-                onChange={ typedIngredient }
-              />
-            )
-            : null
-        }
-      </span>
+                <label htmlFor="label-first-letter-radio">
+                  Primeira letra
+                  <input
+                    type="radio"
+                    data-testid="first-letter-search-radio"
+                    name="ingredient"
+                    value="first-letter"
+                    onClick={ radioOption }
+                  />
+                </label>
+                <button
+                  type="button"
+                  data-testid="exec-search-btn"
+                  onClick={ sendRadioInfo }
+                >
+                  Buscar
+                </button>
+              </label>
+              {
+                showField
+                  ? (
+                    <input
+                      type="text"
+                      data-testid="search-input"
+                      onChange={ typedIngredient }
+                    />
+                  )
+                  : null
+              }
+            </span>
+          )
+          : null
+      }
     </>
   );
 };
