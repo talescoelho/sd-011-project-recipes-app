@@ -18,7 +18,6 @@ function IngredientDetails({ inProcess }) {
     .filter((el) => idDetails[0][el])
     .map((ing, index) => `${idDetails[0][ing]} - ${idDetails[0][measure[index]]}`);
 
-
   return (
     <>
       <h3>Ingredients</h3>
