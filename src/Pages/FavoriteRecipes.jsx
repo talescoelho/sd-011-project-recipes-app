@@ -32,12 +32,11 @@ function FavoriteRecipes() {
               <SecondFavoriteButton
                 itemId={ id }
                 type={ type }
-                testID={ `${index}-horizontal-share-btn` }
+                testId={ `${index}-horizontal-favorite-btn` }
                 currentItem={ favoriteRecipes[index] }
                 setUpdate={ setUpdate }
                 update={ update }
               />
-              <p data-testid={ `${index}-horizontal-favorite-btn` }>Botão favoritar</p>
               <SecondShareButton itemId={ id } type={ type } testID={ `${index}-horizontal-share-btn` } />
             </div>
 

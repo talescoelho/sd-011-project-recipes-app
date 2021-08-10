@@ -4,7 +4,7 @@ import { verifyFavoritesDrink,
 import blackHeartIcon from '../../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../../images/whiteHeartIcon.svg';
 
-function SecondFavoriteButton({ itemId, type, currentItem, setUpdate, update }) {
+function SecondFavoriteButton({ itemId, type, currentItem, setUpdate, update, testId }) {
   const [isFavorite, setIsFavorite] = useState(false);
 
   function verifyIfIsFavorite() {
@@ -37,7 +37,7 @@ function SecondFavoriteButton({ itemId, type, currentItem, setUpdate, update }) 
   return (
     <button type="button" onClick={ () => toggleFavorite() }>
       <img
-        data-testid="favorite-btn"
+        data-testid={ testId }
         src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
         alt="Botão de receita favorita"
       />
