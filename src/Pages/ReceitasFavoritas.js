@@ -1,11 +1,59 @@
 import React from 'react';
 import Header from '../components/Header';
+import FavoriteRecipeCard from '../components/FavoriteRecipeCard';
 
 function ReceitasFavoritas() {
+  const favoritedRecipesList = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+  const [favoriteList, setFavoriteList] = React.useState(favoritedRecipesList);
+
+  function filterOnlyMeal() {
+    const onlyMealList = favoritedRecipesList.filter((recipe) => recipe.type === 'comida');
+    setFavoriteList(onlyMealList);
+  }
+
+  function filterOnlyDrink() {
+    const onlyDrinkList = favoritedRecipesList.filter((recipe) => recipe.type === 'bebida');
+    setFavoriteList(onlyDrinkList);
+  }
+
+  function clearAllFilters() {
+    setFavoriteList(favoritedRecipesList);
+  }
+
+  function findFavoriteRecipeDoneDate(favoriteMealId) {
+    const doneRecipeList = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipeList) {
+      const favoritedAndDoneRecipe = doneRecipeList
+        .find((recipe) => JSON.stringify(recipe.id) === favoriteMealId);
+      if (favoritedAndDoneRecipe) {
+        return favoritedAndDoneRecipe.doneDate;
+      } return '';
+    } return '';
+  }
+
   return (
     <div>
       <Header title="Receitas Favoritas" />
-      <h1>Receitas Favoritas</h1>
+
+      <button type="button" data-testid="filter-by-all-btn" onClick={ () => clearAllFilters() }>All</button>
+      <button type="button" data-testid="filter-by-food-btn" onClick={ () => filterOnlyMeal() }>Food</button>
+      <button type="button" data-testid="filter-by-drink-btn" onClick={ () => filterOnlyDrink() }>Drinks</button>
+
+      {favoriteList
+        .map(({ id, name, category, image, type }, index) => (
+          <FavoriteRecipeCard
+            key={ id }
+            type={ type }
+            imageDataTestId={ `${index}-horizontal-image` }
+            categoryDataTestId={ `${index}-horizontal-top-text` }
+            nameDataTestId={ `${index}-horizontal-name` }
+            recipeDoneDateDataTestId={ `${index}-horizontal-done-date` }
+            image={ image }
+            category={ category }
+            name={ name }
+            recipeDoneDate={ findFavoriteRecipeDoneDate(id) }
+          />))}
     </div>
   );
 }
