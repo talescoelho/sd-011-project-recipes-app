@@ -4,7 +4,7 @@ import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import './RecipesFoods.css';
 import CardRecipes from '../Components/CardRecipes';
-import FilterButtons from '../Components/FilterButtons';
+//import FilterButtons from '../Components/FilterButtons';
 // import MyContext from '../Context/MyContext';
 
 export default function RecipesFood() {
@@ -32,7 +32,6 @@ export default function RecipesFood() {
   return (
     <div>
       <Header className="title" title="Comidas" searchIconAppears />
-      <FilterButtons />
       <div className="cardlist">
         {renderCardRecipes().map((recp, index) => (
           <Link 
