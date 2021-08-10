@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
-import handleLocation from './handleLocation';
+import handleLocation from '../helpers/handleLocation';
+import handleToggleDoneIngredient from '../helpers/handleToggleDoneIngredient';
 
 import '../styles/ingredientsFormatter.css';
 
@@ -14,6 +15,9 @@ export default function IngredientsFormatter({ recipe }) {
         cocktails: {},
         meals: {},
       }));
+    } else {
+      const ingredientsInProgressArr = JSON.parse(localStorage.doneIngredients);
+      console.log(ingredientsInProgressArr);
     }
   }, []);
 
@@ -32,42 +36,8 @@ export default function IngredientsFormatter({ recipe }) {
     return key;
   };
 
+  const key = handleObjectKey();
 
-  const handleToggleDoneIngredient = ({ target }) => {
-    const ingredient = target.parentNode;
-    ingredient.classList.toggle('doneIngredient');
-    const ingredientName = ingredient.getAttribute('id');
-    const key = handleObjectKey();
-    const usedIngredients = JSON.parse(localStorage.getItem('doneIngredients'));
-
-    if (usedIngredients[key][id] && usedIngredients[key][id].includes(ingredientName)) {
-      const index = usedIngredients[key][id].indexOf(ingredientName);
-      // const array = usedIngredients[key][id].slice(index, 1);
-      localStorage.setItem('doneIngredients', JSON.stringify(
-        { ...usedIngredients,
-          [key]: { ...usedIngredients[key],
-            [id]: [
-              ...usedIngredients[key][id].slice(0, index),
-              ...usedIngredients[key][id].slice(index + 1)],
-          },
-        },
-      ));
-    } else if (usedIngredients[key][id]) {
-      localStorage.setItem('doneIngredients', JSON.stringify(
-        { ...usedIngredients,
-          [key]: { ...usedIngredients[key],
-            [id]: [...usedIngredients[key][id], ingredientName] },
-        },
-      ));
-    } else {
-      localStorage.setItem('doneIngredients', JSON.stringify(
-        { ...usedIngredients,
-          [key]: { ...usedIngredients[key],
-            [id]: [ingredientName] },
-        },
-      ));
-    }
-  };
   return (
     <div>
       <h3>Ingredients</h3>
@@ -80,7 +50,9 @@ export default function IngredientsFormatter({ recipe }) {
           >
             <input
               type="checkbox"
-              onClick={ (event) => handleToggleDoneIngredient(event) }
+              onClick={ (event) => handleToggleDoneIngredient(
+                event, id, handleObjectKey,
+              ) }
             />
             {`${ingredientsArr[index][1]}  
               ${ingredientsQuantityArr[index]

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import Share from '../images/shareIcon.svg';
-import IngredientsFormatter from '../helpers/ingredientsFormatter';
+import IngredientsFormatter from '../components/ingredientsFormatter';
 import handleShareBtn from '../helpers/handleShareBtn';
 import ButtonFavoriteRecipe from '../components/ButtonFavoriteRecipe';
 import LinkCopy from '../components/LinkCopy';
