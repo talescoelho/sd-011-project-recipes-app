@@ -69,8 +69,14 @@ export default function ReceitaFeita() {
       </div>);
   }
 
-  function handleClick(param) {
+  function shareFood(param) {
     copy(`http://localhost:3000/comidas/${param}`);
+    setCopy(true);
+    alert('Link copiado!');
+  }
+
+  function shareDrink(param) {
+    copy(`http://localhost:3000/bebidas/${param}`);
     setCopy(true);
     alert('Link copiado!');
   }
@@ -98,7 +104,7 @@ export default function ReceitaFeita() {
                 <h3 data-testid={ `${index}-horizontal-name` }>{rec.name}</h3>
               </Link>
               <h4 data-testid={ `${index}-horizontal-done-date` }>{rec.doneDate}</h4>
-              <button type="button" onClick={ () => handleClick(rec.id) }>
+              <button type="button" onClick={ () => shareFood(rec.id) }>
                 <img
                   src={ shareIcon }
                   alt="btnShare"
@@ -131,7 +137,7 @@ export default function ReceitaFeita() {
               <h3 data-testid={ `${index}-horizontal-name` }>{rec.name}</h3>
             </Link>
             <h4 data-testid={ `${index}-horizontal-done-date` }>{rec.doneDate}</h4>
-            <button type="button">
+            <button type="button" onClick={ () => shareDrink(rec.id) }>
               <img
                 src={ shareIcon }
                 alt="btnShare"
