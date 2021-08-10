@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   type: 'not defined',
   loading: true,
   error: null,
-  selectedCategory: 'all',
+  selectedCategory: 'All',
 };
 
 const recipesCategoriesReducer = (state = INITIAL_STATE, { type, payload }) => {
@@ -18,7 +18,7 @@ const recipesCategoriesReducer = (state = INITIAL_STATE, { type, payload }) => {
       ...state,
       loading: true,
       error: null,
-      selectedCategory: 'all',
+      selectedCategory: 'All',
     };
   case GET_RECIPES_CATEGORIES_SUCCESS:
     return {
@@ -37,7 +37,7 @@ const recipesCategoriesReducer = (state = INITIAL_STATE, { type, payload }) => {
     return {
       ...state,
       selectedCategory: state.selectedCategory === payload
-        ? 'all'
+        ? 'All'
         : payload,
     };
   default:

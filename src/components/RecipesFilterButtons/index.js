@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchRecipes, fetchRecipesCategories, setSelectedCategory } from '../../actions';
-import getXFirstElementsFromArray from '../../helpers/utils';
+import { getXFirstElementsFromArray, translate } from '../../helpers/utils';
 import Loading from '../Loading';
 
 const filtersQuantity = 5;
@@ -18,11 +18,13 @@ const RecipesFilterButtons = ({
   }, [pathname, type, dispatchFetchRecipesCategories]);
 
   const handleCategoryClick = (category) => {
+    if (category === 'All' && selectedCategory === 'All') return;
+
     dispatchSetSelectedCategory(category);
 
-    if (category !== selectedCategory) {
-      dispatchFetchRecipes(type === 'comidas' ? 'meals' : 'drinks', category);
-    } else dispatchFetchRecipes(type === 'comidas' ? 'meals' : 'drinks');
+    if (category !== 'All' && category !== selectedCategory) {
+      dispatchFetchRecipes(translate(type), category);
+    } else dispatchFetchRecipes(translate(type));
   };
 
   if (error) return <span>{`${error}`}</span>;
@@ -32,17 +34,30 @@ const RecipesFilterButtons = ({
       {
         loading
           ? <Loading />
-          : getXFirstElementsFromArray(categories, filtersQuantity)
-            .map((category) => (
+          : (
+            <>
               <button
                 type="button"
-                key={ category }
-                onClick={ () => handleCategoryClick(category) }
-                data-testid={ `${category}-category-filter` }
+                onClick={ () => handleCategoryClick('All') }
+                data-testid="All-category-filter"
               >
-                {category}
+                All
               </button>
-            ))
+              {
+                getXFirstElementsFromArray(categories, filtersQuantity)
+                  .map((category) => (
+                    <button
+                      type="button"
+                      key={ category }
+                      onClick={ () => handleCategoryClick(category) }
+                      data-testid={ `${category}-category-filter` }
+                    >
+                      {category}
+                    </button>
+                  ))
+              }
+            </>
+          )
       }
     </section>
   );

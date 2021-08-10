@@ -279,7 +279,7 @@ describe('29 - Implemente o filtro como um toggle, que se for selecionado de nov
   });
 });
 
-describe.skip('30 - Implemente o filtro de categoria para que apenas um seja selecionado por vez', () => {
+describe('30 - Implemente o filtro de categoria para que apenas um seja selecionado por vez', () => {
   it('Caso as receitas sejam de comida apenas um filtro de categoria deve poder ser selecionado por vez', () => {
     cy.visit('http://localhost:3000/comidas', {
       onBeforeLoad(win) {
@@ -309,7 +309,7 @@ describe.skip('30 - Implemente o filtro de categoria para que apenas um seja sel
   });
 });
 
-describe.skip('31 - Desenvolva o filtro de categorias com a opção de filtrar por todas as categorias', () => {
+describe('31 - Desenvolva o filtro de categorias com a opção de filtrar por todas as categorias', () => {
   it('Caso as receitas sejam de comida deve existir a opção de filtrar por todas as categorias', () => {
     cy.visit('http://localhost:3000/comidas', {
       onBeforeLoad(win) {

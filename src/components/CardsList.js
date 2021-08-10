@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import RecipeCard from './RecipeCard';
-import getXFirstElementsFromArray from '../helpers/utils';
+import { getXFirstElementsFromArray } from '../helpers/utils';
 
 class CardList extends Component {
   constructor() {

@@ -1,4 +1,4 @@
-import getXFirstElementsFromArray from '../helpers/utils';
+import { getXFirstElementsFromArray } from '../helpers/utils';
 
 export const GET_RECIPES = 'GET_RECIPES';
 export const GET_RECIPES_SUCCESS = 'GET_RECIPES_SUCCESS';
