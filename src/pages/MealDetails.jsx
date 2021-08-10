@@ -31,7 +31,7 @@ function MealDetails({ match: { params } }) {
         id={ MealDataAPI.idMeal }
       />
 
-      <IngredientsList meal={ MealDataAPI } />
+      <IngredientsList recipe={ MealDataAPI } />
 
       <p data-testid="instructions">
         <h2>Instructions</h2>

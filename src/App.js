@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Meals from './pages/Meals';
 import Profile from './pages/Profile';
 import MealDetails from './pages/MealDetails';
+import DrinkDetails from './pages/DrinkDetails';
 import Drinks from './pages/Drinks';
 import ExploreDrinkIngredient from './pages/ExploreDrinkIngredient';
 import ExploreFoodIngredient from './pages/ExploreFoodIngredient';
@@ -23,6 +24,7 @@ function App() {
         <Route exact path="/explorar/comidas" component={ ExploreFood } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrink } />
         <Route path="/comidas/:id" component={ MealDetails } />
+        <Route path="/bebidas/:id" component={ DrinkDetails } />
         <Route path="/comidas" component={ Meals } />
         <Route path="/bebidas" component={ Drinks } />
         <Route path="/profile" component={ Profile } />
@@ -34,7 +36,7 @@ function App() {
           path="/explorar/bebidas/ingredientes"
           component={ ExploreDrinkIngredient }
         />
-        {/* <Route path="/bebidas:id" component={} />
+        {/*
         Tela de receita em processo de comida: /comidas/{id-da-receita}/in-progress;
         Tela de receita em processo de bebida: /bebidas/{id-da-receita}/in-progress;
         <Route path="/receitas-feitas" component={} />

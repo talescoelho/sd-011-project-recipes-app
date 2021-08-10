@@ -11,14 +11,19 @@ function Recommendations() {
   return (
     <div>
       <h2>Recomendadas</h2>
-      <div id="drink" className="carousel slide" data-bs-ride="carousel">
+      <div
+        data-testid="0-recomendation-card"
+        id="drink"
+        className="carousel slide"
+        data-bs-ride="carousel"
+      >
         <div className="carousel-inner">
           {
             drinks.map((drink, index) => (
               (index < MAGIC6) ? (
                 <div
                   // className="carousel-item active"
-                  className={ (index === 0) ? 'carousel-item active' : 'carousel-item' }
+                  className={ (index <= 1) ? 'carousel-item active' : 'carousel-item' }
                 >
                   <img
                     src={ drink.strDrinkThumb }
