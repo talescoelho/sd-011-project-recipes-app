@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Image from 'react-bootstrap/Image';
+import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
@@ -86,5 +86,9 @@ function DoneRecipesRender({ filter }) {
     </div>
   );
 }
+
+DoneRecipesRender.propTypes = {
+  filter: PropTypes.string.isRequired,
+};
 
 export default DoneRecipesRender;

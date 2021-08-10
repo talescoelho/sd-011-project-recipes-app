@@ -14,6 +14,7 @@ import Profile from './pages/Profile';
 import Explorar from './pages/Explorar';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import ReadyRecipe from './pages/ReadyRecipe';
+
 function App() {
   return (
     <RecipesProvider>
