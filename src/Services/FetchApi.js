@@ -21,3 +21,9 @@ export const fetchFirstLetter = async (site, primeiraLetra) => {
   const result = await globalFetch(URL);
   return result;
 };
+
+export const fetchSurprise = async (site) => {
+  const URL = `https://www.the${site}db.com/api/json/v1/1/random.php`;
+  const result = await globalFetch(URL);
+  return result;
+}
