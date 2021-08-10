@@ -7,10 +7,10 @@ import SecondShareButton from './Components/Secondary/SecondShareButton';
 
 function RecipesMade() {
   const [filter, setFilter] = React.useState('all');
-  const [update, setUpdate] = React.useState(false);
+  // const [update, setUpdate] = React.useState(false);
 
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  // const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
   return (
     <div>
@@ -35,6 +35,7 @@ function RecipesMade() {
         tags },
       index) => (
         <div key={ `${name}-${id}` }>
+          {console.log(tags)}
           <Link to={ `/${type}s/${id}` }>
             <img
               src={ image }
@@ -53,7 +54,7 @@ function RecipesMade() {
             <p data-testid={ `${index}-horizontal-done-date` }>
               {date}
             </p>
-            <p data-testid={ `${index}-${category}-horizontal-tag` }>
+            <p data-testid={ `${index}-${tags.split(',').length < 1 ? tags : tags.split(',')[0]}-horizontal-tag` }>
               {tags}
             </p>
             {/* <SecondFavoriteButton
