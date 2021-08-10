@@ -26,6 +26,7 @@ export default class DrinkInProgress extends Component {
     this.addMealInProgress = this.addMealInProgress.bind(this);
     this.checkRecipeInProgress = this.checkRecipeInProgress.bind(this);
     this.setDoneRecipe = this.setDoneRecipe.bind(this);
+    this.enableButton = this.enableButton.bind(this);
   }
 
   componentDidMount() {
@@ -53,13 +54,13 @@ export default class DrinkInProgress extends Component {
     if (target.checked) {
       previewStorage.cocktails[id].push(Number(target.id));
       localStorage.setItem('inProgressRecipes', JSON.stringify(previewStorage));
-      label.className = 'instructions-checked';
+      label.className = 'instructions-input-checked';
     } else {
       const updateStorage = previewStorage.cocktails[id]
         .filter((item) => item !== Number(target.id));
       previewStorage.cocktails[id] = updateStorage;
       localStorage.setItem('inProgressRecipes', JSON.stringify(previewStorage));
-      label.className = 'instructions';
+      label.className = 'instructions-input';
     }
   }
 
@@ -134,6 +135,10 @@ export default class DrinkInProgress extends Component {
     }
   }
 
+  enableButton() {
+    return true;
+  }
+
   render() {
     const {
       drinkDetail, ingredient, measure, favoriteDrink, copyToClipboard } = this.state;
@@ -194,7 +199,7 @@ export default class DrinkInProgress extends Component {
             { ingredient && ingredient.map((item, ingredientIndex) => (
               <label
                 htmlFor={ ingredientIndex }
-                className="instructions"
+                className="instructions-input"
                 key={ ingredientIndex }
                 data-testid={ `${ingredientIndex}-ingredient-step` }
               >
@@ -216,6 +221,7 @@ export default class DrinkInProgress extends Component {
                 type="button"
                 data-testid="finish-recipe-btn"
                 onClick={ () => this.setDoneRecipe() }
+                disabled={ this.enableButton() }
               >
                 Finalizar Receita
               </button>

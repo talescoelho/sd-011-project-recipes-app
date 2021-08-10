@@ -167,12 +167,23 @@ code {
   list-style: none;
 }
 
-.instructions-checked {
+.instructions-input {
+  background: rgb(54, 54, 54);
+  padding: 20px;
+  text-align: center;
+  list-style: none;
+  width: 100%;
+  text-align: left;
+}
+
+.instructions-input-checked {
   background: rgb(54, 54, 54);
   padding: 20px;
   text-align: center;
   list-style: none;
   text-decoration: line-through;
+  width: 100%;
+  text-align: left;
 }
 
 #seraquevai {

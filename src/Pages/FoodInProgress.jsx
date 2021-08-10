@@ -26,6 +26,7 @@ export default class FoodInProgress extends Component {
     this.addMealInProgress = this.addMealInProgress.bind(this);
     this.checkRecipeInProgress = this.checkRecipeInProgress.bind(this);
     this.setDoneRecipe = this.setDoneRecipe.bind(this);
+    this.enableButton = this.enableButton.bind(this);
   }
 
   componentDidMount() {
@@ -53,13 +54,13 @@ export default class FoodInProgress extends Component {
     if (target.checked) {
       previewStorage.meals[id].push(Number(target.id));
       localStorage.setItem('inProgressRecipes', JSON.stringify(previewStorage));
-      label.className = 'instructions-checked';
+      label.className = 'instructions-input-checked';
     } else {
       const updateStorage = previewStorage.meals[id]
         .filter((item) => item !== Number(target.id));
       previewStorage.meals[id] = updateStorage;
       localStorage.setItem('inProgressRecipes', JSON.stringify(previewStorage));
-      label.className = 'instructions';
+      label.className = 'instructions-input';
     }
   }
 
@@ -133,6 +134,10 @@ export default class FoodInProgress extends Component {
     saveRecipesOnLocalStorage(favoriteRecipes);
   }
 
+  enableButton() {
+    return true;
+  }
+
   render() {
     const { foodDetail, ingredient, measure, favoriteFood, copyToClipboard } = this.state;
     const lastIndexOfHrefLocattion = 5;
@@ -193,7 +198,7 @@ export default class FoodInProgress extends Component {
               { ingredient && ingredient.map((item, ingredientIndex) => (
                 <label
                   htmlFor={ ingredientIndex }
-                  className="instructions"
+                  className="instructions-input"
                   key={ ingredientIndex }
                   data-testid={ `${ingredientIndex}-ingredient-step` }
                 >
@@ -216,6 +221,7 @@ export default class FoodInProgress extends Component {
                 type="button"
                 data-testid="finish-recipe-btn"
                 onClick={ () => this.setDoneRecipe() }
+                disabled={ this.enableButton() }
               >
                 Finalizar Receita
               </button>
