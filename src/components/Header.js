@@ -91,63 +91,60 @@ function Header({ title, search }) {
             <img data-testid="search-top-btn" src={ searchIcon } alt="search icon" />
           </button>) }
 
-      { showFilterInput ? (
-        <p>categorias</p>
-      )
-        : (
-          <form>
+      { showFilterInput ? '' : (
+        <form>
+          <input
+            data-testid="search-input"
+            type="text"
+            value={ inputTextSearch }
+            onChange={ (e) => setInputTextSearch(e.target.value) }
+          />
+          <label htmlFor="ingredient">
             <input
-              data-testid="search-input"
-              type="text"
-              value={ inputTextSearch }
-              onChange={ (e) => setInputTextSearch(e.target.value) }
+              data-testid="ingredient-search-radio"
+              type="radio"
+              id="ingredient"
+              name="radio-button"
+              value="ingredient"
+              onChange={ () => setRadio('ingredient') }
             />
-            <label htmlFor="ingredient">
-              <input
-                data-testid="ingredient-search-radio"
-                type="radio"
-                id="ingredient"
-                name="radio-button"
-                value="ingredient"
-                onChange={ () => setRadio('ingredient') }
-              />
-              Ingrediente
-            </label>
-            { ' ' }
-            <label htmlFor="name-search">
-              <input
-                data-testid="name-search-radio"
-                type="radio"
-                id="name-search"
-                name="radio-button"
-                value="name-search"
-                onChange={ () => setRadio('name-search') }
-              />
-              Nome
-            </label>
-            { ' ' }
-            <label htmlFor="first-letter">
-              <input
-                data-testid="first-letter-search-radio"
-                type="radio"
-                id="first-letter"
-                name="radio-button"
-                value="first-letter"
-                onChange={ () => setRadio('first-letter') }
-              />
-              Primeira letra
-            </label>
-            <button
-              data-testid="exec-search-btn"
-              type="button"
-              onClick={ local === url
-                ? () => handleButtonFood()
-                : () => handleButtonDrink() }
-            >
-              Buscar
-            </button>
-          </form>
-        ) }
+            Ingrediente
+          </label>
+          { ' ' }
+          <label htmlFor="name-search">
+            <input
+              data-testid="name-search-radio"
+              type="radio"
+              id="name-search"
+              name="radio-button"
+              value="name-search"
+              onChange={ () => setRadio('name-search') }
+            />
+            Nome
+          </label>
+          { ' ' }
+          <label htmlFor="first-letter">
+            <input
+              data-testid="first-letter-search-radio"
+              type="radio"
+              id="first-letter"
+              name="radio-button"
+              value="first-letter"
+              onChange={ () => setRadio('first-letter') }
+            />
+            Primeira letra
+          </label>
+          <button
+            data-testid="exec-search-btn"
+            type="button"
+            onClick={ local === url
+              ? () => handleButtonFood()
+              : () => handleButtonDrink() }
+          >
+            Buscar
+          </button>
+        </form>
+      ) }
     </header>
   );
 }

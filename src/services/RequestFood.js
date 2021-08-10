@@ -19,7 +19,6 @@ export async function getIngredients() {
 export async function searchByIngredient(ingredient) {
   const ingredients = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
   const result = await ingredients.json();
-
   return result.meals;
 }
 
@@ -59,7 +58,7 @@ export async function searchByCategoryFood(category) {
   return result.meals;
 }
 
-export async function searchRandonMeal() {
+export async function searchRandomMeal() {
   const randomMeal = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
   const result = await randomMeal.json();
   return result.meals[0];

@@ -14,18 +14,17 @@ function NavCategories() {
   const url = 'http://localhost:3000/comidas';
   const MAX_RESULT = 5;
 
-  async function getCategoriesDrinkAndFood() {
-    if (local === url) {
-      const items = await getCategoriesFood();
-      setCategory(items);
-    } else {
-      const itemsDrink = await getCategoriesDrink();
-      setCategory(itemsDrink);
-    }
-  }
-
   useEffect(() => {
-    getCategoriesDrinkAndFood();
+    async function tche() {
+      if (local === url) {
+        const items = await getCategoriesFood();
+        setCategory(items);
+      } else {
+        const itemsDrink = await getCategoriesDrink();
+        setCategory(itemsDrink);
+      }
+    }
+    tche();
   }, []);
 
   async function searchByCategoryDrinkAndFood(text) {
@@ -36,6 +35,24 @@ function NavCategories() {
       const itemsDrink = await searchByCategoryDrink(text);
       setInitialItensDrink(itemsDrink);
     }
+  }
+
+  function renderButtons() {
+    if (!category) {
+      return (<p>Loading...</p>);
+    }
+    return (
+      category.slice(0, MAX_RESULT).map((item, index) => (
+        <button
+          type="button"
+          key={ index }
+          data-testid={ `${item.strCategory}-category-filter` }
+          onClick={ (e) => searchByCategoryDrinkAndFood(e.target.value) }
+          value={ item.strCategory }
+        >
+          { item.strCategory }
+        </button>
+      )));
   }
 
   async function searchAllCategories() {
@@ -50,33 +67,14 @@ function NavCategories() {
 
   return (
     <div>
-      {
-        category.length < 1 ? <p>Loading...</p> : (
-          <div>
-            { console.log(category) }
-            <button
-              type="button"
-              data-testid="All-category-filter"
-              onClick={ () => searchAllCategories() }
-            >
-              All
-            </button>
-
-            { category.slice(0, MAX_RESULT)
-              .map((item, index) => (
-                <button
-                  type="button"
-                  key={ index }
-                  data-testid={ `${item.strCategory}-category-filter` }
-                  onClick={ (e) => searchByCategoryDrinkAndFood(e.target.value) }
-                  value={ item.strCategory }
-                >
-                  { item.strCategory }
-                </button>
-              )) }
-          </div>
-        )
-      }
+      {renderButtons()}
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => searchAllCategories() }
+      >
+        All
+      </button>
     </div>
   );
 }

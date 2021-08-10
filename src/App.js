@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { UserProvider } from './Context/UserHook';
 import { RequestProvider } from './Context/RequestHook';
 
-import { searchRandonMeal } from './services/RequestFood';
+// import { searchRandomMeal } from './services/RequestFood';
 
 import Login from './pages/Login';
 import foodPage from './pages/FoodPage';
@@ -23,9 +23,9 @@ import favoriteRecipe from './pages/FavoriteRecipe';
 import Details from './pages/Details';
 
 function App() {
-  useEffect(() => {
-    searchRandonMeal();
-  }, []);
+  // useEffect(() => {
+  //   searchRandomMeal();
+  // }, []);
 
   return (
     <UserProvider>
