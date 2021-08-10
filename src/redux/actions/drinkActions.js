@@ -78,9 +78,9 @@ export const saveFavoriteRecipe = (id) => async (dispatch) => {
   const genericObj = {
     id: returnFetch[0].idDrink,
     type: 'bebida',
-    area: returnFetch[0].strArea,
+    area: '',
     category: returnFetch[0].strCategory,
-    alcoholicOrNot: '',
+    alcoholicOrNot: returnFetch[0].strAlcoholic,
     name: returnFetch[0].strDrink,
     image: returnFetch[0].strDrinkThumb,
   };

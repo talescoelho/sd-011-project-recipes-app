@@ -35,6 +35,7 @@ export default class DoneRecipes extends Component {
     const { doneRecipes } = this.state;
     return (
       <div>
+        <Header title="Receitas Feitas" search={ false } />
         <button
           type="button"
           data-testid="filter-by-all-btn"
@@ -56,7 +57,7 @@ export default class DoneRecipes extends Component {
         >
           Drinks
         </button>
-        {doneRecipes.map((item, index) => {
+        {doneRecipes && doneRecipes.map((item, index) => {
           if (item.type === 'comida') {
             return (
               <li key={ index }>
@@ -100,7 +101,6 @@ export default class DoneRecipes extends Component {
 
           return (
             <li key={ index }>
-              <Header title="Receitas Feitas" search={ false } />
               <Link to={ `/bebidas/${item.id}` }>
                 <img
                   data-testid={ `${index}-horizontal-image` }

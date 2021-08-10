@@ -56,7 +56,7 @@ class FavoriteRecipes extends Component {
         >
           Drink
         </button>
-        {favoriteRecipes.filter((item) => item.type.includes(filter))
+        {favoriteRecipes && favoriteRecipes.filter((item) => item.type.includes(filter))
           .map((item, index) => {
             if (item.type === 'comida') {
               return (
