@@ -4,6 +4,26 @@ import Drinks from '../pages/Drinks';
 
 import { renderWithRouterAndStore } from './testConfig';
 
+describe('Verify if the Header component have the atributs data-testid', () => {
+  it('Have data-testid "profile-top-btn"', () => {
+    renderWithRouterAndStore(<Drinks />, '/comidas');
+    const profileButton = screen.getByTestId('profile-top-btn');
+    expect(profileButton).toBeInTheDocument();
+  });
+
+  it('Have data-testid "page-title"', () => {
+    renderWithRouterAndStore(<Drinks />, '/comidas');
+    const pageTitle = screen.getByTestId('page-title');
+    expect(pageTitle).toBeInTheDocument();
+  });
+
+  it('Have data-testid "search-top-btn"', () => {
+    renderWithRouterAndStore(<Drinks />, '/comidas');
+    const searchButton = screen.getByTestId('search-top-btn');
+    expect(searchButton).toBeInTheDocument();
+  });
+});
+
 describe('Tests Drinks Page', () => {
   it('Checks if Footer is rendered', () => {
     renderWithRouterAndStore(<Drinks />, '/bebidas');

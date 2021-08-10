@@ -30,9 +30,9 @@ const mockedRequestAllDrinksCategories = jest
 afterEach(() => jest.clearAllMocks());
 beforeEach(() => jest.clearAllMocks());
 
-describe(`25 - Implemente os elementos da tela principal de receitas respeitando os 
-atributos descritos no protótipo`, () => {
-  it('A tela tem os data-testids de todos os 12 cards da tela de comidas', async () => {
+describe(`25 - Implement the elements of the main recipe screen respecting the 
+attributes described in the prototype`, () => {
+  it('The screen has the data-testids of all 12 cards from the food screen', async () => {
     renderWithRouterAndStore(<Foods />, '/comidas');
 
     expect(mockedSearchMealByName).toBeCalled();
@@ -48,7 +48,7 @@ atributos descritos no protótipo`, () => {
     expect(screen.queryByTestId('12-recipe-name')).toBeNull();
   });
 
-  it('A tela tem os data-testids de todos os 12 cards da tela de bebida', async () => {
+  it('The screen has the data-testids of all 12 drink screen cards', async () => {
     renderWithRouterAndStore(<Drinks />, '/bebidas');
     expect(mockedSearchDrinkByName).toBeCalled();
     expect(mockedSearchDrinkByName).toBeCalledTimes(1);
