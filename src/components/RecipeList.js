@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import RenderCard from './RenderCard';
 
 function RecipeList() {
-  const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const recipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+
   const [typeRecipe, setTypeRecipe] = useState('');
+
   function filterRecipe(type) {
     setTypeRecipe(type);
   }
+
   return (
     <div>
       <button

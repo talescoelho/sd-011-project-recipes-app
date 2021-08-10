@@ -9,30 +9,29 @@ const copy = require('clipboard-copy');
 
 function RenderCard({ filter }) {
   const [copyLink, setCopyLink] = useState(false);
-  const [recipes, setRecipes] = useState(
-    (JSON.parse(localStorage.getItem('favoriteRecipes'))),
-  );
+
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const [recipes, setRecipes] = useState(favoriteRecipes);
+
   useEffect(() => {
-    const localRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    let localRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     if (filter !== '') {
-      const newRecipes = localRecipes.filter((recipe) => recipe.type === filter);
-      setRecipes(newRecipes);
-    } else {
-      setRecipes(JSON.parse(localStorage.getItem('favoriteRecipes')));
+      localRecipes = localRecipes.filter((recipe) => recipe.type === filter);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    setRecipes(localRecipes);
   }, [filter]);
+
   function removeItem({ target }) {
-    const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const favorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     favorite.splice(target.dataset.recipeindex, 1);
     setRecipes(favorite);
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorite));
   }
 
-  function copyUrl({ target }) {
-    const type = target.dataset.recipetype;
+  function copyUrl({ target: { dataset } }) {
+    const { recipetype, recipeid } = dataset;
     const TWO_SECONDS = 2000;
-    copy(`http://localhost:3000/${type}s/${target.dataset.recipeid}`);
+    copy(`http://localhost:3000/${recipetype}s/${recipeid}`);
     setCopyLink(true);
     setTimeout(() => {
       setCopyLink(false);

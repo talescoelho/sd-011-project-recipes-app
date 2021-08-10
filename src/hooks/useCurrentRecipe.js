@@ -13,6 +13,8 @@ export function useCurrentMealRecipe(id) {
   const [recipeDone, setRecipeDone] = useState(false);
 
   useEffect(() => {
+    const checkData = getMealIngredientsChecked(id);
+    if (checkData) setChecked(checkData);
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
       .then((response) => {
         response.json()
@@ -24,18 +26,12 @@ export function useCurrentMealRecipe(id) {
       });
   }, [id]);
 
-  useEffect(() => {
-    const checkData = getMealIngredientsChecked(id);
-    if (checkData) setChecked(checkData);
-  }, [id]);
-
   function saveStorage(check) {
     if (check.length > 0) {
-      const inProgressData = localStorage.getItem('inProgressRecipes');
+      const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
       let newData;
-      if (inProgressData) {
+      if (inProgressRecipes) {
         localStorage.removeItem('inProgressRecipes');
-        const inProgressRecipes = JSON.parse(inProgressData);
         newData = {
           ...inProgressRecipes,
           meals: {
@@ -129,11 +125,10 @@ export function useCurrentDrinkRecipe(id) {
 
   function saveStorage(check) {
     if (check.length > 0) {
-      const inProgressData = localStorage.getItem('inProgressRecipes');
+      const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
       let newData;
-      if (inProgressData) {
+      if (inProgressRecipes) {
         localStorage.removeItem('inProgressRecipes');
-        const inProgressRecipes = JSON.parse(inProgressData);
         newData = {
           ...inProgressRecipes,
           cocktails: {

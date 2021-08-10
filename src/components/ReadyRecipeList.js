@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import DoneRecipesRender from './DoneRecipesRender';
 
 function ReadyRecipeList() {
-//   const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [typeRecipe, setTypeRecipe] = useState('');
+
   function filterRecipe(type) {
     setTypeRecipe(type);
   }
+
   return (
     <div>
       <button
