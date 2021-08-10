@@ -1,26 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 function FavoriteRecipes() {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  console.log(favoriteRecipes);
+
   const [favorite, setFavorite] = useState(favoriteRecipes);
   const [copyUrl, setCopyUrl] = useState('');
+  const [filter, setFilter] = useState('all');
 
-  const filterFavoriteRecipes = (type) => {
-    if (type === 'all') {
-      setFavorite(favoriteRecipes);
-    } else {
-      const filterResult = favoriteRecipes.filter((item) => item.type === type);
-      setFavorite(filterResult);
+  function handleFilter({ target }) {
+    const { value } = target;
+    setFilter(value);
+  }
+
+  function filterRecipes() {
+    if (filter === 'all') return favorite;
+    if (filter !== 'all') {
+      return favorite.filter((recipe) => recipe.type === filter);
     }
-  };
-
-  useEffect(filterFavoriteRecipes, [setFavorite, favoriteRecipes]);
+  }
 
   const copyLink = ({ type, id }) => {
     copy(`http://localhost:3000/${type}s/${id}`);
@@ -28,13 +31,14 @@ function FavoriteRecipes() {
     setInterval(() => setCopyUrl(''), '2000');
   };
 
-  // const clickdisfavor = (id) => {
-  // target.src = whiteHeartIcon;
-  // const newFavorites = favorite.filter((item) => item.id !== id);
-  // console.log(newFavorites);
-  // JSON.stringify(localStorage.setItem('favoriteRecipes', newFavorites));
-  // filterFavoriteRecipes();
-  // };
+  const clickdisfavor = (id) => {
+    const newFavorites = favorite.filter((item) => item.id !== id);
+    console.log(newFavorites);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
+    setFavorite(newFavorites);
+  };
+
+  const recipes = filterRecipes();
 
   return (
     <>
@@ -42,45 +46,50 @@ function FavoriteRecipes() {
         <img src={ profileIcon } alt="user" />
       </Link>
       <h1>Receitas Favoritas</h1>
-      <span>{ copyUrl }</span>
       <button
+        value="all"
         type="button"
         data-testid="filter-by-all-btn"
-        onClick={ () => filterFavoriteRecipes('all') }
+        onClick={ (e) => handleFilter(e) }
       >
         All
       </button>
       <button
+        value="comida"
         type="button"
         data-testid="filter-by-food-btn"
-        onClick={ () => filterFavoriteRecipes('comida') }
+        onClick={ (e) => handleFilter(e) }
       >
         Food
       </button>
       <button
+        value="bebida"
         type="button"
         data-testid="filter-by-drink-btn"
-        onClick={ () => filterFavoriteRecipes('bebida') }
+        onClick={ (e) => handleFilter(e) }
       >
         Drinks
       </button>
       {
-        favorite ? favorite.map((item, index) => {
+        favorite ? recipes.map((item, index) => {
           if (item.type === 'comida') {
             return (
               <section key={ index }>
-                <img
-                  width="200px"
-                  data-testid={ `${index}-horizontal-image` }
-                  alt={ `recipe ${item.name}` }
-                  src={ item.image }
-                />
-                <span
-                  data-testid={ `${index}-horizontal-top-text` }
-                >
-                  { `${item.area} - ${item.category}` }
-                </span>
-                <span data-testid={ `${index}-horizontal-name` }>{ item.name }</span>
+                <Link to={ `/${item.type}s/${item.id}` }>
+                  <img
+                    width="200px"
+                    data-testid={ `${index}-horizontal-image` }
+                    alt={ `recipe ${item.name}` }
+                    src={ item.image }
+                  />
+                  <span>{ copyUrl }</span>
+                  <span
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    { `${item.area} - ${item.category}` }
+                  </span>
+                  <span data-testid={ `${index}-horizontal-name` }>{ item.name }</span>
+                </Link>
                 <button
                   type="button"
                   onClick={ () => copyLink(item) }
@@ -93,7 +102,7 @@ function FavoriteRecipes() {
                 </button>
                 <button
                   type="button"
-                  // onClick={ () => clickdisfavor(item.id) }
+                  onClick={ () => clickdisfavor(item.id) }
                 >
                   <img
                     data-testid={ `${index}-horizontal-favorite-btn` }
@@ -106,18 +115,21 @@ function FavoriteRecipes() {
           }
           return (
             <section key={ index }>
-              <img
-                width="200px"
-                data-testid={ `${index}-horizontal-image` }
-                alt={ `recipe ${item.name}` }
-                src={ item.image }
-              />
-              <span
-                data-testid={ `${index}-horizontal-top-text` }
-              >
-                { item.alcoholicOrNot }
-              </span>
-              <span data-testid={ `${index}-horizontal-name` }>{ item.name }</span>
+              <Link to={ `/${item.type}s/${item.id}` }>
+                <img
+                  width="200px"
+                  data-testid={ `${index}-horizontal-image` }
+                  alt={ `recipe ${item.name}` }
+                  src={ item.image }
+                />
+                <span>{ copyUrl }</span>
+                <span
+                  data-testid={ `${index}-horizontal-top-text` }
+                >
+                  { item.alcoholicOrNot }
+                </span>
+                <span data-testid={ `${index}-horizontal-name` }>{ item.name }</span>
+              </Link>
               <button
                 type="button"
                 onClick={ () => copyLink(item) }
@@ -130,7 +142,7 @@ function FavoriteRecipes() {
               </button>
               <button
                 type="button"
-                // onClick={ () => clickdisfavor(item.id) }
+                onClick={ () => clickdisfavor(item.id) }
               >
                 <img
                   data-testid={ `${index}-horizontal-favorite-btn` }
