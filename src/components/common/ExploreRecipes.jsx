@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../../styles/pages/search.css';
 import { string } from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -17,7 +18,7 @@ const ExploreRecipes = ({ page }) => {
   }, []);
 
   return (
-    <nav>
+    <nav className="explore-recipes">
       <Link data-testid="explore-by-ingredient" to={ `/explorar/${page}/ingredientes` }>
         Por Ingredientes
       </Link>
