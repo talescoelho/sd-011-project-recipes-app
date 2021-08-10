@@ -29,9 +29,6 @@ class ExploreFoodIngredients extends Component {
               key={ item.idIngredient }
               data-testid={ `${index}-ingredient-card` }
               onClick={ () => this.redirectFoodIngredient(item.strIngredient) }
-            <li
-              key={ item.idIngredient }
-              data-testid={ `${index}-ingredient-card` }
             >
               <img
                 src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
@@ -42,7 +39,6 @@ class ExploreFoodIngredients extends Component {
               />
               <p data-testid={ `${index}-card-name` }>{ item.strIngredient }</p>
             </button>
-            </li>
           ))}
         </ul>
         <Footer />
