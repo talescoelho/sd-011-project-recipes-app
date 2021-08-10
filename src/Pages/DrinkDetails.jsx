@@ -7,6 +7,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import favoriteImg from '../images/blackHeartIcon.svg';
 import home from '../images/Home.svg';
 import fullHearth from '../images/whiteHeartIcon.svg';
+import saveRecipesOnLocalStorage from '../Services/saveFavoriteRecipesOnLocalStorage';
 
 class DrinkDetails extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class DrinkDetails extends Component {
     this.newFunction = () => {
       const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
       let favRecipeLocalStorage;
-      if (favoriteRecipes !== null) {
+      if (favoriteRecipes !== null && favoriteRecipes[0]) {
         const favRecipenew = favoriteRecipes[0].id;
         favRecipeLocalStorage = favRecipenew;
       }
@@ -77,14 +78,14 @@ class DrinkDetails extends Component {
 
   saveFavoriteRecipes() {
     const { drinkDetail } = this.state;
-    const favoriteRecipes = [{ id: drinkDetail[0].idDrink,
+    const favoriteRecipes = { id: drinkDetail[0].idDrink,
       type: 'bebida',
       area: drinkDetail[0].strArea || '',
       category: drinkDetail[0].strCategory || '',
       alcoholicOrNot: drinkDetail[0].strAlcoholic || '',
       name: drinkDetail[0].strDrink,
-      image: drinkDetail[0].strDrinkThumb }];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+      image: drinkDetail[0].strDrinkThumb };
+    saveRecipesOnLocalStorage(favoriteRecipes);
   }
 
   saveOnLocalStorage() {

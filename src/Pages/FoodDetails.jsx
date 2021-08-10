@@ -8,6 +8,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import favoriteImg from '../images/blackHeartIcon.svg';
 import fullHearth from '../images/whiteHeartIcon.svg';
 import home from '../images/Home.svg';
+import saveRecipesOnLocalStorage from '../Services/saveFavoriteRecipesOnLocalStorage';
 
 class FoodDetails extends Component {
   constructor(props) {
@@ -34,8 +35,8 @@ class FoodDetails extends Component {
     this.newFunction = () => {
       const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
       let favRecipeLocalStorage;
-      if (favoriteRecipes !== null) {
-        const favRecipenew = favoriteRecipes.id;
+      if (favoriteRecipes !== null && favoriteRecipes[0]) {
+        const favRecipenew = favoriteRecipes[0].id;
         favRecipeLocalStorage = favRecipenew;
       }
       if (favRecipeLocalStorage === id) {
@@ -58,10 +59,7 @@ class FoodDetails extends Component {
 
   addMealInProgress() {
     const { match: { params: { id } } } = this.props;
-    const inProgress = {
-      cocktails: {},
-      meals: {},
-    };
+    const inProgress = { cocktails: {}, meals: {} };
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
     const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
     recipe.meals = { ...recipe.meals, [id]: [] };
@@ -81,14 +79,15 @@ class FoodDetails extends Component {
 
   saveFavoriteRecipes() {
     const { foodDetail } = this.state;
-    const favoriteRecipes = [{ id: foodDetail[0].idMeal,
+    const favoriteRecipes = { id: foodDetail[0].idMeal,
       type: 'comida',
       area: foodDetail[0].strArea || '',
       category: foodDetail[0].strCategory || '',
       alcoholicOrNot: foodDetail[0].strAlcoholic || '',
       name: foodDetail[0].strMeal,
-      image: foodDetail[0].strMealThumb }];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+      image: foodDetail[0].strMealThumb,
+    };
+    saveRecipesOnLocalStorage(favoriteRecipes);
   }
 
   saveOnLocalStorage() {
