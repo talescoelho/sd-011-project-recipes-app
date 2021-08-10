@@ -23,6 +23,8 @@ class ReceitaEmProgressoComida extends Component {
 
   handleChange() {
     // Retirado https://stackoverflow.com/questions/14800954/how-to-check-if-all-checkboxes-are-unchecked
+    /* const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(obj)); */
     if (document.querySelectorAll('input[type="checkbox"]:checked').length
     === document.querySelectorAll('input[type="checkbox"]').length) {
       this.setState({
@@ -74,7 +76,7 @@ class ReceitaEmProgressoComida extends Component {
   render() {
     const { meals: { idMeal, strArea, strMeal, strMealThumb,
       strInstructions, strCategory }, finalList, disabled } = this.state;
-    const { addDoneRecipe } = this.props;
+    const { addDoneRecipe, match: { params: { id } } } = this.props;
     const obj = {
       id: idMeal,
       type: 'comida',
@@ -101,7 +103,7 @@ class ReceitaEmProgressoComida extends Component {
           <ul>
             {finalList.map((ing, index) => (
               <li key={ ing } data-testid={ `${index}-ingredient-step` }>
-                <span><input type="checkbox" name={ ing } /></span>
+                <span><input type="checkbox" value={ ing } name={ ing } /></span>
                 <span>{ing}</span>
               </li>
             ))}
@@ -115,6 +117,17 @@ class ReceitaEmProgressoComida extends Component {
               onClick={ () => { addDoneRecipe(obj); } }
             >
               Finalizar receita
+            </button>
+          </Link>
+          <Link
+            to={ {
+              pathname: `/comidas/${id}`,
+            } }
+          >
+            <button
+              type="button"
+            >
+              Voltar para a página de detalhes
             </button>
           </Link>
         </form>

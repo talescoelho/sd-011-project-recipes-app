@@ -18,6 +18,7 @@ const recipe = (state = INITIAL_STATE, action) => {
         cocktails: {
         },
         meals: {
+          controle: '999999999999',
           [action.payload]: [action.payload2],
         },
       };
@@ -36,6 +37,9 @@ const recipe = (state = INITIAL_STATE, action) => {
   case 'ADD_RECIPE_FAVORITE':
     return state;
   case 'ADD_RECIPE_DONE':
+    delete inProgress.meals[action.payload.id];
+    console.log(action.payload.id);
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
     if (doneRecipes === null) {
       localStorage.setItem('doneRecipes', JSON.stringify([action.payload]));
     } else {

@@ -95,7 +95,8 @@ class ComidasDetalhes extends Component {
   }
 
   render() {
-    const { mealDetails, ingredientList, finalList, isMealDone, isMealInProgress, buttonText } = this.state;
+    const { mealDetails, ingredientList, finalList,
+      isMealDone, isMealInProgress, buttonText } = this.state;
     const { addRecipeCurr, addRecipeFav, match: {
       params: { id },
     } } = this.props;
