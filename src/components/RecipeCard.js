@@ -34,7 +34,7 @@ function RecipeCard({ recipe, index, test }) {
         .then((result) => {
           setData(result);
           setLoading(false);
-          history.push('/comidas');
+          history.push('/comidas', { from: 'explore' });
         });
     } else if (thumb) {
       history.push(path);
@@ -44,7 +44,7 @@ function RecipeCard({ recipe, index, test }) {
         .then((result) => {
           setData(result);
           setLoading(false);
-          history.push('/bebidas');
+          history.push('/bebidas', { from: 'explore' });
         });
     }
   }
