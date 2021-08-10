@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { foodIngredient } from '../redux/actions/foodActions';
+import { foodIngredient, renderFoodIngredient } from '../redux/actions/foodActions';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -11,6 +11,12 @@ class ExploreFoodIngredients extends Component {
     actionfetchFoodIngredient();
   }
 
+  redirectFoodIngredient(ingredient) {
+    const { history, actionFoodIngredient } = this.props;
+    actionFoodIngredient(ingredient);
+    history.push('/comidas');
+  }
+
   render() {
     const { fetchFoodIngredient } = this.props;
     return (
@@ -18,9 +24,11 @@ class ExploreFoodIngredients extends Component {
         <Header title="Explorar Ingredientes" search={ false } />
         <ul>
           { fetchFoodIngredient.map((item, index) => (
-            <li
+            <button
+              type="button"
               key={ item.idIngredient }
               data-testid={ `${index}-ingredient-card` }
+              onClick={ () => this.redirectFoodIngredient(item.strIngredient) }
             >
               <img
                 src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
@@ -30,7 +38,7 @@ class ExploreFoodIngredients extends Component {
                 width="200px"
               />
               <p data-testid={ `${index}-card-name` }>{ item.strIngredient }</p>
-            </li>
+            </button>
           ))}
         </ul>
         <Footer />
@@ -45,6 +53,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actionfetchFoodIngredient: () => dispatch(foodIngredient()),
+  actionFoodIngredient: (ingredient) => dispatch(renderFoodIngredient(ingredient)),
 });
 
 ExploreFoodIngredients.propTypes = {
