@@ -12,11 +12,13 @@ export default function Recipes() {
   const [listMealsCategorie, setListMealsCategorie] = useState([]);
   const [buttonCategorie, setButtonCategorie] = useState(null);
   const [toggleClick, setToggleClick] = useState(false);
+  const [foodFromSearch, setFoodFromSearch] = useState(null);
 
   const renderCards = () => (<Cards
     ApiCallMeals
     ApiCallCockTails={ false }
     categorie={ buttonCategorie }
+    foodFromSearch={ foodFromSearch }
   />);
 
   const toggleButton = (setButton, listCategorie, index, categorie) => {
@@ -34,7 +36,7 @@ export default function Recipes() {
     return renderCards;
   };
 
-  useEffect(getDataButton, [buttonCategorie]);
+  useEffect(getDataButton, []);
 
   const renderButtons = () => {
     if (listMealsCategorie.length > 0) {
@@ -127,7 +129,7 @@ export default function Recipes() {
 
   return (
     <div>
-      <Header title={ title } search />
+      <Header title={ title } setFoodFromSearch={ setFoodFromSearch } search />
       <h1>Receitas</h1>
       {renderButtons()}
       {renderCards()}
