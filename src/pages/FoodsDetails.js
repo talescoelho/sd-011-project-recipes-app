@@ -7,14 +7,12 @@ export default function FoodsDetails(props) {
   useEffect(() => {
     async function fetchApi() {
       const results = await FetchApi('themealdb', null, null, ['details', id]);
-      console.log(results);
     }
     fetchApi();
   }, []);
 
   return (
     <div>
-      {id}
     </div>
   );
 }

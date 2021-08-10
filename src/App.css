@@ -11,3 +11,7 @@
 .selectedCat {
   background-color: grey;
 }
+
+.do-row {
+  text-decoration: line-through;
+}

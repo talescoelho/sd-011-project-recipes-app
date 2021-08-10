@@ -98,6 +98,7 @@ export default function Drinks() {
                 srcImage={ recipe.strDrinkThumb }
                 id={ recipe.idDrink }
                 trigger="bebidas"
+                target={ recipe }
               />))
             : ''
         }
