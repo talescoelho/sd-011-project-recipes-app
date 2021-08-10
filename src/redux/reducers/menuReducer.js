@@ -19,7 +19,6 @@ const INITIAL_STATE = {
     error: null,
   },
 };
-console.log(INITIAL_STATE.menu);
 
 const menuReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {

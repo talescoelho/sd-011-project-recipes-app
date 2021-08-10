@@ -2,10 +2,32 @@ import React from 'react';
 import { renderWithRouterAndStore } from '../helper/testConfig';
 import { FoodDetails, DrinkDetails } from '../../pages';
 import * as requestMenu from '../../services/requestMenu';
+import mealsFiltersByAll from '../mocks/meals/mockFilterMealsByAll';
+import mealRecipeDetails from '../mocks/meals/mockMealRecipeDetails';
+import drinksFiltersByAll from '../mocks/drinks/mockFilterDrinksByAll';
+import drinkRecipeDetails from '../mocks/drinks/mockDrinkRecipeDetails';
 
-const fetch = jest.spyOn(global, 'fetch');
-const mockMealsRecipeDetails = jest.spyOn(requestMenu, 'mealsRecipeDetails');
-const mockDrinksRecipeDetails = jest.spyOn(requestMenu, 'drinksRecipeDetails');
+const mockMealPath = '/comidas/52977';
+const mockMealsMatch = { params: { id: '52977' }, url: '/comidas/52977' };
+
+const mockDrinkPath = '/bebidas/15997';
+const mockDrinkMatch = { params: { id: '15997' }, url: '/bebidas/15997' };
+
+const mockedSearchMealByName = jest
+  .spyOn(requestMenu, 'searchMealByName')
+  .mockImplementation(() => Promise.resolve(mealsFiltersByAll));
+
+const mockedSearchDrinkByName = jest
+  .spyOn(requestMenu, 'searchDrinkByName')
+  .mockImplementation(() => Promise.resolve(drinksFiltersByAll));
+
+const mockMealsRecipeDetails = jest
+  .spyOn(requestMenu, 'mealsRecipeDetails')
+  .mockImplementation(() => Promise.resolve(mealRecipeDetails));
+
+const mockDrinksRecipeDetails = jest
+  .spyOn(requestMenu, 'drinksRecipeDetails')
+  .mockImplementation(() => Promise.resolve(drinkRecipeDetails));
 
 afterEach(() => jest.clearAllMocks());
 beforeEach(() => jest.clearAllMocks());
@@ -13,26 +35,22 @@ beforeEach(() => jest.clearAllMocks());
 describe(`34 - Make a request to the API passing the id of the recipe that must be 
 available in the URL parameters`, () => {
   it('Check if the request for the food API has been made', () => {
-    const match = { params: { id: '52771' }, url: '/comidas/52771' };
-    renderWithRouterAndStore(<FoodDetails match={ match } />, '/comidas/52771');
+    renderWithRouterAndStore(<FoodDetails match={ mockMealsMatch } />, mockMealPath);
 
-    expect(fetch).toHaveBeenCalled();
-    expect(fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771');
-    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(mockedSearchDrinkByName).toHaveBeenCalled();
+    expect(mockedSearchDrinkByName).toHaveBeenCalledTimes(1);
     expect(mockMealsRecipeDetails).toHaveBeenCalled();
-    expect(mockMealsRecipeDetails).toHaveBeenCalledWith('52771');
+    expect(mockMealsRecipeDetails).toHaveBeenCalledWith('52977');
     expect(mockMealsRecipeDetails).toHaveBeenCalledTimes(1);
   });
 
   it('Checks whether the request for the drink\'s API has been made', () => {
-    const match = { params: { id: '178319' }, url: '/bebidas/178319' };
-    renderWithRouterAndStore(<DrinkDetails match={ match } />, '/bebidas/178319');
+    renderWithRouterAndStore(<DrinkDetails match={ mockDrinkMatch } />, mockDrinkPath);
 
-    expect(fetch).toHaveBeenCalled();
-    expect(fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319');
-    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(mockedSearchMealByName).toHaveBeenCalled();
+    expect(mockedSearchMealByName).toHaveBeenCalledTimes(1);
     expect(mockDrinksRecipeDetails).toHaveBeenCalled();
-    expect(mockDrinksRecipeDetails).toHaveBeenCalledWith('178319');
+    expect(mockDrinksRecipeDetails).toHaveBeenCalledWith('15997');
     expect(mockDrinksRecipeDetails).toHaveBeenCalledTimes(1);
   });
 });

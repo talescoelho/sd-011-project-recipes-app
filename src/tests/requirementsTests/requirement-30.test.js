@@ -19,6 +19,8 @@ import drinksFilterByCocoa from '../mocks/drinks/mockFilterByCocoa';
 import * as requestMenu from '../../services/requestMenu';
 
 const maxDefaultCards = 12;
+const cardTestId = '-recipe-card';
+const titleTestId = '-card-name';
 
 jest
   .spyOn(requestMenu, 'searchMealByName')
@@ -45,7 +47,7 @@ describe('30 - Implement the category filter so that only one is selected at a t
       fireEvent.click(beefFilterOption);
 
       const { meals: beefMeals } = mealsFilterByBeef;
-      await testMealsRecipeCard(beefMeals, maxDefaultCards);
+      await testMealsRecipeCard(beefMeals, maxDefaultCards, cardTestId, titleTestId);
 
       mockFilterMealByCategory(mealsFilterByBreakfast);
 
@@ -55,7 +57,7 @@ describe('30 - Implement the category filter so that only one is selected at a t
       fireEvent.click(breakfastFilterOption);
 
       const { meals: breakfastMeals } = mealsFilterByBreakfast;
-      await testMealsRecipeCard(breakfastMeals, maxDefaultCards);
+      await testMealsRecipeCard(breakfastMeals, maxDefaultCards, cardTestId, titleTestId);
 
       mockFilterMealByCategory(mealsFilterByChicken);
 
@@ -65,7 +67,7 @@ describe('30 - Implement the category filter so that only one is selected at a t
       fireEvent.click(chickenFilterOption);
 
       const { meals: chickenMeals } = mealsFilterByChicken;
-      await testMealsRecipeCard(chickenMeals, maxDefaultCards);
+      await testMealsRecipeCard(chickenMeals, maxDefaultCards, cardTestId, titleTestId);
 
       mockFilterMealByCategory(mealsFilterByDessert);
 
@@ -75,7 +77,7 @@ describe('30 - Implement the category filter so that only one is selected at a t
       fireEvent.click(dessertFilterOption);
 
       const { meals: dessertMeals } = mealsFilterByDessert;
-      await testMealsRecipeCard(dessertMeals, maxDefaultCards);
+      await testMealsRecipeCard(dessertMeals, maxDefaultCards, cardTestId, titleTestId);
 
       mockFilterMealByCategory(mealsFilterByGoat);
 
@@ -85,7 +87,7 @@ describe('30 - Implement the category filter so that only one is selected at a t
       fireEvent.click(goatFilterOption);
 
       const { meals: goatMeals } = mealsFilterByGoat;
-      await testMealsRecipeCard(goatMeals, maxDefaultCards);
+      await testMealsRecipeCard(goatMeals, maxDefaultCards, cardTestId, titleTestId);
     });
 
     it(`If the recipes are for drinks, only one category filter must be able to be 
@@ -100,7 +102,9 @@ describe('30 - Implement the category filter so that only one is selected at a t
       fireEvent.click(ordinaryDrinkFilterOption);
 
       const { drinks: ordinaryDrinks } = drinksFilterByOrdinaryDrink;
-      await testDrinksRecipeCard(ordinaryDrinks, maxDefaultCards);
+      await testDrinksRecipeCard(
+        ordinaryDrinks, maxDefaultCards, cardTestId, titleTestId,
+      );
 
       mockFilterDrinkByCategory(drinksFilterByCocktail);
 
@@ -110,7 +114,9 @@ describe('30 - Implement the category filter so that only one is selected at a t
       fireEvent.click(cocktailFilterOption);
 
       const { drinks: cocktailDrinks } = drinksFilterByCocktail;
-      await testDrinksRecipeCard(cocktailDrinks, maxDefaultCards);
+      await testDrinksRecipeCard(
+        cocktailDrinks, maxDefaultCards, cardTestId, titleTestId,
+      );
 
       mockFilterDrinkByCategory(drinksFilterByMilkFloatShake);
 
@@ -120,7 +126,9 @@ describe('30 - Implement the category filter so that only one is selected at a t
       fireEvent.click(MilkFloatShakeFilterOption);
 
       const { drinks: milkFloatShakeDrinks } = drinksFilterByMilkFloatShake;
-      await testDrinksRecipeCard(milkFloatShakeDrinks, maxDefaultCards);
+      await testDrinksRecipeCard(
+        milkFloatShakeDrinks, maxDefaultCards, cardTestId, titleTestId,
+      );
 
       mockFilterDrinkByCategory(drinksFilterByOtherUnknown);
 
@@ -130,7 +138,9 @@ describe('30 - Implement the category filter so that only one is selected at a t
       fireEvent.click(otherUnknownFilterOption);
 
       const { drinks: otherUnknownDrinks } = drinksFilterByOtherUnknown;
-      await testDrinksRecipeCard(otherUnknownDrinks, maxDefaultCards);
+      await testDrinksRecipeCard(
+        otherUnknownDrinks, maxDefaultCards, cardTestId, titleTestId,
+      );
 
       mockFilterDrinkByCategory(drinksFilterByCocoa);
 
@@ -140,6 +150,6 @@ describe('30 - Implement the category filter so that only one is selected at a t
       fireEvent.click(cocoaFilterOption);
 
       const { drinks: cocoaDrinks } = drinksFilterByCocoa;
-      await testDrinksRecipeCard(cocoaDrinks, maxDefaultCards);
+      await testDrinksRecipeCard(cocoaDrinks, maxDefaultCards, cardTestId, titleTestId);
     });
   });
