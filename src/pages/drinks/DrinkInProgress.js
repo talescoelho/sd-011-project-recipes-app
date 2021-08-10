@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ButtonShare from '../../components/ButtonShare';
+import CardDetail from '../../components/RecipeInProgress/CardDetail';
+import IngredientsList from '../../components/RecipeInProgress/IngredientsList';
+import Instructions from '../../components/RecipeInProgress/Instructions';
+import ButtonFinish from '../../components/RecipeInProgress/ButtonFinish';
+import { InProgressProvider } from '../../context/InProgress';
+import ButtonFavorite from '../../components/ButtonFavorite';
 
 export default function DrinkInProgress({ location }) {
   const [recipe, setRecipe] = useState();
-  const [ingredientsArray, setIngredientsArray] = useState([]);
-  const [measurementsArray, setMeasurementsArray] = useState([]);
+  const recipeId = window.location.pathname.split('/')[2];
+
   const { state } = location;
 
   useEffect(() => {
@@ -16,73 +22,38 @@ export default function DrinkInProgress({ location }) {
 
   useEffect(() => {
     if (!state) {
-      const recipeId = window.location.pathname.split('/')[2];
       const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipeId}`;
       const getRecipe = async () => {
         console.log('passei');
         const data = await fetch(URL).then((r) => r.json()).then((d) => d.drinks[0]);
-        console.log(data);
         setRecipe(data);
       };
       getRecipe();
     }
-  }, [state]);
-
-  useEffect(() => {
-    const getItems = (searchedKey) => Object.entries(recipe).filter(
-      (value) => value[0].includes(searchedKey) && value[1],
-    );
-    if (recipe) {
-      const ingredients = getItems('Ingredient');
-      const measures = getItems('Measure');
-      setIngredientsArray(ingredients);
-      setMeasurementsArray(measures);
-    }
-  }, [ingredientsArray, recipe]);
+  }, [recipeId, state]);
 
   if (recipe) {
+    const CHARACTERS = -12;
     return (
-      <section>
-        <img
-          src={ recipe.strDrinkThumb }
-          alt={ recipe.idDrink }
-          data-testid="recipe-photo"
-        />
-        <h1 data-testid="recipe-title">{ recipe.strDrink }</h1>
-        <p data-testid="recipe-category">{ recipe.strCategory }</p>
-        <ButtonShare path={ window.location.href } testid="share-btn" />
-        <button
-          type="button"
-          data-testid="favorite-btn"
-        >
-          {'<3'}
-        </button>
-        <p>{ recipe.strAlcoholic }</p>
-        <h3>Receita</h3>
-        { ingredientsArray && ingredientsArray.map((ingredient, index) => (
-          <div key={ index }>
-            <label key={ index } htmlFor={ `id${index}` }>
-              <input
-                id={ `id${index}` }
-                data-testid={ `${index}-ingredient-step` }
-                key={ index }
-                type="checkbox"
-                value={ ingredient[1] }
-              />
-              {`${ingredient[1]} ${
-                measurementsArray[index]
-                  ? ` - ${measurementsArray[index][1]}`
-                  : ''
-              }`}
-            </label>
-          </div>
-        ))}
-        <h3>Instruções</h3>
-        <p data-testid="instructions">{ recipe.strInstructions }</p>
-        <button type="button" data-testid="finish-recipe-btn">
-          Finalizar Receita
-        </button>
-      </section>
+      <InProgressProvider>
+        <section>
+          <CardDetail
+            thumb={ recipe.strDrinkThumb }
+            name={ recipe.strDrink }
+            id={ recipe.idDrink }
+            category={ recipe.strCategory }
+          />
+          <p>{ recipe.strAlcoholic }</p>
+          <ButtonShare
+            path={ window.location.href.slice(0, CHARACTERS) }
+            testid="share-btn"
+          />
+          <ButtonFavorite objData={ recipe } />
+          <IngredientsList recipe={ recipe } />
+          <Instructions Instructions={ recipe.strInstructions } />
+          <ButtonFinish />
+        </section>
+      </InProgressProvider>
     );
   }
   return (<div>Carregando...</div>);
