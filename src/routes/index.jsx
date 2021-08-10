@@ -1,12 +1,14 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
 import DrinkProgress from '../pages/DrinkProgress';
+import DoneRecipes from '../pages/DoneRecipes';
 import {
   LoginPage, NotFound, User, Bebidas, Explore, Comidas,
   MealtIngredients, DrinkIngredients, ExploreFood,
-  ExploreDrink, RecipeProgress, DrinkDetails, MealDetails,
+  ExploreDrink, MealInProgress, DrinkDetails, MealDetails,
   ExploreByPlace,
 } from '../pages';
+import FavoritePage from '../pages/FavoritePage';
 
 function Routes() {
   return (
@@ -48,12 +50,22 @@ function Routes() {
       <Route
         exact
         path="/comidas/:id/in-progress"
-        render={ (props) => <RecipeProgress { ...props } /> }
+        render={ (props) => <MealInProgress { ...props } /> }
       />
       <Route
         exact
         path="/bebidas/:id/in-progress"
         render={ (props) => <DrinkProgress { ...props } /> }
+      />
+      <Route
+        exact
+        path="/receitas-feitas"
+        render={ (props) => <DoneRecipes { ...props } /> }
+      />
+      <Route
+        exact
+        path="/receitas-favoritas"
+        render={ (props) => <FavoritePage { ...props } /> }
       />
 
       <Route path="*" component={ NotFound } />

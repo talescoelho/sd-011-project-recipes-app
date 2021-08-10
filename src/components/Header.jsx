@@ -13,7 +13,7 @@ function Header(props) {
 
   return (
     <header>
-      <nav>
+      <nav className={ renderButton ? 'nav-3' : 'nav-2' }>
         <Link to="/perfil">
           <img
             className="header-img"

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Form, Button, Container } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 
 export default function LoginForm() {
   const { methods, isDisabled, submitData, watchData } = useFormContext();
@@ -14,7 +14,7 @@ export default function LoginForm() {
 
   return (
     <Form>
-      <Container>
+      <div className="login-container">
         <Form onSubmit={ handleSubmit(submitData) }>
           <h3 className="text-center text-info">Login</h3>
           <Form.Group classNameName="mt-2">
@@ -38,14 +38,15 @@ export default function LoginForm() {
               disabled={ !isDisabled }
               data-testid="login-submit-btn"
               type="submit"
-              variant="primary"
+              className="login-btn"
+              variant="outline-primary"
               size="lg"
             >
               Entrar
             </Button>
           </Form.Group>
         </Form>
-      </Container>
+      </div>
     </Form>
   );
 }

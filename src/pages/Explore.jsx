@@ -3,14 +3,16 @@ import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import Header from '../components/Header';
 import '../styles/Explore.css';
+import Footer from '../components/Footer';
 
 export default function Explore() {
   return (
-    <div>
+    <>
       <Header pageName="Explorar" />
-      <div className="explore-buttons">
+      <main className="explore-buttons">
         <Link to="/explorar/comidas">
           <Button
+            variant="outline-primary"
             data-testid="explore-food"
             type="button"
             className="explore-button"
@@ -20,6 +22,7 @@ export default function Explore() {
         </Link>
         <Link to="/explorar/bebidas">
           <Button
+            variant="outline-success"
             data-testid="explore-drinks"
             type="button"
             className="explore-button"
@@ -27,7 +30,8 @@ export default function Explore() {
             Explorar Bebidas
           </Button>
         </Link>
-      </div>
-    </div>
+      </main>
+      <Footer />
+    </>
   );
 }

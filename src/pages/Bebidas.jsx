@@ -2,7 +2,7 @@ import React from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import '../styles/Main.css';
-import '../styles/Cards.scss';
+import '../styles/Cards.css';
 import FilterButtons from '../components/FilterButtons';
 import FoodCard from '../components/FoodCard';
 

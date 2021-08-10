@@ -7,12 +7,14 @@ const getFood = (food, db) => async (dispatch) => {
     meals: {
       ingredient: `https://www.themealdb.com/api/json/v1/1/filter.php?i=${query}`,
       name: `https://www.themealdb.com/api/json/v1/1/search.php?s=${food ? query : ''}`,
-      letra: `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`,
+      letra: `https://www.themealdb.com/api/json/v1/1/search.php?f=${query}`,
     },
     drinks: {
-      ingredient: `https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${query}`,
+
+      ingredient: `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${query}`,
       name: `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${food ? query : ''}`,
       letra: `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${query}`,
+
     },
   };
 
@@ -22,14 +24,17 @@ const getFood = (food, db) => async (dispatch) => {
       return alert(warning);
     }
     const URL = food ? database[db][type] : database[db].name;
-
     const response = await fetch(URL);
     const data = await response.json();
     const filtered = data[db] && data[db].filter((item, index) => index < maxCards);
+    console.log(filtered);
+    if (filtered === null && food) {
+      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
 
     try {
       const list = food ? data[db] : filtered;
-      dispatch(getFoodCard({ filtered: list, untouched: list }));
+      dispatch(getFoodCard({ filtered: list, selectedCategory: db }));
     } catch (error) {
       throw new Error(error);
     }

@@ -18,3 +18,19 @@ export const getFoodCategories = (payload) => ({
   type: 'FETCH_FOOD_CATEGORIES',
   payload,
 });
+
+export const getFilteredCategory = (payload) => ({
+  type: 'FETCH_FILTERED_CATEGORY',
+  payload,
+});
+
+export const getFavoriteRecipes = (payload) => ({
+  type: 'GET_FAVORITE_RECIPES',
+  payload,
+
+});
+
+export const filterBookmarked = (payload) => ({
+  type: 'FILTER_RECIPES',
+  payload,
+});

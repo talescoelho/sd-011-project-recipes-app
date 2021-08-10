@@ -5,7 +5,7 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
 }
 
 header button {
@@ -20,20 +20,39 @@ nav {
   display: flex;
   font-size: 20px;
   height: 60px;
-  justify-content: space-between;
   text-align: center;
 }
 
-.header-button {
-  background-color: #c4c4c4;
-  border: none;
-  border-color: #c4c4c4;
-  margin: 10px;
+.nav-3 {
+  justify-content: space-between;
 }
 
 .header-img {
   margin: 10px;
 }
+
+.nav-2 .header-img {
+  left: 0;
+
+}
+
+header h1 {
+  color: rgb(27, 99, 255);
+  font-weight: 900;
+}
+
+.nav-2 h1 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header-button {
+  background-color: transparent;
+  border: none;
+  margin: 10px;
+}
+
 
 .search-input {
   width: 90%;

@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bree+Serif&family=EB+Garamond:ital,wght@0,500;1,800&display=swap') ;
+
+* {
+  box-sizing: content-box;
+}
+
+
+.dr-share img {
+  object-fit: contain;
+}
+
+.dr-share p {
+  color: #7d7d7d;
+  font-weight: 900;
+  text-align: justify;
+}
+
+
+.done-recipe .done-container {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 5px;
+  box-shadow: 0 15px 30px 1px grey;
+  display: flex;
+  flex-flow: row nowrap;
+  height: 250px;
+  margin: 5em auto;
+  overflow: hidden;
+  text-align: center;
+  width: 95%;
+}
+
+
+.done-recipe .product-details {
+  float: left;
+  height: 100%;
+  overflow: hidden;
+  padding: 30px;
+  position: relative;
+  text-align: left;
+  width: 40%;
+
+}
+
+.done-recipe .done-container .product-details h1 {
+  color: #344055;
+  font-family: Bebas Neue , cursive;
+  font-size: 25px;
+  margin: 0;
+  text-align: center;
+
+}
+
+
+.done-recipe .done-container .product-details > p {
+  color: #7d7d7d;
+  font-family: EB Garamond , serif;
+  font-size: 18px;
+  text-align: center;
+
+}
+
+.done-recipe .btn:hover {
+  background: #1a66ff;
+  transform: translateY(-6px);}
+
+.btn span {
+  display: inline-block;
+  font-family: Farsan , cursive;
+  font-size: 1.2em;
+  margin: 0;
+  padding: 10px 20px;
+  transition: transform 0.3s;
+
+}
+
+
+.done-recipe .product-image {
+  display: inline-block;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease-out;
+  width: 45%;
+}
+
+.done-recipe .done-container img {
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.done-recipe .info h2 {
+  text-align: center;
+}
+
+
+.dr-share {
+  background: transparent;
+  border: none;
+  height: 30px;
+  width: 30px;
+}
+
+.favorite-btn {
+  background : transparent;
+  border : none;
+}
