@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { setDisableButton } from '../redux/slices/fetchReceitas';
 
+import './RenderIngredientCheckBox.css';
+
 // Verificar se o id existe no objeto
 
 const searchChecked = () => {
@@ -72,10 +74,11 @@ function RenderIngredientCheckBox({ index, values, id }) {
     <label
       data-testid={ `${index}-ingredient-step` }
       htmlFor={ `${index}ingredients` }
+      className={ isChecked ? 'checked' : '' }
     >
       <input
         name={ `${index}ingredients` }
-        className="checkboxIngredient"
+        className={ `checkboxIngredient ${isChecked ? 'checked' : ''}` }
         type="checkbox"
         key={ index }
         defaultChecked={ isChecked }
