@@ -6,7 +6,7 @@ function FavoriteRecipes() {
   return (
     <div>
       <Header title="Receitas Favoritas" />
-      <LocalStorageButtons />
+      <LocalStorageButtons doneRecipes="false" />
     </div>
   );
 }

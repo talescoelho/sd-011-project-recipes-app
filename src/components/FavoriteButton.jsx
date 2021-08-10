@@ -6,7 +6,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function FavoriteButton({ index, foodOrDrink, id }) {
   const { idDetails } = useContext(AppContext);
-  const details = idDetails && idDetails[0];
+  const details = idDetails[0];
   console.log('details', details);
   const [favorite, setFavorite] = useState(false);
   const favRecipes = {
@@ -40,7 +40,7 @@ function FavoriteButton({ index, foodOrDrink, id }) {
   return (
     <button
       type="button"
-      onClick={ handleFavorite }
+      onClick={ () => handleFavorite() }
       data-testid={ `${index}-horizontal-favorite-btn` }
     >
       <img
@@ -55,7 +55,7 @@ function FavoriteButton({ index, foodOrDrink, id }) {
 export default FavoriteButton;
 
 FavoriteButton.propTypes = {
-  index: PropTypes.string.isRequired,
+  index: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   foodOrDrink: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };

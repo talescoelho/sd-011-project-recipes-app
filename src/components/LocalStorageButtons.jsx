@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ShareButton from './ShareButton';
 import '../styles/carousel.css';
-// import FavoriteButton from './FavoriteButton';
+import FavoriteButton from './FavoriteButton';
 
 function LocalStorageButtons({ doneRecipes }) {
   const [local, setLocal] = useState([]);
@@ -77,11 +77,12 @@ function LocalStorageButtons({ doneRecipes }) {
           foodOrDrink={ item.type === 'comida' ? 'comidas' : 'bebidas' }
           id={ item.id }
         />
-        {/*  {!doneRecipes ? <FavoriteButton
+        {!doneRecipes ? <FavoriteButton
           index={ index }
           foodOrDrink={ item.type === 'comida' ? 'comidas' : 'bebidas' }
           id={ item.id }
-        /> : null} */}
+          type={ item.type }
+        /> : null}
         {item.tags && item.tags
           .map((_, i) => (
             <p key={ i } data-testid={ `${index}-${item.tags[i]}-horizontal-tag` }>
@@ -127,7 +128,11 @@ function LocalStorageButtons({ doneRecipes }) {
 }
 
 LocalStorageButtons.propTypes = {
-  doneRecipes: PropTypes.string.isRequired,
+  doneRecipes: PropTypes.bool,
+};
+
+LocalStorageButtons.defaultProps = {
+  doneRecipes: true,
 };
 
 export default LocalStorageButtons;

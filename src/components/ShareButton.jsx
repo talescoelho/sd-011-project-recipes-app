@@ -32,7 +32,7 @@ export default function ShareButton({ index, foodOrDrink, id }) {
 }
 
 ShareButton.propTypes = {
-  index: PropTypes.number.isRequired,
-  foodOrDrink: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
+  index: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  foodOrDrink: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };

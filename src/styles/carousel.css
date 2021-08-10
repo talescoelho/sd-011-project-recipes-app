@@ -21,3 +21,7 @@
   visibility: visible;
   width: 300px;
 }
+
+.liIngredients {
+  text-decoration: line-through;
+}
