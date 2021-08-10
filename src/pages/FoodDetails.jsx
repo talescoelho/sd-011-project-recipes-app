@@ -4,6 +4,7 @@ import { func, shape, string } from 'prop-types';
 import RecipeInstructions from '../components/common/RecipeInstructions';
 import StartRecipeBtn from '../components/common/StartRecipeBtn';
 import { requestMealDetails } from '../redux/actions/recipeDetailsActions';
+import RecipeVideo from '../components/common/RecipeVideo';
 import RecommendationCarousel from '../components/common/RecommendationCarousel';
 
 const FoodDetails = ({ dispatch, match, mealDetails }) => {
@@ -18,6 +19,7 @@ const FoodDetails = ({ dispatch, match, mealDetails }) => {
     <>
       <div>Pagina de Detalhe de Comida</div>
       <RecipeInstructions strInstructions={ mealDetails.strInstructions } />
+      <RecipeVideo strYoutube={ mealDetails.strYoutube } />
       <RecommendationCarousel url={ url } />
       <StartRecipeBtn routeInfo={ { id, url } } />
     </>

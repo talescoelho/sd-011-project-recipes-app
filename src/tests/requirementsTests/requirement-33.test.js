@@ -39,10 +39,12 @@ attributes described in the prototype`, () => {
     renderWithRouterAndStore(<FoodDetails match={ mockMealsMatch } />, mockMealPath);
 
     const instructions = await screen.findByTestId('instructions');
+    const recipeVideo = await screen.findByTestId('video');
     const recomendationCard = await screen.findByTestId('0-recomendation-card');
     const startRecipeBtn = await screen.findByTestId('start-recipe-btn');
 
     expect(instructions).toBeInTheDocument();
+    expect(recipeVideo).toBeInTheDocument();
     expect(recomendationCard).toBeInTheDocument();
     expect(startRecipeBtn).toBeInTheDocument();
   });
@@ -51,10 +53,12 @@ attributes described in the prototype`, () => {
     renderWithRouterAndStore(<DrinkDetails match={ mockDrinkMatch } />, mockDrinkPath);
 
     const instructions = await screen.findByTestId('instructions');
+    const recipeVideo = screen.queryByTestId('video');
     const recomendationCard = await screen.findByTestId('0-recomendation-card');
     const startRecipeBtn = await screen.findByTestId('start-recipe-btn');
 
     expect(instructions).toBeInTheDocument();
+    expect(recipeVideo).not.toBeInTheDocument();
     expect(recomendationCard).toBeInTheDocument();
     expect(startRecipeBtn).toBeInTheDocument();
   });
