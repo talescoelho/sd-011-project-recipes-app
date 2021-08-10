@@ -3,7 +3,9 @@ import FavoriteIcon from '../images/whiteHeartIcon.svg';
 
 function FavoriteBtn() {
   function btnClickHandler() {
+
   }
+
   return (
     <div>
       <button
@@ -11,7 +13,7 @@ function FavoriteBtn() {
         onClick={ btnClickHandler }
       >
         <img
-          data-testid="favorite-btn"
+          data-testid="share-btn"
           src={ FavoriteIcon }
           alt="icone Share"
         />

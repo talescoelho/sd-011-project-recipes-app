@@ -3,7 +3,9 @@ import ShareBtnIcon from '../images/shareIcon.svg';
 
 function ShareBtn() {
   function btnClickHandler() {
+
   }
+
   return (
     <div>
       <button
