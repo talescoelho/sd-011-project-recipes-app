@@ -209,6 +209,7 @@ function ComidaProcesso() {
           Finalizar Receita
         </button>
       </Link>
+      { console.log(document.querySelectorAll('.checkboxIngredient')) }
     </div>
   );
 }

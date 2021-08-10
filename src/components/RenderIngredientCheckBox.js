@@ -7,8 +7,9 @@ import { setCheckBoxCounter } from '../redux/slices/fetchReceitas';
 
 function RenderIngredientCheckBox({ index, values, id }) {
   const { checkBoxCounter } = useSelector((state) => state.fetchReceitas);
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
-  const [isChecked, setIsChecked] = useState(true);
+  const [isChecked, setIsChecked] = useState();
   const { pathname } = window.location;
   const recipeURL = pathname.split('/')[1];
   const recipeType = recipeURL === 'comidas' ? 'meals' : 'cocktails';
@@ -32,7 +33,10 @@ function RenderIngredientCheckBox({ index, values, id }) {
       setIsChecked(JSON.parse(localStorage.getItem('inProgressRecipes'))[recipeType][id]
         .includes(index));
     }
+    setIsLoading(false);
   }, []);
+
+  if (isLoading) return <p>Loading...</p>;
 
   function handleCheck() {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -81,11 +85,12 @@ function RenderIngredientCheckBox({ index, values, id }) {
     >
       <input
         name={ `${index}ingredients` }
+        className="checkboxIngredient"
         type="checkbox"
         key={ index }
         defaultChecked={ isChecked }
         onChange={ () => setIsChecked(!isChecked) }
-        checked={ isChecked }
+        // checked={ isChecked }
         onClick={ handleCheck }
       />
       {values}

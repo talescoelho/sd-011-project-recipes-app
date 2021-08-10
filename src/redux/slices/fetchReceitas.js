@@ -18,6 +18,7 @@ const initialState = {
   error: null,
   input: '',
   checkBoxCounter: 0,
+  disabledButton: true,
 };
 
 // createAsyncThunk receives two parameters: 1) name of the slice, 2) function name that creates the createAsyncThunk
