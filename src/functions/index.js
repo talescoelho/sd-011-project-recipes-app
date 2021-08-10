@@ -42,7 +42,8 @@ export const removeFromFavorites = (id) => {
 // Add recipe in localStorage
 export const addRecipeInFavorites = (recipe, url) => {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-  const type = url.replace(/\//ig, '').replace(/[0-9]/g, '').replace('s', '');
+  const type = url.replace(/\//ig, '').replace(/[0-9]/g, '').replace('s', '')
+    .replace('in-progress', '');
   const {
     idMeal,
     idDrink,

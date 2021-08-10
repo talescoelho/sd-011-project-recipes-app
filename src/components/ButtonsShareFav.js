@@ -11,6 +11,10 @@ function ButtonsShareFav() {
   const { share, setShare, favIcon, setFavIcon,
     recipeDetail: recipe } = useContext(RecipeContext);
   const { href } = window.location;
+  let link = href;
+  if (href.includes('in-progress')) {
+    link = href.replace('/in-progress', '');
+  }
   const history = useHistory();
   const url = history.location.pathname;
   // acrescentar ao localstorage o estado do favIcon
@@ -48,7 +52,7 @@ function ButtonsShareFav() {
       <button
         type="button"
         onClick={
-          () => { navigator.clipboard.writeText(href); setShare(!share); }
+          () => { navigator.clipboard.writeText(link); setShare(!share); }
         }
       >
         <img data-testid="share-btn" src={ ShareIcon } alt="Share Icon" />
