@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import YouTube from 'react-youtube';
 import RenderRecomendations from '../components/RenderRecomendations';
 import {
   getRecipes,
@@ -8,7 +9,6 @@ import {
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
 import nonFavoriteIcon from '../images/whiteHeartIcon.svg';
-import YouTube from 'react-youtube';
 
 const copy = require('clipboard-copy');
 
