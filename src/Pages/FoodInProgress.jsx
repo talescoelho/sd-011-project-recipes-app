@@ -18,6 +18,7 @@ export default class FoodInProgress extends Component {
       measure: [],
       copyToClipboard: false,
       favoriteFood: false,
+      getLocalStorage: {},
     };
     this.fetchDetail = this.fetchDetail.bind(this);
     this.setClassBox = this.setClassBox.bind(this);
@@ -51,6 +52,7 @@ export default class FoodInProgress extends Component {
     const { match: { params: { id } } } = this.props;
     const label = target.parentElement;
     const previewStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    this.setState({ getLocalStorage: previewStorage });
     if (target.checked) {
       previewStorage.meals[id].push(Number(target.id));
       localStorage.setItem('inProgressRecipes', JSON.stringify(previewStorage));
@@ -70,7 +72,9 @@ export default class FoodInProgress extends Component {
     if (previewStorage !== null) {
       const valueLocalStorage = previewStorage.meals[id];
       const teste = valueLocalStorage.find((item) => item === Number(ingredientIndex));
-      if (teste !== undefined) return true;
+      if (teste !== undefined) {
+        return true;
+      }
     }
   }
 
@@ -135,6 +139,12 @@ export default class FoodInProgress extends Component {
   }
 
   enableButton() {
+    const { match: { params: { id } } } = this.props;
+    const { getLocalStorage, ingredient } = this.state;
+    if (getLocalStorage.meals !== undefined
+      && getLocalStorage.meals[id].length === ingredient.length) {
+      return false;
+    }
     return true;
   }
 
@@ -194,24 +204,22 @@ export default class FoodInProgress extends Component {
                 { copyToClipboard ? 'Link copiado!' : 'Compartilhar' }
               </button>
             </CopyToClipboard>
-            <form>
-              { ingredient && ingredient.map((item, ingredientIndex) => (
-                <label
-                  htmlFor={ ingredientIndex }
-                  className="instructions-input"
-                  key={ ingredientIndex }
-                  data-testid={ `${ingredientIndex}-ingredient-step` }
-                >
-                  <input
-                    id={ ingredientIndex }
-                    type="checkbox"
-                    checked={ this.setCheckedStorage(ingredientIndex) }
-                    onClick={ (event) => this.setClassBox(event) }
-                  />
-                  { ` ${item.ingredient} - ${measure[ingredientIndex]}` }
-                </label>
-              )) }
-            </form>
+            { ingredient && ingredient.map((item, ingredientIndex) => (
+              <label
+                htmlFor={ ingredientIndex }
+                className="instructions-input"
+                key={ ingredientIndex }
+                data-testid={ `${ingredientIndex}-ingredient-step` }
+              >
+                <input
+                  id={ ingredientIndex }
+                  type="checkbox"
+                  checked={ this.setCheckedStorage(ingredientIndex) }
+                  onClick={ (event) => this.setClassBox(event) }
+                />
+                { ` ${item.ingredient} - ${measure[ingredientIndex]}` }
+              </label>
+            )) }
             <p className="instructions" data-testid="instructions">
               { result.strInstructions }
             </p>

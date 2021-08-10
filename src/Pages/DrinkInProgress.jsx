@@ -18,6 +18,7 @@ export default class DrinkInProgress extends Component {
       measure: [],
       copyToClipboard: false,
       favoriteDrink: false,
+      getLocalStorage: {},
     };
     this.fetchDetail = this.fetchDetail.bind(this);
     this.setClassBox = this.setClassBox.bind(this);
@@ -51,6 +52,7 @@ export default class DrinkInProgress extends Component {
     const { match: { params: { id } } } = this.props;
     const label = target.parentElement;
     const previewStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    this.setState({ getLocalStorage: previewStorage });
     if (target.checked) {
       previewStorage.cocktails[id].push(Number(target.id));
       localStorage.setItem('inProgressRecipes', JSON.stringify(previewStorage));
@@ -136,6 +138,12 @@ export default class DrinkInProgress extends Component {
   }
 
   enableButton() {
+    const { match: { params: { id } } } = this.props;
+    const { getLocalStorage, ingredient } = this.state;
+    if (getLocalStorage.cocktails !== undefined
+      && getLocalStorage.cocktails[id].length === ingredient.length) {
+      return false;
+    }
     return true;
   }
 
