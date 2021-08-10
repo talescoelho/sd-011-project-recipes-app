@@ -45,7 +45,6 @@ function Profile() {
       >
         Sair
       </button>
-
       <FooterBar />
     </>
   );
