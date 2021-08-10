@@ -4,6 +4,7 @@ import {
   Carousel,
   Row,
   Col,
+  Image,
 } from 'react-bootstrap';
 import { fetchRecomendation } from '../../../services/fetchDetailsApi';
 
@@ -19,21 +20,24 @@ export default function DetailsCarousel({ selector }) {
   }, [selector]);
 
   const drinkSelector = () => (
-    <Row as="nav">
-      <Col className="col-12">
-        <Carousel className="m-auto w-85" variant="dark">
+    <Row className="m-auto" as="nav">
+      <Col sm="12" lg="6" className="m-auto">
+        <Carousel className="justify-content-center" variant="dark">
           {recomendations.map(({ strMeal, strMealThumb }, index) => (
             <Carousel.Item
               data-testid={ `${index}-recomendation-card` }
               key={ strMeal }
             >
-              <img
-                className="recomendation-picture"
+              <Image
+                className="recomendation-picture w-100"
                 src={ strMealThumb }
                 alt="Imagem"
               />
-              <Carousel.Caption data-testid={ `${index}-recomendation-title` }>
-                <h3>{strMeal}</h3>
+              <Carousel.Caption
+                className="d-flex justify-content-center"
+                data-testid={ `${index}-recomendation-title` }
+              >
+                <h3 className="bg-light text-dark p-1 rounded">{strMeal}</h3>
               </Carousel.Caption>
             </Carousel.Item>
           ))}
@@ -43,21 +47,24 @@ export default function DetailsCarousel({ selector }) {
   );
 
   const mealSelector = () => (
-    <Row as="nav">
-      <Col className="col-12">
-        <Carousel className="m-auto w-85" variant="dark">
+    <Row className="m-auto" as="nav">
+      <Col sm="12" lg="6" className="m-auto">
+        <Carousel className="justify-content-center" variant="dark">
           {recomendations.map(({ strDrink, strDrinkThumb }, index) => (
             <Carousel.Item
               data-testid={ `${index}-recomendation-card` }
               key={ strDrink }
             >
-              <img
-                className="recomendation-picture"
+              <Image
+                className="recomendation-picture w-100"
                 src={ strDrinkThumb }
                 alt="Imagem"
               />
-              <Carousel.Caption data-testid={ `${index}-recomendation-title` }>
-                <h3>{strDrink}</h3>
+              <Carousel.Caption
+                className="d-flex justify-content-center"
+                data-testid={ `${index}-recomendation-title` }
+              >
+                <h3 className="bg-light text-dark p-1 rounded">{strDrink}</h3>
               </Carousel.Caption>
             </Carousel.Item>
           ))}

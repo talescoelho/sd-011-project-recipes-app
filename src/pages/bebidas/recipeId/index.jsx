@@ -5,6 +5,8 @@ import {
   Row,
   Col,
   Button,
+  Spinner,
+  Image,
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { fetchDetails } from '../../../services/fetchDetailsApi';
@@ -54,7 +56,12 @@ export default function BebidaDetails({ match: { params: { recipeId } } }) {
     history.push(`/bebidas/${recipeId}/in-progress`);
   };
 
-  const loading = () => <h1>Loading content...</h1>;
+  const loading = () => (
+    <Container className="d-flex m-auto flex-column justify-content-center">
+      <Spinner className="m-auto" animation="border" role="status" />
+      <h2 className="m-auto">Loading</h2>
+    </Container>
+  );
 
   const pageContent = () => {
     const {
@@ -66,14 +73,16 @@ export default function BebidaDetails({ match: { params: { recipeId } } }) {
     } = details;
 
     return (
-      <Container style={ { backgroundColor: '#0fa36b' } } as="main">
+      <Container fluid="md" style={ { backgroundColor: '#0fa36b' } } as="main">
         <Row>
-          <Col as="figure" className="justify-content-center">
-            <img
-              className="w-100 p-4"
-              src={ strDrinkThumb }
-              alt="Imagem"
+          <Col as="figure" className="m-auto" sd="12" md="8" lg="6">
+            <Image
+              className="my-3 p-3 shadow-lg"
               data-testid="recipe-photo"
+              src={ strDrinkThumb }
+              alt="Foto da receita em progresso"
+              fluid
+              thumbnail
             />
           </Col>
         </Row>
@@ -82,11 +91,9 @@ export default function BebidaDetails({ match: { params: { recipeId } } }) {
             <h1 data-testid="recipe-title">{ strDrink }</h1>
           </Col>
         </Row>
-        <Row as="nav" className="mb-3 m-auto">
-          <Col className="col-6">
+        <Row as="nav" className="mb-3 m-auto justify-content-center">
+          <Col className="col-12 d-flex justify-content-center">
             <CopyButton />
-          </Col>
-          <Col className="col-6">
             <FavoriteButton recipeId={ recipeId } selector="drink" details={ details } />
           </Col>
         </Row>
@@ -118,7 +125,7 @@ export default function BebidaDetails({ match: { params: { recipeId } } }) {
                     >
                       { details[key] }
                       :
-                      { details[`strMeasure${index + 1}`] }
+                      { details[`strMeasure${index + 1}`] || '' }
                     </li>
                   </Col>
                 ))
@@ -135,19 +142,19 @@ export default function BebidaDetails({ match: { params: { recipeId } } }) {
         </Row>
         <Row>
           <Col className="col-12">
-            <h2>Receitas recomendadas</h2>
+            <h3>Receitas recomendadas</h3>
           </Col>
         </Row>
-        <Row className="mb-5 justify-content-center">
+        <Row className="mb-5">
           <DetailsCarousel selector="drink" />
         </Row>
         <Row>
-          <Col className="col-12">
+          <Col className="col-12 m-auto">
             { !isRecipeDone
               && (
                 <Button
                   type="button"
-                  className="fixed-bottom m-auto"
+                  className="fixed-bottom jusitfy-content-center m-auto"
                   data-testid="start-recipe-btn"
                   variant="success"
                   onClick={ handleStartRecipe }
