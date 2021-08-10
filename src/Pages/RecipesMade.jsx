@@ -59,7 +59,7 @@ function RecipesMade() {
             {/* <SecondFavoriteButton
               itemId={ id }
               type={ type }
-              testId={ `${index}-horizontal-favorite-btn` }
+              testId={ `${index}-horizontal-favorite-btn`, }
               currentItem={ favoriteRecipes[index] }
               setUpdate={ setUpdate }
               update={ update }
