@@ -1,33 +1,33 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import PropTypes from 'prop-types';
-import Carousel from 'react-bootstrap/Carousel';
 import favoriteImg from '../images/blackHeartIcon.svg';
 import home from '../images/Home.svg';
 import fullHearth from '../images/whiteHeartIcon.svg';
 import saveRecipesOnLocalStorage from '../Services/saveFavoriteRecipesOnLocalStorage';
+import {
+  saveDoneRecipeDrinkOnLocalStorage } from '../Services/saveDoneRecipeOnLocalStorage';
 
-class DrinkDetails extends Component {
+export default class DrinkInProgress extends Component {
   constructor(props) {
     super(props);
     this.state = {
       drinkDetail: [],
       ingredient: [],
       measure: [],
-      recomandation: [],
       copyToClipboard: false,
-      favoriteFood: false,
+      favoriteDrink: false,
+      getLocalStorage: {},
     };
     this.fetchDetail = this.fetchDetail.bind(this);
-    this.renderRecomendations = this.renderRecomendations.bind(this);
-    this.saveOnLocalStorage = this.saveOnLocalStorage.bind(this);
-    this.saveOnLocalStorage = this.saveOnLocalStorage.bind(this);
-    this.checkRecipeInProgress = this.checkRecipeInProgress.bind(this);
-    this.verifyRecipeIsDone = this.verifyRecipeIsDone.bind(this);
+    this.setClassBox = this.setClassBox.bind(this);
     this.saveFavoriteRecipes = this.saveFavoriteRecipes.bind(this);
+    this.setCheckedStorage = this.setCheckedStorage.bind(this);
     this.addMealInProgress = this.addMealInProgress.bind(this);
+    this.checkRecipeInProgress = this.checkRecipeInProgress.bind(this);
+    this.setDoneRecipe = this.setDoneRecipe.bind(this);
+    this.enableButton = this.enableButton.bind(this);
   }
 
   componentDidMount() {
@@ -41,19 +41,77 @@ class DrinkDetails extends Component {
         favRecipeLocalStorage = favRecipenew;
       }
       if (favRecipeLocalStorage === id) {
-        this.setState({ favoriteFood: true });
+        this.setState({ favoriteDrink: true });
       }
     };
     this.newFunction();
   }
 
-  verifyRecipeIsDone() {
+  setClassBox({ target }) {
+    this.addMealInProgress();
     const { match: { params: { id } } } = this.props;
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    if (doneRecipes.length > 0) {
-      return doneRecipes.some((recipe) => recipe.id === id);
+    const label = target.parentElement;
+    const previewStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    this.setState({ getLocalStorage: previewStorage });
+    if (target.checked) {
+      previewStorage.cocktails[id].push(Number(target.id));
+      localStorage.setItem('inProgressRecipes', JSON.stringify(previewStorage));
+      label.className = 'instructions-input-checked';
+    } else {
+      const updateStorage = previewStorage.cocktails[id]
+        .filter((item) => item !== Number(target.id));
+      previewStorage.cocktails[id] = updateStorage;
+      localStorage.setItem('inProgressRecipes', JSON.stringify(previewStorage));
+      label.className = 'instructions-input';
     }
-    return false;
+  }
+
+  setCheckedStorage(ingredientIndex) {
+    const { match: { params: { id } } } = this.props;
+    const previewStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (previewStorage !== null) {
+      const valueLocalStorage = previewStorage.cocktails[id];
+      const teste = valueLocalStorage.find((item) => item === Number(ingredientIndex));
+      if (teste !== undefined) return true;
+    }
+  }
+
+  setDoneRecipe() {
+    const { drinkDetail } = this.state;
+    saveDoneRecipeDrinkOnLocalStorage(drinkDetail);
+  }
+
+  saveFavoriteRecipes() {
+    const { drinkDetail } = this.state;
+    const favoriteRecipes = { id: drinkDetail[0].idDrink,
+      type: 'bebida',
+      area: drinkDetail[0].strArea || '',
+      category: drinkDetail[0].strCategory || '',
+      alcoholicOrNot: drinkDetail[0].strAlcoholic || '',
+      name: drinkDetail[0].strDrink,
+      image: drinkDetail[0].strDrinkThumb };
+    saveRecipesOnLocalStorage(favoriteRecipes);
+  }
+
+  async fetchDetail() {
+    const { match: { params: { id } } } = this.props;
+    const result = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const json = await result.json();
+    this.setState({ drinkDetail: json.drinks });
+    const filteredIngredients = Object.entries(json.drinks[0]).filter(
+      (arr) => arr[0].includes('Ingredient', 'measure') && arr[1],
+    );
+    const ingredients = filteredIngredients.map((ing) => ({
+      ingredient: ing[1],
+    }));
+    this.setState({ ingredient: ingredients });
+    const filteredMeasure = Object.entries(json.drinks[0]).filter(
+      (arr) => arr[0].includes('Measure') && arr[1],
+    );
+    const measure = filteredMeasure.map((eachIngredient) => eachIngredient[1]);
+    this.setState({
+      measure,
+    });
   }
 
   checkRecipeInProgress() {
@@ -79,83 +137,23 @@ class DrinkDetails extends Component {
     }
   }
 
-  saveFavoriteRecipes() {
-    const { drinkDetail } = this.state;
-    const favoriteRecipes = { id: drinkDetail[0].idDrink,
-      type: 'bebida',
-      area: drinkDetail[0].strArea || '',
-      category: drinkDetail[0].strCategory || '',
-      alcoholicOrNot: drinkDetail[0].strAlcoholic || '',
-      name: drinkDetail[0].strDrink,
-      image: drinkDetail[0].strDrinkThumb };
-    saveRecipesOnLocalStorage(favoriteRecipes);
-  }
-
-  saveOnLocalStorage() {
-    const { drinkDetail } = this.state;
-    const doneRecipes = [{ id: drinkDetail[0].idDrink,
-      type: drinkDetail[0].strDrink,
-      area: drinkDetail[0].strArea,
-      category: drinkDetail[0].strCategory,
-      alcoholicOrNot: drinkDetail[0].strAlcoholic,
-      name: drinkDetail[0].strDrink,
-      image: drinkDetail[0].strSource,
-      doneDate: new Date(),
-      tags: drinkDetail[0].strTags }];
-    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-  }
-
-  async fetchDetail() {
+  enableButton() {
     const { match: { params: { id } } } = this.props;
-
-    const result = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-    const json = await result.json();
-
-    this.setState({
-      drinkDetail: json.drinks,
-    });
-
-    fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
-      .then((item) => item.json())
-      .then((mewResult) => this.setState({ recomandation: mewResult.meals }));
-
-    const filteredIngredients = Object.entries(json.drinks[0]).filter(
-      (arr) => arr[0].includes('Ingredient', 'measure') && arr[1],
-    );
-    const ingredients = filteredIngredients.map((ing) => ({ ingredient: ing[1] }));
-    this.setState({ ingredient: ingredients });
-    const filteredMeasure = Object.entries(json.drinks[0]).filter(
-      (arr) => arr[0].includes('Measure') && arr[1],
-    );
-    const measure = filteredMeasure.map((eachIngredient) => eachIngredient[1]);
-    this.setState({ measure });
-  }
-
-  renderRecomendations() {
-    const { recomandation } = this.state;
-    const number6 = 6;
-    const sliceOfRecomandation = recomandation.slice(0, number6);
-    return (
-      <Carousel className="rec-carousel" variant="dark">
-        { sliceOfRecomandation.map((item, index) => (
-          <Carousel.Item
-            key={ `rec-${index}` }
-            data-testid={ `${index}-recomendation-card` }
-          >
-            <img className="detailImg" src={ item.strMealThumb } alt="imagem" />
-            <Carousel.Caption>
-              <h5 data-testid={ `${index}-recomendation-title` }>{ item.strMeal }</h5>
-            </Carousel.Caption>
-          </Carousel.Item>
-        ))}
-      </Carousel>
-    );
+    const { getLocalStorage, ingredient } = this.state;
+    if (getLocalStorage.cocktails !== undefined
+      && getLocalStorage.cocktails[id].length === ingredient.length) {
+      return false;
+    }
+    return true;
   }
 
   render() {
-    const { drinkDetail, ingredient, measure,
-      recomandation, copyToClipboard, favoriteFood } = this.state;
-    const { match: { params: { id } } } = this.props;
+    const {
+      drinkDetail, ingredient, measure, favoriteDrink, copyToClipboard } = this.state;
+    const lastIndexOfHrefLocattion = 5;
+    const hrefLocationSplit = window.location.href.split('/');
+    const hrefLocation = hrefLocationSplit
+      .filter((_, index) => index !== lastIndexOfHrefLocattion);
     return (
       <div className="detailContainer">
         {drinkDetail && drinkDetail.map((result, index) => (
@@ -177,13 +175,13 @@ class DrinkDetails extends Component {
                 className="hearth"
                 type="button"
                 onClick={ () => {
-                  this.setState({ favoriteFood: !favoriteFood });
+                  this.setState({ favoriteDrink: !favoriteDrink });
                   this.saveFavoriteRecipes();
                 } }
               >
                 <img
                   data-testid="favorite-btn"
-                  src={ favoriteFood ? favoriteImg : fullHearth }
+                  src={ favoriteDrink ? favoriteImg : fullHearth }
                   alt="favorite-img"
                 />
               </button>
@@ -194,7 +192,7 @@ class DrinkDetails extends Component {
               alt="product-detail-img"
               src={ result.strDrinkThumb }
             />
-            <CopyToClipboard text={ window.location.href }>
+            <CopyToClipboard text={ hrefLocation.join('/') }>
               <button
                 style={ { color: 'white',
                   backgroundColor: 'rgb(151, 0, 0)',
@@ -206,26 +204,34 @@ class DrinkDetails extends Component {
                 { copyToClipboard ? 'Link copiado!' : 'Compartilhar' }
               </button>
             </CopyToClipboard>
-            { recomandation && this.renderRecomendations() }
             { ingredient && ingredient.map((item, ingredientIndex) => (
-              <ul className="instructions" key={ ingredientIndex }>
-                <li data-testid={ `${ingredientIndex}-ingredient-name-and-measure` }>
-                  { `${item.ingredient} - ${measure[ingredientIndex]}` }
-                </li>
-              </ul>
+              <label
+                htmlFor={ ingredientIndex }
+                className="instructions-input"
+                key={ ingredientIndex }
+                data-testid={ `${ingredientIndex}-ingredient-step` }
+              >
+                <input
+                  id={ ingredientIndex }
+                  type="checkbox"
+                  checked={ this.setCheckedStorage(ingredientIndex) }
+                  onClick={ (event) => this.setClassBox(event) }
+                />
+                { ` ${item.ingredient} - ${measure[ingredientIndex]}` }
+              </label>
             )) }
             <p className="instructions" data-testid="instructions">
               { result.strInstructions }
             </p>
-            <Link to={ `/bebidas/${id}/in-progress` }>
+            <Link to="/receitas-feitas">
               <button
                 id="initRecipe"
                 type="button"
-                style={ { display: this.verifyRecipeIsDone() ? 'none' : 'initial' } }
-                data-testid="start-recipe-btn"
-                onClick={ () => this.addMealInProgress() }
+                data-testid="finish-recipe-btn"
+                onClick={ () => this.setDoneRecipe() }
+                disabled={ this.enableButton() }
               >
-                { this.checkRecipeInProgress() ? 'Continuar Receita' : 'Iniciar Receita' }
+                Finalizar Receita
               </button>
             </Link>
           </div>
@@ -235,14 +241,8 @@ class DrinkDetails extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  drinkAPIResponse: state.recipeReducer.drinkRecipes,
-});
-
-DrinkDetails.propTypes = {
+DrinkInProgress.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.objectOf(),
   }),
 }.isRequired;
-
-export default connect(mapStateToProps)(DrinkDetails);

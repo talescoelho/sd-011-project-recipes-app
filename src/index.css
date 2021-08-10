@@ -179,6 +179,32 @@ code {
   list-style: none;
 }
 
+.instructions-input {
+  background: rgb(54, 54, 54);
+  padding: 20px;
+  text-align: center;
+  list-style: none;
+  width: 100%;
+  text-align: left;
+}
+
+.instructions-input-checked {
+  background: rgb(54, 54, 54);
+  padding: 20px;
+  text-align: center;
+  list-style: none;
+  text-decoration: line-through;
+  width: 100%;
+  text-align: left;
+}
+
+#seraquevai {
+  border: solid white 0.5px;
+  transform: scale(0.4);
+  margin: 1px;
+  width: 50vw;
+}
+
 .detailContainer button {
   background: none;
   border: none;

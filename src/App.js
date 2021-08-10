@@ -16,6 +16,8 @@ import ExploreDrinkOrigin from './Pages/ExploreDrinkOrigin';
 import Profile from './Pages/Profile';
 import RecipesDone from './Pages/RecipesDone';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
+import FoodInProgress from './Pages/FoodInProgress';
+import DrinkInProgress from './Pages/DrinkInProgress';
 
 function App() {
   return (
@@ -32,6 +34,16 @@ function App() {
         path="/bebidas/:id"
         exact
         render={ (props) => <DrinkDetails { ...props } /> }
+      />
+      <Route
+        path="/comidas/:id/in-progress"
+        exact
+        render={ (props) => <FoodInProgress { ...props } /> }
+      />
+      <Route
+        path="/bebidas/:id/in-progress"
+        exact
+        render={ (props) => <DrinkInProgress { ...props } /> }
       />
       <Route path="/explorar" exact component={ Explore } />
       <Route path="/explorar/comidas" exact component={ ExploreFood } />
