@@ -3,7 +3,8 @@ import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 import { SearchBarProvider } from '../../context/SearchBar';
 import Footer from '../../components/Footer';
-import fetchByFilter from '../../services/data';
+import ByIngredient from '../../components/ByIngredient';
+
 
 export default function DrinkExplorer() {
   const history = useHistory();
@@ -24,13 +25,7 @@ export default function DrinkExplorer() {
         <Header title="Explorar Bebidas" />
       </SearchBarProvider>
       <section>
-        <button
-          data-testid="explore-by-ingredient"
-          type="button"
-          onClick={ () => history.push('/explorar/bebidas/ingredientes') }
-        >
-          Por Ingredientes
-        </button>
+        <ByIngredient />
         <button
           data-testid="explore-surprise"
           type="button"
