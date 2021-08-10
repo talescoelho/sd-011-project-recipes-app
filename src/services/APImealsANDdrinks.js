@@ -2,8 +2,10 @@ const URLdrinks = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const URLmeals = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const URLmealsByCat = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
 const URLdrinksByCat = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+const alertError = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
 // Adicionar logica de tratamento de reejct - Try and catch
+
 export const APImealById = async (id) => {
   const URLmealsid = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const APIfetch = await fetch(URLmealsid);
@@ -70,4 +72,94 @@ export const APIdrinksClickCat = async (category) => {
   const num12 = 12;
   const max12 = keyDrinks.splice(0, num12);
   return max12;
+};
+
+export const APImealsSearchIgredient = async (igredient, meals) => {
+  try {
+    const APIfetch = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${igredient}`);
+    const APIjson = await APIfetch.json();
+    const keyMeals = APIjson.meals;
+    const num12 = 12;
+    const max12 = keyMeals.splice(0, num12);
+    return max12;
+  } catch (error) {
+    // eslint-disable-next-line no-alert
+    alert(alertError);
+    return meals;
+  }
+};
+
+export const APImealsSearchName = async (name, meals) => {
+  try {
+    const APIfetch = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`);
+    const APIjson = await APIfetch.json();
+    const keyMeals = APIjson.meals;
+    const num12 = 12;
+    const max12 = keyMeals.splice(0, num12);
+    return max12;
+  } catch (error) {
+    // eslint-disable-next-line no-alert
+    alert(alertError);
+    return meals;
+  }
+};
+
+export const APImealsSearch1stLetter = async (fstLetter, meals) => {
+  try {
+    const APIfetch = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${fstLetter}`);
+    const APIjson = await APIfetch.json();
+    const keyMeals = APIjson.meals;
+    const num12 = 12;
+    const max12 = keyMeals.splice(0, num12);
+    return max12;
+  } catch (error) {
+    // eslint-disable-next-line no-alert
+    alert(alertError);
+    return meals;
+  }
+};
+
+export const APIdrinksSearchIgredient = async (igredient, drinks) => {
+  try {
+    const APIfetch = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${igredient}`);
+    const APIjson = await APIfetch.json();
+    const keyDrinks = APIjson.drinks;
+    const num12 = 12;
+    const max12 = keyDrinks.splice(0, num12);
+    return max12;
+  } catch (error) {
+    // eslint-disable-next-line no-alert
+    alert(alertError);
+    return drinks;
+  }
+};
+
+export const APIdrinksSearchName = async (name, drinks) => {
+  try {
+    const APIfetch = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`);
+    const APIjson = await APIfetch.json();
+    const keyDrinks = APIjson.drinks;
+    const num12 = 12;
+    const max12 = keyDrinks.splice(0, num12);
+    return max12;
+  } catch (error) {
+    // eslint-disable-next-line no-alert
+    alert(alertError);
+    return drinks;
+  }
+};
+
+export const APIdrinksSearch1stLetter = async (fstLetter, drinks) => {
+  try {
+    const APIfetch = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${fstLetter}`);
+    const APIjson = await APIfetch.json();
+    const keyDrinks = APIjson.drinks;
+    const num12 = 12;
+    const max12 = keyDrinks.splice(0, num12);
+    return max12;
+  } catch (error) {
+    // eslint-disable-next-line no-alert
+    alert(alertError);
+    return drinks;
+  }
 };

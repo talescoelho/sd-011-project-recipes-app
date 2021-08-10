@@ -1,0 +1,101 @@
+import React, { useContext, useState } from 'react';
+import UserContext from '../context/UserContext';
+import {
+  APIdrinksSearch1stLetter,
+  APIdrinksSearchIgredient,
+  APIdrinksSearchName } from '../services/APImealsANDdrinks';
+
+export default function SearchBarDrinks() {
+  const { setDrinks, drinks } = useContext(UserContext);
+
+  const [type, setType] = useState('');
+  const [radio, setRadio] = useState('');
+
+  const handleChangeType = (e) => {
+    setType(e);
+  };
+
+  const handleChangeRadios = (e) => {
+    setRadio(e);
+  };
+
+  const hangleSearch = () => {
+    if (radio === 'Igrediente') {
+      const callAPI = async () => {
+        const API = await APIdrinksSearchIgredient(type, drinks);
+        setDrinks(API);
+      };
+      callAPI();
+    }
+    if (radio === 'Nome') {
+      const callAPI = async () => {
+        const API = await APIdrinksSearchName(type, drinks);
+        setDrinks(API);
+      };
+      callAPI();
+    }
+    if (radio === 'Primeira-letra') {
+      const callAPI = async () => {
+        const API = await APIdrinksSearch1stLetter(type, drinks);
+        setDrinks(API);
+      };
+      callAPI();
+    }
+    if (radio === 'Primeira-letra' && type.length > 1) {
+      // eslint-disable-next-line no-alert
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    }
+  };
+
+  return (
+    <div className="alltoggle-search">
+      <div className="toggle-search">
+        <input
+          type="text"
+          data-testid="search-input"
+          onChange={ (e) => handleChangeType(e.target.value) }
+        />
+        <div className="input-radios">
+          <label htmlFor="input-igrediente">
+            <input
+              type="radio"
+              data-testid="ingredient-search-radio"
+              name="filtro"
+              id="Igrediente"
+              onChange={ (e) => handleChangeRadios(e.target.id) }
+            />
+            Igrediente
+          </label>
+          <label htmlFor="input-nome">
+            <input
+              type="radio"
+              data-testid="name-search-radio"
+              name="filtro"
+              id="Nome"
+              onChange={ (e) => handleChangeRadios(e.target.id) }
+            />
+            Nome
+          </label>
+          <label htmlFor="input-primeira-letra">
+            <input
+              type="radio"
+              data-testid="first-letter-search-radio"
+              name="filtro"
+              id="Primeira-letra"
+              onChange={ (e) => handleChangeRadios(e.target.id) }
+            />
+            Primeira letra
+          </label>
+        </div>
+        <button
+          type="button"
+          data-testid="exec-search-btn"
+          className="btn-search"
+          onClick={ () => hangleSearch() }
+        >
+          Buscar
+        </button>
+      </div>
+    </div>
+  );
+}
