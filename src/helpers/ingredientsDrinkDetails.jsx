@@ -3,6 +3,7 @@ function ingredientsMealDetails(details) {
   const seventeen = 17;
   const fourtySix = 46;
   const fifteen = 15;
+  // ajustar posteriormente para funcao generica
 
   const ingredientsList = (Object.entries(details).filter((entrie, index) => {
     if (index >= seventeen && index <= fourtySix) {
