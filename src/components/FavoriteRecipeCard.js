@@ -45,8 +45,6 @@ function FavoriteRecipeCard(props) {
   return (
     <div key={ key }>
       { type === 'comida' ? renderMealCard() : renderDrinkCard() }
-      <FavoriteButton />
-      <SharedButton />
     </div>
   );
 }
