@@ -8,6 +8,7 @@ import Explorar from './pages/Explorar';
 import Comidas from './pages/Comidas';
 import Login from './pages/Login';
 import RecipesProvider from './context/RecipesProvider';
+import ReceitasEmProgresso from './pages/ReceitasEmProgresso';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import Detalhes from './pages/Detalhes';
@@ -56,9 +57,17 @@ function App() {
               component={ ExplorarPorOrigem }
             />
             <Route exact path="/comidas/:id" component={ Detalhes } />
-            <Route exact path="/comidas/:id/in-progress" />
+            <Route
+              exact
+              path="/comidas/:id/in-progress"
+              component={ ReceitasEmProgresso }
+            />
             <Route exact path="/bebidas/:id" component={ Detalhes } />
-            <Route exact path="/bebidas/:id/in-progress" />
+            <Route
+              exact
+              path="/bebidas/:id/in-progress"
+              component={ ReceitasEmProgresso }
+            />
             <Route
               path="*"
               component={ NotFound }

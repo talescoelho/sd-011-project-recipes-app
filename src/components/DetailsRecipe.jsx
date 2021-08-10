@@ -24,6 +24,8 @@ function DetailsRecipe(props) {
     video,
     id,
   } = recipeData;
+
+  const [linkCopy, setLinkCopy] = useState(false);
   const [favorite, setFavorite] = useState(false);
 
   useEffect(() => {
@@ -38,8 +40,6 @@ function DetailsRecipe(props) {
 
   const videoParameter = -11;
   const finalUrl = video && video.slice(videoParameter);
-
-  const [linkCopy, setLinkCopy] = useState(false);
 
   const handleLinkMessage = () => {
     setLinkCopy(true);

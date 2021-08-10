@@ -13,6 +13,7 @@ function RecipesProvider({ children }) {
   const [categorysList, setCategorysList] = useState(pathname);
   const [currentCategory, setCurrentCategory] = useState('All');
   const [doneRecipes, setDoneRecipes] = useState('');
+  const [inProgressRecipe, setInProgressRecipe] = useState({});
   const [ingredient, setIngredient] = useState(null);
 
   useEffect(() => {
@@ -53,6 +54,8 @@ function RecipesProvider({ children }) {
     setDataRecipes,
     doneRecipes,
     setIngredient,
+    setInProgressRecipe,
+    inProgressRecipe,
   };
 
   RecipesProvider.propTypes = {

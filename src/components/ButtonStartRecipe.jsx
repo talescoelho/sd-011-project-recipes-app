@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/StartRecipeBtn.css';
 import { useHistory, useLocation } from 'react-router-dom';
 import handleLocation from '../helpers/handleLocation';
 import ingredientsArrFormater from '../helpers/ingredientsArrFormater';
+import RecipesContext from '../context/RecipesContext';
 
 function ButtonStartRecipe({ id, recipeData }) {
   const history = useHistory();
   const location = useLocation();
+  const { setInProgressRecipe } = useContext(RecipesContext);
   const [disabled, setDisabled] = useState(false);
   const [btnName, setBtnName] = useState(true);
 
@@ -43,6 +45,7 @@ function ButtonStartRecipe({ id, recipeData }) {
   }, [id]);
 
   const handleStartClickBtn = () => {
+    setInProgressRecipe(recipeData);
     const ingredientsItensArr = ingredientsArrFormater(recipeData);
     const key = handleObjectKey();
     const type = handleLocation(location);
