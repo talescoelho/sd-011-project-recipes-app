@@ -1,4 +1,19 @@
 const message = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+
+export function fetchRandomMeal(setRandomMeal) {
+  // retorna API randomica de comida contendo 1 resultado
+  fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+    .then((response) => response.json())
+    .then((jsonData) => setRandomMeal(jsonData.meals[0]));
+}
+
+export function fetchRandomDrink(setRandomDrink) {
+  // retorna API randomica de bebida contendo 1 resultado
+  fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
+    .then((response) => response.json())
+    .then((jsonData) => setRandomDrink(jsonData.drinks[0]));
+}
+
 export function fetchMealsAPI(setListMeals) {
   // essa API aceita o parametro s vaziu
   // retorna API de lista de comida
