@@ -47,7 +47,7 @@ class MakedRevenues extends Component {
     if (!recipes) {
       return (
         <p>Carregando...</p>
-      )
+      );
     }
     return (
       <div className="page">
