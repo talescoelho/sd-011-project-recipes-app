@@ -180,7 +180,7 @@ function FoodDetails() {
               </section>
 
               { !isDone && (
-                  <button type="button" data-testid="start-recipe-btn" style={{ position: 'fixed', bottom: '0' }}>
+                  <button type="button" data-testid="start-recipe-btn" style={{ position: 'fixed', bottom: '0', height: '300px' }}>
                     { isInProgress ? <>Continuar Receita</> :  <>Iniciar Receita</> }
                   </button>)}
 
