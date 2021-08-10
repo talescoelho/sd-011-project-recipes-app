@@ -41,3 +41,47 @@ export function fetchCocktailsForCategorie(setListCocktail, categorie) {
       setListCocktail(jsonData.drinks);
     });
 }
+
+export function fetchFoodsIngredienteMeail(ingrediente, setFoods) {
+  // retorna pesquisa por ingrediente na pagina de comidas
+  fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediente}`)
+    .then((response) => response.json())
+    .then((jsonData) => setFoods(jsonData.meals));
+}
+
+export function fetchFoodsIngredienteDrink(ingrediente, setFoods) {
+  // retorna pesquisa por ingrediente na pagina de Bebidas
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingrediente}`)
+    .then((response) => response.json())
+    .then((jsonData) => setFoods(jsonData.drinks));
+}
+
+export function fetchFoodsName(name, setFoods) {
+  // retorna pesquisa por nome na pagina de comidas
+  fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`)
+    .then((resp) => resp.json())
+    .then((jsonObj) => setFoods(jsonObj.meals));
+}
+
+export function fetchFoodsNameDrink(name, setFoods) {
+  // retorna pesquisa por nome na pagina de bebidas
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`)
+    .then((resp) => resp.json())
+    .then((jsonObj) => setFoods(jsonObj.drinks));
+}
+
+export const fetchFoodsFirstLetter = (firstLetter,
+  setFoods) => (firstLetter.length === 1
+// pesquisa pela primeira letra comida
+  ? fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`)
+    .then((resp) => resp.json())
+    .then((jsonObj) => setFoods(jsonObj.meals))
+  : alert('Sua busca deve conter somente 1 (um) caracter'));
+
+export const fetchFoodsFirstLetterDrink = (firstLetter,
+  setFoods) => (firstLetter.length === 1
+// pesquisa pela primeira letra bebida
+  ? fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`)
+    .then((resp) => resp.json())
+    .then((jsonObj) => setFoods(jsonObj.drinks))
+  : alert('Sua busca deve conter somente 1 (um) caracter'));

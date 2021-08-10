@@ -9,11 +9,13 @@ function Bebidas() {
   const [listCocktailsCategorie, setListCocktailsCategorie] = useState([]);
   const [buttonCategorie, setButtonCategorie] = useState(null);
   const [toggleClick, setToggleClick] = useState(false);
+  const [DrinkFromSearch, setDrinkFromSearch] = useState(null);
 
   const renderCards = () => (<Cards
     ApiCallMeals={ false }
     ApiCallCockTails
     categorie={ buttonCategorie }
+    DrinkFromSearch={ DrinkFromSearch }
   />);
 
   const toggleButton = (setButton, listCategorie, index, categorie) => {
@@ -111,7 +113,7 @@ function Bebidas() {
   };
   return (
     <div>
-      <Header title="Bebidas" search />
+      <Header title="Bebidas" setDrinkFromSearch={ setDrinkFromSearch } search />
       {renderButtonsCocktails()}
       {renderCards()}
       <Footer />

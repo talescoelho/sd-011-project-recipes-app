@@ -1,66 +1,86 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-function SearchBar() {
+import { Redirect } from 'react-router-dom';
+import {
+  fetchFoodsIngredienteMeail,
+  fetchFoodsIngredienteDrink,
+  fetchFoodsName,
+  fetchFoodsNameDrink,
+  fetchFoodsFirstLetter,
+  fetchFoodsFirstLetterDrink } from '../Services/Data';
+
+const list = (search, lala, selected) => {
+  const LOC = window.location.pathname;
+  if (LOC === '/comidas') {
+    if (selected === 'Ingrediente') {
+      fetchFoodsIngredienteMeail(search, lala);
+    }
+    if (selected === 'Nome') {
+      fetchFoodsName(search, lala);
+    }
+    if (selected === 'Primeira letra') {
+      fetchFoodsFirstLetter(search, lala);
+    }
+  }
+  if (LOC === '/bebidas') {
+    if (selected === 'Ingrediente') {
+      fetchFoodsIngredienteDrink(search, lala);
+    }
+    if (selected === 'Nome') {
+      fetchFoodsNameDrink(search, lala);
+    }
+    if (selected === 'Primeira letra') {
+      fetchFoodsFirstLetterDrink(search, lala);
+    }
+  }
+};
+
+function SearchBar(props) {
   const [selected, setSelected] = useState('');
   const [search, setSearch] = useState('');
-  const [foods, setFoods] = useState([]);
-  console.log('this is foods:', foods);
+  const [listSearch, setListSearch] = useState([]);
+  const { setDrinkFromSearch, setFoodFromSearch } = props;
 
-  const foodOrDrink = () => {
+  // const foodOrDrink = () => {
+  //   const LOC = window.location.pathname;
+  //   const item = { type: '', key: '', id: '' };
+  //   const food = ['meal', 'meals', 'idMeal'];
+  //   const drink = ['cocktail', 'drinks', 'idDrink'];
+  //   if (LOC === '/comidas') {
+  //     food.forEach((el, index) => { item[Object.keys(item)[index]] = el; });
+  //     return item;
+  //   }
+
+  //   drink.forEach((el, index) => { item[Object.keys(item)[index]] = el; });
+  //   return item;
+  // };
+  const lala = (x) => {
+    console.log('foi');
+    if (x !== null) {
+      setListSearch(x);
+      const LOC = window.location.pathname;
+      if (LOC === '/comidas') {
+        setFoodFromSearch(x);
+      }
+      if (LOC === '/bebidas') {
+        setDrinkFromSearch(x);
+      }
+    }
+  };
+
+  if (listSearch.length === 1) {
     const LOC = window.location.pathname;
-    const item = { type: '', key: '', id: '' };
-    const food = ['meal', 'meals', 'idMeal'];
-    const drink = ['cocktail', 'drinks', 'idDrink'];
     if (LOC === '/comidas') {
-      food.forEach((el, index) => { item[Object.keys(item)[index]] = el; });
-      return item;
+      return (<Redirect
+        to={ `/comidas/${listSearch[0].idMeal}` }
+      />);
     }
-    drink.forEach((el, index) => { item[Object.keys(item)[index]] = el; });
-    return item;
-  };
-
-  console.log(foodOrDrink());
-
-  const fetchFoodsIng = (ingrediente, what) => {
-    fetch(`https://www.the${what().type}db.com/api/json/v1/1/filter.php?i=${ingrediente}`)
-      .then((resp) => resp.json())
-      .then((jsonObj) => setFoods(jsonObj[what().key]));
-  };
-
-  const fetchFoodsNam = (name, what) => {
-    fetch(`https://www.the${what().type}db.com/api/json/v1/1/search.php?s=${name}`)
-      .then((resp) => resp.json())
-      .then((jsonObj) => setFoods(jsonObj[what().key]));
-  };
-
-  const fetchFoodsFL = (fl, what) => (fl.length === 1
-    ? fetch(`https://www.the${what().type}db.com/api/json/v1/1/search.php?f=${fl}`)
-      .then((resp) => resp.json())
-      .then((jsonObj) => setFoods(jsonObj[what().key]))
-    : alert('Sua busca deve conter somente 1 (um) caracter'));
-
-  const switcher = () => {
-    switch (selected) {
-    case 'Ingrediente':
-      fetchFoodsIng(search, foodOrDrink);
-      break;
-    case 'Nome':
-      fetchFoodsNam(search, foodOrDrink);
-      break;
-    case 'Primeira letra':
-      fetchFoodsFL(search, foodOrDrink);
-      break;
-    default:
-      console.log(selected);
-      break;
+    if (LOC === '/bebidas') {
+      return (<Redirect
+        to={ `/bebidas/${listSearch[0].idDrink}` }
+      />);
     }
-  };
-
-  if (foods.length > 0 && foods.length === 1) {
-    const LOC = window.location.pathname;
-    if (LOC === '/comidas') return <Redirect to={ `/comidas/${foods[0].idMeal}` } />;
-    if (LOC === '/bebidas') return <Redirect to={ `/bebidas/${foods[0].idDrink}` } />;
   }
 
   return (
@@ -111,7 +131,7 @@ function SearchBar() {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ switcher }
+        onClick={ () => list(search, lala, selected) }
       >
         Busca
       </button>
@@ -119,4 +139,8 @@ function SearchBar() {
   );
 }
 
+SearchBar.propTypes = {
+  setFoodFromSearch: PropTypes.func.isRequired,
+  setDrinkFromSearch: PropTypes.func.isRequired,
+};
 export default SearchBar;
