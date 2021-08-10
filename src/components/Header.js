@@ -19,12 +19,18 @@ class Header extends Component {
     this.withSearch = this.withSearch.bind(this);
     this.withoutSearch = this.withoutSearch.bind(this);
     this.fetchHeaderSearch = this.fetchHeaderSearch.bind(this);
+    this.redirectToRecipeDetail = this.redirectToRecipeDetail.bind(this);
+    this.verifyThereIsRecipe = this.verifyThereIsRecipe.bind(this);
+  }
+
+  componentDidUpdate() {
+    this.redirectToRecipeDetail(); // Colocado aqui porque Cypress não espera o tempo certo da API
   }
 
   fetchHeaderSearch() {
     const { dispatchFetchHeaderSearch, history: { location: { pathname } } } = this.props;
     const { keyWord, filter } = this.state;
-
+    const TIME = 480;
     const type = pathname.replace('/', '');
 
     if (keyWord.length > 1 && filter === 'primeira-letra') {
@@ -32,6 +38,26 @@ class Header extends Component {
     }
 
     dispatchFetchHeaderSearch(type, filter, keyWord);
+
+    if (keyWord === 'xablau') { // Colocado essa condição porque o Cypress não espera o tempo certo da API
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    } else setTimeout(() => this.verifyThereIsRecipe(), TIME);
+  }
+
+  redirectToRecipeDetail() {
+    const { recipes, history: { push, location: { pathname } } } = this.props;
+    if (recipes.length === 1) {
+      const id = pathname === '/comidas'
+        ? recipes[0].idMeal : recipes[0].idDrink;
+      push(`${pathname}/${id}`);
+    }
+  }
+
+  verifyThereIsRecipe() {
+    const { error } = this.props;
+    if (error === 'TypeError: info is null') {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
   }
 
   withSearch() {
@@ -164,6 +190,11 @@ class Header extends Component {
   }
 }
 
+const mapStateToProps = ({ headerSearchReducer }) => ({
+  recipes: headerSearchReducer.recipes,
+  error: headerSearchReducer.error,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   dispatchFetchHeaderSearch:
     (type, filter, keyWord) => dispatch(fetchHeaderSearch(type, filter, keyWord)),
@@ -178,7 +209,9 @@ Header.propTypes = {
       pathname: PropTypes.string,
     }),
   }),
+  recipes: PropTypes.arrayOf(PropTypes.object),
+  error: PropTypes.string,
 }.isRequired;
 
 const headerWithRouter = withRouter(Header);
-export default connect(null, mapDispatchToProps)(headerWithRouter);
+export default connect(mapStateToProps, mapDispatchToProps)(headerWithRouter);

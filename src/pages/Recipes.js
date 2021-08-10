@@ -5,9 +5,9 @@ import getXFirstElementsFromArray from '../helpers/utils';
 import { fetchDrinks, fetchMeals } from '../actions';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import RecipeCard from '../components/RecipeCard';
 import Loading from '../components/Loading';
 import RecipesFilterButtons from '../components/RecipesFilterButtons';
+import CardsList from '../components/CardsList';
 
 const recipesQuantity = 12;
 
@@ -15,7 +15,7 @@ function Recipes({
   history: { location: { pathname } },
   dispatchFetchMeals, dispatchFetchDrinks,
   meals, mealsLoading, mealsError,
-  drinks, drinksLoading, drinksError,
+  drinks, drinksLoading, drinksError, recipesHeaderSearch,
 }) {
   const [recipes, setRecipes] = React.useState([]);
 
@@ -27,10 +27,13 @@ function Recipes({
   React.useEffect(() => {
     if (pathname === '/comidas') {
       setRecipes(getXFirstElementsFromArray(meals, recipesQuantity));
-    } else setRecipes(getXFirstElementsFromArray(drinks, recipesQuantity));
+    } else {
+      setRecipes(getXFirstElementsFromArray(drinks, recipesQuantity));
+    }
 
     if (mealsError || drinksError) setRecipes([]);
-  }, [pathname, meals, mealsError, drinks, drinksError]);
+  }, [pathname, meals, mealsError, drinks,
+    drinksError, dispatchFetchDrinks, dispatchFetchMeals]);
 
   function renderHeader() {
     return pathname === '/comidas'
@@ -46,11 +49,14 @@ function Recipes({
         { pathname === '/comidas' && mealsError && `${mealsError}` }
         { pathname === '/bebidas' && drinksError && `${drinksError}` }
         {
-          mealsLoading || drinksLoading
+          (mealsLoading || drinksLoading)
             ? <Loading />
-            : recipes.map((recipe, index) => (
-              <RecipeCard key={ index } index={ index } recipe={ recipe } />
-            ))
+            : (
+              <CardsList
+                recipes={ recipes }
+                recipesHeaderSearch={ recipesHeaderSearch }
+                recipesQuantity={ recipesQuantity }
+              />)
         }
       </main>
       <Footer />
@@ -58,14 +64,15 @@ function Recipes({
   );
 }
 
-const mapStateToProps = ({ mealsAndDrinksReducer }) => ({
+const mapStateToProps = ({ mealsAndDrinksReducer, headerSearchReducer }) => ({
   meals: mealsAndDrinksReducer.meals.meals,
   mealsLoading: mealsAndDrinksReducer.meals.loading,
   mealsError: mealsAndDrinksReducer.meals.error,
-
   drinks: mealsAndDrinksReducer.drinks.drinks,
   drinksLoading: mealsAndDrinksReducer.drinks.loading,
   drinksError: mealsAndDrinksReducer.drinks.error,
+
+  recipesHeaderSearch: headerSearchReducer.recipes,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -89,4 +96,5 @@ Recipes.propTypes = {
   drinksError: PropTypes.string,
   dispatchFetchMeals: PropTypes.func,
   dispatchFetchDrinks: PropTypes.func,
+  recipesHeaderSearch: PropTypes.arrayOf(PropTypes.object),
 }.isRequired;

@@ -10,6 +10,12 @@ export const GET_RECIPES_CATEGORIES_ERROR = 'GET_RECIPES_CATEGORIES_ERROR';
 export const GET_HEADER_SEARCH = 'GET_HEADER_SEARCH';
 export const GET_HEADER_SEARCH_SUCCESS = 'GET_HEADER_SEARCH_SUCCESS';
 export const GET_HEADER_SEARCH_ERROR = 'GET_HEADER_SEARCH_ERROR';
+export const MEAL_DETAIL = 'MEAL_DETAIL';
+export const MEAL_DETAIL_SUCCESS = 'MEAL_DETAIL_SUCCESS';
+export const MEAL_DETAIL_ERROR = 'MEAL_DETAIL_ERROR';
+export const DRINK_DETAIL = 'DRINK_DETAIL';
+export const DRINK_DETAIL_SUCCESS = 'DRINK_DETAIL_SUCCESS';
+export const DRINK_DETAIL_ERROR = 'DRINK_DETAIL_ERROR';
 
 const baseMealDbUrl = 'https://www.themealdb.com/api/json/v1/1';
 const baseCocktailDbUrl = 'https://www.thecocktaildb.com/api/json/v1/1';
@@ -112,21 +118,11 @@ export const fetchHeaderSearch = (type, filter, keyWord) => (dispatch) => {
 
   const url = type === 'comidas' ? baseMealDbUrl : baseCocktailDbUrl;
 
-  let urlFilter = '';
+  const setUrl = { ingrediente: `${url}/filter.php?i=${keyWord}`,
+    nome: `${url}/search.php?s=${keyWord}`,
+    'primeira-letra': `${url}/search.php?f=${keyWord}` };
 
-  switch (filter) {
-  case 'ingrediente':
-    urlFilter = `${url}/filter.php?i=${keyWord}`;
-    break;
-  case 'nome':
-    urlFilter = `${url}/search.php?s=${keyWord}`;
-    break;
-  case 'primeira-letra':
-    urlFilter = `${url}/search.php?f=${keyWord}`;
-    break;
-  default:
-    urlFilter = '';
-  }
+  const urlFilter = setUrl[filter];
 
   return fetch(urlFilter)
     .then((response) => response.json())
@@ -136,4 +132,52 @@ export const fetchHeaderSearch = (type, filter, keyWord) => (dispatch) => {
       dispatch(getHeaderSearchSuccess({ results, type, filter, keyWord }));
     })
     .catch((error) => dispatch(getHeaderSearchError(error)));
+};
+
+const mealDetail = () => ({
+  type: MEAL_DETAIL,
+});
+
+const mealDetailSuccess = (payload) => ({
+  type: MEAL_DETAIL_SUCCESS,
+  payload,
+});
+
+const mealDetailError = (payload) => ({
+  type: MEAL_DETAIL_ERROR,
+  payload,
+});
+
+const drinkDetail = () => ({
+  type: DRINK_DETAIL,
+});
+
+const drinkDetailSuccess = (payload) => ({
+  type: DRINK_DETAIL_SUCCESS,
+  payload,
+});
+
+const drinkDetailError = (payload) => ({
+  type: DRINK_DETAIL_ERROR,
+  payload,
+});
+
+export const fetchRecipeDetail = (type, id) => (dispatch) => {
+  if (type === 'comidas') dispatch(mealDetail());
+  else dispatch(drinkDetail());
+
+  const url = `${type === 'comidas'
+    ? baseMealDbUrl : baseCocktailDbUrl}/lookup.php?i=${id}`;
+
+  return fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      const info = type === 'comidas' ? data.meals : data.drinks;
+      if (type === 'comidas') dispatch(mealDetailSuccess(info));
+      else dispatch(drinkDetailSuccess(info));
+    })
+    .catch((error) => {
+      if (type === 'comidas') dispatch(mealDetailError(error));
+      else dispatch(drinkDetailError(error));
+    });
 };
