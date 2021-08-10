@@ -14,6 +14,7 @@ import Profile from './pages/Profile';
 import Explorar from './pages/Explorar';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import ExplorarIngredientes from './pages/ExplorarIngredientes';
+import ReadyRecipe from './pages/ReadyRecipe';
 
 function App() {
   return (
@@ -64,7 +65,7 @@ function App() {
           />
           <Route exact path="/explorar/comidas/area" component={ NotFound } />
           { /* não tem footer \/ */ }
-          <Route exact path="/receitas-feitas" component={ NotFound } />
+          <Route exact path="/receitas-feitas" component={ ReadyRecipe } />
           <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
           { /* não tem footer /\ */ }
         </Switch>
