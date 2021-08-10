@@ -11,30 +11,51 @@ const RecipeCard = ({
   recipeThumb,
   recipeName,
   titleTestId,
-}) => (
-  <Link
-    aria-label="card-menu"
-    className="card-menu"
-    data-testid={ `${index}${cardTestId}` }
-    to={ (cardType === 'comida') ? `/comidas/${recipeId}` : `/bebidas/${recipeId}` }
-  >
-    <img
-      data-testid={ `${index}-card-img` }
-      src={ recipeThumb }
-      alt={ `${recipeName} recipe` }
-    />
-    <h3 data-testid={ `${index}${titleTestId}` }>{ recipeName }</h3>
-  </Link>
-);
+}) => {
+  const choiceRoute = () => {
+    if (cardType === 'comida') {
+      return `/comidas/${recipeId}`;
+    }
+    if (cardType === 'bebida') {
+      return `/bebidas/${recipeId}`;
+    }
+    if (cardType === 'explorar-comida') {
+      return '/comidas';
+    }
+    if (cardType === 'explorar-bebida') {
+      return '/bebidas';
+    }
+  };
+
+  return (
+    <Link
+      aria-label="card-menu"
+      className="card-menu"
+      data-testid={ `${index}${cardTestId}` }
+      to={ () => choiceRoute() }
+    >
+      <img
+        data-testid={ `${index}-card-img` }
+        src={ recipeThumb }
+        alt={ `${recipeName} recipe` }
+      />
+      <h3 data-testid={ `${index}${titleTestId}` }>{ recipeName }</h3>
+    </Link>
+  );
+};
 
 RecipeCard.propTypes = {
-  index: string,
-  dataTestId: string,
+  index: string.isRequired,
+  cardTestId: string.isRequired,
   cardType: string,
-  recipeId: string,
-  recipeThumb: string,
-  recipeName: string,
-  titleTestId: string,
-}.isRequired;
+  recipeId: string.isRequired,
+  recipeThumb: string.isRequired,
+  recipeName: string.isRequired,
+  titleTestId: string.isRequired,
+};
+
+RecipeCard.defaultProps = {
+  cardType: null,
+};
 
 export default RecipeCard;
