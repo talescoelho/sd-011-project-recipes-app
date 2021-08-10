@@ -1,0 +1,14 @@
+.menu-bottom {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+}
+
+.menu-bottom-imagens {
+  bottom: 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  position: fixed;
+  width: 95%;
+}

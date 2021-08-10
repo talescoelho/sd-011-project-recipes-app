@@ -27,3 +27,13 @@ button {
   justify-content: space-around;
   margin: 5px 0;
 }
+
+.search-radio-div label {
+  background-color: #fae8e0;
+  border-radius: 3px;
+  padding: 5px 3px;
+}
+
+.search-radio:hover {
+  background-color: chartreuse;
+}
