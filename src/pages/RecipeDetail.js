@@ -10,24 +10,15 @@ function RecipeDetail({ history: { location: { pathname } },
   const { id } = useParams();
   const type = pathname.includes('comidas') ? 'comidas' : 'bebidas';
 
-  // React.useEffect(() => {
-  //   const type = pathname.includes('comidas') ? 'comidas' : 'bebidas';
-  //   dispatchFetchDetail(type, id);
-  // }, [id, pathname, dispatchFetchDetail]);
-
-  // function fetchDetail () {
-  //   dispatchFetchDetail(type, id);
-  // }
-
   React.useEffect(() => {
     dispatchFetchDetail(type, id);
-  }, []);
+  }, [dispatchFetchDetail, type, id]);
 
   return (
     <div>
       {pathname === `/comidas/${id}`
-        ? <RecipeDetailMain path="comidas" recipeDetail={ recipeDetailMeal } />
-        : <RecipeDetailMain path="bebidas" recipeDetail={ recipeDetailDrink } /> }
+        ? <RecipeDetailMain recipeDetail={ recipeDetailMeal } />
+        : <RecipeDetailMain recipeDetail={ recipeDetailDrink } /> }
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 class RecipeDetailMain extends Component {
   constructor() {
@@ -8,7 +9,9 @@ class RecipeDetailMain extends Component {
     this.main = this.main.bind(this);
   }
 
-  main(recipeDetail, path) {
+  main(recipeDetail) {
+    const { history: { location: { pathname } } } = this.props;
+
     let strThumb = '';
     let str = '';
     let category = '';
@@ -17,7 +20,7 @@ class RecipeDetailMain extends Component {
       strCategory, strAlcoholic, strInstructions,
       strYoutube } = recipeDetail;
 
-    if (path === 'comidas') {
+    if (pathname.includes('comidas')) {
       strThumb = strMealThumb;
       str = strMeal;
       category = strCategory;
@@ -89,17 +92,14 @@ class RecipeDetailMain extends Component {
         <br />
         {strYoutube
         && (
-          <div data-testid="video">
+          <div>
             <h3> Video </h3>
             <br />
             <iframe
+              data-testid="video"
               width="853"
               height="480"
               src={ strYoutubeEmbed }
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write;
-              encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
               title="Embedded youtube"
             />
             <br />
@@ -124,16 +124,16 @@ class RecipeDetailMain extends Component {
   }
 
   render() {
-    const { recipeDetail, path } = this.props;
+    const { recipeDetail } = this.props;
     return (
       <div>
-        { this.main(recipeDetail, path) }
+        { this.main(recipeDetail) }
       </div>
     );
   }
 }
 
-export default RecipeDetailMain;
+export default withRouter(RecipeDetailMain);
 
 RecipeDetailMain.propTypes = {
   path: PropTypes.string,
