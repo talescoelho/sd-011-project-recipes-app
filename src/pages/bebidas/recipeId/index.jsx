@@ -6,6 +6,7 @@ import {
   Col,
   Button,
   Spinner,
+  Image,
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { fetchDetails } from '../../../services/fetchDetailsApi';
@@ -72,14 +73,16 @@ export default function BebidaDetails({ match: { params: { recipeId } } }) {
     } = details;
 
     return (
-      <Container style={ { backgroundColor: '#0fa36b' } } as="main">
+      <Container fluid="md" style={ { backgroundColor: '#0fa36b' } } as="main">
         <Row>
-          <Col as="figure" className="justify-content-center">
-            <img
-              className="w-100 p-4"
-              src={ strDrinkThumb }
-              alt="Imagem"
+          <Col as="figure" className="m-auto" sd="12" md="8" lg="6">
+            <Image
+              className="my-3 p-3 shadow-lg"
               data-testid="recipe-photo"
+              src={ strDrinkThumb }
+              alt="Foto da receita em progresso"
+              fluid
+              thumbnail
             />
           </Col>
         </Row>
@@ -122,7 +125,7 @@ export default function BebidaDetails({ match: { params: { recipeId } } }) {
                     >
                       { details[key] }
                       :
-                      { details[`strMeasure${index + 1}`] }
+                      { details[`strMeasure${index + 1}`] || '' }
                     </li>
                   </Col>
                 ))
@@ -139,19 +142,19 @@ export default function BebidaDetails({ match: { params: { recipeId } } }) {
         </Row>
         <Row>
           <Col className="col-12">
-            <h2>Receitas recomendadas</h2>
+            <h3>Receitas recomendadas</h3>
           </Col>
         </Row>
-        <Row className="mb-5 justify-content-center">
+        <Row className="mb-5">
           <DetailsCarousel selector="drink" />
         </Row>
         <Row>
-          <Col className="col-12">
+          <Col className="col-12 m-auto">
             { !isRecipeDone
               && (
                 <Button
                   type="button"
-                  className="fixed-bottom m-auto"
+                  className="fixed-bottom jusitfy-content-center m-auto"
                   data-testid="start-recipe-btn"
                   variant="success"
                   onClick={ handleStartRecipe }

@@ -6,8 +6,14 @@ import {
   Col,
   Button,
   Form,
+  Image,
   Spinner,
 } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+import {
+  retrieveInProgressRecipes,
+  setInProgressRecipe,
+} from '../../../../services/handleLocalStorage';
 import { fetchDetails } from '../../../../services/fetchDetailsApi';
 import FavoriteButton from '../../../../components/Details/FavoriteButton/index';
 import CopyButton from '../../../../components/Details/CopyButton/index';
@@ -15,6 +21,34 @@ import CopyButton from '../../../../components/Details/CopyButton/index';
 export default function ComidasInProgress({ match: { params: { recipeId } } }) {
   const [details, setDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [ingredients, setIngredients] = useState([]);
+  const [isRecipeFinalized, setIsRecipeFinalized] = useState(false);
+
+  const verifyFinalizedBtn = () => {
+    const checkIngredients = Object.keys(details)
+      .filter((key) => key.includes('strIngredient'));
+    if (checkIngredients.length === ingredients.length) {
+      setIsRecipeFinalized(true);
+    } else {
+      setIsRecipeFinalized(false);
+    }
+  };
+
+  useEffect(() => {
+    if (ingredients.length !== 0) {
+      setInProgressRecipe('meals', recipeId, ingredients);
+    }
+    verifyFinalizedBtn();
+  }, [recipeId, ingredients]);
+
+  useEffect(() => {
+    const recipesInprogress = retrieveInProgressRecipes();
+    if (recipesInprogress.meals[recipeId]) {
+      setIngredients([...recipesInprogress.meals[recipeId]]);
+    } else {
+      setIngredients([]);
+    }
+  }, [recipeId]);
 
   useEffect(() => {
     const fetchApi = async () => {
@@ -32,6 +66,28 @@ export default function ComidasInProgress({ match: { params: { recipeId } } }) {
     </Container>
   );
 
+  const handleCheckbox = ({
+    target: {
+      nextElementSibling,
+      defaultChecked,
+      id,
+    },
+  }) => {
+    nextElementSibling.classList.toggle('line-through');
+    const index = Number(id.split('-')[1]);
+    if (!defaultChecked) {
+      setIngredients([...ingredients, index]);
+    } else {
+      const filteredIngredients = ingredients.filter((el) => el !== index);
+      setIngredients([...filteredIngredients]);
+    }
+  };
+
+  const history = useHistory();
+  const handleFinalizedBtn = () => {
+    history.push('/receitas-feitas');
+  };
+
   const pageContent = () => {
     const {
       strMeal,
@@ -40,39 +96,40 @@ export default function ComidasInProgress({ match: { params: { recipeId } } }) {
       strMealThumb,
     } = details;
     return (
-      <Container style={ { backgroundColor: '#0fa36b' } } as="main">
+      <Container fluid="md" style={ { backgroundColor: '#0fa36b' } } as="main">
         <Row>
-          <Col as="figure" className="col-12">
-            <img
-              className="w-100 p-4"
+          <Col as="figure" className="m-auto" sd="12" md="8" lg="6">
+            <Image
+              className="my-3 p-3 shadow-lg"
               data-testid="recipe-photo"
               src={ strMealThumb }
               alt="Foto da receita em progresso"
+              fluid
+              thumbnail
             />
           </Col>
         </Row>
         <Row>
           <Col className="col-12">
-            <h1 data-testid="recipe-title">{ strMeal }</h1>
+            <h1 className="text-light" data-testid="recipe-title">{ strMeal }</h1>
           </Col>
         </Row>
-        <Row as="nav" className="mb-3 m-auto justify-content-center">
-          <Col className="col-12 d-flex justify-content-center">
+        <Row
+          as="nav"
+          data-testid="recipe-category"
+          className="mb-3 p-3 d-flex m-auto justify-content-center"
+        >
+          <Col className="col-6 my-auto align-content-center">
+            <span>
+              <strong>{ strCategory }</strong>
+            </span>
+          </Col>
+          <Col className="col-6 d-flex justify-content-end">
             <CopyButton />
             <FavoriteButton recipeId={ recipeId } selector="meal" details={ details } />
           </Col>
         </Row>
-        <Row
-          data-testid="recipe-category"
-          className="mt-3 text-center justify-content-center"
-        >
-          <Col className="col-6">
-            <p>
-              <strong>{ strCategory }</strong>
-            </p>
-          </Col>
-        </Row>
-        <Row>
+        <Row className="bg-secondary text-light">
           <Col className="col-12">
             <h2>Ingredientes</h2>
           </Col>
@@ -80,21 +137,19 @@ export default function ComidasInProgress({ match: { params: { recipeId } } }) {
             Object.keys(details)
               .filter((key) => key.includes('strIngredient'))
               .map((key, index) => (
-                <Col key={ index } className=" col-12">
+                <Col key={ index } className="col-12">
                   <Form.Group
                     data-testid={ `${index}-ingredient-step` }
-                    className="ml-2 mb-3"
+                    className="ml-2 mb-1"
                     controlId={ `item-${index}` }
                   >
                     <Form.Check
                       type="checkbox"
+                      defaultChecked={ ingredients.some((el) => el === index) }
                       label={
-                        `${details[key]} : ${details[`strMeasure${index + 1}`]}`
+                        `${details[key]} : ${details[`strMeasure${index + 1}`] || ''}`
                       }
-                      onClick={
-                        ({ target }) => (
-                          target.nextElementSibling.classList.toggle('line-through'))
-                      }
+                      onClick={ handleCheckbox }
                     />
                   </Form.Group>
                 </Col>
@@ -111,7 +166,13 @@ export default function ComidasInProgress({ match: { params: { recipeId } } }) {
         </Row>
         <Row>
           <Col className="col-12">
-            <Button data-testid="finish-recipe-btn">Finalizar Receita</Button>
+            <Button
+              data-testid="finish-recipe-btn"
+              onClick={ handleFinalizedBtn }
+              disabled={ !isRecipeFinalized }
+            >
+              Finalizar Receita
+            </Button>
           </Col>
         </Row>
       </Container>

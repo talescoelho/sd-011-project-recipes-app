@@ -13,8 +13,9 @@ export const retrieveInProgressRecipes = () => {
     cocktails: {},
     meals: {},
   };
-  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || defaultObj;
-  return inProgress;
+  const inProgressRecipes = JSON
+    .parse(localStorage.getItem('inProgressRecipes')) || defaultObj;
+  return inProgressRecipes;
 };
 
 export const retrieveFavoriteRecipes = () => {
@@ -32,4 +33,10 @@ export const removeFavoriteRecipe = (obj) => {
   const filteredFavoriteRecipes = favoriteRecipes
     .filter((el) => el === obj);
   localStorage.setItem('favoriteRecipes', JSON.stringify([...filteredFavoriteRecipes]));
+};
+
+export const setInProgressRecipe = (selector, id, arrayOfIngredients) => {
+  const inProgressRecipes = retrieveInProgressRecipes();
+  inProgressRecipes[selector][id] = arrayOfIngredients;
+  localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
 };
