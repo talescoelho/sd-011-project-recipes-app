@@ -1,5 +1,6 @@
 import {
   GET_HEADER_SEARCH, GET_HEADER_SEARCH_SUCCESS, GET_HEADER_SEARCH_ERROR,
+  HEADER_SEARCH_RESET_ERROR,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -33,6 +34,11 @@ const headerSearchReducer = (state = INITIAL_STATE, { type, payload }) => {
       ...state,
       loading: false,
       error: `${payload}`,
+    };
+  case HEADER_SEARCH_RESET_ERROR:
+    return {
+      ...state,
+      error: null,
     };
   default:
     return state;
