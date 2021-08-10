@@ -1,0 +1,21 @@
+.carousel {
+  display: flex;
+  max-width: 100%;
+  overflow: scroll;
+}
+
+.carouselItemDiv {
+  border: 1px solid #333;
+  border-radius: 4px;
+  margin: 10px 4px;
+  padding: 20px;
+}
+
+.carouselImg {
+  width: 130px;
+}
+
+.startRecipeBttn {
+  bottom: 0;
+  position: fixed;
+}
