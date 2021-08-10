@@ -54,9 +54,7 @@ function RecipesMade() {
             <p data-testid={ `${index}-horizontal-done-date` }>
               {date}
             </p>
-            <p data-testid={ `${index}-${tags.split(',').length < 1 ? tags : tags.split(',')[0]}-horizontal-tag` }>
-              {tags}
-            </p>
+            { tags.split(',').map((data) => <p key={ index } data-testid={ `${index}-${data}-horizontal-tag` }>{data}</p>)}
             {/* <SecondFavoriteButton
               itemId={ id }
               type={ type }
