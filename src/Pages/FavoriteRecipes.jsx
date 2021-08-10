@@ -24,7 +24,7 @@ function FavoriteRecipes() {
               <p data-testid={ `${index}-horizontal-top-text` }>{area !== '' ? `${area} - ${category}` : alcoholicOrNot }</p>
               <p data-testid={ `${index}-horizontal-name` }>{name}</p>
               <p data-testid={ `${index}-horizontal-favorite-btn` }>Botão favoritar</p>
-              <SecondShareButton itemId={ id } type={ type } data-testid={ `${index}-horizontal-share-btn` } />
+              <SecondShareButton itemId={ id } type={ type } testID={ `${index}-horizontal-share-btn` } />
             </div>
 
           </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import copy from 'clipboard-copy';
 import shareIcon from '../../../images/shareIcon.svg';
 
-function SecondShareButton({ itemId, type }) {
+function SecondShareButton({ itemId, type, testID }) {
   const [showCopy, setShowCopy] = React.useState(false);
 
   function copyToClipBoard() {
@@ -12,8 +12,9 @@ function SecondShareButton({ itemId, type }) {
   }
   return (
     <>
-      <button type="button" data-testid="share-btn" onClick={ () => copyToClipBoard() }>
+      <button type="button" onClick={ () => copyToClipBoard() }>
         <img
+          data-testid={ testID }
           src={ shareIcon }
           alt="Botão compartilhar"
         />
