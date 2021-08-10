@@ -24,7 +24,14 @@ function ExploreDrinks() {
 
         </button>
       </Link>
-      <button onClick={ callRandomDrink } type="button" data-testid="explore-surprise">Me Surpreenda!</button>
+      <button
+        onClick={ callRandomDrink }
+        type="button"
+        data-testid="explore-surprise"
+      >
+        Me Surpreenda!
+
+      </button>
       <Footer />
     </div>
   );
