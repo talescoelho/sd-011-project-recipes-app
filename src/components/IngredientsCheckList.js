@@ -93,6 +93,7 @@ export default function IngredientsCheckList({ recipeType, id, data }) {
             data-testid={ `${index}-ingredient-step` }
             htmlFor={ ingredient.name }
           >
+            {console.log(localStorage.inProgressRecipes)}
             <input
               type="checkbox"
               checked={ ingredient.check }
