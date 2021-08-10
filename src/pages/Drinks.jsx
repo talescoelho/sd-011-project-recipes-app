@@ -56,7 +56,7 @@ const Drinks = ({
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
 
-  if (drinks.length === 1) {
+  if (selectedRadio && drinks.length === 1) {
     return <Redirect to={ `/bebidas/${drinkId}` } />;
   }
   return (
