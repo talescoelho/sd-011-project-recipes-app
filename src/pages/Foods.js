@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import MainContext from '../context/MainContext';
 import Header from '../components/Header';
 import FooterMenu from '../components/FooterMenu';
@@ -20,6 +21,8 @@ function Foods() {
     categorySelected,
     setCategorySelected,
   } = useContext(MainContext);
+  const { location: { state } } = useHistory();
+  console.log(state);
 
   function filterByCategory({ target: { innerText } }) {
     if (innerText === categorySelected || innerText === 'All') {
@@ -53,21 +56,22 @@ function Foods() {
   }
 
   useEffect(() => {
-    setLoading(true);
-    getInitialMealsRecipes()
-      .then((meals) => {
-        setData(meals);
-        getMealsCategoryList()
-          .then((mealsCategory) => {
-            setCategoryList(mealsCategory);
-            setLoading(false);
-          });
-      });
-    return () => {
-      setData([]);
+    if (!state) {
+      setLoading(true);
+      getInitialMealsRecipes()
+        .then((meals) => {
+          setData(meals);
+          getMealsCategoryList()
+            .then((mealsCategory) => {
+              setCategoryList(mealsCategory);
+              setLoading(false);
+            });
+        });
+    } return () => {
+      setData(['', '']);
       setCategoryList([]);
     };
-  }, [setData, setLoading, setCategoryList]);
+  }, [setData, setLoading, setCategoryList, state]);
 
   return (
     <div>

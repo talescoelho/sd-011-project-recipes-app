@@ -50,3 +50,27 @@ export function getMealRecomendations() {
     .then((results) => results.json())
     .then(({ meals }) => meals);
 }
+
+export function getRandomMeal() {
+  return fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+    .then((results) => results.json())
+    .then(({ meals }) => meals[0].idMeal);
+}
+
+export function getMealsIngredients() {
+  return fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
+    .then((results) => results.json())
+    .then(({ meals }) => meals);
+}
+
+export function getMealsArea() {
+  return fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list')
+    .then((results) => results.json())
+    .then(({ meals }) => meals);
+}
+
+export function getMealsByArea(area) {
+  return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`)
+    .then((results) => results.json())
+    .then(({ meals }) => meals);
+}
