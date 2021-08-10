@@ -56,7 +56,6 @@ function SearchBar(props) {
   //   return item;
   // };
   const lala = (x) => {
-    console.log('foi');
     if (x !== null) {
       setListSearch(x);
       const LOC = window.location.pathname;

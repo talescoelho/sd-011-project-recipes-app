@@ -1,3 +1,4 @@
+const message = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 export function fetchMealsAPI(setListMeals) {
   // essa API aceita o parametro s vaziu
   // retorna API de lista de comida
@@ -42,33 +43,49 @@ export function fetchCocktailsForCategorie(setListCocktail, categorie) {
     });
 }
 
-export function fetchFoodsIngredienteMeail(ingrediente, setFoods) {
-  // retorna pesquisa por ingrediente na pagina de comidas
-  fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediente}`)
-    .then((response) => response.json())
-    .then((jsonData) => setFoods(jsonData.meals));
-}
-
-export function fetchFoodsIngredienteDrink(ingrediente, setFoods) {
-  // retorna pesquisa por ingrediente na pagina de Bebidas
-  fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingrediente}`)
-    .then((response) => response.json())
-    .then((jsonData) => setFoods(jsonData.drinks));
-}
-
-export function fetchFoodsName(name, setFoods) {
+export const fetchFoodsIngredienteMeail = (ingrediente, setFoods) => {
   // retorna pesquisa por nome na pagina de comidas
-  fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`)
-    .then((resp) => resp.json())
-    .then((jsonObj) => setFoods(jsonObj.meals));
-}
+  const api = fetch(`https://www.themealdb.com/api/json/v1/1/search.php?i=${ingrediente}`);
+  if (api) {
+    api
+      .then((resp) => resp.json())
+      .then((jsonObj) => setFoods(jsonObj.meals));
+  }
+  alert(message);
+};
 
-export function fetchFoodsNameDrink(name, setFoods) {
+export const fetchFoodsIngredienteDrink = (ingrediente, setFoods) => {
   // retorna pesquisa por nome na pagina de bebidas
-  fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`)
-    .then((resp) => resp.json())
-    .then((jsonObj) => setFoods(jsonObj.drinks));
-}
+  const api = fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${ingrediente}`);
+  if (api) {
+    api
+      .then((resp) => resp.json())
+      .then((jsonObj) => setFoods(jsonObj.drinks));
+  }
+  alert(message);
+};
+
+export const fetchFoodsName = (name, setFoods) => {
+  // retorna pesquisa por nome na pagina de comidas
+  const api = fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`);
+  if (api) {
+    api
+      .then((resp) => resp.json())
+      .then((jsonObj) => setFoods(jsonObj.meals));
+  }
+  alert(message);
+};
+
+export const fetchFoodsNameDrink = (name, setFoods) => {
+  // retorna pesquisa por nome na pagina de bebidas
+  const api = fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`);
+  if (api) {
+    api
+      .then((resp) => resp.json())
+      .then((jsonObj) => setFoods(jsonObj.drinks));
+  }
+  alert(message);
+};
 
 export const fetchFoodsFirstLetter = (firstLetter,
   setFoods) => (firstLetter.length === 1
