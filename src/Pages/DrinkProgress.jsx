@@ -99,6 +99,29 @@ function DrinkProgress(props) {
     storageCheckeds(value);
   }
 
+  function readChecks() {
+    const local = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (local) {
+      const inputs = document.getElementsByTagName('input');
+      console.log('sou input', inputs);
+      const localSaves = JSON.parse(localStorage.getItem('inProgressRecipes'))
+        .cocktails;
+      console.log('sou localsaves', localSaves);
+      for (let index = 0; index < inputs.length; index += 1) {
+        for (let i = 0; i < localSaves.length; i += 1) {
+          console.log('estou aqui forrr');
+          if (inputs[index].includes(localSaves[i])) {
+            return inputs[index].checked;
+          }
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    readChecks();
+  }, []);
+
   return (
     <div>
       { drinkById.map((item, index) => (
