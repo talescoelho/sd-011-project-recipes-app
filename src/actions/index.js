@@ -35,10 +35,13 @@ const getRecipesError = (error) => ({
   payload: error,
 });
 
-export const fetchRecipes = (type) => (dispatch) => {
+export const fetchRecipes = (type, category = null) => (dispatch) => {
   dispatch(getRecipes());
 
-  const url = `${type === 'meals' ? baseMealDbUrl : baseCocktailDbUrl}/search.php?s=`;
+  const baseUrl = type === 'meals' ? baseMealDbUrl : baseCocktailDbUrl;
+  const url = category
+    ? `${baseUrl}/filter.php?c=${category}`
+    : `${baseUrl}/search.php?s=`;
 
   return fetch(url)
     .then((response) => response.json())
