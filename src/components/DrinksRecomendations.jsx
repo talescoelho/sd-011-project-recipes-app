@@ -1,28 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Carousel } from 'react-bootstrap';
+import '../styles/RecipesRecomendations.css';
 
 function DrinksRecomendations(props) {
   const { recomendations } = props;
   const recomendationsNumber = 6;
   return (
-    <div className="recomendations-container">
+    <Carousel>
       {recomendations.map((element, index) => {
         if (index < recomendationsNumber) {
           return (
-            <div key={ element.idDrink } data-testid={ `${index}-recomendation-card` }>
-              <img src={ element.strDrinkThumb } alt="Bebida recomendada" />
-              <span>{element.strAlcoholic}</span>
-              <span
+            <Carousel.Item
+              key={ element.idDrink }
+              data-testid={ `${index}-recomendation-card` }
+            >
+              <img
+                className="recipe-recom"
+                src={ element.strDrinkThumb }
+                alt="Bebida recomendada"
+              />
+              <p>{element.strAlcoholic}</p>
+              <p
                 data-testid={ `${index}-recomendation-title` }
               >
                 {element.strDrink}
-              </span>
-            </div>
+              </p>
+            </Carousel.Item>
           );
         }
         return null;
       })}
-    </div>
+    </Carousel>
+
   );
 }
 

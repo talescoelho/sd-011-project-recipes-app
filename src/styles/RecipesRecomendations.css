@@ -1,0 +1,23 @@
+.recipe-recom {
+  text-align: center;
+  width: 100%;
+}
+
+.carousel-inner {
+  border: 1px solid #eee;
+  box-shadow: 2px 8px 20px #ddd;
+  flex-direction: row;
+  height: 355px;
+  padding: 10px;
+  text-align: center;
+  transition: 0.5s linear;
+  width: 300px;
+}
+
+.recomendation-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 550px;
+  justify-content: center;
+}
