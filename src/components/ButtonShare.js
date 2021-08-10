@@ -16,7 +16,6 @@ const copy = require('clipboard-copy');
 export default function ButtonShare(props) {
   const [isCopied, setIsCopied] = useState(false);
   const { path, testid } = props;
-  // const testid = window.location.pathname.split('/')[2];
 
   useEffect(() => {
     if (isCopied) {
@@ -49,5 +48,6 @@ export default function ButtonShare(props) {
 }
 
 ButtonShare.propTypes = {
-  props: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
+  testid: PropTypes.string.isRequired,
 };

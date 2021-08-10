@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import fetchByFilter from '../services/data';
 // import { SearchBarContext } from '../context/SearchBar';
-import { Redirect } from 'react-router-dom';
 
 /* Criei CardsList para renderizar apenas uma vez. Deixei apenas o SearchBarProvider encapsulando o Header e CardsList, já que buscam as mesmas informações */
 
@@ -65,8 +65,9 @@ export default function CardsListByIngredient() {
   const handleClick = (value) => {
     // setIngred(value);
     // setCheck('checked');
+    console.log(value);
     setRedirectTo(true);
-  }
+  };
 
   return (
     <div style={ { position: 'relative' } }>
@@ -83,7 +84,13 @@ export default function CardsListByIngredient() {
           type="button"
           key={ i }
         >
-          <div data-testid={ `${i}-ingredient-card` } onClick={ () => handleClick(e.name) }>
+          <div
+            role="button"
+            data-testid={ `${i}-ingredient-card` }
+            onClick={ () => handleClick(e.name) }
+            onKeyPress={ () => handleClick(e.name) }
+            tabIndex="0"
+          >
             <img
               src={ e.fig }
               alt={ `figure ${e.name}` }
@@ -93,7 +100,7 @@ export default function CardsListByIngredient() {
           </div>
         </button>
       )) }
-      { redirectTo && <Redirect to={`/${path}`} /> }
+      { redirectTo && <Redirect to={ `/${path}` } /> }
     </div>
   );
 }
