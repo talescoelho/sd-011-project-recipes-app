@@ -6,9 +6,9 @@ import Footer from '../components/Footer';
 class Profile extends Component {
   render() {
     const getEmail = JSON.parse(localStorage.getItem('user'));
-    let userEmail = ''
-    if(getEmail){
-    userEmail = getEmail.email;
+    let userEmail = '';
+    if (getEmail) {
+      userEmail = getEmail.email;
     }
     return (
       <div>
