@@ -1,5 +1,4 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
 import { renderWithRouterAndStore } from '../helper/testConfig';
 import { FoodDetails, DrinkDetails } from '../../pages';
 import { testMealsRecipeCard, testDrinksRecipeCard } from '../helper/testRecipeCard';
@@ -43,32 +42,20 @@ be drink and vice versa`, () => {
   it('Check if the request for the food API has been made', async () => {
     renderWithRouterAndStore(<FoodDetails match={ mockMealsMatch } />, mockMealPath);
 
-    const instructions = await screen.findByTestId('instructions');
-    const startRecipeBtn = await screen.findByTestId('start-recipe-btn');
-
     expect(mockedSearchDrinkByName).toBeCalled();
     expect(mockedSearchDrinkByName).toBeCalledTimes(1);
 
     const { drinks } = drinksFiltersByAll;
     await testDrinksRecipeCard(drinks, maxDefaultCards, cardTestId, titleTestId);
-
-    expect(instructions).toBeInTheDocument();
-    expect(startRecipeBtn).toBeInTheDocument();
   });
 
   it('Checks whether the request for the beverage API has been made', async () => {
     renderWithRouterAndStore(<DrinkDetails match={ mockDrinkMatch } />, mockDrinkPath);
-
-    const instructions = await screen.findByTestId('instructions');
-    const startRecipeBtn = await screen.findByTestId('start-recipe-btn');
 
     expect(mockedSearchMealByName).toBeCalled();
     expect(mockedSearchMealByName).toBeCalledTimes(1);
 
     const { meals } = mealsFiltersByAll;
     await testMealsRecipeCard(meals, maxDefaultCards, cardTestId, titleTestId);
-
-    expect(instructions).toBeInTheDocument();
-    expect(startRecipeBtn).toBeInTheDocument();
   });
 });
