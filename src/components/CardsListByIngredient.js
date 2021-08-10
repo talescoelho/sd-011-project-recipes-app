@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import fetchByFilter from '../services/data';
+// import { SearchBarContext } from '../context/SearchBar';
+import { Redirect } from 'react-router-dom';
 
 /* Criei CardsList para renderizar apenas uma vez. Deixei apenas o SearchBarProvider encapsulando o Header e CardsList, já que buscam as mesmas informações */
 
 export default function CardsListByIngredient() {
   const [ingredName, setIngredName] = useState([]);
   const [imge, setImge] = useState([]);
+  const [redirectTo, setRedirectTo] = useState(false);
   const path = window.location.pathname.split('/')[2];
+
+  // const { setCheck, setIngred } = useContext(SearchBarContext);
 
   useEffect(() => {
     const urlDrink = 'thecocktaildb';
@@ -57,6 +62,12 @@ export default function CardsListByIngredient() {
     getCategories();
   }, [path, ingredName]);
 
+  const handleClick = (value) => {
+    // setIngred(value);
+    // setCheck('checked');
+    setRedirectTo(true);
+  }
+
   return (
     <div style={ { position: 'relative' } }>
       { imge.map((e, i) => (
@@ -72,7 +83,7 @@ export default function CardsListByIngredient() {
           type="button"
           key={ i }
         >
-          <div data-testid={ `${i}-ingredient-card` }>
+          <div data-testid={ `${i}-ingredient-card` } onClick={ () => handleClick(e.name) }>
             <img
               src={ e.fig }
               alt={ `figure ${e.name}` }
@@ -82,6 +93,7 @@ export default function CardsListByIngredient() {
           </div>
         </button>
       )) }
+      { redirectTo && <Redirect to={`/${path}`} /> }
     </div>
   );
 }
