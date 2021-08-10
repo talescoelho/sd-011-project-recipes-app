@@ -9,6 +9,7 @@ function DetailsHeader() {
         src={ mealId.strMealThumb }
         alt={ mealId.strMeal }
         data-testid="recipe-photo"
+        style={ { width: '50px', heigth: '50px' } }
       />
       <div>
         <h3 data-testid="recipe-title">{ mealId.strMeal }</h3>

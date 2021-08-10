@@ -32,25 +32,23 @@ function DetailsIngredientList() {
     : setAllIngredientsChecked(true)),
   [checkedIngredients, ingredients.length, setAllIngredientsChecked]);
 
-  function localMemory() {
+  useEffect(() => {
     const meals = { meals: { [urlID]: checkedNumberIngredients } };
-    const test = localStorage.setItem('inProgressRecipes', JSON.stringify(meals)) || [];
-    return test;
-  }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(meals));
+  }, [checkedNumberIngredients, urlID]);
 
   function addToCheckedIngredient({ target }) {
     if (checkedIngredients.includes(target.value)) {
-      const arrayIngredientsChecked = checkedIngredients.filter((ingredient) => (
+      const arrayCheckedIngredients = checkedIngredients.filter((ingredient) => (
         ingredient !== target.value));
+      setCheckedIngredients(arrayCheckedIngredients);
       const indexIngredient = checkedNumberIngredients.filter((ingredientIndex) => (
-        ingredientIndex !== target.getAttribute('name')));
+        ingredientIndex !== target.name));
       setCheckedNumberIngredients(indexIngredient);
-      setCheckedIngredients(arrayIngredientsChecked);
-      return localMemory();
+    } else {
+      setCheckedIngredients([...checkedIngredients, target.value]);
+      setCheckedNumberIngredients([...checkedNumberIngredients, target.name]);
     }
-    setCheckedNumberIngredients([...checkedNumberIngredients, target.name]);
-    setCheckedIngredients([...checkedIngredients, target.value]);
-    return localMemory();
   }
 
   return (
@@ -75,7 +73,10 @@ function DetailsIngredientList() {
             <div>
               {
                 ingredients.map((ingredient, index) => (
-                  <div key={ index }>
+                  <label
+                    htmlFor={ `ingredient-${index}` }
+                    key={ index }
+                  >
                     <input
                       data-testid={ `${index}-ingredient-step` }
                       type="checkbox"
@@ -84,13 +85,9 @@ function DetailsIngredientList() {
                       value={ ingredient }
                       onChange={ addToCheckedIngredient }
                     />
-                    <label
-                      htmlFor={ `ingredient-${index}` }
-                    >
-                      { (checkedIngredients.includes(ingredient))
-                        ? <del>{ ingredient }</del> : ingredient }
-                    </label>
-                  </div>
+                    { (checkedIngredients.includes(ingredient))
+                      ? <del>{ ingredient }</del> : ingredient }
+                  </label>
                 ))
               }
             </div>
