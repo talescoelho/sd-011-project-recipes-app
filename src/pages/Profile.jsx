@@ -5,7 +5,7 @@ import Header from '../components/Header/Header';
 
 const Profile = () => (
   <>
-    <Header page="Perfil" />
+    <Header page="Perfil" showSearchBtn={ false } />
     <div>Perfil</div>
     <Footer />
   </>

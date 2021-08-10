@@ -56,7 +56,7 @@ const Foods = ({
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
 
-  if (meals.length === 1) {
+  if (selectedRadio && meals.length === 1) {
     return <Redirect to={ `/comidas/${mealId}` } />;
   }
   return (
