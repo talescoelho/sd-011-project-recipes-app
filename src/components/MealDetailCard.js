@@ -8,7 +8,6 @@ import ButtonFavorite from './ButtonFavorite';
 function MealDetailCard() {
   const [mealDetail, setMealDetail] = useState([]);
   const [rec, setRec] = useState([]);
-  const [data, setData] = useState([]);
   const [min, setMin] = useState([]);
 
   const path = window.location.pathname.split('/')[1] === 'comidas';
@@ -61,11 +60,6 @@ function MealDetailCard() {
     return undefined;
   }).filter((i) => i !== undefined);
 
-  const callData = () => {
-    setData([mealDetail]);
-    return data;
-  };
-
   return (
     <div>
       <h3 data-testid="recipe-title">{strMeal}</h3>
@@ -108,7 +102,7 @@ function MealDetailCard() {
       <div style={ { margin: '40px' } }>
         <Recommended value={ rec } type="meal" min={ min } />
       </div>
-      <ButtonToProgress data={ callData } />
+      <ButtonToProgress data={ mealDetail } />
     </div>
   );
 }
