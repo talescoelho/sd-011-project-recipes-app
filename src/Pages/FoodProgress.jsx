@@ -67,11 +67,20 @@ function FoodProgress(props) {
     }
 
     if (checked) {
-      const recipeMeals = { ...recipe,
-        meals:
-         { ...recipe.meals, [id]: [...recipe.meals[id], name] } };
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify(recipeMeals));
+      if (!!recipe.meals[id] === false) {
+        const recipeMeal = { ...recipe,
+          meals:
+          { ...recipe.meals, [id]: [name] },
+        };
+        localStorage.setItem('inProgressRecipes',
+          JSON.stringify(recipeMeal));
+      } else {
+        const recipeMeals = { ...recipe,
+          meals:
+           { ...recipe.meals, [id]: [...recipe.meals[id], name] } };
+        localStorage.setItem('inProgressRecipes',
+          JSON.stringify(recipeMeals));
+      }
     } else {
       const removeLocaStorage = recipe.meals[id]
         .filter((ingredient) => ingredient !== name);

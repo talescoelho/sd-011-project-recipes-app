@@ -69,7 +69,8 @@ function DrinkProgress(props) {
     if (checked) {
       if (!!recipe.cocktails[id] === false) {
         const recipeCock = { ...recipe,
-          [id]: [name],
+          cocktails:
+          { ...recipe.cocktails, [id]: [name] },
         };
         localStorage.setItem('inProgressRecipes',
           JSON.stringify(recipeCock));
