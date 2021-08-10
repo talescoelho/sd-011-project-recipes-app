@@ -4,8 +4,8 @@ import '../styles/video.css';
 
 function VideoEmbeded() {
   const { idDetails } = useContext(AppContext);
-  const url = idDetails[0].strYoutube;
-  const videoID = url.split('watch?v=')[1];
+  const url = idDetails && idDetails[0].strYoutube;
+  const videoID = url && url.split('watch?v=')[1];
   console.log('videUrl', url);
   console.log('videOdetails', videoID);
   return (

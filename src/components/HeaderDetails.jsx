@@ -1,9 +1,8 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from '../context/AppContext';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import ShareButton from './ShareButton';
+import FavoriteButton from './FavoriteButton';
 
 function HeaderDetails({ foodOrDrink, id }) {
   const { idDetails } = useContext(AppContext);
@@ -44,15 +43,15 @@ function HeaderDetails({ foodOrDrink, id }) {
         <h1 data-testid="recipe-title">
           {foodOrDrink === 'Comidas' ? details.strMeal : details.strDrink }
         </h1>
-        <ShareButton />
-        <button type="button" onClick={ handleFavorite }>
-          <img
-            data-testid="favorite-btn"
-            src={ hasId ? blackHeartIcon : whiteHeartIcon }
-            alt="Imagem do ícone de favorito"
-          />
-        </button>
-
+        <ShareButton
+          foodOrDrink={ foodOrDrink === 'Comidas' ? 'comidas' : 'bebidas' }
+          id={ id }
+        />
+        <FavoriteButton
+          foodOrDrink={ foodOrDrink === 'Comidas' ? 'comidas' : 'bebidas' }
+          id={ id }
+          handleFavorite={ handleFavorite }
+        />
       </div>
       <h3 data-testid="recipe-category">
         { foodOrDrink === 'Comidas' ? details.strCategory : details.strAlcoholic }
