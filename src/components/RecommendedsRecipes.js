@@ -19,7 +19,7 @@ function RecommendedsRecipes() {
   };
 
   return (
-    <>
+    <div className="py-5">
       <h2 className="text-center">Recommendations</h2>
       <div className="carousel">
         <button type="button" onClick={ prevSlide } className="button-carousel">
@@ -35,17 +35,24 @@ function RecommendedsRecipes() {
            key={ index }
            data-testid={ `${index}-recomendation-card` }
            className={ index !== position.a && index !== position.b
-             ? 'hide' : 'card-carousel rounded' }
+             ? 'hide' : 'col-sm-3' }
          >
-           <div className="card-recipe">
-             <img
-               className="carousel-image"
-               src={ recipe.strMealThumb || recipe.strDrinkThumb }
-               alt={ recipe.strMeal || recipe.strDrink }
-             />
-             <h4 className="text-center" data-testid={ `${index}-recomendation-title` }>
-               { recipe.strMeal || recipe.strDrink }
-             </h4>
+           <div className="card border border-danger">
+             <div className="card-img-top">
+               <img
+                 className="img-fluid"
+                 src={ recipe.strMealThumb || recipe.strDrinkThumb }
+                 alt={ recipe.strMeal || recipe.strDrink }
+               />
+             </div>
+             <div className="card-inner">
+               <h2
+                 className="title-recipe"
+                 data-testid={ `${index}-recomendation-title` }
+               >
+                 { recipe.strMeal || recipe.strDrink }
+               </h2>
+             </div>
            </div>
          </div>
        ))}
@@ -53,7 +60,7 @@ function RecommendedsRecipes() {
           <img src={ NextIcon } alt="Next Icon" className="button-carousel-icon" />
         </button>
       </div>
-    </>
+    </div>
   );
 }
 
