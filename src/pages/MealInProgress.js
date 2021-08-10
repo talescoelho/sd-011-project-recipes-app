@@ -12,7 +12,7 @@ import '../styles/Details.css';
 import RecommendedBeverages from '../components/RecommendedBeverages';
 import IngredientsCheckbox from '../components/IngredientsCheckbox';
 import GlobalContext from '../context';
-import handleSaveRecipeInLocalStorage from '../helpers/finishButton';
+import { handleSaveMealRecipeInLocalStorage } from '../helpers/finishButton';
 
 function MealInProgress(props) {
   const { isIngridientUsed } = useContext(GlobalContext);
@@ -73,7 +73,7 @@ function MealInProgress(props) {
   }
 
   function handleFinishRecipeClick() {
-    handleSaveRecipeInLocalStorage(dataToManipulate, mealsId);
+    handleSaveMealRecipeInLocalStorage(dataToManipulate, mealsId);
     const { history } = props;
     history.push('/receitas-feitas');
   }

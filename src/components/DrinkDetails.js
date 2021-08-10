@@ -13,7 +13,7 @@ import MapIngredients from './MapIngredients';
 import RecommendedMeals from './RecommendedMeals';
 
 function DrinkDetails(props) {
-  const [dataTomanipulate, setDataTomanipulate] = useState([]);
+  const [dataToManipulate, setDataToManipulate] = useState({});
   const [meals, setMeals] = useState([]);
   const [statusControl, setStatusControl] = useState({
     isVisible: true,
@@ -23,7 +23,7 @@ function DrinkDetails(props) {
   });
   const { isVisible, isInProgress, isFavorited, isLinkCopied } = statusControl;
   const { strDrinkThumb, strDrink, strAlcoholic,
-    strInstructions } = dataTomanipulate;
+    strInstructions } = dataToManipulate;
 
   const urlLengthToGetId = 30;
   const drinksId = window.location.href.slice(urlLengthToGetId);
@@ -31,9 +31,9 @@ function DrinkDetails(props) {
   async function fetchMealAndDrinkDataFromAPI() {
     const drinkDetails = await fetchDrinkDetailsFromCocktailsDB(drinksId);
     const recommendedMeals = await fetchRecommendedMealsFromMealsDB();
-    setDataTomanipulate(...drinkDetails);
+    setDataToManipulate(...drinkDetails);
+    console.log(dataToManipulate);
     setMeals(recommendedMeals);
-    console.log(recommendedMeals);
   }
 
   function readLocalStorage() {
@@ -82,7 +82,7 @@ function DrinkDetails(props) {
       ...statusControl,
       isFavorited: !isFavorited,
     });
-    setFavoriteDrinkInLocalStorage(dataTomanipulate);
+    setFavoriteDrinkInLocalStorage(dataToManipulate);
   }
 
   const iconsRender = () => (
@@ -136,7 +136,7 @@ function DrinkDetails(props) {
         <h3 data-testid="recipe-category">{strAlcoholic}</h3>
         <div>
           <h4>Ingredients</h4>
-          <MapIngredients dataTomanipulate={ dataTomanipulate } />
+          <MapIngredients dataToManipulate={ dataToManipulate } />
         </div>
         <p data-testid="instructions">{strInstructions}</p>
         <h2>Recomendations</h2>
@@ -148,7 +148,8 @@ function DrinkDetails(props) {
 }
 
 DrinkDetails.propTypes = {
-  history: PropTypes.instanceOf(PropTypes.array).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func }).isRequired,
 };
 
 export default withRouter(DrinkDetails);

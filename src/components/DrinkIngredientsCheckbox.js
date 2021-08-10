@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import GlobalContext from '../context';
 
-export default function IngredientsCheckbox(props) {
+export default function DrinkIngredientsCheckbox(props) {
   const { dataToManipulate } = props;
   const { setIsIngridientUsed, isIngridientUsed } = useContext(GlobalContext);
   const [recipeIngredients, setRecipeIngredients] = useState([]);
@@ -17,9 +17,8 @@ export default function IngredientsCheckbox(props) {
 
   function getLocalStorage() {
     const getStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    console.log(getStorage);
-    if (getStorage !== null) {
-      const ingredientsArray = getStorage.meals[recipeId];
+    if (getStorage !== null && getStorage.cocktails[recipeId] !== undefined) {
+      const ingredientsArray = getStorage.cocktails[recipeId];
       return ingredientsArray;
     } return [];
   }
@@ -58,14 +57,13 @@ export default function IngredientsCheckbox(props) {
     const previousProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
     if (previousProgress !== null) {
-      const usedIngredients = previousProgress.meals[recipeId];
+      const usedIngredients = getLocalStorage();
       const includes = usedIngredients.includes(id);
       const deleteItem = usedIngredients.indexOf(id);
 
       switch (includes) {
       case false:
         usedIngredients.push(id);
-        console.log(usedIngredients);
         localStorage.setItem('inProgressRecipes', JSON.stringify(previousProgress));
         break;
       default:
@@ -120,6 +118,6 @@ export default function IngredientsCheckbox(props) {
   );
 }
 
-IngredientsCheckbox.propTypes = {
+DrinkIngredientsCheckbox.propTypes = {
   dataToManipulate: PropTypes.objectOf(PropTypes.string).isRequired,
 };

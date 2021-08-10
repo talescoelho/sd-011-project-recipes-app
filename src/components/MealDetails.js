@@ -34,6 +34,7 @@ function MealDetails(props) {
     const mealsDetails = await fetchMealDetailsFromMealsDB(mealsId);
     const recommendedDrinks = await fetchRecommendedBeveragesFromCocktailsDB();
     setDataToManipulate(...mealsDetails);
+    console.log(dataToManipulate);
     setBeverages(recommendedDrinks);
   }
 
