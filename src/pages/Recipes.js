@@ -17,12 +17,12 @@ function Recipes({
   recipesHeaderSearch,
 }) {
   React.useEffect(() => {
-    if (pathname === '/comidas') dispatchFetchRecipes('meals');
+    if (pathname.includes('comidas')) dispatchFetchRecipes('meals');
     else dispatchFetchRecipes('drinks');
   }, [pathname, dispatchFetchRecipes]);
 
   function renderHeader() {
-    return pathname === '/comidas'
+    return pathname.includes('comidas')
       ? <Header withSearch pageTitle="Comidas" />
       : <Header withSearch pageTitle="Bebidas" />;
   }

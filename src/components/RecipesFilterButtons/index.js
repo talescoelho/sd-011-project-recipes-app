@@ -12,7 +12,7 @@ const RecipesFilterButtons = ({
 }) => {
   React.useEffect(() => {
     if (!pathname.includes(type)) {
-      dispatchFetchRecipesCategories(pathname.replace('/', ''));
+      dispatchFetchRecipesCategories(pathname.replace(/\//g, ''));
     }
   }, [pathname, type, dispatchFetchRecipesCategories]);
 
