@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchRecipes, fetchRecipesCategories } from '../../actions';
+import { fetchRecipes, fetchRecipesCategories, setSelectedCategory } from '../../actions';
 import getXFirstElementsFromArray from '../../helpers/utils';
 import Loading from '../Loading';
 
 const filtersQuantity = 5;
 
 const RecipesFilterButtons = ({
-  pathname, categories, type, loading, error,
-  dispatchFetchRecipesCategories, dispatchFetchRecipes,
+  pathname, categories, type, loading, error, selectedCategory,
+  dispatchFetchRecipesCategories, dispatchFetchRecipes, dispatchSetSelectedCategory,
 }) => {
   React.useEffect(() => {
     if (!pathname.includes(type)) {
@@ -18,7 +18,11 @@ const RecipesFilterButtons = ({
   }, [pathname, type, dispatchFetchRecipesCategories]);
 
   const handleCategoryClick = (category) => {
-    dispatchFetchRecipes(type === 'comidas' ? 'meals' : 'drinks', category);
+    dispatchSetSelectedCategory(category);
+
+    if (category !== selectedCategory) {
+      dispatchFetchRecipes(type === 'comidas' ? 'meals' : 'drinks', category);
+    } else dispatchFetchRecipes(type === 'comidas' ? 'meals' : 'drinks');
   };
 
   if (error) return <span>{`${error}`}</span>;
@@ -45,18 +49,20 @@ const RecipesFilterButtons = ({
 };
 
 const mapStateToProps = ({
-  recipesCategoriesReducer: { categories, type, loading, error },
+  recipesCategoriesReducer: { categories, type, loading, error, selectedCategory },
 }) => ({
   categories,
   type,
   loading,
   error,
+  selectedCategory,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchFetchRecipesCategories: (type) => dispatch(fetchRecipesCategories(type)),
   dispatchFetchRecipes:
     (type, category) => dispatch(fetchRecipes(type, category)),
+  dispatchSetSelectedCategory: (category) => dispatch(setSelectedCategory(category)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipesFilterButtons);
@@ -67,6 +73,8 @@ RecipesFilterButtons.propTypes = {
   type: PropTypes.string,
   loading: PropTypes.bool,
   error: PropTypes.string,
+  selectedCategory: PropTypes.string,
   dispatchFetchRecipesCategories: PropTypes.func,
   dispatchFetchRecipes: PropTypes.func,
+  dispatchSetSelectedCategory: PropTypes.func,
 }.isRequired;
