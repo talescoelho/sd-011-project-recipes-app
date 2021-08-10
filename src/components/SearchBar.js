@@ -62,7 +62,6 @@ function SearchBar() {
         <input
           name="search-bar"
           data-testid="search-input"
-          //  value={ searchInput } Componente esta sendo alterado de não controlado para controlado.
           onChange={ handleSearchInput }
         />
       </label>
