@@ -3,14 +3,10 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeatIcon from '../images/blackHeartIcon.svg';
 
 export default function DoneRecipeCard({
   index,
   recipe,
-  isFavorited,
-  handleLikeButtonClick,
 }) {
   const [linkCopied, setLinkCopied] = useState(false);
 
@@ -77,22 +73,6 @@ export default function DoneRecipeCard({
           >
             {linkCopied ? 'Link copiado!' : <img src={ shareIcon } alt="share-icon" /> }
           </button>
-
-          <button
-            data-testid={ `${index}-horizontal-favorite-btn` }
-            type="button"
-            aria-label="favorite-icon"
-            onClick={ handleLikeButtonClick }
-            src={ isFavorited ? blackHeatIcon : whiteHeartIcon }
-          >
-            <img
-              src={ isFavorited
-                ? blackHeatIcon
-                : whiteHeartIcon }
-              alt="favorited-icon"
-            />
-          </button>
-
         </div>
       </div>
     </div>
@@ -102,6 +82,4 @@ export default function DoneRecipeCard({
 DoneRecipeCard.propTypes = {
   index: PropTypes.number.isRequired,
   recipe: PropTypes.arrayOf(PropTypes.object).isRequired,
-  isFavorited: PropTypes.bool.isRequired,
-  handleLikeButtonClick: PropTypes.func.isRequired,
 };
