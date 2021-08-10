@@ -11,30 +11,17 @@ function RenderOrigin() {
   const [currentData, setCurrentData] = useState(null);
 
   const fetchFoods = async () => {
-    console.log('pre-Set', currentData);
     const url = selectedArea === 'All'
       ? 'https://www.themealdb.com/api/json/v1/1/search.php?s='
-      : `https:www.themealdb.com/api/json/v1/1/filter.php?a=${selectedArea}`;
+      : `https://www.themealdb.com/api/json/v1/1/filter.php?a=${selectedArea}`;
     const resp = await fetch(url);
     const result = await resp.json();
     setCurrentData(result);
-    console.log('post-Set', currentData);
   };
 
   useEffect(() => {
     fetchFoods();
   }, [selectedArea]);
-
-  // useEffect(() => {
-  //   console.log(currentData)
-  //   const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-  //   const fetchData = async () => {
-  //     const resp = await fetch(url);
-  //     const result = await resp.json();
-  //     setCurrentData(result);
-  //   };
-  //   fetchData();
-  // }, []);
 
   const limitCards = 12;
 
