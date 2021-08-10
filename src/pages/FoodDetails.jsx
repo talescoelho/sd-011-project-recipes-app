@@ -16,6 +16,7 @@ function FoodDetails() {
   const [toastIsVisible, setToastIsVisible] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const { id } = useParams();
+  const history = useHistory();
 
   const BASE_URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php'; // TODO usar token
   const DRINKS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -41,7 +42,7 @@ function FoodDetails() {
 
     const storedInProgressRecipes = localStorage.getItem('inProgressRecipes');
     const parsedInProgressRecipes = storedInProgressRecipes ? JSON.parse(storedInProgressRecipes) : { meals: [] };
-    if (parsedInProgressRecipes.meals[id]) {
+    if (parsedInProgressRecipes.meals && parsedInProgressRecipes.meals[id]) {
       setIsInProgress(true);
     }
 
@@ -180,7 +181,14 @@ function FoodDetails() {
               </section>
 
               { !isDone && (
-                  <button type="button" data-testid="start-recipe-btn" style={{ position: 'fixed', bottom: '0', height: '300px' }}>
+                  <button
+                    type="button"
+                    data-testid="start-recipe-btn"
+                    onClick={ () => {
+                      history.push(`/comidas/${id}/in-progress`);
+                    } }
+                    style={{ position: 'fixed', bottom: '0', height: '300px' }}
+                  >
                     { isInProgress ? <>Continuar Receita</> :  <>Iniciar Receita</> }
                   </button>)}
 
