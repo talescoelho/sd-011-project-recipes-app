@@ -10,7 +10,7 @@ function Header(props) {
   const { setDrinkFromSearch, setFoodFromSearch, title, search = false } = props;
   return (
     <>
-      <div>
+      <header>
         <Link to="/perfil">
           <img
             data-testid="profile-top-btn"
@@ -34,6 +34,8 @@ function Header(props) {
         setDrinkFromSearch={ setDrinkFromSearch }
         setFoodFromSearch={ setFoodFromSearch }
       /> }
+
+      </header>
     </>
   );
 }
