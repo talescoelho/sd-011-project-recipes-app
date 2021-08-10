@@ -2,7 +2,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getMealDetail } from '../services/theMealAPI';
-import { saveInProgressFoodRecipes } from '../helpers/handleLocalStorage';
+import { saveInProgressFoodRecipes,
+  saveDoneRecipes } from '../helpers/handleLocalStorage';
 import MainContext from '../context/MainContext';
 import LSContext from '../context/LSContext';
 import ShareButton from '../components/ShareButton';
@@ -10,7 +11,7 @@ import FavoriteButton from '../components/FavoriteButton';
 
 function FoodRecipeInProgress({ match: { params: { id } } }) {
   const { LSValues: { inProgressRecipes } } = useContext(LSContext);
-  const { LSFunctions: { setInProgressRecipes } } = useContext(LSContext);
+  const { LSFunctions: { setInProgressRecipes, setDoneRecipes } } = useContext(LSContext);
   const [recipe, setRecipe] = useState({});
   const [usedIngredients, setUsedIngredients] = useState([]);
   const { setLoading } = useContext(MainContext);
@@ -58,7 +59,36 @@ function FoodRecipeInProgress({ match: { params: { id } } }) {
     setUsedIngredients(mealsIngredients);
   }, [id, inProgressRecipes]);
 
-  const { strMealThumb, strMeal, strCategory, strInstructions } = recipe;
+  const { strMealThumb,
+    strMeal,
+    strCategory,
+    strInstructions,
+    strArea,
+    strTags } = recipe;
+
+  function GetDate() {
+    const data = new Date();
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+    const dataAtual = `${dia}/${mes}/${ano}`;
+    return dataAtual;
+  }
+
+  console.log(recipe);
+
+  const saveDone = {
+    id,
+    type: 'comida',
+    area: strArea,
+    category: strCategory,
+    alcoholicOrNot: '',
+    name: strMeal,
+    image: strMealThumb,
+    doneDate: GetDate(),
+    tags: strTags ? strTags.split(',') : [],
+  };
+
   return (
     <div>
       <img src={ strMealThumb } data-testid="recipe-photo" alt={ strMeal } />
@@ -97,6 +127,7 @@ function FoodRecipeInProgress({ match: { params: { id } } }) {
           type="button"
           data-testid="finish-recipe-btn"
           disabled={ listIngredients().length !== usedIngredients.length }
+          onClick={ () => saveDoneRecipes(saveDone, setDoneRecipes) }
         >
           Finalizar Receita
         </button>

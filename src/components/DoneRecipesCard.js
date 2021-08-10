@@ -1,29 +1,35 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ShareButton from './ShareButton';
 
 function DoneRecipesCard({ recipe, index }) {
-  const { strDrink,
-    strDrinkThumb,
-    strMeal,
-    strMealThumb,
-    idMeal,
-    idDrink,
-    strCategory,
-    strAlcoholic } = recipe;
-  const title = strDrink || strMeal;
-  const thumb = strDrinkThumb || strMealThumb;
-  const id = idMeal || idDrink;
-  const path = idMeal ? `/comidas/${id}` : `/bebidas/${id}`;
-  const category = idMeal ? strCategory : strAlcoholic;
+  console.log(index);
+  const {
+    image,
+    area,
+    category,
+    id,
+    name,
+    tags,
+    alcoholicOrNot,
+    type,
+    doneDate,
+  } = recipe;
+  const path = type === 'comida' ? `/comidas/${id}` : `/bebidas/${id}`;
+  const categoryOrArea = area ? `${area} - ${category}` : alcoholicOrNot;
+  const sliceNumber = -16;
+  const SliceLink = (window.location.href).slice(0, sliceNumber);
+  const pathLink = SliceLink.concat(path);
   return (
     <section>
       <div>
         <Link to={ path }>
           <img
-            src={ thumb }
-            alt={ title }
+            src={ image }
+            alt={ name }
             data-testid={ `${index}-horizontal-image` }
+            style={ { width: '100px' } }
           />
         </Link>
       </div>
@@ -34,27 +40,35 @@ function DoneRecipesCard({ recipe, index }) {
         <h5
           data-testid={ `${index}-horizontal-top-text` }
         >
-          { category }
+          { categoryOrArea }
         </h5>
-        <h4
-          data-testid={ `${index}-horizontal-name` }
-        >
-          { title }
-        </h4>
+        <Link to={ path }>
+          <h4
+            data-testid={ `${index}-horizontal-name` }
+          >
+            { name }
+          </h4>
+        </Link>
+
         <p
           data-testid={ `${index}-horizontal-done-date` }
         >
           Feita em
-          { Donedate }
+          { doneDate }
         </p>
-        <div
-          data-testid={ `${index}-horizontal-share-btn` }
-        >
-          <ShareButton link={ window.location.href } />
+        <div>
+          <ShareButton link={ pathLink } index={ index } />
         </div>
-        <div
-          data-testid={ `${index}-${tagName}-horizontal-tag` }
-        />
+        <div>
+          {tags.map((tag) => (
+            <p
+              key={ tag }
+              data-testid={ `${index}-${tag}-horizontal-tag` }
+            >
+              { tag }
+            </p>
+          ))}
+        </div>
       </div>
 
     </section>

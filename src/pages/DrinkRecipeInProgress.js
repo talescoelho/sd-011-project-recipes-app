@@ -2,7 +2,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getDrinkDetail } from '../services/theCockTailAPI';
-import { saveInProgressDrinkRecipes, saveDoneRecipes } from '../helpers/handleLocalStorage';
+import { saveInProgressDrinkRecipes,
+  saveDoneRecipes } from '../helpers/handleLocalStorage';
 import MainContext from '../context/MainContext';
 import LSContext from '../context/LSContext';
 import ShareButton from '../components/ShareButton';
@@ -78,7 +79,7 @@ function DrinkRecipeInProgress({ match: { params: { id } } }) {
     name: strDrink,
     image: strDrinkThumb,
     doneDate: GetDate(),
-    tags: '',
+    tags: [],
   };
 
   return (
@@ -119,7 +120,7 @@ function DrinkRecipeInProgress({ match: { params: { id } } }) {
           type="button"
           data-testid="finish-recipe-btn"
           disabled={ listIngredients().length !== usedIngredients.length }
-          onClick={ saveDoneRecipes(saveDone, setDoneRecipes) }
+          onClick={ () => saveDoneRecipes(saveDone, setDoneRecipes) }
         >
           Finalizar Receita
         </button>
