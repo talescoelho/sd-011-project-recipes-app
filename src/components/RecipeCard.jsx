@@ -7,7 +7,13 @@ import ShareButton from './ShareButton';
 function MealRecipeCard({ title, img, category }) {
   return (
     <div>
-      <img data-testid="recipe-photo" alt="Foto da receita" src={ img } />
+      <img
+        height="200px"
+        width="200px"
+        data-testid="recipe-photo"
+        alt="Foto da receita"
+        src={ img }
+      />
       <br />
 
       <span data-testid="recipe-title">

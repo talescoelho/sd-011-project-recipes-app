@@ -9,7 +9,7 @@ function ShareButton() {
   const [click, setClick] = useState(false);
 
   function copyURL() {
-    copy(URL);
+    copy(`http://localhost:3000${URL}`);
     setClick(true);
   }
 
@@ -20,7 +20,9 @@ function ShareButton() {
         src={ shareIcon }
         alt="Icone share"
         data-testid="share-btn"
-        onClick={ copyURL }
+        onClick={ () => copyURL() }
+        // height="200px"
+        // width="200px"
       />
       <span>{click ? <p>Link copiado!</p> : null}</span>
     </>
