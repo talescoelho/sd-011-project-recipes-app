@@ -7,31 +7,29 @@ const copy = require('clipboard-copy');
 
 function DoneRecipesRender({ filter }) {
   const [copyLink, setCopyLink] = useState(false);
-  const [recipes, setRecipes] = useState(
-    JSON.parse(localStorage.getItem('doneRecipes')),
-  );
+
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+
+  const [recipes, setRecipes] = useState(doneRecipes);
 
   useEffect(() => {
-    const localRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    let localRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     if (filter !== '') {
-      const newRecipes = localRecipes.filter((recipe) => recipe.type === filter);
-      setRecipes(newRecipes);
-    } else {
-      setRecipes(JSON.parse(localStorage.getItem('doneRecipes')));
+      localRecipes = localRecipes.filter((recipe) => recipe.type === filter);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    setRecipes(localRecipes);
   }, [filter]);
 
-  function copyUrl({ target }) {
-    const type = target.dataset.recipetype;
+  function copyUrl({ target: { dataset } }) {
+    const { recipetype, recipeid } = dataset;
     const TWO_SECONDS = 2000;
-    copy(`http://localhost:3000/${type}s/${target.dataset.recipeid}`);
+    copy(`http://localhost:3000/${recipetype}s/${recipeid}`);
     setCopyLink(true);
     setTimeout(() => {
       setCopyLink(false);
     }, TWO_SECONDS);
   }
-  console.log(recipes);
+
   return (
     <div>
       {copyLink ? <p>Link copiado!</p> : null}

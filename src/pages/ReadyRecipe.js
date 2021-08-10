@@ -5,7 +5,7 @@ import ReadyRecipeList from '../components/ReadyRecipeList';
 function ReadyRecipe() {
   return (
     <div>
-      <Header title="Receitas prontas" showButton={ false } />
+      <Header title="Receitas Feitas" showButton={ false } />
       <ReadyRecipeList />
     </div>
   );
