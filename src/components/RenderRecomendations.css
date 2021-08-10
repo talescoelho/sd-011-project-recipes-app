@@ -1,0 +1,9 @@
+section.images {
+  display: flex;
+  overflow-x: scroll;
+  width: 250px;
+}
+
+.imageCard {
+  margin: 10px;
+}
