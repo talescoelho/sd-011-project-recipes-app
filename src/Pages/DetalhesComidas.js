@@ -64,8 +64,9 @@ const checkInProgress = (id) => {
     cocktails: {},
     meals: {},
   };
-  const toCompare = inProgress.meals[id] || [];
-  return toCompare.length > 0;
+  const toCompare = inProgress.meals || {};
+  // return toCompare.length > 0;
+  return Object.keys(toCompare).some((recipeId) => recipeId === id);
 };
 
 function DetalhesComidas() {
