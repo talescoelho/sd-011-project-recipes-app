@@ -6,7 +6,7 @@ export default class FavoriteRecipes extends Component {
   constructor() {
     super();
     this.state = {
-      myFavoriteRecipes: JSON.parse(localStorage.getItem('favoriteRecipes')),
+      myFavoriteRecipes: JSON.parse(localStorage.getItem('favoriteRecipes')) || [],
     };
     this.filterRecipesOnScreen = this.filterRecipesOnScreen.bind(this);
   }
