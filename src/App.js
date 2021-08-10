@@ -13,6 +13,7 @@ import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 import Explorar from './pages/Explorar';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import ExplorarArea from './pages/ExplorarArea';
 import ExplorarIngredientes from './pages/ExplorarIngredientes';
 import ReadyRecipe from './pages/ReadyRecipe';
 
@@ -63,11 +64,12 @@ function App() {
             path="/explorar/bebidas/ingredientes"
             component={ ExplorarIngredientes }
           />
-          <Route exact path="/explorar/comidas/area" component={ NotFound } />
+          <Route exact path="/explorar/comidas/area" component={ ExplorarArea } />
           { /* não tem footer \/ */ }
           <Route exact path="/receitas-feitas" component={ ReadyRecipe } />
           <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
           { /* não tem footer /\ */ }
+          <Route path="*" component={ NotFound } />
         </Switch>
       </BrowserRouter>
     </RecipesProvider>
