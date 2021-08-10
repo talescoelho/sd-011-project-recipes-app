@@ -4,18 +4,18 @@ import { Link } from 'react-router-dom';
 import '../../styles/components/recipeCard.css';
 
 const RecipeCard = ({
-  cardType,
-  dataTestId,
   index,
+  cardTestId,
+  cardType,
   recipeId,
   recipeThumb,
   recipeName,
+  titleTestId,
 }) => (
   <Link
     aria-label="card-menu"
     className="card-menu"
-    data-testid={ `${index}${dataTestId}` }
-    key={ index }
+    data-testid={ `${index}${cardTestId}` }
     to={ (cardType === 'comida') ? `/comidas/${recipeId}` : `/bebidas/${recipeId}` }
   >
     <img
@@ -23,17 +23,18 @@ const RecipeCard = ({
       src={ recipeThumb }
       alt={ `${recipeName} recipe` }
     />
-    <h3 data-testid={ `${index}-card-name` }>{ recipeName }</h3>
+    <h3 data-testid={ `${index}${titleTestId}` }>{ recipeName }</h3>
   </Link>
 );
 
 RecipeCard.propTypes = {
-  cardType: string,
-  dataTestId: string,
   index: string,
+  dataTestId: string,
+  cardType: string,
   recipeId: string,
   recipeThumb: string,
   recipeName: string,
+  titleTestId: string,
 }.isRequired;
 
 export default RecipeCard;

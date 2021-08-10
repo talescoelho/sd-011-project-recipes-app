@@ -90,12 +90,13 @@ const Foods = ({
               meals.map(({ idMeal, strMeal, strMealThumb }, index) => (
                 <RecipeCard
                   key={ index }
-                  cardType="comida"
-                  dataTestId="-recipe-card"
                   index={ index }
+                  cardType="comida"
+                  cardTestId="-recipe-card"
                   recipeId={ idMeal }
                   recipeThumb={ strMealThumb }
                   recipeName={ strMeal }
+                  titleTestId="-card-name"
                 />
               ))
             )

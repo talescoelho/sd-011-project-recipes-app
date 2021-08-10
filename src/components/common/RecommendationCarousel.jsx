@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import '../../styles/components/recommendationCarousel.css';
 import { string, func } from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -28,36 +29,54 @@ const RecommendationCarousel = ({ url, dispatch, menu, loading, error }) => {
 
   if (url.includes('comidas') && !loading && !error) {
     return (
-      menu
-        .slice(0, maxCarouselCards)
-        .map(({ idDrink, strDrink, strDrinkThumb }, index) => (
-          <RecipeCard
-            key={ index }
-            cardType="bebida"
-            dataTestId="-recomendation-card"
-            index={ index }
-            recipeId={ idDrink }
-            recipeThumb={ strDrinkThumb }
-            recipeName={ strDrink }
-          />
-        )));
+      <>
+        <h3>Recomendadas</h3>
+        <div className="recommendation-carousel">
+          {
+            menu
+              .slice(0, maxCarouselCards)
+              .map(({ idDrink, strDrink, strDrinkThumb }, index) => (
+                <RecipeCard
+                  key={ index }
+                  cardType="bebida"
+                  cardTestId="-recomendation-card"
+                  index={ index }
+                  recipeId={ idDrink }
+                  recipeThumb={ strDrinkThumb }
+                  recipeName={ strDrink }
+                  titleTestId="-recomendation-title"
+                />
+              ))
+          }
+        </div>
+      </>
+    );
   }
 
   if (url.includes('bebidas') && !loading && !error) {
     return (
-      menu
-        .slice(0, maxCarouselCards)
-        .map(({ idMeal, strMeal, strMealThumb }, index) => (
-          <RecipeCard
-            key={ index }
-            cardType="comida"
-            dataTestId="-recomendation-card"
-            index={ index }
-            recipeId={ idMeal }
-            recipeThumb={ strMealThumb }
-            recipeName={ strMeal }
-          />
-        )));
+      <>
+        <h3>Recomendadas</h3>
+        <div className="recommendation-carousel">
+          {
+            menu
+              .slice(0, maxCarouselCards)
+              .map(({ idMeal, strMeal, strMealThumb }, index) => (
+                <RecipeCard
+                  key={ index }
+                  cardType="comida"
+                  cardTestId="-recomendation-card"
+                  index={ index }
+                  recipeId={ idMeal }
+                  recipeThumb={ strMealThumb }
+                  recipeName={ strMeal }
+                  titleTestId="-recomendation-title"
+                />
+              ))
+          }
+        </div>
+      </>
+    );
   }
 };
 

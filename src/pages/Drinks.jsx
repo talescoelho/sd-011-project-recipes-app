@@ -90,11 +90,12 @@ const Drinks = ({
                 <RecipeCard
                   key={ index }
                   cardType="bebida"
-                  dataTestId="-recipe-card"
+                  cardTestId="-recipe-card"
                   index={ index }
                   recipeId={ idDrink }
                   recipeThumb={ strDrinkThumb }
                   recipeName={ strDrink }
+                  titleTestId="-card-name"
                 />
               ))
             )
