@@ -8,6 +8,7 @@ import {
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
 import nonFavoriteIcon from '../images/whiteHeartIcon.svg';
+import YouTube from 'react-youtube';
 
 const copy = require('clipboard-copy');
 
@@ -128,13 +129,21 @@ function DetalhesComidas() {
         { getIngredients2(recipe, 'strMeasure') }
       </ol>
       <p data-testid="instructions">{ recipe.strInstructions }</p>
-      <iframe
+      <section data-testid="video">
+        <YouTube
+          videoId={ recipe.strYoutube.split('=')[1] }
+          title={ recipe.strMeal }
+          data-testid="video"
+          opts={ { height: '150', width: '200' } }
+        />
+      </section>
+      {/* <iframe
         width="200"
         height="150"
         title={ recipe.strMeal }
         src={ recipe.strYoutube }
         data-testid="video"
-      />
+      /> */}
       <Link to={ `/comidas/${recipe.idMeal}/in-progress` }>
         <button
           type="button"
