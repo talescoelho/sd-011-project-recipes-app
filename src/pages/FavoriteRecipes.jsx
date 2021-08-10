@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 function FavoriteRecipes() {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -19,11 +20,21 @@ function FavoriteRecipes() {
     }
   };
 
+  useEffect(filterFavoriteRecipes, [setFavorite, favoriteRecipes]);
+
   const copyLink = ({ type, id }) => {
     copy(`http://localhost:3000/${type}s/${id}`);
     setCopyUrl('Link copiado!');
     setInterval(() => setCopyUrl(''), '2000');
   };
+
+  // const clickdisfavor = (id) => {
+  // target.src = whiteHeartIcon;
+  // const newFavorites = favorite.filter((item) => item.id !== id);
+  // console.log(newFavorites);
+  // JSON.stringify(localStorage.setItem('favoriteRecipes', newFavorites));
+  // filterFavoriteRecipes();
+  // };
 
   return (
     <>
@@ -82,7 +93,7 @@ function FavoriteRecipes() {
                 </button>
                 <button
                   type="button"
-                  // onClick={ handleClickFavorites }
+                  // onClick={ () => clickdisfavor(item.id) }
                 >
                   <img
                     data-testid={ `${index}-horizontal-favorite-btn` }
@@ -119,7 +130,7 @@ function FavoriteRecipes() {
               </button>
               <button
                 type="button"
-                // onClick={ handleClickFavorites }
+                // onClick={ () => clickdisfavor(item.id) }
               >
                 <img
                   data-testid={ `${index}-horizontal-favorite-btn` }
