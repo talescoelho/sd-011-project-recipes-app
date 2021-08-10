@@ -1,4 +1,9 @@
-import * as actions from '../actions';
+import {
+  REQUEST_SUCCESS,
+  CATEGORIES_SUCCESS,
+  FILTER_FOOD_RECIPE_BY_INGREDIENT,
+  FILTER_DRINK_RECIPE_BY_INGREDIENT,
+} from '../actions';
 
 const INITIAL_STATE = {
   allRecipes: [],
@@ -10,32 +15,32 @@ const INITIAL_STATE = {
   isDrinkFilter: false,
 };
 
-export default function reducer(state = INITIAL_STATE, action) {
-  switch (action.type) {
-  case actions.REQUEST_SUCCESS:
+export default function reducer(state = INITIAL_STATE, { type, payload }) {
+  switch (type) {
+  case REQUEST_SUCCESS:
     return (
       {
         ...state,
-        allRecipes: action.payload.allRecipes,
-        isFiltered: action.payload.isFiltered,
+        allRecipes: payload.allRecipes,
+        isFiltered: payload.isFiltered,
       }
     );
-  case actions.CATEGORIES_SUCCESS:
-    return { ...state, allCategories: action.payload };
-  case actions.FILTER_FOOD_RECIPE_BY_INGREDIENT:
+  case CATEGORIES_SUCCESS:
+    return { ...state, allCategories: payload };
+  case FILTER_FOOD_RECIPE_BY_INGREDIENT:
     return (
       {
         ...state,
-        recipesByIngredient: action.payload.recipesByIngredient,
-        isRecipeFilter: action.payload.isRecipeFilter,
+        recipesByIngredient: payload.recipesByIngredient,
+        isRecipeFilter: payload.isRecipeFilter,
       }
     );
-  case actions.FILTER_DRINK_RECIPE_BY_INGREDIENT:
+  case FILTER_DRINK_RECIPE_BY_INGREDIENT:
     return (
       {
         ...state,
-        drinkRecipeByIngredient: action.payload.drinkRecipeByIngredient,
-        isDrinkFilter: action.payload.isDrinkFilter,
+        drinkRecipeByIngredient: payload.drinkRecipeByIngredient,
+        isDrinkFilter: payload.isDrinkFilter,
       }
     );
   default:
