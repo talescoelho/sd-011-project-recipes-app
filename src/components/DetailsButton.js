@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
 import { verifyRecipeIsDone, checkRecipeInProgress } from '../functions';
@@ -22,10 +21,3 @@ export default function DetailsButton() {
     </div>
   );
 }
-
-DetailsButton.propTypes = {
-  verifyRecipeIsDone: PropTypes.func.isRequired,
-  checkRecipeInProgress: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
-  url: PropTypes.string.isRequired,
-}.isRequired;
