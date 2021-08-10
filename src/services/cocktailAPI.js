@@ -76,3 +76,10 @@ export const fetchRandomCocktail = () => {
     .then((response) => response.json())
     .then((data) => data.drinks);
 };
+
+export const fetchCocktailsIngredients = () => {
+  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => data.drinks);
+};
