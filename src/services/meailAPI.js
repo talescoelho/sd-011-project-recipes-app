@@ -1,3 +1,4 @@
+const limitRecomentation = 6;
 const limitMealsCategory = 5;
 const limitRender = 12;
 
@@ -20,6 +21,23 @@ export const fetchMealsByFirstLetter = (firstLetter) => {
   return fetch(endpoint)
     .then((response) => response.json())
     .then((data) => data.meals);
+};
+
+export const fetchMealById = (id) => {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => data.meals);
+};
+
+export const fetchMealsRecommended = () => {
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => {
+      const dataMeals = data.meals;
+      return dataMeals.slice(0, limitRecomentation);
+    });
 };
 
 export const fetchMeals = () => {

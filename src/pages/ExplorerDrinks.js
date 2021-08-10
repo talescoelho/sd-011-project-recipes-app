@@ -15,24 +15,34 @@ function ExplorerDrinks() {
     getRandom();
   }, []);
   return (
-    <div>
+    <>
       <Header title="Explorar Bebidas" />
-      <div>
-        <Link to="/explorar/bebidas/ingredientes">
-          <button type="button" data-testid="explore-by-ingredient">
-            Por Ingredientes
-          </button>
-        </Link>
-      </div>
-      <div>
-        <Link to={ `/bebidas/${drinkId}` }>
-          <button type="button" data-testid="explore-surprise">
-            Me Surpreenda!
-          </button>
-        </Link>
+      <div className="container">
+        <div>
+          <Link to="/explorar/bebidas/ingredientes">
+            <button
+              className="category-bar-button"
+              type="button"
+              data-testid="explore-by-ingredient"
+            >
+              Por Ingredientes
+            </button>
+          </Link>
+        </div>
+        <div>
+          <Link to={ `/bebidas/${drinkId}` }>
+            <button
+              className="category-bar-button"
+              type="button"
+              data-testid="explore-surprise"
+            >
+              Me Surpreenda!
+            </button>
+          </Link>
+        </div>
       </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

@@ -10,62 +10,84 @@ function DoneFavRecipesCard({ recipe, index, done, fav, removeFromFavorites }) {
 
   const copyToClipboard = ({ id, type }) => {
     const url = `http://localhost:3000/${type}s/${id}`;
-    const time = 2000;
     // funcao que copia URL utilizando biblioteca clipboard-copy ainda em teste
     copy(url);
     setIsCopied(true);
+    const time = 2000;
     setTimeout(setIsCopied, time, false);
   };
 
   return (
-    <div>
-      <Link to={ `/${recipe.type}s/${recipe.id}` }>
-        <img
-          src={ recipe.image }
-          alt={ recipe.name }
-          data-testid={ `${index}-horizontal-image` }
-        />
-      </Link>
-      <p data-testid={ `${index}-horizontal-top-text` }>
-        { recipe.alcoholicOrNot || `${recipe.area} - ${recipe.category}` }
-      </p>
-      <Link to={ `/${recipe.type}s/${recipe.id}` }>
-        <h4 data-testid={ `${index}-horizontal-name` }>
-          { recipe.name }
-        </h4>
-      </Link>
-      { done && (
-        <p data-testid={ `${index}-horizontal-done-date` }>
-          { recipe.doneDate }
-        </p>) }
-      <button
-        type="button"
-        onClick={ () => copyToClipboard(recipe) }
-      >
-        <img
-          data-testid={ `${index}-horizontal-share-btn` }
-          src={ shareIcon }
-          alt="Compartilhar receita"
-        />
-      </button>
-      { fav && (
-        <button
-          type="button"
-          onClick={ () => removeFromFavorites(recipe.id) }
-        >
+    <div className="card border border-danger">
+
+      <div className="card-img-top">
+        <Link to={ `/${recipe.type}s/${recipe.id}` }>
           <img
-            data-testid={ `${index}-horizontal-favorite-btn` }
-            src={ blackHeartIcon }
-            alt="Desfavoritar receita"
+            className="img-fluid"
+            src={ recipe.image }
+            alt={ recipe.name }
+            data-testid={ `${index}-horizontal-image` }
           />
-        </button>)}
-      { isCopied && <p>Link copiado!</p>}
-      { done && (
-        recipe.tags.map((tag, i) => (
-          <p key={ i } data-testid={ `${index}-${tag}-horizontal-tag` }>
-            {tag}
-          </p>
-        )))}
+        </Link>
+      </div>
+
+      <div className="card-inner">
+        <Link to={ `/${recipe.type}s/${recipe.id}` }>
+          <h2 className="title-recipe" data-testid={ `${index}-horizontal-name` }>
+            { recipe.name }
+          </h2>
+        </Link>
+        <h3
+          className="text-center subtitle"
+          data-testid={ `${index}-horizontal-top-text` }
+        >
+          { recipe.alcoholicOrNot || `${recipe.area} - ${recipe.category}` }
+        </h3>
+
+        <div className="d-flex justify-content-around">
+          { done && (
+            recipe.tags.map((tag, i) => (
+              <span
+                className="recipe-tag"
+                key={ i }
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+              >
+                {tag}
+              </span>
+            )))}
+        </div>
+      </div>
+
+      <div className="d-flex justify-content-around align-items-center my-3">
+        { done && (
+          <span
+            className="recipe-tag"
+            data-testid={ `${index}-horizontal-done-date` }
+          >
+            { recipe.doneDate }
+          </span>)}
+
+        <button type="button" onClick={ () => copyToClipboard(recipe) }>
+          <img
+            data-testid={ `${index}-horizontal-share-btn` }
+            src={ shareIcon }
+            alt="Compartilhar receita"
+          />
+        </button>
+
+        { fav && (
+          <button
+            type="button"
+            onClick={ () => removeFromFavorites(recipe.id) }
+          >
+            <img
+              data-testid={ `${index}-horizontal-favorite-btn` }
+              src={ blackHeartIcon }
+              alt="Desfavoritar receita"
+            />
+          </button>)}
+      </div>
+      { isCopied && <p className="alert alert-success" role="alert">Link copiado!</p>}
     </div>
   );
 }

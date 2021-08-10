@@ -3,18 +3,25 @@ import PropTypes from 'prop-types';
 
 function RecipeCard({ recipe, index }) {
   return (
+
     <div
+      className="card border border-danger"
       key={ recipe.idMeal || recipe.idDrink }
       data-testid={ `${index}-recipe-card` }
     >
-      <img
-        src={ recipe.strMealThumb || recipe.strDrinkThumb }
-        alt={ recipe.strMeal || recipe.strDrink }
-        data-testid={ `${index}-card-img` }
-      />
-      <p data-testid={ `${index}-card-name` }>
-        { recipe.strMeal || recipe.strDrink }
-      </p>
+      <div className="card-img-top">
+        <img
+          className="img-fluid"
+          src={ recipe.strMealThumb || recipe.strDrinkThumb }
+          alt={ recipe.strMeal || recipe.strDrink }
+          data-testid={ `${index}-card-img` }
+        />
+      </div>
+      <div className="card-inner">
+        <h2 className="title-recipe" data-testid={ `${index}-card-name` }>
+          { recipe.strMeal || recipe.strDrink }
+        </h2>
+      </div>
     </div>
   );
 }

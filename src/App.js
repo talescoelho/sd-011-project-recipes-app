@@ -1,6 +1,5 @@
 import React from 'react';
 import RecipesProvider from './context/RecipesProvider';
-import './App.css';
 import './style/index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Routes from './Routes';
