@@ -77,7 +77,7 @@ export default function DoneRecipeCard({
       </div>
     </div>
   );
-}
+} // perfect
 
 DoneRecipeCard.propTypes = {
   index: PropTypes.number.isRequired,
