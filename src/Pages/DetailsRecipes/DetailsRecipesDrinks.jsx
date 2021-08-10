@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useLocation, NavLink } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import MainContext from '../../Context/MainContext';
@@ -10,10 +10,13 @@ import './scroll.css';
 
 function DetailsRecipesFoods() {
   const location = useLocation();
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+  const [favoriteRecipes] = useState([]);
+
   const { idDrinks, setIdDrinks, idDrinksAPI, setIdDrinksAPI, newDataFoods,
     /* setCount, */ setDoneRecipes, show, setShow,
-    setNewDataFoods, count, setStartButton, isFavorite,
-    setIsFavorite } = useContext(MainContext);
+    setNewDataFoods, count, setStartButton } = useContext(MainContext);
 
   async function fetchFoodsInitial() {
     const foodsInitialAPI = await getFoodsInitial();
@@ -63,24 +66,80 @@ function DetailsRecipesFoods() {
   //   }
   // }, [doneRecipesNew, idDrinks, setCount]);
 
-  const handleFavorite = () => {
-    if (isFavorite) {
-      const verify = JSON.stringify(false);
-      localStorage.setItem('verifyIfIsFavorite', verify);
-      const verifyIfIsFavorite = localStorage.getItem('verifyIfIsFavorite');
-      if (verifyIfIsFavorite === 'false') {
-        setIsFavorite(false);
+  useEffect(() => {
+    const handleFavorite = () => {
+      const infoItem = [{
+        id: idDrinksAPI.idDrink,
+        type: 'bebida',
+        area: '',
+        category: idDrinksAPI.strCategory,
+        alcoholicOrNot: idDrinksAPI.strAlcoholic,
+        name: idDrinksAPI.strDrink,
+        image: idDrinksAPI.strDrinkThumb,
+      }];
+      if (isFavorite) {
+        const infoInLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        if (infoInLocal) {
+          const SomaDEArraysComOStorage = infoItem.concat(infoInLocal);
+          const verify = JSON.stringify(SomaDEArraysComOStorage);
+          const ApiCoolDown = idDrinksAPI
+            && localStorage.setItem('favoriteRecipes', verify);
+          // setIsClicked(false);
+          return ApiCoolDown;
+        }
+        if (!infoInLocal) {
+          const verify = JSON.stringify(infoItem);
+          const ApiCoolDown = idDrinksAPI
+            && localStorage.setItem('favoriteRecipes', verify);
+          // setIsClicked(false);
+          return ApiCoolDown;
+        }
+      } else {
+        const infoInLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        if (infoInLocal) {
+          const newFavoriteRecipes = infoInLocal
+            .filter((item) => item.id !== idDrinksAPI.idDrink);
+          localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+        }
       }
-    }
-    if (!isFavorite) {
-      const verify = JSON.stringify(true);
-      localStorage.setItem('verifyIfIsFavorite', verify);
-      const verifyIfIsFavorite = localStorage.getItem('verifyIfIsFavorite');
-      if (verifyIfIsFavorite === 'true') {
-        setIsFavorite(true);
-      }
-    }
+    };
+    handleFavorite();
+  }, [isFavorite]);
+  // }, [favoriteRecipes, idDrinksAPI.idDrink, idDrinksAPI.strAlcoholic,
+  //   idDrinksAPI.strCategory, idDrinksAPI.strDrink,
+  //   idDrinksAPI.strDrinkThumb, isClicked, idDrinksAPI]);
+
+  // !altera ao clicar
+  // useEffect(() => {
+  //   const handleColoredHeart = () => {
+  //     const favoriteStorage = localStorage.getItem('favoriteRecipes');
+  //     if (isClicked && favoriteStorage && favoriteStorage.includes(idDrinks)) {
+  //       setIsFavorite(true);
+  //     }
+  //   };
+  //   handleColoredHeart();
+  // }, [idDrinks, setIsFavorite, isClicked]);
+
+  // !altera ao atualizar a pagina
+  const handleColoredHeart = () => {
+    // console.log('01');
+    // const favoriteStorage = localStorage.getItem('favoriteRecipes');
+    // if (favoriteStorage && favoriteStorage.includes(idDrinks)) {
+    //   setIsFavorite(true);
+    //   console.log('02');
+    // }
+    setIsFavorite(!isFavorite);
   };
+
+  useEffect(() => {
+    // handleColoredHeart();
+  }, []);
+
+  useEffect(() => {
+    console.log(isFavorite);
+  }, [isFavorite]);
+
+  // ? pergunta que não quer calar, como "despreencher" o coração ? ;-;
 
   return (
     <div>
@@ -106,18 +165,17 @@ function DetailsRecipesFoods() {
       <p>{ show && 'Link copiado!'}</p>
       <button
         type="button"
-        onClick={ () => handleFavorite() }
+        onClick={ () => handleColoredHeart() }
       >
         <img
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-          data-testid="favorite-btn"
           alt="favorite icon"
         />
       </button>
       <button
         type="button"
         data-testid="favorite-btn"
-        onClick={ () => handleFavorite() }
+        onClick={ () => handleColoredHeart() }
       >
         Favoritar
       </button>
