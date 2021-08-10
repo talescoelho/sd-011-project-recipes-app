@@ -1,7 +1,5 @@
 import React from 'react';
 import Proptypes from 'prop-types';
-import FavoriteButton from './FavoriteButton';
-import SharedButton from './SharedButton';
 
 function FavoriteRecipeCard(props) {
   const { key, nameDataTestId, categoryDataTestId, imageDataTestId,
@@ -17,9 +15,8 @@ function FavoriteRecipeCard(props) {
           data-testid={ imageDataTestId }
           style={ { width: 25 } }
         />
-        <h4 data-testid={ categoryDataTestId }>{ category }</h4>
         <h2 data-testid={ nameDataTestId }>{ name }</h2>
-        <h4>{ area }</h4>
+        <h4 data-testid={ categoryDataTestId }>{ `${area} - ${category}` }</h4>
         <h4 data-testid={ recipeDoneDateDataTestId }>{recipeDoneDate}</h4>
       </>
     );
