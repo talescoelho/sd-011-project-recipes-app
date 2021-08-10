@@ -17,9 +17,6 @@ export const DRINK_DETAIL_SUCCESS = 'DRINK_DETAIL_SUCCESS';
 export const DRINK_DETAIL_ERROR = 'DRINK_DETAIL_ERROR';
 export const HEADER_SEARCH_RESET_ERROR = 'HEADER_SEARCH_RESET_ERROR';
 export const SET_SELECTED_CATEGORY = 'SET_SELECTED_CATEGORY';
-export const GET_RANDOM_RECIPE = 'GET_RANDOM_RECIPE';
-export const GET_RANDOM_RECIPE_SUCCESS = 'GET_RANDOM_RECIPE_SUCCESS';
-export const GET_RANDOM_RECIPE_ERROR = 'GET_RANDOM_RECIPE_ERROR';
 
 const recipesQuantity = 12;
 const baseMealDbUrl = 'https://www.themealdb.com/api/json/v1/1';
@@ -178,34 +175,3 @@ export const setSelectedCategory = (payload) => ({
   type: SET_SELECTED_CATEGORY,
   payload,
 });
-
-const randomFoodUrl = 'https://www.themealdb.com/api/json/v1/1/random.php';
-const randomDrinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
-
-const getRandomRecipe = () => ({
-  type: GET_RANDOM_RECIPE,
-});
-
-const getRandomRecipeSuccess = (id) => ({
-  type: GET_RANDOM_RECIPE_SUCCESS,
-  id,
-});
-
-const getRandomRecipeError = (error) => ({
-  type: GET_RANDOM_RECIPE_ERROR,
-  id: error,
-});
-
-export const fetchRandomRecipe = (type) => (dispatch) => {
-  dispatch(getRandomRecipe());
-
-  const url = `${type === 'comidas' ? randomFoodUrl : randomDrinkUrl}`;
-
-  return fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      const randomId = type === 'comidas' ? data.meals[0].idMeal : data.drinks[0].idDrink;
-      dispatch(getRandomRecipeSuccess(randomId));
-    })
-    .catch((error) => dispatch(getRandomRecipeError(error)));
-};
