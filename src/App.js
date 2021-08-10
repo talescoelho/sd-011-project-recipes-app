@@ -17,6 +17,7 @@ import ExplorarComidasOrigem from './Pages/ExplorarComidasOrigem';
 import Perfil from './Pages/Perfil';
 import ReceitasFeitas from './Pages/ReceitasFeitas';
 import ReceitasFavoritas from './Pages/ReceitasFavoritas';
+import NotFound from './Pages/NotFound';
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
         path="/receitas-favoritas"
         render={ () => <ReceitasFavoritas title="Receitas Favoritas" /> }
       />
+      <Route component={ NotFound } />
     </Switch>
   );
 }
