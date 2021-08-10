@@ -1,41 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
-import { fetchMealDetailsFromMealsDB,
-  fetchRecommendedBeveragesFromCocktailsDB } from '../services';
-import { setFavoriteMealInLocalStorage } from '../helpers';
+import { fetchDrinkDetailsFromCocktailsDB,
+  fetchRecommendedMealsFromMealsDB } from '../services';
+import { setFavoriteDrinkInLocalStorage } from '../helpers';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeatIcon from '../images/blackHeartIcon.svg';
 import '../styles/Details.css';
-import RecommendedBeverages from './RecommendedBeverages';
-import MapIngredients from './MapIngredients';
+import RecommendedMeals from '../components/RecommendedMeals';
+import DrinkIngredientsCheckbox from '../components/DrinkIngredientsCheckbox';
+import GlobalContext from '../context';
+import { handleSaveDrinkRecipeInLocalStorage } from '../helpers/finishButton';
 
-function MealDetails(props) {
-  const [dataToManipulate, setDataToManipulate] = useState({});
-  const [beverages, setBeverages] = useState([]);
+function DrinkInProgress(props) {
+  const { isIngridientUsed } = useContext(GlobalContext);
+  const [dataToManipulate, setDataTomanipulate] = useState({});
+  const [meals, setMeals] = useState([]);
   const [statusControl, setStatusControl] = useState({
     isVisible: true,
     isInProgress: false,
     isFavorited: false,
     isLinkCopied: false,
   });
-  const { isVisible, isInProgress, isFavorited, isLinkCopied } = statusControl;
-  const { strYoutube, strMealThumb, strMeal, strCategory,
+  const { isVisible, isFavorited, isLinkCopied } = statusControl;
+  const { strDrinkThumb, strDrink, strAlcoholic,
     strInstructions } = dataToManipulate;
 
-  const urlLengthToGetId = 30;
-  const mealsId = window.location.href.slice(urlLengthToGetId);
-  const videoURL = strYoutube ? strYoutube
-    .split('https://www.youtube.com/watch?v=')[1] : '';
+  const isDisabled = Object.values(isIngridientUsed)
+    .every((ingredient) => ingredient === true);
+
+  // const urlLengthToGetId = 30;
+  // const restOfUrl = 36;
+  // const drinkId = window.location.href.slice(urlLengthToGetId, restOfUrl);
+
+  const { match: { params: { id } } } = props;
 
   async function fetchMealAndDrinkDataFromAPI() {
-    const mealsDetails = await fetchMealDetailsFromMealsDB(mealsId);
-    const recommendedDrinks = await fetchRecommendedBeveragesFromCocktailsDB();
-    setDataToManipulate(...mealsDetails);
-    console.log(dataToManipulate);
-    setBeverages(recommendedDrinks);
+    const drinkDetails = await fetchDrinkDetailsFromCocktailsDB(id);
+    const recommendedMeals = await fetchRecommendedMealsFromMealsDB();
+    setDataTomanipulate(...drinkDetails);
+    setMeals(recommendedMeals);
   }
 
   function readLocalStorage() {
@@ -43,14 +49,14 @@ function MealDetails(props) {
     const getInProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const getFavoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (getDoneRecipes) {
-      const isRecipeDone = getDoneRecipes.some((recipe) => recipe.id === mealsId);
+      const isRecipeDone = getDoneRecipes.some((recipe) => recipe.id === id);
       setStatusControl({
         ...statusControl,
         isVisible: !isRecipeDone,
       });
     }
     if (getInProgressRecipes) {
-      const isRecipeInProgress = Boolean(getInProgressRecipes.meals[mealsId]);
+      const isRecipeInProgress = Boolean(getInProgressRecipes.cocktails[id]);
       setStatusControl({
         ...statusControl,
         isInProgress: isRecipeInProgress,
@@ -58,7 +64,7 @@ function MealDetails(props) {
     }
     if (getFavoriteRecipes) {
       const isRecipeFavorited = getFavoriteRecipes
-        .some((recipe) => recipe.id === mealsId);
+        .some((recipe) => recipe.id === id);
       setStatusControl({
         ...statusControl,
         isFavorited: isRecipeFavorited,
@@ -66,13 +72,15 @@ function MealDetails(props) {
     }
   }
 
-  function handleStartRecipeButtonClick() {
+  function handleFinishRecipeClick() {
+    handleSaveDrinkRecipeInLocalStorage(dataToManipulate, id);
     const { history } = props;
-    history.push(`/comidas/${mealsId}/in-progress`);
+    history.push('/receitas-feitas');
   }
 
   function handleShareButtonClick() {
-    copy(window.location.href);
+    const recipeIdURL = window.location.pathname.match(/\d+/g)[0];
+    copy(`http://localhost:3000/bebidas/${recipeIdURL}`);
     setStatusControl({
       ...statusControl,
       isLinkCopied: true,
@@ -84,7 +92,7 @@ function MealDetails(props) {
       ...statusControl,
       isFavorited: !isFavorited,
     });
-    setFavoriteMealInLocalStorage(dataToManipulate);
+    setFavoriteDrinkInLocalStorage(dataToManipulate);
   }
 
   const iconsRender = () => (
@@ -113,11 +121,12 @@ function MealDetails(props) {
   const buttonRender = () => (
     <button
       className="start-button"
-      data-testid="start-recipe-btn"
-      onClick={ handleStartRecipeButtonClick }
+      data-testid="finish-recipe-btn"
+      disabled={ !isDisabled }
+      onClick={ handleFinishRecipeClick }
       type="button"
     >
-      {isInProgress ? 'Continuar Receita' : 'Iniciar Receita'}
+      Finalizar Receita
     </button>
   );
 
@@ -129,38 +138,32 @@ function MealDetails(props) {
   return (
     <section>
       <div>
-        <img data-testid="recipe-photo" src={ strMealThumb } alt="" />
+        <img data-testid="recipe-photo" src={ strDrinkThumb } alt="" />
         <div className="recipe-title">
-          <h1 className="title" data-testid="recipe-title">{strMeal}</h1>
+          <h1 className="title" data-testid="recipe-title">{strDrink}</h1>
           {iconsRender()}
           {isLinkCopied && <p>Link copiado!</p>}
         </div>
-        <h3 data-testid="recipe-category">{strCategory}</h3>
+        <h3 data-testid="recipe-category">{strAlcoholic}</h3>
         <div>
           <h4>Ingredients</h4>
-          <MapIngredients dataToManipulate={ dataToManipulate } />
+          <DrinkIngredientsCheckbox dataToManipulate={ dataToManipulate } />
         </div>
         <p data-testid="instructions">{strInstructions}</p>
-        <div>
-          <h2>Video</h2>
-          <iframe
-            src={ `https://www.youtube.com/embed/${videoURL}` }
-            title="video"
-            frameBorder="0"
-            data-testid="video"
-          />
-        </div>
         <h2>Recomendations</h2>
-        <RecommendedBeverages beverages={ beverages } />
+        <RecommendedMeals meals={ meals } />
         {isVisible && buttonRender()}
       </div>
     </section>
   );
 }
 
-MealDetails.propTypes = {
+DrinkInProgress.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string }) }).isRequired,
 };
 
-export default withRouter(MealDetails);
+export default withRouter(DrinkInProgress);

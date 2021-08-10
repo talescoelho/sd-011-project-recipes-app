@@ -15,6 +15,7 @@ export default function Provider({ children }) {
   const [mealCategories, setMealCategories] = useState([]);
   const [drinkCategories, setDrinksCategories] = useState([]);
   const [isFiltered, setIsFiltered] = useState('');
+  const [isIngridientUsed, setIsIngridientUsed] = useState({});
 
   async function getFetchDataFromService() {
     const meals = await fetchDefaultFoodsFromMealsDB();
@@ -77,6 +78,8 @@ export default function Provider({ children }) {
         drinkArray,
         mealCategories,
         drinkCategories,
+        isIngridientUsed,
+        setIsIngridientUsed,
         setFoodArray,
         setDrinkArray,
         getDataFromFoods,
