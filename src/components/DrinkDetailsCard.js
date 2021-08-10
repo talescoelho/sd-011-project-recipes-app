@@ -26,8 +26,8 @@ class DrinkDetailsCard extends Component {
           height="250px"
         />
         <h1 data-testid="recipe-title">{ drinkDetails.strDrink }</h1>
-        <DrinkShareButton id={ drinkDetails.idDrink } />
-        <DrinkFavoriteButton id={ drinkDetails.idDrink } />
+        <DrinkShareButton test="share-btn" id={ drinkDetails.idDrink } />
+        <DrinkFavoriteButton test="favorite-btn" id={ drinkDetails.idDrink } />
         <p data-testid="recipe-category">{ drinkDetails.strAlcoholic }</p>
         <ul>
           { ingredients

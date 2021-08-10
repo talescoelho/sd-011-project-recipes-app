@@ -1,13 +1,9 @@
 import { FOOD_LIST_SUCCESS, FOOD_CATEGORY_SUCCESS,
   FOOD_LIST_CATEGORY_SUCCESS, UPDATE_CATEGORY,
   FOOD_DETAILS_ID_SUCCESS, DRINK_RECOMENDATIONS_SUCCESS,
-<<<<<<< Updated upstream
-  FOOD_INGREDIENTS } from '../actions/foodActions';
-=======
   FOOD_INGREDIENTS, FOOD_AREA, SAVE_FAVORITES,
   RENDER_FOOD_INGREDIENTS,
 } from '../actions/foodActions';
->>>>>>> Stashed changes
 
 const INITIAL_STATE = {
   foodCardsList: [],
@@ -16,12 +12,9 @@ const INITIAL_STATE = {
   foodDetails: {},
   drinkRecomendations: [],
   foodIngredients: [],
-<<<<<<< Updated upstream
-=======
   foodArea: [],
   favorites: [],
   ingredientFoodQuery: '',
->>>>>>> Stashed changes
 };
 
 const CARD_LENGTH = 12;
@@ -55,8 +48,6 @@ function foodReducer(state = INITIAL_STATE, action) {
     return { ...state,
       foodIngredients: action.payload.slice(0, CARD_LENGTH),
     };
-<<<<<<< Updated upstream
-=======
   case FOOD_AREA:
     return { ...state,
       foodArea: action.payload,
@@ -68,7 +59,6 @@ function foodReducer(state = INITIAL_STATE, action) {
     return { ...state,
       ingredientFoodQuery: action.payload,
     };
->>>>>>> Stashed changes
   default:
     return state;
   }
