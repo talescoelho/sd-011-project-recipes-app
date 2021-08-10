@@ -64,12 +64,23 @@ function DrinkProgress(props) {
         },
       };
     }
+
     if (checked) {
-      const recipeMeals = { ...recipe,
-        cocktails:
-         { ...recipe.cocktails, [id]: [...recipe.cocktails[id], name] } };
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify(recipeMeals));
+      if (!!recipe.cocktails[id] === false) {
+        const recipe = { ...recipe.cocktails,
+          [id]: [],
+        };
+        localStorage.setItem('inProgressRecipes',
+           JSON.stringify(recipe));
+      } else {
+        // console.log(!!recipe.cocktails[id]);
+        // console.log('Eu sou o recipe.cock', recipe.cocktails[17222], id);
+        const recipeCoktails = { ...recipe,
+          cocktails:
+           { ...recipe.cocktails, [id]: [...recipe.cocktails[id], name] } };
+        localStorage.setItem('inProgressRecipes',
+          JSON.stringify(recipeCoktails));
+      }
     } else {
       const removeLocaStorage = recipe.cocktails[id]
         .filter((ingredient) => ingredient !== name);
