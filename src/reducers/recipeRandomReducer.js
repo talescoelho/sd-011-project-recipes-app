@@ -5,12 +5,12 @@ import {
 } from '../actions';
 
 const INITIAL_STATE = {
-  randomRecipe: [],
+  randomRecipe: '',
   loading: false,
   error: null,
 };
 
-const recipeRandomReducer = (state = INITIAL_STATE, { type, id }) => {
+const recipeRandomReducer = (state = INITIAL_STATE, { type, payload }) => {
   switch (type) {
   case GET_RANDOM_RECIPE:
     return {
@@ -22,13 +22,13 @@ const recipeRandomReducer = (state = INITIAL_STATE, { type, id }) => {
     return {
       ...state,
       loading: false,
-      randomRecipe: id,
+      randomRecipe: payload,
     };
   case GET_RANDOM_RECIPE_ERROR:
     return {
       ...state,
       loading: false,
-      error: id,
+      error: payload,
     };
   default:
     return state;

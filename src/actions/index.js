@@ -186,14 +186,14 @@ const getRandomRecipe = () => ({
   type: GET_RANDOM_RECIPE,
 });
 
-const getRandomRecipeSuccess = (id) => ({
+const getRandomRecipeSuccess = (payload) => ({
   type: GET_RANDOM_RECIPE_SUCCESS,
-  id,
+  payload,
 });
 
 const getRandomRecipeError = (error) => ({
   type: GET_RANDOM_RECIPE_ERROR,
-  id: error,
+  payload: error,
 });
 
 export const fetchRandomRecipe = (type) => (dispatch) => {
