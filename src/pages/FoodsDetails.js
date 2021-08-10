@@ -68,6 +68,7 @@ function FoodsDetails(props) {
     const checkedDoneRecipes = checkIsRecipeDone(DoneRecipesLS, meal);
     setIsRecipeDone(checkedDoneRecipes);
     if (inProgressRecipesLS && !checkedDoneRecipes) {
+      if (!inProgressRecipesLS.meals) return setInProgressRecipes(false);
       const checkedInProgressRecipes = checkInRecipeInProgress(
         inProgressRecipesLS.meals, meal,
       );

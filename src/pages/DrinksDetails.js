@@ -53,12 +53,10 @@ function DrinksDetails(props) {
   }
 
   function checkInRecipeInProgress(InProgress, currentMeal) {
-    console.log(InProgress);
     const arrayLS = Object.keys(InProgress);
     const checkedArray = arrayLS.some(
       (recipeID) => recipeID === currentMeal.idDrink,
     );
-    console.log(arrayLS[0], currentMeal.idDrink, checkedArray);
     return checkedArray;
   }
 
@@ -68,6 +66,7 @@ function DrinksDetails(props) {
     const checkedDoneRecipes = checkIsRecipeDone(DoneRecipesLS, drink);
     setIsRecipeDone(checkedDoneRecipes);
     if (inProgressRecipesLS && !checkedDoneRecipes) {
+      if (!inProgressRecipesLS.cocktails) return setInProgressRecipes(false);
       const checkedInProgressRecipes = checkInRecipeInProgress(
         inProgressRecipesLS.cocktails, drink,
       );
