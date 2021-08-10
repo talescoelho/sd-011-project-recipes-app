@@ -4,13 +4,15 @@ import { Foods, Cocktails } from '../services';
 import SearchBarContext from '../context/searchBarContext';
 
 function SearchBar({ type }) {
-  const [searchType, setSearchType] = useState();
-  const [searchInput, setSearchInput] = useState();
+  const [searchType, setSearchType] = useState(null);
+  const [searchInput, setSearchInput] = useState(null);
   const { setData } = useContext(SearchBarContext);
 
   async function filterSearch() {
-    if (type.includes('Comidas')) setData(await Foods[searchType](searchInput));
-    if (type.includes('Bebidas')) setData(await Cocktails[searchType](searchInput));
+    if (searchType && searchInput) {
+      if (type.includes('Comidas')) setData(await Foods[searchType](searchInput));
+      if (type.includes('Bebidas')) setData(await Cocktails[searchType](searchInput));
+    }
   }
 
   return (
