@@ -123,6 +123,7 @@ export const fetchHeaderSearch = (type, filter, keyWord) => (dispatch) => {
   //   'primeira-letra': `${url}/search.php?f=${keyWord}` };
 
   // const urlFilter = setUrl[filter];
+  let urlFilter = '';
 
   switch (filter) {
   case 'ingrediente':
@@ -132,7 +133,7 @@ export const fetchHeaderSearch = (type, filter, keyWord) => (dispatch) => {
     urlFilter = `${url}/search.php?s=${keyWord}`;
     break;
   case 'primeira-letra':
-    urlfilter = `${url}/search.php?f=${keyWord}`;
+    urlFilter = `${url}/search.php?f=${keyWord}`;
     break;
   default:
     return null;
