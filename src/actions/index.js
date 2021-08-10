@@ -1,9 +1,8 @@
-export const GET_MEALS = 'GET_MEALS';
-export const GET_MEALS_SUCCESS = 'GET_MEALS_SUCCESS';
-export const GET_MEALS_ERROR = 'GET_MEALS_ERROR';
-export const GET_DRINKS = 'GET_DRINKS';
-export const GET_DRINKS_SUCCESS = 'GET_DRINKS_SUCCESS';
-export const GET_DRINKS_ERROR = 'GET_DRINKS_ERROR';
+import getXFirstElementsFromArray from '../helpers/utils';
+
+export const GET_RECIPES = 'GET_RECIPES';
+export const GET_RECIPES_SUCCESS = 'GET_RECIPES_SUCCESS';
+export const GET_RECIPES_ERROR = 'GET_RECIPES_ERROR';
 export const GET_RECIPES_CATEGORIES = 'GET_RECIPES_CATEGORIES';
 export const GET_RECIPES_CATEGORIES_SUCCESS = 'GET_RECIPES_CATEGORIES_SUCCESS';
 export const GET_RECIPES_CATEGORIES_ERROR = 'GET_RECIPES_CATEGORIES_ERROR';
@@ -16,76 +15,58 @@ export const MEAL_DETAIL_ERROR = 'MEAL_DETAIL_ERROR';
 export const DRINK_DETAIL = 'DRINK_DETAIL';
 export const DRINK_DETAIL_SUCCESS = 'DRINK_DETAIL_SUCCESS';
 export const DRINK_DETAIL_ERROR = 'DRINK_DETAIL_ERROR';
+export const HEADER_SEARCH_RESET_ERROR = 'HEADER_SEARCH_RESET_ERROR';
 
+const recipesQuantity = 12;
 const baseMealDbUrl = 'https://www.themealdb.com/api/json/v1/1';
 const baseCocktailDbUrl = 'https://www.thecocktaildb.com/api/json/v1/1';
 
-const getMeals = () => ({
-  type: GET_MEALS,
+const getRecipes = () => ({
+  type: GET_RECIPES,
 });
 
-const getMealsSuccess = (meals) => ({
-  type: GET_MEALS_SUCCESS,
+const getRecipesSuccess = (meals) => ({
+  type: GET_RECIPES_SUCCESS,
   payload: meals,
 });
 
-const getMealsError = (error) => ({
-  type: GET_MEALS_ERROR,
+const getRecipesError = (error) => ({
+  type: GET_RECIPES_ERROR,
   payload: error,
 });
 
-export const fetchMeals = () => (dispatch) => {
-  dispatch(getMeals());
+export const fetchRecipes = (type) => (dispatch) => {
+  dispatch(getRecipes());
 
-  const url = `${baseMealDbUrl}/search.php?s=`;
-
-  return fetch(url)
-    .then((response) => response.json())
-    .then(({ meals }) => dispatch(getMealsSuccess(meals)))
-    .catch((error) => dispatch(getMealsError(error)));
-};
-
-const getDrinks = () => ({
-  type: GET_DRINKS,
-});
-
-const getDrinksSuccess = (drinks) => ({
-  type: GET_DRINKS_SUCCESS,
-  payload: drinks,
-});
-
-const getDrinksError = (error) => ({
-  type: GET_DRINKS_ERROR,
-  payload: error,
-});
-
-export const fetchDrinks = () => (dispatch) => {
-  dispatch(getDrinks());
-
-  const url = `${baseCocktailDbUrl}/search.php?s=`;
+  const url = `${type === 'meals' ? baseMealDbUrl : baseCocktailDbUrl}/search.php?s=`;
 
   return fetch(url)
     .then((response) => response.json())
-    .then(({ drinks }) => dispatch(getDrinksSuccess(drinks)))
-    .catch((error) => dispatch(getDrinksError(error)));
+    .then((data) => {
+      const recipes = getXFirstElementsFromArray(
+        type === 'meals' ? data.meals : data.drinks, recipesQuantity,
+      );
+      dispatch(getRecipesSuccess(recipes));
+    })
+    .catch((error) => dispatch(getRecipesError(error)));
 };
 
-const getDrinksCategories = () => ({
+const getRecipesCategories = () => ({
   type: GET_RECIPES_CATEGORIES,
 });
 
-const getDrinksCategoriesSuccess = (payload) => ({
+const getRecipesCategoriesSuccess = (payload) => ({
   type: GET_RECIPES_CATEGORIES_SUCCESS,
   payload,
 });
 
-const getDrinksCategoriesError = (error) => ({
+const getRecipesCategoriesError = (error) => ({
   type: GET_RECIPES_CATEGORIES_ERROR,
   payload: error,
 });
 
 export const fetchRecipesCategories = (type) => (dispatch) => {
-  dispatch(getDrinksCategories());
+  dispatch(getRecipesCategories());
 
   const url = `${type === 'comidas' ? baseMealDbUrl : baseCocktailDbUrl}/list.php?c=list`;
 
@@ -94,9 +75,9 @@ export const fetchRecipesCategories = (type) => (dispatch) => {
     .then((data) => {
       const info = type === 'comidas' ? data.meals : data.drinks;
       const categories = info.map(({ strCategory }) => strCategory);
-      dispatch(getDrinksCategoriesSuccess({ categories, type }));
+      dispatch(getRecipesCategoriesSuccess({ categories, type }));
     })
-    .catch((error) => dispatch(getDrinksCategoriesError(error)));
+    .catch((error) => dispatch(getRecipesCategoriesError(error)));
 };
 
 const getHeaderSearch = () => ({
@@ -181,3 +162,7 @@ export const fetchRecipeDetail = (type, id) => (dispatch) => {
       else dispatch(drinkDetailError(error));
     });
 };
+
+export const headerSearchResetError = () => ({
+  type: HEADER_SEARCH_RESET_ERROR,
+});

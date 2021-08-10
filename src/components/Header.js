@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchHeaderSearch } from '../actions';
+import { fetchHeaderSearch, headerSearchResetError } from '../actions';
 import profile from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
 
@@ -20,44 +20,35 @@ class Header extends Component {
     this.withoutSearch = this.withoutSearch.bind(this);
     this.fetchHeaderSearch = this.fetchHeaderSearch.bind(this);
     this.redirectToRecipeDetail = this.redirectToRecipeDetail.bind(this);
-    this.verifyThereIsRecipe = this.verifyThereIsRecipe.bind(this);
   }
 
-  componentDidUpdate() {
-    this.redirectToRecipeDetail(); // Colocado aqui porque Cypress não espera o tempo certo da API
+  shouldComponentUpdate({ recipes }) {
+    if (recipes.length === 1) {
+      this.redirectToRecipeDetail(recipes);
+      return false;
+    }
+
+    return true;
   }
 
   fetchHeaderSearch() {
     const { dispatchFetchHeaderSearch, history: { location: { pathname } } } = this.props;
     const { keyWord, filter } = this.state;
-    const TIME = 480;
-    const type = pathname.replace('/', '');
+    const type = pathname.replace(/\//g, '');
 
     if (keyWord.length > 1 && filter === 'primeira-letra') {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
 
     dispatchFetchHeaderSearch(type, filter, keyWord);
-
-    if (keyWord === 'xablau') { // Colocado essa condição porque o Cypress não espera o tempo certo da API
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    } else setTimeout(() => this.verifyThereIsRecipe(), TIME);
   }
 
-  redirectToRecipeDetail() {
-    const { recipes, history: { push, location: { pathname } } } = this.props;
-    if (recipes.length === 1) {
-      const id = pathname === '/comidas'
-        ? recipes[0].idMeal : recipes[0].idDrink;
-      push(`${pathname}/${id}`);
-    }
-  }
+  redirectToRecipeDetail(recipes) {
+    const { history: { push, location: { pathname } } } = this.props;
 
-  verifyThereIsRecipe() {
-    const { error } = this.props;
-    if (error === 'TypeError: info is null') {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    }
+    const id = pathname.includes('comidas')
+      ? recipes[0].idMeal : recipes[0].idDrink;
+    push(`/${pathname.replace(/\//g, '')}/${id}`);
   }
 
   withSearch() {
@@ -181,7 +172,13 @@ class Header extends Component {
   }
 
   render() {
-    const { withSearch } = this.props;
+    const { withSearch, error, dispatchResetError } = this.props;
+
+    if (error) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      dispatchResetError();
+    }
+
     return (
       <div>
         {withSearch ? this.withSearch() : this.withoutSearch() }
@@ -198,12 +195,14 @@ const mapStateToProps = ({ headerSearchReducer }) => ({
 const mapDispatchToProps = (dispatch) => ({
   dispatchFetchHeaderSearch:
     (type, filter, keyWord) => dispatch(fetchHeaderSearch(type, filter, keyWord)),
+  dispatchResetError: () => dispatch(headerSearchResetError()),
 });
 
 Header.propTypes = {
   withSearch: PropTypes.bool,
   pageTitle: PropTypes.string,
   dispatchFetchHeaderSearch: PropTypes.func,
+  dispatchResetError: PropTypes.func,
   history: PropTypes.shape({
     location: PropTypes.shape({
       pathname: PropTypes.string,
