@@ -7,10 +7,19 @@ import SecondFavoriteButton from './Components/Secondary/SecondFavoriteButton';
 function FavoriteRecipes() {
   const [filter, setFilter] = useState('all');
   const [update, setUpdate] = useState(false);
+  const [filtereds, setFiltereds] = useState([]);
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
   useEffect(() => {
-
+    if (filter === 'drinks') {
+      setFiltereds(favoriteRecipes.filter((item) => item.type === 'bebida'));
+    }
+    if (filter === 'foods') {
+      setFiltereds(favoriteRecipes.filter((item) => item.type === 'comida'));
+    }
+    if (filter === 'all') {
+      setFiltereds(favoriteRecipes);
+    }
   }, [filter, update]);
 
   return (
@@ -23,7 +32,7 @@ function FavoriteRecipes() {
       />
       <FoodOrDrinkFilter setFilter={ setFilter } />
       <section className="favorites-recipes">
-        {favoriteRecipes.map(({ id,
+        {filtereds.map(({ id,
           image,
           name,
           area,

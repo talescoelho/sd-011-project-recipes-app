@@ -14,7 +14,7 @@ export default function FoodOrDrinkFilter({ setFilter }) {
       </button>
       <button
         data-testid="filter-by-food-btn"
-        onClick={ () => setFilter('food') }
+        onClick={ () => setFilter('foods') }
         type="button"
       >
         Food
