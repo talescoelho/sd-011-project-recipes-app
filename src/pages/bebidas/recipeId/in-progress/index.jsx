@@ -24,22 +24,22 @@ export default function BebidasInProgress({ match: { params: { recipeId } } }) {
   const [ingredients, setIngredients] = useState([]);
   const [isRecipeFinalized, setIsRecipeFinalized] = useState(false);
 
-  const verifyFinalizedBtn = () => {
-    const checkIngredients = Object.keys(details)
-      .filter((key) => key.includes('strIngredient'));
-    if (checkIngredients.length === ingredients.length) {
-      setIsRecipeFinalized(true);
-    } else {
-      setIsRecipeFinalized(false);
-    }
-  };
-
   useEffect(() => {
+    const verifyFinalizedBtn = () => {
+      const checkIngredients = Object.keys(details)
+        .filter((key) => key.includes('strIngredient'));
+      if (checkIngredients.length === ingredients.length) {
+        setIsRecipeFinalized(true);
+      } else {
+        setIsRecipeFinalized(false);
+      }
+    };
+
     if (ingredients.length !== 0) {
       setInProgressRecipe('cocktails', recipeId, ingredients);
     }
     verifyFinalizedBtn();
-  }, [recipeId, ingredients]);
+  }, [details, recipeId, ingredients]);
 
   useEffect(() => {
     const recipesInprogress = retrieveInProgressRecipes();
