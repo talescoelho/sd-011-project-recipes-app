@@ -16,8 +16,10 @@ function SearchBar() {
       food.forEach((el, index) => { item[Object.keys(item)[index]] = el; });
       return item;
     }
-    drink.forEach((el, index) => { item[Object.keys(item)[index]] = el; });
-    return item;
+    if (LOC === '/bebidas') {
+      drink.forEach((el, index) => { item[Object.keys(item)[index]] = el; });
+      return item;
+    }
   };
 
   console.log(foodOrDrink());

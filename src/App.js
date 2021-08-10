@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/Login';
@@ -22,41 +22,43 @@ import ReceitasFavoritas from './Pages/ReceitasFavoritas';
 function App() {
   return (
     <div className="meals">
-      <Switch>
-        <Route exact path="/" component={ Login } />
-        <Route exact path="/comidas" component={ Recipes } />
-        <Route exact path="/bebidas" component={ Bebidas } />
-        <Route exact path="/explorar/comidas/area" component={ ExploreMealsByArea } />
-        <Route exact path="/comidas/:id/in-progress" component={ MealInProgress } />
-        <Route exact path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
-        <Route
-          exact
-          path="/comidas/:id"
-          render={ (props) => <ReceitaDeComida { ...props } /> }
-        />
-        <Route
-          exact
-          path="/bebidas/:id"
-          render={ (props) => <ReceitaDeBebida { ...props } /> }
-        />
-        <Route exact path="/explorar" component={ Explore } />
-        <Route exact path="/explorar/comidas" component={ ExploreMeals } />
-        <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
-        <Route
-          exact
-          path="/explorar/comidas/ingredientes"
-          component={ ExploreMealsByIgrediente }
-        />
-        <Route
-          exact
-          path="/explorar/bebidas/ingredientes"
-          component={ ExploreDrinksByIgrediente }
-        />
-        <Route exact path="/perfil" component={ Profile } />
-        <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
-        <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
-        <Route exact path="/explorar/comidas/area" component={ ExploreMealsByArea } />
-      </Switch>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={ Login } />
+          <Route exact path="/comidas" component={ Recipes } />
+          <Route exact path="/bebidas" component={ Bebidas } />
+          <Route exact path="/explorar/comidas/area" component={ ExploreMealsByArea } />
+          <Route exact path="/comidas/:id/in-progress" component={ MealInProgress } />
+          <Route exact path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
+          <Route
+            exact
+            path="/comidas/:id"
+            render={ (props) => <ReceitaDeComida { ...props } /> }
+          />
+          <Route
+            exact
+            path="/bebidas/:id"
+            render={ (props) => <ReceitaDeBebida { ...props } /> }
+          />
+          <Route exact path="/explorar" component={ Explore } />
+          <Route exact path="/explorar/comidas" component={ ExploreMeals } />
+          <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
+          <Route
+            exact
+            path="/explorar/comidas/ingredientes"
+            component={ ExploreMealsByIgrediente }
+          />
+          <Route
+            exact
+            path="/explorar/bebidas/ingredientes"
+            component={ ExploreDrinksByIgrediente }
+          />
+          <Route exact path="/perfil" component={ Profile } />
+          <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
+          <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
+          <Route exact path="/explorar/comidas/area" component={ ExploreMealsByArea } />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
