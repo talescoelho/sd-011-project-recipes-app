@@ -1,7 +1,10 @@
 import React from 'react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Login from '../pages/Login';
+import HomeRecipe from '../pages/HomeRecipe';
 import { renderWithRouterAndRedux } from './renderWithRouterAndRedux';
+import mockMeals from '../../cypress/mocks/meals';
 
 const INITIAL_STATE = {
   RecipesReducer: {
@@ -17,9 +20,9 @@ describe('Testes para página de Explorar comidas', () => {
   it('Verifica se há os itens procurados', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(),
+      json: jest.fn().mockResolvedValue(mockMeals),
     });
-    const { findByText, findByTestId } = renderWithRouterAndRedux(
+    const { findByText, findByTestId, history } = renderWithRouterAndRedux(
       <Login />,
       { route: '/' }, INITIAL_STATE,
     );
@@ -35,8 +38,20 @@ describe('Testes para página de Explorar comidas', () => {
     userEvent.type(email, 'arthurhermann@hotmail.com');
     userEvent.type(password, '123456789');
     expect(loginBtn).not.toHaveAttribute('disabled');
-  });
+    userEvent.click(loginBtn);
+    const { pathname } = history.location;
+    expect(pathname).toEqual('/comidas');
+    expect(localStorage.mealsToken).toEqual('1');
+    expect(localStorage.cocktailsToken).toEqual('1');
+    expect(JSON.parse(localStorage.user)).toEqual({ email: 'arthurhermann@hotmail.com' });
 
+    renderWithRouterAndRedux(
+      <HomeRecipe location={ { state: '' } } />,
+      { route: '/comidas' }, INITIAL_STATE,
+    );
+    const pageTitle = screen.getByTestId('page-title');
+    expect(pageTitle).toBeInTheDocument();
+  });
 });
 
 // Para utilizar o location
