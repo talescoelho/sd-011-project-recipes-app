@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addRecipeDone } from '../actions';
 
 class ReceitaEmProgressoComida extends Component {
   constructor() {
@@ -70,8 +72,18 @@ class ReceitaEmProgressoComida extends Component {
   }
 
   render() {
-    const { meals: { strMealThumb, strMeal,
+    const { meals: { idMeal, strArea, strMeal, strMealThumb,
       strInstructions, strCategory }, finalList, disabled } = this.state;
+    const { addDoneRecipe } = this.props;
+    const obj = {
+      id: idMeal,
+      type: 'comida',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    };
     return (
       <main>
         <img src={ strMealThumb } data-testid="recipe-photo" alt="imagem-da-receita" />
@@ -100,6 +112,7 @@ class ReceitaEmProgressoComida extends Component {
               type="button"
               data-testid="finish-recipe-btn"
               disabled={ disabled }
+              onClick={ () => { addDoneRecipe(obj); } }
             >
               Finalizar receita
             </button>
@@ -110,7 +123,11 @@ class ReceitaEmProgressoComida extends Component {
   }
 }
 
-export default ReceitaEmProgressoComida;
+const mapDispatchToProps = (dispatch) => ({
+  addDoneRecipe: (id) => dispatch(addRecipeDone(id)),
+});
+
+export default connect(null, mapDispatchToProps)(ReceitaEmProgressoComida);
 
 ReceitaEmProgressoComida.propTypes = {
   match: PropTypes.shape({
