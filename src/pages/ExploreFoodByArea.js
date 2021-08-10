@@ -19,7 +19,7 @@ class ExploreFoodByArea extends Component {
       <div>
         <Header title="Explorar Origem" search />
         <select data-testid="explore-by-area-dropdown">
-          { foodArea.map((item, index) => (
+          { foodArea && foodArea.map((item, index) => (
             <option key={ index } data-testid={ `${item.strArea}-option` }>
               { item.strArea }
             </option>
@@ -27,7 +27,7 @@ class ExploreFoodByArea extends Component {
           <option data-testid="All-option">All</option>
         </select>
         <ul>
-          { foodCardsList.map((item, index) => (
+          { foodCardsList && foodCardsList.map((item, index) => (
             <FoodCard key={ item.idMeal } food={ item } index={ index } />)) }
         </ul>
         <Footer />
