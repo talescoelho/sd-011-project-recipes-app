@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import Header from '../components/Header';
 import MealsCards from '../components/MealsCards';
+import Footer from '../components/MenuInferior';
 
 import { requestAreas, requestByArea } from '../services/requestAreas';
 
@@ -41,6 +42,7 @@ function ExplorarArea() {
         }
       </select>
       <MealsCards meals={ recipes } />
+      <Footer />
     </div>
   );
 }
