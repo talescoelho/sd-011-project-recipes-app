@@ -33,6 +33,7 @@ export default function RecipesAppProvider({ children }) {
     setHaveRecipes(bool);
   }
 
+  console.log('MEAL', mealRecipes);
   const context = {
     mealRecipes,
     drinkRecipes,
