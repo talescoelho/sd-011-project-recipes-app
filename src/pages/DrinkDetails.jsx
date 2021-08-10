@@ -1,9 +1,12 @@
-
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import { useHistory } from 'react-router';
+import { useParams, useHistory } from 'react-router';
+
 import copy from 'clipboard-copy';
 import { Layout, ActionButton } from '../components';
+
+const NOT_FOUND_INDEX = 1;
+const TOAST_TIMEOUT = 3000;
+const RECOMMENDATION_NUMBER = 6;
 
 function FoodDetails() {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,19 +40,25 @@ function FoodDetails() {
 
     const storedDoneRecipes = localStorage.getItem('doneRecipes');
     const parsedDoneRecipes = storedDoneRecipes ? JSON.parse(storedDoneRecipes) : [];
-    if (parsedDoneRecipes.findIndex((parsedRecipe) => parsedRecipe.id == id) > -1) {
+    if (parsedDoneRecipes
+      .findIndex((parsedRecipe) => parsedRecipe.id === id) > NOT_FOUND_INDEX) {
       setIsDone(true);
     }
 
     const storedInProgressRecipes = localStorage.getItem('inProgressRecipes');
-    const parsedInProgressRecipes = storedInProgressRecipes ? JSON.parse(storedInProgressRecipes) : { cocktails: [] };
+    const parsedInProgressRecipes = storedInProgressRecipes
+      ? JSON.parse(storedInProgressRecipes)
+      : { cocktails: [] };
     if (parsedInProgressRecipes.cocktails && parsedInProgressRecipes.cocktails[id]) {
       setIsInProgress(true);
     }
 
     const storedFavoriteRecipes = localStorage.getItem('favoriteRecipes');
-    const parsedFavoriteRecipes = storedFavoriteRecipes ? JSON.parse(storedFavoriteRecipes) : [];
-    if (parsedFavoriteRecipes.findIndex((parsedRecipe) => parsedRecipe.id == id) > -1) {
+    const parsedFavoriteRecipes = storedFavoriteRecipes
+      ? JSON.parse(storedFavoriteRecipes)
+      : [];
+    if (parsedFavoriteRecipes
+      .findIndex((parsedRecipe) => parsedRecipe.id === id) > NOT_FOUND_INDEX) {
       setIsFavorite(true);
     }
   }, [id]);
@@ -59,7 +68,7 @@ function FoodDetails() {
 
     setTimeout(() => {
       setToastIsVisible(false);
-    }, 3000);
+    }, TOAST_TIMEOUT);
   }
 
   const renderNoDrinkMessage = () => {
@@ -93,7 +102,7 @@ function FoodDetails() {
       display: 'block',
       width: '100%',
     },
-  }
+  };
 
   return (
     <Layout title="App de Receitas">
@@ -117,7 +126,7 @@ function FoodDetails() {
                   <ActionButton
                     action="share"
                     onClick={ () => {
-                      copy(`http://localhost:3000/bebidas/${id}`)
+                      copy(`http://localhost:3000/bebidas/${id}`);
                       showToast();
                     } }
                   />
@@ -125,13 +134,17 @@ function FoodDetails() {
                     action="favorite"
                     reverse={ isFavorite }
                     onClick={ () => {
-                      const storedFavoriteRecipes = localStorage.getItem('favoriteRecipes');
-                      const parsedFavoriteRecipes = storedFavoriteRecipes ? JSON.parse(storedFavoriteRecipes) : [];
+                      const storedFavoriteRecipes = localStorage
+                        .getItem('favoriteRecipes');
+                      const parsedFavoriteRecipes = storedFavoriteRecipes
+                        ? JSON.parse(storedFavoriteRecipes)
+                        : [];
 
                       let favoriteRecipesToStore;
 
                       if (isFavorite) {
-                        favoriteRecipesToStore = parsedFavoriteRecipes.filter((recipe) => recipe.id !== id);
+                        favoriteRecipesToStore = parsedFavoriteRecipes
+                          .filter((recipe) => recipe.id !== id);
                       } else {
                         favoriteRecipesToStore = [...parsedFavoriteRecipes, {
                           id,
@@ -144,7 +157,10 @@ function FoodDetails() {
                         }];
                       }
 
-                      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipesToStore));
+                      localStorage.setItem(
+                        'favoriteRecipes',
+                        JSON.stringify(favoriteRecipesToStore),
+                      );
 
                       setIsFavorite((previously) => !previously);
                     } }
@@ -159,14 +175,17 @@ function FoodDetails() {
                     .filter((key) => /strIngredient/i.test(key))
                     .filter((key) => cocktail[key] !== '')
                     .map((key) => {
-                      const index = parseInt(key.replace('strIngredient', ''));
+                      const index = parseInt(key.replace('strIngredient', ''), 10);
                       return (
-                        <li key={ index } data-testid={`${index - 1}-ingredient-name-and-measure`}>
+                        <li
+                          key={ index }
+                          data-testid={ `${index - 1}-ingredient-name-and-measure` }
+                        >
                           <span>{ cocktail[key] }</span>
                           <span> - </span>
-                          <span>{ cocktail[`strMeasure${index}`]  }</span>
+                          <span>{ cocktail[`strMeasure${index}`] }</span>
                         </li>
-                      )
+                      );
                     }) }
                 </ol>
               </section>
@@ -178,26 +197,38 @@ function FoodDetails() {
               </section>
 
               { !isDone && (
-                  <button
-                    type="button"
-                    data-testid="start-recipe-btn"
-                    style={{ position: 'fixed', bottom: '0', height: '300px' }}
-                    onClick={ () => {
-                      history.push(`/bebidas/${id}/in-progress`);
-                    } }
-                  >
-                    { isInProgress ? <>Continuar Receita</> :  <>Iniciar Receita</> }
-                  </button>)}
+                <button
+                  type="button"
+                  data-testid="start-recipe-btn"
+                  style={ { position: 'fixed', bottom: '0', height: '300px' } }
+                  onClick={ () => {
+                    history.push(`/bebidas/${id}/in-progress`);
+                  } }
+                >
+                  { isInProgress ? <>Continuar Receita</> : <>Iniciar Receita</> }
+                </button>)}
 
               <section>
                 <h1>Recomendações de comida</h1>
 
                 { renderNoRecipesMessage() || (
                   <ol style={ styles.recipeRecommendationList }>
-                    { recipes.slice(0, 6).map((meal, index) => (
-                      <li style={ styles.recipesRecommendationCard } data-testid={`${index}-recomendation-card`} key={meal.idMeal}>
-                        <img style={ styles.recipesRecommendationImage } src={ meal.strMealThumb } alt={ meal.strMeal } />
-                        <h1 data-testid={`${index}-recomendation-title`}>{ meal.strMeal }</h1>
+                    { recipes.slice(0, RECOMMENDATION_NUMBER).map((meal, index) => (
+                      <li
+                        style={ styles.recipesRecommendationCard }
+                        data-testid={ `${index}-recomendation-card` }
+                        key={ meal.idMeal }
+                      >
+                        <img
+                          style={ styles.recipesRecommendationImage }
+                          src={ meal.strMealThumb }
+                          alt={ meal.strMeal }
+                        />
+                        <h1
+                          data-testid={ `${index}-recomendation-title` }
+                        >
+                          { meal.strMeal }
+                        </h1>
                       </li>
                     )) }
                   </ol>
@@ -206,7 +237,7 @@ function FoodDetails() {
             </>
           ) }
         { toastIsVisible && (
-          <div style={{ position: 'fixed', right: '25px', bottom: '25px' }}>
+          <div style={ { position: 'fixed', right: '25px', bottom: '25px' } }>
             <p>Link copiado!</p>
           </div>
         ) }

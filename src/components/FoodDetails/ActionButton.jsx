@@ -11,7 +11,7 @@ function ActionButton({ onClick, action, reverse }) {
     }
 
     return FavoriteIcon;
-  }
+  };
 
   const iconSrc = action === 'share' ? ShareIcon : getFavoriteIcon(reverse);
 

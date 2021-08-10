@@ -1,6 +1,6 @@
-import { 
+import {
   beefAndOysterPie,
-  noFilter
+  noFilter,
 } from './mocks';
 
 const MOCKS = {

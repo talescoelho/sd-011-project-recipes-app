@@ -7,6 +7,7 @@ import { FoodDetails } from '../pages';
 import { beefAndOysterPie } from '../helpers/mocks';
 
 const recipe = beefAndOysterPie.meals[0];
+const BASE_URL = '/comidas';
 
 afterEach(() => {
   localStorage.clear();
@@ -17,8 +18,8 @@ describe('A pagina de detalhes de comida', () => {
     jest.spyOn(global, 'fetch');
     global.fetch = mockFetch;
 
-    const path = '/comidas/:id';
-    const history = createMemoryHistory({ initialEntries: ['/comidas/52878'] });
+    const path = `${BASE_URL}/:id`;
+    const history = createMemoryHistory({ initialEntries: [`${BASE_URL}/52878`] });
     await act(async () => {
       render(<FoodDetails />, { history, path });
     });
@@ -50,7 +51,7 @@ describe('A pagina de detalhes de comida', () => {
       expect(screen.getByTestId('video')).toBeInTheDocument();
     });
     it('Botão de iniciar Receita', () => {
-      expect(screen.getByText('Iniciar Receita')).toBeInTheDocument();
+      expect(screen.getByText('Iniciarp Receita')).toBeInTheDocument();
     });
     it('Botão de compartilhar', () => {
       expect(screen.getByTitle('share the recipe')).toBeInTheDocument();
@@ -67,19 +68,20 @@ describe('A pagina de detalhes de comida', () => {
 
     it('e mostra 6 resultados', () => {
       const allDrinkCards = screen.getAllByTestId('recomendation-card', { exact: false });
-      expect(allDrinkCards.length).toBe(6);
+      const RECOMMENDATION_NUMBER = 6;
+      expect(allDrinkCards.length).toBe(RECOMMENDATION_NUMBER);
     });
   });
 
   // describe('Ao clicar no botão de compartilhar', () => {
-    // it('o link é copiado para o clipboard', async () => {
-    //   await act(async () => {
-    //     fireEvent.click(screen.getByTitle('share the recipe'));
-    //   });
-    //   const clipBoardContent = await navigator.clipboard.readText();
-    //   console.log(clipBoardContent);
-    //   expect(clipBoardContent).toBe('https://localhost.3000/comidas/52878');
-    // });
+  // it('o link é copiado para o clipboard', async () => {
+  //   await act(async () => {
+  //     fireEvent.click(screen.getByTitle('share the recipe'));
+  //   });
+  //   const clipBoardContent = await navigator.clipboard.readText();
+  //   console.log(clipBoardContent);
+  //   expect(clipBoardContent).toBe('https://localhost.3000/comidas/52878');
+  // });
 
   //   it('uma mensagem de confirmação aparece na tela', async () => {
   //     await act(async () => {
@@ -91,27 +93,26 @@ describe('A pagina de detalhes de comida', () => {
   // });
 });
 
-
 describe('Caso a receita já tenha sido feita', () => {
   beforeEach(async () => {
     jest.spyOn(global, 'fetch');
     global.fetch = mockFetch;
 
     const doneRecipes = [{
-      "id": "52878",
-      "type": "comida",
-      "area": "Italian",
-      "category": "Vegetarian",
-      "alcoholicOrNot": "",
-      "name": "Spicy Arrabiata Penne",
-      "image": "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg",
-      "doneDate": "22/6/2020",
-      "tags": ["Pasta", "Curry"]
+      id: '52878',
+      type: 'comida',
+      area: 'Italian',
+      category: 'Vegetarian',
+      alcoholicOrNot: '',
+      name: 'Spicy Arrabiata Penne',
+      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+      doneDate: '22/6/2020',
+      tags: ['Pasta', 'Curry'],
     }];
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
 
-    const path = '/comidas/:id';
-    const history = createMemoryHistory({ initialEntries: ['/comidas/52878'] });
+    const path = `${BASE_URL}/:id`;
+    const history = createMemoryHistory({ initialEntries: [`${BASE_URL}/52878`] });
     await act(async () => {
       render(<FoodDetails />, { history, path });
     });
@@ -119,7 +120,7 @@ describe('Caso a receita já tenha sido feita', () => {
 
   it('o botão de Iniciar Receita não aparece', () => {
     expect(screen.queryByText('Iniciar Receita')).not.toBeInTheDocument();
-  })
+  });
 });
 
 describe('Caso a receita esteja em progresso', () => {
@@ -135,8 +136,8 @@ describe('Caso a receita esteja em progresso', () => {
 
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
 
-    const path = '/comidas/:id';
-    const history = createMemoryHistory({ initialEntries: ['/comidas/52878'] });
+    const path = `${BASE_URL}/:id`;
+    const history = createMemoryHistory({ initialEntries: [`${BASE_URL}/52878`] });
     await act(async () => {
       render(<FoodDetails />, { history, path });
     });
@@ -145,7 +146,7 @@ describe('Caso a receita esteja em progresso', () => {
   it('o botão de Iniciar Receita se torna Continuar Receita', async () => {
     expect(screen.queryByText('Iniciar Receita')).not.toBeInTheDocument();
     expect(screen.queryByText('Continuar Receita')).toBeInTheDocument();
-  })
+  });
 });
 
 describe('O icone de coração', () => {
@@ -153,9 +154,8 @@ describe('O icone de coração', () => {
     jest.spyOn(global, 'fetch');
     global.fetch = mockFetch;
 
-
-    const path = '/comidas/:id';
-    const history = createMemoryHistory({ initialEntries: ['/comidas/52878'] });
+    const path = `${BASE_URL}/:id`;
+    const history = createMemoryHistory({ initialEntries: [`${BASE_URL}/52878`] });
     await act(async () => {
       render(<FoodDetails />, { history, path });
     });
@@ -166,21 +166,21 @@ describe('O icone de coração', () => {
 
   it('vem preenchido caso a receita seja favorita', async () => {
     const favoriteRecipes = [{
-      "id": "52878",
-      "type": "comida",
-      "area": "Brittish",
-      "category": "Beef",
-      "alcoholicOrNot": "",
-      "name": "Beef and Oyster pie",
-      "image": "https://www.themealdb.com/images/media/meals/wrssvt1511556563.jpg",
+      id: '52878',
+      type: 'comida',
+      area: 'Brittish',
+      category: 'Beef',
+      alcoholicOrNot: '',
+      name: 'Beef and Oyster pie',
+      image: 'https://www.themealdb.com/images/media/meals/wrssvt1511556563.jpg',
     }];
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
 
     jest.spyOn(global, 'fetch');
     global.fetch = mockFetch;
 
-    const path = '/comidas/:id';
-    const history = createMemoryHistory({ initialEntries: ['/comidas/52878'] });
+    const path = `${BASE_URL}/:id`;
+    const history = createMemoryHistory({ initialEntries: [`${BASE_URL}/52878`] });
     await act(async () => {
       render(<FoodDetails />, { history, path });
     });
@@ -191,20 +191,20 @@ describe('O icone de coração', () => {
 
   it('favorita a receita caso ela ainda não seja favorita', async () => {
     const favoriteRecipe = {
-      "id": "52878",
-      "type": "comida",
-      "area": "British",
-      "category": "Beef",
-      "alcoholicOrNot": "",
-      "name": "Beef and Oyster pie",
-      "image": "https://www.themealdb.com/images/media/meals/wrssvt1511556563.jpg",
+      id: '52878',
+      type: 'comida',
+      area: 'British',
+      category: 'Beef',
+      alcoholicOrNot: '',
+      name: 'Beef and Oyster pie',
+      image: 'https://www.themealdb.com/images/media/meals/wrssvt1511556563.jpg',
     };
 
     jest.spyOn(global, 'fetch');
     global.fetch = mockFetch;
 
-    const path = '/comidas/:id';
-    const history = createMemoryHistory({ initialEntries: ['/comidas/52878'] });
+    const path = `${BASE_URL}/:id`;
+    const history = createMemoryHistory({ initialEntries: [`${BASE_URL}/52878`] });
     await act(async () => {
       render(<FoodDetails />, { history, path });
     });
@@ -219,4 +219,4 @@ describe('O icone de coração', () => {
 
     expect(foundRecipe).toEqual(favoriteRecipe);
   });
-})
+});

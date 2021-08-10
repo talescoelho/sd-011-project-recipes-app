@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import { useHistory } from 'react-router';
+import { useParams, useHistory } from 'react-router';
+
 import copy from 'clipboard-copy';
 import { Layout, ActionButton } from '../components';
+
+const NOT_FOUND_INDEX = 1;
+const TOAST_TIMEOUT = 3000;
+const RECOMMENDATION_NUMBER = 6;
 
 function FoodDetails() {
   const [isLoading, setIsLoading] = useState(true);
@@ -36,19 +40,25 @@ function FoodDetails() {
 
     const storedDoneRecipes = localStorage.getItem('doneRecipes');
     const parsedDoneRecipes = storedDoneRecipes ? JSON.parse(storedDoneRecipes) : [];
-    if (parsedDoneRecipes.findIndex((parsedRecipe) => parsedRecipe.id == id) > -1) {
+    if (parsedDoneRecipes.findIndex((parsedRecipe) => (
+      parsedRecipe.id === id.toString())) > NOT_FOUND_INDEX) {
       setIsDone(true);
     }
 
     const storedInProgressRecipes = localStorage.getItem('inProgressRecipes');
-    const parsedInProgressRecipes = storedInProgressRecipes ? JSON.parse(storedInProgressRecipes) : { meals: [] };
+    const parsedInProgressRecipes = storedInProgressRecipes
+      ? JSON.parse(storedInProgressRecipes)
+      : { meals: [] };
     if (parsedInProgressRecipes.meals && parsedInProgressRecipes.meals[id]) {
       setIsInProgress(true);
     }
 
     const storedFavoriteRecipes = localStorage.getItem('favoriteRecipes');
-    const parsedFavoriteRecipes = storedFavoriteRecipes ? JSON.parse(storedFavoriteRecipes) : [];
-    if (parsedFavoriteRecipes.findIndex((parsedRecipe) => parsedRecipe.id == id) > -1) {
+    const parsedFavoriteRecipes = storedFavoriteRecipes
+      ? JSON.parse(storedFavoriteRecipes)
+      : [];
+    if (parsedFavoriteRecipes.findIndex((parsedRecipe) => (
+      parsedRecipe.id === id.toString())) > NOT_FOUND_INDEX) {
       setIsFavorite(true);
     }
   }, [id]);
@@ -58,7 +68,7 @@ function FoodDetails() {
 
     setTimeout(() => {
       setToastIsVisible(false);
-    }, 3000);
+    }, TOAST_TIMEOUT);
   }
 
   const renderNoRecipeMessage = () => {
@@ -92,7 +102,7 @@ function FoodDetails() {
       display: 'block',
       width: '100%',
     },
-  }
+  };
 
   return (
     <Layout title="App de Receitas">
@@ -116,7 +126,7 @@ function FoodDetails() {
                   <ActionButton
                     action="share"
                     onClick={ () => {
-                      copy(`http://localhost:3000/comidas/${id}`)
+                      copy(`http://localhost:3000/comidas/${id}`);
                       showToast();
                     } }
                   />
@@ -124,13 +134,17 @@ function FoodDetails() {
                     action="favorite"
                     reverse={ isFavorite }
                     onClick={ () => {
-                      const storedFavoriteRecipes = localStorage.getItem('favoriteRecipes');
-                      const parsedFavoriteRecipes = storedFavoriteRecipes ? JSON.parse(storedFavoriteRecipes) : [];
+                      const storedFavoriteRecipes = localStorage
+                        .getItem('favoriteRecipes');
+                      const parsedFavoriteRecipes = storedFavoriteRecipes
+                        ? JSON.parse(storedFavoriteRecipes)
+                        : [];
 
                       let favoriteRecipesToStore;
 
                       if (isFavorite) {
-                        favoriteRecipesToStore = parsedFavoriteRecipes.filter((recipe) => recipe.id !== id);
+                        favoriteRecipesToStore = parsedFavoriteRecipes
+                          .filter((parsedRecipe) => parsedRecipe.id !== id);
                       } else {
                         favoriteRecipesToStore = [...parsedFavoriteRecipes, {
                           id,
@@ -143,7 +157,10 @@ function FoodDetails() {
                         }];
                       }
 
-                      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipesToStore));
+                      localStorage.setItem(
+                        'favoriteRecipes',
+                        JSON.stringify(favoriteRecipesToStore),
+                      );
 
                       setIsFavorite((previously) => !previously);
                     } }
@@ -158,14 +175,17 @@ function FoodDetails() {
                     .filter((key) => /strIngredient/i.test(key))
                     .filter((key) => recipe[key] !== '')
                     .map((key) => {
-                      const index = parseInt(key.replace('strIngredient', ''));
+                      const index = parseInt(key.replace('strIngredient', ''), 10);
                       return (
-                        <li key={ index } data-testid={`${index - 1}-ingredient-name-and-measure`}>
+                        <li
+                          key={ index }
+                          data-testid={ `${index - 1}-ingredient-name-and-measure` }
+                        >
                           <span>{ recipe[key] }</span>
                           <span> - </span>
-                          <span>{ recipe[`strMeasure${index}`]  }</span>
+                          <span>{ recipe[`strMeasure${index}`] }</span>
                         </li>
-                      )
+                      );
                     }) }
                 </ol>
               </section>
@@ -177,30 +197,51 @@ function FoodDetails() {
               </section>
 
               <section>
-                <iframe data-testid="video" width="560" height="315" src={ recipe.strYoutube.replace('watch?v=', 'embed/') } title="YouTube video player" frameBorder="0" allow="accelerometer;clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                <iframe
+                  data-testid="video"
+                  width="560"
+                  height="315"
+                  src={ recipe.strYoutube.replace('watch?v=', 'embed/') }
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer;clipboard-write; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
               </section>
 
               { !isDone && (
-                  <button
-                    type="button"
-                    data-testid="start-recipe-btn"
-                    onClick={ () => {
-                      history.push(`/comidas/${id}/in-progress`);
-                    } }
-                    style={{ position: 'fixed', bottom: '0', height: '300px' }}
-                  >
-                    { isInProgress ? <>Continuar Receita</> :  <>Iniciar Receita</> }
-                  </button>)}
+                <button
+                  type="button"
+                  data-testid="start-recipe-btn"
+                  onClick={ () => {
+                    history.push(`/comidas/${id}/in-progress`);
+                  } }
+                  style={ { position: 'fixed', bottom: '0', height: '300px' } }
+                >
+                  { isInProgress ? <>Continuar Receita</> : <>Iniciar Receita</> }
+                </button>)}
 
               <section>
                 <h1>Recomendações de bebida</h1>
 
                 { renderNoDrinksMessage() || (
                   <ol style={ styles.drinkRecommendationList }>
-                    { drinks.slice(0, 6).map((drink, index) => (
-                      <li style={ styles.drinksRecommendationCard } data-testid={`${index}-recomendation-card`} key={drink.idDrink}>
-                        <img style={ styles.drinksRecommendationImage } src={ drink.strDrinkThumb } alt={ drink.strDrink } />
-                        <h1 data-testid={`${index}-recomendation-title`}>{ drink.strDrink }</h1>
+                    { drinks.slice(0, RECOMMENDATION_NUMBER).map((drink, index) => (
+                      <li
+                        style={ styles.drinksRecommendationCard }
+                        data-testid={ `${index}-recomendation-card` }
+                        key={ drink.idDrink }
+                      >
+                        <img
+                          style={ styles.drinksRecommendationImage }
+                          src={ drink.strDrinkThumb }
+                          alt={ drink.strDrink }
+                        />
+                        <h1
+                          data-testid={ `${index}-recomendation-title` }
+                        >
+                          { drink.strDrink }
+                        </h1>
                       </li>
                     )) }
                   </ol>
@@ -209,7 +250,7 @@ function FoodDetails() {
             </>
           ) }
         { toastIsVisible && (
-          <div style={{ position: 'fixed', right: '25px', bottom: '25px' }}>
+          <div style={ { position: 'fixed', right: '25px', bottom: '25px' } }>
             <p>Link copiado!</p>
           </div>
         ) }
