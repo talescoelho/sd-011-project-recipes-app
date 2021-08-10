@@ -21,6 +21,7 @@ function ActionButton({ onClick, action, reverse }) {
       type="button"
       title={ `${action} the recipe` }
       onClick={ onClick }
+      src={ iconSrc }
     >
       <img src={ iconSrc } alt={ `icon representing ${action}` } />
     </button>
