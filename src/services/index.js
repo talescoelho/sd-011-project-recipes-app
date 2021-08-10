@@ -192,5 +192,4 @@ export function getIds(type, recipe) {
     similarName: verify ? 'meals' : 'cocktails',
     tags: (recipe.strTags) ? recipe.strTags.split(',').slice(0, 2) : null,
   };
-  // { id, type, category, name, image, video, instruction }
 }
