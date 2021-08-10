@@ -5,7 +5,7 @@ import FavoriteButton from './FavoriteButton';
 // Adicionar biblioteca de compartilhar e imagem de coração para o favoritar.
 function MealRecipeCard({ title, img, category, index }) {
   return (
-    <div data-testid={ `${index}-recomendation-card` }>
+    <div>
       <img data-testid="recipe-photo" alt="Foto da receita" src={ img } />
       <br />
 
