@@ -6,6 +6,7 @@ import Instructions from '../../components/RecipeInProgress/Instructions';
 import ButtonFinish from '../../components/RecipeInProgress/ButtonFinish';
 import { InProgressProvider } from '../../context/InProgress';
 import CardDetail from '../../components/RecipeInProgress/CardDetail';
+import ButtonFavorite from '../../components/ButtonFavorite';
 
 export default function FoodInProgress({ location }) {
   const [recipe, setRecipe] = useState();
@@ -31,6 +32,7 @@ export default function FoodInProgress({ location }) {
   }, [recipeId, state]);
 
   if (recipe) {
+    const CHARACTERS = -12;
     return (
       <InProgressProvider>
         <section>
@@ -40,13 +42,11 @@ export default function FoodInProgress({ location }) {
             id={ recipe.idMeal }
             category={ recipe.strCategory }
           />
-          <ButtonShare path={ window.location.href } testid="share-btn" />
-          <button
-            type="button"
-            data-testid="favorite-btn"
-          >
-            {'<3'}
-          </button>
+          <ButtonShare
+            path={ window.location.href.slice(0, CHARACTERS) }
+            testid="share-btn"
+          />
+          <ButtonFavorite objData={ recipe } />
           <IngredientsList recipe={ recipe } />
           <Instructions Instructions={ recipe.strInstructions } />
           <ButtonFinish />

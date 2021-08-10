@@ -15,7 +15,7 @@ export default function CardsListByIngredient(props) {
     let url = urlMeal;
     if (path === 'bebidas') {
       url = urlDrink;
-    };
+    }
     const getRecipes = async () => {
       const urlToFetch = `https://www.${url}.com/api/json/v1/1/list.php?i=list`;
       const recipesFromApi = await fetchByFilter(urlToFetch);
@@ -36,7 +36,7 @@ export default function CardsListByIngredient(props) {
     let url = urlMeal;
     if (path === 'bebidas') {
       url = urlDrink;
-    };
+    }
     const getCategories = async () => {
       const img = ingredName.map((e) => ({
         fig: `https://www.${url}.com/images/ingredients/${e}.png`,
@@ -56,7 +56,7 @@ export default function CardsListByIngredient(props) {
       {console.log(imge)}
       { imge.map((e) => (
         <div>
-          <img width="50px" src={e.fig} alt="figure" />
+          <img width="50px" src={ e.fig } alt="figure" />
           <p>{e.name}</p>
         </div>
       )) }

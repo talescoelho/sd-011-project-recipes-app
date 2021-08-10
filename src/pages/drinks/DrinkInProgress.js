@@ -6,6 +6,7 @@ import IngredientsList from '../../components/RecipeInProgress/IngredientsList';
 import Instructions from '../../components/RecipeInProgress/Instructions';
 import ButtonFinish from '../../components/RecipeInProgress/ButtonFinish';
 import { InProgressProvider } from '../../context/InProgress';
+import ButtonFavorite from '../../components/ButtonFavorite';
 
 export default function DrinkInProgress({ location }) {
   const [recipe, setRecipe] = useState();
@@ -32,6 +33,7 @@ export default function DrinkInProgress({ location }) {
   }, [recipeId, state]);
 
   if (recipe) {
+    const CHARACTERS = -12;
     return (
       <InProgressProvider>
         <section>
@@ -42,13 +44,11 @@ export default function DrinkInProgress({ location }) {
             category={ recipe.strCategory }
           />
           <p>{ recipe.strAlcoholic }</p>
-          <ButtonShare path={ window.location.href } testid="share-btn" />
-          <button
-            type="button"
-            data-testid="favorite-btn"
-          >
-            {'<3'}
-          </button>
+          <ButtonShare
+            path={ window.location.href.slice(0, CHARACTERS) }
+            testid="share-btn"
+          />
+          <ButtonFavorite objData={ recipe } />
           <IngredientsList recipe={ recipe } />
           <Instructions Instructions={ recipe.strInstructions } />
           <ButtonFinish />

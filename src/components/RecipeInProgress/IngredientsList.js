@@ -14,7 +14,12 @@ export default function IngredientsList(props) {
     saveInLocalStorage,
     checkSavedItens,
     setLocalStorage,
+    setFinishButton,
   } = useContext(InProgressContext);
+
+  useEffect(() => {
+    setFinishButton();
+  }, [checkSavedItens, setFinishButton]);
 
   useEffect(() => {
     const getItems = (searchedKey) => Object.entries(recipe).filter(
@@ -43,7 +48,7 @@ export default function IngredientsList(props) {
               checked={ checkSavedItens(ingredient) }
               id={ `id${index}` }
               name="ingredient"
-              onChange={ saveInLocalStorage }
+              onChange={ (e) => { saveInLocalStorage(e); setFinishButton(); } }
               key={ index }
               type="checkbox"
               value={ ingredient }

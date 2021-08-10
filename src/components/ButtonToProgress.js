@@ -55,8 +55,8 @@ function ButtonToProgress(props) {
         {
           toRedirect
             && <Redirect
-              to={`/${type}/${window.location.pathname.split('/')[2]}/in-progress`}
-              state={mealDetail || drinkDetail}
+              to={ `/${type}/${window.location.pathname.split('/')[2]}/in-progress` }
+              state={ mealDetail || drinkDetail }
             />
         }
       </div>

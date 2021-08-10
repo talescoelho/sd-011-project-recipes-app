@@ -7,8 +7,16 @@ export function InProgressProvider({ children }) {
   const [ingr, setIngr] = useState();
   const [ingredientsArray, setIngredientsArray] = useState([]);
   const [measurementsArray, setMeasurementsArray] = useState([]);
+  const [enableFinishBtn, setEnableFinishBtn] = useState(false);
   const drinks = JSON.parse(localStorage.getItem('cocktails'));
   const recipeId = window.location.pathname.split('/')[2];
+
+  const setFinishButton = () => {
+    const cocktails = JSON.parse(localStorage.getItem('cocktails'));
+    if (cocktails) {
+      setEnableFinishBtn(ingredientsArray.length === cocktails[recipeId].length);
+    }
+  };
 
   const setLocalStorage = () => {
     if (!drinks) {
@@ -62,6 +70,8 @@ export function InProgressProvider({ children }) {
     checkSavedItens,
     saveInLocalStorage,
     setLocalStorage,
+    setFinishButton,
+    enableFinishBtn,
   };
 
   return (
