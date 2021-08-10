@@ -8,11 +8,20 @@ import RecipeDetailMain from '../components/RecipeDetailMain';
 function RecipeDetail({ history: { location: { pathname } },
   dispatchFetchDetail, recipeDetailMeal, recipeDetailDrink }) {
   const { id } = useParams();
+  const type = pathname.includes('comidas') ? 'comidas' : 'bebidas';
+
+  // React.useEffect(() => {
+  //   const type = pathname.includes('comidas') ? 'comidas' : 'bebidas';
+  //   dispatchFetchDetail(type, id);
+  // }, [id, pathname, dispatchFetchDetail]);
+
+  // function fetchDetail () {
+  //   dispatchFetchDetail(type, id);
+  // }
 
   React.useEffect(() => {
-    const type = pathname.includes('comidas') ? 'comidas' : 'bebidas';
     dispatchFetchDetail(type, id);
-  }, [id, pathname, dispatchFetchDetail]);
+  }, []);
 
   return (
     <div>
