@@ -135,7 +135,7 @@ function FoodDetails() {
                         favoriteRecipesToStore = [...parsedFavoriteRecipes, {
                           id,
                           type: 'bebida',
-                          area: cocktail.strArea,
+                          area: '',
                           category: cocktail.strCategory,
                           alcoholicOrNot: cocktail.strAlcoholic,
                           name: cocktail.strDrink,
