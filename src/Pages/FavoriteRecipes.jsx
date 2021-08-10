@@ -23,11 +23,25 @@ function FavoriteRecipes() {
       />
       <FoodOrDrinkFilter setFilter={ setFilter } />
       <section className="favorites-recipes">
-        {favoriteRecipes.map(({ id, image, name, area, alcoholicOrNot, category, type }, index) => (
+        {favoriteRecipes.map(({ id,
+          image,
+          name,
+          area,
+          alcoholicOrNot,
+          category,
+          type,
+        }, index) => (
           <div key>
-            <img src={ image } width="150" data-testid={ `${index}-horizontal-image` } alt="Imagem de comida" />
+            <img
+              src={ image }
+              width="150"
+              data-testid={ `${index}-horizontal-image` }
+              alt="Imagem de comida"
+            />
             <div>
-              <p data-testid={ `${index}-horizontal-top-text` }>{area !== '' ? `${area} - ${category}` : alcoholicOrNot }</p>
+              <p data-testid={ `${index}-horizontal-top-text` }>
+                {area !== '' ? `${area} - ${category}` : alcoholicOrNot }
+              </p>
               <p data-testid={ `${index}-horizontal-name` }>{name}</p>
               <SecondFavoriteButton
                 itemId={ id }
@@ -37,7 +51,11 @@ function FavoriteRecipes() {
                 setUpdate={ setUpdate }
                 update={ update }
               />
-              <SecondShareButton itemId={ id } type={ type } testID={ `${index}-horizontal-share-btn` } />
+              <SecondShareButton
+                itemId={ id }
+                type={ type }
+                testID={ `${index}-horizontal-share-btn` }
+              />
             </div>
 
           </div>
