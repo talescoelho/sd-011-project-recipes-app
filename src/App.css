@@ -11,3 +11,16 @@
 .selectedCat {
   background-color: grey;
 }
+
+.details-container{
+  text-align: center;
+}
+
+.details-body {
+  align-content: center;
+}
+
+.details-btn-container {
+  justify-content: center;
+  display: flex;
+}
