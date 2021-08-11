@@ -41,8 +41,8 @@ export const getFood = async () => {
   return result;
 };
 
-export const fetchCategoryList = async (site) => {
-  const URL = `https://www.the${site}db.com/api/json/v1/1/list.php?c=list`;
+export const fetchCategoryList = async () => {
+  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const result = await globalFetch(URL);
   return result;
 };

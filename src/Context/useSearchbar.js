@@ -11,7 +11,7 @@ export default function useSearchbar() {
   const history = useHistory();
   const { pathname } = history.location;
   const recipeName = pathname === '/comidas' ? 'meals' : 'drinks';
-  const food = recipe[recipeName];  
+  const food = recipe[recipeName];
 
   const getRecipe = () => {
     const site = pathname === '/comidas' ? 'meal' : 'cocktail';

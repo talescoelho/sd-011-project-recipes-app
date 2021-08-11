@@ -4,7 +4,7 @@ import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import './RecipesFoods.css';
 import CardRecipes from '../Components/CardRecipes';
-import { getDrink } from '../Services/FetchApi';
+import { fetchCategoryList, getDrink } from '../Services/FetchApi';
 import MyContext from '../Context/MyContext';
 
 export default function RecipesFood() {
@@ -14,12 +14,16 @@ export default function RecipesFood() {
     const response = await getDrink();
     setCards(response.drinks);
   };
+
+  const fetchCategoryButtons = async () => {
+    const response = await fetchCategoryList();
+    return response.drinks[0].strCategory;
+  };
+
   useEffect(() => {
     searchCards();
-    
+    fetchCategoryButtons();
   }, []);
-
-  console.log(cards.drinks);
 
   const renderCardRecipes = () => {
     const showMaxRecipes = 12;
