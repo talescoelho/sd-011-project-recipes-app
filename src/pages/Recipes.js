@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import copy from 'clipboard-copy';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -15,12 +16,14 @@ function Recipes() {
   function renderMealRecipe(doneRecipess, index) {
     return (
       <div className="supply-card" key={ index }>
-        <img
-          data-testid={ `${index}-horizontal-image` }
-          alt={ doneRecipess.name }
-          src={ doneRecipess.image }
-        />
-        <p data-testid={ `${index}-horizontal-name` }>{doneRecipess.name}</p>
+        <Link to={ `/${doneRecipess.type}s/${doneRecipess.id}` }>
+          <img
+            data-testid={ `${index}-horizontal-image` }
+            alt={ doneRecipess.name }
+            src={ doneRecipess.image }
+          />
+          <p data-testid={ `${index}-horizontal-name` }>{doneRecipess.name}</p>
+        </Link>
         <p data-testid={ `${index}-horizontal-top-text` }>
           {doneRecipess.area }
           {' '}
@@ -55,14 +58,17 @@ function Recipes() {
   }
 
   function renderDrinkRecipe(doneRecipess, index) {
+    console.log(index);
     return (
       <div className="supply-card" key={ index }>
-        <img
-          data-testid={ `${index}-horizontal-image` }
-          alt={ doneRecipess.name }
-          src={ doneRecipess.image }
-        />
-        <p data-testid={ `${index}-horizontal-name` }>{doneRecipess.name}</p>
+        <Link to={ `/${doneRecipess.type}s/${doneRecipess.id}` }>
+          <img
+            data-testid={ `${index}-horizontal-image` }
+            alt={ doneRecipess.name }
+            src={ doneRecipess.image }
+          />
+          <p data-testid={ `${index}-horizontal-name` }>{doneRecipess.name}</p>
+        </Link>
         <p
           data-testid={ `${index}-horizontal-top-text` }
         >
@@ -84,18 +90,43 @@ function Recipes() {
     );
   }
 
+  const [filters, setFilters] = useState({
+    Food: true,
+    Drinks: true,
+  });
+  const MINUS_ONE = -1;
+  let index = MINUS_ONE;
   return (
     <div>
       <Header props={ headerProps } />
-      <button data-testid="filter-by-all-btn" type="button">All</button>
-      <button data-testid="filter-by-food-btn" type="button">Food</button>
-      <button data-testid="filter-by-drink-btn" type="button">Drinks</button>
-      { doneRecipes && doneRecipes.map((recipe, index) => {
-        console.log(recipe);
-        if (recipe.type === 'comida') {
+      <button
+        data-testid="filter-by-all-btn"
+        type="button"
+        onClick={ () => setFilters({ Food: true, Drinks: true }) }
+      >
+        All
+      </button>
+      <button
+        data-testid="filter-by-food-btn"
+        type="button"
+        onClick={ () => setFilters({ Food: true, Drinks: false }) }
+      >
+        Food
+      </button>
+      <button
+        data-testid="filter-by-drink-btn"
+        type="button"
+        onClick={ () => setFilters({ Food: false, Drinks: true }) }
+      >
+        Drinks
+      </button>
+      { doneRecipes && doneRecipes.map((recipe) => {
+        if (recipe.type === 'comida' && filters.Food) {
+          index += 1;
           return renderMealRecipe(recipe, index);
         }
-        if (recipe.type === 'bebida') {
+        if (recipe.type === 'bebida' && filters.Drinks) {
+          index += 1;
           return renderDrinkRecipe(recipe, index);
         }
         return null;
