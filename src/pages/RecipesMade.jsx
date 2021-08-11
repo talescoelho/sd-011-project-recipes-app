@@ -30,7 +30,7 @@ function RecipesMade() {
   const handleShareButton = ({ type, id }) => {
     copy(`http://localhost:3000/${type}s/${id}`);
     sethanleShareLink(true);
-    const magicNumberTimer = 1000;
+    const magicNumberTimer = 2000;
     setTimeout(() => {
       sethanleShareLink(false);
     }, magicNumberTimer);
@@ -74,6 +74,7 @@ function RecipesMade() {
             <li key={ recipes.id }>
               <Link to={ `${recipes.type}s/${recipes.id}` }>
                 <img
+                  style={ { width: '1px' } }
                   alt={ recipes.name }
                   data-testid={ `${index}-horizontal-image` }
                   src={ recipes.image }
