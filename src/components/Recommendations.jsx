@@ -5,28 +5,43 @@ import UserContext from '../context/UserContext';
 // import { APImealById } from '../services/APImealsANDdrinks';
 
 function Recommendations() {
-  const MAGIC6 = 6;
   const { drinks } = useContext(UserContext);
-
   return (
     <div>
       <h2>Recomendadas</h2>
-      <div id="drink" className="carousel slide" data-bs-ride="carousel">
+      <div
+        data-testid="0-recomendation-card"
+        id="drink"
+        className="carousel slide"
+        data-bs-ride="carousel"
+      >
         <div className="carousel-inner">
           {
-            drinks.map((drink, index) => (
-              (index < MAGIC6) ? (
-                <div
-                  // className="carousel-item active"
-                  className={ (index === 0) ? 'carousel-item active' : 'carousel-item' }
+
+            drinks.map((drink, index) => (index < '6' ? (
+              <div
+                className={ (index < 2) ? 'carousel-item active' : 'carousel-item' }
+                data-testid={ `${index}-recomendation-card` }
+                key={ index }
+              >
+                <p>{drink.strAlcoholic}</p>
+                <p>{index}</p>
+                <h2
+                  data-testid={ `${index}-recomendation-title` }
+
                 >
-                  <img
-                    src={ drink.strDrinkThumb }
-                    className="d-flex w-100"
-                    alt=" foto drink"
-                  />
-                </div>
-              ) : null))
+                  {drink.strDrink}
+                </h2>
+                <img
+                  src={ drink.strDrinkThumb }
+                  className="d-flex w-180"
+                  width="150"
+                  height="100"
+                  alt={ drink.strDrink }
+                  data-testid={ `${index}-card-img` }
+                />
+              </div>
+            ) : undefined))
           }
           <button
             className="carousel-control-prev"

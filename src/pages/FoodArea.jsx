@@ -29,8 +29,7 @@ export default function FoodArea({ history }) {
     setmealsOP(value);
   }
   function clickDetails(id) {
-    history.push(`/comidas${id}`);
-    console.log(id);
+    history.push(`/comidas/${id}`);
   }
   const doze = 12;
   const exploreIngredient = 'Explorar Origem';
