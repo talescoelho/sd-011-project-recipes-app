@@ -335,3 +335,8 @@ code {
 .background {
   background: url('https://i.pinimg.com/736x/1f/a0/ef/1fa0efe44e31cba3d28db304ae6c164c.jpg');
 }
+
+/* tela de explorar */
+.explore-container {
+  padding-top: 80px;
+}

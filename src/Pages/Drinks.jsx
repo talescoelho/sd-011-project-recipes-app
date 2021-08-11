@@ -17,8 +17,9 @@ class Drinks extends Component {
   }
 
   componentDidMount() {
+    const { history: { location: { state } } } = this.props;
     const { fetchRecipes } = this.props;
-    fetchRecipes();
+    return state ? fetchRecipes(state.myIngredient, 'ingrediente') : fetchRecipes();
   }
 
   handleClick(bool) {
@@ -55,7 +56,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchRecipes: () => dispatch(fetchReceiveDrink()),
+  fetchRecipes: (input, radio) => dispatch(fetchReceiveDrink(input, radio)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Drinks);
