@@ -38,5 +38,4 @@ MealRecipeCard.propTypes = {
   title: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
 };

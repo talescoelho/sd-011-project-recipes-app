@@ -1,8 +1,18 @@
+import React from 'react';
+
 const URLdrinks = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const URLmeals = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const URLmealsByCat = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
 const URLdrinksByCat = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
 const alertError = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+
+function alertF() {
+  return (
+    <div>
+      {alertError}
+    </div>
+  );
+}
 
 // Adicionar logica de tratamento de reejct - Try and catch
 
@@ -26,7 +36,7 @@ export const APIdrinks = async () => {
   const APIjson = await APIfetch.json();
   const keyDrinks = APIjson.drinks;
   const num12 = 12;
-  const max12 = keyDrinks.splice(0, num12);
+  const max12 = keyDrinks.slice(0, num12);
   return max12;
 };
 
@@ -35,7 +45,7 @@ export const APImeals = async () => {
   const APIjson = await APIfetch.json();
   const keyMeals = APIjson.meals;
   const num12 = 12;
-  const max12 = keyMeals.splice(0, num12);
+  const max12 = keyMeals.slice(0, num12);
   return max12;
 };
 
@@ -87,7 +97,7 @@ export const APImealsSearchIgredient = async (igredient, meals) => {
     return max12;
   } catch (error) {
     // eslint-disable-next-line no-alert
-    alert(alertError);
+    alertF();
     return meals;
   }
 };
@@ -102,7 +112,7 @@ export const APImealsSearchName = async (name, meals) => {
     return max12;
   } catch (error) {
     // eslint-disable-next-line no-alert
-    alert(alertError);
+    alertF();
     return meals;
   }
 };
@@ -117,7 +127,7 @@ export const APImealsSearch1stLetter = async (fstLetter, meals) => {
     return max12;
   } catch (error) {
     // eslint-disable-next-line no-alert
-    alert(alertError);
+    alertF();
     return meals;
   }
 };
@@ -132,7 +142,7 @@ export const APIdrinksSearchIgredient = async (igredient, drinks) => {
     return max12;
   } catch (error) {
     // eslint-disable-next-line no-alert
-    alert(alertError);
+    alertF();
     return drinks;
   }
 };
@@ -147,7 +157,7 @@ export const APIdrinksSearchName = async (name, drinks) => {
     return max12;
   } catch (error) {
     // eslint-disable-next-line no-alert
-    alert(alertError);
+    alertF();
     return drinks;
   }
 };
@@ -162,7 +172,7 @@ export const APIdrinksSearch1stLetter = async (fstLetter, drinks) => {
     return max12;
   } catch (error) {
     // eslint-disable-next-line no-alert
-    alert(alertError);
+    alertF();
     return drinks;
   }
 };

@@ -7,9 +7,8 @@ import '../css/mainPage.css';
 import CategoriesMeals from '../components/CategoriesMeals';
 import SearchBarMeals from '../components/SearchBarMeals';
 
-export default function Meals(props) {
-  const { history } = props;
-  const { meals } = useContext(UserContext);
+export default function Meals({ history }) {
+  const { meals = [] } = useContext(UserContext);
   if (meals.length === 0) {
     return <div>loading</div>;
   }
@@ -41,6 +40,7 @@ export default function Meals(props) {
             key={ meal.idMeal }
             onClick={ () => clickDetails(meal.idMeal) }
           >
+            {console.log(meal)}
             <div data-testid={ `${index}-recipe-card` }>
               <img
                 src={ meal.strMealThumb }
