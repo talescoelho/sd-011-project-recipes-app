@@ -10,25 +10,13 @@ class RecipeDetailMain extends Component {
   }
 
   main(recipeDetail) {
-    const { history: { location: { pathname } } } = this.props;
-
-    let strThumb = '';
-    let str = '';
-    let category = '';
-
     const { strMealThumb, strDrinkThumb, strDrink, strMeal,
       strCategory, strAlcoholic, strInstructions,
       strYoutube } = recipeDetail;
 
-    if (pathname.includes('comidas')) {
-      strThumb = strMealThumb;
-      str = strMeal;
-      category = strCategory;
-    } else {
-      strThumb = strDrinkThumb;
-      str = strDrink;
-      category = strAlcoholic;
-    }
+    const strThumb = strDrinkThumb || strMealThumb;
+    const str = strMeal || strDrink;
+    const category = strAlcoholic || strCategory;
 
     const strYoutubeEmbed = strYoutube && strYoutube.replace('watch?v=', 'embed/');
 
@@ -136,6 +124,5 @@ class RecipeDetailMain extends Component {
 export default withRouter(RecipeDetailMain);
 
 RecipeDetailMain.propTypes = {
-  path: PropTypes.string,
   recipeDetail: PropTypes.object,
 }.isRequired;
