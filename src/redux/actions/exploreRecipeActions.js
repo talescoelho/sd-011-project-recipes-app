@@ -1,6 +1,7 @@
 import {
   listAllMealsIngredients,
   listAllDrinksIngredients,
+  listAllMealsAreas,
 } from '../../services/requestMenu';
 
 export const REQUEST_OPTIONS = 'REQUEST_OPTIONS';
@@ -87,5 +88,35 @@ export const requestDrinksOptions = () => (dispatch) => {
         dispatch(receiveOptionsSuccess(response));
       })
       .catch(() => dispatch(receiveOptionsFailure()))
+  );
+};
+
+export const REQUEST_MEALS_AREAS = 'REQUEST_MEALS_AREAS';
+export const RECEIVE_MEALS_AREAS_SUCCESS = 'RECEIVE_MEALS_AREAS_SUCCESS';
+export const RECEIVE_MEALS_AREAS_FAILURE = 'RECEIVE_MEALS_AREAS_FAILURE';
+
+const sendRequestMealsAreas = () => ({
+  type: REQUEST_MEALS_AREAS,
+});
+
+const receiveMealsAreasSuccess = (areas) => ({
+  type: RECEIVE_MEALS_AREAS_SUCCESS,
+  areas,
+});
+
+const receiveMealsAreasFailure = () => ({
+  type: RECEIVE_MEALS_AREAS_FAILURE,
+  error: '404',
+});
+
+export const requestMealsAreas = () => (dispatch) => {
+  dispatch(sendRequestMealsAreas());
+  return (
+    listAllMealsAreas()
+      .then(({ meals }) => {
+        const response = meals.map(({ strArea }) => strArea);
+        dispatch(receiveMealsAreasSuccess(response));
+      })
+      .catch(() => dispatch(receiveMealsAreasFailure()))
   );
 };
