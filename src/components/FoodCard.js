@@ -46,6 +46,7 @@ function FoodCard({ details, mealIngredients, mealMeasure }) {
   return (
     <div className="details-container">
       { details ? renderDetails() : 'Loading...'}
+      {console.log(document.querySelector('.details-body'))}
     </div>
   );
 }
