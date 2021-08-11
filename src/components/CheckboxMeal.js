@@ -24,7 +24,8 @@ function CheckboxMeal({ ingredients, measures, pathname }) {
     }
   }, []);
 
-  function saveMealProgress(currentLocalStorage, ingredient, idRecipee) {
+  function saveMealProgress(ingredient, idRecipee) {
+    const currentLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const mealSavedIngredients = currentLocalStorage.meals[idRecipee];
 
     if (!mealSavedIngredients) {
@@ -38,12 +39,16 @@ function CheckboxMeal({ ingredients, measures, pathname }) {
         }),
       );
     } else {
+      // const currentInProgressRecipesMeals = {
+      //   52928: ["One Piece", "Cadabra", "Os quebra taça", "Fíu"],
+      // };
+
       localStorage.setItem(
         'inProgressRecipes',
         JSON.stringify({
           ...currentLocalStorage,
           meals: {
-            ...JSON.parse(localStorage.getItem('inProgressRecipes')).meals,
+            ...currentLocalStorage,
             [idRecipee]: [...mealSavedIngredients, ingredient],
           },
         }),
@@ -52,9 +57,7 @@ function CheckboxMeal({ ingredients, measures, pathname }) {
   }
 
   function saveProgress(ingredient) {
-    const savedIngredients = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-    saveMealProgress(savedIngredients, ingredient, idRecipe);
+    saveMealProgress(ingredient, idRecipe);
   }
 
   function handleCheckbox() {
@@ -71,8 +74,7 @@ function CheckboxMeal({ ingredients, measures, pathname }) {
 
   return (
     <div>
-      {activedIngredients
-      && ingredients.map((ingredient, index) => (
+      {ingredients.map((ingredient, index) => (
         <div key={ index } data-testid={ `${index}-ingredient-step` }>
           <input
             type="checkbox"
@@ -93,7 +95,7 @@ function CheckboxMeal({ ingredients, measures, pathname }) {
           </label>
         </div>
       ))}
-      <Link to={ `${pathname}/in-progress` }>
+      <Link to="/receitas-feitas">
         <button
           disabled={ !allCheckboxMarkup }
           className="start-recipe"

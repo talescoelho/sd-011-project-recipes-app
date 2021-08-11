@@ -92,7 +92,7 @@ function CheckboxDrink({ ingredients, measures, pathname }) {
           </label>
         </div>
       ))}
-      <Link to={ `${pathname}/in-progress` }>
+      <Link to="/receitas-feitas">
         <button
           disabled={ !allCheckboxMarkup }
           className="start-recipe"
