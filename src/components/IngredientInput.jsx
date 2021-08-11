@@ -1,23 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-// import { Container } from './styles';
+import '../styles/IngredientInput.css';
+import makeNewIngredientsArray from '../helpers/makeNewIngredientsArray';
 
-function components() {
+function IngredientInput(
+  { ingredient, inProgressIngredients, setInProgressIngredients },
+) {
+  const [isChecked, setIsChecked] = useState(false);
+  const [doneClass, setDoneClass] = useState(isChecked);
+  const scratched = doneClass ? 'doneIngredient' : '';
+  const indexOfIngredient = inProgressIngredients.indexOf(ingredient);
+
+  useEffect(() => {
+    // VERIFICA SE NO NOME INCLUI DONE; E SETA CHECKED;
+    setIsChecked(inProgressIngredients[indexOfIngredient].includes('done'));
+  }, []);
+
+  useEffect(() => {
+    // VERIFICA SE CHECKED SETA A CLASS;
+    setDoneClass(isChecked);
+  }, [isChecked]);
+
+  const handleCheckIngredient = ({ target }) => {
+    const doneItem = isChecked ? ingredient : `${ingredient} done`;
+    makeNewIngredientsArray(inProgressIngredients, ingredient, doneItem);
+    setIsChecked(!isChecked);
+  };
+
   return (
-    <li
-      id={ ingredient[1] }
-      key={ ingredient }
-      data-testid={ `${index}-ingredient-step` }
-    >
+    <li>
       <input
+        id="InputCheckbox"
         type="checkbox"
-        onClick={ (event) => handleToggleDoneIngredient(event) }
+        checked={ isChecked }
+        onClick={ (event) => handleCheckIngredient(event) }
       />
-      {`${ingredientsArr[index][1]}  
-        ${ingredientsQuantityArr[index]
-      ? `- ${ingredientsQuantityArr[index][1]}` : ''}`}
+      <span className={ scratched }>
+        { ingredient }
+      </span>
     </li>
   );
 }
 
-export default components;
+export default IngredientInput;

@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import RecipesProvider from './context/RecipesProvider';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
+import ReceitasEmProgresso from './pages/ReceitasEmProgresso';
 import Detalhes from './pages/Detalhes';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
@@ -56,9 +57,9 @@ function App() {
               component={ ExplorarPorOrigem }
             />
             <Route exact path="/comidas/:id" component={ Detalhes } />
-            <Route exact path="/comidas/:id/in-progress" />
             <Route exact path="/bebidas/:id" component={ Detalhes } />
-            <Route exact path="/bebidas/:id/in-progress" />
+            <Route exact path="/comidas/:id/in-progress" component={ ReceitasEmProgresso } />
+            <Route exact path="/bebidas/:id/in-progress" component={ ReceitasEmProgresso } />
             <Route
               path="*"
               component={ NotFound }
