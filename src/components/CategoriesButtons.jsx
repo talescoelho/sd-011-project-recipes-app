@@ -36,7 +36,7 @@ export default function CategoriesButtons({ type }) {
   }, [type]);
 
   return (
-    <div>
+    <>
       <button
         data-testid="All-category-filter"
         type="button"
@@ -59,7 +59,7 @@ export default function CategoriesButtons({ type }) {
           </button>
         ))
       }
-    </div>
+    </>
   );
 }
 
