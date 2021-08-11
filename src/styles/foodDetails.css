@@ -2,10 +2,12 @@
   background-color: #EEEEEE;
 }
 
-.b-radius {
-  border-radius: 2%;
+.bg-title {
+  background-color: #ffc700;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 
-.btn-m {
-  margin-left: 8rem;
+.b-radius {
+  border-radius: 2%;
 }

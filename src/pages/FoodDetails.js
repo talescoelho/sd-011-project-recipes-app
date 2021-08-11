@@ -67,8 +67,11 @@ const FoodDetails = ({ match }) => {
         alt={ `${strMeal}` }
         data-testid="recipe-photo"
       />
-      <div className="d-flex a-i-center j-c-spBetween ml-1">
-        <h1 data-testid="recipe-title">{ strMeal }</h1>
+      <div className="d-flex a-i-center j-c-spBetween b-shadow p-1 bg-title">
+        <div>
+          <h1 data-testid="recipe-title" className="m-0">{ strMeal }</h1>
+          <p data-testid="recipe-category" className="p-0">{ `- ${strCategory}` }</p>
+        </div>
         <div className="d-flex">
           { messageClipboard ? <p>{messageClipboard}</p> : (
             <button
@@ -83,7 +86,6 @@ const FoodDetails = ({ match }) => {
               />
             </button>
           )}
-
           <button
             type="button"
             onClick={ () => handleClickFavoriteRecipe(id, meal,
@@ -96,9 +98,8 @@ const FoodDetails = ({ match }) => {
           </button>
         </div>
       </div>
-      <p data-testid="recipe-category" className="ml-1">{ `- ${strCategory}` }</p>
-      <span className="fh-4 ml-1">
-        Ingredients
+      <span className="fh-4 m-1">
+        Ingredients:
       </span>
       <ul className="bg-gray m-1 b-shadow b-radius">
         { ingredients.map(([, value], index) => (
@@ -110,29 +111,36 @@ const FoodDetails = ({ match }) => {
           </li>
         ))}
       </ul>
-      <span className="fh-4 ml-1">Instructions</span>
+      <span className="fh-4 ml-1">Instructions:</span>
       <p
         data-testid="instructions"
         className="bg-gray m-1 p-1 b-shadow b-radius"
       >
         { strInstructions }
       </p>
-      <iframe data-testid="video" className="ml-1" src={ urlVideo } title="description" />
-      <span className="fh-4 ml-1">Recommended</span>
+      <iframe
+        data-testid="video"
+        className="m-1 b-shadow"
+        src={ urlVideo }
+        title="description"
+      />
+      <span className="fh-4 ml-1">Recommended:</span>
       <RecomendationCard arrayOfRecomendations={ drinksData } />
-      {
-        buttonShoulBeVisible && (
-          <Link to={ `/comidas/${id}/in-progress` }>
-            <button
-              className="start-btn btn btn-m"
-              data-testid="start-recipe-btn"
-              type="button"
-            >
-              { handleContinueButton(id, 'meals')
-                ? 'Continuar Receita' : 'Iniciar Receita' }
-            </button>
-          </Link>)
-      }
+      <div className="fixed">
+        {
+          buttonShoulBeVisible && (
+            <Link to={ `/comidas/${id}/in-progress` }>
+              <button
+                className="start-btn btn"
+                data-testid="start-recipe-btn"
+                type="button"
+              >
+                { handleContinueButton(id, 'meals')
+                  ? 'Continuar Receita' : 'Iniciar Receita' }
+              </button>
+            </Link>)
+        }
+      </div>
     </div>
   );
 };

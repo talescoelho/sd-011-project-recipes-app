@@ -1,0 +1,16 @@
+.b-profile {
+  height: 12.5rem;
+  margin: 7rem 2rem;
+}
+
+.profile-title {
+  color: #3a3a3a;
+}
+
+.profile-btn {
+  background-color: #f67e0c;
+  border: none;
+  border-radius: 15rem;
+  color: white;
+  font-style: italic;
+}

@@ -73,50 +73,67 @@ function RecipeInProgress({
     }
 
     return (
-      <div key={ index } className="body-b">
+      <div key={ index } className="d-flex f-d-column">
         <img
           src={ recipeType[`str${newType}Thumb`] }
           alt={ recipeType[`str${newType}`] }
           data-testid="recipe-photo"
           className="w-100"
         />
-        <div className="d-flex a-i-center j-c-spBetween ml-1">
-          <h1 data-testid="recipe-title">{recipeType[`str${newType}`]}</h1>
-          {copied ? <p>Link copiado!</p> : (
-            <button
-              type="button"
-              data-testid="share-btn"
-              onClick={ copyLink }
-              src={ shareIcon }
-              className="btn-icon"
+        <div className="d-flex a-i-center j-c-spBetween b-shadow p-1 bg-title">
+          <div>
+            <h1
+              data-testid="recipe-title"
+              className="m-0"
             >
-              <img src={ shareIcon } alt="compartilhar" />
-            </button>
-          )}
-          { isFavorite ? (
-            <button
-              type="button"
-              data-testid="favorite-btn"
-              onClick={ () => handleClickFavoriteRecipe(urlId,
-                recipeType, setIsFavorite, isFavorite) }
-              src={ blackHeartIcon }
-              className="favorite btn-icon"
+              {recipeType[`str${newType}`]}
+            </h1>
+            <p
+              data-testid="recipe-category"
+              className="m-0"
             >
-              <img src={ blackHeartIcon } alt="" />
-            </button>)
-            : (
+              {`- ${recipeType.strCategory}`}
+            </p>
+          </div>
+          <div className="d-flex">
+            {copied ? <p>Link copiado!</p> : (
+              <button
+                type="button"
+                data-testid="share-btn"
+                onClick={ copyLink }
+                src={ shareIcon }
+                className="btn-icon"
+              >
+                <img src={ shareIcon } alt="compartilhar" />
+              </button>
+            )}
+            { isFavorite ? (
               <button
                 type="button"
                 data-testid="favorite-btn"
                 onClick={ () => handleClickFavoriteRecipe(urlId,
                   recipeType, setIsFavorite, isFavorite) }
-                src={ whiteHeartIcon }
+                src={ blackHeartIcon }
                 className="favorite btn-icon"
               >
-                <img src={ whiteHeartIcon } alt="" />
-              </button>) }
+                <img src={ blackHeartIcon } alt="" />
+              </button>)
+              : (
+                <button
+                  type="button"
+                  data-testid="favorite-btn"
+                  onClick={ () => handleClickFavoriteRecipe(urlId,
+                    recipeType, setIsFavorite, isFavorite) }
+                  src={ whiteHeartIcon }
+                  className="favorite btn-icon"
+                >
+                  <img src={ whiteHeartIcon } alt="" />
+                </button>) }
+          </div>
         </div>
-        <p data-testid="recipe-category" className="ml-1">{recipeType.strCategory}</p>
+        <span className="fh-4 m-1">
+          Ingredients:
+        </span>
         <ul className="bg-gray m-1 b-shadow b-radius">
           {ingredients.map((n, i) => (
             arrayCheckedIngredients.includes(n) ? (
@@ -151,6 +168,7 @@ function RecipeInProgress({
               </li>)
           ))}
         </ul>
+        <span className="fh-4 ml-1">Instructions:</span>
         <p
           data-testid="instructions"
           className="bg-gray m-1 p-1 b-shadow b-radius"
@@ -159,6 +177,7 @@ function RecipeInProgress({
         </p>
         <Link to="/receitas-feitas">
           <button
+            className="btn w-100"
             type="button"
             data-testid="finish-recipe-btn"
             id="finish-btn"

@@ -1,44 +1,56 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import FooterMenu from '../components/FooterMenu';
+import chef from '../images/chefLaranja.png';
+import '../styles/profile.css';
 
 export default function ProfilePage() {
   document.title = 'Perfil';
+  const history = useHistory();
   function getItem() {
-    return localStorage.getItem('user');
+    const getUser = JSON.parse(localStorage.getItem('user'));
+    return getUser.email;
+  }
+
+  function handleClickLS() {
+    localStorage.clear();
+    history.push('/');
   }
 
   return (
     <div className="body-b">
       <Header />
-      <p data-testid="profile-email">{getItem()}</p>
-      <Link
-        to="/receitas-feitas"
-      >
-        <button data-testid="profile-done-btn" type="button">Receitas Feitas</button>
-      </Link>
-      <Link
-        to="/receitas-favoritas"
-      >
+      <div className="b-profile d-flex f-d-column j-c-spAround  text-center">
+        <div>
+          <img src={ chef } alt="logo de chef de cozinha" />
+        </div>
+        <h2 data-testid="profile-email" className="profile-title">{getItem()}</h2>
+        <button
+          data-testid="profile-done-btn"
+          type="button"
+          className="m-1 btn fh-3 profile-btn"
+          onClick={ () => history.push('/receitas-feitas') }
+        >
+          Receitas Feitas
+        </button>
         <button
           data-testid="profile-favorite-btn"
           type="button"
+          className="m-1 btn fh-3 profile-btn"
+          onClick={ () => history.push('receitas-favoritas') }
         >
           Receitas Favoritas
         </button>
-      </Link>
-      <Link
-        to="/"
-      >
         <button
           data-testid="profile-logout-btn"
-          onClick={ () => localStorage.clear() }
+          onClick={ () => handleClickLS() }
           type="button"
+          className="m-1 btn fh-3 profile-btn"
         >
           Sair
         </button>
-      </Link>
+      </div>
       <FooterMenu />
     </div>
   );
