@@ -22,23 +22,6 @@ function App() {
   return (
     <div className="meals">
       <Switch>
-        <Route
-          path="/comidas/:id"
-          render={ (props) => <ReceitaComidaPage { ...props } /> }
-        />
-        <Route
-          path="/bebidas/:id"
-          render={ (props) => <ReceitaBebidaPage { ...props } /> }
-        />
-        <Route
-          path="/comidas/:id/in-progress"
-          render={ () => <ProcessoComidaPage /> }
-        />
-        <Route
-          path="/bebidas/:id/in-progress"
-          render={ () => <ProcessoBebidaPage /> }
-        />
-        <Route exact path="/" render={ () => <Login /> } />
         <Route exact path="/" render={ () => <Login /> } />
         <Route
           path="/comidas/:id/in-progress"
@@ -48,8 +31,14 @@ function App() {
           path="/bebidas/:id/in-progress"
           render={ (props) => <ProcessoBebidaPage { ...props } /> }
         />
-        <Route path="/comidas/:id" render={ () => <ReceitaComidaPage /> } />
-        <Route path="/bebidas/:id" render={ () => <ReceitaBebidaPage /> } />
+        <Route
+          path="/comidas/:id"
+          render={ (props) => <ReceitaComidaPage { ...props } /> }
+        />
+        <Route
+          path="/bebidas/:id"
+          render={ (props) => <ReceitaBebidaPage { ...props } /> }
+        />
         <Route exact path="/comidas" render={ () => <ComidaPage /> } />
         <Route exact path="/bebidas" render={ () => <BebidaPage /> } />
         <Route exact path="/explorar" render={ () => <Explorar /> } />
