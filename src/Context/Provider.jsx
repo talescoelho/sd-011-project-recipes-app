@@ -21,6 +21,8 @@ const Provider = ({ children }) => {
   const [dataFoods, setDataFoods] = useState([]);
   const [foodsByCategory, setFoodsByCategory] = useState([]);
   const [drinksByCategory, setDrinksByCategory] = useState([]);
+  const [foodRecipeDones, setFoodRecipeDones] = useState([]);
+  const [drinkRecipeDones, setDrinkRecipeDones] = useState([]);
   const [limit] = useState([number]);
 
   async function fetchFood() {
@@ -93,6 +95,10 @@ const Provider = ({ children }) => {
     setFoodsByCategory,
     drinksByCategory,
     setDrinksByCategory,
+    foodRecipeDones,
+    setFoodRecipeDones,
+    drinkRecipeDones,
+    setDrinkRecipeDones,
   };
 
   return (

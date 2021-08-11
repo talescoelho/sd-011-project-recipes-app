@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getFoodsByID } from '../Services/ApiFood';
+import MainContext from '../Context/MainContext';
 
 function FoodProgress(props) {
   const [foodById, setFoodById] = useState([]);
@@ -9,6 +10,7 @@ function FoodProgress(props) {
   const [button, setButton] = useState(false);
   const { match } = props;
   const { id } = match.params;
+  const { foodRecipeDones, setFoodRecipeDones } = useContext(MainContext);
 
   async function fetchFoodsByID() {
     const foodByIdAPI = await getFoodsByID(id);
@@ -97,6 +99,24 @@ function FoodProgress(props) {
     storageCheckeds(value);
   }
 
+  // Para pegar a data utilizamos como base o código desse link:
+  // https://pt.stackoverflow.com/questions/6526/como-formatar-data-no-javascript
+  function handleCLick() {
+    function dataAtualFormatada() {
+      const data = new Date();
+      const dia = data.getDate().toString();
+      const diaF = (dia.length === 1) ? `0${dia}` : dia;
+      const mes = (data.getMonth() + 1).toString();
+      const mesF = (mes.length === 1) ? `0${mes}` : mes;
+      const anoF = data.getFullYear();
+      return `${diaF}/${mesF}/${anoF}`;
+    }
+    const now = dataAtualFormatada();
+    setFoodById(foodById[0].dateModified = now);
+    setFoodRecipeDones(...foodRecipeDones, foodById);
+    localStorage.setItem('doneRecipes', JSON.stringify(foodRecipeDones));
+  }
+
   return (
     <div>
       { foodById.map((item, index) => (
@@ -146,6 +166,7 @@ function FoodProgress(props) {
             type="button"
             data-testid="finish-recipe-btn"
             disabled={ !button }
+            onClick={ () => handleCLick() }
           >
             Finish
           </button>

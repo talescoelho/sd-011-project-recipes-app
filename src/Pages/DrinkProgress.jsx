@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getDrinkByID } from '../Services/ApiDrink';
+import MainContext from '../Context/MainContext';
 
 function DrinkProgress(props) {
   const [drinkById, setDrinkById] = useState([]);
@@ -9,6 +10,7 @@ function DrinkProgress(props) {
   const [button, setButton] = useState(false);
   const { match } = props;
   const { id } = match.params;
+  const { drinkRecipeDones, setDrinkRecipeDones } = useContext(MainContext);
 
   async function fetchDrinkByID() {
     const drinkByIdAPI = await getDrinkByID(id);
@@ -99,28 +101,22 @@ function DrinkProgress(props) {
     storageCheckeds(value);
   }
 
-  function readChecks() {
-    const local = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (local) {
-      const inputs = document.querySelectorAll('input[type=\'checkbox\']');
-      console.log('sou input', inputs.length);
-      const localSaves = JSON.parse(localStorage.getItem('inProgressRecipes'))
-        .cocktails[id];
-      console.log('sou localsaves', localSaves);
-      for (let index = 0; index < inputs.length; index += 1) {
-        for (let i = 0; i < localSaves.length; i += 1) {
-          if (inputs[index].name.includes(localSaves[i])) {
-            console.log('estou aqui for', inputs[index]);
-            return inputs[index].checked === true;
-          }
-        }
-      }
+  // Para pegar a data utilizamos como base o código desse link:
+  // https://pt.stackoverflow.com/questions/6526/como-formatar-data-no-javascript
+  function handleCLick() {
+    function dataAtualFormatada() {
+      const data = new Date();
+      const dia = data.getDate().toString();
+      const diaF = (dia.length === 1) ? `0${dia}` : dia;
+      const mes = (data.getMonth() + 1).toString();
+      const mesF = (mes.length === 1) ? `0${mes}` : mes;
+      const anoF = data.getFullYear();
+      return `${diaF}/${mesF}/${anoF}`;
     }
+    const now = dataAtualFormatada();
+    setDrinkById(drinkById[0].dateModified = now);
+    localStorage.setItem('doneRecipes', JSON.stringify(drinkById));
   }
-
-  useEffect(() => {
-    readChecks();
-  }, [() => readChecks]);
 
   return (
     <div>
@@ -171,6 +167,7 @@ function DrinkProgress(props) {
             type="button"
             data-testid="finish-recipe-btn"
             disabled={ !button }
+            onClick={ () => handleCLick() }
           >
             Finish
           </button>
