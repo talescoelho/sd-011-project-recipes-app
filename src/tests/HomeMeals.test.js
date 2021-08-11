@@ -1,6 +1,7 @@
 // HomeMeals.test.js
 import React from 'react';
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import HomeRecipe from '../pages/HomeRecipe';
 import { renderWithRouterAndRedux } from './renderWithRouterAndRedux';
 import mockMeals from '../../cypress/mocks/meals';
@@ -19,11 +20,11 @@ const INITIAL_STATE = {
 describe('Testes para página de HomeComidas', () => {
   it('Verifica se há os itens procurados', async () => {
     jest.spyOn(global, 'fetch');
-    fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockCategories),
-    });
-    fetch.mockResolvedValue({
+    fetch.mockResolvedValueOnce({
       json: jest.fn().mockResolvedValue(mockMeals),
+    });
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockCategories),
     });
     const { findByText, findByTestId, store } = renderWithRouterAndRedux(
       <HomeRecipe location={ { state: '' } } />,
@@ -59,6 +60,37 @@ describe('Testes para página de HomeComidas', () => {
     userEvent.click(findRecipeBtn);
     const categorie = await findByTestId('All-category-filter');
     userEvent.click(categorie);
+  });
+  it('Verifica se há os itens procurados', async () => {
+    jest.spyOn(global, 'fetch');
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockMeals),
+    });
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockCategories),
+    });
+    const { findByText } = renderWithRouterAndRedux(
+      <HomeRecipe location={ { state: '' } } />,
+      { route: '/comidas' }, INITIAL_STATE,
+    );
+    const Beef = await findByText(/Beef/i);
+    expect(Beef).toBeInTheDocument();
+    userEvent.click(Beef);
+    const Breakfast = await findByText(/Breakfast/i);
+    expect(Breakfast).toBeInTheDocument();
+    userEvent.click(Breakfast);
+    const Chicken = await findByText(/Chicken/i);
+    expect(Chicken).toBeInTheDocument();
+    userEvent.click(Chicken);
+    const Dessert = await findByText(/Dessert/i);
+    expect(Dessert).toBeInTheDocument();
+    userEvent.click(Dessert);
+    const Goat = await findByText(/Goat/i);
+    expect(Goat).toBeInTheDocument();
+    userEvent.click(Goat);
+    const All = await findByText(/All/i);
+    expect(All).toBeInTheDocument();
+    userEvent.click(All);
   });
 });
 

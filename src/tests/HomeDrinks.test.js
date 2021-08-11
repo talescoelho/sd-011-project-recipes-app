@@ -20,11 +20,11 @@ const INITIAL_STATE = {
 describe('Testes para página de HomeComidas', () => {
   it('Verifica se há os itens procurados', async () => {
     jest.spyOn(global, 'fetch');
-    fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockCategories),
-    });
-    fetch.mockResolvedValue({
+    fetch.mockResolvedValueOnce({
       json: jest.fn().mockResolvedValue(mockDrinks),
+    });
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockCategories),
     });
     const { findByText, findByTestId, store } = renderWithRouterAndRedux(
       <HomeDrinks location={ { state: '' } } />,
@@ -61,6 +61,37 @@ describe('Testes para página de HomeComidas', () => {
     expect(store.getState()).not.toEqual(myStore);
     const categorie = await findByTestId('All-category-filter');
     userEvent.click(categorie);
+  });
+  it('Verifica se há os itens procurados', async () => {
+    jest.spyOn(global, 'fetch');
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockDrinks),
+    });
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockCategories),
+    });
+    const { findByText } = renderWithRouterAndRedux(
+      <HomeDrinks location={ { state: '' } } />,
+      { route: '/bebidas' }, INITIAL_STATE,
+    );
+    const Ordinary = await findByText(/Ordinary Drink/i);
+    expect(Ordinary).toBeInTheDocument();
+    userEvent.click(Ordinary);
+    const Cocktail = await findByText(/Cocktail/i);
+    expect(Cocktail).toBeInTheDocument();
+    userEvent.click(Cocktail);
+    const Milk = await findByText(/Milk/i);
+    expect(Milk).toBeInTheDocument();
+    userEvent.click(Milk);
+    const Other = await findByText(/Other/i);
+    expect(Other).toBeInTheDocument();
+    userEvent.click(Other);
+    const Cocoa = await findByText(/Cocoa/i);
+    expect(Cocoa).toBeInTheDocument();
+    userEvent.click(Cocoa);
+    const All = await findByText(/All/i);
+    expect(All).toBeInTheDocument();
+    userEvent.click(All);
   });
 });
 

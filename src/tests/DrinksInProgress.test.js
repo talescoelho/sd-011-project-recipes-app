@@ -1,4 +1,5 @@
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 import DrinksInProgress from '../pages/DrinksInProgress';
 import { renderWithRouterAndRedux } from './renderWithRouterAndRedux';
 import mockDrink from '../../cypress/mocks/oneDrink';
@@ -19,7 +20,7 @@ describe('Testes para página de Bebidas em Progresso', () => {
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(mockDrink),
     });
-    const { findByText, findByTestId } = renderWithRouterAndRedux(
+    const { findByText, findByTestId, getAllByRole } = renderWithRouterAndRedux(
       <DrinksInProgress
         match={ { params: { id: '178319' }, url: '/bebidas/178319/in-progress' } }
       />,
@@ -29,6 +30,17 @@ describe('Testes para página de Bebidas em Progresso', () => {
     const title = await findByTestId('recipe-title');
     expect(type).toBeInTheDocument();
     expect(title).toBeInTheDocument();
+    const finishBtn = await findByTestId('finish-recipe-btn');
+    expect(finishBtn).toHaveAttribute('disabled');
+    const localStorageInProgress = JSON.parse(localStorage.inProgressRecipes);
+    expect(localStorageInProgress.cocktails['178319'][0].check).toEqual(false);
+    const allCheckBox = getAllByRole('checkbox');
+    allCheckBox.forEach((checkbox) => {
+      userEvent.click(checkbox);
+    });
+    const newlocalStorageInProgress = JSON.parse(localStorage.inProgressRecipes);
+    expect(newlocalStorageInProgress.cocktails['178319'][0].check).toEqual(true);
+    userEvent.click(finishBtn);
   });
 });
 
