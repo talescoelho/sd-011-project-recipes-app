@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import FoodOrDrinkFilter from './Components/FoodOrDrinkFilter';
-import SecondFavoriteButton from './Components/Secondary/SecondFavoriteButton';
 import SecondShareButton from './Components/Secondary/SecondShareButton';
 
 function RecipesMade() {
   const [filter, setFilter] = React.useState('all');
-  // const [update, setUpdate] = React.useState(false);
-
+  const [filtereds, setFiltereds] = useState([]);
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+
+  useEffect(() => {
+    if (filter === 'drinks') {
+      setFiltereds(doneRecipes.filter((item) => item.type === 'bebida'));
+    }
+    if (filter === 'foods') {
+      setFiltereds(doneRecipes.filter((item) => item.type === 'comida'));
+    }
+    if (filter === 'all') {
+      setFiltereds(doneRecipes);
+    }
+  }, [filter]);
+
   // const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
   return (
@@ -23,19 +34,18 @@ function RecipesMade() {
         />
       </section>
       <FoodOrDrinkFilter setFilter={ setFilter } />
-      {doneRecipes && doneRecipes.map(({
+      {filtereds.map(({
         id,
         image,
         name,
         area,
         alcoholicOrNot,
         category,
-        date,
+        doneDate,
         type,
         tags },
       index) => (
         <div key={ `${name}-${id}` }>
-          {console.log(tags)}
           <Link to={ `/${type}s/${id}` }>
             <img
               src={ image }
@@ -52,17 +62,9 @@ function RecipesMade() {
               <p data-testid={ `${index}-horizontal-name` }>{name}</p>
             </Link>
             <p data-testid={ `${index}-horizontal-done-date` }>
-              {date}
+              {doneDate}
             </p>
-            { tags.split(',').map((data) => <p key={ index } data-testid={ `${index}-${data}-horizontal-tag` }>{data}</p>)}
-            {/* <SecondFavoriteButton
-              itemId={ id }
-              type={ type }
-              testId={ `${index}-horizontal-favorite-btn`, }
-              currentItem={ favoriteRecipes[index] }
-              setUpdate={ setUpdate }
-              update={ update }
-            /> */}
+            { tags.map((data) => <p key={ index } data-testid={ `${index}-${data}-horizontal-tag` }>{data}</p>)}
             <SecondShareButton
               itemId={ id }
               type={ type }

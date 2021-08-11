@@ -1,10 +1,13 @@
 export default function setDoneRecipes(id, item, type) {
+  console.log(item.strTags);
   let newObject;
+  let tagsUseds = [];
   if (type === 'foods') {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     delete inProgressRecipes.meals[id];
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
 
+    if (item.strTags) tagsUseds = item.strTags.split(',');
     newObject = {
       id: item.idMeal,
       type: 'comida',
@@ -13,8 +16,8 @@ export default function setDoneRecipes(id, item, type) {
       alcoholicOrNot: '',
       name: item.strMeal,
       image: item.strMealThumb,
-      doneDate: `${new Date().toLocaleString()}`,
-      tags: item.strTags,
+      doneDate: `${new Date().toLocaleString().split(',')[0]}`,
+      tags: tagsUseds,
     };
   }
 
@@ -22,6 +25,7 @@ export default function setDoneRecipes(id, item, type) {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     delete inProgressRecipes.cocktails[id];
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    if (item.strTags) tagsUseds = item.strTags.split(',');
 
     newObject = {
       id: item.idDrink,
@@ -31,13 +35,13 @@ export default function setDoneRecipes(id, item, type) {
       alcoholicOrNot: item.strAlcoholic,
       name: item.strDrink,
       image: item.strDrinkThumb,
-      doneDate: `${new Date().toLocaleString()}`,
-      tags: item.strTags,
+      doneDate: `${new Date().toLocaleString().split(',')[0]}`,
+      tags: tagsUseds,
     };
   }
 
   const currentDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  console.log(currentDoneRecipes);
+
   currentDoneRecipes.push(newObject);
   localStorage.setItem('doneRecipes', JSON.stringify(currentDoneRecipes));
 }
