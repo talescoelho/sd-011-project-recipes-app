@@ -30,10 +30,9 @@ function FoodsSearchBar() {
       if (meals === null) return alert(alertMsg);
       if (meals.length === 1) return history.push(`/comidas/${meals[0].idMeal}`);
       setFoodList(meals);
-    } catch(err) {
+    } catch (err) {
       return alert(alertMsg);
     }
-
   };
 
   return (

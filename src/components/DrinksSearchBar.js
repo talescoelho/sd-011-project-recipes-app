@@ -33,7 +33,6 @@ function DrinksSearchBar() {
     } catch (err) {
       return alert(alertMsg);
     }
-
   };
 
   return (
