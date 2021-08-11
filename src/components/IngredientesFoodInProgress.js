@@ -1,8 +1,49 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import '../Footer.css';
 
 class IngredientesFoodInProgress extends Component {
+  constructor() {
+    super();
+    this.state = {
+      ingredientsArrayList: [],
+    }
+  this.handleOnchange = this.handleOnchange.bind(this);
+  this.saveInLocalStorage = this.saveInLocalStorage.bind(this);
+}
+
+componentDidUpdate() {
+  this.saveInLocalStorage();
+}
+
+  handleOnchange({ target }) {
+    const { checked, value } = target;
+    if(checked) {
+      this.setState((previousState)=> ({
+        ingredientsArrayList: [...previousState.ingredientsArrayList, Number(value)],
+      }));
+    } else {
+      this.setState((previousState)=> ({
+        ingredientsArrayList: previousState.ingredientsArrayList
+        .filter((box) => box !== Number(value)),
+      }));
+    }
+  };
+
+  saveInLocalStorage() {
+    const { foodDetails } = this.props;
+    const { ingredientsArrayList } = this.state;
+    let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+   if(!inProgressRecipes) {
+    inProgressRecipes = {
+      cocktails: {}, 
+      meals: {},
+   }
+    }
+  inProgressRecipes.meals[foodDetails.idMeal] = ingredientsArrayList;
+  localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  };
 
   render() {
     const { foodDetails } = this.props;
@@ -20,9 +61,11 @@ class IngredientesFoodInProgress extends Component {
         { ingredients
             .map((item, index) => (item
               ? (
-                <label htmlFor={`${index}-check-ingredients`}>
-                  <input 
-                    id={`${index}-check-ingredients`}
+                <label htmlFor={ `${index}-check-ingredients` }>
+                  <input
+                    onChange={ this.handleOnchange }
+                    value={ index } 
+                    id={ `${index}-check-ingredients` }
                     type="checkbox"
                     data-testid={ `${index}-ingredient-step` }
                     key={ index }

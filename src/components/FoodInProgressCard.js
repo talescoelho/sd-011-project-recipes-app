@@ -3,6 +3,7 @@ import ShareButton from './ShareButton';
 import FavoriteButton from './FavoriteButton';
 import { connect } from 'react-redux';
 import IngredientesFoodInProgress from './IngredientesFoodInProgress';
+import { Link } from 'react-router-dom';
 
 class FoodInProgressCard extends Component {
   render() {
@@ -20,7 +21,14 @@ class FoodInProgressCard extends Component {
         <FavoriteButton test="favorite-btn" id={ foodDetails.idMeal }/>
         <IngredientesFoodInProgress/>
         <p data-testid="instructions">{ foodDetails.strInstructions }</p>
-        <button type="button" data-testid="finish-recipe-btn"> Finalizar Receita</button>
+        <Link to="/receitas-feitas">
+        <button 
+        type="button" 
+        data-testid="finish-recipe-btn" 
+        disabled={ true }
+        > Finalizar Receita
+        </button>
+        </Link>
       </div >
     )
   }
