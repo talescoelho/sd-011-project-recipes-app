@@ -1,19 +1,20 @@
-import React, { useEffect, useContext } from 'react';
-import { useLocation, NavLink } from 'react-router-dom';
-import copy from 'clipboard-copy';
+import React, { useEffect, useContext, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import MainContext from '../../Context/MainContext';
 import IngredientsFoods from '../../Components/IngredientsFoods';
-import { getDrinksInitial, copyLink } from '../../Services/ApiDrink';
+import { getDrinksInitial } from '../../Services/ApiDrink';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import './scroll.css';
+import ItemsFoodDetails from '../../Components/ItemsFoodDetails';
 
-function DetailsRecipesFoods() {
-  const location = useLocation();
-  const { idFoods, setIdFoods, idFoodsAPI, setIdFoodsAPI,
-    newDataDrinks, setNewDataDrinks, setDoneRecipes, show,
-    setStartButton, count, isFavorite, setIsFavorite,
-    setShow /* , setCount /* , selected */ } = useContext(MainContext);
+function DetailsRecipesFoods({ match: { params: { id } } }) {
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const { idFoodsAPI, setIdFoodsAPI,
+    newDataDrinks, setNewDataDrinks, setStartButton,
+    count } = useContext(MainContext);
 
   async function fetchDrinksInitial() {
     const drinksInitialAPI = await getDrinksInitial();
@@ -26,85 +27,67 @@ function DetailsRecipesFoods() {
   console.log(newDataDrinks);
 
   useEffect(() => {
-    const URL = location.pathname;
-    const id = URL.replace('/comidas/', '');
-    setIdFoods(id);
-  }, [location, setIdFoods]);
-
-  useEffect(() => {
     const getAPIById = async () => {
-      const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idFoods}`;
+      const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
       const { meals } = await fetch(endpoint).then((data) => data.json());
       setIdFoodsAPI(meals[0]);
     };
     getAPIById();
-  }, [idFoods, setIdFoodsAPI]);
+  }, [id, setIdFoodsAPI]);
 
-  const getYoutubeUrl = ({ strYoutube }) => {
-    if (strYoutube) {
-      const youtubeVideoId = strYoutube.split('?v=', 2)[1];
-      const iframeLink = `https://www.youtube.com/embed/${youtubeVideoId}`;
-      return iframeLink;
-    }
-  };
   // ! Limita a quantidade de recomendação
-  const magicNumber = 6;
-  // * ===================================================================================
-  setDoneRecipes(JSON.stringify([{
-    id: idFoodsAPI.idMeal,
-    type: 'comida',
-    area: idFoodsAPI.strArea,
-    category: idFoodsAPI.strCategory,
-    alcoholicOrNot: '',
-    name: idFoodsAPI.strMeal,
-    image: idFoodsAPI.strMealThumb,
-    doneDate: idFoodsAPI.dateModified,
-    tags: idFoodsAPI.strTags,
-  }]));
-  // # ======================será?????======================================================================================
-  // const [doneRecipesNew, setDoneRecipesNew] = useState([]);
-  // setDoneRecipesNew(...doneRecipesNew, JSON.parse(localStorage.getItem('doneRecipes')));
-  // useEffect(() => {
-  //   if (doneRecipesNew[0].id === idFoods) {
-  //     setCount(true);
-  //   }
-  // }, [doneRecipesNew, idFoods, setCount]);
 
-  const handleFavorite = () => {
-    if (isFavorite) {
-      localStorage.setItem('isFavorited', JSON.stringify(false));
-      const favorite = Boolean(localStorage.getItem('isFavorited'));
-      setIsFavorite(favorite);
-    }
-    if (!isFavorite) {
-      localStorage.setItem('isFavorited', JSON.stringify(true));
-      const favorite = Boolean(localStorage.getItem('isFavorited'));
-      setIsFavorite(favorite);
-    }
+  const isFavoriteInLocal = () => {
+    const infoInLocal = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    setIsFavorite(infoInLocal.some((item) => item.id === id));
+  };
+
+  useEffect(() => {
+    isFavoriteInLocal();
+  }, []);
+
+  useEffect(() => {
+    const handleFavorite = () => {
+      const infoItem = [{
+        id: idFoodsAPI.idMeal,
+        type: 'comida',
+        area: idFoodsAPI.strArea,
+        category: idFoodsAPI.strCategory,
+        alcoholicOrNot: '',
+        name: idFoodsAPI.strMeal,
+        image: idFoodsAPI.strMealThumb,
+      }];
+      const infoInLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (isFavorite) {
+        if (infoInLocal) {
+          const SomaDEArraysComOStorage = infoItem.concat(infoInLocal);
+          const verify = JSON.stringify(SomaDEArraysComOStorage);
+          return (idFoodsAPI
+            && localStorage.setItem('favoriteRecipes', verify));
+        }
+        const verify = JSON.stringify(infoItem);
+        return (idFoodsAPI
+          && localStorage.setItem('favoriteRecipes', verify));
+      }
+      if (infoInLocal) {
+        const newFavoriteRecipes = infoInLocal
+          .filter((item) => item.id !== id);
+        localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+      }
+    };
+    handleFavorite();
+  }, [isFavorite]);
+
+  const handleColoredHeart = () => {
+    setIsFavorite(!isFavorite);
   };
 
   return (
     <div>
-      <img
-        width="320"
-        src={ idFoodsAPI.strMealThumb }
-        alt={ `Comida selecionada: ${idFoodsAPI.strMeal}` }
-        data-testid="recipe-photo"
-      />
-      <h1 data-testid="recipe-title">
-        {idFoodsAPI.strMeal}
-      </h1>
+      <ItemsFoodDetails />
       <button
         type="button"
-        data-testid="share-btn"
-        onClick={ () => copyLink(copy, setShow, 'comidas', idFoods) }
-      >
-        Compartilhar
-      </button>
-      <p>{ show && 'Link copiado!'}</p>
-      <button
-        type="button"
-        onClick={ () => handleFavorite() }
+        onClick={ () => handleColoredHeart() }
       >
         <img
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
@@ -114,27 +97,17 @@ function DetailsRecipesFoods() {
       </button>
       <button
         type="button"
-        data-testid="favorite-btn"
-        onClick={ () => handleFavorite() }
+        // data-testid="favorite-btn"
+        onClick={ () => handleColoredHeart() }
       >
         Favoritar
       </button>
-      <p data-testid="recipe-category">
-        {idFoodsAPI.strCategory}
-      </p>
       <IngredientsFoods />
       <p data-testid="instructions">
         {idFoodsAPI.strInstructions}
       </p>
-      <iframe
-        data-testid="video"
-        width="280"
-        src={ getYoutubeUrl(idFoodsAPI) }
-        title="YouTube video player"
-        allowFullScreen
-      />
       {/* //!===========================Implementar=============================== */}
-      <ul className="scrollmenu">
+      {/* <ul className="scrollmenu">
         { newDataDrinks.map((drink, index) => index < magicNumber && (
           <li
             data-testid={ `${index}-recomendation-card` }
@@ -149,9 +122,9 @@ function DetailsRecipesFoods() {
             </p>
           </li>
         )) }
-      </ul>
+      </ul> */}
       {/* //!=======================Recomendation Cards============================ */}
-      <NavLink to={ `/comidas/${idFoods}/in-progress` }>
+      <NavLink to={ `/comidas/${id}/in-progress` }>
         <button
           type="button"
           data-testid="start-recipe-btn"
@@ -167,3 +140,11 @@ function DetailsRecipesFoods() {
 }
 
 export default DetailsRecipesFoods;
+
+DetailsRecipesFoods.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }),
+}.isRequired;

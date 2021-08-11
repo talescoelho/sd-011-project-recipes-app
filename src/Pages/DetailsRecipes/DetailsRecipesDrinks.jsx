@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useLocation, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import MainContext from '../../Context/MainContext';
 import IngredientsDrinks from '../../Components/IngredientsDrinks';
@@ -8,14 +9,11 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import './scroll.css';
 
-function DetailsRecipesFoods() {
-  const location = useLocation();
+function DetailsRecipesFoods({ match: { params: { id } } }) {
   const [isFavorite, setIsFavorite] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
-  const [favoriteRecipes] = useState([]);
 
-  const { idDrinks, setIdDrinks, idDrinksAPI, setIdDrinksAPI, newDataFoods,
-    /* setCount, */ setDoneRecipes, show, setShow,
+  const { idDrinksAPI, setIdDrinksAPI, newDataFoods,
+    show, setShow,
     setNewDataFoods, count, setStartButton } = useContext(MainContext);
 
   async function fetchFoodsInitial() {
@@ -29,42 +27,23 @@ function DetailsRecipesFoods() {
   console.log(newDataFoods);
 
   useEffect(() => {
-    const URL = location.pathname;
-    const id = URL.replace('/bebidas/', '');
-    setIdDrinks(id);
-  }, [location, setIdDrinks]);
-
-  useEffect(() => {
     const getAPIById = async () => {
-      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idDrinks}`;
+      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
       const { drinks } = await fetch(endpoint).then((data) => data.json());
       setIdDrinksAPI(drinks[0]);
     };
     getAPIById();
-  }, [idDrinks, setIdDrinksAPI]);
+  }, [id, setIdDrinksAPI]);
 
-  // ! Limita a quantidade de recomendação
-  const magicNumber = 6;
-  // * ===================================================================================
-  setDoneRecipes(JSON.stringify([{
-    id: idDrinksAPI.idDrink,
-    type: 'bebida',
-    area: '',
-    category: idDrinksAPI.strCategory,
-    alcoholicOrNot: idDrinksAPI.strAlcoholic,
-    name: idDrinksAPI.strDrink,
-    image: idDrinksAPI.strDrinkThumb,
-    doneDate: idDrinksAPI.dateModified,
-    tags: idDrinksAPI.strTags,
-  }]));
-  // # ===================================================================================
-  // const [doneRecipesNew, setDoneRecipesNew] = useState([]);
-  // setDoneRecipesNew(JSON.parse(localStorage.getItem('doneRecipes')));
-  // useEffect(() => {
-  //   if (doneRecipesNew[0].id === idDrinks) {
-  //     setCount(true);
-  //   }
-  // }, [doneRecipesNew, idDrinks, setCount]);
+  // ! =====================================================================================================================================
+  const isFavoriteInLocal = () => {
+    const infoInLocal = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    setIsFavorite(infoInLocal.some((item) => item.id === id));
+  };
+
+  useEffect(() => {
+    isFavoriteInLocal();
+  }, []);
 
   useEffect(() => {
     const handleFavorite = () => {
@@ -77,67 +56,30 @@ function DetailsRecipesFoods() {
         name: idDrinksAPI.strDrink,
         image: idDrinksAPI.strDrinkThumb,
       }];
+      const infoInLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
       if (isFavorite) {
-        const infoInLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
         if (infoInLocal) {
           const SomaDEArraysComOStorage = infoItem.concat(infoInLocal);
           const verify = JSON.stringify(SomaDEArraysComOStorage);
-          const ApiCoolDown = idDrinksAPI
-            && localStorage.setItem('favoriteRecipes', verify);
-          // setIsClicked(false);
-          return ApiCoolDown;
+          return (idDrinksAPI
+            && localStorage.setItem('favoriteRecipes', verify));
         }
-        if (!infoInLocal) {
-          const verify = JSON.stringify(infoItem);
-          const ApiCoolDown = idDrinksAPI
-            && localStorage.setItem('favoriteRecipes', verify);
-          // setIsClicked(false);
-          return ApiCoolDown;
-        }
-      } else {
-        const infoInLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
-        if (infoInLocal) {
-          const newFavoriteRecipes = infoInLocal
-            .filter((item) => item.id !== idDrinksAPI.idDrink);
-          localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
-        }
+        const verify = JSON.stringify(infoItem);
+        return (idDrinksAPI
+          && localStorage.setItem('favoriteRecipes', verify));
+      }
+      if (infoInLocal) {
+        const newFavoriteRecipes = infoInLocal
+          .filter((item) => item.id !== idDrinksAPI.idDrink);
+        localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
       }
     };
     handleFavorite();
   }, [isFavorite]);
-  // }, [favoriteRecipes, idDrinksAPI.idDrink, idDrinksAPI.strAlcoholic,
-  //   idDrinksAPI.strCategory, idDrinksAPI.strDrink,
-  //   idDrinksAPI.strDrinkThumb, isClicked, idDrinksAPI]);
 
-  // !altera ao clicar
-  // useEffect(() => {
-  //   const handleColoredHeart = () => {
-  //     const favoriteStorage = localStorage.getItem('favoriteRecipes');
-  //     if (isClicked && favoriteStorage && favoriteStorage.includes(idDrinks)) {
-  //       setIsFavorite(true);
-  //     }
-  //   };
-  //   handleColoredHeart();
-  // }, [idDrinks, setIsFavorite, isClicked]);
-
-  // !altera ao atualizar a pagina
   const handleColoredHeart = () => {
-    // console.log('01');
-    // const favoriteStorage = localStorage.getItem('favoriteRecipes');
-    // if (favoriteStorage && favoriteStorage.includes(idDrinks)) {
-    //   setIsFavorite(true);
-    //   console.log('02');
-    // }
     setIsFavorite(!isFavorite);
   };
-
-  useEffect(() => {
-    // handleColoredHeart();
-  }, []);
-
-  useEffect(() => {
-    console.log(isFavorite);
-  }, [isFavorite]);
 
   // ? pergunta que não quer calar, como "despreencher" o coração ? ;-;
 
@@ -158,7 +100,7 @@ function DetailsRecipesFoods() {
       <button
         type="button"
         data-testid="share-btn"
-        onClick={ () => copyLink(copy, setShow, 'bebidas', idDrinks) }
+        onClick={ () => copyLink(copy, setShow, 'bebidas', id) }
       >
         Compartilhar
       </button>
@@ -170,11 +112,11 @@ function DetailsRecipesFoods() {
         <img
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
           alt="favorite icon"
+          data-testid="favorite-btn"
         />
       </button>
       <button
         type="button"
-        data-testid="favorite-btn"
         onClick={ () => handleColoredHeart() }
       >
         Favoritar
@@ -184,7 +126,7 @@ function DetailsRecipesFoods() {
       </p>
       <IngredientsDrinks />
       {/* //!===========================Implementar=============================== */}
-      <ul className="scrollmenu">
+      {/* <ul className="scrollmenu">
         { newDataFoods.map((food, i) => i < magicNumber && (
           <li
             data-testid={ `${i}-recomendation-card` }
@@ -195,9 +137,19 @@ function DetailsRecipesFoods() {
             </p>
           </li>
         )) }
+      </ul> */}
+      <ul className="scrollmenu">
+        <li
+          data-testid={ `${0}-recomendation-card` }
+          key={ 0 }
+        >
+          <p data-testid={ `${0}-recomendation-title` }>
+            food.strMeal
+          </p>
+        </li>
       </ul>
       {/* //!=======================Recomendation Cards============================ */}
-      <NavLink to={ `/bebidas/${idDrinks}/in-progress` }>
+      <NavLink to={ `/bebidas/${id}/in-progress` }>
         <button
           type="button"
           data-testid="start-recipe-btn"
@@ -213,3 +165,11 @@ function DetailsRecipesFoods() {
 }
 
 export default DetailsRecipesFoods;
+
+DetailsRecipesFoods.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }),
+}.isRequired;

@@ -21,12 +21,12 @@ const MainRouter = () => (
     <Route
       exact
       path="/comidas/:id"
-      render={ () => <DetailsRecipesFoods /> }
+      render={ (props) => <DetailsRecipesFoods { ...props } /> }
     />
     <Route
       exact
       path="/bebidas/:id"
-      render={ () => <DetailsRecipesDrinks /> }
+      render={ (props) => <DetailsRecipesDrinks { ...props } /> }
     />
     <Route exact path="/comidas" render={ () => <Foods /> } />
     <Route exact path="/bebidas" render={ () => <Drinks /> } />
