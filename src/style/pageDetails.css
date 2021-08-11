@@ -2,7 +2,7 @@
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
-  width: 360px;
   overflow-x: scroll;
+  width: 360px;
 }
 
