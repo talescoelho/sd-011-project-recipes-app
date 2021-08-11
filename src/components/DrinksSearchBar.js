@@ -30,10 +30,9 @@ function DrinksSearchBar() {
       if (drinks === null) return alert(alertMsg);
       if (drinks.length === 1) return history.push(`/bebidas/${drinks[0].idDrink}`);
       setDrinksList(drinks);
-    } catch(err) {
+    } catch (err) {
       return alert(alertMsg);
     }
-    
   };
 
   return (
