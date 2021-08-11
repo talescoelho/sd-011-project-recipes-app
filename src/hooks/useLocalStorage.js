@@ -17,12 +17,19 @@ export default function useLocalStorage() {
     return [];
   };
 
-  const getInProgressRecipes = (type) => {
+  const getInProgressRecipes = () => {
     const inProgressRecipes = getFromStorage('inProgressRecipes');
-    if (inProgressRecipes && inProgressRecipes[type]) {
+    if (inProgressRecipes) {
+      return inProgressRecipes;
+    }
+    return {};
+  };
+
+  const getInProgressRecipeByType = (type) => {
+    const inProgressRecipes = getInProgressRecipes();
+    if (inProgressRecipes[type]) {
       return inProgressRecipes[type];
     }
-
     return {};
   };
 
@@ -46,13 +53,13 @@ export default function useLocalStorage() {
   };
 
   const addInProgressRecipes = (type, recipe) => {
-    const inProgressRecipes = getInProgressRecipes(type);
+    const inProgressRecipes = getInProgressRecipes();
 
-    if (inProgressRecipes[type]) {
-      inProgressRecipes[type][recipe.id] = recipe;
-    } else {
-      inProgressRecipes[type] = { [recipe.id]: recipe };
+    if (!inProgressRecipes[type]) {
+      inProgressRecipes[type] = {};
     }
+
+    inProgressRecipes[type][recipe.id] = recipe;
     setToStorage('inProgressRecipes', inProgressRecipes);
   };
 
@@ -64,7 +71,7 @@ export default function useLocalStorage() {
 
   return {
     getFavoriteRecipes,
-    getInProgressRecipes,
+    getInProgressRecipeByType,
     getDoneRecipes,
     addFavoriteRecipe,
     addInProgressRecipes,
