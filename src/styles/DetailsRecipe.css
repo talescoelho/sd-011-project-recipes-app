@@ -43,7 +43,7 @@
   border-radius: 10px;
 }
 
-.startRecipe-btn {
+.startRecipe-btn, .continueRecipe-btn {
   height: 55px;
   width: 295px;
   border-radius: 50px;
