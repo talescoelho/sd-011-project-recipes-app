@@ -3,7 +3,7 @@ import { cleanup, render } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
 
-describe('Farewell, front-end', () => {
+describe('Tests the login component', () => {
   afterEach(() => {
     cleanup();
   });
@@ -37,5 +37,9 @@ describe('Farewell, front-end', () => {
     userEvent.type(passwordInput, mockPass);
     expect(btnNode).not.toBeDisabled();
     userEvent.click(btnNode);
+
+    // tests 1 line on the header component
+    const serachBtn = getByTestId('search-top-btn');
+    userEvent.click(serachBtn);
   });
 });
