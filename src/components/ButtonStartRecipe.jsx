@@ -40,6 +40,8 @@ function ButtonStartRecipe({ id }) {
     history.push(`/${type}/${id}/in-progress`);
   };
 
+  // add comentario
+
   return (
     <button
       type="button"
