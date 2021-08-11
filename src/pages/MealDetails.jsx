@@ -12,7 +12,6 @@ import '../css/footerMenu.css';
 
 function MealDetails({ match: { params } }) {
   const [MealDataAPI, setMealDadaAPI] = useState({});
-
   useEffect(() => {
     const { id } = params;
     const requestMeal = async () => {
