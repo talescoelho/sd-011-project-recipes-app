@@ -50,7 +50,7 @@ const DoneRecipes = () => {
           value="all"
           data-testid="filter-by-all-btn"
           onClick={ handleClickBtnFilters }
-          className="btn-30"
+          className="btn-30 btn m-25"
         >
           All
         </button>
@@ -59,7 +59,7 @@ const DoneRecipes = () => {
           value="comida"
           data-testid="filter-by-food-btn"
           onClick={ handleClickBtnFilters }
-          className="btn-30"
+          className="btn-30 btn m-25"
         >
           Food
         </button>
@@ -68,7 +68,7 @@ const DoneRecipes = () => {
           value="bebida"
           data-testid="filter-by-drink-btn"
           onClick={ handleClickBtnFilters }
-          className="btn-30"
+          className="btn-30 btn m-25"
         >
           Drinks
         </button>

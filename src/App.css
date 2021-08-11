@@ -17,11 +17,13 @@
 
 .body {
   min-height: 100vh;
+  width: 360px;
 }
 
 .body-b {
   min-height: 100vh;
   padding-bottom: 50px;
+  width: 360px;
 }
 
 .d-flex {
@@ -72,16 +74,30 @@
   padding: 0.5rem;
 }
 
+.p-2 {
+  padding: 1rem;
+}
+
 .btn {
   background-color: #f67e0c;
   border: none;
   border-radius: 0.3rem;
   padding: 0.5rem;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.btn:disabled {
+  opacity: 0.5;
 }
 
 .btn-icon {
   background: transparent;
   border: none;
+}
+
+.m-0 {
+  margin: 0;
 }
 
 .m-1 {
