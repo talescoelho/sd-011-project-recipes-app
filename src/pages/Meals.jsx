@@ -31,7 +31,7 @@ export default function Meals(props) {
   return (
     <>
       <Header title={ comidas } />
-      {show === true ? <SearchBarMeals /> : null}
+      <SearchBarMeals />
       <CategoriesMeals />
       <section className="meals">
         {meals.map((meal, index) => (
@@ -47,7 +47,7 @@ export default function Meals(props) {
                 alt="imagem da refeição"
                 data-testid={ `${index}-card-img` }
               />
-              <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
+              <p data-testid={ `${index}-card-name` }>{ meal.strMeal }</p>
             </div>
           </button>
         ))}

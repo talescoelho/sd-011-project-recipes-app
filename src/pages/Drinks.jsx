@@ -28,15 +28,21 @@ export default function Drinks({ history }) {
       <SearchBarDrinks />
       <CategoriesDrinks />
       <section className="drinks">
-        {drinks.map((drink) => (
+        {drinks.map((drink, index) => (
           <button
             type="button"
             className="drink"
             key={ drink.idDrink }
             onClick={ () => clickDetails(drink.idDrink) }
           >
-            <img src={ drink.strDrinkThumb } alt="imagem da bebida" />
-            <p>{ drink.strDrink }</p>
+            <div data-testid={ `${index}-recipe-card` }>
+              <img
+                src={ drink.strDrinkThumb }
+                alt="imagem da bebida"
+                data-testid={ `${index}-card-img` }
+              />
+              <p data-testid={ `${index}-card-name` }>{ drink.strDrink }</p>
+            </div>
           </button>
         ))}
       </section>

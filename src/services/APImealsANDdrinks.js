@@ -24,15 +24,19 @@ export const APIDrinksById = async (id) => {
 export const APIdrinks = async () => {
   const APIfetch = await fetch(URLdrinks);
   const APIjson = await APIfetch.json();
-  console.log('rodou API request meals do service');
-
-  return APIjson;
+  const keyDrinks = APIjson.drinks;
+  const num12 = 12;
+  const max12 = keyDrinks.splice(0, num12);
+  return max12;
 };
 
 export const APImeals = async () => {
   const APIfetch = await fetch(URLmeals);
   const APIjson = await APIfetch.json();
-  return APIjson;
+  const keyMeals = APIjson.meals;
+  const num12 = 12;
+  const max12 = keyMeals.splice(0, num12);
+  return max12;
 };
 
 export const APImealsByCat = async () => { // busca o nome das categorias
