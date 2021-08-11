@@ -5,29 +5,34 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 const copy = require('clipboard-copy');
 
-export default function ShareFavBtn({ url }) {
+export default function ShareFavBtn({ type, id }) {
+  function shareFood() {
+    switch (type) {
+    case 'comida':
+      copy(`http://localhost:3000/comidas/${id}`);
+      alert('Link copiado!');
+      break;
+    case 'bebida':
+      copy(`http://localhost:3000/bebidas/${id}`);
+      alert('Link copiado!');
+      break;
+    default:
+      alert('Link não copiado');
+    }
+  }
   return (
     <div>
-      <input
-        type="image"
-        data-testid="share-btn"
-        src={ shareIcon }
-        alt="card da receita"
-        onClick={ () => {
-          copy(url);
-          alert('Link copiado!');
-        } }
-      />
-      <input
-        type="image"
-        alt="someText"
-        data-testid="favorite-btn"
-        src={ whiteHeartIcon }
-      />
+      <button type="button" onClick={ () => shareFood() } data-testid="share-btn">
+        <img src={ shareIcon } alt="shareBtn" />
+      </button>
+      <button type="button" data-testid="favorite-btn">
+        <img src={ whiteHeartIcon } alt="favBtn" />
+      </button>
     </div>
   );
 }
 
 ShareFavBtn.propTypes = {
-  url: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };

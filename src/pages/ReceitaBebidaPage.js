@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { useLocation, Link } from 'react-router-dom';
 import ShareFavBtn from '../components/ShareFavBtn';
+import { ingredientDrinkHelper } from '../components/Helper';
 
-export default function ReceitaBebidaPage(props) {
+export default function ReceitaBebidaPage() {
   const [drinkDetails, setDrinkDetails] = useState();
   const [recomendations, setRecomendations] = useState();
+  const [storageInPrgrss, setStorageIn] = useState();
   const location = useLocation();
   const DRINK_DETAILS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
   const RECOMENDATIONS_URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -18,20 +19,13 @@ export default function ReceitaBebidaPage(props) {
       .then((data) => setDrinkDetails(data));
   }, []);
 
-  const ingMax = 15;
-  const ingredientsKeys = drinkDetails && (
-    Object.keys(drinkDetails.drinks[0]).filter((key) => key.includes('ngredient')));
-  const measureKeys = drinkDetails && (
-    Object.keys(drinkDetails.drinks[0]).filter((key) => key.includes('easure')));
-  const ingredientMap = ingredientsKeys && ingredientsKeys
-    .filter((value) => drinkDetails.drinks[0][value])
-    .map((ing, i) => (
-      `- ${drinkDetails.drinks[0][ing]} - ${drinkDetails.drinks[0][measureKeys[i]]}`
-    )).slice(0, ingMax);
-  const ingredientFilter = ingredientMap && ingredientMap
-    .filter((value) => value !== 'null-null' && value !== '-');
+  function getInProgress() {
+    const getInPrgssStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    setStorageIn(getInPrgssStorage);
+  }
 
   useEffect(() => {
+    getInProgress();
     fetch(RECOMENDATIONS_URL)
       .then((response) => response.json())
       .then((data) => setRecomendations(data));
@@ -63,6 +57,8 @@ export default function ReceitaBebidaPage(props) {
     );
   }
 
+  const ingredientFilter = ingredientDrinkHelper(drinkDetails);
+
   function renderDrinks() {
     return (
       <div>
@@ -71,9 +67,10 @@ export default function ReceitaBebidaPage(props) {
           src={ drinkDetails.drinks[0].strDrinkThumb }
           alt="foto"
           data-testid="recipe-photo"
+          width="200px"
         />
         <h1 data-testid="recipe-title">{ drinkDetails.drinks[0].strDrink }</h1>
-        <ShareFavBtn url={ props.match.url } />
+        <ShareFavBtn type="bebida" id={ drinkDetails.drinks[0].idDrink } />
         <h5 data-testid="recipe-category">{ drinkDetails.drinks[0].strCategory }</h5>
         <p data-testid="recipe-category">{ drinkDetails.drinks[0].strAlcoholic }</p>
 
@@ -95,13 +92,23 @@ export default function ReceitaBebidaPage(props) {
             { drinkDetails.drinks[0].strInstructions }
           </p>
         </div>
+        <Link to={ `/bebidas/${drinkDetails.drinks[0].idDrink}/in-progress` }>
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            style={ { position: 'fixed', bottom: '0px' } }
+          >
+            {storageInPrgrss && (
+              storageInPrgrss.cocktails[drinkDetails.drinks[0].idDrink]) ? (
+                'Continuar Receita') : 'Iniciar Receita'}
+          </button>
+        </Link>
         <div>
           <h3>Receitas recomendadas</h3>
           <ul>
             { recomendations ? renderRecomendation() : <p>Loading...</p> }
           </ul>
         </div>
-        <Button data-testid="start-recipe-btn">Iniciar Receita</Button>
       </div>
     );
   }

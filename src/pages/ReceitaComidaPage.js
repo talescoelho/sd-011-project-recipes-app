@@ -1,16 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
-// import { Carousel } from 'react-responsive-carousel';
+import { useLocation, Link } from 'react-router-dom';
 import ShareFavBtn from '../components/ShareFavBtn';
-import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
-// import '../style/pageDetails.css';
+import { ingredientFoodHelper } from '../components/Helper';
 
-export default function ReceitaComidaPage(props) {
+export default function ReceitaComidaPage() {
   const [foodDetails, setFoodDetails] = useState();
   const [recomendations, setRecomendations] = useState();
+  const [storageInPrgrss, setStorageIn] = useState();
   const location = useLocation();
   const FOOD_DETAILS_URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
   const RECOMENDATIONS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -22,20 +19,13 @@ export default function ReceitaComidaPage(props) {
       .then((data) => setFoodDetails(data));
   }, []);
 
-  const ingMax = 15;
-  const ingredientsKeys = foodDetails && (
-    Object.keys(foodDetails.meals[0]).filter((key) => key.includes('ngredient')));
-  const measureKeys = foodDetails && (
-    Object.keys(foodDetails.meals[0]).filter((key) => key.includes('easure')));
-  const ingredientMap = ingredientsKeys && ingredientsKeys
-    .filter((value) => foodDetails.meals[0][value])
-    .map((ing, i) => (
-      `- ${foodDetails.meals[0][ing]} - ${foodDetails.meals[0][measureKeys[i]]}`
-    )).slice(0, ingMax);
-  const ingredientFilter = ingredientMap && ingredientMap
-    .filter((value) => value !== 'null-null' && value !== '-');
+  function getInProgress() {
+    const getInPrgssStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    setStorageIn(getInPrgssStorage);
+  }
 
   useEffect(() => {
+    getInProgress();
     fetch(RECOMENDATIONS_URL)
       .then((response) => response.json())
       .then((data) => setRecomendations(data));
@@ -47,7 +37,6 @@ export default function ReceitaComidaPage(props) {
       recomendations.drinks.map((recipe, index) => {
         if (index < maxLength) {
           return (
-            // <Carousel>
             <div
               key={ recipe.strDrink }
               data-testid={ `${index}-recomendation-card` }
@@ -61,13 +50,14 @@ export default function ReceitaComidaPage(props) {
               />
               <p className="legend">{ recipe.strDrink }</p>
             </div>
-            // </Carousel>
           );
         }
         return null;
       })
     );
   }
+
+  const ingredientFilter = ingredientFoodHelper(foodDetails);
 
   function renderFoods() {
     return (
@@ -79,7 +69,7 @@ export default function ReceitaComidaPage(props) {
           data-testid="recipe-photo"
         />
         <h1 data-testid="recipe-title">{ foodDetails.meals[0].strMeal }</h1>
-        <ShareFavBtn url={ props.match.url } />
+        <ShareFavBtn type="comida" id={ foodDetails.meals[0].idMeal } />
         <h5 data-testid="recipe-category">{ foodDetails.meals[0].strCategory }</h5>
 
         <div>
@@ -107,16 +97,24 @@ export default function ReceitaComidaPage(props) {
           width="400"
           height="300"
         />
+        <Link to={ `/comidas/${foodDetails.meals[0].idMeal}/in-progress` }>
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            style={ { position: 'fixed', bottom: '0px' } }
+          >
+            {storageInPrgrss && storageInPrgrss.meals[foodDetails.meals[0].idMeal] ? (
+              'Continuar Receita') : 'Iniciar Receita'}
+          </button>
+        </Link>
         <h3>Receitas recomendadas</h3>
         <div>
           { recomendations ? renderRecomendation() : <p>Loading...</p> }
         </div>
-        <Button data-testid="start-recipe-btn">
-          Iniciar Receita
-        </Button>
       </div>
     );
   }
+
   return (
     <div>
       { foodDetails ? renderFoods() : <p>Loading...</p> }
