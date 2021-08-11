@@ -10,7 +10,7 @@ import DrinkRecipeInProgress from '../pages/DrinkRecipeInProgress';
 import Explore from '../pages/Explore';
 import RecipeExplore from '../pages/RecipeExplore';
 import RecipeExploreIngredients from '../pages/RecipeExploreIngredients';
-import FoodExploreArea from '../pages/FoodExploreArea';
+import RecipeExploreArea from '../pages/RecipeExploreArea';
 import Profile from '../pages/Profile';
 import DoneRecipes from '../pages/DoneRecipes';
 import FavoritesRecipes from '../pages/FavoritesRecipes';
@@ -66,7 +66,7 @@ const Routes = () => (
     <Route
       exact
       path="/explorar/comidas/area"
-      component={ FoodExploreArea }
+      component={ RecipeExploreArea }
     />
     <Route
       exact

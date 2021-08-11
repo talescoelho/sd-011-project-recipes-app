@@ -6,7 +6,7 @@ import RecipesCardsContainer from '../components/RecipesCardsContainer';
 import {
   getInitialMealsRecipes, getMealsArea, getMealsByArea } from '../services/theMealAPI';
 
-const FoodExploreArea = () => {
+const RecipeExploreArea = () => {
   const [areaOptions, setAreaOptions] = useState([{ strArea: '' }]);
   const { setData, setLoading } = useContext(MainContext);
 
@@ -62,4 +62,4 @@ const FoodExploreArea = () => {
   );
 };
 
-export default FoodExploreArea;
+export default RecipeExploreArea;
