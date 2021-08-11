@@ -1,5 +1,5 @@
 import React from 'react';
-// import copy from 'clipboard-copy';
+import copy from 'clipboard-copy';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -32,8 +32,7 @@ function Recipes() {
         <button
           onClick={ () => {
             alert('Link copiado!');
-            // copy(`http://localhost:3000${pathname}`);
-            // setHidden(false);
+            copy(`http://localhost:3000/${doneRecipess.type}s/${doneRecipess.id}`);
           } }
           src={ shareIcon }
           type="button"
@@ -74,8 +73,7 @@ function Recipes() {
           src={ shareIcon }
           onClick={ () => {
             alert('Link copiado!');
-            // copy(`http://localhost:3000${pathname}`);
-            // setHidden(false);
+            copy(`http://localhost:3000/${doneRecipess.type}s/${doneRecipess.id}`);
           } }
           type="button"
           data-testid={ `${index}-horizontal-share-btn` }
