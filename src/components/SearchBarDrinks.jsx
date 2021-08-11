@@ -8,6 +8,14 @@ import {
 export default function SearchBarDrinks() {
   const { setDrinks, drinks } = useContext(UserContext);
 
+  function alertF() {
+    return (
+      <div>
+        Sua busca deve conter somente 1 (um) caracter
+      </div>
+    );
+  }
+
   const [type, setType] = useState('');
   const [radio, setRadio] = useState('');
 
@@ -43,7 +51,7 @@ export default function SearchBarDrinks() {
     }
     if (radio === 'Primeira-letra' && type.length > 1) {
       // eslint-disable-next-line no-alert
-      alert('Sua busca deve conter somente 1 (um) caracter');
+      alertF();
     }
   };
 
