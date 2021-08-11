@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import MealFavoriteButton from '../components/MealFavoriteButton';
-import CheckboxDrink from '../components/CheckboxDrink';
+import CheckboxMeal from '../components/CheckboxMeal';
 import '../components/css/RecipeDetails.css';
 
 function RecipeMealInProgress({ match, location }) {
@@ -82,7 +82,7 @@ function RecipeMealInProgress({ match, location }) {
             {recipe.meals[0].strCategory}
           </h3>
           <h2>Ingredientes</h2>
-          <CheckboxDrink
+          <CheckboxMeal
             ingredients={ ingredients }
             measures={ measures }
             pathname={ pathname }
