@@ -1,4 +1,5 @@
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 import Profile from '../pages/Profile';
 import { renderWithRouterAndRedux } from './renderWithRouterAndRedux';
 import mockDrink from '../../cypress/mocks/oneDrink';
@@ -14,12 +15,12 @@ const INITIAL_STATE = {
 };
 
 describe('Testes para página de Perfil', () => {
-  it('Verifica se há os itens procurados', async () => {
+  it('Verifica ao clicar em fav', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(mockDrink),
     });
-    const { findByText, findByTestId } = renderWithRouterAndRedux(
+    const { findByText, findByTestId, getByRole } = renderWithRouterAndRedux(
       <Profile />,
       { route: '/perfil' }, INITIAL_STATE,
     );
@@ -27,6 +28,56 @@ describe('Testes para página de Perfil', () => {
     const title = await findByTestId('page-title');
     expect(type).toBeInTheDocument();
     expect(title).toBeInTheDocument();
+    const RFavoritas = await getByRole('button', { name: /Receitas Favoritas/i });
+    expect(RFavoritas).toBeInTheDocument();
+    userEvent.click(RFavoritas);
+  });
+  it('Verifica ao clicar em feitas', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mockDrink),
+    });
+    const { findByText, getByRole } = renderWithRouterAndRedux(
+      <Profile />,
+      { route: '/perfil' }, INITIAL_STATE,
+    );
+    const type = await findByText(/Receitas Favoritas/i);
+    expect(type).toBeInTheDocument();
+    const RFeitas = await getByRole('button', { name: /Receitas Feitas/i });
+    expect(RFeitas).toBeInTheDocument();
+    userEvent.click(RFeitas);
+  });
+  it('Verifica se há os itens procurados', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mockDrink),
+    });
+    const { findByText, findByTestId, getByRole } = renderWithRouterAndRedux(
+      <Profile />,
+      { route: '/perfil' }, INITIAL_STATE,
+    );
+    const type = await findByText(/Receitas Favoritas/i);
+    const title = await findByTestId('page-title');
+    expect(type).toBeInTheDocument();
+    expect(title).toBeInTheDocument();
+    const sair = await getByRole('button', { name: /sair/i });
+    expect(sair).toBeInTheDocument();
+    userEvent.click(sair);
+  });
+  it('Verifica ao bebidas footer', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mockDrink),
+    });
+    const { findByText, getByRole } = renderWithRouterAndRedux(
+      <Profile />,
+      { route: '/perfil' }, INITIAL_STATE,
+    );
+    const type = await findByText(/Receitas Favoritas/i);
+    expect(type).toBeInTheDocument();
+    const bebidas = await getByRole('img', { name: /símbolo bebida/i });
+    expect(bebidas).toBeInTheDocument();
+    userEvent.click(bebidas);
   });
 });
 

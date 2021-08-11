@@ -1,4 +1,5 @@
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 import RecipesDone from '../pages/RecipesDone';
 import { renderWithRouterAndRedux } from './renderWithRouterAndRedux';
 
@@ -30,17 +31,26 @@ describe('Testes para página de Receitas Feitas', () => {
       json: jest.fn().mockResolvedValue(),
     });
     localStorage.setItem('doneRecipes', JSON.stringify([recipe]));
-    const { findByText, findByTestId } = renderWithRouterAndRedux(
+    const { findByText, findByTestId, getByRole } = renderWithRouterAndRedux(
       <RecipesDone />,
       { route: '/receitas-favoritas' }, INITIAL_STATE,
     );
-    console.log(localStorage.doneRecipes);
     const text = await findByText(/Receitas Feitas/i);
     const title = await findByTestId('page-title');
     const image = await findByTestId('0-horizontal-image');
     expect(text).toBeInTheDocument();
     expect(title).toBeInTheDocument();
     expect(image).toBeInTheDocument();
+    const All = await getByRole('button', { name: /all/i });
+    expect(All).toBeInTheDocument();
+    userEvent.click(All);
+    const Food = await getByRole('button', { name: /Food/i });
+    expect(Food).toBeInTheDocument();
+    userEvent.click(Food);
+    const Drinks = await getByRole('button', { name: /Drinks/i });
+    expect(Drinks).toBeInTheDocument();
+    userEvent.click(Drinks);
+    userEvent.click(image);
   });
 });
 

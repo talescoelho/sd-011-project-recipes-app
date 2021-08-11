@@ -1,4 +1,5 @@
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 import RecipeFavorite from '../pages/RecipeFavorite';
 import { renderWithRouterAndRedux } from './renderWithRouterAndRedux';
 
@@ -31,7 +32,7 @@ describe('Testes para página de Perfil', () => {
       json: jest.fn().mockResolvedValue(),
     });
     localStorage.setItem('favoriteRecipes', JSON.stringify([recipe]));
-    const { findByText, findByTestId } = renderWithRouterAndRedux(
+    const { findByText, findByTestId, getByRole } = renderWithRouterAndRedux(
       <RecipeFavorite />,
       { route: '/receitas-favoritas' }, INITIAL_STATE,
     );
@@ -39,6 +40,16 @@ describe('Testes para página de Perfil', () => {
     const title = await findByTestId('page-title');
     expect(type).toBeInTheDocument();
     expect(title).toBeInTheDocument();
+    const Food = await getByRole('button', { name: /Food/i });
+    expect(Food).toBeInTheDocument();
+    userEvent.click(Food);
+    const Drinks = await getByRole('button', { name: /Drinks/i });
+    expect(Drinks).toBeInTheDocument();
+    const All = await getByRole('button', { name: /all/i });
+    expect(All).toBeInTheDocument();
+    userEvent.click(All);
+    const favorite = await findByTestId('0-horizontal-favorite-btn');
+    userEvent.click(favorite);
   });
 });
 
