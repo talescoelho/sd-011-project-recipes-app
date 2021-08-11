@@ -7,6 +7,7 @@ function Provider({ children }) {
   const [showInput, setShowInput] = useState(false);
   const [data, setData] = useState();
   const [foodCategories, setFoodCategories] = useState();
+  const [alertSpan, setAlert] = useState(false);
   const [drinkCategories, setDrinkCategories] = useState();
   const [filter, setFilter] = useState('All');
   const [inputValue, setInputValue] = useState({
@@ -118,6 +119,8 @@ function Provider({ children }) {
     setDrinkCategories,
     filter,
     switchFilter,
+    alertSpan,
+    setAlert,
   };
 
   return (
