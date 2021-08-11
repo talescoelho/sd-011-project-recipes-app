@@ -9,6 +9,19 @@ import '../css/footerMenu.css';
 function DrinkDetails({ match: { params } }) {
   const [DrinkDataAPI, setDrinkDadaAPI] = useState({});
   const [isMealDone, setIsMealsDone] = useState(false);
+  const [isMealStarted, setIsMealStarted] = useState(false);
+  function verifyRecipeProgress(id) {
+    const inProgressRecipes = JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    );
+    if (inProgressRecipes !== null) {
+      const isInProgress = Object.hasOwnProperty.call(
+        inProgressRecipes.cocktails,
+        id,
+      );
+      setIsMealStarted(isInProgress);
+    }
+  }
   function verifyRecipeDone(id) {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes !== null) {
@@ -18,10 +31,10 @@ function DrinkDetails({ match: { params } }) {
       }
     }
   }
-  function renderButton() {
+  function renderButton(comand) {
     return (
       <button className="footer" type="button" data-testid="start-recipe-btn">
-        Iniciar Receita
+        { `${comand} Receita` }
       </button>
     );
   }
@@ -32,6 +45,7 @@ function DrinkDetails({ match: { params } }) {
       setDrinkDadaAPI(response.drinks[0]);
     };
     verifyRecipeDone(id);
+    verifyRecipeProgress(id);
     requestDrink();
   }, [params]);
 
@@ -54,7 +68,8 @@ function DrinkDetails({ match: { params } }) {
       {/* passar algum atributo para o recomendações de modo a
       identificar se renderiza bebidas ou comidas */}
       <RecommendationsM />
-      { !isMealDone ? renderButton() : undefined }
+      { !isMealDone ? renderButton('Iniciar') : undefined }
+      { isMealStarted ? renderButton('Continuar') : undefined }
     </div>
   );
 }

@@ -13,6 +13,19 @@ import '../css/footerMenu.css';
 function MealDetails({ match: { params } }) {
   const [MealDataAPI, setMealDadaAPI] = useState({});
   const [isMealDone, setIsMealsDone] = useState(false);
+  const [isMealStarted, setIsMealStarted] = useState(false);
+  function verifyRecipeProgress(id) {
+    const inProgressRecipes = JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    );
+    if (inProgressRecipes !== null) {
+      const isInProgress = Object.hasOwnProperty.call(
+        inProgressRecipes.meals,
+        id,
+      );
+      setIsMealStarted(isInProgress);
+    }
+  }
   function verifyRecipeDone(id) {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes !== null) {
@@ -22,10 +35,10 @@ function MealDetails({ match: { params } }) {
       }
     }
   }
-  function renderButton() {
+  function renderButton(comand) {
     return (
       <button className="footer" type="button" data-testid="start-recipe-btn">
-        Iniciar Receita
+        { `${comand} Receita` }
       </button>
     );
   }
@@ -36,6 +49,7 @@ function MealDetails({ match: { params } }) {
       setMealDadaAPI(response.meals[0]);
     };
     verifyRecipeDone(id);
+    verifyRecipeProgress(id);
     requestMeal();
   }, [params]);
 
@@ -69,7 +83,8 @@ function MealDetails({ match: { params } }) {
         </div>
       ) : <h2>Loading</h2>}
       <Recommendations />
-      { !isMealDone ? renderButton() : undefined }
+      { !isMealDone ? renderButton('Iniciar') : undefined }
+      { isMealStarted ? renderButton('Continuar') : undefined }
 
     </div>
   );
