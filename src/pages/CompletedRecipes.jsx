@@ -34,7 +34,6 @@ const CompletedRecipes = () => {
     const time = 3000;
     setTimeout(() => {
       setmessage(null);
-      setmessage(null);
     }, time);
   }
 
@@ -80,10 +79,9 @@ const CompletedRecipes = () => {
           } = recipe;
 
           return (
-            <div key={ id } className="recipe-card">
+            <div key={ id }>
               <Link to={ `/${type}s/${id}` }>
                 <img
-                  className="recipe-img"
                   src={ image }
                   alt=""
                   data-testid={ `${index}-horizontal-image` }
