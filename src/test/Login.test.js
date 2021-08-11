@@ -10,7 +10,7 @@ const EMAIL_INPUT_TEST_ID = 'email-input';
 const PASSWORD_INPUT_TEST_ID = 'password-input';
 const BUTTON_INPUT_TEST_ID = 'login-submit-btn';
 
-afterEach(() => jest.clearAllMocks());
+// afterEach(() => jest.clearAllMocks());
 
 describe('Crie uma página inicial de login', () => {
   // CAMPO EMAIL

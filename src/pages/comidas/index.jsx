@@ -55,7 +55,6 @@ class Comidas extends Component {
             data-testid={ `${item.strCategory}-category-filter` }
             onChange={ (element) => this.handleOnClickFilter(element) }
           />
-          {' '}
           {item.strCategory}
           <span className="slider round" />
         </label>
