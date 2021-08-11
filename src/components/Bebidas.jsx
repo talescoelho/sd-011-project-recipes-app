@@ -1,7 +1,9 @@
 import React from 'react';
 
 import Header from './Header';
-//test
+
+//  test
+
 const Bebidas = () => (
   <div>
     <Header title="Comidas" showSearchIcon />
