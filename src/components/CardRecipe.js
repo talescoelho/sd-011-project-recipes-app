@@ -11,11 +11,15 @@ function CardRecipe({ item, index }) {
         ? (
           <div data-testid={ `${index}-recipe-card` }>
             {
-              item.strMeal ? <p data-testid={ `${index}-card-name` }>{ item.strMeal }</p>
-                : (
-                  <p data-testid={ `${item.strCategory}-category-filter` }>
-                    { item.strCategory }
-                  </p>)
+              item.strMeal ? (
+                <p data-testid={ `${index}-card-name` }>
+                  { item.strMeal }
+                </p>
+              ) : (
+                <p data-testid={ `${item.strCategory}-category-filter` }>
+                  { item.strCategory }
+                </p>
+              )
             }
 
             <img
@@ -27,9 +31,17 @@ function CardRecipe({ item, index }) {
           </div>
         ) : (
           <div>
-            <p data-testid={ `${index}-card-name` }>
-              { item.strDrink ? item.strDrink : item.strCategory }
-            </p>
+            {
+              item.strDrink ? (
+                <p data-testid={ `${index}-card-name` }>
+                  { item.strDrink }
+                </p>
+              ) : (
+                <p data-testid={ `${item.strCategory}-category-filter` }>
+                  { item.strCategory }
+                </p>
+              )
+            }
             <img
               data-testid={ `${index}-card-img` }
               src={ item.strDrinkThumb ? item.strDrinkThumb : 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg' }
