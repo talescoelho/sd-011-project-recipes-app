@@ -13,6 +13,7 @@ import { useHistory } from 'react-router-dom';
 import {
   retrieveInProgressRecipes,
   setInProgressRecipe,
+  saveNewDoneRecipe,
 } from '../../../../services/handleLocalStorage';
 import { fetchDetails } from '../../../../services/fetchDetailsApi';
 import FavoriteButton from '../../../../components/Details/FavoriteButton/index';
@@ -84,7 +85,28 @@ export default function ComidasInProgress({ match: { params: { recipeId } } }) {
   };
 
   const history = useHistory();
+
   const handleFinalizedBtn = () => {
+    const {
+      strMeal,
+      strCategory,
+      strArea,
+      strTags,
+      strMealThumb,
+    } = details;
+    const today = new Date().toLocaleDateString();
+    const obj = {
+      id: recipeId,
+      type: 'comida',
+      area: strArea || '',
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+      doneDate: today,
+      tags: strTags.split(','),
+    };
+    saveNewDoneRecipe(obj);
     history.push('/receitas-feitas');
   };
 
@@ -125,7 +147,11 @@ export default function ComidasInProgress({ match: { params: { recipeId } } }) {
             </span>
           </Col>
           <Col className="col-6 d-flex justify-content-end">
-            <CopyButton />
+            <CopyButton
+              testId="share-btn"
+              id={ recipeId }
+              selector="comida"
+            />
             <FavoriteButton recipeId={ recipeId } selector="meal" details={ details } />
           </Col>
         </Row>

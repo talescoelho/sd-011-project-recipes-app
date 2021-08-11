@@ -1,40 +1,44 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
-import { useLocation } from 'react-router-dom';
 import { Button, Fade } from 'react-bootstrap';
 import shareIcon from '../../../images/shareIcon.svg';
 
-export default function CopyButton() {
-  const [isMessageShowing, setisMessageShowing] = useState(false);
-
-  const location = useLocation();
+export default function CopyButton({ testId, id, selector }) {
+  const [isMessageShowing, setIsMessageShowing] = useState(false);
 
   const handleCopyBtn = () => {
-    const id = location.pathname.split('/')[2];
-    setisMessageShowing(true);
-    if (location.pathname.includes('bebidas')) {
+    setIsMessageShowing(true);
+    if (selector === 'bebida') {
       copy(`http://localhost:3000/bebidas/${id}`);
     } else {
       copy(`http://localhost:3000/comidas/${id}`);
     }
   };
+
   return (
-    <>
+    <div className="d-flex align-items-center">
       <Fade in={ isMessageShowing }>
-        <div>
-          <span>Link copiado!</span>
+        <div className="d-flex">
+          <span className="text-muted">Link copiado!</span>
         </div>
       </Fade>
       <Button
         variant="primary"
-        className="rounded-circle p-2 mr-2"
+        className="rounded-circle p-2 ml-2"
         type="button"
-        aria-controls="example-collapse-text"
+        src={ shareIcon }
         onClick={ handleCopyBtn }
-        data-testid="share-btn"
+        data-testid={ `${testId}` }
       >
         <img alt="Botão de copiar link" src={ shareIcon } />
       </Button>
-    </>
+    </div>
   );
 }
+
+CopyButton.propTypes = {
+  testId: PropTypes.string,
+  id: PropTypes.string,
+  selector: PropTypes.string,
+}.isRequired;
