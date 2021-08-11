@@ -6,7 +6,8 @@ import UserContext from '../context/UserContext';
 import '../css/mainPage.css';
 import CategoriesMeals from '../components/CategoriesMeals';
 
-export default function Meals({ history }) {
+export default function Meals(props) {
+  const { history } = props;
   const { meals } = useContext(UserContext);
   if (meals.length === 0) {
     return <div>loading</div>;
@@ -21,7 +22,7 @@ export default function Meals({ history }) {
   }
 
   const comidas = 'Comidas';
-
+  console.log(props)
   return (
     <>
       <Header title={ comidas } />
