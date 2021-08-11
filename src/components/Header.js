@@ -43,13 +43,13 @@ function Header() {
             type="button"
             data-testid="profile-top-btn"
             onClick={ handleClickProfile }
-            className="m-1 btn btn-icon"
+            className="m-1 btn-icon "
           >
             <img src={ profileIcon } alt="icone do perfil" />
           </button>
           { showSearchIcon && (
             <button
-              className="m-1 btn btn-icon"
+              className="m-1 btn-icon"
               src={ searchIcon }
               type="button"
               data-testid="search-top-btn"

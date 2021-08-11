@@ -50,7 +50,7 @@ function RenderDrinksCategoriesBtn({ filterByIngredients, clearDrinkData }) {
               key={ index }
               value={ category.strCategory }
               onClick={ (e) => handleClick(e) }
-              className="btn-30"
+              className="btn-30 btn m-25 b-shadow"
             >
               { category.strCategory.split('/')[0] }
             </button>
@@ -67,7 +67,7 @@ function RenderDrinksCategoriesBtn({ filterByIngredients, clearDrinkData }) {
         type="button"
         data-testid="All-category-filter"
         onClick={ () => clearDrinkData() }
-        className="btn-30"
+        className="btn-30 btn m-25 b-shadow"
       >
         All
       </button>

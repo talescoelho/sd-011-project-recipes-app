@@ -60,7 +60,7 @@ const FoodDetails = ({ match }) => {
   }
 
   return (
-    <div className="body-b">
+    <div className="body-b d-flex f-d-column">
       <img
         className="top-img"
         src={ strMealThumb }
@@ -124,7 +124,7 @@ const FoodDetails = ({ match }) => {
         buttonShoulBeVisible && (
           <Link to={ `/comidas/${id}/in-progress` }>
             <button
-              className="start-btn"
+              className="start-btn btn btn-m"
               data-testid="start-recipe-btn"
               type="button"
             >
