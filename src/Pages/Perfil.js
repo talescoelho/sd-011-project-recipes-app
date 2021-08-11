@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function Perfil() {
   const [userEmail, setUserEmail] = useState('');
   useEffect(() => {
-  const email = JSON.parse(localStorage.getItem('user'));
-  console.log(email);
+    const email = JSON.parse(localStorage.getItem('user'));
+    console.log(email);
     setUserEmail(email);
   }, []);
 
@@ -50,7 +49,3 @@ function Perfil() {
 }
 
 export default Perfil;
-
-Perfil.propTypes = {
-  title: PropTypes.string.isRequired,
-};
