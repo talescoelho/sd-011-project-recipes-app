@@ -6,19 +6,20 @@ import wtHeart from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
 function RecipeAppProvider({ children }) {
-  const [login, setLogin] = useState({ email: '', password: '' });
-  const [foodsList, setFoodList] = useState('');
-  const [drinksList, setDrinksList] = useState('');
-  const [drinkCategoryList, setDrinkCategory] = useState('');
-  const [foodCategoryList, setFoodCategory] = useState('');
-  const [toggleOn, setToggleOn] = useState(false);
   const [drink, setDrink] = useState('');
-  const [meal, setMeal] = useState('');
+  const [drinkCategoryList, setDrinkCategory] = useState('');
+  const [drinksList, setDrinksList] = useState('');
+  const [filteredFavoritesRecipes, setFilteredFavoritesRecipes] = useState([]);
+  const [foodCategoryList, setFoodCategory] = useState('');
+  const [foodsList, setFoodList] = useState('');
+  const [isFavRecipe, setIsFavRecipe] = useState(false);
   const [isRecipeDone, setIsRecipeDone] = useState(true);
+  const [inProgressRecipes, setInProgressRecipes] = useState(false);
+  const [login, setLogin] = useState({ email: '', password: '' });
+  const [meal, setMeal] = useState('');
   const [recomMeal, setRecomMeal] = useState('');
   const [recomDrink, setRecomDrink] = useState('');
-  const [inProgressRecipes, setInProgressRecipes] = useState(false);
-  const [isFavRecipe, setIsFavRecipe] = useState(false);
+  const [toggleOn, setToggleOn] = useState(false);
 
   function checkFavoriteDrink() {
     const { idDrink } = drink;
@@ -114,41 +115,43 @@ function RecipeAppProvider({ children }) {
   };
 
   const data = {
-    checkFavoriteMeal,
-    saveFavoriteMeal,
-    checkFavoriteDrink,
-    saveFavoriteDrink,
-    isFavRecipe,
-    setIsFavRecipe,
-    inProgressRecipes,
-    setInProgressRecipes,
-    setRecomDrink,
-    recomDrink,
-    setRecomMeal,
-    recomMeal,
-    setIsRecipeDone,
-    isRecipeDone,
-    meal,
-    setMeal,
-    drink,
-    setDrink,
     bkHeart,
-    wtHeart,
-    shareIcon,
+    checkFavoriteDrink,
+    checkFavoriteMeal,
+    drink,
+    drinksList,
+    drinkCategoryList,
+    email: login.email,
+    filteredFavoritesRecipes,
+    foodCategoryList,
+    foodsList,
     handleChange,
     handleDisabled,
-    email: login.email,
-    setFoodList,
+    isFavRecipe,
+    inProgressRecipes,
+    isRecipeDone,
+    meal,
+    recomDrink,
+    recomMeal,
+    saveFavoriteDrink,
+    saveFavoriteMeal,
+    setDrink,
     setDrinksList,
-    foodsList,
-    drinksList,
     setDrinkCategory,
+    setFilteredFavoritesRecipes,
     setFoodCategory,
-    drinkCategoryList,
-    foodCategoryList,
+    setFoodList,
+    setInProgressRecipes,
+    setIsFavRecipe,
+    setIsRecipeDone,
     setLogin,
-    toggleOn,
+    setMeal,
+    setRecomDrink,
+    setRecomMeal,
     setToggleOn,
+    shareIcon,
+    toggleOn,
+    wtHeart,
   };
 
   return (
