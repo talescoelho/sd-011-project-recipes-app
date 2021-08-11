@@ -1,5 +1,19 @@
 const message = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
+export function fetchIngredientesList(setIngredientesList) {
+  // retorna API com a lista de ingredientes para comidas
+  fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
+    .then((response) => response.json())
+    .then((jsonData) => setIngredientesList(jsonData.meals));
+}
+
+export function fetchIngredientesListDrink(setIngredientesList) {
+  // retorna API com a lista de ingredientes para bebidas
+  fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list')
+    .then((response) => response.json())
+    .then((jsonData) => setIngredientesList(jsonData.drinks));
+}
+
 export function fetchRandomMeal(setRandomMeal) {
   // retorna API randomica de comida contendo 1 resultado
   fetch('https://www.themealdb.com/api/json/v1/1/random.php')
