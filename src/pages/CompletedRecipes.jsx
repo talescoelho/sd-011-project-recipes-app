@@ -89,15 +89,11 @@ const CompletedRecipes = () => {
                 <h3 data-testid={ `${index}-horizontal-name` }>{ name }</h3>
               </Link>
               {area ? (
-                <p
-                  data-testid={ `${index}-horizontal-top-text` }
-                >
+                <p data-testid={ `${index}-horizontal-top-text` }>
                   { `${area} - ${category}` }
                 </p>
               ) : (
-                <p
-                  data-testid={ `${index}-horizontal-top-text` }
-                >
+                <p data-testid={ `${index}-horizontal-top-text` }>
                   { alcoholicOrNot }
                 </p>
               )}
