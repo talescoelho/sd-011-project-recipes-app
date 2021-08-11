@@ -7,22 +7,8 @@ function IngredientDetails({ inProcess, food, drink }) {
   const { idDetails, toggle, getAndSetLocalStorage } = useContext(AppContext);
   console.log(idDetails[0]);
 
-  const foodOrDrinkProcess = food ? {
-    meals: {
-      [idDetails[0].idMeal]: [],
-    },
-    cocktails: {
-    },
-  } : {
-    meals: {
-    },
-    cocktails: {
-      [idDetails[0].idDrink]: [],
-    },
-  };
-
   useEffect(() => {
-    getAndSetLocalStorage(foodOrDrinkProcess, inProcess, food);
+    getAndSetLocalStorage(inProcess, food);
   }, []);
 
   const ingredients = Object.keys(idDetails[0])
@@ -31,7 +17,7 @@ function IngredientDetails({ inProcess, food, drink }) {
 
   const ingredientList = ingredients
     .filter((el) => idDetails[0][el])
-    .map((ing, index) => `${idDetails[0][ing]} - ${idDetails[0][measure[index]].trim()}`);
+    .map((ing, index) => `${idDetails[0][ing]} - ${idDetails[0][measure[index]]}`.trim());
 
   console.log(ingredientList);
 
@@ -70,12 +56,7 @@ function IngredientDetails({ inProcess, food, drink }) {
 export default IngredientDetails;
 
 IngredientDetails.propTypes = {
-  inProcess: PropTypes.bool.isRequired,
   food: PropTypes.bool.isRequired,
   drink: PropTypes.bool.isRequired,
-  inProcess: PropTypes.bool,
-};
-
-IngredientDetails.defaultProps = {
-  inProcess: true,
+  inProcess: PropTypes.bool.isRequired,
 };

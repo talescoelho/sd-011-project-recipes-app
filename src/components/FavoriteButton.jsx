@@ -10,13 +10,13 @@ function FavoriteButton({ index, foodOrDrink, id }) {
   console.log('details', details);
   const [favorite, setFavorite] = useState(false);
   const favRecipes = {
-    id: foodOrDrink === 'comidas' ? details.idMeal || id : details.idDrink || id,
-    type: foodOrDrink === 'comidas' ? 'comida' : 'bebida',
+    id: foodOrDrink === 'Comidas' ? details.idMeal || id : details.idDrink || id,
+    type: foodOrDrink === 'Comidas' ? 'comida' : 'bebida',
     area: details.strArea || '',
     category: details.strCategory || '',
     alcoholicOrNot: details.strAlcoholic || '',
-    name: foodOrDrink === 'comidas' ? details.strMeal : details.strDrink,
-    image: foodOrDrink === 'comidas' ? details.strMealThumb : details.strDrinkThumb,
+    name: foodOrDrink === 'Comidas' ? details.strMeal : details.strDrink,
+    image: foodOrDrink === 'Comidas' ? details.strMealThumb : details.strDrinkThumb,
   };
 
   const local = localStorage.getItem('favoriteRecipes');
