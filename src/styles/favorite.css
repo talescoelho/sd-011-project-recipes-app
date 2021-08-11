@@ -1,0 +1,11 @@
+.favorite-btn {
+  background-color: #f67e0c;
+  border: none;
+  color: white;
+  font-style: italic;
+}
+
+.fav-category {
+  font-size: 14px;
+  color: gray;
+}

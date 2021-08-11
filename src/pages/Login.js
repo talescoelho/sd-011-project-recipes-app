@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Input from '../components/Input';
 import { addEmail } from '../redux/actions';
+import '../styles/login.css';
+import chef from '../images/chefBranco.png';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -38,7 +40,9 @@ const Login = () => {
   }
 
   return (
-    <div className="body d-flex j-c-center a-i-center">
+    <div className="body d-flex j-c-center a-i-center f-d-column login-page">
+      <img src={ chef } alt="logo de um chef de cozinha" className="chef-logo" />
+      <h1 className="login-title">Whatever Recipes</h1>
       <form className="d-flex f-d-column a-i-stretch">
         <Input
           type="email"
@@ -47,7 +51,7 @@ const Login = () => {
           name="email"
           setValue={ setEmail }
           placeHolder="Email"
-          className="m-1 p-1"
+          className="m-1 p-1 login-input"
         />
         <Input
           type="password"
@@ -56,14 +60,14 @@ const Login = () => {
           name="password"
           setValue={ setPassword }
           placeHolder="Senha"
-          className="m-1 p-1"
+          className="m-1 p-1 login-input"
         />
         <button
           type="button"
           data-testid="login-submit-btn"
           disabled={ disabled }
           onClick={ handleClick }
-          className="m-1 btn"
+          className="m-1 btn login-btn"
         >
           Entrar
         </button>

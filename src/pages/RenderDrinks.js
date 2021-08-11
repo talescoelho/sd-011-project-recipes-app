@@ -29,7 +29,6 @@ function RenderDrinks() {
           src={ drink.strDrinkThumb }
           alt={ drink.idDrink }
           data-testid={ `${index}-card-img` }
-          style={ { width: '150px' } }
         />
         <h2
           className="h3"
