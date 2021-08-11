@@ -12,6 +12,7 @@ function Profile() {
     localStorage.clear();
     history.push('/');
   }
+
   return (
     <>
       <div>
