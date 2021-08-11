@@ -11,7 +11,7 @@ import ingredientsDrinkDetails from '../helpers/ingredientsDrinkDetails';
 import FoodsRecomendations from '../components/FoodsRecomendations';
 /* import { setStorage, getStorage, newFavoriteRecipes } from '../helpers/Storage'; */
 import { getStorage } from '../helpers/Storage';
-import ShareAndFavButton from '../components/subcomponents/ShareAndFavButton';
+import ShareAndFavButtons from '../components/subcomponents/ShareAndFavButtons';
 
 function DrinksDetails() {
   const { id } = useParams();
@@ -87,7 +87,7 @@ function DrinksDetails() {
                 <span data-testid="recipe-title">{details.strDrink}</span>
                 <span data-testid="recipe-category">{details.strAlcoholic}</span>
               </div>
-              <ShareAndFavButton />
+              <ShareAndFavButtons details={ details } />
               {/* <div>
                 {linkCopied}
                 <button

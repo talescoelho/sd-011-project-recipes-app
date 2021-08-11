@@ -6,7 +6,7 @@ import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import { getStorage, setStorage, newFavoriteRecipes } from '../../helpers/Storage';
 
-function ShareAndFavButton(props) {
+function ShareAndFavButtons(props) {
   const { details } = props;
   const { id } = useParams();
   const [linkCopied, setLinkCopied] = useState('');
@@ -63,10 +63,10 @@ function ShareAndFavButton(props) {
   );
 }
 
-ShareAndFavButton.propTypes = {
+ShareAndFavButtons.propTypes = {
   details: PropTypes.shape({
     id: PropTypes.string,
   }).isRequired,
 };
 
-export default ShareAndFavButton;
+export default ShareAndFavButtons;
