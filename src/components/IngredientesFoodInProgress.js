@@ -8,46 +8,46 @@ class IngredientesFoodInProgress extends Component {
     super();
     this.state = {
       ingredientsArrayList: [],
-    }
-  this.handleOnchange = this.handleOnchange.bind(this);
-  this.saveInLocalStorage = this.saveInLocalStorage.bind(this);
-}
+    };
+    this.handleOnchange = this.handleOnchange.bind(this);
+    this.saveInLocalStorage = this.saveInLocalStorage.bind(this);
+  }
 
-componentDidMount(){
-this.markedBox();
-}
+  componentDidMount() {
+    this.markedBox();
+  }
 
-componentDidUpdate() {
-  this.saveInLocalStorage();
-}
+  componentDidUpdate() {
+    this.saveInLocalStorage();
+  }
 
   handleOnchange({ target }) {
     const { checked, value } = target;
-    if(checked) {
-      this.setState((previousState)=> ({
+    if (checked) {
+      this.setState((previousState) => ({
         ingredientsArrayList: [...previousState.ingredientsArrayList, Number(value)],
       }));
     } else {
-      this.setState((previousState)=> ({
+      this.setState((previousState) => ({
         ingredientsArrayList: previousState.ingredientsArrayList
-        .filter((box) => box !== Number(value)),
+          .filter((box) => box !== Number(value)),
       }));
     }
-  };
+  }
 
   saveInLocalStorage() {
     const { foodDetails } = this.props;
     const { ingredientsArrayList } = this.state;
     let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-   if(!inProgressRecipes) {
-    inProgressRecipes = {
-      cocktails: {}, 
-      meals: {},
-   }
+    if (!inProgressRecipes) {
+      inProgressRecipes = {
+        cocktails: {},
+        meals: {},
+      };
     }
-  inProgressRecipes.meals[foodDetails.idMeal] = ingredientsArrayList;
-  localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-  };
+    inProgressRecipes.meals[foodDetails.idMeal] = ingredientsArrayList;
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  }
 
   // ableButton(){
 
@@ -55,14 +55,14 @@ componentDidUpdate() {
 
   markedBox() {
     const { foodDetails } = this.props;
-    let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    console.log(inProgressRecipes.meals, foodDetails)
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    console.log(inProgressRecipes.meals, foodDetails);
     if (inProgressRecipes
-      && Object.keys(inProgressRecipes.meals).find((meal)=> meal=== foodDetails)) {
-        console.log(inProgressRecipes);
-    this.setState({
-      ingredientsArrayList: inProgressRecipes.meals[foodDetails.idMeal],
-    });   
+      && Object.keys(inProgressRecipes.meals).find((meal) => meal === foodDetails)) {
+      console.log(inProgressRecipes);
+      this.setState({
+        ingredientsArrayList: inProgressRecipes.meals[foodDetails.idMeal],
+      });
     }
   }
 
@@ -80,23 +80,23 @@ componentDidUpdate() {
     return (
       <ul>
         { ingredients
-            .map((item, index) => (item
-              ? (
-                <label htmlFor={ `${index}-check-ingredients` }>
-                  <input
-                    onChange={ this.handleOnchange }
-                    value={ index } 
-                    id={ `${index}-check-ingredients` }
-                    type="checkbox"
-                    data-testid={ `${index}-ingredient-step` }
-                    key={ index }
-                    />
-             {`${item} - ${measurements[index]}`}
-                </label>
-                )
-                : ''))}
+          .map((item, index) => (item
+            ? (
+              <label htmlFor={ `${index}-check-ingredients` }>
+                <input
+                  onChange={ this.handleOnchange }
+                  value={ index }
+                  id={ `${index}-check-ingredients` }
+                  type="checkbox"
+                  data-testid={ `${index}-ingredient-step` }
+                  key={ index }
+                />
+                {`${item} - ${measurements[index]}`}
+              </label>
+            )
+            : ''))}
       </ul>
-    )
+    );
   }
 }
 
