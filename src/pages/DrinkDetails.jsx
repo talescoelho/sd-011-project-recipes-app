@@ -67,7 +67,7 @@ function FoodDetails() {
   const renderNoRecipesMessage = () => renderLoadingOrError(recipesError, recipesLoading);
 
   return (
-    <Layout title="App de Receitas">
+    <Layout title="App de Receitas" noFooter noHeader>
       <main>
         { !cocktail ? renderNoDrinkMessage()
           : (
