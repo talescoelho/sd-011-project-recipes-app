@@ -1,7 +1,7 @@
 .recipe-card {
   border-radius: 1rem;
   border: 1px solid #e0e0e0;
-  height: 20%;
+  min-height: 155px;
 }
 
 .recipe-card a {
