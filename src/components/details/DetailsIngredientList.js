@@ -10,7 +10,7 @@ function DetailsIngredientList() {
     checkedNumberIngredients,
     setCheckedNumberIngredients } = useContext(RecipesContext);
 
-  function conditionFor(idx) { // função para não deixar ser iteravel no for quando igrediente fo nulo
+  function conditionFor(idx) { // função para não deixar ser iteravel no for quando ingrediente for nulo
     return (mealId[`strIngredient${idx}`]) !== null
     && (mealId[`strIngredient${idx}`] !== '');
   }
@@ -26,7 +26,6 @@ function DetailsIngredientList() {
   const ingredients = gettingIngredients();
   const checkPath = useLocation();
   const isInProgress = checkPath.pathname.includes('in-progress');
-
   const params = useParams();
   const urlID = params.id;
 
@@ -36,27 +35,44 @@ function DetailsIngredientList() {
   [checkedIngredients, ingredients.length, setAllIngredientsChecked]);
 
   useEffect(() => {
-    // const checkIndex = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-    // console.log(checkIndex);
-    // // const test = checkIndex.meals[urlID];
-    // // setCheckedNumberIngredients(test);
-    const meals = { meals: { [urlID]: checkedNumberIngredients } };
-    localStorage.setItem('inProgressRecipes', JSON.stringify(meals));
-  }, [checkedNumberIngredients, urlID, setCheckedNumberIngredients]);
+    const localIngredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!localIngredient) {
+      const meals1 = { meals: { [urlID]: [] } };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(meals1));
+    }
+    if (localIngredient && localIngredient.meals[urlID].length !== 0) {
+      const test = localIngredient.meals[urlID];
+      const filterIngredientLocalStorage = (
+        ingredients.filter((_, index) => test.includes(index)));
+      setCheckedNumberIngredients(test);
+      setCheckedIngredients(filterIngredientLocalStorage);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  function addToCheckedIngredient({ target }) {
-    if (checkedIngredients.includes(target.value)) {
-      const arrayCheckedIngredients = checkedIngredients.filter((ingredient) => (
-        ingredient !== target.value));
+  function addToCheckedIngredient(ingredient, index) {
+    const test = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (checkedIngredients.includes(ingredient)) {
+      const arrayCheckedIngredients = checkedIngredients.filter((ingredient1) => (
+        ingredient1 !== ingredient));
       setCheckedIngredients(arrayCheckedIngredients);
       const indexIngredient = checkedNumberIngredients.filter((ingredientIndex) => (
-        ingredientIndex !== target.name));
+        ingredientIndex !== Number(index)));
       setCheckedNumberIngredients(indexIngredient);
+      test.meals[urlID] = indexIngredient;
+      localStorage.setItem('inProgressRecipes', JSON.stringify(test));
     } else {
-      setCheckedIngredients([...checkedIngredients, target.value]);
-      setCheckedNumberIngredients([...checkedNumberIngredients, target.name]);
+      setCheckedIngredients([...checkedIngredients, ingredient]);
+      const number = [...checkedNumberIngredients, Number(index)];
+      setCheckedNumberIngredients(number);
+      test.meals[urlID] = number;
+      localStorage.setItem('inProgressRecipes', JSON.stringify(test));
     }
   }
+
+  useEffect(() => {
+    console.log(checkedNumberIngredients);
+  }, [checkedNumberIngredients])
 
   return (
     <div>
@@ -87,11 +103,12 @@ function DetailsIngredientList() {
                       key={ index }
                     >
                       <input
+                        checked={ checkedIngredients.includes(ingredient) ? true : false }
                         type="checkbox"
                         id={ `ingredient-${index}` }
                         name={ index }
                         value={ ingredient }
-                        onChange={ addToCheckedIngredient }
+                        onChange={ () => addToCheckedIngredient(ingredient, index) }
                       />
                       { (checkedIngredients.includes(ingredient))
                         ? <del>{ ingredient }</del> : ingredient }
