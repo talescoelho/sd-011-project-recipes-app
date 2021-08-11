@@ -7,7 +7,7 @@ import { RequestHook } from '../Context/RequestHook';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-function Header({ title, search }) {
+function HeaderFood({ title, search }) {
   const [showFilterInput, setShowFilter] = useState(false);
   const [inputTextSearch, setInputTextSearch] = useState('');
   const [radio, setRadio] = useState('');
@@ -15,22 +15,15 @@ function Header({ title, search }) {
   const {
     filteredFood,
     setFilteredFood,
-    filteredDrink,
-    setFilteredDrink,
     filterByNameFood,
     filterByIngredientFood,
     filterByFirstLetterFood,
-    filterByNameDrink,
-    filterByIngredientDrink,
-    filterByFirstLetterDrink,
   } = RequestHook();
 
   useEffect(() => {
     setShowFilter(true);
   }, []);
 
-  const local = window.location.href;
-  const url = 'http://localhost:3000/comidas';
   const nameSearch = 'name-search';
   const firstLetter = 'first-letter';
   const ingredient = 'ingredient';
@@ -56,30 +49,6 @@ function Header({ title, search }) {
     case (ingredient):
       setFilteredFood([]);
       setFilteredFood(filterByIngredientFood(inputTextSearch));
-      break;
-    default:
-      alert('Escolha uma opção de filtro!');
-    }
-  }
-
-  function handleButtonDrink() {
-    switch (radio) {
-    case (nameSearch):
-      setFilteredDrink(filterByNameDrink(inputTextSearch));
-      if (filteredDrink.length < 1) {
-        alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-        break;
-      }
-      break;
-    case (firstLetter):
-      if (inputTextSearch.length > 1) {
-        alert('Sua busca deve conter somente 1 (um) caracter');
-        break;
-      }
-      setFilteredDrink(filterByFirstLetterDrink(inputTextSearch));
-      break;
-    case (ingredient):
-      setFilteredDrink(filterByIngredientDrink(inputTextSearch));
       break;
     default:
       alert('Escolha uma opção de filtro!');
@@ -150,9 +119,7 @@ function Header({ title, search }) {
           <button
             data-testid="exec-search-btn"
             type="button"
-            onClick={ local === url
-              ? () => handleButtonFood()
-              : () => handleButtonDrink() }
+            onClick={ () => handleButtonFood() }
           >
             Buscar
           </button>
@@ -162,9 +129,9 @@ function Header({ title, search }) {
   );
 }
 
-Header.propTypes = {
+HeaderFood.propTypes = {
   title: PropTypes.string.isRequired,
   search: PropTypes.bool.isRequired,
 };
 
-export default Header;
+export default HeaderFood;

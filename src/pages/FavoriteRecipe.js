@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from '../components/Header';
+import HeaderFood from '../components/HeaderFood';
 
 function favoriteRecipe() {
   return (
     <div>
-      <Header title="Receitas Favoritas" search={ false } />
+      <HeaderFood title="Receitas Favoritas" search={ false } />
       Receitas favoritas
     </div>
   );

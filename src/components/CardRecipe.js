@@ -34,7 +34,7 @@ function CardRecipe({ item, index }) {
           </Link>
         ) : (
           <div data-testid={ `${index}-recipe-card` }>
-            <Link to={ `/bebidas/${item.strDrink}` }>
+            <Link to={ `/bebidas/${item.idDrink}` }>
               {
                 item.strDrink ? (
                   <p data-testid={ `${index}-card-name` }>

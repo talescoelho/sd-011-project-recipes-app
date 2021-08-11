@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from '../components/Header';
+import HeaderFood from '../components/HeaderFood';
 
 function finishRecipe() {
   return (
     <div>
-      <Header title="Receitas Feitas" search={ false } />
+      <HeaderFood title="Receitas Feitas" search={ false } />
       Receitas feitas
     </div>
   );
