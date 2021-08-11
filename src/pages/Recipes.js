@@ -98,8 +98,10 @@ function Recipes() {
     Food: true,
     Drinks: true,
   });
+
   const MINUS_ONE = -1;
   let index = MINUS_ONE;
+
   return (
     <div>
       <Header props={ headerProps } />
