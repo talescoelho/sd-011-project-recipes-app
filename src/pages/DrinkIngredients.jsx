@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { Card } from 'react-bootstrap';
 import Header from '../components/Header';
-import { getFoodCard } from '../Redux/actions/index';
+import { fetchFoodCard } from '../Redux/reducers/recipes';
 import fetchDrinkIngredients from '../services/DrinkIngredientAPI';
 import '../styles/Ingredients.css';
 import Footer from '../components/Footer';
@@ -28,7 +28,7 @@ export default function DrinkIngredients() {
   const renderFilteredIngredients = async (ingredient) => {
     const drinkByIngredient = await fetchDrinkIngredients(ingredient);
     const { drinks } = drinkByIngredient;
-    dispatch(getFoodCard({ filtered: drinks, selectedCategory: 'drinks' }));
+    dispatch(fetchFoodCard({ filtered: drinks, selectedCategory: 'drinks' }));
     dispatch({ type: 'CLEAR_FORM_INFO' });
     history.push('/bebidas');
   };

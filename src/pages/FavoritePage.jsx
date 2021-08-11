@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import FavoriteCard from '../components/FavoriteCard';
 import '../styles/doneRecipes.css';
 import useLSHook from '../components/Hooks/useLSHook';
-import { getFavoriteRecipes, filterBookmarked } from '../Redux/actions/index';
+import { getFavoriteRecipes, filterRecipes } from '../Redux/reducers/user';
 
 export default function FavoritePage() {
   const dispatch = useDispatch();
@@ -18,12 +18,12 @@ export default function FavoritePage() {
     }
   }, [dispatch, favoriteRecipes]);
 
-  const filterRecipes = (foodEl) => {
+  const filterCards = (foodEl) => {
     if (foodEl) {
       const filteredRecipes = favoriteRecipes.filter((food) => food.type === foodEl);
-      return dispatch(filterBookmarked(filteredRecipes));
+      return dispatch(filterRecipes(filteredRecipes));
     }
-    return dispatch(filterBookmarked(favoriteRecipes));
+    return dispatch(filterRecipes(favoriteRecipes));
   };
 
   const cardsToRender = (cardsRender) => (
@@ -39,21 +39,21 @@ export default function FavoritePage() {
         <Form className="d-flex justify-content-evenly mt-4 mb-3">
           <Button
             data-testid="filter-by-all-btn"
-            onClick={ () => filterRecipes() }
+            onClick={ () => filterCards() }
           >
             All
 
           </Button>
           <Button
             data-testid="filter-by-food-btn"
-            onClick={ () => filterRecipes('comida') }
+            onClick={ () => filterCards('comida') }
           >
             Food
 
           </Button>
           <Button
             data-testid="filter-by-drink-btn"
-            onClick={ () => filterRecipes('bebida') }
+            onClick={ () => filterCards('bebida') }
           >
             Drinks
 

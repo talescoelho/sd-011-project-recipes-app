@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
 import produce from 'immer';
 
 export const isRecipeDone = (idReceita) => {
@@ -71,9 +73,16 @@ export const addDoneRecipe = ({ item }) => {
     tags: item.strTags || '',
   };
 
-  console.log(food);
-
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+  const newProgressRecipes = produce(inProgressRecipes, (draft) => {
+    const type = item.idDrink ? 'cocktails' : 'meals';
+    delete draft[type][food.id];
+    return draft;
+  });
+
+  localStorage.setItem('inProgressRecipes', JSON.stringify(newProgressRecipes));
 
   if (!doneRecipes) {
     return localStorage.setItem('doneRecipes', JSON.stringify([food]));
@@ -85,7 +94,7 @@ export const addDoneRecipe = ({ item }) => {
       }
       return draft.concat(food);
     });
-    console.log(newState);
+
     localStorage.setItem('doneRecipes', JSON.stringify(newState));
   }
 };

@@ -12,6 +12,7 @@ import {
 import ShareBtn from './ShareBtn';
 import FavoriteBtn from './FavoriteBtn';
 import ShowFrame from './foodDetailsPage/ShowFrame';
+import TravelButtons from './Buttons/TravelButtons';
 
 export default function FoodDetails({ type }) {
   const recipes = useSelector((state) => state.recipes);
@@ -59,48 +60,50 @@ export default function FoodDetails({ type }) {
     };
 
     return (
+
       <main className="food-details">
-        <div data-testid="0-recipe-card">
+        <TravelButtons>
+          <div data-testid="0-recipe-card">
+            <img
+              className="imgreceita"
+              data-testid="recipe-photo"
+              src={ strMealThumb || strDrinkThumb }
+              alt="img"
+            />
+            <h1 data-testid="recipe-title">{strMeal || strDrink}</h1>
 
-          <img
-            className="imgreceita"
-            data-testid="recipe-photo"
-            src={ strMealThumb || strDrinkThumb }
-            alt="img"
-          />
-          <h1 data-testid="recipe-title">{strMeal || strDrink}</h1>
-          <ShareBtn />
-          <FavoriteBtn />
-          <p data-testid="recipe-category">{strAlcoholic}</p>
-          <p data-testid="instructions">{strInstructions}</p>
-          <p data-testid="recipe-category">
-            Categoria:
-            {strCategory}
-          </p>
-          <ul>
-            {listIngredients(food)}
-          </ul>
-          <h2>Recommended Cards</h2>
-          {type === 'meals' && ShowFrame(food)}
+            <ShareBtn />
+            <FavoriteBtn />
 
-        </div>
-        <div>
-          { type === 'drinks' && (<CardsFood />)}
-          {type === 'meals' && (<CardsDrinks />)}
-        </div>
-
-        {showRecipe(id) ? (
-          <Link
-            to={ path[type] }
-            className="btnstart btn btn-primary"
-            type="button"
-            data-testid="start-recipe-btn"
-          >
-            {buttonName()}
-          </Link>
-        ) : ('') }
-
+            <p data-testid="recipe-category">{strAlcoholic}</p>
+            <p data-testid="instructions">{strInstructions}</p>
+            <p data-testid="recipe-category">
+              Categoria:
+              {strCategory}
+            </p>
+            <ul>
+              {listIngredients(food)}
+            </ul>
+            <h2>Recommended Cards</h2>
+            {type === 'meals' && ShowFrame(food)}
+          </div>
+          <div>
+            { type === 'drinks' && (<CardsFood />)}
+            {type === 'meals' && (<CardsDrinks />)}
+          </div>
+          {showRecipe(id) ? (
+            <Link
+              to={ path[type] }
+              className="btnstart btn btn-primary"
+              type="button"
+              data-testid="start-recipe-btn"
+            >
+              {buttonName()}
+            </Link>
+          ) : ('') }
+        </TravelButtons>
       </main>
+
     );
   }
   return 'Loading...';

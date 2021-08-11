@@ -3,8 +3,6 @@ import FoodInProgress from '../components/FoodInProgress';
 
 export default function DrinkProgress() {
   return (
-    <div>
-      <FoodInProgress type="drinks" />
-    </div>
+    <FoodInProgress type="drinks" />
   );
 }

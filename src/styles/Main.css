@@ -2,3 +2,9 @@ main {
   margin-top: 50px;
 }
 
+.travelButton{
+  border : none;
+  font-size: 3rem;
+  background-color: transparent;
+  position:absolute;
+}

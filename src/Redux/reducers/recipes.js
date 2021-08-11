@@ -1,3 +1,5 @@
+import { createSlice } from '@reduxjs/toolkit';
+
 const initialState = {
   formInfo: '',
   cards: [],
@@ -6,33 +8,38 @@ const initialState = {
   selectedCategory: '',
 };
 
-const recipe = (state = initialState, action) => {
-  const { type, payload } = action;
-  switch (type) {
-  case 'SEND_FORM_DATA': {
-    return { ...state, formInfo: payload };
-  }
-  case 'FETCH_FOOD_CARD': {
-    const { filtered, selectedCategory } = payload;
-    return { ...state, cards: filtered, selectedCategory };
-  }
-  case 'FETCH_FOOD_CATEGORIES': {
-    const { array } = payload;
-    return { ...state, categories: { ...state.categories, [payload.type]: array } };
-  }
-  case 'CLEAR_FORM_INFO': {
-    return { ...state, formInfo: '' };
-  }
+export const userSlice = createSlice({
+  name: 'userSlice',
+  initialState,
+  reducers: {
+    sendFormData: (state, action) => {
+      state.formInfo = action.payload;
+    },
+    fetchFoodCard: (state, action) => {
+      const { filtered, selectedCategory } = action.payload;
+      state.cards = filtered;
+      state.selectedCategory = selectedCategory;
+    },
+    fetchFoodCategories: (state, action) => {
+      const { array } = action.payload;
+      state.categories = { ...state.categories, [action.payload.type]: array };
+    },
+    clearFormInfo: (state) => {
+      state.formInfo = '';
+    },
+    fetchFilteredCategory: (state, action) => {
+      const { filtered, filteredCategory } = action.payload;
+      state.cards = filtered;
+      state.selectedCategory = filteredCategory;
+    },
+  },
+});
 
-  case 'FETCH_FILTERED_CATEGORY': {
-    const { filtered, filteredCategory } = payload;
-    console.log(filteredCategory);
-    return { ...state, cards: filtered, filteredCategory };
-  }
+export const {
+  sendFormData,
+  fetchFoodCard,
+  fetchFoodCategories,
+  clearFormInfo,
+  fetchFilteredCategory } = userSlice.actions;
 
-  default:
-    return { ...state };
-  }
-};
-
-export default recipe;
+export default userSlice.reducer;

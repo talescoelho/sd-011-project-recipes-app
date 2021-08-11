@@ -1,6 +1,7 @@
-import { getFoodCategories,
-  getFoodCard,
-  getFilteredCategory } from '../Redux/actions/index';
+import {
+  fetchFoodCategories,
+  fetchFoodCard,
+  fetchFilteredCategory } from '../Redux/reducers/recipes';
 
 export const fetchFood = ({ id, type }) => async (dispatch) => {
   const cat = {
@@ -8,18 +9,18 @@ export const fetchFood = ({ id, type }) => async (dispatch) => {
     drinks: `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`,
   };
 
-  const fetchFoodCard = async () => {
+  const fetchAPI = async () => {
     const response = await fetch(cat[type]);
     const json = await response.json();
 
     try {
       const s = [...Object.values(json)[0]];
-      return dispatch(getFoodCard({ filtered: s[0], selectedCategory: type }));
+      return dispatch(fetchFoodCard({ filtered: s[0], selectedCategory: type }));
     } catch (error) {
       throw new Error(error);
     }
   };
-  return fetchFoodCard();
+  return fetchAPI();
 };
 
 export const fetchFoodCategory = (type) => async (dispatch) => {
@@ -34,7 +35,7 @@ export const fetchFoodCategory = (type) => async (dispatch) => {
     const array = Object.values(json)[0].filter((el,
       index) => index < magic).map((el) => el.strCategory);
     array.unshift('All');
-    dispatch(getFoodCategories({ type, array }));
+    dispatch(fetchFoodCategories({ type, array }));
     return array;
   } catch (error) {
     throw new Error(error);
@@ -57,7 +58,7 @@ export const getFilteredFoodList = (food, type) => async (dispatch) => {
   try {
     const array = Object.values(json)[0].filter((el,
       index) => index < magic);
-    return dispatch(getFilteredCategory({ filtered: array, filteredCategory: food }));
+    return dispatch(fetchFilteredCategory({ filtered: array, filteredCategory: food }));
   } catch (error) {
     throw new Error(error);
   }

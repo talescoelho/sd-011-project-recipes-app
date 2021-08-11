@@ -1,4 +1,4 @@
-import { getFoodCard } from '../Redux/actions/index';
+import { fetchFoodCard } from '../Redux/reducers/recipes';
 
 const getFood = (food, db) => async (dispatch) => {
   const { type, query } = food;
@@ -34,7 +34,7 @@ const getFood = (food, db) => async (dispatch) => {
 
     try {
       const list = food ? data[db] : filtered;
-      dispatch(getFoodCard({ filtered: list, selectedCategory: db }));
+      dispatch(fetchFoodCard({ filtered: list, selectedCategory: db }));
     } catch (error) {
       throw new Error(error);
     }

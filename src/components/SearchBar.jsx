@@ -2,7 +2,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { sendFormData } from '../Redux/actions';
+// import { sendFormData } from '../Redux/actions';
+import { sendFormData } from '../Redux/reducers/recipes';
 
 function SearchBar() {
   const { register, handleSubmit } = useForm();
