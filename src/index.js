@@ -5,12 +5,15 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import RecipeAppProvider from './provider/RecipeAppProvider';
+import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 
 ReactDOM.render(
   <BrowserRouter>
-    <RecipeAppProvider>
-      <App />
-    </RecipeAppProvider>
+    <AlertProvider>
+      <RecipeAppProvider>
+        <App />
+      </RecipeAppProvider>
+    </AlertProvider>
   </BrowserRouter>,
   document.getElementById('root'),
 );

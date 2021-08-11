@@ -7,6 +7,7 @@ function FoodsSearchBar() {
   const [input, setInput] = useState('');
   const { setFoodList } = useContext(RecipeAppContext);
   const history = useHistory();
+  // const alert = useAlert();
 
   const requestFoodEndpoint = async (text) => {
     let endpoint = '';
