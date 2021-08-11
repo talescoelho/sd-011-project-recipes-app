@@ -92,7 +92,8 @@ function ReceitasFeitas({ match }) {
                   data-testid={ `${index}-horizontal-share-btn` }
                 />
               </button>
-              <p className={ copied }>Link copiado!</p>
+              <p>{copied ? 'Link copiado!' : null}</p>
+
               <Link
                 to={ `/${alterURL[recipe.type]}/${recipe.id}` }
                 data-testid={ `${index}-horizontal-name` }
