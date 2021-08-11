@@ -20,6 +20,7 @@ const Header = ({ title, hasSearchBar, mode }) => {
           onClick={ () => setIsSearchShowing(!isSearchShowing) }
           type="button"
           className="header-btn"
+          data-testid="search-btn"
         >
           <img data-testid="search-top-btn" src={ SearchIcon } alt="Procurar" />
         </button>)}
