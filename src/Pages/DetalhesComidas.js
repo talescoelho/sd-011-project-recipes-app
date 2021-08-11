@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import YouTube from 'react-youtube';
 import RenderRecomendations from '../components/RenderRecomendations';
 import {
   getRecipes,
@@ -140,13 +141,13 @@ function DetalhesComidas() {
         { getIngredients2(recipe, 'strMeasure') }
       </ol>
       <p data-testid="instructions">{ recipe.strInstructions }</p>
-      <iframe
-        width="200"
-        height="150"
-        title={ recipe.strMeal }
-        src={ recipe.strYoutube }
-        data-testid="video"
-      />
+      <section data-testid="video">
+        <YouTube
+          videoId={ recipe.strYoutube.split('=')[1] }
+          title={ recipe.strMeal }
+          opts={ { height: '150', width: '200' } }
+        />
+      </section>
       <Link to={ `/comidas/${recipe.idMeal}/in-progress` }>
         <button
           type="button"

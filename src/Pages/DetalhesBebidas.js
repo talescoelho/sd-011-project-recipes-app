@@ -146,13 +146,6 @@ function DetalhesBebidas() {
         { getIngredients2(recipe, 'strMeasure') }
       </ol>
       <p data-testid="instructions">{ recipe.strInstructions }</p>
-      <iframe
-        width="200"
-        height="150"
-        title={ recipe.strMeal }
-        src={ recipe.strYoutube }
-        data-testid="video"
-      />
       <Link to={ `/bebidas/${recipe.idDrink}/in-progress` }>
         <button
           type="button"
