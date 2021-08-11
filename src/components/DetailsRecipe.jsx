@@ -73,7 +73,7 @@ function DetailsRecipe(props) {
         favorite={ favorite }
         recipes={ recipeData }
       />
-      { video && <iframe
+      {/* { video && <iframe
         width="260"
         height="315"
         src={ `https://www.youtube.com/embed/${finalUrl}` }
@@ -81,7 +81,7 @@ function DetailsRecipe(props) {
         frameBorder="0"
         data-testid="video"
         allowFullScreen
-      /> }
+      /> } */}
       <Recommendations />
       <ButtonStartRecipe
         id={ id }
