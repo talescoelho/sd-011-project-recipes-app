@@ -75,6 +75,7 @@ function DetailsRecipe(props) {
       />
       { video && <iframe
         width="260"
+        style={ { zIndex: '0' } }
         height="315"
         src={ `https://www.youtube.com/embed/${finalUrl}` }
         title="YouTube video player"
