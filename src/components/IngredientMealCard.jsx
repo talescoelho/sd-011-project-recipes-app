@@ -11,7 +11,8 @@ export default function IngredientMealCard({ ingredient, i }) {
 
   function getRecipesByIngredient() {
     const time = 2000;
-    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${ingredient.strIngredient}`)
+    // console.log(`https://www.themealdb.com/api/json/v1/1/list.php?i=${ingredient.strIngredient}`)
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient.strIngredient}`)
       .then((response) => response.json())
       .then((data) => saveMealRecipes(data));
     setTimeout(() => {
