@@ -6,6 +6,7 @@ import shareIcon from '../images/shareIcon.svg';
 import handleClickFavoriteRecipe from '../helpers/handleClickFavoriteRecipe';
 import handleClickDoneRecipe from '../helpers/handleClickDoneRecipe';
 import '../styles/recipesInProgress.css';
+import '../App.css';
 
 function RecipeInProgress({
   typeURL,
@@ -52,9 +53,13 @@ function RecipeInProgress({
 
   const copyLink = () => {
     const end = 12;
+    const three = 3000;
     const url = window.location.href;
     navigator.clipboard.writeText(url.slice(0, url.length - end));
     setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, three);
   };
 
   return recipe.map((recipeType, index) => {
@@ -68,46 +73,51 @@ function RecipeInProgress({
     }
 
     return (
-      <div key={ index }>
+      <div key={ index } className="body-b">
         <img
           src={ recipeType[`str${newType}Thumb`] }
           alt={ recipeType[`str${newType}`] }
           data-testid="recipe-photo"
+          className="w-100"
         />
-        <h1 data-testid="recipe-title">{recipeType[`str${newType}`]}</h1>
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ copyLink }
-          src={ shareIcon }
-        >
-          <img src={ shareIcon } alt="compartilhar" />
-        </button>
-        { isFavorite ? (
-          <button
-            type="button"
-            data-testid="favorite-btn"
-            onClick={ () => handleClickFavoriteRecipe(urlId,
-              recipeType, setIsFavorite, isFavorite) }
-            src={ blackHeartIcon }
-            className="favorite"
-          >
-            <img src={ blackHeartIcon } alt="" />
-          </button>)
-          : (
+        <div className="d-flex a-i-center j-c-spBetween ml-1">
+          <h1 data-testid="recipe-title">{recipeType[`str${newType}`]}</h1>
+          {copied ? <p>Link copiado!</p> : (
+            <button
+              type="button"
+              data-testid="share-btn"
+              onClick={ copyLink }
+              src={ shareIcon }
+              className="btn-icon"
+            >
+              <img src={ shareIcon } alt="compartilhar" />
+            </button>
+          )}
+          { isFavorite ? (
             <button
               type="button"
               data-testid="favorite-btn"
               onClick={ () => handleClickFavoriteRecipe(urlId,
                 recipeType, setIsFavorite, isFavorite) }
-              src={ whiteHeartIcon }
-              className="favorite"
+              src={ blackHeartIcon }
+              className="favorite btn-icon"
             >
-              <img src={ whiteHeartIcon } alt="" />
-            </button>) }
-        {copied ? <p>Link copiado!</p> : null}
-        <p data-testid="recipe-category">{recipeType.strCategory}</p>
-        <ul>
+              <img src={ blackHeartIcon } alt="" />
+            </button>)
+            : (
+              <button
+                type="button"
+                data-testid="favorite-btn"
+                onClick={ () => handleClickFavoriteRecipe(urlId,
+                  recipeType, setIsFavorite, isFavorite) }
+                src={ whiteHeartIcon }
+                className="favorite btn-icon"
+              >
+                <img src={ whiteHeartIcon } alt="" />
+              </button>) }
+        </div>
+        <p data-testid="recipe-category" className="ml-1">{recipeType.strCategory}</p>
+        <ul className="bg-gray m-1 b-shadow b-radius">
           {ingredients.map((n, i) => (
             arrayCheckedIngredients.includes(n) ? (
               <li
@@ -141,7 +151,12 @@ function RecipeInProgress({
               </li>)
           ))}
         </ul>
-        <p data-testid="instructions">{recipeType.strInstructions}</p>
+        <p
+          data-testid="instructions"
+          className="bg-gray m-1 p-1 b-shadow b-radius"
+        >
+          {recipeType.strInstructions}
+        </p>
         <Link to="/receitas-feitas">
           <button
             type="button"

@@ -9,6 +9,7 @@ import handleClickFavoriteRecipe from '../helpers/handleClickFavoriteRecipe';
 import handleClickClipboard from '../helpers/handleClickClipBoard';
 import RecomendationCard from '../components/RecomendationCard';
 import handleContinueButton from '../helpers/handleContinueButton';
+import '../styles/foodDetails.css';
 
 const FoodDetails = ({ match }) => {
   const { id } = match.params;
@@ -59,33 +60,47 @@ const FoodDetails = ({ match }) => {
   }
 
   return (
-    <div>
+    <div className="body-b">
       <img
         className="top-img"
         src={ strMealThumb }
         alt={ `${strMeal}` }
         data-testid="recipe-photo"
       />
-      <h1 data-testid="recipe-title">{ strMeal }</h1>
-      { messageClipboard }
-      <button type="button" onClick={ () => handleClickClipboard(setMessageClipboard) }>
-        <img
-          src={ shareIcon }
-          alt=""
-          data-testid="share-btn"
-        />
-      </button>
-      <button
-        type="button"
-        onClick={ () => handleClickFavoriteRecipe(id, meal, setIsFavorite, isFavorite) }
-      >
-        { isFavorite ? (
-          <img src={ blackHeartIcon } alt="" data-testid="favorite-btn" />)
-          : (<img src={ whiteHeartIcon } alt="" data-testid="favorite-btn" />) }
-      </button>
-      <h2 data-testid="recipe-category">{ strCategory }</h2>
-      Ingredients
-      <ul>
+      <div className="d-flex a-i-center j-c-spBetween ml-1">
+        <h1 data-testid="recipe-title">{ strMeal }</h1>
+        <div className="d-flex">
+          { messageClipboard ? <p>{messageClipboard}</p> : (
+            <button
+              type="button"
+              onClick={ () => handleClickClipboard(setMessageClipboard) }
+              className="btn-icon"
+            >
+              <img
+                src={ shareIcon }
+                alt=""
+                data-testid="share-btn"
+              />
+            </button>
+          )}
+
+          <button
+            type="button"
+            onClick={ () => handleClickFavoriteRecipe(id, meal,
+              setIsFavorite, isFavorite) }
+            className="btn-icon"
+          >
+            { isFavorite ? (
+              <img src={ blackHeartIcon } alt="" data-testid="favorite-btn" />)
+              : (<img src={ whiteHeartIcon } alt="" data-testid="favorite-btn" />) }
+          </button>
+        </div>
+      </div>
+      <p data-testid="recipe-category" className="ml-1">{ `- ${strCategory}` }</p>
+      <span className="fh-4 ml-1">
+        Ingredients
+      </span>
+      <ul className="bg-gray m-1 b-shadow b-radius">
         { ingredients.map(([, value], index) => (
           <li
             key={ value }
@@ -95,10 +110,15 @@ const FoodDetails = ({ match }) => {
           </li>
         ))}
       </ul>
-      Instructions
-      <p data-testid="instructions">{ strInstructions }</p>
-      <iframe data-testid="video" src={ urlVideo } title="description" />
-      Recommended
+      <span className="fh-4 ml-1">Instructions</span>
+      <p
+        data-testid="instructions"
+        className="bg-gray m-1 p-1 b-shadow b-radius"
+      >
+        { strInstructions }
+      </p>
+      <iframe data-testid="video" className="ml-1" src={ urlVideo } title="description" />
+      <span className="fh-4 ml-1">Recommended</span>
       <RecomendationCard arrayOfRecomendations={ drinksData } />
       {
         buttonShoulBeVisible && (
