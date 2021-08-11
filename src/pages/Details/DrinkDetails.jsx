@@ -4,8 +4,7 @@ import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import styles from './DrinkDetails.module.css';
 import shareIcon from '../../images/shareIcon.svg';
-import whiteHeart from '../../images/whiteHeartIcon.svg';
-import blackHeart from '../../images/blackHeartIcon.svg';
+import FavoriteButtonDrinks from '../../globalComponents/FavoriteButtonDrinks';
 
 function DrinkDetails({ match }) {
   const [drinks, setDrinks] = useState({});
@@ -59,24 +58,6 @@ function DrinkDetails({ match }) {
     }, mSeconds);
   };
 
-  const favoriteBttnHandle = () => {
-    setFavorite(!favorite);
-
-    const favoriteObj = {
-      id,
-      type: 'bebida',
-      area: drinks.strArea ? drinks.strArea : '',
-      category: drinks.strCategory,
-      alcoholicOrNot: drinks.strAlcoholic,
-      name: drinks.strDrink,
-      image: drinks.strDrinkThumb,
-    };
-
-    if (!favorite) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([favoriteObj]));
-    }
-  };
-
   return (
     <div>
 
@@ -107,16 +88,12 @@ function DrinkDetails({ match }) {
         <img src={ shareIcon } alt="share" />
       </button>
 
-      <button
-        type="button"
-        onClick={ favoriteBttnHandle }
-      >
-        <img
-          src={ !favorite ? whiteHeart : blackHeart }
-          alt="share"
-          data-testid="favorite-btn"
-        />
-      </button>
+      <FavoriteButtonDrinks
+        drinks={ drinks }
+        favorite={ favorite }
+        setFavorite={ setFavorite }
+        id={ id }
+      />
 
       <p>{copied ? 'Link copiado!' : null}</p>
       <h1>Instruções</h1>
