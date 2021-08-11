@@ -8,7 +8,6 @@ function VerifyStart({ id }) {
   const cocktails = inProgressRecipes.cocktails || {};
   const meals = inProgressRecipes.meals || {};
 
-  console.log(useContext(LSContext));
   if (inProgressRecipes
     && ((Object.keys(cocktails)).includes(id)
       || (Object.keys(meals)).includes(id))) {
