@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import ShareButton from './ShareButton';
 import verifyIngredients from '../../Helpers/verifyIngredients';
 import '../../styles/detail-screen.css';
 import FavoriteButton from './FavoriteButton';
 import { manageDetailAPI } from '../../Helpers/convertUrlToID';
+import setDoneRecipes from '../../Helpers/setDoneRecipes';
+import createDoneRecipes from '../../Helpers/createDoneRecipes';
 
 function InProgressDrink() {
-  const history = useHistory();
   const { id } = useParams();
   const [usedIngredients, setUsedIngredients] = useState([]);
   const [showFinish, setShowFinish] = useState(true);
@@ -19,6 +20,9 @@ function InProgressDrink() {
   const arrayOfMeasures = [];
 
   useEffect(() => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    createDoneRecipes(doneRecipes);
+
     const currentStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (!currentStorage) {
       localStorage.setItem('inProgressRecipes', JSON.stringify({
@@ -118,14 +122,16 @@ function InProgressDrink() {
         <h2>Instruções</h2>
         <p data-testid="instructions">{drinks[0].strInstructions}</p>
       </section>
-      <button
-        data-testid="finish-recipe-btn"
-        type="button"
-        disabled={ showFinish }
-        onClick={ () => history.push('/receitas-feitas') }
-      >
-        Finalizar Receita
-      </button>
+      <Link to="/receitas-feitas">
+        <button
+          data-testid="finish-recipe-btn"
+          type="button"
+          disabled={ showFinish }
+          onClick={ () => setDoneRecipes(id, drinks[0], 'drinks') }
+        >
+          Finalizar Receita
+        </button>
+      </Link>
     </div>
   );
 }
