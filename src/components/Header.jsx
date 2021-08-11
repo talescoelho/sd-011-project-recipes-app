@@ -24,7 +24,7 @@ function Header({ pageName, showSearchButton }) {
     </button>);
 
   return (
-    <HeaderNavBar>
+    <HeaderNavBar color={ pageName.includes('ebida') ? '#a73d7e' : null }>
       <div className="btns">
         <Link to="/perfil">
           <button className="btn-perfil" type="button">

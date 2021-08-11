@@ -56,7 +56,7 @@ function SearchBar({ type }) {
         placeholder="O que deseja pesquisar?"
       />
       <Button
-        style={ { backgroundColor: '#fcdc4d' } }
+        style={ { backgroundColor: type.includes('ebida') ? '#a73d7e' : '#fcdc4d' } }
         variant="light"
         size="sm"
         type="button"
