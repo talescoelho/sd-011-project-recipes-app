@@ -13,7 +13,9 @@ function Header({ title, search }) {
   const [radio, setRadio] = useState('');
 
   const {
+    filteredFood,
     setFilteredFood,
+    filteredDrink,
     setFilteredDrink,
     filterByNameFood,
     filterByIngredientFood,
@@ -38,6 +40,10 @@ function Header({ title, search }) {
     case (nameSearch):
       setFilteredFood([]);
       setFilteredFood(filterByNameFood(inputTextSearch));
+      if (filteredFood.length < 1) {
+        alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+        break;
+      }
       break;
     case (firstLetter):
       if (inputTextSearch.length > 1) {
@@ -60,6 +66,10 @@ function Header({ title, search }) {
     switch (radio) {
     case (nameSearch):
       setFilteredDrink(filterByNameDrink(inputTextSearch));
+      if (filteredDrink.length < 1) {
+        alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+        break;
+      }
       break;
     case (firstLetter):
       if (inputTextSearch.length > 1) {

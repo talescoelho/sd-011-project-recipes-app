@@ -22,6 +22,8 @@ export function RequestProvider({ children }) {
   const [initialItensDrink, setInitialItensDrink] = useState([]);
 
   async function filterByNameFood(filterText) {
+    setFilteredFood([]);
+    setInitialItensFood([]);
     const items = await searchByName(filterText);
     if (items !== null && items.length >= 1) {
       setFilteredFood(items);
@@ -30,12 +32,16 @@ export function RequestProvider({ children }) {
 
   async function filterByIngredientFood(filterText) {
     if (!filterText) return;
+    setFilteredFood([]);
+    setInitialItensFood([]);
     const items = await searchByIngredient(filterText);
     setFilteredFood(items);
   }
 
   async function filterByFirstLetterFood(filterText) {
     if (!filterText) return;
+    setFilteredFood([]);
+    setInitialItensFood([]);
     const items = await searchByFirstLetter(filterText);
     setFilteredFood(items);
   }

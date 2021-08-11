@@ -11,36 +11,21 @@ function NavCategories() {
   const url = 'http://localhost:3000/comidas';
   const MAX_RESULT = 5;
 
-  // async function resultCategoriesButtons() {
-  //   let result;
-  //   if (local === url) {
-  //     result = await getCategoriesFood();
-  //     setCategory(result);
-  //   } else if (local !== url) result = await getCategoriesDrink();
-  //   setCategory(result);
-  // }
-
-  // if (local === url) {
-  //   const resuultCategoriesButtons = getCategoriesFood();
-
-  // }
-
-  // if (local !== url) {
-  //   const resuultCategoriesButtons = getCategoriesDrink();
-  // }
-
   useEffect(() => {
-    async function tche() {
+    async function getAllCategories() {
       if (local === url) {
+        setInitialItensFood([]);
+        setCategory([]);
         const items = await getCategoriesFood();
         setCategory(items);
       } else if (local !== url) {
+        setCategory([]);
+        setInitialItensDrink([]);
         const itemsDrink = await getCategoriesDrink();
         setCategory(itemsDrink);
       }
     }
-    tche();
-    // resultCategoriesButtons();
+    getAllCategories();
   }, []);
 
   async function searchByCategoryDrinkAndFood(text) {
@@ -55,29 +40,13 @@ function NavCategories() {
     }
   }
 
-  function renderButtons() {
-    if (!category) {
-      return (<p>Loading...</p>);
-    }
-    return (
-      category.slice(0, MAX_RESULT).map((item, index) => (
-        <button
-          type="button"
-          key={ index }
-          data-testid={ `${item.strCategory}-category-filter` }
-          onClick={ (e) => searchByCategoryDrinkAndFood(e.target.value) }
-          value={ item.strCategory }
-        >
-          { item.strCategory }
-        </button>
-      )));
-  }
-
-  async function searchAllCategories() {
+  async function renderAllCategoriesButtons() {
     if (local === url) {
+      setInitialItensFood([]);
       const items = await getCategoriesFood();
       setInitialItensFood(items);
     } if (local !== url) {
+      setInitialItensDrink([]);
       const itemsDrink = await getCategoriesDrink();
       setInitialItensDrink(itemsDrink);
     }
@@ -85,11 +54,24 @@ function NavCategories() {
 
   return (
     <div>
-      { renderButtons() }
+      { category ? category.length >= 1 && category
+        .slice(0, MAX_RESULT)
+        .map((item, index) => (
+          <button
+            type="button"
+            key={ index }
+            data-testid={ `${item.strCategory}-category-filter` }
+            onClick={ (e) => searchByCategoryDrinkAndFood(e.target.value) }
+            value={ item.strCategory }
+          >
+            { item.strCategory }
+          </button>
+        )) : <p>Loading...</p> }
+
       <button
         type="button"
         data-testid="All-category-filter"
-        onClick={ () => searchAllCategories() }
+        onClick={ () => renderAllCategoriesButtons() }
       >
         All
       </button>
