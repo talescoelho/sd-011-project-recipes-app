@@ -86,6 +86,7 @@ function RecipeDrinkInProgress({ match, location }) {
             ingredients={ ingredients }
             measures={ measures }
             pathname={ pathname }
+            recipe={ recipe }
           />
           <h2>Instruções</h2>
           <p data-testid="instructions">
