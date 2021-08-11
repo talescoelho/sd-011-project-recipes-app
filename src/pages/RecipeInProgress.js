@@ -47,7 +47,10 @@ function RecipeInProgress({
         {
           getIngredients().map(([ingredient, measure], index) => (
             <li key={ ingredient } data-testid={ `${index}-ingredient-step` }>
-              { `${ingredient} - ${measure}` }
+              <label htmlFor={ `ingredient${index + 1}` }>
+                <input type="checkbox" id={ `ingredient${index + 1}` } />
+                { `${ingredient} - ${measure}` }
+              </label>
             </li>
           ))
         }
