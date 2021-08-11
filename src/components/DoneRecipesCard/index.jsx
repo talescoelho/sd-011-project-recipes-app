@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { Col, Image } from 'react-bootstrap';
 import {
   retrieveDoneRecipes,
@@ -13,6 +14,12 @@ export default function DoneRecipesCard({ filter }) {
     const getDoneRecipes = retrieveDoneRecipes();
     setDoneRecipes(getDoneRecipes);
   }, []);
+
+  const history = useHistory();
+
+  const handleRedirect = (type, id) => {
+    history.push(`/${type}s/${id}`);
+  };
 
   return (
     doneRecipes
@@ -37,13 +44,14 @@ export default function DoneRecipesCard({ filter }) {
           <div key={ index } className="d-flex mx-0 mb-3 bg-light rounded shadow-lg">
             <Image
               style={ { maxWidth: '160px' } }
+              onClick={ () => handleRedirect(type, id) }
               className="ml-0 rounded-left"
               data-testid={ `${index}-horizontal-image` }
               src={ image }
               fluid
             />
             <div className="d-flex flex-column">
-              <Col>
+              <Col onClick={ () => handleRedirect(type, id) }>
                 <span data-testid={ `${index}-horizontal-name` }>{name}</span>
               </Col>
               <Col>
