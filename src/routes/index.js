@@ -4,6 +4,8 @@ import Drinks from '../pages/Drinks';
 import Foods from '../pages/Foods';
 import Login from '../pages/Login';
 import Explorer from '../pages/Explorer';
+import ExplorerFood from '../pages/ExplorerFood';
+import ExplorerDrink from '../pages/ExplorerDrink';
 import Perfil from '../pages/Perfil';
 import Recipes from '../pages/Recipes';
 import FavoriteRecipes from '../pages/FavoriteRecipes';
@@ -27,7 +29,9 @@ function Routes() {
           path="/bebidas/:id/in-progress"
           component={ RecipeDrinkInProgress }
         />
-        <Route path="/explorar" component={ Explorer } />
+        <Route exact path="/explorar" component={ Explorer } />
+        <Route exact path="/explorar/comidas" component={ ExplorerFood } />
+        <Route exact path="/explorar/bebidas" component={ ExplorerDrink } />
         <Route path="/perfil" component={ Perfil } />
         <Route path="/receitas-feitas" component={ Recipes } />
         <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
