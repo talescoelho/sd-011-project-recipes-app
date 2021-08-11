@@ -37,7 +37,7 @@ export default function CategoriesButtons({ type }) {
   }, [type]);
 
   return (
-    <div className="btn-group d-flex mb-3">
+    <div className="btn-group d-flex flex-wrap mb-3">
       <button
         className="btn btn-light btn-sm border"
         data-testid="All-category-filter"
