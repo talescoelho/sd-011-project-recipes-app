@@ -7,46 +7,98 @@ const INITIAL_STATE = {
   favoriteRecipes: [],
 };
 
-const recipe = (state = INITIAL_STATE, action) => {
+export const recipe = (state = INITIAL_STATE, action) => {
+  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   switch (action.type) {
   case 'ADD_RECIPE_ONGOING':
-    return {
-      ...state,
-      currentRecipes: {
-        ...state.currentRecipes,
-        meals: {
-          ...state.currentRecipes.meals,
-          [action.payload]: [action.payload2],
-        },
-      },
-    };
-  case 'ADD_DRINK_RECIPE_ONGOING':
-    return {
-      ...state,
-      currentRecipes: {
-        ...state.currentRecipes,
+    if (inProgress === null) {
+      const obj = {
         cocktails: {
-          ...state.currentRecipes.cocktails,
+        },
+        meals: {
+          controle: '999999999999',
           [action.payload]: [action.payload2],
         },
-      },
-    };
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    } else {
+      const obj = {
+        ...inProgress,
+        meals: {
+          ...inProgress.meals,
+          [action.payload]: [action.payload2],
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    }
+    return state;
   case 'ADD_RECIPE_FAVORITE':
-    return {
-      ...state,
-      favoriteRecipes: [...state.favoriteRecipes, action.payload],
-    };
+    return state;
   case 'ADD_RECIPE_DONE':
-    return {
-      ...state,
-      favoriteRecipes: [...state.doneRecipes, action.payload],
-    };
+    delete inProgress.meals[action.payload.id];
+    console.log(action.payload.id);
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+    if (doneRecipes === null) {
+      localStorage.setItem('doneRecipes', JSON.stringify([action.payload]));
+    } else {
+      const array = [
+        ...doneRecipes,
+        action.payload,
+      ];
+      localStorage.setItem('doneRecipes', JSON.stringify(array));
+    }
+    return state;
   default:
     return state;
   }
 };
 
-export default recipe;
+export const recipeDrink = (state = INITIAL_STATE, action) => {
+  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  switch (action.type) {
+  case 'ADD_DRINK_RECIPE_ONGOING':
+    if (inProgress === null) {
+      const obj = {
+        cocktails: {
+          controle: '999999999999',
+          [action.payload]: [action.payload2],
+        },
+        meals: {
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    } else {
+      const obj = {
+        ...inProgress,
+        cocktails: {
+          ...inProgress.cocktails,
+          [action.payload]: [action.payload2],
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    }
+    return state;
+  case 'ADD_DRINK_RECIPE_DONE':
+    delete inProgress.cocktails[action.payload.id];
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+    if (doneRecipes === null) {
+      localStorage.setItem('doneRecipes', JSON.stringify([action.payload]));
+    } else {
+      const array = [
+        ...doneRecipes,
+        action.payload,
+      ];
+      localStorage.setItem('doneRecipes', JSON.stringify(array));
+    }
+    return state;
+  default:
+    return state;
+  }
+};
+
+// export default recipe;
 
 // let inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
 //  console.log(inProgress);

@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Carousel from './Carousel';
 import { addRecipeOngoing, addRecipeFavorite } from '../actions';
+import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 class ComidasDetalhes extends Component {
   constructor(props) {
@@ -13,6 +16,8 @@ class ComidasDetalhes extends Component {
       ingredientList: [],
       finalList: [],
       isMealDone: false,
+      isMealInProgress: false,
+      buttonText: '',
     };
 
     this.recipeDetailsFetchAPI = this.recipeDetailsFetchAPI.bind(this);
@@ -21,14 +26,26 @@ class ComidasDetalhes extends Component {
 
   componentDidMount() {
     this.recipeDetailsFetchAPI();
+    this.fetchInProgressRecipes();
     this.fetchDoneRecipes();
+  }
+
+  fetchInProgressRecipes() {
+    const { match: { params: { id } } } = this.props;
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgressRecipes !== null) {
+      const inProgress = Object.hasOwnProperty.call(inProgressRecipes.meals, id);
+      this.setState({
+        isMealInProgress: inProgress,
+      });
+    }
   }
 
   fetchDoneRecipes() {
     const { match: { params: { id } } } = this.props;
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes !== null) {
-      const filter = doneRecipes.filter((recipe) => recipe === id);
+      const filter = doneRecipes.filter((recipe) => recipe.id === id);
       if (filter.length >= 1) {
         this.setState({
           isMealDone: true,
@@ -38,12 +55,12 @@ class ComidasDetalhes extends Component {
   }
 
   CopyToClipboard() { // https://orclqa.com/copy-url-clipboard/
-    const inputc = document.body.appendChild(document.createElement('input'));
-    inputc.value = window.location.href;
-    inputc.focus();
-    inputc.select();
+    const el = document.createElement('input');
+    el.value = window.location.href;
+    document.body.appendChild(el);
+    el.select();
     document.execCommand('copy');
-    inputc.parentNode.removeChild(inputc);
+    document.body.removeChild(el);
     alert('Link copiado!');
   }
 
@@ -78,7 +95,8 @@ class ComidasDetalhes extends Component {
   }
 
   render() {
-    const { mealDetails, ingredientList, finalList, isMealDone } = this.state;
+    const { mealDetails, ingredientList, finalList,
+      isMealDone, isMealInProgress, buttonText } = this.state;
     const { addRecipeCurr, addRecipeFav, match: {
       params: { id },
     } } = this.props;
@@ -111,7 +129,8 @@ class ComidasDetalhes extends Component {
           data-testid="share-btn"
           onClick={ () => this.CopyToClipboard() }
         >
-          Compartilhe
+          <img src={ shareIcon } alt="icone botão" />
+          { buttonText }
         </button>
         <button
           type="button"
@@ -168,6 +187,21 @@ class ComidasDetalhes extends Component {
               onClick={ () => addRecipeCurr(mealDetails.idMeal, finalList) }
             >
               Iniciar Receita
+            </button>
+          </Link>
+        )}
+        { !isMealInProgress ? <div>...</div> : (
+          <Link
+            to={ {
+              pathname: `/comidas/${id}/in-progress`,
+            } }
+          >
+            <button
+              type="button"
+              className="start-recipe"
+              data-testid="start-recipe-btn"
+            >
+              Continuar Receita
             </button>
           </Link>
         )}

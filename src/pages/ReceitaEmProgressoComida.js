@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addRecipeDone } from '../actions';
 
 class ReceitaEmProgressoComida extends Component {
   constructor() {
@@ -21,6 +23,8 @@ class ReceitaEmProgressoComida extends Component {
 
   handleChange() {
     // Retirado https://stackoverflow.com/questions/14800954/how-to-check-if-all-checkboxes-are-unchecked
+    /* const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(obj)); */
     if (document.querySelectorAll('input[type="checkbox"]:checked').length
     === document.querySelectorAll('input[type="checkbox"]').length) {
       this.setState({
@@ -70,8 +74,18 @@ class ReceitaEmProgressoComida extends Component {
   }
 
   render() {
-    const { meals: { strMealThumb, strMeal,
+    const { meals: { idMeal, strArea, strMeal, strMealThumb,
       strInstructions, strCategory }, finalList, disabled } = this.state;
+    const { addDoneRecipe, match: { params: { id } } } = this.props;
+    const obj = {
+      id: idMeal,
+      type: 'comida',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    };
     return (
       <main>
         <img src={ strMealThumb } data-testid="recipe-photo" alt="imagem-da-receita" />
@@ -89,9 +103,7 @@ class ReceitaEmProgressoComida extends Component {
           <ul>
             {finalList.map((ing, index) => (
               <li key={ ing } data-testid={ `${index}-ingredient-step` }>
-                <span>
-                  <input type="checkbox" name={ ing } />
-                </span>
+                <span><input type="checkbox" value={ ing } name={ ing } /></span>
                 <span>{ing}</span>
               </li>
             ))}
@@ -102,8 +114,20 @@ class ReceitaEmProgressoComida extends Component {
               type="button"
               data-testid="finish-recipe-btn"
               disabled={ disabled }
+              onClick={ () => { addDoneRecipe(obj); } }
             >
               Finalizar receita
+            </button>
+          </Link>
+          <Link
+            to={ {
+              pathname: `/comidas/${id}`,
+            } }
+          >
+            <button
+              type="button"
+            >
+              Voltar para a página de detalhes
             </button>
           </Link>
         </form>
@@ -112,7 +136,11 @@ class ReceitaEmProgressoComida extends Component {
   }
 }
 
-export default ReceitaEmProgressoComida;
+const mapDispatchToProps = (dispatch) => ({
+  addDoneRecipe: (id) => dispatch(addRecipeDone(id)),
+});
+
+export default connect(null, mapDispatchToProps)(ReceitaEmProgressoComida);
 
 ReceitaEmProgressoComida.propTypes = {
   match: PropTypes.shape({

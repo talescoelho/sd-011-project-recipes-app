@@ -4,6 +4,7 @@ export const ADD_RECIPES = 'ADD_RECIPES';
 export const ADD_RECIPE_ONGOING = 'ADD_RECIPE_ONGOING';
 export const ADD_DRINK_RECIPE_ONGOING = 'ADD_DRINK_RECIPE_ONGOING';
 export const ADD_RECIPE_DONE = 'ADD_RECIPE_DONE';
+export const ADD_DRINK_RECIPE_DONE = 'ADD_DRINK_RECIPE_DONE';
 export const ADD_RECIPE_FAVORITE = 'ADD_RECIPE_FAVORITE';
 
 export const sendLoginInfo = (email, password) => ({
@@ -31,6 +32,11 @@ export const addRecipeFavorite = (obj) => ({
 
 export const addRecipeDone = (obj) => ({
   type: ADD_RECIPE_DONE,
+  payload: obj,
+});
+
+export const addDrinkRecipeDone = (obj) => ({
+  type: ADD_DRINK_RECIPE_DONE,
   payload: obj,
 });
 
