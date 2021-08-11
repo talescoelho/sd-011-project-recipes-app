@@ -1,21 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../../styles/pages/search.css';
 import { string } from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const ExploreRecipes = ({ page }) => {
-  const [surpriseMeal, setSurpriseMeal] = useState('');
-  const [surpriseDrink, setSurpriseDrink] = useState('');
+  const { push } = useHistory();
 
-  useEffect(() => {
-    fetch('https://www.themealdb.com/api/json/v1/1/random.php')
-      .then((response) => response.json())
-      .then(({ meals }) => setSurpriseMeal(meals[0].idMeal));
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-    fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
-      .then((response) => response.json())
-      .then(({ drinks }) => setSurpriseDrink(drinks[0].idDrink));
-  }, []);
+  const setSurprise = () => {
+    setLoading(true);
+    if (page === 'comidas') {
+      fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+        .then((response) => response.json())
+        .then(({ meals }) => push(`/comidas/${meals[0].idMeal}`))
+        .catch(() => setError('404'));
+    }
+
+    if (page === 'bebidas') {
+      fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
+        .then((response) => response.json())
+        .then(({ drinks }) => push(`/bebidas/${drinks[0].idDrink}`))
+        .catch(() => setError('404'));
+    }
+  };
+
+  if (error) {
+    return <div>Erro</div>;
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <nav className="explore-recipes">
@@ -31,16 +48,13 @@ const ExploreRecipes = ({ page }) => {
           )
           : null
       }
-      <Link
+      <button
         data-testid="explore-surprise"
-        to={
-          (page === 'comidas')
-            ? `/comidas/${surpriseMeal}`
-            : `/bebidas/${surpriseDrink}`
-        }
+        onClick={ () => setSurprise() }
+        type="button"
       >
         Me Surpreenda!
-      </Link>
+      </button>
     </nav>
   );
 };
