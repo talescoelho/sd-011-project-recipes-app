@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ShareButton from './ShareButton';
 import '../styles/carousel.css';
-import FavoriteButton from './FavoriteButton';
+// import FavoriteButton from './FavoriteButton';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function LocalStorageButtons({ doneRecipes }) {
   const [local, setLocal] = useState([]);
@@ -31,10 +33,22 @@ function LocalStorageButtons({ doneRecipes }) {
       setLocal(fave);
     }
   }, []);
+  /*   const localFav = localStorage.getItem('favoriteRecipes');
+  const favRec = JSON.parse(localFav);
+  console.log(favRec);
+  const hasId = localFav && Object.keys(favRec)
+    .map((el) => favRec[el].id).some((x) => x === id);
 
-  // useEffect(idDetails);
-
+    console.log(hasId);
+ */
   function renderRecipes(item, index) {
+    const localFav = localStorage.getItem('favoriteRecipes');
+    const favRec = JSON.parse(localFav);
+    console.log(favRec);
+    const hasId = localFav && Object.keys(favRec)
+      .map((el) => favRec[el].id).some((x) => x === item.id);
+
+    // console.log(hasId);
     return (
       <div key={ index }>
         <Link
@@ -77,12 +91,23 @@ function LocalStorageButtons({ doneRecipes }) {
           foodOrDrink={ item.type === 'comida' ? 'comidas' : 'bebidas' }
           id={ item.id }
         />
-        {!doneRecipes ? <FavoriteButton
+        <button
+          type="button"
+          // onClick={ () => handleFavorite() }
+          data-testid={ `${index}-horizontal-favorite-btn` }
+        >
+          <img
+            data-testid="favorite-btn"
+            src={ hasId ? blackHeartIcon : whiteHeartIcon }
+            alt="Imagem do ícone de favorito"
+          />
+        </button>
+        {/* {!doneRecipes ? <FavoriteButton
           index={ index }
           foodOrDrink={ item.type === 'comida' ? 'comidas' : 'bebidas' }
           id={ item.id }
           type={ item.type }
-        /> : null}
+        /> : null} */}
         {item.tags && item.tags
           .map((_, i) => (
             <p key={ i } data-testid={ `${index}-${item.tags[i]}-horizontal-tag` }>
@@ -132,7 +157,7 @@ LocalStorageButtons.propTypes = {
 };
 
 LocalStorageButtons.defaultProps = {
-  doneRecipes: true,
+  doneRecipes: false,
 };
 
 export default LocalStorageButtons;

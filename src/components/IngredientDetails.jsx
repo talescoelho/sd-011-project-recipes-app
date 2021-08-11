@@ -54,5 +54,9 @@ function IngredientDetails({ inProcess }) {
 export default IngredientDetails;
 
 IngredientDetails.propTypes = {
-  inProcess: PropTypes.bool.isRequired,
+  inProcess: PropTypes.bool,
+};
+
+IngredientDetails.defaultProps = {
+  inProcess: true,
 };
