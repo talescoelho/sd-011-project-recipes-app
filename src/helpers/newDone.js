@@ -4,8 +4,6 @@ export default function newFavorite(obj, date) {
 
   if (obj.strTags) {
     tags = obj.strTags.split(',');
-  } else {
-    tags = '';
   }
 
   if (obj.idMeal) {
