@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import '../css/RecipeInProgress.css';
+import { useHistory } from 'react-router';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -16,6 +17,12 @@ function DrinksRecipeInProgress({ match: { params: { id } } }) {
   const [click, setClick] = useState(false);
   const [favoriteIcon, setFavoriteIcon] = useState(whiteHeartIcon);
   const [hasChecked, setHasChecked] = useState(false);
+  const [statusEndRecipeButton, setStatusEndRecipeButton] = useState(true);
+  const [countCheckIngredList, setCountCheckIngredList] = useState(0);
+  const [numberIngredients, setNumberIngredients] = useState(0);
+
+  const history = useHistory();
+  const ingredListClass = [];
 
   useEffect(() => {
     const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
@@ -26,19 +33,16 @@ function DrinksRecipeInProgress({ match: { params: { id } } }) {
       setDrinkInProgress(drinks[0]);
 
       // Cria a Lista de Ingredientes
-
       const ingredArray = Object.entries(drinks[0])
         .filter((key) => key[0].includes('strIngredient'));
       const ingredList = [];
       ingredArray.forEach((item) => ingredList.push(item[1]));
       setFinalListIngredients(ingredList);
 
-      const ingredListClass = [];
       ingredList.forEach((item) => {
         if (item !== null && item !== '') ingredListClass.push('notChecked');
       });
-
-      // Não esquecer colocar lógica do req 50
+      setNumberIngredients(ingredListClass.length);
 
       if (!localStorage.getItem('inProgressRecipes')) {
         const arrayStatus = [];
@@ -47,19 +51,24 @@ function DrinksRecipeInProgress({ match: { params: { id } } }) {
         });
         setStatusIngredients(arrayStatus);
       } else {
-        const statusIngredientsSaved = JSON.parse(localStorage.getItem('inProgressRecipes'));
-        const valueStatusSaved = Object.values(statusIngredientsSaved);
+        let countYesChecked = 0;
+        const statusIngredSaved = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        const valueStatusSaved = Object.values(statusIngredSaved);
         valueStatusSaved.forEach((item, index) => {
-          if (item) ingredListClass[index] = 'yesChecked';
+          if (item) {
+            countYesChecked += 1;
+            ingredListClass[index] = 'yesChecked';
+          }
         });
-        setStatusIngredients(statusIngredientsSaved);
+        setCountCheckIngredList(countYesChecked);
+        setStatusIngredients(statusIngredSaved);
       }
 
       // Lógica ver se aquela receita é ou não favorita, se não for favorita setFavoriteIcon(whiteHeartIcon)
       if (localStorage.getItem('favoriteRecipes')) {
         const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
         const isFavorite = favoriteRecipes.some((recipe) => recipe.id === id);
-        if (isFavorite) setFavoriteIcon(blackHeartIcon); 
+        if (isFavorite) setFavoriteIcon(blackHeartIcon);
       }
 
       setClassNameIngredients(ingredListClass);
@@ -74,8 +83,15 @@ function DrinksRecipeInProgress({ match: { params: { id } } }) {
     }
   }, [statusIngredients]);
 
-  function copyLink(id) {
-    copy(`http://localhost:3000/bebidas/${id}`);
+  useEffect(() => {
+    if (countCheckIngredList === numberIngredients && numberIngredients !== 0) {
+      setStatusEndRecipeButton(false);
+    }
+    if (countCheckIngredList < numberIngredients) setStatusEndRecipeButton(true);
+  }, [countCheckIngredList]);
+
+  function copyLink(index) {
+    copy(`http://localhost:3000/bebidas/${index}`);
     setClick(true);
   }
 
@@ -84,16 +100,42 @@ function DrinksRecipeInProgress({ match: { params: { id } } }) {
     if (statusIngredients[index] === true) {
       setStatusIngredients((prev) => ({ ...prev, [index]: false }));
       setClassNameIngredients((prev) => ({ ...prev, [index]: 'notChecked' }));
+      const newCount = countCheckIngredList - 1;
+      setCountCheckIngredList(newCount);
     }
     if (statusIngredients[index] === false) {
       setStatusIngredients((prev) => ({ ...prev, [index]: true }));
       setClassNameIngredients((prev) => ({ ...prev, [index]: 'yesChecked' }));
+      const newCount = countCheckIngredList + 1;
+      setCountCheckIngredList(newCount);
     }
   }
 
-  function changeStatusIcon() {
-    if (favoriteIcon === whiteHeartIcon) setFavoriteIcon(blackHeartIcon)
-    if (favoriteIcon === blackHeartIcon) setFavoriteIcon(whiteHeartIcon)
+  function statusIcon({ idDrink, strCategory, strAlcoholic, strDrink, strDrinkThumb }) {
+    if (favoriteIcon === whiteHeartIcon) {
+      setFavoriteIcon(blackHeartIcon);
+      let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (!favoriteRecipes) favoriteRecipes = [];
+      const newFavoriteRecipes = [
+        ...favoriteRecipes,
+        {
+          id: idDrink,
+          type: 'bebida',
+          area: '',
+          category: strCategory,
+          alcoholicOrNot: strAlcoholic,
+          name: strDrink,
+          image: strDrinkThumb,
+        },
+      ];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+    }
+    if (favoriteIcon === blackHeartIcon) {
+      setFavoriteIcon(whiteHeartIcon);
+      const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const newFavRecipes = favoriteRecipes.filter((recipe) => recipe.id !== idDrink);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavRecipes));
+    }
   }
 
   function createIngredArray() {
@@ -149,7 +191,7 @@ function DrinksRecipeInProgress({ match: { params: { id } } }) {
           data-testid="favorite-btn"
           src={ favoriteIcon }
           alt="botão favoritar"
-          onClick={ () => changeStatusIcon() }
+          onClick={ () => statusIcon(drinkInProgress) }
         />
         {' '}
         <br />
@@ -158,7 +200,14 @@ function DrinksRecipeInProgress({ match: { params: { id } } }) {
           { createIngredArray() }
         </span>
         <p data-testid="instructions">{ strInstructions }</p>
-        <button type="button" data-testid="finish-recipe-btn">Finalizar Receita</button>
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          disabled={ statusEndRecipeButton }
+          onClick={ () => history.push('/receitas-feitas') }
+        >
+          Finalizar Receita
+        </button>
       </div>
     );
   }

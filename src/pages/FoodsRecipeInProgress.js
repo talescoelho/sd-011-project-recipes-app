@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import '../css/RecipeInProgress.css';
+import { useHistory } from 'react-router';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -16,6 +17,12 @@ function FoodsRecipeInProgress({ match: { params: { id } } }) {
   const [click, setClick] = useState(false);
   const [favoriteIcon, setFavoriteIcon] = useState(whiteHeartIcon);
   const [hasChecked, setHasChecked] = useState(false);
+  const [statusEndRecipeButton, setStatusEndRecipeButton] = useState(true);
+  const [countCheckIngredList, setCountCheckIngredList] = useState(0);
+  const [numberIngredients, setNumberIngredients] = useState(0);
+
+  const history = useHistory();
+  const ingredListClass = [];
 
   useEffect(() => {
     const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
@@ -32,13 +39,10 @@ function FoodsRecipeInProgress({ match: { params: { id } } }) {
       ingredArray.forEach((item) => ingredList.push(item[1]));
       setFinalListIngredients(ingredList);
 
-      // Faz um Array de Length igual o Length da Lista de ingredientes, só que cada elemento do array
-      // É igual a uma string 'notChecked', que será a classe inicial dos checkboxs
-      // O controle é feito pelo index, ingredList na posição X, tem uma classe ingredListClass na posição X
-      const ingredListClass = [];
       ingredList.forEach((item) => {
         if (item !== null && item !== '') ingredListClass.push('notChecked');
       });
+      setNumberIngredients(ingredListClass.length);
 
       if (!localStorage.getItem('inProgressRecipes')) {
         const arrayStatus = [];
@@ -47,19 +51,24 @@ function FoodsRecipeInProgress({ match: { params: { id } } }) {
         });
         setStatusIngredients(arrayStatus);
       } else {
-        const statusIngredientsSaved = JSON.parse(localStorage.getItem('inProgressRecipes'));
-        const valueStatusSaved = Object.values(statusIngredientsSaved);
+        let countYesChecked = 0;
+        const statusIngredSaved = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        const valueStatusSaved = Object.values(statusIngredSaved);
         valueStatusSaved.forEach((item, index) => {
-          if (item) ingredListClass[index] = 'yesChecked';
+          if (item) {
+            countYesChecked += 1;
+            ingredListClass[index] = 'yesChecked';
+          }
         });
-        setStatusIngredients(statusIngredientsSaved);
+        setCountCheckIngredList(countYesChecked);
+        setStatusIngredients(statusIngredSaved);
       }
 
       // Lógica ver se aquela receita é ou não favorita, se não for favorita setFavoriteIcon(whiteHeartIcon)
       if (localStorage.getItem('favoriteRecipes')) {
         const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
         const isFavorite = favoriteRecipes.some((recipe) => recipe.id === id);
-        if (isFavorite) setFavoriteIcon(blackHeartIcon); 
+        if (isFavorite) setFavoriteIcon(blackHeartIcon);
       }
 
       setClassNameIngredients(ingredListClass);
@@ -74,8 +83,15 @@ function FoodsRecipeInProgress({ match: { params: { id } } }) {
     }
   }, [statusIngredients]);
 
-  function copyLink(id) {
-    copy(`http://localhost:3000/comidas/${id}`);
+  useEffect(() => {
+    if (countCheckIngredList === numberIngredients && numberIngredients !== 0) {
+      setStatusEndRecipeButton(false);
+    }
+    if (countCheckIngredList < numberIngredients) setStatusEndRecipeButton(true);
+  }, [countCheckIngredList]);
+
+  function copyLink(index) {
+    copy(`http://localhost:3000/comidas/${index}`);
     setClick(true);
   }
 
@@ -84,10 +100,14 @@ function FoodsRecipeInProgress({ match: { params: { id } } }) {
     if (statusIngredients[index] === true) {
       setStatusIngredients((prev) => ({ ...prev, [index]: false }));
       setClassNameIngredients((prev) => ({ ...prev, [index]: 'notChecked' }));
+      const newCount = countCheckIngredList - 1;
+      setCountCheckIngredList(newCount);
     }
     if (statusIngredients[index] === false) {
       setStatusIngredients((prev) => ({ ...prev, [index]: true }));
       setClassNameIngredients((prev) => ({ ...prev, [index]: 'yesChecked' }));
+      const newCount = countCheckIngredList + 1;
+      setCountCheckIngredList(newCount);
     }
   }
 
@@ -116,10 +136,32 @@ function FoodsRecipeInProgress({ match: { params: { id } } }) {
       <ul>{ finalList }</ul>
     );
   }
-  
-  function changeStatusIcon() {
-    if (favoriteIcon === whiteHeartIcon) setFavoriteIcon(blackHeartIcon)
-    if (favoriteIcon === blackHeartIcon) setFavoriteIcon(whiteHeartIcon)
+
+  function changeStatusIcon({ idMeal, strArea, strCategory, strMeal, strMealThumb }) {
+    if (favoriteIcon === whiteHeartIcon) {
+      setFavoriteIcon(blackHeartIcon);
+      let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (!favoriteRecipes) favoriteRecipes = [];
+      const newFavoriteRecipes = [
+        ...favoriteRecipes,
+        {
+          id: idMeal,
+          type: 'comida',
+          area: strArea,
+          category: strCategory,
+          alcoholicOrNot: '',
+          name: strMeal,
+          image: strMealThumb,
+        },
+      ];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+    }
+    if (favoriteIcon === blackHeartIcon) {
+      setFavoriteIcon(whiteHeartIcon);
+      const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const newFavRecipes = favoriteRecipes.filter((recipe) => recipe.id !== idMeal);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavRecipes));
+    }
   }
 
   function renderCardRecipe({ strMealThumb, strMeal, strCategory, strInstructions }) {
@@ -149,7 +191,7 @@ function FoodsRecipeInProgress({ match: { params: { id } } }) {
           data-testid="favorite-btn"
           src={ favoriteIcon }
           alt="botão favoritar"
-          onClick={ () => changeStatusIcon() }
+          onClick={ () => changeStatusIcon(mealInProgress) }
         />
         {' '}
         <br />
@@ -158,14 +200,25 @@ function FoodsRecipeInProgress({ match: { params: { id } } }) {
           { createIngredArray() }
         </span>
         <p data-testid="instructions">{ strInstructions }</p>
-        <button type="button" data-testid="finish-recipe-btn">Finalizar Receita</button>
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          disabled={ statusEndRecipeButton }
+          onClick={ () => history.push('/receitas-feitas') }
+        >
+          Finalizar Receita
+        </button>
       </div>
     );
   }
 
   return (
     <div>
-      <span> { click ? <p>Link copiado!</p> : null } </span>
+      <span>
+        {' '}
+        { click ? <p>Link copiado!</p> : null }
+        {' '}
+      </span>
       <span>{ loading ? <p>Carregando...</p> : renderCardRecipe(mealInProgress) }</span>
     </div>
   );

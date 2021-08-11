@@ -354,141 +354,141 @@ describe('51 - Desenvolva a lógica de favoritar e compartilhar, a lógica da te
       .should('include', 'whiteHeartIcon');
   });
 
-  // it('favorita receita de uma comida', () => {
-  //   cy.visit('http://localhost:3000/comidas/52771/in-progress', {
-  //     onBeforeLoad(win) {
-  //       win.fetch = fetchMock;
-  //     },
-  //   });
+  it('favorita receita de uma comida', () => {
+    cy.visit('http://localhost:3000/comidas/52771/in-progress', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-  //   cy.get('[data-testid="favorite-btn"]').click().then(() => {
-  //     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  //     const expectedFavoriteRecipes = [
-  //       {
-  //         id: '52771',
-  //         type: 'comida',
-  //         area: 'Italian',
-  //         category: 'Vegetarian',
-  //         alcoholicOrNot: '',
-  //         name: 'Spicy Arrabiata Penne',
-  //         image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-  //       },
-  //     ];
+    cy.get('[data-testid="favorite-btn"]').click().then(() => {
+      const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const expectedFavoriteRecipes = [
+        {
+          id: '52771',
+          type: 'comida',
+          area: 'Italian',
+          category: 'Vegetarian',
+          alcoholicOrNot: '',
+          name: 'Spicy Arrabiata Penne',
+          image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+        },
+      ];
 
-  //     expect(favoriteRecipes).to.deep.eq(expectedFavoriteRecipes);
-  //     localStorage.clear();
-  //   });
-  // });
+      expect(favoriteRecipes).to.deep.eq(expectedFavoriteRecipes);
+      localStorage.clear();
+    });
+  });
 
-  // it('favorita receita de uma bebida', () => {
-  //   cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
-  //     onBeforeLoad(win) {
-  //       win.fetch = fetchMock;
-  //     },
-  //   });
+  it('favorita receita de uma bebida', () => {
+    cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-  //   cy.get('[data-testid="favorite-btn"]').click().then(() => {
-  //     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  //     const expectedFavoriteRecipes = [
-  //       {
-  //         id: '178319',
-  //         type: 'bebida',
-  //         area: '',
-  //         category: 'Cocktail',
-  //         alcoholicOrNot:  'Alcoholic',
-  //         name: 'Aquamarine',
-  //         image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-  //       },
-  //     ];
+    cy.get('[data-testid="favorite-btn"]').click().then(() => {
+      const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const expectedFavoriteRecipes = [
+        {
+          id: '178319',
+          type: 'bebida',
+          area: '',
+          category: 'Cocktail',
+          alcoholicOrNot:  'Alcoholic',
+          name: 'Aquamarine',
+          image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+        },
+      ];
 
-  //     expect(favoriteRecipes).to.deep.eq(expectedFavoriteRecipes);
-  //     localStorage.clear();
-  //   });
-  // });
+      expect(favoriteRecipes).to.deep.eq(expectedFavoriteRecipes);
+      localStorage.clear();
+    });
+  });
 });
 
-// describe('52 - Implemente a solução de maneira que o botão de finalizar receita só pode estar habilitado quando todos os ingredientes estiverem _"checkados"_ (marcados)', () => {
-//   it('verifica se botão para finalizar está desabilitado em receitas de comidas', () => {
-//     cy.visit('http://localhost:3000/comidas/52771/in-progress', {
-//       onBeforeLoad(win) {
-//         win.fetch = fetchMock;
-//       },
-//     });
+describe('52 - Implemente a solução de maneira que o botão de finalizar receita só pode estar habilitado quando todos os ingredientes estiverem _"checkados"_ (marcados)', () => {
+  it('verifica se botão para finalizar está desabilitado em receitas de comidas', () => {
+    cy.visit('http://localhost:3000/comidas/52771/in-progress', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-//     cy.get('[data-testid*="ingredient-step"]')
-//       .find('input[type="checkbox"]')
-//       .first()
-//       .check();
-//     cy.get('[data-testid="finish-recipe-btn"]').should('be.disabled');
-//   });
+    cy.get('[data-testid*="ingredient-step"]')
+      .find('input[type="checkbox"]')
+      .first()
+      .check();
+    cy.get('[data-testid="finish-recipe-btn"]').should('be.disabled');
+  });
 
-//   it('verifica se botão para finalizar está desabilitado em receitas de bebidas', () => {
-//     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
-//       onBeforeLoad(win) {
-//         win.fetch = fetchMock;
-//       },
-//     });
+  it('verifica se botão para finalizar está desabilitado em receitas de bebidas', () => {
+    cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-//     cy.get('[data-testid*="ingredient-step"]')
-//       .find('input[type="checkbox"]')
-//       .first()
-//       .check();
-//     cy.get('[data-testid="finish-recipe-btn"]').should('be.disabled');
-//   });
+    cy.get('[data-testid*="ingredient-step"]')
+      .find('input[type="checkbox"]')
+      .first()
+      .check();
+    cy.get('[data-testid="finish-recipe-btn"]').should('be.disabled');
+  });
 
-//   it('verifica se botão para finalizar está habilitado em receitas de comidas', () => {
-//     cy.visit('http://localhost:3000/comidas/52771/in-progress', {
-//       onBeforeLoad(win) {
-//         win.fetch = fetchMock;
-//       },
-//     });
+  it('verifica se botão para finalizar está habilitado em receitas de comidas', () => {
+    cy.visit('http://localhost:3000/comidas/52771/in-progress', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-//     cy.get('[data-testid*="ingredient-step"]')
-//       .find('input[type="checkbox"]')
-//       .check();
-//     cy.get('[data-testid="finish-recipe-btn"]').should('be.enabled');
-//   });
+    cy.get('[data-testid*="ingredient-step"]')
+      .find('input[type="checkbox"]')
+      .check();
+    cy.get('[data-testid="finish-recipe-btn"]').should('be.enabled');
+  });
 
-//   it('verifica se botão para finalizar está habilitado em receitas de bebidas', () => {
-//     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
-//       onBeforeLoad(win) {
-//         win.fetch = fetchMock;
-//       },
-//     });
+  it('verifica se botão para finalizar está habilitado em receitas de bebidas', () => {
+    cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-//     cy.get('[data-testid*="ingredient-step"]')
-//       .find('input[type="checkbox"]')
-//       .check();
-//     cy.get('[data-testid="finish-recipe-btn"]').should('be.enabled');
-//   });
-// });
+    cy.get('[data-testid*="ingredient-step"]')
+      .find('input[type="checkbox"]')
+      .check();
+    cy.get('[data-testid="finish-recipe-btn"]').should('be.enabled');
+  });
+});
 
-// describe('53 - Redirecione a pessoa usuária após clicar no botão "Finalizar receita", para a página de receitas feitas, cuja rota deve ser `/receitas-feitas`', () => {
-//   it('redireciona após concluir uma receita de comida', () => {
-//     cy.visit('http://localhost:3000/comidas/52771/in-progress', {
-//       onBeforeLoad(win) {
-//         win.fetch = fetchMock;
-//       },
-//     });
+describe('53 - Redirecione a pessoa usuária após clicar no botão "Finalizar receita", para a página de receitas feitas, cuja rota deve ser `/receitas-feitas`', () => {
+  it('redireciona após concluir uma receita de comida', () => {
+    cy.visit('http://localhost:3000/comidas/52771/in-progress', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-//     cy.get('[data-testid*="ingredient-step"]')
-//       .find('input[type="checkbox"]')
-//       .check();
-//     cy.get('[data-testid="finish-recipe-btn"]').click();
-//     cy.location().should((loc) => expect(loc.pathname).to.eq('/receitas-feitas'));
-//   });
+    cy.get('[data-testid*="ingredient-step"]')
+      .find('input[type="checkbox"]')
+      .check();
+    cy.get('[data-testid="finish-recipe-btn"]').click();
+    cy.location().should((loc) => expect(loc.pathname).to.eq('/receitas-feitas'));
+  });
 
-//   it('redireciona após concluir uma receita de bebida', () => {
-//     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
-//       onBeforeLoad(win) {
-//         win.fetch = fetchMock;
-//       },
-//     });
+  it('redireciona após concluir uma receita de bebida', () => {
+    cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
+      onBeforeLoad(win) {
+        win.fetch = fetchMock;
+      },
+    });
 
-//     cy.get('[data-testid*="ingredient-step"]')
-//       .find('input[type="checkbox"]')
-//       .check();
-//     cy.get('[data-testid="finish-recipe-btn"]').click();
-//     cy.location().should((loc) => expect(loc.pathname).to.eq('/receitas-feitas'));
-//   });
-// });
+    cy.get('[data-testid*="ingredient-step"]')
+      .find('input[type="checkbox"]')
+      .check();
+    cy.get('[data-testid="finish-recipe-btn"]').click();
+    cy.location().should((loc) => expect(loc.pathname).to.eq('/receitas-feitas'));
+  });
+});
