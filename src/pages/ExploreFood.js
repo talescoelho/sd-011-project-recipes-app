@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
-import Header from '../components/Header';
+import HeaderFood from '../components/HeaderFood';
 import { searchRandomMeal } from '../services/RequestFood';
 
 function ExploreFood() {
@@ -13,7 +13,7 @@ function ExploreFood() {
   }
   return (
     <div>
-      <Header title="Explorar Comidas" search={ false } />
+      <HeaderFood title="Explorar Comidas" search={ false } />
       <Link to="/explorar/comidas/ingredientes">
         <button
           data-testid="explore-by-ingredient"

@@ -5,61 +5,48 @@ import { RequestHook } from '../Context/RequestHook';
 
 function NavCategories() {
   const [category, setCategory] = useState([]);
-  const {
-    setInitialItensFood,
-    setInitialItensDrink,
-  } = RequestHook();
+  const { setInitialItensFood, setInitialItensDrink } = RequestHook();
 
   const local = window.location.href;
   const url = 'http://localhost:3000/comidas';
   const MAX_RESULT = 5;
 
   useEffect(() => {
-    async function tche() {
+    async function getAllCategories() {
       if (local === url) {
+        setInitialItensFood([]);
+        setCategory([]);
         const items = await getCategoriesFood();
         setCategory(items);
-      } else {
+      } else if (local !== url) {
+        setCategory([]);
+        setInitialItensDrink([]);
         const itemsDrink = await getCategoriesDrink();
         setCategory(itemsDrink);
       }
     }
-    tche();
+    getAllCategories();
   }, []);
 
   async function searchByCategoryDrinkAndFood(text) {
     if (local === url) {
+      setInitialItensFood([]);
       const items = await searchByCategoryFood(text);
       setInitialItensFood(items);
-    } else {
+    } else if (local !== url) {
+      setInitialItensDrink([]);
       const itemsDrink = await searchByCategoryDrink(text);
       setInitialItensDrink(itemsDrink);
     }
   }
 
-  function renderButtons() {
-    if (!category) {
-      return (<p>Loading...</p>);
-    }
-    return (
-      category.slice(0, MAX_RESULT).map((item, index) => (
-        <button
-          type="button"
-          key={ index }
-          data-testid={ `${item.strCategory}-category-filter` }
-          onClick={ (e) => searchByCategoryDrinkAndFood(e.target.value) }
-          value={ item.strCategory }
-        >
-          { item.strCategory }
-        </button>
-      )));
-  }
-
-  async function searchAllCategories() {
+  async function renderAllCategoriesButtons() {
     if (local === url) {
+      setInitialItensFood([]);
       const items = await getCategoriesFood();
       setInitialItensFood(items);
     } if (local !== url) {
+      setInitialItensDrink([]);
       const itemsDrink = await getCategoriesDrink();
       setInitialItensDrink(itemsDrink);
     }
@@ -67,11 +54,24 @@ function NavCategories() {
 
   return (
     <div>
-      {renderButtons()}
+      { category ? category.length >= 1 && category
+        .slice(0, MAX_RESULT)
+        .map((item, index) => (
+          <button
+            type="button"
+            key={ index }
+            data-testid={ `${item.strCategory}-category-filter` }
+            onClick={ (e) => searchByCategoryDrinkAndFood(e.target.value) }
+            value={ item.strCategory }
+          >
+            { item.strCategory }
+          </button>
+        )) : <p>Loading...</p> }
+
       <button
         type="button"
         data-testid="All-category-filter"
-        onClick={ () => searchAllCategories() }
+        onClick={ () => renderAllCategoriesButtons() }
       >
         All
       </button>
