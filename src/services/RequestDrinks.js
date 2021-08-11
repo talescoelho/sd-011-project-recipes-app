@@ -53,7 +53,7 @@ export async function serachImage(ingredientImage) {
   return result;
 }
 
-export async function searchRandonDrink() {
+export async function searchRandomDrink() {
   const randomDrink = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
   const result = await randomDrink.json();
   return result.drinks[0];

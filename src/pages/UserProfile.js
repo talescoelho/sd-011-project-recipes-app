@@ -12,7 +12,7 @@ function userProfile() {
 
   return (
     <div>
-      <Header title="Perfil" />
+      <Header title="Perfil" search={ false } />
       <h4 data-testid="profile-email">{ () => getStorage() }</h4>
       <Link to="/receitas-feitas">
         <button

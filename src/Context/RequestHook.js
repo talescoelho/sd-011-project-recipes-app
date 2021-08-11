@@ -31,14 +31,12 @@ export function RequestProvider({ children }) {
   async function filterByIngredientFood(filterText) {
     if (!filterText) return;
     const items = await searchByIngredient(filterText);
-
     setFilteredFood(items);
   }
 
   async function filterByFirstLetterFood(filterText) {
     if (!filterText) return;
     const items = await searchByFirstLetter(filterText);
-
     setFilteredFood(items);
   }
 
@@ -53,14 +51,12 @@ export function RequestProvider({ children }) {
   async function filterByIngredientDrink(filterText) {
     if (!filterText) return;
     const items = await searchIngredient(filterText);
-
     setFilteredDrink(items);
   }
 
   async function filterByFirstLetterDrink(filterText) {
     if (!filterText) return;
     const items = await searchFirstLetter(filterText);
-
     setFilteredDrink(items);
   }
 
@@ -69,16 +65,16 @@ export function RequestProvider({ children }) {
     setFilteredFood,
     filteredDrink,
     setFilteredDrink,
+    initialItensFood,
+    setInitialItensFood,
+    initialItensDrink,
+    setInitialItensDrink,
     filterByNameFood,
     filterByIngredientFood,
     filterByFirstLetterFood,
     filterByNameDrink,
     filterByIngredientDrink,
     filterByFirstLetterDrink,
-    initialItensFood,
-    setInitialItensFood,
-    initialItensDrink,
-    setInitialItensDrink,
   };
 
   return (
