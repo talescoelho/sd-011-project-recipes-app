@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import FavoriteRecipeCard from '../components/FavoriteRecipeCard';
 import SharedButton from '../components/SharedButton';
@@ -8,9 +8,10 @@ function ReceitasFavoritas() {
   const favoritedRecipesList = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
   const [favoriteList, setFavoriteList] = React.useState(favoritedRecipesList);
-  console.log(favoritedRecipesList);
 
-  console.log(favoriteList);
+  // useEffect(() => {
+  //   setFavoriteList(favoritedRecipesList);
+  // }, [favoritedRecipesList]);
 
   function filterOnlyMeal() {
     const onlyMealList = favoritedRecipesList
@@ -84,7 +85,11 @@ function ReceitasFavoritas() {
               recipeDoneDate={ findFavoriteRecipeDoneDate(id) }
             />
             <SharedButton path={ `http://localhost:3000/${type}s/${id}` } dataTest={ `${index}-horizontal-share-btn` } />
-            <FavoriteButton id={ id } dataTest={ `${index}-horizontal-favorite-btn` } />
+            <FavoriteButton
+              id={ id }
+              reload
+              dataTest={ `${index}-horizontal-favorite-btn` }
+            />
           </>
         ))}
     </div>
