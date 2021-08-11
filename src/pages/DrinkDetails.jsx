@@ -25,11 +25,11 @@ function FoodDetails() {
   const [cocktail, setCocktail] = useState(null);
   const [recipesLoading, setRecipesLoading] = useState(true);
   const [recipesError, setRecipesError] = useState(null);
+  const [recipes, setRecipes] = useState([]);
   const [isDone, setIsDone] = useState(false);
   const [isInProgress, setIsInProgress] = useState(false);
-  const [recipes, setRecipes] = useState([]);
-  const [toastIsVisible, setToastIsVisible] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [toastIsVisible, setToastIsVisible] = useState(false);
   const { id } = useParams();
   const history = useHistory();
 
@@ -88,7 +88,7 @@ function FoodDetails() {
                   <ActionButton
                     action="share"
                     onClick={ () => {
-                      copy(`http://localhost:3000/bebidas/${id}`);
+                      copy(`http://localhost:3000/bebidas/${id}`); // TODO usar history location
                       showToast();
                     } }
                   />

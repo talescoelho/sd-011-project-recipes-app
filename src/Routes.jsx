@@ -81,10 +81,6 @@ const Routes = () => (
       />
       <Route
         exact
-        path="/bebidas/:id-da-receitas"
-      />
-      <Route
-        exact
         path="/explorar/comidas/ingredientes"
         component={ ExploreIngredients }
       />

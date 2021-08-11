@@ -2,7 +2,14 @@ const NOT_FOUND_INDEX = -1;
 
 export const getDoneRecipes = (id, dispatchFunction) => {
   const storedDoneRecipes = localStorage.getItem('doneRecipes');
-  const parsedDoneRecipes = storedDoneRecipes ? JSON.parse(storedDoneRecipes) : [];
+
+  let parsedDoneRecipes;
+  try {
+    parsedDoneRecipes = storedDoneRecipes ? JSON.parse(storedDoneRecipes) : [];
+  } catch (err) {
+    parsedDoneRecipes = [];
+  }
+
   if (parsedDoneRecipes
     .findIndex((parsedRecipe) => parsedRecipe.id === id) > NOT_FOUND_INDEX) {
     dispatchFunction(true);
