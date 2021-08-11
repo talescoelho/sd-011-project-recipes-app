@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
@@ -9,32 +9,41 @@ const copy = require('clipboard-copy');
 
 function RecipesDone() {
   const [click, setClick] = useState(false);
-  const {
-    recipesDone,
-    setFilteredRecipesDone,
-    filteredRecipesDone,
-  } = useContext(RecipeAppContext);
+  const [filterType, setFilterType] = useState('All');
+  const [shouldRender, setShouldRender] = useState(false);
   const history = useHistory();
+  const {
+    filteredRecipesDone,
+    setFilteredRecipesDone,
+  } = useContext(RecipeAppContext);
 
   function copyLink(type, id) {
     copy(`http://localhost:3000/${type}s/${id}`);
     setClick(true);
   }
 
-  const filterRecipesDone = ({ target: { name } }) => {
-    let filteredRecipes = [];
-    switch (name) {
+  function filterRecipesDone(doneList, type) {
+    let filteredList = [];
+    switch (type) {
     case 'Food':
-      filteredRecipes = recipesDone.filter((recipe) => recipe.type === 'comida');
+      filteredList = doneList.filter((recipe) => recipe.type === 'comida');
       break;
     case 'Drink':
-      filteredRecipes = recipesDone.filter((recipe) => recipe.type === 'bebida');
+      filteredList = doneList.filter((recipe) => recipe.type === 'bebida');
       break;
     default:
-      filteredRecipes = recipesDone;
+      filteredList = doneList;
+      break;
     }
-    setFilteredRecipesDone(filteredRecipes);
-  };
+    setFilteredRecipesDone(filteredList);
+  }
+
+  useEffect(() => {
+    const localStorageRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (!localStorageRecipes) return;
+    filterRecipesDone(localStorageRecipes, filterType);
+    setShouldRender(false);
+  }, [filterType, shouldRender]);
 
   return (
     <div>
@@ -45,7 +54,7 @@ function RecipesDone() {
           data-testid="filter-by-all-btn"
           name="All"
           className="favorite-recipes-buttons"
-          onClick={ (e) => filterRecipesDone(e) }
+          onClick={ ({ target: { name } }) => setFilterType(name) }
         >
           All
         </button>
@@ -55,7 +64,7 @@ function RecipesDone() {
           data-testid="filter-by-food-btn"
           name="Food"
           className="favorite-recipes-buttons"
-          onClick={ (e) => filterRecipesDone(e) }
+          onClick={ ({ target: { name } }) => setFilterType(name) }
         >
           Food
         </button>
@@ -65,7 +74,7 @@ function RecipesDone() {
           data-testid="filter-by-drink-btn"
           name="Drink"
           className="favorite-recipes-buttons"
-          onClick={ (e) => filterRecipesDone(e) }
+          onClick={ ({ target: { name } }) => setFilterType(name) }
         >
           Drinks
         </button>

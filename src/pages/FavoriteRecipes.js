@@ -10,48 +10,47 @@ const copy = require('clipboard-copy');
 
 function FavoriteRecipes() {
   const [click, setClick] = useState(false);
-
+  const [filterType, setFilterType] = useState('All');
+  const [shouldRender, setShouldRender] = useState(false);
+  const history = useHistory();
   const {
     filteredFavoritesRecipes,
     setFilteredFavoritesRecipes,
-    favoritesRecipes,
-    setFavoritesRecipes,
   } = useContext(RecipeAppContext);
-
-  useEffect(() => {
-    const favoriteRecipesJSON = JSON.stringify(filteredFavoritesRecipes);
-    localStorage.setItem('favoriteRecipes', favoriteRecipesJSON);
-  }, []);
-
-  const history = useHistory();
 
   function copyLink(type, id) {
     copy(`http://localhost:3000/${type}s/${id}`);
     setClick(true);
   }
 
-  const filterRecipesDone = ({ target: { name } }) => {
-    let filteredRecipes = [];
-    switch (name) {
+  function filterFavoriteRecipes(favList, type) {
+    let filteredList = [];
+    switch (type) {
     case 'Food':
-      filteredRecipes = favoritesRecipes.filter((recipe) => recipe.type === 'comida');
+      filteredList = favList.filter((recipe) => recipe.type === 'comida');
       break;
     case 'Drink':
-      filteredRecipes = favoritesRecipes.filter((recipe) => recipe.type === 'bebida');
+      filteredList = favList.filter((recipe) => recipe.type === 'bebida');
       break;
     default:
-      filteredRecipes = favoritesRecipes;
+      filteredList = favList;
+      break;
     }
-    setFilteredFavoritesRecipes(filteredRecipes);
-  };
+    setFilteredFavoritesRecipes(filteredList);
+  }
+
+  useEffect(() => {
+    const localStorageRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (!localStorageRecipes) return;
+    filterFavoriteRecipes(localStorageRecipes, filterType);
+    setShouldRender(false);
+  }, [filterType, shouldRender]);
 
   function deleteFavoriteRecipe({ target: { id } }) {
-    const newFavoriteRecipes = favoritesRecipes.filter((recipe) => recipe.id !== id);
-    setFavoritesRecipes(newFavoriteRecipes);
-    setFilteredFavoritesRecipes(newFavoriteRecipes);
-    const favoriteRecipesJSON = JSON.stringify(newFavoriteRecipes);
-    localStorage.setItem('favoriteRecipes', favoriteRecipesJSON);
-    console.log(newFavoriteRecipes);
+    const localStorageRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const newFavoriteRecipes = localStorageRecipes.filter((item) => item.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+    setShouldRender(true);
   }
 
   return (
@@ -63,7 +62,7 @@ function FavoriteRecipes() {
           data-testid="filter-by-all-btn"
           name="All"
           className="favorite-recipes-buttons"
-          onClick={ (e) => filterRecipesDone(e) }
+          onClick={ ({ target: { name } }) => setFilterType(name) }
         >
           All
         </button>
@@ -73,7 +72,7 @@ function FavoriteRecipes() {
           data-testid="filter-by-food-btn"
           name="Food"
           className="favorite-recipes-buttons"
-          onClick={ (e) => filterRecipesDone(e) }
+          onClick={ ({ target: { name } }) => setFilterType(name) }
         >
           Food
         </button>
@@ -83,7 +82,7 @@ function FavoriteRecipes() {
           data-testid="filter-by-drink-btn"
           name="Drink"
           className="favorite-recipes-buttons"
-          onClick={ (e) => filterRecipesDone(e) }
+          onClick={ ({ target: { name } }) => setFilterType(name) }
         >
           Drinks
         </button>
