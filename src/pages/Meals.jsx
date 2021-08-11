@@ -8,7 +8,7 @@ import CategoriesMeals from '../components/CategoriesMeals';
 import SearchBarMeals from '../components/SearchBarMeals';
 
 export default function Meals({ history }) {
-  const { meals } = useContext(UserContext);
+  const { show, meals } = useContext(UserContext);
   if (meals.length === 0) {
     return <div>loading</div>;
   }
@@ -26,11 +26,12 @@ export default function Meals({ history }) {
   }
 
   const comidas = 'Comidas';
+  console.log(show);
 
   return (
     <>
       <Header title={ comidas } />
-      <SearchBarMeals />
+      {show === true ? <SearchBarMeals /> : null}
       <CategoriesMeals />
       <section className="meals">
         {meals.map((meal, index) => (
