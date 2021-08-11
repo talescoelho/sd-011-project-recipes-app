@@ -2,9 +2,9 @@ main {
   margin-top: 50px;
 }
 
-.travelButton{
+.travelButton {
+  background-color: transparent;
   border : none;
   font-size: 3rem;
-  background-color: transparent;
-  position:absolute;
+  position: absolute;
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 import propTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
 
 export default function TravelButtons(props) {
   const { children } = props;
