@@ -10,6 +10,8 @@ function ReceitasFavoritas() {
   const [favoriteList, setFavoriteList] = React.useState(favoritedRecipesList);
   console.log(favoritedRecipesList);
 
+  console.log(favoriteList);
+
   function filterOnlyMeal() {
     const onlyMealList = favoritedRecipesList
       .filter((recipe) => recipe.type === 'comida');
@@ -68,7 +70,7 @@ function ReceitasFavoritas() {
         .map(({ id, name, category, image, type, area, alcoholicOrNot }, index) => (
           <>
             <FavoriteRecipeCard
-              key={ id }
+              id={ id }
               type={ type }
               imageDataTestId={ `${index}-horizontal-image` }
               categoryDataTestId={ `${index}-horizontal-top-text` }
