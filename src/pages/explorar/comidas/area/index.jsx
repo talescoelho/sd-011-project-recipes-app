@@ -7,7 +7,7 @@ export default class ComidasArea extends Component {
     return (
       <div>
         <Header title="Explorar Origem" hasSearchBar />
-        Explorar Comida Area
+        Explorar Comida Area - iniciando desenvolvimento
         <Footer />
       </div>
     );
