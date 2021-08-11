@@ -36,7 +36,7 @@ const DoneRecipes = () => {
     setIndexOfMessageClipboard(index);
     const time = 3000;
     setTimeout(() => {
-      setMessageClipboard(null);
+      setIndexOfMessageClipboard(null);
       setMessageClipboard(null);
     }, time);
   }
@@ -44,77 +44,118 @@ const DoneRecipes = () => {
   return (
     <div>
       <Header />
-      <button
-        type="button"
-        value="all"
-        data-testid="filter-by-all-btn"
-        onClick={ handleClickBtnFilters }
-      >
-        All
-      </button>
-      <button
-        type="button"
-        value="comida"
-        data-testid="filter-by-food-btn"
-        onClick={ handleClickBtnFilters }
-      >
-        Food
-      </button>
-      <button
-        type="button"
-        value="bebida"
-        data-testid="filter-by-drink-btn"
-        onClick={ handleClickBtnFilters }
-      >
-        Drinks
-      </button>
-      <div>
+      <div className="d-flex j-c-center m-1">
+        <button
+          type="button"
+          value="all"
+          data-testid="filter-by-all-btn"
+          onClick={ handleClickBtnFilters }
+          className="btn-30"
+        >
+          All
+        </button>
+        <button
+          type="button"
+          value="comida"
+          data-testid="filter-by-food-btn"
+          onClick={ handleClickBtnFilters }
+          className="btn-30"
+        >
+          Food
+        </button>
+        <button
+          type="button"
+          value="bebida"
+          data-testid="filter-by-drink-btn"
+          onClick={ handleClickBtnFilters }
+          className="btn-30"
+        >
+          Drinks
+        </button>
+      </div>
+      <div className="d-flex f-d-column a-i-center">
         {filteredRecipes.map((recipe, index) => {
           const {
             image,
             type,
-            id, category, name, area, alcoholicOrNot, doneDate, tags } = recipe;
+            id,
+            category,
+            name,
+            area,
+            alcoholicOrNot,
+            doneDate,
+            tags } = recipe;
           return (
-            <div key={ id } className="recipe-card">
+            <div
+              key={ id }
+              className="recipe-card m-1 d-flex b-shadow a-i-center"
+            >
               <Link to={ `/${type}s/${id}` }>
                 <img
-                  className="recipe-img"
                   src={ image }
                   alt=""
                   data-testid={ `${index}-horizontal-image` }
                 />
-                <h3 data-testid={ `${index}-horizontal-name` }>{ name }</h3>
               </Link>
-              {area ? (
+              <div className="w-100 m-25">
+                <div className="d-flex j-c-spBetween a-i-center p-1">
+                  {area ? (
+                    <p
+                      data-testid={ `${index}-horizontal-top-text` }
+                      className="c-secondary m-y-25"
+                    >
+                      { `${area} - ${category}` }
+                    </p>
+                  ) : (
+                    <p
+                      data-testid={ `${index}-horizontal-top-text` }
+                      className="c-secondary m-y-25"
+                    >
+                      { alcoholicOrNot }
+                    </p>
+                  )}
+                  {index === indexOfMessageClipboard ? (
+                    <p className="ml-1  m-y-25">{messageClipboard}</p>
+                  )
+                    : (
+                      <button
+                        type="button"
+                        onClick={ () => handleClick(index, type, id) }
+                        className="btn-icon ml-1 p-0"
+                      >
+                        <img
+                          src={ shareIcon }
+                          alt=""
+                          data-testid={ `${index}-horizontal-share-btn` }
+                        />
+                      </button>)}
+                </div>
+                <Link to={ `/${type}s/${id}` }>
+                  <h3
+                    className="m-25"
+                    data-testid={ `${index}-horizontal-name` }
+                  >
+                    { name }
+                  </h3>
+                </Link>
                 <p
-                  data-testid={ `${index}-horizontal-top-text` }
+                  data-testid={ `${index}-horizontal-done-date` }
+                  className="m-25"
                 >
-                  { `${area} - ${category}` }
+                  {`Feita em: ${doneDate}`}
                 </p>
-              ) : (
-                <p
-                  data-testid={ `${index}-horizontal-top-text` }
-                >
-                  { alcoholicOrNot }
-                </p>
-              )}
-              <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
-              <button type="button" onClick={ () => handleClick(index, type, id) }>
-                <img
-                  src={ shareIcon }
-                  alt=""
-                  data-testid={ `${index}-horizontal-share-btn` }
-                />
-              </button>
-              {index === indexOfMessageClipboard && <p>{messageClipboard}</p>}
-              {tags.length > 0 && tags.map((tag) => (
-                <p
-                  key={ tag }
-                  data-testid={ `${index}-${tag}-horizontal-tag` }
-                >
-                  { tag }
-                </p>
-              ))}
+                <div className="d-flex f-wrap">
+                  {tags.length > 0 && tags.map((tag) => (
+                    <span
+                      key={ tag }
+                      data-testid={ `${index}-${tag}-horizontal-tag` }
+                      className="tag"
+                    >
+                      { tag }
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           );
         })}

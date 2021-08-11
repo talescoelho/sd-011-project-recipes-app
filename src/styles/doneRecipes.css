@@ -1,7 +1,23 @@
 .recipe-card {
-  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid #e0e0e0;
+  height: 20%;
 }
 
-.recipe-img {
+.recipe-card a {
+  width: 40%;
+}
+
+.recipe-card a img {
   width: 100%;
+  border-radius: 1rem;
+  border: 1px solid #e0e0e0;
+}
+
+.tag {
+  font-size: 0.8rem;
+  background-color: #ccc;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 0.8rem;
 }
