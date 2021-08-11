@@ -212,6 +212,7 @@ BebidasDetalhes.propTypes = {
       id: PropTypes.string.isRequired,
     }),
   }),
+  
   addRecipeCurr: PropTypes.func,
   addRecipeFav: PropTypes.func,
 }.isRequired;
