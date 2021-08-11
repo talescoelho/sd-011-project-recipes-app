@@ -24,11 +24,16 @@ function DrinksSearchBar() {
 
     if (!input || !searchText) return null;
 
-    const response = await fetch(endpoint);
-    const { drinks } = await response.json();
-    if (drinks === null) return alert(alertMsg);
-    if (drinks.length === 1) return history.push(`/bebidas/${drinks[0].idDrink}`);
-    setDrinksList(drinks);
+    try {
+      const response = await fetch(endpoint);
+      const { drinks } = await response.json();
+      if (drinks === null) return alert(alertMsg);
+      if (drinks.length === 1) return history.push(`/bebidas/${drinks[0].idDrink}`);
+      setDrinksList(drinks);
+    } catch(err) {
+      return alert(alertMsg);
+    }
+    
   };
 
   return (
