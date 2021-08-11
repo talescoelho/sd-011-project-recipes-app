@@ -8,6 +8,8 @@ import Footer from '../components/Footer';
 import CategoryButtons from '../components/CategoryButtons';
 
 function Comidas({ title, location: { recipeName } }) {
+
+
   const { foods } = useSelector((state) => state.fetchReceitas);
   const dispatch = useDispatch();
 
