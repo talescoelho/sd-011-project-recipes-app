@@ -4,57 +4,101 @@ import { connect } from 'react-redux';
 import ConcludeRecipe from '../components/common/ConcludeRecipe';
 import IngListWithCheckbox from '../components/common/IngredientsListWithCheckbox';
 import RecipeInstructions from '../components/common/RecipeInstructions';
-import { requestMealDetails } from '../redux/actions/recipeDetailsActions';
+import { requestDrinkDetails } from '../redux/actions/recipeDetailsActions';
 
 const DrinkRecipeProgress = ({ dispatch, match, drinkDetails }) => {
   const { params: { id } } = match;
   useEffect(() => {
-    dispatch(requestMealDetails(id));
-    localStorage.setItem('inProgressRecipes', JSON.stringify({
-      cocktails: {
-        [id]: [],
-      },
-    }));
+    dispatch(requestDrinkDetails(id));
+    let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgressRecipes) {
+      if (inProgressRecipes.cocktails) {
+        if (inProgressRecipes.cocktails[id]) {
+          inProgressRecipes = {
+            ...inProgressRecipes,
+          };
+        } else {
+          inProgressRecipes = {
+            ...inProgressRecipes,
+            cocktails: {
+              ...inProgressRecipes.cocktails,
+              [id]: [],
+            },
+          };
+        }
+      } else {
+        inProgressRecipes = {
+          ...inProgressRecipes,
+          cocktails: {
+            [id]: [],
+          },
+        };
+      }
+    } else {
+      inProgressRecipes = {
+        cocktails: {
+          [id]: [],
+        },
+      };
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
     // eslint-disable-next-line
   }, []);
   if (drinkDetails.strInstructions === undefined) return (<span>Carregando...</span>);
   const oldIngredients = [
-    `${drinkDetails.strMeasure1} ${drinkDetails.strIngredient1}`,
-    `${drinkDetails.strMeasure2} ${drinkDetails.strIngredient2}`,
-    `${drinkDetails.strMeasure3} ${drinkDetails.strIngredient3}`,
-    `${drinkDetails.strMeasure4} ${drinkDetails.strIngredient4}`,
-    `${drinkDetails.strMeasure5} ${drinkDetails.strIngredient5}`,
-    `${drinkDetails.strMeasure6} ${drinkDetails.strIngredient6}`,
-    `${drinkDetails.strMeasure7} ${drinkDetails.strIngredient7}`,
-    `${drinkDetails.strMeasure8} ${drinkDetails.strIngredient8}`,
-    `${drinkDetails.strMeasure9} ${drinkDetails.strIngredient9}`,
-    `${drinkDetails.strMeasure10} ${drinkDetails.strIngredient10}`,
-    `${drinkDetails.strMeasure11} ${drinkDetails.strIngredient11}`,
-    `${drinkDetails.strMeasure12} ${drinkDetails.strIngredient12}`,
-    `${drinkDetails.strMeasure13} ${drinkDetails.strIngredient13}`,
-    `${drinkDetails.strMeasure14} ${drinkDetails.strIngredient14}`,
-    `${drinkDetails.strMeasure15} ${drinkDetails.strIngredient15}`,
-    `${drinkDetails.strMeasure16} ${drinkDetails.strIngredient16}`,
-    `${drinkDetails.strMeasure17} ${drinkDetails.strIngredient17}`,
-    `${drinkDetails.strMeasure18} ${drinkDetails.strIngredient18}`,
-    `${drinkDetails.strMeasure19} ${drinkDetails.strIngredient19}`,
-    `${drinkDetails.strMeasure20} ${drinkDetails.strIngredient20}`,
+    drinkDetails.strIngredient1,
+    drinkDetails.strIngredient2,
+    drinkDetails.strIngredient3,
+    drinkDetails.strIngredient4,
+    drinkDetails.strIngredient5,
+    drinkDetails.strIngredient6,
+    drinkDetails.strIngredient7,
+    drinkDetails.strIngredient8,
+    drinkDetails.strIngredient9,
+    drinkDetails.strIngredient10,
+    drinkDetails.strIngredient11,
+    drinkDetails.strIngredient12,
+    drinkDetails.strIngredient13,
+    drinkDetails.strIngredient14,
+    drinkDetails.strIngredient15,
   ];
-  const ingredients = oldIngredients.filter((ingredient) => ingredient !== '');
+  const oldMeasures = [
+    drinkDetails.strMeasure1,
+    drinkDetails.strMeasure2,
+    drinkDetails.strMeasure3,
+    drinkDetails.strMeasure4,
+    drinkDetails.strMeasure5,
+    drinkDetails.strMeasure6,
+    drinkDetails.strMeasure7,
+    drinkDetails.strMeasure8,
+    drinkDetails.strMeasure9,
+    drinkDetails.strMeasure10,
+    drinkDetails.strMeasure11,
+    drinkDetails.strMeasure12,
+    drinkDetails.strMeasure13,
+    drinkDetails.strMeasure14,
+    drinkDetails.strMeasure15,
+  ];
+  const newIngredients = oldIngredients.filter((ingredient) => ingredient !== null);
+  const newMeasures = oldMeasures.filter((measure) => measure !== null);
+  const measuresAndIngredients = newIngredients.map((element, index) => {
+    if (newMeasures[index] === undefined) return element;
+    return `${newMeasures[index]} - ${element}`;
+  });
   return (
     <>
       <div>Tela de receita em processo de bebida</div>
       <IngListWithCheckbox
         id={ drinkDetails.idDrink }
-        ingredients={ ingredients }
+        ingredients={ measuresAndIngredients }
         recipeType="cocktails"
       />
-      <RecipeInstructions strInstructions={ drinkDetails.idDrink } />
-      <ConcludeRecipe
+      <RecipeInstructions strInstructions={ drinkDetails.strInstructions } />
+      {/* <ConcludeRecipe
         id={ drinkDetails.idDrink }
         ingredients={ ingredients }
         recipeType="cocktails"
-      />
+      /> */}
     </>
   );
 };
