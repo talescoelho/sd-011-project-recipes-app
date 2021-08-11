@@ -111,6 +111,77 @@ function AppProvider({ children }) {
     }
   }
 
+  function toggle(e, drink) {
+    const element = document.getElementById(e.target.value);
+    element.classList.toggle('liIngredients');
+    const elementText = element.innerText;
+
+    if (drink) {
+      const getLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      const arrayDrink = getLocalStorage.cocktails[idDetails[0].idDrink];
+      console.log(arrayDrink);
+      const newArrayDrink = arrayDrink.includes(elementText)
+        ? arrayDrink.filter((el) => el !== elementText)
+        : [...arrayDrink, elementText];
+      const newObject = {
+        ...getLocalStorage,
+        cocktails: { ...getLocalStorage.cocktails,
+          [idDetails[0].idDrink]: newArrayDrink } };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newObject));
+      return null;
+    }
+    const getLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const arrayFood = getLocalStorage.meals[idDetails[0].idMeal];
+    console.log(arrayFood);
+    const newArrayFood = arrayFood.includes(elementText)
+      ? arrayFood.filter((el) => el !== elementText)
+      : [...arrayFood, elementText];
+    const newObject = {
+      ...getLocalStorage,
+      meals: { ...getLocalStorage.meals,
+        [idDetails[0].idMeal]: newArrayFood } };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(newObject));
+  }
+
+  function getAndSetLocalStorage(inProcess, food, foodOrDrinkProcess) {
+    const inProgress = localStorage.getItem('inProgressRecipes');
+    if (!inProgress && inProcess) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(foodOrDrinkProcess));
+    } else if (inProcess) {
+      const getLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      const spreadLocal = food ? {
+        ...getLocal,
+        meals: {
+          ...getLocal.meals,
+          [idDetails[0].idMeal]: getLocal.meals[idDetails[0].idMeal]
+            ? getLocal.meals[idDetails[0].idMeal]
+            : [],
+        },
+      } : {
+        ...getLocal,
+        cocktails: {
+          ...getLocal.cocktails,
+          [idDetails[0].idDrink]: getLocal.cocktails[idDetails[0].idDrink]
+            ? getLocal.cocktails[idDetails[0].idDrink]
+            : [],
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(spreadLocal));
+      const array = food
+        ? spreadLocal.meals[idDetails[0].idMeal]
+        : spreadLocal.cocktails[idDetails[0].idDrink];
+      console.log(array);
+
+      array.forEach((el) => {
+        const element = document.getElementById(el);
+        const nameClass = document.getElementsByClassName(el);
+        nameClass[0].classList.add('liIngredients');
+        element.setAttribute('checked', true);
+        console.log(element);
+      });
+    }
+  }
+
   const contextValue = {
     email,
     password,
@@ -149,6 +220,8 @@ function AppProvider({ children }) {
     setLoadingExplore,
     fetchIngredients,
     selectIngredient,
+    toggle,
+    getAndSetLocalStorage,
     copySuccess,
     setCopySuccess,
   };

@@ -23,6 +23,7 @@ function HeaderDetails({ foodOrDrink, id }) {
   const favRec = JSON.parse(local);
   const hasId = local && Object.keys(favRec)
     .map((el) => favRec[el].id).some((x) => x === id);
+  // console.log(favRec);
 
   function handleFavorite() {
     setFavorite(!favorite);
