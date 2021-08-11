@@ -32,7 +32,7 @@ function Foods() {
     } else {
       // setRequestFoodParams({
       //   searchInput: requestFoodParams.searchInput,
-      //   searchMethod: requestFoodParams.searchMethod });
+      //   searchMethod: requestFoodParams.searchMethod })
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [renderCategory]);
