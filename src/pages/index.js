@@ -11,3 +11,5 @@ export { default as Perfil } from './Perfil';
 export { default as FavoriteRecipes } from './FavoriteRecipes';
 export { default as Drinks } from './Drinks';
 export { default as NotFound } from './NotFound';
+export { default as FoodDetails } from './FoodDetails';
+export { default as DrinkDetails } from './DrinkDetails';
