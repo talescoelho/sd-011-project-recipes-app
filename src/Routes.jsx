@@ -12,6 +12,8 @@ import {
   DrinksExplore,
   ExploreOrigin,
   ExploreIngredients,
+  DrinkProgress,
+  FoodProgress,
 } from './pages';
 
 const Routes = () => (
@@ -88,10 +90,12 @@ const Routes = () => (
       <Route
         exact
         path="/comidas/:id-da-receitas/in-progress"
+        component= { FoodProgress }
       />
       <Route
         exact
         path="/bebidas/:id-da-receitas/in-progress"
+        component= { DrinkProgress }
       />
     </Switch>
   </BrowserRouter>
