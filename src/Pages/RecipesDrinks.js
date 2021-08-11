@@ -19,6 +19,7 @@ export default function RecipesFood() {
     const response = await fetchCategoryDrink();
     const maxList = 5;
     const categoryListDrink = response.drinks.slice(0, maxList);
+    console.log(categoryListDrink);
     return categoryListDrink;
   };
 
