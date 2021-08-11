@@ -5,7 +5,9 @@ import Foods from '../pages/Foods';
 import Login from '../pages/Login';
 import Explorer from '../pages/Explorer';
 import ExplorerFood from '../pages/ExplorerFood';
+import ExplorerFoodIngredient from '../pages/ExplorerFoodIngredient';
 import ExplorerDrink from '../pages/ExplorerDrink';
+import ExplorerDrinkIngredient from '../pages/ExplorerDrinkIngredient';
 import Perfil from '../pages/Perfil';
 import Recipes from '../pages/Recipes';
 import FavoriteRecipes from '../pages/FavoriteRecipes';
@@ -31,7 +33,17 @@ function Routes() {
         />
         <Route exact path="/explorar" component={ Explorer } />
         <Route exact path="/explorar/comidas" component={ ExplorerFood } />
+        <Route
+          exact
+          path="/explorar/comidas/ingredientes"
+          component={ ExplorerFoodIngredient }
+        />
         <Route exact path="/explorar/bebidas" component={ ExplorerDrink } />
+        <Route
+          exact
+          path="/explorar/bebidas/ingredientes"
+          component={ ExplorerDrinkIngredient }
+        />
         <Route path="/perfil" component={ Perfil } />
         <Route path="/receitas-feitas" component={ Recipes } />
         <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
