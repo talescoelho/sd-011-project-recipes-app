@@ -8,50 +8,44 @@ function FavoriteRecipeCard(props) {
     image, name, category, recipeDoneDate, type, area, alcoholicOrNot } = props;
 
   function renderMealCard() {
-    const recipesFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (recipesFavorites.find(({ id: idRecipe }) => id === idRecipe)) {
-      return (
-        <>
-          <Link to={ `/comidas/${id}` }>
-            <img
-              src={ image }
-              alt="food done"
-              data-testid={ imageDataTestId }
-              style={ { width: 25 } }
-            />
-          </Link>
-          <Link to={ `/comidas/${id}` }>
-            <h2 data-testid={ nameDataTestId }>{ name }</h2>
-          </Link>
-          <h4 data-testid={ categoryDataTestId }>{ `${area} - ${category}` }</h4>
-          <h4 data-testid={ recipeDoneDateDataTestId }>{recipeDoneDate}</h4>
-        </>
-      );
-    } return '';
+    return (
+      <>
+        <Link to={ `/comidas/${id}` }>
+          <img
+            src={ image }
+            alt="food done"
+            data-testid={ imageDataTestId }
+            style={ { width: 25 } }
+          />
+        </Link>
+        <Link to={ `/comidas/${id}` }>
+          <h2 data-testid={ nameDataTestId }>{ name }</h2>
+        </Link>
+        <h4 data-testid={ categoryDataTestId }>{ `${area} - ${category}` }</h4>
+        <h4 data-testid={ recipeDoneDateDataTestId }>{recipeDoneDate}</h4>
+      </>
+    );
   }
 
   function renderDrinkCard() {
-    const recipesFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (recipesFavorites.find(({ id: idRecipe }) => id === idRecipe)) {
-      return (
-        <>
-          <Link to={ `/bebidas/${id}` }>
-            <img
-              src={ image }
-              alt="food done"
-              data-testid={ imageDataTestId }
-              style={ { width: 25 } }
-            />
-          </Link>
-          <h4 data-testid={ categoryDataTestId }>{ alcoholicOrNot }</h4>
-          <Link to={ `/bebidas/${id}` }>
-            <h2 data-testid={ nameDataTestId }>{ name }</h2>
-          </Link>
-          {/* <h4>{ alcoholicOrNot }</h4> */}
-          <h4 data-testid={ recipeDoneDateDataTestId }>{recipeDoneDate}</h4>
-        </>
-      );
-    }
+    return (
+      <>
+        <Link to={ `/bebidas/${id}` }>
+          <img
+            src={ image }
+            alt="food done"
+            data-testid={ imageDataTestId }
+            style={ { width: 25 } }
+          />
+        </Link>
+        <h4 data-testid={ categoryDataTestId }>{ alcoholicOrNot }</h4>
+        <Link to={ `/bebidas/${id}` }>
+          <h2 data-testid={ nameDataTestId }>{ name }</h2>
+        </Link>
+        {/* <h4>{ alcoholicOrNot }</h4> */}
+        <h4 data-testid={ recipeDoneDateDataTestId }>{recipeDoneDate}</h4>
+      </>
+    );
   }
 
   return (
