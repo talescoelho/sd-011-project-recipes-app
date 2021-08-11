@@ -10,6 +10,7 @@ function RecipeAppProvider({ children }) {
   const [drinkCategoryList, setDrinkCategory] = useState('');
   const [drinksList, setDrinksList] = useState('');
   const [filteredFavoritesRecipes, setFilteredFavoritesRecipes] = useState([]);
+  const [filteredRecipesDone, setFilteredRecipesDone] = useState([]);
   const [foodCategoryList, setFoodCategory] = useState('');
   const [foodsList, setFoodList] = useState('');
   const [isFavRecipe, setIsFavRecipe] = useState(false);
@@ -17,7 +18,6 @@ function RecipeAppProvider({ children }) {
   const [inProgressRecipes, setInProgressRecipes] = useState(false);
   const [login, setLogin] = useState({ email: '', password: '' });
   const [meal, setMeal] = useState('');
-  const [filteredRecipesDone, setFilteredRecipesDone] = useState([]);
   const [recomMeal, setRecomMeal] = useState('');
   const [recomDrink, setRecomDrink] = useState('');
   const [toggleOn, setToggleOn] = useState(false);
