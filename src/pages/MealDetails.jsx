@@ -12,12 +12,30 @@ import '../css/footerMenu.css';
 
 function MealDetails({ match: { params } }) {
   const [MealDataAPI, setMealDadaAPI] = useState({});
+  const [isMealDone, setIsMealsDone] = useState(false);
+  function verifyRecipeDone(id) {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes !== null) {
+      const filter = doneRecipes.filter((recipe) => recipe.id === id);
+      if (filter.length >= 1) {
+        setIsMealsDone(true);
+      }
+    }
+  }
+  function renderButton() {
+    return (
+      <button className="footer" type="button" data-testid="start-recipe-btn">
+        Iniciar Receita
+      </button>
+    );
+  }
   useEffect(() => {
     const { id } = params;
     const requestMeal = async () => {
       const response = await APImealById(id);
       setMealDadaAPI(response.meals[0]);
     };
+    verifyRecipeDone(id);
     requestMeal();
   }, [params]);
 
@@ -51,10 +69,8 @@ function MealDetails({ match: { params } }) {
         </div>
       ) : <h2>Loading</h2>}
       <Recommendations />
+      { !isMealDone ? renderButton() : undefined }
 
-      <button className="footer" type="button" data-testid="start-recipe-btn">
-        Iniciar Receita
-      </button>
     </div>
   );
 }

@@ -1,20 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipeCard from '../components/RecipeCard';
-import Recommendations from '../components/Recommendations';
+import RecommendationsM from '../components/RecommendationsM';
 import IngredientsList from '../components/IngredientsList';
 import { APIDrinksById } from '../services/APImealsANDdrinks';
 import '../css/footerMenu.css';
 
 function DrinkDetails({ match: { params } }) {
   const [DrinkDataAPI, setDrinkDadaAPI] = useState({});
-
+  const [isMealDone, setIsMealsDone] = useState(false);
+  function verifyRecipeDone(id) {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes !== null) {
+      const filter = doneRecipes.filter((recipe) => recipe.id === id);
+      if (filter.length >= 1) {
+        setIsMealsDone(true);
+      }
+    }
+  }
+  function renderButton() {
+    return (
+      <button className="footer" type="button" data-testid="start-recipe-btn">
+        Iniciar Receita
+      </button>
+    );
+  }
   useEffect(() => {
     const { id } = params;
     const requestDrink = async () => {
       const response = await APIDrinksById(id);
       setDrinkDadaAPI(response.drinks[0]);
     };
+    verifyRecipeDone(id);
     requestDrink();
   }, [params]);
 
@@ -36,11 +53,8 @@ function DrinkDetails({ match: { params } }) {
 
       {/* passar algum atributo para o recomendações de modo a
       identificar se renderiza bebidas ou comidas */}
-      <Recommendations />
-
-      <button className="footer" type="button" data-testid="start-recipe-btn">
-        Iniciar Receita
-      </button>
+      <RecommendationsM />
+      { !isMealDone ? renderButton() : undefined }
     </div>
   );
 }

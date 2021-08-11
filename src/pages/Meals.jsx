@@ -22,7 +22,7 @@ export default function Meals(props) {
   }
 
   const comidas = 'Comidas';
-  console.log(props)
+  console.log(props);
   return (
     <>
       <Header title={ comidas } />
