@@ -3,6 +3,7 @@ import React from 'react';
 import DrinkDetails from '../pages/DrinkDetails';
 import { renderWithRouterAndRedux } from './renderWithRouterAndRedux';
 import mockDrink from '../../cypress/mocks/oneDrink';
+import mockMeals from '../../cypress/mocks/meals';
 
 const INITIAL_STATE = {
   RecipesReducer: {
@@ -17,7 +18,10 @@ const INITIAL_STATE = {
 describe('Testes para página de HomeBebidas', () => {
   it('Verifica se há os itens procurados', async () => {
     jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockMeals),
+    });
+    fetch.mockResolvedValueOnce({
       json: jest.fn().mockResolvedValue(mockDrink),
     });
     const { findByText, findByTestId } = renderWithRouterAndRedux(
@@ -29,6 +33,20 @@ describe('Testes para página de HomeBebidas', () => {
     const title = await findByTestId('recipe-title');
     expect(type).toBeInTheDocument();
     expect(title).toBeInTheDocument();
+    const favorite = await findByTestId('favorite-btn');
+    expect(favorite).toBeInTheDocument();
+    const whiteIcon = getByRole('img', { name: /favorite icon/i });
+    expect(whiteIcon.src).toEqual('http://localhost/whiteHeartIcon.svg');
+    expect(whiteIcon).toBeInTheDocument();
+    userEvent.click(favorite);
+    const blackIcon = getByRole('img', { name: /favorite icon/i });
+    expect(blackIcon.src).toEqual('http://localhost/blackHeartIcon.svg');
+    const firstIngredient = await findByTestId('0-ingredient-name-and-measure');
+    expect(firstIngredient).toBeInTheDocument();
+    const recomendaitonCard1 = await findByTestId('1-recomendation-card');
+    expect(getByTitle(/recipe video/i)).not.toBeInTheDocument();
+    expect(recomendaitonCard1).toBeInTheDocument();
+    userEvent.click(recomendaitonCard1);
   });
 });
 

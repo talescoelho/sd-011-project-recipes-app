@@ -1,38 +1,164 @@
 // HomeMeals.test.js
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 import MealDetails from '../pages/MealDetails';
 import { renderWithRouterAndRedux } from './renderWithRouterAndRedux';
 import mockMeal from '../../cypress/mocks/oneMeal';
+import mockDrinks from '../../cypress/mocks/drinks';
 
 const INITIAL_STATE = {
   RecipesReducer: {
-    recipesData: { meals: [] },
+    recipesData: { drinks: [] },
     recipeDetailsData: [],
     recipesRedirectData: [],
     isLoading: false,
     showRecipe: false,
   },
 };
+const mockRoute = '/comidas/52771';
+const recipeTitle = 'recipe-title';
 
 describe('Testes para página de HomeComidas', () => {
   it('Verifica se há os itens procurados', async () => {
     jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockDrinks),
+    });
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockMeal),
+    });
+    const { findByText, findByTestId, getByRole } = renderWithRouterAndRedux(
+      <MealDetails match={ { params: { id: '52771' }, url: `http://localhost:3000/${mockRoute}` } } />,
+      { route: mockRoute }, INITIAL_STATE,
+    );
+    const type = await findByText(/vegetarian/i);
+    const title = await findByTestId(recipeTitle);
+    expect(type).toBeInTheDocument();
+    expect(title).toBeInTheDocument();
+    const favorite = await findByTestId('favorite-btn');
+    expect(favorite).toBeInTheDocument();
+    const whiteIcon = getByRole('img', { name: /favorite icon/i });
+    expect(whiteIcon.src).toEqual('http://localhost/whiteHeartIcon.svg');
+    expect(whiteIcon).toBeInTheDocument();
+    userEvent.click(favorite);
+    const blackIcon = getByRole('img', { name: /favorite icon/i });
+    expect(blackIcon.src).toEqual('http://localhost/blackHeartIcon.svg');
+    const localStorageWithFavorite = JSON.parse(localStorage.favoriteRecipes);
+    expect(localStorageWithFavorite[0].id).toEqual('52771');
+    userEvent.click(blackIcon);
+    const emptyLocalStorage = JSON.parse(localStorage.favoriteRecipes);
+    expect(emptyLocalStorage).toEqual([]);
+    const firstIngredient = await findByTestId('0-ingredient-name-and-measure');
+    expect(firstIngredient).toBeInTheDocument();
+    const recomendaitonCard1 = await findByTestId('1-recomendation-card');
+    expect(recomendaitonCard1).toBeInTheDocument();
+    userEvent.click(recomendaitonCard1);
+
+    // const down = await findByTestId('recipe-titsssle');
+  });
+  it('Verifica se há vídeo', async () => {
+    jest.spyOn(global, 'fetch');
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockDrinks),
+    });
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockMeal),
+    });
+    const { getByTitle, findByText, findByTestId } = renderWithRouterAndRedux(
+      <MealDetails match={ { params: { id: '52771' }, url: `http://localhost:3000/${mockRoute}` } } />,
+      { route: mockRoute }, INITIAL_STATE,
+    );
+    const type = await findByText(/vegetarian/i);
+    const title = await findByTestId(recipeTitle);
+    expect(type).toBeInTheDocument();
+    expect(title).toBeInTheDocument();
+    const video = await getByTitle(/recipe video/i);
+    expect(video).toBeInTheDocument();
+  });
+  it('Verifica se há botão iniciar receita', async () => {
+    jest.spyOn(global, 'fetch');
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockDrinks),
+    });
+    fetch.mockResolvedValueOnce({
       json: jest.fn().mockResolvedValue(mockMeal),
     });
     const { findByText, findByTestId } = renderWithRouterAndRedux(
-      <MealDetails match={ { params: { id: '52771' } } } />,
-      { route: '/comidas/52771' }, INITIAL_STATE,
+      <MealDetails match={ { params: { id: '52771' }, url: `http://localhost:3000/${mockRoute}` } } />,
+      { route: mockRoute }, INITIAL_STATE,
     );
-    const type = await findByText(/vegetarian/i);
-    const title = await findByTestId('recipe-title');
-    expect(type).toBeInTheDocument();
+    const btnStart = await findByText(/iniciar/i);
+    const title = await findByTestId(recipeTitle);
+    expect(btnStart).toBeInTheDocument();
     expect(title).toBeInTheDocument();
+    userEvent.click(btnStart);
+    const newlocalStorage = JSON.parse(localStorage.inProgressRecipes);
+    const propToVerify = newlocalStorage.meals['52771'][0].name;
+    expect(propToVerify).toEqual('penne rigate');
+  });
+  it('Verifica se há botão continuar receita', async () => {
+    jest.spyOn(global, 'fetch');
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockDrinks),
+    });
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockMeal),
+    });
+    const toSet = { meals: { 52771: {} } };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(toSet));
+    const { findByText, findByTestId } = renderWithRouterAndRedux(
+      <MealDetails match={ { params: { id: '52771' }, url: `http://localhost:3000/${mockRoute}` } } />,
+      { route: mockRoute }, INITIAL_STATE,
+    );
+    const btnContiue = await findByText(/continuar/i);
+    const title = await findByTestId(recipeTitle);
+    expect(btnContiue).toBeInTheDocument();
+    expect(title).toBeInTheDocument();
+    userEvent.click(btnContiue);
+  });
+  it('Verifica se não há botão continuar ou iniciar receita', async () => {
+    jest.spyOn(global, 'fetch');
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockDrinks),
+    });
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockMeal),
+    });
+    const toSet = [{ id: '52771' }];
+    localStorage.setItem('doneRecipes', JSON.stringify(toSet));
+    const { findAllByText, findByTestId } = renderWithRouterAndRedux(
+      <MealDetails match={ { params: { id: '52771' }, url: `http://localhost:3000/${mockRoute}` } } />,
+      { route: mockRoute }, INITIAL_STATE,
+    );
+    const title = await findByTestId(recipeTitle);
+    expect(title).toBeInTheDocument();
+    const continuar = await findAllByText('Continuar Receita');
+    expect(continuar.length).toEqual(0);
+  });
+  it('Testa Share Btn', async () => {
+    jest.spyOn(global, 'fetch');
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockDrinks),
+    });
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockMeal),
+    });
+    const { findByText, findByTestId } = renderWithRouterAndRedux(
+      <MealDetails match={ { params: { id: '52771' }, url: `http://localhost:3000/${mockRoute}` } } />,
+      { route: mockRoute }, INITIAL_STATE,
+    );
+    const share = await findByTestId('share-btn');
+    expect(share).toBeInTheDocument();
+    userEvent.click(share);
+    const shareText = findByText(/Copiado/i);
+    expect(shareText).toBeInTheDocument();
+
+    // const down = await findByTestId('recipe-titsssle');
   });
   it('Verifica se há os itens procurados', () => {
     const { getByText } = renderWithRouterAndRedux(
       <MealDetails match={ { params: { id: '52771' } } } />,
-      { route: '/comidas/52771' }, INITIAL_STATE,
+      { route: mockRoute }, INITIAL_STATE,
     );
 
     const loading = getByText('Loading');
