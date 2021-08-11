@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -26,3 +27,7 @@ export default function ShareFavBtn({ url }) {
     </div>
   );
 }
+
+ShareFavBtn.propTypes = {
+  url: PropTypes.string.isRequired,
+};

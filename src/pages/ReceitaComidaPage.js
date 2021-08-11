@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import { Carousel } from 'react-responsive-carousel';
+// import { Carousel } from 'react-responsive-carousel';
 import ShareFavBtn from '../components/ShareFavBtn';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
+// import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 // import '../style/pageDetails.css';
 
 export default function ReceitaComidaPage(props) {
@@ -46,21 +47,21 @@ export default function ReceitaComidaPage(props) {
       recomendations.drinks.map((recipe, index) => {
         if (index < maxLength) {
           return (
-            <Carousel>
-              <div
-                key={ recipe.strDrink }
-                data-testid={ `${index}-recomendation-card` }
-              >
-                <img
-                  src={ recipe.strDrinkThumb }
-                  alt={ recipe.strDrink }
-                  height="180px"
-                  width="180px"
-                  data-testid="recipe-photo"
-                />
-                <p className="legend">{ recipe.strDrink }</p>
-              </div>
-            </Carousel>
+            // <Carousel>
+            <div
+              key={ recipe.strDrink }
+              data-testid={ `${index}-recomendation-card` }
+            >
+              <img
+                src={ recipe.strDrinkThumb }
+                alt={ recipe.strDrink }
+                height="180px"
+                width="180px"
+                data-testid="recipe-photo"
+              />
+              <p className="legend">{ recipe.strDrink }</p>
+            </div>
+            // </Carousel>
           );
         }
         return null;
@@ -122,3 +123,9 @@ export default function ReceitaComidaPage(props) {
     </div>
   );
 }
+
+ReceitaComidaPage.propTypes = {
+  match: PropTypes.shape({
+    url: PropTypes.string.isRequired,
+  }).isRequired,
+};
