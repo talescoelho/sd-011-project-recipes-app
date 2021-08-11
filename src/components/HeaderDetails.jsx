@@ -64,5 +64,9 @@ export default HeaderDetails;
 
 HeaderDetails.propTypes = {
   foodOrDrink: PropTypes.string.isRequired,
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
+
+HeaderDetails.defaultProps = {
+  id: 0,
 };
