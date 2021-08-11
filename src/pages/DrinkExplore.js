@@ -23,22 +23,26 @@ const DrinkExplore = () => {
   return (
     <div className="body-b">
       <Header />
-      <Link to="/explorar/bebidas/ingredientes">
+      <div className="b-explore d-flex f-d-column j-c-spAround m-3">
         <button
+          className="btn fh-2"
           type="button"
           data-testid="explore-by-ingredient"
         >
-          Por Ingredientes
+          <Link to="/explorar/bebidas/ingredientes">
+            Por Ingredientes
+          </Link>
         </button>
-      </Link>
-      <Link to={ `/bebidas/${randomDrink}` }>
         <button
+          className="btn fh-2"
           type="button"
           data-testid="explore-surprise"
         >
-          Me Surpreenda!
+          <Link to={ `/bebidas/${randomDrink}` }>
+            Me Surpreenda!
+          </Link>
         </button>
-      </Link>
+      </div>
       <FooterMenu />
     </div>
   );

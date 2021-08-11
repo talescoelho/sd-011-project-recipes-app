@@ -27,27 +27,33 @@ const DrinkIngredients = () => {
   return (
     <div className="body-b">
       <Header />
-      { filteredData.map((item, index) => {
-        const { strIngredient1 } = item;
-        return (
-          <Link
-            key={ index }
-            to="/bebidas"
-            onClick={ () => dispatch(fetchSearchIngredients(strIngredient1, pathname)) }
-          >
-            <div data-testid={ `${index}-recipe-card` }>
-              <div data-testid={ `${index}-ingredient-card` }>
+      <div className="d-flex f-wrap j-c-center">
+        { filteredData.map((item, index) => {
+          const { strIngredient1 } = item;
+          return (
+            <div
+              data-testid={ `${index}-ingredient-card` }
+              key={ index }
+              className="s-card m-25 m-y-1 d-flex f-d-column a-i-center text-center"
+            >
+              <Link
+                to="/bebidas"
+                onClick={ () => dispatch(fetchSearchIngredients(strIngredient1,
+                  pathname)) }
+                data-testid={ `${index}-recipe-card` }
+              >
                 <img
                   src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png ` }
                   alt={ strIngredient1 }
                   data-testid={ `${index}-card-img` }
                 />
                 <h3 data-testid={ `${index}-card-name` }>{strIngredient1}</h3>
-              </div>
+              </Link>
             </div>
-          </Link>
-        );
-      }) }
+
+          );
+        }) }
+      </div>
       <FooterMenu />
     </div>
   );
