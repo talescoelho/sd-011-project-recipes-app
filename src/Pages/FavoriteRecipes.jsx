@@ -38,7 +38,7 @@ export default class FavoriteRecipes extends Component {
   render() {
     const { myFavoriteRecipes } = this.state;
     return (
-      <div>
+      <div className="explore-container">
         <header style={ ({ backgroundColor: 'gray' }) }>
           <HeaderWithoutSearch title="Receitas Favoritas" />
         </header>

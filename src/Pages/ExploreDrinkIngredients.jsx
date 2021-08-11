@@ -33,7 +33,12 @@ export default class ExploreDrinkIngredients extends Component {
         { ingredientsForDrinks && (
           ingredientsForDrinks.map((item, index) => (
             index < magicNUMBER && (
-              <Link to="/bebidas">
+              <Link
+                to={ {
+                  pathname: '/bebidas',
+                  state: { myIngredient: item.strIngredient1 },
+                } }
+              >
                 <div
                   className="cardRecipesContainer"
                   data-testid={ `${index}-ingredient-card` }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import FooterMenu from '../Components/FooterMenu';
 import HeaderWithoutSearch from '../Components/HeaderWithoutSearch';
 
@@ -26,25 +27,32 @@ export default class ExploreFoodIngredients extends Component {
     const { ingredients } = this.state;
     const magicNUMBER = 12;
     return (
-      <div>
+      <div className="explore-container">
         <HeaderWithoutSearch title="Explorar Ingredientes" />
         { ingredients && (
           ingredients.map((item, index) => (
             index < magicNUMBER && (
-              <div
-                className="cardRecipesContainer"
-                data-testid={ `${index}-ingredient-card` }
-                key={ index }
+              <Link
+                to={ {
+                  pathname: '/comidas',
+                  state: { myIngredient: item.strIngredient },
+                } }
               >
-                <img
-                  src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
-                  alt={ `${item.strIngredient}` }
-                  data-testid={ `${index}-card-img` }
-                />
-                <p data-testid={ `${index}-card-name` }>
-                  { item.strIngredient }
-                </p>
-              </div>
+                <div
+                  className="cardRecipesContainer"
+                  data-testid={ `${index}-ingredient-card` }
+                  key={ index }
+                >
+                  <img
+                    src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
+                    alt={ `${item.strIngredient}` }
+                    data-testid={ `${index}-card-img` }
+                  />
+                  <p data-testid={ `${index}-card-name` }>
+                    { item.strIngredient }
+                  </p>
+                </div>
+              </Link>
             )
           ))
         )}
