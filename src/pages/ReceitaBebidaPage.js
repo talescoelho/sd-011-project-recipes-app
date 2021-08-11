@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import ShareFavBtn from '../components/ShareFavBtn';
 import { ingredientDrinkHelper } from '../components/Helper';
 import '../style/pageDetails.css';
+import AppContext from '../context/AppContext';
 
 export default function ReceitaBebidaPage() {
   const [drinkDetails, setDrinkDetails] = useState();
   const [recomendations, setRecomendations] = useState();
   const [storageInPrgrss, setStorageIn] = useState();
+  const { alertSpan, setAlert } = useContext(AppContext);
   const [storageFavorite, setStorageFav] = useState();
   const location = useLocation();
   const DRINK_DETAILS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
@@ -65,11 +67,23 @@ export default function ReceitaBebidaPage() {
     );
   }
 
+  useEffect(() => {
+    setAlert(false);
+  }, []);
+
   const ingredientFilter = ingredientDrinkHelper(drinkDetails);
 
   function renderDrinks() {
     return (
       <div>
+        <ShareFavBtn
+          type="bebida"
+          id={ drinkDetails.drinks[0].idDrink }
+          favorited={ storageFavorite }
+          typeRecipe="drinks"
+          data={ drinkDetails.drinks[0] }
+        />
+        {alertSpan ? <span>Link copiado!</span> : ''}
         <p>{ drinkDetails.idDrink }</p>
         <img
           src={ drinkDetails.drinks[0].strDrinkThumb }
@@ -78,13 +92,6 @@ export default function ReceitaBebidaPage() {
           width="200px"
         />
         <h1 data-testid="recipe-title">{ drinkDetails.drinks[0].strDrink }</h1>
-        <ShareFavBtn
-          type="bebida"
-          id={ drinkDetails.drinks[0].idDrink }
-          favorited={ storageFavorite }
-          typeRecipe="drinks"
-          data={ drinkDetails.drinks[0] }
-        />
         <h5 data-testid="recipe-category">{ drinkDetails.drinks[0].strCategory }</h5>
         <p data-testid="recipe-category">{ drinkDetails.drinks[0].strAlcoholic }</p>
 

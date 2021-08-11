@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import ShareFavBtn from '../components/ShareFavBtn';
 import { ingredientFoodHelper } from '../components/Helper';
 import '../style/pageDetails.css';
+import AppContext from '../context/AppContext';
 
 export default function ReceitaComidaPage() {
   const [foodDetails, setFoodDetails] = useState();
   const [recomendations, setRecomendations] = useState();
   const [storageInPrgrss, setStorageIn] = useState();
+  const { alertSpan, setAlert } = useContext(AppContext);
   const [storageFavorite, setStorageFav] = useState();
   const location = useLocation();
   const FOOD_DETAILS_URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
@@ -65,11 +67,23 @@ export default function ReceitaComidaPage() {
     );
   }
 
+  useEffect(() => {
+    setAlert(false);
+  }, []);
+
   const ingredientFilter = ingredientFoodHelper(foodDetails);
 
   function renderFoods() {
     return (
       <div>
+        <ShareFavBtn
+          type="comida"
+          id={ foodDetails.meals[0].idMeal }
+          favorited={ storageFavorite }
+          typeRecipe="meals"
+          data={ foodDetails.meals[0] }
+        />
+        {alertSpan ? <span>Link copiado!</span> : ''}
         <p>{foodDetails ? foodDetails.idMeal : ''}</p>
         <img
           src={ foodDetails.meals[0].strMealThumb }
@@ -78,13 +92,6 @@ export default function ReceitaComidaPage() {
           width="200px"
         />
         <h1 data-testid="recipe-title">{ foodDetails.meals[0].strMeal }</h1>
-        <ShareFavBtn
-          type="comida"
-          id={ foodDetails.meals[0].idMeal }
-          favorited={ storageFavorite }
-          typeRecipe="meals"
-          data={ foodDetails.meals[0] }
-        />
         <h5 data-testid="recipe-category">{ foodDetails.meals[0].strCategory }</h5>
 
         <div>

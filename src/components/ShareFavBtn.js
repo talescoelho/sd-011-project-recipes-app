@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import AppContext from '../context/AppContext';
 
 const copy = require('clipboard-copy');
 
@@ -21,15 +22,16 @@ function favObj(typeObj, state) {
 
 export default function ShareFavBtn({ type, id, typeRecipe, data }) {
   const [forceUpdate, setForceUpdate] = useState(false);
+  const { setAlert } = useContext(AppContext);
 
   function shareFood() {
     switch (type) {
     case 'comida':
       copy(`http://localhost:3000/comidas/${id}`);
-      return alert('Link copiado!');
+      return setAlert(true);
     case 'bebida':
       copy(`http://localhost:3000/bebidas/${id}`);
-      return alert('Link copiado!');
+      return setAlert(true);
     default:
       alert('Link não copiado');
     }
