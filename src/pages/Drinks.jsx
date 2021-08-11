@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import {
   requestDrinkMenu,
   requestDrinksFilters,
@@ -27,6 +27,8 @@ const Drinks = ({
   drinks,
   drinkId,
 }) => {
+  const { location: { state } } = useHistory();
+
   const [selectedRadio, setSelectedRadio] = useState('');
   const [typeIngredient, setTypeIngredient] = useState('');
 
@@ -75,7 +77,12 @@ const Drinks = ({
             ? (<div>Loading...</div>)
             : (
               <FilterMenu
-                requestMenu={ requestDrinkMenu }
+                requestMenu={
+                  (state) ? fetchDrinksIngredient : requestDrinkMenu
+                }
+                exploreByIngredient={
+                  (state) ? state.recipeName : null
+                }
                 categoryNames={ categoryNames }
                 filterByCategory={ requestDrinksByFilter }
               />

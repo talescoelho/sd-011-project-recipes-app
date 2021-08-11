@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 const FilterMenu = ({
   dispatch,
   requestMenu,
+  exploreByIngredient,
   categoryNames,
   filterByCategory,
 }) => {
@@ -13,11 +14,15 @@ const FilterMenu = ({
   const [lastClickTarget, setLastClickTarget] = useState('');
 
   useEffect(() => {
-    if (filterAll) {
+    if (exploreByIngredient && filterAll) {
+      dispatch(requestMenu(exploreByIngredient));
+      setFilterAll(true);
+    }
+    if (!exploreByIngredient && filterAll) {
       dispatch(requestMenu());
       setFilterAll(true);
     }
-  }, [filterAll, dispatch, requestMenu]);
+  }, [filterAll, exploreByIngredient, dispatch, requestMenu]);
 
   const changeFilterToAll = () => {
     setFilterAll(true);
@@ -79,8 +84,13 @@ const FilterMenu = ({
 FilterMenu.propTypes = {
   dispatch: PropTypes.func.isRequired,
   requestMenu: PropTypes.func.isRequired,
+  exploreByIngredient: PropTypes.string,
   categoryNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   filterByCategory: PropTypes.func.isRequired,
+};
+
+FilterMenu.defaultProps = {
+  exploreByIngredient: undefined,
 };
 
 export default connect()(FilterMenu);

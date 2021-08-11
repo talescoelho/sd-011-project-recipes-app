@@ -1,6 +1,6 @@
 import React from 'react';
 import { string, number } from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import '../../styles/components/recipeCard.css';
 
 const RecipeCard = ({
@@ -12,6 +12,8 @@ const RecipeCard = ({
   recipeName,
   titleTestId,
 }) => {
+  const { location: { pathname } } = useHistory();
+
   const choiceRoute = () => {
     if (cardType === 'comida') {
       return `/comidas/${recipeId}`;
@@ -20,10 +22,10 @@ const RecipeCard = ({
       return `/bebidas/${recipeId}`;
     }
     if (cardType === 'explorar-comida') {
-      return '/comidas';
+      return { pathname: '/comidas', state: { prevPath: pathname, recipeName } };
     }
     if (cardType === 'explorar-bebida') {
-      return '/bebidas';
+      return { pathname: '/bebidas', state: { prevPath: pathname, recipeName } };
     }
   };
 
