@@ -13,6 +13,10 @@ class IngredientesFoodInProgress extends Component {
   this.saveInLocalStorage = this.saveInLocalStorage.bind(this);
 }
 
+componentDidMount(){
+this.markedBox();
+}
+
 componentDidUpdate() {
   this.saveInLocalStorage();
 }
@@ -44,6 +48,23 @@ componentDidUpdate() {
   inProgressRecipes.meals[foodDetails.idMeal] = ingredientsArrayList;
   localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   };
+
+  // ableButton(){
+
+  // }
+
+  markedBox() {
+    const { foodDetails } = this.props;
+    let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    console.log(inProgressRecipes.meals, foodDetails)
+    if (inProgressRecipes
+      && Object.keys(inProgressRecipes.meals).find((meal)=> meal=== foodDetails)) {
+        console.log(inProgressRecipes);
+    this.setState({
+      ingredientsArrayList: inProgressRecipes.meals[foodDetails.idMeal],
+    });   
+    }
+  }
 
   render() {
     const { foodDetails } = this.props;
