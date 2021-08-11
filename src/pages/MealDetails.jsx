@@ -12,7 +12,6 @@ import '../css/footerMenu.css';
 
 function MealDetails({ match: { params } }) {
   const [MealDataAPI, setMealDadaAPI] = useState({});
-
   useEffect(() => {
     const { id } = params;
     const requestMeal = async () => {
@@ -31,7 +30,7 @@ function MealDetails({ match: { params } }) {
         id={ MealDataAPI.idMeal }
       />
 
-      <IngredientsList meal={ MealDataAPI } />
+      <IngredientsList recipe={ MealDataAPI } />
 
       <p data-testid="instructions">
         <h2>Instructions</h2>

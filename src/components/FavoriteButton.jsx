@@ -9,6 +9,16 @@ function FavoriteButton() {
   const handleClick = () => {
     if (!fav) {
       setFav(true);
+      // localStorage.setItem('favoriteRecipes', JSON.stringify(
+      //   [{
+      //     id: id-da-receita,
+      //     type: comida-ou-bebida,
+      //     area: area-da-receita-ou-texto-vazio,
+      //     category: categoria-da-receita-ou-texto-vazio,
+      //     alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
+      //     name: nome-da-receita,
+      //     image: imagem-da-receita
+      //   }]));
     } else {
       setFav(false);
     }
@@ -27,3 +37,13 @@ function FavoriteButton() {
 }
 
 export default FavoriteButton;
+
+// [{
+//   id: id-da-receita,
+//   type: comida-ou-bebida,
+//   area: area-da-receita-ou-texto-vazio,
+//   category: categoria-da-receita-ou-texto-vazio,
+//   alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
+//   name: nome-da-receita,
+//   image: imagem-da-receita
+// }]

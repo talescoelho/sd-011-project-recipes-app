@@ -13,6 +13,13 @@ export const APImealById = async (id) => {
   console.log('rodou API request meals do service');
   return APIjson;
 };
+export const APIDrinksById = async (id) => {
+  const URLDrinksId = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const APIfetch = await fetch(URLDrinksId);
+  const APIjson = await APIfetch.json();
+  console.log('rodou API request drinks do service');
+  return APIjson;
+};
 
 export const APIdrinks = async () => {
   const APIfetch = await fetch(URLdrinks);
@@ -25,14 +32,6 @@ export const APIdrinks = async () => {
 export const APImeals = async () => {
   const APIfetch = await fetch(URLmeals);
   const APIjson = await APIfetch.json();
-  return APIjson;
-};
-
-export const APIDrinksById = async (id) => {
-  const URLmealsid = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-  const APIfetch = await fetch(URLmealsid);
-  const APIjson = await APIfetch.json();
-  console.log('rodou API request drinks do service');
   return APIjson;
 };
 

@@ -14,9 +14,12 @@ export default function Drinks({ history }) {
   }
 
   if (drinks.length === 1) {
-    history.push(`/comidas/${drinks[0].idDrink}`);
+    history.push(`/bebidas/${drinks[0].idDrink}`);
   }
 
+  function clickDetails(id) {
+    history.push(`/bebidas/${id}`);
+  }
   const bebidas = 'Bebidas';
 
   return (
@@ -26,10 +29,15 @@ export default function Drinks({ history }) {
       <CategoriesDrinks />
       <section className="drinks">
         {drinks.map((drink) => (
-          <div className="drink" key={ drink.idDrink }>
+          <button
+            type="button"
+            className="drink"
+            key={ drink.idDrink }
+            onClick={ () => clickDetails(drink.idDrink) }
+          >
             <img src={ drink.strDrinkThumb } alt="imagem da bebida" />
             <p>{ drink.strDrink }</p>
-          </div>
+          </button>
         ))}
       </section>
       <FooterMenu />
