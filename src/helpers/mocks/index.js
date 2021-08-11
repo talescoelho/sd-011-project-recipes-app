@@ -1,2 +1,2 @@
-export { default as fetch } from './fetch';
-export { default as cocktailsSuccess } from './cocktailsSuccess';
+export { noFilter } from './cocktailsSuccess.json';
+export { beefAndOysterPie } from './foodsSuccess.json';

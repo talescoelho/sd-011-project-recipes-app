@@ -12,6 +12,8 @@ import {
   DrinksExplore,
   ExploreOrigin,
   ExploreIngredients,
+  FoodDetails,
+  DrinkDetails,
 } from './pages';
 
 const Routes = () => (
@@ -69,11 +71,13 @@ const Routes = () => (
       />
       <Route
         exact
-        path="/comidas/:id-da-receitas"
+        path="/comidas/:id"
+        component={ FoodDetails }
       />
       <Route
         exact
-        path="/bebidas/:id-da-receitas"
+        path="/bebidas/:id"
+        component={ DrinkDetails }
       />
       <Route
         exact
