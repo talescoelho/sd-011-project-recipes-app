@@ -11,7 +11,9 @@ import {
   FoodExplore,
   DrinksExplore,
   ExploreOrigin,
-  ExploreIngredients,
+  ExploreFoodsIngredients,
+  ExploreCocktailsIngredients,
+  NotFound,
   FoodDetails,
   DrinkDetails,
 } from './pages';
@@ -82,12 +84,12 @@ const Routes = () => (
       <Route
         exact
         path="/explorar/comidas/ingredientes"
-        component={ ExploreIngredients }
+        component={ ExploreFoodsIngredients }
       />
       <Route
         exact
         path="/explorar/bebidas/ingredientes"
-        component={ ExploreIngredients }
+        component={ ExploreCocktailsIngredients }
       />
       <Route
         exact
@@ -97,6 +99,7 @@ const Routes = () => (
         exact
         path="/bebidas/:id-da-receitas/in-progress"
       />
+      <Route component={ NotFound } />
     </Switch>
   </BrowserRouter>
 );
