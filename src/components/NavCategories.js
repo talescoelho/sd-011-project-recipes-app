@@ -5,33 +5,51 @@ import { RequestHook } from '../Context/RequestHook';
 
 function NavCategories() {
   const [category, setCategory] = useState([]);
-  const {
-    setInitialItensFood,
-    setInitialItensDrink,
-  } = RequestHook();
+  const { setInitialItensFood, setInitialItensDrink } = RequestHook();
 
   const local = window.location.href;
   const url = 'http://localhost:3000/comidas';
   const MAX_RESULT = 5;
+
+  // async function resultCategoriesButtons() {
+  //   let result;
+  //   if (local === url) {
+  //     result = await getCategoriesFood();
+  //     setCategory(result);
+  //   } else if (local !== url) result = await getCategoriesDrink();
+  //   setCategory(result);
+  // }
+
+  // if (local === url) {
+  //   const resuultCategoriesButtons = getCategoriesFood();
+
+  // }
+
+  // if (local !== url) {
+  //   const resuultCategoriesButtons = getCategoriesDrink();
+  // }
 
   useEffect(() => {
     async function tche() {
       if (local === url) {
         const items = await getCategoriesFood();
         setCategory(items);
-      } else {
+      } else if (local !== url) {
         const itemsDrink = await getCategoriesDrink();
         setCategory(itemsDrink);
       }
     }
     tche();
+    // resultCategoriesButtons();
   }, []);
 
   async function searchByCategoryDrinkAndFood(text) {
     if (local === url) {
+      setInitialItensFood([]);
       const items = await searchByCategoryFood(text);
       setInitialItensFood(items);
-    } else {
+    } else if (local !== url) {
+      setInitialItensDrink([]);
       const itemsDrink = await searchByCategoryDrink(text);
       setInitialItensDrink(itemsDrink);
     }
@@ -67,7 +85,7 @@ function NavCategories() {
 
   return (
     <div>
-      {renderButtons()}
+      { renderButtons() }
       <button
         type="button"
         data-testid="All-category-filter"

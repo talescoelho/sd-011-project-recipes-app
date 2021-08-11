@@ -14,7 +14,8 @@ import {
 } from '../services/RequestDrinks';
 
 function CardRecipeList() {
-  const { filteredFood,
+  const {
+    filteredFood,
     filteredDrink,
     initialItensFood,
     setInitialItensFood,
@@ -32,24 +33,20 @@ function CardRecipeList() {
     filterType = filteredDrink;
   }
 
-  async function getInitialItensDrinkAndFood(filterText) {
-    let items;
-    if (!filterText) return;
+  async function getInitialItensDrinkAndFood() {
     if (filterType === filteredFood) {
-      items = await searchFoodsAll();
-      setInitialItensFood(items);
+      setInitialItensFood([]);
+      const itemsFood = await searchFoodsAll();
+      setInitialItensFood(itemsFood);
     } else if (filterType === filteredDrink) {
-      items = await searchDrinksAll();
-      setInitialItensDrink(items);
+      setInitialItensDrink([]);
+      const itemsDrink = await searchDrinksAll();
+      setInitialItensDrink(itemsDrink);
     }
   }
 
   useEffect(() => {
-    if (filterType === filteredFood) {
-      getInitialItensDrinkAndFood('b');
-    } else if (filterType === filteredDrink) {
-      getInitialItensDrinkAndFood('c');
-    }
+    getInitialItensDrinkAndFood();
   }, []);
 
   return (
@@ -66,18 +63,18 @@ function CardRecipeList() {
           <CardRecipe key={ index } item={ item } index={ index } />
         )) }
 
-      { filterType === filteredFood && initialItensFood
-        .slice(0, MAX_RESULT)
-        .map((item, index) => (
-          <CardRecipe key={ index } item={ item } index={ index } />
-        )) }
+      {/* carregar 12 primeiros itens */ }
+      { (initialItensFood.length >= 1)
+        && initialItensFood.slice(0, MAX_RESULT)
+          .map((item, index) => (
+            <CardRecipe key={ index } item={ item } index={ index } />
+          )) }
 
-      { filterType === filteredDrink && initialItensDrink
-        .slice(0, MAX_RESULT)
-        .map((item, index) => (
-          <CardRecipe key={ index } item={ item } index={ index } />
-        )) }
-
+      { (initialItensDrink.length >= 1)
+        && initialItensDrink.slice(0, MAX_RESULT)
+          .map((item, index) => (
+            <CardRecipe key={ index } item={ item } index={ index } />
+          )) }
     </div>
   );
 }

@@ -36,6 +36,7 @@ function Header({ title, search }) {
   function handleButtonFood() {
     switch (radio) {
     case (nameSearch):
+      setFilteredFood([]);
       setFilteredFood(filterByNameFood(inputTextSearch));
       break;
     case (firstLetter):
@@ -43,9 +44,11 @@ function Header({ title, search }) {
         alert('Sua busca deve conter somente 1 (um) caracter');
         break;
       }
+      setFilteredFood([]);
       setFilteredFood(filterByFirstLetterFood(inputTextSearch));
       break;
     case (ingredient):
+      setFilteredFood([]);
       setFilteredFood(filterByIngredientFood(inputTextSearch));
       break;
     default:
