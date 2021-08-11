@@ -9,7 +9,7 @@ class DrinksRecipiesInProcess extends React.Component {
     this.state = {
       DoRecipe: [],
       componentMounted: false,
-      renderAllMounted: false,
+      checkToggle: [false, 0],
       stockDrinks: [],
     };
     this.test = this.test.bind(this);
@@ -30,10 +30,10 @@ class DrinksRecipiesInProcess extends React.Component {
   componentDidUpdate() {
     if (localStorage.inProgressRecipes) {
       const recoveredInfo = JSON.parse(localStorage.inProgressRecipes);
-      const olol = document.querySelector('.ul-container');
-      olol.innerHTML = recoveredInfo;
-      console.log('recuperei');
+      // console.log('recuperei');
+      // console.log(recoveredInfo);
     }
+    console.log(this.state.stockDrinks);
   }
 
   async test() {
@@ -46,19 +46,21 @@ class DrinksRecipiesInProcess extends React.Component {
   }
 
   changeRow(event, index) {
-    const { stockDrinks } = this.state;
-    const test = stockDrinks.filter((el, i) => i !== index);
+    const { stockDrinks, checkToggle } = this.state;
+    let filter = [];
+    if (stockDrinks.some((i) => i === index)) {
+      filter = stockDrinks.filter((ell, index2) => index2 !== index);
+    } else {
+      filter = [...stockDrinks, index];
+    }
     this.setState({
-      stockDrinks: test,
+      stockDrinks: filter,
+    }, () => {
+      const { match: { params: { id } } } = this.props;
+      const cocktails = {
+        [id]: stockDrinks,
+      };
     });
-    stockDrinks.push(index);
-    console.log(event.target);
-    const { match: { params: { id } } } = this.props;
-    const cocktails = {
-      [id]: stockDrinks,
-    };
-    console.log(event.target.parentNode);
-    console.log(event.target);
     event.target.parentNode.classList.toggle('do-row');
     localStorage.inProgressRecipes = JSON.stringify(cocktails);
   }
