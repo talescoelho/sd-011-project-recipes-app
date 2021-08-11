@@ -9,15 +9,16 @@
   width: 100%;
 }
 
+.form {
+  margin: auto;
+  padding: 10px;
+  width: 50%;
+}
+
 .container-main {
   flex: auto;
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
-}
-
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
 }
 
 .img-card {
