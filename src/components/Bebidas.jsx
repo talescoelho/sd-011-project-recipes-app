@@ -9,4 +9,6 @@ const Bebidas = () => (
   </div>
 );
 
+// teste
+
 export default Bebidas;

@@ -3,8 +3,7 @@ import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 import { fetchAllRecipesOrByCategory,
-  fetchCategorysList,
-  fetchFoodsByIngredients } from '../services/index';
+  fetchCategorysList } from '../services/index';
 
 function RecipesProvider({ children }) {
   const { pathname } = useLocation();
@@ -29,7 +28,9 @@ function RecipesProvider({ children }) {
   useEffect(() => {
     const fetchRecipes = async (recipeTypeToFetch, category, currentIngredient) => {
       setIsLoading(true);
-      const recipes = await fetchAllRecipesOrByCategory(recipeTypeToFetch, category, currentIngredient);
+      const recipes = await fetchAllRecipesOrByCategory(
+        recipeTypeToFetch, category, currentIngredient,
+      );
       setDataRecipes(recipes);
       setIsLoading(false);
     };
