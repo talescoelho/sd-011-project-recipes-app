@@ -19,6 +19,7 @@ function RecipesMade() {
     if (filter === 'all') {
       setFiltereds(doneRecipes);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
   // const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -34,7 +35,7 @@ function RecipesMade() {
         />
       </section>
       <FoodOrDrinkFilter setFilter={ setFilter } />
-      {filtereds.map(({
+      {filtereds && filtereds.map(({
         id,
         image,
         name,

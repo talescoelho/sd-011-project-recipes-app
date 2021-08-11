@@ -34,7 +34,7 @@ function FavoriteRecipes() {
       />
       <FoodOrDrinkFilter setFilter={ setFilter } />
       <section className="favorites-recipes">
-        {filtereds.map(({ id,
+        {filtereds && filtereds.map(({ id,
           image,
           name,
           area,
