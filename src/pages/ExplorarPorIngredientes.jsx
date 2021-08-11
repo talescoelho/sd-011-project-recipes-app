@@ -24,7 +24,7 @@ export default function ExplorarPorIngredientes() {
       return listIngredients;
     };
     fetchIngredients();
-  }, [listIngredients, location]);
+  }, []);
 
   return (
     <div className="container-page-ingredients">
