@@ -39,7 +39,7 @@ export default function RecipesProvider({ children }) {
     }
   }
 
-  async function handleSearchMeals(searchText, filterRadio) { // função que faz requisição para as refeições com info do searchBar
+  async function handleSearchMeals(searchText, filterRadio) { // função que faz requisição para as refeições com info do searchBar!
     let data = [];
     if (filterRadio === 'ingredient') {
       data = await fetchMealsIngredient(searchText);
