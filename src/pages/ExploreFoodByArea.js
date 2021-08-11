@@ -2,15 +2,34 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FoodCard from '../components/FoodCard';
-import { fetchFoodAreaSuccess, fetchFoodList } from '../redux/actions/foodActions';
+import { fetchFoodAreaSuccess, fetchFoodList,
+  fetchSearchFoodArea } from '../redux/actions/foodActions';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 class ExploreFoodByArea extends Component {
+  constructor() {
+    super();
+
+    this.handleFoodByArea = this.handleFoodByArea.bind(this);
+  }
+
   componentDidMount() {
     const { fetchFoodArea, actionFetchFoodList } = this.props;
     fetchFoodArea();
     actionFetchFoodList('');
+  }
+
+  handleFoodByArea({ target }) {
+    const { value } = target;
+    const { actionFetchFoodList,
+      actionFetchSearchFoodArea } = this.props;
+
+    if (value === 'All') {
+      actionFetchFoodList('');
+    } else {
+      actionFetchSearchFoodArea(value);
+    }
   }
 
   render() {
@@ -18,13 +37,25 @@ class ExploreFoodByArea extends Component {
     return (
       <div>
         <Header title="Explorar Origem" search />
-        <select data-testid="explore-by-area-dropdown">
+        <select
+          data-testid="explore-by-area-dropdown"
+          onChange={ this.handleFoodByArea }
+        >
+          <option
+            data-testid="All-option"
+            value="All"
+          >
+            All
+          </option>
           { foodArea && foodArea.map((item, index) => (
-            <option key={ index } data-testid={ `${item.strArea}-option` }>
+            <option
+              key={ index }
+              data-testid={ `${item.strArea}-option` }
+              value={ item.strArea }
+            >
               { item.strArea }
             </option>
           )) }
-          <option data-testid="All-option">All</option>
         </select>
         <ul>
           { foodCardsList && foodCardsList.map((item, index) => (
@@ -44,6 +75,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchFoodArea: () => dispatch(fetchFoodAreaSuccess()),
   actionFetchFoodList: (name) => dispatch(fetchFoodList(name)),
+  actionFetchSearchFoodArea: (area) => dispatch(fetchSearchFoodArea(area)),
 });
 
 ExploreFoodByArea.propTypes = {
