@@ -41,3 +41,12 @@ export function getFoodsByCategory(value) {
         .then((json) => (category.ok ? Promise.resolve(json) : Promise.reject(json)))
     ));
 }
+
+export function getFoodsByID(value) {
+  return fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${value}`)
+    .then((id) => (
+      id
+        .json()
+        .then((json) => (id.ok ? Promise.resolve(json) : Promise.reject(json)))
+    ));
+}

@@ -41,3 +41,12 @@ export function getDrinksByCategory(value) {
         .then((json) => (category.ok ? Promise.resolve(json) : Promise.reject(json)))
     ));
 }
+
+export function getDrinkByID(value) {
+  return fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${value}`)
+    .then((id) => (
+      id
+        .json()
+        .then((json) => (id.ok ? Promise.resolve(json) : Promise.reject(json)))
+    ));
+}
