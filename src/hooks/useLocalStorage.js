@@ -39,30 +39,35 @@ export default function useLocalStorage() {
     localStorage.setItem(key, JSON.stringify(value));
   };
 
-  const setInProgressRecipes = (type, recipes) => {
+  const addFavoriteRecipe = (recipe) => {
+    const favoriteRecipes = getFavoriteRecipes();
+    favoriteRecipes.push(recipe);
+    setToStorage('favoriteRecipes', favoriteRecipes);
+  };
+
+  const addInProgressRecipes = (type, recipe) => {
     const inProgressRecipes = getInProgressRecipes(type);
-    inProgressRecipes[type][recipes.id] = recipes;
+
+    if (inProgressRecipes[type]) {
+      inProgressRecipes[type][recipe.id] = recipe;
+    } else {
+      inProgressRecipes[type] = { [recipe.id]: recipe };
+    }
     setToStorage('inProgressRecipes', inProgressRecipes);
   };
 
-  const setDoneRecipes = (recipes) => {
+  const addDoneRecipes = (recipe) => {
     const doneRecipes = getDoneRecipes();
-    doneRecipes.push(recipes);
+    doneRecipes.push(recipe);
     setToStorage('doneRecipes', doneRecipes);
-  };
-
-  const setFavoriteRecipes = (recipes) => {
-    const favoriteRecipes = getFavoriteRecipes();
-    favoriteRecipes.push(recipes);
-    setToStorage('favoriteRecipes', favoriteRecipes);
   };
 
   return {
     getFavoriteRecipes,
     getInProgressRecipes,
     getDoneRecipes,
-    setInProgressRecipes,
-    setDoneRecipes,
-    setFavoriteRecipes,
+    addFavoriteRecipe,
+    addInProgressRecipes,
+    addDoneRecipes,
   };
 }
