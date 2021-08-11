@@ -73,4 +73,9 @@ IngredientDetails.propTypes = {
   inProcess: PropTypes.bool.isRequired,
   food: PropTypes.bool.isRequired,
   drink: PropTypes.bool.isRequired,
+  inProcess: PropTypes.bool,
+};
+
+IngredientDetails.defaultProps = {
+  inProcess: true,
 };

@@ -16,6 +16,12 @@
   width: 300px;
 }
 
+.visible {
+  height: 300px;
+  visibility: visible;
+  width: 300px;
+}
+
 .liIngredients {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }

@@ -19,6 +19,7 @@ function AppProvider({ children }) {
   const [selectedIngredientDrink, setSelectedIngredientDrink] = useState('');
   const [ingredients, setIngredients] = useState();
   const [loadingExplore, setLoadingExplore] = useState(true);
+  const [copySuccess, setCopySuccess] = useState('');
 
   async function fetchFood() {
     let endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?${filterRadio}=${filterText}`;
@@ -221,6 +222,8 @@ function AppProvider({ children }) {
     selectIngredient,
     toggle,
     getAndSetLocalStorage,
+    copySuccess,
+    setCopySuccess,
   };
 
   return (

@@ -10,7 +10,7 @@ function DrinkDetails() {
   const { idDetails, setIdDetails } = useContext(AppContext);
   const details = idDetails[0];
   const { id } = useParams();
-  console.log('id', id);
+  // console.log('id', id);
 
   async function fetchDrinkDetails() {
     const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;

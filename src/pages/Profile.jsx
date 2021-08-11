@@ -14,7 +14,7 @@ function Profile() {
   return (
     <div>
       <Header title="Perfil" />
-      <p data-testid="profile-email">{ emailParse.email }</p>
+      <p data-testid="profile-email">{ emailParse && emailParse.email }</p>
       <Link to="/receitas-feitas">
         <button
           type="button"

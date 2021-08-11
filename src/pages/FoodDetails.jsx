@@ -10,6 +10,7 @@ import VideoEmbeded from '../components/VideoEmbeded';
 function FoodDetails() {
   const { idDetails, setIdDetails } = useContext(AppContext);
   const details = idDetails[0];
+  // console.log('details', idDetails)
   const { id } = useParams();
 
   async function fetchFoodDetails() {
