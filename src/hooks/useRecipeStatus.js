@@ -13,6 +13,7 @@ const useRecipeStatus = (id, url) => {
     if (doneRecipes && doneRecipes.some((recipe) => recipe.id === id)) {
       return setShowBtn(false);
     }
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -28,6 +29,7 @@ const useRecipeStatus = (id, url) => {
         setRecipeProgress('Continuar Receita');
       }
     }
+    // eslint-disable-next-line
   }, []);
 
   return {

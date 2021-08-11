@@ -12,7 +12,7 @@ const FoodDetails = ({ dispatch, match, mealDetails }) => {
     dispatch(requestMealDetails(id));
     // eslint-disable-next-line
   }, []);
-
+  if (mealDetails.strInstructions === undefined) return (<span>Carregando...</span>);
   return (
     <>
       <div>Pagina de Detalhe de Comida</div>
@@ -22,8 +22,8 @@ const FoodDetails = ({ dispatch, match, mealDetails }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  mealDetails: state.recipeDetailsReducer.meal,
+const mapStateToProps = ({ recipeDetailsReducer }) => ({
+  mealDetails: recipeDetailsReducer.meal,
 });
 
 FoodDetails.propTypes = {

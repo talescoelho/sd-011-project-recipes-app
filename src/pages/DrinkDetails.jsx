@@ -12,7 +12,7 @@ const DrinkDetails = ({ dispatch, match, drinkDetails }) => {
     dispatch(requestDrinkDetails(id));
     // eslint-disable-next-line
   }, []);
-
+  if (drinkDetails.strInstructions === undefined) return (<span>Carregando...</span>);
   return (
     <>
       <div>Pagina de Detalhe de Bebidas</div>
