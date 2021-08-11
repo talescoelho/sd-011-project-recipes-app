@@ -11,8 +11,7 @@ function DetailsIngredientList() {
     setCheckedNumberIngredients } = useContext(RecipesContext);
 
   function conditionFor(idx) { // função para não deixar ser iteravel no for quando ingrediente for nulo
-    return (mealId[`strIngredient${idx}`]) !== null
-    && (mealId[`strIngredient${idx}`] !== '');
+    return !!mealId[`strIngredient${idx}`];
   }
 
   function gettingIngredients() {
@@ -36,16 +35,15 @@ function DetailsIngredientList() {
 
   useEffect(() => {
     const localIngredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (!localIngredient) {
-      const meals1 = { meals: { [urlID]: [] } };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(meals1));
-    }
     if (localIngredient && localIngredient.meals[urlID].length !== 0) {
       const test = localIngredient.meals[urlID];
       const filterIngredientLocalStorage = (
         ingredients.filter((_, index) => test.includes(index)));
       setCheckedNumberIngredients(test);
       setCheckedIngredients(filterIngredientLocalStorage);
+    } else {
+      const meals1 = { meals: { [urlID]: [] } };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(meals1));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -72,7 +70,7 @@ function DetailsIngredientList() {
 
   useEffect(() => {
     console.log(checkedNumberIngredients);
-  }, [checkedNumberIngredients])
+  }, [checkedNumberIngredients]);
 
   return (
     <div>
@@ -103,7 +101,7 @@ function DetailsIngredientList() {
                       key={ index }
                     >
                       <input
-                        checked={ checkedIngredients.includes(ingredient) ? true : false }
+                        checked={ checkedIngredients.includes(ingredient) }
                         type="checkbox"
                         id={ `ingredient-${index}` }
                         name={ index }
