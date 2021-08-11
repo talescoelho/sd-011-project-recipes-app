@@ -11,8 +11,6 @@ function FoodsSearchBar() {
   const requestFoodEndpoint = async (text) => {
     let endpoint = '';
     const alertMsg = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
-    /// sintaxe if um em baixo do outro
-    // tirar else if
 
     if (input === 'ingredient') endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${text}`;
 
@@ -26,11 +24,16 @@ function FoodsSearchBar() {
 
     if (!input || !searchText) return null; // possivelmente corrige erro
 
-    const response = await fetch(endpoint);
-    const { meals } = await response.json();
-    if (meals === null) return alert(alertMsg);
-    if (meals.length === 1) return history.push(`/comidas/${meals[0].idMeal}`);
-    setFoodList(meals);
+    try {
+      const response = await fetch(endpoint);
+      const { meals } = await response.json();
+      if (meals === null) return alert(alertMsg);
+      if (meals.length === 1) return history.push(`/comidas/${meals[0].idMeal}`);
+      setFoodList(meals);
+    } catch(err) {
+      return alert(alertMsg);
+    }
+
   };
 
   return (
