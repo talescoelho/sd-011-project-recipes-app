@@ -1,7 +1,7 @@
 .scrolling-wrapper {
   display: flex;
-  width: 360px;
   flex-wrap: nowrap;
+  width: 360px;
   justify-content: space-between;
   overflow-x: scroll;
 }
