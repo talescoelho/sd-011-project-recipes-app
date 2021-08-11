@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Input from '../components/Input';
-import { addEmail } from '../redux/actions';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
   const history = useHistory();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const checkEmail = () => {
@@ -25,11 +22,6 @@ const Login = () => {
     checkEmail();
   }, [password, email]);
 
-  useEffect(() => {
-    localStorage.setItem('inProgressRecipes',
-      JSON.stringify({ cocktails: {}, meals: {} }));
-  }, []);
-
   function handleClick() {
     const emailLS = { email };
     const stringifyEmailLS = JSON.stringify(emailLS);
@@ -39,12 +31,11 @@ const Login = () => {
     window.localStorage.user = stringifyEmailLS;
 
     history.push('/comidas');
-    dispatch(addEmail(email));
   }
 
   return (
     <div>
-      <form>
+      <form className="d-flex align-items-center">
         <Input
           type="email"
           data-testid="email-input"
@@ -53,7 +44,6 @@ const Login = () => {
           setValue={ setEmail }
           label="Email:"
         />
-        <br />
         <Input
           type="password"
           data-testid="password-input"
@@ -62,7 +52,6 @@ const Login = () => {
           setValue={ setPassword }
           label="Senha:"
         />
-        <br />
         <button
           type="button"
           data-testid="login-submit-btn"
