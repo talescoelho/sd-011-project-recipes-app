@@ -1,10 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import RecipeAppContext from '../context/RecipeAppContext';
 import '../css/RecipeDetails.css';
 
 function RenderFoodDetails({ copyLink }) {
-  const { shareIcon, bkHeart, meal } = useContext(RecipeAppContext);
+  const {
+    shareIcon,
+    bkHeart,
+    meal,
+    wtHeart,
+    isFavRecipe,
+    setIsFavRecipe,
+    checkFavoriteMeal,
+    saveFavoriteMeal,
+  } = useContext(RecipeAppContext);
+
+  useEffect(() => {
+    checkFavoriteMeal();
+    return () => {
+      setIsFavRecipe(false);
+    };
+  }, [meal, isFavRecipe]);
+
   return (
     <div>
       <img
@@ -26,7 +43,8 @@ function RenderFoodDetails({ copyLink }) {
           type="image"
           alt="someText"
           data-testid="favorite-btn"
-          src={ bkHeart }
+          src={ isFavRecipe ? bkHeart : wtHeart  }
+          onClick={ () => saveFavoriteMeal() }
         />
       </div>
       <p

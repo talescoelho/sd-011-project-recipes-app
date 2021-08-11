@@ -17,100 +17,85 @@ function RecipeAppProvider({ children }) {
   const [isRecipeDone, setIsRecipeDone] = useState(true);
   const [recomMeal, setRecomMeal] = useState('');
   const [recomDrink, setRecomDrink] = useState('');
-  const [inProgressRecipes, setInProgressRecipes] = useState('');
+  const [inProgressRecipes, setInProgressRecipes] = useState(false);
+  const [isFavRecipe, setIsFavRecipe] = useState(false);
 
-  const mockName = 'Spicy Arrabiata Penne';
-  const mockImage = 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg';
-  const mockImageDrinks = 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg';
-  const [recipesDone, setRecipesDone] = useState([{
-    id: '52771',
-    type: 'comida',
-    area: 'Italian',
-    category: 'Vegetarian',
-    alcoholicOrNot: '',
-    name: mockName,
-    image: mockImage,
-    doneDate: '23/05/2020',
-    tags: ['Pasta', 'Curry'],
-  },
-  {
-    id: '178319',
-    type: 'bebida',
-    area: '',
-    category: 'Cocktail',
-    alcoholicOrNot: 'Alcoholic',
-    name: 'Aquamarine',
-    image: mockImageDrinks,
-    doneDate: '24/06/2020',
-    tags: [],
-  },
-  ]);
+  function checkFavoriteDrink() {
+    const { idDrink } = drink;
+    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (!favRecipes) return;
+    const checkedRecipe = favRecipes.some(
+      (recipe) => recipe.id === idDrink,
+    );
+    if (checkedRecipe) setIsFavRecipe(checkedRecipe);
+  }
 
-  const [filteredRecipesDone, setFilteredRecipesDone] = useState([{
-    id: '52771',
-    type: 'comida',
-    area: 'Italian',
-    category: 'Vegetarian',
-    alcoholicOrNot: '',
-    name: mockName,
-    image: mockImage,
-    doneDate: '23/06/2020',
-    tags: ['Pasta', 'Curry'],
-  },
-  {
-    id: '178319',
-    type: 'bebida',
-    area: '',
-    category: 'Cocktail',
-    alcoholicOrNot: 'Alcoholic',
-    name: 'Aquamarine',
-    image: mockImageDrinks,
-    doneDate: '23/06/2020',
-    tags: [],
-  },
-  ]);
+  function saveFavoriteDrink() {
+    const { idDrink, strAlcoholic, strCategory, strDrink, strDrinkThumb } = drink;
+    let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (!favoriteRecipes) favoriteRecipes = [];
+    const checkIsFavorited = favoriteRecipes.some((recipe) => recipe.id === idDrink);
+    if (checkIsFavorited) {
+      console.log('é verdadeiro');
+      const newFavRecipe = favoriteRecipes.filter((recipe) => recipe.id !== idDrink);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavRecipe));
+      setIsFavRecipe(false);
+    }
+    if (!checkIsFavorited) {
+      const newFavoriteRecipe = [
+        ...favoriteRecipes,
+        {
+          id: idDrink,
+          type: 'bebida',
+          area: '',
+          category: strCategory,
+          alcoholicOrNot: strAlcoholic,
+          name: strDrink,
+          image: strDrinkThumb,
+        },
+      ];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipe));
+      setIsFavRecipe(true);
+    }
+  }
 
-  const [favoritesRecipes, setFavoritesRecipes] = useState([
-    {
-      id: '52771',
-      type: 'comida',
-      area: 'Italian',
-      category: 'Vegetarian',
-      alcoholicOrNot: '',
-      name: mockName,
-      image: mockImage,
-    },
-    {
-      id: '178319',
-      type: 'bebida',
-      area: '',
-      category: 'Cocktail',
-      alcoholicOrNot: 'Alcoholic',
-      name: 'Aquamarine',
-      image: mockImageDrinks,
-    },
-  ]);
+  function saveFavoriteMeal() {
+    const { idMeal, strArea, strCategory, strMeal, strMealThumb } = meal;
+    let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (!favoriteRecipes) favoriteRecipes = [];
+    const checkIsFavorited = favoriteRecipes.some((recipes) => recipes.id === idMeal);
+    if (checkIsFavorited) {
+      const newFavRecipe = favoriteRecipes.filter((recipes) => recipes.id !== idMeal);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavRecipe));
+      setIsFavRecipe(false);
+    }
+    if (!checkIsFavorited) {
+      const newFavoriteRecipe = [
+        ...favoriteRecipes,
+        {
+          id: idMeal,
+          type: 'comida',
+          area: strArea,
+          category: strCategory,
+          alcoholicOrNot: '',
+          name: strMeal,
+          image: strMealThumb,
+        },
+      ];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipe));
+      setIsFavRecipe(true);
+    }
+  }
 
-  const [filteredFavoritesRecipes, setFilteredFavoritesRecipes] = useState([
-    {
-      id: '52771',
-      type: 'comida',
-      area: 'Italian',
-      category: 'Vegetarian',
-      alcoholicOrNot: '',
-      name: 'Spicy Arrabiata Penne',
-      image: mockImage,
-    },
-    {
-      id: '178319',
-      type: 'bebida',
-      area: '',
-      category: 'Cocktail',
-      alcoholicOrNot: 'Alcoholic',
-      name: 'Aquamarine',
-      image: mockImageDrinks,
-    },
-  ]);
+  function checkFavoriteMeal() {
+    const { idMeal } = meal;
+    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (!favRecipes) return;
+    const checkedRecipe = favRecipes.some(
+      (recipe) => recipe.id === idMeal,
+    );
+    if (checkedRecipe) setIsFavRecipe(checkedRecipe);
+  }
 
   const handleChange = (e) => {
     const { target } = e;
@@ -129,6 +114,12 @@ function RecipeAppProvider({ children }) {
   };
 
   const data = {
+    checkFavoriteMeal,
+    saveFavoriteMeal,
+    checkFavoriteDrink,
+    saveFavoriteDrink,
+    isFavRecipe,
+    setIsFavRecipe,
     inProgressRecipes,
     setInProgressRecipes,
     setRecomDrink,
@@ -158,14 +149,6 @@ function RecipeAppProvider({ children }) {
     setLogin,
     toggleOn,
     setToggleOn,
-    recipesDone,
-    setRecipesDone,
-    filteredRecipesDone,
-    setFilteredRecipesDone,
-    filteredFavoritesRecipes,
-    setFilteredFavoritesRecipes,
-    favoritesRecipes,
-    setFavoritesRecipes,
   };
 
   return (
