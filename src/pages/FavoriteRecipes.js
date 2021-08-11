@@ -1,28 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-// import ButtonFavorite from '../components/ButtonFavorite';
 import ButtonShare from '../components/ButtonShare';
 import Header from '../components/Header';
-
-// const favoriteRecipes = [{
-//   id: '52785',
-//   type: 'meal',
-//   area: 'Indian',
-//   category: 'Vegetarian',
-//   alcoholicOrNot: '',
-//   name: 'Dal fry',
-//   image: 'https://www.themealdb.com/images/media/meals/wuxrtu1483564410.jpg',
-// },
-// {
-//   id: '178319',
-//   type: 'drink',
-//   area: '',
-//   category: 'Cocktail',
-//   alcoholicOrNot: 'Alcoholic',
-//   name: 'Aquamarine',
-//   image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-// }];
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export default function FavoriteRecipes() {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -31,14 +12,26 @@ export default function FavoriteRecipes() {
   const [type, setType] = useState('all');
 
   useEffect(() => {
-    let newFilteredRecipes = [...favoriteRecipes];
-    if (type !== 'all') {
-      newFilteredRecipes = newFilteredRecipes.filter((recipe) => recipe.type === type);
+    if (favoriteRecipes) {
+      let newFilteredRecipes = [...favoriteRecipes];
+      if (type !== 'all') {
+        newFilteredRecipes = newFilteredRecipes.filter((recipe) => recipe.type === type);
+      }
+      setFilteredRecipes(newFilteredRecipes);
     }
-    setFilteredRecipes(newFilteredRecipes);
   }, [type]);
 
   const handleChange = (btn) => setType(btn);
+
+  const handleDisfavor = (id) => {
+    console.log(id);
+    const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'))
+      .filter((recipe) => recipe.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(recipes));
+    setFilteredRecipes(recipes);
+  };
+
+  const href = window.location.origin;
 
   return (
     <>
@@ -52,23 +45,25 @@ export default function FavoriteRecipes() {
         <ToggleButton name="type" data-testid="filter-by-all-btn" value="all">
           All
         </ToggleButton>
-        <ToggleButton name="type" data-testid="filter-by-food-btn" value="meal">
+        <ToggleButton name="type" data-testid="filter-by-food-btn" value="comida">
           Food
         </ToggleButton>
-        <ToggleButton name="type" data-testid="filter-by-drink-btn" value="drink">
+        <ToggleButton name="type" data-testid="filter-by-drink-btn" value="bebida">
           Drink
         </ToggleButton>
       </ToggleButtonGroup>
-      {filteredRecipes.map((recipe, index) => (
+      {filteredRecipes && filteredRecipes.map((recipe, index) => (
         <section key={ index }>
-          <img
-            src={ recipe.image }
-            alt={ recipe.name }
-            data-testid={ `${index}-horizontal-image` }
-            style={ { width: ' 30%', height: '30%' } }
-          />
+          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <img
+              src={ recipe.image }
+              alt={ recipe.name }
+              data-testid={ `${index}-horizontal-image` }
+              style={ { width: ' 30%', height: '30%' } }
+            />
+          </Link>
           <p data-testid={ `${index}-horizontal-top-text` }>
-            { recipe.type === 'drink'
+            { recipe.type === 'bebida'
               ? `${recipe.alcoholicOrNot}` : `${recipe.area} - ${recipe.category}`}
           </p>
           <Link to={ `/${recipe.type}s/${recipe.id}` }>
@@ -76,7 +71,21 @@ export default function FavoriteRecipes() {
               { recipe.name }
             </h2>
           </Link>
-          <ButtonShare />
+          <ButtonShare
+            path={ recipe.type === 'comida'
+              ? `${href}/comidas/${recipe.id}` : `${href}/bebidas/${recipe.id}` }
+            testid={ `${index}-horizontal-share-btn` }
+          />
+          <button
+            type="button"
+            onClick={ () => handleDisfavor(recipe.id) }
+          >
+            <img
+              src={ blackHeartIcon }
+              alt="ícone de desfavoritar"
+              data-testid={ `${index}-horizontal-favorite-btn` }
+            />
+          </button>
         </section>
       ))}
     </>

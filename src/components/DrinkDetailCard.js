@@ -67,7 +67,7 @@ function DrinkDetailCard() {
       <p data-testid="recipe-category">{strAlcoholic}</p>
       <div style={ { display: 'flex', justifyContent: 'space-around' } }>
         <ButtonFavorite objData={ drinkDetail } />
-        <ButtonShare props={ window.location.href } />
+        <ButtonShare path={ window.location.href } testid="share-btn" />
       </div>
       <table>
         <tbody>
