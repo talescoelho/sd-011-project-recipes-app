@@ -21,7 +21,7 @@ function DetailsRecipe(props) {
     title,
     category,
     strAlcoholic,
-    video,
+    // video,
     id,
   } = recipeData;
   const [favorite, setFavorite] = useState(false);
@@ -36,7 +36,7 @@ function DetailsRecipe(props) {
     }
   }, [id]);
 
-  const videoParameter = -11;
+  // const videoParameter = -11;
   // const finalUrl = video && video.slice(videoParameter);
 
   const [linkCopy, setLinkCopy] = useState(false);
