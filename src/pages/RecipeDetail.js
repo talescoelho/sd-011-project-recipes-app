@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchRecipeDetail } from '../actions';
+import { fetchRecipeDetail } from '../actions/recipeDetail_actions';
 import RecipeDetailMain from '../components/RecipeDetailMain';
 
 function RecipeDetail({ history: { location: { pathname } },
-  dispatchFetchDetail, recipeDetailMeal, recipeDetailDrink }) {
+  dispatchFetchDetail, recipeDetail }) {
   const { id } = useParams();
   const type = pathname.includes('comidas') ? 'comidas' : 'bebidas';
 
@@ -16,16 +16,13 @@ function RecipeDetail({ history: { location: { pathname } },
 
   return (
     <div>
-      {pathname === `/comidas/${id}`
-        ? <RecipeDetailMain recipeDetail={ recipeDetailMeal } />
-        : <RecipeDetailMain recipeDetail={ recipeDetailDrink } /> }
+      <RecipeDetailMain recipeDetail={ recipeDetail } />
     </div>
   );
 }
 
 const mapStateToProps = ({ recipeDetailReducer }) => ({
-  recipeDetailMeal: recipeDetailReducer.meal.detail,
-  recipeDetailDrink: recipeDetailReducer.drink.detail,
+  recipeDetail: recipeDetailReducer.detail,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -40,7 +37,6 @@ RecipeDetail.propTypes = {
       pathname: PropTypes.string,
     }),
   }),
-  recipeDetailMeal: PropTypes.object,
-  recipeDetailDrink: PropTypes.object,
+  recipeDetail: PropTypes.object,
   dispatchFetchDetail: PropTypes.func,
 }.isRequired;

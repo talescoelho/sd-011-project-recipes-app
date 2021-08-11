@@ -16,7 +16,7 @@ const recommendedsReducer = (state = INITIAL_STATE, { type, payload }) => {
     };
   case RECOMMENDED_RECIPES_SUCCESS:
     return {
-      ...state, recommended: payload.recommended, loading: false, type: payload.type,
+      ...state, loading: false, recommended: payload.recommended, type: payload.type,
     };
   case RECOMMENDED_RECIPES_ERROR:
     return {
