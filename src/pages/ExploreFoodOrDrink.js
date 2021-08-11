@@ -1,19 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import { fetchRandomRecipe } from '../actions';
 
-function ExploreFoodOrDrink({ history, dispatchFetchRandomRecipe, randomRecipe }) {
-  useEffect(() => {
-    if (history.location.pathname === '/explorar/comidas') {
-      dispatchFetchRandomRecipe('comidas');
-    } else {
-      dispatchFetchRandomRecipe('bebidas');
-    }
-  }, [history.location.pathname, dispatchFetchRandomRecipe]);
-
+function ExploreFoodOrDrink({ history }) {
   function exploreFood() {
     return (
       <>
@@ -41,7 +31,6 @@ function ExploreFoodOrDrink({ history, dispatchFetchRandomRecipe, randomRecipe }
           <section>
             <button
               type="button"
-              onClick={ () => history.push(`/comidas/${randomRecipe}`) }
               data-testid="explore-surprise"
             >
               Me Surpreenda!
@@ -70,7 +59,7 @@ function ExploreFoodOrDrink({ history, dispatchFetchRandomRecipe, randomRecipe }
           <section>
             <button
               type="button"
-              onClick={ () => history.push(`/bebidas/${randomRecipe}`) }
+              onClick={ () => history.push('/explorar/bebidas') }
               data-testid="explore-surprise"
             >
               Me Surpreenda!
@@ -85,23 +74,10 @@ function ExploreFoodOrDrink({ history, dispatchFetchRandomRecipe, randomRecipe }
     <>
       {history.location.pathname === '/explorar/comidas' && exploreFood()}
       {history.location.pathname === '/explorar/bebidas' && exploreDrinks()}
-
       <Footer />
     </>
   );
 }
-
-const mapStateToProps = ({
-  recipeRandomReducer: { randomRecipe, loading, error },
-}) => ({
-  randomRecipe,
-  loading,
-  error,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  dispatchFetchRandomRecipe: (type) => dispatch(fetchRandomRecipe(type)),
-});
 
 ExploreFoodOrDrink.propTypes = {
   history: PropTypes.shape({
@@ -109,9 +85,7 @@ ExploreFoodOrDrink.propTypes = {
     location: PropTypes.shape({
       pathname: PropTypes.string,
     }),
-    randomRecipe: PropTypes.arrayOf(PropTypes.object),
-    dispatchFetchRandomRecipe: PropTypes.func,
   }),
 }.isRequired;
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExploreFoodOrDrink);
+export default ExploreFoodOrDrink;
