@@ -9,7 +9,7 @@ class RecipeDetailMain extends Component {
     this.main = this.main.bind(this);
   }
 
-  main(recipeDetail) {
+  main(recipeDetail, recipeRecommended) {
     const { strMealThumb, strDrinkThumb, strDrink, strMeal,
       strCategory, strAlcoholic, strInstructions,
       strYoutube } = recipeDetail;
@@ -21,6 +21,9 @@ class RecipeDetailMain extends Component {
     const strYoutubeEmbed = strYoutube && strYoutube.replace('watch?v=', 'embed/');
 
     let count = 1;
+
+    const DECREMENT = -1;
+    const INCREMENT = 1;
 
     const ingredientes = recipeDetail && Object.keys(recipeDetail)
       .filter((item) => {
@@ -61,12 +64,12 @@ class RecipeDetailMain extends Component {
         <h3> Ingredientes</h3>
         <ul name="ingredients-list">
           <br />
-          {ingredientes.map((mealIngred, index) => (
+          {ingredientes.map((ingred, index) => (
             <li
               data-testid={ `${index}-ingredient-name-and-measure` }
               key={ index }
             >
-              { mealIngred }
+              { ingred }
             </li>))}
         </ul>
         <br />
@@ -95,14 +98,58 @@ class RecipeDetailMain extends Component {
         )}
         <div>
           <h3> Recomendadas </h3>
+          <div className="slideshow-container">
+            <br />
+            {recipeRecommended.map((item, index) => (
+              <div
+                data-testid={ `${index}-recomendation-card` }
+                className="mySlides fade"
+                key={ index }
+              >
+                <div className="numbertext">
+                  {`${index + 1} / ${recipeRecommended.length}`}
+                </div>
+                <img
+                  src={ item.strMealThumb || item.strDrinkThumb }
+                  style={ { width: '100%' } }
+                  alt="Recomendadação"
+                />
+                <div className="text">{ item.strMeal || item.strDrink }</div>
+              </div>
+            ))}
+            <button
+              className="prev"
+              type="button"
+              aria-label="botões de transição"
+              onClick={ plusSlides(DECREMENT) }
+              onKeyDown={ plusSlides(DECREMENT) }
+            >
+              &#10094;
+            </button>
+            <button
+              className="next"
+              type="button"
+              aria-label="botões de transição"
+              onClick={ plusSlides(INCREMENT) }
+              onKeyDown={ plusSlides(INCREMENT) }
+            >
+              &#10095;
+            </button>
+          </div>
           <br />
-          <div data-testid="0-recomendation-card">
-            Aqui vai um card
+          <div style={ { textAlign: 'center' } }>
+            {recipeRecommended.map((_, index) => (
+              <span
+                className="dot"
+                role="button"
+                aria-label="botões circulares de transição"
+                onClick={ currentSlide(index) }
+                onKeyDown={ currentSlide(index) }
+                key={ index }
+                tabIndex={ index }
+              />
+            ))}
           </div>
-          <div data-testid="1-recomendation-card">
-            Aqui vai outro card
-          </div>
-          E po aí vão as divs
         </div>
         <br />
         <br />
@@ -112,10 +159,10 @@ class RecipeDetailMain extends Component {
   }
 
   render() {
-    const { recipeDetail } = this.props;
+    const { recipeDetail, recipeRecommended } = this.props;
     return (
       <div>
-        { this.main(recipeDetail) }
+        { this.main(recipeDetail, recipeRecommended) }
       </div>
     );
   }

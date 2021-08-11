@@ -6,7 +6,7 @@ import { fetchRecipeDetail, fetchRecommended } from '../actions/recipeDetail_act
 import RecipeDetailMain from '../components/RecipeDetailMain';
 
 function RecipeDetail({ history: { location: { pathname } },
-  dispatchFetchDetail, dispatchFetchRecommended, recipeDetail }) {
+  dispatchFetchDetail, dispatchFetchRecommended, recipeDetail, recipeRecommended }) {
   const { id } = useParams();
   const type = pathname.includes('comidas') ? 'comidas' : 'bebidas';
 
@@ -20,13 +20,17 @@ function RecipeDetail({ history: { location: { pathname } },
 
   return (
     <div>
-      <RecipeDetailMain recipeDetail={ recipeDetail } />
+      <RecipeDetailMain
+        recipeDetail={ recipeDetail }
+        recipeRecommended={ recipeRecommended }
+      />
     </div>
   );
 }
 
-const mapStateToProps = ({ recipeDetailReducer }) => ({
+const mapStateToProps = ({ recipeDetailReducer, recommendedsReducer }) => ({
   recipeDetail: recipeDetailReducer.detail,
+  recipeRecommended: recommendedsReducer.recommended,
 });
 
 const mapDispatchToProps = (dispatch) => ({
