@@ -12,7 +12,7 @@ function ExplorerDrink() {
   return (
     <div>
       <Header props={ headerProps } />
-      <Link to="/explorar/comidas">
+      <Link to="/explorar/bebidas/ingredientes">
         <button
           type="button"
           data-testid="explore-by-ingredient"
@@ -20,7 +20,7 @@ function ExplorerDrink() {
           Por Ingredientes
         </button>
       </Link>
-      <Link to="/explorar/bebidas">
+      <Link to="/explorar/bebidas/area">
         <button
           type="button"
           data-testid="explore-surprise"
