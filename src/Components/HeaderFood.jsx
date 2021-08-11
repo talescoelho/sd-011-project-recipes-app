@@ -35,7 +35,6 @@ class HeaderFood extends Component {
   render() {
     const { title, onClick } = this.props;
     const { inputLoading } = this.state;
-
     return (
       <div>
         <div className="header-container">
