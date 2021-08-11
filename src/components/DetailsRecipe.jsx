@@ -37,7 +37,7 @@ function DetailsRecipe(props) {
   }, [id]);
 
   const videoParameter = -11;
-  const finalUrl = video && video.slice(videoParameter);
+  // const finalUrl = video && video.slice(videoParameter);
 
   const [linkCopy, setLinkCopy] = useState(false);
 
