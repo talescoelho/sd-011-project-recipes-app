@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import styles from './FoodDetails.module.css';
 import shareIcon from '../../images/shareIcon.svg';
-import whiteHeart from '../../images/whiteHeartIcon.svg';
-import blackHeart from '../../images/blackHeartIcon.svg';
+import FavoriteButton from '../../globalComponents/FavoriteButtonMeals';
 
 function FoodDetails({ match }) {
   const [meals, setMeals] = useState({});
-  const [favorite, setFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   const [drinkRecomendation, setRecomendation] = useState([]);
   const { id } = match.params;
 
@@ -59,24 +58,6 @@ function FoodDetails({ match }) {
     }, mSeconds);
   };
 
-  const favoriteBttnHandle = () => {
-    setFavorite(!favorite);
-
-    const favoriteObj = {
-      id,
-      type: 'comida',
-      area: meals.strArea ? meals.strArea : '',
-      category: meals.strCategory,
-      alcoholicOrNot: '',
-      name: meals.strMeal,
-      image: meals.strMealThumb,
-    };
-
-    if (!favorite) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([favoriteObj]));
-    }
-  };
-
   return (
     <div>
 
@@ -104,16 +85,12 @@ function FoodDetails({ match }) {
       >
         <img src={ shareIcon } alt="share" />
       </button>
-      <button
-        type="button"
-        onClick={ favoriteBttnHandle }
-      >
-        <img
-          src={ !favorite ? whiteHeart : blackHeart }
-          alt="share"
-          data-testid="favorite-btn"
-        />
-      </button>
+      <FavoriteButton
+        meals={ meals }
+        favorite={ favorite }
+        setFavorite={ setFavorite }
+        id={ id }
+      />
       <p>{copied ? 'Link copiado!' : null}</p>
       <h1>Instruções</h1>
       <p
