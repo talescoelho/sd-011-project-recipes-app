@@ -21,6 +21,21 @@
 }
 
 .details-btn-container {
-  justify-content: center;
   display: flex;
+  justify-content: center;
+}
+
+.container-fluid {
+  display: flex;
+  justify-content: center;
+}
+
+.img-div {
+  width: 100px;
+}
+
+.carousel-item {
+  display: inline-block;
+  justify-content: center;
+  width: 100%;
 }

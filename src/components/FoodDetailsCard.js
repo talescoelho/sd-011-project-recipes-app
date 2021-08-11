@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ShareBtn from './FavoriteBtn';
 import FavoriteBtn from './ShareBtn';
 import FetchApi from '../services/ApiFetch';
+import FoodCarrossel from './FoodCarrossel';
 
 function FoodDetailsCard({ details, mealIngredients, mealMeasure }) {
   const [recomendation, setRecomendation] = useState();
@@ -53,6 +54,7 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure }) {
           encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         /> : '' }
+        <FoodCarrossel recomendation={ recomendation } />
       </div>
     );
   }
