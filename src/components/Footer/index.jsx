@@ -6,7 +6,7 @@ import mealIcon from '../../images/mealIcon.svg';
 import './styles.css';
 
 const Footer = () => (
-  <footer className="footer" data-testid="footer">
+  <footer className="footer fixed-bottom" data-testid="footer">
     <Link className="footer-link" to="/bebidas">
       <img
         src={ drinkIcon }
