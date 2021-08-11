@@ -9,25 +9,13 @@ import CategoryButtons from '../components/CategoryButtons';
 
 function Comidas({ title, location: { recipeName } }) {
 
-
-  const { foods } = useSelector((state) => state.fetchReceitas);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!foods || Object.keys(foods).length === 0) {
-      const URL = title === 'Comidas'
-        ? 'foods'
-        : 'drinks';
-      dispatch(getRecipes(URL));
-    }
-  }, [foods, dispatch, title]);
-
   return (
     <div>
-      <Header title={ title } />
-      <CategoryButtons />
-      {Object.keys(foods).length > 0
-        && <RenderRecipes redirectedFromIngredients={ recipeName } />}
+      {/* <Header title={ title } />
+      <CategoryButtons /> */}
+      {/* {Object.keys(foods).length > 0
+        && <RenderRecipes redirectedFromIngredients={ recipeName } />} */}
+      <RenderRecipes redirectedFromIngredients={ recipeName } />
       <Footer />
     </div>
   );

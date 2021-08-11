@@ -4,8 +4,8 @@ const initialState = {
   data: [],
   foods: [],
   drinks: [],
-  foodCategories: [],
-  drinksCategories: [],
+  // foodCategories: [],
+  // drinksCategories: [],
   comidas: [],
   foodIngredients: [],
   foodByIngredients: [],
@@ -28,8 +28,6 @@ export const getRecipes = createAsyncThunk(
   async (actionName, { getState }) => {
     const { fetchReceitas: { input } } = getState();
     const URLDictionary = {
-      foods: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
-      drinks: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
       filterByFoodCategorie:
         `https://www.themealdb.com/api/json/v1/1/filter.php?c=${input}`,
       filterByDrinkCategorie:
@@ -81,6 +79,11 @@ const fetchReceitasSlice = createSlice({
     setDisableButton: (state, action) => {
       state.disabledButton = action.payload;
     },
+    setInitialRecipes: (state, action) => {
+      const { meals, drinks } = action.payload;
+      state.foods = meals;
+      state.drinks = drinks;
+    },
   },
   extraReducers: {
     [getRecipes.pending]: (state) => {
@@ -114,6 +117,9 @@ const fetchReceitasSlice = createSlice({
 });
 
 export const {
-  setInput, setCheckBoxCounter, setDisableButton } = fetchReceitasSlice.actions;
+  setInput,
+  setCheckBoxCounter,
+  setDisableButton,
+  setInitialRecipes } = fetchReceitasSlice.actions;
 
 export default fetchReceitasSlice.reducer;

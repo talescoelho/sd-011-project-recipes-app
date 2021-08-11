@@ -1,6 +1,6 @@
 const URLDictionary = {
-  foods: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
-  drinks: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
+  allFoods: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
+  allDrinks: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
   filterByFoodCategorie:
     'https://www.themealdb.com/api/json/v1/1/filter.php?c=', //input
   filterByDrinkCategorie:
@@ -26,4 +26,4 @@ const URLDictionary = {
 
 export default URLDictionary;
 
-export const { foods } = URLDictionary;
+export const { allFoods, allDrinks } = URLDictionary;
