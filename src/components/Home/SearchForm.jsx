@@ -1,22 +1,18 @@
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { fetchRecipes, fetchCocktails } from '../../hooks';
+import { Redirect } from 'react-router-dom';
+import { fetchRecipes, fetchCocktails, useRecipes } from '../../hooks';
 
 function SearchForm({ type }) {
-  const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('ingrediente');
+  const { recipes } = useRecipes();
+  const dispatch = useDispatch();
 
   const handleSelectCategory = ({ target }) => setSelectedCategory(target.value);
 
-  const handleSubmitSearch = (event) => {
-    event.preventDefault();
-    if (selectedCategory === 'primeira_letra' && searchTerm.length >= 2) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
-      return;
-    }
-
+  const fetchOnline = () => {
     if (type === 'meals') {
       dispatch(fetchRecipes({ category: selectedCategory, searchTerm }));
     } else {
@@ -24,11 +20,20 @@ function SearchForm({ type }) {
     }
   };
 
-  const handleFirstLetter = () => {
+  const handleSubmitSearch = (event) => {
+    event.preventDefault();
+    if (selectedCategory === 'primeira_letra' && searchTerm.length >= 2) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+      return;
+    }
+    fetchOnline();
   };
 
+  if (recipes && recipes.length === 1) {
+    return <Redirect to={ `/comidas/${recipes[0].idMeal}` } />;
+  }
   return (
-    <form onSubmit={ handleSubmitSearch } onChange={ () => handleFirstLetter() }>
+    <form onSubmit={ handleSubmitSearch }>
       <input
         type="text"
         value={ searchTerm }

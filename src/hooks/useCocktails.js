@@ -44,6 +44,8 @@ export const fetchCocktails = ({ searchTerm, category }) => async (dispatch) => 
     ingrediente: 'filter.php?i=',
     nome: 'search.php?s=',
     primeira_letra: 'search.php?f=',
+    categorys: 'filter.php?c=',
+    allcategorys: 'search.php?s=',
   };
   const urlModifier = URL_SEARCH_OPTION[category] || '';
   dispatch(requestCocktails());

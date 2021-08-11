@@ -15,7 +15,7 @@ function ExploreIngredients() {
   return (
     <Layout title="Explorar Ingredientes">
       <main style={ styles.main }>
-        <p>ola mundo</p>
+        <h1>Ola</h1>
       </main>
     </Layout>
   );
