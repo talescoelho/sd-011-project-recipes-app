@@ -1,5 +1,6 @@
 import React from 'react';
 import Proptypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function FavoriteRecipeCard(props) {
   const { key, nameDataTestId, categoryDataTestId, imageDataTestId,
@@ -9,13 +10,15 @@ function FavoriteRecipeCard(props) {
   function renderMealCard() {
     return (
       <>
-        <img
-          src={ image }
-          alt="food done"
-          data-testid={ imageDataTestId }
-          style={ { width: 25 } }
-        />
-        <h2 data-testid={ nameDataTestId }>{ name }</h2>
+        <Link to={ `/comidas/${key}` }>
+          <img
+            src={ image }
+            alt="food done"
+            data-testid={ imageDataTestId }
+            style={ { width: 25 } }
+          />
+          <h2 data-testid={ nameDataTestId }>{ name }</h2>
+        </Link>
         <h4 data-testid={ categoryDataTestId }>{ `${area} - ${category}` }</h4>
         <h4 data-testid={ recipeDoneDateDataTestId }>{recipeDoneDate}</h4>
       </>
@@ -25,15 +28,17 @@ function FavoriteRecipeCard(props) {
   function renderDrinkCard() {
     return (
       <>
-        <img
-          src={ image }
-          alt="food done"
-          data-testid={ imageDataTestId }
-          style={ { width: 25 } }
-        />
-        <h4 data-testid={ categoryDataTestId }>{ category }</h4>
-        <h2 data-testid={ nameDataTestId }>{ name }</h2>
-        <h4>{ alcoholicOrNot }</h4>
+        <Link to={ `/bebidas/${key}` }>
+          <img
+            src={ image }
+            alt="food done"
+            data-testid={ imageDataTestId }
+            style={ { width: 25 } }
+          />
+          <h4 data-testid={ categoryDataTestId }>{ alcoholicOrNot }</h4>
+          <h2 data-testid={ nameDataTestId }>{ name }</h2>
+        </Link>
+        {/* <h4>{ alcoholicOrNot }</h4> */}
         <h4 data-testid={ recipeDoneDateDataTestId }>{recipeDoneDate}</h4>
       </>
     );

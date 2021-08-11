@@ -8,6 +8,7 @@ function ReceitasFavoritas() {
   const favoritedRecipesList = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
   const [favoriteList, setFavoriteList] = React.useState(favoritedRecipesList);
+  console.log(favoritedRecipesList);
 
   function filterOnlyMeal() {
     const onlyMealList = favoritedRecipesList
