@@ -7,25 +7,33 @@ function FoodsSearchBar() {
   const [input, setInput] = useState('');
   const { setFoodList } = useContext(RecipeAppContext);
   const history = useHistory();
+  // const alert = useAlert();
 
   const requestFoodEndpoint = async (text) => {
     let endpoint = '';
     const alertMsg = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
-    if (input === 'ingredient') {
-      endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${text}`;
-    } else if (input === 'name') {
-      endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${text}`;
-    } else if (input === 'firstLetter' && searchText.length > 1) {
+    if (input === 'ingredient') endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${text}`;
+
+    if (input === 'name') endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${text}`;
+
+    if (input === 'firstLetter' && searchText.length > 1) {
       return alert('Sua busca deve conter somente 1 (um) caracter');
-    } else if (input === 'firstLetter') {
-      endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${text}`;
-    } else if (!input) return null;
-    const response = await fetch(endpoint);
-    const { meals } = await response.json();
-    if (meals === null) return alert(alertMsg);
-    if (meals.length === 1) return history.push(`/comidas/${meals[0].idMeal}`);
-    setFoodList(meals);
+    }
+
+    if (input === 'firstLetter') endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${text}`;
+
+    if (!input || !searchText) return null; // possivelmente corrige erro
+
+    try {
+      const response = await fetch(endpoint);
+      const { meals } = await response.json();
+      if (meals === null) return alert(alertMsg);
+      if (meals.length === 1) return history.push(`/comidas/${meals[0].idMeal}`);
+      setFoodList(meals);
+    } catch (err) {
+      return alert(alertMsg);
+    }
   };
 
   return (
