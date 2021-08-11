@@ -43,7 +43,7 @@ function RenderFoodDetails({ copyLink }) {
           type="image"
           alt="someText"
           data-testid="favorite-btn"
-          src={ isFavRecipe ? bkHeart : wtHeart  }
+          src={ isFavRecipe ? bkHeart : wtHeart }
           onClick={ () => saveFavoriteMeal() }
         />
       </div>
