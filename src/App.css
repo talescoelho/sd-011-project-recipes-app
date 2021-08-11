@@ -53,16 +53,6 @@
   }
 }
 
-[ data-testid = ' footer' ] {
-  background-color: grey;
-  bottom: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  position: fixed;
-  width: 50%;
-}
-
 .recommendedFoodContainer {
   align-items: space-between;
   display: flex;
@@ -102,4 +92,14 @@
 [ data-testid = 'start-recipe-btn' ] {
   bottom: 0;
   position: fixed;
+}
+
+[ data-testid = 'footer' ] {
+  background-color: grey;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: fixed;
+  width: 50%;
 }
