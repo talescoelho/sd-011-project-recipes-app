@@ -65,7 +65,7 @@ function ButtonsShareFav() {
         />
       </button>
       <div>
-        <h4>{share && 'Link copiado!'}</h4>
+        { share && <p className="alert alert-success" role="alert">Link copiado!</p>}
       </div>
     </div>
   );
