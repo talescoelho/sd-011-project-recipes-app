@@ -7,6 +7,7 @@ export default function RecipeCardFood({ recipe, index }) {
     <Link to={ `/comidas/${recipe.idMeal}` }>
       <div data-testid={ `${index}-recipe-card` }>
         <img
+          width="100px"
           src={ recipe.strMealThumb }
           alt={ recipe.strMeal }
           data-testid={ `${index}-card-img` }

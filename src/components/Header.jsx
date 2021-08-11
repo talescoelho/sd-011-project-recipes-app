@@ -5,6 +5,7 @@ import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import '../styles/Header.css';
+import { HeaderNavBar } from '../styles';
 
 function Header({ pageName, showSearchButton }) {
   const [showSearchBar, setShowSearchBar] = useState(false);
@@ -23,7 +24,7 @@ function Header({ pageName, showSearchButton }) {
     </button>);
 
   return (
-    <div>
+    <HeaderNavBar>
       <div className="btns">
         <Link to="/perfil">
           <button className="btn-perfil" type="button">
@@ -34,8 +35,7 @@ function Header({ pageName, showSearchButton }) {
         { showSearchButton ? searchButton : null }
       </div>
       { showSearchBar ? <SearchBar type={ pageName } /> : null }
-    </div>
-
+    </HeaderNavBar>
   );
 }
 
