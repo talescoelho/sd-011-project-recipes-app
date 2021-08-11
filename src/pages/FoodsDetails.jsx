@@ -4,22 +4,25 @@ import * as ReactBootStrap from 'react-bootstrap';
 /* import RecipesContext from '../context/RecipesContext'; */
 import { fetchFoodDetails, fetchDrinks } from '../services/API';
 import '../styles/FoodsDetails.css';
-import shareIcon from '../images/shareIcon.svg';
+/* import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg'; */
 import ingredientsMealDetails from '../helpers/ingredientsMealDetails';
 import DrinksRecomendations from '../components/DrinksRecomendations';
-import { getStorage, setStorage, newFavoriteRecipes } from '../helpers/Storage';
+/* import { getStorage, setStorage, newFavoriteRecipes } from '../helpers/Storage'; */
+import { getStorage } from '../helpers/Storage';
+import ShareAndFavButtons from '../components/subcomponents/ShareAndFavButtons';
 
 function FoodsDetails() {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
-  const [details, setDetails] = useState({});
+  const [details, setDetails] = useState({ id });
   const [recomendations, setRecomendations] = useState([]);
-  const [linkCopied, setLinkCopied] = useState('');
-  const [favorited, setFavorited] = useState(false);
+  /* const [linkCopied, setLinkCopied] = useState('');
+  const [favorited, setFavorited] = useState(false); */
+  const [doneRecipe, setDoneRecipe] = useState(false);
   const history = useHistory();
-  const { location: { pathname } } = history;
+  /* const { location: { pathname } } = history; */
 
   useEffect(() => {
     const foodDetails = async (foodId) => {
@@ -39,27 +42,33 @@ function FoodsDetails() {
   }, []);
 
   useEffect(() => {
-    const favorites = getStorage('favoriteRecipes');
-    favorites.forEach((favorite) => { if (favorite.id === id) { setFavorited(true); } });
+    /* const favorites = getStorage('favoriteRecipes');
+    favorites.forEach((favorite) => { if (favorite.id === id) { setFavorited(true); } }); */
+    const doneRecipes = getStorage('doneRecipes');
+    doneRecipes.forEach((recipe) => { if (recipe.id === id) { setDoneRecipe(true); } });
   }, [id]);
 
   const ingredientsAndMeasures = details.idMeal
     ? ingredientsMealDetails(details)
     : [];
 
-  function videoSrc(youtubeLink) {
+  /* function videoSrc(youtubeLink) {
     const [partialLink, watchID] = youtubeLink.split('.com/');
     const videoID = watchID.split('?v=')[1];
     return `${partialLink}.com/embed/${videoID}`;
+  } */
+
+  function videoSrc(youtubeLink) {
+    return youtubeLink.replace('watch?v=', 'embed/');
   }
 
-  function copyUrlToClipboard() {
+  /* function copyUrlToClipboard() {
     setLinkCopied('Link copiado!');
     // verificar possibilidade de obter a url completa para qualquer servidor
     navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
-  }
+  } */
 
-  const addOrRemoveFavoriteRecipe = () => {
+  /* const addOrRemoveFavoriteRecipe = () => {
     const favoriteRecipes = getStorage('favoriteRecipes');
     if (favoriteRecipes.some((recipe) => recipe.id === id)) {
       setFavorited(false);
@@ -69,7 +78,7 @@ function FoodsDetails() {
       const newFavoriteRecip = newFavoriteRecipes(details, 'comida');
       setStorage('favoriteRecipes', [...favoriteRecipes, newFavoriteRecip]);
     }
-  };
+  }; */
 
   return (
     <div className="details-container">
@@ -87,7 +96,8 @@ function FoodsDetails() {
               <span data-testid="recipe-title">{details.strMeal}</span>
               <span data-testid="recipe-category">{details.strCategory}</span>
             </div>
-            <div>
+            <ShareAndFavButtons details={ details } />
+            {/* <div>
               {linkCopied}
               <button
                 type="button"
@@ -107,7 +117,7 @@ function FoodsDetails() {
                   alt="Botão favoritar"
                 />
               </button>
-            </div>
+            </div> */}
           </div>
           <div className="ingredients-container">
             <span>Ingredients</span>
@@ -145,13 +155,14 @@ function FoodsDetails() {
           </div>
         </>
       )}
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-        onClick={ () => history.push(`/comidas/${id}/in-progress`) }
-      >
-        Iniciar Receita
-      </button>
+      {!doneRecipe && (
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          onClick={ () => history.push(`/comidas/${id}/in-progress`) }
+        >
+          Iniciar Receita
+        </button>)}
     </div>
   );
 }
