@@ -3,7 +3,6 @@ export async function CategoryFoodAPI() {
   const awaitFood = await fetch(linkFoodCategory);
   const awaitFoodToJSON = await awaitFood.json();
   return awaitFoodToJSON.meals.map((item) => Object.values(item)[0]);
-// return awaitFoodToJSON;
 }
 
 export async function CategoryFoodFilter(param) {
