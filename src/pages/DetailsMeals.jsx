@@ -91,6 +91,15 @@ export default function DetailsMeals() {
     retriveFavoties();
   }, [recipesSelectedId]);
 
+  const handleClickRecipesProgress = () => {
+    const storageProgress = JSON.parse(localStorage.getItem('recipesProgress')) || [];
+    const newRecipeStringfy = JSON.stringify([
+      recipesDetails,
+      ...storageProgress,
+    ]);
+    localStorage.setItem('recipesProgress', newRecipeStringfy);
+  };
+
   const handleClickFavorites = () => {
     const favoriteObj = [
       {
@@ -131,6 +140,7 @@ export default function DetailsMeals() {
     buttonHiddenClass,
     buttonText,
     setDrinkRecipeId,
+    handleClickRecipesProgress,
   };
 
   return (

@@ -19,6 +19,7 @@ export default function DetailsMealsComp({ propsDrink }) {
     buttonHiddenClass,
     buttonText,
     recipesSelectedId,
+    handleClickRecipesProgress,
   } = propsDrink;
 
   return (
@@ -105,6 +106,7 @@ export default function DetailsMealsComp({ propsDrink }) {
           type="button"
           data-testid="start-recipe-btn"
           variant="success"
+          onClick={ () => handleClickRecipesProgress() }
         >
           { buttonText }
         </Button>
@@ -121,6 +123,7 @@ DetailsMealsComp.propTypes = {
     favorite: PropTypes.bool,
     copyText: PropTypes.string,
     getIngredients: PropTypes.func,
+    handleClickRecipesProgress: PropTypes.func,
     recipesRecommendation: PropTypes.objectOf(PropTypes.string),
     setRecipeId: PropTypes.func,
     buttonHiddenClass: PropTypes.string,
