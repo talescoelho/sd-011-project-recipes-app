@@ -14,7 +14,6 @@ function ExploreDrinksByIgrediente() {
 
   const getDataButton = () => {
     fetchIngredientesListDrink(setIngredientesListDrink);
-    console.log(ingredientesListDrink);
   };
 
   useEffect(getDataButton, []);

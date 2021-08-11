@@ -112,7 +112,7 @@ function DrinkInProgress({ match }) {
           )
           : <h1>Carregando...</h1>
       }
-      <Footer />
+
     </div>
   );
 }
