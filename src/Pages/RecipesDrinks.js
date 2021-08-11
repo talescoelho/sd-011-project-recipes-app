@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
@@ -9,6 +9,7 @@ import MyContext from '../Context/MyContext';
 
 export default function RecipesFood() {
   const { cards, setCards } = useContext(MyContext);
+  const [drinkCategories, setdrinkCategories] = useState([]);
 
   const searchCards = async () => {
     const response = await getDrink();
@@ -19,8 +20,12 @@ export default function RecipesFood() {
     const response = await fetchCategoryDrink();
     const maxList = 5;
     const categoryListDrink = response.drinks.slice(0, maxList);
-    console.log(categoryListDrink);
-    return categoryListDrink;
+    const getListValues = categoryListDrink.map((drink) => Object.values(drink));
+    return (
+      getListValues,
+      setdrinkCategories(getListValues)
+    );
+    // return getListValues.map((item, index) => <button type="button" key={ index }>{item}</button>);
   };
 
   useEffect(() => {
@@ -40,6 +45,10 @@ export default function RecipesFood() {
   return (
     <div>
       <Header className="title" title="Bebidas" searchIconAppears />
+      <div>
+        {drinkCategories.map((item, index) => <button type="button" key={ index }>{item}</button>)}
+      </div>
+      {/* {drinkCategories.map((item, index) => <button type="button" key={ index }>{item}</button>)} */}
       <div className="cardlist">
         {cards.length > 0 && renderCardRecipes().map((recp, index) => (
           <Link
