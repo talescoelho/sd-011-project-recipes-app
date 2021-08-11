@@ -1,8 +1,7 @@
-/* eslint-disable no-alert */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {
   requestDrinkMenu,
   requestDrinksFilters,
@@ -29,38 +28,9 @@ const Drinks = ({
 }) => {
   const { location: { state } } = useHistory();
 
-  const [selectedRadio, setSelectedRadio] = useState('');
-  const [typeIngredient, setTypeIngredient] = useState('');
-
-  const handleIngredient = ({ target }) => { setTypeIngredient(target.value); };
-
   useEffect(() => {
     dispatch(requestDrinksFilters());
   }, [dispatch]);
-
-  const handleRadioButton = () => {
-    if (selectedRadio === 'ingrediente') {
-      dispatch(fetchDrinksIngredient(typeIngredient));
-    }
-    if (selectedRadio === 'name') {
-      dispatch(fetchDrinksByName(typeIngredient));
-    }
-    if (selectedRadio === 'first-letter') {
-      if (typeIngredient.length > 1) {
-        alert('Sua busca deve conter somente 1 (um) caracter');
-      } else {
-        dispatch(fetchDrinksByFirstLetter(typeIngredient));
-      }
-    }
-  };
-
-  if (error) {
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  }
-
-  if (selectedRadio && drinks.length === 1) {
-    return <Redirect to={ `/bebidas/${drinkId}` } />;
-  }
 
   return (
     <>
@@ -68,9 +38,13 @@ const Drinks = ({
         <Header
           page="Bebidas"
           showSearchBtn
-          radioOption={ ({ target: { value } }) => setSelectedRadio(value) }
-          sendRadioInfo={ () => handleRadioButton() }
-          typedIngredient={ handleIngredient }
+          error={ error }
+          recipe={ drinks }
+          recipeId={ drinkId }
+          redirectTo="bebidas"
+          fetchIngredients={ fetchDrinksIngredient }
+          fetchByName={ fetchDrinksByName }
+          fetchByFirstLetter={ fetchDrinksByFirstLetter }
         />
         {
           (loadingFilterOptions)

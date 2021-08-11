@@ -1,8 +1,7 @@
-/* eslint-disable no-alert */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {
   requestMealsMenu,
   requestMealsFilters,
@@ -30,47 +29,23 @@ const Foods = ({
 }) => {
   const { location: { state } } = useHistory();
 
-  const [selectedRadio, setSelectedRadio] = useState('');
-  const [typeIngredient, setTypeIngredient] = useState('');
-
-  const handleIngredient = ({ target }) => { setTypeIngredient(target.value); };
-
   useEffect(() => {
     dispatch(requestMealsFilters());
   }, [dispatch]);
 
-  const handleRadioButton = () => {
-    if (selectedRadio === 'ingrediente') {
-      dispatch(fetchIngredients(typeIngredient));
-    }
-    if (selectedRadio === 'name') {
-      dispatch(fetchByName(typeIngredient));
-    }
-    if (selectedRadio === 'first-letter') {
-      if (typeIngredient.length > 1) {
-        alert('Sua busca deve conter somente 1 (um) caracter');
-      } else {
-        dispatch(fetchByFirstLetter(typeIngredient));
-      }
-    }
-  };
-
-  if (error) {
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  }
-
-  if (selectedRadio && meals.length === 1) {
-    return <Redirect to={ `/comidas/${mealId}` } />;
-  }
   return (
     <>
       <nav>
         <Header
           page="Comidas"
           showSearchBtn
-          radioOption={ ({ target: { value } }) => setSelectedRadio(value) }
-          sendRadioInfo={ () => handleRadioButton() }
-          typedIngredient={ handleIngredient }
+          error={ error }
+          recipe={ meals }
+          recipeId={ mealId }
+          redirectTo="comidas"
+          fetchIngredients={ fetchIngredients }
+          fetchByName={ fetchByName }
+          fetchByFirstLetter={ fetchByFirstLetter }
         />
         {
           (loadingFilterOptions)

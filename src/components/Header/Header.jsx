@@ -1,6 +1,7 @@
+/* eslint-disable no-alert */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import searchIcon from '../../images/searchIcon.svg';
@@ -10,11 +11,42 @@ import './header.css';
 const Header = ({
   page,
   showSearchBtn,
-  radioOption,
-  sendRadioInfo,
-  typedIngredient,
+  error,
+  recipe,
+  recipeId,
+  redirectTo,
+  dispatch,
+  fetchIngredients,
+  fetchByName,
+  fetchByFirstLetter,
 }) => {
   const [showField, setShowField] = useState(false);
+  const [selectedRadio, setSelectedRadio] = useState('');
+  const [typeIngredient, setTypeIngredient] = useState('');
+
+  const requestSearch = () => {
+    if (selectedRadio === 'ingrediente') {
+      dispatch(fetchIngredients(typeIngredient));
+    }
+    if (selectedRadio === 'name') {
+      dispatch(fetchByName(typeIngredient));
+    }
+    if (selectedRadio === 'first-letter') {
+      if (typeIngredient.length > 1) {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+      } else {
+        dispatch(fetchByFirstLetter(typeIngredient));
+      }
+    }
+  };
+
+  if (error) {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
+
+  if (selectedRadio && recipe.length === 1) {
+    return <Redirect to={ `/${redirectTo}/${recipeId}` } />;
+  }
   return (
     <>
       <header className="header-style">
@@ -42,7 +74,7 @@ const Header = ({
         }
       </header>
       {
-        (showSearchBtn)
+        (showField)
           ? (
             <span className="field-style">
               <label htmlFor="radio-buttons-label">
@@ -53,7 +85,7 @@ const Header = ({
                     data-testid="ingredient-search-radio"
                     name="ingredient"
                     value="ingrediente"
-                    onClick={ radioOption }
+                    onClick={ ({ target: { value } }) => setSelectedRadio(value) }
                   />
                 </label>
 
@@ -64,7 +96,7 @@ const Header = ({
                     data-testid="name-search-radio"
                     name="ingredient"
                     value="name"
-                    onClick={ radioOption }
+                    onClick={ ({ target: { value } }) => setSelectedRadio(value) }
                   />
                 </label>
 
@@ -75,28 +107,22 @@ const Header = ({
                     data-testid="first-letter-search-radio"
                     name="ingredient"
                     value="first-letter"
-                    onClick={ radioOption }
+                    onClick={ ({ target: { value } }) => setSelectedRadio(value) }
                   />
                 </label>
                 <button
                   type="button"
                   data-testid="exec-search-btn"
-                  onClick={ sendRadioInfo }
+                  onClick={ () => requestSearch() }
                 >
                   Buscar
                 </button>
               </label>
-              {
-                showField
-                  ? (
-                    <input
-                      type="text"
-                      data-testid="search-input"
-                      onChange={ typedIngredient }
-                    />
-                  )
-                  : null
-              }
+              <input
+                type="text"
+                data-testid="search-input"
+                onChange={ ({ target: { value } }) => setTypeIngredient(value) }
+              />
             </span>
           )
           : null
