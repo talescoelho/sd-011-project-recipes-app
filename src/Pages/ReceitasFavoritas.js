@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Header from '../components/Header';
 import FavoriteRecipeCard from '../components/FavoriteRecipeCard';
 import SharedButton from '../components/SharedButton';
@@ -8,10 +8,6 @@ function ReceitasFavoritas() {
   const favoritedRecipesList = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
   const [favoriteList, setFavoriteList] = React.useState(favoritedRecipesList);
-
-  // useEffect(() => {
-  //   setFavoriteList(favoritedRecipesList);
-  // }, [favoritedRecipesList]);
 
   function filterOnlyMeal() {
     const onlyMealList = favoritedRecipesList
