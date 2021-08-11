@@ -59,6 +59,7 @@ const Drinks = ({
   if (selectedRadio && drinks.length === 1) {
     return <Redirect to={ `/bebidas/${drinkId}` } />;
   }
+
   return (
     <>
       <nav>
@@ -122,13 +123,14 @@ Drinks.propTypes = {
   loadingDrinks: PropTypes.bool.isRequired,
   error: PropTypes.string,
   drinks: PropTypes.arrayOf(PropTypes.object),
-  drinkId: PropTypes.arrayOf(PropTypes.object).isRequired,
+  drinkId: PropTypes.string,
 };
 
 Drinks.defaultProps = {
   categoryNames: [],
   drinks: [],
   error: null,
+  drinkId: undefined,
 };
 
 export default connect(mapStateToProps)(Drinks);

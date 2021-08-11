@@ -1,5 +1,5 @@
 import React from 'react';
-import { string } from 'prop-types';
+import { string, number } from 'prop-types';
 import { Link } from 'react-router-dom';
 import '../../styles/components/recipeCard.css';
 
@@ -45,17 +45,20 @@ const RecipeCard = ({
 };
 
 RecipeCard.propTypes = {
-  index: string.isRequired,
+  index: number.isRequired,
   cardTestId: string.isRequired,
   cardType: string,
-  recipeId: string.isRequired,
-  recipeThumb: string.isRequired,
-  recipeName: string.isRequired,
+  recipeId: string,
+  recipeThumb: string,
+  recipeName: string,
   titleTestId: string.isRequired,
 };
 
 RecipeCard.defaultProps = {
   cardType: null,
+  recipeId: null,
+  recipeThumb: undefined,
+  recipeName: undefined,
 };
 
 export default RecipeCard;

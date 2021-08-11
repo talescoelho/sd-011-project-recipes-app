@@ -9,8 +9,8 @@ import {
 
 const INITIAL_STATE = {
   menu: [],
-  mealId: [],
-  drinkId: [],
+  mealId: '',
+  drinkId: '',
   error: null,
   isLoading: false,
   filters: {

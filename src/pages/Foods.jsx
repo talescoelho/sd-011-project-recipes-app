@@ -123,13 +123,14 @@ Foods.propTypes = {
   loadingMeals: PropTypes.bool.isRequired,
   error: PropTypes.string,
   meals: PropTypes.arrayOf(PropTypes.object),
-  mealId: PropTypes.arrayOf(PropTypes.object).isRequired,
+  mealId: PropTypes.string,
 };
 
 Foods.defaultProps = {
   categoryNames: [],
   meals: [],
   error: null,
+  mealId: undefined,
 };
 
 export default connect(mapStateToProps)(Foods);
