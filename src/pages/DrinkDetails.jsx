@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
 import RecommendationsM from '../components/RecommendationsM';
 import IngredientsList from '../components/IngredientsList';
@@ -33,7 +34,11 @@ function DrinkDetails({ match: { params } }) {
   }
   function renderButton(comand) {
     return (
-      <button className="footer" type="button" data-testid="start-recipe-btn">
+      <button
+        className="footer"
+        type="button"
+        data-testid="start-recipe-btn"
+      >
         { `${comand} Receita` }
       </button>
     );
@@ -68,7 +73,11 @@ function DrinkDetails({ match: { params } }) {
       {/* passar algum atributo para o recomendações de modo a
       identificar se renderiza bebidas ou comidas */}
       <RecommendationsM />
-      { !isMealDone ? renderButton('Iniciar') : undefined }
+      { !isMealDone ? (
+        <Link to={ `/bebidas/${DrinkDataAPI.idDrink}/in-progress` }>
+          { renderButton('Iniciar') }
+        </Link>)
+        : undefined }
       { isMealStarted ? renderButton('Continuar') : undefined }
     </div>
   );

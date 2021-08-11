@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
 import Recommendations from '../components/Recommendations';
 import IngredientsList from '../components/IngredientsList';
@@ -83,7 +84,12 @@ function MealDetails({ match: { params } }) {
         </div>
       ) : <h2>Loading</h2>}
       <Recommendations />
-      { !isMealDone ? renderButton('Iniciar') : undefined }
+      { !isMealDone ? (
+        <Link to={ `/comidas/${MealDataAPI.idMeal}/in-progress` }>
+          { renderButton('Iniciar')}
+        </Link>
+      )
+        : undefined }
       { isMealStarted ? renderButton('Continuar') : undefined }
 
     </div>
