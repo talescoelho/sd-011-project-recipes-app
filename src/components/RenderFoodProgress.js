@@ -20,7 +20,17 @@ function RenderFoodProgress({ strMealThumb, strMeal, strCategory,
 
   useEffect(() => {
     if (hasChecked) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify(statusIngredients));
+      // Só entro aqui quando o usuário clica no check pela primeira vez naquela página
+      // Vou atualizar a chave inProgressRecipes no LocalStorage
+      const currentLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes')); // pego o LocalStorage atual
+      const newObject = { // este será meu novo LocalStorage, estou tentanto só atualizar a minha receita atual, sem sucesso
+        ...currentLocalStorage,
+        ['meals'] : {
+          ...meals,
+          id: statusIngredients, // essa variável statusIngredients é o meu array de check ou não, é esta variável que quero atualizar
+        }
+      }
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newObject));
     }
   }, [statusIngredients]);
 

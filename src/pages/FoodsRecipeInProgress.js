@@ -23,12 +23,15 @@ function FoodsRecipeInProgress({ match: { params: { id } } }) {
     const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
 
     const getMealDetails = async () => {
+
+      // Faz requisição API e joga estado ---- //
       const response = await fetch(endpoint);
       const data = await response.json();
       const { meals } = data;
       setMealInProgress(meals[0]);
+      // ------------------------------------ // 
 
-      // Cria a Lista de Ingredientes + Arrays de Checked
+      // Cria a Lista de Ingredientes + Arrays de Checked ----------- //
       const ingredArray = Object.entries(meals[0])
         .filter((key) => key[0].includes('strIngredient') && key[1]);
       const ingredList = [];
@@ -40,27 +43,41 @@ function FoodsRecipeInProgress({ match: { params: { id } } }) {
       setFinalListIngredients(ingredList);
       setNumberIngredients(ingredListClass.length);
       setStatusIngredients(arrayStatus);
+      // ----------------------------------------------------------- //
 
-      // Conta quantos checkbox foram marcados, e add estilo para aqueles marcados
-      let countYesChecked = 0;
-      let statusIngredSaved = [];
-      statusIngredSaved = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      if (statusIngredSaved === null) statusIngredSaved = [];
-      Object.values(statusIngredSaved).forEach((item, index) => {
-        if (item) {
-          countYesChecked += 1;
-          ingredListClass[index] = 'yesChecked';
-        }
-      });
+      // Conta quantos checkbox foram marcados, e add estilo para aqueles marcados - //
+      let countYesChecked = 0; // responsável por contar quantos checks foram feitos, para disabilitar ou não button Finalizar Receita
+      let statusIngredSaved = []; // vai pegar o array de status dos checkbox dos meus ingredientes ex: [true, false, true, ...]
+
+      let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (!inProgressRecipes && !inProgressRecipes.meals) { // se ele não existir
+        inProgressRecipes = { meals: {} }; // aqui eu acho que estou subscrevendo a chave drinks, se ela existir  
+        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+      }
+
+      const recipesId = Object.keys(inProgressRecipes.meals); // estou vendo se minha receita atual está ou não em progresso
+      const checkedId = recipesId.some((itemId) => itemId === id);  // para fazer isso, vou comparando com o id
+      if (checkedId) { // caso existir 
+        const { meals } = inProgressRecipes; // pego só a chave meals
+        statusIngredSaved = meals[id]; // pego só o array de status da comida atual, vou salvar este statusIngredSaved
+        statusIngredSaved.forEach((item, index) => { // vou passar pelo array de status da comida atual, para criar o check css no item
+          if (item) {
+            countYesChecked += 1;
+            ingredListClass[index] = 'yesChecked';
+          }
+        });
+      }
       setCountCheckIngredList(countYesChecked);
       setStatusIngredients(statusIngredSaved);
+      // -------------------------------------------------------------------------- //
 
-      // Lógica ver se aquela receita é ou não favorita, for favorita setFavoriteIcon(blackHeartIcon)
+      // Lógica ver se aquela receita é ou não favorita, for favorita setFavoriteIcon(blackHeartIcon) -- //
       let favoriteRecipes = [];
       favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
       if (favoriteRecipes === null) favoriteRecipes = [];
       const isFavorite = favoriteRecipes.some((recipe) => recipe.id === id);
       if (isFavorite) setFavoriteIcon(blackHeartIcon);
+      // ---------------------------------------------------------------------------------------------- //
 
       setClassNameIngredients(ingredListClass);
       setIsLoading(false);
