@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import FetchApi from '../services/ApiFetch';
-import FoodCard from '../components/FoodCard';
+import FoodDetailsCard from '../components/FoodDetailsCard';
 
 export default function FoodsDetails(props) {
   const { match: { params: { id } } } = props;
@@ -43,7 +43,7 @@ export default function FoodsDetails(props) {
 
   return (
 
-    <FoodCard
+    <FoodDetailsCard
       mealIngredients={ mealIngredients }
       details={ details }
       mealMeasure={ mealMeasure }

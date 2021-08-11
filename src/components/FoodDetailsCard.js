@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ShareBtn from './FavoriteBtn';
 import FavoriteBtn from './ShareBtn';
+import FetchApi from '../services/ApiFetch';
 
-function FoodCard({ details, mealIngredients, mealMeasure }) {
+function FoodDetailsCard({ details, mealIngredients, mealMeasure }) {
+  const [recomendation, setRecomendation] = useState();
+
+  useEffect(() => {
+    async function getRecomendations() {
+      const qty = 6;
+      const response = await FetchApi('themealdb', 'nome', '');
+      const recomendations = response.meals.slice(0, qty);
+      setRecomendation(recomendations);
+    }
+    getRecomendations();
+  }, []);
+
   function renderDetails() {
     return (
       <div className="details-body">
@@ -46,13 +59,12 @@ function FoodCard({ details, mealIngredients, mealMeasure }) {
   return (
     <div className="details-container">
       { details ? renderDetails() : 'Loading...'}
-      {console.log(document.querySelector('.details-body'))}
     </div>
   );
 }
 
-export default FoodCard;
-FoodCard.propTypes = {
+export default FoodDetailsCard;
+FoodDetailsCard.propTypes = {
   details: PropTypes.func,
   mealIngredients: PropTypes.func,
   mealMeasure: PropTypes.func,
