@@ -1,4 +1,5 @@
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 import Explore from '../pages/explore/Explore';
 import { renderWithRouterAndRedux } from './renderWithRouterAndRedux';
 
@@ -13,12 +14,29 @@ const INITIAL_STATE = {
 };
 
 describe('Testes para página de Perfil', () => {
-  it('Verifica se há os itens procurados', async () => {
+  it('Testa botão comidas', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(),
     });
-    const { findByText, findByTestId } = renderWithRouterAndRedux(
+    const { findByText, findByTestId, getByRole } = renderWithRouterAndRedux(
+      <Explore />,
+      { route: '/explorar' }, INITIAL_STATE,
+    );
+    const type = await findByText(/comidas/i);
+    const title = await findByTestId('page-title');
+    expect(type).toBeInTheDocument();
+    expect(title).toBeInTheDocument();
+    const Comidas = await getByRole('button', { name: /Comidas/i });
+    expect(Comidas).toBeInTheDocument();
+    userEvent.click(Comidas);
+  });
+  it('Testa botão comidas', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(),
+    });
+    const { findByText, findByTestId, getByRole } = renderWithRouterAndRedux(
       <Explore />,
       { route: '/explorar' }, INITIAL_STATE,
     );
@@ -28,6 +46,21 @@ describe('Testes para página de Perfil', () => {
     expect(type).toBeInTheDocument();
     expect(title).toBeInTheDocument();
     expect(header).toBeInTheDocument();
+    const Bebidas = await getByRole('button', { name: /Bebidas/i });
+    expect(Bebidas).toBeInTheDocument();
+    userEvent.click(Bebidas);
+  });
+  it('Testa botão Perfil', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(),
+    });
+    const { findByTestId } = renderWithRouterAndRedux(
+      <Explore />,
+      { route: '/explorar' }, INITIAL_STATE,
+    );
+    const header = await findByTestId('profile-top-btn');
+    userEvent.click(header);
   });
 });
 

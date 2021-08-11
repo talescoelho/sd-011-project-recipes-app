@@ -24,8 +24,22 @@ const recipe = {
   tags: ['IBA,ContemporaryClassic'],
 };
 
+const recipeMeal = {
+  id: '52977',
+  type: 'comida',
+  area: '',
+  category: 'Side',
+  alcoholicOrNot: '',
+  name: 'Corba',
+  image: 'https://www.thecocktaildb.com/images/media/drink/apneom1504370294.jpg',
+  doneDate: '10/08/2021 17:44:13',
+  tags: ['Soup'],
+};
+
+const mockRoute = '/receitas-feitas';
+
 describe('Testes para página de Receitas Feitas', () => {
-  it('Verifica se há os itens procurados', async () => {
+  it('Verifica se há os itens', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(),
@@ -33,7 +47,7 @@ describe('Testes para página de Receitas Feitas', () => {
     localStorage.setItem('doneRecipes', JSON.stringify([recipe]));
     const { findByText, findByTestId, getByRole } = renderWithRouterAndRedux(
       <RecipesDone />,
-      { route: '/receitas-favoritas' }, INITIAL_STATE,
+      { route: mockRoute }, INITIAL_STATE,
     );
     const text = await findByText(/Receitas Feitas/i);
     const title = await findByTestId('page-title');
@@ -51,6 +65,38 @@ describe('Testes para página de Receitas Feitas', () => {
     expect(Drinks).toBeInTheDocument();
     userEvent.click(Drinks);
     userEvent.click(image);
+  });
+  it('Verifica se há os itens procurados', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(),
+    });
+    localStorage.setItem('doneRecipes', JSON.stringify([recipeMeal]));
+    const { findByTestId } = renderWithRouterAndRedux(
+      <RecipesDone />,
+      { route: mockRoute }, INITIAL_STATE,
+    );
+    const toptext = await findByTestId('0-horizontal-top-text');
+    const date = await findByTestId('0-horizontal-done-date');
+    const tag = await findByTestId('0-Soup-horizontal-tag');
+    expect(date).toBeInTheDocument();
+    expect(toptext).toBeInTheDocument();
+    expect(tag).toBeInTheDocument();
+  });
+  it('Verifica se há os itens procurados', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(),
+    });
+    localStorage.setItem('doneRecipes', JSON.stringify([recipe]));
+    const { findByTestId, findByText } = renderWithRouterAndRedux(
+      <RecipesDone />,
+      { route: '/receitas-feitas' }, INITIAL_STATE,
+    );
+    const shareBtn = await findByTestId('0-horizontal-share-btn');
+    userEvent.click(shareBtn);
+    const message = await findByText(/Link copiado/i);
+    expect(message).toBeInTheDocument();
   });
 });
 
