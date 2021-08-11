@@ -83,11 +83,12 @@ function RecipeMealInProgress({ match, location }) {
           </h3>
           <h2>Ingredientes</h2>
           <CheckboxMeal
+            recipe={ recipe }
             ingredients={ ingredients }
             measures={ measures }
             pathname={ pathname }
           />
-          <h2>Intruções</h2>
+          <h2>Instruções</h2>
           <p data-testid="instructions">
             {recipe.meals[0].strInstructions}
           </p>
