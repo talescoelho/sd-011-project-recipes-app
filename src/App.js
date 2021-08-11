@@ -66,6 +66,11 @@ function App() {
           path="/explorar/comidas/area"
           component={ ExplorerByLocation }
         />
+        <Route
+          exact
+          path="/explorar/bebidas/area"
+          component={ ExplorerByLocation }
+        />
         <Route exact path="/perfil" component={ Profile } />
         <Route
           exact

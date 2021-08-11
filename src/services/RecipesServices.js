@@ -8,6 +8,8 @@ export const API_URL_FOODS_INGREDIENTS = 'https://www.themealdb.com/api/json/v1/
 export const API_URL_DRINKS_INGREDIENTS = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
 export const API_URL_FOODS_INGREDIENTS_FILTER = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
 export const API_URL_DRINKS_INGREDIENTS_FILTER = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
+export const API_URL_FOODS_LOCATION = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+export const API_URL_FOOD_BY_COUNTRY = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
 
 export async function getDrinkById(id) {
   const request = await fetch(`${API_URL_DRINKS_BY_ID}${id}`);
@@ -76,4 +78,18 @@ export async function getDrinksIngredientsFilter(ingredient) {
   const response = await request.json();
   const { drinks } = response;
   return drinks;
+}
+
+export async function getFoodByLocation() {
+  const request = await fetch(`${API_URL_FOODS_LOCATION}`);
+  const response = await request.json();
+  const { meals } = response;
+  return meals;
+}
+
+export async function getFoodByCountry(country) {
+  const request = await fetch(`${API_URL_FOOD_BY_COUNTRY}${country}`);
+  const response = await request.json();
+  const { meals } = response;
+  return meals;
 }

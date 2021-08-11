@@ -12,6 +12,8 @@ import {
   getDrinksIngredients,
   getFoodsIngredientsFilter,
   getDrinksIngredientsFilter,
+  getFoodByLocation,
+  getFoodByCountry,
 } from '../services/RecipesServices';
 
 function Provider({ children }) {
@@ -120,6 +122,9 @@ function Provider({ children }) {
     allFoods,
     setFoodIngredients,
     setDrinkIngredients,
+    getFoodByLocation,
+    getAllFoods,
+    getFoodByCountry,
   };
 
   return (
