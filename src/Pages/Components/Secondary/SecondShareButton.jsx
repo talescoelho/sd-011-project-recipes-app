@@ -1,5 +1,6 @@
 import React from 'react';
 import copy from 'clipboard-copy';
+import PropTypes from 'prop-types';
 import shareIcon from '../../../images/shareIcon.svg';
 
 function SecondShareButton({ itemId, type, testID }) {
@@ -25,3 +26,9 @@ function SecondShareButton({ itemId, type, testID }) {
 }
 
 export default SecondShareButton;
+
+SecondShareButton.propTypes = {
+  itemId: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  testID: PropTypes.string.isRequired,
+};

@@ -64,7 +64,13 @@ function RecipesMade() {
             <p data-testid={ `${index}-horizontal-done-date` }>
               {doneDate}
             </p>
-            { tags.map((data) => <p key={ index } data-testid={ `${index}-${data}-horizontal-tag` }>{data}</p>)}
+            { tags.map((data) => (
+              <p
+                key={ index }
+                data-testid={ `${index}-${data}-horizontal-tag` }
+              >
+                {data}
+              </p>))}
             <SecondShareButton
               itemId={ id }
               type={ type }

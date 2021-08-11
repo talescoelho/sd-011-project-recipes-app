@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { verifyFavoritesDrink,
   verifyFavoritesFood } from '../../../Helpers/VerifyFavorites';
 import blackHeartIcon from '../../../images/blackHeartIcon.svg';
@@ -46,3 +47,12 @@ function SecondFavoriteButton({ itemId, type, currentItem, setUpdate, update, te
 }
 
 export default SecondFavoriteButton;
+
+SecondFavoriteButton.propTypes = {
+  itemId: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  testId: PropTypes.string.isRequired,
+  setUpdate: PropTypes.func.isRequired,
+  update: PropTypes.bool.isRequired,
+  currentItem: PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
+};
