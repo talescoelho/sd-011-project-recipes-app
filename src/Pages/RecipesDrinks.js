@@ -1,28 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import './RecipesFoods.css';
 import CardRecipes from '../Components/CardRecipes';
-// import MyContext from '../Context/MyContext';
+import { getDrink } from '../Services/FetchApi';
+import MyContext from '../Context/MyContext';
 
 export default function RecipesFood() {
-  const [recipes, setRecipes] = useState([]);
+  const { cards, setCards } = useContext(MyContext);
 
+  const searchCards = async () => {
+    const response = await getDrink();
+    setCards(response.drinks);
+  };
   useEffect(() => {
-    const getApi = async () => {
-      const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-      const response = await fetch(endPoint);
-      const results = await response.json();
-      const { drinks } = results;
-      setRecipes(drinks);
-    };
-    getApi();
+    searchCards();
+    
   }, []);
+
+  console.log(cards.drinks);
+
   const renderCardRecipes = () => {
     const showMaxRecipes = 12;
-    if (recipes) {
-      const filteredRecipe = recipes.filter(
+    if (cards) {
+      const filteredRecipe = cards.filter(
         (drinks, index) => index < showMaxRecipes,
       );
       return filteredRecipe;
@@ -32,8 +34,9 @@ export default function RecipesFood() {
     <div>
       <Header className="title" title="Bebidas" searchIconAppears />
       <div className="cardlist">
-        {renderCardRecipes().map((recp, index) => (
+        {cards.length > 0 && renderCardRecipes().map((recp, index) => (
           <Link
+            className="link"
             key={ index }
             to={ {
               pathname: `/bebidas/${recp.idDrink}`,

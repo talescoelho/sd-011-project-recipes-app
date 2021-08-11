@@ -3,6 +3,7 @@ import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ShareButton from '../Components/ShareButton';
+// import RecomendedRecipes from '../Components/RecomendedRecipes';
 import './Styles/detailsrecipe.css';
 
 function DrinkDetails({ match: { params: { id } } }) {
@@ -79,7 +80,7 @@ function DrinkDetails({ match: { params: { id } } }) {
         />
       </div>
       {/* <h3 data-testid={ `${index}-recomendation-card"` }>Recomendadas</h3> */}
-      <div id="recommended"><h4>oi</h4></div>
+      {/* <div id="recommended"><RecomendedRecipes /></div> */}
       <button
         id="start-recipe-btn"
         type="button"

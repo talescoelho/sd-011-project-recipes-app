@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import './RecipesFoods.css';
 import CardRecipes from '../Components/CardRecipes';
+import MyContext from '../Context/MyContext';
+import { getFood } from '../Services/FetchApi';
 
 export default function RecipesFood() {
-  const [recipes, setRecipes] = useState([]);
+  const { cards, setCards } = useContext(MyContext);
+
+  const searchCards = async () => {
+    const response = await getFood();
+    setCards(response.meals);
+  };
 
   useEffect(() => {
-    const getApi = async () => {
-      const endPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-      const response = await fetch(endPoint);
-      const results = await response.json();
-      const { meals } = results;
-      setRecipes(meals);
-    };
-    getApi();
+    searchCards();
   }, []);
 
   const renderCardRecipes = () => {
     const showMaxRecipes = 12;
-    if (recipes) {
-      const filteredRecipe = recipes.filter(
+    if (cards) {
+      const filteredRecipe = cards.filter(
         (meals, index) => index < showMaxRecipes,
       );
       return filteredRecipe;
@@ -33,8 +33,9 @@ export default function RecipesFood() {
     <div>
       <Header className="title" title="Comidas" searchIconAppears />
       <div className="cardlist">
-        {renderCardRecipes().map((recp, index) => (
+        {cards.length > 0 && renderCardRecipes().map((recp, index) => (
           <Link
+            className="link"
             key={ index }
             to={ {
               pathname: `/comidas/${recp.idMeal}`,
