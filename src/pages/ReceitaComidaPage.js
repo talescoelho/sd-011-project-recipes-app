@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import ShareFavBtn from '../components/ShareFavBtn';
 import { ingredientFoodHelper } from '../components/Helper';
+import '../style/pageDetails.css';
 
 export default function ReceitaComidaPage() {
   const [foodDetails, setFoodDetails] = useState();
   const [recomendations, setRecomendations] = useState();
   const [storageInPrgrss, setStorageIn] = useState();
+  const [storageFavorite, setStorageFav] = useState();
   const location = useLocation();
   const FOOD_DETAILS_URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
   const RECOMENDATIONS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -24,8 +26,14 @@ export default function ReceitaComidaPage() {
     setStorageIn(getInPrgssStorage);
   }
 
+  function getFavoriteStorage() {
+    const getFavStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    setStorageFav(getFavStorage);
+  }
+
   useEffect(() => {
     getInProgress();
+    getFavoriteStorage();
     fetch(RECOMENDATIONS_URL)
       .then((response) => response.json())
       .then((data) => setRecomendations(data));
@@ -44,11 +52,11 @@ export default function ReceitaComidaPage() {
               <img
                 src={ recipe.strDrinkThumb }
                 alt={ recipe.strDrink }
-                height="180px"
-                width="180px"
+                height="200px"
+                width="200px"
                 data-testid="recipe-photo"
               />
-              <p className="legend">{ recipe.strDrink }</p>
+              <p data-testid={ `${index}-recomendation-title` }>{ recipe.strDrink }</p>
             </div>
           );
         }
@@ -67,9 +75,16 @@ export default function ReceitaComidaPage() {
           src={ foodDetails.meals[0].strMealThumb }
           alt="Foto"
           data-testid="recipe-photo"
+          width="200px"
         />
         <h1 data-testid="recipe-title">{ foodDetails.meals[0].strMeal }</h1>
-        <ShareFavBtn type="comida" id={ foodDetails.meals[0].idMeal } />
+        <ShareFavBtn
+          type="comida"
+          id={ foodDetails.meals[0].idMeal }
+          favorited={ storageFavorite }
+          typeRecipe="meals"
+          data={ foodDetails.meals[0] }
+        />
         <h5 data-testid="recipe-category">{ foodDetails.meals[0].strCategory }</h5>
 
         <div>
@@ -90,6 +105,16 @@ export default function ReceitaComidaPage() {
             { foodDetails.meals[0].strInstructions }
           </p>
         </div>
+        <Link to={ `/comidas/${foodDetails.meals[0].idMeal}/in-progress` }>
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            style={ { position: 'fixed', bottom: '0px', left: '0px' } }
+          >
+            {storageInPrgrss && storageInPrgrss.meals[foodDetails.meals[0].idMeal] ? (
+              'Continuar Receita') : 'Iniciar Receita'}
+          </button>
+        </Link>
         <object
           src={ foodDetails.meals[0].strYoutube }
           data-testid="video"
@@ -97,18 +122,8 @@ export default function ReceitaComidaPage() {
           width="400"
           height="300"
         />
-        <Link to={ `/comidas/${foodDetails.meals[0].idMeal}/in-progress` }>
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            style={ { position: 'fixed', bottom: '0px' } }
-          >
-            {storageInPrgrss && storageInPrgrss.meals[foodDetails.meals[0].idMeal] ? (
-              'Continuar Receita') : 'Iniciar Receita'}
-          </button>
-        </Link>
         <h3>Receitas recomendadas</h3>
-        <div>
+        <div className="scrolling-wrapper">
           { recomendations ? renderRecomendation() : <p>Loading...</p> }
         </div>
       </div>
