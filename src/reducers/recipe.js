@@ -66,6 +66,8 @@ export const recipeDrink = (state = INITIAL_STATE, action) => {
           [action.payload]: [action.payload2],
         },
         meals: {
+          controle: '999999999999',
+          // [action.payload]: [action.payload2],
         },
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(obj));

@@ -121,7 +121,7 @@ class ReceitaEmProgressoBebida extends Component {
           </Link>
           <Link
             to={ {
-              pathname: `/comidas/${id}`,
+              pathname: `/bebidas/${id}`,
             } }
           >
             <button

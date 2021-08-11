@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Carousel from './Carousel';
 import { addDrinkRecipeOngoing, addRecipeFavorite } from '../actions';
+import shareIcon from '../images/shareIcon.svg';
 
 class BebidasDetalhes extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class BebidasDetalhes extends Component {
       ingredientList: [],
       finalList: [],
       isMealDone: false,
+      isMealInProgress: false,
     };
 
     this.drinkDetailsFetchAPI = this.drinkDetailsFetchAPI.bind(this);
@@ -21,14 +23,26 @@ class BebidasDetalhes extends Component {
 
   componentDidMount() {
     this.drinkDetailsFetchAPI();
+    this.fetchInProgressRecipes();
     this.fetchDoneRecipes();
+  }
+
+  fetchInProgressRecipes() {
+    const { match: { params: { id } } } = this.props;
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgressRecipes !== null) {
+      const inProgress = Object.hasOwnProperty.call(inProgressRecipes.cocktails, id);
+      this.setState({
+        isMealInProgress: inProgress,
+      });
+    }
   }
 
   fetchDoneRecipes() {
     const { match: { params: { id } } } = this.props;
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (doneRecipes !== null) {
-      const filter = doneRecipes.filter((recipe) => recipe === id);
+      const filter = doneRecipes.filter((recipe) => recipe.id === id);
       if (filter.length >= 1) {
         this.setState({
           isMealDone: true,
@@ -40,11 +54,19 @@ class BebidasDetalhes extends Component {
   CopyToClipboard() { // https://orclqa.com/copy-url-clipboard/
     const inputc = document.body.appendChild(document.createElement('input'));
     inputc.value = window.location.href;
-    inputc.focus();
     inputc.select();
     document.execCommand('copy');
     inputc.parentNode.removeChild(inputc);
-    alert('Link copiado!');
+    this.setState({
+      showSpan: true,
+    }, () => {
+      const ONE_SECOND = 2000;
+      setTimeout(() => {
+        this.setState({
+          showSpan: false,
+        });
+      }, ONE_SECOND);
+    });
   }
 
   async drinkDetailsFetchAPI() {
@@ -78,7 +100,9 @@ class BebidasDetalhes extends Component {
   }
 
   render() {
-    const { drinkDetails, ingredientList, finalList, isMealDone } = this.state;
+    const { drinkDetails, ingredientList, finalList, isMealDone, showSpan,
+      buttonText, isMealInProgress,
+    } = this.state;
     const { addDrinkRecipeCurr, addRecipeFav, match: {
       params: { id },
     } } = this.props;
@@ -105,8 +129,10 @@ class BebidasDetalhes extends Component {
           data-testid="share-btn"
           onClick={ () => this.CopyToClipboard() }
         >
-          Compartilhe
+          <img src={ shareIcon } alt="icone botão" />
+          { buttonText }
         </button>
+        <span style={ { display: showSpan ? 'inline' : 'none' } }>Link copiado!</span>
         <button
           type="button"
           data-testid="favorite-btn"
@@ -150,6 +176,21 @@ class BebidasDetalhes extends Component {
               onClick={ () => addDrinkRecipeCurr(drinkDetails.idDrink, finalList) }
             >
               Iniciar Receita
+            </button>
+          </Link>
+        )}
+        { !isMealInProgress ? <div>...</div> : (
+          <Link
+            to={ {
+              pathname: `/bebidas/${id}/in-progress`,
+            } }
+          >
+            <button
+              type="button"
+              className="start-recipe"
+              data-testid="start-recipe-btn"
+            >
+              Continuar Receita
             </button>
           </Link>
         )}
