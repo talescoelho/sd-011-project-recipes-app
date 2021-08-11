@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
 import { Button, SubButton, Container, Title } from '../styles';
+import Receitas from '../images/Receitas.png';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -32,6 +33,7 @@ export default function Login() {
 
   return (
     <Container>
+      <img src={ Receitas } alt="Logo" width="170px" />
       <Form
         className="d-flex flex-column align-items-center bg-white rounded p-5 shadow-lg"
       >
@@ -66,7 +68,6 @@ export default function Login() {
         <SubButton
           className="btn"
           type="button"
-          variant="$orange-500"
           onClick={ () => { setPassword('1234567'); setEmail('teste@teste.com'); } }
         >
           Esqueceu a senha ?

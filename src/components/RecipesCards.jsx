@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router';
 import SearchBarContext from '../context/searchBarContext';
-import RecipeCardFood from './RecipeCardFood';
-import RecipeCardCocktail from './RecipeCardCocktail';
+import RecipeCard from './RecipeCard';
 
 export default function RecipesCards({ type }) {
   const { recipes, keyRedirect } = useContext(SearchBarContext);
@@ -11,7 +10,7 @@ export default function RecipesCards({ type }) {
     (recipes.length === 1 && keyRedirect) ? (
       <Redirect to={ `/comidas/${recipes[0].idMeal}` } />)
       : recipes.map((element, index) => (
-        <RecipeCardFood key={ index } index={ index } recipe={ element } />
+        <RecipeCard type={ type } key={ index } index={ index } recipe={ element } />
       ))
   );
 
@@ -19,12 +18,12 @@ export default function RecipesCards({ type }) {
     (recipes.length === 1 && keyRedirect) ? (
       <Redirect to={ `/bebidas/${recipes[0].idDrink}` } />)
       : recipes.map((element, index) => (
-        <RecipeCardCocktail key={ index } index={ index } recipe={ element } />
+        <RecipeCard type={ type } key={ index } index={ index } recipe={ element } />
       ))
   );
 
   return (
-    <div>
+    <div className=" d-flex flex-column align-items-center px-3">
       { (type.includes('omida')) ? verifyFood() : (verifyDrink())}
     </div>
   );

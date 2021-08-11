@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState, useContext } from 'react';
+import { ButtonGroup } from 'react-bootstrap';
 import { Foods, Cocktails } from '../services';
 import SearchBarContext from '../context/searchBarContext';
 
@@ -36,8 +37,9 @@ export default function CategoriesButtons({ type }) {
   }, [type]);
 
   return (
-    <div>
+    <div className="btn-group d-flex flex-wrap mb-3">
       <button
+        className="btn btn-light btn-sm border"
         data-testid="All-category-filter"
         type="button"
         onClick={ () => allCategories() }
@@ -48,6 +50,7 @@ export default function CategoriesButtons({ type }) {
       {
         categories.slice(0, five).map(({ strCategory }, index) => (
           <button
+            className="btn btn-light btn-sm border"
             type="button"
             key={ index }
             onChecked={ false }

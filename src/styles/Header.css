@@ -1,7 +1,8 @@
 .btns {
-  background-color: rgb(218, 216, 216);
+  align-items: center;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 10px;
 }
 
 .btn-search {
