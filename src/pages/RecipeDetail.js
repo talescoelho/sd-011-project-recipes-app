@@ -12,8 +12,6 @@ function RecipeDetail({ history: { location: { pathname } },
 
   React.useEffect(() => {
     dispatchFetchRecommended(type);
-    console.log('Type em RecipeDetail');
-    console.log(type);
   }, [dispatchFetchRecommended, type]);
 
   React.useEffect(() => {
