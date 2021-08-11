@@ -6,7 +6,7 @@ import renderWithRouterAndStore from './testConfig';
 
 const history = createMemoryHistory({ initialEntries: ['/comidas'] });
 
-afterEach(() => jest.clearAllMocks());
+// afterEach(() => jest.clearAllMocks());
 
 describe('Header que será usado em várias páginas da aplicação', () => {
   test('Elemento de profile deve estar renderizando', () => {
