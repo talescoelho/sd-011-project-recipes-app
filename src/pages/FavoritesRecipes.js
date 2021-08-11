@@ -34,7 +34,6 @@ const FavoritesRecipes = () => {
   }
   return (
     <>
-      <p>teste</p>
       <Header title="Receitas Favoritas" />
       <section className="favoriteFilters">
         <button
