@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams, useHistory } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import ShareButton from './ShareButton';
 import verifyIngredients from '../../Helpers/verifyIngredients';
 import '../../styles/detail-screen.css';
 import FavoriteButton from './FavoriteButton';
 import { manageDetailAPI } from '../../Helpers/convertUrlToID';
 import setDoneRecipes from '../../Helpers/setDoneRecipes';
+import createDoneRecipes from '../../Helpers/createDoneRecipes';
 
 function InProgressDrink() {
-  const history = useHistory();
   const { id } = useParams();
   const [usedIngredients, setUsedIngredients] = useState([]);
   const [showFinish, setShowFinish] = useState(true);
@@ -20,6 +20,9 @@ function InProgressDrink() {
   const arrayOfMeasures = [];
 
   useEffect(() => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    createDoneRecipes(doneRecipes);
+
     const currentStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (!currentStorage) {
       localStorage.setItem('inProgressRecipes', JSON.stringify({

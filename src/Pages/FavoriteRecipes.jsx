@@ -21,6 +21,7 @@ function FavoriteRecipes() {
     if (filter === 'all') {
       setFiltereds(favoriteRecipes);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, update]);
 
   return (

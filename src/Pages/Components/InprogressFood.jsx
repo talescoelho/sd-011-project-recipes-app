@@ -6,29 +6,22 @@ import verifyIngredients from '../../Helpers/verifyIngredients';
 import ShareButton from './ShareButton';
 import FavoriteButton from './FavoriteButton';
 import setDoneRecipes from '../../Helpers/setDoneRecipes';
-
-// function verifyIngredients(string, array) {
-//   return string && string !== ' ' ? array.push(string) : null;
-// }
+import createDoneRecipes from '../../Helpers/createDoneRecipes';
 
 function InProgressFood() {
-  // const history = useHistory();
   const { id } = useParams();
   const [usedIngredients, setUsedIngredients] = useState([]);
   const [showFinish, setShowFinish] = useState(true);
   const [itemDetail, setItemDetail] = useState({
     meals: null,
   });
-  // const [doneRecipes, setDoneRecipes] = useState([]);
 
   const arrayOfIngredients = [];
   const arrayOfMeasures = [];
 
   useEffect(() => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (!doneRecipes) {
-      localStorage.setItem('doneRecipes', JSON.stringify([]));
-    }
+    createDoneRecipes(doneRecipes);
 
     const currentStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (!currentStorage) {
@@ -62,7 +55,6 @@ function InProgressFood() {
     const currentStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     currentStorage.meals[id] = usedIngredients;
     localStorage.setItem('inProgressRecipes', JSON.stringify(currentStorage));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
 
     if (arrayOfIngredients.length === usedIngredients.length) {
       setShowFinish(false);
