@@ -17,7 +17,7 @@ function Comidas() {
   const title = type === 'drinks' ? 'Bebidas' : 'Comidas';
   const { isLoading,
     dataRecipes,
-    setRecipeType } = useContext(RecipesContext);  
+    setRecipeType } = useContext(RecipesContext);
   const { route } = useState(pathname);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
 
