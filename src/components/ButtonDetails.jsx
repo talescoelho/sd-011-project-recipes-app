@@ -26,6 +26,7 @@ export default function ButtonDetails({ foodOrDrink, id }) {
   const getLocal = JSON.parse(local);
   const hasId = local && Object.keys(getLocal)
     .map((el) => getLocal[el].id).some((x) => x === id);
+  console.log(hasId);
 
   function handleClick() {
     setbutton(!button);

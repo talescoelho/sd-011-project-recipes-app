@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import HeaderDetails from '../components/HeaderDetails';
 import IngredientDetails from '../components/IngredientDetails';
 import AppContext from '../context/AppContext';
+import '../styles/carousel.css';
 
 function FoodProcess() {
   const { setIdDetails, idDetails } = useContext(AppContext);
@@ -19,6 +20,19 @@ function FoodProcess() {
   }
 
   useEffect(
+    () => {
+      const ingredients = idDetails.length >= 1 && Object.keys(idDetails[0])
+        .filter((el) => el.includes('strIngredient'));
+      const measure = idDetails.length >= 1
+      && Object.keys(idDetails[0]).filter((el) => el.includes('strMeasure'));
+      const ingredientList = ingredients && ingredients
+        .filter((el) => idDetails[0][el])
+        .map((ing, index) => `${idDetails[0][ing]} - ${idDetails[0][measure[index]]}`);
+      console.log(ingredientList);
+    }, [idDetails],
+  );
+
+  useEffect(
     () => { fetchFoodProcess(); }, [],
   );
 
@@ -32,7 +46,16 @@ function FoodProcess() {
             alt="image_of_recipe"
           />
           <HeaderDetails foodOrDrink="Comidas" />
-          <IngredientDetails inProcess />
+          <IngredientDetails inProcess food />
+          <Link to="/receitas-feitas">
+            <button
+              data-testid="finish-recipe-btn"
+              type="button"
+              disabled
+            >
+              Finalizar
+            </button>
+          </Link>
         </div>
       )}
     </div>
