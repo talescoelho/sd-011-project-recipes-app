@@ -20,7 +20,7 @@ export default function RecipesFood() {
     };
     getApi();
   }, []);
-  const renderCardRecipes = () => {
+    const renderCardRecipes = () => {
     const showMaxRecipes = 12;
     if (recipes) {
       const filteredRecipe = recipes.filter(

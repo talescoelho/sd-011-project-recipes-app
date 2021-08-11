@@ -2,33 +2,21 @@
 import React, { useEffect, useState } from 'react';
 import CardRecipes from '../Components/CardRecipes';
 import { Link, useHistory } from 'react-router-dom';
+import useSearchbar from '../Context/useSearchbar';
 
 export default function RecomendedRecipes(props) {
 const [recipes, setRecipes] = useState([]);
-    
+const { getRecipes } = useSearchbar();
   useEffect(() => {
-  
-    if(useHistory.pathname === '/drink-detail'){
-    const getApi = async () => {
-      const endPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+      const getApi = async (site) => {
+      const endPoint = `https://www.the${site}db.com/api/json/v1/1/search.php?s=`;
       const response = await fetch(endPoint);
       const results = await response.json();
-      const { meals } = results;
-      setRecipes(meals);
-      const index2 = "Meal";
-    };
-    getApi();}
-    if(useHistory.pathname === '/details-recipe'){
-    const getApi = async () => {
-      const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-      const response = await fetch(endPoint);
-      const results = await response.json();
-      const { drink } = results;
-      setRecipes(drink);
-      const index2 = "Drink"
+      const { recp } = results;
+      setRecipes(recp);
+      console.log(recp);
     };
     getApi();
-    }
     }, []);
     const renderCardRecipes = () => {
     const showMaxRecipes = 6;
@@ -39,6 +27,7 @@ const [recipes, setRecipes] = useState([]);
       return filteredRecipe;
     }
     };
+
   return(
   <div className="recomended">
     {renderCardRecipes().map((recp, index) => (
@@ -50,8 +39,8 @@ const [recipes, setRecipes] = useState([]);
         <CardRecipes
           key={ index }
           index={ index }
-          //thumb={ recp.str+('index2')+Thumb }
-          //title={ recp.str+('index2') }
+          thumb={ recp.strMealThumb }
+          title={ recp.strMeal }
         />
       </Link>))}
   </div>

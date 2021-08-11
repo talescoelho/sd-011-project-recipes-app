@@ -80,7 +80,7 @@ function FoodDetails(props) {
       </div>
       <br/>
       {/* <h3 data-testid={ `${index}-recomendation-card"` }>Recomendadas</h3> */}
-      <div className="recommended"> oi <RecomendedRecipes/></div>
+      <div className="recommended"><RecomendedRecipes/></div>
       <br/>
       <button
         className="start-recipe-btn"

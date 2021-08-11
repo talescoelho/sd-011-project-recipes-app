@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ShareButton from '../Components/ShareButton';
+import RecomendedRecipes from '../Components/RecomendedRecipes';
 import './Styles/detailsrecipe.css';
 
 function DetailsRecipe() {
@@ -78,7 +79,7 @@ function DetailsRecipe() {
         />
       </div>
       {/* <h3 data-testid={ `${index}-recomendation-card"` }>Recomendadas</h3> */}
-      <div className="recommended"><h4>oi</h4></div>
+      <div className="recommended"><RecomendedRecipes/></div>
       <button
         className="start-recipe-btn"
         type="button"
