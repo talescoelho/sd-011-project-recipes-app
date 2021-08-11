@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -9,6 +9,15 @@ function ExplorerDrink() {
     enableSearchButton: true,
     enableProfileButton: true,
   };
+
+  const [randomIDRecipe, setRandomIDRecipe] = useState('');
+
+  useEffect(() => {
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
+      .then((response) => response.json())
+      .then((result) => setRandomIDRecipe(result.drinks[0].idDrink));
+  }, []);
+
   return (
     <div>
       <Header props={ headerProps } />
@@ -20,7 +29,7 @@ function ExplorerDrink() {
           Por Ingredientes
         </button>
       </Link>
-      <Link to="/explorar/bebidas/area">
+      <Link to={ `/bebidas/${randomIDRecipe}` }>
         <button
           type="button"
           data-testid="explore-surprise"
