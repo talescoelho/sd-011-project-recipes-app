@@ -24,7 +24,7 @@ class FinishRecipeButton extends React.Component {
       alcoholicOrNot: recipe.strAlcoholic || '',
       name: recipe.strMeal || recipe.strDrink,
       image: recipe.strMealThumb || recipe.strDrinkThumb,
-      doneDate: Date.now(),
+      doneDate: new Date().toLocaleString('pt-BR').split(' ')[0],
       tags: (recipe.strTags && recipe.strTags.toLowerCase().split(',')) || [],
     };
 
