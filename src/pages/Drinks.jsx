@@ -5,11 +5,16 @@ import FooterMenu from '../components/FooterMenu';
 import UserContext from '../context/UserContext';
 import '../css/mainPage.css';
 import CategoriesDrinks from '../components/CategoriesDrinks';
+// import SearchBarDrinks from '../components/SearchBarDrinks';
 
 export default function Drinks({ history }) {
   const { drinks } = useContext(UserContext);
   if (drinks.length === 0) {
     return <div>loading</div>;
+  }
+
+  if (drinks.length === 1) {
+    history.push(`/bebidas/${drinks[0].idDrink}`);
   }
 
   function clickDetails(id) {
@@ -20,17 +25,24 @@ export default function Drinks({ history }) {
   return (
     <>
       <Header title={ bebidas } />
+      {/* <SearchBarDrinks /> */}
       <CategoriesDrinks />
       <section className="drinks">
-        {drinks.map((drink) => (
+        {drinks.map((drink, index) => (
           <button
             type="button"
             className="drink"
             key={ drink.idDrink }
             onClick={ () => clickDetails(drink.idDrink) }
           >
-            <img src={ drink.strDrinkThumb } alt="imagem da bebida" />
-            <p>{ drink.strDrink }</p>
+            <div data-testid={ `${index}-recipe-card` }>
+              <img
+                src={ drink.strDrinkThumb }
+                alt="imagem da bebida"
+                data-testid={ `${index}-card-img` }
+              />
+              <p data-testid={ `${index}-card-name` }>{ drink.strDrink }</p>
+            </div>
           </button>
         ))}
       </section>

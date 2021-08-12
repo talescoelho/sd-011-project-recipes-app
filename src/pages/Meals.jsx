@@ -5,12 +5,17 @@ import FooterMenu from '../components/FooterMenu';
 import UserContext from '../context/UserContext';
 import '../css/mainPage.css';
 import CategoriesMeals from '../components/CategoriesMeals';
+// import SearchBarMeals from '../components/SearchBarMeals';
 
 export default function Meals(props) {
   const { history } = props;
   const { meals } = useContext(UserContext);
   if (meals.length === 0) {
     return <div>loading</div>;
+  }
+
+  if (meals.length === 1) {
+    history.push(`/comidas/${meals[0].idMeal}`);
   }
 
   // A função faz uma nova requisição com um ID específico.
@@ -22,21 +27,28 @@ export default function Meals(props) {
   }
 
   const comidas = 'Comidas';
-  console.log(props);
+
   return (
     <>
       <Header title={ comidas } />
+      {/* <SearchBarMeals /> */}
       <CategoriesMeals />
       <section className="meals">
-        {meals.map((meal) => (
+        {meals.map((meal, index) => (
           <button
             type="button"
             className="meal"
             key={ meal.idMeal }
             onClick={ () => clickDetails(meal.idMeal) }
           >
-            <img src={ meal.strMealThumb } alt="imagem da refeição" />
-            <p>{meal.strMeal}</p>
+            <div data-testid={ `${index}-recipe-card` }>
+              <img
+                src={ meal.strMealThumb }
+                alt="imagem da refeição"
+                data-testid={ `${index}-card-img` }
+              />
+              <p data-testid={ `${index}-card-name` }>{ meal.strMeal }</p>
+            </div>
           </button>
         ))}
       </section>
