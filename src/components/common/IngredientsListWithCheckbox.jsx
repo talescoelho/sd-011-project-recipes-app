@@ -43,14 +43,14 @@ const IngredientsListWithCheckbox = ({
       <ul>
         { ingredients.map((ingredient, index) => (
           <li key={ ingredient } data-testid={ `${index}-ingredient-step` }>
+            <input
+              defaultChecked={ localStorageClone.includes(index) }
+              id={ ingredient }
+              index={ index }
+              onChange={ handleChange }
+              type="checkbox"
+            />
             <label htmlFor={ ingredient }>
-              <input
-                defaultChecked={ localStorageClone.includes(index) }
-                id={ ingredient }
-                index={ index }
-                onChange={ handleChange }
-                type="checkbox"
-              />
               { ingredient }
             </label>
           </li>
