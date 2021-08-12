@@ -6,7 +6,7 @@ import shareIcon from '../images/shareIcon.svg';
 import '../styles/RecipesDone.css';
 
 export default function RecipesDone() {
-  const recipesDone = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
   const [rpsDone, setRpsDone] = useState(recipesDone);
   const [copyText, setCopyText] = useState('');
 
@@ -97,16 +97,16 @@ export default function RecipesDone() {
                   <b />
                   <p data-testid={ `${index}-horizontal-done-date` }>{ item.doneDate }</p>
                   <b />
-                  {/* <p>
-                    { item.tags.slice(1, 2).map((itemTag, indexTag) => (
+                  <p>
+                    { item.tags.map((itemTag, indexTag) => (
                       <p
                         data-testid={ `${index}-${itemTag}-horizontal-tag` }
                         key={ indexTag }
                       >
                         { itemTag }
-                      </p> */}
-                    {/* ))}
-                  </p> */}
+                      </p>
+                    ))}
+                  </p>
                 </section>
               </section>
             );
@@ -141,7 +141,6 @@ export default function RecipesDone() {
                   { item.alcoholicOrNot }
                 </p>
                 <b />
-                {/* <p data-testid={ `${index}-horizontal-done-date` }>{ item.doneDate }</p> */}
               </section>
             </section>
           );

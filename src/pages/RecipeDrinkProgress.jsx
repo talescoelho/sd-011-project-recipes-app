@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../styles/RecipeMealProgress.css';
-import RecipeMealProgressComp from '../components/RecipeMealProgressComp';
+import RecipeDrinkProgressComp from '../components/RecipeDrinkProgressComp';
 
-function RecipeMealProgress() {
+function RecipeDrinkProgress() {
   const [recipeProgress, setRecipeProgress] = useState({});
-  // const [mealRecipesId, setMealRecipesId] = useState()
   const [isLoaded, setIsloaded] = useState(false);
   const [favorited, setFavorited] = useState(false);
   const [ingredientChecked, setIngredientChecked] = useState([]);
@@ -15,13 +14,13 @@ function RecipeMealProgress() {
   const recipesSelectedId = pathname.split('/')[2];
 
   useEffect(() => {
-    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipesSelectedId}`)
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipesSelectedId}`)
       .then((response) => response.json())
-      .then((data) => setRecipeProgress(data.meals[0]) || setIsloaded(true));
+      .then((data) => setRecipeProgress(data.drinks[0]) || setIsloaded(true));
     if (JSON.parse(localStorage.getItem('recipesProgress')) !== null) {
       const recipesInProgress = JSON.parse(localStorage.getItem('recipesProgress'));
       const recipeIngredientsinProgress = recipesInProgress.filter(
-        (recipe) => recipe.idMeal === recipesSelectedId,
+        (recipe) => recipe.idDrink === recipesSelectedId,
       );
       if (recipeIngredientsinProgress.length > 0) {
         setIngredientChecked([...recipeIngredientsinProgress[0].ingredientChecked]);
@@ -38,12 +37,12 @@ function RecipeMealProgress() {
 
   useEffect(() => {
     const objIngredientsRecipes = {
-      idMeal: recipesSelectedId,
+      idDrink: recipesSelectedId,
       ingredientChecked,
     };
     const recipesInProgress = JSON.parse(localStorage.getItem('recipesProgress')) || [];
     const filteredRecipesInProgress = recipesInProgress.filter(
-      (recipe) => recipe.idMeal !== recipesSelectedId,
+      (recipe) => recipe.idDrink !== recipesSelectedId,
     );
     const newArrayRecipes = [
       objIngredientsRecipes,
@@ -80,7 +79,7 @@ function RecipeMealProgress() {
     }
   }
 
-  const propsMealProgress = {
+  const propsDrinkProgress = {
     setFavorited,
     handleChangeCheck,
     checkBox,
@@ -93,10 +92,10 @@ function RecipeMealProgress() {
   return (
     <div>
       { isLoaded
-        ? <RecipeMealProgressComp propsMealProgress={ propsMealProgress } />
+        ? <RecipeDrinkProgressComp propsDrinkProgress={ propsDrinkProgress } />
         : loading }
     </div>
   );
 }
 
-export default RecipeMealProgress;
+export default RecipeDrinkProgress;

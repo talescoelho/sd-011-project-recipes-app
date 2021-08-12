@@ -10,9 +10,10 @@ export default function DetailsMeals() {
   const [setDrinkRecipeId] = useState('');
   const [copyText, setCopyText] = useState('');
   const [buttonHiddenClass, setButtonHiddenClass] = useState('hiddenButton');
-  const [buttonText] = useState('Continuar Receita');
+  // const [buttonText] = useState('Continuar Receita');
   const [favorite, setFavorite] = useState(false);
   const [recipesRecommendation, setRecipesRecommendation] = useState({});
+  const [inProgress, setInProgress] = useState(false);
 
   const history = useHistory();
   const { pathname } = history.location;
@@ -27,9 +28,13 @@ export default function DetailsMeals() {
       const requestFood = await api.fetchAPI(URL);
       const responseFood = await requestFood.meals;
       setRecipesDetails(responseFood[0]);
-      console.log(responseFood);
     };
     getApiDetailsRecipesFood();
+    const recipesInProgress = JSON.parse(localStorage.getItem('recipesProgress')) || [];
+    const haveRecipeInProgress = recipesInProgress.filter(
+      (recipe) => recipe.idMeal === recipesSelectedId,
+    );
+    setInProgress(haveRecipeInProgress.length > 0);
   }, [setRecipesDetails, recipesSelectedId]);
 
   const getNull = (measure) => {
@@ -92,12 +97,7 @@ export default function DetailsMeals() {
   }, [recipesSelectedId]);
 
   const handleClickRecipesProgress = () => {
-    const storageProgress = JSON.parse(localStorage.getItem('recipesProgress')) || [];
-    const newRecipeStringfy = JSON.stringify([
-      recipesDetails,
-      ...storageProgress,
-    ]);
-    localStorage.setItem('recipesProgress', newRecipeStringfy);
+    history.push(`/comidas/${recipesSelectedId}/in-progress`);
   };
 
   const handleClickFavorites = () => {
@@ -138,7 +138,7 @@ export default function DetailsMeals() {
     recipesRecommendation,
     recipesSelectedId,
     buttonHiddenClass,
-    buttonText,
+    inProgress,
     setDrinkRecipeId,
     handleClickRecipesProgress,
   };
