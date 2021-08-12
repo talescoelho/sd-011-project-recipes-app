@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 import { SearchBarContext } from '../context/SearchBar';
 import fetchByFilter from '../services/data';
 
@@ -8,7 +9,6 @@ import fetchByFilter from '../services/data';
 export default function FiltersBar(props) {
   const { fetchType } = props;
   const five = 5;
-  const twelve = 12;
   const {
     dataList,
     setDataList,
@@ -55,29 +55,35 @@ export default function FiltersBar(props) {
         const recipesFromApi = await fetchByFilter(urlToFetch);
         newRecipesFiltered = [...Object.values(recipesFromApi)[0]];
       }
-      setDataValues(newRecipesFiltered.filter((_recipe, index) => index < twelve));
+      setDataValues(newRecipesFiltered);
     };
     getRecipesByCategory();
   }, [filter, fetchType, dataList]);
 
   return (
-    <section>
-      <button
+    <section
+      style={
+        { display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginTop: '20px' }
+      }
+    >
+      <Button
+        style={ { margin: '5px' } }
         type="button"
         data-testid="All-category-filter"
         onClick={ () => onClickFilter('') }
       >
         All
-      </button>
+      </Button>
       { categories.length > 0 && categories.map((cat) => (
-        <button
+        <Button
+          style={ { margin: '5px' } }
           type="button"
           key={ cat.strCategory }
           data-testid={ `${cat.strCategory}-category-filter` }
           onClick={ () => onClickFilter(cat.strCategory) }
         >
           {cat.strCategory}
-        </button>
+        </Button>
       ))}
     </section>
   );
