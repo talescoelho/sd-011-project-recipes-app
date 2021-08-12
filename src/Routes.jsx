@@ -95,13 +95,13 @@ const Routes = () => (
       />
       <Route
         exact
-        path="/comidas/:id-da-receitas/in-progress"
-        component= { FoodProgress }
+        path="/comidas/:id/in-progress"
+        component={ FoodProgress }
       />
       <Route
         exact
-        path="/bebidas/:id-da-receitas/in-progress"
-        component= { DrinkProgress }
+        path="/bebidas/:id/in-progress"
+        component={ DrinkProgress }
       />
       <Route component={ NotFound } />
     </Switch>

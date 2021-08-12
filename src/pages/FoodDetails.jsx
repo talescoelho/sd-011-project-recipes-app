@@ -14,14 +14,15 @@ const TOAST_TIMEOUT = 3000;
 const RECOMMENDATION_NUMBER = 6;
 
 const renderLoadingOrError = (error, isLoading) => {
-  if (isLoading) 
-  return (
-    <img
-      src={ loading }
-      alt="carregando"
-      width="100px"
-    />
-  )
+  if (isLoading) {
+    return (
+      <img
+        src={ loading }
+        alt="carregando"
+        width="100px"
+      />
+    );
+  }
 
   if (error) return <p>Opa... algo deu errado</p>;
 

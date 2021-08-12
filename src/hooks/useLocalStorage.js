@@ -1,58 +1,60 @@
+import { useCallback } from 'react';
+
 export default function useLocalStorage() {
-  const getFromStorage = (key) => {
+  const getFromStorage = useCallback((key) => {
     const value = localStorage.getItem(key);
     try {
       return JSON.parse(value);
     } catch (err) {
       return null;
     }
-  };
+  }, []);
 
-  const getFavoriteRecipes = () => {
+  const getFavoriteRecipes = useCallback(() => {
     const favoriteRecipes = getFromStorage('favoriteRecipes');
     if (favoriteRecipes) {
       return favoriteRecipes;
     }
 
     return [];
-  };
+  }, [getFromStorage]);
 
-  const getInProgressRecipes = () => {
+  const getInProgressRecipes = useCallback(() => {
     const inProgressRecipes = getFromStorage('inProgressRecipes');
     if (inProgressRecipes) {
       return inProgressRecipes;
     }
     return {};
-  };
+  }, [getFromStorage]);
 
-  const getInProgressRecipeByType = (type) => {
+  const getInProgressRecipeByType = useCallback((type) => {
     const inProgressRecipes = getInProgressRecipes();
     if (inProgressRecipes[type]) {
       return inProgressRecipes[type];
     }
     return {};
-  };
+  }, [getInProgressRecipes]);
 
-  const getDoneRecipes = () => {
+  const getDoneRecipes = useCallback(() => {
     const doneRecipes = getFromStorage('doneRecipes');
     if (doneRecipes) {
       return doneRecipes;
     }
 
     return [];
-  };
+  }, [getFromStorage]);
 
-  const setToStorage = (key, value) => {
+  const setToStorage = useCallback((key, value) => {
     localStorage.setItem(key, JSON.stringify(value));
-  };
+  }, []);
 
-  const addFavoriteRecipe = (recipe) => {
+  const addFavoriteRecipe = useCallback((recipe) => {
     const favoriteRecipes = getFavoriteRecipes();
     favoriteRecipes.push(recipe);
     setToStorage('favoriteRecipes', favoriteRecipes);
-  };
+  }, [setToStorage, getFavoriteRecipes]);
 
-  const addInProgressRecipes = (type, recipe) => {
+  const addInProgressRecipes = useCallback((type, recipe) => {
     const inProgressRecipes = getInProgressRecipes();
 
     if (!inProgressRecipes[type]) {
@@ -61,13 +63,13 @@ export default function useLocalStorage() {
 
     inProgressRecipes[type][recipe.id] = recipe;
     setToStorage('inProgressRecipes', inProgressRecipes);
-  };
+  }, [setToStorage, getInProgressRecipes]);
 
-  const addDoneRecipes = (recipe) => {
+  const addDoneRecipes = useCallback((recipe) => {
     const doneRecipes = getDoneRecipes();
     doneRecipes.push(recipe);
     setToStorage('doneRecipes', doneRecipes);
-  };
+  }, [setToStorage, getDoneRecipes]);
 
   return {
     getFavoriteRecipes,

@@ -13,15 +13,15 @@ import {
 const TOAST_TIMEOUT = 3000;
 
 const renderLoadingOrError = (error, isLoading) => {
-  if (isLoading) 
+  if (isLoading) {
     return (
       <img
         src={ loading }
         alt="carregando"
         width="100px"
       />
-    )
-      
+    );
+  }
 
   if (error) return <p>Opa... algo deu errado</p>;
 
