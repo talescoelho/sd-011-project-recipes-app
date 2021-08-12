@@ -9,7 +9,7 @@ class IngredientesFoodInProgress extends Component {
   constructor() {
     super();
     this.state = {
-      ingredientsArrayList: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+      ingredientsArrayList: [0],
     };
     this.handleOnchange = this.handleOnchange.bind(this);
     this.saveInLocalStorage = this.saveInLocalStorage.bind(this);
@@ -62,15 +62,14 @@ class IngredientesFoodInProgress extends Component {
       this.setState({
         ingredientsArrayList: inProgressRecipes.meals[foodDetails.idMeal],
       });
-    }else { 
+    } else {
       this.setState({
         ingredientsArrayList: [],
-      })
+      });
     }
-    
   }
 
-  saveInDoneRecipes(){
+  saveInDoneRecipes() {
 
   }
 
@@ -83,50 +82,50 @@ class IngredientesFoodInProgress extends Component {
     const array = Array.of(Object.entries(foodDetails));
     if (array[0].length > 0) {
       ingredients = array[0].filter((item) => item[0].includes('strIngredient'))
-        .filter((item) => item[1]).map((item, index) => ({name: item[1], checked: ingredientsArrayList.some((item) => item === index)}));
+        .filter((item) => item[1]).map((item) => (item[1]));
       measurements = array[0].filter((item) => item[0].includes('strMeasure'))
         .filter((item) => item[1]).map((item) => item[1]);
     }
     return (
       <>
-        <ul> {console.log(ingredients)}
+        <ul>
           { ingredients
-            .map((item, index) => {
-              return (item.name
-                ? (
-                  <label
-                    htmlFor={ `${index}-check-ingredients` }
-                    className={ingredientsArrayList.some((item) => item === index) ? 'checked-button' : '' }
-                    key={ index }
-                    data-testid={ `${index}-ingredient-step` }
-                  >
-                    <input
-                      type="checkbox"
-                      checked={ ingredientsArrayList.some((item) => item === index) }
-                      // checked={ item.checked }
-                      onChange={ this.handleOnchange }
-                      value={ index }
-                      id={ `${index}-check-ingredients` }
-                    />
-                    {`${item.name} - ${measurements[index]}`}
-                  </label>
-                )
-                : '')
-            })}
+            .map((item, index) => (item
+              ? (
+                <label
+                  htmlFor={ `${index}-check-ingredients` }
+                  className={ ingredientsArrayList
+                    .some((ingredient) => ingredient === index) ? 'checked-button' : '' }
+                  key={ index }
+                  data-testid={ `${index}-ingredient-step` }
+                >
+                  <input
+                    type="checkbox"
+                    checked={ ingredientsArrayList
+                      .some((ingredient) => ingredient === index) }
+                    // checked={ item.checked }
+                    onChange={ this.handleOnchange }
+                    value={ index }
+                    id={ `${index}-check-ingredients` }
+                  />
+                  {`${item} - ${measurements[index]}`}
+                </label>
+              )
+              : ''))}
         </ul>
         <Link to="/receitas-feitas">
-        <button
-          className="finish-recipe"
-          type="button"
-          data-testid="finish-recipe-btn"
-          disabled={ ingredientsArrayList.length !== ingredients.length }
-          onClick={ () => saveDoneRecipesAction(foodDetails.idMeal) }
-        >
-          {' '}
-          Finalizar Receita
-        </button>
-      </Link>
-    </>);
+          <button
+            className="finish-recipe"
+            type="button"
+            data-testid="finish-recipe-btn"
+            disabled={ ingredientsArrayList.length !== ingredients.length }
+            onClick={ () => saveDoneRecipesAction(foodDetails.idMeal) }
+          >
+            {' '}
+            Finalizar Receita
+          </button>
+        </Link>
+      </>);
   }
 }
 
@@ -134,7 +133,7 @@ const mapStateToProps = (state) => ({
   foodDetails: state.foodReducer.foodDetails,
 });
 
-const mapDispatchToProps = (dispatch) =>({
+const mapDispatchToProps = (dispatch) => ({
   saveDoneRecipesAction: (id) => dispatch(saveDoneRecipe(id)),
 });
 
@@ -146,7 +145,8 @@ IngredientesFoodInProgress.propTypes = {
     strInstructions: PropTypes.string,
     strYoutube: PropTypes.string,
     idMeal: PropTypes.string,
-  }).isRequired,
-};
+  }),
+  saveDoneRecipesAction: PropTypes.func,
+}.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(IngredientesFoodInProgress);
