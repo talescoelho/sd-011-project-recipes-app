@@ -35,7 +35,6 @@ export default function ButtonShare(props) {
     <div style={ { display: 'flex' } }>
       <button
         style={ { background: 'none', opacity: 'none', border: 'none' } }
-        // data-testid={ testid }
         type="button"
         onClick={ onClickButtonShare }
       >

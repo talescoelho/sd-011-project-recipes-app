@@ -46,7 +46,6 @@ export default function CardsListByIngredient() {
     if (path === 'bebidas') {
       url = urlDrink;
     }
-
     const getCategories = async () => {
       const img = ingredName.map((e) => ({
         fig: `https://www.${url}.com/images/ingredients/${e}-Small.png`,
