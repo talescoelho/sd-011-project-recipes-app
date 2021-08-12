@@ -20,23 +20,21 @@ describe('Testes para página de Comidas em Progresso', () => {
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(mockMeal),
     });
-    const { findByText, findByTestId, getAllByRole, history } = renderWithRouterAndRedux(
+    const { getByRole, findByTestId, getAllByRole, history } = renderWithRouterAndRedux(
       <MealsInProgress
         match={ { params: { id: '52771' }, url: '/comidas/52771/in-progress' } }
       />,
       { route: '/comidas/52771/in-progress' }, INITIAL_STATE,
     );
-    const type = await findByText(/vegetarian/i);
     const title = await findByTestId('recipe-title');
-    expect(type).toBeInTheDocument();
     expect(title).toBeInTheDocument();
-    // const whiteIcon = getByRole('img', { name: /favorite icon/i });
-    // expect(whiteIcon.src).toEqual('http://localhost/whiteHeartIcon.svg');
-    // expect(whiteIcon).toBeInTheDocument();
-    // userEvent.click(whiteIcon);
-    // const blackIcon = getByRole('img', { name: /favorite icon/i });
-    // expect(blackIcon.src).toEqual('http://localhost/blackHeartIcon.svg');
-    // userEvent.click(blackIcon);
+    const whiteIcon = getByRole('img', { name: /favorite icon/i });
+    expect(whiteIcon.src).toEqual('http://localhost/whiteHeartIcon.svg');
+    expect(whiteIcon).toBeInTheDocument();
+    userEvent.click(whiteIcon);
+    const blackIcon = getByRole('img', { name: /favorite icon/i });
+    expect(blackIcon.src).toEqual('http://localhost/blackHeartIcon.svg');
+    userEvent.click(blackIcon);
     const finishBtn = await findByTestId('finish-recipe-btn');
     expect(finishBtn).toHaveAttribute('disabled');
     const localStorageInProgress = JSON.parse(localStorage.inProgressRecipes);
@@ -51,6 +49,35 @@ describe('Testes para página de Comidas em Progresso', () => {
     expect(history.location.pathname).toEqual('/receitas-feitas');
     const localStorageDoneRecipes = JSON.parse(localStorage.doneRecipes);
     expect(localStorageDoneRecipes[0].id).toEqual('52771');
+  });
+  it('Verifica se há os itens procurados', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mockMeal),
+    });
+    const { findByText, findByTestId, getAllByRole } = renderWithRouterAndRedux(
+      <MealsInProgress
+        match={ { params: { id: '52771' }, url: '/comidas/52771/in-progress' } }
+      />,
+      { route: '/comidas/52771/in-progress' }, INITIAL_STATE,
+    );
+    const type = await findByText(/vegetarian/i);
+    const title = await findByTestId('recipe-title');
+    expect(type).toBeInTheDocument();
+    expect(title).toBeInTheDocument();
+    const finishBtn = await findByTestId('finish-recipe-btn');
+    expect(finishBtn).toHaveAttribute('disabled');
+    const localStorageInProgress = JSON.parse(localStorage.inProgressRecipes);
+    expect(localStorageInProgress.meals['52771'][0].check).toEqual(false);
+    const allCheckBox = getAllByRole('checkbox');
+    allCheckBox.forEach((checkbox) => {
+      userEvent.click(checkbox);
+    });
+    expect(finishBtn).not.toHaveAttribute('disabled');
+    allCheckBox.forEach((checkbox) => {
+      userEvent.click(checkbox);
+    });
+    expect(finishBtn).toHaveAttribute('disabled');
   });
 });
 

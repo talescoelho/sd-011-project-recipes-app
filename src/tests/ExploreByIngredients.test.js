@@ -37,10 +37,10 @@ describe('Testes para página de Explorar comidas por ingrediente', () => {
   });
   it('Verifica qtd de cards', async () => {
     jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
+    const ingredients = fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(mockMealIngredients),
     });
-    const { findAllByRole } = renderWithRouterAndRedux(
+    const { findAllByRole, history } = renderWithRouterAndRedux(
       <ExploreByIngredients />,
       { route: '/explorar/comidas/ingredientes' }, INITIAL_STATE,
     );
@@ -49,6 +49,8 @@ describe('Testes para página de Explorar comidas por ingrediente', () => {
     allcards.forEach((card) => {
       userEvent.click(card);
     });
+    expect(ingredients).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+    expect(history.location.pathname).toEqual('/comidas');
   });
 });
 

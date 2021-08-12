@@ -115,6 +115,20 @@ describe('Testes para página de HomeComidas', () => {
     expect(All).toBeInTheDocument();
     userEvent.click(All);
   });
+  it('Verifica se chama o endpoint correto', async () => {
+    jest.spyOn(global, 'fetch');
+    const fetchIngredientDrinks = fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockDrinks),
+    });
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockCategories),
+    });
+    renderWithRouterAndRedux(
+      <HomeDrinks location={ { state: 'vodka' } } location2={ { state: 'vodka' } } />,
+      { route: '/bebidas' }, INITIAL_STATE,
+    );
+    expect(fetchIngredientDrinks).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=vodka');
+  });
   it('Verifica Loading', () => {
     const { getAllByText } = renderWithRouterAndRedux(
       <HomeDrinks location={ { state: '' } } />,

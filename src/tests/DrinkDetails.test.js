@@ -1,5 +1,6 @@
 // HomeMeals.test.js
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 import DrinkDetails from '../pages/DrinkDetails';
 import { renderWithRouterAndRedux } from './renderWithRouterAndRedux';
 import mockDrink from '../../cypress/mocks/oneDrink';
@@ -24,7 +25,7 @@ describe('Testes para página de HomeBebidas', () => {
     fetch.mockResolvedValueOnce({
       json: jest.fn().mockResolvedValue(mockDrink),
     });
-    const { findByText, findByTestId } = renderWithRouterAndRedux(
+    const { findByText, findByTestId, getByRole, getByTitle } = renderWithRouterAndRedux(
       <DrinkDetails match={ { params: { id: '178319' } } } />,
       { route: '/bebidas/178319' }, INITIAL_STATE,
     );
@@ -47,6 +48,22 @@ describe('Testes para página de HomeBebidas', () => {
     expect(getByTitle(/recipe video/i)).not.toBeInTheDocument();
     expect(recomendaitonCard1).toBeInTheDocument();
     userEvent.click(recomendaitonCard1);
+  });
+  it('Verifica os endpoints chamados', async () => {
+    jest.spyOn(global, 'fetch');
+    const allMeals = fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockMeals),
+    });
+    const drinkDetail = fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockDrink),
+    });
+    const { history } = renderWithRouterAndRedux(
+      <DrinkDetails match={ { params: { id: '178319' } } } />,
+      { route: '/bebidas/178319' }, INITIAL_STATE,
+    );
+    expect(history.location.pathname).toEqual('/bebidas/178319');
+    expect(allMeals).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    expect(drinkDetail).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319');
   });
 });
 

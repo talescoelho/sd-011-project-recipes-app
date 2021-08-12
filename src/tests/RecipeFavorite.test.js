@@ -74,6 +74,9 @@ describe('Testes para página de Perfil', () => {
     expect(All).toBeInTheDocument();
     userEvent.click(All);
     const newfavorite = await findByTestId('0-horizontal-favorite-btn');
+    expect(newfavorite.src).toEqual('http://localhost/blackHeartIcon.svg');
+    const btnRemove = await findByTestId('btn-remove-favorite');
+    expect(btnRemove).toBeInTheDocument();
     userEvent.click(newfavorite);
     const localStorage3 = JSON.parse(localStorage.favoriteRecipes);
     expect(localStorage3.length).toEqual(0);
