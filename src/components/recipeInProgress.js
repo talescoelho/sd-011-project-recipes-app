@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
@@ -8,6 +8,7 @@ import handleClickDoneRecipe from '../helpers/handleClickDoneRecipe';
 import '../styles/recipesInProgress.css';
 import '../styles/favorite.css';
 import '../App.css';
+import backIcon from '../images/bx-arrow-back.svg';
 
 function RecipeInProgress({
   typeURL,
@@ -18,7 +19,7 @@ function RecipeInProgress({
 }) {
   const [disabled, setDisabled] = useState(true);
   const ingredients = [];
-
+  const history = useHistory();
   const [isFavorite, setIsFavorite] = React.useState(false);
 
   React.useEffect(() => {
@@ -67,6 +68,10 @@ function RecipeInProgress({
     }, three);
   };
 
+  const handleClickBackIcon = () => {
+    history.goBack();
+  };
+
   return recipe.map((recipeType, index) => {
     const maxIngredient = parseFloat(ingQuant);
 
@@ -85,6 +90,13 @@ function RecipeInProgress({
           data-testid="recipe-photo"
           className="w-100"
         />
+        <button
+          onClick={ handleClickBackIcon }
+          className="btn-icon float-icon"
+          type="button"
+        >
+          <img src={ backIcon } alt="back" className="back-icon" />
+        </button>
         <div className="popup">
           <p className="popuptext" id="myPopup">Link copiado!</p>
         </div>

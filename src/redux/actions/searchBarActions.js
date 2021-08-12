@@ -1,5 +1,5 @@
-export const REQUEST_TYPE_API = 'REQUEST_API';
-export const RECEIVE_TYPE_API = 'RECEIVE_API';
+export const REQUEST_TYPE_API = 'REQUEST_TYPE_API';
+export const RECEIVE_TYPE_API = 'RECEIVE_TYPE_API';
 export const CLEAR_DATA = 'CLEAR_DATA';
 
 const requestTypeApi = () => ({
