@@ -16,12 +16,14 @@ export default class App extends Component {
         <Route exact path="/bebidas" component={ Drinks } />
         <Route exact path="/comidas/:id" render={ (props) => <FoodDetails { ...props } /> } />
         <Route exact path="/bebidas/:id" render={ (props) => <DrinkDetails { ...props } /> } />
-        <Route 
-          exact path="/comidas/:id/in-progress" 
-          render={ (props) => <FoodInProgress { ...props } /> } 
+        <Route
+          exact
+          path="/comidas/:id/in-progress"
+          render={ (props) => <FoodInProgress { ...props } /> }
         />
         <Route
-          exact path="/bebidas/:id/in-progress"
+          exact
+          path="/bebidas/:id/in-progress"
           render={ (props) => <DrinkInProgress { ...props } /> }
         />
         <Route exact path="/explorar" component={ Explore } />

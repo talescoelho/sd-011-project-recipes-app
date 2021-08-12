@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import FoodInProgressCard from '../components/FoodInProgressCard';
 import { connect } from 'react-redux';
-import { fetchFoodID } from '../redux/actions/foodActions';
 import PropTypes from 'prop-types';
-
+import FoodInProgressCard from '../components/FoodInProgressCard';
+import { fetchFoodID } from '../redux/actions/foodActions';
 
 class FoodInProgress extends Component {
   componentDidMount() {
     const { match: { params: { id } }, fetchFoodByID } = this.props;
     fetchFoodByID(id);
-}
+  }
+
   render() {
-    
     return (
       <div>
         <FoodInProgressCard />
@@ -29,4 +28,4 @@ FoodInProgress.propTypes = {
   match: PropTypes.object,
 }.isRequire;
 
-export default connect(null, mapDispatchToProps) (FoodInProgress);
+export default connect(null, mapDispatchToProps)(FoodInProgress);
