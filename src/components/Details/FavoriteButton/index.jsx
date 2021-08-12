@@ -9,13 +9,13 @@ import {
 import whiteHeartIcon from '../../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../../images/blackHeartIcon.svg';
 
-export default function FavoriteButton({ 
-    recipeId,
-    selector,
-    details,
-    testId = "favorite-btn",
-    isRecipeFavorite = false 
-  }) {
+export default function FavoriteButton({
+  recipeId,
+  selector,
+  details,
+  testId = 'favorite-btn',
+  isRecipeFavorite = false,
+}) {
   const [isFavorite, setIsFavorite] = useState(isRecipeFavorite);
   const [favoriteSrc, setFavoriteSrc] = useState(whiteHeartIcon);
   const [id, setId] = useState('');
@@ -95,7 +95,7 @@ export default function FavoriteButton({
       variant="danger"
       type="button"
       className="rounded-circle p-2"
-      data-testid={testId}
+      data-testid={ testId }
       onClick={ handleFavoriteBtn }
       src={ favoriteSrc }
     >
@@ -109,6 +109,8 @@ export default function FavoriteButton({
 FavoriteButton.propTypes = {
   recipeId: PropTypes.string.isRequired,
   selector: PropTypes.string.isRequired,
+  testId: PropTypes.string.isRequired,
+  isRecipeFavorite: PropTypes.bool.isRequired,
   details: PropTypes.shape({
     idMeal: PropTypes.string,
     strMeal: PropTypes.string,
