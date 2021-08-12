@@ -3,12 +3,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchRecipeDetail, setRecipeIngredients } from '../actions/selectedRecipe';
 import FinishRecipeButton from '../components/FinishRecipeButton';
+import { getFromStorage, setToStorage } from '../helpers/utils';
+import style from './RecipeInProgress.module.css';
 
 function RecipeInProgress({
   match: { params: { id }, path },
   recipe, ingredients,
   dispatchFetchRecipe, dispatchSetIngredients,
 }) {
+  const [inProgress, setInProgress] = React.useState({});
+
+  React.useEffect(() => {
+    const recipesInProgress = getFromStorage('inProgressRecipes') || {};
+    setInProgress(recipesInProgress);
+  }, []);
+
   React.useEffect(() => {
     const type = path.replace(/(^\/)|(\/)(:|\w|-)+/g, '');
     dispatchFetchRecipe(type, id);
@@ -42,6 +51,43 @@ function RecipeInProgress({
     strInstructions: recipe.strInstructions,
   };
 
+  const addStepToStorage = (value, storageItem) => {
+    const updatedItem = {
+      ...storageItem,
+      [id]: [
+        ...(storageItem[id] || []),
+        value,
+      ].sort(),
+    };
+
+    setToStorage('inProgressRecipes', updatedItem);
+    setInProgress(updatedItem);
+  };
+
+  const removeStepFromStorage = (value, storageItem) => {
+    const updatedItem = {
+      ...storageItem,
+      [id]: storageItem[id].filter((item) => item !== value),
+    };
+
+    if (updatedItem[id].length === 0) delete updatedItem[id];
+
+    setToStorage('inProgressRecipes', updatedItem);
+    setInProgress(updatedItem);
+  };
+
+  const handleStepDone = (target, index) => {
+    const recipesInProgress = getFromStorage('inProgressRecipes') || {};
+
+    if (target.checked) {
+      addStepToStorage(index, recipesInProgress);
+      target.parentElement.classList.add(style.checked);
+    } else {
+      removeStepFromStorage(index, recipesInProgress);
+      target.parentElement.classList.remove(style.checked);
+    }
+  };
+
   return (
     <main data-testid="recipes-page">
       <img src={ details.strThumb } alt="" data-testid="recipe-photo" />
@@ -54,7 +100,12 @@ function RecipeInProgress({
           ingredients.map(([ingredient, measure], index) => (
             <li key={ ingredient } data-testid={ `${index}-ingredient-step` }>
               <label htmlFor={ `ingredient${index + 1}` }>
-                <input type="checkbox" id={ `ingredient${index + 1}` } />
+                <input
+                  type="checkbox"
+                  id={ `ingredient${index + 1}` }
+                  checked={ inProgress[id] && inProgress[id].includes(index + 1) }
+                  onClick={ ({ target }) => handleStepDone(target, index + 1) }
+                />
                 { `${ingredient} - ${measure}` }
               </label>
             </li>
