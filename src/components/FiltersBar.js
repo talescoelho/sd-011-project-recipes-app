@@ -45,6 +45,7 @@ export default function FiltersBar(props) {
     };
     getRecipes();
     getCategories();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchType]);
 
   useEffect(() => {
@@ -58,6 +59,7 @@ export default function FiltersBar(props) {
       setDataValues(newRecipesFiltered);
     };
     getRecipesByCategory();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, fetchType, dataList]);
 
   return (

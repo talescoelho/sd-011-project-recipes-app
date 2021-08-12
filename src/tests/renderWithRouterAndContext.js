@@ -8,8 +8,8 @@ const renderWithRouterAndContext = (component, { providerProps, ...renderOptions
   const history = createMemoryHistory();
   return ({
     ...render(
-      <SearchBarContext.Provider>
-        <Router history={ history } { ...providerProps }>{ component }</Router>
+      <SearchBarContext.Provider { ...providerProps }>
+        <Router history={ history }>{ component }</Router>
       </SearchBarContext.Provider>,
       renderOptions,
     ),

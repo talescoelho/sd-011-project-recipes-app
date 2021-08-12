@@ -1,22 +1,23 @@
 import React from 'react';
 import renderWithRouterAndContext from './renderWithRouterAndContext';
-import Foods from '../pages/foods/Foods';
+import { SearchBarContext } from '../context/SearchBar';
 
 describe('Testa a tela <Foods.js />', () => {
   it('A tela de comida possui todos os atributos data-testid', () => {
-    const { getByText, getByTestId } = renderWithRouterAndContext(<Foods />);
-    expect(getByText(/Explorar Comidas/).toBeInTheDocument());
-    expect(getByTestId('0-recipe-card')).toBeInTheDocument();
-    // cy.get('[data-testid="recipe-photo"]');
-    // cy.get('[data-testid="recipe-title"]');
-    // cy.get('[data-testid="share-btn"]');
-    // cy.get('[data-testid="favorite-btn"]');
-    // cy.get('[data-testid="recipe-category"]');
-    // cy.get('[data-testid="0-ingredient-name-and-measure"]');
-    // cy.get('[data-testid="instructions"]');
-    // cy.get('[data-testid="video"]');
-    // cy.get('[data-testid="0-recomendation-card"]');
-    // cy.get('[data-testid="start-recipe-btn"]');
+    const providerProps = { teste: 'abc' };
+    renderWithRouterAndContext(
+      <SearchBarContext.Consumer>
+        { (teste) => (
+          <span>
+            Received:
+            {' '}
+            {teste}
+          </span>)}
+      </SearchBarContext.Consumer>,
+      { providerProps },
+    );
+    // expect(getByText(/^Received:/).textContent).toBe('Received: abc');
+    // expect(getByTestId('0-recipe-card')).toBeInTheDocument();
   });
 });
 // describe('Testa componente <Login.js />', () => {
@@ -35,3 +36,16 @@ describe('Testa a tela <Foods.js />', () => {
 //     expect(history.location.pathname).toBe('/comidas');
 //   });
 // });
+
+// import React, { useContext } from 'react';
+// import { SearchBarContext } from '../context/SearchBar';
+
+// export default function Teste() {
+//   const { teste } = useContext(SearchBarContext);
+//   console.log(teste);
+//   return (
+//     <div>
+//       { teste }
+//     </div>
+//   );
+// }
