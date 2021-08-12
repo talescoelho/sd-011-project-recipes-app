@@ -17,7 +17,6 @@ export default function MainExplorer({ history }) {
       <HeaderExplore history={ history } title="Explorar" />
       <div>
         <button
-          className="explore__button"
           data-testid="explore-food"
           name="food"
           onClick={ handleClick }
@@ -26,7 +25,6 @@ export default function MainExplorer({ history }) {
           Explorar Comidas
         </button>
         <button
-          className="explore__button"
           data-testid="explore-drinks"
           name="drinks"
           onClick={ handleClick }
