@@ -39,7 +39,7 @@ export default function ExploreDrinksByIngredients({ history }) {
       <Header title="Explorar Ingredientes" renderButton />
       <div className="ingredients">
         {
-          ingredients ? ingredients.map((ing, index) => {
+          !loading && ingredients ? ingredients.map((ing, index) => {
             const ingredientsObject = { name: ing.strIngredient1, index };
             return (
               <IngredientsCard

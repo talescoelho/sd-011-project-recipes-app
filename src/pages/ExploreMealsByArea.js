@@ -54,7 +54,7 @@ export default function ExploreMealsByArea({ history }) {
       <AreaDropdown getMealsByArea={ getMealsByArea } dropdown={ dropdown } />
       <section className="card-list">
         {
-          !loading ? area.map((meal, index) => (
+          !loading && area ? area.map((meal, index) => (
             <div
               className="card"
               data-testid={ `${index}-recipe-card` }
