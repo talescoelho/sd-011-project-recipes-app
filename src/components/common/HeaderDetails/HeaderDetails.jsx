@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import shareIcon from '../../../images/shareIcon.svg';
@@ -29,20 +28,20 @@ const HeaderDetails = (
     }
     <h4 data-testid="recipe-title">{ alt }</h4>
     <h6 data-testid="recipe-category">{ category }</h6>
-    <Link to="/">
+    <button type="button">
       <img
         data-testid="share-btn"
         src={ shareIcon }
         alt="Icon to share foods"
       />
-    </Link>
-    <Link to="/">
+    </button>
+    <button type="button">
       <img
         data-testid="favorite-btn"
         src={ whiteHeartIcon }
         alt="Icon to favorite foods"
       />
-    </Link>
+    </button>
   </header>
 );
 
