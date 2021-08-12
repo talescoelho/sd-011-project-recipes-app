@@ -85,10 +85,10 @@ class IngredientesFoodInProgress extends Component {
                 data-testid={ `${index}-ingredient-step` }
               >
                 <input
+                  type="checkbox"
                   onChange={ this.handleOnchange }
                   value={ index }
                   id={ `${index}-check-ingredients` }
-                  type="checkbox"
                 />
                 {`${item} - ${measurements[index]}`}
               </label>
