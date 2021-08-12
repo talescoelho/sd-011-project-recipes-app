@@ -8,7 +8,6 @@ function ReceitasFavoritas() {
   const favoritedRecipesList = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
   const [favoriteList, setFavoriteList] = React.useState(favoritedRecipesList);
-
   function filterOnlyMeal() {
     const onlyMealList = favoritedRecipesList
       .filter((recipe) => recipe.type === 'comida');
@@ -39,7 +38,6 @@ function ReceitasFavoritas() {
   return (
     <div>
       <Header title="Receitas Favoritas" />
-
       <button
         type="button"
         data-testid="filter-by-all-btn"
