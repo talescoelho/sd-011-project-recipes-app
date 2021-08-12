@@ -4,16 +4,18 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Profile() {
-  const userEmail = JSON.parse(localStorage.getItem('user'));
-
+  function userEmail() {
+    return localStorage.getItem('user');
+  }
   return (
     <div>
       <Header title="Perfil" />
-      <input
+      <span data-testid="profile-email">{ userEmail()}</span>
+      {/* <input
         type="email"
         value={ userEmail.email }
         style={ { margin: 10 } }
-      />
+      /> */}
       <button
         type="submit"
         data-testid="profile-done-btn"
