@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import { Layout } from '../components';
-import { useTheme } from '../hooks';
+import { useTheme, useLocalStorage } from '../hooks';
 import shareIcon from '../images/shareIcon.svg';
 
 function RecipesMade() {
@@ -10,6 +10,7 @@ function RecipesMade() {
   const [handleShareLink, sethanleShareLink] = useState(false);
   const [filteredCompleteRecipes, setFilteredCompleteRecipes] = useState([]);
   const storedRecipes = useRef([]);
+  const { getDoneRecipes } = useLocalStorage();
   const styles = {
     main: {
       backgroundColor: colors.background,
@@ -18,14 +19,14 @@ function RecipesMade() {
   };
 
   useEffect(() => {
-    try {
-      const getItemFromStored = localStorage.getItem('doneRecipes');
-      storedRecipes.current = getItemFromStored ? JSON.parse(getItemFromStored) : [];
-    } catch (error) {
-      storedRecipes.current = [];
-    }
+    // console.log(filteredCompleteRecipes);
+  });
+
+  useEffect(() => {
+    storedRecipes.current = getDoneRecipes();
+    console.log(storedRecipes.current);
     setFilteredCompleteRecipes([...storedRecipes.current]);
-  }, []);
+  }, [getDoneRecipes]);
 
   const handleShareButton = ({ type, id }) => {
     copy(`http://localhost:3000/${type}s/${id}`);
@@ -70,6 +71,7 @@ function RecipesMade() {
           Drinks
         </button>
         <ul>
+          { console.log(filteredCompleteRecipes) }
           {filteredCompleteRecipes.map((recipes, index) => (
             <li key={ recipes.id }>
               <Link to={ `${recipes.type}s/${recipes.id}` }>

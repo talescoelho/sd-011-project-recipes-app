@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { useRecipes } from '../../hooks';
-import loading from '../../images/loading.gif'
+import loading from '../../images/loading.gif';
 
 function RecipeList() {
   const { isLoading, error, recipes } = useRecipes();
@@ -37,7 +37,7 @@ function RecipeList() {
       /> }
       {recipes && recipes.slice(0, magicalNumber)
         .map((meals, index) => (
-          <Link to="/comidas/:id-da-receita">
+          <Link key={ meals.idMeal } to={ `/comidas/${meals.idMeal}` }>
             <li data-testid={ `${index}-recipe-card` } key={ meals.idMeal }>
               <img
                 alt={ `Foto de uma ${meals.strMeal}` }
@@ -49,9 +49,9 @@ function RecipeList() {
               >
                 { meals.strMeal }
               </h3>
-            </li>          
+            </li>
           </Link>
-          ))}         
+        ))}
     </ol>
   );
 }

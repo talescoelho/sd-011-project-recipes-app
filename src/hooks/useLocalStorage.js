@@ -12,6 +12,7 @@ export default function useLocalStorage() {
 
   const getFavoriteRecipes = useCallback(() => {
     const favoriteRecipes = getFromStorage('favoriteRecipes');
+
     if (favoriteRecipes) {
       return favoriteRecipes;
     }
@@ -69,7 +70,6 @@ export default function useLocalStorage() {
     }
 
     inProgressRecipes[type][recipe.id] = recipe.usedIngredients;
-    console.log({ inProgressRecipes, type, recipe });
     setToStorage('inProgressRecipes', inProgressRecipes);
   }, [setToStorage, getInProgressRecipes]);
 

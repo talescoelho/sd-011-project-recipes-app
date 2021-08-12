@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router';
-import loading from '../images/loading.gif'
-
 import copy from 'clipboard-copy';
+import { useParams, useHistory } from 'react-router';
+import loading from '../images/loading.gif';
+
 import { Layout, ActionButton, RecipeRecommendationList } from '../components';
 
 import {

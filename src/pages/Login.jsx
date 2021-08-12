@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { Layout } from '../components';
-import LoginGif from '../images/LoginGif.gif'
+import LoginGif from '../images/LoginGif.gif';
 
 function Login() {
   const [emailInput, setEmailInput] = useState('');
@@ -36,7 +36,7 @@ function Login() {
   return (
     <Layout title="Login" noHeader noFooter>
       <main>
-        <img 
+        <img
           src={ LoginGif }
           alt="loginGif"
           width="700px"

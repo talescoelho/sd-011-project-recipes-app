@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router';
-import copy from 'clipboard-copy';
 import loading from '../images/loading.gif';
 
-import { Layout, FavoriteButton } from '../components';
+import { Layout, FavoriteButton, ShareButton } from '../components';
 
 import { useLocalStorage } from '../hooks';
 
 const NOT_FOUND_INDEX = -1;
-const TOAST_TIMEOUT = 3000;
 
 const renderLoadingOrError = (error, isLoading) => {
   if (isLoading) {
@@ -20,15 +18,20 @@ const renderLoadingOrError = (error, isLoading) => {
   return false;
 };
 
-function FoodDetails() {
+function FoodProgress() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [recipe, setRecipe] = useState(null);
-  const [toastIsVisible, setToastIsVisible] = useState(false);
+  const [ingredients, setIngredients] = useState([]);
   const [usedIngredients, setUsedIngredients] = useState([]);
   const { id } = useParams();
   const history = useHistory();
-  const { getFavoriteRecipes, getInProgressRecipeByType, updateInProgressRecipe } = useLocalStorage();
+  const {
+    getFavoriteRecipes,
+    getInProgressRecipeByType,
+    updateInProgressRecipe,
+    addDoneRecipes,
+  } = useLocalStorage();
 
   const BASE_URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php'; // TODO usar token
 
@@ -42,16 +45,15 @@ function FoodDetails() {
     const inProgressMeals = getInProgressRecipeByType('meals');
     const inProgressIngredients = inProgressMeals[id] || [];
     setUsedIngredients(inProgressIngredients);
-    console.log({ id, getFavoriteRecipes, getInProgressRecipeByType });
   }, [id, getFavoriteRecipes, getInProgressRecipeByType]);
 
-  function showToast() {
-    setToastIsVisible(true);
+  useEffect(() => {
+    if (!recipe) return;
 
-    setTimeout(() => {
-      setToastIsVisible(false);
-    }, TOAST_TIMEOUT);
-  }
+    setIngredients(Object.keys(recipe)
+      .filter((key) => /strIngredient/i.test(key))
+      .filter((key) => recipe[key] !== '' && recipe[key] !== null));
+  }, [recipe]);
 
   const renderNoRecipeMessage = () => renderLoadingOrError(error, isLoading);
 
@@ -74,13 +76,7 @@ function FoodDetails() {
                   <h2 data-testid="recipe-category">{ recipe.strCategory }</h2>
                 </div>
                 <div>
-                  {/* <ActionButton
-                    action="share"
-                    onClick={ () => {
-                      copy(`http://localhost:3000/comidas/${id}`);
-                      showToast();
-                    } }
-                  /> */}
+                  <ShareButton id={ id } type="comida" />
                   <FavoriteButton recipe={ recipe } />
                 </div>
               </section>
@@ -88,41 +84,44 @@ function FoodDetails() {
                 <h1>Ingredientes</h1>
 
                 <ol>
-                  { Object.keys(recipe)
-                    .filter((key) => /strIngredient/i.test(key))
-                    .filter((key) => recipe[key] !== '' && recipe[key] !== null)
-                    .map((key) => {
-                      const index = parseInt(key.replace('strIngredient', ''), 10);
-                      return (
-                        <li
-                          key={ index }
-                          data-testid={ `${index - 1}-ingredient-step` }
+                  { ingredients.map((key) => {
+                    const index = parseInt(key.replace('strIngredient', ''), 10);
+                    return (
+                      <li
+                        key={ index }
+                        data-testid={ `${index - 1}-ingredient-step` }
+                      >
+                        <label
+                          htmlFor={ `${index}-ingredient-checkbox` }
                         >
-                          <label
-                            htmlFor={ `${index}-ingredient-checkbox` }
-                          >
-                            <input
-                              type="checkbox"
-                              id={ `${index}-ingredient-checkbox` }
-                              checked={ usedIngredients.indexOf(recipe[key]) !== NOT_FOUND_INDEX }
-                              onChange={ () => {
-                                const newUsedIngredients = [...usedIngredients];
-                                if (newUsedIngredients.indexOf(recipe[key]) === NOT_FOUND_INDEX) {
-                                  newUsedIngredients.push(recipe[key]);
-                                } else {
-                                  newUsedIngredients.splice(newUsedIngredients.indexOf(recipe[key]), 1);
-                                }
-                                setUsedIngredients(newUsedIngredients);
-                                updateInProgressRecipe('meals', { id, usedIngredients: newUsedIngredients });
-                              } }
-                            />
-                            <span>{ recipe[key] }</span>
-                            <span> - </span>
-                            <span>{ recipe[`strMeasure${index}`] }</span>
-                          </label>
-                        </li>
-                      );
-                    }) }
+                          <input
+                            type="checkbox"
+                            id={ `${index}-ingredient-checkbox` }
+                            checked={ usedIngredients
+                              .indexOf(recipe[key]) !== NOT_FOUND_INDEX }
+                            onChange={ () => {
+                              const newUsedIngredients = [...usedIngredients];
+                              if (newUsedIngredients
+                                .indexOf(recipe[key]) === NOT_FOUND_INDEX) {
+                                newUsedIngredients.push(recipe[key]);
+                              } else {
+                                newUsedIngredients
+                                  .splice(newUsedIngredients.indexOf(recipe[key]), 1);
+                              }
+                              setUsedIngredients(newUsedIngredients);
+                              updateInProgressRecipe(
+                                'meals',
+                                { id, usedIngredients: newUsedIngredients },
+                              );
+                            } }
+                          />
+                          <span>{ recipe[key] }</span>
+                          <span> - </span>
+                          <span>{ recipe[`strMeasure${index}`] }</span>
+                        </label>
+                      </li>
+                    );
+                  }) }
                 </ol>
               </section>
 
@@ -145,27 +144,35 @@ function FoodDetails() {
                 />
               </section>
 
-              {/* { !isDone && (
+              <section>
                 <button
                   type="button"
-                  data-testid="start-recipe-btn"
+                  data-testid="finish-recipe-btn"
                   onClick={ () => {
-                    history.push(`/comidas/${id}/in-progress`);
+                    addDoneRecipes({
+                      id,
+                      type: 'comida',
+                      area: recipe.strArea,
+                      category: recipe.strCategory,
+                      alcoholicOrNot: '',
+                      name: recipe.strMeal,
+                      image: recipe.strMealThumb,
+                      doneDate: new Date().toLocaleDateString(),
+                      tags: recipe.strTags.split(','),
+                    });
+                    history.push('/receitas-feitas');
                   } }
-                  style={ { position: 'fixed', bottom: '0', height: '300px' } }
+                  disabled={ usedIngredients.length !== ingredients.length }
                 >
-                  { isInProgress ? <>Continuar Receita</> : <>Iniciar Receita</> }
-                </button>)} */}
+                  Finalizar receita
+                </button>
+
+              </section>
             </>
           ) }
-        { toastIsVisible && (
-          <div style={ { position: 'fixed', right: '25px', bottom: '25px' } }>
-            <p>Link copiado!</p>
-          </div>
-        ) }
       </main>
     </Layout>
   );
 }
 
-export default FoodDetails;
+export default FoodProgress;

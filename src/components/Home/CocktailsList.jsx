@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useCocktails, useCategory, fetchCategory, fetchCocktails } from '../../hooks';
-import loading from '../../images/loading.gif'
+import loading from '../../images/loading.gif';
 
 function CocktailsList() {
   const { error, cocktails } = useCocktails();

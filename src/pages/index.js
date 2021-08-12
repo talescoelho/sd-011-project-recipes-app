@@ -10,8 +10,8 @@ export { default as RecipesMade } from './RecipesMade';
 export { default as Perfil } from './Perfil';
 export { default as FavoriteRecipes } from './FavoriteRecipes';
 export { default as Drinks } from './Drinks';
-export { default as FoodProgress } from './FoodProgress'
-export { default as DrinkProgress } from './DrinkProgress'
+export { default as FoodProgress } from './FoodProgress';
+export { default as DrinkProgress } from './DrinkProgress';
 export { default as NotFound } from './NotFound';
 export { default as FoodDetails } from './FoodDetails';
 export { default as DrinkDetails } from './DrinkDetails';
