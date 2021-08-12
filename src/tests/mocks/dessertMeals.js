@@ -240,57 +240,7 @@ const dessertMeals = {
       strMealThumb: 'https://www.themealdb.com/images/media/meals/xqvyqr1511638875.jpg',
       idMeal: '52886',
     },
-    {
-      strMeal: 'Sticky Toffee Pudding',
-      strMealThumb: 'https://www.themealdb.com/images/media/meals/xqqqtu1511637379.jpg',
-      idMeal: '52883',
-    },
-    {
-      strMeal: 'Sticky Toffee Pudding Ultimate',
-      strMealThumb: 'https://www.themealdb.com/images/media/meals/xrptpq1483909204.jpg',
-      idMeal: '52793',
-    },
-    {
-      strMeal: 'Strawberry Rhubarb Pie',
-      strMealThumb: 'https://www.themealdb.com/images/media/meals/178z5o1585514569.jpg',
-      idMeal: '53005',
-    },
-    {
-      strMeal: 'Sugar Pie',
-      strMealThumb: 'https://www.themealdb.com/images/media/meals/yrstur1511816601.jpg',
-      idMeal: '52931',
-    },
-    {
-      strMeal: 'Summer Pudding',
-      strMealThumb: 'https://www.themealdb.com/images/media/meals/rsqwus1511640214.jpg',
-      idMeal: '52889',
-    },
-    {
-      strMeal: 'Tarte Tatin',
-      strMealThumb: 'https://www.themealdb.com/images/media/meals/ryspuw1511786688.jpg',
-      idMeal: '52909',
-    },
-    {
-      strMeal: 'Timbits',
-      strMealThumb: 'https://www.themealdb.com/images/media/meals/txsupu1511815755.jpg',
-      idMeal: '52929',
-    },
-    {
-      strMeal: 'Treacle Tart',
-      strMealThumb: 'https://www.themealdb.com/images/media/meals/wprvrw1511641295.jpg',
-      idMeal: '52892',
-    },
-    {
-      strMeal: 'Tunisian Orange Cake',
-      strMealThumb: 'https://www.themealdb.com/images/media/meals/y4jpgq1560459207.jpg',
-      idMeal: '52970',
-    },
-    {
-      strMeal: 'White chocolate creme brulee',
-      strMealThumb: 'https://www.themealdb.com/images/media/meals/uryqru1511798039.jpg',
-      idMeal: '52917',
-    },
   ],
 };
 
-module.exports = dessertMeals;
+export default dessertMeals;

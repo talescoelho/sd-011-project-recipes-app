@@ -1,4 +1,4 @@
-const meals = require('./meals');
+import meals from './meals';
 // const oneMeal = require('./oneMeal');
 // const soupMeals = require('./soupMeals');
 // const beefMeals = require('./beefMeals');
@@ -7,7 +7,7 @@ const meals = require('./meals');
 // const dessertMeals = require('./dessertMeals');
 // const goatMeals = require('./goatMeals');
 // const emptyMeals = require('./emptyMeals');
-// const mealCategories = require('./mealCategories');
+import mealCategories from './mealCategories';
 // const mealIngredients = require('./mealIngredients');
 // const mealsByIngredient = require('./mealsByIngredient');
 // const drinks = require('./drinks');

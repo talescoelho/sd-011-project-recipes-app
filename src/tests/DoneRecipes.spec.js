@@ -1,8 +1,8 @@
-import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
-import fetchData from './mocks/fetch';
+// import React from 'react';
+// import { fireEvent, render } from '@testing-library/react';
+// import fetchData from './mocks/fetch';
 
-const mockFetch = () => {
-  jest.spyOn(global, 'fetch')
-    .mockImplementation((url) => fetchData(url));
-};
+// const mockFetch = () => {
+//   jest.spyOn(global, 'fetch')
+//     .mockImplementation((url) => fetchData(url));
+// };

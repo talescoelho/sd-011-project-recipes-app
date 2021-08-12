@@ -243,64 +243,7 @@ const drinkIngredients = {
     {
       strIngredient1: 'Peach nectar',
     },
-    {
-      strIngredient1: 'Lemon',
-    },
-    {
-      strIngredient1: 'Firewater',
-    },
-    {
-      strIngredient1: 'Lemonade',
-    },
-    {
-      strIngredient1: 'Lager',
-    },
-    {
-      strIngredient1: 'Whiskey',
-    },
-    {
-      strIngredient1: 'Absolut Citron',
-    },
-    {
-      strIngredient1: 'Pisco',
-    },
-    {
-      strIngredient1: 'Irish cream',
-    },
-    {
-      strIngredient1: 'Ale',
-    },
-    {
-      strIngredient1: 'Chocolate liqueur',
-    },
-    {
-      strIngredient1: 'Midori melon liqueur',
-    },
-    {
-      strIngredient1: 'Sambuca',
-    },
-    {
-      strIngredient1: 'Cider',
-    },
-    {
-      strIngredient1: 'Sprite',
-    },
-    {
-      strIngredient1: '7-Up',
-    },
-    {
-      strIngredient1: 'Blackberry brandy',
-    },
-    {
-      strIngredient1: 'Peppermint schnapps',
-    },
-    {
-      strIngredient1: 'Creme de Cassis',
-    },
-    {
-      strIngredient1: 'Jack Daniels',
-    },
   ],
 };
 
-module.exports = drinkIngredients;
+export default drinkIngredients;
