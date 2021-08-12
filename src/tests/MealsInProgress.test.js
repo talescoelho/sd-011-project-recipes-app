@@ -14,6 +14,8 @@ const INITIAL_STATE = {
   },
 };
 
+const mockRoute = '/comidas/52771/in-progress';
+
 describe('Testes para página de Comidas em Progresso', () => {
   it('Verifica se há os itens procurados', async () => {
     jest.spyOn(global, 'fetch');
@@ -22,9 +24,9 @@ describe('Testes para página de Comidas em Progresso', () => {
     });
     const { getByRole, findByTestId, getAllByRole, history } = renderWithRouterAndRedux(
       <MealsInProgress
-        match={ { params: { id: '52771' }, url: '/comidas/52771/in-progress' } }
+        match={ { params: { id: '52771' }, url: mockRoute } }
       />,
-      { route: '/comidas/52771/in-progress' }, INITIAL_STATE,
+      { route: mockRoute }, INITIAL_STATE,
     );
     const title = await findByTestId('recipe-title');
     expect(title).toBeInTheDocument();
@@ -57,9 +59,9 @@ describe('Testes para página de Comidas em Progresso', () => {
     });
     const { findByText, findByTestId, getAllByRole } = renderWithRouterAndRedux(
       <MealsInProgress
-        match={ { params: { id: '52771' }, url: '/comidas/52771/in-progress' } }
+        match={ { params: { id: '52771' }, url: mockRoute } }
       />,
-      { route: '/comidas/52771/in-progress' }, INITIAL_STATE,
+      { route: mockRoute }, INITIAL_STATE,
     );
     const type = await findByText(/vegetarian/i);
     const title = await findByTestId('recipe-title');

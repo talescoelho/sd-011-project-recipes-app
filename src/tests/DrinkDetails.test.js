@@ -16,6 +16,8 @@ const INITIAL_STATE = {
   },
 };
 
+const mockRoute = '/bebidas/178319';
+
 describe('Testes para página de HomeBebidas', () => {
   it('Verifica se há os itens procurados', async () => {
     jest.spyOn(global, 'fetch');
@@ -27,7 +29,7 @@ describe('Testes para página de HomeBebidas', () => {
     });
     const { findByText, findByTestId, getByRole, getByTitle } = renderWithRouterAndRedux(
       <DrinkDetails match={ { params: { id: '178319' } } } />,
-      { route: '/bebidas/178319' }, INITIAL_STATE,
+      { route: mockRoute }, INITIAL_STATE,
     );
 
     const type = await findByText(/Alcoholic/i);
@@ -59,7 +61,7 @@ describe('Testes para página de HomeBebidas', () => {
     });
     const { history } = renderWithRouterAndRedux(
       <DrinkDetails match={ { params: { id: '178319' } } } />,
-      { route: '/bebidas/178319' }, INITIAL_STATE,
+      { route: mockRoute }, INITIAL_STATE,
     );
     expect(history.location.pathname).toEqual('/bebidas/178319');
     expect(allMeals).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=');
