@@ -2,7 +2,6 @@ import React from 'react';
 import renderWithRouter from './renderWithRouter';
 // import MealDetailCart from '../components/MealDetailCard';
 import Foods from '../pages/foods/Foods';
-import { SearchBarProvider } from '../context/SearchBar';
 
 describe('Testa a tela <Foods.js />', () => {
   it('A tela de comida possui todos os atributos data-testid', () => {
