@@ -59,5 +59,6 @@ RecipeDoneCard.propTypes = {
     category: PropTypes.string,
     doneDate: PropTypes.number,
     tags: PropTypes.arrayOf(PropTypes.string),
+    type: PropTypes.string,
   }),
 }.isRequired;
