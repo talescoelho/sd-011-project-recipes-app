@@ -5,9 +5,7 @@ import { RequestHook } from '../Context/RequestHook';
 
 import CardRecipe from './CardRecipe';
 
-import {
-  searchFoodsAll,
-} from '../services/RequestFood';
+import { searchFoodsAll } from '../services/RequestFood';
 
 import {
   searchDrinksAll,
