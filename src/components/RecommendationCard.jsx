@@ -12,7 +12,7 @@ function RecommendationCard({ recipe, index, type }) {
 
   const HandleRedirect = (id) => {
     history
-      .push(`/${pathname.includes('/bebidas') ? 'bebidas' : 'comidas'}/${recipe[id]}`);
+      .push(`/${!pathname.includes('/bebidas') ? 'bebidas' : 'comidas'}/${recipe[id]}`);
   };
 
   return (

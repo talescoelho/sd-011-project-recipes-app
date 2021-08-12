@@ -31,9 +31,6 @@ export default function Recommendations() {
       const carroussel = document.querySelector('.carroussel-content');
       const firstItem = document.querySelector(`.carroussel-item-${item}`);
       const secItem = document.querySelector(`.carroussel-item-${item + 1}`);
-      if (item < SIX) {
-        setItem(item + 2);
-      }
 
       if (firstItem !== null) {
         firstItem.style.display = 'block';
@@ -44,7 +41,7 @@ export default function Recommendations() {
     };
 
     changeRecommendation();
-  }, [number]);
+  }, [number, item]);
 
   return (
     <div className="recommendation-container">
@@ -84,7 +81,7 @@ export default function Recommendations() {
               // click();
 
               if (number > -CHANGER * MULTIPLIER) setNumber(number - CHANGER);
-              // if (item < FIVE) setItem(item + 2);
+              if (item < SIX) setItem(item + 2);
             } }
           />
         </label>
