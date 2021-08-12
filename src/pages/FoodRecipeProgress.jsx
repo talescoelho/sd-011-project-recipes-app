@@ -44,32 +44,32 @@ const FoodRecipeProgress = ({ dispatch, match, mealDetails }) => {
       };
     }
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch, id]);
   if (mealDetails.strInstructions === undefined) return (<span>Carregando...</span>);
   const oldIngredients = [
-    `${mealDetails.strMeasure1}- ${mealDetails.strIngredient1}`,
-    `${mealDetails.strMeasure2}- ${mealDetails.strIngredient2}`,
-    `${mealDetails.strMeasure3}- ${mealDetails.strIngredient3}`,
-    `${mealDetails.strMeasure4}- ${mealDetails.strIngredient4}`,
-    `${mealDetails.strMeasure5}- ${mealDetails.strIngredient5}`,
-    `${mealDetails.strMeasure6}- ${mealDetails.strIngredient6}`,
-    `${mealDetails.strMeasure7}- ${mealDetails.strIngredient7}`,
-    `${mealDetails.strMeasure8}- ${mealDetails.strIngredient8}`,
-    `${mealDetails.strMeasure9}- ${mealDetails.strIngredient9}`,
-    `${mealDetails.strMeasure10}- ${mealDetails.strIngredient10}`,
-    `${mealDetails.strMeasure11}- ${mealDetails.strIngredient11}`,
-    `${mealDetails.strMeasure12}- ${mealDetails.strIngredient12}`,
-    `${mealDetails.strMeasure13}- ${mealDetails.strIngredient13}`,
-    `${mealDetails.strMeasure14}- ${mealDetails.strIngredient14}`,
-    `${mealDetails.strMeasure15}- ${mealDetails.strIngredient15}`,
-    `${mealDetails.strMeasure16}- ${mealDetails.strIngredient16}`,
-    `${mealDetails.strMeasure17}- ${mealDetails.strIngredient17}`,
-    `${mealDetails.strMeasure18}- ${mealDetails.strIngredient18}`,
-    `${mealDetails.strMeasure19}- ${mealDetails.strIngredient19}`,
-    `${mealDetails.strMeasure20}- ${mealDetails.strIngredient20}`,
+    `${mealDetails.strMeasure1} - ${mealDetails.strIngredient1}`,
+    `${mealDetails.strMeasure2} - ${mealDetails.strIngredient2}`,
+    `${mealDetails.strMeasure3} - ${mealDetails.strIngredient3}`,
+    `${mealDetails.strMeasure4} - ${mealDetails.strIngredient4}`,
+    `${mealDetails.strMeasure5} - ${mealDetails.strIngredient5}`,
+    `${mealDetails.strMeasure6} - ${mealDetails.strIngredient6}`,
+    `${mealDetails.strMeasure7} - ${mealDetails.strIngredient7}`,
+    `${mealDetails.strMeasure8} - ${mealDetails.strIngredient8}`,
+    `${mealDetails.strMeasure9} - ${mealDetails.strIngredient9}`,
+    `${mealDetails.strMeasure10} - ${mealDetails.strIngredient10}`,
+    `${mealDetails.strMeasure11} - ${mealDetails.strIngredient11}`,
+    `${mealDetails.strMeasure12} - ${mealDetails.strIngredient12}`,
+    `${mealDetails.strMeasure13} - ${mealDetails.strIngredient13}`,
+    `${mealDetails.strMeasure14} - ${mealDetails.strIngredient14}`,
+    `${mealDetails.strMeasure15} - ${mealDetails.strIngredient15}`,
+    `${mealDetails.strMeasure16} - ${mealDetails.strIngredient16}`,
+    `${mealDetails.strMeasure17} - ${mealDetails.strIngredient17}`,
+    `${mealDetails.strMeasure18} - ${mealDetails.strIngredient18}`,
+    `${mealDetails.strMeasure19} - ${mealDetails.strIngredient19}`,
+    `${mealDetails.strMeasure20} - ${mealDetails.strIngredient20}`,
   ];
-  const ingredients = oldIngredients.filter((ingredient) => ingredient !== ' - ');
+  const ingredients = oldIngredients.filter((ingredient) => !ingredient.startsWith(' '));
+  console.log(ingredients);
   return (
     <>
       <div>Tela de receita em processo de comidas</div>

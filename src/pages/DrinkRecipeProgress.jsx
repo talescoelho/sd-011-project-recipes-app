@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { func, shape, string } from 'prop-types';
 import { connect } from 'react-redux';
-import ConcludeRecipe from '../components/common/ConcludeRecipe';
+import * as ConcludeRecipe from '../components/common/ConcludeRecipe';
 import IngListWithCheckbox from '../components/common/IngredientsListWithCheckbox';
 import RecipeInstructions from '../components/common/RecipeInstructions';
 import { requestDrinkDetails } from '../redux/actions/recipeDetailsActions';
@@ -42,8 +42,7 @@ const DrinkRecipeProgress = ({ dispatch, match, drinkDetails }) => {
       };
     }
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-    // eslint-disable-next-line
-  }, []);
+  }, [dispatch, id]);
   if (drinkDetails.strInstructions === undefined) return (<span>Carregando...</span>);
   const oldIngredients = [
     drinkDetails.strIngredient1,
@@ -96,7 +95,7 @@ const DrinkRecipeProgress = ({ dispatch, match, drinkDetails }) => {
       <RecipeInstructions strInstructions={ drinkDetails.strInstructions } />
       {/* <ConcludeRecipe
         id={ drinkDetails.idDrink }
-        ingredients={ ingredients }
+        ingredients={ measuresAndIngredients }
         recipeType="cocktails"
       /> */}
     </>

@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { arrayOf, string } from 'prop-types';
 
 const ConcludeRecipe = ({ id, ingredients, recipeType }) => {
-  const [recipeDone, setRecipeDone] = useState(true);
-  useEffect(() => {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (inProgressRecipes[recipeType][id].length === ingredients.length) {
-      setRecipeDone(false);
-    }
-    setRecipeDone(true);
-  // eslint-disable-next-line
-  }, []);
+  // let localStorageClone = useInProgressRecipes;
+  // console.log(localStorageClone);
+  // localStorageClone = localStorageClone[recipeType];
+  // console.log(localStorageClone);
+  // let recipeDone = false;
+  // if (localStorageClone.length === ingredients.length) recipeDone = true;
+  // else recipeDone = false;
   return (
     <button
       id={ id }
       ingredients={ ingredients }
       recipeType={ recipeType }
       type="button"
-      disabled={ recipeDone }
+      // disabled={ recipeDone }
     >
       Finalizar receita
     </button>

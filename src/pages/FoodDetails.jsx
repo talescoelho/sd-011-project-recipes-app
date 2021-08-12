@@ -10,9 +10,9 @@ const FoodDetails = ({ dispatch, match, mealDetails }) => {
 
   useEffect(() => {
     dispatch(requestMealDetails(id));
-    // eslint-disable-next-line
-  }, []);
+  }, [dispatch, id]);
   if (mealDetails.strInstructions === undefined) return (<span>Carregando...</span>);
+  console.log('Imprimiu');
   return (
     <>
       <div>Pagina de Detalhe de Comida</div>
