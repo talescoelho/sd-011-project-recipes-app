@@ -49,7 +49,7 @@ export default function RecipesFood() {
     const json = await response.json();
     const maxList = 12;
     const filteredJson = json.meals.slice(0, maxList);
-    console.log(filteredJson);
+    // console.log(filteredJson);
     return (
       filteredJson,
       setCards(filteredJson)

@@ -45,7 +45,7 @@ export default function RecipesFood() {
   const fetchOrdinaryDrink = async () => {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink');
     const json = await response.json();
-    console.log(json);
+    // console.log(json);
     const maxList = 12;
     const filteredJson = json.drinks.slice(0, maxList);
     return (
@@ -57,7 +57,7 @@ export default function RecipesFood() {
   const fetchCocktail = async () => {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail');
     const json = await response.json();
-    console.log(json);
+    // console.log(json);
     const maxList = 12;
     const filteredJson = json.drinks.slice(0, maxList);
     return (
@@ -100,10 +100,11 @@ export default function RecipesFood() {
   };
 
   const fetchAll = async () => {
-    const response = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php');
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
     const json = await response.json();
-    const maxList = 12;
-    const filteredJson = json.categories.slice(0, maxList);
+    console.log(json);
+    // const maxList = 12;
+    // const filteredJson = json.drinks.categories.slice(0, maxList);
     return (
       filteredJson,
       setCards(filteredJson)
@@ -165,8 +166,8 @@ export default function RecipesFood() {
             <CardRecipes
               key={ index }
               index={ index }
-              thumb={ recp.strDrinkThumb }
-              title={ recp.strDrink }
+              thumb={ recp.strDrinkThumb || recp.strCategoryThumb }
+              title={ recp.strDrink || recp.strCategory }
             />
           </Link>))}
       </div>
