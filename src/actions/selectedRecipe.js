@@ -1,6 +1,7 @@
 export const GET_RECIPE_DETAIL = 'GET_RECIPE_DETAIL';
 export const GET_RECIPE_DETAIL_SUCCESS = 'GET_RECIPE_DETAIL_SUCCESS';
 export const GET_RECIPE_DETAIL_ERROR = 'GET_RECIPE_DETAIL_ERROR';
+export const SET_RECIPE_INGREDIENTS = 'SET_RECIPE_INGREDIENTS';
 
 const baseMealDbUrl = 'https://www.themealdb.com/api/json/v1/1';
 const baseCocktailDbUrl = 'https://www.thecocktaildb.com/api/json/v1/1';
@@ -33,3 +34,8 @@ export const fetchRecipeDetail = (type, id) => (dispatch) => {
     })
     .catch((error) => dispatch(getRecipeDetailError(error)));
 };
+
+export const setRecipeIngredients = (payload) => ({
+  type: SET_RECIPE_INGREDIENTS,
+  payload,
+});
