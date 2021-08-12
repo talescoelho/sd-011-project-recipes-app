@@ -1,6 +1,6 @@
 import {
   GET_RECIPE_DETAIL, GET_RECIPE_DETAIL_SUCCESS, GET_RECIPE_DETAIL_ERROR,
-  SET_RECIPE_INGREDIENTS,
+  SET_RECIPE_INGREDIENTS, UPDATE_IN_PROGRESS,
 } from '../actions/selectedRecipe';
 
 const INITIAL_STATE = {
@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   loading: false,
   error: null,
   ingredients: [],
+  inProgress: {},
 };
 
 const selectedRecipeReducer = (state = INITIAL_STATE, { type, payload }) => {
@@ -35,6 +36,11 @@ const selectedRecipeReducer = (state = INITIAL_STATE, { type, payload }) => {
     return {
       ...state,
       ingredients: payload,
+    };
+  case UPDATE_IN_PROGRESS:
+    return {
+      ...state,
+      inProgress: payload,
     };
   default:
     return state;

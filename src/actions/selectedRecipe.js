@@ -2,6 +2,7 @@ export const GET_RECIPE_DETAIL = 'GET_RECIPE_DETAIL';
 export const GET_RECIPE_DETAIL_SUCCESS = 'GET_RECIPE_DETAIL_SUCCESS';
 export const GET_RECIPE_DETAIL_ERROR = 'GET_RECIPE_DETAIL_ERROR';
 export const SET_RECIPE_INGREDIENTS = 'SET_RECIPE_INGREDIENTS';
+export const UPDATE_IN_PROGRESS = 'UPDATE_IN_PROGRESS';
 
 const baseMealDbUrl = 'https://www.themealdb.com/api/json/v1/1';
 const baseCocktailDbUrl = 'https://www.thecocktaildb.com/api/json/v1/1';
@@ -37,5 +38,10 @@ export const fetchRecipeDetail = (type, id) => (dispatch) => {
 
 export const setRecipeIngredients = (payload) => ({
   type: SET_RECIPE_INGREDIENTS,
+  payload,
+});
+
+export const updateInProgress = (payload) => ({
+  type: UPDATE_IN_PROGRESS,
   payload,
 });

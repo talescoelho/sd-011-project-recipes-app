@@ -1,22 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchRecipeDetail, setRecipeIngredients } from '../actions/selectedRecipe';
+import {
+  fetchRecipeDetail, setRecipeIngredients, updateInProgress,
+} from '../actions/selectedRecipe';
 import FinishRecipeButton from '../components/FinishRecipeButton';
 import { getFromStorage, setToStorage } from '../helpers/utils';
 import style from './RecipeInProgress.module.css';
 
 function RecipeInProgress({
   match: { params: { id }, path },
-  recipe, ingredients,
-  dispatchFetchRecipe, dispatchSetIngredients,
+  recipe, ingredients, inProgress,
+  dispatchFetchRecipe, dispatchSetIngredients, dispatchUpdateInProgress,
 }) {
-  const [inProgress, setInProgress] = React.useState({});
-
   React.useEffect(() => {
     const recipesInProgress = getFromStorage('inProgressRecipes') || {};
-    setInProgress(recipesInProgress);
-  }, []);
+    dispatchUpdateInProgress(recipesInProgress);
+  }, [dispatchUpdateInProgress]);
 
   React.useEffect(() => {
     const type = path.replace(/(^\/)|(\/)(:|\w|-)+/g, '');
@@ -44,13 +44,6 @@ function RecipeInProgress({
     })();
   }, [recipe, dispatchSetIngredients]);
 
-  const details = {
-    strThumb: recipe.strDrinkThumb || recipe.strMealThumb,
-    str: recipe.strDrink || recipe.strMeal,
-    strCategory: recipe.strCategory,
-    strInstructions: recipe.strInstructions,
-  };
-
   const addStepToStorage = (value, storageItem) => {
     const updatedItem = {
       ...storageItem,
@@ -61,7 +54,7 @@ function RecipeInProgress({
     };
 
     setToStorage('inProgressRecipes', updatedItem);
-    setInProgress(updatedItem);
+    dispatchUpdateInProgress(updatedItem);
   };
 
   const removeStepFromStorage = (value, storageItem) => {
@@ -73,7 +66,7 @@ function RecipeInProgress({
     if (updatedItem[id].length === 0) delete updatedItem[id];
 
     setToStorage('inProgressRecipes', updatedItem);
-    setInProgress(updatedItem);
+    dispatchUpdateInProgress(updatedItem);
   };
 
   const handleStepDone = (target, index) => {
@@ -86,6 +79,13 @@ function RecipeInProgress({
       removeStepFromStorage(index, recipesInProgress);
       target.parentElement.classList.remove(style.checked);
     }
+  };
+
+  const details = {
+    strThumb: recipe.strDrinkThumb || recipe.strMealThumb,
+    str: recipe.strDrink || recipe.strMeal,
+    strCategory: recipe.strCategory,
+    strInstructions: recipe.strInstructions,
   };
 
   return (
@@ -115,19 +115,23 @@ function RecipeInProgress({
       <p data-testid="instructions">
         { details.strInstructions }
       </p>
-      <FinishRecipeButton />
+      <FinishRecipeButton id={ id } />
     </main>
   );
 }
 
-const mapStateToProps = ({ selectedRecipeReducer: { recipe, ingredients } }) => ({
+const mapStateToProps = (
+  { selectedRecipeReducer: { recipe, ingredients, inProgress } },
+) => ({
   recipe,
   ingredients,
+  inProgress,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchFetchRecipe: (type, id) => dispatch(fetchRecipeDetail(type, id)),
   dispatchSetIngredients: (ingredients) => dispatch(setRecipeIngredients(ingredients)),
+  dispatchUpdateInProgress: (InProgress) => dispatch(updateInProgress(InProgress)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeInProgress);
@@ -135,9 +139,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(RecipeInProgress);
 RecipeInProgress.defaultProps = {
   recipe: {},
   ingredients: [],
+  inProgress: {},
 };
 
 RecipeInProgress.propTypes = {
   dispatchFetchRecipe: PropTypes.func,
   dispatchSetIngredients: PropTypes.func,
+  dispatchUpdateInProgress: PropTypes.func,
 }.isRequired;
