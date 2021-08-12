@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-
 import { useLocation } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 // import Header from '../components/Header';
@@ -16,7 +15,7 @@ function Principal() {
   const type = pathname === '/bebidas' ? 'drinks' : 'meals';
   // const title = type === 'drinks' ? 'Bebidas' : 'Comidas';
 
-  const { 
+  const {
     isLoading,
     dataRecipes,
     setRecipeType } = useContext(RecipesContext);

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import '../styles/Header.css';
-import SearchBar from './SearchBar';
+// import SearchBar from './SearchBar';
 
 function Header(props) {
   const [hidden, setHidden] = useState(false);
@@ -44,7 +44,7 @@ function Header(props) {
           </div>
         </div>
       </div>
-      { hidden && <SearchBar /> }
+      {/* { hidden && <SearchBar /> } */}
     </header>
   );
 }

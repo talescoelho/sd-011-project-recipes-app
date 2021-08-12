@@ -7,7 +7,6 @@ import Login from './pages/Login';
 import Principal from './pages/Principal';
 import RecipesProvider from './context/RecipesProvider';
 
-
 function App() {
   return (
     <div className="meals">

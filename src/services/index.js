@@ -76,7 +76,8 @@ export const searchByFirstLetter = async (firstLetter, pathname) => {
     const json = await recipes.json();
     return json;
   }
-  window.alert('Sua busca deve conter somente 1 (um) caracter');
+  // eslint-disable-next-line no-alert
+  return alert('Sua busca deve conter somente 1 (um) caracter');
 };
 
 export const searchById = async (id, type) => {
