@@ -1,49 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchRecipeDetail } from '../actions/selectedRecipe';
+import {
+  fetchRecipeDetail, setRecipeIngredients, updateInProgress,
+} from '../actions/selectedRecipe';
+import FinishRecipeButton from '../components/FinishRecipeButton';
 import { getFromStorage, setToStorage } from '../helpers/utils';
 import style from './RecipeInProgress.module.css';
 
 function RecipeInProgress({
   match: { params: { id }, path },
-  recipe,
-  dispatchFetchRecipe,
+  recipe, ingredients, inProgress,
+  dispatchFetchRecipe, dispatchSetIngredients, dispatchUpdateInProgress,
 }) {
-  const [inProgress, setInProgress] = React.useState({});
-
   React.useEffect(() => {
     const recipesInProgress = getFromStorage('inProgressRecipes') || {};
-    setInProgress(recipesInProgress);
-  }, []);
+    dispatchUpdateInProgress(recipesInProgress);
+  }, [dispatchUpdateInProgress]);
 
   React.useEffect(() => {
     const type = path.replace(/(^\/)|(\/)(:|\w|-)+/g, '');
     dispatchFetchRecipe(type, id);
   }, [dispatchFetchRecipe, id, path]);
 
-  const details = {
-    strThumb: recipe.strDrinkThumb || recipe.strMealThumb,
-    str: recipe.strDrink || recipe.strMeal,
-    strCategory: recipe.strCategory,
-    strInstructions: recipe.strInstructions,
-  };
+  React.useEffect(() => {
+    (() => {
+      const ingredientsCount = 20;
+      const ingredientsList = [];
 
-  const getIngredients = () => {
-    const ingredientsCount = 20;
-    const ingredientsList = [];
+      for (let index = 1; index <= ingredientsCount; index += 1) {
+        const ingredient = recipe[`strIngredient${index}`];
+        const measure = recipe[`strMeasure${index}`];
 
-    for (let index = 1; index <= ingredientsCount; index += 1) {
-      const ingredient = recipe[`strIngredient${index}`];
-      const measure = recipe[`strMeasure${index}`];
+        if (
+          recipe[`strIngredient${index}`]
+          && recipe[`strIngredient${index}`].length > 0
+        ) {
+          ingredientsList.push([ingredient, measure]);
+        } else break;
+      }
 
-      if (recipe[`strIngredient${index}`] && recipe[`strIngredient${index}`].length > 0) {
-        ingredientsList.push([ingredient, measure]);
-      } else break;
-    }
-
-    return ingredientsList;
-  };
+      dispatchSetIngredients(ingredientsList);
+    })();
+  }, [recipe, dispatchSetIngredients]);
 
   const addStepToStorage = (value, storageItem) => {
     const updatedItem = {
@@ -55,7 +54,7 @@ function RecipeInProgress({
     };
 
     setToStorage('inProgressRecipes', updatedItem);
-    setInProgress(updatedItem);
+    dispatchUpdateInProgress(updatedItem);
   };
 
   const removeStepFromStorage = (value, storageItem) => {
@@ -67,7 +66,7 @@ function RecipeInProgress({
     if (updatedItem[id].length === 0) delete updatedItem[id];
 
     setToStorage('inProgressRecipes', updatedItem);
-    setInProgress(updatedItem);
+    dispatchUpdateInProgress(updatedItem);
   };
 
   const handleStepDone = (target, index) => {
@@ -82,6 +81,13 @@ function RecipeInProgress({
     }
   };
 
+  const details = {
+    strThumb: recipe.strDrinkThumb || recipe.strMealThumb,
+    str: recipe.strDrink || recipe.strMeal,
+    strCategory: recipe.strCategory,
+    strInstructions: recipe.strInstructions,
+  };
+
   return (
     <main data-testid="recipes-page">
       <img src={ details.strThumb } alt="" data-testid="recipe-photo" />
@@ -91,7 +97,7 @@ function RecipeInProgress({
       <p data-testid="recipe-category">{ details.strCategory }</p>
       <ul>
         {
-          getIngredients().map(([ingredient, measure], index) => (
+          ingredients.map(([ingredient, measure], index) => (
             <li key={ ingredient } data-testid={ `${index}-ingredient-step` }>
               <label htmlFor={ `ingredient${index + 1}` }>
                 <input
@@ -109,25 +115,35 @@ function RecipeInProgress({
       <p data-testid="instructions">
         { details.strInstructions }
       </p>
-      <button type="button" data-testid="finish-recipe-btn">Finalizar</button>
+      <FinishRecipeButton id={ id } />
     </main>
   );
 }
 
-const mapStateToProps = ({ selectedRecipeReducer: { recipe } }) => ({
+const mapStateToProps = (
+  { selectedRecipeReducer: { recipe, ingredients, inProgress } },
+) => ({
   recipe,
+  ingredients,
+  inProgress,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchFetchRecipe: (type, id) => dispatch(fetchRecipeDetail(type, id)),
+  dispatchSetIngredients: (ingredients) => dispatch(setRecipeIngredients(ingredients)),
+  dispatchUpdateInProgress: (InProgress) => dispatch(updateInProgress(InProgress)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeInProgress);
 
 RecipeInProgress.defaultProps = {
   recipe: {},
+  ingredients: [],
+  inProgress: {},
 };
 
 RecipeInProgress.propTypes = {
   dispatchFetchRecipe: PropTypes.func,
+  dispatchSetIngredients: PropTypes.func,
+  dispatchUpdateInProgress: PropTypes.func,
 }.isRequired;
