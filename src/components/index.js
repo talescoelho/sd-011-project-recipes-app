@@ -5,3 +5,4 @@ export { default as CocktailsList } from './Home/CocktailsList';
 export { default as ActionButton } from './FoodDetails/ActionButton';
 export {
   default as RecipeRecommendationList } from './DrinkDetails/RecipeRecommendationList';
+export { default as FavoriteButton } from './common/ActionButton/FavoriteButton';

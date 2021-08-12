@@ -3,13 +3,12 @@ import { useParams, useHistory } from 'react-router';
 import copy from 'clipboard-copy';
 import loading from '../images/loading.gif';
 
-import { Layout, ActionButton } from '../components';
+import { Layout, FavoriteButton } from '../components';
 
 import { useLocalStorage } from '../hooks';
 
 const NOT_FOUND_INDEX = -1;
 const TOAST_TIMEOUT = 3000;
-const RECOMMENDATION_NUMBER = 6;
 
 const renderLoadingOrError = (error, isLoading) => {
   if (isLoading) {
@@ -26,11 +25,10 @@ function FoodDetails() {
   const [error, setError] = useState(null);
   const [recipe, setRecipe] = useState(null);
   const [toastIsVisible, setToastIsVisible] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
   const [usedIngredients, setUsedIngredients] = useState([]);
   const { id } = useParams();
   const history = useHistory();
-  const { getFavoriteRecipes, getInProgressRecipeByType } = useLocalStorage();
+  const { getFavoriteRecipes, getInProgressRecipeByType, updateInProgressRecipe } = useLocalStorage();
 
   const BASE_URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php'; // TODO usar token
 
@@ -41,7 +39,6 @@ function FoodDetails() {
       .catch(setError)
       .finally(() => setIsLoading(false));
 
-    setIsFavorite(getFavoriteRecipes().findIndex((r) => r.id === id) !== NOT_FOUND_INDEX);
     const inProgressMeals = getInProgressRecipeByType('meals');
     const inProgressIngredients = inProgressMeals[id] || [];
     setUsedIngredients(inProgressIngredients);
@@ -77,48 +74,14 @@ function FoodDetails() {
                   <h2 data-testid="recipe-category">{ recipe.strCategory }</h2>
                 </div>
                 <div>
-                  <ActionButton
+                  {/* <ActionButton
                     action="share"
                     onClick={ () => {
                       copy(`http://localhost:3000/comidas/${id}`);
                       showToast();
                     } }
-                  />
-                  <ActionButton
-                    action="favorite"
-                    reverse={ isFavorite }
-                    onClick={ () => {
-                      const storedFavoriteRecipes = localStorage
-                        .getItem('favoriteRecipes');
-                      const parsedFavoriteRecipes = storedFavoriteRecipes
-                        ? JSON.parse(storedFavoriteRecipes)
-                        : [];
-
-                      let favoriteRecipesToStore;
-
-                      if (isFavorite) {
-                        favoriteRecipesToStore = parsedFavoriteRecipes
-                          .filter((parsedRecipe) => parsedRecipe.id !== id);
-                      } else {
-                        favoriteRecipesToStore = [...parsedFavoriteRecipes, {
-                          id,
-                          type: 'comida',
-                          area: recipe.strArea,
-                          category: recipe.strCategory,
-                          alcoholicOrNot: '',
-                          name: recipe.strMeal,
-                          image: recipe.strMealThumb,
-                        }];
-                      }
-
-                      localStorage.setItem(
-                        'favoriteRecipes',
-                        JSON.stringify(favoriteRecipesToStore),
-                      );
-
-                      setIsFavorite((previously) => !previously);
-                    } }
-                  />
+                  /> */}
+                  <FavoriteButton recipe={ recipe } />
                 </div>
               </section>
               <section>
@@ -150,6 +113,7 @@ function FoodDetails() {
                                   newUsedIngredients.splice(newUsedIngredients.indexOf(recipe[key]), 1);
                                 }
                                 setUsedIngredients(newUsedIngredients);
+                                updateInProgressRecipe('meals', { id, usedIngredients: newUsedIngredients });
                               } }
                             />
                             <span>{ recipe[key] }</span>
