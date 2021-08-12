@@ -41,7 +41,9 @@ export const fetchAllRecipesOrByCategory = async (pathname,
     const { meals } = await recipes.json();
     return meals;
   }
-  return fetchFoodsByIngredients(pathname, ingredient);
+  if (ingredient) {
+    return fetchFoodsByIngredients(pathname, ingredient);
+  }
 };
 
 export const fetchCategorysList = async (typeOfRecipes) => {
