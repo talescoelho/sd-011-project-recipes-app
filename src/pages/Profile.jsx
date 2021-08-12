@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import FooterMenu from '../components/FooterMenu';
+import profileIcon from '../images/profileIcon.svg';
 
 export default function Profile({ history }) {
   function hadleRedirectBtns({ target: { name } }) {
@@ -11,33 +13,43 @@ export default function Profile({ history }) {
       history.push('/');
     }
   }
+
   return (
     <>
       <header>
-        <img alt="icone Profile" src="" />
-        <h1>Profile - Esse header será outro componente</h1>
+        <input
+          type="image"
+          data-testid="profile-top-btn"
+          src={ profileIcon }
+          alt="icone de perfil"
+        />
+        <h1 data-testid="page-title">Perfil</h1>
       </header>
       <h1 data-testid="profile-email">
-        {JSON.parse(localStorage.getItem('user')).email}
+        {JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).email : 'usuario'}
       </h1>
       <br />
-      <button
-        type="button"
-        onClick={ (event) => hadleRedirectBtns(event) }
-        name="done-recipies"
-        data-testid="profile-done-btn"
-      >
-        Receitas Feitas
-      </button>
-      <button
-        type="button"
-        value="Receitas Favoritas"
-        onClick={ (event) => hadleRedirectBtns(event) }
-        name="favorite-recipies"
-        data-testid="profile-favorite-btn"
-      >
-        Receitas Favoritas
-      </button>
+      <Link to="receitas-feitas">
+        <button
+          type="button"
+          onClick={ (event) => hadleRedirectBtns(event) }
+          name="done-recipies"
+          data-testid="profile-done-btn"
+        >
+          Receitas Feitas
+        </button>
+      </Link>
+      <Link to="receitas-favoritas">
+        <button
+          type="button"
+          value="Receitas Favoritas"
+          onClick={ (event) => hadleRedirectBtns(event) }
+          name="favorite-recipies"
+          data-testid="profile-favorite-btn"
+        >
+          Receitas Favoritas
+        </button>
+      </Link>
       <button
         type="button"
         value="Sair"

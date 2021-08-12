@@ -6,7 +6,7 @@ import {
   APImealsSearchName } from '../services/APImealsANDdrinks';
 
 export default function SearchBarMeals() {
-  const { setMeals, meals } = useContext(UserContext);
+  const { setMeals, meals, showSearch } = useContext(UserContext);
 
   const [type, setType] = useState('');
   const [radio, setRadio] = useState('');
@@ -46,6 +46,10 @@ export default function SearchBarMeals() {
       alert('Sua busca deve conter somente 1 (um) caracter');
     }
   };
+
+  if (!showSearch) {
+    return null;
+  }
 
   return (
     <div className="alltoggle-search">
