@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 function ExplorerDrink() {
   const headerProps = {
     title: 'Explorar Bebidas',
-    enableSearchButton: true,
+    enableSearchButton: false,
     enableProfileButton: true,
   };
 
