@@ -15,6 +15,7 @@ export const mealsObjectFormater = (recipeData) => {
     video: recipeData.strYoutube,
     category: recipeData.strCategory,
     id: recipeData.idMeal,
+    tags: recipeData.strTags,
   };
 
   return mealObject;
@@ -38,7 +39,6 @@ export const drinksObjectFormater = (recipeData) => {
     id: recipeData.idDrink,
     strAlcoholic: recipeData.strAlcoholic,
     strGlass: recipeData.strGlass,
-
   };
   return drinksObject;
 };
