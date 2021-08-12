@@ -12,8 +12,8 @@
   background-color: grey;
 }
 
-.details-container{
-  text-align: center;
+.do-row {
+  text-decoration: line-through;
 }
 
 .details-body {

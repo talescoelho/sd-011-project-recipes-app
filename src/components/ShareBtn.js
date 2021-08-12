@@ -21,5 +21,4 @@ function ShareBtn() {
     </div>
   );
 }
-
 export default ShareBtn;

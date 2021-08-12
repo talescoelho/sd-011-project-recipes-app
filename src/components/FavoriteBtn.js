@@ -21,5 +21,4 @@ function FavoriteBtn() {
     </div>
   );
 }
-
 export default FavoriteBtn;

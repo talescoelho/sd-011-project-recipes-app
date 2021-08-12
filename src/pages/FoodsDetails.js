@@ -42,7 +42,6 @@ export default function FoodsDetails(props) {
   }, [details]);
 
   return (
-
     <FoodDetailsCard
       mealIngredients={ mealIngredients }
       details={ details }

@@ -11,29 +11,32 @@ class DrinksRecipiesInProcess extends React.Component {
       componentMounted: false,
       checkToggle: [false, 0],
       stockDrinks: [],
+      completedIngredientes: [],
     };
     this.test = this.test.bind(this);
     // this.recoverLocalStorage = this.recoverLocalStorage.bind(this);
     this.changeRow = this.changeRow.bind(this);
     this.renderAll = this.renderAll.bind(this);
   }
-
   // {
   //   cocktails: {
   //       id-da-bebida: [lista-de-ingredientes-utilizados],
   //       ...
   //   },
+
   componentDidMount() {
     this.test();
   }
 
   componentDidUpdate() {
     if (localStorage.inProgressRecipes) {
+      const { match: { params: { id } } } = this.props;
       const recoveredInfo = JSON.parse(localStorage.inProgressRecipes);
-      // console.log('recuperei');
+      const ote = Object.entries(recoveredInfo);
+
+      console.log(ote);
       // console.log(recoveredInfo);
     }
-    console.log(this.state.stockDrinks);
   }
 
   async test() {
@@ -46,21 +49,29 @@ class DrinksRecipiesInProcess extends React.Component {
   }
 
   changeRow(event, index) {
-    const { stockDrinks, checkToggle } = this.state;
+    const { stockDrinks } = this.state;
     let filter = [];
     if (stockDrinks.some((i) => i === index)) {
-      filter = stockDrinks.filter((ell, index2) => index2 !== index);
+      filter = stockDrinks.filter((ell) => ell !== index);
     } else {
       filter = [...stockDrinks, index];
     }
     this.setState({
       stockDrinks: filter,
     }, () => {
+      const { stockDrinks: newStockDrinks } = this.state;
       const { match: { params: { id } } } = this.props;
-      const cocktails = {
-        [id]: stockDrinks,
+      const drinks = {
+        cocktails: {
+          [id]: newStockDrinks,
+        },
       };
-      localStorage.inProgressRecipes = JSON.stringify(cocktails);
+      if (localStorage.inProgressRecipes) {
+        if (JSON.parse(localStorage.inProgressRecipes).cocktails) {
+          const prev = JSON.parse(localStorage.inProgressRecipes).cocktails;
+          localStorage.inProgressRecipes = JSON.stringify(...prev, drinks);
+        }
+      } else { localStorage.inProgressRecipes = JSON.stringify(drinks); }
     });
     event.target.parentNode.classList.toggle('do-row');
   }
@@ -85,6 +96,7 @@ class DrinksRecipiesInProcess extends React.Component {
                 .includes('strIngredient') && igredients[1])
               .map((e, index) => (
                 <li
+                  // className={}
                   data-testid={ `${index}-ingredient-step` }
                   key={ index }
                 >
