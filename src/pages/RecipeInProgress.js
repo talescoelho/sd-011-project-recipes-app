@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchRecipeDetail } from '../actions/selectedRecipe';
+import style from './RecipeInProgress.module.css';
 
 function RecipeInProgress({
   match: { params: { id }, path },
@@ -36,6 +37,11 @@ function RecipeInProgress({
     return ingredientsList;
   };
 
+  const handleStepDone = ({ target }) => {
+    if (target.checked) target.parentElement.classList.add(style.checked);
+    else target.parentElement.classList.remove(style.checked);
+  };
+
   return (
     <main data-testid="recipes-page">
       <img src={ details.strThumb } alt="" data-testid="recipe-photo" />
@@ -48,7 +54,11 @@ function RecipeInProgress({
           getIngredients().map(([ingredient, measure], index) => (
             <li key={ ingredient } data-testid={ `${index}-ingredient-step` }>
               <label htmlFor={ `ingredient${index + 1}` }>
-                <input type="checkbox" id={ `ingredient${index + 1}` } />
+                <input
+                  type="checkbox"
+                  id={ `ingredient${index + 1}` }
+                  onClick={ handleStepDone }
+                />
                 { `${ingredient} - ${measure}` }
               </label>
             </li>
