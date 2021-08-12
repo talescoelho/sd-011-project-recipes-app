@@ -40,7 +40,7 @@ function CardRecipe({ item, index }) {
       return (
         <Link to={ `/bebidas/${object.idDrink}` }>
           <div data-testid={ `${index}-recipe-card` }>
-            <p data-testid={ `${index}-card-name` }>{object.strCategory }</p>
+            <p data-testid={ `${index}-card-name` }>{object.strDrink }</p>
             <img
               data-testid={ `${index}-card-img` }
               src={ object.strDrinkThumb }

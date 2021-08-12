@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -20,16 +20,16 @@ function HeaderDrink({ title, search }) {
     filterByFirstLetterDrink,
   } = RequestHook();
 
-  useEffect(() => {
-    setShowFilter(true);
-  }, []);
+  // useEffect(() => {
+  //   setShowFilter(true);
+  // }, []);
 
   const nameSearch = 'name-search';
   const firstLetter = 'first-letter';
   const ingredient = 'ingredient';
 
-  function handleButtonDrink() {
-    switch (radio) {
+  function handleButtonDrink(option) {
+    switch (option) {
     case (nameSearch):
       setFilteredDrink(filterByNameDrink(inputTextSearch));
       if (filteredDrink.length < 1) {
@@ -61,16 +61,15 @@ function HeaderDrink({ title, search }) {
       </Link>
       <h1 data-testid="page-title">{ title }</h1>
 
-      { search
-        && (
-          <button
-            type="button"
-            onClick={ () => setShowFilter((state) => !state) }
-          >
-            <img data-testid="search-top-btn" src={ searchIcon } alt="search icon" />
-          </button>) }
+      { search && (
+        <button
+          type="button"
+          onClick={ () => setShowFilter((state) => !state) }
+        >
+          <img data-testid="search-top-btn" src={ searchIcon } alt="search icon" />
+        </button>) }
 
-      { showFilterInput ? '' : (
+      { !showFilterInput ? '' : (
         <form>
           <input
             data-testid="search-input"
@@ -116,7 +115,7 @@ function HeaderDrink({ title, search }) {
           <button
             data-testid="exec-search-btn"
             type="button"
-            onClick={ () => handleButtonDrink() }
+            onClick={ () => handleButtonDrink(radio) }
           >
             Buscar
           </button>
