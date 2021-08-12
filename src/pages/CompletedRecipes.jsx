@@ -39,6 +39,7 @@ const CompletedRecipes = () => {
 
   return (
     <div>
+      { console.log('test') }
       <Header />
       <button
         type="button"
@@ -85,6 +86,7 @@ const CompletedRecipes = () => {
                   src={ image }
                   alt=""
                   data-testid={ `${index}-horizontal-image` }
+                  width="120px"
                 />
                 <h3 data-testid={ `${index}-horizontal-name` }>{ name }</h3>
               </Link>
