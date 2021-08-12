@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchRecipeDetail } from '../actions/selectedRecipe';
 import { getFromStorage, setToStorage } from '../helpers/utils';
+import style from './RecipeInProgress.module.css';
 
 function RecipeInProgress({
   match: { params: { id }, path },
@@ -72,8 +73,13 @@ function RecipeInProgress({
   const handleStepDone = (target, index) => {
     const recipesInProgress = getFromStorage('inProgressRecipes') || {};
 
-    if (target.checked) addStepToStorage(index, recipesInProgress);
-    else removeStepFromStorage(index, recipesInProgress);
+    if (target.checked) {
+      addStepToStorage(index, recipesInProgress);
+      target.parentElement.classList.add(style.checked);
+    } else {
+      removeStepFromStorage(index, recipesInProgress);
+      target.parentElement.classList.remove(style.checked);
+    }
   };
 
   return (
@@ -92,7 +98,7 @@ function RecipeInProgress({
                   type="checkbox"
                   id={ `ingredient${index + 1}` }
                   checked={ inProgress[id] && inProgress[id].includes(index + 1) }
-                  onChange={ ({ target }) => handleStepDone(target, index + 1) }
+                  onClick={ ({ target }) => handleStepDone(target, index + 1) }
                 />
                 { `${ingredient} - ${measure}` }
               </label>
