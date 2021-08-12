@@ -7,8 +7,7 @@ import '../css/mainPage.css';
 import CategoriesMeals from '../components/CategoriesMeals';
 // import SearchBarMeals from '../components/SearchBarMeals';
 
-export default function Meals(props) {
-  const { history } = props;
+export default function Meals({ history }) {
   const { meals } = useContext(UserContext);
   if (meals.length === 0) {
     return <div>loading</div>;

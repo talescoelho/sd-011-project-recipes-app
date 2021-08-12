@@ -15,7 +15,8 @@ import ExploreFoodIngredient from './pages/ExploreFoodIngredient';
 import NotFound from './pages/NotFound';
 import RecipesMade from './pages/RecipesMade';
 import RecipesFavorites from './pages/RecipesFavorites';
-// import MealRecipeCard from './components/MealRecipeCard';
+import DrinkInProgress from './pages/DrinkInProgress';
+import MealsInProgress from './pages/MealsInProgress';
 
 function App() {
   return (
@@ -31,8 +32,6 @@ function App() {
         <Route path="/bebidas/:id" component={ DrinkDetails } />
         <Route path="/comidas" component={ Meals } />
         <Route path="/bebidas" component={ Drinks } />
-        {/* <Route path="/profile" component={ Profile } /> */}
-
         <Route
           exact
           path="/explorar/comidas/ingredientes"
@@ -44,14 +43,15 @@ function App() {
           component={ ExploreDrinkIngredient }
         />
 
-        {/* <Route path="/bebidas:id" component={} />
-
         {/*
         Tela de receita em processo de comida: /comidas/{id-da-receita}/in-progress;
         Tela de receita em processo de bebida: /bebidas/{id-da-receita}/in-progress; */}
         <Route exact path="/receitas-feitas" component={ RecipesMade } />
         <Route exact path="/receitas-favoritas" component={ RecipesFavorites } />
+        <Route path="/comidas/id:/in-progress" component={ MealsInProgress } />
+        <Route path="/bebidas/id:/in-progress" component={ DrinkInProgress } />
         <Route path="*" component={ NotFound } />
+
       </Switch>
     </BrowserRouter>
   );

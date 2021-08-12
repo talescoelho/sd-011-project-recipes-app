@@ -17,10 +17,15 @@ export default function ExploreFoodIngredient({ history }) {
     callAPIingredients();
   }, []);
   const doze = 12;
+  const exploreIngredient = 'Explorar Ingredientes';
+  setMeals('');
+
   function getRecipeByIngredient(meal) {
+    const num12 = 12;
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${meal.strIngredient}`)
       .then((response) => response.json())
-      .then((data) => setMeals(data.meals))
+      .then((data) => data.meals.slice(0, num12))
+      .then((dataT) => setMeals(dataT))
       .then(history.push('/comidas'));
   }
   if (!ingredients) return <div>is loading...</div>;

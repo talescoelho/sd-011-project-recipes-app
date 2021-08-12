@@ -18,9 +18,11 @@ export default function ExploreFoodIngredient({ history }) {
   }, []);
   const doze = 12;
   function getRecipeByIngredient(drinks) {
+    const num12 = 12;
     fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drinks.strIngredient1}`)
       .then((response) => response.json())
-      .then((data) => setDrinks(data.drinks))
+      .then((data) => data.drinks.slice(0, num12))
+      .then((dataT) => setDrinks(dataT))
       .then(history.push('/bebidas'));
   }
   if (!ingredients) return <div>is loading...</div>;

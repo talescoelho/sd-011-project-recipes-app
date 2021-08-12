@@ -5,35 +5,34 @@ import UserContext from '../context/UserContext';
 // import { APImealById } from '../services/APImealsANDdrinks';
 
 function Recommendations() {
-  const { drinks } = useContext(UserContext);
+  const { meals } = useContext(UserContext);
   return (
     <div>
       <h2>Recomendadas</h2>
       <div
-        id="drink"
+        id="meal"
         className="carousel slide"
         data-bs-ride="carousel"
       >
         <div className="carousel-inner">
           {
-            drinks.map((drink, index) => (index < '6' ? (
+            meals.map((meal, index) => (index < '6' ? (
               <div
                 className={ (index < 2) ? 'carousel-item active' : 'carousel-item' }
                 data-testid={ `${index}-recomendation-card` }
                 key={ index }
               >
-                <p>{drink.strAlcoholic}</p>
                 <h2
                   data-testid={ `${index}-recomendation-title` }
                 >
-                  {drink.strDrink}
+                  {meal.strMeal}
                 </h2>
                 <img
-                  src={ drink.strDrinkThumb }
+                  src={ meal.strMealThumb }
                   className="d-flex w-180"
                   width="150"
                   height="100"
-                  alt={ drink.strDrink }
+                  alt={ meal.strMeal }
                   data-testid={ `${index}-card-img` }
                 />
               </div>
@@ -42,7 +41,7 @@ function Recommendations() {
           <button
             className="carousel-control-prev"
             type="button"
-            data-bs-target="#drink"
+            data-bs-target="#meal"
             data-bs-slide="prev"
           >
             <span className="carousel-control-prev-icon" aria-hidden="true" />
@@ -51,7 +50,7 @@ function Recommendations() {
           <button
             className="carousel-control-next"
             type="button"
-            data-bs-target="#drink"
+            data-bs-target="#meal"
             data-bs-slide="next"
           >
             <span className="carousel-control-next-icon" aria-hidden="true" />
