@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Carousel from './Carousel';
-import { addDrinkRecipeOngoing, addRecipeFavorite } from '../actions';
+import { addDrinkRecipeOngoing } from '../actions';
 import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 class BebidasDetalhes extends Component {
   constructor(props) {
@@ -15,16 +17,52 @@ class BebidasDetalhes extends Component {
       finalList: [],
       isMealDone: false,
       isMealInProgress: false,
+      isALreadyFavorited: false,
     };
 
     this.drinkDetailsFetchAPI = this.drinkDetailsFetchAPI.bind(this);
     this.CopyToClipboard = this.CopyToClipboard.bind(this);
+    this.handleOnClickLike = this.handleOnClickLike.bind(this);
   }
 
   componentDidMount() {
     this.drinkDetailsFetchAPI();
     this.fetchInProgressRecipes();
     this.fetchDoneRecipes();
+  }
+
+  handleOnClickLike() {
+    const { drinkDetails, isALreadyFavorited } = this.state;
+    const obj = {
+      id: drinkDetails.idDrink,
+      type: 'bebida',
+      area: '',
+      category: drinkDetails.strCategory,
+      alcoholicOrNot: drinkDetails.strAlcoholic,
+      name: drinkDetails.strDrink,
+      image: drinkDetails.strDrinkThumb,
+    };
+    const favoritedRecipes = JSON.parse(
+      localStorage.getItem('favoriteRecipes'),
+    );
+    if (!isALreadyFavorited && favoritedRecipes !== null) {
+      favoritedRecipes.push(obj);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favoritedRecipes));
+    }
+    if (favoritedRecipes === null) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([obj]));
+    }
+    if (isALreadyFavorited) {
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify(
+          favoritedRecipes.filter((e) => e.id !== drinkDetails.idDrink),
+        ),
+      );
+    }
+    this.setState({
+      isALreadyFavorited: !isALreadyFavorited,
+    });
   }
 
   fetchInProgressRecipes() {
@@ -70,11 +108,7 @@ class BebidasDetalhes extends Component {
   }
 
   async drinkDetailsFetchAPI() {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
+    const { match: { params: { id } } } = this.props;
     const response = await fetch(
       `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`,
     );
@@ -97,24 +131,24 @@ class BebidasDetalhes extends Component {
         finalList: doneList,
       });
     });
+    const favoritedRecipes = JSON.parse(
+      localStorage.getItem('favoriteRecipes'),
+    );
+    const { drinkDetails } = this.state;
+    if (
+      favoritedRecipes !== null
+      && favoritedRecipes.some((e) => e.id === drinkDetails.idDrink)
+    ) {
+      this.setState({
+        isALreadyFavorited: true,
+      });
+    }
   }
 
   render() {
     const { drinkDetails, ingredientList, finalList, isMealDone, showSpan,
-      buttonText, isMealInProgress,
-    } = this.state;
-    const { addDrinkRecipeCurr, addRecipeFav, match: {
-      params: { id },
-    } } = this.props;
-    const obj = {
-      id: drinkDetails.idDrink,
-      type: 'bebida',
-      area: '',
-      category: drinkDetails.strCategory,
-      alcoholicOrNot: drinkDetails.strAlcoholic,
-      name: drinkDetails.strDrink,
-      image: drinkDetails.strDrinkThumb,
-    };
+      isMealInProgress, isALreadyFavorited } = this.state;
+    const { addDrinkRecipeCurr, match: { params: { id } } } = this.props;
     const { strDrink, strDrinkThumb, strAlcoholic, strInstructions } = drinkDetails;
     return (
       <div>
@@ -130,15 +164,17 @@ class BebidasDetalhes extends Component {
           onClick={ () => this.CopyToClipboard() }
         >
           <img src={ shareIcon } alt="icone botão" />
-          { buttonText }
         </button>
         <span style={ { display: showSpan ? 'inline' : 'none' } }>Link copiado!</span>
         <button
           type="button"
           data-testid="favorite-btn"
-          onClick={ () => addRecipeFav(obj) }
+          onClick={ () => this.handleOnClickLike() }
         >
-          Favoritar
+          <img
+            src={ isALreadyFavorited ? blackHeartIcon : whiteHeartIcon }
+            alt={ `liked? ${isALreadyFavorited}` }
+          />
         </button>
         <Link to="/bebidas">
           <button type="button">
@@ -152,8 +188,6 @@ class BebidasDetalhes extends Component {
           {ingredientList.map((e, index) => (drinkDetails[e] ? (
             <li key={ e } data-testid={ `${index}-ingredient-name-and-measure` }>
               {drinkDetails[e]}
-              {' '}
-              -
               {drinkDetails[`strMeasure${e.match(/\d+/)[0]}`]}
             </li>
           ) : null))}
@@ -201,7 +235,6 @@ class BebidasDetalhes extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   addDrinkRecipeCurr: (id, list) => dispatch(addDrinkRecipeOngoing(id, list)),
-  addRecipeFav: (meal) => dispatch(addRecipeFavorite(meal)),
 });
 
 export default connect(null, mapDispatchToProps)(BebidasDetalhes);
@@ -212,7 +245,5 @@ BebidasDetalhes.propTypes = {
       id: PropTypes.string.isRequired,
     }),
   }),
-  
   addRecipeCurr: PropTypes.func,
-  addRecipeFav: PropTypes.func,
 }.isRequired;
