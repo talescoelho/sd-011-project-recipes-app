@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import ShareButton from '../Components/ShareButton';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import './Styles/ProcessFoods.css';
 
-export default function ProcessFoods() {
+export default function ProcessFoods({ match: { params: { id } } }) {
   const [recipes, setRecipes] = useState([]);
   // Didmount - Faz fetch trazendo a receita pelo id e seta o stado recipes com as receita
   useEffect(() => {
-    const getApi = async (id) => {
+    const getApi = async () => {
       const endPoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
       const response = await fetch(endPoint);
       const results = await response.json();
@@ -15,7 +16,7 @@ export default function ProcessFoods() {
       setRecipes(meals);
     };
     getApi();
-  }, []);
+  }, [id]);
   // retorna o array com os ingredientes
   const ingredientsRecipe = () => {
     const arrayIndredientKids = Object.keys(recipes)
@@ -89,3 +90,11 @@ export default function ProcessFoods() {
     </div>
   );
 }
+
+ProcessFoods.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};

@@ -60,7 +60,8 @@ function FoodDetails({ match: { params: { id } } }) {
   checkInProgress();
   const checkStart = () => {
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (inProgress && Object.keys(inProgress.meals).find((key) => key === recipes.idMeal)) {
+    if (inProgress && Object.keys(inProgress.meals)
+      .find((key) => key === recipes.idMeal)) {
       return 'Continuar Receita';
     }
     return 'Iniciar Receita';

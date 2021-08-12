@@ -23,13 +23,17 @@ function Routes() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ RecipesFoods } />
-        <Route path="/comidas/:id" render={ (props) => <FoodDetails { ...props } /> } />
+        <Route
+          exact
+          path="/comidas/:id"
+          render={ (props) => <FoodDetails { ...props } /> }
+        />
         <Route
           exact
           path="/bebidas/:id"
           render={ (props) => <DrinkDetails { ...props } /> }
         />
-        <Route path="/bebidas/" component={ RecipesDrinks } />
+        <Route exact path="/bebidas/" component={ RecipesDrinks } />
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/explorar/comidas" component={ ExploreFoods } />
         <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
