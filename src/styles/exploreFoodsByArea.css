@@ -1,10 +1,10 @@
 .select-area {
   background: transparent; /* importante para exibir o novo ícone */
-  width: 268px;
-  padding: 5px;
-  font-size: 16px;
-  line-height: 1;
   border: 1px solid #ccc;
   border-radius: 0;
+  font-size: 16px;
   height: 34px;
+  line-height: 1;
+  padding: 5px;
+  width: 268px;
 }

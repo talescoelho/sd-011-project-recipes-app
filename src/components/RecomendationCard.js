@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const RecomendationCard = ({ arrayOfRecomendations }) => {
   if (arrayOfRecomendations.meals) {
@@ -9,9 +10,10 @@ const RecomendationCard = ({ arrayOfRecomendations }) => {
     return (
       <div className="div-scroll">
         { filteredMeals.map((meal, index) => {
-          const { strMealThumb, strCategory, strMeal } = meal;
+          const { strMealThumb, strCategory, strMeal, idMeal } = meal;
           return (
-            <div
+            <Link
+              to={ `/comidas/${idMeal}` }
               className="recomendation-card d-flex f-d-column m-1 a-i-center"
               key={ index }
               data-testid={ `${index}-recomendation-card` }
@@ -24,7 +26,7 @@ const RecomendationCard = ({ arrayOfRecomendations }) => {
               >
                 { strMeal }
               </h3>
-            </div>
+            </Link>
           );
         }) }
       </div>
@@ -36,9 +38,10 @@ const RecomendationCard = ({ arrayOfRecomendations }) => {
   return (
     <div className="div-scroll">
       { filteredDrinks.map((drink, index) => {
-        const { strDrinkThumb, strCategory: strAlcoholic, strDrink } = drink;
+        const { strDrinkThumb, strCategory: strAlcoholic, strDrink, idDrink } = drink;
         return (
-          <div
+          <Link
+            to={ `/bebidas/${idDrink}` }
             className="recomendation-card d-flex f-d-column m-1 a-i-center"
             key={ index }
             data-testid={ `${index}-recomendation-card` }
@@ -51,7 +54,7 @@ const RecomendationCard = ({ arrayOfRecomendations }) => {
             >
               { strDrink }
             </h3>
-          </div>
+          </Link>
         );
       }) }
     </div>

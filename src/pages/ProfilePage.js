@@ -10,7 +10,9 @@ export default function ProfilePage() {
   const history = useHistory();
   function getItem() {
     const getUser = JSON.parse(localStorage.getItem('user'));
-    return getUser.email;
+    if (getUser) {
+      return getUser.email;
+    }
   }
 
   function handleClickLS() {

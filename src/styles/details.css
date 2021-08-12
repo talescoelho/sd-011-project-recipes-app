@@ -10,21 +10,20 @@
 
 .recomendation-card {
   border: 1px solid #e5e5e5;
-  min-width: 45%;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,.05),
-              0 4px 8px 0 rgba(0,0,0,.05);
   border-radius: 0.5rem;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05) , 0 4px 8px 0 rgba(0, 0, 0, 0.05);
+  min-width: 45%;
   text-align: center;
 }
 
 .recomendation-card p {
-  color: #808080
+  color: gray;
 }
 
 .recomendation-card img {
-  max-width: 100%;
-  border-top-right-radius: 0.5rem;
   border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  max-width: 100%;
 }
 
 .start-btn {
