@@ -10,8 +10,8 @@ export default function DrinksCards({ drinks }) {
         drinks.map(({ idDrink, strDrink, strDrinkThumb }, index) => (
           index < cardLimit
             ? (
-              <Link to={ `/bebidas/${idDrink}` }>
-                <div key={ index } data-testid={ `${index}-recipe-card` }>
+              <Link key={ index } to={ `/bebidas/${idDrink}` }>
+                <div data-testid={ `${index}-recipe-card` }>
                   <img
                     src={ strDrinkThumb }
                     alt=""

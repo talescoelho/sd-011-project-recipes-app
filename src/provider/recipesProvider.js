@@ -6,9 +6,11 @@ function RecipesProvider({ children }) {
   const [type, setType] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState('');
+  const [update, setUpdate] = useState(true);
 
   async function handleCategory(domain, category) {
-    if (category !== categoryFilter) {
+    setUpdate(true);
+    if (category !== categoryFilter && category !== '') {
       setCategoryFilter(category);
       fetch(`https://www.the${domain}db.com/api/json/v1/1/filter.php?c=${category}`)
         .then((res) => {
@@ -27,21 +29,18 @@ function RecipesProvider({ children }) {
 
   useEffect(() => {
     const fetchApi = () => {
-      let domain;
+      let domain = 'cocktail';
       if (type === 'meal') domain = 'meal';
-      else domain = 'cocktail';
-      let url = `https://www.the${domain}db.com/api/json/v1/1/search.php?s=`;
-      if (categoryFilter !== '') {
-        url = `https://www.the${domain}db.com/api/json/v1/1/filter.php?c=${categoryFilter}`;
-      }
-      fetch(url)
+      fetch(`https://www.the${domain}db.com/api/json/v1/1/search.php?s=`)
         .then((res) => {
           res.json()
             .then((json) => setSearchResults(json));
         });
     };
-    fetchApi();
-  }, [categoryFilter, type]);
+    if (update) {
+      fetchApi();
+    }
+  }, [type, update]);
 
   const context = {
     type,
@@ -50,6 +49,8 @@ function RecipesProvider({ children }) {
     setSearchResults,
     categoryFilter,
     handleCategory,
+    update,
+    setUpdate,
   };
 
   return (

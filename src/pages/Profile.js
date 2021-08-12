@@ -4,10 +4,11 @@ import Header from '../components/Header';
 import MenuInferior from '../components/MenuInferior';
 
 function Profile() {
-  const email = JSON.parse(localStorage.getItem('user'));
+  const email = JSON.parse(localStorage.getItem('user')) || { email: '' };
   function logoutClear() {
     localStorage.clear();
   }
+
   return (
     <div>
       <Header
@@ -25,7 +26,6 @@ function Profile() {
           data-testid="profile-done-btn"
         >
           <button
-            className="btn btn-primary"
             type="button"
           >
             Receitas Feitas
@@ -36,7 +36,6 @@ function Profile() {
           data-testid="profile-favorite-btn"
         >
           <button
-            className="btn btn-primary"
             type="button"
           >
             Receitas Favoritas
@@ -49,7 +48,6 @@ function Profile() {
           data-testid="profile-logout-btn"
         >
           <button
-            className="btn btn-primary"
             type="button"
           >
             Sair
