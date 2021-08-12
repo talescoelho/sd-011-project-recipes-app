@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FetchApi from '../services/ApiFetch';
 import ShareBtn from '../components/ShareBtn';
 import FavoriteBtn from '../components/FavoriteBtn';
@@ -9,6 +10,7 @@ class DrinksRecipiesInProcess extends React.Component {
     this.state = {
       DoRecipe: [],
       componentMounted: false,
+      stockDrinks: [],
     };
     this.test = this.test.bind(this);
     this.changeRow = this.changeRow.bind(this);
@@ -20,14 +22,14 @@ class DrinksRecipiesInProcess extends React.Component {
   }
 
   componentDidUpdate() {
-    if (localStorage.inProgressRecipes) {
-      const { match: { params: { id } } } = this.props;
-      const recoveredInfo = JSON.parse(localStorage.inProgressRecipes);
-      const ote = Object.entries(recoveredInfo);
+    // if (localStorage.inProgressRecipes) {
+    //   const { match: { params: { id } } } = this.props;
+    //   const recoveredInfo = JSON.parse(localStorage.inProgressRecipes);
+    //   const ote = Object.entries(recoveredInfo);
 
-      console.log(ote);
-      // console.log(recoveredInfo);
-    }
+    //   console.log(ote);
+    //   // console.log(recoveredInfo);
+    // }
   }
 
   async test() {
@@ -60,8 +62,7 @@ class DrinksRecipiesInProcess extends React.Component {
       if (localStorage.inProgressRecipes) {
         if (JSON.parse(localStorage.inProgressRecipes).cocktails) {
           const prev = JSON.parse(localStorage.inProgressRecipes).cocktails;
-          console.log(prev)
-          localStorage.inProgressRecipes = JSON.stringify(...prev, drinks.cocktails);
+          localStorage.inProgressRecipes = JSON.stringify(...prev, drinks);
         }
       } else { localStorage.inProgressRecipes = JSON.stringify(drinks); }
     });
@@ -126,3 +127,7 @@ class DrinksRecipiesInProcess extends React.Component {
   }
 }
 export default DrinksRecipiesInProcess;
+
+DrinksRecipiesInProcess.propTypes = {
+  match: PropTypes.shape(Object).isRequired,
+};

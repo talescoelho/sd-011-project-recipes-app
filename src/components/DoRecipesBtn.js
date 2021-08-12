@@ -1,6 +1,6 @@
 import React from 'react';
 
-function DoRecipesBtn(target) {
+function DoRecipesBtn() {
   function btnClickHandler() {
     // const targetString = JSON.parse(localStorage.getItem('inProgressRecipes') || '[]');
     // targetString.push(target);

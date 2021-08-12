@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import FetchApi from '../services/ApiFetch';
 import ShareBtn from '../components/ShareBtn';
 import FavoriteBtn from '../components/FavoriteBtn';
@@ -96,3 +97,7 @@ export default function FoodsRecipiesInProcess(props) {
     </div>
   );
 }
+
+FoodsRecipiesInProcess.propTypes = {
+  match: PropTypes.shape(Object).isRequired,
+};
