@@ -14,11 +14,11 @@ export default function ShareButton({ id, type, dataTestid }) {
     setTimeout(() => setShowMessage(false), timeout);
   }
   return (
-    <div>
-      <button type="button" onClick={ () => handleClick() }>
+    <div className="d-flex">
+      { showMessage && <span className="align-self-center"> Link copiado! </span> }
+      <button className="neutral-button" type="button" onClick={ () => handleClick() }>
         <img src={ shareIcon } alt="Share Icon" data-testid={ dataTestid } />
       </button>
-      { showMessage && <span> Link copiado! </span> }
     </div>
   );
 }
