@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { requestDrinkById } from '../Services/Data';
 import SharedButton from '../components/SharedButton';
 import FavoriteButton from '../components/FavoriteButton';
-import Footer from '../components/Footer';
 
 function DrinkInProgress({ match }) {
   const { url } = match;
@@ -112,7 +111,7 @@ function DrinkInProgress({ match }) {
           )
           : <h1>Carregando...</h1>
       }
-      <Footer />
+
     </div>
   );
 }
