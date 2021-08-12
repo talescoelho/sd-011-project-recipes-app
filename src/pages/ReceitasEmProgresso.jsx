@@ -1,38 +1,93 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import IngredientInput from '../components/IngredientInput';
-import Loading from '../components/Loading';
+import {
+  addRecipeIdInLocalStorage,
+  addIngredientsInRecipeId,
+} from '../helpers/manipulateLocalStorage';
 import { searchById } from '../services/index';
+import ButtonFavoriteRecipe from '../components/ButtonFavoriteRecipe';
+import IngredientInput from '../components/IngredientInput';
+import LinkCopy from '../components/LinkCopy';
+
 import '../styles/RecipesInProgress.css';
 // import ButtonFavoriteRecipe from '../components/ButtonFavoriteRecipe';
 
 function ReceitasEmProgresso() {
-  const [currentRecipe, setCurrentRecipe] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
   const { pathname } = useLocation();
   const recipeId = pathname.split('/')[2];
   const recipeType = pathname.split('/')[1] === 'comidas' ? 'meals' : 'cocktails';
+  const type = recipeType === 'meals' ? 'comidas' : 'bebidas';
 
-  // RECUPERA OS INGREDIENTES DO LS;
-  const INGREDIENTS = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  // SALVAR LOCALMENTE PARA ALTERAR;
-  const [inProgressIngredients, setInProgressIngredients] = useState(INGREDIENTS[recipeType][recipeId]);
-  // const ingredientsOfRecipe = inProgressIngredients[recipeType][recipeId];
+  const [
+    inProgressIngredients,
+    setInProgressIngredients] = useState(false);
+  const [newRender, setNewRender] = useState(false);
+  const [progressOfRecipe, setProgressOfRecipe] = useState(true);
+  const [currentRecipe, setCurrentRecipe] = useState(false);
+  const [favorite, setFavorite] = useState(false);
+  const [linkCopy, setLinkCopy] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setInProgressIngredients(INGREDIENTS[recipeType][recipeId]);
-    const fetchRecipeById = async (id, type) => {
-      const recipe = await searchById(id, type);
-      return setCurrentRecipe(recipe);
+    setIsLoading(true);
+    addRecipeIdInLocalStorage(recipeType, recipeId);
+    const fetchRecipeById = async (id, typeOfRecipes) => {
+      const recipe = await searchById(id, typeOfRecipes);
+      setCurrentRecipe(recipe);
     };
-    // alterar o type aqui
-    fetchRecipeById(recipeId, 'comidas');
+    fetchRecipeById(recipeId, type);
   }, []);
+
   useEffect(() => {
-    console.log(currentRecipe)
-    console.log(isLoading)
-    setIsLoading(false);
+    const localStorageRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'))[recipeType][recipeId];
+    // const recipeIngredientsInLS = JSON.parse(
+    //   localStorage.getItem('inProgressRecipes'),
+    // )[recipeType][recipeId];
+    setInProgressIngredients(localStorageRecipe);
+    // if (inProgressIngredients) {
+    //   setProgressOfRecipe(inProgressIngredients.some((item) => !item.includes('done')));
+    // }
+  }, [newRender]);
+
+  useEffect(() => {
+    const localStorageRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'))[recipeType][recipeId];
+    if (currentRecipe && localStorageRecipe.length === 0) {
+      addIngredientsInRecipeId(currentRecipe, recipeType, recipeId);
+      setNewRender(!newRender);
+      setIsLoading(false);
+    }
+    // const ingredientsItensArr = ingredientsArrFormater(currentRecipe);
+    // const recipeIngredientsInLS = JSON.parse(
+    //   localStorage.getItem('inProgressRecipes'),
+    // )[recipeType][recipeId];
+    // if (currentRecipe && recipeIngredientsInLS.length === 0) {
+    //   const startedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    //   localStorage.setItem('inProgressRecipes', JSON.stringify(
+    //     { ...startedRecipes,
+    //       [recipeType]: { ...startedRecipes[recipeType],
+    //         [recipeId]: ingredientsItensArr },
+    //     },
+    //   ));
+    //   setNewRender(!newRender);
+    //   setIsLoading(false);
+    // }
+    // if (inProgressIngredients) setIsLoading(false);
   }, [currentRecipe]);
+
+  const handleShareBtn = (foodType, id) => {
+    const hostURL = window.location.origin;
+    if (foodType === 'meals') {
+      navigator.clipboard.writeText(`${hostURL}/comidas/${id}`);
+    }
+    if (foodType === 'cocktails') {
+      navigator.clipboard.writeText(`${hostURL}/bebidas/${id}`);
+    }
+    return <LinkCopy />;
+  };
+
+  const handleLinkMessage = () => {
+    setLinkCopy(true);
+  };
 
   return (
     <div>
@@ -44,10 +99,19 @@ function ReceitasEmProgresso() {
       <h1 data-testid="recipe-title">
         { currentRecipe.title }
       </h1>
-      <button type="button">
+      <button
+        type="button"
+        onClick={ () => { handleShareBtn(recipeType, recipeId); handleLinkMessage(); } }
+        data-testid="share-btn"
+      >
         Share
       </button>
-      {/* <ButtonFavoriteRecipe /> */}
+      { linkCopy && <LinkCopy /> }
+      <ButtonFavoriteRecipe
+        recipes={ currentRecipe }
+        favorite={ favorite }
+        setFavorite={ setFavorite }
+      />
       <p
         data-testid="recipe-category"
       >
@@ -55,18 +119,22 @@ function ReceitasEmProgresso() {
       </p>
       {/* OS INGREDIENTES -> data-testid=${index}-ingredient-step */}
       <ul>
-        {
-          inProgressIngredients.map(
+        { isLoading
+          ? 'isLoading '
+          : inProgressIngredients.map(
             (ingredient, index) => (
               <IngredientInput
                 key={ index }
                 ingredient={ ingredient }
                 inProgressIngredients={ inProgressIngredients }
-                setInProgressIngredients={ setInProgressIngredients }
+                setNewRender={ setNewRender }
+                newRender={ newRender }
+                index={ index }
+                id={ recipeId }
+                type={ recipeType }
               />
             ),
-          )
-        }
+          )}
       </ul>
       <p data-testid="instructions">
         { currentRecipe.instructions }
@@ -74,6 +142,7 @@ function ReceitasEmProgresso() {
       <button
         type="button"
         data-testid="finish-recipe-btn"
+        disabled={ progressOfRecipe }
       >
         Finalizar Receitas
       </button>

@@ -1,6 +1,7 @@
-export default function makeNewIngredientsArray(actualArray, original, ingredientToSwitch) {
-  // let ARRAY_TO_RETURN = [];
-  // const indexOfIngredient = actualArray.indexOf(ingredientToSwitch);
-  // retornar um novo array com o ingrediente substituido pelo done ou o original caso já seja done;
-  console.log(actualArray);
+export default function makeNewIngredientsArray(actualArray, original, ingredientToSwitch, type, id) {
+  const INGREDIENTS = JSON.parse(localStorage.inProgressRecipes);
+  const indexOfIngredient = actualArray.indexOf(original);
+  actualArray[indexOfIngredient] = ingredientToSwitch;
+  INGREDIENTS[type][id] = actualArray;
+  return localStorage.setItem('inProgressRecipes', JSON.stringify(INGREDIENTS));
 }
