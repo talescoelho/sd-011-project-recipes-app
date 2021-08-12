@@ -4,19 +4,19 @@ import AppContext from '../context/AppContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-function FavoriteButton({ index, foodOrDrink, id }) {
+function FavoriteButton({ index, foodOrDrinkBtn, id }) {
   const { idDetails } = useContext(AppContext);
   const details = idDetails[0];
   console.log('details', details);
   const [favorite, setFavorite] = useState(false);
   const favRecipes = {
-    id: foodOrDrink === 'Comidas' ? details.idMeal || id : details.idDrink || id,
-    type: foodOrDrink === 'Comidas' ? 'comida' : 'bebida',
+    id: foodOrDrinkBtn === 'comidas' ? details.idMeal : details.idDrink,
+    type: foodOrDrinkBtn === 'comidas' ? 'comida' : 'bebida',
     area: details.strArea || '',
     category: details.strCategory || '',
     alcoholicOrNot: details.strAlcoholic || '',
-    name: foodOrDrink === 'Comidas' ? details.strMeal : details.strDrink,
-    image: foodOrDrink === 'Comidas' ? details.strMealThumb : details.strDrinkThumb,
+    name: foodOrDrinkBtn === 'comidas' ? details.strMeal : details.strDrink,
+    image: foodOrDrinkBtn === 'comidas' ? details.strMealThumb : details.strDrinkThumb,
   };
 
   const local = localStorage.getItem('favoriteRecipes');
@@ -56,7 +56,7 @@ export default FavoriteButton;
 
 FavoriteButton.propTypes = {
   index: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  foodOrDrink: PropTypes.string.isRequired,
+  foodOrDrinkBtn: PropTypes.string.isRequired,
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 

@@ -143,22 +143,9 @@ function AppProvider({ children }) {
     localStorage.setItem('inProgressRecipes', JSON.stringify(newObject));
   }
 
-  function getAndSetLocalStorage(inProcess, food) {
+  function getAndSetLocalStorage(inProcess, food, foodOrDrinkProcess) {
     const inProgress = localStorage.getItem('inProgressRecipes');
     if (!inProgress && inProcess) {
-      const foodOrDrinkProcess = food ? {
-        meals: {
-          [idDetails[0].idMeal]: [],
-        },
-        cocktails: {
-        },
-      } : {
-        meals: {
-        },
-        cocktails: {
-          [idDetails[0].idDrink]: [],
-        },
-      };
       localStorage.setItem('inProgressRecipes', JSON.stringify(foodOrDrinkProcess));
     } if (inProcess) {
       const getLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));

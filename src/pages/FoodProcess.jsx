@@ -45,7 +45,7 @@ function FoodProcess() {
             src={ idDetails[0].strMealThumb }
             alt="image_of_recipe"
           />
-          <HeaderDetails foodOrDrink="Comidas" />
+          <HeaderDetails foodOrDrink="Comidas" id={ id } />
           <IngredientDetails inProcess food />
           <Link to="/receitas-feitas">
             <button

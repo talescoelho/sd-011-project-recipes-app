@@ -92,7 +92,7 @@ function MainRecipes({ foodOrDrink }) {
             </button>
           </div>
           <div>
-            {mainItems
+            {mainItems && mainItems
               .filter((item, index) => index < maxLengthItems).map(renderRecipes) }
           </div>
         </div>
