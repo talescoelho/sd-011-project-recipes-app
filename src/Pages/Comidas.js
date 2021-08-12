@@ -1,14 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/Header';
 import RenderRecipes from '../components/RenderRecipes';
-import { getRecipes } from '../redux/slices/fetchReceitas';
 import Footer from '../components/Footer';
-import CategoryButtons from '../components/CategoryButtons';
 
 function Comidas({ title, location: { recipeName } }) {
-
   return (
     <div>
       <Header title={ title } />

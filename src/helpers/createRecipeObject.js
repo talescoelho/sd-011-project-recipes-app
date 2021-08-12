@@ -11,6 +11,10 @@ function createRecipeObject(foods, drinks) {
       id: 'idMeal',
       name: 'strMeal',
       image: 'strMealThumb',
+      category: 'strCategory',
+      area: 'strArea',
+      alcoholic: '',
+      storage: 'meals',
     };
   } else {
     recipeObject = {
@@ -20,6 +24,10 @@ function createRecipeObject(foods, drinks) {
       id: 'idDrink',
       name: 'strDrink',
       image: 'strDrinkThumb',
+      category: 'strAlcoholic',
+      area: '',
+      alcoholic: 'strAlcoholic',
+      storage: 'cocktails',
     };
   }
   return recipeObject;
