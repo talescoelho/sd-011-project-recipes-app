@@ -9,9 +9,13 @@ export default function FoodsCards() {
       {dataFood !== null
         ? dataFood.map(({ strMeal, strMealThumb, idMeal }, index) => (
           <Link to={ `/comidas/${idMeal}` } key={ strMeal }>
-            <div data-testid={ `${index}-recipe-card` }>
-              <h3 data-testid={ `${index}-card-name` }>{strMeal}</h3>
+            <div
+              data-testid={ `${index}-recipe-card` }
+              className="container d-flex border"
+            >
+              <h3 data-testid={ `${index}-card-name` } className="d-flex align-items-center">{strMeal}</h3>
               <img
+                className="container d-flex w-50 p-2"
                 src={ strMealThumb }
                 data-testid={ `${index}-card-img` }
                 alt="Imagem de comida"
