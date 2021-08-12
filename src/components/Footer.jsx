@@ -1,13 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
-import '../styles/footer.css';
+import { FooterBar } from '../styles';
 
-export default function Footer() {
+export default function Footer({ color }) {
   return (
-    <footer data-testid="footer">
+    <FooterBar
+      data-testid="footer"
+      color={ color }
+    >
       <Link to="/bebidas">
         <img
           src={ drinkIcon }
@@ -29,6 +33,10 @@ export default function Footer() {
           data-testid="food-bottom-btn"
         />
       </Link>
-    </footer>
+    </FooterBar>
   );
 }
+
+Footer.propTypes = {
+  color: PropTypes.string.isRequired,
+};

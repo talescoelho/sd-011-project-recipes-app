@@ -13,7 +13,7 @@ export default function initialScreen({ type }) {
       <Header pageName={ type } showSearchButton={ showSearchButton } />
       <CategoriesButtons type={ type } />
       <RecipesCards type={ type } />
-      <Footer />
+      <Footer color={ type.includes('ebida') ? '#a73d7e' : null } />
     </SearchBarProvider>
   );
 }
