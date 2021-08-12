@@ -9,20 +9,11 @@ class DrinksRecipiesInProcess extends React.Component {
     this.state = {
       DoRecipe: [],
       componentMounted: false,
-      checkToggle: [false, 0],
-      stockDrinks: [],
-      completedIngredientes: [],
     };
     this.test = this.test.bind(this);
-    // this.recoverLocalStorage = this.recoverLocalStorage.bind(this);
     this.changeRow = this.changeRow.bind(this);
     this.renderAll = this.renderAll.bind(this);
   }
-  // {
-  //   cocktails: {
-  //       id-da-bebida: [lista-de-ingredientes-utilizados],
-  //       ...
-  //   },
 
   componentDidMount() {
     this.test();
@@ -69,7 +60,8 @@ class DrinksRecipiesInProcess extends React.Component {
       if (localStorage.inProgressRecipes) {
         if (JSON.parse(localStorage.inProgressRecipes).cocktails) {
           const prev = JSON.parse(localStorage.inProgressRecipes).cocktails;
-          localStorage.inProgressRecipes = JSON.stringify(...prev, drinks);
+          console.log(prev)
+          localStorage.inProgressRecipes = JSON.stringify(...prev, drinks.cocktails);
         }
       } else { localStorage.inProgressRecipes = JSON.stringify(drinks); }
     });
@@ -128,7 +120,7 @@ class DrinksRecipiesInProcess extends React.Component {
     const { componentMounted } = this.state;
     return (
       <div>
-        {componentMounted ? this.renderAll() : 'dsds'}
+        {componentMounted ? this.renderAll() : 'loading...'}
       </div>
     );
   }
