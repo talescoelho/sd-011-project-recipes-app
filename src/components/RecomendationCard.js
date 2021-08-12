@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const RecomendationCard = ({ arrayOfRecomendations }) => {
   if (arrayOfRecomendations.meals) {
@@ -11,20 +12,24 @@ const RecomendationCard = ({ arrayOfRecomendations }) => {
         { filteredMeals.map((meal, index) => {
           const { strMealThumb, strCategory, strMeal } = meal;
           return (
-            <div
-              className="recomendation-card d-flex f-d-column m-1 a-i-center"
+            <Link
               key={ index }
-              data-testid={ `${index}-recomendation-card` }
+              to={ `/comidas/${meal.idMeal}` }
+              className="recomendation-card d-flex f-d-column m-1 a-i-center"
             >
-              <img src={ strMealThumb } alt={ strMeal } />
-              <p>{ strCategory }</p>
-              <h3
-                data-testid={ `${index}-recomendation-title` }
-                className="m-25"
+              <div
+                data-testid={ `${index}-recomendation-card` }
               >
-                { strMeal }
-              </h3>
-            </div>
+                <img src={ strMealThumb } alt={ strMeal } />
+                <p>{ strCategory }</p>
+                <h3
+                  data-testid={ `${index}-recomendation-title` }
+                  className="m-25"
+                >
+                  { strMeal }
+                </h3>
+              </div>
+            </Link>
           );
         }) }
       </div>
@@ -38,20 +43,24 @@ const RecomendationCard = ({ arrayOfRecomendations }) => {
       { filteredDrinks.map((drink, index) => {
         const { strDrinkThumb, strCategory: strAlcoholic, strDrink } = drink;
         return (
-          <div
-            className="recomendation-card d-flex f-d-column m-1 a-i-center"
+          <Link
             key={ index }
-            data-testid={ `${index}-recomendation-card` }
+            to={ `/bebidas/${drink.idDrink}` }
+            className="recomendation-card d-flex f-d-column m-1 a-i-center"
           >
-            <img src={ strDrinkThumb } alt={ strDrink } />
-            <p>{ strAlcoholic }</p>
-            <h3
-              className="m-25"
-              data-testid={ `${index}-recomendation-title` }
+            <div
+              data-testid={ `${index}-recomendation-card` }
             >
-              { strDrink }
-            </h3>
-          </div>
+              <img src={ strDrinkThumb } alt={ strDrink } />
+              <p>{ strAlcoholic }</p>
+              <h3
+                className="m-25"
+                data-testid={ `${index}-recomendation-title` }
+              >
+                { strDrink }
+              </h3>
+            </div>
+          </Link>
         );
       }) }
     </div>

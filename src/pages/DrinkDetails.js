@@ -15,7 +15,6 @@ const DrinkDetails = ({ match }) => {
   const { id } = match.params;
   const { data: mealsData, request: requestMeals } = useFetch();
   const { data, request } = useFetch();
-  const [messageClipboard, setMessageClipboard] = React.useState(null);
   const [isFavorite, setIsFavorite] = React.useState(false);
   React.useEffect(() => {
     const favoriteRecipes = localStorage.getItem('favoriteRecipes');
@@ -52,33 +51,50 @@ const DrinkDetails = ({ match }) => {
     buttonShoulBeVisible = !doneRecipesArray.some((recipe) => recipe.id.includes(id));
   }
   return (
-    <div>
+    <div className="body-b d-flex f-d-column">
       <img
         className="top-img"
         src={ strDrinkThumb }
         alt={ `${strDrink}` }
         data-testid="recipe-photo"
       />
-      <h1 data-testid="recipe-title">{ strDrink }</h1>
-      <button type="button" onClick={ () => handleClickClipboard(setMessageClipboard) }>
-        <img
-          src={ shareIcon }
-          alt=""
-          data-testid="share-btn"
-        />
-      </button>
-      <button
-        type="button"
-        onClick={ () => handleClickFavoriteRecipe(id, drink, setIsFavorite, isFavorite) }
-      >
-        { isFavorite ? (
-          <img src={ blackHeartIcon } alt="" data-testid="favorite-btn" />)
-          : (<img src={ whiteHeartIcon } alt="" data-testid="favorite-btn" />) }
-      </button>
-      {messageClipboard}
-      <h2 data-testid="recipe-category">{ strAlcoholic }</h2>
-      Ingredients
-      <ul>
+      <div className="popup">
+        <p className="popuptext" id="myPopup">Link copiado!</p>
+      </div>
+      <div className="d-flex a-i-center j-c-spBetween b-shadow p-1 bg-title">
+        <div>
+          <h1 data-testid="recipe-title" className="m-0">{ strDrink }</h1>
+          <p data-testid="recipe-category" className="m-0 c-gray">{ strAlcoholic }</p>
+        </div>
+        <div className="d-flex">
+          <button
+            type="button"
+            className="btn-icon"
+            onClick={ () => handleClickClipboard() }
+          >
+            <img
+              src={ shareIcon }
+              alt=""
+              data-testid="share-btn"
+            />
+          </button>
+          <button
+            type="button"
+            onClick={ () => {
+              handleClickFavoriteRecipe(id, drink, setIsFavorite, isFavorite);
+            } }
+            className="btn-icon"
+          >
+            { isFavorite ? (
+              <img src={ blackHeartIcon } alt="" data-testid="favorite-btn" />)
+              : (<img src={ whiteHeartIcon } alt="" data-testid="favorite-btn" />) }
+          </button>
+        </div>
+      </div>
+      <span className="fh-4 m-1">
+        Ingredients:
+      </span>
+      <ul className="bg-gray p-y-1 m-1 b-shadow b-radius">
         { ingredients.map(([name, value], index) => {
           const quantity = drink[`strMeasure${name.split('strIngredient')[1]}`];
           if (quantity === null || quantity === '') {
@@ -101,9 +117,11 @@ const DrinkDetails = ({ match }) => {
           );
         })}
       </ul>
-      Instructions
-      <p data-testid="instructions">{ strInstructions }</p>
-      Recommended
+      <span className="fh-4 ml-1">Instructions:</span>
+      <p data-testid="instructions" className="bg-gray m-1 p-1 b-shadow b-radius">
+        { strInstructions }
+      </p>
+      <span className="fh-4 ml-1">Recommended:</span>
       <RecomendationCard arrayOfRecomendations={ mealsData } />
       {
         buttonShoulBeVisible && (

@@ -9,12 +9,12 @@ import handleClickFavoriteRecipe from '../helpers/handleClickFavoriteRecipe';
 import handleClickClipboard from '../helpers/handleClickClipBoard';
 import RecomendationCard from '../components/RecomendationCard';
 import handleContinueButton from '../helpers/handleContinueButton';
+import '../styles/favorite.css';
 import '../styles/foodDetails.css';
 
 const FoodDetails = ({ match }) => {
   const { id } = match.params;
   const { data, request } = useFetch();
-  const [messageClipboard, setMessageClipboard] = React.useState(null);
   const { data: drinksData, request: requestDrinks } = useFetch();
   const [isFavorite, setIsFavorite] = React.useState(false);
 
@@ -67,25 +67,26 @@ const FoodDetails = ({ match }) => {
         alt={ `${strMeal}` }
         data-testid="recipe-photo"
       />
+      <div className="popup">
+        <p className="popuptext" id="myPopup">Link copiado!</p>
+      </div>
       <div className="d-flex a-i-center j-c-spBetween b-shadow p-1 bg-title">
         <div>
           <h1 data-testid="recipe-title" className="m-0">{ strMeal }</h1>
-          <p data-testid="recipe-category" className="p-0">{ `- ${strCategory}` }</p>
+          <p data-testid="recipe-category" className="m-0 c-gray">{ `${strCategory}` }</p>
         </div>
         <div className="d-flex">
-          { messageClipboard ? <p>{messageClipboard}</p> : (
-            <button
-              type="button"
-              onClick={ () => handleClickClipboard(setMessageClipboard) }
-              className="btn-icon"
-            >
-              <img
-                src={ shareIcon }
-                alt=""
-                data-testid="share-btn"
-              />
-            </button>
-          )}
+          <button
+            type="button"
+            onClick={ () => handleClickClipboard() }
+            className="btn-icon"
+          >
+            <img
+              src={ shareIcon }
+              alt=""
+              data-testid="share-btn"
+            />
+          </button>
           <button
             type="button"
             onClick={ () => handleClickFavoriteRecipe(id, meal,
@@ -101,7 +102,7 @@ const FoodDetails = ({ match }) => {
       <span className="fh-4 m-1">
         Ingredients:
       </span>
-      <ul className="bg-gray m-1 b-shadow b-radius">
+      <ul className="bg-gray p-y-1 m-1 b-shadow b-radius">
         { ingredients.map(([, value], index) => (
           <li
             key={ value }
@@ -131,7 +132,7 @@ const FoodDetails = ({ match }) => {
           buttonShoulBeVisible && (
             <Link to={ `/comidas/${id}/in-progress` }>
               <button
-                className="start-btn btn"
+                className="start-btn"
                 data-testid="start-recipe-btn"
                 type="button"
               >

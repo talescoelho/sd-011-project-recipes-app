@@ -29,7 +29,7 @@ const FoodExplore = () => {
           data-testid="explore-by-ingredient"
           className="btn fh-2"
         >
-          <Link to="/explorar/comidas/ingredientes">
+          <Link to="/explorar/comidas/ingredientes" className="c-white">
             Por Ingredientes
           </Link>
         </button>
@@ -38,7 +38,7 @@ const FoodExplore = () => {
           data-testid="explore-by-area"
           className="btn fh-2"
         >
-          <Link to="/explorar/comidas/area">
+          <Link to="/explorar/comidas/area" className="c-white">
             Por Local de Origem
           </Link>
         </button>
@@ -47,7 +47,7 @@ const FoodExplore = () => {
           data-testid="explore-surprise"
           className="btn fh-2"
         >
-          <Link to={ `/comidas/${randomFood}` }>
+          <Link to={ `/comidas/${randomFood}` } className="c-white">
             Me Surpreenda!
           </Link>
         </button>

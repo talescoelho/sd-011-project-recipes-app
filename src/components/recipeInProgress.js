@@ -6,6 +6,7 @@ import shareIcon from '../images/shareIcon.svg';
 import handleClickFavoriteRecipe from '../helpers/handleClickFavoriteRecipe';
 import handleClickDoneRecipe from '../helpers/handleClickDoneRecipe';
 import '../styles/recipesInProgress.css';
+import '../styles/favorite.css';
 import '../App.css';
 
 function RecipeInProgress({
@@ -15,7 +16,6 @@ function RecipeInProgress({
   urlId,
   arrayCheckedIngredients,
 }) {
-  const [copied, setCopied] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const ingredients = [];
 
@@ -56,9 +56,14 @@ function RecipeInProgress({
     const three = 3000;
     const url = window.location.href;
     navigator.clipboard.writeText(url.slice(0, url.length - end));
-    setCopied(true);
+
+    const popup = document.getElementById('myPopup');
+    popup.classList.remove('hide');
+    popup.classList.toggle('show');
+
     setTimeout(() => {
-      setCopied(false);
+      popup.classList.toggle('hide');
+      popup.classList.remove('show');
     }, three);
   };
 
@@ -80,6 +85,9 @@ function RecipeInProgress({
           data-testid="recipe-photo"
           className="w-100"
         />
+        <div className="popup">
+          <p className="popuptext" id="myPopup">Link copiado!</p>
+        </div>
         <div className="d-flex a-i-center j-c-spBetween b-shadow p-1 bg-title">
           <div>
             <h1
@@ -90,23 +98,22 @@ function RecipeInProgress({
             </h1>
             <p
               data-testid="recipe-category"
-              className="m-0"
+              className="m-0 c-gray"
             >
-              {`- ${recipeType.strCategory}`}
+              {`${recipeType.strCategory}`}
             </p>
           </div>
           <div className="d-flex">
-            {copied ? <p>Link copiado!</p> : (
-              <button
-                type="button"
-                data-testid="share-btn"
-                onClick={ copyLink }
-                src={ shareIcon }
-                className="btn-icon"
-              >
-                <img src={ shareIcon } alt="compartilhar" />
-              </button>
-            )}
+            <button
+              type="button"
+              data-testid="share-btn"
+              onClick={ copyLink }
+              src={ shareIcon }
+              className="btn-icon"
+            >
+              <img src={ shareIcon } alt="compartilhar" />
+            </button>
+
             { isFavorite ? (
               <button
                 type="button"
@@ -134,7 +141,7 @@ function RecipeInProgress({
         <span className="fh-4 m-1">
           Ingredients:
         </span>
-        <ul className="bg-gray m-1 b-shadow b-radius">
+        <ul className="bg-gray p-y-1 m-1 b-shadow b-radius ls-none">
           {ingredients.map((n, i) => (
             arrayCheckedIngredients.includes(n) ? (
               <li
@@ -177,7 +184,7 @@ function RecipeInProgress({
         </p>
         <Link to="/receitas-feitas">
           <button
-            className="btn w-100"
+            className="finish-btn w-100"
             type="button"
             data-testid="finish-recipe-btn"
             id="finish-btn"

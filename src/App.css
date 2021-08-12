@@ -78,13 +78,18 @@
   padding: 1rem;
 }
 
+.p-y-1 {
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+}
+
 .btn {
   background-color: #f67e0c;
   border: none;
   border-radius: 0.3rem;
-  padding: 0.5rem;
   color: white;
   font-size: 0.9rem;
+  padding: 0.5rem;
 }
 
 .btn:disabled {
@@ -144,6 +149,15 @@
 .m-y-25 {
   margin-bottom: 0.25rem;
   margin-top: 0.25rem;
+}
+
+.m-y-2 {
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+}
+
+.m-auto {
+  margin: auto;
 }
 
 .d-block {
@@ -206,6 +220,18 @@ a:hover {
 
 input::placeholder {
   font-style: italic;
+}
+
+.c-gray {
+  color: #464646;
+}
+
+.c-white {
+  color: white;
+}
+
+.ls-none {
+  list-style-type: none;
 }
 
 /*

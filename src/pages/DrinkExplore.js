@@ -29,7 +29,7 @@ const DrinkExplore = () => {
           type="button"
           data-testid="explore-by-ingredient"
         >
-          <Link to="/explorar/bebidas/ingredientes">
+          <Link to="/explorar/bebidas/ingredientes" className="c-white">
             Por Ingredientes
           </Link>
         </button>
@@ -38,7 +38,7 @@ const DrinkExplore = () => {
           type="button"
           data-testid="explore-surprise"
         >
-          <Link to={ `/bebidas/${randomDrink}` }>
+          <Link to={ `/bebidas/${randomDrink}` } className="c-white">
             Me Surpreenda!
           </Link>
         </button>

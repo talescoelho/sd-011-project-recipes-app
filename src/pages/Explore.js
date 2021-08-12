@@ -11,12 +11,12 @@ export default function Explore() {
       <Header />
       <div className="b-explore d-flex f-d-column j-c-spAround m-3">
         <button className="btn fh-2" type="button">
-          <Link to="/explorar/comidas" data-testid="explore-food">
+          <Link to="/explorar/comidas" data-testid="explore-food" className="c-white">
             Explorar Comidas
           </Link>
         </button>
         <button className="btn fh-2" type="button">
-          <Link to="/explorar/bebidas" data-testid="explore-drinks">
+          <Link to="/explorar/bebidas" data-testid="explore-drinks" className="c-white">
             Explorar Bebidas
           </Link>
         </button>

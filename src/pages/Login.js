@@ -15,7 +15,7 @@ const Login = () => {
 
   useEffect(() => {
     const checkEmail = () => {
-      const validEmail = /^[a-zA-Z]+@[a-zA-Z]+\.[com]{3,}$/i;
+      const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const length = 6;
 
       if (email.match(validEmail) && password.length > length) {
@@ -67,7 +67,7 @@ const Login = () => {
           data-testid="login-submit-btn"
           disabled={ disabled }
           onClick={ handleClick }
-          className="m-1 btn login-btn"
+          className="m-1 login-btn"
         >
           Entrar
         </button>

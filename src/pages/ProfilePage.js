@@ -21,7 +21,7 @@ export default function ProfilePage() {
   return (
     <div className="body-b">
       <Header />
-      <div className="b-profile d-flex f-d-column j-c-spAround  text-center">
+      <div className="d-flex f-d-column j-c-spAround text-center m-1 m-y-2">
         <div>
           <img src={ chef } alt="logo de chef de cozinha" />
         </div>

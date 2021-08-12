@@ -8,8 +8,6 @@ const DoneRecipes = () => {
   document.title = 'Receitas Feitas';
   const [recipes, setRecipes] = React.useState([]);
   const [filteredRecipes, setFilteredRecipe] = React.useState([]);
-  const [messageClipboard, setMessageClipboard] = React.useState(null);
-  const [indexOfMessageClipboard, setIndexOfMessageClipboard] = React.useState(null);
 
   React.useEffect(() => {
     const doneRecipes = localStorage.getItem('doneRecipes');
@@ -29,15 +27,18 @@ const DoneRecipes = () => {
     }
   }
 
-  function handleClick(index, type, id) {
+  function handleClick(type, id) {
     const url = window.location.href.split('/receitas-feitas')[0];
     navigator.clipboard.writeText(`${url}/${type}s/${id}`);
-    setMessageClipboard('Link copiado!');
-    setIndexOfMessageClipboard(index);
+
+    const popup = document.getElementById('myPopup');
+    popup.classList.remove('hide');
+    popup.classList.toggle('show');
+
     const time = 3000;
     setTimeout(() => {
-      setIndexOfMessageClipboard(null);
-      setMessageClipboard(null);
+      popup.classList.toggle('hide');
+      popup.classList.remove('show');
     }, time);
   }
 
@@ -72,6 +73,9 @@ const DoneRecipes = () => {
         >
           Drinks
         </button>
+      </div>
+      <div className="popup">
+        <p className="popuptext" id="myPopup">Link copiado!</p>
       </div>
       <div className="d-flex f-d-column a-i-center">
         {filteredRecipes.map((recipe, index) => {
@@ -116,21 +120,17 @@ const DoneRecipes = () => {
                       { alcoholicOrNot }
                     </p>
                   )}
-                  {index === indexOfMessageClipboard ? (
-                    <p className="ml-1  m-y-25">{messageClipboard}</p>
-                  )
-                    : (
-                      <button
-                        type="button"
-                        onClick={ () => handleClick(index, type, id) }
-                        className="btn-icon ml-1 p-0"
-                      >
-                        <img
-                          src={ shareIcon }
-                          alt=""
-                          data-testid={ `${index}-horizontal-share-btn` }
-                        />
-                      </button>)}
+                  <button
+                    type="button"
+                    onClick={ () => handleClick(type, id) }
+                    className="btn-icon ml-1 p-0"
+                  >
+                    <img
+                      src={ shareIcon }
+                      alt=""
+                      data-testid={ `${index}-horizontal-share-btn` }
+                    />
+                  </button>
                 </div>
                 <Link to={ `/${type}s/${id}` }>
                   <h3

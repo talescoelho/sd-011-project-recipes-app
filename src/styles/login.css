@@ -23,6 +23,7 @@
   background-color: #e6b400;
   border: none;
   font-size: 15px;
+  padding: 0.5rem;
 }
 
 .login-btn:disabled {
