@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '../components/Footer';
-import Header from '../components/Header';
+import Header from '../components/HeaderFood';
 import { getAreasFood, searchByArea, searchFoodsAll } from '../services/RequestFood';
 import CardRecipe from '../components/CardRecipe';
 
