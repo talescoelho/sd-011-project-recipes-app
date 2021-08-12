@@ -15,3 +15,9 @@ export const translate = (string) => {
     return string;
   }
 };
+
+export const getFromStorage = (storageItem) => JSON
+  .parse(localStorage.getItem(storageItem));
+
+export const setToStorage = (storageItem, value) => localStorage
+  .setItem(storageItem, JSON.stringify(value));

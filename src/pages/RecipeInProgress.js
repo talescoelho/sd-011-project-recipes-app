@@ -2,12 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchRecipeDetail } from '../actions/selectedRecipe';
+import { getFromStorage, setToStorage } from '../helpers/utils';
 
 function RecipeInProgress({
   match: { params: { id }, path },
   recipe,
   dispatchFetchRecipe,
 }) {
+  const [inProgress, setInProgress] = React.useState({});
+
+  React.useEffect(() => {
+    const recipesInProgress = getFromStorage('inProgressRecipes') || {};
+    setInProgress(recipesInProgress);
+  }, []);
+
   React.useEffect(() => {
     const type = path.replace(/(^\/)|(\/)(:|\w|-)+/g, '');
     dispatchFetchRecipe(type, id);
@@ -36,6 +44,38 @@ function RecipeInProgress({
     return ingredientsList;
   };
 
+  const addStepToStorage = (value, storageItem) => {
+    const updatedItem = {
+      ...storageItem,
+      [id]: [
+        ...(storageItem[id] || []),
+        value,
+      ].sort(),
+    };
+
+    setToStorage('inProgressRecipes', updatedItem);
+    setInProgress(updatedItem);
+  };
+
+  const removeStepFromStorage = (value, storageItem) => {
+    const updatedItem = {
+      ...storageItem,
+      [id]: storageItem[id].filter((item) => item !== value),
+    };
+
+    if (updatedItem[id].length === 0) delete updatedItem[id];
+
+    setToStorage('inProgressRecipes', updatedItem);
+    setInProgress(updatedItem);
+  };
+
+  const handleStepDone = (target, index) => {
+    const recipesInProgress = getFromStorage('inProgressRecipes') || {};
+
+    if (target.checked) addStepToStorage(index, recipesInProgress);
+    else removeStepFromStorage(index, recipesInProgress);
+  };
+
   return (
     <main data-testid="recipes-page">
       <img src={ details.strThumb } alt="" data-testid="recipe-photo" />
@@ -48,7 +88,12 @@ function RecipeInProgress({
           getIngredients().map(([ingredient, measure], index) => (
             <li key={ ingredient } data-testid={ `${index}-ingredient-step` }>
               <label htmlFor={ `ingredient${index + 1}` }>
-                <input type="checkbox" id={ `ingredient${index + 1}` } />
+                <input
+                  type="checkbox"
+                  id={ `ingredient${index + 1}` }
+                  checked={ inProgress[id] && inProgress[id].includes(index + 1) }
+                  onChange={ ({ target }) => handleStepDone(target, index + 1) }
+                />
                 { `${ingredient} - ${measure}` }
               </label>
             </li>
