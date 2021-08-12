@@ -170,6 +170,7 @@ class ComidasDetalhes extends Component {
         <button
           type="button"
           data-testid="favorite-btn"
+          src={ isALreadyFavorited ? blackHeartIcon : whiteHeartIcon }
           onClick={ () => this.handleOnClickLike() }
         >
           <img
