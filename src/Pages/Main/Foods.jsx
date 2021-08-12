@@ -8,7 +8,8 @@ import FilterButtonsFood from '../../Components/FilterButtons/FilterButtonsFood'
 import '../../css/Foods.css';
 
 function Foods() {
-  const { dataFoods, setPage } = useContext(MainContext);
+  const { dataFoods, setPage,
+    setIdFoods } = useContext(MainContext);
 
   function thisPage() {
     setPage('foods');
@@ -19,6 +20,12 @@ function Foods() {
   }, []);
 
   if (dataFoods.length === 1) {
+    // * ===== Prototipo forma de capturar o id da comida selecionada ==
+    const ReceivedIdMeal = dataFoods[0].idMeal;
+    setIdFoods(ReceivedIdMeal);
+    const details = JSON.stringify(dataFoods[0]);
+    window.localStorage.setItem('DetailsFoods', details);
+    // * ================================================================
     return <Redirect to={ `/comidas/${dataFoods[0].idMeal}` } />;
   }
 

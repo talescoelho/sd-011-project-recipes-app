@@ -26,6 +26,11 @@ export const getFoodsInitial = () => fetch('https://www.themealdb.com/api/json/v
       .then((json) => (initial.ok ? Promise.resolve(json) : Promise.reject(json)))
   ));
 
+export async function copyLink(copy, setShow, typeRecipe, idRecipe) {
+  await copy(`http://localhost:3000/${typeRecipe}/${idRecipe}`);
+  setShow(true);
+}
+
 export const getFoodsCategory = () => fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
   .then((categories) => (
     categories
