@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 class RecipeDetailMain extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.main = this.main.bind(this);
   }
 
-  main(recipeDetail, recipeRecommended) {
+  main(recipeDetail) {
     const { strMealThumb, strDrinkThumb, strDrink, strMeal,
       strCategory, strAlcoholic, strInstructions,
       strYoutube } = recipeDetail;
@@ -21,9 +21,6 @@ class RecipeDetailMain extends Component {
     const strYoutubeEmbed = strYoutube && strYoutube.replace('watch?v=', 'embed/');
 
     let count = 1;
-
-    const DECREMENT = -1;
-    const INCREMENT = 1;
 
     const ingredientes = recipeDetail && Object.keys(recipeDetail)
       .filter((item) => {
@@ -96,73 +93,17 @@ class RecipeDetailMain extends Component {
             <br />
           </div>
         )}
-        <div>
-          <h3> Recomendadas </h3>
-          <div className="slideshow-container">
-            <br />
-            {recipeRecommended.map((item, index) => (
-              <div
-                data-testid={ `${index}-recomendation-card` }
-                className="mySlides fade"
-                key={ index }
-              >
-                <div className="numbertext">
-                  {`${index + 1} / ${recipeRecommended.length}`}
-                </div>
-                <img
-                  src={ item.strMealThumb || item.strDrinkThumb }
-                  style={ { width: '100%' } }
-                  alt="Recomendadação"
-                />
-                <div className="text">{ item.strMeal || item.strDrink }</div>
-              </div>
-            ))}
-            <button
-              className="prev"
-              type="button"
-              aria-label="botões de transição"
-              onClick={ plusSlides(DECREMENT) }
-              onKeyDown={ plusSlides(DECREMENT) }
-            >
-              &#10094;
-            </button>
-            <button
-              className="next"
-              type="button"
-              aria-label="botões de transição"
-              onClick={ plusSlides(INCREMENT) }
-              onKeyDown={ plusSlides(INCREMENT) }
-            >
-              &#10095;
-            </button>
-          </div>
-          <br />
-          <div style={ { textAlign: 'center' } }>
-            {recipeRecommended.map((_, index) => (
-              <span
-                className="dot"
-                role="button"
-                aria-label="botões circulares de transição"
-                onClick={ currentSlide(index) }
-                onKeyDown={ currentSlide(index) }
-                key={ index }
-                tabIndex={ index }
-              />
-            ))}
-          </div>
-        </div>
         <br />
         <br />
-        <button data-testid="start-recipe-btn" type="button"> Iniciar receita</button>
       </main>
     );
   }
 
   render() {
-    const { recipeDetail, recipeRecommended } = this.props;
+    const { recipeDetail } = this.props;
     return (
       <div>
-        { this.main(recipeDetail, recipeRecommended) }
+        { this.main(recipeDetail) }
       </div>
     );
   }
