@@ -20,7 +20,15 @@ function RenderDrinkProgress({ strDrinkThumb, strDrink, strCategory,
 
   useEffect(() => {
     if (hasChecked) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify(statusIngredients));
+      const currentLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes')); // pego o LocalStorage atual
+      const newObject = {
+        ...currentLocalStorage,
+        cocktails: {
+          ...currentLocalStorage.cocktails,
+          [id]: statusIngredients,
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newObject));
     }
   }, [statusIngredients]);
 
@@ -33,13 +41,16 @@ function RenderDrinkProgress({ strDrinkThumb, strDrink, strCategory,
 
   function checkList(index) {
     setHasChecked(true);
+    const currentStatusIngredients = [...statusIngredients];
     if (statusIngredients[index] === true) {
-      setStatusIngredients((prev) => ({ ...prev, [index]: false }));
+      currentStatusIngredients[Number(index)] = false;
+      setStatusIngredients(currentStatusIngredients);
       setClassNameIngredients((prev) => ({ ...prev, [index]: 'notChecked' }));
       const newCount = countCheckIngredList - 1;
       return setCountCheckIngredList(newCount);
     }
-    setStatusIngredients((prev) => ({ ...prev, [index]: true }));
+    currentStatusIngredients[Number(index)] = true;
+    setStatusIngredients(currentStatusIngredients);
     setClassNameIngredients((prev) => ({ ...prev, [index]: 'yesChecked' }));
     const newCount = countCheckIngredList + 1;
     return setCountCheckIngredList(newCount);
