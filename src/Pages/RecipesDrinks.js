@@ -25,7 +25,6 @@ export default function RecipesFood() {
       getListValues,
       setdrinkCategories(getListValues)
     );
-    // return getListValues.map((item, index) => <button type="button" key={ index }>{item}</button>);
   };
 
   useEffect(() => {
@@ -42,13 +41,118 @@ export default function RecipesFood() {
       return filteredRecipe;
     }
   };
+
+  const fetchOrdinaryDrink = async () => {
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink');
+    const json = await response.json();
+    console.log(json);
+    const maxList = 12;
+    const filteredJson = json.drinks.slice(0, maxList);
+    return (
+      filteredJson,
+      setCards(filteredJson)
+    );
+  };
+
+  const fetchCocktail = async () => {
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail');
+    const json = await response.json();
+    console.log(json);
+    const maxList = 12;
+    const filteredJson = json.drinks.slice(0, maxList);
+    return (
+      filteredJson,
+      setCards(filteredJson)
+    );
+  };
+
+  const fetchMilkFloatShake = async () => {
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Milk / Float / Shake');
+    const json = await response.json();
+    const maxList = 12;
+    const filteredJson = json.drinks.slice(0, maxList);
+    return (
+      filteredJson,
+      setCards(filteredJson)
+    );
+  };
+
+  const fetchOtherUnknown = async () => {
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Other/Unknown');
+    const json = await response.json();
+    const maxList = 12;
+    const filteredJson = json.drinks.slice(0, maxList);
+    return (
+      filteredJson,
+      setCards(filteredJson)
+    );
+  };
+
+  const fetchCocoa = async () => {
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocoa');
+    const json = await response.json();
+    const maxList = 12;
+    const filteredJson = json.drinks.slice(0, maxList);
+    return (
+      filteredJson,
+      setCards(filteredJson)
+    );
+  };
+
+  const fetchAll = async () => {
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php');
+    const json = await response.json();
+    const maxList = 12;
+    const filteredJson = json.categories.slice(0, maxList);
+    return (
+      filteredJson,
+      setCards(filteredJson)
+    );
+  };
+
+  function handleClick({ value }) {
+    switch (value) {
+    case 'Ordinary Drink':
+      return fetchOrdinaryDrink();
+    case 'Cocktail':
+      return fetchCocktail();
+    case 'Milk / Float / Shake':
+      return fetchMilkFloatShake();
+    case 'Other/Unknown':
+      return fetchOtherUnknown();
+    case 'Cocoa':
+      return fetchCocoa();
+    default:
+      return alert('Deu Erro na requisição do botão!');
+    }
+  }
+
   return (
     <div>
       <Header className="title" title="Bebidas" searchIconAppears />
       <div>
-        {drinkCategories.map((item, index) => <button type="button" key={ index }>{item}</button>)}
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => fetchAll() }
+        >
+          All
+        </button>
+        {drinkCategories
+          .map(
+            (item, index) => (
+              <button
+                type="button"
+                data-testid={ `${item}-category-filter` }
+                value={ item }
+                id={ item }
+                key={ index }
+                onClick={ (e) => handleClick(e.target) }
+              >
+                {item}
+              </button>),
+          )}
       </div>
-      {/* {drinkCategories.map((item, index) => <button type="button" key={ index }>{item}</button>)} */}
       <div className="cardlist">
         {cards.length > 0 && renderCardRecipes().map((recp, index) => (
           <Link
