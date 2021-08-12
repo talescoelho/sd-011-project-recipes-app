@@ -1,3 +1,10 @@
+* {
+  box-sizing: border-box;
+  font-family: Lato , Open Sans , sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
@@ -129,3 +136,53 @@
 .ingredient-checked {
   text-decoration: line-through;
 }
+
+
+/* Página de Login */
+.login-page {
+  align-items: center;
+  background-image: url('./images/backgroundLogin.svg');
+  background-position: bottom;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+.login-logo {
+  margin: 3%;
+  width: 80%;
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15%;
+  text-align: center;
+}
+
+.login-password input, .login-email input {
+  border-color: #333;
+  border-radius: 28px;
+  border-style: solid;
+  border-width: 3px;
+  font-size: 16px;
+  margin: 12px;
+  padding: 7px;
+}
+
+.login-btn {
+  background-color: #bee34f;
+  border-radius: 28px;
+  border-style: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin: 12px;
+  padding: 7px;
+  text-transform: uppercase;
+  width: 50%;
+}
+
