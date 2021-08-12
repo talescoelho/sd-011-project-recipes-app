@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
-import './RecipesFoods.css';
 import CardRecipes from '../Components/CardRecipes';
+import './Styles/RecipesFoods.css';
 
 export default function RecipesFood() {
   const [recipes, setRecipes] = useState([]);

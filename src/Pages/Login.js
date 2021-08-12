@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import loginbg from '../loginbg.mp4';
-import './Login.css';
+import './Styles/Login.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
