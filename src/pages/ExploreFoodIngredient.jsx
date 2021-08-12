@@ -17,7 +17,6 @@ export default function ExploreFoodIngredient({ history }) {
     callAPIingredients();
   }, []);
   const doze = 12;
-  const exploreIngredient = 'Explorar Ingredientes';
   setMeals('');
 
   function getRecipeByIngredient(meal) {
