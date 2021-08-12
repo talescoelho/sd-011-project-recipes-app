@@ -72,6 +72,7 @@ function Cards(props) {
   const renderCocktailsList = () => {
     if (ApiCallCockTails) {
       const maxListRender = 12;
+
       return (
         cocktailsAPI.filter((__, index) => index < maxListRender)
           .map((drink, indexMap) => (
@@ -80,6 +81,7 @@ function Cards(props) {
               data-testid={ `${indexMap}-recipe-card` }
               className="cards"
             >
+              {/* passar estado para o drink */}
               <Link to={ { pathname: `/bebidas/${drink.idDrink}` } }>
                 <div>
                   <h5 data-testid={ `${indexMap}-card-name` }>{drink.strDrink}</h5>
@@ -101,6 +103,7 @@ function Cards(props) {
     <div>
       {renderMeailList()}
       {renderCocktailsList()}
+
     </div>
 
   );
