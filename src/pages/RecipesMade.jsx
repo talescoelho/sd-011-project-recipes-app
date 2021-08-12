@@ -20,7 +20,7 @@ function RecipesMade() {
 
   useEffect(() => {
     try {
-      const getItemFromStored = getDoneRecipes();
+      const getItemFromStored = localStorage.getItem('doneRecipes');
       storedRecipes.current = getItemFromStored ? JSON.parse(getItemFromStored) : [];
     } catch (error) {
       storedRecipes.current = [];

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ShareIcon from '../../images/shareIcon.svg';
-import FavoriteIcon from '../../images/whiteHeartIcon.svg';
-import UnfavoriteIcon from '../../images/blackHeartIcon.svg';
+import ShareIcon from '../../../images/shareIcon.svg';
+import FavoriteIcon from '../../../images/whiteHeartIcon.svg';
+import UnfavoriteIcon from '../../../images/blackHeartIcon.svg';
 
-function ActionButton({ onClick, action, reverse }) {
+function BaseActionButton({ onClick, action, reverse }) {
   const getFavoriteIcon = (isUnfavorite) => {
     if (isUnfavorite) {
       return UnfavoriteIcon;
@@ -28,13 +28,13 @@ function ActionButton({ onClick, action, reverse }) {
   );
 }
 
-export default ActionButton;
+export default BaseActionButton;
 
-ActionButton.defaultProps = {
+BaseActionButton.defaultProps = {
   reverse: false,
 };
 
-ActionButton.propTypes = {
+BaseActionButton.propTypes = {
   onClick: PropTypes.func.isRequired,
   action: PropTypes.oneOf(['share', 'favorite']).isRequired,
   reverse: PropTypes.bool,
