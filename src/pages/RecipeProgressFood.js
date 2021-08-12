@@ -32,7 +32,7 @@ function RecipeProgressFood(props) {
             >
               <input
                 type="checkbox"
-                onChange={ () => setChangeInputFood(true) }
+                onChange={ () => setChangeInputFood((changeInputFood) => !changeInputFood) }
               />
               { `${food[`strIngredient${numero}`]} ` }
               { (food[`strMeasure${numero}`] !== null
