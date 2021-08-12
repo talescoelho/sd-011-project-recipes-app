@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function ExplorerFoodIngredient() {
   const headerProps = {
     title: 'Explorar Ingredientes',
-    enableSearchButton: true,
+    enableSearchButton: false,
     enableProfileButton: true,
   };
 
@@ -27,12 +28,12 @@ function ExplorerFoodIngredient() {
   return (
     <div>
       <Header props={ headerProps } />
-      {ingredientsLimited && ingredientsLimited.map((listIngredient, index) => {
-        // const ingredientNoSpace = listIngredient.strIngredient.replace(/( )+/g, '%20');
-
-        console.log(`${imageIngredientUrl}${listIngredient.strIngredient}-Small.png`);
-        return (
-          <div data-testid={ `${index}-ingredient-card` } key={ index }>
+      {ingredientsLimited && ingredientsLimited.map((listIngredient, index) => (
+        <Link
+          key={ index }
+          to={ `/comidas/ingredientes/${listIngredient.strIngredient}` }
+        >
+          <div data-testid={ `${index}-ingredient-card` }>
             <img
               data-testid={ `${index}-card-img` }
               src={ `${imageIngredientUrl}${listIngredient.strIngredient}-Small.png` }
@@ -40,8 +41,8 @@ function ExplorerFoodIngredient() {
             />
             <h1 data-testid={ `${index}-card-name` }>{listIngredient.strIngredient}</h1>
           </div>
-        );
-      })}
+        </Link>
+      ))}
       <Footer />
     </div>
   );

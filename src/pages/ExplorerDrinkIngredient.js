@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function ExplorerDrinkIngredient() {
   const headerProps = {
     title: 'Explorar Ingredientes',
-    enableSearchButton: true,
+    enableSearchButton: false,
     enableProfileButton: true,
   };
 
@@ -20,19 +21,17 @@ function ExplorerDrinkIngredient() {
       .then((result) => setListIngredients(result.drinks));
   }, []);
 
-  console.log(listIngredients);
-
   const imageIngredientUrl = 'https://www.thecocktaildb.com/images/ingredients/';
 
   return (
     <div>
       <Header props={ headerProps } />
-      {ingredientsLimited && ingredientsLimited.map((listIngredient, index) => {
-        // const ingredientNoSpace = listIngredient.strIngredient1.replace(/( )+/g, '%20');
-
-        console.log(`${imageIngredientUrl}${listIngredient.strIngredient1}-Small.png`);
-        return (
-          <div data-testid={ `${index}-ingredient-card` } key={ index }>
+      {ingredientsLimited && ingredientsLimited.map((listIngredient, index) => (
+        <Link
+          key={ index }
+          to={ `/bebidas/ingredientes/${listIngredient.strIngredient1}` }
+        >
+          <div data-testid={ `${index}-ingredient-card` }>
             <img
               data-testid={ `${index}-card-img` }
               src={ `${imageIngredientUrl}${listIngredient.strIngredient1}-Small.png` }
@@ -40,8 +39,8 @@ function ExplorerDrinkIngredient() {
             />
             <h1 data-testid={ `${index}-card-name` }>{listIngredient.strIngredient1}</h1>
           </div>
-        );
-      })}
+        </Link>
+      ))}
       <Footer />
     </div>
   );

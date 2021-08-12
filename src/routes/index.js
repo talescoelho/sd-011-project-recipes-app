@@ -22,9 +22,11 @@ function Routes() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Foods } />
+        <Route exact path="/comidas/ingredientes/:ingredient" component={ Foods } />
         <Route exact path="/comidas/:id" component={ RecipeMealDetails } />
         <Route exact path="/comidas/:id/in-progress" component={ RecipeMealInProgress } />
         <Route exact path="/bebidas" component={ Drinks } />
+        <Route exact path="/bebidas/ingredientes/:ingredient" component={ Drinks } />
         <Route exact path="/bebidas/:id" component={ RecipeDrinkDetails } />
         <Route
           exact
