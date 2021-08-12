@@ -8,6 +8,13 @@ export default function MyProvider({ children }) {
   const [recDrink, setRecDrink] = useState([]);
   const [cards, setCards] = useState([]);
 
+  const [favoriteRecipes, setFavRecipes] = useState(() => {
+    const favRecipe = localStorage.getItem('favoriteRecipes');
+    return favRecipe ? JSON.parse(favRecipe) : [];
+  });
+  const [recomendations, setRecomendations] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(false);
+
   const context = {
     recipe,
     setRecipe,
@@ -17,6 +24,12 @@ export default function MyProvider({ children }) {
     setRecDrink,
     cards,
     setCards,
+    favoriteRecipes,
+    setFavRecipes,
+    recomendations,
+    setRecomendations,
+    setIsFavorite,
+    isFavorite,
   };
 
   return (

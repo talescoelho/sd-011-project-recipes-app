@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
-import './RecipesFoods.css';
 import CardRecipes from '../Components/CardRecipes';
 import MyContext from '../Context/MyContext';
 import { fetchCategoryMeal, getFood } from '../Services/FetchApi';
@@ -22,9 +21,15 @@ export default function RecipesFood() {
     return categoryListFood;
   };
 
+  const busca = async () => {
+    const resposta = await getFood();
+    setCards(resposta.meals);
+  };
+
   useEffect(() => {
     searchCards();
     fetchCategoryButtons();
+    busca();
   }, []);
 
   const renderCardRecipes = () => {
@@ -54,7 +59,9 @@ export default function RecipesFood() {
               index={ index }
               thumb={ recp.strMealThumb }
               title={ recp.strMeal }
+              className={ `card${index}` }
             />
+            { console.log(index) }
           </Link>))}
       </div>
       <Footer />

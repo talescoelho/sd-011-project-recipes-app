@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ShareButton from '../Components/ShareButton';
 import './Styles/detailsrecipe.css';
-
+import FavoriteButton from '../Components/FavoriteButton';
+import RecomendedRecipes from '../Components/RecomendedRecipes';
+// import MyContext from '../Context/MyContext';
 function FoodDetails({ match: { params: { id } } }) {
   const [recipes, setRecipes] = useState([]);
 
@@ -56,6 +57,8 @@ function FoodDetails({ match: { params: { id } } }) {
     return newArray;
   };
 
+  const essaPagina = window.location.href;
+  console.log(essaPagina);
   return (
     <div>
       <img
@@ -66,7 +69,14 @@ function FoodDetails({ match: { params: { id } } }) {
       />
       <h2 data-testid="recipe-title">{ recipes.strMeal }</h2>
       <ShareButton />
-      <img src={ whiteHeartIcon } alt="Favoritar Coração" data-testid="favorite-btn" />
+      <FavoriteButton
+        id={ recipes.idMeal }
+        type="Comida"
+        area={ recipes.strArea }
+        category={ recipes.strCategory }
+        name={ recipes.strMeal }
+        image={ recipes.strMealThumb }
+      />
       <h3 data-testid="recipe-category">{ recipes.strCategory }</h3>
       <h3>Ingredients</h3>
       <ul>
@@ -93,6 +103,11 @@ function FoodDetails({ match: { params: { id } } }) {
       </div>
       {/* <h3 data-testid={ `${index}-recomendation-card"` }>Recomendadas</h3> */}
       <div id="recommended"><h4>oi</h4></div>
+      <br />
+      <div className="recommended">
+        <RecomendedRecipes origem={ essaPagina } />
+      </div>
+      <br />
       <Link to={ `/comidas/${recipes.idMeal}/in-progress` } params={ recipes.idMeal }>
         <button
           id="start-recipe-btn"

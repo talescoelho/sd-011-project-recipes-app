@@ -4,10 +4,10 @@ import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import './RecipesFoods.css';
 import CardRecipes from '../Components/CardRecipes';
-import { fetchCategoryDrink, getDrink } from '../Services/FetchApi';
+import { getDrink, fetchCategoryDrink } from '../Services/FetchApi';
 import MyContext from '../Context/MyContext';
 
-export default function RecipesFood() {
+export default function RecipesDrink() {
   const { cards, setCards } = useContext(MyContext);
 
   const searchCards = async () => {

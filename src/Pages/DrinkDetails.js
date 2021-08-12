@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import { Link } from 'react-router-dom';
 import ShareButton from '../Components/ShareButton';
-// import RecomendedRecipes from '../Components/RecomendedRecipes';
+import FavoriteButton from '../Components/FavoriteButton';
+import RecomendedRecipes from '../Components/RecomendedRecipes';
 import './Styles/detailsrecipe.css';
 
 function DrinkDetails({ match: { params: { id } } }) {
@@ -53,6 +53,7 @@ function DrinkDetails({ match: { params: { id } } }) {
     }
     return newArray;
   };
+  const essaPagina = window.location.href;
 
   return (
     <div>
@@ -64,7 +65,16 @@ function DrinkDetails({ match: { params: { id } } }) {
       />
       <h2 data-testid="recipe-title">{ recipes.strDrink }</h2>
       <ShareButton />
-      <img src={ whiteHeartIcon } alt="Favoritar Coração" data-testid="favorite-btn" />
+      <FavoriteButton
+        id={ recipes.idDrink }
+        type="bebida"
+        area=""
+        category="Cocktail"
+        alcoholicOrNot={ recipes.strAlcoholic }
+        name={ recipes.strDrink }
+        image={ recipes.strDrinkThumb }
+      />
+
       <h3 data-testid="recipe-category">{ recipes.strCategory }</h3>
       <h3>Ingredients</h3>
       <ul>
@@ -73,21 +83,16 @@ function DrinkDetails({ match: { params: { id } } }) {
       </ul>
       <h3 data-testid="instructions">Instructions</h3>
       <p>{recipes.strInstructions}</p>
-      <h3 data-testid="video">Video</h3>
-      <div>
-        <ReactPlayer
-          url={ recipes.strYoutube }
-        />
-      </div>
-      {/* <h3 data-testid={ `${index}-recomendation-card"` }>Recomendadas</h3> */}
-      {/* <div id="recommended"><RecomendedRecipes /></div> */}
-      <button
-        id="start-recipe-btn"
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Iniciar Receita
-      </button>
+      <div id="recommended"><RecomendedRecipes origem={ essaPagina } /></div>
+      <Link to={ `/comidas/${recipes.idMeal}/in-progress` } params={ recipes.idMeal }>
+        <button
+          id="start-recipe-btn"
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          Iniciar Receita
+        </button>
+      </Link>
     </div>
   );
 }
