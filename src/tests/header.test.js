@@ -17,7 +17,7 @@
 //     const { container } = render(<Login />);
 //     expect(container.querySelector('.header')).not.toBeInTheDocument();
 //   });
-//   it(`testa se header tem os ícones corretos 
+//   it(`testa se header tem os ícones corretos
 //   na tela de principal de receitas de comidas`, () => {
 //     const { getByTestId } = renderWithRouter(<Comidas />);
 

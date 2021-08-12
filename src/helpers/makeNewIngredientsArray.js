@@ -1,4 +1,8 @@
-export default function makeNewIngredientsArray(actualArray, original, ingredientToSwitch, type, id) {
+export default function makeNewIngredientsArray(actualArray,
+  original,
+  ingredientToSwitch,
+  typeId) {
+  const { type, id } = typeId;
   const INGREDIENTS = JSON.parse(localStorage.inProgressRecipes);
   const indexOfIngredient = actualArray.indexOf(original);
   actualArray[indexOfIngredient] = ingredientToSwitch;
