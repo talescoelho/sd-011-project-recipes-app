@@ -18,7 +18,7 @@ function RecipeList() {
       <img
         src={ loading }
         alt="carregando"
-        height="100px"
+        width="100px"
       />
     );
   }
