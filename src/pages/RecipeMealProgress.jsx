@@ -9,7 +9,10 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function RecipeMealProgress() {
   const [recipeProgress, setRecipeProgress] = useState({});
+  // const [mealRecipesId, setMealRecipesId] = useState()
   const [isLoaded, setIsloaded] = useState(false);
+  const [isButton, setIsButton] = useState(true);
+
   const [favorited, setFavorited] = useState();
 
   const history = useHistory();
@@ -17,23 +20,34 @@ function RecipeMealProgress() {
   const recipesSelectedId = pathname.split('/')[2];
 
   useEffect(() => {
-    const getRecipes = JSON.parse(localStorage.getItem('recipesProgress'));
-    const recipe = getRecipes.filter((item) => item.idMeal === recipesSelectedId);
-    setRecipeProgress(recipe);
-    setIsloaded(true);
+    const getApiDetailsRecipesFood = async () => {
+      const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipesSelectedId}`;
+      const requestFood = await api.fetchAPI(URL);
+      const responseFood = await requestFood.meals;
+      setRecipeProgress(responseFood[0]);
+      console.log(responseFood);
+    };
+    getApiDetailsRecipesFood();
   }, [setRecipeProgress, recipesSelectedId]);
 
   // useEffect(() => {
-  //   if (!localStorage.favoriteRecipes) localStorage.favoriteRecipes = JSON.stringify([]);
-  //   const favoriteStorage = JSON.parse(localStorage.favoriteRecipes).filter(
-  //     (recipe) => recipe.id === recipesSelectedId,
-  //   );
-  //   if (favoriteStorage.length >= 1) {
-  //     setFavorited(blackHeartIcon);
-  //   } else {
-  //     setFavorited(whiteHeartIcon);
-  //   }
-  // }, [recipesSelectedId]);
+  //   const getRecipes = JSON.parse(localStorage.getItem('recipesProgress'));
+  //   const recipe = getRecipes.filter((item) => item.idMeal === recipesSelectedId);
+  //   setRecipeProgress(recipe);
+  //   setIsloaded(true);
+  // }, [setRecipeProgress, recipesSelectedId]);
+
+  useEffect(() => {
+    if (!localStorage.favoriteRecipes) localStorage.favoriteRecipes = JSON.stringify([]);
+    const favoriteStorage = JSON.parse(localStorage.favoriteRecipes).filter(
+      (recipe) => recipe.id === recipesSelectedId,
+    );
+    if (favoriteStorage.length >= 1) {
+      setFavorited(blackHeartIcon);
+    } else {
+      setFavorited(whiteHeartIcon);
+    }
+  }, [recipesSelectedId]);
 
   const handleFavoriteClick = () => {
     if (favorited === whiteHeartIcon) {
@@ -59,19 +73,30 @@ function RecipeMealProgress() {
     }
   };
 
+  const handleClickRecipesProgress = () => {
+    const inProgress = JSON.parse(localStorage.getItem('recipeInProgress'));
+    const used = inProgress.meals[recipesSelectedId];
+    const allUsedIngredients = Object.keys(recipeProgress).filter(
+      (item) => item.includes('strIngredient')
+      && recipeProgress[item] !== ''
+      && recipeProgress[item] !== null,
+    );
+    if (used.length === allUsedIngredients.length) setIsButton(false);
+  };
+
   const loading = <p>Loading...</p>;
 
-  function returnIngredients() {
-    if (recipeProgress) {
-      const ingredients = (recipeProgress.length === 0) ? ''
-        : Object.keys(recipeProgress)
-          .filter((item) => item.includes('strIngredient'))
-          .map((itens) => recipeProgress[itens])
-          .filter((itensFiltereds) => itensFiltereds);
-      // const returnIngredients = mealRecipes.filter((itens) => itens.includes())
-      return ingredients;
-    }
-  }
+  // function returnIngredients() {
+  //   if (recipeProgress) {
+  //     const ingredients = (recipeProgress.length === 0) ? ''
+  //       : Object.keys(recipeProgress)
+  //         .filter((item) => item.includes('strIngredient'))
+  //         .map((itens) => recipeProgress[itens])
+  //         .filter((itensFiltereds) => itensFiltereds);
+  //     // const returnIngredients = mealRecipes.filter((itens) => itens.includes())
+  //     return ingredients;
+  //   }
+  // }
 
   // function returnIngredients() {
   //   const ingredients = Object.entries(recipeProgress)
@@ -89,7 +114,7 @@ function RecipeMealProgress() {
   //     .map((items) => items);
   // }
 
-  const checkBox = returnIngredients();
+  const checkBox = handleClickRecipesProgress();
 
   function handleChangeCheck({ target }) {
     target.parentElement.classList.toggle('risk');
@@ -133,6 +158,7 @@ function RecipeMealProgress() {
               <button
                 type="button"
                 data-testid="finish-recipe-btn"
+                disabled={ isButton }
               >
                 Finalizar Receita
               </button>
