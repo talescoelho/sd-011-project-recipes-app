@@ -61,6 +61,8 @@ function MealDetails({ match: { params } }) {
         img={ MealDataAPI.strMealThumb }
         category={ MealDataAPI.strCategory }
         id={ MealDataAPI.idMeal }
+        data={ MealDataAPI }
+        type="comida"
       />
 
       <IngredientsList recipe={ MealDataAPI } />

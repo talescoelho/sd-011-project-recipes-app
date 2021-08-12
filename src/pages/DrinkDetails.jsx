@@ -61,6 +61,8 @@ function DrinkDetails({ match: { params } }) {
         img={ DrinkDataAPI.strDrinkThumb }
         category={ DrinkDataAPI.strAlcoholic }
         id={ DrinkDataAPI.idDrink }
+        // data={ DrinkDataAPI }
+        type="bebidas"
       />
 
       <IngredientsList recipe={ DrinkDataAPI } />
