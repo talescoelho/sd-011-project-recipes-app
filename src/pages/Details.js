@@ -9,9 +9,21 @@ import DetailsButton from '../components/DetailsButton';
 function Details({ match: { url, params: { id } } }) {
   const { getRecipeById } = useContext(RecipesContext);
 
+  const createLSInProgress = () => {
+    const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    if (Object.keys(recipe).length === 0) {
+      const inProgressRecipes = {
+        cocktails: {},
+        meals: {},
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    }
+  };
+
   // didMount getRecipeById
   useEffect(() => {
     getRecipeById(url, id);
+    createLSInProgress();
   }, []);
 
   return (

@@ -67,6 +67,57 @@ export const addRecipeInFavorites = (recipe, url) => {
     JSON.stringify([...favoriteRecipes, newRecipe]));
 };
 
+// ADD A Done Recipe
+export const addRecipeIsDone = (recipe, url) => {
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  const type = url.replace(/\//ig, '').replace(/[0-9]/g, '').replace('s', '')
+    .replace('in-progress', '');
+  const currentDate = new Date().toLocaleDateString();
+
+  const {
+    idMeal,
+    idDrink,
+    strCategory,
+    strAlcoholic,
+    strDrink,
+    strMeal,
+    strDrinkThumb,
+    strMealThumb,
+    strArea,
+    strTags } = recipe;
+  const newRecipe = {
+    id: idMeal || idDrink,
+    type,
+    area: strArea || '',
+    category: strCategory || '',
+    alcoholicOrNot: strAlcoholic || '',
+    name: strMeal || strDrink,
+    image: strMealThumb || strDrinkThumb,
+    doneDate: currentDate,
+    tags: [],
+  };
+
+  if (strTags === undefined || strTags === null) {
+    newRecipe.tags = [];
+  } else {
+    newRecipe.tags = strTags.split(',');
+  }
+
+  localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, newRecipe]));
+};
+
+// Atualiza LocalStorage de RecipesInProgress passando um objeto
+export const updateRecipeInProgress = (url, recipe, id) => {
+  const recipeInProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+  if (url.includes('comidas')) {
+    recipeInProgress.meals[id] = recipe;
+  }
+  if (url.includes('bebidas')) {
+    recipeInProgress.cocktails[id] = recipe;
+  }
+  localStorage.setItem('inProgressRecipes', JSON.stringify(recipeInProgress));
+};
+
 export const createLocalStorage = () => {
   const inProgressRecipes = {
     cocktails: {},

@@ -15,6 +15,8 @@ function RecipesProvider({ children }) {
   const [currentCategory, setCurrentCategory] = useState('All');
   const [share, setShare] = useState(false);
   const [favIcon, setFavIcon] = useState(false);
+  const [task, setTask] = useState({});
+  const [enableFinish, setEnableFinish] = useState(true);
 
   useEffect(() => {
     async function fetchMyAPI() {
@@ -83,6 +85,10 @@ function RecipesProvider({ children }) {
     setShare,
     favIcon,
     setFavIcon,
+    task,
+    setTask,
+    enableFinish,
+    setEnableFinish,
   };
 
   return (
