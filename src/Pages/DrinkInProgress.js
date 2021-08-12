@@ -109,7 +109,6 @@ function DrinkInProgress({ match }) {
               <button
                 data-testid="finish-recipe-btn"
                 type="button"
-                disabled={ data.drinks[0] !== null }
               >
 
                 <Link to="/receitas-feitas">Finalizar</Link>
