@@ -1,7 +1,8 @@
 import { fetchAPIName, fetchAPICategory,
   fetchAPICategoryFilter, fetchAPIByID,
   fetchFoodRandom, fetchFoodIngredient,
-  fetchFoodArea, fetchFoodIngredientSearch } from '../../services/fetchAPIFood';
+  fetchFoodArea, fetchFoodIngredientSearch,
+  fetchSearchFoodByArea } from '../../services/fetchAPIFood';
 import { fetchAPIName as fetchRecomendations } from '../../services/fetchAPIDrink';
 
 export const FOOD_LIST_SUCCESS = 'FOOD_LIST_SUCCESS';
@@ -14,6 +15,7 @@ export const FOOD_INGREDIENTS = 'FOOD_INGREDIENTS';
 export const FOOD_AREA = 'FOOD_AREA';
 export const SAVE_FAVORITES = 'SAVE_FAVORITES';
 export const RENDER_FOOD_INGREDIENTS = 'RENDER_FOOD_INGREDIENTS';
+export const SEARCH_FOOD_AREA = 'SEARCH_FOOD_AREA';
 
 export const foodListSuccess = (payload) => ({
   type: FOOD_LIST_SUCCESS,
@@ -141,7 +143,6 @@ export const fetchFoodIngredientList = (ingredient) => async (dispatch) => {
   dispatch(foodListSuccess(returnFetch));
 };
 
-
 export const saveDoneRecipe = (id) => async () => {
   const returnFetch = await fetchAPIByID(id);
   const date = new Date();
@@ -163,4 +164,14 @@ export const saveDoneRecipe = (id) => async () => {
     const newDoneRecipes = [...doneRecipes, genericObj];
     localStorage.setItem('doneRecipes', JSON.stringify(newDoneRecipes));
   }
+};
+
+export const searchFoodByArea = (payload) => ({
+  type: SEARCH_FOOD_AREA,
+  payload,
+});
+
+export const fetchSearchFoodArea = (area) => async (dispatch) => {
+  const returnFetch = await fetchSearchFoodByArea(area);
+  dispatch(searchFoodByArea(returnFetch));
 };

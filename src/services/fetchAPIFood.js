@@ -7,6 +7,7 @@ const urlId = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const urlFoodRandom = 'https://www.themealdb.com/api/json/v1/1/random.php';
 const urlFoodArea = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
 const urlIngredientsFilter = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
+const urlSearchFoodByArea = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
 
 export async function fetchAPIName(name) {
   try {
@@ -91,6 +92,16 @@ export async function fetchAPIFirstLetter(letter) {
 export async function fetchFoodIngredientSearch(ingredient) {
   try {
     const response = await fetch(`${urlIngredientsFilter}${ingredient}`);
+    const resolve = await response.json();
+    return resolve.meals;
+  } catch (error) {
+    return console.log(error);
+  }
+}
+
+export async function fetchSearchFoodByArea(area) {
+  try {
+    const response = await fetch(`${urlSearchFoodByArea}${area}`);
     const resolve = await response.json();
     return resolve.meals;
   } catch (error) {
