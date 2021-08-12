@@ -35,15 +35,20 @@ function DetailsIngredientList() {
 
   useEffect(() => {
     const localIngredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (localIngredient && localIngredient.meals[urlID].length !== 0) {
-      const test = localIngredient.meals[urlID];
-      const filterIngredientLocalStorage = (
-        ingredients.filter((_, index) => test.includes(index)));
-      setCheckedNumberIngredients(test);
-      setCheckedIngredients(filterIngredientLocalStorage);
-    } else {
-      const meals1 = { meals: { [urlID]: [] } };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(meals1));
+    if (isInProgress) {
+      if (!localIngredient.meals) {
+        const meals1 = { meals: { [urlID]: [] } };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(meals1));
+      } else if (localIngredient.meals[urlID]) {
+        const test = localIngredient.meals[urlID];
+        const filterIngredientLocalStorage = (
+          ingredients.filter((_, index) => test.includes(index)));
+        setCheckedNumberIngredients(test);
+        setCheckedIngredients(filterIngredientLocalStorage);
+      } else {
+        const meals1 = { ...localIngredient, meals: { ...localIngredient.meals, [urlID]: [] } };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(meals1));
+      }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -64,13 +69,10 @@ function DetailsIngredientList() {
       const number = [...checkedNumberIngredients, Number(index)];
       setCheckedNumberIngredients(number);
       test.meals[urlID] = number;
+      console.log(urlID);
       localStorage.setItem('inProgressRecipes', JSON.stringify(test));
     }
   }
-
-  useEffect(() => {
-    console.log(checkedNumberIngredients);
-  }, [checkedNumberIngredients]);
 
   return (
     <div>

@@ -1,15 +1,17 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import RecipesContext from '../../../context/RecipesContext';
 
 function DetailsDrinkIngredientList() {
-  const { drinkId, setAllIngredientsChecked } = useContext(RecipesContext);
-  const [checkedIngredients, setCheckedIngredients] = useState([]);
-  const [checkedNumberIngredients, setCheckedNumberIngredients] = useState([]);
+  const { drinkId,
+    setAllIngredientsChecked,
+    checkedIngredients,
+    setCheckedIngredients,
+    checkedNumberIngredients,
+    setCheckedNumberIngredients } = useContext(RecipesContext);
 
-  function conditionFor(idx) { // função para não deixar ser iteravel no for quando igrediente fo nulo
-    return (drinkId[`strIngredient${idx}`]) !== null
-    && (drinkId[`strIngredient${idx}`] !== '');
+  function conditionFor(idx) { // função para não deixar ser iteravel no for quando ingrediente for nulo
+    return !!drinkId[`strIngredient${idx}`];
   }
 
   function gettingIngredients() {
@@ -23,7 +25,6 @@ function DetailsDrinkIngredientList() {
   const ingredients = gettingIngredients();
   const checkPath = useLocation();
   const isInProgress = checkPath.pathname.includes('in-progress');
-
   const params = useParams();
   const urlID = params.id;
 
@@ -33,21 +34,40 @@ function DetailsDrinkIngredientList() {
   [checkedIngredients, ingredients.length, setAllIngredientsChecked]);
 
   useEffect(() => {
-    const drinks = { cocktails: { [urlID]: checkedNumberIngredients } };
-    localStorage.setItem('inProgressRecipes', JSON.stringify(drinks));
-  }, [checkedNumberIngredients, urlID]);
+    const localIngredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!localIngredient.cocktails) {
+      const drinks1 = { ...localIngredient, cocktails: {} };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(drinks1))
+    } else if (localIngredient.cocktails[urlID] && localIngredient.cocktails[urlID].length !== 0) {
+      const test = localIngredient.cocktails[urlID];
+      const filterIngredientLocalStorage = (
+        ingredients.filter((_, index) => test.includes(index)));
+      setCheckedNumberIngredients(test);
+      setCheckedIngredients(filterIngredientLocalStorage);
+    } else if (isInProgress) {
+      const drinks1 = { ...localIngredient, cocktails: { ...localIngredient.cocktails, [urlID]: [] } };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(drinks1));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  function addToCheckedIngredient({ target }) {
-    if (checkedIngredients.includes(target.value)) {
-      const arrayCheckedIngredients = checkedIngredients.filter((ingredient) => (
-        ingredient !== target.value));
+  function addToCheckedIngredient(ingredient, index) {
+    const test = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (checkedIngredients.includes(ingredient)) {
+      const arrayCheckedIngredients = checkedIngredients.filter((ingredient1) => (
+        ingredient1 !== ingredient));
       setCheckedIngredients(arrayCheckedIngredients);
       const indexIngredient = checkedNumberIngredients.filter((ingredientIndex) => (
-        ingredientIndex !== target.name));
+        ingredientIndex !== Number(index)));
       setCheckedNumberIngredients(indexIngredient);
+      test.cocktails[urlID] = indexIngredient;
+      localStorage.setItem('inProgressRecipes', JSON.stringify(test));
     } else {
-      setCheckedIngredients([...checkedIngredients, target.value]);
-      setCheckedNumberIngredients([...checkedNumberIngredients, target.name]);
+      setCheckedIngredients([...checkedIngredients, ingredient]);
+      const number = [...checkedNumberIngredients, Number(index)];
+      setCheckedNumberIngredients(number);
+      test.cocktails[urlID] = number;
+      localStorage.setItem('inProgressRecipes', JSON.stringify(test));
     }
   }
 
@@ -85,6 +105,7 @@ function DetailsDrinkIngredientList() {
                         name={ index }
                         value={ ingredient }
                         onChange={ addToCheckedIngredient }
+                        checked={ checkedIngredients.includes(ingredient) }
                       />
                       { (checkedIngredients.includes(ingredient))
                         ? <del>{ ingredient }</del> : ingredient }
