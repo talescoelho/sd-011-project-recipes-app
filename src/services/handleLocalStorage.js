@@ -31,8 +31,8 @@ export const setNewFavoriteRecipe = (obj) => {
 export const removeFavoriteRecipe = (obj) => {
   const favoriteRecipes = retrieveFavoriteRecipes();
   const filteredFavoriteRecipes = favoriteRecipes
-    .filter((el) => el === obj);
-  localStorage.setItem('favoriteRecipes', JSON.stringify([...filteredFavoriteRecipes]));
+    .filter((el) => el.id !== obj.id);
+  localStorage.setItem('favoriteRecipes', JSON.stringify(filteredFavoriteRecipes));
 };
 
 export const setInProgressRecipe = (selector, id, arrayOfIngredients) => {
