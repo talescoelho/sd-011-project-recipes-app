@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 import HeaderExplore from '../../Components/headers/HeaderExplore';
 import LowerMenu from '../../Components/footer/LowerMenu';
 
-export default function MainExplorer ({ history }) {
+export default function MainExplorer({ history }) {
   const handleClick = ({ target }) => {
     if (target.name === 'food') {
       history.push('/explorar/comidas');
@@ -16,7 +16,7 @@ export default function MainExplorer ({ history }) {
     <div>
       <HeaderExplore history={ history } title="Explorar" />
       <div>
-      <button
+        <button
           className="explore__button"
           data-testid="explore-food"
           name="food"

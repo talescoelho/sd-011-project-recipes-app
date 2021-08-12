@@ -32,7 +32,7 @@ const MainRouter = () => (
     />
     <Route exact path="/comidas" render={ () => <Foods /> } />
     <Route exact path="/bebidas" render={ () => <Drinks /> } />
-    <Route exact path="/explorar" render={ (props) => <MainExplorer { ...props }/> } />
+    <Route exact path="/explorar" render={ (props) => <MainExplorer { ...props } /> } />
     <Route exact path="/explorar/comidas" render={ () => <ExplorerFoods /> } />
     <Route exact path="/explorar/bebidas" render={ () => <ExplorerDrinks /> } />
 
