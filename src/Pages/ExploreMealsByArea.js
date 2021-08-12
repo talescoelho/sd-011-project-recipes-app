@@ -23,7 +23,11 @@ function ExploreMealsByArea() {
   async function filterMealsByArea({ target }) {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${target.value}`);
     const newMeals = await response.json();
-    setListOfFilteredMeals(newMeals.meals);
+    if (target.value === 'All') {
+      setListOfFilteredMeals(listOfMeals);
+    } else {
+      setListOfFilteredMeals(newMeals.meals);
+    }
   }
 
   const numberOfMealCards = 12;
@@ -40,6 +44,7 @@ function ExploreMealsByArea() {
         data-testid="explore-by-area-dropdown"
         onChange={ (e) => filterMealsByArea(e) }
       >
+        <option data-testid="All-option" selected>All</option>
         {Array.from(listOfAreas)
           .map(({ strArea }) => (
             <option
