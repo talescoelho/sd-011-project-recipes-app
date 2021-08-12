@@ -61,7 +61,7 @@ function DrinksDetails() {
             />
             <div className="details-header">
               <div>
-                <span data-testid="recipe-title">{details.strDrink}</span>
+                <h3 data-testid="recipe-title">{details.strDrink}</h3>
                 <span data-testid="recipe-category">{details.strAlcoholic}</span>
               </div>
               <ShareAndFavButtons details={ details } />
