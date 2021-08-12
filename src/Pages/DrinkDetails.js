@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import ReactPlayer from 'react-player';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ShareButton from '../Components/ShareButton';
 import './Styles/DrinkDetails.css';
+import checkInProgress from '../Services/checkInProgress';
 
 function DrinkDetails({ match: { params: { id } } }) {
   const [recipes, setRecipes] = useState([]);
@@ -53,6 +54,15 @@ function DrinkDetails({ match: { params: { id } } }) {
     return newArray;
   };
 
+  checkInProgress();
+  const checkStart = () => {
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgress && Object.keys(inProgress.cocktails).find((key) => key === recipes.idDrink)) {
+      return 'Continuar Receita';
+    }
+    return 'Iniciar Receita';
+  };
+
   return (
     <div>
       <img
@@ -62,31 +72,40 @@ function DrinkDetails({ match: { params: { id } } }) {
         alt="Imagem da receita"
       />
       <h2 data-testid="recipe-title">{ recipes.strDrink }</h2>
-      <ShareButton />
+      <ShareButton idRecipe={ `comidas/${recipes.idDrink}` } />
       <img src={ whiteHeartIcon } alt="Favoritar Coração" data-testid="favorite-btn" />
       <h3 data-testid="recipe-category">{ recipes.strCategory }</h3>
+      <h3>{ recipes.strAlcoholic }</h3>
       <h3>Ingredients</h3>
       <ul>
-        { concatIngredientWithMesure()
-          .map((igredient, index) => <li key={ index }>{igredient}</li>) }
+        {
+          concatIngredientWithMesure()
+            .map((igredient, index) => (
+              <li
+                data-testid={ `${index}-ingredient-name-and-measure` }
+                key={ index }
+              >
+                {igredient}
+              </li>
+            ))
+        }
       </ul>
-      <h3 data-testid="instructions">Instructions</h3>
-      <p>{recipes.strInstructions}</p>
-      <h3 data-testid="video">Video</h3>
-      <div>
-        <ReactPlayer
-          url={ recipes.strYoutube }
-        />
-      </div>
+      <h3>Instructions</h3>
+      <p data-testid="instructions">{recipes.strInstructions}</p>
       {/* <h3 data-testid={ `${index}-recomendation-card"` }>Recomendadas</h3> */}
       <div id="recommended"><h4>oi</h4></div>
-      <button
-        id="start-recipe-btn"
-        type="button"
-        data-testid="start-recipe-btn"
+      <Link
+        to={ `/bebidas/${recipes.idDrink}/in-progress` }
+        params={ recipes.idDrink }
       >
-        Iniciar Receita
-      </button>
+        <button
+          className="start-recipe-btn"
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          { checkStart() }
+        </button>
+      </Link>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ShareButton from '../Components/ShareButton';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import './Styles/ProcessFoods.css';
 
 export default function ProcessFoods() {
   const [recipes, setRecipes] = useState([]);
@@ -65,7 +66,16 @@ export default function ProcessFoods() {
       <h3>Ingredients</h3>
       <ul>
         { concatIngredientWithMesure()
-          .map((igredient, index) => <li key={ index }>{igredient}</li>) }
+          .map((igredient, index) => (
+            <label
+              key={ index }
+              data-testid={ `${index}-ingredient-step` }
+              htmlFor={ igredient[index] }
+            >
+              <input type="checkbox" id={ igredient[index] } />
+              {' '}
+              { igredient }
+            </label>)) }
       </ul>
       <h3 data-testid="instructions">Instructions</h3>
       <p>{recipes.strInstructions}</p>

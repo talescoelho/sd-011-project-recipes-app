@@ -13,7 +13,7 @@ import ExploreDrinks from '../Pages/ExploreDrinks';
 import ExploreFoods from '../Pages/ExploreFoods';
 import Explore from '../Pages/Explore';
 import DrinkDetails from '../Pages/DrinkDetails';
-import ProcessFood from '../Pages/ProcessFoods';
+import ProcessFoods from '../Pages/ProcessFoods';
 import ProcessDrinks from '../Pages/ProcessDrinks';
 import FoodDetails from '../Pages/FoodDetails';
 
@@ -50,7 +50,7 @@ function Routes() {
         <Route
           exact
           path="/comidas/:id/in-progress"
-          component={ ProcessFood }
+          component={ ProcessFoods }
         />
         <Route
           exact

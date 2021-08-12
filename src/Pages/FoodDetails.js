@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ShareButton from '../Components/ShareButton';
 import './Styles/FoodDetails.css';
+import checkInProgress from '../Services/checkInProgress';
 
 function FoodDetails({ match: { params: { id } } }) {
   const [recipes, setRecipes] = useState([]);
@@ -56,6 +57,15 @@ function FoodDetails({ match: { params: { id } } }) {
     return newArray;
   };
 
+  checkInProgress();
+  const checkStart = () => {
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgress && Object.keys(inProgress.meals).find((key) => key === recipes.idMeal)) {
+      return 'Continuar Receita';
+    }
+    return 'Iniciar Receita';
+  };
+
   return (
     <div>
       <img
@@ -65,7 +75,7 @@ function FoodDetails({ match: { params: { id } } }) {
         alt="Imagem da receita"
       />
       <h2 data-testid="recipe-title">{ recipes.strMeal }</h2>
-      <ShareButton />
+      <ShareButton idRecipe={ `comidas/${recipes.idMeal}` } />
       <img src={ whiteHeartIcon } alt="Favoritar Coração" data-testid="favorite-btn" />
       <h3 data-testid="recipe-category">{ recipes.strCategory }</h3>
       <h3>Ingredients</h3>
@@ -82,8 +92,8 @@ function FoodDetails({ match: { params: { id } } }) {
             ))
         }
       </ul>
-      <h3 data-testid="instructions">Instructions</h3>
-      <p>{recipes.strInstructions}</p>
+      <h3>Instructions</h3>
+      <p data-testid="instructions">{recipes.strInstructions}</p>
       <h3>Video</h3>
       <div>
         <ReactPlayer
@@ -93,14 +103,14 @@ function FoodDetails({ match: { params: { id } } }) {
       </div>
       {/* <h3 data-testid={ `${index}-recomendation-card"` }>Recomendadas</h3> */}
       <div id="recommended"><h4>oi</h4></div>
-      <Link to={ `/comidas/${recipes.idMeal}` } params={ recipes.idMeal }>
+      <Link to={ `/comidas/${recipes.idMeal}/in-progress` } params={ recipes.idMeal }>
         <button
           id="start-recipe-btn"
           className="start-recipe-btn"
           type="button"
           data-testid="start-recipe-btn"
         >
-          Iniciar Receita
+          { checkStart() }
         </button>
       </Link>
     </div>

@@ -63,10 +63,17 @@ export default function ProcessDrinks() {
       <img src={ whiteHeartIcon } alt="Favoritar Coração" data-testid="favorite-btn" />
       <h3 data-testid="recipe-category">{ recipes.strCategory }</h3>
       <h3>Ingredients</h3>
-      <ul>
-        { concatIngredientWithMesure()
-          .map((igredient, index) => <li key={ index }>{igredient}</li>) }
-      </ul>
+      { concatIngredientWithMesure()
+        .map((igredient, index) => (
+          <label
+            key={ index }
+            data-testid={ `${index}-ingredient-step` }
+            htmlFor={ igredient[index] }
+          >
+            <input type="checkbox" id={ igredient[index] } />
+            {' '}
+            { igredient }
+          </label>)) }
       <h3 data-testid="instructions">Instructions</h3>
       <p>{recipes.strInstructions}</p>
       <button
