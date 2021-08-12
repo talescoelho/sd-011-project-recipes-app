@@ -18,14 +18,11 @@
 
 .details-body {
   align-content: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .details-btn-container {
-  display: flex;
-  justify-content: center;
-}
-
-.container-fluid {
   display: flex;
   justify-content: center;
 }
@@ -34,8 +31,3 @@
   width: 100px;
 }
 
-.carousel-item {
-  display: inline-block;
-  justify-content: center;
-  width: 100%;
-}
