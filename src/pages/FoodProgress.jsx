@@ -90,13 +90,13 @@ function FoodDetails() {
                 <ol>
                   { Object.keys(recipe)
                     .filter((key) => /strIngredient/i.test(key))
-                    .filter((key) => recipe[key] !== '')
+                    .filter((key) => recipe[key] !== '' && recipe[key] !== null)
                     .map((key) => {
                       const index = parseInt(key.replace('strIngredient', ''), 10);
                       return (
                         <li
                           key={ index }
-                          data-testid={ `${index - 1}-ingredient-name-and-measure` }
+                          data-testid={ `${index - 1}-ingredient-step` }
                         >
                           <label
                             htmlFor={ `${index}-ingredient-checkbox` }
