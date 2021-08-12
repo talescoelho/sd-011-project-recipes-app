@@ -4,8 +4,8 @@ import Footer from '../components/Footer';
 import HeaderFood from '../components/HeaderFood';
 
 function userProfile() {
-  async function getStorage() {
-    const storage = await JSON.parse(localStorage.getItem('user'));
+  function getStorage() {
+    const storage = JSON.parse(localStorage.getItem('user'));
     const user = storage.email;
     return user;
   }
@@ -13,7 +13,7 @@ function userProfile() {
   return (
     <div>
       <HeaderFood title="Perfil" search={ false } />
-      <h4 data-testid="profile-email">{ () => getStorage() }</h4>
+      <h4 data-testid="profile-email">{ getStorage() }</h4>
       <Link to="/receitas-feitas">
         <button
           type="button"
