@@ -1,11 +1,16 @@
 import React from 'react';
-import { arrayOf, string } from 'prop-types';
-import '../../styles/components/IngListWithCheckbox.css';
+import { arrayOf, func, string } from 'prop-types';
+import { connect } from 'react-redux';
+import { clearProgress, setProgressDone } from
+  '../../redux/actions/recipeProgressActions';
+import '../../styles/components/IngredientsListWithCheckbox.css';
 
 const IngredientsListWithCheckbox = ({
+  addProgressDone,
   id,
   ingredients,
   recipeType,
+  resetProgress,
 }) => {
   // const [state, setState] = useState('');
   const handleChange = ({ target }) => {
@@ -16,6 +21,9 @@ const IngredientsListWithCheckbox = ({
     if (inProgressRecipes[recipeType][id].length > 0) {
       if (inProgressRecipes[recipeType][id].includes(index)) {
         if (checked === false) {
+          if (inProgressRecipes[recipeType][id].length === ingredients.length) {
+            resetProgress();
+          }
           const currentIndex = inProgressRecipes[recipeType][id].findIndex((element) => (
             element === index));
           inProgressRecipes[recipeType][id].splice(currentIndex, 1);
@@ -27,6 +35,9 @@ const IngredientsListWithCheckbox = ({
       }
     } else if (checked) {
       inProgressRecipes[recipeType][id].push(index);
+    }
+    if (inProgressRecipes[recipeType][id].length === ingredients.length) {
+      addProgressDone();
     }
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   };
@@ -60,10 +71,16 @@ const IngredientsListWithCheckbox = ({
   );
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  addProgressDone: () => dispatch(setProgressDone()),
+  resetProgress: () => dispatch(clearProgress()),
+});
+
 IngredientsListWithCheckbox.propTypes = ({
+  addProgressDone: func,
   id: string,
   ingredients: arrayOf(string),
   recipeType: string,
 }).isRequired;
 
-export default IngredientsListWithCheckbox;
+export default connect(null, mapDispatchToProps)(IngredientsListWithCheckbox);

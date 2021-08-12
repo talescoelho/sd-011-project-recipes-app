@@ -93,17 +93,17 @@ const DrinkRecipeProgress = ({ dispatch, match, drinkDetails }) => {
         recipeType="cocktails"
       />
       <RecipeInstructions strInstructions={ drinkDetails.strInstructions } />
-      {/* <ConcludeRecipe
+      <ConcludeRecipe
         id={ drinkDetails.idDrink }
         ingredients={ measuresAndIngredients }
         recipeType="cocktails"
-      /> */}
+      />
     </>
   );
 };
 
-const mapStateToProps = ({ recipeDetailsReducer }) => ({
-  drinkDetails: recipeDetailsReducer.drink,
+const mapStateToProps = (state) => ({
+  drinkDetails: state.recipeDetailsReducer.drink,
 });
 
 DrinkRecipeProgress.propTypes = ({

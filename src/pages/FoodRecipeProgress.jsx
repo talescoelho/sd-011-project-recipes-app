@@ -1,10 +1,9 @@
-/* eslint-disable max-len */
 import React, { useEffect } from 'react';
 import { func, shape, string } from 'prop-types';
 import { connect } from 'react-redux';
 import ConcludeRecipe from '../components/common/ConcludeRecipe';
-// eslint-disable-next-line max-len
-import IngredientsListWithCheckbox from '../components/common/IngredientsListWithCheckbox';
+import IngredientsListWithCheckbox from
+  '../components/common/IngredientsListWithCheckbox';
 import RecipeInstructions from '../components/common/RecipeInstructions';
 import { requestMealDetails } from '../redux/actions/recipeDetailsActions';
 
@@ -79,15 +78,14 @@ const FoodRecipeProgress = ({ dispatch, match, mealDetails }) => {
         recipeType="meals"
       />
       <RecipeInstructions strInstructions={ mealDetails.strInstructions } />
-      {/* <ConcludeRecipe
+      <ConcludeRecipe
         id={ mealDetails.idMeal }
         ingredients={ ingredients }
         recipeType="meals"
-      /> */}
+      />
     </>
   );
 };
-
 const mapStateToProps = ({ recipeDetailsReducer }) => ({
   mealDetails: recipeDetailsReducer.meal,
 });
