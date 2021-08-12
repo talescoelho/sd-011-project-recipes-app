@@ -1,44 +1,73 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const local = window.location.href;
-const url = 'http://localhost:3000/comidas';
-
 function CardRecipe({ item, index }) {
-  return (
-    <div data-testid={ `${index}-recipe-card` }>
-      { local === url
-        ? (
+  function renderFoodCard(object) {
+    if (object.idMeal) {
+      return (
+        <Link to={ `/comidas/${object.idMeal}` }>
           <div data-testid={ `${index}-recipe-card` }>
-            {
-              item.strMeal ? <p data-testid={ `${index}-card-name` }>{ item.strMeal }</p>
-                : (
-                  <p data-testid={ `${item.strCategory}-category-filter` }>
-                    { item.strCategory }
-                  </p>)
-            }
+            <p data-testid={ `${index}-card-name` }>{ object.strMeal }</p>
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ object.strMealThumb }
+              alt={ `${index}-card-name` }
+              width="50px"
+            />
+          </div>
+        </Link>
+      );
+    }
+    if (object.strCategory) {
+      return (
+        <>
+          <p data-testid={ `${object.strCategory}-category-filter` }>
+            { object.strCategory }
+          </p>
+          <img
+            data-testid={ `${index}-card-img` }
+            src={ object.strCategoryThumb }
+            alt={ `${index}-card-name` }
+            width="50px"
+          />
+        </>);
+    }
+  }
 
+  function renderDrinkCard(object) {
+    if (object.idDrink) {
+      return (
+        <Link to={ `/bebidas/${object.idDrink}` }>
+          <div data-testid={ `${index}-recipe-card` }>
+            <p data-testid={ `${index}-card-name` }>{object.strCategory }</p>
             <img
               data-testid={ `${index}-card-img` }
-              src={ item.strMealThumb ? item.strMealThumb : item.strCategoryThumb }
+              src={ object.strDrinkThumb }
               alt={ `${index}-card-name` }
               width="50px"
             />
           </div>
-        ) : (
-          <div>
-            <p data-testid={ `${index}-card-name` }>
-              { item.strDrink ? item.strDrink : item.strCategory }
-            </p>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ item.strDrinkThumb ? item.strDrinkThumb : 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg' }
-              alt={ `${index}-card-name` }
-              width="50px"
-            />
-          </div>
-        ) }
-    </div>
+        </Link>
+      );
+    }
+    if (object.strCategory) {
+      return (
+        <>
+          <p data-testid={ `${index}-card-name` }>{ object.strCategory }</p>
+          <img
+            data-testid={ `${index}-card-img` }
+            src="https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg"
+            alt={ `${index}-card-name` }
+            width="50px"
+          />
+        </>
+      );
+    }
+  }
+
+  return (
+    item.strMeal ? renderFoodCard(item) : renderDrinkCard(item)
   );
 }
 

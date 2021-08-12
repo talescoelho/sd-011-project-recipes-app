@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { searchRandomDrink } from '../services/RequestDrinks';
@@ -33,11 +32,5 @@ function ExploreDrink() {
     </div>
   );
 }
-
-ExploreDrink.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
-  }).isRequired,
-};
 
 export default ExploreDrink;

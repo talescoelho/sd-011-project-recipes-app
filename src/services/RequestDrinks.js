@@ -4,7 +4,7 @@ export async function getCategoriesDrink() {
   return result.drinks;
 }
 
-export async function getAreas() {
+export async function getAreasDrink() {
   const areas = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?a=list');
   const result = await areas.json();
   return result.drinks;
@@ -47,7 +47,7 @@ export async function searchId(id) {
   return result.drinks;
 }
 
-export async function serachImage(ingredientImage) {
+export async function searchImage(ingredientImage) {
   const ingredients = await fetch(`https://www.thecocktaildb.com/images/ingredients/${ingredientImage}.png`);
   const result = await ingredients.url;
   return result;

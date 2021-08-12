@@ -4,7 +4,7 @@ export async function getCategoriesFood() {
   return result.categories;
 }
 
-export async function getAreas() {
+export async function getAreasFood() {
   const areas = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
   const result = await areas.json();
   return result.meals;
@@ -46,7 +46,7 @@ export async function searchById(id) {
   return result.meals;
 }
 
-export async function serachImage(ingredientImage) {
+export async function searchImage(ingredientImage) {
   const ingredients = await fetch(`https://www.themealdb.com/images/ingredients/${ingredientImage}.png`);
   const result = await ingredients.url;
   return result;
