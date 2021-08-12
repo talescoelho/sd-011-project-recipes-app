@@ -1,4 +1,4 @@
-.meals {
+/* .meals {
   align-items: center;
   background: #0fa36b;
   color: #464646;
@@ -8,7 +8,7 @@
   height: 100vh;
   justify-content: center;
   width: 100%;
-}
+} */
 
 .rocksGlass {
   animation: shake 1s infinite ease;
@@ -65,4 +65,13 @@
   100% {
     transform: rotate(-10deg);
   }
+}
+
+.app {
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  font-family: Lucida Grande , Lucida Sans , Arial , sans-serif;
+  height: 640px;
+  width: 360px;
 }
