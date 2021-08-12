@@ -6,6 +6,9 @@ export default function FavouriteRecipes() {
   const [recipes, setRecipes] = useState([]);
   const [filter, setFilter] = useState('all');
   useEffect(() => {
+    if (!localStorage.favoriteRecipes) {
+      localStorage.setItem('favoriteRecipes', '[]');
+    }
     const localStore = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (filter === 'all') {
       setRecipes(localStore);
@@ -16,7 +19,10 @@ export default function FavouriteRecipes() {
   }, [filter]);
   if (recipes.length === 0) {
     return (
-      <h2> Nenhum favorito </h2>
+      <>
+        <Header pageName="Receitas Favoritas" />
+        <h2> Nenhum favorito </h2>
+      </>
     );
   }
   return (

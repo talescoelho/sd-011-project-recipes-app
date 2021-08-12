@@ -1,4 +1,4 @@
-.carousel {
+/* .carousel {
   display: flex;
   min-width: 95vw;
   overflow-x: auto;
@@ -15,7 +15,7 @@
 
 .carousel-item img {
   width: 45vw;
-}
+} */
 
 .startButton {
   bottom: 0;

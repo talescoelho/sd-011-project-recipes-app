@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import { Card, Carousel } from 'react-bootstrap';
 import { Foods, Cocktails, getIds } from '../services';
 
 const six = 6;
@@ -12,20 +13,21 @@ export default function Recommendations({ type }) {
     };
     asyncFunc();
   }, [type]);
-
   return (items) ? (
-    <div className="carousel">
+    <div className="carousel slide carousel-multi-item" data-ride="carousel">
       {
         items.slice(0, six).map((element, index) => {
           const { image, name } = getIds(type, element);
           return (
             <div
+              className="carousel-inner"
               key={ index }
-              className="carousel-item"
               data-testid={ `${index}-recomendation-card` }
             >
-              <img src={ image } alt={ name } />
-              <p data-testid={ `${index}-recomendation-title` }>{ name }</p>
+              <div className="">
+                <img src={ image } alt={ name } />
+                <p data-testid={ `${index}-recomendation-title` }>{ name }</p>
+              </div>
             </div>
           );
         })
