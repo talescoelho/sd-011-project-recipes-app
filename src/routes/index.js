@@ -15,11 +15,15 @@ import RecipeDrinkDetails from '../pages/RecipeDrinkDetails';
 import RecipeDrinkInProgress from '../pages/RecipeDrinkInProgress';
 import RecipeMealDetails from '../pages/RecipeMealDetails';
 import RecipeMealInProgress from '../pages/RecipeMealInProgress';
+import ExplorerByArea from '../pages/ExplorerByArea';
+import NotFound from '../pages/NotFound';
 
 function Routes() {
   return (
     <div>
       <Switch>
+        <Route exact path="/explorar/comidas/area" component={ ExplorerByArea } />
+        <Route exact path="/explorar/bebidas/area" component={ NotFound } />
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ Foods } />
         <Route exact path="/comidas/ingredientes/:ingredient" component={ Foods } />
