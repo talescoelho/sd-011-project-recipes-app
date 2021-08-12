@@ -26,7 +26,8 @@ export default function Profile({ history }) {
         <h1 data-testid="page-title">Perfil</h1>
       </header>
       <h1 data-testid="profile-email">
-        {JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).email : 'usuario'}
+        {JSON.parse(localStorage.getItem('user'))
+          ? JSON.parse(localStorage.getItem('user')).email : 'usuario'}
       </h1>
       <br />
       <Link to="receitas-feitas">
