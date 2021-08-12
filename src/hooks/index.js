@@ -7,3 +7,4 @@ export { reducer as categoryReducer,
 export { reducer as ingredientReducer,
   fetchIngredients, useIngredients } from './useIngredients';
 export { reducer as areasReducer, fetchAreas, useAreas } from './useAreas';
+export { default as useLocalStorage } from './useLocalStorage';
