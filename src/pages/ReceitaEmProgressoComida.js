@@ -11,10 +11,13 @@ class ReceitaEmProgressoComida extends Component {
       meals: [],
       finalList: [],
       disabled: true,
+      checked: [],
     };
     this.fetchAPI = this.fetchAPI.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.CopyToClipboard = this.CopyToClipboard.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.getIngredientsFromLS = this.getIngredientsFromLS.bind(this);
   }
 
   componentDidMount() {
@@ -23,8 +26,6 @@ class ReceitaEmProgressoComida extends Component {
 
   handleChange() {
     // Retirado https://stackoverflow.com/questions/14800954/how-to-check-if-all-checkboxes-are-unchecked
-    /* const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    localStorage.setItem('inProgressRecipes', JSON.stringify(obj)); */
     if (document.querySelectorAll('input[type="checkbox"]:checked').length
     === document.querySelectorAll('input[type="checkbox"]').length) {
       this.setState({
@@ -33,6 +34,67 @@ class ReceitaEmProgressoComida extends Component {
     } else {
       this.setState({
         disabled: true,
+      });
+    }
+  }
+
+  handleClick(e) {
+    const { target: { value } } = e;
+    const { checked, finalList } = this.state;
+    const { match: { params: { id } } } = this.props;
+    const curr = !checked[value];
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (curr) {
+      const obj = {
+        ...inProgress,
+        meals: {
+          ...inProgress.meals,
+          [id]: [...inProgress.meals[id], finalList[value]],
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    } else {
+      const newArray = inProgress.meals[id].filter((ing) => ing !== finalList[value]);
+      const obj = {
+        ...inProgress,
+        meals: {
+          ...inProgress.meals,
+          [id]: newArray,
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    }
+    const base = -1;
+    if (value !== base) {
+      checked[value] = curr;
+    }
+    this.setState({
+      checked,
+    });
+  }
+
+  getIngredientsFromLS() {
+    const { match: { params: { id } } } = this.props;
+    const { finalList } = this.state;
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgressRecipes === null) {
+      const obj = {
+        cocktails: {
+          controle: '999999999999'
+        },
+        meals: {
+          controle: '999999999999',
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    } else if (Object.hasOwnProperty.call(inProgressRecipes.meals, id)) {
+      const array = JSON.stringify(inProgressRecipes.meals[id]);
+      const prepareBooleans = (master, keys) => {
+        const booleans = master.map((el) => keys.includes(el));
+        return booleans;
+      };
+      this.setState({
+        checked: prepareBooleans(finalList, array),
       });
     }
   }
@@ -69,13 +131,15 @@ class ReceitaEmProgressoComida extends Component {
         : null)).filter(Boolean);
       this.setState({
         finalList: doneList,
+      }, () => {
+        this.getIngredientsFromLS();
       });
     });
   }
 
   render() {
     const { meals: { idMeal, strArea, strMeal, strMealThumb,
-      strInstructions, strCategory }, finalList, disabled } = this.state;
+      strInstructions, strCategory }, finalList, disabled, checked } = this.state;
     const { addDoneRecipe, match: { params: { id } } } = this.props;
     const obj = {
       id: idMeal,
@@ -103,7 +167,14 @@ class ReceitaEmProgressoComida extends Component {
           <ul>
             {finalList.map((ing, index) => (
               <li key={ ing } data-testid={ `${index}-ingredient-step` }>
-                <span><input type="checkbox" value={ ing } name={ ing } /></span>
+                <span>
+                  <input
+                    type="checkbox"
+                    value={ index }
+                    checked={ checked[index] }
+                    onClick={ (e) => this.handleClick(e) }
+                  />
+                </span>
                 <span>{ing}</span>
               </li>
             ))}

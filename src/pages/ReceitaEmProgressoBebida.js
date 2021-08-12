@@ -11,10 +11,13 @@ class ReceitaEmProgressoBebida extends Component {
       cocktail: [],
       finalList: [],
       disabled: true,
+      checked: [],
     };
     this.fetchAPI = this.fetchAPI.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.CopyToClipboard = this.CopyToClipboard.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.getIngredientsFromLS = this.getIngredientsFromLS.bind(this);
   }
 
   componentDidMount() {
@@ -31,6 +34,67 @@ class ReceitaEmProgressoBebida extends Component {
     } else {
       this.setState({
         disabled: true,
+      });
+    }
+  }
+
+  handleClick(e) {
+    const { target: { value } } = e;
+    const { checked, finalList } = this.state;
+    const { match: { params: { id } } } = this.props;
+    const curr = !checked[value];
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (curr) {
+      const obj = {
+        ...inProgress,
+        cocktails: {
+          ...inProgress.cocktails,
+          [id]: [...inProgress.cocktails[id], finalList[value]],
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    } else {
+      const newArray = inProgress.cocktails[id].filter((ing) => ing !== finalList[value]);
+      const obj = {
+        ...inProgress,
+        cocktails: {
+          ...inProgress.cocktails,
+          [id]: newArray,
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    }
+    const base = -1;
+    if (value !== base) {
+      checked[value] = curr;
+    }
+    this.setState({
+      checked,
+    });
+  }
+
+  getIngredientsFromLS() {
+    const { match: { params: { id } } } = this.props;
+    const { finalList } = this.state;
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgressRecipes === null) {
+      const obj = {
+        cocktails: {
+          controle: '999999999999',
+        },
+        meals: {
+          controle: '999999999999',
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    } else if (Object.hasOwnProperty.call(inProgressRecipes.meals, id)) {
+      const array = JSON.stringify(inProgressRecipes.meals[id]);
+      const prepareBooleans = (master, keys) => {
+        const booleans = master.map((el) => keys.includes(el));
+        return booleans;
+      };
+      this.setState({
+        checked: prepareBooleans(finalList, array),
       });
     }
   }
@@ -67,13 +131,15 @@ class ReceitaEmProgressoBebida extends Component {
         : null)).filter(Boolean);
       this.setState({
         finalList: doneList,
+      }, () => {
+        this.getIngredientsFromLS();
       });
     });
   }
 
   render() {
     const { cocktail: { idDrink, strDrinkThumb, strDrink, strAlcoholic,
-      strInstructions, strCategory }, finalList, disabled } = this.state;
+      strInstructions, strCategory }, finalList, disabled, checked } = this.state;
     const { addDoneRecipe, match: { params: { id } } } = this.props;
     const obj = {
       id: idDrink,
@@ -102,7 +168,12 @@ class ReceitaEmProgressoBebida extends Component {
             {finalList.map((ing, index) => (
               <li key={ ing } data-testid={ `${index}-ingredient-step` }>
                 <span>
-                  <input type="checkbox" name={ ing } />
+                  <input
+                    type="checkbox"
+                    value={ index }
+                    checked={ checked[index] }
+                    onClick={ (e) => this.handleClick(e) }
+                  />
                 </span>
                 <span>{ ing }</span>
               </li>
