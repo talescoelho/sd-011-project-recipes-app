@@ -78,7 +78,7 @@ export default function DoneRecipeCard({
     </div>
   );
 }
-
+// roda git
 DoneRecipeCard.propTypes = {
   index: PropTypes.number.isRequired,
   recipe: PropTypes.arrayOf(PropTypes.object).isRequired,
