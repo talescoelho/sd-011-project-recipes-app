@@ -4,7 +4,7 @@ import RecipesContext from '../../context/RecipesContext';
 function DetailsHeader() {
   const { mealId } = useContext(RecipesContext);
   return (
-    <div>
+    <div className="details-header">
       <img
         src={ mealId.strMealThumb }
         alt={ mealId.strMeal }

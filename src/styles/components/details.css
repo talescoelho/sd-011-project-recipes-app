@@ -1,0 +1,15 @@
+.details-container {
+  background-color: rebeccapurple;
+  display: flex;
+  flex-direction: column;
+}
+
+.details-header {
+  background-color: rosybrown;
+}
+
+.details-header img {
+  height: 460px;
+  width: 100%;
+  overflow: hidden;
+}

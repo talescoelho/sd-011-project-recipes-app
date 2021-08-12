@@ -9,6 +9,7 @@ import DetailsVideosMeal from '../components/details/DetailsVideosMeal';
 import RecipesContext from '../context/RecipesContext';
 import '../styles/components/footer.css';
 import ButtonStartMeal from '../components/details/ButtonStartMeal';
+import '../styles/components/details.css';
 
 function MealsDetails() {
   const {
@@ -27,7 +28,7 @@ function MealsDetails() {
   return (
     <div>
       { (mealId.idMeal === id) ? (
-        <div>
+        <div className="details-container">
           <DetailsMealHeader />
           <div>
             <DetailsShareMeals />
