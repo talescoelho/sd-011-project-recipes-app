@@ -81,8 +81,7 @@ class ComidasDetalhes extends Component {
 
   CopyToClipboard() { // https://orclqa.com/copy-url-clipboard/
     const inputc = document.body.appendChild(document.createElement('input'));
-    inputc.value = window.location.href;
-    inputc.select();
+    navigator.clipboard.writeText(window.location.href);
     document.execCommand('copy');
     inputc.parentNode.removeChild(inputc);
     this.setState({
