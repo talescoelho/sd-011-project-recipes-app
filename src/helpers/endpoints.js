@@ -1,19 +1,19 @@
 const URLDictionary = {
   allFoods: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
   allDrinks: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
+  allFoodsCategories: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
+  allDrinksCategories: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
+  randomFoodRecipe: 'https://www.themealdb.com/api/json/v1/1/random.php',
+  randomDrinkRecipe: 'https://www.thecocktaildb.com/api/json/v1/1/random.php',
   filterByFoodCategorie:
     'https://www.themealdb.com/api/json/v1/1/filter.php?c=', //input
   filterByDrinkCategorie:
     'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=', //input
-  foodIngredients: 'https://www.themealdb.com/api/json/v1/1/list.php?i=list',
+  foodsIngredients: 'https://www.themealdb.com/api/json/v1/1/list.php?i=list',
   foodAreaList: 'https://www.themealdb.com/api/json/v1/1/list.php?a=list',
   foodAreaFilter: 'https:www.themealdb.com/api/json/v1/1/filter.php?a=', //input
-  drinkIngredients: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list',
+  drinksIngredients: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list',
   drinkAreaList: 'https://www.thecoktail.com/api/json/v1/1/list.php?a=list',
-  foodCategories: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
-  drinksCategories: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
-  randomFoodRecipe: 'https://www.themealdb.com/api/json/v1/1/random.php',
-  randomDrinkRecipe: 'https://www.thecocktaildb.com/api/json/v1/1/random.php',
   foodByIngredients: 'https://www.themealdb.com/api/json/v1/1/filter.php?i=', //input
   drinkByIngredients: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=', //input
   foodFirstLetter: 'https://www.themealdb.com/api/json/v1/1/search.php?f=', //input
@@ -26,4 +26,13 @@ const URLDictionary = {
 
 export default URLDictionary;
 
-export const { allFoods, allDrinks } = URLDictionary;
+export const {
+  allFoods,
+  allDrinks,
+  allFoodsCategories,
+  allDrinksCategories,
+  foodsIngredients,
+  drinksIngredients,
+  randomFoodRecipe,
+  randomDrinkRecipe,
+} = URLDictionary;

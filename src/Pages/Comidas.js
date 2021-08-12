@@ -11,8 +11,8 @@ function Comidas({ title, location: { recipeName } }) {
 
   return (
     <div>
-      {/* <Header title={ title } />
-      <CategoryButtons /> */}
+      <Header title={ title } />
+      {/* <CategoryButtons /> */}
       {/* {Object.keys(foods).length > 0
         && <RenderRecipes redirectedFromIngredients={ recipeName } />} */}
       <RenderRecipes redirectedFromIngredients={ recipeName } />

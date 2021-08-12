@@ -4,22 +4,22 @@ const initialState = {
   data: [],
   foods: [],
   drinks: [],
-  // foodCategories: [],
-  // drinksCategories: [],
-  comidas: [],
-  foodIngredients: [],
-  foodByIngredients: [],
-  foodAreaList: [],
-  foodAreaFilter: [],
-  drinkIngredients: [],
-  drinkByIngredients: [],
-  randomFoodRecipe: '',
-  randomDrinkRecipe: '',
-  loading: false,
-  error: null,
-  input: '',
-  checkBoxCounter: 0,
-  disabledButton: true,
+  foodsCategories: [],
+  drinksCategories: [],
+  // comidas: [],
+  // foodIngredients: [],
+  // foodByIngredients: [],
+  // foodAreaList: [],
+  // foodAreaFilter: [],
+  // drinkIngredients: [],
+  // drinkByIngredients: [],
+  // randomFoodRecipe: '',
+  // randomDrinkRecipe: '',
+  // loading: false,
+  // error: null,
+  // input: '',
+  // checkBoxCounter: 0,
+  // disabledButton: true,
 };
 
 // createAsyncThunk receives two parameters: 1) name of the slice, 2) function name that creates the createAsyncThunk
@@ -84,6 +84,11 @@ const fetchReceitasSlice = createSlice({
       state.foods = meals;
       state.drinks = drinks;
     },
+    setInitialCategories: (state, action) => {
+      const { meals, drinks } = action.payload;
+      state.foodsCategories = meals;
+      state.drinksCategories = drinks;
+    },
   },
   extraReducers: {
     [getRecipes.pending]: (state) => {
@@ -120,6 +125,8 @@ export const {
   setInput,
   setCheckBoxCounter,
   setDisableButton,
-  setInitialRecipes } = fetchReceitasSlice.actions;
+  setInitialRecipes,
+  setInitialCategories,
+} = fetchReceitasSlice.actions;
 
 export default fetchReceitasSlice.reducer;
