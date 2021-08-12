@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 import ShareButton from '../Components/ShareButton';
 import './Styles/detailsrecipe.css';
 import FavoriteButton from '../Components/FavoriteButton';
+import checkInProgress from '../Services/checkInProgress';
 import RecomendedRecipes from '../Components/RecomendedRecipes';
 // import MyContext from '../Context/MyContext';
+
 function FoodDetails({ match: { params: { id } } }) {
   const [recipes, setRecipes] = useState([]);
 
@@ -58,7 +60,18 @@ function FoodDetails({ match: { params: { id } } }) {
   };
 
   const essaPagina = window.location.href;
-  console.log(essaPagina);
+  // console.log(essaPagina);
+
+  checkInProgress();
+  const checkStart = () => {
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgress && Object.keys(inProgress.meals)
+      .find((key) => key === recipes.idMeal)) {
+      return 'Continuar Receita';
+    }
+    return 'Iniciar Receita';
+  };
+
   return (
     <div>
       <img
@@ -68,7 +81,7 @@ function FoodDetails({ match: { params: { id } } }) {
         alt="Imagem da receita"
       />
       <h2 data-testid="recipe-title">{ recipes.strMeal }</h2>
-      <ShareButton />
+      <ShareButton idRecipe={ `comidas/${recipes.idMeal}` } />
       <FavoriteButton
         id={ recipes.idMeal }
         type="Comida"
@@ -114,7 +127,7 @@ function FoodDetails({ match: { params: { id } } }) {
           type="button"
           data-testid="start-recipe-btn"
         >
-          Iniciar Receita
+          { checkStart() }
         </button>
       </Link>
     </div>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ShareButton from '../Components/ShareButton';
 import FavoriteButton from '../Components/FavoriteButton';
+import checkInProgress from '../Services/checkInProgress';
 import RecomendedRecipes from '../Components/RecomendedRecipes';
 import './Styles/detailsrecipe.css';
 
@@ -55,6 +56,16 @@ function DrinkDetails({ match: { params: { id } } }) {
   };
   const essaPagina = window.location.href;
 
+  checkInProgress();
+  const checkStart = () => {
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgress && Object.keys(inProgress.cocktails)
+      .find((key) => key === recipes.idDrink)) {
+      return 'Continuar Receita';
+    }
+    return 'Iniciar Receita';
+  };
+
   return (
     <div>
       <img
@@ -64,7 +75,7 @@ function DrinkDetails({ match: { params: { id } } }) {
         alt="Imagem da receita"
       />
       <h2 data-testid="recipe-title">{ recipes.strDrink }</h2>
-      <ShareButton />
+      <ShareButton idRecipe={ `bebidas/${recipes.idDrink}` } />
       <FavoriteButton
         id={ recipes.idDrink }
         type="bebida"
@@ -84,13 +95,13 @@ function DrinkDetails({ match: { params: { id } } }) {
       <h3 data-testid="instructions">Instructions</h3>
       <p>{recipes.strInstructions}</p>
       <div id="recommended"><RecomendedRecipes origem={ essaPagina } /></div>
-      <Link to={ `/comidas/${recipes.idMeal}/in-progress` } params={ recipes.idMeal }>
+      <Link to={ `/bebidas/${recipes.idDrink}/in-progress` } params={ recipes.idDrink }>
         <button
           id="start-recipe-btn"
           type="button"
           data-testid="start-recipe-btn"
         >
-          Iniciar Receita
+          { checkStart() }
         </button>
       </Link>
     </div>
