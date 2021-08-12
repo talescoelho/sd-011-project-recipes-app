@@ -1,92 +1,94 @@
-import React from 'react';
-import Header from '../components/Header';
-import FavoriteRecipeCard from '../components/FavoriteRecipeCard';
-import SharedButton from '../components/SharedButton';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import FavoriteButton from '../components/FavoriteButton';
+import SharedButton from '../components/SharedButton';
+import Header from '../components/Header';
 
 function ReceitasFavoritas() {
-  const favoritedRecipesList = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const [filter, setFilter] = useState('all');
 
-  const [favoriteList, setFavoriteList] = React.useState(favoritedRecipesList);
-  function filterOnlyMeal() {
-    const onlyMealList = favoritedRecipesList
-      .filter((recipe) => recipe.type === 'comida');
-    setFavoriteList(onlyMealList);
-  }
+  const cardsFavorites = () => {
+    const doneFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const filted = doneFavorites
+      .filter(({ type }) => type === filter || filter === 'all');
 
-  function filterOnlyDrink() {
-    const onlyDrinkList = favoritedRecipesList
-      .filter((recipe) => recipe.type === 'bebida');
-    setFavoriteList(onlyDrinkList);
-  }
+    return filted
+      .map(({ image, category, name, area, alcoholicOrNot, type, id }, index) => (
+        <div key={ index }>
+          <Link to={ `/${type}s/${id}` }>
+            <img
+              src={ image }
+              data-testid={ `${index}-horizontal-image` }
+              alt="card recipe done"
+              style={ { width: 25 } }
+            />
+          </Link>
 
-  function clearAllFilters() {
-    setFavoriteList(favoritedRecipesList);
-  }
+          <div>
+            <h6
+              data-testid={ `${index}-horizontal-top-text` }
+            >
+              {`${area} - ${category}`}
+            </h6>
+            <Link to={ `/${type}s/${id}` }>
+              <h5 data-testid={ `${index}-horizontal-name` }>{name}</h5>
+            </Link>
 
-  function findFavoriteRecipeDoneDate(favoriteMealId) {
-    const doneRecipeList = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (doneRecipeList) {
-      const favoritedAndDoneRecipe = doneRecipeList
-        .find((recipe) => JSON.stringify(recipe.id) === favoriteMealId);
-      if (favoritedAndDoneRecipe) {
-        return favoritedAndDoneRecipe.doneDate;
-      } return '';
-    } return '';
-  }
+            <h6 data-testid="1-horizontal-top-text">
+              {alcoholicOrNot}
+            </h6>
+
+            <FavoriteButton
+              reload
+              id={ id }
+              dataTest={ `${index}-horizontal-favorite-btn` }
+              style={ { width: 25 } }
+
+            />
+
+            <SharedButton
+              path={ `http://localhost:3000/${type}s/${id}` }
+              dataTest={ `${index}-horizontal-share-btn` }
+              style={ { width: 25 } }
+
+            />
+          </div>
+
+        </div>
+      ));
+  };
 
   return (
-    <div>
+    <div id="page-drinks">
       <Header title="Receitas Favoritas" />
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        onClick={ () => clearAllFilters() }
-      >
-        All
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-food-btn"
-        onClick={ () => filterOnlyMeal() }
-      >
-        Food
-      </button>
 
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        onClick={ () => filterOnlyDrink() }
-      >
-        Drinks
-      </button>
+      <div>
+        <button
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ () => setFilter('all') }
+        >
+          All
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-food-btn"
+          onClick={ () => setFilter('comida') }
+        >
+          Food
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => setFilter('bebida') }
+        >
+          Drinks
+        </button>
+      </div>
 
-      {favoriteList
-        .map(({ id, name, category, image, type, area, alcoholicOrNot }, index) => (
-          <>
-            <FavoriteRecipeCard
-              id={ id }
-              type={ type }
-              imageDataTestId={ `${index}-horizontal-image` }
-              categoryDataTestId={ `${index}-horizontal-top-text` }
-              nameDataTestId={ `${index}-horizontal-name` }
-              recipeDoneDateDataTestId={ `${index}-horizontal-done-date` }
-              image={ image }
-              category={ category }
-              name={ name }
-              area={ area }
-              alcoholicOrNot={ alcoholicOrNot }
-              recipeDoneDate={ findFavoriteRecipeDoneDate(id) }
-            />
-            <SharedButton path={ `http://localhost:3000/${type}s/${id}` } dataTest={ `${index}-horizontal-share-btn` } />
-            <FavoriteButton
-              id={ id }
-              reload
-              dataTest={ `${index}-horizontal-favorite-btn` }
-            />
-          </>
-        ))}
+      {localStorage.getItem('favoriteRecipes') && cardsFavorites()}
     </div>
+
   );
 }
 
