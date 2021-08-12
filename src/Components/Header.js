@@ -25,7 +25,7 @@ export default function Header({ title, searchIconAppears = false }) {
 
   return (
     <div className="headerbox">
-      <header className="header">
+      <header className="header title">
         <Link to="/perfil" className="intheader">
           <img
             data-testid="profile-top-btn"
@@ -50,53 +50,56 @@ export default function Header({ title, searchIconAppears = false }) {
         )}
       </header>
       {searchInput && (
-        <form>
-          <input
-            data-testid="search-input"
-            placeholder="Buscar Receita"
-            onChange={ ({ target }) => setSearchResult(target.value) }
-          />
-          <label htmlFor="ingredient-search-radio">
-            Ingrediente
+        <div className="searchbar">
+          <form>
             <input
-              data-testid="ingredient-search-radio"
-              id="ingredient-search-radio"
-              name="search-radio"
-              type="radio"
-              value="ingredient"
-              onChange={ ({ target }) => setSelectedSearch(target.value) }
+              data-testid="search-input"
+              placeholder="Buscar Receita"
+              onChange={ ({ target }) => setSearchResult(target.value) }
             />
-          </label>
-          <label htmlFor="name-search-radio">
-            Nome
-            <input
-              data-testid="name-search-radio"
-              id="name-search-radio"
-              name="search-radio"
-              type="radio"
-              value="name"
-              onChange={ ({ target }) => setSelectedSearch(target.value) }
-            />
-          </label>
-          <label htmlFor="first-letter-search-radio">
-            Primeira Letra
-            <input
-              data-testid="first-letter-search-radio"
-              id="first-letter-search-radio"
-              name="search-radio"
-              type="radio"
-              value="firstLetter"
-              onChange={ ({ target }) => setSelectedSearch(target.value) }
-            />
-          </label>
-          <button
-            type="button"
-            data-testid="exec-search-btn"
-            onClick={ getSearch }
-          >
-            Buscar
-          </button>
-        </form>
+            <button
+              type="button"
+              data-testid="exec-search-btn"
+              onClick={ getSearch }
+            >
+              Buscar
+            </button>
+            <br />
+            <label htmlFor="ingredient-search-radio">
+              <input
+                data-testid="ingredient-search-radio"
+                id="ingredient-search-radio"
+                name="search-radio"
+                type="radio"
+                value="ingredient"
+                onChange={ ({ target }) => setSelectedSearch(target.value) }
+              />
+              Ingrediente
+            </label>
+            <label htmlFor="name-search-radio">
+              <input
+                data-testid="name-search-radio"
+                id="name-search-radio"
+                name="search-radio"
+                type="radio"
+                value="name"
+                onChange={ ({ target }) => setSelectedSearch(target.value) }
+              />
+              Nome
+            </label>
+            <label htmlFor="first-letter-search-radio">
+              <input
+                data-testid="first-letter-search-radio"
+                id="first-letter-search-radio"
+                name="search-radio"
+                type="radio"
+                value="firstLetter"
+                onChange={ ({ target }) => setSelectedSearch(target.value) }
+              />
+              Primeira Letra
+            </label>
+          </form>
+        </div>
       )}
     </div>
   );

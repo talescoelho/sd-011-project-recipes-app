@@ -1,34 +1,51 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
-import CardRecipes from '../Components/CardRecipes';
-import MyContext from '../Context/MyContext';
 import Footer from '../Components/Footer';
+import './RecipesFoods.css';
+import CardRecipes from '../Components/CardRecipes';
+import { getDrink } from '../Services/FetchApi';
+import MyContext from '../Context/MyContext';
 
-export default function RecipesDrinks() {
-  const { recipe } = useContext(MyContext);
-
-  const renderCardRecipes = () => {
-    const showMaxRecipes = 12;
-
-    if (recipe.drinks) {
-      const filteredRecipe = recipe.drinks.filter(
-        (drink, index) => index < showMaxRecipes,
-      );
-      return filteredRecipe.map((recp, index) => (
-        <CardRecipes
-          key={ index }
-          index={ index }
-          thumb={ recp.strDrinkThumb }
-          title={ recp.strDrink }
-        />
-      ));
+export default function RecipesDrink() {
+  const { cards, setCards } = useContext(MyContext);
+  
+  const busca = async () => {
+    const resposta = await getDrink();
+    setCards(resposta.drinks);
     }
+  useEffect(() => {
+    busca();
+  }, []);
+  
+    const renderCardRecipes = () => {
+    const showMaxRecipes = 12;
+    if (cards) {
+      const filteredRecipe = cards.filter(
+        (drinks, index) => index < showMaxRecipes,
+      );
+      return filteredRecipe;
+   }
   };
-
   return (
     <div>
       <Header className="title" title="Bebidas" searchIconAppears />
-      {renderCardRecipes()}
+      <div className="cardlist">
+      {cards.length>0 && renderCardRecipes().map((recp, index ) => (
+        <Link
+         className="link"
+         key= { index }
+         to= "/bebidas/drink-details"
+        >
+          <CardRecipes
+            key={ index }
+            index={ index }
+            thumb={ recp.strDrinkThumb }
+            title={ recp.strDrink }
+          />
+        </Link>
+      ))}  
+      </div>
       <Footer />
     </div>
   );

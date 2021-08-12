@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ShareButton from '../Components/ShareButton';
+import FavoriteButton from '../Components/FavoriteButton';
+import RecomendedRecipes from '../Components/RecomendedRecipes';
 import './Styles/detailsrecipe.css';
 
-function DetailsRecipe() {
+function DrinkDetails(props) {
   const [recipes, setRecipes] = useState([]);
   // Didmount - Faz fetch trazendo a receita pelo id e seta o stado recipes com as receita
   useEffect(() => {
     const getApi = async () => {
-      const endPoint = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772';
+      const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007';
       const response = await fetch(endPoint);
       const results = await response.json();
-      const meals = results.meals[0];
-      setRecipes(meals);
+      const drink = results.drinks[0];
+      setRecipes(drink);
     };
     getApi();
   }, []);
@@ -51,18 +52,28 @@ function DetailsRecipe() {
     }
     return newArray;
   };
-
+  const essaPagina = window.location.href;
+  
   return (
     <div>
       <img
         id="img-recipe"
-        src={ recipes.strMealThumb }
+        src={ recipes.strDrinkThumb }
         data-testid="recipe-photo"
         alt="Imagem da receita"
       />
-      <h2 data-testid="recipe-title">{ recipes.strMeal }</h2>
+      <h2 data-testid="recipe-title">{ recipes.strDrink }</h2>
       <ShareButton />
-      <img src={ whiteHeartIcon } alt="Favoritar Coração" data-testid="favorite-btn" />
+      <FavoriteButton
+              id={ recipes.idDrink }
+              type="bebida"
+              area=""
+              category="Cocktail"
+              alcoholicOrNot={ recipes.strAlcoholic }
+              name={ recipes.strDrink }
+              image={ recipes.strDrinkThumb }
+      />
+      
       <h3 data-testid="recipe-category">{ recipes.strCategory }</h3>
       <h3>Ingredients</h3>
       <ul>
@@ -71,14 +82,7 @@ function DetailsRecipe() {
       </ul>
       <h3 data-testid="instructions">Instructions</h3>
       <p>{recipes.strInstructions}</p>
-      <h3 data-testid="video">Video</h3>
-      <div>
-        <ReactPlayer
-          url={ recipes.strYoutube }
-        />
-      </div>
-      {/* <h3 data-testid={ `${index}-recomendation-card"` }>Recomendadas</h3> */}
-      <div id="recommended"><h4>oi</h4></div>
+      <div id="recommended"><RecomendedRecipes origem = { essaPagina } /></div>
       <button
         id="start-recipe-btn"
         type="button"
@@ -90,4 +94,4 @@ function DetailsRecipe() {
   );
 }
 
-export default DetailsRecipe;
+export default DrinkDetails;

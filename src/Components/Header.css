@@ -1,17 +1,20 @@
 .header {
   align-items: center;
+  background-color: salmon;
   display: flex;
   justify-content: space-around;
-  margin: 5px;
+  margin: 0 auto;
+  position: fixed;
+  width: 100%;
 }
 
 .headerbox {
   align-items: center;
-  background-color: salmon;
   display: flex-box;
   height: 60px;
   justify-content: space-between;
-  width: 360px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .intheader {
@@ -22,6 +25,7 @@
 .inputsearch {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 61px;
+  position: fixed;
+  top: 60px;
+  z-index: 1;
 }
