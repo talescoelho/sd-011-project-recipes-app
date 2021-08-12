@@ -95,7 +95,7 @@ function FoodDetails() {
   };
 
   return (
-    <Layout title="App de Receitas">
+    <Layout title="App de Receitas" noFooter noHeader>
       <main>
         { !recipe ? renderNoRecipeMessage()
           : (

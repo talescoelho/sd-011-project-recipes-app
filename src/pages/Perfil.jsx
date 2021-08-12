@@ -10,9 +10,13 @@ function Perfil() {
   const dispatch = useDispatch();
   useEffect(() => {
     if (!email) {
-      const storageUser = localStorage.getItem('user');
-      const parsedUser = JSON.parse(storageUser);
-      dispatch(updateEmail(parsedUser.email));
+      try {
+        const storageUser = localStorage.getItem('user');
+        const parsedUser = JSON.parse(storageUser);
+        dispatch(updateEmail(parsedUser.email));
+      } catch (error) {
+        dispatch(updateEmail(''));
+      }
     }
   }, [dispatch, email]);
 
@@ -32,7 +36,7 @@ function Perfil() {
     <Layout title="Perfil">
       <main style={ styles.main }>
         <h2 data-testid="page-title">Perfil</h2>
-        <span data-testid="profile-email">{ `Email${email} `}</span>
+        <span data-testid="profile-email">{ `Email: ${email} `}</span>
         <button
           type="button"
           data-testid="profile-done-btn"
