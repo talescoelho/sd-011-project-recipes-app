@@ -17,57 +17,65 @@ function FoodsRecipeInProgress({ match: { params: { id } } }) {
   const [countCheckIngredList, setCountCheckIngredList] = useState(0);
   const [numberIngredients, setNumberIngredients] = useState(0);
   const ingredListClass = [];
-  const arrayStatus = [];
+  const ingredList = [];
 
   useEffect(() => {
     const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-
     const getMealDetails = async () => {
       const response = await fetch(endpoint);
       const data = await response.json();
       const { meals } = data;
       setMealInProgress(meals[0]);
-
-      // Cria a Lista de Ingredientes + Arrays de Checked
-      const ingredArray = Object.entries(meals[0])
-        .filter((key) => key[0].includes('strIngredient') && key[1]);
-      const ingredList = [];
-      ingredArray.forEach((item) => {
-        ingredList.push(item[1]);
-        ingredListClass.push('notChecked');
-        arrayStatus.push(false);
-      });
-      setFinalListIngredients(ingredList);
-      setNumberIngredients(ingredListClass.length);
-      setStatusIngredients(arrayStatus);
-
-      // Conta quantos checkbox foram marcados, e add estilo para aqueles marcados
-      let countYesChecked = 0;
-      let statusIngredSaved = [];
-      statusIngredSaved = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      if (statusIngredSaved === null) statusIngredSaved = [];
-      Object.values(statusIngredSaved).forEach((item, index) => {
-        if (item) {
-          countYesChecked += 1;
-          ingredListClass[index] = 'yesChecked';
-        }
-      });
-      setCountCheckIngredList(countYesChecked);
-      setStatusIngredients(statusIngredSaved);
-
-      // Lógica ver se aquela receita é ou não favorita, for favorita setFavoriteIcon(blackHeartIcon)
-      let favoriteRecipes = [];
-      favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      if (favoriteRecipes === null) favoriteRecipes = [];
-      const isFavorite = favoriteRecipes.some((recipe) => recipe.id === id);
-      if (isFavorite) setFavoriteIcon(blackHeartIcon);
-
-      setClassNameIngredients(ingredListClass);
-      setIsLoading(false);
     };
-
     getMealDetails();
   }, []);
+
+  useEffect(() => {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const isFavorite = favoriteRecipes.some((recipe) => recipe.id === id);
+    if (isFavorite) setFavoriteIcon(blackHeartIcon);
+  }, []);
+
+  useEffect(() => {
+    let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || []; // senão tiver nada é um array vazio
+    const ingredArray = Object.entries(mealInProgress)
+      .filter((key) => key[0].includes('strIngredient') && key[1]);
+    ingredArray.forEach((item) => ingredList.push(item[1]));
+
+    if (inProgressRecipes && !inProgressRecipes.meals) {
+      const arrayStatus = [];
+      ingredArray.forEach(() => {
+        ingredListClass.push('notChecked');
+        arrayStatus.push(false); // crio um array mesmo tamanho de n ingredientes
+      });
+      inProgressRecipes = {
+        ...inProgressRecipes,
+        meals: {
+          [id]: arrayStatus,
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    }
+
+    const meals = inProgressRecipes.meals || { meals: {} };
+    let countYesChecked = 0;
+    const statusIngredSaved = meals[id] || [];
+    statusIngredSaved.forEach((item) => { // vou passar pelo array de status da comida atual, para criar o check css no item
+      if (item) {
+        countYesChecked += 1;
+        ingredListClass.push('yesChecked');
+      } else {
+        ingredListClass.push('notChecked');
+      }
+    });
+    setCountCheckIngredList(countYesChecked);
+    setStatusIngredients(statusIngredSaved);
+    setNumberIngredients(ingredList.length);
+    setClassNameIngredients(ingredListClass);
+    setFinalListIngredients(ingredList);
+    setIsLoading(false);
+    setFinalListIngredients(ingredList);
+  }, [mealInProgress]);
 
   function renderComponentFoodProgress() {
     return (
