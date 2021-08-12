@@ -12,7 +12,7 @@ const DrinkList = ({ receiveData, isFetching }) => {
 
   const renderFilteredReceiveDataDrinks = () => {
     const maxRender = 12;
-    if (receiveData.drinks === null) {
+    if (!receiveData) {
       // eslint-disable-next-line no-alert
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
@@ -48,10 +48,12 @@ const DrinkList = ({ receiveData, isFetching }) => {
     <div className="body-b">
       <Header />
       <RenderDrinksCategoriesBtn />
-      <div className="d-flex f-wrap j-c-center">
-        { receiveData.length < 1 || !receiveData.drinks ? <RenderDrinks />
-          : renderFilteredReceiveDataDrinks() }
-      </div>
+      { receiveData ? (
+        <div className="d-flex f-wrap j-c-center">
+          { receiveData.length < 1 || !receiveData.drinks ? <RenderDrinks />
+            : renderFilteredReceiveDataDrinks() }
+        </div>
+      ) : 'Erro' }
       <FooterMenu />
     </div>
   );

@@ -109,7 +109,7 @@ const FoodDetails = ({ match }) => {
             data-testid={ `${index}-ingredient-name-and-measure` }
             className="fh-3"
           >
-            { `${value} -${ingredientsQuantity[index][1]}` }
+            { `${value} - ${ingredientsQuantity[index][1]}` }
           </li>
         ))}
       </ul>

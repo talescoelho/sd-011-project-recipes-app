@@ -74,7 +74,7 @@ const DoneRecipes = () => {
           Drinks
         </button>
       </div>
-      <div className="popup">
+      <div className="popup popup2">
         <p className="popuptext" id="myPopup">Link copiado!</p>
       </div>
       <div className="d-flex f-d-column a-i-center">
@@ -92,28 +92,29 @@ const DoneRecipes = () => {
           return (
             <div
               key={ id }
-              className="recipe-card m-1 d-flex b-shadow a-i-center"
+              className="recipe-card m-1 d-flex b-shadow"
             >
-              <Link to={ `/${type}s/${id}` }>
+              <Link to={ `/${type}s/${id}` } className="m-0 d-flex">
                 <img
                   src={ image }
-                  alt=""
+                  alt={ name }
                   data-testid={ `${index}-horizontal-image` }
+                  className="m-0"
                 />
               </Link>
-              <div className="w-100 m-25">
-                <div className="d-flex j-c-spBetween a-i-center p-1">
+              <div className="w-100 d-flex f-d-column ml-1">
+                <div className="d-flex p-1 j-c-spBetween">
                   {area ? (
                     <p
                       data-testid={ `${index}-horizontal-top-text` }
-                      className="c-secondary m-y-25"
+                      className="c-secondary m-y-25 fs-px-14"
                     >
                       { `${area} - ${category}` }
                     </p>
                   ) : (
                     <p
                       data-testid={ `${index}-horizontal-top-text` }
-                      className="c-secondary m-y-25"
+                      className="c-secondary m-y-25 fs-px-14"
                     >
                       { alcoholicOrNot }
                     </p>
@@ -140,9 +141,9 @@ const DoneRecipes = () => {
                 </Link>
                 <p
                   data-testid={ `${index}-horizontal-done-date` }
-                  className="m-25"
+                  className="m-25 c-gray fs-px-14"
                 >
-                  {`Feita em: ${doneDate}`}
+                  {`${doneDate}`}
                 </p>
                 <div className="d-flex f-wrap">
                   {tags.length > 0 && tags.map((tag) => (

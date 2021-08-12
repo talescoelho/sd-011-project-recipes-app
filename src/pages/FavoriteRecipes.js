@@ -95,74 +95,74 @@ const FavoriteRecipes = () => {
           Drinks
         </button>
       </div>
-      <div className="popup"><p className="popuptext" id="myPopup">Link copiado!</p></div>
-      { filteredRecipes.map((recipe, index) => {
-        const { id, type, area, category, alcoholicOrNot, name, image } = recipe;
-        return (
-          <div key={ id } className="fav-card m-2 d-flex">
-            <Link to={ `${type}s/${id}` } className="m-0 d-flex">
-              <img
-                className="fav-card-img"
-                data-testid={ `${index}-horizontal-image` }
-                src={ image }
-                alt={ name }
-              />
-            </Link>
+      <div className="popup popup2">
+        <p className="popuptext" id="myPopup">Link copiado!</p>
+      </div>
+      <div className="d-flex f-d-column a-i-center">
+        { filteredRecipes.map((recipe, index) => {
+          const { id, type, area, category, alcoholicOrNot, name, image } = recipe;
+          return (
+            <div key={ id } className="fav-card m-1 d-flex">
+              <Link to={ `${type}s/${id}` } className="m-0 d-flex">
+                <img
+                  className="fav-card-img"
+                  data-testid={ `${index}-horizontal-image` }
+                  src={ image }
+                  alt={ name }
+                />
+              </Link>
 
-            <div
-              className="d-flex f-d-column a-i-center j-c-center text-center p-1 m-auto"
-            >
-              { area && (
-                <p
-                  data-testid={ `${index}-horizontal-top-text` }
-                  className="m-25 fav-category"
-                >
-                  {`${area} - ${category}`}
-                </p>) }
-              { alcoholicOrNot
+              <div
+                className="d-flex f-d-column a-i-center j-c-center text-center p-1 m-auto"
+              >
+                { area && (
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                    className="m-25 fav-category"
+                  >
+                    {`${area} - ${category}`}
+                  </p>) }
+                { alcoholicOrNot
                 && (
                   <p
                     data-testid={ `${index}-horizontal-top-text` }
-                    className=" m-25 fav-category"
+                    className="m-25 fav-category"
                   >
                     {`${alcoholicOrNot} - ${category}`}
                   </p>) }
 
-              <Link to={ `${type}s/${id}` } className="d-flex">
-                <h3 data-testid={ `${index}-horizontal-name` } className="m-25">
-                  {name}
-                </h3>
-              </Link>
+                <Link to={ `${type}s/${id}` } className="d-flex">
+                  <h3 data-testid={ `${index}-horizontal-name` } className="m-25">
+                    {name}
+                  </h3>
+                </Link>
 
-              <div>
+                <div>
+                  <button
+                    src={ shareIcon }
+                    type="button"
+                    onClick={ () => handleShareBtnClick(type, id, index) }
+                    data-testid={ `${index}-horizontal-share-btn` }
+                    className="btn-icon"
+                  >
+                    <img src={ shareIcon } alt="Share" className="fav-card-btn" />
+                  </button>
 
-                <button
-                  src={ shareIcon }
-                  type="button"
-                  onClick={ () => handleShareBtnClick(type, id, index) }
-                  data-testid={ `${index}-horizontal-share-btn` }
-                  className="btn-icon"
-                >
-                  {/* indexOfMessageClipboard === index
-                    && <p className="popuptext" id="myPopup">Link copiado!</p> */}
-                  <img src={ shareIcon } alt="Share" className="fav-card-btn" />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={ () => handleClickFavoriteRecipe(id) }
-                  data-testid={ `${index}-horizontal-favorite-btn` }
-                  src={ blackHeartIcon }
-                  className="btn-icon"
-                >
-                  <img src={ blackHeartIcon } alt="Heart" className="fav-card-btn" />
-                </button>
-
+                  <button
+                    type="button"
+                    onClick={ () => handleClickFavoriteRecipe(id) }
+                    data-testid={ `${index}-horizontal-favorite-btn` }
+                    src={ blackHeartIcon }
+                    className="btn-icon"
+                  >
+                    <img src={ blackHeartIcon } alt="Heart" className="fav-card-btn" />
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        );
-      }) }
+          );
+        }) }
+      </div>
     </>
   );
 };

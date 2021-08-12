@@ -113,7 +113,7 @@ const DrinkDetails = ({ match }) => {
               data-testid={ `${index}-ingredient-name-and-measure` }
               className="fh-3"
             >
-              { `${value} -${drink[`strMeasure${name.split('strIngredient')[1]}`]}` }
+              { `${value} - ${drink[`strMeasure${name.split('strIngredient')[1]}`]}` }
             </li>
           );
         })}
@@ -131,7 +131,7 @@ const DrinkDetails = ({ match }) => {
         buttonShoulBeVisible && (
           <Link to={ `/bebidas/${id}/in-progress` }>
             <button
-              className="start-btn btn"
+              className="start-btn"
               data-testid="start-recipe-btn"
               type="button"
             >
