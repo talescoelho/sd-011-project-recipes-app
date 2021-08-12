@@ -129,3 +129,26 @@ export const fetchDrinkIngredientList = (ingredient) => async (dispatch) => {
   const returnFetch = await fetchDrinkIngredientSearch(ingredient);
   dispatch(drinkListSuccess(returnFetch));
 };
+
+export const saveDoneRecipe = (id) => async () => {
+  const returnFetch = await fetchAPIByID(id);
+  const date = new Date();
+  const genericObj = {
+    id: returnFetch[0].idDrink,
+    type: 'bebida',
+    area: '',
+    category: returnFetch[0].strCategory,
+    alcoholicOrNot: returnFetch[0].strAlcoholic,
+    name: returnFetch[0].strDrink,
+    image: returnFetch[0].strDrinkThumb,
+    doneDate: date.toLocaleDateString('pt-BR'),
+    tags: returnFetch[0].strTags.split(','),
+  };
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (doneRecipes === null) {
+    localStorage.setItem('doneRecipes', JSON.stringify([genericObj]));
+  } else {
+    const newDoneRecipes = [...doneRecipes, genericObj];
+    localStorage.setItem('doneRecipes', JSON.stringify(newDoneRecipes));
+  }
+};

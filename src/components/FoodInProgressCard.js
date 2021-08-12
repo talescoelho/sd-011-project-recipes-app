@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ShareButton from './ShareButton';
 import FavoriteButton from './FavoriteButton';
-import IngredientesFoodInProgress from './IngredientesFoodInProgress';
+import IngredientesFoodInProgress from './IngredientsFoodInProgress';
 
 class FoodInProgressCard extends Component {
   render() {
