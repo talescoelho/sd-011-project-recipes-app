@@ -1,0 +1,13 @@
+@media screen and ( max-width : 640px ) {
+
+  .card-foods {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 100px;
+  }
+
+  .food-page {
+    height: 80%;
+    overflow: auto;
+  }
+}

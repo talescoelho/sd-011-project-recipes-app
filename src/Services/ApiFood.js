@@ -30,3 +30,28 @@ export async function copyLink(copy, setShow, typeRecipe, idRecipe) {
   await copy(`http://localhost:3000/${typeRecipe}/${idRecipe}`);
   setShow(true);
 }
+
+export const getFoodsCategory = () => fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
+  .then((categories) => (
+    categories
+      .json()
+      .then((json) => (categories.ok ? Promise.resolve(json) : Promise.reject(json)))
+  ));
+
+export function getFoodsByCategory(value) {
+  return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${value}`)
+    .then((category) => (
+      category
+        .json()
+        .then((json) => (category.ok ? Promise.resolve(json) : Promise.reject(json)))
+    ));
+}
+
+export function getFoodsByID(value) {
+  return fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${value}`)
+    .then((id) => (
+      id
+        .json()
+        .then((json) => (id.ok ? Promise.resolve(json) : Promise.reject(json)))
+    ));
+}
