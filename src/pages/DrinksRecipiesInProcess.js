@@ -19,22 +19,12 @@ class DrinksRecipiesInProcess extends React.Component {
       stockDrinks: recoveredInfo,
     };
     this.test = this.test.bind(this);
-    this.changeRow = this.changeRow.bind(this);
+    this.inputOnClickHandler = this.inputOnClickHandler.bind(this);
   }
 
   componentDidMount() {
     this.test();
   }
-
-  // componentDidUpdate() {
-  //   if (localStorage.inProgressRecipes) {
-
-  //     const recoveredInfo = JSON.parse(localStorage.inProgressRecipes).cocktails[id];
-  //     // this.setStateFunc(recoveredInfo);
-  //     console.log(recoveredInfo);
-  //     // console.log(recoveredInfo);
-  //   }
-  // }
 
   async test() {
     const { match: { params: { id } } } = this.props;
@@ -45,7 +35,7 @@ class DrinksRecipiesInProcess extends React.Component {
     });
   }
 
-  changeRow(event, index, name) {
+  inputOnClickHandler(event, name) {
     const { stockDrinks } = this.state;
     let filter = [];
     if (stockDrinks.some((i) => i === name)) {
@@ -127,7 +117,7 @@ class DrinksRecipiesInProcess extends React.Component {
                       defaultChecked={ ri.some((item) => item === e[1]) }
                       id={ `for${index}` }
                       type="checkbox"
-                      onClick={ (event) => this.changeRow(event, index, e[1]) }
+                      onClick={ (event) => this.inputOnClickHandler(event, index, e[1]) }
                     />
                   </label>
                 </li>
