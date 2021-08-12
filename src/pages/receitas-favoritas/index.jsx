@@ -8,7 +8,8 @@ import {
   Image,
 } from 'react-bootstrap';
 import Header from '../../components/Header';
-import CopyButton from '../Details/CopyButton';
+import CopyButton from '../../components/Details/CopyButton';
+import FavoriteButton from '../../components/Details/FavoriteButton';
 
 export default function ReceitasFavoritas(){
   let favoriteRecipes = window.localStorage.getItem('favoriteRecipes');
@@ -84,7 +85,24 @@ export default function ReceitasFavoritas(){
                   selector={ type }
                 />
               </Col>
-
+            <Col className="pb-2 justify-items-end">
+              <FavoriteButton 
+                recipeId={ id } 
+                selector={type} 
+                details={ item } 
+                testId={`${index}-horizontal-favorite-btn`}
+                id={ id }
+                isRecipeFavorite = {true}
+              />
+              {/* <Button
+                variant="danger"
+                type="button"
+                className="rounded-circle p-2"
+                data-testid={`${index}-horizontal-favorite-btn`}
+                // onClick={ handleFavoriteBtn }
+                src='aqui'
+                ></Button> */}
+            </Col>
             </div>
           </div>
         )
