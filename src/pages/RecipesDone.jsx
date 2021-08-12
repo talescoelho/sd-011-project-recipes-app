@@ -105,8 +105,8 @@ export default function RecipesDone() {
                       >
                         { itemTag }
                       </p> */}
-                    {/* ))}
-                  </p> */}
+                  {/* ))}
+                </p> */}
                 </section>
               </section>
             );
@@ -141,7 +141,9 @@ export default function RecipesDone() {
                   { item.alcoholicOrNot }
                 </p>
                 <b />
-                {/* <p data-testid={ `${index}-horizontal-done-date` }>{ item.doneDate }</p> */}
+                {/* <p
+                data-testid={ `${index}-horizontal-done-date` }
+                >{ item.doneDate }</p> */}
               </section>
             </section>
           );

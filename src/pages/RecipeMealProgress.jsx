@@ -1,155 +1,100 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import * as api from '../services/API';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-// import '../styles/RecipesProgress.css';
+import { useHistory } from 'react-router-dom';
+import '../styles/RecipeMealProgress.css';
+import RecipeMealProgressComp from '../components/RecipeMealProgressComp';
 
 function RecipeMealProgress() {
   const [recipeProgress, setRecipeProgress] = useState({});
   const [isLoaded, setIsloaded] = useState(false);
-  const [favorited, setFavorited] = useState();
+  const [favorited, setFavorited] = useState(false);
+  const [ingredientChecked, setIngredientChecked] = useState([]);
 
   const history = useHistory();
   const { pathname } = history.location;
   const recipesSelectedId = pathname.split('/')[2];
 
   useEffect(() => {
-    const getRecipes = JSON.parse(localStorage.getItem('recipesProgress'));
-    const recipe = getRecipes.filter((item) => item.idMeal === recipesSelectedId);
-    setRecipeProgress(recipe);
-    setIsloaded(true);
-  }, [setRecipeProgress, recipesSelectedId]);
-
-  // useEffect(() => {
-  //   if (!localStorage.favoriteRecipes) localStorage.favoriteRecipes = JSON.stringify([]);
-  //   const favoriteStorage = JSON.parse(localStorage.favoriteRecipes).filter(
-  //     (recipe) => recipe.id === recipesSelectedId,
-  //   );
-  //   if (favoriteStorage.length >= 1) {
-  //     setFavorited(blackHeartIcon);
-  //   } else {
-  //     setFavorited(whiteHeartIcon);
-  //   }
-  // }, [recipesSelectedId]);
-
-  const handleFavoriteClick = () => {
-    if (favorited === whiteHeartIcon) {
-      setFavorited(blackHeartIcon);
-      const favoriteStorage = JSON.parse(localStorage.favoriteRecipes);
-      const newFavoriteStorage = favoriteStorage.concat({
-        id: recipeProgress.idMeal,
-        type: 'comida',
-        area: recipeProgress.strArea,
-        category: recipeProgress.strCategory,
-        alcoholicOrNot: '',
-        name: recipeProgress.strMeal,
-        image: recipeProgress.strMealThumb,
-      });
-      localStorage.favoriteRecipes = JSON.stringify(newFavoriteStorage);
-    } else {
-      setFavorited(whiteHeartIcon);
-      const favoriteStorage = JSON.parse(localStorage.favoriteRecipes);
-      const newFavoriteStorage = favoriteStorage.filter(
-        (recipe) => recipe.id !== recipesSelectedId,
+    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipesSelectedId}`)
+      .then((response) => response.json())
+      .then((data) => setRecipeProgress(data.meals[0]) || setIsloaded(true));
+    if (JSON.parse(localStorage.getItem('recipesProgress')) !== null) {
+      const recipesInProgress = JSON.parse(localStorage.getItem('recipesProgress'));
+      const recipeIngredientsinProgress = recipesInProgress.filter(
+        (recipe) => recipe.idMeal === recipesSelectedId,
       );
-      localStorage.favoriteRecipes = JSON.stringify(newFavoriteStorage);
+      if (recipeIngredientsinProgress.length > 0) {
+        setIngredientChecked([...recipeIngredientsinProgress[0].ingredientChecked]);
+      }
     }
-  };
+    if (JSON.parse(localStorage.getItem('favoriteRecipes')) !== null) {
+      const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const favoriteRecipesFiltered = favoriteRecipes.filter(
+        (recipe) => recipe.id === recipesSelectedId,
+      );
+      setFavorited(favoriteRecipesFiltered.length > 0);
+    }
+  }, [recipesSelectedId]);
+
+  useEffect(() => {
+    const objIngredientsRecipes = {
+      idMeal: recipesSelectedId,
+      ingredientChecked,
+    };
+    const recipesInProgress = JSON.parse(localStorage.getItem('recipesProgress')) || [];
+    const filteredRecipesInProgress = recipesInProgress.filter(
+      (recipe) => recipe.idMeal !== recipesSelectedId,
+    );
+    const newArrayRecipes = [
+      objIngredientsRecipes,
+      ...filteredRecipesInProgress,
+    ];
+    localStorage.setItem('recipesProgress', JSON.stringify(newArrayRecipes));
+  }, [ingredientChecked, recipesSelectedId]);
 
   const loading = <p>Loading...</p>;
 
   function returnIngredients() {
-    if (recipeProgress) {
-      const ingredients = (recipeProgress.length === 0) ? ''
-        : Object.keys(recipeProgress)
-          .filter((item) => item.includes('strIngredient'))
-          .map((itens) => recipeProgress[itens])
-          .filter((itensFiltereds) => itensFiltereds);
-      // const returnIngredients = mealRecipes.filter((itens) => itens.includes())
-      return ingredients;
-    }
+    return Object.entries(recipeProgress)
+      .filter((ingredient) => ingredient[0].includes('strIngredient'))
+      .filter((ingredienteNotNul) => ingredienteNotNul[1] !== ''
+        && ingredienteNotNul[1] !== null)
+      .map((item) => item[1]);
   }
-
-  // function returnIngredients() {
-  //   const ingredients = Object.entries(recipeProgress)
-  //     .filter((item) => item.includes('strIngredient'))
-  //     .filter((itensFiltereds) => itensFiltereds[1] !== '')
-  //     .map((itens) => itens[1]);
-  //     console.log(ingredients);
-  //   // const returnIngredients = mealRecipes.filter((itens) => itens.includes())
-  //   return ingredients;
-  // }
-
-  // function returnIngredients() {
-  //   return Object.keys(recipeProgress)
-  //     .filter((item) => item.includes('strIngredient'))
-  //     .map((items) => items);
-  // }
 
   const checkBox = returnIngredients();
 
   function handleChangeCheck({ target }) {
-    target.parentElement.classList.toggle('risk');
+    const { value } = target;
+    if (!ingredientChecked.includes(value)) {
+      setIngredientChecked((prevState) => ([
+        ...prevState,
+        value,
+      ]));
+    } else {
+      const filteredIngredientes = ingredientChecked.filter(
+        (ingredient) => ingredient !== value,
+      );
+      setIngredientChecked(filteredIngredientes);
+    }
   }
+
+  const propsMealProgress = {
+    setFavorited,
+    handleChangeCheck,
+    checkBox,
+    recipeProgress,
+    ingredientChecked,
+    favorited,
+    recipesSelectedId,
+  };
 
   return (
     <div>
       { isLoaded
-        ? (
-          <div>
-            <h2 data-testid="recipe-title">{recipeProgress.strMeal}</h2>
-            <img
-              src={ recipeProgress.strMealThumb }
-              data-testid="recipe-photo"
-              className="recipes-img"
-              alt={ recipeProgress.strMeal }
-            />
-            <button data-testid="share-btn" type="button">
-              <img src={ shareIcon } alt="share icon" />
-            </button>
-            <button data-testid="favorite-btn" type="button" onClick={ handleFavoriteClick }>
-              <img src={ favorited } alt="favorite icon" />
-            </button>
-            <p data-testid="recipe-category">{recipeProgress.strCategory}</p>
-            <h3>Ingredients</h3>
-            {checkBox.map((itens, key) => (
-              <label
-                htmlFor={ key }
-                key={ key }
-              >
-                <input
-                  type="checkbox"
-                  id={ key }
-                  onClick={ (e) => handleChangeCheck(e) }
-                />
-                {itens}
-              </label>))}
-
-            <p data-testid="instructions">{recipeProgress.strInstructions}</p>
-            <Link to="/receitas-feitas">
-              <button
-                type="button"
-                data-testid="finish-recipe-btn"
-              >
-                Finalizar Receita
-              </button>
-            </Link>
-          </div>) : (
-          loading
-        )}
+        ? <RecipeMealProgressComp propsMealProgress={ propsMealProgress } />
+        : loading }
     </div>
   );
 }
-
-RecipeMealProgress.propTypes = {
-  propsDrink: PropTypes.shape({
-    recipesDetails: PropTypes.objectOf(PropTypes.string),
-    // handleClickCopy: PropTypes.func,
-    // handleClickFavorites: PropTypes.func,
-  }).isRequired,
-};
 
 export default RecipeMealProgress;
