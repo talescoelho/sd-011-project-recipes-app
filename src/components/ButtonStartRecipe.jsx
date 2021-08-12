@@ -43,16 +43,16 @@ function ButtonStartRecipe({ id, recipeData }) {
   }, [id]);
 
   const handleStartClickBtn = () => {
-    const ingredientsItensArr = ingredientsArrFormater(recipeData);
-    const key = handleObjectKey();
+    // const ingredientsItensArr = ingredientsArrFormater(recipeData);
+    // const key = handleObjectKey();
     const type = handleLocation(location);
-    const startedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    localStorage.setItem('inProgressRecipes', JSON.stringify(
-      { ...startedRecipes,
-        [key]: { ...startedRecipes[key],
-          [id]: ingredientsItensArr },
-      },
-    ));
+    // const startedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    // localStorage.setItem('inProgressRecipes', JSON.stringify(
+    //   { ...startedRecipes,
+    //     [key]: { ...startedRecipes[key],
+    //       [id]: ingredientsItensArr },
+    //   },
+    // ));
     history.push(`/${type}/${id}/in-progress`);
   };
 

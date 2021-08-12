@@ -1,23 +1,66 @@
-import React from 'react';
+import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 
-// import { Container } from './styles';
+import '../styles/IngredientInput.css';
+import makeNewIngredientsArray from '../helpers/makeNewIngredientsArray';
 
-function components() {
+function IngredientInput(
+  { ingredient, inProgressIngredients, setNewRender, newRender, index, type, id },
+) {
+  const [isChecked, setIsChecked] = useState(false);
+  const [doneClass, setDoneClass] = useState(isChecked);
+  const scratched = doneClass ? 'doneIngredient' : '';
+  const indexOfIngredient = inProgressIngredients.indexOf(ingredient);
+
+  useEffect(() => {
+    // VERIFICA SE NO NOME INCLUI DONE; E SETA CHECKED;
+    setIsChecked(inProgressIngredients[indexOfIngredient].includes('done'));
+  }, []);
+
+  useEffect(() => {
+    // VERIFICA SE CHECKED SETA A CLASS;
+    // target.setAttribute('checked', isChecked);
+    setDoneClass(isChecked);
+  }, [isChecked]);
+
+  const handleCheckIngredient = ({ target }) => {
+    setIsChecked(!isChecked);
+    console.log(target.checked);
+    const doneItem = isChecked ? ingredient.replace(' done', '') : `${ingredient} done`;
+    makeNewIngredientsArray(inProgressIngredients, ingredient, doneItem, type, id);
+    setNewRender(!newRender);
+  };
+
   return (
     <li
-      id={ ingredient[1] }
-      key={ ingredient }
       data-testid={ `${index}-ingredient-step` }
     >
+      {/* {console.log(isChecked)} */}
       <input
+        id="inputCheckbox"
+        defaultChecked={ isChecked }
         type="checkbox"
-        onClick={ (event) => handleToggleDoneIngredient(event) }
+        onClick={ (event) => handleCheckIngredient(event) }
+        // readOnly
       />
-      {`${ingredientsArr[index][1]}  
-        ${ingredientsQuantityArr[index]
-      ? `- ${ingredientsQuantityArr[index][1]}` : ''}`}
+      <span className={ scratched }>
+        { ingredient.replace(' done', '') }
+      </span>
     </li>
   );
 }
 
-export default components;
+IngredientInput.propTypes = {
+  id: PropTypes,
+  inProgressIngredients: PropTypes.shape({
+    indexOf: PropTypes.func,
+  }),
+  ingredient: PropTypes.shape({
+    replace: PropTypes.func,
+  }),
+  newRender: PropTypes.any,
+  setNewRender: PropTypes.func,
+  type: PropTypes.any,
+}.isRequired;
+
+export default IngredientInput;
