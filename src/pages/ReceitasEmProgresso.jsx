@@ -8,9 +8,10 @@ import {
 import { searchById } from '../services/index';
 import ButtonFavoriteRecipe from '../components/ButtonFavoriteRecipe';
 import IngredientInput from '../components/IngredientInput';
-import LinkCopy from '../components/LinkCopy';
+// import LinkCopy from '../components/LinkCopy';
 
 import '../styles/RecipesInProgress.css';
+import ButtonShare from '../components/ButtonShare';
 // import ButtonFavoriteRecipe from '../components/ButtonFavoriteRecipe';
 
 function ReceitasEmProgresso() {
@@ -27,19 +28,19 @@ function ReceitasEmProgresso() {
   const [progressOfRecipe, setProgressOfRecipe] = useState(true);
   const [currentRecipe, setCurrentRecipe] = useState(false);
   const [favorite, setFavorite] = useState(false);
-  const [linkCopy, setLinkCopy] = useState(false);
+  // const [linkCopy, setLinkCopy] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
-    // ESSE CÓDIGO NAO É PARA ESTAR AQUI, APENAS TESTES
     if (!localStorage.getItem('inProgressRecipes')) {
       localStorage.setItem('inProgressRecipes', JSON.stringify({
         cocktails: {},
         meals: {},
       }));
     }
-    const localStorageRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'))[recipeType][recipeId];
+    const localStorageRecipe = JSON.parse(localStorage
+      .getItem('inProgressRecipes'))[recipeType][recipeId];
     if (!localStorageRecipe) {
       addRecipeIdInLocalStorage(recipeType, recipeId);
     }
@@ -51,10 +52,8 @@ function ReceitasEmProgresso() {
   }, []);
 
   useEffect(() => {
-    const localStorageRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'))[recipeType][recipeId];
-    // const recipeIngredientsInLS = JSON.parse(
-    //   localStorage.getItem('inProgressRecipes'),
-    // )[recipeType][recipeId];
+    const localStorageRecipe = JSON.parse(localStorage
+      .getItem('inProgressRecipes'))[recipeType][recipeId];
     setInProgressIngredients(localStorageRecipe);
     if (inProgressIngredients) {
       setProgressOfRecipe(inProgressIngredients.some((item) => !item.includes('done')));
@@ -62,46 +61,30 @@ function ReceitasEmProgresso() {
   }, [newRender]);
 
   useEffect(() => {
-    const localStorageRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'))[recipeType][recipeId];
+    const localStorageRecipe = JSON.parse(localStorage
+      .getItem('inProgressRecipes'))[recipeType][recipeId];
     if (currentRecipe && localStorageRecipe.length === 0) {
       addIngredientsInRecipeId(currentRecipe, recipeType, recipeId);
       setNewRender(!newRender);
       setIsLoading(false);
-      // console.log('2', JSON.parse(localStorage.getItem('inProgressRecipes')));
     }
-    // console.log('2', JSON.parse(localStorage.getItem('inProgressRecipes')));
-    // const ingredientsItensArr = ingredientsArrFormater(currentRecipe);
-    // const recipeIngredientsInLS = JSON.parse(
-    //   localStorage.getItem('inProgressRecipes'),
-    // )[recipeType][recipeId];
-    // if (currentRecipe && recipeIngredientsInLS.length === 0) {
-    //   const startedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    //   localStorage.setItem('inProgressRecipes', JSON.stringify(
-    //     { ...startedRecipes,
-    //       [recipeType]: { ...startedRecipes[recipeType],
-    //         [recipeId]: ingredientsItensArr },
-    //     },
-    //   ));
-    //   setNewRender(!newRender);
-    //   setIsLoading(false);
-    // }
     if (inProgressIngredients) setIsLoading(false);
   }, [currentRecipe]);
 
-  const handleShareBtn = (foodType, id) => {
-    const hostURL = window.location.origin;
-    if (foodType === 'meals') {
-      navigator.clipboard.writeText(`${hostURL}/comidas/${id}`);
-    }
-    if (foodType === 'cocktails') {
-      navigator.clipboard.writeText(`${hostURL}/bebidas/${id}`);
-    }
-    return <LinkCopy />;
-  };
+  // const handleShareBtn = (foodType, id) => {
+  //   const hostURL = window.location.origin;
+  //   if (foodType === 'meals') {
+  //     navigator.clipboard.writeText(`${hostURL}/comidas/${id}`);
+  //   }
+  //   if (foodType === 'cocktails') {
+  //     navigator.clipboard.writeText(`${hostURL}/bebidas/${id}`);
+  //   }
+  //   return <LinkCopy />;
+  // };
 
-  const handleLinkMessage = () => {
-    setLinkCopy(true);
-  };
+  // const handleLinkMessage = () => {
+  //   setLinkCopy(true);
+  // };
 
   const handleDoneRecipe = (recipe) => {
     addDoneRecipeInLocalStorage(recipe);
@@ -118,14 +101,15 @@ function ReceitasEmProgresso() {
       <h1 data-testid="recipe-title">
         { currentRecipe.title }
       </h1>
-      <button
+      {/* <button
         type="button"
         onClick={ () => { handleShareBtn(recipeType, recipeId); handleLinkMessage(); } }
         data-testid="share-btn"
       >
         Share
-      </button>
-      { linkCopy && <LinkCopy /> }
+      </button> */}
+      {/* { linkCopy && <LinkCopy /> } */}
+      <ButtonShare recipe={ { recipeType, recipeId } } />
       <ButtonFavoriteRecipe
         recipes={ currentRecipe }
         favorite={ favorite }
@@ -136,7 +120,6 @@ function ReceitasEmProgresso() {
       >
         { currentRecipe.category }
       </p>
-      {/* OS INGREDIENTES -> data-testid=${index}-ingredient-step */}
       <ul>
         { isLoading
           ? 'isLoading '

@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import '../styles/StartRecipeBtn.css';
 import { useHistory, useLocation } from 'react-router-dom';
 import handleLocation from '../helpers/handleLocation';
-import ingredientsArrFormater from '../helpers/ingredientsArrFormater';
 
-function ButtonStartRecipe({ id, recipeData }) {
+function ButtonStartRecipe({ id }) {
   const history = useHistory();
   const location = useLocation();
   const [disabled, setDisabled] = useState(false);
@@ -71,7 +70,6 @@ function ButtonStartRecipe({ id, recipeData }) {
 
 ButtonStartRecipe.propTypes = {
   id: PropTypes.number.isRequired,
-  recipeData: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default ButtonStartRecipe;
