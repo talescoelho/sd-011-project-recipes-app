@@ -1,0 +1,24 @@
+.searchBar-container {
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  height: 105px;
+  justify-content: space-between;
+  padding: 15px;
+  position: absolute;
+  width: 360px;
+}
+
+.searchBar-radios {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.searchBar-radios label {
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+
+.searchBar-btn {
+  width: 30%;
+}
