@@ -79,13 +79,16 @@ class IngredientesFoodInProgress extends Component {
         { ingredients
           .map((item, index) => (item
             ? (
-              <label htmlFor={ `${index}-check-ingredients` } key={ index }>
+              <label
+                htmlFor={ `${index}-check-ingredients` }
+                key={ index }
+                data-testid={ `${index}-ingredient-step` }
+              >
                 <input
                   onChange={ this.handleOnchange }
                   value={ index }
                   id={ `${index}-check-ingredients` }
                   type="checkbox"
-                  data-testid={ `${index}-ingredient-step` }
                 />
                 {`${item} - ${measurements[index]}`}
               </label>
