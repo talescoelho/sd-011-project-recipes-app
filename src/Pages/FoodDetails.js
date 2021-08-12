@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext} from 'react';
 import ReactPlayer from 'react-player';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ShareButton from '../Components/ShareButton';
 import RecomendedRecipes from '../Components/RecomendedRecipes';
-import './Styles/detailsrecipe.css';
+import FavoriteButton from '../Components/FavoriteButton';
+import MyContext from '../Context/MyContext';
 
-function FoodDetails(props) {
+
+function FoodDetails() {
+
   const [recipes, setRecipes] = useState([]);
   // Didmount - Faz fetch trazendo a receita pelo id e seta o stado recipes com as receita
   useEffect(() => {
@@ -53,6 +55,8 @@ function FoodDetails(props) {
     return newArray;
   };
 
+  const essaPagina = window.location.href;
+  console.log(essaPagina);
   return (
     <div>
       <img
@@ -63,7 +67,14 @@ function FoodDetails(props) {
       />
       <h2 data-testid="recipe-title">{ recipes.strMeal }</h2>
       <ShareButton />
-      <img src={ whiteHeartIcon } alt="Favoritar Coração" data-testid="favorite-btn" />
+      <FavoriteButton
+              id={ recipes.idMeal }
+              type="Comida"
+              area= { recipes.strArea }
+              category={ recipes.strCategory }
+              name={ recipes.strMeal }
+              image={ recipes.strMealThumb }
+      />
       <h3 data-testid="recipe-category">{ recipes.strCategory }</h3>
       <h3>Ingredients</h3>
       <ul>
@@ -79,8 +90,9 @@ function FoodDetails(props) {
         />
       </div>
       <br/>
-      {/* <h3 data-testid={ `${index}-recomendation-card"` }>Recomendadas</h3> */}
-      <div className="recommended"><RecomendedRecipes/></div>
+      <div className="recommended">
+              <RecomendedRecipes origem = { essaPagina }/>
+      </div>
       <br/>
       <button
         className="start-recipe-btn"

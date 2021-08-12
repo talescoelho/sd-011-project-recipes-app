@@ -7,7 +7,7 @@ import CardRecipes from '../Components/CardRecipes';
 import { getDrink } from '../Services/FetchApi';
 import MyContext from '../Context/MyContext';
 
-export default function RecipesFood() {
+export default function RecipesDrink() {
   const { cards, setCards } = useContext(MyContext);
   
   const busca = async () => {
@@ -18,8 +18,6 @@ export default function RecipesFood() {
     busca();
   }, []);
   
-  console.log(cards.drinks);
-
     const renderCardRecipes = () => {
     const showMaxRecipes = 12;
     if (cards) {

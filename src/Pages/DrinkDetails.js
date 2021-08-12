@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ShareButton from '../Components/ShareButton';
+import FavoriteButton from '../Components/FavoriteButton';
 import RecomendedRecipes from '../Components/RecomendedRecipes';
 import './Styles/detailsrecipe.css';
 
@@ -52,7 +52,8 @@ function DrinkDetails(props) {
     }
     return newArray;
   };
-
+  const essaPagina = window.location.href;
+  
   return (
     <div>
       <img
@@ -63,7 +64,16 @@ function DrinkDetails(props) {
       />
       <h2 data-testid="recipe-title">{ recipes.strDrink }</h2>
       <ShareButton />
-      <img src={ whiteHeartIcon } alt="Favoritar Coração" data-testid="favorite-btn" />
+      <FavoriteButton
+              id={ recipes.idDrink }
+              type="bebida"
+              area=""
+              category="Cocktail"
+              alcoholicOrNot={ recipes.strAlcoholic }
+              name={ recipes.strDrink }
+              image={ recipes.strDrinkThumb }
+      />
+      
       <h3 data-testid="recipe-category">{ recipes.strCategory }</h3>
       <h3>Ingredients</h3>
       <ul>
@@ -72,14 +82,7 @@ function DrinkDetails(props) {
       </ul>
       <h3 data-testid="instructions">Instructions</h3>
       <p>{recipes.strInstructions}</p>
-      <h3 data-testid="video">Video</h3>
-      <div>
-        <ReactPlayer
-          url={ recipes.strYoutube }
-        />
-      </div>
-      {/* <h3 data-testid={ `${index}-recomendation-card"` }>Recomendadas</h3> */}
-      <div id="recommended"><RecomendedRecipes /></div>
+      <div id="recommended"><RecomendedRecipes origem = { essaPagina } /></div>
       <button
         id="start-recipe-btn"
         type="button"

@@ -34,3 +34,9 @@ export const getDrink = async () => {
   const result = await globalFetch(URL);  
   return result;
 };
+
+export const getFood = async () => {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const result = await globalFetch(URL);  
+  return result;
+};

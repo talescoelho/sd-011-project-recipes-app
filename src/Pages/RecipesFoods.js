@@ -1,29 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
-import './RecipesFoods.css';
 import CardRecipes from '../Components/CardRecipes';
-//import FilterButtons from '../Components/FilterButtons';
-// import MyContext from '../Context/MyContext';
+import './RecipesFoods.css';
+import { getFood } from '../Services/FetchApi';
+import MyContext from '../Context/MyContext';
 
 export default function RecipesFood() {
-  const [recipes, setRecipes] = useState([]);
+  const { cards, setCards } = useContext(MyContext);
 
+  const busca = async () => {
+    const resposta = await getFood();
+    setCards(resposta.meals);
+    }
   useEffect(() => {
-    const getApi = async () => {
-      const endPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-      const response = await fetch(endPoint);
-      const results = await response.json();
-      const { meals } = results;
-      setRecipes(meals);
-    };
-    getApi();
+    busca();
   }, []);
+
     const renderCardRecipes = () => {
     const showMaxRecipes = 12;
-    if (recipes) {
-      const filteredRecipe = recipes.filter(
+    if (cards) {
+      const filteredRecipe = cards.filter(
         (meals, index) => index < showMaxRecipes,
       );
       return filteredRecipe;
@@ -33,7 +31,7 @@ export default function RecipesFood() {
     <div>
       <Header className="title" title="Comidas" searchIconAppears />
       <div className="cardlist">
-        {renderCardRecipes().map((recp, index) => (
+        {cards.length>0 && renderCardRecipes().map((recp, index) => (
           <Link 
             className="link"
             key={ index }
@@ -44,7 +42,9 @@ export default function RecipesFood() {
               index={ index }
               thumb={ recp.strMealThumb }
               title={ recp.strMeal }
+              className={ `card${index}`}
             />
+            { console.log(index) }
           </Link>))}
       </div>
       <Footer />
