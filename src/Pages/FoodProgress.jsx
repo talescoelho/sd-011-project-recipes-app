@@ -8,6 +8,7 @@ function FoodProgress(props) {
   const [foodById, setFoodById] = useState([]);
   const [foodIngredient, setFoodIngredient] = useState([]);
   const [button, setButton] = useState(false);
+  const [inProgressRecipe, setInProgressRecipe] = useState({});
   const { match } = props;
   const { id } = match.params;
   const { foodRecipeDones, setFoodRecipeDones } = useContext(MainContext);
@@ -16,10 +17,6 @@ function FoodProgress(props) {
     const foodByIdAPI = await getFoodsByID(id);
     setFoodById(foodByIdAPI.meals);
   }
-
-  useEffect(() => {
-    fetchFoodsByID();
-  }, []);
 
   // console.log(foodById);
 
@@ -55,50 +52,6 @@ function FoodProgress(props) {
     return button;
   }
 
-  function storageCheckeds({ name, checked }) {
-    let recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || { meals: {
-      [id]: [],
-    } };
-
-    if (!recipe.meals) {
-      recipe = { ...recipe,
-        meals: {
-          [id]: [],
-        },
-      };
-    }
-
-    if (checked) {
-      if (!!recipe.meals[id] === false) {
-        const recipeMeal = { ...recipe,
-          meals:
-          { ...recipe.meals, [id]: [name] },
-        };
-        localStorage.setItem('inProgressRecipes',
-          JSON.stringify(recipeMeal));
-      } else {
-        const recipeMeals = { ...recipe,
-          meals:
-           { ...recipe.meals, [id]: [...recipe.meals[id], name] } };
-        localStorage.setItem('inProgressRecipes',
-          JSON.stringify(recipeMeals));
-      }
-    } else {
-      const removeLocaStorage = recipe.meals[id]
-        .filter((ingredient) => ingredient !== name);
-      const recipeIngredients = { ...recipe,
-        meals:
-        { ...recipe.meals, [id]: removeLocaStorage } };
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify(recipeIngredients));
-    }
-  }
-
-  function allIngredientsFunction(value) {
-    ingredientsChecked();
-    storageCheckeds(value);
-  }
-
   // Para pegar a data utilizamos como base o código desse link:
   // https://pt.stackoverflow.com/questions/6526/como-formatar-data-no-javascript
   function handleCLick() {
@@ -114,8 +67,49 @@ function FoodProgress(props) {
     const now = dataAtualFormatada();
     setFoodById(foodById[0].dateModified = now);
     setFoodRecipeDones(...foodRecipeDones, foodById);
-    localStorage.setItem('doneRecipes', JSON.stringify(foodRecipeDones));
+    localStorage.setItem('doneRecipesFood', JSON.stringify(foodById));
   }
+
+  const getStorage = (storageItem) => JSON
+    .parse(localStorage.getItem(storageItem));
+
+  const setStorage = (storageItem, value) => localStorage
+    .setItem(storageItem, JSON.stringify(value));
+
+  useEffect(() => {
+    fetchFoodsByID();
+    const recipesInProgress = getStorage('inProgressRecipes') || {};
+    setInProgressRecipe(recipesInProgress);
+  }, []);
+
+  const addIngredientStorage = (value, storageIngredient) => {
+    const realoadItem = {
+      ...storageIngredient,
+      [id]: [
+        ...(storageIngredient[id] || []),
+        value,
+      ].sort(),
+    };
+
+    setStorage('inProgressRecipes', realoadItem);
+    setInProgressRecipe(realoadItem);
+  };
+
+  const removeingredientStorage = (value, storageItem) => {
+    const realoadItem = {
+      ...storageItem,
+      [id]: storageItem[id].filter((item) => item !== value),
+    };
+    if (realoadItem[id].length === 0) delete realoadItem[id];
+    setStorage('inProgressRecipes', realoadItem);
+    setInProgressRecipe(realoadItem);
+  };
+
+  const ingredientsDone = (target, index) => {
+    const recipesInProgress = getStorage('inProgressRecipes') || {};
+    if (target.checked) addIngredientStorage(index, recipesInProgress);
+    else removeingredientStorage(index, recipesInProgress);
+  };
 
   return (
     <div>
@@ -147,7 +141,10 @@ function FoodProgress(props) {
                       name={ Object.values(ingredient) }
                       id={ i }
                       type="checkbox"
-                      onChange={ (e) => allIngredientsFunction(e.target) }
+                      checked={ inProgressRecipe[id]
+                        && inProgressRecipe[id].includes(i + 1) }
+                      onChange={ ({ target }) => ingredientsDone(target, i + 1) }
+                      onClick={ () => ingredientsChecked() }
                     />
                     { Object.values(ingredient) }
                   </label>

@@ -1,6 +1,5 @@
 import React from 'react';
 import HeaderRecipesDone from '../Components/headers/HeaderRecipesDone';
-import DrinkRecipesDone from '../Components/FilterButtons/DrinkRecipesDone';
 
 function RecipesDone() {
   return (
@@ -24,7 +23,6 @@ function RecipesDone() {
       >
         Drinks
       </button>
-      <DrinkRecipesDone />
     </div>
   );
 }
