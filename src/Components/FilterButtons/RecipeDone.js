@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import copy from 'clipboard-copy';
+import { copyLink } from '../../Services/ApiDrink';
+import MainContext from '../../Context/MainContext';
 
 export default function RecipeDone() {
+  const { show, setShow } = useContext(MainContext);
+
   const storage = JSON.parse(localStorage.getItem('doneRecipes'));
 
   console.log('localStorage', storage);
@@ -30,7 +35,11 @@ export default function RecipeDone() {
               src="src/images/shareIcon.svg"
               alt="share"
               data-testid={ `${index}-horizontal-share-btn` }
-            />
+              onClick={ () => copyLink(copy, setShow, `${recipe.type}s`, recipe.id) }
+            >
+              Compartilhar
+            </button>
+            <p>{ show && 'Link copiado!'}</p>
             { recipe.tags !== null ? recipe.tags.map((item, i) => (
               <p
                 key={ i }
