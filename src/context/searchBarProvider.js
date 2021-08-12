@@ -11,8 +11,8 @@ export default function SearchBarProvider({ children, type }) {
   const recipes = (data) ? data.slice(0, twelve) : [];
   useEffect(() => {
     const asyncFunc = async () => {
-      if (type.includes('Comida')) setData(await Foods.searchName(''));
-      if (type.includes('Bebidas')) setData(await Cocktails.searchName(''));
+      if (type.includes('omida')) setData(await Foods.searchName(''));
+      if (type.includes('ebidas')) setData(await Cocktails.searchName(''));
     };
     asyncFunc();
   }, [type]);

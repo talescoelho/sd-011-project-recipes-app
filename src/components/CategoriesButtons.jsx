@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState, useContext } from 'react';
-import { ButtonGroup } from 'react-bootstrap';
 import { Foods, Cocktails } from '../services';
 import SearchBarContext from '../context/searchBarContext';
 

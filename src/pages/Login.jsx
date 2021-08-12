@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
-import { Button, SubButton, Container, Title } from '../styles';
+import { Button, Underline, Container, Title } from '../styles';
 import Receitas from '../images/Receitas.png';
 
 export default function Login() {
@@ -65,13 +65,11 @@ export default function Login() {
         >
           Entrar
         </Button>
-        <SubButton
-          className="btn"
-          type="button"
+        <Underline
           onClick={ () => { setPassword('1234567'); setEmail('teste@teste.com'); } }
         >
           Esqueceu a senha ?
-        </SubButton>
+        </Underline>
       </Form>
     </Container>
   );

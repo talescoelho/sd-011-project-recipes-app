@@ -8,17 +8,9 @@
 .btn-search {
   align-items: center;
   background-color: transparent;
-
-  /* margin-top: 20px;
-  margin-right: 20px;
-  margin-left: 20px; */
   border: none;
   border-radius: 15px;
   cursor: pointer;
-
-  /* margin-left: auto; */
-
-  /* display: block; */
   display: flex;
   height: 55px;
   transition: 0.2s ease-in-out;
@@ -32,18 +24,10 @@
 
 .btn-perfil {
   background-color: transparent;
-
-  /* margin-top: 20px;
-  margin-right: 20px;
-  margin-left: 20px; */
   border: none;
   border-radius: 15px;
   cursor: pointer;
   margin-top: 10px;
   transition: all 0.2s ease-in-out;
-
-  /* margin-left: auto; */
-
-  /* display: block; */
   width: 45px;
 }

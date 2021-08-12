@@ -187,7 +187,7 @@ export function getIds(type, recipe) {
     category: verify ? recipe.strCategory : recipe.strAlcoholic,
     name: verify ? recipe.strMeal : recipe.strDrink,
     image: verify ? recipe.strMealThumb : recipe.strDrinkThumb,
-    video: verify ? recipe.strYoutube : null,
+    video: (recipe.strYoutube) ? `https://www.youtube.com/embed/${recipe.strYoutube.split('=')[1]}` : null,
     instructions: recipe.strInstructions,
     similarName: verify ? 'meals' : 'cocktails',
     tags: (recipe.strTags) ? recipe.strTags.split(',').slice(0, 2) : null,
