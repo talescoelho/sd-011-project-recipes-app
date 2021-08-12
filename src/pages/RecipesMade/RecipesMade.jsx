@@ -139,15 +139,11 @@ function DoneRecipes({ match }) {
   };
 
   return (
-    <div>
-      <header>
-        <Header title="Receitas Feitas" match={ match } />
-      </header>
-      <body>
-        { renderFilterButtons() }
-        { renderDoneRecipes() }
-      </body>
-    </div>
+    <section>
+      <Header title="Receitas Feitas" match={ match } />
+      { renderFilterButtons() }
+      { renderDoneRecipes() }
+    </section>
   );
 }
 
