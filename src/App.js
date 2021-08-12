@@ -19,6 +19,7 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Explorer from './pages/Explorer';
 import NotFound from './pages/NotFound';
+import { SearchBarProvider } from './context/SearchBar';
 
 function App() {
   const pathFoods = '/explorar/comidas/ingredientes';
@@ -30,20 +31,22 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route path="/perfil" component={ Profile } />
         <Route exact path="/explorar" component={ Explorer } />
-        <Route exact path="/explorar/comidas" component={ FoodExplorer } />
-        <Route exact path="/explorar/bebidas" component={ DrinkExplorer } />
-        <Route path={ pathFoods } component={ FoodExplorerByIngredients } />
-        <Route path={ pathDrinks } component={ DrinkExplorerByIngredients } />
-        <Route path="/explorar/comidas/area" component={ FoodExplorerByCountry } />
-        <Route exact path="/comidas" component={ Foods } />
-        <Route exact path="/bebidas" component={ Drinks } />
-        <Route exact path="/comidas/:id" component={ FoodRecipes } />
-        <Route exact path="/bebidas/:id" component={ DrinkRecipes } />
-        <Route path="/perfil" component={ Profile } />
-        <Route path="/receitas-feitas" component={ DoneRecipes } />
-        <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
-        <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
-        <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
+        <SearchBarProvider>
+          <Route exact path="/explorar/comidas" component={ FoodExplorer } />
+          <Route exact path="/explorar/bebidas" component={ DrinkExplorer } />
+          <Route path={ pathFoods } component={ FoodExplorerByIngredients } />
+          <Route path={ pathDrinks } component={ DrinkExplorerByIngredients } />
+          <Route path="/explorar/comidas/area" component={ FoodExplorerByCountry } />
+          <Route exact path="/comidas" component={ Foods } />
+          <Route exact path="/bebidas" component={ Drinks } />
+          <Route exact path="/comidas/:id" component={ FoodRecipes } />
+          <Route exact path="/bebidas/:id" component={ DrinkRecipes } />
+          <Route path="/perfil" component={ Profile } />
+          <Route path="/receitas-feitas" component={ DoneRecipes } />
+          <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+          <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
+          <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
+        </SearchBarProvider>
         <Route path="*" component={ NotFound } />
       </Switch>
     </BrowserRouter>
