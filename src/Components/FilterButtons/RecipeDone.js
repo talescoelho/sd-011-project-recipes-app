@@ -42,7 +42,8 @@ export default function RecipeDone() {
         )) }
       </div>
     );
-  } return (
+  }
+  return (
     <h1>Sou receitas feitas</h1>
   );
 }
