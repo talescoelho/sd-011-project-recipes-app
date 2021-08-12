@@ -11,6 +11,15 @@ function DrinkDetails({ match: { params } }) {
   const [DrinkDataAPI, setDrinkDadaAPI] = useState({});
   const [isMealDone, setIsMealsDone] = useState(false);
   const [isMealStarted, setIsMealStarted] = useState(false);
+  const objectRecipe = {
+    id: DrinkDataAPI.idDrink,
+    type: 'bebida',
+    area: '',
+    category: DrinkDataAPI.strCategory,
+    alcoholicOrNot: DrinkDataAPI.strAlcoholic,
+    name: DrinkDataAPI.strDrink,
+    image: DrinkDataAPI.strDrinkThumb,
+  };
   function verifyRecipeProgress(id) {
     const inProgressRecipes = JSON.parse(
       localStorage.getItem('inProgressRecipes'),
@@ -61,8 +70,7 @@ function DrinkDetails({ match: { params } }) {
         img={ DrinkDataAPI.strDrinkThumb }
         category={ DrinkDataAPI.strAlcoholic }
         id={ DrinkDataAPI.idDrink }
-        // data={ DrinkDataAPI }
-        type="bebidas"
+        data={ objectRecipe }
       />
 
       <IngredientsList recipe={ DrinkDataAPI } />
