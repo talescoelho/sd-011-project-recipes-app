@@ -7,10 +7,16 @@ import FavoriteBtn from '../components/FavoriteBtn';
 class DrinksRecipiesInProcess extends React.Component {
   constructor(props) {
     super(props);
+    let recoveredInfo = [];
+    const { match: { params: { id } } } = this.props;
+    if (localStorage.inProgressRecipes
+      && JSON.parse(localStorage.inProgressRecipes).cocktails[id]) {
+      recoveredInfo = JSON.parse(localStorage.inProgressRecipes).cocktails[id];
+    }
     this.state = {
       DoRecipe: [],
       componentMounted: false,
-      stockDrinks: [],
+      stockDrinks: recoveredInfo,
     };
     this.test = this.test.bind(this);
     this.changeRow = this.changeRow.bind(this);
@@ -52,11 +58,16 @@ class DrinksRecipiesInProcess extends React.Component {
     }, () => {
       const { stockDrinks: newStockDrinks } = this.state;
       const { match: { params: { id } } } = this.props;
-
+      let prev2 = {};
+      if (localStorage.inProgressRecipes
+        && JSON.parse(localStorage.inProgressRecipes).meals) {
+        prev2 = JSON.parse(localStorage.inProgressRecipes).meals;
+      }
       const drinks2 = {
         cocktails: {
           [id]: newStockDrinks,
         },
+        meals: prev2,
       };
       if (localStorage.inProgressRecipes) {
         if (JSON.parse(localStorage.inProgressRecipes).cocktails) {
@@ -67,6 +78,7 @@ class DrinksRecipiesInProcess extends React.Component {
               ...prev.cocktails,
               [id]: newStockDrinks,
             },
+            meals: prev2,
           };
           localStorage.inProgressRecipes = JSON.stringify(drinks);
         }
@@ -77,10 +89,11 @@ class DrinksRecipiesInProcess extends React.Component {
 
   renderAll() {
     const { DoRecipe } = this.state;
-    let recoveredInfo = [];
-    if (localStorage.inProgressRecipes) {
-      const { match: { params: { id } } } = this.props;
-      recoveredInfo = JSON.parse(localStorage.inProgressRecipes).cocktails[id];
+    let ri = [];
+    const { match: { params: { id } } } = this.props;
+    if (localStorage.inProgressRecipes
+      && JSON.parse(localStorage.inProgressRecipes).cocktails[id]) {
+      ri = JSON.parse(localStorage.inProgressRecipes).cocktails[id];
     }
     return (
       <div>
@@ -105,13 +118,13 @@ class DrinksRecipiesInProcess extends React.Component {
                   key={ index }
                 >
                   <label
-                    className={ recoveredInfo.some((item) => item === e[1]) ? 'do-row' : '' }
+                    className={ ri.some((item) => item === e[1]) ? 'do-row' : '' }
                     id={ `id1${index}` }
                     htmlFor={ `for${index}` }
                   >
                     {e[1]}
                     <input
-                      checked={ recoveredInfo.some((item) => item === e[1]) }
+                      defaultChecked={ ri.some((item) => item === e[1]) }
                       id={ `for${index}` }
                       type="checkbox"
                       onClick={ (event) => this.changeRow(event, index, e[1]) }

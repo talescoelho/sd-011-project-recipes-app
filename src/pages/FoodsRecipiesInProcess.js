@@ -1,102 +1,157 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import FetchApi from '../services/ApiFetch';
 import ShareBtn from '../components/ShareBtn';
 import FavoriteBtn from '../components/FavoriteBtn';
 
-export default function FoodsRecipiesInProcess(props) {
-  const [DoRecipe, setDoRecipe] = useState();
-  const [recipeId, setRecipeId] = useState([]);
-  const { match: { params: { id } } } = props;
-
-  useEffect(() => {
-    async function test() {
-      const obj = await FetchApi('themealdb', null, null, ['details', id]);
-      setDoRecipe(obj);
+class FoodsRecipiesInProcess extends React.Component {
+  constructor(props) {
+    super(props);
+    let recoveredInfo = [];
+    const { match: { params: { id } } } = this.props;
+    if (localStorage.inProgressRecipes
+      && JSON.parse(localStorage.inProgressRecipes).meals[id]) {
+      recoveredInfo = JSON.parse(localStorage.inProgressRecipes).meals[id];
     }
-    test();
-  }, []);
+    this.state = {
+      DoRecipe: [],
+      componentMounted: false,
+      stockFoods: recoveredInfo,
+    };
+    this.test = this.test.bind(this);
+    this.changeRow = this.changeRow.bind(this);
+  }
 
-  useEffect(() => {
-    const getRecipesLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    function test(ola) {
-      if (!recipeId) {
-        return setRecipeId(ola);
+  componentDidMount() {
+    this.test();
+  }
+
+  // componentDidUpdate() {
+  //   if (localStorage.inProgressRecipes) {
+
+  //     const recoveredInfo = JSON.parse(localStorage.inProgressRecipes).cocktails[id];
+  //     // this.setStateFunc(recoveredInfo);
+  //     console.log(recoveredInfo);
+  //     // console.log(recoveredInfo);
+  //   }
+  // }
+
+  async test() {
+    const { match: { params: { id } } } = this.props;
+    const obj = await FetchApi('themealdb', null, null, ['details', id]);
+    this.setState({
+      DoRecipe: obj,
+      componentMounted: true,
+    });
+  }
+
+  changeRow(event, index, name) {
+    const { stockFoods } = this.state;
+    let filter = [];
+    if (stockFoods.some((i) => i === name)) {
+      filter = stockFoods.filter((ell) => ell !== name);
+    } else {
+      filter = [...stockFoods, name];
+    }
+    this.setState({
+      stockFoods: filter,
+    }, () => {
+      const { stockFoods: newStockFoods } = this.state;
+      const { match: { params: { id } } } = this.props;
+      let prev2 = [];
+      if (localStorage.inProgressRecipes
+        && JSON.parse(localStorage.inProgressRecipes).cocktails) {
+        prev2 = JSON.parse(localStorage.inProgressRecipes).cocktails;
       }
-      console.log(recipeId);
-    }
-    test(getRecipesLocalStorage);
-  }, [recipeId]);
-
-  function changeRow(event, igredientIndex) {
-    if (event.target.parentNode.classList[1] === undefined) {
-      console.log(event.target);
-      const getKey = JSON.parse(localStorage.getItem('inProgressRecipes') || '[]');
-      event.target.parentNode.classList.add('do-row');
-      const getDiv = document.getElementById(`id1${igredientIndex}`).id;
-      getKey.push(`${getDiv}`);
-      localStorage.setItem('inProgressRecipes', JSON.stringify(getKey));
-      return;
-    }
-    return event.target.closest(`#id1${igredientIndex}`).classList.remove('do-row');
+      const foods2 = {
+        meals: {
+          [id]: newStockFoods,
+        },
+        cocktails: prev2,
+      };
+      if (localStorage.inProgressRecipes) {
+        if (JSON.parse(localStorage.inProgressRecipes).meals) {
+          const prev = JSON.parse(localStorage.inProgressRecipes);
+          console.log(prev);
+          const foods = {
+            meals: {
+              ...prev.meals,
+              [id]: newStockFoods,
+            },
+            cocktails: prev2,
+          };
+          localStorage.inProgressRecipes = JSON.stringify(foods);
+        }
+      } else { localStorage.inProgressRecipes = JSON.stringify(foods2); }
+    });
+    event.target.parentNode.classList.toggle('do-row');
   }
 
-  function teste() {
-    const olol = document.querySelector('.ul-container');
-    return console.log(olol);
+  renderAll() {
+    const { DoRecipe } = this.state;
+    let ri = [];
+    const { match: { params: { id } } } = this.props;
+    if (localStorage.inProgressRecipes
+      && JSON.parse(localStorage.inProgressRecipes).meals[id]) {
+      ri = JSON.parse(localStorage.inProgressRecipes).meals[id];
+    }
+    return (
+      <div>
+        <img
+          src={ DoRecipe.meals[0].strMealThumb }
+          alt={ DoRecipe.meals[0].strMeal }
+          data-testid="recipe-photo"
+        />
+        <h1 data-testid="recipe-title">{ DoRecipe.meals[0].strDrink }</h1>
+        <ShareBtn />
+        <FavoriteBtn />
+        <p data-testid="recipe-category">{ DoRecipe.meals[0].strCategory }</p>
+        <div className="ul-container">
+          <ul id="input-checkbox">
+            { Object.entries(DoRecipe.meals[0])
+              .filter((igredients) => igredients[0]
+                .includes('strIngredient') && igredients[1])
+              .map((e, index) => (
+                <li
+                  id={ index }
+                  data-testid={ `${index}-ingredient-step` }
+                  key={ index }
+                >
+                  <label
+                    className={ ri.some((item) => item === e[1]) ? 'do-row' : '' }
+                    id={ `id1${index}` }
+                    htmlFor={ `for${index}` }
+                  >
+                    {e[1]}
+                    <input
+                      defaultChecked={ ri.some((item) => item === e[1]) }
+                      id={ `for${index}` }
+                      type="checkbox"
+                      onClick={ (event) => this.changeRow(event, index, e[1]) }
+                    />
+                  </label>
+                </li>
+              )) }
+          </ul>
+        </div>
+        <p data-testid="instructions">
+          { DoRecipe.meals[0].strInstructions }
+        </p>
+        <button data-testid="finish-recipe-btn" type="button">Finalizar</button>
+      </div>
+    );
   }
 
-  return (
-    <div>
-      { DoRecipe
-        ? (
-          <div>
-            <h1 data-testid="recipe-title">{ DoRecipe.meals[0].strMeal }</h1>
-            <img
-              src={ DoRecipe.meals[0].strMealThumb }
-              alt={ DoRecipe.meals[0].strMeal }
-              data-testid="recipe-photo"
-            />
-            <ShareBtn />
-            <FavoriteBtn />
-            <p data-testid="recipe-category">{ DoRecipe.meals[0].strCategory }</p>
-            <div className="ul-container">
-              <ul id="input-checkbox">
-                { Object.entries(DoRecipe.meals[0])
-                  .filter((igredients) => igredients[0]
-                    .includes('strIngredient') && igredients[1])
-                  .map((e, igredientIndex) => (
-                    <li
-                      data-testid={ `${igredientIndex}-ingredient-step` }
-                      key={ igredientIndex }
-                    >
-                      <label
-                        className="li-test"
-                        id={ `id1${igredientIndex}` }
-                        htmlFor={ `for${igredientIndex}` }
-                      >
-                        {e[1]}
-                        <input
-                          id={ `for${igredientIndex}` }
-                          type="checkbox"
-                          onClick={ (event) => changeRow(event, igredientIndex) }
-                        />
-                      </label>
-                    </li>
-                  )) }
-              </ul>
-            </div>
-            {teste()}
-            <p data-testid="instructions">
-              { DoRecipe.meals[0].strInstructions }
-            </p>
-            <button data-testid="finish-recipe-btn" type="button">Finalizar</button>
-          </div>)
-
-        : 'Loading...'}
-    </div>
-  );
+  render() {
+    const { componentMounted } = this.state;
+    return (
+      <div>
+        {componentMounted ? this.renderAll() : 'loading...'}
+      </div>
+    );
+  }
 }
+export default FoodsRecipiesInProcess;
 
 FoodsRecipiesInProcess.propTypes = {
   match: PropTypes.shape(Object).isRequired,

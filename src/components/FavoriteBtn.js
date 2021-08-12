@@ -13,7 +13,7 @@ function FavoriteBtn() {
         onClick={ btnClickHandler }
       >
         <img
-          data-testid="share-btn"
+          data-testid="favorite-btn"
           src={ FavoriteIcon }
           alt="icone Share"
         />
