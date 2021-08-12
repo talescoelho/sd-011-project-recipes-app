@@ -5,22 +5,19 @@ import Header from '../components/Header';
 
 export default function DoneRecipes() {
   const doneRecipes = localStorage.getItem('doneRecipes');
-  console.log(doneRecipes);
-  const parsedDoneRecipe = JSON.parse(doneRecipes);
+  const parsedDoneRecipe = doneRecipes ? JSON.parse(doneRecipes) : [];
   const [filteredRecipes, setFilteredRecipes] = useState(parsedDoneRecipe);
   const [type, setType] = useState('');
   useEffect(() => {
     if (doneRecipes) {
-      let newFilteredRecipes = [...doneRecipes];
-      if (type !== 'all') {
-        newFilteredRecipes = newFilteredRecipes.filter((recipe) => recipe.type === type);
-      }
+      const newFilteredRecipes = type
+        ? [...parsedDoneRecipe.filter((recipe) => recipe.type === type)]
+        : [...parsedDoneRecipe];
       setFilteredRecipes(newFilteredRecipes);
     }
   }, [type]);
 
   const handleChange = (val) => setType(val);
-
   return (
     <div>
       <Header title="Receitas Feitas" search={ false } />
