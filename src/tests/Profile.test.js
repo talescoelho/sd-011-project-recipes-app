@@ -20,6 +20,7 @@ describe('Testes para página de Perfil', () => {
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(mockDrink),
     });
+    localStorage.setItem('user', JSON.stringify({ email: 'arthur@hotmail.com' }));
     const { findByText, findByTestId, getByRole } = renderWithRouterAndRedux(
       <Profile />,
       { route: '/perfil' }, INITIAL_STATE,
