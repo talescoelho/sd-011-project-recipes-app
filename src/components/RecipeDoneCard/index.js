@@ -60,5 +60,6 @@ RecipeDoneCard.propTypes = {
     doneDate: PropTypes.number,
     tags: PropTypes.arrayOf(PropTypes.string),
     type: PropTypes.string,
+    alcoholicOrNot: PropTypes.string,
   }),
 }.isRequired;
