@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import ShareButton from './ShareButton';
 import FavoriteButton from './FavoriteButton';
 import IngredientesFoodInProgress from './IngredientesFoodInProgress';
@@ -23,16 +22,6 @@ class FoodInProgressCard extends Component {
         <p data-testid="recipe-category">{ foodDetails.strCategory }</p>
         <IngredientesFoodInProgress />
         <p data-testid="instructions">{ foodDetails.strInstructions }</p>
-        <Link to="/receitas-feitas">
-          <button
-            type="button"
-            data-testid="finish-recipe-btn"
-            disabled
-          >
-            {' '}
-            Finalizar Receita
-          </button>
-        </Link>
       </div>
     );
   }

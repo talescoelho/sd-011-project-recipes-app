@@ -10,3 +10,8 @@
 .not-checked-button {
   text-decoration: none;
 }
+
+.finish-recipe {
+  bottom: 0;
+  position: fixed;
+}

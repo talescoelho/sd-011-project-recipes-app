@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import '../Footer.css';
+import { saveDoneRecipe } from '../redux/actions/foodActions';
 
 class IngredientesFoodInProgress extends Component {
   constructor() {
@@ -63,44 +65,72 @@ class IngredientesFoodInProgress extends Component {
     }
   }
 
+  saveInDoneRecipes(){
+
+  }
+
   render() {
+    console.log('qualquer coisa');
     const { foodDetails } = this.props;
+    const { ingredientsArrayList } = this.state;
     let ingredients = [];
     let measurements = [];
     const array = Array.of(Object.entries(foodDetails));
     if (array[0].length > 0) {
       ingredients = array[0].filter((item) => item[0].includes('strIngredient'))
-        .filter((item) => item[1]).map((item) => item[1]);
+        .filter((item) => item[1]).map((item, index) => ({name: item[1], checked: ingredientsArrayList.some((item) => item === index)}));
       measurements = array[0].filter((item) => item[0].includes('strMeasure'))
         .filter((item) => item[1]).map((item) => item[1]);
     }
     return (
-      <ul>
-        { ingredients
-          .map((item, index) => (item
-            ? (
-              <label
-                htmlFor={ `${index}-check-ingredients` }
-                key={ index }
-                data-testid={ `${index}-ingredient-step` }
-              >
-                <input
-                  type="checkbox"
-                  onChange={ this.handleOnchange }
-                  value={ index }
-                  id={ `${index}-check-ingredients` }
-                />
-                {`${item} - ${measurements[index]}`}
-              </label>
-            )
-            : ''))}
-      </ul>
-    );
+      <>
+        <ul> {console.log(ingredients)}
+          { ingredients
+            .map((item, index) => {
+              return (item.name
+                ? (
+                  <label
+                    htmlFor={ `${index}-check-ingredients` }
+                    className={ingredientsArrayList.some((item) => item === index) ? 'checked-button' : '' }
+                    key={ index }
+                    data-testid={ `${index}-ingredient-step` }
+                  >
+                    <input
+                      type="checkbox"
+                      // checked={ ingredientsArrayList.some((item) => item === index) }
+                      checked={ item.checked }
+                      onChange={ this.handleOnchange }
+                      value={ index }
+                      id={ `${index}-check-ingredients` }
+                    />
+                    {`${item.name} - ${measurements[index]}`}
+                  </label>
+                )
+                : '')
+            })}
+        </ul>
+        <Link to="/receitas-feitas">
+        <button
+          className="finish-recipe"
+          type="button"
+          data-testid="finish-recipe-btn"
+          disabled={ ingredientsArrayList.length !== ingredients.length }
+          onClick={ this.saveInDoneRecipes }
+        >
+          {' '}
+          Finalizar Receita
+        </button>
+      </Link>
+    </>);
   }
 }
 
 const mapStateToProps = (state) => ({
   foodDetails: state.foodReducer.foodDetails,
+});
+
+const mapDispatchToProps = (dispatch) =>({
+  saveDoneRecipes: (id) => dispatch(saveDoneRecipe(id)),
 });
 
 IngredientesFoodInProgress.propTypes = {
@@ -114,4 +144,4 @@ IngredientesFoodInProgress.propTypes = {
   }).isRequired,
 };
 
-export default connect(mapStateToProps)(IngredientesFoodInProgress);
+export default connect(mapStateToProps, mapDispatchToProps)(IngredientesFoodInProgress);
