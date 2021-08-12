@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from '../components/Header';
-import MealDoneCard from '../components/MealDoneCard';
 import RecipeDoneCard from '../components/RecipeDoneCard';
 import { getFromStorage } from '../helpers/utils';
 
@@ -19,9 +18,7 @@ function RecipesDone() {
         <section>
           {
             recipesDone && recipesDone.map((recipe, index) => (
-              recipe.type === 'comida'
-                ? <MealDoneCard key={ index } recipe={ recipe } count={ index } />
-                : <RecipeDoneCard key={ index } recipe={ recipe } count={ index } />
+              <RecipeDoneCard key={ index } recipe={ recipe } count={ index } />
             ))
           }
         </section>
