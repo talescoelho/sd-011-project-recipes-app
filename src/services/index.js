@@ -20,7 +20,7 @@ export const fetchFoodsByIngredients = async (pathname, ingredient) => {
 
 export const fetchAllRecipesOrByCategory = async (pathname,
   category = 'All',
-  ingredient) => {
+  ingredient = null) => {
   if (!ingredient && pathname.includes('bebidas')) {
     if (category === 'All') {
       const recipes = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
@@ -41,7 +41,9 @@ export const fetchAllRecipesOrByCategory = async (pathname,
     const { meals } = await recipes.json();
     return meals;
   }
-  return fetchFoodsByIngredients(pathname, ingredient);
+  if (ingredient) {
+    return fetchFoodsByIngredients(pathname, ingredient);
+  }
 };
 
 export const fetchCategorysList = async (typeOfRecipes) => {
