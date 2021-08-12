@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import { updateRecipeInProgress } from '../functions';
@@ -6,8 +6,8 @@ import { updateRecipeInProgress } from '../functions';
 function IngredientList() {
   const { ingredientsListRecipe: ingredients } = useContext(RecipesContext);
   const [task, setTask] = useState({});
-  const location = useLocation();
-  const url = location.pathname;
+  const [checkedTask, setCheckedTask] = useState([]);
+  const { pathname: url } = useLocation();
   const { id } = useParams();
 
   const toggleCheck = ({ target: { name, checked } }) => {
@@ -20,6 +20,21 @@ function IngredientList() {
     });
     updateRecipeInProgress(url, filtered, id);
   };
+
+  const getRecipe = async () => {
+    const recipeInProgress = await JSON.parse(localStorage.getItem('inProgressRecipes'))
+    || {};
+    const listChecked = recipeInProgress.meals[id] || recipeInProgress.cocktails[id];
+    const reloadTasks = listChecked.reduce((acc, curr) => ({
+      ...acc,
+      [curr]: true,
+    }), {});
+    setTask(reloadTasks);
+  };
+
+  useEffect(() => {
+    getRecipe();
+  }, []);
 
   const renderListInProgress = () => (
     <>
