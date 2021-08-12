@@ -96,6 +96,10 @@
   opacity: 0.5;
 }
 
+.btn:active {
+  background: black;
+}
+
 .btn-icon {
   background: transparent;
   border: none;
@@ -170,10 +174,6 @@
 
 .fh-2 {
   font-size: 1rem;
-}
-
-.fh-3 {
-  font-size: 1.25rem;
 }
 
 .fh-4 {

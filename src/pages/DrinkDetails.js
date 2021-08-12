@@ -16,13 +16,11 @@ const DrinkDetails = ({ match }) => {
   const { data: mealsData, request: requestMeals } = useFetch();
   const { data, request } = useFetch();
   const [isFavorite, setIsFavorite] = React.useState(false);
+
   React.useEffect(() => {
-    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
-    if (favoriteRecipes) {
-      const favoriteRecipesArray = JSON.parse(favoriteRecipes);
-      if (favoriteRecipesArray.some((recipe) => recipe.id === id)) {
-        setIsFavorite(true);
-      }
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favoriteRecipes && favoriteRecipes.some((recipe) => recipe.id === id)) {
+      setIsFavorite(true);
     }
   }, [id]);
 
@@ -37,6 +35,7 @@ const DrinkDetails = ({ match }) => {
   if (!data || !mealsData || !data.drinks) {
     return null;
   }
+
   const { drinks } = data;
   const drink = drinks[0];
   const { strDrinkThumb, strDrink, strAlcoholic, strInstructions } = drink;
@@ -102,6 +101,7 @@ const DrinkDetails = ({ match }) => {
               <li
                 key={ value }
                 data-testid={ `${index}-ingredient-name-and-measure` }
+                className="fh-3"
               >
                 { value }
               </li>
@@ -111,6 +111,7 @@ const DrinkDetails = ({ match }) => {
             <li
               key={ value }
               data-testid={ `${index}-ingredient-name-and-measure` }
+              className="fh-3"
             >
               { `${value} -${drink[`strMeasure${name.split('strIngredient')[1]}`]}` }
             </li>
@@ -118,7 +119,10 @@ const DrinkDetails = ({ match }) => {
         })}
       </ul>
       <span className="fh-4 ml-1">Instructions:</span>
-      <p data-testid="instructions" className="bg-gray m-1 p-1 b-shadow b-radius">
+      <p
+        data-testid="instructions"
+        className="bg-gray m-1 p-1 b-shadow b-radius fh-3"
+      >
         { strInstructions }
       </p>
       <span className="fh-4 ml-1">Recommended:</span>
@@ -127,7 +131,7 @@ const DrinkDetails = ({ match }) => {
         buttonShoulBeVisible && (
           <Link to={ `/bebidas/${id}/in-progress` }>
             <button
-              className="start-btn"
+              className="start-btn btn"
               data-testid="start-recipe-btn"
               type="button"
             >

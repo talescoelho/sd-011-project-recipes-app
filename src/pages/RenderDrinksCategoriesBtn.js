@@ -52,7 +52,7 @@ function RenderDrinksCategoriesBtn({ filterByIngredients, clearDrinkData }) {
               onClick={ (e) => handleClick(e) }
               className="btn-30 btn m-25 b-shadow"
             >
-              { category.strCategory.split('/')[0] }
+              { category.strCategory.split('/')[0].split(' ')[0] }
             </button>
           );
         }

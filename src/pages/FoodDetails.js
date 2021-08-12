@@ -107,6 +107,7 @@ const FoodDetails = ({ match }) => {
           <li
             key={ value }
             data-testid={ `${index}-ingredient-name-and-measure` }
+            className="fh-3"
           >
             { `${value} -${ingredientsQuantity[index][1]}` }
           </li>
@@ -115,7 +116,7 @@ const FoodDetails = ({ match }) => {
       <span className="fh-4 ml-1">Instructions:</span>
       <p
         data-testid="instructions"
-        className="bg-gray m-1 p-1 b-shadow b-radius"
+        className="bg-gray m-1 p-1 b-shadow b-radius fh-3"
       >
         { strInstructions }
       </p>

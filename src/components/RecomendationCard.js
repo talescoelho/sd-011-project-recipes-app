@@ -10,11 +10,11 @@ const RecomendationCard = ({ arrayOfRecomendations }) => {
     return (
       <div className="div-scroll">
         { filteredMeals.map((meal, index) => {
-          const { strMealThumb, strCategory, strMeal } = meal;
+          const { strMealThumb, strCategory, strMeal, idMeal } = meal;
           return (
             <Link
               key={ index }
-              to={ `/comidas/${meal.idMeal}` }
+              to={ `/comidas/${idMeal}` }
               className="recomendation-card d-flex f-d-column m-1 a-i-center"
             >
               <div
@@ -41,11 +41,11 @@ const RecomendationCard = ({ arrayOfRecomendations }) => {
   return (
     <div className="div-scroll">
       { filteredDrinks.map((drink, index) => {
-        const { strDrinkThumb, strCategory: strAlcoholic, strDrink } = drink;
+        const { strDrinkThumb, strCategory: strAlcoholic, strDrink, idDrink } = drink;
         return (
           <Link
             key={ index }
-            to={ `/bebidas/${drink.idDrink}` }
+            to={ `/bebidas/${idDrink}` }
             className="recomendation-card d-flex f-d-column m-1 a-i-center"
           >
             <div

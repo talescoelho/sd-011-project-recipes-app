@@ -89,8 +89,6 @@ const DoneRecipes = () => {
             alcoholicOrNot,
             doneDate,
             tags } = recipe;
-          const dateSplit = doneDate.split('/');
-          const date = `${dateSplit[2]}/ ${dateSplit[1]}/ ${dateSplit[0]}`;
           return (
             <div
               key={ id }
@@ -144,7 +142,7 @@ const DoneRecipes = () => {
                   data-testid={ `${index}-horizontal-done-date` }
                   className="m-25"
                 >
-                  {`Feita em: ${date}`}
+                  {`Feita em: ${doneDate}`}
                 </p>
                 <div className="d-flex f-wrap">
                   {tags.length > 0 && tags.map((tag) => (

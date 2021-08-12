@@ -20,6 +20,16 @@ export default function Explore() {
             Explorar Bebidas
           </Link>
         </button>
+        <button className="btn fh-2" type="button">
+          <Link to="/receitas-favoritas" className="c-white">
+            Receitas Favoritas
+          </Link>
+        </button>
+        <button className="btn fh-2" type="button">
+          <Link to="/receitas-feitas" className="c-white">
+            Receitas Feitas
+          </Link>
+        </button>
       </div>
       <FooterMenu />
     </div>
