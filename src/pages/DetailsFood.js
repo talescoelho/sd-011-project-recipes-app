@@ -135,7 +135,7 @@ function DetailsFood(props) {
             Iniciar Receita
           </button>
           {/* { startRecipeButton() } */ }
-        </div >
+        </div>
       ))
   );
 }
