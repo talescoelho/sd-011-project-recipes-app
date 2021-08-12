@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import '../styles/components/header.css';
 
 function Header({ value }) {
   const history = useHistory();
@@ -57,10 +58,10 @@ function Header({ value }) {
             src={ profileIcon }
           />
         </button>
-        <h3 data-testid="page-title">{ pageName }</h3>
         { handleButton() }
       </div>
       { hiddenInput() }
+      <h3 data-testid="page-title">{ pageName }</h3>
     </header>
   );
 }
