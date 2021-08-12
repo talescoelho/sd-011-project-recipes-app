@@ -100,7 +100,7 @@ export default function DetalhesBebidas(props) {
     <div>
       <h1>Detalhes da Bebida</h1>
       <h2 data-testid="recipe-title">{drinkDetails.strDrink}</h2>
-      <img src={ drinkDetails.strDrinkThumb } data-testid="recipe-photo" alt="meal" />
+      <img src={ drinkDetails.strDrinkThumb } data-testid="recipe-photo" alt="drink" />
       <ShareBtn />
       { favorite
         ? <UnfavoriteBtn deleteFavorite={ deleteFavorite } />

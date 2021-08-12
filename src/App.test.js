@@ -6,6 +6,9 @@ import userEvent from '@testing-library/user-event';
 import App from './App';
 const fetchMock = require('../cypress/mocks/fetch');
 const oneMeal = require('../cypress/mocks/oneMeal');
+const oneDrink = require('../cypress/mocks/oneDrink');
+
+afterEach(() => jest.clearAllMocks());
 
 describe('Testando o footer', () => {
   it('Verifica se o footer está na página de comidas', () => {
@@ -92,6 +95,17 @@ describe('Teste para verificar a tela de Login', () => {
 
     const buttonLogin = getByRole('button', { name: /entrar/i });
     expect(buttonLogin).not.toBeDisabled();
+
+    fireEvent.click(buttonLogin);
+    const user = JSON.parse(localStorage.getItem('user'));
+    const mockUser = {
+      email: 'alguem@email.com',
+    }
+    expect(user).toEqual(mockUser);
+    const cocktailsToken = JSON.parse(localStorage.getItem('cocktailsToken'))
+    expect(cocktailsToken).toBe(1);
+    const mealsToken = JSON.parse(localStorage.getItem('cocktailsToken'))
+    expect(mealsToken).toBe(1);
   });
 });
 
@@ -127,6 +141,11 @@ describe('Testando o Header', () => {
     history.push('/comidas');
     const button = getByTestId('search-top-btn');
     expect(button).toBeInTheDocument();
+    fireEvent.click(button);
+    const searchInput = getByTestId('search-input');
+    expect(searchInput).toBeInTheDocument();
+    fireEvent.click(button);
+    expect(searchInput).not.toBeInTheDocument();
   });
 
   it('Verifica se o Header aparece na página de comidas', () => {
@@ -158,21 +177,31 @@ describe('Testando o Header', () => {
   })
 });
 
-// describe('Testando tela principal de receitas', () => {
-//   it('Verifica se aparecem 12 cards na página de comidas', () => {
-//     const { history, getByTestId } = renderWithRouter(<App />);
-//     history.push('/comidas');
-//     const cardRecipe = getByTestId('1-recipe-card');
-//     expect(cardRecipe).toBeInTheDocument();
-//   });
+describe('Testando tela principal de receitas', () => {
+  it('Verifica se aparecem 12 cards na página de comidas', async () => {
+    const { history, findByTestId } = renderWithRouter(<App />);
+    history.push('/comidas');
+    let numberOfCards = 0;
+    for (let index = 0; index < 12; index += 1) {
+      const card = await findByTestId(`${index}-recipe-card`);
+      expect(card).toBeInTheDocument();
+      numberOfCards += 1;
+    }
+    expect(numberOfCards).toBe(12);
+  });
 
-//   it('Verifica se aparecem 12 cards na página de bebidas', () => {
-//     const { history, getByTestId } = renderWithRouter(<App />);
-//     history.push('/bebidas');
-//     const cardRecipe = getByTestId('1-recipe-card');
-//     expect(cardRecipe).toBeInTheDocument();
-//   });
-// });
+  it('Verifica se aparecem 12 cards na página de comidas', async () => {
+    const { history, findByTestId } = renderWithRouter(<App />);
+    history.push('/bebidas');
+    let numberOfCards = 0;
+    for (let index = 0; index < 12; index += 1) {
+      const card = await findByTestId(`${index}-recipe-card`);
+      expect(card).toBeInTheDocument();
+      numberOfCards += 1;
+    }
+    expect(numberOfCards).toBe(12);
+  });
+});
 
 describe('Testando o CategoryBtn', () => {
   it('Verifica se o CategoryBtn está na página de comidas', () => {
@@ -220,29 +249,156 @@ describe('Testando o CategoryBtn', () => {
   })
 })
 
-describe.only('Testando a página de detalhes', () => {
-  // it('Verifica se a página renderiza os detalhes corretamente', () => {
-  //   const { history, getByText } = renderWithRouter(<App />);
-  //   history.push('/comidas/52977');
-  //   const title = getByText('Corba');
-  //   expect(title).toBeInTheDocument();
-  // })
-  afterEach(() => jest.clearAllMocks());
-  it('Verifica se a página renderiza os detalhes corretamente', async () => {
+describe('Testando a página de detalhes de comida', () => {
+  it('Verifica se a página de detalhes renderiza o título corretamente', async () => {
     const { history, findByText } = renderWithRouter(<App />);
     history.push('/comidas/52771');
-    // global.fetch = jest.fn(async () => ({
-    //   json: async () => oneMeal
-    // }));
-    // expect(global.fetch).toBeCalledTimes(1);
     const title = oneMeal.meals[0].strMeal;
     const titleElement = await findByText(title);
+    expect(titleElement).toBeInTheDocument();
+  });
+  it('Verifica se a página de detalhes renderiza a categoria corretamente', async () => {
+    const { history, findByText } = renderWithRouter(<App />);
+    history.push('/comidas/52771');
     const category = oneMeal.meals[0].strCategory;
     const categoryElement = await findByText(category);
-    const ingredient = oneMeal.meals[0].strIngredient1;
-    const ingredientElement = await findByText(ingredient);
-    expect(titleElement).toBeInTheDocument();
     expect(categoryElement).toBeInTheDocument();
+  });
+  it('Verifica se a página de detalhes renderiza um ingrediente corretamente', async () => {
+    const { history, findByText } = renderWithRouter(<App />);
+    history.push('/comidas/52771');
+    const ingredient = `${oneMeal.meals[0].strIngredient1} - ${oneMeal.meals[0].strMeasure1}`;
+    const ingredientElement = await findByText(ingredient);
     expect(ingredientElement).toBeInTheDocument();
+  });
+  it('Verifica se a página de detalhes renderiza a imagem corretamente', async () => {
+    const { history, findByAltText } = renderWithRouter(<App />);
+    history.push('/comidas/52771');
+    const image = oneMeal.meals[0].strMealThumb;
+    const imageElement = await findByAltText('meal');
+    expect(imageElement.src).toBe(image);
+  });
+  it('Verifica se a página de detalhes renderiza o botão de compartilhar', async () => {
+    const { history, findByTestId } = renderWithRouter(<App />);
+    history.push('/comidas/52771');
+    const shareBtn = await findByTestId('share-btn');
+    expect(shareBtn).toBeInTheDocument();
+  });
+  it('Verifica se a página de detalhes renderiza o botão de favoritar e ele funciona', async () => {
+    const { history, findByTestId } = renderWithRouter(<App />);
+    history.push('/comidas/52771');
+    const favoriteBtn = await findByTestId('favorite-btn');
+    expect(favoriteBtn).toBeInTheDocument();
+    expect(favoriteBtn.src).toBe('http://localhost/whiteHeartIcon.svg');
+    fireEvent.click(favoriteBtn);
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const expectedFavoriteRecipes = [
+      {
+        id: '52771',
+        type: 'comida',
+        area: 'Italian',
+        category: 'Vegetarian',
+        alcoholicOrNot: '',
+        name: 'Spicy Arrabiata Penne',
+        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+      },
+    ];
+    expect(favoriteRecipes).toEqual(expectedFavoriteRecipes);
+    // fireEvent.click(favoriteBtn);
+    // const favoriteRecipesAfter = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    // expect(favoriteRecipesAfter).toEqual([]);
+  });
+})
+
+describe('Testando a página de detalhes de bebida', () => {
+  it('Verifica se a página de detalhes renderiza o título corretamente', async () => {
+    const { history, findByText } = renderWithRouter(<App />);
+    history.push('/bebidas/178319');
+    const title = oneDrink.drinks[0].strDrink;
+    const titleElement = await findByText(title);
+    expect(titleElement).toBeInTheDocument();
+  });
+  it('Verifica se a página de detalhes renderiza se é alcoólico ou não corretamente', async () => {
+    const { history, findByText } = renderWithRouter(<App />);
+    history.push('/bebidas/178319');
+    const alcoholic = oneDrink.drinks[0].strAlcoholic;
+    const alcoholicElement = await findByText(alcoholic);
+    expect(alcoholicElement).toBeInTheDocument();
+  });
+  it('Verifica se a página de detalhes renderiza um ingrediente corretamente', async () => {
+    const { history, findByText } = renderWithRouter(<App />);
+    history.push('/bebidas/178319');
+    const ingredient = `${oneDrink.drinks[0].strIngredient1} - ${oneDrink.drinks[0].strMeasure1}`;
+    const ingredientElement = await findByText(ingredient);
+    expect(ingredientElement).toBeInTheDocument();
+  });
+  it('Verifica se a página de detalhes renderiza a imagem corretamente', async () => {
+    const { history, findByAltText } = renderWithRouter(<App />);
+    history.push('/bebidas/178319');
+    const image = oneDrink.drinks[0].strDrinkThumb;
+    const imageElement = await findByAltText('drink');
+    expect(imageElement.src).toBe(image);
+  });
+  it('Verifica se a página de detalhes renderiza o botão de compartilhar', async () => {
+    const { history, findByTestId } = renderWithRouter(<App />);
+    history.push('/bebidas/178319');
+    const shareBtn = await findByTestId('share-btn');
+    expect(shareBtn).toBeInTheDocument();
+  });
+  it('Verifica se a página de detalhes renderiza o botão de favoritar e ele funciona', async () => {
+    const clearStorage = [];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(clearStorage));
+    const { history, findByTestId } = renderWithRouter(<App />);
+    history.push('/bebidas/178319');
+    const favoriteBtn = await findByTestId('favorite-btn');
+    expect(favoriteBtn).toBeInTheDocument();
+    expect(favoriteBtn.src).toBe('http://localhost/whiteHeartIcon.svg');
+    fireEvent.click(favoriteBtn);
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const expectedFavoriteRecipes = [
+      {
+        id: '178319',
+        type: 'bebida',
+        area: '',
+        category: 'Cocktail',
+        alcoholicOrNot:  'Alcoholic',
+        name: 'Aquamarine',
+        image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+      },
+    ];
+    expect(favoriteRecipes).toEqual(expectedFavoriteRecipes);
+    // fireEvent.click(favoriteBtn);
+    // const favoriteRecipesAfter = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    // expect(favoriteRecipesAfter).toEqual([]);
+  });
+})
+
+describe('Testando a página de receitas favoritas', () => {
+  it('Renderiza os elementos da página corretamente', () => {
+    const { history, getByText } = renderWithRouter(<App />);
+    history.push('/receitas-favoritas');
+    const title = getByText('Receitas Favoritas');
+    expect(title).toBeInTheDocument();
+    const allBtn = getByText('All')
+    expect(allBtn).toBeInTheDocument();
+    const foodBtn = getByText('Food')
+    expect(foodBtn).toBeInTheDocument();
+    const drinkBtn = getByText('Drink')
+    expect(drinkBtn).toBeInTheDocument();
+  });
+})
+
+describe('Testando a página de receitas feitas', () => {
+  it('Renderiza os elementos da página corretamente', () => {
+    const { history, getByText } = renderWithRouter(<App />);
+    history.push('/receitas-feitas');
+    const title = getByText('Receitas Feitas');
+    expect(title).toBeInTheDocument();
+    const allBtn = getByText('All')
+    expect(allBtn).toBeInTheDocument();
+    const foodBtn = getByText('Food')
+    expect(foodBtn).toBeInTheDocument();
+    const drinkBtn = getByText('Drink')
+    expect(drinkBtn).toBeInTheDocument();
   });
 })
