@@ -38,7 +38,6 @@ const DoneRecipes = () => {
 
   return (
     <>
-      <p>teste</p>
       <Header title="Receitas Feitas" />
       <section className="doneFilters">
         <button

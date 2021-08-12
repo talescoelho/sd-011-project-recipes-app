@@ -1,17 +1,15 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-
 import Login from '../pages/Login';
 import Foods from '../pages/Foods';
 import Drinks from '../pages/Drinks';
-import FoodDetails from '../pages/FoodDetails';
-import DrinkDetails from '../pages/DrinkDetails';
+import RecipeDetails from '../pages/RecipeDetails';
 import FoodRecipeInProgress from '../pages/FoodRecipeInProgress';
 import DrinkRecipeInProgress from '../pages/DrinkRecipeInProgress';
 import Explore from '../pages/Explore';
 import RecipeExplore from '../pages/RecipeExplore';
 import RecipeExploreIngredients from '../pages/RecipeExploreIngredients';
-import FoodExploreArea from '../pages/FoodExploreArea';
+import RecipeExploreArea from '../pages/RecipeExploreArea';
 import Profile from '../pages/Profile';
 import DoneRecipes from '../pages/DoneRecipes';
 import FavoritesRecipes from '../pages/FavoritesRecipes';
@@ -36,13 +34,8 @@ const Routes = () => (
     />
     <Route
       exact
-      path="/comidas/:id"
-      component={ FoodDetails }
-    />
-    <Route
-      exact
-      path="/bebidas/:id"
-      component={ DrinkDetails }
+      path={ ['/comidas/:id', '/bebidas/:id'] }
+      component={ RecipeDetails }
     />
     <Route
       exact
@@ -72,7 +65,7 @@ const Routes = () => (
     <Route
       exact
       path="/explorar/comidas/area"
-      component={ FoodExploreArea }
+      component={ RecipeExploreArea }
     />
     <Route
       exact

@@ -17,7 +17,7 @@ function FavoriteButton({ recipeData, type, index }) {
   } = recipeData;
   const { LSValues: { favoriteRecipes } } = useContext(LSContext);
   const { LSFunctions: { setFavoriteRecipes } } = useContext(LSContext);
-  const id = recipeData.idMeal || recipeData.idDrink;
+  const id = recipeData.idMeal || recipeData.idDrink || recipeData.id;
   const negativeNumber = -1;
 
   function setFavorites() {

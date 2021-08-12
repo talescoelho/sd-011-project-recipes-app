@@ -5,7 +5,6 @@ import ShareButton from './ShareButton';
 import FavoriteButton from './FavoriteButton';
 
 function FavoriteRecipesCard({ recipe, index }) {
-  console.log(index);
   const {
     image,
     area,
@@ -16,18 +15,33 @@ function FavoriteRecipesCard({ recipe, index }) {
     type,
   } = recipe;
 
-  const recipeData = {
-    image,
-    area,
-    category,
-    id,
-    name,
-    alcoholicOrNot,
-    type,
-  };
+  function RecipeData() {
+    let recipeData = { };
+    if (type === 'comida') {
+      recipeData = {
+        id,
+        strMeal: name,
+        strMealThumb: image,
+        strCategory: category,
+        strArea: area || '',
+      };
+    } else {
+      recipeData = {
+        id,
+        strDrink: name,
+        strDrinkThumb: image,
+        trAlcoholic: alcoholicOrNot,
+        strCategory: category,
+        strArea: area || '',
+      };
+    } return recipeData;
+  }
+
+  console.log(RecipeData());
+
   const path = type === 'comida' ? `/comidas/${id}` : `/bebidas/${id}`;
   const categoryOrArea = area ? `${area} - ${category}` : alcoholicOrNot;
-  const sliceNumber = -16;
+  const sliceNumber = -19;
   const SliceLink = (window.location.href).slice(0, sliceNumber);
   const pathLink = SliceLink.concat(path);
   return (
@@ -62,7 +76,7 @@ function FavoriteRecipesCard({ recipe, index }) {
           <ShareButton link={ pathLink } index={ index } />
         </div>
         <div>
-          <FavoriteButton recipeData={ recipeData } type={ type } index={ index } />
+          <FavoriteButton recipeData={ RecipeData() } type={ type } index={ index } />
         </div>
       </div>
 
