@@ -14,11 +14,11 @@ const INITIAL_STATE = {
 };
 
 describe('Testes para ShareBtn', () => {
-  beforeEach(() => {
-    window.getSelection = () => ({
-      removeAllRanges: () => {},
-    });
-  });
+  // beforeEach(() => {
+  //   window.getSelection = () => ({
+  //     removeAllRanges: () => {},
+  //   });
+  // });
   it('Verifica searchBar', () => {
     jest.spyOn(global, 'fetch');
     fetch.mockResolvedValueOnce({

@@ -69,7 +69,7 @@ describe('Testes para página de HomeComidas', () => {
     const fetchCategories = fetch.mockResolvedValueOnce({
       json: jest.fn().mockResolvedValue(mockCategories),
     });
-    const { findByText, findByTestId, store } = renderWithRouterAndRedux(
+    const { findByText } = renderWithRouterAndRedux(
       <HomeRecipe location={ { state: '' } } />,
       { route: '/comidas' }, INITIAL_STATE,
     );
@@ -109,6 +109,20 @@ describe('Testes para página de HomeComidas', () => {
     const All = await findByText(/All/i);
     expect(All).toBeInTheDocument();
     userEvent.click(All);
+  });
+  it('Verifica se chama o endpoint correto', async () => {
+    jest.spyOn(global, 'fetch');
+    const fetchIngredientMeals = fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockMeals),
+    });
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockCategories),
+    });
+    renderWithRouterAndRedux(
+      <HomeRecipe location={ { state: 'chicken' } } location2={ { state: 'chicken' } } />,
+      { route: '/comidas' }, INITIAL_STATE,
+    );
+    expect(fetchIngredientMeals).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?c=chicken');
   });
   it('Verifica Loading', () => {
     const { getAllByText } = renderWithRouterAndRedux(

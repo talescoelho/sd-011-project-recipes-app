@@ -51,16 +51,38 @@ describe('Testes para página de HomeComidas', () => {
     userEvent.click(searchBtn);
     const searchIn = screen.getByTestId('search-input');
     const nameRadio = screen.getByTestId('name-search-radio');
+    const ingredientRadio = screen.getByTestId('ingredient-search-radio');
+    const letterRadio = screen.getByTestId('first-letter-search-radio');
     const findRecipeBtn = screen.getByTestId('exec-search-btn');
     expect(searchIn).toBeInTheDocument();
     expect(nameRadio).toBeInTheDocument();
     expect(findRecipeBtn).toBeInTheDocument();
     userEvent.type(searchIn, 'asdasdsada');
+    userEvent.click(ingredientRadio);
+    userEvent.click(letterRadio);
     userEvent.click(nameRadio);
     userEvent.click(findRecipeBtn);
     expect(store.getState()).not.toEqual(myStore);
     const categorie = await findByTestId('All-category-filter');
     userEvent.click(categorie);
+  });
+  it('Verifica os endpoints', async () => {
+    jest.spyOn(global, 'fetch');
+    const fetchDrinks = fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockDrinks),
+    });
+    const fetchCategories = fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockCategories),
+    });
+    const { findByText } = renderWithRouterAndRedux(
+      <HomeDrinks location={ { state: '' } } />,
+      { route: '/bebidas' }, INITIAL_STATE,
+    );
+    const recipeName = await findByText(/ABC/i);
+    expect(recipeName).toBeInTheDocument();
+    expect(fetchDrinks).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    expect(fetchCategories).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    expect(fetchDrinks).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=asdasdsada');
   });
   it('Verifica se há os itens procurados', async () => {
     jest.spyOn(global, 'fetch');
