@@ -32,7 +32,7 @@ function LocalStorageButtons({ doneRecipes }) {
     } else {
       setLocal(fave);
     }
-  }, []);
+  }, [fave]);
 
   return (
     <>

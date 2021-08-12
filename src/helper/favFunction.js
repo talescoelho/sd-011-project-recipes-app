@@ -1,17 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ShareButton from '../components/ShareButton';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export default function renderFaveRecipes(item, index) {
-  const localFav = localStorage.getItem('favoriteRecipes');
-  const favRec = JSON.parse(localFav);
-  console.log(favRec);
-  const hasId = localFav && Object.keys(favRec)
-    .map((el) => favRec[el].id).some((x) => x === item.id);
+  function handleFavorite(e) {
+    const newLocalFav = localStorage.getItem('favoriteRecipes');
+    const newFavRec = JSON.parse(newLocalFav);
+    const newArray = newFavRec.filter((el) => el.id !== e.currentTarget.value);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newArray));
+  }
 
-  // console.log(hasId);
   return (
     <div key={ index }>
       <Link
@@ -51,22 +50,17 @@ export default function renderFaveRecipes(item, index) {
       />
       <button
         type="button"
-        // onClick={ () => handleFavorite() }
-        src={ hasId ? blackHeartIcon : whiteHeartIcon } // repetido --> teste
+        value={ item.id }
+        onClick={ (e) => handleFavorite(e) }
+        src={ blackHeartIcon } // repetido --> teste
         data-testid={ `${index}-horizontal-favorite-btn` }
       >
         <img
           data-testid="favorite-btn"
-          src={ hasId ? blackHeartIcon : whiteHeartIcon }
+          src={ blackHeartIcon }
           alt="Imagem do ícone de favorito"
         />
       </button>
-      {/* <FavoriteButton
-        index={ index }
-        foodOrDrink={ item.type === 'comida' ? 'comidas' : 'bebidas' }
-        id={ item.id }
-        type={ item.type }
-      /> */}
       {item.tags && item.tags
         .map((_, i) => (
           <p key={ i } data-testid={ `${index}-${item.tags[i]}-horizontal-tag` }>
