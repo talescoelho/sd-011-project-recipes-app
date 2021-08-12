@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { Layout } from '../components';
@@ -8,6 +8,8 @@ function FoodExplore() {
   const { colors } = useTheme();
   const { recipes } = useRecipes();
   const dispatch = useDispatch();
+  const surpriseMe = useRef(false);
+
   const styles = {
     main: {
       backgroundColor: colors.background,
@@ -17,6 +19,7 @@ function FoodExplore() {
 
   function surpreenda() {
     dispatch(fetchRecipes({ searchTerm: '', category: 'receita_aleatoria' }));
+    surpriseMe.current = true;
   }
 
   return (
@@ -43,7 +46,9 @@ function FoodExplore() {
         >
           Me Surpreenda!
         </button>
-        { recipes.length ? <Redirect to={ `/comidas/${recipes[0].idMeal}` } /> : null}
+        { surpriseMe.current
+        && recipes.length > 0
+        && <Redirect to={ `/comidas/${recipes[0].idMeal}` } /> }
       </main>
     </Layout>
   );

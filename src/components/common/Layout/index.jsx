@@ -1,23 +1,25 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchCocktails, fetchRecipes } from '../../../hooks';
+import { fetchCocktails, fetchRecipes, useIngredients } from '../../../hooks';
 import Footer from './Footer';
 import Header from './Header';
 
 function Layout({ children, title, search, noHeader, noFooter }) {
   const dispatch = useDispatch();
+  const { ingredients } = useIngredients();
   useEffect(() => {
     const word = 'nome';
     const searchTerm = '';
     const defaultTitle = 'App de Receitas';
     document.title = title ? `${title} | ${defaultTitle}` : defaultTitle;
-    if (title === 'Comidas') {
+    if (title === 'Comidas' && !ingredients.length) {
       dispatch(fetchRecipes({ category: word, searchTerm }));
-    } else {
+    }
+    if (title === 'Bebidas' && !ingredients.length) {
       dispatch(fetchCocktails({ category: word, searchTerm }));
     }
-  }, [dispatch, title]);
+  }, [dispatch, title, ingredients.length]);
 
   return (
     <>

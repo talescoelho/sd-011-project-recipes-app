@@ -11,9 +11,13 @@ import {
   FoodExplore,
   DrinksExplore,
   ExploreOrigin,
-  ExploreIngredients,
   DrinkProgress,
   FoodProgress,
+  ExploreFoodsIngredients,
+  ExploreCocktailsIngredients,
+  NotFound,
+  FoodDetails,
+  DrinkDetails,
 } from './pages';
 
 const Routes = () => (
@@ -71,21 +75,23 @@ const Routes = () => (
       />
       <Route
         exact
-        path="/comidas/:id-da-receitas"
+        path="/comidas/:id"
+        component={ FoodDetails }
       />
       <Route
         exact
-        path="/bebidas/:id-da-receitas"
+        path="/bebidas/:id"
+        component={ DrinkDetails }
       />
       <Route
         exact
         path="/explorar/comidas/ingredientes"
-        component={ ExploreIngredients }
+        component={ ExploreFoodsIngredients }
       />
       <Route
         exact
         path="/explorar/bebidas/ingredientes"
-        component={ ExploreIngredients }
+        component={ ExploreCocktailsIngredients }
       />
       <Route
         exact
@@ -97,6 +103,7 @@ const Routes = () => (
         path="/bebidas/:id-da-receitas/in-progress"
         component= { DrinkProgress }
       />
+      <Route component={ NotFound } />
     </Switch>
   </BrowserRouter>
 );
