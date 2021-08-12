@@ -327,7 +327,7 @@ describe('51 - Desenvolva a lógica de favoritar e compartilhar, a lógica da te
   });
 
   it('desfavorita bebida', () => {
-    cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
+    cy.visit('http://localhosthttp://localhost:3000/bebidas/178319:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         const favoriteRecipes = [{
           "id": "178319",

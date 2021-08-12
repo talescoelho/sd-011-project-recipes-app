@@ -144,6 +144,12 @@ export async function requestMealById(id) {
   return resolve;
 }
 
+export async function requestArea() {
+  const request = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+  const resolve = await request.json();
+  return resolve;
+}
+
 export async function requestDrink(name = '') {
   const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const grup = url + name;
