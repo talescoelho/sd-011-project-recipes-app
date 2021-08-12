@@ -40,7 +40,6 @@ export default function Meals({ history }) {
             key={ meal.idMeal }
             onClick={ () => clickDetails(meal.idMeal) }
           >
-            {console.log(meal)}
             <div data-testid={ `${index}-recipe-card` }>
               <img
                 src={ meal.strMealThumb }
