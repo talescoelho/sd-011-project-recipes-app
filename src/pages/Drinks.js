@@ -47,6 +47,7 @@ function Drinks() {
             type="button"
             data-testid={ `${item.strCategory}-category-filter` }
             onClick={ filterByCategory }
+            className="drink-btn-category"
           >
             {item.strCategory}
           </button>)
@@ -74,14 +75,17 @@ function Drinks() {
   return (
     <div>
       <Header title="Bebidas" isButtonVisible />
-      <button
-        data-testid="All-category-filter"
-        type="button"
-        onClick={ filterByCategory }
-      >
-        All
-      </button>
-      {loading ? null : categoryButtons()}
+      <div className="drink-div-category">
+        <button
+          data-testid="All-category-filter"
+          type="button"
+          onClick={ filterByCategory }
+          className="drink-btn-category"
+        >
+          All
+        </button>
+        {loading ? null : categoryButtons()}
+      </div>
       <RecipesCardsContainer test="recipe" />
       <FooterMenu />
     </div>
