@@ -16,8 +16,8 @@ export default function ShareButton({ index, foodOrDrinkBtn, id }) {
     setCopySuccess('Link copiado!');
     setTimeout(() => setCopySuccess(''), timeout);
   }
-  console.log('id', id);
-  console.log('url', url);
+  // console.log('id', id);
+  // console.log('url', url);
 
   return (
     <button type="button" data-testid="share-btn" onClick={ () => copyLink() }>

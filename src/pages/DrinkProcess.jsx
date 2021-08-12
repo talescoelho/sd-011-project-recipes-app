@@ -47,15 +47,6 @@ function DrinkProcess() {
           />
           <HeaderDetails foodOrDrink="Bebidas" id={ id } />
           <IngredientDetails inProcess drink />
-          <Link to="/receitas-feitas">
-            <button
-              data-testid="finish-recipe-btn"
-              type="button"
-              disabled
-            >
-              Finalizar
-            </button>
-          </Link>
         </div>
       )}
     </div>

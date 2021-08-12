@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ShareButton from '../components/ShareButton';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-export default function renderFaveRecipes(item, index) {
+export default function RenderFaveRecipes(item, index) {
   function handleFavorite(e) {
     const newLocalFav = localStorage.getItem('favoriteRecipes');
     const newFavRec = JSON.parse(newLocalFav);

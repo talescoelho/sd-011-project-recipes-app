@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ShareButton from '../components/ShareButton';
 
-export default function renderDoneRecipes(item, index) {
+export default function RenderDoneRecipes(item, index) {
   return (
     <div key={ index }>
       <Link

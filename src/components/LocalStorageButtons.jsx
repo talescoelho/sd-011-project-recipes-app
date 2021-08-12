@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 // import ShareButton from './ShareButton';
 import '../styles/carousel.css';
 // import FavoriteButton from './FavoriteButton';
-import renderFaveRecipes from '../helper/favFunction';
-import renderDoneRecipes from '../helper/doneFunction';
+import renderFaveRecipes from '../helper/FavFunction';
+import renderDoneRecipes from '../helper/DoneFunction';
 
 function LocalStorageButtons({ doneRecipes }) {
   const [local, setLocal] = useState([]);
