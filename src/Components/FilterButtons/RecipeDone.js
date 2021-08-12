@@ -17,6 +17,7 @@ export default function RecipeDone() {
             />
             <p data-testid={ `${index}-horizontal-top-text` }>
               { `${recipe.area} - ${recipe.category}` }
+              { recipe.alcoholicOrNot }
             </p>
             <h3 data-testid={ `${index}-horizontal-name` }>
               { recipe.name }
@@ -26,10 +27,10 @@ export default function RecipeDone() {
             </p>
             <button
               type="button"
+              src="src/images/shareIcon.svg"
+              alt="share"
               data-testid={ `${index}-horizontal-share-btn` }
-            >
-              Share
-            </button>
+            />
             { recipe.tags !== null ? recipe.tags.map((item, i) => (
               <p
                 key={ i }
