@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Login from './pages/Login';
 import Principal from './pages/Principal';
 import RecipesProvider from './context/RecipesProvider';
+import Detalhes from './pages/Detalhes';
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
             <Route exact path="/" component={ Login } />
             <Route exact path="/comidas" component={ Principal } />
             <Route exact path="/bebidas" component={ Principal } />
+            <Route exact path="/comidas/:id" component={ Detalhes } />
+            <Route exact path="/bebidas/:id" component={ Detalhes } />
           </RecipesProvider>
         </Switch>
       </BrowserRouter>
