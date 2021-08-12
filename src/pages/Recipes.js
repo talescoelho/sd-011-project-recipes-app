@@ -7,7 +7,7 @@ import shareIcon from '../images/shareIcon.svg';
 function Recipes() {
   const headerProps = {
     title: 'Receitas Feitas',
-    enableSearchButton: true,
+    enableSearchButton: false,
     enableProfileButton: true,
   };
 

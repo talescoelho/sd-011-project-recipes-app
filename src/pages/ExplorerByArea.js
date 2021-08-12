@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 export default function ExplorerByArea() {
   const headerProps = {
-    title: 'Explorar por Origem',
-    enableSearchButton: false,
+    title: 'Explorar Origem',
+    enableSearchButton: true,
     enableProfileButton: true,
   };
   const [areas, setAreas] = useState('');
@@ -66,6 +67,7 @@ export default function ExplorerByArea() {
           </option>)) }
       </select>
       { areaCatalog && renderMealsCards() }
+      <Footer />
     </div>
   );
 }
