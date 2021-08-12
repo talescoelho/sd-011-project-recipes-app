@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getFoodsByID } from '../Services/ApiFood';
-import MainContext from '../Context/MainContext';
 
 function FoodProgress(props) {
   const [foodById, setFoodById] = useState([]);
@@ -11,7 +10,6 @@ function FoodProgress(props) {
   const [inProgressRecipe, setInProgressRecipe] = useState({});
   const { match } = props;
   const { id } = match.params;
-  const { foodRecipeDones, setFoodRecipeDones } = useContext(MainContext);
 
   async function fetchFoodsByID() {
     const foodByIdAPI = await getFoodsByID(id);
@@ -65,9 +63,18 @@ function FoodProgress(props) {
       return `${diaF}/${mesF}/${anoF}`;
     }
     const now = dataAtualFormatada();
-    setFoodById(foodById[0].dateModified = now);
-    setFoodRecipeDones(...foodRecipeDones, foodById);
-    localStorage.setItem('doneRecipesFood', JSON.stringify(foodById));
+    const doneRecipes = foodById.map((food) => ({
+      id: food.idMeal,
+      type: 'comida',
+      area: food.strArea,
+      category: food.strCategory,
+      alcoholicOrNot: '',
+      name: food.strMeal,
+      image: food.strMealThumb,
+      doneDate: now,
+      tags: [food.strTags],
+    }));
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   }
 
   const getStorage = (storageItem) => JSON

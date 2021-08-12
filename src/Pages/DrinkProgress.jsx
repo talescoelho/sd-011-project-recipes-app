@@ -63,8 +63,19 @@ function DrinkProgress(props) {
       return `${diaF}/${mesF}/${anoF}`;
     }
     const now = dataAtualFormatada();
-    setDrinkById(drinkById[0].dateModified = now);
-    localStorage.setItem('doneRecipesDrink', JSON.stringify(drinkById));
+    setDrinkById(drinkById[0].doneDate = now);
+    const doneRecipes = drinkById.map((drink) => ({
+      id: drink.idDrink,
+      type: 'comida',
+      area: drink.strArea,
+      category: drink.strCategory,
+      alcoholicOrNot: drink.strAlcoholic,
+      name: drink.strDrink,
+      image: drink.strDrinkThumb,
+      doneDate: now,
+      tags: [drink.strTags],
+    }));
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   }
 
   const getStorage = (storageItem) => JSON
