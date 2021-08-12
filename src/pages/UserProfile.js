@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
-import Header from '../components/Header';
+import HeaderFood from '../components/HeaderFood';
 
 function userProfile() {
   async function getStorage() {
@@ -12,7 +12,7 @@ function userProfile() {
 
   return (
     <div>
-      <Header title="Perfil" search={ false } />
+      <HeaderFood title="Perfil" search={ false } />
       <h4 data-testid="profile-email">{ () => getStorage() }</h4>
       <Link to="/receitas-feitas">
         <button

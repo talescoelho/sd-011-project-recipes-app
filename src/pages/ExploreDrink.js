@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
-import Header from '../components/Header';
+import HeaderDrink from '../components/HeaderDrink';
 import { searchRandomDrink } from '../services/RequestDrinks';
 
 function ExploreDrink() {
@@ -12,7 +12,7 @@ function ExploreDrink() {
   }
   return (
     <div>
-      <Header title="Explorar Bebidas" search={ false } />
+      <HeaderDrink title="Explorar Bebidas" search={ false } />
       <Link to="/explorar/bebidas/ingredientes">
         <button
           data-testid="explore-by-ingredient"

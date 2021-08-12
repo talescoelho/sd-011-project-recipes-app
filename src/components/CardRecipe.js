@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function CardRecipe({ item, index }) {
   function renderFoodCard(object) {
@@ -70,7 +71,6 @@ function CardRecipe({ item, index }) {
     item.strMeal ? renderFoodCard(item) : renderDrinkCard(item)
   );
 }
-
 CardRecipe.propTypes = {
   item: PropTypes.objectOf(PropTypes.string).isRequired,
   index: PropTypes.number.isRequired,
