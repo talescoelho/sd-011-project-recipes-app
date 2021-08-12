@@ -11,9 +11,19 @@ import {
 function Cards(props) {
   const [mealsAPI, setMealsAPI] = useState([]);
   const [cocktailsAPI, SetCocktailsAPI] = useState([]);
-  const { ApiCallMeals, ApiCallCockTails, categorie } = props;
+  const { ApiCallMeals,
+    ApiCallCockTails,
+    categorie,
+    foodFromSearch,
+    DrinkFromSearch } = props;
 
   const getData = () => {
+    if (foodFromSearch) {
+      return setMealsAPI(foodFromSearch);
+    }
+    if (DrinkFromSearch) {
+      return SetCocktailsAPI(DrinkFromSearch);
+    }
     if (ApiCallMeals && categorie === null) {
       fetchMealsAPI(setMealsAPI);
     }
@@ -29,12 +39,11 @@ function Cards(props) {
     }
   };
 
-  useEffect(getData, [categorie]);
+  useEffect(getData, [categorie, foodFromSearch, DrinkFromSearch]);
 
   const renderMeailList = () => {
     if (ApiCallMeals) {
       const maxListRender = 12;
-      console.log(mealsAPI[0]);
       return (
         mealsAPI.filter((__, index) => index < maxListRender)
           .map((meal, indexMap) => (
@@ -101,5 +110,7 @@ Cards.propTypes = {
   ApiCallMeals: PropTypes.bool.isRequired,
   ApiCallCockTails: PropTypes.bool.isRequired,
   categorie: PropTypes.string.isRequired,
+  foodFromSearch: PropTypes.arrayOf(PropTypes.object).isRequired,
+  DrinkFromSearch: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 export default Cards;
