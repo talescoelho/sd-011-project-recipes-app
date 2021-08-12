@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getDrinkByID } from '../Services/ApiDrink';
-import MainContext from '../Context/MainContext';
 
 function DrinkProgress(props) {
   const [drinkById, setDrinkById] = useState([]);
@@ -10,7 +9,6 @@ function DrinkProgress(props) {
   const [button, setButton] = useState(false);
   const { match } = props;
   const { id } = match.params;
-  const { drinkRecipeDones, setDrinkRecipeDones } = useContext(MainContext);
 
   async function fetchDrinkByID() {
     const drinkByIdAPI = await getDrinkByID(id);
@@ -114,8 +112,19 @@ function DrinkProgress(props) {
       return `${diaF}/${mesF}/${anoF}`;
     }
     const now = dataAtualFormatada();
-    setDrinkById(drinkById[0].dateModified = now);
-    localStorage.setItem('doneRecipes', JSON.stringify(drinkById));
+    setDrinkById(drinkById[0].doneDate = now);
+    const doneRecipes = drinkById.map((drink) => ({
+      id: drink.idDrink,
+      type: 'comida',
+      area: drink.strArea,
+      category: drink.strCategory,
+      alcoholicOrNot: drink.strAlcoholic,
+      name: drink.strDrink,
+      image: drink.strDrinkThumb,
+      doneDate: now,
+      tags: [drink.strTags],
+    }));
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   }
 
   return (
