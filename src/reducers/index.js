@@ -6,6 +6,7 @@ import recipeDetailReducer from './recipeDetailReducer';
 import recipeRandomReducer from './recipeRandomReducer';
 import recommendedsReducer from './recommendedsReducer';
 import selectedRecipeReducer from './selectedRecipeReducer';
+import ingredientsReducer from './ingredientsReducer';
 
 const rootReducer = combineReducers({
   recipesReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   recipeRandomReducer,
   recommendedsReducer,
   selectedRecipeReducer,
+  ingredientsReducer,
 });
 
 export default rootReducer;
