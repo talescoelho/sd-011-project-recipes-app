@@ -28,6 +28,7 @@ function FavoriteButtonDrinks({ drinks, favorite, setFavorite, id }) {
       localStorage.setItem('favoriteRecipes', JSON.stringify(newStorage));
     }
   };
+
   return (
     <button
       type="button"
