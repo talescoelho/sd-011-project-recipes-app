@@ -14,7 +14,7 @@ function UserProvider({ children }) {
   useEffect(() => { // renderiza as comidas na tela principal
     const callAPImeals = async () => {
       const callAPI = await APImeals();
-      const result = callAPI.meals;
+      const result = callAPI;
       setMeals(result);
     };
     callAPImeals();
@@ -23,7 +23,7 @@ function UserProvider({ children }) {
   useEffect(() => { // renderiza as bebidas na tela principal
     const callAPIdrinks = async () => {
       const callAPI = await APIdrinks();
-      const result = callAPI.drinks;
+      const result = callAPI;
       setDrinks(result);
     };
     callAPIdrinks();
