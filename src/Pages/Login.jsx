@@ -25,11 +25,11 @@ function Login() {
   return (
     <div className="container-fluid">
       <img
-        className="container img-fluid"
+        className="img-fluid"
         src={ chefImage }
         alt="Imagem de um chefe de cozinha com garfo e faca nas mãos"
       />
-      <h1 className="d-flex justify-content-center">Cook Time</h1>
+      <h1 className="d-flex justify-content-center h1">Cook Time</h1>
       <form className="d-flex flex-wrap justify-content-center">
         <div className="form-group">
           <label htmlFor="email">
