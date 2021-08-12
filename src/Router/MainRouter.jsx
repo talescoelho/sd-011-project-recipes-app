@@ -35,7 +35,7 @@ const MainRouter = () => (
     <Route exact path="/explorar" render={ () => <MainExplorer /> } />
     <Route exact path="/explorar/comidas" render={ () => <ExplorerFoods /> } />
     <Route exact path="/explorar/bebidas" render={ () => <ExplorerDrinks /> } />
-    
+
     <Route
       exact
       path="/explorar/comidas/ingredientes"
