@@ -3,18 +3,31 @@ import PropTypes from 'prop-types';
 import ReactPlayer from 'react-player';
 
 import { searchById } from '../services/RequestFood';
+import { searchDrinksAll } from '../services/RequestDrinks';
+
+import { RequestHook } from '../Context/RequestHook';
+import CardRecipe from '../components/CardRecipe';
+import Clipboard from '../components/Clipboard';
 
 function DetailsFood(props) {
   const { match: { params: { id } } } = props;
+  const { initialItensDrink, setInitialItensDrink } = RequestHook();
   const [initialItemApi, setInitialItemApi] = useState([]);
+  const limitItensRecomend = 6;
 
   async function getDetailsById() {
     const itemsFood = await searchById(id);
     setInitialItemApi(itemsFood);
   }
 
+  async function getAllCategories() {
+    const items = await searchDrinksAll();
+    setInitialItensDrink(items);
+  }
+
   useEffect(() => {
     getDetailsById();
+    getAllCategories();
   }, []);
 
   function renderIngrediente(food) {
@@ -39,11 +52,21 @@ function DetailsFood(props) {
     return array;
   }
 
+  // const startRecipeButton = () => (
+  //   <button
+  //     data-testid="start-recipe-btn"
+  //     className="start-recipe-btn"
+  //     type="button"
+  //   >
+  //     Iniciar Receita
+  //   </button>
+  // );
+
   return (
     (!initialItemApi)
       ? (<p>Loading...</p>)
       : initialItemApi.map((meal, index) => (
-        <div key={ index }>
+        <div key={ index } className="details-page">
           <img
             data-testid="recipe-photo"
             src={ meal.strMealThumb }
@@ -67,15 +90,51 @@ function DetailsFood(props) {
             width="150"
             height="150"
           />
-          <button type="button" data-testid="start-recipe-btn">Start recipe</button>
-          <button type="button" data-testid="share-btn">Share</button>
-          <button type="button" data-testid="favorite-btn">Favorite</button>
           <button
+            className="buttons"
             type="button"
-            data-testid={ `${index}-recomendation-card` }
+            data-testid="start-recipe-btn"
           >
-            Card receitas Recomendadas
+            Start recipe
           </button>
+
+          <Clipboard />
+
+          <button
+            className="buttons"
+            type="button"
+            data-testid="favorite-btn"
+          >
+            Favorite
+          </button>
+          <div className="recomendation-card">
+            {
+              initialItensDrink && initialItensDrink
+                .slice(0, limitItensRecomend)
+                .map((foodRecomend, indexRec) => (
+                  <button
+                    key={ indexRec }
+                    type="button"
+                    data-testid={ `${indexRec}-recomendation-card` }
+                    className="recomendation-button"
+                  >
+                    <CardRecipe
+                      key={ indexRec }
+                      item={ foodRecomend }
+                      index={ indexRec }
+                    />
+                  </button>
+                ))
+            }
+          </div>
+          <button
+            data-testid="start-recipe-btn"
+            className="start-recipe-btn"
+            type="button"
+          >
+            Iniciar Receita
+          </button>
+          {/* { startRecipeButton() } */ }
         </div>
       ))
   );

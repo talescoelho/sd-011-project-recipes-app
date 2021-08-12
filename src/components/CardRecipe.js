@@ -7,8 +7,17 @@ function CardRecipe({ item, index }) {
     if (object.idMeal) {
       return (
         <Link to={ `/comidas/${object.idMeal}` }>
-          <div data-testid={ `${index}-recipe-card` }>
-            <p data-testid={ `${index}-card-name` }>{ object.strMeal }</p>
+          <div data-testid={ `${index}-recipe-card` } className="recipe-card">
+            <p
+              type="button"
+              data-testid={ `${index}-card-name` }
+              className="recipe-card-title"
+            >
+              { object.strMeal }
+            </p>
+            <p data-testid={ `${index}-recomendation-title` }>
+              { object.strMeal }
+            </p>
             <img
               data-testid={ `${index}-card-img` }
               src={ object.strMealThumb }
@@ -39,8 +48,17 @@ function CardRecipe({ item, index }) {
     if (object.idDrink) {
       return (
         <Link to={ `/bebidas/${object.idDrink}` }>
-          <div data-testid={ `${index}-recipe-card` }>
-            <p data-testid={ `${index}-card-name` }>{object.strDrink }</p>
+          <div data-testid={ `${index}-recipe-card` } className="recipe-card">
+            <p
+              type="button"
+              data-testid={ `${index}-card-name` }
+              className="recipe-card-title"
+            >
+              { object.strDrink }
+            </p>
+            <p data-testid={ `${index}-recomendation-title` }>
+              { object.strDrink }
+            </p>
             <img
               data-testid={ `${index}-card-img` }
               src={ object.strDrinkThumb }
