@@ -3,6 +3,7 @@ import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import { Layout } from '../components';
 import { useTheme } from '../hooks';
+import { getDoneRecipes } from '../utils/storage';
 import shareIcon from '../images/shareIcon.svg';
 
 function RecipesMade() {
@@ -19,7 +20,7 @@ function RecipesMade() {
 
   useEffect(() => {
     try {
-      const getItemFromStored = localStorage.getItem('doneRecipes');
+      const getItemFromStored = getDoneRecipes();
       storedRecipes.current = getItemFromStored ? JSON.parse(getItemFromStored) : [];
     } catch (error) {
       storedRecipes.current = [];
