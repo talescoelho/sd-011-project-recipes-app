@@ -5,7 +5,7 @@ import FooterMenu from '../components/FooterMenu';
 import UserContext from '../context/UserContext';
 import '../css/mainPage.css';
 import CategoriesMeals from '../components/CategoriesMeals';
-import SearchBarMeals from '../components/SearchBarMeals';
+// import SearchBarMeals from '../components/SearchBarMeals';
 
 export default function Meals(props) {
   const { history } = props;
@@ -31,7 +31,7 @@ export default function Meals(props) {
   return (
     <>
       <Header title={ comidas } />
-      <SearchBarMeals />
+      {/* <SearchBarMeals /> */}
       <CategoriesMeals />
       <section className="meals">
         {meals.map((meal, index) => (

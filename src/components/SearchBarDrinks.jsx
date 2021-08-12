@@ -20,7 +20,7 @@ export default function SearchBarDrinks() {
   };
 
   const hangleSearch = () => {
-    if (radio === 'Igrediente') {
+    if (radio === 'Ingrediente') {
       const callAPI = async () => {
         const API = await APIdrinksSearchIgredient(type, drinks);
         setDrinks(API);
@@ -61,10 +61,10 @@ export default function SearchBarDrinks() {
               type="radio"
               data-testid="ingredient-search-radio"
               name="filtro"
-              id="Igrediente"
+              id="Ingrediente"
               onChange={ (e) => handleChangeRadios(e.target.id) }
             />
-            Igrediente
+            Ingrediente
           </label>
           <label htmlFor="input-nome">
             <input

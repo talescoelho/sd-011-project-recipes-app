@@ -26,7 +26,7 @@ export const APIdrinks = async () => {
   const APIjson = await APIfetch.json();
   const keyDrinks = APIjson.drinks;
   const num12 = 12;
-  const max12 = keyDrinks.splice(0, num12);
+  const max12 = keyDrinks.slice(0, num12);
   return max12;
 };
 
@@ -35,7 +35,7 @@ export const APImeals = async () => {
   const APIjson = await APIfetch.json();
   const keyMeals = APIjson.meals;
   const num12 = 12;
-  const max12 = keyMeals.splice(0, num12);
+  const max12 = keyMeals.slice(0, num12);
   return max12;
 };
 
@@ -44,7 +44,7 @@ export const APImealsByCat = async () => { // busca o nome das categorias
   const APIjson = await APIfetch.json();
   const keyMeals = APIjson.meals;
   const num5 = 5;
-  const max5 = keyMeals.splice(0, num5);
+  const max5 = keyMeals.slice(0, num5);
   return max5;
 };
 
@@ -53,7 +53,7 @@ export const APIdrinksByCat = async () => { // busca o nome das categorias
   const APIjson = await APIfetch.json();
   const keyDrinks = APIjson.drinks;
   const num5 = 5;
-  const max5 = keyDrinks.splice(0, num5);
+  const max5 = keyDrinks.slice(0, num5);
   return max5;
 };
 
@@ -63,7 +63,7 @@ export const APImealsClickCat = async (category) => {
   const APIjson = await APIfetch.json();
   const keyMeals = APIjson.meals;
   const num12 = 12;
-  const max12 = keyMeals.splice(0, num12);
+  const max12 = keyMeals.slice(0, num12);
   // console.log(max12);
   return max12;
 };
@@ -73,7 +73,7 @@ export const APIdrinksClickCat = async (category) => {
   const APIjson = await APIfetch.json();
   const keyDrinks = APIjson.drinks;
   const num12 = 12;
-  const max12 = keyDrinks.splice(0, num12);
+  const max12 = keyDrinks.slice(0, num12);
   return max12;
 };
 
@@ -83,7 +83,7 @@ export const APImealsSearchIgredient = async (igredient, meals) => {
     const APIjson = await APIfetch.json();
     const keyMeals = APIjson.meals;
     const num12 = 12;
-    const max12 = keyMeals.splice(0, num12);
+    const max12 = keyMeals.slice(0, num12);
     return max12;
   } catch (error) {
     // eslint-disable-next-line no-alert
@@ -98,7 +98,7 @@ export const APImealsSearchName = async (name, meals) => {
     const APIjson = await APIfetch.json();
     const keyMeals = APIjson.meals;
     const num12 = 12;
-    const max12 = keyMeals.splice(0, num12);
+    const max12 = keyMeals.slice(0, num12);
     return max12;
   } catch (error) {
     // eslint-disable-next-line no-alert
@@ -113,7 +113,7 @@ export const APImealsSearch1stLetter = async (fstLetter, meals) => {
     const APIjson = await APIfetch.json();
     const keyMeals = APIjson.meals;
     const num12 = 12;
-    const max12 = keyMeals.splice(0, num12);
+    const max12 = keyMeals.slice(0, num12);
     return max12;
   } catch (error) {
     // eslint-disable-next-line no-alert
@@ -128,7 +128,7 @@ export const APIdrinksSearchIgredient = async (igredient, drinks) => {
     const APIjson = await APIfetch.json();
     const keyDrinks = APIjson.drinks;
     const num12 = 12;
-    const max12 = keyDrinks.splice(0, num12);
+    const max12 = keyDrinks.slice(0, num12);
     return max12;
   } catch (error) {
     // eslint-disable-next-line no-alert
@@ -143,7 +143,7 @@ export const APIdrinksSearchName = async (name, drinks) => {
     const APIjson = await APIfetch.json();
     const keyDrinks = APIjson.drinks;
     const num12 = 12;
-    const max12 = keyDrinks.splice(0, num12);
+    const max12 = keyDrinks.slice(0, num12);
     return max12;
   } catch (error) {
     // eslint-disable-next-line no-alert
@@ -158,7 +158,7 @@ export const APIdrinksSearch1stLetter = async (fstLetter, drinks) => {
     const APIjson = await APIfetch.json();
     const keyDrinks = APIjson.drinks;
     const num12 = 12;
-    const max12 = keyDrinks.splice(0, num12);
+    const max12 = keyDrinks.slice(0, num12);
     return max12;
   } catch (error) {
     // eslint-disable-next-line no-alert
