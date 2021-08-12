@@ -7,6 +7,7 @@ export default class ExploreDrinkOrigin extends Component {
     return (
       <div>
         <Header title="Explorar Origem" />
+        <p className="explore-container">Not Found</p>
         <FooterMenu />
       </div>
     );
