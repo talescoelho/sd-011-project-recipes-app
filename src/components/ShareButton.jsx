@@ -5,10 +5,10 @@ import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
-export default function ShareButton({ index, foodOrDrink, id }) {
+export default function ShareButton({ index, foodOrDrinkBtn, id }) {
   const { copySuccess, setCopySuccess } = useContext(AppContext);
 
-  const url = foodOrDrink === 'comidas' ? `http://localhost:3000/${foodOrDrink}/${id}` : `http://localhost:3000/${foodOrDrink}/${id}`;
+  const url = foodOrDrinkBtn === 'comidas' ? `http://localhost:3000/comidas/${id}` : `http://localhost:3000/bebidas/${id}`;
 
   function copyLink() {
     const timeout = 3000;
@@ -33,7 +33,7 @@ export default function ShareButton({ index, foodOrDrink, id }) {
 
 ShareButton.propTypes = {
   index: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  foodOrDrink: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  foodOrDrinkBtn: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 

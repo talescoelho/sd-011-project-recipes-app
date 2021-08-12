@@ -7,8 +7,22 @@ function IngredientDetails({ inProcess, food, drink }) {
   const { idDetails, toggle, getAndSetLocalStorage } = useContext(AppContext);
   console.log(idDetails[0]);
 
+  const foodOrDrinkProcess = food ? {
+    meals: {
+      [idDetails[0].idMeal]: [],
+    },
+    cocktails: {
+    },
+  } : {
+    meals: {
+    },
+    cocktails: {
+      [idDetails[0].idDrink]: [],
+    },
+  };
+
   useEffect(() => {
-    getAndSetLocalStorage(inProcess, food);
+    getAndSetLocalStorage(inProcess, food, foodOrDrinkProcess);
   }, []);
 
   const ingredients = Object.keys(idDetails[0])

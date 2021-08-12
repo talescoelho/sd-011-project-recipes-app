@@ -23,7 +23,8 @@ function DrinkProcess() {
     () => {
       const ingredients = idDetails.length >= 1 && Object.keys(idDetails[0])
         .filter((el) => el.includes('strIngredient'));
-      const measure = idDetails.length >= 1 && Object.keys(idDetails[0]).filter((el) => el.includes('strMeasure'));
+      const measure = idDetails.length >= 1
+        && Object.keys(idDetails[0]).filter((el) => el.includes('strMeasure'));
       const ingredientList = ingredients && ingredients
         .filter((el) => idDetails[0][el])
         .map((ing, index) => `${idDetails[0][ing]} - ${idDetails[0][measure[index]]}`);
@@ -44,7 +45,7 @@ function DrinkProcess() {
             src={ idDetails[0].strDrinkThumb }
             alt="image_of_recipe"
           />
-          <HeaderDetails foodOrDrink="Bebidas" />
+          <HeaderDetails foodOrDrink="Bebidas" id={ id } />
           <IngredientDetails inProcess drink />
           <Link to="/receitas-feitas">
             <button
