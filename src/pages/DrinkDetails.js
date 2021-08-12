@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -10,12 +10,14 @@ import handleClickClipboard from '../helpers/handleClickClipBoard';
 import RecomendationCard from '../components/RecomendationCard';
 import handleContinueButton from '../helpers/handleContinueButton';
 import '../styles/details.css';
+import backIcon from '../images/bx-arrow-back.svg';
 
 const DrinkDetails = ({ match }) => {
   const { id } = match.params;
   const { data: mealsData, request: requestMeals } = useFetch();
   const { data, request } = useFetch();
   const [isFavorite, setIsFavorite] = React.useState(false);
+  const history = useHistory();
 
   React.useEffect(() => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -49,6 +51,11 @@ const DrinkDetails = ({ match }) => {
     const doneRecipesArray = JSON.parse(doneRecipes);
     buttonShoulBeVisible = !doneRecipesArray.some((recipe) => recipe.id.includes(id));
   }
+
+  const handleClickBackIcon = () => {
+    history.goBack();
+  };
+
   return (
     <div className="body-b d-flex f-d-column">
       <img
@@ -57,6 +64,13 @@ const DrinkDetails = ({ match }) => {
         alt={ `${strDrink}` }
         data-testid="recipe-photo"
       />
+      <button
+        onClick={ handleClickBackIcon }
+        className="btn-icon float-icon"
+        type="button"
+      >
+        <img src={ backIcon } alt="back" className="back-icon" />
+      </button>
       <div className="popup">
         <p className="popuptext" id="myPopup">Link copiado!</p>
       </div>
@@ -131,7 +145,7 @@ const DrinkDetails = ({ match }) => {
         buttonShoulBeVisible && (
           <Link to={ `/bebidas/${id}/in-progress` }>
             <button
-              className="start-btn btn"
+              className="start-btn"
               data-testid="start-recipe-btn"
               type="button"
             >

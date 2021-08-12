@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -11,12 +11,14 @@ import RecomendationCard from '../components/RecomendationCard';
 import handleContinueButton from '../helpers/handleContinueButton';
 import '../styles/favorite.css';
 import '../styles/foodDetails.css';
+import backIcon from '../images/bx-arrow-back.svg';
 
 const FoodDetails = ({ match }) => {
   const { id } = match.params;
   const { data, request } = useFetch();
   const { data: drinksData, request: requestDrinks } = useFetch();
   const [isFavorite, setIsFavorite] = React.useState(false);
+  const history = useHistory();
 
   React.useEffect(() => {
     const favoriteRecipes = localStorage.getItem('favoriteRecipes');
@@ -59,6 +61,10 @@ const FoodDetails = ({ match }) => {
     buttonShoulBeVisible = !doneRecipesArray.some((recipe) => recipe.id.includes(id));
   }
 
+  const handleClickBackIcon = () => {
+    history.goBack();
+  };
+
   return (
     <div className="body-b d-flex f-d-column">
       <img
@@ -67,6 +73,13 @@ const FoodDetails = ({ match }) => {
         alt={ `${strMeal}` }
         data-testid="recipe-photo"
       />
+      <button
+        onClick={ handleClickBackIcon }
+        className="btn-icon float-icon"
+        type="button"
+      >
+        <img src={ backIcon } alt="back" className="back-icon" />
+      </button>
       <div className="popup">
         <p className="popuptext" id="myPopup">Link copiado!</p>
       </div>

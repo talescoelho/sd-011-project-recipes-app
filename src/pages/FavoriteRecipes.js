@@ -8,7 +8,6 @@ import '../styles/favorite.css';
 const FavoriteRecipes = () => {
   document.title = 'Receitas Favoritas';
   const [recipes, setRecipes] = React.useState([]);
-  const [indexOfMessageClipboard, setIndexOfMessageClipboard] = React.useState(null);
   const [filteredRecipes, setFilteredRecipes] = React.useState([]);
   const [filter, setFilter] = React.useState('all');
 
@@ -22,20 +21,17 @@ const FavoriteRecipes = () => {
   React.useEffect(() => {
     if (filter === 'all') {
       setFilteredRecipes(recipes);
-      setIndexOfMessageClipboard(null);
     } else if (filter === 'comida') {
       setFilteredRecipes(recipes.filter((recipe) => recipe.type === 'comida'));
-      setIndexOfMessageClipboard(null);
     } else if (filter === 'bebida') {
       setFilteredRecipes(recipes.filter((recipe) => recipe.type === 'bebida'));
-      setIndexOfMessageClipboard(null);
     }
   }, [filter, recipes]);
 
   const url = window.location.href;
   const shareUrl = url.split('/receitas-favoritas')[0];
 
-  function handleShareBtnClick(type, id, index) {
+  function handleShareBtnClick(type, id) {
     if (type === 'comida') {
       navigator.clipboard.writeText(`${shareUrl}/comidas/${id}`);
     } else if (type === 'bebida') {
@@ -46,11 +42,8 @@ const FavoriteRecipes = () => {
     popup.classList.remove('hide');
     popup.classList.toggle('show');
 
-    setIndexOfMessageClipboard(index);
-    console.log(indexOfMessageClipboard);
     const ms = 2000;
     setTimeout(() => {
-      setIndexOfMessageClipboard(null);
       popup.classList.toggle('hide');
       popup.classList.remove('show');
     }, ms);
@@ -60,7 +53,6 @@ const FavoriteRecipes = () => {
     const filteredRecipesById = recipes.filter((recipe) => recipe.id !== id);
     setRecipes(filteredRecipesById);
     localStorage.setItem('favoriteRecipes', JSON.stringify(filteredRecipesById));
-    setIndexOfMessageClipboard(null);
   }
 
   return (
@@ -139,7 +131,7 @@ const FavoriteRecipes = () => {
                 <button
                   src={ shareIcon }
                   type="button"
-                  onClick={ () => handleShareBtnClick(type, id, index) }
+                  onClick={ () => handleShareBtnClick(type, id) }
                   data-testid={ `${index}-horizontal-share-btn` }
                   className="btn-icon"
                 >

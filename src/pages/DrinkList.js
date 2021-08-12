@@ -12,10 +12,12 @@ const DrinkList = ({ receiveData, isFetching }) => {
 
   const renderFilteredReceiveDataDrinks = () => {
     const maxRender = 12;
-    if (receiveData.drinks === null) {
+
+    if (!receiveData) {
       // eslint-disable-next-line no-alert
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
+
     if (receiveData.drinks && !isFetching && receiveData.drinks !== null) {
       const filteredData = receiveData.drinks.filter((item, index) => index < maxRender);
       return (

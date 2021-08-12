@@ -11,7 +11,7 @@ const FoodList = () => {
   document.title = 'Comidas';
   const { receiveData } = useSelector((state) => state.searchBarReducer);
 
-  if (receiveData.meals === null) {
+  if (!receiveData) {
     // eslint-disable-next-line no-alert
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
