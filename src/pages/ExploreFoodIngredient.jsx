@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import UserContext from '../context/UserContext';
-import Header from '../components/Header';
 import FooterMenu from '../components/FooterMenu';
 import { requestIngredients } from '../services/requestIngredients';
+import profileIcon from '../images/profileIcon.svg';
 
 export default function ExploreFoodIngredient({ history }) {
   const [ingredients, setFetchIngredients] = useState([]);
@@ -19,6 +19,7 @@ export default function ExploreFoodIngredient({ history }) {
   const doze = 12;
   const exploreIngredient = 'Explorar Ingredientes';
   setMeals('');
+
   function getRecipeByIngredient(meal) {
     const num12 = 12;
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${meal.strIngredient}`)
@@ -30,7 +31,15 @@ export default function ExploreFoodIngredient({ history }) {
   if (!ingredients) return <div>is loading...</div>;
   return (
     <>
-      <Header title={ exploreIngredient } />
+      <header>
+        <input
+          type="image"
+          data-testid="profile-top-btn"
+          src={ profileIcon }
+          alt="icone de perfil"
+        />
+        <h1 data-testid="page-title">Explorar Ingredientes</h1>
+      </header>
       <section className="meals">
         {ingredients.map((meal, index) => (index < doze ? (
           <button

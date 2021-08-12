@@ -10,6 +10,7 @@ function UserProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [mealsBtnCat, setMealsBtnCat] = useState('');
   const [drinksBtnCat, setDrinksBtnCat] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
 
   useEffect(() => { // renderiza as comidas na tela principal
     const callAPImeals = async () => {
@@ -54,6 +55,8 @@ function UserProvider({ children }) {
     setDrinks,
     setMealsBtnCat,
     setDrinksBtnCat,
+    showSearch,
+    setShowSearch,
   };
 
   return (

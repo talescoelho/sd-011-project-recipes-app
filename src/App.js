@@ -13,9 +13,10 @@ import Drinks from './pages/Drinks';
 import ExploreDrinkIngredient from './pages/ExploreDrinkIngredient';
 import ExploreFoodIngredient from './pages/ExploreFoodIngredient';
 import NotFound from './pages/NotFound';
+import RecipesMade from './pages/RecipesMade';
+import RecipesFavorites from './pages/RecipesFavorites';
 import DrinkInProgress from './pages/DrinkInProgress';
 import MealsInProgress from './pages/MealsInProgress';
-// import MealRecipeCard from './components/MealRecipeCard';
 
 function App() {
   return (
@@ -28,9 +29,9 @@ function App() {
         <Route exact path="/explorar/bebidas" component={ ExploreDrink } />
         <Route exact path="/comidas/:id" component={ MealDetails } />
         <Route exact path="/perfil" component={ Profile } />
-        <Route exact path="/bebidas/:id" component={ DrinkDetails } />
-        <Route exact path="/comidas" component={ Meals } />
-        <Route exact path="/bebidas" component={ Drinks } />
+        <Route path="/bebidas/:id" component={ DrinkDetails } />
+        <Route path="/comidas" component={ Meals } />
+        <Route path="/bebidas" component={ Drinks } />
         <Route
           exact
           path="/explorar/comidas/ingredientes"
@@ -42,14 +43,15 @@ function App() {
           component={ ExploreDrinkIngredient }
         />
 
+        {/*
+        Tela de receita em processo de comida: /comidas/{id-da-receita}/in-progress;
+        Tela de receita em processo de bebida: /bebidas/{id-da-receita}/in-progress; */}
+        <Route exact path="/receitas-feitas" component={ RecipesMade } />
+        <Route exact path="/receitas-favoritas" component={ RecipesFavorites } />
         <Route path="/comidas/id:/in-progress" component={ MealsInProgress } />
         <Route path="/bebidas/id:/in-progress" component={ DrinkInProgress } />
         <Route path="*" component={ NotFound } />
 
-        {/* <Route path="/bebidas:id" component={} />
-
-        <Route path="/receitas-feitas" component={} />
-        <Route path="/receitas-favoritas" component={} /> */}
       </Switch>
     </BrowserRouter>
   );

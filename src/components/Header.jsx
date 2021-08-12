@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
@@ -6,16 +6,10 @@ import searchIcon from '../images/searchIcon.svg';
 import '../css/header.css';
 import SearchBarMeals from './SearchBarMeals';
 import SearchBarDrinks from './SearchBarDrinks';
+import UserContext from '../context/UserContext';
 
 export default function Header({ title }) {
-  const toggleSearch = () => {
-    const displayRarios = document.querySelector('.alltoggle-search');
-    if (displayRarios.style.display === 'block') {
-      displayRarios.style.display = 'none';
-    } else {
-      displayRarios.style.display = 'block';
-    }
-  };
+  const { showSearch, setShowSearch } = useContext(UserContext);
 
   return (
     <div className="header">
@@ -34,7 +28,7 @@ export default function Header({ title }) {
           data-testid="search-top-btn"
           src={ searchIcon }
           alt="icone de lupa"
-          onClick={ toggleSearch }
+          onClick={ () => setShowSearch(!showSearch) }
         />
       </div>
       { title === 'Comidas' ? <SearchBarMeals /> : <SearchBarDrinks /> }
