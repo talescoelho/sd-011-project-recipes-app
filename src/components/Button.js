@@ -1,11 +1,11 @@
 import React from 'react';
 
-function NotFound() {
+function Button() {
   return (
     <div>
-      Not Found!
+      oi
     </div>
   );
 }
 
-export default NotFound;
+export default Button;
