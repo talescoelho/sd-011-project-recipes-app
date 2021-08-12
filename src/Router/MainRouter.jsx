@@ -1,5 +1,5 @@
 import { Switch, Route } from 'react-router-dom';
-import React from 'react';
+import React/* , { useContext } */ from 'react';
 import MainExplorer from '../Pages/Explorer/MainExplorer';
 import ExplorerDrinks from '../Pages/Explorer/Drinks/ExplorerDrinks';
 import RecipesDrinks from '../Pages/Explorer/Drinks/RecipesDrinks';
@@ -12,17 +12,30 @@ import User from '../Pages/User';
 import Home from '../Pages/Home';
 import RecipesDone from '../Pages/RecipesDone';
 import FavoriteRecipes from '../Pages/FavoriteRecipes';
+import DetailsRecipesDrinks from '../Pages/DetailsRecipes/DetailsRecipesDrinks';
+import DetailsRecipesFoods from '../Pages/DetailsRecipes/DetailsRecipesFoods';
 import DrinkProgress from '../Pages/DrinkProgress';
 import FoodProgress from '../Pages/FoodProgress';
 
 const MainRouter = () => (
   <Switch>
-    <Route exact path="/" component={ Home } />
-    <Route exact path="/comidas" component={ Foods } />
-    <Route exact path="/bebidas" component={ Drinks } />
-    <Route exact path="/explorar" component={ MainExplorer } />
-    <Route exact path="/explorar/comidas" component={ ExplorerFoods } />
-    <Route exact path="/explorar/bebidas" component={ ExplorerDrinks } />
+    <Route exact path="/" render={ () => <Home /> } />
+    <Route
+      exact
+      path="/comidas/:id"
+      render={ (props) => <DetailsRecipesFoods { ...props } /> }
+    />
+    <Route
+      exact
+      path="/bebidas/:id"
+      render={ (props) => <DetailsRecipesDrinks { ...props } /> }
+    />
+    <Route exact path="/comidas" render={ () => <Foods /> } />
+    <Route exact path="/bebidas" render={ () => <Drinks /> } />
+    <Route exact path="/explorar" render={ () => <MainExplorer /> } />
+    <Route exact path="/explorar/comidas" render={ () => <ExplorerFoods /> } />
+    <Route exact path="/explorar/bebidas" render={ () => <ExplorerDrinks /> } />
+
     <Route
       exact
       path="/explorar/comidas/ingredientes"
@@ -49,5 +62,4 @@ const MainRouter = () => (
     />
   </Switch>
 );
-
 export default MainRouter;

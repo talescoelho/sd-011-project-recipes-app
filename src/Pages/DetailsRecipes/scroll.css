@@ -1,0 +1,40 @@
+.scrollmenu {
+  border: 2px solid var(--gs0);
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 50% 50% 50% 50% 50% 50%;
+  height: 10vh;
+  overflow: scroll;
+  white-space: nowrap;
+}
+
+
+.scrollmenu li {
+  align-items: center;
+  background: rgb(143, 204, 145);
+  display: flex;
+  font-size: rem;
+  height: 10vh;
+  justify-content: center;
+  scroll-snap-align: start;
+}
+
+.scrollmenu li:nth-child( 2 ) {
+  background: rgb(227, 243, 243);
+}
+
+.scrollmenu li:nth-child( 4 ) {
+  background: rgb(227, 243, 243);
+}
+
+.scrollmenu li:nth-child( 6 ) {
+  background: rgb(227, 243, 243);
+}
+
+.fixed-btn {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+}

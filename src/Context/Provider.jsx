@@ -19,9 +19,32 @@ const Provider = ({ children }) => {
   const [page, setPage] = useState('');
   const [dataDrinks, setDataDrinks] = useState([]);
   const [dataFoods, setDataFoods] = useState([]);
+  // *================Captura o id da comida=====================
+  const [idFoods, setIdFoods] = useState('');
+  const [idFoodsAPI, setIdFoodsAPI] = useState([]);
+  // *================Captura o id da bebida=====================
+  const [idDrinks, setIdDrinks] = useState('');
+  const [idDrinksAPI, setIdDrinksAPI] = useState([]);
+  // #==========================Comidas==================================
+  const [DetailsIngredientsFiltered, setDetailsIngredientsFiltered] = useState([]);
+  const [DetailsMeasuresFiltered, setDetailsMeasuresFiltered] = useState([]);
+  // #==========================Bebidas==================================
+  const [DetailsIngredFilterForDrinks, setDetailsIngredFilterForDrinks] = useState([]);
+  const [DetailsMeasFilterForDrinks, setDetailsMeasFilterForDrinks] = useState([]);
+  const [DetailsInstrucFilterForDrinks, setDetailsInstrucFilterForDrinks] = useState([]);
+  // * ============================================================
+  const [startButton, setStartButton] = useState(false);
+  const [newDataFoods, setNewDataFoods] = useState([]);
+  const [newDataDrinks, setNewDataDrinks] = useState([]);
+  const [dataRandomDrinks, setDataRandomDrinks] = useState([]);
   const [foodsByCategory, setFoodsByCategory] = useState([]);
   const [drinksByCategory, setDrinksByCategory] = useState([]);
   const [limit] = useState([number]);
+  // # =============================================================================
+  const [count, setCount] = useState(false);
+  const [selected, setSelected] = useState(0);
+  const [doneRecipes, setDoneRecipes] = useState('');
+  const [show, setShow] = useState(false);
 
   async function fetchFood() {
     if (radioBtn === 'ingredient') {
@@ -89,6 +112,40 @@ const Provider = ({ children }) => {
     fetchDrink,
     dataDrinks,
     limit,
+    idFoods,
+    setIdFoods,
+    idDrinks,
+    setIdDrinks,
+    idFoodsAPI,
+    setIdFoodsAPI,
+    DetailsIngredientsFiltered,
+    setDetailsIngredientsFiltered,
+    DetailsMeasuresFiltered,
+    setDetailsMeasuresFiltered,
+    idDrinksAPI,
+    setIdDrinksAPI,
+    DetailsIngredFilterForDrinks,
+    setDetailsIngredFilterForDrinks,
+    DetailsMeasFilterForDrinks,
+    setDetailsMeasFilterForDrinks,
+    DetailsInstrucFilterForDrinks,
+    setDetailsInstrucFilterForDrinks,
+    startButton,
+    setStartButton,
+    dataRandomDrinks,
+    setDataRandomDrinks,
+    newDataFoods,
+    setNewDataFoods,
+    newDataDrinks,
+    setNewDataDrinks,
+    count,
+    setCount,
+    selected,
+    setSelected,
+    doneRecipes,
+    setDoneRecipes,
+    show,
+    setShow,
     foodsByCategory,
     setFoodsByCategory,
     drinksByCategory,
