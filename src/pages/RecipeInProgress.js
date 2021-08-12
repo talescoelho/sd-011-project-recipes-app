@@ -117,7 +117,7 @@ function RecipeInProgress({
       <p data-testid="instructions">
         { details.strInstructions }
       </p>
-      <FinishRecipeButton id={ id } recipe={ recipe } type={ type } />
+      <FinishRecipeButton id={ id } recipe={ recipe } type={ type.replace('s', '') } />
     </main>
   );
 }
