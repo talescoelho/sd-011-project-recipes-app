@@ -19,7 +19,6 @@ class ExplorarBebidas extends Component {
 
   async fetchAPI() {
     const getAPI = await api.fetchAPIRandomCocktail();
-    // console.log(getAPI);
     const { idDrink } = getAPI[0];
     this.setState({
       cocktail: idDrink,
