@@ -12,6 +12,7 @@ import DrinkInProgress from './Pages/DrinkInProgress';
 import Explore from './Pages/Explore';
 import ExploreMeals from './Pages/ExploreMeals';
 import ExploreDrinks from './Pages/ExploreDrinks';
+import ExploreDrinksByArea from './Pages/ExploreDrinksByArea';
 import ExploreMealsByIgrediente from './Pages/ExploreMealsByIgrediente';
 import ExploreDrinksByIgrediente from './Pages/ExploreDrinksByIgrediente';
 import ExploreMealsByArea from './Pages/ExploreMealsByArea';
@@ -32,6 +33,7 @@ function App() {
         a pagina de bebidas vão quebrar pois não o conteudo da pagina */}
         <Route exact path="/bebidas" component={ Bebidas } />
         <Route exact path="/explorar/comidas/area" component={ ExploreMealsByArea } />
+        <Route exact path="/explorar/bebidas/area" component={ ExploreDrinksByArea } />
         <Route exact path="/comidas/:id/in-progress" component={ MealInProgress } />
         <Route exact path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
         <Route
