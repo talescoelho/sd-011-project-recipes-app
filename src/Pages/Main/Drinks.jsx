@@ -8,7 +8,7 @@ import DrinkCards from '../../Components/cards/DrinkCards';
 import FilterButtonsDrink from '../../Components/FilterButtons/FilterButtonsDrink';
 
 function Drinks() {
-  const { setPage, dataDrinks, limit,
+  const { setPage, dataDrinks,
     setIdDrinks } = useContext(MainContext);
 
   function thisPage() {
