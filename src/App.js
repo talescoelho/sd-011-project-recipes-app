@@ -28,12 +28,8 @@ function App() {
         {/* // Se deixar o valor de component em bebidas como Bebidas ele não passa
         no requisito 10 por isso alterei para Recipes pois o recipes contem os icones
         tanto para a tela de receita de comidas quanto para o de bebidas */}
-<<<<<<< HEAD
-        <Route exact path="/bebidas" component={ Recipes } />
-=======
         {/* se o valor não for Bebidas no componente /bebidas todos os requisitos que pedem
         a pagina de bebidas vão quebrar pois não o conteudo da pagina */}
->>>>>>> 3b25cf63173159eba29d0b37ca8095cb672c8d65
         <Route exact path="/bebidas" component={ Bebidas } />
         <Route exact path="/explorar/comidas/area" component={ ExploreMealsByArea } />
         <Route exact path="/comidas/:id/in-progress" component={ MealInProgress } />

@@ -5,33 +5,6 @@ import Header from '../components/Header';
 
 function ReceitasFeitas() {
   const [filter, setFilter] = useState('all');
-<<<<<<< HEAD
-  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  // localStorage.setItem('doneRecipes', JSON.stringify([
-  //   {
-  //     id: 52771,
-  //     type: 'comidas',
-  //     area: '',
-  //     category: 'Italian - Vegetarian',
-  //     alcoholicOrNot: '',
-  //     name: 'Spicy Arrabiata Penne',
-  //     image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-  //     doneDate: '23/06/2020',
-  //     tags: ['Pasta', 'Curry'],
-  //   },
-  //   {
-  //     id: 178319,
-  //     type: 'bebidas',
-  //     area: '',
-  //     category: 'Alcoholic',
-  //     alcoholicOrNot: 'alcoholic',
-  //     name: 'Aquamarine',
-  //     image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-  //     doneDate: '10/06/2019',
-  //     tags: [],
-  //   },
-  // ]));
-=======
   localStorage.setItem('doneRecipes', JSON.stringify([
     {
       id: '52771',
@@ -56,7 +29,6 @@ function ReceitasFeitas() {
       tags: [],
     },
   ]));
->>>>>>> 3b25cf63173159eba29d0b37ca8095cb672c8d65
 
   const cardsRecipesDone = () => {
     const doneRecipess = JSON.parse(localStorage.getItem('doneRecipes'));
