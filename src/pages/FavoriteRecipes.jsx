@@ -92,6 +92,7 @@ function FavoriteRecipes() {
                 { recipes.doneDate }
               </h2>
               <FavoriteButton
+                index={ index }
                 callback={ () => {
                   setFavoriteRecipes((prev) => prev.filter((r) => r.id !== recipes.id));
                   storedRecipes.current = storedRecipes.current

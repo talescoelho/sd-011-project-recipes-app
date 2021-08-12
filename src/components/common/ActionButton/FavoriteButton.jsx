@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import BaseActionButton from './BaseActionButton';
 import { useLocalStorage } from '../../../hooks';
 
 const NOT_FOUND_INDEX = -1;
-function FavoriteButton({ recipe, callback }) {
+function FavoriteButton({ recipe, callback, index }) {
   const { id } = recipe;
   const {
     addFavoriteRecipe,
@@ -12,12 +13,13 @@ function FavoriteButton({ recipe, callback }) {
   } = useLocalStorage();
   const [isFavorite, setIsFavorite] = useState();
   useEffect(() => {
-    const index = getFavoriteRecipes().findIndex((recipes) => recipes.id === id);
-    setIsFavorite(index !== NOT_FOUND_INDEX);
+    const indexOf = getFavoriteRecipes().findIndex((recipes) => recipes.id === id);
+    setIsFavorite(indexOf !== NOT_FOUND_INDEX);
   }, [id, getFavoriteRecipes]);
   console.log(recipe);
   return (
     <BaseActionButton
+      index={ index }
       reverse={ isFavorite }
       action="favorite"
       onClick={ () => {
@@ -31,40 +33,13 @@ function FavoriteButton({ recipe, callback }) {
     />
   );
 }
-{/* <ActionButton
-                    action="favorite"
-                    reverse={ isFavorite }
-                    onClick={ () => {
-                      const storedFavoriteRecipes = localStorage
-                        .getItem('favoriteRecipes');
-                      const parsedFavoriteRecipes = storedFavoriteRecipes
-                        ? JSON.parse(storedFavoriteRecipes)
-                        : [];
 
-                      let favoriteRecipesToStore;
-
-                      if (isFavorite) {
-                        favoriteRecipesToStore = parsedFavoriteRecipes
-                          .filter((parsedRecipe) => parsedRecipe.id !== id);
-                      } else {
-                        favoriteRecipesToStore = [...parsedFavoriteRecipes, {
-                          id,
-                          type: 'comida',
-                          area: recipe.strArea,
-                          category: recipe.strCategory,
-                          alcoholicOrNot: '',
-                          name: recipe.strMeal,
-                          image: recipe.strMealThumb,
-                        }];
-                      }
-
-                      localStorage.setItem(
-                        'favoriteRecipes',
-                        JSON.stringify(favoriteRecipesToStore),
-                      );
-
-                      setIsFavorite((previously) => !previously);
-                    } }
-                  /> */}
+FavoriteButton.propTypes = {
+  callback: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
+  recipe: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default FavoriteButton;
