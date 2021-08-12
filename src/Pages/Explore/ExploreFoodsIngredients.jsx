@@ -32,8 +32,13 @@ function ExploreFoodsIngredients() {
       </div>
       <FooterBar />
       {IngredientId ? IngredientId
-        .map((ingredients, index) => (
-          <IngredientsCard ingredients={ ingredients } index={ index } key={ index } />
+        .map((ingredient, index) => (
+          <IngredientsCard
+            ingredient={ ingredient }
+            index={ index }
+            key={ index }
+            type="meal"
+          />
         )) : null}
     </>
   );
