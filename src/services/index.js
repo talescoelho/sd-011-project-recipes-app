@@ -133,3 +133,14 @@ export const fetchIngredientsList = async (pathname) => {
   const { drinks } = await ingredients.json();
   return drinks;
 };
+
+export const fetchRandomRecipe = async (pathname) => {
+  const type = pathname === '/explorar/comidas' ? 'meal' : 'cocktail';
+  const response = await fetch(`https://www.the${type}db.com/api/json/v1/1/random.php`);
+  if (type === 'meal') {
+    const { meals } = await response.json();
+    return meals;
+  }
+  const { drinks } = await response.json();
+  return drinks;
+};
