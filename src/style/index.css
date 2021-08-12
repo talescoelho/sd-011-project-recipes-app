@@ -342,6 +342,12 @@
   background-color: var(--dark-color-1);
 }
 
+.button-finish:disabled {
+  background-color: #ddd;
+  color: var(--light-color-2);
+  cursor: auto;
+}
+
 .ingredient-title {
   color: var(--dark-color-1);
   font-size: 2.5rem;
@@ -369,6 +375,11 @@
 
 .text-center {
   margin: 20px 0;
+}
+
+.checked {
+  color: var(--dark-color-1);
+  text-decoration: line-through;
 }
 
 .container-video {

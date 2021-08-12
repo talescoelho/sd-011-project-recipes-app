@@ -1,23 +1,26 @@
 import React, { useEffect, useContext } from 'react';
-import PropTypes from 'prop-types';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router-dom';
 import RecipeDetails from '../components/RecipeDetails';
 import RecipesContext from '../context/RecipesContext';
 import { checkRecipeInProgress, verifyRecipeIsDone } from '../functions';
 
-function RecipeInProgress({ match: { url, params: { id } } }) {
+function RecipeInProgress() {
   const { getRecipeById } = useContext(RecipesContext);
   const history = useHistory();
+  const url = history.location.pathname;
+  const { id } = useParams();
 
   const addMealInProgress = () => {
     const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
     recipe.meals = { ...recipe.meals, [id]: [] };
+    recipe.cocktails = { ...recipe.cocktails };
     localStorage.setItem('inProgressRecipes',
       JSON.stringify(recipe));
   };
 
   const addCocktailInProgress = () => {
     const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    recipe.meals = { ...recipe.meals };
     recipe.cocktails = { ...recipe.cocktails, [id]: [] };
     localStorage.setItem('inProgressRecipes',
       JSON.stringify(recipe));
@@ -56,14 +59,5 @@ function RecipeInProgress({ match: { url, params: { id } } }) {
     </div>
   );
 }
-
-RecipeInProgress.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string,
-    }),
-    url: PropTypes.string,
-  }).isRequired,
-};
 
 export default RecipeInProgress;

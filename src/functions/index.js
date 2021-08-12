@@ -67,6 +67,29 @@ export const addRecipeInFavorites = (recipe, url) => {
     JSON.stringify([...favoriteRecipes, newRecipe]));
 };
 
+// Atualiza LocalStorage de RecipesInProgress passando um objeto
+export const updateRecipeInProgress = (url, recipe, id) => {
+  const recipeInProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+  if (url.includes('comidas')) {
+    recipeInProgress.meals[id] = recipe;
+  }
+  if (url.includes('bebidas')) {
+    recipeInProgress.cocktails[id] = recipe;
+  }
+  localStorage.setItem('inProgressRecipes', JSON.stringify(recipeInProgress));
+};
+
+// get array recipeInProgress by id and url
+export const getRecipeInProgressById = (url, id) => {
+  const recipeInProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+  if (url.includes('comidas')) {
+    return recipeInProgress.meals[id];
+  }
+  if (url.includes('bebidas')) {
+    return recipeInProgress.cocktails[id];
+  }
+};
+
 export const createLocalStorage = () => {
   const inProgressRecipes = {
     cocktails: {},

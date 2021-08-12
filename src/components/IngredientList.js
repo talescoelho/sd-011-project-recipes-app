@@ -1,10 +1,25 @@
-import React, { useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
+import { updateRecipeInProgress } from '../functions';
 
 function IngredientList() {
   const { ingredientsListRecipe: ingredients } = useContext(RecipesContext);
+  const [task, setTask] = useState({});
   const location = useLocation();
+  const url = location.pathname;
+  const { id } = useParams();
+
+  const toggleCheck = ({ target: { name, checked } }) => {
+    const update = { ...task, [name]: checked };
+    setTask(update);
+    const checkList = Object.entries(update);
+    const filtered = [];
+    checkList.forEach((element) => {
+      if (element[1]) filtered.push(element[0]);
+    });
+    updateRecipeInProgress(url, filtered, id);
+  };
 
   const renderListInProgress = () => (
     <>
@@ -13,8 +28,19 @@ function IngredientList() {
         {ingredients.map((item, index) => (
           <div key={ index }>
             <li>
-              <label htmlFor={ item } data-testid={ `${index}-ingredient-step` }>
-                <input className="mr-2" type="checkbox" name={ item } id={ item } />
+              <label
+                htmlFor={ item }
+                data-testid={ `${index}-ingredient-step` }
+                className={ task[item] ? 'checked' : '' }
+              >
+                <input
+                  onClick={ toggleCheck }
+                  className="mr-2"
+                  type="checkbox"
+                  name={ item }
+                  id={ item }
+                  checked={ task[item] }
+                />
                 {item}
               </label>
             </li>
@@ -37,8 +63,8 @@ function IngredientList() {
     </>
   );
 
-  if (!location.pathname.includes('in-progress')) return renderListToDetails();
-  if (location.pathname.includes('in-progress')) return renderListInProgress();
+  if (!url.includes('in-progress')) return renderListToDetails();
+  if (url.includes('in-progress')) return renderListInProgress();
 }
 
 export default IngredientList;
