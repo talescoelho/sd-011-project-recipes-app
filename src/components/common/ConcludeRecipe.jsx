@@ -21,7 +21,7 @@ const ConcludeRecipe = ({
 
   const handleClick = () => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    inProgressRecipes[recipeType][id] = [];
+    delete inProgressRecipes[recipeType][id];
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
     resetProgress();
   };
