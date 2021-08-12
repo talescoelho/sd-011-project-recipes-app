@@ -45,7 +45,7 @@ class FoodsRecipiesInProcess extends React.Component {
     });
   }
 
-  changeRow(event, index, name) {
+  changeRow(event, name) {
     const { stockFoods } = this.state;
     let filter = [];
     if (stockFoods.some((i) => i === name)) {
@@ -127,7 +127,7 @@ class FoodsRecipiesInProcess extends React.Component {
                       defaultChecked={ ri.some((item) => item === e[1]) }
                       id={ `for${index}` }
                       type="checkbox"
-                      onClick={ (event) => this.changeRow(event, index, e[1]) }
+                      onClick={ (event) => this.changeRow(event, e[1]) }
                     />
                   </label>
                 </li>
