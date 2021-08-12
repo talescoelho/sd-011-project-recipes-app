@@ -31,9 +31,9 @@ function ReceitasFeitas() {
   ]));
 
   const cardsRecipesDone = () => {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const doneRecipess = JSON.parse(localStorage.getItem('doneRecipes'));
 
-    const filted = doneRecipes.filter(({ type }) => type === filter || filter === 'all');
+    const filted = doneRecipess.filter(({ type }) => type === filter || filter === 'all');
 
     return filted.map(({ image, category, name, doneDate, tags, type, id }, index) => (
       <div key={ index }>
