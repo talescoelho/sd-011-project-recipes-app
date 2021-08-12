@@ -9,7 +9,7 @@ class IngredientesFoodInProgress extends Component {
   constructor() {
     super();
     this.state = {
-      ingredientsArrayList: [],
+      ingredientsArrayList: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
     };
     this.handleOnchange = this.handleOnchange.bind(this);
     this.saveInLocalStorage = this.saveInLocalStorage.bind(this);
@@ -62,7 +62,12 @@ class IngredientesFoodInProgress extends Component {
       this.setState({
         ingredientsArrayList: inProgressRecipes.meals[foodDetails.idMeal],
       });
+    }else { 
+      this.setState({
+        ingredientsArrayList: [],
+      })
     }
+    
   }
 
   saveInDoneRecipes(){
@@ -71,7 +76,7 @@ class IngredientesFoodInProgress extends Component {
 
   render() {
     console.log('qualquer coisa');
-    const { foodDetails } = this.props;
+    const { foodDetails, saveDoneRecipesAction } = this.props;
     const { ingredientsArrayList } = this.state;
     let ingredients = [];
     let measurements = [];
@@ -97,8 +102,8 @@ class IngredientesFoodInProgress extends Component {
                   >
                     <input
                       type="checkbox"
-                      // checked={ ingredientsArrayList.some((item) => item === index) }
-                      checked={ item.checked }
+                      checked={ ingredientsArrayList.some((item) => item === index) }
+                      // checked={ item.checked }
                       onChange={ this.handleOnchange }
                       value={ index }
                       id={ `${index}-check-ingredients` }
@@ -115,7 +120,7 @@ class IngredientesFoodInProgress extends Component {
           type="button"
           data-testid="finish-recipe-btn"
           disabled={ ingredientsArrayList.length !== ingredients.length }
-          onClick={ this.saveInDoneRecipes }
+          onClick={ () => saveDoneRecipesAction(foodDetails.idMeal) }
         >
           {' '}
           Finalizar Receita
@@ -130,7 +135,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) =>({
-  saveDoneRecipes: (id) => dispatch(saveDoneRecipe(id)),
+  saveDoneRecipesAction: (id) => dispatch(saveDoneRecipe(id)),
 });
 
 IngredientesFoodInProgress.propTypes = {

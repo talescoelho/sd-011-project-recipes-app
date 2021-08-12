@@ -144,6 +144,7 @@ export const fetchFoodIngredientList = (ingredient) => async (dispatch) => {
 
 export const saveDoneRecipe = (id) => async () => {
   const returnFetch = await fetchAPIByID(id);
+  const date = new Date();
   const genericObj = {
     id: returnFetch[0].idMeal,
     type: 'comida',
@@ -152,7 +153,7 @@ export const saveDoneRecipe = (id) => async () => {
     alcoholicOrNot: '',
     name: returnFetch[0].strMeal,
     image: returnFetch[0].strMealThumb,
-    doneDate: new Date.toLocaleDateString('pt-BR'),
+    doneDate: date.toLocaleDateString('pt-BR'),
     tags: returnFetch[0].strTags.split(','),
   };
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
