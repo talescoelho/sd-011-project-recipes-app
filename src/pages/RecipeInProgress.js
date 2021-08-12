@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchRecipeDetail } from '../actions/selectedRecipe';
+import { getFromStorage, setToStorage } from '../helpers/utils';
 import style from './RecipeInProgress.module.css';
 
 function RecipeInProgress({
@@ -9,6 +10,13 @@ function RecipeInProgress({
   recipe,
   dispatchFetchRecipe,
 }) {
+  const [inProgress, setInProgress] = React.useState({});
+
+  React.useEffect(() => {
+    const recipesInProgress = getFromStorage('inProgressRecipes') || {};
+    setInProgress(recipesInProgress);
+  }, []);
+
   React.useEffect(() => {
     const type = path.replace(/(^\/)|(\/)(:|\w|-)+/g, '');
     dispatchFetchRecipe(type, id);
@@ -37,9 +45,41 @@ function RecipeInProgress({
     return ingredientsList;
   };
 
-  const handleStepDone = ({ target }) => {
-    if (target.checked) target.parentElement.classList.add(style.checked);
-    else target.parentElement.classList.remove(style.checked);
+  const addStepToStorage = (value, storageItem) => {
+    const updatedItem = {
+      ...storageItem,
+      [id]: [
+        ...(storageItem[id] || []),
+        value,
+      ].sort(),
+    };
+
+    setToStorage('inProgressRecipes', updatedItem);
+    setInProgress(updatedItem);
+  };
+
+  const removeStepFromStorage = (value, storageItem) => {
+    const updatedItem = {
+      ...storageItem,
+      [id]: storageItem[id].filter((item) => item !== value),
+    };
+
+    if (updatedItem[id].length === 0) delete updatedItem[id];
+
+    setToStorage('inProgressRecipes', updatedItem);
+    setInProgress(updatedItem);
+  };
+
+  const handleStepDone = (target, index) => {
+    const recipesInProgress = getFromStorage('inProgressRecipes') || {};
+
+    if (target.checked) {
+      addStepToStorage(index, recipesInProgress);
+      target.parentElement.classList.add(style.checked);
+    } else {
+      removeStepFromStorage(index, recipesInProgress);
+      target.parentElement.classList.remove(style.checked);
+    }
   };
 
   return (
@@ -57,7 +97,8 @@ function RecipeInProgress({
                 <input
                   type="checkbox"
                   id={ `ingredient${index + 1}` }
-                  onClick={ handleStepDone }
+                  checked={ inProgress[id] && inProgress[id].includes(index + 1) }
+                  onClick={ ({ target }) => handleStepDone(target, index + 1) }
                 />
                 { `${ingredient} - ${measure}` }
               </label>
