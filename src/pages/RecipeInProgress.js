@@ -13,15 +13,17 @@ function RecipeInProgress({
   recipe, ingredients, inProgress,
   dispatchFetchRecipe, dispatchSetIngredients, dispatchUpdateInProgress,
 }) {
+  const [type, setType] = React.useState('');
+
   React.useEffect(() => {
     const recipesInProgress = getFromStorage('inProgressRecipes') || {};
     dispatchUpdateInProgress(recipesInProgress);
   }, [dispatchUpdateInProgress]);
 
   React.useEffect(() => {
-    const type = path.replace(/(^\/)|(\/)(:|\w|-)+/g, '');
+    setType(path.replace(/(^\/)|(\/)(:|\w|-)+/g, ''));
     dispatchFetchRecipe(type, id);
-  }, [dispatchFetchRecipe, id, path]);
+  }, [dispatchFetchRecipe, id, path, type]);
 
   React.useEffect(() => {
     (() => {
@@ -50,7 +52,7 @@ function RecipeInProgress({
       [id]: [
         ...(storageItem[id] || []),
         value,
-      ].sort(),
+      ].sort((firstNumber, secondNumber) => firstNumber - secondNumber),
     };
 
     setToStorage('inProgressRecipes', updatedItem);
@@ -72,13 +74,8 @@ function RecipeInProgress({
   const handleStepDone = (target, index) => {
     const recipesInProgress = getFromStorage('inProgressRecipes') || {};
 
-    if (target.checked) {
-      addStepToStorage(index, recipesInProgress);
-      target.parentElement.classList.add(style.checked);
-    } else {
-      removeStepFromStorage(index, recipesInProgress);
-      target.parentElement.classList.remove(style.checked);
-    }
+    if (target.checked) addStepToStorage(index, recipesInProgress);
+    else removeStepFromStorage(index, recipesInProgress);
   };
 
   const details = {
@@ -87,6 +84,8 @@ function RecipeInProgress({
     strCategory: recipe.strCategory,
     strInstructions: recipe.strInstructions,
   };
+
+  const isStepDone = (index) => inProgress[id] && inProgress[id].includes(index + 1);
 
   return (
     <main data-testid="recipes-page">
@@ -99,12 +98,15 @@ function RecipeInProgress({
         {
           ingredients.map(([ingredient, measure], index) => (
             <li key={ ingredient } data-testid={ `${index}-ingredient-step` }>
-              <label htmlFor={ `ingredient${index + 1}` }>
+              <label
+                htmlFor={ `ingredient${index + 1}` }
+                className={ isStepDone(index) && style.checked }
+              >
                 <input
                   type="checkbox"
                   id={ `ingredient${index + 1}` }
-                  checked={ inProgress[id] && inProgress[id].includes(index + 1) }
-                  onClick={ ({ target }) => handleStepDone(target, index + 1) }
+                  checked={ isStepDone(index) }
+                  onChange={ ({ target }) => handleStepDone(target, index + 1) }
                 />
                 { `${ingredient} - ${measure}` }
               </label>
@@ -115,7 +117,7 @@ function RecipeInProgress({
       <p data-testid="instructions">
         { details.strInstructions }
       </p>
-      <FinishRecipeButton id={ id } />
+      <FinishRecipeButton id={ id } recipe={ recipe } type={ type.replace('s', '') } />
     </main>
   );
 }
