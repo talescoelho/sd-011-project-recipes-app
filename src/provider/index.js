@@ -45,6 +45,9 @@ export default function Provider({ children }) {
     } else if (category !== isFiltered) {
       setIsFiltered(category);
       const filteredMeals = await fetchMealsByCategoryFromMealsDB(category);
+      if (filteredMeals.length === 1) {
+        filteredMeals.push('');
+      }
       setFoodArray(filteredMeals);
     }
   }
@@ -56,6 +59,9 @@ export default function Provider({ children }) {
     } else if (category !== isFiltered) {
       setIsFiltered(category);
       const filteredDrinks = await fetchDrinksByCategoryFromCocktailsDB(category);
+      if (filteredDrinks.length === 1) {
+        filteredDrinks.push('');
+      }
       setDrinkArray(filteredDrinks);
     }
   }

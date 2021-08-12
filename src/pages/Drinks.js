@@ -7,7 +7,6 @@ import Header from '../components/Header';
 export default function Drinks() {
   return (
     <div>
-      <h2>Drink Page</h2>
       <Header title="Bebidas" />
       <DrinkCategoryButton />
       <DrinkCard />
