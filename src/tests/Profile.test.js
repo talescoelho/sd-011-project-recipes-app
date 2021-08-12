@@ -52,7 +52,7 @@ describe('Testes para página de Perfil', () => {
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(mockDrink),
     });
-    const { findByText, findByTestId, getByRole } = renderWithRouterAndRedux(
+    const { findByText, findByTestId, history } = renderWithRouterAndRedux(
       <Profile />,
       { route: '/perfil' }, INITIAL_STATE,
     );
@@ -60,9 +60,12 @@ describe('Testes para página de Perfil', () => {
     const title = await findByTestId('page-title');
     expect(type).toBeInTheDocument();
     expect(title).toBeInTheDocument();
-    const sair = await getByRole('button', { name: /sair/i });
+    const sair = await findByTestId('profile-logout-btn');
     expect(sair).toBeInTheDocument();
     userEvent.click(sair);
+    expect(history.location.pathname).toBe('/');
+    expect(window.localStorage.getItem('mealsToken')).toBe(null);
+    expect(window.localStorage.getItem('cocktailsToken')).toBe(null);
   });
   it('Verifica ao bebidas footer', async () => {
     jest.spyOn(global, 'fetch');

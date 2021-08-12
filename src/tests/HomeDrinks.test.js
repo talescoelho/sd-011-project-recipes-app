@@ -93,6 +93,15 @@ describe('Testes para página de HomeComidas', () => {
     expect(All).toBeInTheDocument();
     userEvent.click(All);
   });
+  it('Verifica Loading', () => {
+    const { getAllByText } = renderWithRouterAndRedux(
+      <HomeDrinks location={ { state: '' } } />,
+      { route: '/bebidas' }, INITIAL_STATE,
+    );
+    const loadings = getAllByText(/loading/i);
+    expect(loadings[0]).toBeInTheDocument();
+    expect(loadings.length).toBe(1);
+  });
 });
 
 // Para utilizar o location

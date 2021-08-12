@@ -17,6 +17,18 @@ const INITIAL_STATE = {
 };
 
 describe('Testes para página de Explorar comidas', () => {
+  it('Verifica não há chaves', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mockMeals),
+    });
+    renderWithRouterAndRedux(
+      <Login />,
+      { route: '/' }, INITIAL_STATE,
+    );
+    expect(window.localStorage.getItem('mealsToken')).toBe(null);
+    expect(window.localStorage.getItem('cocktailsToken')).toBe(null);
+  });
   it('Verifica se há os itens procurados', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({

@@ -61,6 +61,24 @@ describe('Testes para página de HomeComidas', () => {
     const categorie = await findByTestId('All-category-filter');
     userEvent.click(categorie);
   });
+  it('Verifica os endpoints', async () => {
+    jest.spyOn(global, 'fetch');
+    const fetchMeals = fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockMeals),
+    });
+    const fetchCategories = fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockCategories),
+    });
+    const { findByText, findByTestId, store } = renderWithRouterAndRedux(
+      <HomeRecipe location={ { state: '' } } />,
+      { route: '/comidas' }, INITIAL_STATE,
+    );
+    const recipeName = await findByText(/Dal fry/i);
+    expect(recipeName).toBeInTheDocument();
+    expect(fetchMeals).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    expect(fetchCategories).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+    expect(fetchMeals).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=asdasdsada');
+  });
   it('Verifica se há os itens procurados', async () => {
     jest.spyOn(global, 'fetch');
     fetch.mockResolvedValueOnce({
@@ -91,6 +109,15 @@ describe('Testes para página de HomeComidas', () => {
     const All = await findByText(/All/i);
     expect(All).toBeInTheDocument();
     userEvent.click(All);
+  });
+  it('Verifica Loading', () => {
+    const { getAllByText } = renderWithRouterAndRedux(
+      <HomeRecipe location={ { state: '' } } />,
+      { route: '/comidas' }, INITIAL_STATE,
+    );
+    const loadings = getAllByText(/loading/i);
+    expect(loadings[0]).toBeInTheDocument();
+    expect(loadings.length).toBe(2);
   });
 });
 

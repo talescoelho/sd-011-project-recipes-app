@@ -20,7 +20,7 @@ describe('Testes para página de Comidas em Progresso', () => {
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(mockMeal),
     });
-    const { findByText, findByTestId, getAllByRole } = renderWithRouterAndRedux(
+    const { findByText, findByTestId, getAllByRole, history } = renderWithRouterAndRedux(
       <MealsInProgress
         match={ { params: { id: '52771' }, url: '/comidas/52771/in-progress' } }
       />,
@@ -48,6 +48,9 @@ describe('Testes para página de Comidas em Progresso', () => {
     const newlocalStorageInProgress = JSON.parse(localStorage.inProgressRecipes);
     expect(newlocalStorageInProgress.meals['52771'][0].check).toEqual(true);
     userEvent.click(finishBtn);
+    expect(history.location.pathname).toEqual('/receitas-feitas');
+    const localStorageDoneRecipes = JSON.parse(localStorage.doneRecipes);
+    expect(localStorageDoneRecipes[0].id).toEqual('52771');
   });
 });
 

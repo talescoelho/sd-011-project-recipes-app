@@ -1,6 +1,7 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import ExploreRecipes from '../pages/explore/ExploreRecipes';
+import Profile from '../pages/Profile';
 import { renderWithRouterAndRedux } from './renderWithRouterAndRedux';
 import mockAreas from '../../cypress/mocks/areas';
 
@@ -59,6 +60,24 @@ describe('Testes para página de Explorar comidas', () => {
     const ingredientes = await findByText(/por ingredientes/i);
     expect(ingredientes).toBeInTheDocument();
     userEvent.click(ingredientes);
+  });
+  it('Verifica clicar no perfil', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mockAreas),
+    });
+    const { getByTestId } = renderWithRouterAndRedux(
+      <ExploreRecipes />,
+      { route: mockRoute }, INITIAL_STATE,
+    );
+    const perfil = getByTestId('profile-top-btn');
+    userEvent.click(perfil);
+    const { getByText } = renderWithRouterAndRedux(
+      <Profile />,
+      { route: mockRoute }, INITIAL_STATE,
+    );
+    const title = getByText('Perfil');
+    expect(title).toBeInTheDocument();
   });
 });
 

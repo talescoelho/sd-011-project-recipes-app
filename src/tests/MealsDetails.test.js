@@ -64,7 +64,7 @@ describe('Testes para página de HomeComidas', () => {
     fetch.mockResolvedValueOnce({
       json: jest.fn().mockResolvedValue(mockMeal),
     });
-    const { getByTitle, findByText, findByTestId } = renderWithRouterAndRedux(
+    const { findByTitle, findByText, findByTestId } = renderWithRouterAndRedux(
       <MealDetails match={ { params: { id: '52771' }, url: `http://localhost:3000/${mockRoute}` } } />,
       { route: mockRoute }, INITIAL_STATE,
     );
@@ -72,8 +72,9 @@ describe('Testes para página de HomeComidas', () => {
     const title = await findByTestId(recipeTitle);
     expect(type).toBeInTheDocument();
     expect(title).toBeInTheDocument();
-    const video = await getByTitle(/recipe video/i);
+    const video = await findByTitle(/recipe video/i);
     expect(video).toBeInTheDocument();
+    expect(video.src).toEqual('https://www.youtube.com/embed/1IszT_guI08');
   });
   it('Verifica se há botão iniciar receita', async () => {
     jest.spyOn(global, 'fetch');
@@ -116,6 +117,15 @@ describe('Testes para página de HomeComidas', () => {
     expect(title).toBeInTheDocument();
     userEvent.click(btnContiue);
   });
+  it('Verifica se há os itens procurados', () => {
+    const { getByText } = renderWithRouterAndRedux(
+      <MealDetails match={ { params: { id: '52771' } } } />,
+      { route: mockRoute }, INITIAL_STATE,
+    );
+
+    const loading = getByText('Loading');
+    expect(loading).toBeInTheDocument();
+  });
   it('Verifica se não há botão continuar ou iniciar receita', async () => {
     jest.spyOn(global, 'fetch');
     fetch.mockResolvedValueOnce({
@@ -154,15 +164,6 @@ describe('Testes para página de HomeComidas', () => {
     expect(shareText).toBeInTheDocument();
 
     // const down = await findByTestId('recipe-titsssle');
-  });
-  it('Verifica se há os itens procurados', () => {
-    const { getByText } = renderWithRouterAndRedux(
-      <MealDetails match={ { params: { id: '52771' } } } />,
-      { route: mockRoute }, INITIAL_STATE,
-    );
-
-    const loading = getByText('Loading');
-    expect(loading).toBeInTheDocument();
   });
 });
 

@@ -70,6 +70,26 @@ describe('Testes para página de Explorar comidas e bebidas por local', () => {
     userEvent.click(firstLett);
     userEvent.click(find);
   });
+  it('3', async () => {
+    jest.spyOn(global, 'fetch');
+    fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mockAreas),
+    });
+    const alertMock = jest.spyOn(window, 'alert');
+    const { findByTestId } = renderWithRouterAndRedux(
+      <ExploreByLocal />,
+      { route: mockurl }, INITIAL_STATE,
+    );
+    const searchbtn = await findByTestId('search-top-btn');
+    userEvent.click(searchbtn);
+    const searchIn = await findByTestId('search-input');
+    const firstLetter = await findByTestId('first-letter-search-radio');
+    const findRecipeBtn = await findByTestId('exec-search-btn');
+    userEvent.type(searchIn, 'pizza');
+    userEvent.click(firstLetter);
+    userEvent.click(findRecipeBtn);
+    expect(alertMock).toHaveBeenCalledTimes(1);
+  });
   it('Verifica o searchbar', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
