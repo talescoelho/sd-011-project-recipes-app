@@ -30,8 +30,14 @@ function Ingredients({ ingredients }) {
     <ul>
       {
         ingredients.strIngredient1
-          ? allIngredients.map((value) => <li key={ value }>{value}</li>)
-          : ''
+          ? allIngredients.map((value, index) => (
+            <li
+              key={ value }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              {value}
+            </li>))
+          : <h1>Carregando</h1>
       }
     </ul>
   );

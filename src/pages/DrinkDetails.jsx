@@ -1,12 +1,24 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes, { shape, string } from 'prop-types';
+
+import HeaderDetails from '../components/common/HeaderDetails/HeaderDetails';
 import RecipeInstructions from '../components/common/RecipeInstructions';
 import StartRecipeBtn from '../components/common/StartRecipeBtn';
 import { requestDrinkDetails } from '../redux/actions/recipeDetailsActions';
 import RecommendationCarousel from '../components/common/RecommendationCarousel';
+import DrinkDetail from '../services/drinksIngredients';
 
-const DrinkDetails = ({ dispatch, match, drinkDetails }) => {
+const DrinkDetails = (
+  {
+    dispatch,
+    match,
+    drinkDetails,
+    thumbDrinks,
+    altDrinks,
+    categoryDetails,
+  },
+) => {
   const { params: { id }, url } = match;
 
   useEffect(() => {
@@ -16,7 +28,13 @@ const DrinkDetails = ({ dispatch, match, drinkDetails }) => {
 
   return (
     <>
-      <div>Pagina de Detalhe de Bebidas</div>
+      <HeaderDetails
+        thumb={ thumbDrinks.strDrinkThumb }
+        alt={ altDrinks.strDrink }
+        title={ altDrinks.strDrink }
+        category={ categoryDetails.strCategory }
+      />
+      <DrinkDetail />
       <RecipeInstructions strInstructions={ drinkDetails.strInstructions } />
       <RecommendationCarousel url={ url } />
       <StartRecipeBtn routeInfo={ { id, url } } />
@@ -26,6 +44,9 @@ const DrinkDetails = ({ dispatch, match, drinkDetails }) => {
 
 const mapStateToProps = (state) => ({
   drinkDetails: state.recipeDetailsReducer.drink,
+  thumbDrinks: state.recipeDetailsReducer.drink,
+  altDrinks: state.recipeDetailsReducer.drink,
+  categoryDetails: state.recipeDetailsReducer.drink,
 });
 
 DrinkDetails.propTypes = {

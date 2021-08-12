@@ -11,6 +11,7 @@ const INITIAL_STATE = {
   isLoading: false,
   error: null,
 };
+console.log(INITIAL_STATE.meal);
 
 const recipeDetailsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {

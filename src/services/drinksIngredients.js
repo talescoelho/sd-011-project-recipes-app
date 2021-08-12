@@ -48,7 +48,12 @@ function drinksIngredients({ drinkDetails }) {
         drinkDetails
           ? newIngredients.map((element, index) => {
             if (newMeasures[index] === undefined) return null;
-            return <li key={ index }>{`${newMeasures[index]} - ${element}`}</li>;
+            return (<li
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              {`${newMeasures[index]} - ${element}`}
+                    </li>);
           })
           : <h1>Carregando</h1>
       }
