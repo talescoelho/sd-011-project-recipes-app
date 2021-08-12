@@ -8,7 +8,7 @@ import FilterButtonsFood from '../../Components/FilterButtons/FilterButtonsFood'
 import '../../css/Foods.css';
 
 function Foods() {
-  const { dataFoods, setPage, limit,
+  const { dataFoods, setPage,
     setIdFoods } = useContext(MainContext);
 
   function thisPage() {
