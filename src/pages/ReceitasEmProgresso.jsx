@@ -8,11 +8,7 @@ import {
 import { searchById } from '../services/index';
 import ButtonFavoriteRecipe from '../components/ButtonFavoriteRecipe';
 import IngredientInput from '../components/IngredientInput';
-// import LinkCopy from '../components/LinkCopy';
-
-import '../styles/RecipesInProgress.css';
 import ButtonShare from '../components/ButtonShare';
-// import ButtonFavoriteRecipe from '../components/ButtonFavoriteRecipe';
 
 function ReceitasEmProgresso() {
   const history = useHistory();

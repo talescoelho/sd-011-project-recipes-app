@@ -11,6 +11,7 @@ function IngredientInput(
   const [doneClass, setDoneClass] = useState(isChecked);
   const scratched = doneClass ? 'doneIngredient' : '';
   const indexOfIngredient = inProgressIngredients.indexOf(ingredient);
+  const typeId = { type, id };
 
   useEffect(() => {
     // VERIFICA SE NO NOME INCLUI DONE; E SETA CHECKED;
@@ -27,7 +28,7 @@ function IngredientInput(
     setIsChecked(!isChecked);
     console.log(target.checked);
     const doneItem = isChecked ? ingredient.replace(' done', '') : `${ingredient} done`;
-    makeNewIngredientsArray(inProgressIngredients, ingredient, doneItem, type, id);
+    makeNewIngredientsArray(inProgressIngredients, ingredient, doneItem, typeId);
     setNewRender(!newRender);
   };
 
@@ -35,7 +36,6 @@ function IngredientInput(
     <li
       data-testid={ `${index}-ingredient-step` }
     >
-      {/* {console.log(isChecked)} */}
       <input
         id="inputCheckbox"
         defaultChecked={ isChecked }

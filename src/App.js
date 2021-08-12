@@ -58,11 +58,15 @@ function App() {
             />
             <Route exact path="/comidas/:id" component={ Detalhes } />
             <Route exact path="/bebidas/:id" component={ Detalhes } />
-            <Route exact path="/comidas/:id/in-progress" component={ ReceitasEmProgresso } />
-            <Route exact path="/bebidas/:id/in-progress" component={ ReceitasEmProgresso } />
             <Route
-              path="*"
-              component={ NotFound }
+              exact
+              path="/comidas/:id/in-progress"
+              component={ ReceitasEmProgresso }
+            />
+            <Route
+              exact
+              path="/bebidas/:id/in-progress"
+              component={ ReceitasEmProgresso }
             />
             <Route
               path="*"

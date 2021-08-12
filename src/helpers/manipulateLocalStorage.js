@@ -1,7 +1,8 @@
 import ingredientsArrFormater from './ingredientsArrFormater';
 
 export const addRecipeIdInLocalStorage = (recipeType, recipeId) => {
-  const GET_INGREDIENTS_IN_STORAGE = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const GET_INGREDIENTS_IN_STORAGE = JSON.parse(localStorage
+    .getItem('inProgressRecipes'));
   if (recipeType === 'meals') {
     const mealsRecipeIdObject = {
       ...GET_INGREDIENTS_IN_STORAGE,
