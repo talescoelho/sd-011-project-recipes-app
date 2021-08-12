@@ -15,6 +15,15 @@ function MealDetails({ match: { params } }) {
   const [MealDataAPI, setMealDadaAPI] = useState({});
   const [isMealDone, setIsMealsDone] = useState(false);
   const [isMealStarted, setIsMealStarted] = useState(false);
+  const objectRecipe = {
+    id: MealDataAPI.idMeal,
+    type: 'comida',
+    area: MealDataAPI.strArea,
+    category: MealDataAPI.strCategory,
+    alcoholicOrNot: '',
+    name: MealDataAPI.strMeal,
+    image: MealDataAPI.strMealThumb,
+  };
   function verifyRecipeProgress(id) {
     const inProgressRecipes = JSON.parse(
       localStorage.getItem('inProgressRecipes'),
@@ -61,8 +70,7 @@ function MealDetails({ match: { params } }) {
         img={ MealDataAPI.strMealThumb }
         category={ MealDataAPI.strCategory }
         id={ MealDataAPI.idMeal }
-        data={ MealDataAPI }
-        type="comida"
+        data={ objectRecipe }
       />
 
       <IngredientsList recipe={ MealDataAPI } />

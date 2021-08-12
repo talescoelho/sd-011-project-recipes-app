@@ -3,63 +3,49 @@ import PropTypes from 'prop-types';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
-function FavoriteButton({ data, type }) {
+function FavoriteButton({ data }) {
   // Set do state inicial do favorito como false (como é iniciado o botão)
-  const [fav, setFav] = useState(false);
   const favoritedRecipes = JSON.parse(
     localStorage.getItem('favoriteRecipes'),
   );
-  let objectRecipe = {};
-  let idData = '';
-  if (type === 'comida') {
-    const { idMeal, strArea, strCategory, strMeal, strMealThumb } = data;
-    idData = idMeal;
-    objectRecipe = {
-      id: idMeal,
-      type: 'comida',
-      area: strArea,
-      category: strCategory,
-      alcoholicOrNot: '',
-      name: strMeal,
-      image: strMealThumb,
-    };
+  function isFavorited() {
     if (favoritedRecipes !== null) {
-      setFav(favoritedRecipes.some((e) => e.id === idMeal));
+      return favoritedRecipes.some((e) => e.id === data.id);
     }
-  } else {
-    const { idDrink, strCategory, strAlcoholic, strDrink, strDrinkThumb } = data;
-    idData = idDrink;
-    objectRecipe = {
-      id: idDrink,
-      type: 'bebida',
-      area: '',
-      category: strCategory,
-      alcoholicOrNot: strAlcoholic,
-      name: strDrink,
-      image: strDrinkThumb,
-    };
-    if (favoritedRecipes !== null) {
-      setFav(favoritedRecipes.some((e) => e.id === idData));
-    }
+    return false;
   }
+  const [fav, setFav] = useState(false);
+
   const handleClick = () => {
-    if (!fav && favoritedRecipes !== null) {
+    if (favoritedRecipes !== null && !fav) {
       setFav(true);
-      favoritedRecipes.push(objectRecipe);
+      favoritedRecipes.push(data);
       localStorage.setItem('favoriteRecipes', JSON.stringify(favoritedRecipes));
     }
-    if (fav) {
+    if ((fav && favoritedRecipes !== null)) {
       setFav(false);
       localStorage.setItem(
         'favoriteRecipes',
-        JSON.stringify(favoritedRecipes.filter((e) => e.id !== idData)),
+        JSON.stringify(favoritedRecipes.filter((e) => e.id !== data.id)),
       );
     }
     if (favoritedRecipes === null) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([objectRecipe]));
+      setFav(true);
+      localStorage.setItem('favoriteRecipes', JSON.stringify([data]));
     }
   };
-
+  if (isFavorited() && !fav) {
+    setFav(true);
+    return (
+      <input
+        type="image"
+        data-testid="favorite-btn"
+        src={ fav ? blackHeartIcon : whiteHeartIcon }
+        onClick={ () => handleClick() }
+        alt="favorite icon"
+      />
+    );
+  }
   // A tag image não aceita um onClick como atributo. Para solucionar isso, foi criada uma tag input do tipo image (thanks Douglas <3);
   return (
     <input
@@ -75,6 +61,5 @@ function FavoriteButton({ data, type }) {
 export default FavoriteButton;
 
 FavoriteButton.propTypes = {
-  type: PropTypes.string.isRequired,
   data: PropTypes.objectOf(PropTypes.string).isRequired,
 };
