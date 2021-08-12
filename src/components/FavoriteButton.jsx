@@ -36,12 +36,11 @@ export default function FavoriteButton({ recipe, dataTestid }) {
     const favorites = (isFavorite) ? verifyFav : [...verifyFav, newFavorite];
     localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
     setFavorite(!isFavorite);
-    window.location.reload(false);
   }
 
   return (
     <div>
-      <button type="button" onClick={ () => handleHeart() }>
+      <button className="neutral-button" type="button" onClick={ () => handleHeart() }>
         <img
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
           alt="Favourite Button"

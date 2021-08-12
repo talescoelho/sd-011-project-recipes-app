@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+import { Link } from 'react-router-dom';
 import { Foods, Cocktails, getIds } from '../services';
+import { CarouselItem } from '../styles';
 
 const six = 6;
 export default function Recommendations({ type }) {
@@ -12,25 +16,44 @@ export default function Recommendations({ type }) {
     };
     asyncFunc();
   }, [type]);
-
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 2,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 2,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 2,
+    },
+  };
   return (items) ? (
-    <div className="carousel">
+    <Carousel responsive={ responsive } removeArrowOnDeviceType={ ['tablet', 'mobile'] }>
       {
         items.slice(0, six).map((element, index) => {
-          const { image, name } = getIds(type, element);
+          const { image, name, id, type: drinkOrFood } = getIds(type, element);
           return (
-            <div
-              key={ index }
-              className="carousel-item"
-              data-testid={ `${index}-recomendation-card` }
-            >
-              <img src={ image } alt={ name } />
-              <p data-testid={ `${index}-recomendation-title` }>{ name }</p>
-            </div>
+            <Link to={ `/${drinkOrFood}s/${id}` } key={ index }>
+              <CarouselItem
+                className="d-flex flex-column align-items-center p-3 my-2 bg-light"
+                data-testid={ `${index}-recomendation-card` }
+              >
+                <img src={ image } alt={ name } className="m-2 border border-dark" />
+                <p data-testid={ `${index}-recomendation-title` }>{ name }</p>
+              </CarouselItem>
+            </Link>
           );
         })
       }
-    </div>
+    </Carousel>
   ) : <p>Loading ...</p>;
 }
 

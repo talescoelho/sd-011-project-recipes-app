@@ -5,10 +5,12 @@ import { getIds } from '../services';
 
 const onChecked = {
   textDecoration: 'line-through',
+  fontSize: '25px',
 };
 
 const offChecked = {
   textDecoration: 'none',
+  fontSize: '25px',
 };
 
 export default function Ingredients({ recipe, inProgress, type }) {
@@ -68,35 +70,40 @@ export default function Ingredients({ recipe, inProgress, type }) {
   }
 
   return (
-    <ol>
-      {
-        (ingredients) && ingredients.map(({ name, measure, checked }, index) => (
-          (inProgress) ? (
-            <label
-              key={ index }
-              htmlFor={ name }
-              data-testid={ `${index}-ingredient-step` }
-              style={ (checked) ? onChecked : offChecked }
-            >
-              <input
-                onClick={ () => checkedIngredient(name) }
-                type="checkbox"
-                checked={ checked }
-                id={ name }
-              />
-              { name }
-            </label>
-          ) : (
-            <li
-              key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              { `${name} - ${measure}` }
-            </li>
-          )
-        ))
-      }
-    </ol>
+    <div className="bg-light pt-2 m-3 rounded border">
+      <ol className="d-flex flex-column">
+        {
+          (ingredients) && ingredients.map(({ name, measure, checked }, index) => (
+            (inProgress) ? (
+              <div className="d-flex align-items-center">
+                <label
+                  key={ index }
+                  htmlFor={ name }
+                  data-testid={ `${index}-ingredient-step` }
+                  style={ (checked) ? onChecked : offChecked }
+                >
+                  <input
+                    style={ { height: '20px', width: '20px' } }
+                    onClick={ () => checkedIngredient(name) }
+                    type="checkbox"
+                    checked={ checked }
+                    id={ name }
+                  />
+                  { `  ${name} - ${measure}` }
+                </label>
+              </div>
+            ) : (
+              <li
+                key={ index }
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
+                { `${name} - ${measure}` }
+              </li>
+            )
+          ))
+        }
+      </ol>
+    </div>
   );
 }
 

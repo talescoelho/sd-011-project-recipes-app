@@ -55,22 +55,48 @@ export default function Details() {
     return (
       <DetailsProvider>
         <div>
-          <img data-testid="recipe-photo" src={ image } alt={ name } />
-          <h2 data-testid="recipe-title">{ name }</h2>
-          <h3 data-testid="recipe-category">{ category }</h3>
-          <ShareButton type={ drinkOrFood } id={ id } dataTestid="share-btn" />
-          <FavoriteButton
-            recipe={ recipeIds }
-            dataTestid="favorite-btn"
+          <img
+            data-testid="recipe-photo"
+            src={ image }
+            alt={ name }
+            className="details-img"
           />
+          <div className="d-flex justify-content-between p-2">
+            <div>
+              <h2 data-testid="recipe-title">{ name }</h2>
+              <h4
+                style={ { color: 'grey' } }
+                data-testid="recipe-category"
+              >
+                { category }
+              </h4>
+            </div>
+            <div className="d-flex">
+              <ShareButton type={ drinkOrFood } id={ id } dataTestid="share-btn" />
+              <FavoriteButton
+                recipe={ recipeIds }
+                dataTestid="favorite-btn"
+              />
+            </div>
+          </div>
+          <h3 className="mb-2 ml-2"> Ingredientes </h3>
           <Ingredients recipe={ recipe } inProgress={ inProgress } type={ drinkOrFood } />
-          <div>
-            <h3>Instructions</h3>
+          <h3 className="mb-2 ml-2">Instructions</h3>
+          <div className="bg-light p-2 m-3 rounded border">
             <p data-testid="instructions">{ instructions }</p>
           </div>
-          {
-            (video) && <iframe src={ video } title="Instruções" data-testid="video" />
-          }
+          {(video) && (
+            <div>
+              <h3 className="mb-2 ml-2">Vídeo</h3>
+              <div
+                className="d-flex justify-content-center bg-light p-2 m-3 rounded border"
+              >
+                <iframe src={ video } title="Instruções" data-testid="video" />
+              </div>
+            </div>
+          )}
+
+          <h3 className="mb-2 ml-2"> Recomendadas </h3>
           <Recommendations type={ reverseType } />
           <RecipeButton state={ state } recipe={ recipeIds } />
         </div>

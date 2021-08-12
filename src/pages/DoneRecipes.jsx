@@ -7,6 +7,9 @@ export default function DoneRecipes() {
   const [filter, setFilter] = useState('all');
 
   useEffect(() => {
+    if (!localStorage.doneRecipes) {
+      localStorage.setItem('doneRecipes', '[]');
+    }
     const doneRecipes = JSON.parse(localStorage.doneRecipes);
     if (filter === 'all') {
       setRecipes(doneRecipes);

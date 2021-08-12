@@ -38,3 +38,10 @@ export const FooterBar = styled.footer`
   position: fixed;
   width: 100%;
 `;
+
+export const CarouselItem = styled.div`
+  width: 55vw;
+  img {
+    width: 45vw;
+  }
+`;
