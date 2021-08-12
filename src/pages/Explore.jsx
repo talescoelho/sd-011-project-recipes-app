@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import FooterMenu from '../components/FooterMenu';
 import profileIcon from '../images/profileIcon.svg';
 
 const Explore = () => (
@@ -34,6 +35,7 @@ const Explore = () => (
         Explorar Bebidas
       </Button>
     </Link>
+    <FooterMenu />
   </>
 );
 export default Explore;

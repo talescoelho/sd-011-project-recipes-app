@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import { requestRandomFoodRecipe } from '../services/requestRandomRecipe';
 import profileIcon from '../images/profileIcon.svg';
+import FooterMenu from '../components/FooterMenu';
 
 export default function ExploreFood({ history }) {
   const callRandomAPImeal = async () => {
@@ -52,6 +53,7 @@ export default function ExploreFood({ history }) {
       >
         Me Surpreenda!
       </Button>
+      <FooterMenu />
     </>
   );
 }
