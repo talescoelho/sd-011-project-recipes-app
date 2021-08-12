@@ -1,62 +1,73 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-
-const local = window.location.href;
-const url = 'http://localhost:3000/comidas';
+import PropTypes from 'prop-types';
 
 function CardRecipe({ item, index }) {
-  return (
-    <div>
-      { local === url
-        ? (
-          <Link to={ `/comidas/${item.idMeal}` }>
-            <div data-testid={ `${index}-recipe-card` }>
-              {
-                item.strMeal ? (
-                  <p data-testid={ `${index}-card-name` }>
-                    { item.strMeal }
-                  </p>
-                ) : (
-                  <p data-testid={ `${item.strCategory}-category-filter` }>
-                    { item.strCategory }
-                  </p>
-                )
-              }
-
-              <img
-                data-testid={ `${index}-card-img` }
-                src={ item.strMealThumb ? item.strMealThumb : item.strCategoryThumb }
-                alt={ `${index}-card-name` }
-                width="50px"
-              />
-            </div>
-          </Link>
-        ) : (
+  function renderFoodCard(object) {
+    if (object.idMeal) {
+      return (
+        <Link to={ `/comidas/${object.idMeal}` }>
           <div data-testid={ `${index}-recipe-card` }>
-            <Link to={ `/bebidas/${item.idDrink}` }>
-              {
-                item.strDrink ? (
-                  <p data-testid={ `${index}-card-name` }>
-                    { item.strDrink }
-                  </p>
-                ) : (
-                  <p data-testid={ `${item.strCategory}-category-filter` }>
-                    { item.strCategory }
-                  </p>
-                )
-              }
-              <img
-                data-testid={ `${index}-card-img` }
-                src={ item.strDrinkThumb ? item.strDrinkThumb : 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg' }
-                alt={ `${index}-card-name` }
-                width="50px"
-              />
-            </Link>
+            <p data-testid={ `${index}-card-name` }>{ object.strMeal }</p>
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ object.strMealThumb }
+              alt={ `${index}-card-name` }
+              width="50px"
+            />
           </div>
-        ) }
-      ;
-    </div>
+        </Link>
+      );
+    }
+    if (object.strCategory) {
+      return (
+        <>
+          <p data-testid={ `${object.strCategory}-category-filter` }>
+            { object.strCategory }
+          </p>
+          <img
+            data-testid={ `${index}-card-img` }
+            src={ object.strCategoryThumb }
+            alt={ `${index}-card-name` }
+            width="50px"
+          />
+        </>);
+    }
+  }
+
+  function renderDrinkCard(object) {
+    if (object.idDrink) {
+      return (
+        <Link to={ `/bebidas/${object.idDrink}` }>
+          <div data-testid={ `${index}-recipe-card` }>
+            <p data-testid={ `${index}-card-name` }>{object.strDrink }</p>
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ object.strDrinkThumb }
+              alt={ `${index}-card-name` }
+              width="50px"
+            />
+          </div>
+        </Link>
+      );
+    }
+    if (object.strCategory) {
+      return (
+        <>
+          <p data-testid={ `${index}-card-name` }>{ object.strCategory }</p>
+          <img
+            data-testid={ `${index}-card-img` }
+            src="https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg"
+            alt={ `${index}-card-name` }
+            width="50px"
+          />
+        </>
+      );
+    }
+  }
+
+  return (
+    item.strMeal ? renderFoodCard(item) : renderDrinkCard(item)
   );
 }
 CardRecipe.propTypes = {

@@ -21,6 +21,7 @@ import userProfile from './pages/UserProfile';
 import finishRecipe from './pages/FinishRecipe';
 import favoriteRecipe from './pages/FavoriteRecipe';
 import Details from './pages/Details';
+import NotFound from './pages/NotFound';
 
 function App() {
   // useEffect(() => {
@@ -64,6 +65,7 @@ function App() {
             <Route exact path="/perfil" component={ userProfile } />
             <Route exact path="/receitas-feitas" component={ finishRecipe } />
             <Route exact path="/receitas-favoritas" component={ favoriteRecipe } />
+            <Route component={ NotFound } />
           </Switch>
         </BrowserRouter>
       </RequestProvider>

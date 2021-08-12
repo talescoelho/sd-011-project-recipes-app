@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import HeaderFood from '../components/HeaderFood';
 
-function userProfile() {
-  async function getStorage() {
-    const storage = await JSON.parse(localStorage.getItem('user'));
-    const user = storage.email;
-    return user;
-  }
+function UserProfile() {
+  const [userEmail, setUserEmail] = useState('');
+
+  useEffect(() => {
+    async function loadMail() {
+      const storage = await JSON.parse(localStorage.getItem('user'));
+      setUserEmail(storage.email);
+    }
+    loadMail();
+  }, []);
 
   return (
     <div>
       <HeaderFood title="Perfil" search={ false } />
-      <h4 data-testid="profile-email">{ () => getStorage() }</h4>
+      <h4 data-testid="profile-email">{ userEmail }</h4>
       <Link to="/receitas-feitas">
         <button
           type="button"
@@ -46,4 +50,4 @@ function userProfile() {
   );
 }
 
-export default userProfile;
+export default UserProfile;
