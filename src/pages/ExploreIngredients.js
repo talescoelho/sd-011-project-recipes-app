@@ -1,43 +1,67 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Loading from '../components/Loading';
+import { fetchIngredients } from '../actions/ingredients';
+import IngredientCard from '../components/IngredientCard';
 
-function ExploreIngredients({ history }) {
-  function mealsMain() {
-    return (
-      <main data-testid="recipes-page">
-        <h1>Conteúdo da tela de Explorar Ingredientes de COMIDAS</h1>
-        &nbsp;  &nbsp;  &nbsp;
-      </main>
-    );
-  }
+function ExploreIngredients({
+  history: { location: { pathname } },
+  ingredients,
+  loading,
+  error,
+  dispatchFetchIngredients,
+}) {
+  useEffect(() => {
+    if (pathname === '/explorar/comidas/ingredientes') {
+      dispatchFetchIngredients('comidas');
+    } else {
+      dispatchFetchIngredients('bebidas');
+    }
+  }, [pathname, dispatchFetchIngredients]);
 
-  function drinksMain() {
-    return (
-      <main data-testid="recipes-page">
-        <h1>Conteúdo da tela de Explorar Ingredientes de BEBIDAS</h1>
-        &nbsp;  &nbsp;  &nbsp;
-      </main>
-    );
-  }
+  const typeRecipe = pathname.includes('comidas') ? 'comidas' : 'bebidas';
 
   return (
     <>
       <Header withSearch={ false } pageTitle="Explorar Ingredientes" />
-      {history.location.pathname === '/explorar/comidas/ingredientes'
-        ? mealsMain() : drinksMain() }
+      <main data-testid="recipes-page">
+        { error && `${error}` }
+        {
+          loading
+            ? <Loading />
+            : (ingredients && ingredients.map((ingredient, index) => (
+              <IngredientCard
+                ingredientName={ ingredient.strIngredient || ingredient.strIngredient1 }
+                key={ index }
+                index={ index }
+                typeRecipe={ typeRecipe }
+              />
+            )))
+        }
+      </main>
       <Footer />
     </>
   );
 }
 
+const mapStateToProps = ({
+  ingredientsReducer: { ingredients, loading, error },
+}) => ({
+  ingredients,
+  loading,
+  error,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchFetchIngredients: (type) => dispatch(fetchIngredients(type)),
+});
+
 ExploreIngredients.propTypes = {
-  history: PropTypes.shape({
-    location: PropTypes.shape({
-      pathname: PropTypes.string,
-    }),
-  }),
+  dispatchFetchIngredients: PropTypes.func,
+  ingredients: PropTypes.objectOf,
 }.isRequired;
 
-export default ExploreIngredients;
+export default connect(mapStateToProps, mapDispatchToProps)(ExploreIngredients);
