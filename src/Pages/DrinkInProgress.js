@@ -98,14 +98,21 @@ function DrinkInProgress({ match }) {
               <SharedButton
                 path={ `localhost:3000${url}` }
                 dataTest="share-btn"
+                style={ { width: 25 } }
               />
               <FavoriteButton
                 id={ id }
                 favoriteRecipes={ drinks }
                 dataTest="favorite-btn"
+                style={ { width: 25 } }
               />
               <button data-testid="instructions" type="button">Instructions</button>
-              <button data-testid="finish-recipe-btn" type="button">
+              <button
+                data-testid="finish-recipe-btn"
+                type="button"
+                disabled={ data.drinks[0] !== null }
+              >
+
                 <Link to="/receitas-feitas">Finalizar</Link>
               </button>
             </div>

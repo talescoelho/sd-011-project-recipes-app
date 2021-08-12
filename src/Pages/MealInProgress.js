@@ -48,6 +48,7 @@ function MealInProgress({ match }) {
     const getStorage = JSON.parse(localStorage.getItem('meals'));
     localStorage.setItem('meals', JSON.stringify([...getStorage, name]));
   }
+
   return (
     <div>
       {
@@ -93,14 +94,17 @@ function MealInProgress({ match }) {
               <SharedButton
                 path={ `localhost:3000${url}` }
                 dataTest="share-btn"
+                style={ { width: 25 } }
               />
               <FavoriteButton
                 id={ id }
                 favoriteRecipes={ food }
                 dataTest="favorite-btn"
+                style={ { width: 25 } }
               />
               <button data-testid="instructions" type="button">Instructions</button>
               <button
+                disabled={ data.keys === 0 }
                 data-testid="finish-recipe-btn"
                 type="button"
               >

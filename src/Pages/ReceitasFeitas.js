@@ -5,35 +5,36 @@ import Header from '../components/Header';
 
 function ReceitasFeitas() {
   const [filter, setFilter] = useState('all');
-  localStorage.setItem('doneRecipes', JSON.stringify([
-    {
-      id: 52771,
-      type: 'comidas',
-      area: '',
-      category: 'Italian - Vegetarian',
-      alcoholicOrNot: '',
-      name: 'Spicy Arrabiata Penne',
-      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-      doneDate: '23/06/2020',
-      tags: ['Pasta', 'Curry'],
-    },
-    {
-      id: 178319,
-      type: 'bebidas',
-      area: '',
-      category: 'Alcoholic',
-      alcoholicOrNot: 'alcoholic',
-      name: 'Aquamarine',
-      image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-      doneDate: '10/06/2019',
-      tags: [],
-    },
-  ]));
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  // localStorage.setItem('doneRecipes', JSON.stringify([
+  //   {
+  //     id: 52771,
+  //     type: 'comidas',
+  //     area: '',
+  //     category: 'Italian - Vegetarian',
+  //     alcoholicOrNot: '',
+  //     name: 'Spicy Arrabiata Penne',
+  //     image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+  //     doneDate: '23/06/2020',
+  //     tags: ['Pasta', 'Curry'],
+  //   },
+  //   {
+  //     id: 178319,
+  //     type: 'bebidas',
+  //     area: '',
+  //     category: 'Alcoholic',
+  //     alcoholicOrNot: 'alcoholic',
+  //     name: 'Aquamarine',
+  //     image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+  //     doneDate: '10/06/2019',
+  //     tags: [],
+  //   },
+  // ]));
 
   const cardsRecipesDone = () => {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const doneRecipess = JSON.parse(localStorage.getItem('doneRecipes'));
 
-    const filted = doneRecipes.filter(({ type }) => type === filter || filter === 'all');
+    const filted = doneRecipess.filter(({ type }) => type === filter || filter === 'all');
 
     return filted.map(({ image, category, name, doneDate, tags, type, id }, index) => (
       <div key={ index }>
