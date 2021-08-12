@@ -31,7 +31,6 @@ function DrinkDetails({ match }) {
     };
     fetchDrink();
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    console.log(favoriteRecipes);
     const favorites = favoriteRecipes && favoriteRecipes.some((item) => item.id === id);
     if (favorites) {
       setFavorite(true);

@@ -87,6 +87,8 @@ function DrinkInProgress({ match }) {
       localStorage.setItem('doneRecipes',
         JSON.stringify([...prevStorage, objectStorage]));
     }
+    setChecked({});
+    localStorage.setItem('checking', '');
   }
 
   return (

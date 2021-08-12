@@ -9,14 +9,14 @@ function FoodInProgress({ match }) {
   const { id } = match.params;
   const [ingredients, setIngredients] = useState([]);
   const [favorite, setFavorite] = useState(false);
-  const [added, setAdd] = useState({});
+  const [added, setAdded] = useState({});
   const [copied, setCopied] = useState(false);
   const [disable, setDisable] = useState(true);
 
   useEffect(() => {
     const cached = localStorage.getItem('adding');
     const parsed = JSON.parse(cached);
-    if (parsed) setAdd(parsed);
+    if (parsed) setAdded(parsed);
   }, []);
 
   useEffect(() => {
@@ -33,11 +33,9 @@ function FoodInProgress({ match }) {
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
       .then((result) => result.json())
       .then((result) => {
-        console.log({ result });
         setIngredients(result.meals);
       });
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    console.log(favoriteRecipes);
     const favorites = favoriteRecipes && favoriteRecipes.some((item) => item.id === id);
     if (favorites) {
       setFavorite(true);
@@ -49,7 +47,6 @@ function FoodInProgress({ match }) {
     const ingredientList = new Array(magicNumber).fill().map((_, i) => {
       const ingredientKey = `strIngredient${i + 1}`;
       const measureKey = `strMeasure${i + 1}`;
-      console.table({ ingredientKey: line[ingredientKey], measureKey: line[measureKey] });
       return [line[ingredientKey], line[measureKey]];
     }).filter(([ingredient, measure]) => {
       if (ingredient && measure) {
@@ -68,6 +65,30 @@ function FoodInProgress({ match }) {
       setCopied(false);
     }, mSeconds);
   };
+
+  function handleFinish() {
+    const objectStorage = {
+      id,
+      type: 'comida',
+      area: '',
+      category: ingredients[0].strCategory ? ingredients[0].strCategory : '',
+      alcoholicOrNot: ingredients[0].strAlcoholic ? ingredients[0].strAlcoholic : '',
+      name: ingredients[0].strMeal,
+      image: ingredients[0].strMealThumb,
+      doneDate: window.Date(),
+      tags: ingredients[0].strTags ? [ingredients[0].strTags] : '',
+    };
+    const prevStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (prevStorage === null) {
+      localStorage.setItem('doneRecipes',
+        JSON.stringify([objectStorage]));
+    } else if (prevStorage !== null) {
+      localStorage.setItem('doneRecipes',
+        JSON.stringify([...prevStorage, objectStorage]));
+    }
+    setAdded({});
+    localStorage.setItem('adding', '');
+  }
 
   return (
     <div>
@@ -100,7 +121,7 @@ function FoodInProgress({ match }) {
                 <input
                   type="checkbox"
                   checked={ added[i.toString()] }
-                  onClick={ (event) => setAdd({ ...added,
+                  onClick={ (event) => setAdded({ ...added,
                     [i]: event.target.checked }) }
                 />
               </div>
@@ -112,6 +133,7 @@ function FoodInProgress({ match }) {
                 type="button"
                 data-testid="finish-recipe-btn"
                 disabled={ disable }
+                onClick={ handleFinish }
               >
                 Finalizar Receita
               </button>

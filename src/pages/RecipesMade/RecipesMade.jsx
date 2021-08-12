@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom';
 import Header from '../../globalComponents/Header';
 import shareIcon from '../../images/shareIcon.svg';
 
-function ReceitasFeitas({ match }) {
-  ReceitasFeitas.displayName = 'Receitas Feitas';
+function DoneRecipes({ match }) {
   const [typeToRender, setTypeToRender] = useState('All');
   const [copied, setCopied] = useState(false);
 
@@ -74,7 +73,8 @@ function ReceitasFeitas({ match }) {
                   <p
                     data-testid={ `${index}-horizontal-top-text` }
                   >
-                    {`${recipe.area} - ${recipe.category}`}
+                    {recipe.area ? `${recipe.area} - ${recipe.category}`
+                      : `${recipe.category}`}
                   </p>)
                 : (
                   <p
@@ -151,7 +151,7 @@ function ReceitasFeitas({ match }) {
   );
 }
 
-ReceitasFeitas.propTypes = {
+DoneRecipes.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -159,4 +159,4 @@ ReceitasFeitas.propTypes = {
   }).isRequired,
 };
 
-export default ReceitasFeitas;
+export default DoneRecipes;
