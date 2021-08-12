@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import {
   addRecipeIdInLocalStorage,
   addIngredientsInRecipeId,
+  addDoneRecipeInLocalStorage,
 } from '../helpers/manipulateLocalStorage';
 import { searchById } from '../services/index';
 import ButtonFavoriteRecipe from '../components/ButtonFavoriteRecipe';
@@ -13,6 +14,7 @@ import '../styles/RecipesInProgress.css';
 // import ButtonFavoriteRecipe from '../components/ButtonFavoriteRecipe';
 
 function ReceitasEmProgresso() {
+  const history = useHistory();
   const { pathname } = useLocation();
   const recipeId = pathname.split('/')[2];
   const recipeType = pathname.split('/')[1] === 'comidas' ? 'meals' : 'cocktails';
@@ -30,7 +32,17 @@ function ReceitasEmProgresso() {
 
   useEffect(() => {
     setIsLoading(true);
-    addRecipeIdInLocalStorage(recipeType, recipeId);
+    // ESSE CÓDIGO NAO É PARA ESTAR AQUI, APENAS TESTES
+    if (!localStorage.getItem('inProgressRecipes')) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        cocktails: {},
+        meals: {},
+      }));
+    }
+    const localStorageRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'))[recipeType][recipeId];
+    if (!localStorageRecipe) {
+      addRecipeIdInLocalStorage(recipeType, recipeId);
+    }
     const fetchRecipeById = async (id, typeOfRecipes) => {
       const recipe = await searchById(id, typeOfRecipes);
       setCurrentRecipe(recipe);
@@ -44,9 +56,9 @@ function ReceitasEmProgresso() {
     //   localStorage.getItem('inProgressRecipes'),
     // )[recipeType][recipeId];
     setInProgressIngredients(localStorageRecipe);
-    // if (inProgressIngredients) {
-    //   setProgressOfRecipe(inProgressIngredients.some((item) => !item.includes('done')));
-    // }
+    if (inProgressIngredients) {
+      setProgressOfRecipe(inProgressIngredients.some((item) => !item.includes('done')));
+    }
   }, [newRender]);
 
   useEffect(() => {
@@ -55,7 +67,9 @@ function ReceitasEmProgresso() {
       addIngredientsInRecipeId(currentRecipe, recipeType, recipeId);
       setNewRender(!newRender);
       setIsLoading(false);
+      // console.log('2', JSON.parse(localStorage.getItem('inProgressRecipes')));
     }
+    // console.log('2', JSON.parse(localStorage.getItem('inProgressRecipes')));
     // const ingredientsItensArr = ingredientsArrFormater(currentRecipe);
     // const recipeIngredientsInLS = JSON.parse(
     //   localStorage.getItem('inProgressRecipes'),
@@ -71,7 +85,7 @@ function ReceitasEmProgresso() {
     //   setNewRender(!newRender);
     //   setIsLoading(false);
     // }
-    // if (inProgressIngredients) setIsLoading(false);
+    if (inProgressIngredients) setIsLoading(false);
   }, [currentRecipe]);
 
   const handleShareBtn = (foodType, id) => {
@@ -87,6 +101,11 @@ function ReceitasEmProgresso() {
 
   const handleLinkMessage = () => {
     setLinkCopy(true);
+  };
+
+  const handleDoneRecipe = (recipe) => {
+    addDoneRecipeInLocalStorage(recipe);
+    return history.push('/receitas-feitas');
   };
 
   return (
@@ -143,6 +162,7 @@ function ReceitasEmProgresso() {
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ progressOfRecipe }
+        onClick={ () => handleDoneRecipe(currentRecipe) }
       >
         Finalizar Receitas
       </button>

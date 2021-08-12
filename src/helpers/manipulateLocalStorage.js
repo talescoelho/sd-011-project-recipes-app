@@ -1,8 +1,7 @@
 import ingredientsArrFormater from './ingredientsArrFormater';
 
-const GET_INGREDIENTS_IN_STORAGE = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
 export const addRecipeIdInLocalStorage = (recipeType, recipeId) => {
+  const GET_INGREDIENTS_IN_STORAGE = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (recipeType === 'meals') {
     const mealsRecipeIdObject = {
       ...GET_INGREDIENTS_IN_STORAGE,
@@ -25,12 +24,24 @@ export const addRecipeIdInLocalStorage = (recipeType, recipeId) => {
 
 export const addIngredientsInRecipeId = (recipe, recipeType, recipeId) => {
   const currentIngredients = ingredientsArrFormater(recipe);
-  localStorage.setItem('inProgressRecipes', JSON.stringify({
-    ...GET_INGREDIENTS_IN_STORAGE,
+  const GET_INGREDIENTS = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const ingredientsObject = {
+    ...GET_INGREDIENTS,
     [recipeType]: {
-      ...GET_INGREDIENTS_IN_STORAGE[recipeType],
+      ...GET_INGREDIENTS[recipeType],
       [recipeId]: currentIngredients,
     },
-  }));
-  return GET_INGREDIENTS_IN_STORAGE[recipeType][recipeId];
+  };
+  localStorage.setItem('inProgressRecipes', JSON.stringify(ingredientsObject));
+  return GET_INGREDIENTS[recipeType][recipeId];
+};
+
+export const addDoneRecipeInLocalStorage = (recipe) => {
+  const LOCAL_STORAGE = JSON.parse(localStorage.getItem('doneRecipes'));
+  // localStorage.setItem('doneRecipes', JSON.stringify([...LOCAL_STORAGE, recipe]));
+  if (!LOCAL_STORAGE) {
+    localStorage.setItem('doneRecipes', JSON.stringify([recipe]));
+  } else {
+    localStorage.setItem('doneRecipes', JSON.stringify([...LOCAL_STORAGE, recipe]));
+  }
 };

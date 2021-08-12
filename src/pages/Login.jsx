@@ -26,8 +26,8 @@ export default function Login() {
     localStorage.setItem('mealsToken', JSON.stringify(1));
     localStorage.setItem('cocktailsToken', JSON.stringify(1));
     localStorage.setItem('inProgressRecipes', JSON.stringify({
-      cocktails: { },
-      meals: { },
+      cocktails: {},
+      meals: {},
     }));
     history.push('/comidas');
   };

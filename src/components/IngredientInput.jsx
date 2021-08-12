@@ -18,14 +18,16 @@ function IngredientInput(
   }, []);
 
   useEffect(() => {
-    // VERIFICA SE CHECKED  SETA A CLASS;
+    // VERIFICA SE CHECKED SETA A CLASS;
+    // target.setAttribute('checked', isChecked);
     setDoneClass(isChecked);
   }, [isChecked]);
 
   const handleCheckIngredient = ({ target }) => {
+    setIsChecked(!isChecked);
+    console.log(target.checked);
     const doneItem = isChecked ? ingredient.replace(' done', '') : `${ingredient} done`;
     makeNewIngredientsArray(inProgressIngredients, ingredient, doneItem, type, id);
-    setIsChecked(!isChecked);
     setNewRender(!newRender);
   };
 
@@ -33,12 +35,13 @@ function IngredientInput(
     <li
       data-testid={ `${index}-ingredient-step` }
     >
+      {/* {console.log(isChecked)} */}
       <input
-        id="InputCheckbox"
+        id="inputCheckbox"
+        defaultChecked={ isChecked }
         type="checkbox"
-        checked={ isChecked }
         onClick={ (event) => handleCheckIngredient(event) }
-        readOnly
+        // readOnly
       />
       <span className={ scratched }>
         { ingredient.replace(' done', '') }
