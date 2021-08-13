@@ -16,6 +16,8 @@ import drinksFilterByOtherUnknown from '../mocks/drinks/mockFilterByOtherUnknown
 import drinksFilterByCocoa from '../mocks/drinks/mockFilterByCocoa';
 
 const maxDefaultCards = 12;
+const cardTestId = '-recipe-card';
+const titleTestId = '-card-name';
 
 afterEach(() => jest.clearAllMocks());
 beforeEach(() => jest.clearAllMocks());
@@ -39,7 +41,7 @@ filter`, () => {
     expect(cards.length).not.toBe(maxDefaultCards + 1);
 
     const { meals } = mealsFilterByBeef;
-    await testMealsRecipeCard(meals, maxDefaultCards);
+    await testMealsRecipeCard(meals, maxDefaultCards, cardTestId, titleTestId);
   });
 
   it(`If the recipes are for food and the category is "Breakfast", you must load the 
@@ -61,7 +63,7 @@ filter`, () => {
     expect(cards.length).not.toBe(maxBreakfastCards + 1);
 
     const { meals } = mealsFilterByBreakfast;
-    await testMealsRecipeCard(meals, maxBreakfastCards);
+    await testMealsRecipeCard(meals, maxBreakfastCards, cardTestId, titleTestId);
   });
 
   it(`If the recipes are for food and the category is "Chicken", you must load the first 
@@ -81,7 +83,7 @@ filter`, () => {
     expect(cards.length).not.toBe(maxDefaultCards + 1);
 
     const { meals } = mealsFilterByChicken;
-    await testMealsRecipeCard(meals, maxDefaultCards);
+    await testMealsRecipeCard(meals, maxDefaultCards, cardTestId, titleTestId);
   });
 
   it(`If the recipes are for food and the category is "Dessert", you must load the first 
@@ -101,7 +103,7 @@ filter`, () => {
     expect(cards.length).not.toBe(maxDefaultCards + 1);
 
     const { meals } = mealsFilterByDessert;
-    await testMealsRecipeCard(meals, maxDefaultCards);
+    await testMealsRecipeCard(meals, maxDefaultCards, cardTestId, titleTestId);
   });
 
   it(`If the recipes are for food and the category is "Goat", you must load the first 12 
@@ -121,7 +123,7 @@ filter`, () => {
     expect(cards.length).not.toBe(1 + 1);
 
     const { meals } = mealsFilterByGoat;
-    await testMealsRecipeCard(meals, 1);
+    await testMealsRecipeCard(meals, 1, cardTestId, titleTestId);
   });
 
   it(`If the recipes are for drinks and the category is "Ordinary Drink", you must load 
@@ -144,7 +146,7 @@ filter`, () => {
     expect(cards.length).not.toBe(maxDefaultCards + 1);
 
     const { drinks } = drinksFilterByOrdinaryDrink;
-    await testDrinksRecipeCard(drinks, maxDefaultCards);
+    await testDrinksRecipeCard(drinks, maxDefaultCards, cardTestId, titleTestId);
   });
 
   it(`If the recipes are for drinks and the category is "Cocktail", the first 12 
@@ -167,7 +169,7 @@ filter`, () => {
     expect(cards.length).not.toBe(maxDefaultCards + 1);
 
     const { drinks } = drinksFilterByCocktail;
-    await testDrinksRecipeCard(drinks, maxDefaultCards);
+    await testDrinksRecipeCard(drinks, maxDefaultCards, cardTestId, titleTestId);
   });
 
   it(`If the recipes are for drinks and the category is "Milk/Float/Shake", you must 
@@ -190,7 +192,7 @@ filter`, () => {
     expect(cards.length).not.toBe(maxDefaultCards + 1);
 
     const { drinks } = drinksFilterByMilkFloatShake;
-    await testDrinksRecipeCard(drinks, maxDefaultCards);
+    await testDrinksRecipeCard(drinks, maxDefaultCards, cardTestId, titleTestId);
   });
 
   it(`If the recipes are for drinks and the category is "Other/Unknown", the first 12 
@@ -213,7 +215,7 @@ filter`, () => {
     expect(cards.length).not.toBe(maxDefaultCards + 1);
 
     const { drinks } = drinksFilterByOtherUnknown;
-    await testDrinksRecipeCard(drinks, maxDefaultCards);
+    await testDrinksRecipeCard(drinks, maxDefaultCards, cardTestId, titleTestId);
   });
 
   it(`If the recipes are for drinks and the category is "Cocoa", you must load the first 
@@ -236,6 +238,6 @@ filter`, () => {
     expect(cards.length).not.toBe(maxCocoaCards + 1);
 
     const { drinks } = drinksFilterByCocoa;
-    await testDrinksRecipeCard(drinks, maxCocoaCards);
+    await testDrinksRecipeCard(drinks, maxCocoaCards, cardTestId, titleTestId);
   });
 });

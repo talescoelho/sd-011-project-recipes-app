@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import {
   requestMealsMenu,
   requestMealsFilters,
@@ -17,6 +17,7 @@ import {
 import FilterMenu from '../components/FilterMenu';
 import Footer from '../components/common/Footer';
 import Header from '../components/Header/Header';
+import RecipeCard from '../components/common/RecipeCard';
 
 const Foods = ({
   dispatch,
@@ -87,20 +88,16 @@ const Foods = ({
             ? (<div>Loading...</div>)
             : (
               meals.map(({ idMeal, strMeal, strMealThumb }, index) => (
-                <Link
-                  aria-label="card-menu"
-                  data-testid={ `${index}-recipe-card` }
+                <RecipeCard
                   key={ index }
-                  to={ `/comidas/${idMeal}` }
-                >
-                  <img
-                    data-testid={ `${index}-card-img` }
-                    src={ strMealThumb }
-                    alt={ `${strMeal} recipe` }
-                    width="100px"
-                  />
-                  <h3 data-testid={ `${index}-card-name` }>{ strMeal }</h3>
-                </Link>
+                  index={ index }
+                  cardType="comida"
+                  cardTestId="-recipe-card"
+                  recipeId={ idMeal }
+                  recipeThumb={ strMealThumb }
+                  recipeName={ strMeal }
+                  titleTestId="-card-name"
+                />
               ))
             )
         }

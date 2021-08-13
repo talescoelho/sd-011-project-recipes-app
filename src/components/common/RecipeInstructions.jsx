@@ -15,7 +15,11 @@ const RecipeInstructions = ({ strInstructions }) => (
 );
 
 RecipeInstructions.propTypes = {
-  strInstructions: PropTypes.string.isRequired,
+  strInstructions: PropTypes.string,
+};
+
+RecipeInstructions.defaultProps = {
+  strInstructions: undefined,
 };
 
 export default RecipeInstructions;

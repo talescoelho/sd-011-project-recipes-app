@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import {
   requestDrinkMenu,
   requestDrinksFilters,
@@ -16,6 +16,7 @@ import {
 import FilterMenu from '../components/FilterMenu';
 import Footer from '../components/common/Footer';
 import Header from '../components/Header/Header';
+import RecipeCard from '../components/common/RecipeCard';
 
 const Drinks = ({
   dispatch,
@@ -55,7 +56,7 @@ const Drinks = ({
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
 
-  if (drinks.length === 1) {
+  if (selectedRadio && drinks.length === 1) {
     return <Redirect to={ `/bebidas/${drinkId}` } />;
   }
   return (
@@ -86,20 +87,16 @@ const Drinks = ({
             ? (<div>Loading...</div>)
             : (
               drinks.map(({ idDrink, strDrink, strDrinkThumb }, index) => (
-                <Link
-                  aria-label="card-menu"
-                  data-testid={ `${index}-recipe-card` }
+                <RecipeCard
                   key={ index }
-                  to={ `/bebidas/${idDrink}` }
-                >
-                  <img
-                    data-testid={ `${index}-card-img` }
-                    src={ strDrinkThumb }
-                    alt={ `${strDrink} recipe` }
-                    width="100px"
-                  />
-                  <h3 data-testid={ `${index}-card-name` }>{strDrink}</h3>
-                </Link>
+                  cardType="bebida"
+                  cardTestId="-recipe-card"
+                  index={ index }
+                  recipeId={ idDrink }
+                  recipeThumb={ strDrinkThumb }
+                  recipeName={ strDrink }
+                  titleTestId="-card-name"
+                />
               ))
             )
         }
