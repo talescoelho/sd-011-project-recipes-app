@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Row,
   Col,
@@ -15,11 +15,25 @@ import * as actions from '../../actions';
 function ReceitasFavoritas(props) {
   const { favorites, handleFavoriteRecipe } = props;
 
-  const handleFavoriteBtn = (idClickado) => {
+  const [filter, setFilter ] = useState('All')
+
+  const handleFavoriteBtn = (idClicked) => {
     const filteredFavoriteRecipes = favorites
-      .filter((el) => el.id !== idClickado);
+      .filter((el) => el.id !== idClicked);
     handleFavoriteRecipe([...filteredFavoriteRecipes]);
   };
+
+  let filtered;
+  if (filter === 'Drinks') {
+     filtered = favorites
+      .filter((el) => el.type === "bebida");
+  } else if (filter === 'Food') {
+    filtered = favorites
+      .filter((el) => el.type === 'comida');
+  } else {
+    filtered = favorites;
+  }
+
   return (
     <div>
       <Header title="Receitas Favoritas" />
@@ -27,28 +41,28 @@ function ReceitasFavoritas(props) {
         <Col className="col-12 mt-3 d-flex justify-content-around">
           <Button
             variant="light"
-            // onClick={ () => setFilter('') }
+            onClick={ () => setFilter('All') }
             data-testid="filter-by-all-btn"
           >
             All
           </Button>
           <Button
             variant="light"
-            // onClick={ () => setFilter('bebida') }
+            onClick={ () => setFilter('Food') }
             data-testid="filter-by-food-btn"
           >
             Food
           </Button>
           <Button
             variant="light"
-            // onClick={ () => setFilter('comida') }
+            onClick={ () => setFilter('Drinks') }
             data-testid="filter-by-drink-btn"
           >
             Drinks
           </Button>
         </Col>
       </Row>
-      {favorites.map((item, index) => {
+      {filtered.map((item, index) => {
         const {
           id,
           type,
@@ -65,7 +79,6 @@ function ReceitasFavoritas(props) {
           <div key={ index } className="d-flex mx-0 mb-3 bg-light rounded shadow-lg">
             <Image
               style={ { maxWidth: '160px' } }
-              // onClick={ () => handleRedirect(type, id) }
               className="ml-0 rounded-left"
               data-testid={ `${index}-horizontal-image` }
               src={ item.image }
