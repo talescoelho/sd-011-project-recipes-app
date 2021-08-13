@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { getFoodsByID } from '../Services/ApiFood';
+import copy from 'clipboard-copy';
+import { getFoodsByID, copyLink } from '../Services/ApiFood';
+import getDate from '../Services/getDate';
+import MainContext from '../Context/MainContext';
+import FavoriteButtons from '../Components/FavoriteButtons';
 
 function FoodProgress(props) {
   const [foodById, setFoodById] = useState([]);
@@ -10,6 +14,8 @@ function FoodProgress(props) {
   const [inProgressRecipe, setInProgressRecipe] = useState({});
   const { match } = props;
   const { id } = match.params;
+  const [isFavorite, setIsFavorite] = useState(false);
+  const { idFoodsAPI, setIdFoodsAPI, show, setShow } = useContext(MainContext);
 
   async function fetchFoodsByID() {
     const foodByIdAPI = await getFoodsByID(id);
@@ -17,6 +23,55 @@ function FoodProgress(props) {
   }
 
   // console.log(foodById);
+
+  useEffect(() => {
+    const getAPIById = async () => {
+      const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+      const { meals } = await fetch(endpoint).then((data) => data.json());
+      setIdFoodsAPI(meals[0]);
+    };
+    getAPIById();
+  }, [id, setIdFoodsAPI]);
+
+  const isFavoriteInLocal = () => {
+    const infoInLocal = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    setIsFavorite(infoInLocal.some((item) => item.id === id));
+  };
+
+  useEffect(() => {
+    const handleFavorite = () => {
+      const infoItem = [{
+        id: idFoodsAPI.idMeal,
+        type: 'comida',
+        area: '',
+        category: idFoodsAPI.strCategory,
+        name: idFoodsAPI.strMeal,
+        image: idFoodsAPI.strMealThumb,
+      }];
+      const infoInLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (isFavorite) {
+        if (infoInLocal) {
+          const SomaDEArraysComOStorage = infoItem.concat(infoInLocal);
+          const verify = JSON.stringify(SomaDEArraysComOStorage);
+          return (idFoodsAPI
+            && localStorage.setItem('favoriteRecipes', verify));
+        }
+        const verify = JSON.stringify(infoItem);
+        return (idFoodsAPI
+          && localStorage.setItem('favoriteRecipes', verify));
+      }
+      if (infoInLocal) {
+        const newFavoriteRecipes = infoInLocal
+          .filter((item) => item.id !== idFoodsAPI.idMeal);
+        localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+      }
+    };
+    handleFavorite();
+  }, [isFavorite]);
+
+  const handleColoredHeart = () => {
+    setIsFavorite(!isFavorite);
+  };
 
   useEffect(() => {
     foodById.forEach((ingredient) => {
@@ -50,19 +105,8 @@ function FoodProgress(props) {
     return button;
   }
 
-  // Para pegar a data utilizamos como base o código desse link:
-  // https://pt.stackoverflow.com/questions/6526/como-formatar-data-no-javascript
   function handleCLick() {
-    function dataAtualFormatada() {
-      const data = new Date();
-      const dia = data.getDate().toString();
-      const diaF = (dia.length === 1) ? `0${dia}` : dia;
-      const mes = (data.getMonth() + 1).toString();
-      const mesF = (mes.length === 1) ? `0${mes}` : mes;
-      const anoF = data.getFullYear();
-      return `${diaF}/${mesF}/${anoF}`;
-    }
-    const now = dataAtualFormatada();
+    const now = getDate();
     const doneRecipes = foodById.map((food) => ({
       id: food.idMeal,
       type: 'comida',
@@ -85,6 +129,7 @@ function FoodProgress(props) {
 
   useEffect(() => {
     fetchFoodsByID();
+    isFavoriteInLocal();
     const recipesInProgress = getStorage('inProgressRecipes') || {};
     setInProgressRecipe(recipesInProgress);
   }, []);
@@ -175,18 +220,15 @@ function FoodProgress(props) {
             Finish
           </button>
         </Link>
-        <button
-          type="button"
-          data-testid="favorite-btn"
-        >
-          Favorite
-        </button>
+        { FavoriteButtons(handleColoredHeart, isFavorite) }
         <button
           type="button"
           data-testid="share-btn"
+          onClick={ () => copyLink(copy, setShow, 'comidas', id) }
         >
-          Share
+          Compartilhar
         </button>
+        <p>{ show && 'Link copiado!'}</p>
       </div>
     </div>
   );
