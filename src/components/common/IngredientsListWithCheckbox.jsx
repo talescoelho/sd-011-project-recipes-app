@@ -30,6 +30,7 @@ const IngredientsListWithCheckbox = (props) => {
         { ingredients.map((ingredient, index) => (
           <li key={ ingredient } data-testid={ `${index}-ingredient-step` }>
             <input
+              className="checkbox"
               data-testid="ingredient-step"
               defaultChecked={ inProgressRecipes[recipeType][id].includes(index) }
               id={ ingredient }

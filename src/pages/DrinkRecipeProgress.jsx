@@ -47,7 +47,7 @@ const DrinkRecipeProgress = ({ dispatch, match, drinkDetails }) => {
       };
     }
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-  }, [dispatch, id]);
+  }, []);
   if (drinkDetails.strInstructions === undefined) return <span>Carregando...</span>;
   const measuresAndIngredients = filterDrinkMeasuresAndIngredients(drinkDetails);
   return (

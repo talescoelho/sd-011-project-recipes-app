@@ -12,7 +12,7 @@ const FoodDetails = ({ dispatch, match, mealDetails }) => {
 
   useEffect(() => {
     dispatch(requestMealDetails(id));
-  }, [dispatch, id]);
+  }, []);
   if (mealDetails.strInstructions === undefined) return (<span>Carregando...</span>);
   return (
     <>

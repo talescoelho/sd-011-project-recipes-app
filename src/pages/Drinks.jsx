@@ -16,6 +16,7 @@ import FilterMenu from '../components/FilterMenu';
 import Footer from '../components/common/Footer';
 import Header from '../components/Header/Header';
 import RecipeCard from '../components/common/RecipeCard';
+import '../styles/pages/drinks.css';
 
 const Drinks = ({
   dispatch,
@@ -30,7 +31,7 @@ const Drinks = ({
 
   useEffect(() => {
     dispatch(requestDrinksFilters());
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
@@ -63,7 +64,7 @@ const Drinks = ({
             )
         }
       </nav>
-      <main>
+      <main className="drinks-page">
         {
           (loadingDrinks)
             ? (<div>Loading...</div>)

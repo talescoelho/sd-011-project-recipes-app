@@ -20,7 +20,7 @@ const Login = () => {
       else buttonState(true);
     };
     emailCheck();
-  }, [password, email]);
+  }, []);
 
   function handleClick() {
     const emailAux = { email };

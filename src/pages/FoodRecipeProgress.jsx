@@ -43,7 +43,7 @@ const FoodRecipeProgress = ({ dispatch, match, mealDetails }) => {
       };
     }
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-  }, [dispatch, id]);
+  }, []);
   if (mealDetails.strInstructions === undefined) return (<span>Carregando...</span>);
   const oldIngredients = [
     `${mealDetails.strMeasure1} - ${mealDetails.strIngredient1}`,

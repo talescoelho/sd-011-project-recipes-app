@@ -11,7 +11,7 @@ const DrinkDetails = ({ dispatch, match, drinkDetails }) => {
 
   useEffect(() => {
     dispatch(requestDrinkDetails(id));
-  }, [dispatch, id]);
+  }, []);
   if (drinkDetails.strInstructions === undefined) return (<span>Carregando...</span>);
   return (
     <>

@@ -1,0 +1,14 @@
+footer {
+  background-color: lightgreen;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  position: fixed;
+  width: 100%;
+}
+
+.image-icon:hover {
+  background-color: white;
+  border: black;
+}

@@ -19,7 +19,7 @@ Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu
   - [O que deverá ser desenvolvido](#o-que-deverá-ser-desenvolvido)
     - [Protótipo do projeto](#protótipo-do-projeto)
   - [Data de entrega](#data-de-entrega)
-- [Intruções para entregar](#intruções-para-entregar)
+- [Instruções para entregar](#instruções-para-entregar)
   - [Antes de começar a desenvolver](#antes-de-começar-a-desenvolver)
   - [Durante o desenvolvimento](#durante-o-desenvolvimento)
   - [Depois de terminar o desenvolvimento (opcional)](#depois-de-terminar-o-desenvolvimento-opcional)
@@ -253,7 +253,7 @@ Lembre-se de escrever testes unitários e sinta-se livre para alterar a UI, só 
 
 ---
 
-# Intruções para entregar
+# Instruções para entregar
 
 ### Antes de começar a desenvolver:
 

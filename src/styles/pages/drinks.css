@@ -1,0 +1,4 @@
+.drinks-page {
+  display: flex;
+  flex-flow: row wrap;
+}

@@ -77,52 +77,55 @@ const Header = ({
         (showField)
           ? (
             <span className="field-style">
-              <label htmlFor="radio-buttons-label">
-                <label htmlFor="label-ingredient-radio">
-                  Ingrediente
-                  <input
-                    type="radio"
-                    data-testid="ingredient-search-radio"
-                    name="ingredient"
-                    value="ingrediente"
-                    onClick={ ({ target: { value } }) => setSelectedRadio(value) }
-                  />
-                </label>
-
-                <label htmlFor="label-name-radio">
-                  Nome
-                  <input
-                    type="radio"
-                    data-testid="name-search-radio"
-                    name="ingredient"
-                    value="name"
-                    onClick={ ({ target: { value } }) => setSelectedRadio(value) }
-                  />
-                </label>
-
-                <label htmlFor="label-first-letter-radio">
-                  Primeira letra
-                  <input
-                    type="radio"
-                    data-testid="first-letter-search-radio"
-                    name="ingredient"
-                    value="first-letter"
-                    onClick={ ({ target: { value } }) => setSelectedRadio(value) }
-                  />
-                </label>
-                <button
-                  type="button"
-                  data-testid="exec-search-btn"
-                  onClick={ () => requestSearch() }
-                >
-                  Buscar
-                </button>
-              </label>
               <input
                 type="text"
                 data-testid="search-input"
                 onChange={ ({ target: { value } }) => setTypeIngredient(value) }
               />
+              <div className="buttons">
+                <label htmlFor="ingrediente">
+                  Ingrediente
+                  <input
+                    type="radio"
+                    data-testid="ingredient-search-radio"
+                    id="ingrediente"
+                    name="selector"
+                    value="ingrediente"
+                    onClick={ ({ target: { value } }) => setSelectedRadio(value) }
+                  />
+                </label>
+
+                <label htmlFor="nome">
+                  Nome
+                  <input
+                    type="radio"
+                    data-testid="name-search-radio"
+                    id="nome"
+                    name="selector"
+                    value="name"
+                    onClick={ ({ target: { value } }) => setSelectedRadio(value) }
+                  />
+                </label>
+
+                <label htmlFor="letra">
+                  Primeira letra
+                  <input
+                    type="radio"
+                    data-testid="first-letter-search-radio"
+                    id="letra"
+                    name="selector"
+                    value="first-letter"
+                    onClick={ ({ target: { value } }) => setSelectedRadio(value) }
+                  />
+                </label>
+              </div>
+              <button
+                type="button"
+                data-testid="exec-search-btn"
+                onClick={ () => requestSearch() }
+              >
+                Buscar
+              </button>
             </span>
           )
           : null

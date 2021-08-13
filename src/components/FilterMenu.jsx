@@ -63,7 +63,6 @@ const FilterMenu = ({
       {
         categoryNames.map((categoryName, index) => (
           <button
-            className=""
             data-testid={ `${categoryName}-category-filter` }
             id={ `${categoryName}-filter` }
             key={ index }

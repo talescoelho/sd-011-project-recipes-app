@@ -17,6 +17,7 @@ import FilterMenu from '../components/FilterMenu';
 import Footer from '../components/common/Footer';
 import Header from '../components/Header/Header';
 import RecipeCard from '../components/common/RecipeCard';
+import '../styles/pages/foods.css';
 
 const Foods = ({
   dispatch,
@@ -31,7 +32,7 @@ const Foods = ({
 
   useEffect(() => {
     dispatch(requestMealsFilters());
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
@@ -64,7 +65,7 @@ const Foods = ({
             )
         }
       </nav>
-      <main>
+      <main className="foods-page">
         {
           (loadingMeals)
             ? (<div>Loading...</div>)

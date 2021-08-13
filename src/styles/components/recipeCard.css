@@ -2,14 +2,13 @@
   border: 1px solid black;
   display: flex;
   flex-direction: column;
-  height: 172px;
-  width: 162px;
+  height: 10%;
 }
 
 .card-menu img {
-  height: 109px;
+  height: 100%;
   margin: 0;
-  width: 160px;
+  width: 100%;
 }
 
 .card-menu h3 {

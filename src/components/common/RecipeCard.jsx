@@ -36,12 +36,12 @@ const RecipeCard = ({
       data-testid={ `${index}${cardTestId}` }
       to={ () => choiceRoute() }
     >
+      <h3 data-testid={ `${index}${titleTestId}` }>{ recipeName }</h3>
       <img
         data-testid={ `${index}-card-img` }
         src={ recipeThumb }
         alt={ `${recipeName} recipe` }
       />
-      <h3 data-testid={ `${index}${titleTestId}` }>{ recipeName }</h3>
     </Link>
   );
 };
