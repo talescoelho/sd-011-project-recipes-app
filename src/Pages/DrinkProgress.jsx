@@ -66,7 +66,7 @@ function DrinkProgress(props) {
     setDrinkById(drinkById[0].doneDate = now);
     const doneRecipes = drinkById.map((drink) => ({
       id: drink.idDrink,
-      type: 'comida',
+      type: 'bebida',
       area: drink.strArea,
       category: drink.strCategory,
       alcoholicOrNot: drink.strAlcoholic,
