@@ -28,6 +28,7 @@ const IngredientsListWithCheckbox = (props) => {
         { ingredients.map((ingredient, index) => (
           <li key={ ingredient } data-testid={ `${index}-ingredient-step` }>
             <input
+              data-testid="ingredient-step"
               defaultChecked={ localStorageClone.includes(index) }
               id={ ingredient }
               index={ index }
