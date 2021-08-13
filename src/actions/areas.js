@@ -24,10 +24,7 @@ export function fetchAreas() {
 
     return fetch(areasUrl)
       .then((response) => response.json())
-      .then((data) => {
-        const areasList = data.meals;
-        dispatch(getAreasSuccess(areasList));
-      })
+      .then(({ meals }) => dispatch(getAreasSuccess(meals)))
       .catch((error) => dispatch(getAreasError(error)));
   };
 }
