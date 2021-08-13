@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { produce } from 'immer';
 import _ from 'lodash';
 import useLocalStorage from 'use-local-storage-state';
+import { updateIngredientList } from '../../Redux/reducers/user';
 
 export default function IngredientChecklist() {
   const dispatch = useDispatch();
@@ -17,6 +18,12 @@ export default function IngredientChecklist() {
     drinks: 'cocktails',
   };
   const fd = foodType[type];
+
+  const checkboxList = () => {
+    const allCheckBoxes = [...document.querySelectorAll('input[type=checkbox]')];
+    const redx = (acc, checkbox) => (checkbox.checked ? acc + 1 : acc);
+    return allCheckBoxes.length !== allCheckBoxes.reduce(redx, 0);
+  };
 
   const handleCheckBox = ({ target }) => {
     const { name, checked } = target;
@@ -36,6 +43,7 @@ export default function IngredientChecklist() {
   };
 
   useEffect(() => {
+    dispatch(updateIngredientList(checkboxList()));
     if (local[fd][id]) {
       setIngr(local[fd][id]);
     }
@@ -73,9 +81,5 @@ export default function IngredientChecklist() {
     });
   }
 
-  return (
-    <div>
-      {listIngredients(singleFood)}
-    </div>
-  );
+  return (<div>{listIngredients(singleFood)}</div>);
 }

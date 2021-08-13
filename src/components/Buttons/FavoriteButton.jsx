@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import propTypes from 'prop-types';
+import { updateFavorites } from '../../Redux/reducers/user';
 import blackHeart from '../../images/blackHeartIcon.svg';
 import useLSHook from '../Hooks/useLSHook';
 
@@ -13,7 +14,7 @@ export default function FavoriteBtn({ id, index }) {
 
   const handleBookMark = () => {
     const newState = recipes.filter((el) => el.id !== id);
-    dispatch({ type: 'UPDATE_FAVORITE', payload: newState });
+    dispatch(updateFavorites(newState));
     setFavoriteRecipes(newState);
   };
 

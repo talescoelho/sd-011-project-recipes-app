@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { Button, Form } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import propTypes from 'prop-types';
-import useLocalStorage from 'use-local-storage-state';
-import _ from 'lodash';
-import produce from 'immer';
 import { fetchFood } from '../services/FoodAPI';
 import CardsDrinks from './CardsDrinks';
 import CardsFood from './CardsFood';
@@ -17,6 +14,7 @@ import IngredientChecklist from './FoodInProgress/IngredientChecklist';
 export default function FoodInProgress({ type }) {
   const history = useHistory();
   const recipes = useSelector((state) => state.recipes);
+  const user = useSelector((state) => state.user);
   const food = recipes.singleFood;
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -60,7 +58,7 @@ export default function FoodInProgress({ type }) {
         </div>
 
         <Button
-          // disabled={ !(check && check.length === ingredientList.length) }
+          disabled={ user.recipeStatus }
           className="btnstart"
           type="button"
           data-testid="finish-recipe-btn"
@@ -75,6 +73,7 @@ export default function FoodInProgress({ type }) {
   return (
     <div className="loading">Loading&#8230;</div>);
 }
+
 FoodInProgress.propTypes = {
   type: propTypes.string.isRequired,
 };

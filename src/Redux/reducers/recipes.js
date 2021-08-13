@@ -2,24 +2,38 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   formInfo: '',
-  cards: { meals: [], drinks: [] },
+  cards: { meals: [], drinks: [], loaded: false },
   categories: { drinks: [], meals: [] },
   untouched: '',
   selectedCategory: '',
 };
 
-export const userSlice = createSlice({
-  name: 'userSlice',
+export const recipeSlice = createSlice({
+  name: 'recipeSlice',
   initialState,
   reducers: {
     sendFormData: (state, action) => {
       state.formInfo = action.payload;
     },
+
+    setLoadingState: (state, action) => {
+      state.cards.loaded = action.payload;
+    },
+
+    fetchCardsFromIngredients: (state, action) => {
+      const { cards, cat, loaded } = action.payload;
+      state.formInfo = '';
+      state.cards[cat] = cards;
+      state.selectedCategory = cat;
+      state.cards.loaded = loaded;
+    },
+
     fetchFoodCards: (state, action) => {
       const { filtered, cat } = action.payload;
       state.cards[cat] = filtered;
       state.selectedCategory = cat;
     },
+
     fetchFoodCategories: (state, action) => {
       const { array } = action.payload;
       state.categories = { ...state.categories, [action.payload.type]: array };
@@ -41,11 +55,13 @@ export const userSlice = createSlice({
 });
 
 export const {
+  setLoadingState,
+  fetchCardsFromIngredients,
   sendFormData,
   fetchFoodCards,
   fetchFoodCategories,
   clearFormInfo,
   fetchFilteredCategory,
-  fetchDetails } = userSlice.actions;
+  fetchDetails } = recipeSlice.actions;
 
-export default userSlice.reducer;
+export default recipeSlice.reducer;

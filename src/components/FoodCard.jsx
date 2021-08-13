@@ -19,7 +19,7 @@ export default function FoodCard({ type }) {
 
   useEffect(() => {
     const getCards = () => {
-      if (!cards.length || formInfo || selectedCategory !== type) {
+      if (!cards[type].length || formInfo || selectedCategory !== type) {
         dispatch(getFood(formInfo, type));
       }
     };
@@ -27,7 +27,7 @@ export default function FoodCard({ type }) {
     getCards();
   },
 
-  [formInfo, dispatch, type, cards.length, selectedCategory]);
+  [formInfo, dispatch, type, cards.length, selectedCategory, cards]);
 
   useEffect(() => {
     if (cards.length === 1) {

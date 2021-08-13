@@ -8,6 +8,7 @@ export default function FavoriteCard({ el, index }) {
   const { id, type, area, category, alcoholicOrNot, doneDate, name, image, tags } = el;
   const tagsArray = tags && Array.from(tags.toString().split(',').slice(0, 2));
   const url = window.location.href.replace(/\/receitas-favoritas/, `/${type}s/${id}`);
+
   return (
     <div className="done-container">
       <div className="product-details">
