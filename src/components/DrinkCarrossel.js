@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-function FoodCarrossel({ recomendation }) {
+function DrinkCarrossel({ recomendation }) {
   const history = useHistory();
   const [recomendations, setRecomendations] = useState();
 
@@ -11,11 +11,11 @@ function FoodCarrossel({ recomendation }) {
   }, [recomendation]);
 
   function imgClickHandler(id) {
-    history.push(`/bebidas/${id}`);
+    history.push(`/comidas/${id}`);
     window.location.reload();
   }
 
-  function renderMealCarrossel() {
+  function renderDrinkCarrossel() {
     return (
       <div>
         <h3>Recomendações:</h3>
@@ -26,14 +26,14 @@ function FoodCarrossel({ recomendation }) {
                 data-testid={ `${index}-recomendation-card` }
                 key={ index }
                 type="button"
-                onClick={ () => imgClickHandler(item.idDrink) }
+                onClick={ () => imgClickHandler(item.idMeal) }
               >
                 <img
                   alt="logo"
-                  src={ item.strDrinkThumb }
+                  src={ item.strMealThumb }
                   width="140px"
                 />
-                <h3 data-testid={ `${index}-recomendation-title` }>{item.strDrink}</h3>
+                <h3 data-testid={ `${index}-recomendation-title` }>{item.strMeal}</h3>
               </button>
             )) : 'loading'}
         </div>
@@ -42,8 +42,8 @@ function FoodCarrossel({ recomendation }) {
   }
 
   return (
-    recomendation ? renderMealCarrossel() : 'loading...'
+    recomendation ? renderDrinkCarrossel() : 'loading...'
   );
 }
 
-export default FoodCarrossel;
+export default DrinkCarrossel;

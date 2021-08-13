@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ShareBtn from './FavoriteBtn';
 import FavoriteBtn from './ShareBtn';
+import DrinkCarrossel from './DrinkCarrossel';
+import FetchApi from '../services/ApiFetch';
 
 function DrinkDetailsCard({ details, mealIngredients, mealMeasure }) {
+  const [recomendation, setRecomendation] = useState();
+
+  useEffect(() => {
+    async function getRecomendations() {
+      const qty = 6;
+      const response = await FetchApi('themealdb', 'nome', '');
+      const recomendationsList = response.meals.slice(0, qty);
+      setRecomendation(recomendationsList);
+    }
+    getRecomendations();
+  }, []);
+
   function renderDetails() {
     return (
       <div className="details-body">
@@ -35,6 +49,7 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure }) {
   return (
     <div className="details-container">
       { details ? renderDetails() : 'Loading...'}
+      <DrinkCarrossel recomendation={ recomendation } />
     </div>
   );
 }

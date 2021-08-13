@@ -32,14 +32,14 @@
 }
 
 .container-carrossel {
-  justify-content: center;
   display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  background-color: black;
+  width: 315px;
 }
 
-.showImgCarrossel {
+.carrossel-item-container {
   display: flex;
-}
-
-.hideImgCarrossel {
-  display: none;
+  flex-direction: column;
 }
