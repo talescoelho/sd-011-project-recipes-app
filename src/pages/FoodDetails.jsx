@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import copy from 'clipboard-copy';
 import { useParams, useHistory } from 'react-router';
 import loading from '../images/loading.gif';
 
-import { Layout, ActionButton, FavoriteButton } from '../components';
+import { Layout, ShareButton, FavoriteButton } from '../components';
 
-import {
-  getStoredFavorites,
-  getDoneRecipes,
-  getStoredInProgressRecipes } from '../utils/storage';
+import { useLocalStorage } from '../hooks';
 
-const TOAST_TIMEOUT = 3000;
 const RECOMMENDATION_NUMBER = 6;
+const NOT_FOUND_INDEX = -1;
 
 const renderLoadingOrError = (error, isLoading) => {
   if (isLoading) {
@@ -38,9 +34,9 @@ function FoodDetails() {
   const [isDone, setIsDone] = useState(false);
   const [isInProgress, setIsInProgress] = useState(false);
   const [drinks, setDrinks] = useState([]);
-  const [toastIsVisible, setToastIsVisible] = useState(false);
   const { id } = useParams();
   const history = useHistory();
+  const { getDoneRecipes, getInProgressRecipeByType } = useLocalStorage();
 
   const BASE_URL = 'https://www.themealdb.com/api/json/v1/1/lookup.php'; // TODO usar token
   const DRINKS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -58,18 +54,9 @@ function FoodDetails() {
       .catch(setDrinksError)
       .finally(() => setDrinksLoading(false));
 
-    getDoneRecipes(id, setIsDone);
-    getStoredInProgressRecipes(id, setIsInProgress, 'meals');
-    getStoredFavorites(id, setIsFavorite);
-  }, [id]);
-
-  function showToast() {
-    setToastIsVisible(true);
-
-    setTimeout(() => {
-      setToastIsVisible(false);
-    }, TOAST_TIMEOUT);
-  }
+    setIsDone(getDoneRecipes().findIndex((r) => r.id === id) !== NOT_FOUND_INDEX);
+    setIsInProgress(getInProgressRecipeByType('meals')[id] !== undefined);
+  }, [id, getInProgressRecipeByType, getDoneRecipes]);
 
   const renderNoRecipeMessage = () => renderLoadingOrError(error, isLoading);
 
@@ -113,13 +100,7 @@ function FoodDetails() {
                   <h2 data-testid="recipe-category">{ recipe.strCategory }</h2>
                 </div>
                 <div>
-                  <ActionButton
-                    action="share"
-                    onClick={ () => {
-                      copy(`http://localhost:3000/comidas/${id}`);
-                      showToast();
-                    } }
-                  />
+                  <ShareButton id={ id } type="comida" />
                   <FavoriteButton recipe={ recipe } />
                 </div>
               </section>
@@ -205,11 +186,6 @@ function FoodDetails() {
               </section>
             </>
           ) }
-        { toastIsVisible && (
-          <div style={ { position: 'fixed', right: '25px', bottom: '25px' } }>
-            <p>Link copiado!</p>
-          </div>
-        ) }
       </main>
     </Layout>
   );

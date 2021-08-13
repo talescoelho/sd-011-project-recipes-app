@@ -14,10 +14,11 @@ function BaseActionButton({ onClick, action, reverse, index }) {
   };
 
   const iconSrc = action === 'share' ? ShareIcon : getFavoriteIcon(reverse);
-  // data-testid={ `${index}-horizontal-favorite-btn` }
   return (
     <button
-      data-testid={ `${action}-btn` }
+      data-testid={ index === null
+        ? `${action}-btn`
+        : `${index}-horizontal-favorite-btn` }
       type="button"
       title={ `${action} the recipe` }
       onClick={ onClick }
@@ -32,11 +33,12 @@ export default BaseActionButton;
 
 BaseActionButton.defaultProps = {
   reverse: false,
+  index: null,
 };
 
 BaseActionButton.propTypes = {
   onClick: PropTypes.func.isRequired,
   action: PropTypes.oneOf(['share', 'favorite']).isRequired,
   reverse: PropTypes.bool,
-  index: PropTypes.number.isRequired,
+  index: PropTypes.number,
 };
