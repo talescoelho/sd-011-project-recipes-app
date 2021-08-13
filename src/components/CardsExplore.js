@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import { Redirect } from 'react-router-dom';
+
 function CardsExplore(props) {
   const { ingredientesList, drink } = props;
 
@@ -13,20 +15,23 @@ function CardsExplore(props) {
       return (
         ingredientesListRender.filter((__, index) => index < maxListRender)
           .map((ingrediente, index) => (
-            <div
-              key={ index }
-              data-testid={ `${index}-ingredient-card` }
-              className="cards"
-            >
-              <div>
-                <h5 data-testid={ `${index}-card-name` }>{ingrediente.strIngredient1}</h5>
-                <img
-                  className="card-img"
-                  src={ `${imageDrink}${ingrediente.strIngredient1}-Small.png` }
-                  alt={ ingrediente.strIngredient1 }
-                  data-testid={ `${index}-card-img` }
-                />
-              </div>
+            <div key={ index }>
+              <Redirect to="/comidas">
+                <div
+                  data-testid={ `${index}-ingredient-card` }
+                  className="cards"
+                >
+                  <h5 data-testid={ `${index}-card-name` }>
+                    {ingrediente.strIngredient1}
+                  </h5>
+                  <img
+                    className="card-img"
+                    src={ `${imageDrink}${ingrediente.strIngredient1}-Small.png` }
+                    alt={ ingrediente.strIngredient1 }
+                    data-testid={ `${index}-card-img` }
+                  />
+                </div>
+              </Redirect>
             </div>
           )));
     }
@@ -68,10 +73,8 @@ function CardsExplore(props) {
 
   );
 }
-
 CardsExplore.propTypes = {
-  drink: PropTypes.bool.isRequired,
   ingredientesList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  drink: PropTypes.bool.isRequired,
 };
-
 export default CardsExplore;

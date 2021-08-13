@@ -11,7 +11,7 @@ import '../App.css';
 export default function Recipes() {
   const [listMealsCategorie, setListMealsCategorie] = useState([]);
   const [buttonCategorie, setButtonCategorie] = useState(null);
-  const [toggleClick, setToggleClick] = useState(false);
+
   const [foodFromSearch, setFoodFromSearch] = useState(null);
 
   const renderCards = () => (<Cards
@@ -21,14 +21,11 @@ export default function Recipes() {
     foodFromSearch={ foodFromSearch }
   />);
 
-  const toggleButton = (setButton, listCategorie, index, categorie) => {
-    if (toggleClick && buttonCategorie === categorie) {
-      setToggleClick(false);
-
-      return setButton(null);
+  const toggleButton = (listCategorie, index) => {
+    if (buttonCategorie === listCategorie[index].strCategory) {
+      return setButtonCategorie(null);
     }
-    setToggleClick(true);
-    return setButton(listCategorie[index].strCategory);
+    return setButtonCategorie(listCategorie[index].strCategory);
   };
 
   const getDataButton = () => {
@@ -46,10 +43,10 @@ export default function Recipes() {
             type="button"
             data-testid={ `${listMealsCategorie[0].strCategory}-category-filter` }
             onClick={ () => toggleButton(
-              setButtonCategorie,
+
               listMealsCategorie,
               '0',
-              `${listMealsCategorie[0].strCategory}-category-filter`,
+
             ) }
           >
             {listMealsCategorie[0].strCategory}
@@ -58,10 +55,10 @@ export default function Recipes() {
             type="button"
             data-testid={ `${listMealsCategorie[1].strCategory}-category-filter` }
             onClick={ () => toggleButton(
-              setButtonCategorie,
+
               listMealsCategorie,
               '1',
-              `${listMealsCategorie[1].strCategory}-category-filter`,
+
             ) }
           >
             {listMealsCategorie[1].strCategory}
@@ -71,10 +68,10 @@ export default function Recipes() {
             type="button"
             data-testid={ `${listMealsCategorie[2].strCategory}-category-filter` }
             onClick={ () => toggleButton(
-              setButtonCategorie,
+
               listMealsCategorie,
               '2',
-              `${listMealsCategorie[2].strCategory}-category-filter`,
+
             ) }
           >
             {listMealsCategorie[2].strCategory}
@@ -84,10 +81,10 @@ export default function Recipes() {
             type="button"
             data-testid={ `${listMealsCategorie[3].strCategory}-category-filter` }
             onClick={ () => toggleButton(
-              setButtonCategorie,
+
               listMealsCategorie,
               '3',
-              `${listMealsCategorie[3].strCategory}-category-filter`,
+
             ) }
           >
             {listMealsCategorie[3].strCategory}
@@ -97,10 +94,10 @@ export default function Recipes() {
             type="button"
             data-testid={ `${listMealsCategorie[4].strCategory}-category-filter` }
             onClick={ () => toggleButton(
-              setButtonCategorie,
+
               listMealsCategorie,
               '4',
-              `${listMealsCategorie[4].strCategory}-category-filter`,
+
             ) }
           >
             {listMealsCategorie[4].strCategory}
