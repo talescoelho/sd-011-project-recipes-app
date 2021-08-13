@@ -16,9 +16,11 @@ class ReceitasFavoritas extends Component {
 
   getListFromLS() {
     const list = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    this.setState({
-      favList: list,
-    });
+    if (list !== null) {
+      this.setState({
+        favList: list,
+      });
+    }
   }
 
   render() {

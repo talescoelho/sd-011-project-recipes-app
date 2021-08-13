@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addDrinkRecipeDone } from '../actions';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
 class ReceitaEmProgressoBebida extends Component {
   constructor() {
@@ -12,12 +15,16 @@ class ReceitaEmProgressoBebida extends Component {
       finalList: [],
       disabled: true,
       checked: [],
+      loading: true,
+      isALreadyFavorited: false,
+      showSpan: false,
     };
     this.fetchAPI = this.fetchAPI.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.CopyToClipboard = this.CopyToClipboard.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.getIngredientsFromLS = this.getIngredientsFromLS.bind(this);
+    this.handleOnClickLike = this.handleOnClickLike.bind(this);
   }
 
   componentDidMount() {
@@ -25,7 +32,6 @@ class ReceitaEmProgressoBebida extends Component {
   }
 
   handleChange() {
-    // Retirado https://stackoverflow.com/questions/14800954/how-to-check-if-all-checkboxes-are-unchecked
     if (document.querySelectorAll('input[type="checkbox"]:checked').length
     === document.querySelectorAll('input[type="checkbox"]').length) {
       this.setState({
@@ -73,40 +79,88 @@ class ReceitaEmProgressoBebida extends Component {
     });
   }
 
+  handleOnClickLike() {
+    const { cocktail, isALreadyFavorited } = this.state;
+    const obj = {
+      id: cocktail.idDrink,
+      type: 'bebida',
+      area: '',
+      category: cocktail.strCategory,
+      alcoholicOrNot: cocktail.strAlcoholic,
+      name: cocktail.strDrink,
+      image: cocktail.strDrinkThumb,
+    };
+    const favoritedRecipes = JSON.parse(
+      localStorage.getItem('favoriteRecipes'),
+    );
+    if (!isALreadyFavorited && favoritedRecipes !== null) {
+      favoritedRecipes.push(obj);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favoritedRecipes));
+    }
+    if (favoritedRecipes === null) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([obj]));
+    }
+    if (isALreadyFavorited) {
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify(favoritedRecipes.filter((e) => e.id !== cocktail.idDrink)),
+      );
+    }
+    this.setState({
+      isALreadyFavorited: !isALreadyFavorited,
+    });
+  }
+
   getIngredientsFromLS() {
     const { match: { params: { id } } } = this.props;
     const { finalList } = this.state;
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const prepareBooleans = (master, keys) => {
+      const booleans = master.map((el) => keys.includes(el));
+      return booleans;
+    };
+    let array = [];
     if (inProgressRecipes === null) {
       const obj = {
         cocktails: {
-          controle: '999999999999',
+          [id]: [],
         },
         meals: {
-          controle: '999999999999',
         },
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
-    } else if (Object.hasOwnProperty.call(inProgressRecipes.meals, id)) {
-      const array = JSON.stringify(inProgressRecipes.meals[id]);
-      const prepareBooleans = (master, keys) => {
-        const booleans = master.map((el) => keys.includes(el));
-        return booleans;
+    } else if (Object.hasOwnProperty.call(inProgressRecipes.cocktails, id)) {
+      array = JSON.stringify(inProgressRecipes.cocktails[id]);
+    } else {
+      const obj = {
+        ...inProgressRecipes,
+        meals: {
+          ...inProgressRecipes.meals,
+          [id]: [],
+        },
       };
-      this.setState({
-        checked: prepareBooleans(finalList, array),
-      });
+      localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
     }
+    this.setState({
+      checked: prepareBooleans(finalList, array),
+      loading: false,
+    });
   }
 
   CopyToClipboard() { // https://orclqa.com/copy-url-clipboard/
+    const { match: { params: { id } } } = this.props;
     const inputc = document.body.appendChild(document.createElement('input'));
-    inputc.value = window.location.href;
-    inputc.focus();
-    inputc.select();
+    navigator.clipboard.writeText(`http://localhost:3000/bebidas/${id}`);
     document.execCommand('copy');
     inputc.parentNode.removeChild(inputc);
-    alert('Link copiado!');
+    this.setState({ showSpan: true }, () => {
+      const ONE_SECOND = 2000;
+      setTimeout(() => {
+        this.setState({
+          showSpan: false,
+        });
+      }, ONE_SECOND);
+    });
   }
 
   async fetchAPI() {
@@ -135,11 +189,22 @@ class ReceitaEmProgressoBebida extends Component {
         this.getIngredientsFromLS();
       });
     });
+    const favoritedRecipes = JSON.parse(
+      localStorage.getItem('favoriteRecipes'),
+    );
+    const { cocktail } = this.state;
+    if (
+      favoritedRecipes !== null
+      && favoritedRecipes.some((e) => e.id === cocktail.idDrink)
+    ) {
+      this.setState({ isALreadyFavorited: true });
+    }
   }
 
   render() {
     const { cocktail: { idDrink, strDrinkThumb, strDrink, strAlcoholic,
-      strInstructions, strCategory }, finalList, disabled, checked } = this.state;
+      strInstructions, strCategory }, finalList, disabled, checked,
+    loading, isALreadyFavorited, showSpan } = this.state;
     const { addDoneRecipe, match: { params: { id } } } = this.props;
     const obj = {
       id: idDrink,
@@ -159,25 +224,40 @@ class ReceitaEmProgressoBebida extends Component {
           data-testid="share-btn"
           onClick={ () => this.CopyToClipboard() }
         >
-          Compartilhar
+          <img src={ shareIcon } alt="icone botão" />
         </button>
-        <button type="button" data-testid="favorite-btn">Favoritar</button>
+        <span style={ { display: showSpan ? 'inline' : 'none' } }>
+          Link copiado!
+        </span>
+        <button
+          type="button"
+          data-testid="favorite-btn"
+          src={ isALreadyFavorited ? blackHeartIcon : whiteHeartIcon }
+          onClick={ () => this.handleOnClickLike() }
+        >
+          <img
+            src={ isALreadyFavorited ? blackHeartIcon : whiteHeartIcon }
+            alt={ `liked? ${isALreadyFavorited}` }
+          />
+        </button>
         <h2 data-testid="recipe-category">{ strCategory }</h2>
         <form onChange={ this.handleChange }>
           <ul>
-            {finalList.map((ing, index) => (
-              <li key={ ing } data-testid={ `${index}-ingredient-step` }>
-                <span>
-                  <input
-                    type="checkbox"
-                    value={ index }
-                    checked={ checked[index] }
-                    onClick={ (e) => this.handleClick(e) }
-                  />
-                </span>
-                <span>{ ing }</span>
-              </li>
-            ))}
+            {loading ? (<div>...</div>) : (
+              finalList.map((ing, index) => (
+                <li key={ ing } data-testid={ `${index}-ingredient-step` }>
+                  <span>
+                    <input
+                      type="checkbox"
+                      value={ index }
+                      checked={ checked[index] }
+                      onClick={ (e) => this.handleClick(e) }
+                    />
+                  </span>
+                  <span>{ ing }</span>
+                </li>
+              ))
+            )}
           </ul>
           <p data-testid="instructions">{strInstructions}</p>
           <Link to="/receitas-feitas">

@@ -16,9 +16,11 @@ class ReceitasFeitas extends Component {
 
   getListFromLS() {
     const list = JSON.parse(localStorage.getItem('doneRecipes'));
-    this.setState({
-      doneList: list,
-    });
+    if (list !== null) {
+      this.setState({
+        doneList: list,
+      });
+    }
   }
 
   render() {
@@ -31,6 +33,27 @@ class ReceitasFeitas extends Component {
           title={ title }
           lupa={ lupa }
         />
+        <button
+          type="button"
+          value="all"
+          data-testid="filter-by-all-btn"
+        >
+          all
+        </button>
+        <button
+          type="button"
+          value="comidas"
+          data-testid="filter-by-food-btn"
+        >
+          Comidas
+        </button>
+        <button
+          type="button"
+          value="bebidas"
+          data-testid="filter-by-drink-btn"
+        >
+          Bebidas
+        </button>
         {doneList.map((obj, index) => (
           <div key={ index }>
             <span>{ obj.id }</span>
