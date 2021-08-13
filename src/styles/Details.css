@@ -18,8 +18,7 @@
 } */
 
 .startButton {
-  background-color:#F8F9FA;
-  border: none;
+  background-color: #f8f9fa;
   border: 1px solid gray;
   bottom: 0;
   position: fixed;
