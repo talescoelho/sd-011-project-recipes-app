@@ -1,8 +1,7 @@
 import React from 'react';
 import { screen, fireEvent } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
 import { renderWithRouterAndStore } from '../helper/testConfig';
-import { Profile } from '../../pages';
+import App from '../../App';
 
 beforeEach(() => {
   localStorage.setItem('user', '{ "email": "email@mail.com" }');
@@ -21,8 +20,7 @@ describe(`87 - Redirect the user that, when clicking the "Sair" button, the
 'localStorage' should be cleared and the route should change to the login screen`,
 () => {
   it('Clear all keys from localStorage', () => {
-    const history = createMemoryHistory();
-    renderWithRouterAndStore(<Profile history={ history } />, '/perfil');
+    renderWithRouterAndStore(<App />, { route: '/perfil' });
 
     expect(localStorage.getItem('user')).toEqual('{ "email": "email@mail.com" }');
     expect(localStorage.getItem('mealsToken')).toEqual('1');
@@ -43,15 +41,12 @@ describe(`87 - Redirect the user that, when clicking the "Sair" button, the
   });
 
   it('Route changes to login screen', () => {
-    const history = createMemoryHistory();
-    const { history: historyRoute } = renderWithRouterAndStore(
-      <Profile history={ history } />, '/perfil',
-    );
+    const { history } = renderWithRouterAndStore(<App />, { route: '/perfil' });
 
     const profileLogoutBtn = screen.getByTestId('profile-logout-btn');
     fireEvent.click(profileLogoutBtn);
 
-    const { location: { pathname } } = historyRoute;
+    const { location: { pathname } } = history;
     expect(pathname).toBe('/');
   });
 });

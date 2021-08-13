@@ -25,9 +25,8 @@ const FoodDetails = (
 
   useEffect(() => {
     dispatch(requestMealDetails(id));
-    // eslint-disable-next-line
-  }, []);
-
+  }, [dispatch, id]);
+  if (mealDetails.strInstructions === undefined) return (<span>Carregando...</span>);
   return (
     <>
       <HeaderDetails

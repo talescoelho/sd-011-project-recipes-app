@@ -1,17 +1,14 @@
 import React from 'react';
 import { renderWithRouterAndStore } from '../helper/testConfig';
-import { FoodDetails, DrinkDetails } from '../../pages';
 import * as requestMenu from '../../services/requestMenu';
 import mealsFiltersByAll from '../mocks/meals/mockFilterMealsByAll';
 import mealRecipeDetails from '../mocks/meals/mockMealRecipeDetails';
 import drinksFiltersByAll from '../mocks/drinks/mockFilterDrinksByAll';
 import drinkRecipeDetails from '../mocks/drinks/mockDrinkRecipeDetails';
+import App from '../../App';
 
 const mockMealPath = '/comidas/52977';
-const mockMealsMatch = { params: { id: '52977' }, url: '/comidas/52977' };
-
 const mockDrinkPath = '/bebidas/15997';
-const mockDrinkMatch = { params: { id: '15997' }, url: '/bebidas/15997' };
 
 jest
   .spyOn(requestMenu, 'searchMealByName')
@@ -37,11 +34,11 @@ recipe link within the app should be copied to the clipboard and a message notif
 you that the link was copied should appear`, () => {
   it(`Checks the message "Link copiado!" and if the food recipe link was copied to the 
   clipboard`, () => {
-    renderWithRouterAndStore(<FoodDetails match={ mockMealsMatch } />, mockMealPath);
+    renderWithRouterAndStore(<App />, { route: mockMealPath });
   });
 
   it(`Checks the message "Link copiado!" and if the drink recipe link was copied to 
   the clipboard`, () => {
-    renderWithRouterAndStore(<DrinkDetails match={ mockDrinkMatch } />, mockDrinkPath);
+    renderWithRouterAndStore(<App />, { route: mockDrinkPath });
   });
 });

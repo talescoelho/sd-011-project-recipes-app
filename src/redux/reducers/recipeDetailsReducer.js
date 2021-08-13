@@ -6,10 +6,10 @@ import {
 } from '../actions/recipeDetailsActions';
 
 const INITIAL_STATE = {
-  meal: {},
   drink: {},
-  isLoading: false,
   error: null,
+  isLoading: false,
+  meal: {},
 };
 console.log(INITIAL_STATE.meal);
 

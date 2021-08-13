@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const useLocalStorage = (key, initial) => {
-  const [state, setState] = React.useState(() => {
-    const getKey = window.localStorage.getItem(key);
+  const [state, setState] = useState(() => {
+    const getKey = localStorage.getItem(key);
     return !getKey ? initial : getKey;
   });
 
   React.useEffect(() => {
-    window.localStorage.setItem(key, JSON.stringify(state));
+    localStorage.setItem(key, JSON.stringify(state));
   }, [key, state]);
 
   return [state, setState];

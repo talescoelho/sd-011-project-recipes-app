@@ -1,8 +1,7 @@
-/* eslint-disable no-alert */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {
   requestMealsMenu,
   requestMealsFilters,
@@ -28,54 +27,37 @@ const Foods = ({
   meals,
   mealId,
 }) => {
-  const [selectedRadio, setSelectedRadio] = useState('');
-  const [typeIngredient, setTypeIngredient] = useState('');
-
-  const handleIngredient = ({ target }) => { setTypeIngredient(target.value); };
+  const { location: { state } } = useHistory();
 
   useEffect(() => {
     dispatch(requestMealsFilters());
   }, [dispatch]);
 
-  const handleRadioButton = () => {
-    if (selectedRadio === 'ingrediente') {
-      dispatch(fetchIngredients(typeIngredient));
-    }
-    if (selectedRadio === 'name') {
-      dispatch(fetchByName(typeIngredient));
-    }
-    if (selectedRadio === 'first-letter') {
-      if (typeIngredient.length > 1) {
-        alert('Sua busca deve conter somente 1 (um) caracter');
-      } else {
-        dispatch(fetchByFirstLetter(typeIngredient));
-      }
-    }
-  };
-
-  if (error) {
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  }
-
-  if (selectedRadio && meals.length === 1) {
-    return <Redirect to={ `/comidas/${mealId}` } />;
-  }
   return (
     <>
       <nav>
         <Header
           page="Comidas"
           showSearchBtn
-          radioOption={ ({ target: { value } }) => setSelectedRadio(value) }
-          sendRadioInfo={ () => handleRadioButton() }
-          typedIngredient={ handleIngredient }
+          error={ error }
+          recipe={ meals }
+          recipeId={ mealId }
+          redirectTo="comidas"
+          fetchIngredients={ fetchIngredients }
+          fetchByName={ fetchByName }
+          fetchByFirstLetter={ fetchByFirstLetter }
         />
         {
           (loadingFilterOptions)
             ? (<div>Loading...</div>)
             : (
               <FilterMenu
-                requestMenu={ requestMealsMenu }
+                requestMenu={
+                  (state) ? fetchIngredients : requestMealsMenu
+                }
+                exploreByIngredient={
+                  (state) ? state.recipeName : null
+                }
                 categoryNames={ categoryNames }
                 filterByCategory={ requestMealsByFilter }
               />
@@ -123,13 +105,14 @@ Foods.propTypes = {
   loadingMeals: PropTypes.bool.isRequired,
   error: PropTypes.string,
   meals: PropTypes.arrayOf(PropTypes.object),
-  mealId: PropTypes.arrayOf(PropTypes.object).isRequired,
+  mealId: PropTypes.string,
 };
 
 Foods.defaultProps = {
   categoryNames: [],
   meals: [],
   error: null,
+  mealId: undefined,
 };
 
 export default connect(mapStateToProps)(Foods);
