@@ -12,7 +12,6 @@ function DoneRecipes() {
     const storage = getStorage('doneRecipes');
     return storage || [];
   }
-
   const [doneRecipes, setDoneRecipes] = useState(recipesDone());
 
   useEffect(() => {
