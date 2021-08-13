@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 class RecipeDetailMain extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.main = this.main.bind(this);
   }
