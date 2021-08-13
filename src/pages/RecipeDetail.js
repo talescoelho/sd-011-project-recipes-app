@@ -32,6 +32,7 @@ function RecipeDetail({ history: { push, location: { pathname } },
       <RecipesRecommended recipesRecommended={ recipesRecommended } />
       <button
         data-testid="start-recipe-btn"
+        className="fixedBottom"
         type="button"
         onClick={ redrectToRecipeInProgress }
       >
