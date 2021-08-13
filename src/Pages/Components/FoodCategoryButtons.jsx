@@ -5,7 +5,7 @@ import Context from '../../Context_Configs/Context';
 export default function FoodCategory() {
   const numberFour = 4;
 
-  const { setRenderCategory, setFoodsForCategory } = React.useContext(Context);
+  const { setRenderCategory, setFoodsForCategory, renderCategory } = React.useContext(Context);
   const [foodCategories, setFoodCategories] = React.useState();
   const [selectedCategory, setSelectedCategory] = React.useState('');
 
@@ -22,8 +22,7 @@ export default function FoodCategory() {
 
     setSelectedCategory(value);
     const lastCategory = selectedCategory;
-
-    if (target.value === lastCategory || target.value === 'All') {
+    if (target.innerHTML === lastCategory || target.innerHTML === 'All') {
       setRenderCategory(true);
     } else {
       const twelveItems = 12;

@@ -29,10 +29,6 @@ function Foods() {
     if (requestFoodParams.searchInput === '' && requestFoodParams.searchMethod === '') {
       setRequestFoodParams({
         searchInput: '', searchMethod: '' });
-    } else {
-      // setRequestFoodParams({
-      //   searchInput: requestFoodParams.searchInput,
-      //   searchMethod: requestFoodParams.searchMethod })
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [renderCategory]);
@@ -66,6 +62,7 @@ function Foods() {
         </button>
       </div>
       <FoodCategoryButtons />
+      {console.log(renderCategory)}
       {
         renderCategory ? <FoodsCards /> : <FoodCategoryCards />
       }

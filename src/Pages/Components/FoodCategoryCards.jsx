@@ -6,7 +6,7 @@ export default function FoodCategoryCards() {
   const { foodsForCategory } = React.useContext(Context);
   return (
     <div>
-      {foodsForCategory
+      {foodsForCategory !== 0
       && foodsForCategory.map(({ strMeal, strMealThumb, idMeal }, i) => (
         <Link to={ `/comidas/${idMeal}` } key={ `${strMeal}-${i}` }>
           <div data-testid={ `${i}-recipe-card` }>
