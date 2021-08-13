@@ -1,4 +1,4 @@
-/* .carousel {
+.carousel {
   display: flex;
   min-width: 95vw;
   overflow-x: auto;
@@ -6,16 +6,16 @@
   scroll-snap-type: x mandatory;
 }
 
-.carousel-item {
+.carouselItem {
   flex: none;
   -webkit-overflow-scrolling: touch;
   scroll-snap-align: start;
   width: 55vw;
 }
 
-.carousel-item img {
+.carouselItem img {
   width: 45vw;
-} */
+}
 
 .startButton {
   bottom: 0;
