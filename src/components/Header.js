@@ -16,32 +16,40 @@ function Header({ mealOrDrink, buttonExists, title, searchOrSelect }) {
     return <AreaSelect />;
   };
   return (
-    <div>
+    <header className='container-fluid'>
+          <div className='row'>
+
       <button
+        className='btn btn-default col-4'
         type="button"
         data-testid="profile-top-btn"
         onClick={ () => history.push('/perfil') }
-        src={ profileIcon }
       >
+
         <img
+          className='icon'
           alt="profile"
           src={ profileIcon }
         />
+
       </button>
 
-      <span data-testid="page-title">{ title }</span>
+      <span
+      className='btn btn-default col-4 font-weight-bolder'
+      data-testid="page-title">{ title }</span>
 
       { buttonExists && (
         <button
+        className='btn btn-default col-4'
           data-testid="search-top-btn"
           type="button"
           onClick={ () => {
             setSearchClicked(!searchClicked);
             // dispatch(turnGiveIdFalse());
           } }
-          src={ searchIcon }
         >
           <img
+            className='icon'
             alt="search"
             src={ searchIcon }
           />
@@ -49,8 +57,9 @@ function Header({ mealOrDrink, buttonExists, title, searchOrSelect }) {
       ) }
 
       { searchClicked && checker() }
-    </div>
-  );
+      </div>
+      </header>
+      );
 }
 
 Header.propTypes = {

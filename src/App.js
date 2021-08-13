@@ -13,6 +13,7 @@ import ComidasArea from './pages/ComidasArea';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 import Profile from './pages/Profile';
 import RecipesInProgress from './pages/RecipesInProgress';
 import NotFound from './pages/NotFound';

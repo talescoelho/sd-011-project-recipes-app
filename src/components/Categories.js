@@ -18,17 +18,24 @@ function Categories({ mealOrDrink }) {
     fetchDidMount();
   }, [dispatch, mealOrDrink]);
   return (
-    <div>
+    <div className="container">
+      <div className='  row'>
+        <div className='col-4'>
       <button
+      className='btn  btn-default col-12 meal'
         type="button"
         onClick={ async () => dispatch(await filterByCategorieFetch(mealOrDrink)) }
         data-testid="All-category-filter"
       >
         All
       </button>
+      </div>
       { !stateReduxMainPage.loading && stateReduxMainPage.dataApi[mealsOrDrinks]
         .map(({ strCategory }, i) => i < limitCategories && (
+          <div className='col-4'>
           <button
+          className='col-12 btn btn-default meal'
+
             key={ i }
             type="button"
             data-testid={ `${strCategory}-category-filter` }
@@ -48,7 +55,10 @@ function Categories({ mealOrDrink }) {
             } }
           >
             { strCategory }
-          </button>)) }
+          </button>
+          </div>
+)) }
+          </div>
     </div>
   );
 }

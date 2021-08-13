@@ -19,14 +19,16 @@ function Comidas() {
     }
     fetchDidMount();
   }, [dispatch, newFilter]);
-
   return (
     <div>
       <Header buttonExists title="Comidas" mealOrDrink="meal" searchOrSelect="search" />
       <Categories mealOrDrink="meal" />
+      <div className='container'>
+            <div className='row'>
       { dataApi.meals
         && dataApi.meals
           .map((e, i) => i < limitSearch && (
+            <>
             <RecipeCards
               comidasOuBebidas="comidas"
               idItem={ e.idMeal }
@@ -34,7 +36,13 @@ function Comidas() {
               key={ i }
               src={ e.strMealThumb }
               name={ e.strMeal }
-            />)) }
+            />
+                       {console.log(typeof e.strMeal)}
+
+            </>
+            )) }
+             </div>
+            </div>
       <Footer />
     </div>
   );

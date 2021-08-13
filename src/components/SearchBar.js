@@ -22,7 +22,7 @@ function SearchBar({ mealOrDrink }) {
   }, [dataApi, mealsOrDrinks, stateReduxSearch.loading]);
 
   return (
-    <div>
+    <div className='container'>
       <input
         type="text"
         placeholder="Buscar Receita"
@@ -30,6 +30,18 @@ function SearchBar({ mealOrDrink }) {
         value={ search }
         onChange={ ({ target }) => setSearch(target.value) }
       />
+      <button
+        data-testid="exec-search-btn"
+        type="button"
+        onClick={ async () => {
+          if (search.length > 1 && radioQuery === 'primeiraletra') {
+            alert('Sua busca deve conter somente 1 (um) caracter'); // eslint-disable-line no-alert
+          }
+          dispatch(await searchCase(mealOrDrink, radioQuery, search));
+        } }
+      >
+        Buscar
+      </button>
       <input
         type="radio"
         data-testid="ingredient-search-radio"
@@ -59,18 +71,7 @@ function SearchBar({ mealOrDrink }) {
         name="cases"
       />
       Primeira letra
-      <button
-        data-testid="exec-search-btn"
-        type="button"
-        onClick={ async () => {
-          if (search.length > 1 && radioQuery === 'primeiraletra') {
-            alert('Sua busca deve conter somente 1 (um) caracter'); // eslint-disable-line no-alert
-          }
-          dispatch(await searchCase(mealOrDrink, radioQuery, search));
-        } }
-      >
-        Buscar
-      </button>
+      
       { stateReduxSearch.giveId
         && (
           <Redirect
