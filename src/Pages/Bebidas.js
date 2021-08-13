@@ -8,7 +8,7 @@ import '../App.css';
 function Bebidas() {
   const [listCocktailsCategorie, setListCocktailsCategorie] = useState([]);
   const [buttonCategorie, setButtonCategorie] = useState(null);
-  const [toggleClick, setToggleClick] = useState(false);
+
   const [DrinkFromSearch, setDrinkFromSearch] = useState(null);
 
   const renderCards = () => (<Cards
@@ -18,15 +18,12 @@ function Bebidas() {
     DrinkFromSearch={ DrinkFromSearch }
   />);
 
-  const toggleButton = (setButton, listCategorie, index, categorie) => {
-    if (toggleClick && buttonCategorie === categorie) {
-      setToggleClick(false);
-      return setButton(null);
+  const toggleButton = (listCategorie, index) => {
+    if (buttonCategorie === listCategorie[index].strCategory) {
+      return setButtonCategorie(null);
     }
-    setToggleClick(true);
-    return setButton(listCategorie[index].strCategory);
+    return setButtonCategorie(listCategorie[index].strCategory);
   };
-
   const getDataButton = () => {
     fetchCocktailsCategorisAPI(setListCocktailsCategorie);
     return renderCards;
@@ -40,10 +37,8 @@ function Bebidas() {
             type="button"
             data-testid={ `${listCocktailsCategorie[0].strCategory}-category-filter` }
             onClick={ () => toggleButton(
-              setButtonCategorie,
               listCocktailsCategorie,
               '0',
-              `${listCocktailsCategorie[0].strCategory}-category-filter`,
             ) }
           >
             {listCocktailsCategorie[0].strCategory}
@@ -52,10 +47,8 @@ function Bebidas() {
             type="button"
             data-testid={ `${listCocktailsCategorie[1].strCategory}-category-filter` }
             onClick={ () => toggleButton(
-              setButtonCategorie,
               listCocktailsCategorie,
               '1',
-              `${listCocktailsCategorie[1].strCategory}-category-filter`,
             ) }
           >
             {listCocktailsCategorie[1].strCategory}
@@ -65,10 +58,8 @@ function Bebidas() {
             type="button"
             data-testid={ `${listCocktailsCategorie[2].strCategory}-category-filter` }
             onClick={ () => toggleButton(
-              setButtonCategorie,
               listCocktailsCategorie,
               '2',
-              `${listCocktailsCategorie[2].strCategory}-category-filter`,
             ) }
           >
             {listCocktailsCategorie[2].strCategory}
@@ -78,10 +69,8 @@ function Bebidas() {
             type="button"
             data-testid={ `${listCocktailsCategorie[3].strCategory}-category-filter` }
             onClick={ () => toggleButton(
-              setButtonCategorie,
               listCocktailsCategorie,
               '3',
-              `${listCocktailsCategorie[3].strCategory}-category-filter`,
             ) }
           >
             {listCocktailsCategorie[3].strCategory}
@@ -91,10 +80,8 @@ function Bebidas() {
             type="button"
             data-testid={ `${listCocktailsCategorie[4].strCategory}-category-filter` }
             onClick={ () => toggleButton(
-              setButtonCategorie,
               listCocktailsCategorie,
               '4',
-              `${listCocktailsCategorie[4].strCategory}-category-filter`,
             ) }
           >
             {listCocktailsCategorie[4].strCategory}
