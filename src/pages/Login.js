@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Form } from 'react-bootstrap';
+import '../StyleSheet/Login.css';
 
 class Login extends Component {
   constructor() {
@@ -51,47 +51,50 @@ class Login extends Component {
   renderLoginForm() {
     const { email, password, valid } = this.state;
     return (
-      <Form className="login-form">
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Control
-            type="email"
-            name="email"
-            placeholder="Digite seu e-mail"
-            data-testid="email-input"
-            value={ email }
-            onChange={ this.handleChangeForm }
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Control
-            type="password"
-            name="password"
-            placeholder="Digite sua Senha"
-            data-testid="password-input"
-            value={ password }
-            onChange={ this.handleChangeForm }
-          />
-        </Form.Group>
-        <Button
-          type="submit"
-          size="lg"
-          variant="success"
-          data-testid="login-submit-btn"
-          disabled={ valid }
-          onClick={ this.loginUser }
-        >
-          Entrar
-        </Button>
-      </Form>
+      <div className="container">
+        <form className="login-form">
+          <label htmlFor="email">
+            <input
+              type="email"
+              name="email"
+              placeholder="Digite seu e-mail"
+              data-testid="email-input"
+              value={ email }
+              onChange={ this.handleChangeForm }
+            />
+          </label>
+          <label htmlFor="password">
+            <input
+              type="password"
+              name="password"
+              placeholder="Digite sua Senha"
+              data-testid="password-input"
+              value={ password }
+              onChange={ this.handleChangeForm }
+            />
+          </label>
+          <button
+            className="login-button"
+            type="submit"
+            size="lg"
+            variant="success"
+            data-testid="login-submit-btn"
+            disabled={ valid }
+            onClick={ this.loginUser }
+          >
+            Entrar
+          </button>
+        </form>
+      </div>
     );
   }
 
   render() {
     return (
-      <div>
-        <h1>Login</h1>
+      <main>
+        <h1 className="title-h1">Login</h1>
         {this.renderLoginForm()}
-      </div>
+      </main>
     );
   }
 }
