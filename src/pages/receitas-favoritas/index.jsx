@@ -7,6 +7,7 @@ import {
 } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
 import CopyButton from '../../components/Details/CopyButton';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -15,7 +16,7 @@ import * as actions from '../../actions';
 function ReceitasFavoritas(props) {
   const { favorites, handleFavoriteRecipe } = props;
 
-  const [filter, setFilter ] = useState('All')
+  const [filter, setFilter] = useState('All');
 
   const handleFavoriteBtn = (idClicked) => {
     const filteredFavoriteRecipes = favorites
@@ -25,8 +26,8 @@ function ReceitasFavoritas(props) {
 
   let filtered;
   if (filter === 'Drinks') {
-     filtered = favorites
-      .filter((el) => el.type === "bebida");
+    filtered = favorites
+      .filter((el) => el.type === 'bebida');
   } else if (filter === 'Food') {
     filtered = favorites
       .filter((el) => el.type === 'comida');
@@ -77,22 +78,26 @@ function ReceitasFavoritas(props) {
         }
         return (
           <div key={ index } className="d-flex mx-0 mb-3 bg-light rounded shadow-lg">
-            <Image
-              style={ { maxWidth: '160px' } }
-              className="ml-0 rounded-left"
-              data-testid={ `${index}-horizontal-image` }
-              src={ item.image }
-              fluid
-            />
+            <Link to={ `/${type}s/${id}` } key={ index }>
+              <Image
+                style={ { maxWidth: '160px' } }
+                className="ml-0 rounded-left"
+                data-testid={ `${index}-horizontal-image` }
+                src={ item.image }
+                fluid
+              />
+            </Link>
             <div className="d-flex flex-column">
               <Col>
                 <span data-testid={ `${index}-horizontal-top-text` }>
                   {formatedCategory}
                 </span>
               </Col>
-              <Col>
-                <span data-testid={ `${index}-horizontal-name` }>{name}</span>
-              </Col>
+              <Link to={ `/${type}s/${id}` } key={ index }>
+                <Col>
+                  <span data-testid={ `${index}-horizontal-name` }>{name}</span>
+                </Col>
+              </Link>
               <Col className="pb-2 justify-items-end">
                 <CopyButton
                   testId={ `${index}-horizontal-share-btn` }
