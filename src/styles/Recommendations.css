@@ -2,13 +2,22 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
+  margin: 5px 0 20px;
   overflow-x: scroll;
-  width: 360px;
+  width: 100vw;
 }
 
 .item-carousel {
-  margin: 0 5px;
-  min-width: 170px;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  display: flex;
+  flex-flow: column nowrap;
+  height: 175px;
+  margin: 0 2.5vw 12px;
+  min-width: 45vw;
+  overflow: hidden;
+  padding: 5px;
 }
 
 .carousel img {
