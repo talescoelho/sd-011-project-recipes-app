@@ -3,4 +3,6 @@
   flex-wrap: nowrap;
   justify-content: space-between;
   overflow-x: scroll;
+  width: 360px;
 }
+

@@ -1,13 +1,17 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import ShareFavBtn from '../components/ShareFavBtn';
 import { ingredientDrinkHelper } from '../components/Helper';
+import '../style/pageDetails.css';
+import AppContext from '../context/AppContext';
 
 export default function ReceitaBebidaPage() {
   const [drinkDetails, setDrinkDetails] = useState();
   const [recomendations, setRecomendations] = useState();
   const [storageInPrgrss, setStorageIn] = useState();
+  const { alertSpan, setAlert } = useContext(AppContext);
+  const [storageFavorite, setStorageFav] = useState();
   const location = useLocation();
   const DRINK_DETAILS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
   const RECOMENDATIONS_URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -24,8 +28,14 @@ export default function ReceitaBebidaPage() {
     setStorageIn(getInPrgssStorage);
   }
 
+  function getFavoriteStorage() {
+    const getFavStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    setStorageFav(getFavStorage);
+  }
+
   useEffect(() => {
     getInProgress();
+    getFavoriteStorage();
     fetch(RECOMENDATIONS_URL)
       .then((response) => response.json())
       .then((data) => setRecomendations(data));
@@ -44,11 +54,11 @@ export default function ReceitaBebidaPage() {
               <img
                 src={ recipe.strMealThumb }
                 alt={ recipe.strMeal }
-                height="100px"
-                width="100px"
+                height="180px"
+                width="180px"
                 data-testid="recipe-photo"
               />
-              <h5>{ recipe.strMeal }</h5>
+              <h5 data-testid={ `${index}-recomendation-title` }>{ recipe.strMeal }</h5>
             </div>
           );
         }
@@ -57,11 +67,23 @@ export default function ReceitaBebidaPage() {
     );
   }
 
+  useEffect(() => {
+    setAlert(false);
+  }, []);
+
   const ingredientFilter = ingredientDrinkHelper(drinkDetails);
 
   function renderDrinks() {
     return (
       <div>
+        <ShareFavBtn
+          type="bebida"
+          id={ drinkDetails.drinks[0].idDrink }
+          favorited={ storageFavorite }
+          typeRecipe="drinks"
+          data={ drinkDetails.drinks[0] }
+        />
+        {alertSpan ? <span>Link copiado!</span> : ''}
         <p>{ drinkDetails.idDrink }</p>
         <img
           src={ drinkDetails.drinks[0].strDrinkThumb }
@@ -70,7 +92,6 @@ export default function ReceitaBebidaPage() {
           width="200px"
         />
         <h1 data-testid="recipe-title">{ drinkDetails.drinks[0].strDrink }</h1>
-        <ShareFavBtn type="bebida" id={ drinkDetails.drinks[0].idDrink } />
         <h5 data-testid="recipe-category">{ drinkDetails.drinks[0].strCategory }</h5>
         <p data-testid="recipe-category">{ drinkDetails.drinks[0].strAlcoholic }</p>
 
@@ -105,9 +126,9 @@ export default function ReceitaBebidaPage() {
         </Link>
         <div>
           <h3>Receitas recomendadas</h3>
-          <ul>
+          <div className="scrolling-wrapper">
             { recomendations ? renderRecomendation() : <p>Loading...</p> }
-          </ul>
+          </div>
         </div>
       </div>
     );
