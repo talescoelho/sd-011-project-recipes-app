@@ -1,12 +1,11 @@
 .menu-bottom {
-  
   display: flex;
   flex-flow: row wrap;
   width: 100%;
 }
 
 .menu-bottom-imagens {
-  background-color: #e3caab;
+  background-color: #d8c9b8;
   bottom: 0;
   display: flex;
   flex-flow: row wrap;

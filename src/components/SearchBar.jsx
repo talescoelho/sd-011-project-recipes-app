@@ -59,6 +59,7 @@ export default function SearchBar() {
         />
         <div className="search-radio-div">
           <label className="search-radio" htmlFor="ingredient-search-radio">
+            Ingrediente
             <input
               type="radio"
               className="search-radio"
@@ -68,9 +69,9 @@ export default function SearchBar() {
               onClick={ (e) => handlerInputRadio(e) }
               value="i"
             />
-            Ingrediente
           </label>
           <label className="search-radio" htmlFor="name-search-radio">
+            Nome
             <input
               type="radio"
               className="search-radio"
@@ -80,9 +81,9 @@ export default function SearchBar() {
               onClick={ (e) => handlerInputRadio(e) }
               value="s"
             />
-            Nome
           </label>
           <label className="search-radio" htmlFor="first-letter-search-radio">
+            Primeira letra
             <input
               type="radio"
               name="search-radio"
@@ -91,7 +92,6 @@ export default function SearchBar() {
               onClick={ (e) => handlerInputRadio(e) }
               value="f"
             />
-            Primeira letra
           </label>
         </div>
         <Button variant="success">

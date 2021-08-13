@@ -6,7 +6,10 @@
 }
 
 .categories-section button {
-  background-color: #fae8e0;
+  background-color: #704c13;
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
   font-size: 0.62em;
   margin: 5px 3px;
   padding: 3px 0;

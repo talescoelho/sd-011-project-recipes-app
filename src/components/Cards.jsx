@@ -5,8 +5,9 @@ import MealCard from './MealCard';
 import Header from './Header';
 import RecipesAppContext from '../context/RecipesAppContext';
 import MenuInferior from './MenuInferior';
-import loadingMeal from '../images/loadingMeal.gif';
+import LoadingMeal from './LoadingMeal';
 import '../styles/Cards.css';
+import LoadingDrink from './LoadingDrink';
 
 export default function Cards() {
   const { haveRecipes, mealRecipes, drinkRecipes } = useContext(RecipesAppContext);
@@ -29,13 +30,19 @@ export default function Cards() {
       );
     }
   }
+
+  function renderLoading() {
+    if (location.pathname === '/comidas') return <LoadingMeal />;
+    if (location.pathname === '/bebidas') return <LoadingDrink />;
+
+  }
   // useEffect(renderRecipes, [drinkRecipes, haveRecipes, location, mealRecipes]);
   return (
     <div className="cards-section">
       <Header />
       { haveRecipes
         ? renderRecipes()
-        : <img src={ loadingMeal } width="200px" alt="gif" className="loading" /> }
+        : renderLoading() }
       <MenuInferior />
     </div>
   );
