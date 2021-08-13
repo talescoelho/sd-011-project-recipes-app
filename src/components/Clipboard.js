@@ -8,6 +8,7 @@ function Clipboard() {
     <div>
       <button
         type="button"
+        data-testid="share-btn"
         onClick={ () => {
           setCopied(true);
           navigator.clipboard.writeText(window.location.href);
@@ -15,7 +16,7 @@ function Clipboard() {
       >
         <img src={ Shareicon } alt="Share icon" width="15px" />
       </button>
-      { copied ? (<p>Link copiado</p>) : '' }
+      { copied ? (<p>Link copiado!</p>) : '' }
     </div>
   );
 }
