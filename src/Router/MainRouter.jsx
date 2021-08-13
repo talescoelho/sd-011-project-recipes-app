@@ -14,6 +14,7 @@ import RecipesDone from '../Pages/RecipesDone';
 import FavoriteRecipes from '../Pages/FavoriteRecipes';
 import DetailsRecipesDrinks from '../Pages/DetailsRecipes/DetailsRecipesDrinks';
 import DetailsRecipesFoods from '../Pages/DetailsRecipes/DetailsRecipesFoods';
+import ErrorPage from '../Pages/ErrorPage';
 import DrinkProgress from '../Pages/DrinkProgress';
 import FoodProgress from '../Pages/FoodProgress';
 
@@ -60,6 +61,11 @@ const MainRouter = () => (
       path="/comidas/:id/in-progress"
       component={ FoodProgress }
     />
+    <Route exact path="/explorar/comidas/area" render={ () => <Origen /> } />
+    <Route exact path="/perfil" render={ () => <User /> } />
+    <Route exact path="/receitas-feitas" render={ () => <RecipesDone /> } />
+    <Route exact path="/receitas-favoritas" render={ () => <FavoriteRecipes /> } />
+    <Route path="*" component={ ErrorPage } />
   </Switch>
 );
 export default MainRouter;
