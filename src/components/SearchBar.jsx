@@ -94,15 +94,14 @@ export default function SearchBar() {
             />
           </label>
         </div>
-        <Button variant="success">
-          <button
-            type="button"
-            data-testid="exec-search-btn"
-            onClick={ () => updateDataToSearch() }
-          >
-            Buscar
-          </button>
-        </Button>
+        <button
+          className="btn-search"
+          type="button"
+          data-testid="exec-search-btn"
+          onClick={ () => updateDataToSearch() }
+        >
+          Buscar
+        </button>
       </nav>
     </section>
   );

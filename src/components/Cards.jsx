@@ -18,15 +18,19 @@ export default function Cards() {
     if (haveRecipes && location.pathname === '/comidas') {
       const recipes = mealRecipes.filter((recipe, index) => index < limit);
       return (
-        recipes.map((recipe, index) => (
-          <MealCard key={ index } recipe={ recipe } i={ index } />))
+        <div className="cards">
+          {recipes.map((recipe, index) => (
+            <MealCard key={ index } recipe={ recipe } i={ index } />))}
+        </div>
       );
     }
     if (haveRecipes && location.pathname === '/bebidas') {
       const recipes = drinkRecipes.filter((recipe, index) => index < limit);
       return (
-        recipes.map((recipe, index) => (
-          <DrinkCard key={ index } recipe={ recipe } i={ index } />))
+        <div className="cards">
+          {recipes.map((recipe, index) => (
+            <DrinkCard key={ index } recipe={ recipe } i={ index } />))}
+        </div>
       );
     }
   }
