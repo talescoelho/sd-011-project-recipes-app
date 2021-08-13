@@ -1,56 +1,52 @@
-import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import BaseActionButton from './BaseActionButton';
 import { useLocalStorage } from '../../../hooks';
 
 const NOT_FOUND_INDEX = -1;
-function FavoriteButton({ recipe, callback }) {
+function FavoriteButton({ recipe, callback, index }) {
   const { idMeal, idDrink } = recipe;
+  const [isFavorite, setIsFavorite] = useState(false);
   const id = idMeal || idDrink;
+
   const {
     addFavoriteRecipe,
     getFavoriteRecipes,
     removeFavoriteRecipe,
   } = useLocalStorage();
-  const [isFavorite, setIsFavorite] = useState(false);
-  useEffect(() => {
-    const index = getFavoriteRecipes().findIndex((recipes) => recipes.id === id);
-    setIsFavorite(index !== NOT_FOUND_INDEX);
-  }, [id, getFavoriteRecipes]);
 
+  useEffect(() => {
+    const indexOf = getFavoriteRecipes().findIndex((recipes) => recipes.id === id);
+    setIsFavorite(indexOf !== NOT_FOUND_INDEX);
+  }, [id, getFavoriteRecipes]);
   return (
     <BaseActionButton
+      index={ index }
       reverse={ isFavorite }
       action="favorite"
       onClick={ () => {
-        if (isFavorite) {
-          removeFavoriteRecipe(id);
+        if (idMeal) {
+          newFavoriteRecipe = {
+            id: recipe.idMeal,
+            type: 'comida',
+            area: recipe.strArea,
+            category: recipe.strCategory,
+            alcoholicOrNot: '',
+            name: recipe.strMeal,
+            image: recipe.strMealThumb,
+          };
         } else {
-          let newFavoriteRecipe;
-
-          if (idMeal) {
-            newFavoriteRecipe = {
-              id: recipe.idMeal,
-              type: 'comida',
-              area: recipe.strArea,
-              category: recipe.strCategory,
-              alcoholicOrNot: '',
-              name: recipe.strMeal,
-              image: recipe.strMealThumb,
-            };
-          } else {
-            newFavoriteRecipe = {
-              id: recipe.idDrink,
-              type: 'bebida',
-              area: '',
-              category: recipe.strCategory,
-              alcoholicOrNot: recipe.strAlcoholic,
-              name: recipe.strDrink,
-              image: recipe.strDrinkThumb,
-            };
-          }
-          addFavoriteRecipe(newFavoriteRecipe);
+          newFavoriteRecipe = {
+            id: recipe.idDrink,
+            type: 'bebida',
+            area: '',
+            category: recipe.strCategory,
+            alcoholicOrNot: recipe.strAlcoholic,
+            name: recipe.strDrink,
+            image: recipe.strDrinkThumb,
+          };
         }
+        addFavoriteRecipe(newFavoriteRecipe);
         setIsFavorite((prevIsFavorite) => !prevIsFavorite);
         callback();
       } }
