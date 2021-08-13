@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-
-import ShareImage from '../images/shareIcon.svg';
-
-import LinkCopy from './LinkCopy';
-import '../styles/RecipeConcluded.css';
 import ButtonShare from './ButtonShare';
 
 function RecipeConcluded({ recipe, index }) {
-  const [linkCopy, setLinkCopy] = useState(false);
   const [recipes, setRecipes] = useState(recipe);
   const recipeType = recipe.type === 'comida' ? 'meals' : 'cocktails';
   const recipeId = recipe.id;
@@ -18,12 +12,11 @@ function RecipeConcluded({ recipe, index }) {
     setRecipes(recipe);
   }, [recipe]);
 
-
   const history = useHistory();
 
-  const HandleRedirect = (recipeId, recipeType) => {
-    if (recipeType === 'meals') history.push(`comidas/${recipeId}`);
-    if (recipeType === 'cocktails') history.push(`bebidas/${recipeId}`);
+  const HandleRedirect = (id, type) => {
+    if (type === 'meals') history.push(`comidas/${id}`);
+    if (type === 'cocktails') history.push(`bebidas/${type}`);
   };
 
   return (
