@@ -52,6 +52,7 @@ export default function FavouriteRecipes() {
           Drinks
         </button>
       </div>
+
       { recipes.map((element, index) => (
         <FavoriteCard recipe={ element } index={ index } key={ index } />
       )) }

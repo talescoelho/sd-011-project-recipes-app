@@ -18,8 +18,8 @@ export default function DoneRecipeCard({ recipe, index }) {
           {(recipe.type === 'comida') ? (
             `${recipe.area} - ${recipe.category}`) : recipe.alcoholicOrNot }
         </p>
+        <p data-testid={ `${index}-horizontal-name` }>{ recipe.name }</p>
       </Link>
-      <p data-testid={ `${index}-horizontal-name` }>{ recipe.name }</p>
       <p data-testid={ `${index}-horizontal-done-date` }>{ recipe.doneData }</p>
       <ShareButton
         dataTestid={ `${index}-horizontal-share-btn` }

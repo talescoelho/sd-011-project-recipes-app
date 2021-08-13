@@ -32,11 +32,13 @@ export default function FavoriteCard({ recipe, index }) {
             id={ recipe.id }
           />
         </div>
-        <FavoriteButton
-          recipe={ recipe }
-          drinkOrFood={ recipe.type }
-          dataTestid={ `${index}-horizontal-favorite-btn` }
-        />
+        <button type="button" onClick={ () => window.location.reload() }>
+          <FavoriteButton
+            recipe={ recipe }
+            drinkOrFood={ recipe.type }
+            dataTestid={ `${index}-horizontal-favorite-btn` }
+          />
+        </button>
       </DetailsProvider>
     );
   }
