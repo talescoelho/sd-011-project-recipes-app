@@ -1,0 +1,25 @@
+.searchbar-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 10px auto;
+  width: 90%;
+}
+
+.searchbar-input {
+  border: 1px solid #999;
+  border-radius: 5px;
+  margin: 0 auto 5px;
+  padding: 5px;
+  width: 98%;
+}
+
+.radio-btns-wrapper {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.radio-btn {
+  margin-right: 3px;
+}
