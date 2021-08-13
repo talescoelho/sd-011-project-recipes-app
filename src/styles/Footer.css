@@ -1,0 +1,17 @@
+.footer-wrapper {
+  background-color: black;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  left: 0;
+  position: fixed;
+  width: 100%;
+}
+
+.footer-wrapper * {
+  background: none;
+  border: none;
+  filter: invert();
+  margin: 2px 0;
+  padding: 0 10px;
+}
