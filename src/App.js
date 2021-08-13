@@ -20,9 +20,9 @@ import NotFound from './pages/NotFound';
 
 function App() {
   return (
-    <div className="meals">
-      <BrowserRouter>
-        <RecipesProvider>
+    <BrowserRouter>
+      <RecipesProvider>
+        <div className="meals">
           <Switch>
             <Route exact path="/" component={ Login } />
             <Route exact path="/comidas" component={ Comidas } />
@@ -73,9 +73,9 @@ function App() {
               component={ NotFound }
             />
           </Switch>
-        </RecipesProvider>
-      </BrowserRouter>
-    </div>
+        </div>
+      </RecipesProvider>
+    </BrowserRouter>
   );
 }
 

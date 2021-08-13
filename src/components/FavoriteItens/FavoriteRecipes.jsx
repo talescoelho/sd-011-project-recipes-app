@@ -16,11 +16,11 @@ function FavoriteRecipes({ filterBy }) {
   }, []);
 
   useEffect(() => {
-    if (favoriteRecipes.length !== 0) {
+    if (favoriteRecipes && favoriteRecipes.length !== 0) {
       setIsEmpty(false);
       setRender(false);
     }
-    if (favoriteRecipes.length === 0) setIsEmpty(true);
+    if (favoriteRecipes && favoriteRecipes.length === 0) setIsEmpty(true);
   }, [favoriteRecipes]);
 
   useEffect(() => {
