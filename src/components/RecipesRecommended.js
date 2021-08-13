@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import { getXFirstElementsFromArray } from '../helpers/utils';
 import '../index.css';
 
+const DECREMENT = -1;
+const INCREMENT = 1;
+const INDEX = 5;
+
 class RecipesRecommended extends React.Component {
   constructor({ recipesRecommended }) {
     super({ recipesRecommended });
@@ -12,11 +16,8 @@ class RecipesRecommended extends React.Component {
       // twoRecommended: getXFirstElementsFromArray(recipesRecommended, QUANTITY),
     };
 
-    // this.plusSlides = this.plusSlides.bind(this);
-    // this.showSlides = this.showSlides.bind(this);
-    // this.handleChangeCard = this.handleChangeCard.bind(this);
-    // this.fillRecommendedStyles = this.fillRecommendedStyles.bind(this);
-    // this.fillTwoRecommendeds = this.fillTwoRecommendeds.bind(this);
+    this.getCarouselElements = this.getCarouselElements.bind(this);
+    this.renderCarouselElements = this.renderCarouselElements.bind(this);
   }
 
   componentDidMount() {
@@ -31,12 +32,39 @@ class RecipesRecommended extends React.Component {
     console.log(slideIndex);
   }
 
+  getCarouselElements() {
+    const { recipesRecommended } = this.props;
+    const { slideIndex } = this.state;
+
+    return getXFirstElementsFromArray(recipesRecommended, INDEX + 1)
+      .map((item, index) => (
+        <div
+          data-testid={ `${index}-recomendation-card` }
+          className="card"
+          // ref={ this.slides }
+          key={ index }
+          hidden={ !(index === slideIndex || index === slideIndex + 1)
+            && !(slideIndex === INDEX && index === 0) }
+        >
+          <div className="numbertext">
+            {`${index + 1} / 6`}
+          </div>
+          <img
+            src={ item.strMealThumb || item.strDrinkThumb }
+            style={ { width: '100%' } }
+            alt="Recomendadação"
+          />
+          <div
+            data-testid={ `${index}-recomendation-title` }
+            className="text"
+          >
+            { item.strMeal || item.strDrink }
+          </div>
+        </div>
+      ));
+  }
 
   showSlides(n) {
-    const DECREMENT = -1;
-    const INCREMENT = 1;
-    const INDEX = 5;
-
     // const { recipesRecommended } = this.props;
     const { slideIndex } = this.state;
 
@@ -64,43 +92,20 @@ class RecipesRecommended extends React.Component {
     }
   }
 
-  render() {
-    const { recipesRecommended } = this.props;
+  renderCarouselElements() {
     const { slideIndex } = this.state;
+    return slideIndex === INDEX
+      ? this.getCarouselElements().reverse()
+      : this.getCarouselElements();
+  }
 
-    const DECREMENT = -1;
-    const INCREMENT = 1;
-    const QUANTITY = 6;
-
-    // this.fillRecommendedStyles();
-
+  render() {
     return (
       <div className="container">
         <h3> Recomendadas </h3>
         <div className="slideshow-container" ref={ this.slides }>
           <br />
-          {getXFirstElementsFromArray(recipesRecommended, QUANTITY).map((item, index) => {
-            return (
-              <div
-                data-testid={ `${index}-recomendation-card` }
-                className="card"
-                // ref={ this.slides }
-                key={ index }
-                hidden={ !(index === slideIndex || index === slideIndex + 1) }
-                onChange={ ({ target }) => this.handleChangeCard({ target }) }
-              >
-                <div className="numbertext">
-                  {`${index + 1} / 6`}
-                </div>
-                <img
-                  src={ item.strMealThumb || item.strDrinkThumb }
-                  style={ { width: '100%' } }
-                  alt="Recomendadação"
-                />
-                <div data-testid={ `${index}-recomendation-title` } className="text">{ item.strMeal || item.strDrink }</div>
-              </div>
-            );
-          }) }
+          { this.renderCarouselElements()}
         </div>
         <br />
         <button
