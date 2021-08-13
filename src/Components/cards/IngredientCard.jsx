@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import { Redirect } from 'react-router-dom';
 
 export default function IngredientCard(props) {
   const { ingredientsList, drink } = props;
@@ -15,18 +14,16 @@ export default function IngredientCard(props) {
         ingredientsListRender.filter((__, index) => index < maxListRender)
           .map((ingredient, index) => (
             <div key={ index }>
-              {/* <Redirect to="/bebidas"> */}
-                <div key={ index } data-testid={ `${index}-ingredient-card` }>
-                  <h5
-                    data-testid={ `${index}-card-name` }>{ingredient.strIngredient1}
-                  </h5>
-                  <img
-                    src={ `${imgDrink}${ingredient.strIngredient1}-Small.png` }
-                    alt={ ingredient.strIngredient1 }
-                    data-testid={ `${index}-card-img` }
-                  />
-                </div>
-              {/* </Redirect> */}
+              <div key={ index } data-testid={ `${index}-ingredient-card` }>
+                <h5
+                  data-testid={ `${index}-card-name` }>{ingredient.strIngredient1}
+                </h5>
+                <img
+                  src={ `${imgDrink}${ingredient.strIngredient1}-Small.png` }
+                  alt={ ingredient.strIngredient1 }
+                  data-testid={ `${index}-card-img` }
+                />
+              </div>
             </div>
           ))
       );
@@ -36,16 +33,14 @@ export default function IngredientCard(props) {
         ingredientsListRender.filter((__, index) => index < maxListRender)
           .map((ingredient, index) => (
             <div key={ index }>
-              {/* <Redirect to="/comidas"> */}
-                <div key={ index } data-testid={ `${index}-ingredient-card` }>
-                  <h5 data-testid={ `${index}-card-name` }>{ingredient.strIngredient}</h5>
-                  <img
-                    src={ `${imgFood}${ingredient.strIngredient}-Small.png` }
-                    alt={ ingredient.strIngredient }
-                    data-testid={ `${index}-card-img` }
-                  />
-                </div>
-              {/* </Redirect> */}
+              <div key={ index } data-testid={ `${index}-ingredient-card` }>
+                <h5 data-testid={ `${index}-card-name` }>{ingredient.strIngredient}</h5>
+                <img
+                  src={ `${imgFood}${ingredient.strIngredient}-Small.png` }
+                  alt={ ingredient.strIngredient }
+                  data-testid={ `${index}-card-img` }
+                />
+              </div>
             </div>
           ))
       );
