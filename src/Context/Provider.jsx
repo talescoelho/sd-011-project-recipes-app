@@ -48,6 +48,7 @@ const Provider = ({ children }) => {
   // # ========================================================================
   const [ingredientsListDrink, setIngredientsListDrink] = useState([]);
   const [ingredientsListMeal, setIngredientsListMeal] = useState([]);
+  const [filterDone, setFilterDone] = useState('All');
 
   async function fetchFood() {
     if (radioBtn === 'ingredient') {
@@ -157,6 +158,8 @@ const Provider = ({ children }) => {
     setIngredientsListDrink,
     ingredientsListMeal,
     setIngredientsListMeal,
+    filterDone,
+    setFilterDone,
   };
 
   return (
