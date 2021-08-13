@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import copy from 'clipboard-copy';
+import { Link } from 'react-router-dom';
 import { copyLink } from '../../Services/ApiDrink';
 import MainContext from '../../Context/MainContext';
 
@@ -14,19 +15,23 @@ export default function RecipeDone() {
       <div>
         { storage.map((recipe, index) => (
           <div key={ index }>
-            <img
-              data-testid={ `${index}-horizontal-image` }
-              src={ recipe.image }
-              alt={ `recipe ${recipe.name}` }
-              width="80"
-            />
+            <Link to={ `/${recipe.type}s/${recipe.id}` }>
+              <img
+                data-testid={ `${index}-horizontal-image` }
+                src={ recipe.image }
+                alt={ `recipe ${recipe.name}` }
+                width="80"
+              />
+            </Link>
             <p data-testid={ `${index}-horizontal-top-text` }>
               { `${recipe.area} - ${recipe.category}` }
               { recipe.alcoholicOrNot }
             </p>
-            <h3 data-testid={ `${index}-horizontal-name` }>
-              { recipe.name }
-            </h3>
+            <Link to={ `/${recipe.type}s/${recipe.id}` }>
+              <h3 data-testid={ `${index}-horizontal-name` }>
+                { recipe.name }
+              </h3>
+            </Link>
             <p data-testid={ `${index}-horizontal-done-date` }>
               { recipe.doneDate }
             </p>
