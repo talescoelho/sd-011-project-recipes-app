@@ -1,9 +1,9 @@
 .category-btns {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 10px auto;
-  width: 90%;
+  width: 95%;
 }
 
 .category-btn {
@@ -11,6 +11,6 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 10px;
-  padding: 0.3em 0  ;
-  width: 30%;
+  padding: 0.1em 0;
+  width: 45%;
 }
