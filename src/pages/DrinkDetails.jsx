@@ -11,9 +11,8 @@ const DrinkDetails = ({ dispatch, match, drinkDetails }) => {
 
   useEffect(() => {
     dispatch(requestDrinkDetails(id));
-    // eslint-disable-next-line
-  }, []);
-
+  }, [dispatch, id]);
+  if (drinkDetails.strInstructions === undefined) return (<span>Carregando...</span>);
   return (
     <>
       <div>Pagina de Detalhe de Bebidas</div>

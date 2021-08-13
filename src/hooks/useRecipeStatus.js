@@ -13,7 +13,7 @@ const useRecipeStatus = (id, url) => {
     if (doneRecipes && doneRecipes.some((recipe) => recipe.id === id)) {
       return setShowBtn(false);
     }
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -28,7 +28,7 @@ const useRecipeStatus = (id, url) => {
         setRecipeProgress('Continuar Receita');
       }
     }
-  }, []);
+  }, [id, url]);
 
   return {
     recipeProgress,

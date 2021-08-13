@@ -12,9 +12,8 @@ const FoodDetails = ({ dispatch, match, mealDetails }) => {
 
   useEffect(() => {
     dispatch(requestMealDetails(id));
-    // eslint-disable-next-line
-  }, []);
-
+  }, [dispatch, id]);
+  if (mealDetails.strInstructions === undefined) return (<span>Carregando...</span>);
   return (
     <>
       <div>Pagina de Detalhe de Comida</div>
@@ -26,8 +25,8 @@ const FoodDetails = ({ dispatch, match, mealDetails }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  mealDetails: state.recipeDetailsReducer.meal,
+const mapStateToProps = ({ recipeDetailsReducer }) => ({
+  mealDetails: recipeDetailsReducer.meal,
 });
 
 FoodDetails.propTypes = {
