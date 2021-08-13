@@ -43,8 +43,9 @@ function FoodProgress(props) {
       const infoItem = [{
         id: idFoodsAPI.idMeal,
         type: 'comida',
-        area: '',
+        area: idFoodsAPI.strArea,
         category: idFoodsAPI.strCategory,
+        alcoholicOrNot: '',
         name: idFoodsAPI.strMeal,
         image: idFoodsAPI.strMealThumb,
       }];
@@ -67,7 +68,7 @@ function FoodProgress(props) {
       }
     };
     handleFavorite();
-  }, [isFavorite]);
+  }, [idFoodsAPI, isFavorite]);
 
   const handleColoredHeart = () => {
     setIsFavorite(!isFavorite);

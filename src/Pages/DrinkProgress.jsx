@@ -69,7 +69,7 @@ function DrinkProgress(props) {
       }
     };
     handleFavorite();
-  }, [isFavorite]);
+  }, [idDrinksAPI, isFavorite]);
 
   const handleColoredHeart = () => {
     setIsFavorite(!isFavorite);
