@@ -1,17 +1,14 @@
 import React from 'react';
 import { renderWithRouterAndStore } from '../helper/testConfig';
-import { FoodDetails, DrinkDetails } from '../../pages';
 import * as requestMenu from '../../services/requestMenu';
 import mealsFiltersByAll from '../mocks/meals/mockFilterMealsByAll';
 import mealRecipeDetails from '../mocks/meals/mockMealRecipeDetails';
 import drinksFiltersByAll from '../mocks/drinks/mockFilterDrinksByAll';
 import drinkRecipeDetails from '../mocks/drinks/mockDrinkRecipeDetails';
+import App from '../../App';
 
 const mockMealPath = '/comidas/52977';
-const mockMealsMatch = { params: { id: '52977' }, url: '/comidas/52977' };
-
 const mockDrinkPath = '/bebidas/15997';
-const mockDrinkMatch = { params: { id: '15997' }, url: '/bebidas/15997' };
 
 const mockedSearchMealByName = jest
   .spyOn(requestMenu, 'searchMealByName')
@@ -35,7 +32,7 @@ beforeEach(() => jest.clearAllMocks());
 describe(`34 - Make a request to the API passing the id of the recipe that must be 
 available in the URL parameters`, () => {
   it('Check if the request for the food API has been made', () => {
-    renderWithRouterAndStore(<FoodDetails match={ mockMealsMatch } />, mockMealPath);
+    renderWithRouterAndStore(<App />, { route: mockMealPath });
 
     expect(mockedSearchDrinkByName).toHaveBeenCalled();
     expect(mockedSearchDrinkByName).toHaveBeenCalledTimes(1);
@@ -45,7 +42,7 @@ available in the URL parameters`, () => {
   });
 
   it('Checks whether the request for the drink\'s API has been made', () => {
-    renderWithRouterAndStore(<DrinkDetails match={ mockDrinkMatch } />, mockDrinkPath);
+    renderWithRouterAndStore(<App />, { route: mockDrinkPath });
 
     expect(mockedSearchMealByName).toHaveBeenCalled();
     expect(mockedSearchMealByName).toHaveBeenCalledTimes(1);

@@ -1,8 +1,7 @@
 import React from 'react';
 import { screen, fireEvent } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
 import { renderWithRouterAndStore } from '../helper/testConfig';
-import { Profile } from '../../pages';
+import App from '../../App';
 
 beforeEach(() => {
   localStorage.setItem('user', '{ "email": "email@mail.com" }');
@@ -20,15 +19,12 @@ afterEach(() => {
 describe(`86 - Redirect the user that, when clicking on the "Receitas Feitas" button, the 
 route should change to the recipes made screen`, () => {
   it('Redirects to correct route', () => {
-    const history = createMemoryHistory();
-    const { history: historyRoute } = renderWithRouterAndStore(
-      <Profile history={ history } />, '/perfil',
-    );
+    const { history } = renderWithRouterAndStore(<App />, { route: '/perfil' });
 
     const profileFavoriteBtn = screen.getByTestId('profile-favorite-btn');
     fireEvent.click(profileFavoriteBtn);
 
-    const { location: { pathname } } = historyRoute;
+    const { location: { pathname } } = history;
     expect(pathname).toBe('/receitas-favoritas');
   });
 });

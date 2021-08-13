@@ -3,7 +3,7 @@ import { screen, fireEvent } from '@testing-library/react';
 import { renderWithRouterAndStore } from '../helper/testConfig';
 import { testMealsRecipeCard, testDrinksRecipeCard } from '../helper/testRecipeCard';
 import { mockFilterDrinkByCategory, mockFilterMealByCategory } from '../helper/mockAPI';
-import { Foods, Drinks } from '../../pages';
+import { mealsFiltersOptions, drinksFiltersOptions } from '../mocks/mockFilterOptions';
 import drinksFiltersByAll from '../mocks/drinks/mockFilterDrinksByAll';
 import mealsFiltersByAll from '../mocks/meals/mockFilterMealsByAll';
 import mealsFilterByBeef from '../mocks/meals/mockFilterByBeef';
@@ -17,6 +17,7 @@ import drinksFilterByMilkFloatShake from '../mocks/drinks/mockFilterByMilkFloatS
 import drinksFilterByOtherUnknown from '../mocks/drinks/mockFilterByOtherUnknown';
 import drinksFilterByCocoa from '../mocks/drinks/mockFilterByCocoa';
 import * as requestMenu from '../../services/requestMenu';
+import App from '../../App';
 
 const maxDefaultCards = 12;
 const cardTestId = '-recipe-card';
@@ -27,8 +28,16 @@ jest
   .mockImplementation(() => Promise.resolve(mealsFiltersByAll));
 
 jest
+  .spyOn(requestMenu, 'requestAllMealCategories')
+  .mockImplementation(() => Promise.resolve(mealsFiltersOptions));
+
+jest
   .spyOn(requestMenu, 'searchDrinkByName')
   .mockImplementation(() => Promise.resolve(drinksFiltersByAll));
+
+jest
+  .spyOn(requestMenu, 'requestAllDrinkCategories')
+  .mockImplementation(() => Promise.resolve(drinksFiltersOptions));
 
 afterEach(() => jest.clearAllMocks());
 beforeEach(() => jest.clearAllMocks());
@@ -37,7 +46,7 @@ describe('30 - Implement the category filter so that only one is selected at a t
   () => {
     it(`If the recipes are for food, only one category filter must be able to be 
     selected at a time`, async () => {
-      renderWithRouterAndStore(<Foods />, '/comidas');
+      renderWithRouterAndStore(<App />, { route: '/comidas' });
 
       mockFilterMealByCategory(mealsFilterByBeef);
 
@@ -92,7 +101,7 @@ describe('30 - Implement the category filter so that only one is selected at a t
 
     it(`If the recipes are for drinks, only one category filter must be able to be 
     selected at a time`, async () => {
-      renderWithRouterAndStore(<Drinks />, '/bebidas');
+      renderWithRouterAndStore(<App />, { route: '/bebidas' });
 
       mockFilterDrinkByCategory(drinksFilterByOrdinaryDrink);
 

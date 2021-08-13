@@ -18,6 +18,7 @@ import {
   FavoriteRecipes,
   CompletedRecipes,
 } from '../pages';
+import NotFound from '../components/NotFound';
 
 const Routes = () => (
   <Switch>
@@ -28,6 +29,7 @@ const Routes = () => (
     <Route path="/explorar/comidas/ingredientes" component={ SearchFoodsByIngredients } />
     <Route path="/bebidas/:id/in-progress" component={ DrinkRecipeProgress } />
     <Route path="/comidas/:id/in-progress" component={ FoodRecipeProgress } />
+    <Route path="/explorar/bebidas/area" component={ NotFound } />
     <Route path="/explorar/comidas/area" component={ SearchFoodsByLocal } />
     <Route path="/explorar/bebidas" component={ SearchDrinks } />
     <Route path="/explorar/comidas" component={ SearchFoods } />

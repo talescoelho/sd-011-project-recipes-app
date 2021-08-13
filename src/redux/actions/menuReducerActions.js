@@ -5,6 +5,7 @@ import {
   requestAllDrinkCategories,
   filterMealByCategory,
   filterDrinkByCategory,
+  listMealsByArea,
 } from '../../services/requestMenu';
 
 export const REQUEST_MENU = 'REQUEST_MENU';
@@ -173,5 +174,16 @@ export const requestDrinksByFilter = (drink) => (dispatch) => {
         dispatch(menuReceiveSuccess(response));
       })
       .catch(() => dispatch(menuReceiveFailure()))
+  );
+};
+
+export const requestMealsByArea = (area) => (dispatch) => {
+  dispatch(menuRequest());
+  return (
+    listMealsByArea(area)
+      .then(async ({ meals }) => {
+        const response = await handleMealsResponse(meals);
+        dispatch(menuReceiveSuccess(response));
+      })
   );
 };

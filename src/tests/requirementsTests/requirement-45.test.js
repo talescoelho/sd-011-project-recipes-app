@@ -1,17 +1,14 @@
 import React from 'react';
 import { renderWithRouterAndStore } from '../helper/testConfig';
-import { FoodDetails, DrinkDetails } from '../../pages';
 import * as requestMenu from '../../services/requestMenu';
 import mealsFiltersByAll from '../mocks/meals/mockFilterMealsByAll';
 import mealRecipeDetails from '../mocks/meals/mockMealRecipeDetails';
 import drinksFiltersByAll from '../mocks/drinks/mockFilterDrinksByAll';
 import drinkRecipeDetails from '../mocks/drinks/mockDrinkRecipeDetails';
+import App from '../../App';
 
 const mockMealPath = '/comidas/52977';
-const mockMealsMatch = { params: { id: '52977' }, url: '/comidas/52977' };
-
 const mockDrinkPath = '/bebidas/15997';
-const mockDrinkMatch = { params: { id: '15997' }, url: '/bebidas/15997' };
 
 jest
   .spyOn(requestMenu, 'searchMealByName')
@@ -36,18 +33,18 @@ describe(`45 - Implement the logic on the bookmark button, if clicked, the heart
 icon should change its current state, if filled it should change to "unfilled" 
 and vice versa`, () => {
   it('Favorite food', () => {
-    renderWithRouterAndStore(<FoodDetails match={ mockMealsMatch } />, mockMealPath);
+    renderWithRouterAndStore(<App />, { route: mockMealPath });
   });
 
   it('Disfavors the food', () => {
-    renderWithRouterAndStore(<FoodDetails match={ mockMealsMatch } />, mockMealPath);
+    renderWithRouterAndStore(<App />, { route: mockMealPath });
   });
 
   it('Favorite drink', () => {
-    renderWithRouterAndStore(<DrinkDetails match={ mockDrinkMatch } />, mockDrinkPath);
+    renderWithRouterAndStore(<App />, { route: mockDrinkPath });
   });
 
   it('Disfavors drinking', () => {
-    renderWithRouterAndStore(<DrinkDetails match={ mockDrinkMatch } />, mockDrinkPath);
+    renderWithRouterAndStore(<App />, { route: mockDrinkPath });
   });
 });

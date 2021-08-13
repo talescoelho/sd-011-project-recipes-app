@@ -1,18 +1,15 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import { renderWithRouterAndStore } from '../helper/testConfig';
-import { FoodDetails, DrinkDetails } from '../../pages';
 import * as requestMenu from '../../services/requestMenu';
 import mealsFiltersByAll from '../mocks/meals/mockFilterMealsByAll';
 import mealRecipeDetails from '../mocks/meals/mockMealRecipeDetails';
 import drinksFiltersByAll from '../mocks/drinks/mockFilterDrinksByAll';
 import drinkRecipeDetails from '../mocks/drinks/mockDrinkRecipeDetails';
+import App from '../../App';
 
 const mockMealPath = '/comidas/52977';
-const mockMealsMatch = { params: { id: '52977' }, url: '/comidas/52977' };
-
 const mockDrinkPath = '/bebidas/15997';
-const mockDrinkMatch = { params: { id: '15997' }, url: '/bebidas/15997' };
 
 jest
   .spyOn(requestMenu, 'searchMealByName')
@@ -36,7 +33,7 @@ beforeEach(() => jest.clearAllMocks());
 describe(`33 - Implement the elements of a recipe details screen respecting the
 attributes described in the prototype`, () => {
   it('The food screen has all data-testid attributes.', async () => {
-    renderWithRouterAndStore(<FoodDetails match={ mockMealsMatch } />, mockMealPath);
+    renderWithRouterAndStore(<App />, { route: mockMealPath });
 
     const instructions = await screen.findByTestId('instructions');
     const recipeVideo = await screen.findByTestId('video');
@@ -50,7 +47,7 @@ attributes described in the prototype`, () => {
   });
 
   it('The drinks screen has all data-tested attributes.', async () => {
-    renderWithRouterAndStore(<DrinkDetails match={ mockDrinkMatch } />, mockDrinkPath);
+    renderWithRouterAndStore(<App />, { route: mockDrinkPath });
 
     const instructions = await screen.findByTestId('instructions');
     const recipeVideo = screen.queryByTestId('video');

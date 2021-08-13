@@ -4,8 +4,7 @@ import { renderWithRouterAndStore } from '../helper/testConfig';
 import { mealsFiltersOptions, drinksFiltersOptions } from '../mocks/mockFilterOptions';
 import { testMealsRecipeCard, testDrinksRecipeCard } from '../helper/testRecipeCard';
 import * as requestMenu from '../../services/requestMenu';
-import Foods from '../../pages/Foods';
-import Drinks from '../../pages/Drinks';
+import App from '../../App';
 import mealsFiltersByAll from '../mocks/meals/mockFilterMealsByAll';
 import drinksFiltersByAll from '../mocks/drinks/mockFilterDrinksByAll';
 
@@ -35,7 +34,7 @@ beforeEach(() => jest.clearAllMocks());
 describe(`25 - Implement the elements of the main recipe screen respecting the 
 attributes described in the prototype`, () => {
   it('The screen has the data-testids of all 12 cards from the food screen', async () => {
-    renderWithRouterAndStore(<Foods />, '/comidas');
+    renderWithRouterAndStore(<App />, { route: '/comidas' });
 
     expect(mockedSearchMealByName).toBeCalled();
     expect(mockedSearchMealByName).toBeCalledTimes(1);
@@ -51,7 +50,7 @@ attributes described in the prototype`, () => {
   });
 
   it('The screen has the data-testids of all 12 drink screen cards', async () => {
-    renderWithRouterAndStore(<Drinks />, '/bebidas');
+    renderWithRouterAndStore(<App />, { route: '/bebidas' });
     expect(mockedSearchDrinkByName).toBeCalled();
     expect(mockedSearchDrinkByName).toBeCalledTimes(1);
     expect(mockedRequestAllDrinksCategories).toBeCalled();
