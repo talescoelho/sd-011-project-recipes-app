@@ -9,10 +9,9 @@ const handleChange = (
   },
 ) => {
   const { checked } = target;
-
   let index = target.getAttribute('index');
   index = parseInt(index, 10);
-  const inProgressRecipes = JSON.parse(window.localStorage.inProgressRecipes);
+  const inProgressRecipes = JSON.parse(localStorage.inProgressRecipes);
   if (inProgressRecipes[recipeType][id].length > 0) {
     if (inProgressRecipes[recipeType][id].includes(index)) {
       if (checked === false) {
@@ -34,7 +33,7 @@ const handleChange = (
   if (inProgressRecipes[recipeType][id].length === ingredients.length) {
     addProgressDone();
   }
-  window.localStorage.inProgressRecipes = JSON.stringify(inProgressRecipes);
+  localStorage.inProgressRecipes = JSON.stringify(inProgressRecipes);
 };
 
 export default handleChange;

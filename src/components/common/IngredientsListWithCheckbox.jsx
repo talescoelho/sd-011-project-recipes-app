@@ -8,15 +8,19 @@ import handleChange from '../../helpers/handleChange';
 
 const IngredientsListWithCheckbox = (props) => {
   const {
+    addProgressDone,
     id,
     ingredients,
     recipeType,
   } = props;
-  let localStorageClone = [];
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  localStorageClone = inProgressRecipes[recipeType][id];
-
-  if (localStorageClone === undefined) return (<span>Carregando ingredientes</span>);
+  const localStorageClone = inProgressRecipes[recipeType][id];
+  if (localStorageClone === undefined || localStorageClone === []) {
+    return (<span>Carregando ingredients...</span>);
+  }
+  if (localStorageClone.length === ingredients.length) {
+    addProgressDone();
+  }
   return (
     <section>
       <h3>Ingredientes</h3>
@@ -27,7 +31,7 @@ const IngredientsListWithCheckbox = (props) => {
               defaultChecked={ localStorageClone.includes(index) }
               id={ ingredient }
               index={ index }
-              onClick={ (event) => handleChange(event, props) }
+              onChange={ (event) => handleChange(event, props) }
               type="checkbox"
             />
             <label htmlFor={ ingredient }>

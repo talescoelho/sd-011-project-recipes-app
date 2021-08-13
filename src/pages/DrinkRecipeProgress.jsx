@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
 import { func, shape, string } from 'prop-types';
 import { connect } from 'react-redux';
-import * as ConcludeRecipe from '../components/common/ConcludeRecipe';
-import IngListWithCheckbox from '../components/common/IngredientsListWithCheckbox';
+import ConcludeRecipe from '../components/common/ConcludeRecipe';
+import IngredientsListWithCheckbox from
+  '../components/common/IngredientsListWithCheckbox';
 import RecipeInstructions from '../components/common/RecipeInstructions';
 import { requestDrinkDetails } from '../redux/actions/recipeDetailsActions';
 
 const DrinkRecipeProgress = ({ dispatch, match, drinkDetails }) => {
-  const {
-    params: { id },
-  } = match;
+  const { params: { id } } = match;
   useEffect(() => {
     dispatch(requestDrinkDetails(id));
     let inProgressRecipes = JSON.parse(
@@ -45,11 +44,9 @@ const DrinkRecipeProgress = ({ dispatch, match, drinkDetails }) => {
         },
       };
     }
-    localStorage.setItem(
-      'inProgressRecipes',
-      JSON.stringify(inProgressRecipes),
-    );
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   }, [dispatch, id]);
+  console.log(drinkDetails);
   if (drinkDetails.strInstructions === undefined) return <span>Carregando...</span>;
   const oldIngredients = [
     drinkDetails.strIngredient1,
@@ -96,7 +93,7 @@ const DrinkRecipeProgress = ({ dispatch, match, drinkDetails }) => {
   return (
     <>
       <div>Tela de receita em processo de bebida</div>
-      <IngListWithCheckbox
+      <IngredientsListWithCheckbox
         id={ drinkDetails.idDrink }
         ingredients={ measuresAndIngredients }
         recipeType="cocktails"
@@ -136,5 +133,7 @@ DrinkRecipeProgress.propTypes = {
     strIngredient15: string,
   }),
 }.isRequired;
+
+console.log(typeof DrinkRecipeProgress);
 
 export default connect(mapStateToProps)(DrinkRecipeProgress);

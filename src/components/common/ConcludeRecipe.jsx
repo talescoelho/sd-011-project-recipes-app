@@ -14,8 +14,11 @@ const ConcludeRecipe = ({
   recipeType,
   resetProgress }) => {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  if (!inProgressRecipes[recipeType][id]) return (<span>Carregando botão...</span>);
-  if (inProgressRecipes[recipeType][id].length === ingredients.length) {
+  const localStorageClone = inProgressRecipes[recipeType][id];
+  if (localStorageClone === undefined || localStorageClone === []) {
+    return (<span>Carregando botão...</span>);
+  }
+  if (localStorageClone.length === ingredients.length) {
     addProgressDone();
   }
   const handleClick = () => {
@@ -30,6 +33,7 @@ const ConcludeRecipe = ({
     >
       <button
         className={ recipeDone ? 'recipe-done' : 'recipe-in-progress' }
+        data-testid="finish-recipe-btn"
         onClick={ handleClick }
         type="button"
         disabled={ !recipeDone }
