@@ -1,0 +1,23 @@
+.profile-icon {  
+  padding-right: 5px;
+  width: 30px;  
+}
+
+.search-icon {  
+  border: none;
+  width: 25px;
+}
+
+body {
+  background: #F8D4E4 !important;
+}
+
+img {  
+  box-shadow: 0 0 8px rgba(0, 0, 0, .8);  
+}
+
+.comida-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

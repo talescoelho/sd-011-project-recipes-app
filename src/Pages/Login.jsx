@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import credentialsVerify from '../Helpers/credentialsVerify';
 import submitLocalStorage from '../Helpers/submitLocalStorage';
 import chefImage from '../Extra Contents/pngwing.com.png';
+import '../styles/login.css';
 
 function Login() {
   const history = useHistory();
@@ -23,7 +24,7 @@ function Login() {
   }, [user]);
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid ">
       <img
         className="img-fluid"
         src={ chefImage }
