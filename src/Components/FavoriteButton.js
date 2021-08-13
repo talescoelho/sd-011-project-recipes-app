@@ -6,15 +6,31 @@ import MyContext from '../Context/MyContext';
 
 function FavoriteBtn({ id, type, area, category, alcoholicOrNot, name, image, index }) {
   const {
-    favoriteRecipes, setFavRecipes, isFavorite, setIsFavorite,
+    isFavorite, setIsFavorite,
   } = useContext(MyContext);
+  // const [myLocalStorage, setmyLocalStorage] = useState([]);
+
   const recipeId = id;
 
-  useEffect(() => {
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-  }, [favoriteRecipes.length, favoriteRecipes, isFavorite]);
+  // useEffect(() => {
+  //   localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  // }, [favoriteRecipes.length, favoriteRecipes, isFavorite]);
 
-  const setFavorite = () => {
+  const setButton = () => {
+    const getLocalStr = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const checkLocalStr = Object.values(getLocalStr)
+      .some(({ id: strId }) => strId === recipeId);
+
+    setIsFavorite(checkLocalStr);
+  };
+
+  useEffect(() => {
+    setButton();
+  });
+
+  const setUnfavorite = () => {
+    setIsFavorite(!isFavorite);
+
     const recipeDetails = {
       id,
       type,
@@ -24,66 +40,39 @@ function FavoriteBtn({ id, type, area, category, alcoholicOrNot, name, image, in
       name,
       image,
     };
-    setFavRecipes((prevRecipes) => [...prevRecipes, recipeDetails]);
-    
-    setIsFavorite(true);
-  };
 
-  const setUnfavorite = () => {
-    const removeFav = favoriteRecipes.filter(({ id: favId }) => favId !== recipeId);
-    setFavRecipes(removeFav);
-    setIsFavorite(false);
-  };
+    // console.log(recipeDetails);
+    const storageFavorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const checkLocalStr = Object.values(storageFavorites)
+      .some(({ id: strId }) => strId === recipeId);
 
-  const setButton = () => {
-    const getLocalStr = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    let checkLocalStr;
-
-    if (getLocalStr !== null) {
-      checkLocalStr = Object.values(getLocalStr)
-        .find(({ id: strId }) => strId === recipeId);
-    }
-
-    if (checkLocalStr || isFavorite) {
-      return (
-        <button
-          type="button"
-          src={ blackHeartIcon }
-          data-testid={ `${index}-horizontal-favorite-btn` }
-          onClick={ setUnfavorite }
-        >
-          <img
-            data-testid="favorite-btn"
-            src={ blackHeartIcon }
-            alt="set favorite"
-          />
-        </button>
-      );
-    }
-    if (!isFavorite) {
-      return (
-        <button
-          type="button"
-          src={ whiteHeartIcon }
-          data-testid={ `${index}-horizontal-favorite-btn` }
-          onClick={ setFavorite }
-        >
-          <img
-            data-testid="favorite-btn"
-            src={ whiteHeartIcon }
-            alt="set favorite"
-          />
-        </button>
-      );
+    if (checkLocalStr) {
+      const getRecipeId = JSON.stringify(storageFavorites
+        .filter((recipe) => recipe.id !== recipeId));
+      localStorage.setItem('favoriteRecipes', getRecipeId);
+      console.log(getRecipeId);
+      setIsFavorite(false);
+    } else {
+      const myStructure = JSON.stringify([...storageFavorites, recipeDetails]);
+      console.log(myStructure);
+      localStorage.setItem('favoriteRecipes', myStructure);
     }
   };
 
   return (
-    <>
-      {
-        setButton()
-      }
-    </>
+    <div>
+      <button
+        type="button"
+        data-testid={ `${index}-horizontal-favorite-btn` }
+        onClick={ setUnfavorite }
+      >
+        <img
+          data-testid="favorite-btn"
+          src={ !isFavorite ? whiteHeartIcon : blackHeartIcon }
+          alt="set favorite"
+        />
+      </button>
+    </div>
   );
 }
 

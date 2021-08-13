@@ -4,47 +4,58 @@ import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import './RecipesFoods.css';
 import CardRecipes from '../Components/CardRecipes';
-import { getDrink } from '../Services/FetchApi';
+import { getDrink, fetchCategoryDrink } from '../Services/FetchApi';
 import MyContext from '../Context/MyContext';
 
 export default function RecipesDrink() {
   const { cards, setCards } = useContext(MyContext);
-  
-  const busca = async () => {
-    const resposta = await getDrink();
-    setCards(resposta.drinks);
-    }
+
+  const searchCards = async () => {
+    const response = await getDrink();
+    setCards(response.drinks);
+  };
+
+  const fetchCategoryButtons = async () => {
+    const response = await fetchCategoryDrink();
+    const maxList = 5;
+    const categoryListDrink = response.drinks.slice(0, maxList);
+    console.log(categoryListDrink);
+    return categoryListDrink;
+  };
+
   useEffect(() => {
-    busca();
+    searchCards();
+    fetchCategoryButtons();
   }, []);
-  
-    const renderCardRecipes = () => {
+
+  const renderCardRecipes = () => {
     const showMaxRecipes = 12;
     if (cards) {
       const filteredRecipe = cards.filter(
         (drinks, index) => index < showMaxRecipes,
       );
       return filteredRecipe;
-   }
+    }
   };
   return (
     <div>
       <Header className="title" title="Bebidas" searchIconAppears />
       <div className="cardlist">
-      {cards.length>0 && renderCardRecipes().map((recp, index ) => (
-        <Link
-         className="link"
-         key= { index }
-         to= "/bebidas/drink-details"
-        >
-          <CardRecipes
+        {cards.length > 0 && renderCardRecipes().map((recp, index) => (
+          <Link
+            className="link"
             key={ index }
-            index={ index }
-            thumb={ recp.strDrinkThumb }
-            title={ recp.strDrink }
-          />
-        </Link>
-      ))}  
+            to={ {
+              pathname: `/bebidas/${recp.idDrink}`,
+            } }
+          >
+            <CardRecipes
+              key={ index }
+              index={ index }
+              thumb={ recp.strDrinkThumb }
+              title={ recp.strDrink }
+            />
+          </Link>))}
       </div>
       <Footer />
     </div>

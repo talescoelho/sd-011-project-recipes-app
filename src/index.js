@@ -5,12 +5,11 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MyProvider from './Context/MyProvider';
-import { Router } from 'react-router-dom/cjs/react-router-dom.min';
 
 ReactDOM.render(
-    <MyProvider>
-      <App />
-    </MyProvider>,
+  <MyProvider>
+    <App />
+  </MyProvider>,
   document.getElementById('root'),
 );
 

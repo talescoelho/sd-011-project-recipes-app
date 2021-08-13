@@ -1,63 +1,64 @@
-import React, { useEffect, useContext} from 'react';
+import React, { useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getDrink, getFood } from '../Services/FetchApi';
 import MyContext from '../Context/MyContext';
 import CardRecipes from './CardRecipes';
-import './Recomended.css'
-
+import './Recomended.css';
+// eslint-disable-next-line react/prop-types
 function RecomendedRecipes({ origem }) {
-  
   const { cards, setCards } = useContext(MyContext);
-  
-  
   const busca = async () => {
-    if (origem === 'http://localhost:3000/details-recipe'){
-      let resposta = await getDrink();
+    console.log(origem);
+    if (origem.includes('comidas')) {
+      const resposta = await getDrink();
       setCards(resposta.drinks);
     } else {
-    let resposta = await getFood();
-    setCards(resposta.meals);
+      const resposta = await getFood();
+      setCards(resposta.meals);
     }
-  }
-  
-    useEffect(() => {
-      busca();
-    }, []);
-  
-    const renderCardRecipes = () => {
+  };
+  useEffect(() => {
+    busca();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const renderCardRecipes = () => {
     const showMaxRecipes = 6;
     if (cards) {
       const filteredRecipe = cards.filter(
         (item, index) => index < showMaxRecipes,
       );
       return filteredRecipe;
-   }
+    }
   };
-  if (origem === 'http://localhost:3000/details-recipe'){
-  return (
-    <div className="slider">
-      {cards.length>0 && renderCardRecipes().map((recp, index ) => (
-        <Link
-        className="recomendation-card"
-         key= { index }
-         to= "/bebidas/drink-details"
-        >
-          <CardRecipes
+  if (origem.includes('comidas')) {
+    return (
+      <div className="slider">
+        {cards.length > 0 && renderCardRecipes().map((recp, index) => (
+          <Link
+            data-testid={ `${index}-recomendation-card` }
+            className="recomendation-card"
             key={ index }
-            index={ index }
-            thumb={ recp.strDrinkThumb }
-            title={ recp.strDrink }
-          />
-        </Link>
-      ))}
-      </div>)}
-    return(
-      <div className="cardlist">
-        {cards.length>0 && renderCardRecipes().map((recp, index ) => (
+            to="/bebidas/details-recipe"
+          >
+            <CardRecipes
+              key={ index }
+              index={ index }
+              thumb={ recp.strDrinkThumb }
+              title={ recp.strDrink }
+            />
+          </Link>
+        ))}
+      </div>);
+  }
+  return (
+    <div className="cardlist">
+      {cards.length > 0 && renderCardRecipes().map((recp, index) => (
         <Link
-        className="recomendation-card" 
-         key= { index }
-         to= "/bebidas/details-recipe"
+          className="recomendation-card"
+          data-testid={ `${index}-recomendation-card` }
+          key={ index }
+          to="/comidas/details-recipe"
         >
           <CardRecipes
             key={ index }
@@ -66,8 +67,12 @@ function RecomendedRecipes({ origem }) {
             title={ recp.strMeal }
           />
         </Link>
-      ))}  
-      </div>)
+      ))}
+    </div>);
 }
+
+RecomendedRecipes.propTypes = {
+  origem: PropTypes.string.isRequired,
+};
 
 export default RecomendedRecipes;
