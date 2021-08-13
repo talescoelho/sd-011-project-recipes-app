@@ -13,23 +13,10 @@ class RecipesRecommended extends React.Component {
 
     this.state = {
       slideIndex: 0,
-      // twoRecommended: getXFirstElementsFromArray(recipesRecommended, QUANTITY),
     };
 
     this.getCarouselElements = this.getCarouselElements.bind(this);
     this.renderCarouselElements = this.renderCarouselElements.bind(this);
-  }
-
-  componentDidMount() {
-    const { recipesRecommended } = this.props;
-    console.log('valor de recipesRecommended em didUpdate');
-    console.log(recipesRecommended);
-  }
-
-  componentDidUpdate() {
-    const { slideIndex } = this.state;
-    console.log('slideIndex em didUpdate');
-    console.log(slideIndex);
   }
 
   getCarouselElements() {
@@ -41,8 +28,6 @@ class RecipesRecommended extends React.Component {
         <div
           data-testid={ `${index}-recomendation-card` }
           className="card"
-          // className={ (!(index === slideIndex || index === slideIndex + 1)
-          //   && !(slideIndex === INDEX && index === 0)) ? 'displayNone card' : 'card' }
           key={ index }
           hidden={ !(index === slideIndex || index === slideIndex + 1)
             && !(slideIndex === INDEX && index === 0) }
@@ -66,7 +51,6 @@ class RecipesRecommended extends React.Component {
   }
 
   showSlides(n) {
-    // const { recipesRecommended } = this.props;
     const { slideIndex } = this.state;
 
     if (n === DECREMENT) {
