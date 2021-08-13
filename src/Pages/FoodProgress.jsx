@@ -1,25 +1,78 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { getFoodsByID } from '../Services/ApiFood';
+import copy from 'clipboard-copy';
+import { getFoodsByID, copyLink } from '../Services/ApiFood';
+import getDate from '../Services/getDate';
+import MainContext from '../Context/MainContext';
+import FavoriteButtons from '../Components/FavoriteButtons';
 
 function FoodProgress(props) {
   const [foodById, setFoodById] = useState([]);
   const [foodIngredient, setFoodIngredient] = useState([]);
   const [button, setButton] = useState(false);
+  const [inProgressRecipe, setInProgressRecipe] = useState({});
   const { match } = props;
   const { id } = match.params;
+  const [isFavorite, setIsFavorite] = useState(false);
+  const { idFoodsAPI, setIdFoodsAPI, show, setShow } = useContext(MainContext);
 
   async function fetchFoodsByID() {
     const foodByIdAPI = await getFoodsByID(id);
     setFoodById(foodByIdAPI.meals);
   }
 
-  useEffect(() => {
-    fetchFoodsByID();
-  }, []);
-
   // console.log(foodById);
+
+  useEffect(() => {
+    const getAPIById = async () => {
+      const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+      const { meals } = await fetch(endpoint).then((data) => data.json());
+      setIdFoodsAPI(meals[0]);
+    };
+    getAPIById();
+  }, [id, setIdFoodsAPI]);
+
+  const isFavoriteInLocal = () => {
+    const infoInLocal = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    setIsFavorite(infoInLocal.some((item) => item.id === id));
+  };
+
+  useEffect(() => {
+    const handleFavorite = () => {
+      const infoItem = [{
+        id: idFoodsAPI.idMeal,
+        type: 'comida',
+        area: idFoodsAPI.strArea,
+        category: idFoodsAPI.strCategory,
+        alcoholicOrNot: '',
+        name: idFoodsAPI.strMeal,
+        image: idFoodsAPI.strMealThumb,
+      }];
+      const infoInLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (isFavorite) {
+        if (infoInLocal) {
+          const SomaDEArraysComOStorage = infoItem.concat(infoInLocal);
+          const verify = JSON.stringify(SomaDEArraysComOStorage);
+          return (idFoodsAPI
+            && localStorage.setItem('favoriteRecipes', verify));
+        }
+        const verify = JSON.stringify(infoItem);
+        return (idFoodsAPI
+          && localStorage.setItem('favoriteRecipes', verify));
+      }
+      if (infoInLocal) {
+        const newFavoriteRecipes = infoInLocal
+          .filter((item) => item.id !== idFoodsAPI.idMeal);
+        localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+      }
+    };
+    handleFavorite();
+  }, [idFoodsAPI, isFavorite]);
+
+  const handleColoredHeart = () => {
+    setIsFavorite(!isFavorite);
+  };
 
   useEffect(() => {
     foodById.forEach((ingredient) => {
@@ -53,49 +106,63 @@ function FoodProgress(props) {
     return button;
   }
 
-  function storageCheckeds({ name, checked }) {
-    let recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || { meals: {
-      [id]: [],
-    } };
-
-    if (!recipe.meals) {
-      recipe = { ...recipe,
-        meals: {
-          [id]: [],
-        },
-      };
-    }
-
-    if (checked) {
-      if (!!recipe.meals[id] === false) {
-        const recipeMeal = { ...recipe,
-          meals:
-          { ...recipe.meals, [id]: [name] },
-        };
-        localStorage.setItem('inProgressRecipes',
-          JSON.stringify(recipeMeal));
-      } else {
-        const recipeMeals = { ...recipe,
-          meals:
-           { ...recipe.meals, [id]: [...recipe.meals[id], name] } };
-        localStorage.setItem('inProgressRecipes',
-          JSON.stringify(recipeMeals));
-      }
-    } else {
-      const removeLocaStorage = recipe.meals[id]
-        .filter((ingredient) => ingredient !== name);
-      const recipeIngredients = { ...recipe,
-        meals:
-        { ...recipe.meals, [id]: removeLocaStorage } };
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify(recipeIngredients));
-    }
+  function handleCLick() {
+    const now = getDate();
+    const doneRecipes = foodById.map((food) => ({
+      id: food.idMeal,
+      type: 'comida',
+      area: food.strArea,
+      category: food.strCategory,
+      alcoholicOrNot: '',
+      name: food.strMeal,
+      image: food.strMealThumb,
+      doneDate: now,
+      tags: [food.strTags],
+    }));
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   }
 
-  function allIngredientsFunction(value) {
-    ingredientsChecked();
-    storageCheckeds(value);
-  }
+  const getStorage = (storageItem) => JSON
+    .parse(localStorage.getItem(storageItem));
+
+  const setStorage = (storageItem, value) => localStorage
+    .setItem(storageItem, JSON.stringify(value));
+
+  useEffect(() => {
+    fetchFoodsByID();
+    isFavoriteInLocal();
+    const recipesInProgress = getStorage('inProgressRecipes') || {};
+    setInProgressRecipe(recipesInProgress);
+  }, []);
+
+  const addIngredientStorage = (value, storageIngredient) => {
+    const realoadItem = {
+      ...storageIngredient,
+      [id]: [
+        ...(storageIngredient[id] || []),
+        value,
+      ].sort(),
+    };
+
+    setStorage('inProgressRecipes', realoadItem);
+    setInProgressRecipe(realoadItem);
+  };
+
+  const removeingredientStorage = (value, storageItem) => {
+    const realoadItem = {
+      ...storageItem,
+      [id]: storageItem[id].filter((item) => item !== value),
+    };
+    if (realoadItem[id].length === 0) delete realoadItem[id];
+    setStorage('inProgressRecipes', realoadItem);
+    setInProgressRecipe(realoadItem);
+  };
+
+  const ingredientsDone = (target, index) => {
+    const recipesInProgress = getStorage('inProgressRecipes') || {};
+    if (target.checked) addIngredientStorage(index, recipesInProgress);
+    else removeingredientStorage(index, recipesInProgress);
+  };
 
   return (
     <div>
@@ -127,7 +194,10 @@ function FoodProgress(props) {
                       name={ Object.values(ingredient) }
                       id={ i }
                       type="checkbox"
-                      onChange={ (e) => allIngredientsFunction(e.target) }
+                      checked={ inProgressRecipe[id]
+                        && inProgressRecipe[id].includes(i + 1) }
+                      onChange={ ({ target }) => ingredientsDone(target, i + 1) }
+                      onClick={ () => ingredientsChecked() }
                     />
                     { Object.values(ingredient) }
                   </label>
@@ -146,22 +216,20 @@ function FoodProgress(props) {
             type="button"
             data-testid="finish-recipe-btn"
             disabled={ !button }
+            onClick={ () => handleCLick() }
           >
             Finish
           </button>
         </Link>
-        <button
-          type="button"
-          data-testid="favorite-btn"
-        >
-          Favorite
-        </button>
+        { FavoriteButtons(handleColoredHeart, isFavorite) }
         <button
           type="button"
           data-testid="share-btn"
+          onClick={ () => copyLink(copy, setShow, 'comidas', id) }
         >
-          Share
+          Compartilhar
         </button>
+        <p>{ show && 'Link copiado!'}</p>
       </div>
     </div>
   );
