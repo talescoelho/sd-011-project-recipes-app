@@ -53,8 +53,8 @@ export const fetchCategoryFood = async (site, category) => {
   return result;
 };
 
-export const fetchSurprise = async () => {
-  const URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+export const fetchSurprise = async (site) => {
+  const URL = `https://www.the${site}db.com/api/json/v1/1/random.php`;
   const result = await globalFetch(URL);
   return result;
-};
+}
