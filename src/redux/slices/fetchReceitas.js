@@ -7,6 +7,7 @@ const initialState = {
   foodsCategories: [],
   drinksCategories: [],
   toRender: [],
+  filterByCategory: '',
   // comidas: [],
   // foodIngredients: [],
   // foodByIngredients: [],
@@ -92,7 +93,10 @@ const fetchReceitasSlice = createSlice({
     },
     setToRender: (state, action) => {
       state.toRender = action.payload;
-    }
+    },
+    setFilterByCategory: (state, action) => {
+      state.filterByCategory = action.payload;
+    },
   },
   extraReducers: {
     [getRecipes.pending]: (state) => {
@@ -132,6 +136,7 @@ export const {
   setInitialRecipes,
   setInitialCategories,
   setToRender,
+  setFilterByCategory,
 } = fetchReceitasSlice.actions;
 
 export default fetchReceitasSlice.reducer;

@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import createRecipeObject from '../helpers/createRecipeObject';
 import URLDictionary from '../helpers/endpoints';
+import useDinamicFetch from '../hooks/useDinamicFetch';
 import useFetch from '../hooks/useFetch';
-import { getRecipes, setInput } from '../redux/slices/fetchReceitas';
+import { setFilterByCategory, setToRender } from '../redux/slices/fetchReceitas';
 
 function CategoryButtons() {
   const [categories, setCategories] = useState();
   const { categoriesId, type, filterByCategory } = createRecipeObject();
-  const { data, isLoading, error } = useFetch(URLDictionary[categoriesId]);
-  // const { input } = useSelector((state) => state.fetchReceitas);
-  // const dispatch = useDispatch();
+  const { data, isLoading } = useFetch(URLDictionary[categoriesId]);
+  const [response, setUrl] = useDinamicFetch();
+  const dispatch = useDispatch();
   const LIMIT_CATEGORIES = 5;
 
   const getCatgories = () => {
@@ -23,43 +24,16 @@ function CategoryButtons() {
     }
   }, [data]);
 
-  // const {
-  //   foodCategories,
-  //   drinksCategories,
-  //   loading,
-  // } = useSelector((state) => state.fetchReceitas);
-
-  const getRecipesCategorie = ({ target: { value } }) => {
-    const url = `${URLDictionary[filterByCategory]}${value}`;
-    console.log(url);
-    // const response = await useFetch().data;
-    // const { pathname } = window.location;
-    // const currentURL = pathname.split('/')[1];
-    // let url = currentURL === 'comidas'
-    //   ? 'filterByFoodCategorie'
-    //   : 'filterByDrinkCategorie';
-    // if (value === input || value === 'all') {
-    //   value = '';
-    //   url = currentURL === 'comidas'
-    //     ? 'foods'
-    //     : 'drinks';
-    // }
-    // dispatch(setInput(value));
-    // dispatch(getRecipes(url));
-  };
-
   // useEffect(() => {
-  //   const { pathname } = window.location;
-  //   const currentURL = pathname.split('/')[1];
-  //   const categoriesToSet = currentURL === 'comidas'
-  //     ? foodCategories.meals
-  //     : drinksCategories.drinks;
-  //   setCategories(categoriesToSet);
-  // }, [foodCategories, drinksCategories]);
+  //   if (response) {
+  //     dispatch(setToRender(response));
+  //   }
+  // }, [response]);
 
-  // if (loading || !categories || categories.length === 0) {
-  //   return (<div>Loading</div>);
-  // }
+  // const getRecipesCategorie = ({ target: { value } }) => {
+  //   const url = `${URLDictionary[filterByCategory]}${value}`;
+  //   setUrl(url);
+  // };
 
   if (!categories || isLoading) return <p>Loading...</p>;
 
@@ -69,7 +43,8 @@ function CategoryButtons() {
         type="button"
         data-testid="All-category-filter"
         value="all"
-        onClick={ getRecipesCategorie }
+        // onClick={ getRecipesCategorie }
+        onClick={ () => setFilterByCategory('All') }
       >
         All
       </button>
@@ -79,7 +54,8 @@ function CategoryButtons() {
           key={ index }
           data-testid={ `${strCategory}-category-filter` }
           value={ strCategory }
-          onClick={ getRecipesCategorie }
+          // onClick={ getRecipesCategorie }
+          onClick={ () => setFilterByCategory(strCategory) }
         >
           { strCategory }
         </button>
