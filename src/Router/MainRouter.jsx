@@ -52,7 +52,7 @@ const MainRouter = () => (
     <Route exact path="/perfil" render={ () => <User /> } />
     <Route exact path="/receitas-feitas" render={ () => <RecipesDone /> } />
     <Route exact path="/receitas-favoritas" render={ () => <FavoriteRecipes /> } />
-    <Route path="*" component={ErrorPage} />
+    <Route path="*" component={ ErrorPage } />
   </Switch>
 );
 export default MainRouter;
