@@ -7,6 +7,8 @@ export default function CategoriesDrinks() {
   const { setDrinksBtnCat, setDrinks } = useContext(UserContext);
 
   const [drinksBtn, setdrinksBtn] = useState([]);
+  const [activeFilter, setActiveFilter] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('');
 
   useEffect(() => {
     const callAPIdrinks = async () => {
@@ -22,6 +24,18 @@ export default function CategoriesDrinks() {
     setDrinks(result);
   };
 
+  function toggleFilterBtn(strCategory) {
+    if (activeFilter && strCategory === activeCategory) {
+      callAPIdrinks();
+      setActiveFilter(false);
+      setActiveCategory('');
+    } else {
+      setDrinksBtnCat(strCategory);
+      setActiveCategory(strCategory);
+      setActiveFilter(true);
+    }
+  }
+
   return (
     <div className="btn-categories">
       <button
@@ -36,7 +50,7 @@ export default function CategoriesDrinks() {
           key={ drink.strCategory }
           type="button"
           data-testid={ `${drink.strCategory}-category-filter` }
-          onClick={ () => setDrinksBtnCat(drink.strCategory) }
+          onClick={ () => toggleFilterBtn(drink.strCategory) }
         >
           {drink.strCategory}
         </button>

@@ -13,6 +13,7 @@ export default function Meals({ history }) {
     return <div>loading</div>;
   }
 
+  // corrigir essa gambi e deichar generico
   if (meals.length === 1 && meals[0].strMeal !== 'Mbuzi Choma (Roasted Goat)') {
     history.push(`/comidas/${meals[0].idMeal}`);
   }

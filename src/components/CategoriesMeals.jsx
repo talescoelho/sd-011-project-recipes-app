@@ -7,6 +7,8 @@ export default function CategoriesMeals() {
   const { setMealsBtnCat, setMeals } = useContext(UserContext);
 
   const [mealsBtn, setMealsBtn] = useState([]);
+  const [activeFilter, setActiveFilter] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('');
 
   useEffect(() => {
     const callAPImeals = async () => {
@@ -22,6 +24,19 @@ export default function CategoriesMeals() {
     setMeals(result);
   };
 
+  // corrigir - No terceiro click no filtro seguido ele não filtra corretamente. Infvestigar.
+  function toggleFilterBtn(strCategory) {
+    if (activeFilter && strCategory === activeCategory) {
+      callAPImeals3();
+      setActiveFilter(false);
+      setActiveCategory('');
+    } else {
+      setMealsBtnCat(strCategory);
+      setActiveCategory(strCategory);
+      setActiveFilter(true);
+    }
+  }
+
   return (
     <div className="btn-categories">
       <button
@@ -36,7 +51,7 @@ export default function CategoriesMeals() {
           key={ meal.strCategory }
           type="button"
           data-testid={ `${meal.strCategory}-category-filter` }
-          onClick={ () => setMealsBtnCat(meal.strCategory) }
+          onClick={ () => toggleFilterBtn(meal.strCategory) }
         >
           { meal.strCategory }
         </button>
