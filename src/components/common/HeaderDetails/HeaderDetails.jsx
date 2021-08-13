@@ -19,8 +19,6 @@ const HeaderDetails = (
   },
 ) => {
   const [favoriteTrue, setFavoriteTrue] = useState(false);
-  const [message, setmessage] = useState(null);
-  const [indexOfmessage, setIndexOfmessage] = useState(null);
   // const [storeFavorite, setStoreFavorite] = useState([]);
 
   const history = useHistory();
