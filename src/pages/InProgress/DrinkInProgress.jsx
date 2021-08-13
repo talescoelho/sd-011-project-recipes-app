@@ -77,7 +77,7 @@ function DrinkInProgress({ match }) {
       name: ingredients[0].strDrink,
       image: ingredients[0].strDrinkThumb,
       doneDate: window.Date(),
-      tags: ingredients[0].strTags ? ingredients[0].strTags : '',
+      tags: ingredients[0].strTags ? [ingredients[0].strTags] : '',
     };
     const prevStorage = JSON.parse(localStorage.getItem('doneRecipes'));
     if (prevStorage === null) {

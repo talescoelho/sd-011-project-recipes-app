@@ -4,39 +4,21 @@ import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import Header from '../../globalComponents/Header';
 import shareIcon from '../../images/shareIcon.svg';
+import FavoriteButton from './FavoriteComponents/FavoriteButton';
+import DoneButton from './FavoriteComponents/DoneButton';
 
 function FavoriteRecipes({ match }) {
   const [copied, setCopied] = React.useState(false);
-  const [typeToRender, setTypeToRender] = React.useState('All');
+
+  const doneRecipesStorage = JSON.parse(localStorage.getItem('doneRecipes'));
   const favoriteStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
-  const saveTypeToRender = (event) => {
-    const { value } = event.target;
-    if (value === 'All') setTypeToRender(value);
-    if (value === 'Food') setTypeToRender('comida');
-    if (value === 'Drinks') setTypeToRender('bebida');
+  const alterURL = {
+    comida: 'comidas',
+    bebida: 'bebidas',
   };
 
-  const renderFilterButtons = () => {
-    const buttons = ['All', 'Food', 'Drinks'];
-    const dataTest = ['filter-by-all-btn', 'filter-by-food-btn', 'filter-by-drink-btn'];
-    return (
-      <div>
-        {buttons.map((button, index) => (
-          <button
-            type="button"
-            key={ index }
-            value={ button }
-            data-testid={ dataTest[index] }
-            onClick={ (event) => saveTypeToRender(event) }
-          >
-            {button}
-          </button>
-        ))}
-      </div>);
-  };
-
-  const shareButtonHandle = (id, type) => {
+  function shareButtonHandle(id, type) {
     setCopied(true);
     const mSeconds = 2000;
     if (type === 'comida') {
@@ -47,16 +29,126 @@ function FavoriteRecipes({ match }) {
     setTimeout(() => {
       setCopied(false);
     }, mSeconds);
-  };
+  }
 
-  const doneRecipesExists = (recipesToRender) => {
-    const alterURL = {
-      comida: 'comidas',
-      bebida: 'bebidas',
-    };
-    return (
-      <section>
-        {recipesToRender && recipesToRender.map((recipe, index) => (
+  function renderAllFavorite() {
+    return favoriteStorage;
+  }
+
+  function renderAllDoneRecipes() {
+    return doneRecipesStorage;
+  }
+
+  function renderFavoriteFoods() {
+    const favoriteFoods = favoriteStorage && favoriteStorage
+      .filter((item) => item.type === 'comida');
+    return favoriteFoods;
+  }
+
+  function renderFavoriteDrinks() {
+    const favoriteDrinks = favoriteStorage && favoriteStorage
+      .filter((item) => item.type === 'bebida');
+    return favoriteDrinks;
+  }
+
+  function renderDoneFoods() {
+    const doneFoods = doneRecipesStorage && doneRecipesStorage
+      .filter((item) => item.type === 'comida');
+    return doneFoods;
+  }
+
+  function renderDoneDrinks() {
+    const doneDrinks = doneRecipesStorage && doneRecipesStorage
+      .filter((item) => item.type === 'bebida');
+    return doneDrinks;
+  }
+
+  const [favoriteStr, setFavoriteStr] = React.useState(renderAllFavorite());
+  const [doneRecipes, setDoneRecipes] = React.useState(renderAllDoneRecipes());
+
+  return (
+    <>
+      <Header title="Receitas Favoritas" match={ match } />
+      <button
+        type="button"
+        data-testid="filter-by-all-btn"
+        onClick={ () => {
+          setFavoriteStr(renderAllFavorite());
+          setDoneRecipes(renderAllDoneRecipes());
+        } }
+      >
+        All
+      </button>
+
+      <button
+        type="button"
+        data-testid="filter-by-food-btn"
+        onClick={ () => {
+          setFavoriteStr(renderFavoriteFoods());
+          setDoneRecipes(renderDoneFoods());
+        } }
+      >
+        Food
+      </button>
+
+      <button
+        type="button"
+        data-testid="filter-by-drink-btn"
+        onClick={ () => {
+          setFavoriteStr(renderFavoriteDrinks());
+          setDoneRecipes(renderDoneDrinks());
+        } }
+      >
+        Drinks
+      </button>
+      <div>
+        {favoriteStr && favoriteStr.map((recipe, index) => (
+          <div key={ index }>
+            <Link to={ `/${recipe.type}s/${recipe.id}` }>
+              <img
+                style={ { width: '200px' } }
+                src={ recipe.image }
+                alt="imagem da receita"
+                data-testid={ `${index}-horizontal-image` }
+              />
+              {recipe.type === 'comida'
+                ? (
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    {recipe.area ? `${recipe.area} - ${recipe.category}`
+                      : `${recipe.category}`}
+                  </p>)
+                : (
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    {`${recipe.alcoholicOrNot}`}
+                  </p>
+                )}
+              <h2 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h2>
+            </Link>
+            <button
+              type="button"
+              onClick={ () => shareButtonHandle(recipe.id, recipe.type) }
+            >
+              <img
+                src={ shareIcon }
+                alt="shareIcon"
+                data-testid={ `${index}-horizontal-share-btn` }
+              />
+            </button>
+
+            <FavoriteButton
+              index={ index }
+              id={ recipe.id }
+              setFavoriteStr={ setFavoriteStr }
+            />
+
+            {copied ? <p>Link copiado!</p> : null}
+          </div>
+        ))}
+        {doneRecipes && doneRecipes.map((recipe, index) => (
           <div key={ recipe.id }>
             <div>
               <Link
@@ -74,7 +166,8 @@ function FavoriteRecipes({ match }) {
                   <p
                     data-testid={ `${index}-horizontal-top-text` }
                   >
-                    {`${recipe.area} - ${recipe.category}`}
+                    {recipe.area ? `${recipe.area} - ${recipe.category}`
+                      : `${recipe.category}`}
                   </p>)
                 : (
                   <p
@@ -92,7 +185,15 @@ function FavoriteRecipes({ match }) {
                   data-testid={ `${index}-horizontal-share-btn` }
                 />
               </button>
-              <p className={ copied }>Link copiado!</p>
+
+              <DoneButton
+                index={ index }
+                id={ recipe.id }
+                setDoneRecipes={ setDoneRecipes }
+              />
+
+              <p>{copied ? 'Link copiado!' : null}</p>
+
               <Link
                 to={ `/${alterURL[recipe.type]}/${recipe.id}` }
                 data-testid={ `${index}-horizontal-name` }
@@ -111,62 +212,6 @@ function FavoriteRecipes({ match }) {
                 ))}
               </p>
             </div>
-          </div>
-        ))}
-      </section>
-    );
-  };
-
-  const renderDoneRecipes = () => {
-    if (localStorage.getItem('doneRecipes')) {
-      const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-      let recipesToRender = doneRecipes;
-      console.log(recipesToRender);
-      if (typeToRender !== 'All') {
-        recipesToRender = doneRecipes.filter((recipe) => recipe.type === typeToRender);
-      }
-      return (
-        <div>
-          { recipesToRender ? doneRecipesExists(recipesToRender) : <h1>Carregando</h1> }
-        </div>);
-    }
-    return (
-      <div>
-        <h2>Não há receitas Feitas</h2>
-      </div>
-    );
-  };
-
-  return (
-    <>
-      <Header title="Receitas Favoritas" match={ match } />
-      {renderFilterButtons()}
-      { renderDoneRecipes() }
-      <div>
-        {favoriteStorage && favoriteStorage.map((storage, index) => (
-          <div key={ index }>
-            <Link to={ `/${storage.type}s/${storage.id}` }>
-              <img
-                style={ { width: '200px' } }
-                src={ storage.image }
-                alt="imagem da receita"
-                data-testid={ `${index}-horizontal-image` }
-              />
-              {storage.area && <p>{ `${storage.area}-${storage.category}`}</p>}
-              {!storage.area && <p>{ `${storage.category}`}</p>}
-              <h2 data-testid={ `${index}-horizontal-name` }>{ storage.name }</h2>
-            </Link>
-            <button
-              type="button"
-              onClick={ () => shareButtonHandle(storage.id, storage.type) }
-            >
-              <img
-                src={ shareIcon }
-                alt="shareIcon"
-                data-testid={ `${index}-horizontal-share-btn` }
-              />
-            </button>
-            {copied ? <p>Link copiado!</p> : null}
           </div>
         ))}
       </div>
