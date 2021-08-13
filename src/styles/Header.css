@@ -1,0 +1,22 @@
+.header-div {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-div * {
+  margin: 5px;
+}
+
+.header-title {
+  font-size: 36px;
+}
+
+.header-search-btn {
+  background: none;
+  border: none;
+}
+
+.invisible-div {
+  width: 10%;
+}
