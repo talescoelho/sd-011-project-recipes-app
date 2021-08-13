@@ -25,23 +25,28 @@ function ExplorerMealsIngredients() {
   };
 
   return (
-    <div>
+    <>
       <Header title="Explorar Ingredientes" recipeType="drinks" />
-      { ingredientList.map((ingredient, index) => (
-        <Link
-          to="/comidas"
-          key={ index }
-          onClick={ () => handleClickLink(ingredient.strIngredient) }
-        >
-          <IngredientCard
-            ingredient={ ingredient }
-            index={ index }
-            recipeType="meals"
-          />
-        </Link>
-      ))}
+      <div className="container my-5">
+        <div className="row px-5 gallery-work">
+          { ingredientList.map((ingredient, index) => (
+            <div className="col-md-4 my-3" key={ index }>
+              <Link
+                to="/comidas"
+                onClick={ () => handleClickLink(ingredient.strIngredient) }
+              >
+                <IngredientCard
+                  ingredient={ ingredient }
+                  index={ index }
+                  recipeType="meals"
+                />
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

@@ -113,7 +113,6 @@
   background-color: var(--font-color);
 }
 
-
 .hide {
   display: none;
 }
@@ -209,7 +208,6 @@
 .category-logout-button:hover {
   color: var(--font-color);
 }
-
 
 .select-countries {
   background-color: var(--font-color);
@@ -315,6 +313,12 @@
 }
 
 .container-start-button {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.align-img-center {
   align-items: center;
   display: flex;
   justify-content: center;
