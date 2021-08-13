@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 export default class CardsDoneRecipes extends Component {
   constructor(props) {
@@ -20,7 +19,6 @@ export default class CardsDoneRecipes extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // Uso típico, (não esqueça de comparar as props):
     const { done } = this.props;
     if (done !== prevProps.done) {
       this.setDoneRecipes();
@@ -90,9 +88,13 @@ export default class CardsDoneRecipes extends Component {
             </CopyToClipboard>
             <p data-testid={ `${index}-horizontal-done-date` }>{ recipe.doneDate }</p>
             <div>
-            { recipe.tags.map(( item ,key)=>
-             <p key={ key } data-testid={`${index}-${item}-horizontal-tag`} >{ item }</p>
-             )}
+              { recipe.tags.map((item, key) => (
+                <p
+                  key={ key }
+                  data-testid={ `${index}-${item}-horizontal-tag` }
+                >
+                  { item }
+                </p>))}
             </div>
           </div>))}
         {copyLink ? <h6>Link copiado!</h6> : null}
@@ -101,7 +103,7 @@ export default class CardsDoneRecipes extends Component {
 }
 
 CardsDoneRecipes.propTypes = {
-    done: PropTypes.shape({
-        setDoneRecipes: PropTypes.arrayOf(),
+  done: PropTypes.shape({
+    setDoneRecipes: PropTypes.arrayOf(),
   }),
 }.isRequired;

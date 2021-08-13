@@ -16,8 +16,8 @@ export function saveDoneRecipeFoodOnLocalStorage(foodDetail) {
     name: foodDetail[0].strMeal,
     image: foodDetail[0].strMealThumb,
     doneDate: doneDate(),
-    tags: foodDetail[0].strTags !== null ? foodDetail[0].strTags.split(", ") 
-    : [],
+    tags: foodDetail[0].strTags !== null ? foodDetail[0].strTags.split(', ')
+      : [],
   };
   if (localStorage.getItem('doneRecipes') === null) {
     return localStorage.setItem('doneRecipes', JSON.stringify([dataLocalStorage]));
@@ -28,7 +28,6 @@ export function saveDoneRecipeFoodOnLocalStorage(foodDetail) {
 }
 
 export function saveDoneRecipeDrinkOnLocalStorage(drinkDetail) {
-
   const dataLocalStorage = {
     id: drinkDetail[0].idDrink,
     type: 'bebida',
@@ -38,8 +37,8 @@ export function saveDoneRecipeDrinkOnLocalStorage(drinkDetail) {
     name: drinkDetail[0].strDrink,
     image: drinkDetail[0].strDrinkThumb,
     doneDate: doneDate(),
-    tags: drinkDetail[0].strTags !== null ? drinkDetail[0].strTags.split(", ") 
-    : [],
+    tags: drinkDetail[0].strTags !== null ? drinkDetail[0].strTags.split(', ')
+      : [],
   };
   if (localStorage.getItem('doneRecipes') === null) {
     return localStorage.setItem('doneRecipes', JSON.stringify([dataLocalStorage]));

@@ -1,38 +1,6 @@
-// import React, { Component } from 'react';
-// import HeaderWithoutSearch from '../Components/HeaderWithoutSearch';
-
-// export default class RecipesDone extends Component {
-//   render() {
-//     return (
-//       <div className="explore-container">
-//         <HeaderWithoutSearch title="Receitas Feitas" />
-//         <button
-//         type="button"
-//         className="filter-button btn btn-warning"
-//         data-testid="filter-by-all-btn"
-//         // onClick={}
-//         >All</button>
-
-//         <button
-//         type="button"
-//         className="filter-button btn btn-warning"
-//         data-testid="filter-by-food-btn"
-//         // onClick={}
-//         >Food</button>
-
-//         <button
-//         type="button"
-//         className="filter-button btn btn-warning"
-//         data-testid="filter-by-drink-btn"
-//         // onClick={}
-//         >Drinks</button>
-//       </div>
-//     );
-//   }
-// }
 import React, { Component } from 'react';
 import HeaderWithoutSearch from '../Components/HeaderWithoutSearch';
-import CardsDoneRecipes from '../Components/CardsDoneRecipes'
+import CardsDoneRecipes from '../Components/CardsDoneRecipes';
 
 export default class RecipesDone extends Component {
   constructor() {
@@ -74,7 +42,7 @@ export default class RecipesDone extends Component {
         <header style={ ({ backgroundColor: 'gray' }) }>
           <HeaderWithoutSearch title="Receitas Feitas" />
         </header>
-        
+
         <button
           type="button"
           data-testid="filter-by-all-btn"
@@ -101,4 +69,3 @@ export default class RecipesDone extends Component {
     );
   }
 }
-
