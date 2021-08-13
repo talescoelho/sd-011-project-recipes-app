@@ -1,24 +1,24 @@
 @font-face {
-  font-family: 'Futura';
-  src: url('/fonts/Futura Bold font.ttf');
+  font-family: "Futura";
   font-weight: 600;
   font-size: 50;
+  src: url('/fonts/Futura Bold font.ttf');
 }
 
 body {
-  font-family: 'Futura';
+  font-family: "Futura";
 }
 
 .btn-default {
-  background-color: #ffff;
-  color: #f07167;
+  background-color: white;
   border-color: #f07167;
+  color: #f07167;
   margin-top: 4px;
 }
 
 .btn-default:hover {
   background-color: #f7968f;
-  color: #ffff;
+  color: white;
 }
 
 button img {
@@ -38,34 +38,33 @@ button.icon:hover {
 
 .recipe-card {
   margin-top: 10px;
-  text-decoration: none !important ;
   text-align: center;
 }
 
 .recipe-card img {
   margin-top: 10px;
+  box-shadow: rgba(0.07) 0px 1px 1px , rgba(0.07) 0px 2px 2px ,
+    rgba(0.07) 0px 4px 4px , rgba(0.07) 0px 8px 8px ,
+    rgba(0.07) 0px 16px 16px;
   border-radius: 90% 10% 56% 44% / 62% 73% 27% 38%;
-  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
-    rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
-    rgba(0, 0, 0, 0.07) 0px 16px 16px;
-}
+  }
 
 .recipe-card img:hover {
-  transition: 0.3s;
   transform: scale(1.09);
-  box-shadow: rgba(247, 246, 246, 0.4) 5px 5px,
-    rgba(228, 135, 145, 0.3) 10px 10px, rgba(228, 135, 145, 0.2) 15px 15px,
-    rgba(228, 135, 145, 0.1) 20px 20px, rgba(228, 135, 145, 0.5) 25px 25px;
+  transition: 0.3s;
+  box-shadow: rgba(247, 246, 246, 0.4) 5px 5px ,
+    rgba(228, 135, 145, 0.3) 10px 10px , rgba(228, 135, 145, 0.2) 15px 15px,
+    rgba(228, 135, 145, 0.1) 20px 20px , rgba(228, 135, 145, 0.5) 25px 25px;
 }
 
 .recipe-name {
-  margin-top: 40px;
+  margin-top: 40px;  transform: scale(1.09);
   color: #f07167;
 }
 
 .recipe-photo {
   border-radius: 48% 52% 34% 66% / 39% 33% 67% 61%;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20p x,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px ,
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
