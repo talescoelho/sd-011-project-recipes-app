@@ -1,8 +1,7 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
 import { renderWithRouterAndStore } from '../helper/testConfig';
-import { Profile } from '../../pages';
+import App from '../../App';
 
 beforeEach(() => {
   localStorage.setItem('user', '{ "email": "email@mail.com" }');
@@ -20,8 +19,7 @@ afterEach(() => {
 describe(`84 - Implement 3 buttons: one named "Receitas Feitas", one named "Receitas 
 Favoritas" and one named "Sair"`, () => {
   it('The screen contains all 3 buttons.', () => {
-    const history = createMemoryHistory();
-    renderWithRouterAndStore(<Profile history={ history } />, '/perfil');
+    renderWithRouterAndStore(<App />, { route: '/perfil' });
 
     const profileDoneBtn = screen.getByTestId('profile-done-btn');
     const profileFavoriteBtn = screen.getByTestId('profile-favorite-btn');

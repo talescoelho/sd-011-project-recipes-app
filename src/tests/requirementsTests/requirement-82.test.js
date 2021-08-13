@@ -1,8 +1,7 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
 import { renderWithRouterAndStore } from '../helper/testConfig';
-import { Profile } from '../../pages';
+import App from '../../App';
 
 beforeEach(() => {
   localStorage.setItem('user', '{ "email": "email@mail.com" }');
@@ -20,8 +19,7 @@ afterEach(() => {
 describe(`82 - Implement the elements of the profile screen respecting the attributes 
 described in the prototype`, () => {
   it('All the data-testid of the email and all the buttons', () => {
-    const history = createMemoryHistory();
-    renderWithRouterAndStore(<Profile history={ history } />, '/perfil');
+    renderWithRouterAndStore(<App />, { route: '/perfil' });
 
     const profileEmail = screen.getByTestId('profile-email');
     const profileDoneBtn = screen.getByTestId('profile-done-btn');

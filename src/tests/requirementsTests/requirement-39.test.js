@@ -1,18 +1,15 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import { renderWithRouterAndStore } from '../helper/testConfig';
-import { FoodDetails, DrinkDetails } from '../../pages';
 import * as requestMenu from '../../services/requestMenu';
 import mealsFiltersByAll from '../mocks/meals/mockFilterMealsByAll';
 import mealRecipeDetails from '../mocks/meals/mockMealRecipeDetails';
 import drinksFiltersByAll from '../mocks/drinks/mockFilterDrinksByAll';
 import drinkRecipeDetails from '../mocks/drinks/mockDrinkRecipeDetails';
+import App from '../../App';
 
 const mockMealPath = '/comidas/52977';
-const mockMealsMatch = { params: { id: '52977' }, url: '/comidas/52977' };
-
 const mockDrinkPath = '/bebidas/15997';
-const mockDrinkMatch = { params: { id: '15997' }, url: '/bebidas/15997' };
 
 jest
   .spyOn(requestMenu, 'searchMealByName')
@@ -53,7 +50,7 @@ describe(`39 - Implement the solution so that if the recipe has already been mad
         tags: ['Soup'],
       }];
       localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-      renderWithRouterAndStore(<FoodDetails match={ mockMealsMatch } />, mockMealPath);
+      renderWithRouterAndStore(<App />, { route: mockMealPath });
 
       const startRecipeBtn = screen.queryByTestId('start-recipe-btn');
       expect(startRecipeBtn).toBeNull();
@@ -72,7 +69,7 @@ describe(`39 - Implement the solution so that if the recipe has already been mad
       tags: [],
     }];
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-    renderWithRouterAndStore(<DrinkDetails match={ mockDrinkMatch } />, mockDrinkPath);
+    renderWithRouterAndStore(<App />, { route: mockDrinkPath });
 
     const startRecipeBtn = screen.queryByTestId('start-recipe-btn');
     expect(startRecipeBtn).toBeNull();

@@ -1,8 +1,7 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
 import { renderWithRouterAndStore } from '../helper/testConfig';
-import { Profile } from '../../pages';
+import App from '../../App';
 
 beforeEach(() => {
   localStorage.setItem('user', '{ "email": "email@mail.com" }');
@@ -19,8 +18,7 @@ afterEach(() => {
 
 describe('83 - Implement the solution so that the user\'s email must be visible', () => {
   it('The email stored in localStorage is visible', () => {
-    const history = createMemoryHistory();
-    renderWithRouterAndStore(<Profile history={ history } />, '/perfil');
+    renderWithRouterAndStore(<App />, { route: '/perfil' });
 
     const profileEmail = screen.getByTestId('profile-email');
 

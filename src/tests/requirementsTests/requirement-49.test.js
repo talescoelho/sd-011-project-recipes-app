@@ -1,16 +1,16 @@
 import React from 'react';
 import { renderWithRouterAndStore } from '../helper/testConfig';
-import { FoodRecipeProgress, DrinkRecipeProgress } from '../../pages';
+import App from '../../App';
 
 describe(`49 - Implement a logic that, when clicking on an ingredient's checkbox, its 
 name must be "crossed out" from the list`, () => {
   it('Check if it is possible to mark all steps of the food recipe',
     () => {
-      renderWithRouterAndStore(<FoodRecipeProgress />, '/comidas/:id/in-progress');
+      renderWithRouterAndStore(<App />, { route: '/comidas/52977/in-progress' });
     });
 
   it('Check if it is possible to mark all steps of the drink recipe',
     () => {
-      renderWithRouterAndStore(<DrinkRecipeProgress />, '/bebidas/:id/in-progress');
+      renderWithRouterAndStore(<App />, { route: '/bebidas/15997/in-progress' });
     });
 });
