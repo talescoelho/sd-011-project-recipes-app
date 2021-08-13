@@ -48,16 +48,16 @@ function DrinkDetails({ match: { params: { id } } }) {
   // retorna a concatenação do retorno da função ingredientsMesure com ingredientsRecipe
   const concatIngredientWithMesure = () => {
     const newArray = [];
-    for (let index = 0; index <= ingredientsRecipe().length; index += 1) {
+    for (let index = 0; index < ingredientsRecipe().length; index += 1) {
       newArray.push(`-${ingredientsRecipe()[index]} - ${ingredientsMesure()[index]}`);
     }
     return newArray;
   };
-
   checkInProgress();
   const checkStart = () => {
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (inProgress && Object.keys(inProgress.cocktails).find((key) => key === recipes.idDrink)) {
+    if (inProgress && Object.keys(inProgress.cocktails)
+      .find((key) => key === recipes.idDrink)) {
       return 'Continuar Receita';
     }
     return 'Iniciar Receita';
@@ -72,7 +72,7 @@ function DrinkDetails({ match: { params: { id } } }) {
         alt="Imagem da receita"
       />
       <h2 data-testid="recipe-title">{ recipes.strDrink }</h2>
-      <ShareButton idRecipe={ `comidas/${recipes.idDrink}` } />
+      <ShareButton idRecipe={ `bebidas/${recipes.idDrink}` } />
       <img src={ whiteHeartIcon } alt="Favoritar Coração" data-testid="favorite-btn" />
       <h3 data-testid="recipe-category">{ recipes.strCategory }</h3>
       <h3>{ recipes.strAlcoholic }</h3>

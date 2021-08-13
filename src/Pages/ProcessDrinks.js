@@ -8,11 +8,11 @@ export default function ProcessDrinks({ match: { params: { id } } }) {
   // Didmount - Faz fetch trazendo a receita pelo id e seta o stado recipes com as receita
   useEffect(() => {
     const getApi = async () => {
-      const endPoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+      const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
       const response = await fetch(endPoint);
       const results = await response.json();
-      const meals = results.meals[0];
-      setRecipes(meals);
+      const drinks = results.drinks[0];
+      setRecipes(drinks);
     };
     getApi();
   }, [id]);
@@ -45,7 +45,7 @@ export default function ProcessDrinks({ match: { params: { id } } }) {
   // retorna a concatenação do retorno da função ingredientsMesure com ingredientsRecipe
   const concatIngredientWithMesure = () => {
     const newArray = [];
-    for (let index = 0; index <= ingredientsRecipe().length; index += 1) {
+    for (let index = 0; index < ingredientsRecipe().length; index += 1) {
       newArray.push(`-${ingredientsRecipe()[index]} - ${ingredientsMesure()[index]}`);
     }
     return newArray;
@@ -55,11 +55,11 @@ export default function ProcessDrinks({ match: { params: { id } } }) {
     <div>
       <img
         id="img-recipe"
-        src={ recipes.strMealThumb }
+        src={ recipes.strDrinkThumb }
         data-testid="recipe-photo"
         alt="Imagem da receita"
       />
-      <h2 data-testid="recipe-title">{ recipes.strMeal }</h2>
+      <h2 data-testid="recipe-title">{ recipes.strDrink }</h2>
       <ShareButton />
       <img src={ whiteHeartIcon } alt="Favoritar Coração" data-testid="favorite-btn" />
       <h3 data-testid="recipe-category">{ recipes.strCategory }</h3>

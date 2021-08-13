@@ -51,7 +51,7 @@ function FoodDetails({ match: { params: { id } } }) {
   // retorna a concatenação do retorno da função ingredientsMesure com ingredientsRecipe
   const concatIngredientWithMesure = () => {
     const newArray = [];
-    for (let index = 0; index <= ingredientsRecipe().length; index += 1) {
+    for (let index = 0; index < ingredientsRecipe().length; index += 1) {
       newArray.push(`-${ingredientsRecipe()[index]} - ${ingredientsMesure()[index]}`);
     }
     return newArray;
