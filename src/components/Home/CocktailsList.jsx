@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useCocktails, useCategory, fetchCategory, fetchCocktails } from '../../hooks';
+import loading from '../../images/loading.gif';
 
 function CocktailsList() {
   const { error, cocktails } = useCocktails();
@@ -22,7 +23,11 @@ function CocktailsList() {
 
   if (!categorys) {
     return (
-      <p>...carregando</p>
+      <img
+        src={ loading }
+        alt="carregando"
+        width="100px"
+      />
     );
   }
 

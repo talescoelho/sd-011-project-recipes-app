@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router';
-
 import copy from 'clipboard-copy';
+import { useParams, useHistory } from 'react-router';
+import loading from '../images/loading.gif';
+
 import { Layout, ActionButton, RecipeRecommendationList } from '../components';
 
 import {
@@ -12,7 +13,15 @@ import {
 const TOAST_TIMEOUT = 3000;
 
 const renderLoadingOrError = (error, isLoading) => {
-  if (isLoading) return <p>Carregando...</p>;
+  if (isLoading) {
+    return (
+      <img
+        src={ loading }
+        alt="carregando"
+        width="100px"
+      />
+    );
+  }
 
   if (error) return <p>Opa... algo deu errado</p>;
 

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router';
-
 import copy from 'clipboard-copy';
-import { Layout, ActionButton } from '../components';
+import { useParams, useHistory } from 'react-router';
+import loading from '../images/loading.gif';
+
+import { Layout, ActionButton, FavoriteButton } from '../components';
 
 import {
   getStoredFavorites,
@@ -13,7 +14,15 @@ const TOAST_TIMEOUT = 3000;
 const RECOMMENDATION_NUMBER = 6;
 
 const renderLoadingOrError = (error, isLoading) => {
-  if (isLoading) return <p>Carregando...</p>;
+  if (isLoading) {
+    return (
+      <img
+        src={ loading }
+        alt="carregando"
+        width="100px"
+      />
+    );
+  }
 
   if (error) return <p>Opa... algo deu errado</p>;
 
@@ -30,7 +39,6 @@ function FoodDetails() {
   const [isInProgress, setIsInProgress] = useState(false);
   const [drinks, setDrinks] = useState([]);
   const [toastIsVisible, setToastIsVisible] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
   const { id } = useParams();
   const history = useHistory();
 
@@ -112,41 +120,7 @@ function FoodDetails() {
                       showToast();
                     } }
                   />
-                  <ActionButton
-                    action="favorite"
-                    reverse={ isFavorite }
-                    onClick={ () => {
-                      const storedFavoriteRecipes = localStorage
-                        .getItem('favoriteRecipes');
-                      const parsedFavoriteRecipes = storedFavoriteRecipes
-                        ? JSON.parse(storedFavoriteRecipes)
-                        : [];
-
-                      let favoriteRecipesToStore;
-
-                      if (isFavorite) {
-                        favoriteRecipesToStore = parsedFavoriteRecipes
-                          .filter((parsedRecipe) => parsedRecipe.id !== id);
-                      } else {
-                        favoriteRecipesToStore = [...parsedFavoriteRecipes, {
-                          id,
-                          type: 'comida',
-                          area: recipe.strArea,
-                          category: recipe.strCategory,
-                          alcoholicOrNot: '',
-                          name: recipe.strMeal,
-                          image: recipe.strMealThumb,
-                        }];
-                      }
-
-                      localStorage.setItem(
-                        'favoriteRecipes',
-                        JSON.stringify(favoriteRecipesToStore),
-                      );
-
-                      setIsFavorite((previously) => !previously);
-                    } }
-                  />
+                  <FavoriteButton recipe={ recipe } />
                 </div>
               </section>
               <section>
