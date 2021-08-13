@@ -1,26 +1,25 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useState, useEffect} from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
+import MyContext from '../Context/MyContext';
 import './Profile.css';
 import perfilbg from './perfilbg.mp4';
 
 function Profile() {
   const history = useHistory();
-  /* const [userEmailProfile, setUserEmailProfile] = useState('');
-  const { userEmail } = useContext(UserContext);
+  const [userEmailProfile, setUserEmailProfile] = useState('');
+  const { userEmail } = useContext(MyContext);
 
   useEffect(() => {
     const userEmailStorageString = JSON.parse(localStorage.getItem('user'));
     if (userEmailStorageString === null) setUserEmailProfile(userEmail);
     else setUserEmailProfile(userEmailStorageString.email);
-    setHideSearchBtn(false);
-    setPageName('Perfil');
     }, []);
 
   const clearStorage = () => localStorage.clear();
-    */
+  
   return (
     <div>
       <video
@@ -38,7 +37,7 @@ function Profile() {
       <div className="perfilpage">
         <main className="main-profile">
           <section className="profile-section">
-            <p data-testid="profile-email">userEmailProfile</p>
+            <p data-testid="profile-email">{userEmailProfile}</p>
             <Button
               type="button"
               onClick={ () => history.push('/receitas-feitas') }
@@ -57,15 +56,18 @@ function Profile() {
             >
               Receitas Favoritas
             </Button>
-            <Button
-              type="button"
-              onClick={ () => history.push('/') }
-              data-testid="profile-logout-btn"
-              className="button-three"
-              variant="outline-danger"
-            >
-              Sair
-            </Button>
+            <Link to="/">
+              <Button
+                type="button"
+                onClick={ () => clearStorage() }
+                data-testid="profile-logout-btn"
+                className="button-three"
+                variant="outline-danger"
+              >
+                Sair
+              </Button>
+            </Link>
+            
           </section>
         </main>
       </div>
