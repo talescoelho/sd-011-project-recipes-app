@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory, useParams } from 'react-router-dom';
-import { fetchFoodDetails, fetchDrinksDetails } from '../services/API';
-import ingredientsMealDetails from '../helpers/ingredientsMealDetails';
-import ingredientsDrinksDetails from '../helpers/ingredientsDrinkDetails';
 import { setStorage, newDoneRecipe, getStorage } from '../helpers/Storage';
+import ReturnRecipe from '../helpers/ReturnRecipe';
 import ShareAndFavButtons from '../components/subcomponents/ShareAndFavButtons';
+import { storageMeals, storageCocktails } from '../helpers/LocalStorageIngredients';
 
 function RecipesInProgress() {
   const history = useHistory();
   const { location: { pathname } } = history;
-  const [returnedDetail, setReturnedDetail] = useState([]);
+  const [returnedDetail, setReturnedDetail] = useState({});
   const [arrayIngredients, setArrayIngredients] = useState([]);
   const [doneRecipes] = useState(getStorage('doneRecipes'));
   const [typeFoods, setTypeFoods] = useState('');
   const [recipe, setRecipe] = useState('');
   const [inProgressRecipes, setInprogressRecipes] = useState();
   const { id } = useParams();
+  const [btnDoneRecipe, setBtnDoneRecipe] = useState(true);
+  const [checkedIngredients, setCheckedIngredients] = useState([]);
 
   const addDoneRecipe = () => {
     const newDoneRecip = newDoneRecipe(returnedDetail, typeFoods);
+    const saveLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     setStorage('doneRecipes', [...doneRecipes, newDoneRecip]);
+    delete saveLocalStorage[recipe][id];
+    setStorage('inProgressRecipes', saveLocalStorage);
   };
 
   useEffect(() => {
@@ -28,31 +32,17 @@ function RecipesInProgress() {
   }, []);
 
   useEffect(() => {
-    const foodDetails = async (recipeId) => {
-      if (pathname.includes('comidas')) {
-        const fetchedDetails = await fetchFoodDetails(recipeId);
-        setReturnedDetail(fetchedDetails);
-        setTypeFoods('comida');
-      }
-      if (pathname.includes('bebidas')) {
-        const fetchedDetails = await fetchDrinksDetails(recipeId);
-        setReturnedDetail(fetchedDetails);
-        setTypeFoods('bebida');
-      }
-    };
-    foodDetails(id);
+    async function testtee() {
+      const { fetchDetails, typeFood,
+        recipeType, ingredientsList } = await ReturnRecipe(id, pathname);
+      setReturnedDetail(fetchDetails);
+      console.log(fetchDetails);
+      setTypeFoods(typeFood);
+      setRecipe(recipeType);
+      setArrayIngredients(ingredientsList);
+    }
+    testtee();
   }, [pathname, id]);
-
-  useEffect(() => {
-    if (pathname.includes('comidas')) {
-      setArrayIngredients(ingredientsMealDetails(returnedDetail));
-      setRecipe('meals');
-    }
-    if (pathname.includes('bebidas')) {
-      setArrayIngredients(ingredientsDrinksDetails(returnedDetail));
-      setRecipe('cocktails');
-    }
-  }, [pathname, returnedDetail]);
 
   if (!localStorage.inProgressRecipes) {
     localStorage.setItem('inProgressRecipes',
@@ -62,68 +52,26 @@ function RecipesInProgress() {
       }));
   }
 
-  function teste(ingredient) {
-    if (pathname.includes('bebidas')) {
-      let newLocalStorageDrinks;
-      const saveLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      if (saveLocalStorage.cocktails[id]) {
-        newLocalStorageDrinks = { cocktails: { ...saveLocalStorage.cocktails,
-          [id]: [...saveLocalStorage.cocktails[id], ingredient],
-        },
-        meals: { ...saveLocalStorage.meals },
-        };
-      } else {
-        newLocalStorageDrinks = {
-          cocktails: { ...saveLocalStorage.cocktails,
-            [id]: [ingredient],
-          },
-          meals: { ...saveLocalStorage.meals },
-        };
-      }
-      localStorage.setItem('inProgressRecipes', JSON.stringify(newLocalStorageDrinks));
-    }
-    if (pathname.includes('comidas')) {
-      let newLocalStorageMeals;
-      const saveLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      if (saveLocalStorage.meals[id]) {
-        newLocalStorageMeals = {
-          cocktails: {
-            ...saveLocalStorage.cocktails,
-          },
-          meals: { ...saveLocalStorage.meals,
-            [id]: [...saveLocalStorage.meals[id], ingredient],
-          },
-        };
-      } else {
-        newLocalStorageMeals = { cocktails: {
-          ...saveLocalStorage.cocktails,
-        },
-        meals: {
-          ...saveLocalStorage.meals,
-          [id]: [ingredient],
-        },
-        };
-      }
-      localStorage.setItem('inProgressRecipes', JSON.stringify(newLocalStorageMeals));
+  function valueIngredients({ target }) {
+    if (pathname.includes('comida')) {
+      const savedata = ((storageMeals(pathname, target.id, id)));
+      setCheckedIngredients(savedata);
+    } else {
+      const savedata = ((storageCocktails(pathname, target.id, id)));
+      setCheckedIngredients(savedata);
     }
   }
 
-  function checkedIngredients({ target }) {
-    teste(target.id);
-  }
-
-  // function disable() {
-  //   if (localStorage.inProgressRecipes[recipe][id]
-  //     && localStorage.inProgressRecipes[recipe][id].length
-  //     === arrayIngredients.length) {
-  //     console.log('oi');
-  //     return true;
-  //   }
-  //   console.log('ola');
-  //   return false;
-  // }
-
-  const negado = false;
+  useEffect(() => {
+    function disable() {
+      if (checkedIngredients.length
+        === arrayIngredients.length) {
+        return false;
+      }
+      return true;
+    }
+    setBtnDoneRecipe(disable());
+  }, [arrayIngredients, checkedIngredients]);
 
   return (
     <div className="container-recipe">
@@ -154,13 +102,13 @@ function RecipesInProgress() {
               id={ ingredient }
               type="checkbox"
               key={ index }
-              onClick={ (e) => checkedIngredients(e) }
+              onClick={ (e) => valueIngredients(e) }
               defaultChecked
             /> : <input
               id={ ingredient }
               type="checkbox"
               key={ index }
-              onClick={ (e) => checkedIngredients(e) }
+              onClick={ (e) => valueIngredients(e) }
             />}
           {ingredient}
         </label>))}
@@ -171,7 +119,7 @@ function RecipesInProgress() {
           alt="Finish-Recipe"
           onClick={ addDoneRecipe }
           data-testid="finish-recipe-btn"
-          disabled={ negado }
+          disabled={ btnDoneRecipe }
         >
           Finalizar Receita
         </button>
