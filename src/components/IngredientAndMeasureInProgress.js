@@ -96,7 +96,7 @@ function IngredientAndMeasureInProgress({
       const checkInput = state.includes(index) ? 'checked' : '';
       return (
         <div key={ index } className="row justify-content-center">
-          <li
+          <p
             data-testid={ `${index}-ingredient-step` }
             index={ index }
             className={ checkClasseP }
@@ -110,7 +110,7 @@ function IngredientAndMeasureInProgress({
               defaultChecked={ checkInput }
             />
             {`${ing} - ${mea}`}
-          </li>
+          </p>
         </div>
       );
     })

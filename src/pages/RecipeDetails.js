@@ -71,20 +71,23 @@ const RecipeDetails = ({ type, match }) => {
     const recpName = type === 'comidas' ? recipe.strMeal : recipe.strDrink;
     const recpCat = type === 'comidas' ? recipe.strCategory : recipe.strAlcoholic;
     return (
-      <div className="recipe-info">
+      <div className="recipe-info ">
         <img
           src={ thumb }
           alt={ recpName }
-          className="dtl-img"
+          className="dtl-img img-thumbnail
+          rounded mx-auto d-block col-md-6 float-md-end mb-3 ms-md-3"
           data-testid="recipe-photo"
         />
-        <h2 data-testid="recipe-title">{ recpName }</h2>
-        <h4 data-testid="recipe-category">{ recpCat }</h4>
-        <div className="btn-container">
+        <div className="container">
+          <h2 data-testid="recipe-title">{ recpName }</h2>
+          <h4 data-testid="recipe-category">{ recpCat }</h4>
+        </div>
+        <div className="btn-container container">
           <BtnShare />
           <BtnFavorite recipe={ recipe } type={ type } recipeId={ recipeId } />
         </div>
-        <ul>
+        <ul className="ul">
           {ings.map(({ ing, meas }, i) => (
             <li key={ i } data-testid={ `${i}-ingredient-name-and-measure` }>
               { `${ing} - ${meas}` }
@@ -97,7 +100,8 @@ const RecipeDetails = ({ type, match }) => {
             <object
               data-testid="video"
               aria-label="meal-video"
-              className="meal-video"
+              className="meal-video
+                rounded mx-auto d-block col-md-6 float-md-end mb-3 ms-md-3"
               width="300"
               height="200"
               data={ mealVideo }

@@ -40,7 +40,7 @@ class Incial extends Component {
   render() {
     const { button } = this.state;
     return (
-      <div className="container p">
+      <div className=" p">
         <h1>App Recipe</h1>
         <form className="align-text-top grid">
           <div className="col-lg-12">
