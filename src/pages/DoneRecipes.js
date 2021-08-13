@@ -44,6 +44,7 @@ const DoneRecipes = () => {
           type="button"
           data-testid="filter-by-all-btn"
           onClick={ () => filterRecipes('all') }
+          className="filter-by-all-btn"
         >
           All
         </button>
@@ -51,6 +52,7 @@ const DoneRecipes = () => {
           data-testid="filter-by-food-btn"
           type="button"
           onClick={ () => filterRecipes('comida') }
+          className="filter-by-food-btn"
         >
           Food
         </button>
@@ -58,6 +60,7 @@ const DoneRecipes = () => {
           data-testid="filter-by-drink-btn"
           type="button"
           onClick={ () => filterRecipes('bebida') }
+          className="filter-by-drink-btn"
         >
           Drinks
         </button>

@@ -46,11 +46,13 @@ const RecipeExploreArea = () => {
       <select
         data-testid="explore-by-area-dropdown"
         onChange={ handleChange }
+        className="explore-select-input"
       >
         { areaOptions.map((region, index) => (
           <option
             key={ index }
             data-testid={ `${region.strArea}-option` }
+            className="explore-option-input"
           >
             { region.strArea }
           </option>
