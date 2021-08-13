@@ -11,9 +11,9 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure }) {
   useEffect(() => {
     async function getRecomendations() {
       const qty = 6;
-      const response = await FetchApi('themealdb', 'nome', '');
-      const recomendations = response.meals.slice(0, qty);
-      setRecomendation(recomendations);
+      const response = await FetchApi('thecocktaildb', 'nome', '');
+      const recomendationsList = response.drinks.slice(0, qty);
+      setRecomendation(recomendationsList);
     }
     getRecomendations();
   }, []);
@@ -21,7 +21,13 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure }) {
   function renderDetails() {
     return (
       <div className="details-body">
-        <img alt="logo" src={ details[0].strMealThumb } data-testid="recipe-photo" />
+        <img
+          alt="logo"
+          src={ details[0].strMealThumb }
+          data-testid="recipe-photo"
+          width="100px"
+          height="100px"
+        />
         <h3 data-testid="recipe-title">{ details[0].strMeal }</h3>
         <div className="details-btn-container">
           <ShareBtn />
@@ -41,7 +47,7 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure }) {
           </h5>
         )) : '' }
         <h4>Instructions:</h4>
-        <h5>{ details[0].strInstructions }</h5>
+        <p data-testid="instructions">{ details[0].strInstructions }</p>
         <h4>Vídeo</h4>
         { details ? <iframe
           width="560"

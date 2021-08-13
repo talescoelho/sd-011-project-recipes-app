@@ -31,3 +31,15 @@
   width: 100px;
 }
 
+.container-carrossel {
+  display: flex;
+  justify-content: center;
+}
+
+.showImgCarrossel {
+  display: flex;
+}
+
+.hideImgCarrossel {
+  display: none;
+}
