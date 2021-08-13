@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
-import MenuInferior from '../components/MenuInferior';
+import Footer from '../components/Footer';
 
 function Explorar() {
   return (
@@ -17,7 +17,7 @@ function Explorar() {
           Explorar Bebidas
         </button>
       </Link>
-      <MenuInferior />
+      <Footer />
     </div>
   );
 }

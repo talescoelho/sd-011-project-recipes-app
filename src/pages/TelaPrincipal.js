@@ -4,7 +4,7 @@ import getCategories from '../services/getCategories';
 import Header from '../components/Header';
 import MealsCards from '../components/MealsCards';
 import DrinksCards from '../components/DrinksCards';
-import MenuInferior from '../components/MenuInferior';
+import Footer from '../components/Footer';
 
 import recipesContext from '../provider/recipesContext';
 
@@ -78,7 +78,7 @@ export default function TelaPrincipal() {
           ? <MealsCards meals={ data } cardLimit={ 12 } />
           : <DrinksCards drinks={ data } cardLimit={ 12 } />
       }
-      <MenuInferior />
+      <Footer />
     </div>
   );
 }

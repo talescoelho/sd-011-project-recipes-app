@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
-import MenuInferior from '../components/MenuInferior';
+import Footer from '../components/Footer';
 
 function Profile() {
   const email = JSON.parse(localStorage.getItem('user')) || { email: '' };
@@ -55,7 +55,7 @@ function Profile() {
 
         </Link>
       </div>
-      <MenuInferior />
+      <Footer />
     </div>
   );
 }

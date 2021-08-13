@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import Header from '../components/Header';
-import Footer from '../components/MenuInferior';
+import Footer from '../components/Footer';
 import recipesContext from '../provider/recipesContext';
 
 import getImage from '../services/requestImage';

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import Header from '../components/Header';
 import MealsCards from '../components/MealsCards';
-import Footer from '../components/MenuInferior';
+import Footer from '../components/Footer';
 
 import { requestAreas, requestByArea } from '../services/requestAreas';
 
