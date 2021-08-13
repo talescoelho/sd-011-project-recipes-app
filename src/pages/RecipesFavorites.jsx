@@ -79,7 +79,9 @@ export default function RecipesFavorites() {
                 alt="imagem da refeição"
                 data-testid={ `${index}-horizontal-image` }
               />
-              <p data-testid={ `${index}-horizontal-top-text` }>{ recipe.category }</p>
+              <p data-testid={ `${index}-horizontal-top-text` }>
+                { `${recipe.area} - ${recipe.category}` }
+              </p>
               <p data-testid={ `${index}-horizontal-name` }>{ recipe.name }</p>
               <ShareButton test={ `${index}-horizontal-share-btn` } />
               <FavoriteButton
