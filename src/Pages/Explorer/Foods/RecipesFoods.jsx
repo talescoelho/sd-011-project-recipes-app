@@ -18,7 +18,6 @@ function RecipesFoods() {
   return (
     <>
       <HeaderExpIngredients />
-      {console.log(ingredientsListMeal)}
       <IngredientCard ingredientsList={ ingredientsListMeal } drink={ false } />
       <LowerMenu />
     </>

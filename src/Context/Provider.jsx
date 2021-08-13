@@ -19,20 +19,20 @@ const Provider = ({ children }) => {
   const [page, setPage] = useState('');
   const [dataDrinks, setDataDrinks] = useState([]);
   const [dataFoods, setDataFoods] = useState([]);
-  // *================Captura o id da comida=====================
+  // *================Captura o id da comida===================================
   const [idFoods, setIdFoods] = useState('');
   const [idFoodsAPI, setIdFoodsAPI] = useState([]);
-  // *================Captura o id da bebida=====================
+  // *================Captura o id da bebida===================================
   const [idDrinks, setIdDrinks] = useState('');
   const [idDrinksAPI, setIdDrinksAPI] = useState([]);
-  // #==========================Comidas==================================
+  // #==========================Comidas========================================
   const [DetailsIngredientsFiltered, setDetailsIngredientsFiltered] = useState([]);
   const [DetailsMeasuresFiltered, setDetailsMeasuresFiltered] = useState([]);
-  // #==========================Bebidas==================================
+  // #==========================Bebidas========================================
   const [DetailsIngredFilterForDrinks, setDetailsIngredFilterForDrinks] = useState([]);
   const [DetailsMeasFilterForDrinks, setDetailsMeasFilterForDrinks] = useState([]);
   const [DetailsInstrucFilterForDrinks, setDetailsInstrucFilterForDrinks] = useState([]);
-  // * ============================================================
+  // * ========================================================================
   const [startButton, setStartButton] = useState(false);
   const [newDataFoods, setNewDataFoods] = useState([]);
   const [newDataDrinks, setNewDataDrinks] = useState([]);
@@ -40,7 +40,7 @@ const Provider = ({ children }) => {
   const [foodsByCategory, setFoodsByCategory] = useState([]);
   const [drinksByCategory, setDrinksByCategory] = useState([]);
   const [limit] = useState([number]);
-  // # =============================================================================
+  // # ========================================================================
   const [count, setCount] = useState(false);
   const [selected, setSelected] = useState(0);
   const [doneRecipes, setDoneRecipes] = useState('');
@@ -48,6 +48,9 @@ const Provider = ({ children }) => {
   // # ========================================================================
   const [ingredientsListDrink, setIngredientsListDrink] = useState([]);
   const [ingredientsListMeal, setIngredientsListMeal] = useState([]);
+  const [ingredients, setIngredients] = useState(null);
+  const [strIngredient, setStrIngredient] = useState(null);
+  // # ========================================================================
   const [filterDone, setFilterDone] = useState('All');
 
   async function fetchFood() {
@@ -160,6 +163,10 @@ const Provider = ({ children }) => {
     setIngredientsListMeal,
     filterDone,
     setFilterDone,
+    ingredients,
+    setIngredients,
+    strIngredient,
+    setStrIngredient,
   };
 
   return (

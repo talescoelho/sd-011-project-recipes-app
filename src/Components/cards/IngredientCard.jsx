@@ -22,7 +22,7 @@ export default function IngredientCard(props) {
                 <div
                   key={ index }
                   data-testid={ `${index}-ingredient-card` }
-                  style={{display: "flex"}}
+                  style={ { display: 'flex' } }
                 >
                   <h5
                     data-testid={ `${index}-card-name` }
@@ -33,7 +33,7 @@ export default function IngredientCard(props) {
                     src={ `${imgDrink}${ingredient.strIngredient1}-Small.png` }
                     alt={ ingredient.strIngredient1 }
                     data-testid={ `${index}-card-img` }
-                    style={{width: "30px"}}
+                    style={ { width: '30px' } }
                   />
                 </div>
               </div>
@@ -53,14 +53,14 @@ export default function IngredientCard(props) {
                 <div
                   key={ index }
                   data-testid={ `${index}-ingredient-card` }
-                  style={{display: "flex"}}
+                  style={ { display: 'flex' } }
                 >
                   <h5 data-testid={ `${index}-card-name` }>{ingredient.strIngredient}</h5>
                   <img
                     src={ `${imgFood}${ingredient.strIngredient}-Small.png` }
                     alt={ ingredient.strIngredient }
                     data-testid={ `${index}-card-img` }
-                    style={{width: "30px"}}
+                    style={ { width: '30px' } }
                   />
                 </div>
               </div>
