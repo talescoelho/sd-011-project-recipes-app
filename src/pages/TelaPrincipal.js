@@ -8,6 +8,8 @@ import Footer from '../components/Footer';
 
 import recipesContext from '../provider/recipesContext';
 
+import '../styles/TelaPrincipal.css';
+
 export default function TelaPrincipal() {
   const {
     handleCategory,
@@ -48,11 +50,12 @@ export default function TelaPrincipal() {
         title={ type === 'meal' ? 'Comidas' : 'Bebidas' }
         showButton
       />
-      <div>
+      <div className="category-btns">
         <button
           type="button"
           onClick={ () => handleCategory(type, '') }
           data-testid="All-category-filter"
+          className="category-btn"
         >
           All
         </button>
@@ -65,6 +68,7 @@ export default function TelaPrincipal() {
                   key={ strCategory }
                   onClick={ () => handleCategory(type, strCategory) }
                   data-testid={ `${strCategory}-category-filter` }
+                  className="category-btn"
                 >
                   {strCategory}
                 </button>
