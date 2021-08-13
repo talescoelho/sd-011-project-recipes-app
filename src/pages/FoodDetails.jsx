@@ -35,6 +35,7 @@ const FoodDetails = (
         alt={ altDetails.strMeal }
         title={ altDetails.strMeal }
         category={ categoryDetails.strCategory }
+        drinkOrFood="comida"
       />
       <Ingredients />
       <RecipeInstructions strInstructions={ mealDetails.strInstructions } />
