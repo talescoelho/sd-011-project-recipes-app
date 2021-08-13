@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 import RecipesProvider from './provider/recipesProvider';
 import Login from './pages/Login';
 import TelaPrincipal from './pages/TelaPrincipal';

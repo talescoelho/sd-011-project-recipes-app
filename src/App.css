@@ -75,3 +75,17 @@
   display: flex;
   justify-content: center;
 }
+
+.btn {
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 20px;
+  margin: 10px auto;
+  padding: .3em .7em;
+}
+
+.btn:disabled {
+  background-color: #ccc;
+  border: 1px solid grey;
+  color: black;
+}

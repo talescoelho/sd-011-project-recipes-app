@@ -1,0 +1,28 @@
+.login-page {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+
+.login-title {
+  font-size: 3em;
+  padding-bottom: 50px;
+}
+
+.login-form {
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 0 auto;
+  width: 80%;
+}
+
+.login-input {
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 18px;
+  width: 100%;
+  margin: 10px 0;
+}
