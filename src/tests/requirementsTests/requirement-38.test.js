@@ -32,10 +32,10 @@ beforeEach(() => jest.clearAllMocks());
 
 describe(`38 - Develop a button named "Start Recipe" that should stay fixed at the 
 bottom of the screen at all times`, () => {
-  it('Check button placement on food details screen', () => {
+  it('Check button placement on food details screen', async () => {
     renderWithRouterAndStore(<App />, { route: mockMealPath });
 
-    const startRecipeBtn = screen.getByTestId('start-recipe-btn');
+    const startRecipeBtn = await screen.findByTestId('start-recipe-btn');
 
     expect(startRecipeBtn).toHaveStyle(`
     position: fixed;

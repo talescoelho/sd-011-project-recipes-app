@@ -39,20 +39,20 @@ be drink and vice versa`, () => {
   it('Check if the request for the food API has been made', async () => {
     renderWithRouterAndStore(<App />, { route: mockMealPath });
 
-    expect(mockedSearchDrinkByName).toBeCalled();
-    expect(mockedSearchDrinkByName).toBeCalledTimes(1);
-
     const { drinks } = drinksFiltersByAll;
     await testDrinksRecipeCard(drinks, maxDefaultCards, cardTestId, titleTestId);
+
+    expect(mockedSearchDrinkByName).toBeCalled();
+    expect(mockedSearchDrinkByName).toBeCalledTimes(1);
   });
 
   it('Checks whether the request for the beverage API has been made', async () => {
     renderWithRouterAndStore(<App />, { route: mockDrinkPath });
 
-    expect(mockedSearchMealByName).toBeCalled();
-    expect(mockedSearchMealByName).toBeCalledTimes(1);
-
     const { meals } = mealsFiltersByAll;
     await testMealsRecipeCard(meals, maxDefaultCards, cardTestId, titleTestId);
+
+    expect(mockedSearchMealByName).toBeCalled();
+    expect(mockedSearchMealByName).toBeCalledTimes(1);
   });
 });
