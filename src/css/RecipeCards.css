@@ -5,9 +5,9 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
+  margin-bottom: 50px;
   margin-top: 10px;
   padding-top: 20px;
-  margin-bottom: 50px;
 
   /* height: 475px;
   overflow: scroll; */
