@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import profileIcon from '../images/profileIcon.svg';
 import ShareButton from '../components/ShareButton';
@@ -7,6 +8,7 @@ import FavoriteButton from '../components/FavoriteButton';
 export default function RecipesFavorites() {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [filteredRecipie, setFilter] = useState(favoriteRecipes);
+
   function changeFilter(typeButton) {
     switch (typeButton) {
     case 'all':
@@ -72,13 +74,15 @@ export default function RecipesFavorites() {
             // onClick={ () => clickDetails(meal.idMeal) }
           >
             <div data-testid={ `${index}-recipe-card` }>
-              <img
-                src={ recipe.image }
-                width="150"
-                height="100"
-                alt="imagem da refeição"
-                data-testid={ `${index}-horizontal-image` }
-              />
+              <Link to={ `/${recipe.type}s/${recipe.id}` }>
+                <img
+                  src={ recipe.image }
+                  width="150"
+                  height="100"
+                  alt="imagem da refeição"
+                  data-testid={ `${index}-horizontal-image` }
+                />
+              </Link>
               {recipe.type === 'comida' ? (
                 <p data-testid={ `${index}-horizontal-top-text` }>
                   { `${recipe.area} - ${recipe.category}` }
@@ -87,7 +91,9 @@ export default function RecipesFavorites() {
                   <p data-testid={ `${index}-horizontal-top-text` }>
                     { `${recipe.alcoholicOrNot} - ${recipe.category}` }
                   </p>)}
-              <p data-testid={ `${index}-horizontal-name` }>{ recipe.name }</p>
+              <Link to={ `/${recipe.type}s/${recipe.id}` }>
+                <p data-testid={ `${index}-horizontal-name` }>{ recipe.name }</p>
+              </Link>
               <ShareButton
                 test={ `${index}-horizontal-share-btn` }
                 URL={ `/comidas/${recipe.id}` }
