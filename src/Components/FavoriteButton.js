@@ -12,10 +12,6 @@ function FavoriteBtn({ id, type, area, category, alcoholicOrNot, name, image, in
 
   const recipeId = id;
 
-  // useEffect(() => {
-  //   localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-  // }, [favoriteRecipes.length, favoriteRecipes, isFavorite]);
-
   const setButton = () => {
     const getLocalStr = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     const checkLocalStr = Object.values(getLocalStr)
