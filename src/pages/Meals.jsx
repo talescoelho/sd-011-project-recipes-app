@@ -5,15 +5,15 @@ import FooterMenu from '../components/FooterMenu';
 import UserContext from '../context/UserContext';
 import '../css/mainPage.css';
 import CategoriesMeals from '../components/CategoriesMeals';
-// import SearchBarMeals from '../components/SearchBarMeals';
+import SearchBarMeals from '../components/SearchBarMeals';
 
 export default function Meals({ history }) {
-  const { meals } = useContext(UserContext);
+  const { meals = [] } = useContext(UserContext);
   if (meals.length === 0) {
     return <div>loading</div>;
   }
 
-  if (meals.length === 1) {
+  if (meals.length === 1 && meals[0].strMeal !== 'Mbuzi Choma (Roasted Goat)') {
     history.push(`/comidas/${meals[0].idMeal}`);
   }
 
@@ -30,7 +30,7 @@ export default function Meals({ history }) {
   return (
     <>
       <Header title={ comidas } />
-      {/* <SearchBarMeals /> */}
+      <SearchBarMeals />
       <CategoriesMeals />
       <section className="meals">
         {meals.map((meal, index) => (
