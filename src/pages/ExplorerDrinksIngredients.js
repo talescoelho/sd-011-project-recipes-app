@@ -6,6 +6,7 @@ import IngredientCard from '../components/IngredientCard';
 import Footer from '../components/Footer';
 import { fetchCocktailsIngredients,
   fetchCocktailsByIngredient } from '../services/cocktailAPI';
+import Loading from '../components/Loading';
 
 function ExplorerDrinksIngredients() {
   const { setDrinksData } = useContext(RecipesContext);
@@ -24,6 +25,10 @@ function ExplorerDrinksIngredients() {
     const response = await fetchCocktailsByIngredient(ingredient);
     setDrinksData(response.slice(0, maxIngredients));
   };
+
+  if (ingredientList.length === 0) {
+    return <Loading />;
+  }
 
   return (
     <>

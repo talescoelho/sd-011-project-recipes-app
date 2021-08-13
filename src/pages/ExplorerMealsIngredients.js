@@ -5,6 +5,7 @@ import RecipesContext from '../context/RecipesContext';
 import IngredientCard from '../components/IngredientCard';
 import Footer from '../components/Footer';
 import { fetchMealsIngredients, fetchMealsByIngredient } from '../services/meailAPI';
+import Loading from '../components/Loading';
 
 function ExplorerMealsIngredients() {
   const { setMealsData } = useContext(RecipesContext);
@@ -23,6 +24,10 @@ function ExplorerMealsIngredients() {
     const response = await fetchMealsByIngredient(ingredient);
     setMealsData(response.slice(0, maxIngredients));
   };
+
+  if (ingredientList.length === 0) {
+    return <Loading />;
+  }
 
   return (
     <>
