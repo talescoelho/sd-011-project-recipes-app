@@ -2,6 +2,36 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import { renderWithRouterAndStore } from '../helper/testConfig';
 import { FoodDetails, DrinkDetails } from '../../pages';
+import * as requestMenu from '../../services/requestMenu';
+import mealsFiltersByAll from '../mocks/meals/mockFilterMealsByAll';
+import mealRecipeDetails from '../mocks/meals/mockMealRecipeDetails';
+import drinksFiltersByAll from '../mocks/drinks/mockFilterDrinksByAll';
+import drinkRecipeDetails from '../mocks/drinks/mockDrinkRecipeDetails';
+
+const mockMealPath = '/comidas/52977';
+const mockMealsMatch = { params: { id: '52977' }, url: '/comidas/52977' };
+
+const mockDrinkPath = '/bebidas/15997';
+const mockDrinkMatch = { params: { id: '15997' }, url: '/bebidas/15997' };
+
+jest
+  .spyOn(requestMenu, 'searchMealByName')
+  .mockImplementation(() => Promise.resolve(mealsFiltersByAll));
+
+jest
+  .spyOn(requestMenu, 'searchDrinkByName')
+  .mockImplementation(() => Promise.resolve(drinksFiltersByAll));
+
+jest
+  .spyOn(requestMenu, 'mealsRecipeDetails')
+  .mockImplementation(() => Promise.resolve(mealRecipeDetails));
+
+jest
+  .spyOn(requestMenu, 'drinksRecipeDetails')
+  .mockImplementation(() => Promise.resolve(drinkRecipeDetails));
+
+afterEach(() => jest.clearAllMocks());
+beforeEach(() => jest.clearAllMocks());
 
 afterEach(() => {
   localStorage.removeItem('doneRecipes');
@@ -12,20 +42,18 @@ describe(`39 - Implement the solution so that if the recipe has already been mad
   it('Check if the start recipe button is not visible in the details screen of a food,',
     () => {
       const doneRecipes = [{
-        id: '52771',
+        id: '52977',
         type: 'comida',
-        area: 'Italian',
-        category: 'Vegetarian',
+        area: 'Turkish',
+        category: 'Side',
         alcoholicOrNot: '',
-        name: 'Spicy Arrabiata Penne',
-        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+        name: 'Corba',
+        image: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
         doneDate: '22/6/2020',
-        tags: ['Pasta', 'Curry'],
+        tags: ['Soup'],
       }];
       localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-      const match = { params: { id: '52771' }, url: '/comidas/52771' };
-
-      renderWithRouterAndStore(<FoodDetails match={ match } />, '/comidas/52771');
+      renderWithRouterAndStore(<FoodDetails match={ mockMealsMatch } />, mockMealPath);
 
       const startRecipeBtn = screen.queryByTestId('start-recipe-btn');
       expect(startRecipeBtn).toBeNull();
@@ -33,20 +61,18 @@ describe(`39 - Implement the solution so that if the recipe has already been mad
 
   it('Check if start recipe button is not visible on a drink\'s details screen', () => {
     const doneRecipes = [{
-      id: '178319',
+      id: '15997',
       type: 'bebida',
       area: '',
-      category: 'Cocktail',
-      alcoholicOrNot: 'Alcoholic',
-      name: 'Aquamarine',
-      image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+      category: 'Ordinary Drink',
+      alcoholicOrNot: 'Optional alcohol',
+      name: 'GG',
+      image: 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
       doneDate: '23/6/2020',
       tags: [],
     }];
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-    const match = { params: { id: '178319' }, url: '/bebidas/178319' };
-
-    renderWithRouterAndStore(<DrinkDetails match={ match } />, '/bebidas/178319');
+    renderWithRouterAndStore(<DrinkDetails match={ mockDrinkMatch } />, mockDrinkPath);
 
     const startRecipeBtn = screen.queryByTestId('start-recipe-btn');
     expect(startRecipeBtn).toBeNull();

@@ -4,6 +4,7 @@ import PropTypes, { shape, string } from 'prop-types';
 import RecipeInstructions from '../components/common/RecipeInstructions';
 import StartRecipeBtn from '../components/common/StartRecipeBtn';
 import { requestDrinkDetails } from '../redux/actions/recipeDetailsActions';
+import RecommendationCarousel from '../components/common/RecommendationCarousel';
 
 const DrinkDetails = ({ dispatch, match, drinkDetails }) => {
   const { params: { id }, url } = match;
@@ -16,6 +17,7 @@ const DrinkDetails = ({ dispatch, match, drinkDetails }) => {
     <>
       <div>Pagina de Detalhe de Bebidas</div>
       <RecipeInstructions strInstructions={ drinkDetails.strInstructions } />
+      <RecommendationCarousel url={ url } />
       <StartRecipeBtn routeInfo={ { id, url } } />
     </>
   );
