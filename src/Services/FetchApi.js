@@ -57,4 +57,4 @@ export const fetchSurprise = async (site) => {
   const URL = `https://www.the${site}db.com/api/json/v1/1/random.php`;
   const result = await globalFetch(URL);
   return result;
-}
+};

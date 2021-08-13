@@ -98,7 +98,7 @@ export default function CategoryButtons() {
       >
         All
       </button>
-      {category.length > 0 && category.map(( { strCategory }, index) => (
+      {category.length > 0 && category.map(({ strCategory }, index) => (
         index < maxList && (
           <label htmlFor={ `${strCategory}${index}` } key={ index }>
             <button

@@ -32,12 +32,14 @@
 //     {renderCardRecipes().map((recp, index) => (
 //       <Link
 //         className="link"
+
 //         key={ index }
 //         to="/details-recipe"
 //       >
 //         <CardRecipes
 //           key={ index }
 //           index={ index }
+
 //           thumb={ recp.strMealThumb }
 //           title={ recp.strMeal }
 //         />
@@ -48,6 +50,7 @@
 // }
 import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { string } from 'prop-types';
 import { getDrink, getFood } from '../Services/FetchApi';
 import MyContext from '../Context/MyContext';
 import CardRecipes from './CardRecipes';
@@ -118,3 +121,7 @@ function RecomendedRecipes({ origem }) {
 }
 
 export default RecomendedRecipes;
+
+RecomendedRecipes.propTypes = {
+  origem: string,
+}.isRequired;
