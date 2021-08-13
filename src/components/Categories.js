@@ -19,46 +19,45 @@ function Categories({ mealOrDrink }) {
   }, [dispatch, mealOrDrink]);
   return (
     <div className="container">
-      <div className='  row'>
-        <div className='col-4'>
-      <button
-      className='btn  btn-default col-12 meal'
-        type="button"
-        onClick={ async () => dispatch(await filterByCategorieFetch(mealOrDrink)) }
-        data-testid="All-category-filter"
-      >
-        All
-      </button>
-      </div>
-      { !stateReduxMainPage.loading && stateReduxMainPage.dataApi[mealsOrDrinks]
-        .map(({ strCategory }, i) => i < limitCategories && (
-          <div className='col-4'>
+      <div className="  row">
+        <div className="col-4">
           <button
-          className='col-12 btn btn-default meal'
-
-            key={ i }
+            className="btn  btn-default col-12 meal"
             type="button"
-            data-testid={ `${strCategory}-category-filter` }
-            onClick={ async () => {
-              if (toggle === '') {
-                setToggle(strCategory);
-                dispatch(
-                  await filterByCategorieFetch(mealOrDrink, strCategory),
-                );
-              } else if (toggle === strCategory) {
-                setToggle('');
-                dispatch(await filterByCategorieFetch(mealOrDrink));
-              } else {
-                setToggle(strCategory);
-                dispatch(await filterByCategorieFetch(mealOrDrink, strCategory));
-              }
-            } }
+            onClick={ async () => dispatch(await filterByCategorieFetch(mealOrDrink)) }
+            data-testid="All-category-filter"
           >
-            { strCategory }
+            All
           </button>
-          </div>
-)) }
-          </div>
+        </div>
+        { !stateReduxMainPage.loading && stateReduxMainPage.dataApi[mealsOrDrinks]
+          .map(({ strCategory }, i) => i < limitCategories && (
+            <div className="col-4">
+              <button
+                className="col-12 btn btn-default meal"
+                key={ i }
+                type="button"
+                data-testid={ `${strCategory}-category-filter` }
+                onClick={ async () => {
+                  if (toggle === '') {
+                    setToggle(strCategory);
+                    dispatch(
+                      await filterByCategorieFetch(mealOrDrink, strCategory),
+                    );
+                  } else if (toggle === strCategory) {
+                    setToggle('');
+                    dispatch(await filterByCategorieFetch(mealOrDrink));
+                  } else {
+                    setToggle(strCategory);
+                    dispatch(await filterByCategorieFetch(mealOrDrink, strCategory));
+                  }
+                } }
+              >
+                { strCategory }
+              </button>
+            </div>
+          )) }
+      </div>
     </div>
   );
 }

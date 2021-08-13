@@ -23,26 +23,26 @@ function Comidas() {
     <div>
       <Header buttonExists title="Comidas" mealOrDrink="meal" searchOrSelect="search" />
       <Categories mealOrDrink="meal" />
-      <div className='container'>
-            <div className='row'>
-      { dataApi.meals
+      <div className="container">
+        <div className="row">
+          { dataApi.meals
         && dataApi.meals
           .map((e, i) => i < limitSearch && (
             <>
-            <RecipeCards
-              comidasOuBebidas="comidas"
-              idItem={ e.idMeal }
-              index={ i }
-              key={ i }
-              src={ e.strMealThumb }
-              name={ e.strMeal }
-            />
-                       {console.log(typeof e.strMeal)}
+              <RecipeCards
+                comidasOuBebidas="comidas"
+                idItem={ e.idMeal }
+                index={ i }
+                key={ i }
+                src={ e.strMealThumb }
+                name={ e.strMeal }
+              />
+              {console.log(typeof e.strMeal)}
 
             </>
-            )) }
-             </div>
-            </div>
+          )) }
+        </div>
+      </div>
       <Footer />
     </div>
   );

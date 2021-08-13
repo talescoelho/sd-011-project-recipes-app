@@ -24,8 +24,10 @@ function Bebidas() {
     <div>
       <Header buttonExists title="Bebidas" mealOrDrink="drink" searchOrSelect="search" />
       <Categories mealOrDrink="drink" />
-      <div className='container'>
-            <div className='row'>      { dataApi.drinks
+      <div className="container">
+        <div className="row">
+          {' '}
+          { dataApi.drinks
         && dataApi.drinks
           .map((e, i) => i < limitSearch && (
             <RecipeCards
@@ -36,8 +38,8 @@ function Bebidas() {
               src={ e.strDrinkThumb }
               name={ e.strDrink }
             />)) }
-                </div>
-                </div>
+        </div>
+      </div>
 
       <Footer />
     </div>

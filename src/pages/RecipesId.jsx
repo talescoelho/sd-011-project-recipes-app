@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import YouTube from 'react-youtube';
 import { apiDetailsId } from '../service/apiDetailsId';
 import Recomendation from '../components/Detail/Recomendation';
 import './styles/styleRecipesId.css';
 import ButtonStart from '../components/Detail/ButtonStart';
 import ShareAndFavorite from '../components/ShareAndFavorite';
-import YouTube from 'react-youtube';
 
 function RecipesId({ match }) {
   const { params, path } = match;
@@ -97,16 +97,16 @@ function RecipesId({ match }) {
   }, [dispatch, id, typeDrinkorMeal]);
 
   return (
-    <div className='container '>
-      <div className='row'>
-      <img
-        data-testid="recipe-photo"
-        className="col-8 xl-8 offset-2 recipe-photo"
-        src={ imgThumb }
-        alt={ title }
-        width="30%"
-      />
-          </div>
+    <div className="container ">
+      <div className="row">
+        <img
+          data-testid="recipe-photo"
+          className="col-8 xl-8 offset-2 recipe-photo"
+          src={ imgThumb }
+          alt={ title }
+          width="30%"
+        />
+      </div>
 
       <h1 data-testid="recipe-title">{ title }</h1>
       <ShareAndFavorite
@@ -128,10 +128,9 @@ function RecipesId({ match }) {
         </span>
       )) }
       <span data-testid="instructions">{ instructions }</span>
-      { video && 
-      
-      <YouTube videoId={video} />
-      }
+      { video
+
+      && <YouTube videoId={ video } />}
       <Recomendation
         recomendInverse={
           typeDrinkorMeal === 'comidas' ? 'meals' : 'drinks'
@@ -141,7 +140,7 @@ function RecipesId({ match }) {
         typeDrinkorMeal={ typeDrinkorMeal }
         detail={ detail }
       />
-      </div>
+    </div>
   );
 }
 

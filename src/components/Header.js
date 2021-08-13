@@ -16,50 +16,53 @@ function Header({ mealOrDrink, buttonExists, title, searchOrSelect }) {
     return <AreaSelect />;
   };
   return (
-    <header className='container-fluid'>
-          <div className='row'>
+    <header className="container-fluid">
+      <div className="row">
 
-      <button
-        className='btn btn-default col-4'
-        type="button"
-        data-testid="profile-top-btn"
-        onClick={ () => history.push('/perfil') }
-      >
-
-        <img
-          className='icon'
-          alt="profile"
-          src={ profileIcon }
-        />
-
-      </button>
-
-      <span
-      className='btn btn-default col-4 font-weight-bolder'
-      data-testid="page-title">{ title }</span>
-
-      { buttonExists && (
         <button
-        className='btn btn-default col-4'
-          data-testid="search-top-btn"
+          className="btn btn-default col-4"
           type="button"
-          onClick={ () => {
-            setSearchClicked(!searchClicked);
-            // dispatch(turnGiveIdFalse());
-          } }
+          data-testid="profile-top-btn"
+          onClick={ () => history.push('/perfil') }
         >
-          <img
-            className='icon'
-            alt="search"
-            src={ searchIcon }
-          />
-        </button>
-      ) }
 
-      { searchClicked && checker() }
+          <img
+            className="icon"
+            alt="profile"
+            src={ profileIcon }
+          />
+
+        </button>
+
+        <span
+          className="btn btn-default col-4 font-weight-bolder"
+          data-testid="page-title"
+        >
+          { title }
+        </span>
+
+        { buttonExists && (
+          <button
+            className="btn btn-default col-4"
+            data-testid="search-top-btn"
+            type="button"
+            onClick={ () => {
+              setSearchClicked(!searchClicked);
+            // dispatch(turnGiveIdFalse());
+            } }
+          >
+            <img
+              className="icon"
+              alt="search"
+              src={ searchIcon }
+            />
+          </button>
+        ) }
+
+        { searchClicked && checker() }
       </div>
-      </header>
-      );
+    </header>
+  );
 }
 
 Header.propTypes = {

@@ -10,52 +10,52 @@ function Footer() {
   const history = useHistory();
   const dispatch = useDispatch();
   return (
-    <div className='container-fluid'>
-    <footer className='row' data-testid="footer" >
-      <button 
-        className="btn btn-default col-4"
-        type="button"
-        data-testid="drinks-bottom-btn"
-        onClick={ () => {
-          history.push('/bebidas');
-          dispatch(returnToInitialState());
-        } }
-        
-      >
-        <img
-          className='icon'
-          src={ drinkIcon }
-          alt="drink-icon"
-        />
-      </button>
-      <button
-        className='btn btn-default col-4'
-        type="button"
-        data-testid="explore-bottom-btn"
-        onClick={ () => history.push('/explorar') }
-      >
-        <img
-         className='icon'
-          src={ exploreIcon }
-          alt="explore-icon"
-        />
-      </button>
-      <button
-        className='btn btn-default col-4'
-        type="button"
-        data-testid="food-bottom-btn"
-        onClick={ () => {
-          history.push('/comidas');
-          dispatch(returnToInitialState());
-        } }
-      >
-        <img
-          className='icon'
-          src={ mealIcon }
-          alt="meal-icon"
-        />
-      </button>
-    </footer>
+    <div className="container-fluid">
+      <footer className="row" data-testid="footer">
+        <button
+          className="btn btn-default col-4"
+          type="button"
+          data-testid="drinks-bottom-btn"
+          onClick={ () => {
+            history.push('/bebidas');
+            dispatch(returnToInitialState());
+          } }
+
+        >
+          <img
+            className="icon"
+            src={ drinkIcon }
+            alt="drink-icon"
+          />
+        </button>
+        <button
+          className="btn btn-default col-4"
+          type="button"
+          data-testid="explore-bottom-btn"
+          onClick={ () => history.push('/explorar') }
+        >
+          <img
+            className="icon"
+            src={ exploreIcon }
+            alt="explore-icon"
+          />
+        </button>
+        <button
+          className="btn btn-default col-4"
+          type="button"
+          data-testid="food-bottom-btn"
+          onClick={ () => {
+            history.push('/comidas');
+            dispatch(returnToInitialState());
+          } }
+        >
+          <img
+            className="icon"
+            src={ mealIcon }
+            alt="meal-icon"
+          />
+        </button>
+      </footer>
     </div>
   );
 }

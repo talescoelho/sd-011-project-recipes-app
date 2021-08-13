@@ -22,7 +22,7 @@ function SearchBar({ mealOrDrink }) {
   }, [dataApi, mealsOrDrinks, stateReduxSearch.loading]);
 
   return (
-    <div className='container'>
+    <div className="container">
       <input
         type="text"
         placeholder="Buscar Receita"
@@ -71,7 +71,7 @@ function SearchBar({ mealOrDrink }) {
         name="cases"
       />
       Primeira letra
-      
+
       { stateReduxSearch.giveId
         && (
           <Redirect
