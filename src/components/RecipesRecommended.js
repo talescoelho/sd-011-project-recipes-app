@@ -80,61 +80,17 @@ class RecipesRecommended extends React.Component {
         <div className="slideshow-container" ref={ this.slides }>
           <br />
           {getXFirstElementsFromArray(recipesRecommended, QUANTITY).map((item, index) => {
-            const nextIndex = index + 1 < QUANTITY ? index + 1 : 0;
-            const nextItem = index + 1 < QUANTITY ? recipesRecommended[index + 1] : 0;
-            if (index === slideIndex && nextIndex < QUANTITY) {
-              return (
-                <>
-                  <div
-                    data-testid={ `${index}-recomendation-card` }
-                    className="card"
-                    // ref={ this.slides }
-                    key={ index }
-                    hidden={ false }
-                    onChange={ ({ target }) => this.handleChangeCard({ target }) }
-                  >
-                    <div className="numbertext">
-                      {`${index + 1} / 6`}
-                    </div>
-                    <img
-                      src={ item.strMealThumb || item.strDrinkThumb }
-                      style={ { width: '100%' } }
-                      alt="Recomendadação"
-                    />
-                    <div data-testid={ `${index}-recomendation-title` } className="text">{ item.strMeal || item.strDrink }</div>
-                  </div>
-                  &nbsp;
-                  <div
-                    data-testid={ `${nextIndex}-recomendation-card` }
-                    className="card"
-                    // ref={ this.slides }
-                    key={ nextIndex }
-                    hidden={ false }
-                    onChange={ ({ target }) => this.handleChangeCard({ target }) }
-                  >
-                    <div className="numbertext">
-                      {`${nextIndex + 1} / 6`}
-                    </div>
-                    <img
-                      src={ nextItem.strMealThumb || nextItem.strDrinkThumb }
-                      style={ { width: '100%' } }
-                      alt="Recomendadação"
-                    />
-                    <div data-testid={ `${nextIndex}-recomendation-title` } className="text">{ nextItem.strMeal || nextItem.strDrink }</div>
-                  </div>
-                </>
-              );
-            } return (
+            return (
               <div
                 data-testid={ `${index}-recomendation-card` }
                 className="card"
                 // ref={ this.slides }
                 key={ index }
-                hidden
+                hidden={ !(index === slideIndex || index === slideIndex + 1) }
                 onChange={ ({ target }) => this.handleChangeCard({ target }) }
               >
                 <div className="numbertext">
-                  {`${index + 1} / ${recipesRecommended.length}`}
+                  {`${index + 1} / 6`}
                 </div>
                 <img
                   src={ item.strMealThumb || item.strDrinkThumb }

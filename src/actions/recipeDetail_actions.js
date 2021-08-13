@@ -56,8 +56,6 @@ const recommendedRecipesError = (payload) => ({
 export const fetchRecommended = (type) => (dispatch) => {
   dispatch(recommendedRecipes());
   const url = `${type === 'comidas' ? baseCocktailDbUrl : baseMealDbUrl}/search.php?s=`;
-  console.log('type na acion');
-  console.log(type);
   return fetch(url)
     .then((response) => response.json())
     .then((data) => {
