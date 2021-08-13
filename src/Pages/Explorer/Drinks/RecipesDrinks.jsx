@@ -15,7 +15,6 @@ function RecipesDrinks() {
     fetchList();
   }, []);
 
-
   return (
     <>
       <HeaderExpIngredients />

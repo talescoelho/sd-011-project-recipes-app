@@ -16,7 +16,9 @@ export default function IngredientCard(props) {
             <div key={ index }>
               <div key={ index } data-testid={ `${index}-ingredient-card` }>
                 <h5
-                  data-testid={ `${index}-card-name` }>{ingredient.strIngredient1}
+                  data-testid={ `${index}-card-name` }
+                >
+                  {ingredient.strIngredient1}
                 </h5>
                 <img
                   src={ `${imgDrink}${ingredient.strIngredient1}-Small.png` }
