@@ -7,18 +7,26 @@ import '../styles/Explorar.css';
 const Explorar = () => (
   <div className="explorar-container">
     <Header title="Explorar" />
-    <Link
-      to="/explorar/comidas"
-      data-testid="explore-food"
-    >
-      Explorar Comidas
-    </Link>
-    <Link
-      to="/explorar/bebidas"
-      data-testid="explore-drinks"
-    >
-      Explorar Bebidas
-    </Link>
+    <div>
+      <Link
+        to="/explorar/comidas"
+        data-testid="explore-food"
+      >
+        <button type="button">
+          Explorar Comidas
+        </button>
+      </Link>
+    </div>
+    <div>
+      <Link
+        to="/explorar/bebidas"
+        data-testid="explore-drinks"
+      >
+        <button type="button">
+          Explorar Bebidas
+        </button>
+      </Link>
+    </div>
     <Footer />
   </div>
 );
