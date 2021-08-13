@@ -145,9 +145,9 @@
   }
 
   .cat-cont button {
-    width: 16%;
     font-size: 150%;
     margin-bottom: 60px;
+    width: 16%;
   }
 
 }
