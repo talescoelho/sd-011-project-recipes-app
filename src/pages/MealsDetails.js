@@ -10,6 +10,7 @@ import RecipesContext from '../context/RecipesContext';
 import '../styles/components/footer.css';
 import ButtonStartMeal from '../components/details/ButtonStartMeal';
 import '../styles/components/details.css';
+import backPage from '../images/arrow-undo-circle-outline.svg';
 
 function MealsDetails() {
   const {
@@ -29,10 +30,19 @@ function MealsDetails() {
     <div>
       { (mealId.idMeal === id) ? (
         <div className="details-container">
-          <DetailsMealHeader />
-          <div>
+          <div className="details-header-btn">
+            <img className="back-style" src={ backPage } alt="voltar" />
             <DetailsShareMeals />
-            <DetailsFavoriteButton id={ id } />
+          </div>
+          <DetailsMealHeader />
+          <div className="details-title">
+            <div className="details-title-info">
+              <div>
+                <h3 data-testid="recipe-title">{ mealId.strMeal }</h3>
+                <p data-testid="recipe-category">{ mealId.strCategory }</p>
+              </div>
+              <DetailsFavoriteButton id={ id } />
+            </div>
           </div>
           <div>
             <DetailsIngredientList />

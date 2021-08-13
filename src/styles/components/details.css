@@ -1,15 +1,60 @@
 .details-container {
-  background-color: rebeccapurple;
   display: flex;
   flex-direction: column;
 }
 
 .details-header {
-  background-color: rosybrown;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: 0;
 }
 
 .details-header img {
-  height: 460px;
   width: 100%;
-  overflow: hidden;
+}
+
+.details-header-btn {
+  align-items: center;
+  justify-content: space-between;
+  height: 90px;
+  margin: auto;
+  margin-bottom: -100px;
+  display: flex;
+  width: 90%;
+  z-index: 1;
+}
+
+.details-title {
+  align-items: center;
+  background-color: white;
+  border-radius: 20px 20px 0px 0px;
+  height: 100px;
+  margin-top: -25px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+}
+
+.details-title-info {
+  align-items: center;
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+}
+
+.details-title h3 {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.details-title button {
+  background-color: transparent;
+  border: none;
+}
+
+.back-style {
+  color: white !important;
+  height: 30px !important;
 }
