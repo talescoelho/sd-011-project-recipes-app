@@ -7,7 +7,7 @@ import checkInProgress from '../Services/checkInProgress';
 import RecomendedRecipes from '../Components/RecomendedRecipes';
 import './Styles/detailsrecipe.css';
 
-function DrinkDetails({ match: { params: { id } } }) {
+function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
   const [recipes, setRecipes] = useState([]);
   // Didmount - Faz fetch trazendo a receita pelo id e seta o stado recipes com as receita
   useEffect(() => {
@@ -54,7 +54,7 @@ function DrinkDetails({ match: { params: { id } } }) {
     }
     return newArray;
   };
-  const essaPagina = window.location.href;
+  const essaPagina = pathname;
 
   checkInProgress();
   const checkStart = () => {
@@ -65,6 +65,8 @@ function DrinkDetails({ match: { params: { id } } }) {
     }
     return 'Iniciar Receita';
   };
+  // console.log(`minha chave instructions: ${recipes.strInstructions}`);
+  // console.log(`minha chave alcoholic: ${recipes.strAlcoholic}`);
 
   return (
     <div>
@@ -85,15 +87,21 @@ function DrinkDetails({ match: { params: { id } } }) {
         name={ recipes.strDrink }
         image={ recipes.strDrinkThumb }
       />
-
-      <h3 data-testid="recipe-category">{ recipes.strCategory }</h3>
+      <h3 data-testid="recipe-category">
+        {recipes.strCategory && recipes.strAlcoholic}
+      </h3>
       <h3>Ingredients</h3>
       <ul>
         { concatIngredientWithMesure()
-          .map((igredient, index) => <li key={ index }>{igredient}</li>) }
+          .map((igredient, index) => (
+            <li
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              {igredient}
+            </li>)) }
       </ul>
-      <h3 data-testid="instructions">Instructions</h3>
-      <p>{recipes.strInstructions}</p>
+      <h3 data-testid="instructions">{recipes.strInstructions}</h3>
       <div id="recommended"><RecomendedRecipes origem={ essaPagina } /></div>
       <Link to={ `/bebidas/${recipes.idDrink}/in-progress` } params={ recipes.idDrink }>
         <button
@@ -113,6 +121,9 @@ DrinkDetails.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.string,
     }),
+  }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
   }).isRequired,
 };
 

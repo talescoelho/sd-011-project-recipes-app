@@ -9,7 +9,7 @@ import checkInProgress from '../Services/checkInProgress';
 import RecomendedRecipes from '../Components/RecomendedRecipes';
 // import MyContext from '../Context/MyContext';
 
-function FoodDetails({ match: { params: { id } } }) {
+function FoodDetails({ match: { params: { id } }, location: { pathname } }) {
   const [recipes, setRecipes] = useState([]);
 
   // Didmount - Faz fetch trazendo a receita pelo id e seta o stado recipes com as receita
@@ -59,7 +59,7 @@ function FoodDetails({ match: { params: { id } } }) {
     return newArray;
   };
 
-  const essaPagina = window.location.href;
+  const essaPagina = pathname;
   // console.log(essaPagina);
 
   checkInProgress();
@@ -87,8 +87,8 @@ function FoodDetails({ match: { params: { id } } }) {
         type="comida"
         area={ recipes.strArea }
         category={ recipes.strCategory }
-        alcoholicOrNot=""
         name={ recipes.strMeal }
+        alcoholicOrNot=""
         image={ recipes.strMealThumb }
       />
       <h3 data-testid="recipe-category">{ recipes.strCategory }</h3>
@@ -106,8 +106,7 @@ function FoodDetails({ match: { params: { id } } }) {
             ))
         }
       </ul>
-      <h3 data-testid="instructions">Instructions</h3>
-      <p>{recipes.strInstructions}</p>
+      <h3 data-testid="instructions">{recipes.strInstructions}</h3>
       <h3>Video</h3>
       <div>
         <ReactPlayer
@@ -140,6 +139,9 @@ FoodDetails.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.string,
     }),
+  }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
   }).isRequired,
 };
 

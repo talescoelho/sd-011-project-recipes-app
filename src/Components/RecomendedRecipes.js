@@ -1,63 +1,16 @@
-// import React, { useEffect, useState } from 'react';
-// import CardRecipes from '../Components/CardRecipes';
-// import { Link, useHistory } from 'react-router-dom';
-// import useSearchbar from '../Context/useSearchbar';
-
-// export default function RecomendedRecipes(props) {
-// const [recipes, setRecipes] = useState([]);
-// const { getRecipes } = useSearchbar();
-//   useEffect(() => {
-//       const getApi = async (site) => {
-//       const endPoint = `https://www.the${site}db.com/api/json/v1/1/search.php?s=`;
-//       const response = await fetch(endPoint);
-//       const results = await response.json();
-//       const { recp } = results;
-//       setRecipes(recp);
-//       console.log(recp);
-//     };
-//     getApi();
-//     }, []);
-//     const renderCardRecipes = () => {
-//     const showMaxRecipes = 6;
-//     if (recipes) {
-//       const filteredRecipe = recipes.filter(
-//         (meals, index) => index < showMaxRecipes,
-//       );
-//       return filteredRecipe;
-//     }
-//     };
-
-//   return(
-//   <div className="recomended">
-//     {renderCardRecipes().map((recp, index) => (
-//       <Link
-//         className="link"
-//         key={ index }
-//         to="/details-recipe"
-//       >
-//         <CardRecipes
-//           key={ index }
-//           index={ index }
-//           thumb={ recp.strMealThumb }
-//           title={ recp.strMeal }
-//         />
-//       </Link>))}
-//   </div>
-
-//   )
-// }
 import React, { useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getDrink, getFood } from '../Services/FetchApi';
 import MyContext from '../Context/MyContext';
 import CardRecipes from './CardRecipes';
 import './Recomended.css';
-
+// eslint-disable-next-line react/prop-types
 function RecomendedRecipes({ origem }) {
   const { cards, setCards } = useContext(MyContext);
-
   const busca = async () => {
-    if (origem === 'http://localhost:3000/details-recipe') {
+    console.log(origem);
+    if (origem.includes('comidas')) {
       const resposta = await getDrink();
       setCards(resposta.drinks);
     } else {
@@ -65,11 +18,10 @@ function RecomendedRecipes({ origem }) {
       setCards(resposta.meals);
     }
   };
-
   useEffect(() => {
     busca();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const renderCardRecipes = () => {
     const showMaxRecipes = 6;
     if (cards) {
@@ -79,14 +31,15 @@ function RecomendedRecipes({ origem }) {
       return filteredRecipe;
     }
   };
-  if (origem === 'http://localhost:3000/details-recipe') {
+  if (origem.includes('comidas')) {
     return (
       <div className="slider">
         {cards.length > 0 && renderCardRecipes().map((recp, index) => (
           <Link
+            data-testid={ `${index}-recomendation-card` }
             className="recomendation-card"
             key={ index }
-            to="/bebidas/drink-details"
+            to="/bebidas/details-recipe"
           >
             <CardRecipes
               key={ index }
@@ -103,8 +56,9 @@ function RecomendedRecipes({ origem }) {
       {cards.length > 0 && renderCardRecipes().map((recp, index) => (
         <Link
           className="recomendation-card"
+          data-testid={ `${index}-recomendation-card` }
           key={ index }
-          to="/bebidas/details-recipe"
+          to="/comidas/details-recipe"
         >
           <CardRecipes
             key={ index }
@@ -116,5 +70,9 @@ function RecomendedRecipes({ origem }) {
       ))}
     </div>);
 }
+
+RecomendedRecipes.propTypes = {
+  origem: PropTypes.string.isRequired,
+};
 
 export default RecomendedRecipes;
