@@ -12,17 +12,17 @@ function RecipeConcluded({ recipe, index }) {
 
   useEffect(() => {
     setRecipes(recipe);
-    console.log('aqui', recipe.name);
+    console.log(recipes);
   }, [recipe]);
 
   const history = useHistory();
 
   const HandleRedirect = (recipeId) => {
-    if (recipes.type === 'comida') history.push(`comidas/${recipeId}`);
-    if (recipes.type === 'bebida') history.push(`bebidas/${recipeId}`);
+    if (recipes.area) history.push(`comidas/${recipeId}`);
+    history.push(`bebidas/${recipeId}`);
   };
 
-  const handleShareBtn = (recipeType, recipeId) => {
+  const handleShareBtn = (recipeType = 'comida', recipeId) => {
     const hostURL = window.location.host;
     if (recipeType === 'comida') {
       navigator.clipboard.writeText(`${hostURL}/comidas/${recipeId}`);
@@ -40,7 +40,7 @@ function RecipeConcluded({ recipe, index }) {
   return (
     <div className="RecipeConcludedContainer">
       <img
-        src={ recipes.image }
+        src={ recipes.imgUrl }
         alt="Recipe"
         data-testid={ `${index}-horizontal-image` }
         onClick={ () => HandleRedirect(recipes.id) }
@@ -48,16 +48,16 @@ function RecipeConcluded({ recipe, index }) {
       />
       <div className="RecipeInfoConcluded">
         <span data-testid={ `${index}-horizontal-top-text` }>
-          { recipes.type === 'comida' ? recipes.area : '' }
+          { recipes.area ? recipes.area : '' }
           { ' - ' }
-          { recipes.type === 'comida' ? recipes.category : recipes.alcoholicOrNot }
+          { recipes.area ? recipes.category : recipes.strAlcoholic }
 
         </span>
         <p
           className="RecipesFoodName"
           data-testid={ `${index}-horizontal-name` }
         >
-          { recipes.name }
+          { recipes.title }
         </p>
         <p
           data-testid={ `${index}-horizontal-done-date` }
@@ -67,14 +67,16 @@ function RecipeConcluded({ recipe, index }) {
           {/* { doneDate } */}
         </p>
         <div className="tagContainer">
-          { recipes.type === 'comida' && recipes.tags.length > 0 ? (
-            recipes.tags.map((tagName, key) => (
+          { console.log(recipes)}
+          { console.log(recipes.area)}
+          { recipes.area && recipes.tags !== null ? (
+            recipes.tags.split().map((tagName, key) => (
               <p
                 className="tagName"
                 key={ key }
-                data-testid={ `${index}-${recipes.tagName}-horizontal-tag` }
+                data-testid={ `${index}-${tagName}-horizontal-tag` }
               >
-                { recipes.tagName }
+                { tagName }
               </p>))
           ) : '' }
         </div>
@@ -82,9 +84,9 @@ function RecipeConcluded({ recipe, index }) {
           className="shareBTN"
           type="button"
           data-testid={ `${index}-horizontal-share-btn` }
-          onClick={ () => { handleShareBtn(recipes.type, recipes.id); handleLinkMessage(); } }
+          onClick={ () => { handleShareBtn(recipes.area, recipes.id); handleLinkMessage(); } }
         >
-          <img src={ recipes.shareImage } alt="Compartilhar" />
+          <img src={ shareImage } alt="Compartilhar" />
         </button>
         { linkCopy && <LinkCopy /> }
       </div>

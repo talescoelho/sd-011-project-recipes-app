@@ -32,7 +32,6 @@ function ReceitasEmProgresso() {
 
   useEffect(() => {
     setIsLoading(true);
-    // ESSE CÓDIGO NAO É PARA ESTAR AQUI, APENAS TESTES
     if (!localStorage.getItem('inProgressRecipes')) {
       localStorage.setItem('inProgressRecipes', JSON.stringify({
         cocktails: {},
@@ -52,9 +51,6 @@ function ReceitasEmProgresso() {
 
   useEffect(() => {
     const localStorageRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'))[recipeType][recipeId];
-    // const recipeIngredientsInLS = JSON.parse(
-    //   localStorage.getItem('inProgressRecipes'),
-    // )[recipeType][recipeId];
     setInProgressIngredients(localStorageRecipe);
     if (inProgressIngredients) {
       setProgressOfRecipe(inProgressIngredients.some((item) => !item.includes('done')));
@@ -67,24 +63,7 @@ function ReceitasEmProgresso() {
       addIngredientsInRecipeId(currentRecipe, recipeType, recipeId);
       setNewRender(!newRender);
       setIsLoading(false);
-      // console.log('2', JSON.parse(localStorage.getItem('inProgressRecipes')));
     }
-    // console.log('2', JSON.parse(localStorage.getItem('inProgressRecipes')));
-    // const ingredientsItensArr = ingredientsArrFormater(currentRecipe);
-    // const recipeIngredientsInLS = JSON.parse(
-    //   localStorage.getItem('inProgressRecipes'),
-    // )[recipeType][recipeId];
-    // if (currentRecipe && recipeIngredientsInLS.length === 0) {
-    //   const startedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    //   localStorage.setItem('inProgressRecipes', JSON.stringify(
-    //     { ...startedRecipes,
-    //       [recipeType]: { ...startedRecipes[recipeType],
-    //         [recipeId]: ingredientsItensArr },
-    //     },
-    //   ));
-    //   setNewRender(!newRender);
-    //   setIsLoading(false);
-    // }
     if (inProgressIngredients) setIsLoading(false);
   }, [currentRecipe]);
 
