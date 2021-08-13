@@ -116,7 +116,9 @@ export default function ReceitaComidaPage() {
           <button
             type="button"
             data-testid="start-recipe-btn"
-            style={ { position: 'fixed', bottom: '0px', left: '0px' } }
+            style={ { position: 'fixed',
+              bottom: '0px',
+              left: '0px' } }
           >
             {storageInPrgrss && storageInPrgrss.meals[foodDetails.meals[0].idMeal] ? (
               'Continuar Receita') : 'Iniciar Receita'}

@@ -117,7 +117,8 @@ export default function ReceitaBebidaPage() {
           <button
             type="button"
             data-testid="start-recipe-btn"
-            style={ { position: 'fixed', bottom: '0px' } }
+            style={ { position: 'fixed',
+              bottom: '0px' } }
           >
             {storageInPrgrss && (
               storageInPrgrss.cocktails[drinkDetails.drinks[0].idDrink]) ? (

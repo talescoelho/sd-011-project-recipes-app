@@ -22,6 +22,7 @@ function SearchBar({ type }) {
       />
       <div>
         <form>
+          <br />
           <label htmlFor="ingrediente-radio">
             Ingrediente
             <input
@@ -35,6 +36,7 @@ function SearchBar({ type }) {
             />
           </label>
 
+          <br />
           <label htmlFor="nome-radio">
             Nome
             <input
@@ -48,6 +50,7 @@ function SearchBar({ type }) {
             />
           </label>
 
+          <br />
           <label htmlFor="first-letter-radio">
             Primeira letra
             <input

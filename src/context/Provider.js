@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import AppContext from './AppContext';
 
 function Provider({ children }) {
@@ -10,6 +10,7 @@ function Provider({ children }) {
   const [alertSpan, setAlert] = useState(false);
   const [drinkCategories, setDrinkCategories] = useState();
   const [filter, setFilter] = useState('All');
+  const history = useHistory();
   const [inputValue, setInputValue] = useState({
     searchInput: '',
     radioInput: '',
@@ -23,7 +24,11 @@ function Provider({ children }) {
   const foodVerification = (vdata) => {
     if (vdata.meals !== null) {
       if (vdata.meals.length > 1) return setData(vdata);
-      if (vdata.meals.length === 1) return <Redirect to="/comidas/teste" />;
+      if (vdata.meals.length <= 1) {
+        return history.push(`/comidas/${vdata.meals[0].idMeal}`);
+      }
+    }
+    if (vdata.meals === null) {
       // eslint-disable-next-line no-alert
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
@@ -32,7 +37,11 @@ function Provider({ children }) {
   const drinkVerification = (vdata) => {
     if (vdata.drinks !== null) {
       if (vdata.drinks.length > 1) return setData(vdata);
-      if (vdata.drinks.length === 1) return <Redirect to="/bebidas/teste" />;
+      if (vdata.drinks.length <= 1) {
+        return history.push(`/bebidas/${vdata.drinks[0].idDrink}`);
+      }
+    }
+    if (vdata.drinks === null) {
       // eslint-disable-next-line no-alert
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
