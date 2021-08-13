@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
+import '../styles/ExploreFoodAndDrink.css';
 
 export default function ExploreFoodAndDrink() {
   const location = useLocation().pathname;
@@ -20,33 +21,35 @@ export default function ExploreFoodAndDrink() {
     }
   }
   return (
-    <>
+    <div className="explore-buttons">
       <button
         type="button"
         onClick={ () => history.push(`${location}/ingredientes`) }
         data-testid="explore-by-ingredient"
       >
-        Por Ingredientes
+        <h3>Por Ingredientes</h3>
       </button>
       {
         location === '/explorar/comidas'
-        && (
-          <button
-            type="button"
-            onClick={ () => history.push(`${location}/area`) }
-            data-testid="explore-by-area"
-          >
-            Por Local de Origem
-          </button>
-        )
+          && (
+            <button
+              type="button"
+              onClick={ () => history.push(`${location}/area`) }
+              data-testid="explore-by-area"
+            >
+              <h3>Por Local de Origem</h3>
+            </button>
+          )
       }
       <button
         type="button"
         data-testid="explore-surprise"
         onClick={ () => getRamdonRoute() }
       >
-        Me Surpreenda!
+        <h3>Me Surpreenda!</h3>
       </button>
-    </>
+
+    </div>
+
   );
 }

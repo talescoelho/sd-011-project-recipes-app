@@ -101,15 +101,14 @@ export default function DetailsMealsComp({ propsDrink }) {
         }
       </section>
       <Link to={ `/comidas/${recipesSelectedId}/in-progress` }>
-        <Button
+        <button
           className={ buttonHiddenClass }
           type="button"
           data-testid="start-recipe-btn"
-          variant="success"
           onClick={ () => handleClickRecipesProgress() }
         >
           { buttonText }
-        </Button>
+        </button>
       </Link>
     </div>
   );

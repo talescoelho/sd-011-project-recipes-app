@@ -1,6 +1,6 @@
 .drink-card {
-  background-color: #58abe5;
-  border-radius: 5px;
+  background-color: #e2ddd8;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,11 +11,14 @@
 }
 
 .drink-card img {
-  border-radius: 5px;
-  padding: 5px 0;
-  width: 90%;
+  border: #704c13 solid;
+  border-radius: 35px;
+  margin: 3px;
+  padding: 5px;
+  width: 95%;
 }
 
 .drink-card p {
-  color: black;
+  color: #704c13;
+  font-weight: 600;
 }

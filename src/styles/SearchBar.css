@@ -20,6 +20,14 @@ button {
   width: 95%;
 }
 
+.btn-search {
+  background-color: orangered;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  padding: 10px;
+}
+
 .input-text-search-bar {
   margin: 0 auto;
   width: 95%;
