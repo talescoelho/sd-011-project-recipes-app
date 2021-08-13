@@ -48,12 +48,8 @@ function ReceitasEmProgresso() {
   }, []);
 
   useEffect(() => {
-<<<<<<< HEAD
-    const localStorageRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'))[recipeType][recipeId];
-=======
     const localStorageRecipe = JSON.parse(localStorage
       .getItem('inProgressRecipes'))[recipeType][recipeId];
->>>>>>> 53bc1179d3635cb0eb216207d86061481712cfa5
     setInProgressIngredients(localStorageRecipe);
     if (inProgressIngredients) {
       setProgressOfRecipe(inProgressIngredients.some((item) => !item.includes('done')));
