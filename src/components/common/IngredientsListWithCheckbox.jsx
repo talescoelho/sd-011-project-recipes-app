@@ -14,11 +14,13 @@ const IngredientsListWithCheckbox = (props) => {
     recipeType,
   } = props;
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  const localStorageClone = inProgressRecipes[recipeType][id];
-  if (localStorageClone === undefined || localStorageClone === []) {
+  if (!inProgressRecipes) return (<span>Carregando ingredients...</span>);
+  if (inProgressRecipes[recipeType][id] === undefined
+      || inProgressRecipes[recipeType][id] === []
+      || inProgressRecipes[recipeType][id] === null) {
     return (<span>Carregando ingredients...</span>);
   }
-  if (localStorageClone.length === ingredients.length) {
+  if (inProgressRecipes[recipeType][id].length === ingredients.length) {
     addProgressDone();
   }
   return (
@@ -29,7 +31,7 @@ const IngredientsListWithCheckbox = (props) => {
           <li key={ ingredient } data-testid={ `${index}-ingredient-step` }>
             <input
               data-testid="ingredient-step"
-              defaultChecked={ localStorageClone.includes(index) }
+              defaultChecked={ inProgressRecipes[recipeType][id].includes(index) }
               id={ ingredient }
               index={ index }
               onChange={ (event) => handleChange(event, props) }
