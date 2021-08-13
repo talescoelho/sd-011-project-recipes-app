@@ -143,6 +143,29 @@ export const fetchFoodIngredientList = (ingredient) => async (dispatch) => {
   dispatch(foodListSuccess(returnFetch));
 };
 
+export const saveDoneRecipe = (id) => async () => {
+  const returnFetch = await fetchAPIByID(id);
+  const date = new Date();
+  const genericObj = {
+    id: returnFetch[0].idMeal,
+    type: 'comida',
+    area: returnFetch[0].strArea,
+    category: returnFetch[0].strCategory,
+    alcoholicOrNot: '',
+    name: returnFetch[0].strMeal,
+    image: returnFetch[0].strMealThumb,
+    doneDate: date.toLocaleDateString('pt-BR'),
+    tags: returnFetch[0].strTags.split(','),
+  };
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (doneRecipes === null) {
+    localStorage.setItem('doneRecipes', JSON.stringify([genericObj]));
+  } else {
+    const newDoneRecipes = [...doneRecipes, genericObj];
+    localStorage.setItem('doneRecipes', JSON.stringify(newDoneRecipes));
+  }
+};
+
 export const searchFoodByArea = (payload) => ({
   type: SEARCH_FOOD_AREA,
   payload,

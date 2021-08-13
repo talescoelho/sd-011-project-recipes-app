@@ -2,3 +2,16 @@
   bottom: 0;
   position: fixed;
 }
+
+.checked-button {
+  text-decoration: line-through;
+}
+
+.not-checked-button {
+  text-decoration: none;
+}
+
+.finish-recipe {
+  bottom: 0;
+  position: fixed;
+}
