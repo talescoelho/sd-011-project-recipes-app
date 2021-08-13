@@ -290,8 +290,18 @@
 }
 
 .buttons-actions {
+  align-items: center;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.button-fav-share {
+  background-color: var(--font-color);
+}
+
+.button-fav-share:hover {
+  border: 2px solid var(--dark-color-1);
 }
 
 .buttons-actions img {
