@@ -84,9 +84,10 @@ function FoodDetails({ match: { params: { id } } }) {
       <ShareButton idRecipe={ `comidas/${recipes.idMeal}` } />
       <FavoriteButton
         id={ recipes.idMeal }
-        type="Comida"
+        type="comida"
         area={ recipes.strArea }
         category={ recipes.strCategory }
+        alcoholicOrNot=""
         name={ recipes.strMeal }
         image={ recipes.strMealThumb }
       />

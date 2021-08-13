@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -8,11 +8,25 @@ function FavoriteBtn({ id, type, area, category, alcoholicOrNot, name, image, in
   const {
     isFavorite, setIsFavorite,
   } = useContext(MyContext);
-  // const recipeId = id;
+  // const [myLocalStorage, setmyLocalStorage] = useState([]);
+
+  const recipeId = id;
 
   // useEffect(() => {
   //   localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
   // }, [favoriteRecipes.length, favoriteRecipes, isFavorite]);
+
+  const setButton = () => {
+    const getLocalStr = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const checkLocalStr = Object.values(getLocalStr)
+      .some(({ id: strId }) => strId === recipeId);
+
+    setIsFavorite(checkLocalStr);
+  };
+
+  useEffect(() => {
+    setButton();
+  });
 
   const setUnfavorite = () => {
     setIsFavorite(!isFavorite);
@@ -26,21 +40,24 @@ function FavoriteBtn({ id, type, area, category, alcoholicOrNot, name, image, in
       name,
       image,
     };
+
+    // console.log(recipeDetails);
     const storageFavorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    JSON.stringify(
-      localStorage.setItem('favoriteRecipes', [...storageFavorites, recipeDetails]),
-    );
+    const checkLocalStr = Object.values(storageFavorites)
+      .some(({ id: strId }) => strId === recipeId);
+
+    if (checkLocalStr) {
+      const getRecipeId = JSON.stringify(storageFavorites
+        .filter((recipe) => recipe.id !== recipeId));
+      localStorage.setItem('favoriteRecipes', getRecipeId);
+      console.log(getRecipeId);
+      setIsFavorite(false);
+    } else {
+      const myStructure = JSON.stringify([...storageFavorites, recipeDetails]);
+      console.log(myStructure);
+      localStorage.setItem('favoriteRecipes', myStructure);
+    }
   };
-
-  // const setButton = () => {
-  //   const getLocalStr = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  //   let checkLocalStr;
-
-  //   if (getLocalStr !== null) {
-  //     checkLocalStr = Object.values(getLocalStr)
-  //       .find(({ id: strId }) => strId === recipeId);
-  //   }
-  // };
 
   return (
     <div>

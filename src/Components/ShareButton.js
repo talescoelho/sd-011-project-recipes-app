@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
 function ShareButton({ idRecipe }) {
-  const [isCopy, setIsCopy] = useState(null);
+  const [isCopy, setIsCopy] = useState(false);
 
   const copyToClipboard = ({ target }) => {
     setIsCopy(true);
@@ -14,7 +14,7 @@ function ShareButton({ idRecipe }) {
 
   return (
     <>
-      {isCopy ? <span>Link copiado!</span> : null}
+      {isCopy ? <span>Link copiado!</span> : false}
       <button
         data-testid="share-btn"
         type="button"
