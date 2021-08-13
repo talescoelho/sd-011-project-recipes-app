@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { getXFirstElementsFromArray } from '../../helpers/utils';
 import ShareIcon from '../../images/shareIcon.svg';
 
@@ -10,11 +11,14 @@ class RecipeDoneCard extends React.Component {
     return (
       <section>
         <section>
-          <img
-            src={ recipe.image }
-            alt={ recipe.name }
-            data-testid={ `${count}-horizontal-image` }
-          />
+          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <img
+              src={ recipe.image }
+              alt={ recipe.name }
+              width="200px"
+              data-testid={ `${count}-horizontal-image` }
+            />
+          </Link>
         </section>
         <section>
           <p data-testid={ `${count}-horizontal-top-text` }>
@@ -24,7 +28,11 @@ class RecipeDoneCard extends React.Component {
                 : recipe.alcoholicOrNot
             }
           </p>
-          <h1 data-testid={ `${count}-horizontal-name` }>{ recipe.name }</h1>
+          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <h1 data-testid={ `${count}-horizontal-name` }>
+              { recipe.name }
+            </h1>
+          </Link>
           <p data-testid={ `${count}-horizontal-done-date` }>
             { `Feita em: ${recipe.doneDate}` }
           </p>
@@ -54,6 +62,7 @@ export default RecipeDoneCard;
 
 RecipeDoneCard.propTypes = {
   recipe: PropTypes.shape({
+    id: PropTypes.number,
     image: PropTypes.string,
     name: PropTypes.string,
     category: PropTypes.string,
