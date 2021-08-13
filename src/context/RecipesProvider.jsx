@@ -26,20 +26,23 @@ function RecipesProvider({ children }) {
   }, [pathname]);
 
   useEffect(() => {
-    const fetchRecipes = async (recipeTypeToFetch, category, currentIngredient) => {
-      setIsLoading(true);
-      const recipes = await fetchAllRecipesOrByCategory(
-        recipeTypeToFetch, category, currentIngredient,
-      );
-      setDataRecipes(recipes);
-      setIsLoading(false);
-    };
-    const fetchCategorys = async () => {
-      const categorys = await fetchCategorysList(recipeType);
-      setCategorysList(categorys);
-    };
-    fetchRecipes(recipeType, currentCategory, ingredient);
-    fetchCategorys();
+    if (!recipeType.includes('/perfil')) {
+      const fetchRecipes = async (recipeTypeToFetch, category, currentIngredient) => {
+        setIsLoading(true);
+        const recipes = await fetchAllRecipesOrByCategory(
+          recipeTypeToFetch, category, currentIngredient,
+        );
+        setDataRecipes(recipes);
+        setIsLoading(false);
+      };
+
+      const fetchCategorys = async () => {
+        const categorys = await fetchCategorysList(recipeType);
+        setCategorysList(categorys);
+      };
+      fetchRecipes(recipeType, currentCategory, ingredient);
+      fetchCategorys();
+    }
   }, [recipeType, currentCategory, ingredient]);
 
   const contextValue = {

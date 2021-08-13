@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
-
 import Header from '../components/Header';
 
 export default function Perfil() {
-  const userEmail = JSON.parse(localStorage.user);
-  const { email } = userEmail;
+  const userEmail = JSON.parse(localStorage.getItem('user'));
+  console.log(userEmail);
+  const email = userEmail ? userEmail.email : 'test@email.com';
 
   const handleTeste = () => {
     localStorage.clear();
@@ -16,7 +16,7 @@ export default function Perfil() {
     <div>
       <Header title="Perfil" />
       <p data-testid="profile-email">
-        { email}
+        { email }
       </p>
       <Link
         to="/receitas-feitas"

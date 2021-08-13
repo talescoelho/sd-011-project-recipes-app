@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -9,6 +9,7 @@ import SearchBar from './SearchBar';
 
 function Header(props) {
   const [hidden, setHidden] = useState(false);
+  const history = useHistory();
 
   const searchIconRender = (<img
     aria-hidden="true"
@@ -25,14 +26,17 @@ function Header(props) {
     <header data-testid="header" className="header">
       <div className="container-main-header">
         <div className="container-title-icons">
-          <Link to="/perfil">
+          <div
+            onClick={ () => history.push('/perfil') }
+            aria-hidden="true"
+          >
             <img
               className="container-profile-icon"
               data-testid="profile-top-btn"
               src={ profileIcon }
               alt="profile icon"
             />
-          </Link>
+          </div>
           <h3
             className="container-title-header"
             data-testid="page-title"
