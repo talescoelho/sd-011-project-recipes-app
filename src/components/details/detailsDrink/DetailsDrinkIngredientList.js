@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import RecipesContext from '../../../context/RecipesContext';
+import addToCheckedIngredient from './AddToCheckedIngredient';
 
 function DetailsDrinkIngredientList() {
   const { drinkId, setAllIngredientsChecked } = useContext(RecipesContext);
@@ -44,32 +45,21 @@ function DetailsDrinkIngredientList() {
         setCheckedNumberIngredients(test);
         setCheckedIngredients(filterIngredientLocalStorage);
       } else {
-        const cocktails1 = { ...localIngredient, cocktails: { ...localIngredient.cocktails, [urlID]: [] } };
+        const cocktails1 = { ...localIngredient,
+          cocktails: { ...localIngredient.cocktails, [urlID]: [] } };
         localStorage.setItem('inProgressRecipes', JSON.stringify(cocktails1));
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function addToCheckedIngredient(ingredient, index) {
-    const test = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (checkedIngredients.includes(ingredient)) {
-      const arrayCheckedIngredients = checkedIngredients.filter((ingredient1) => (
-        ingredient1 !== ingredient));
-      setCheckedIngredients(arrayCheckedIngredients);
-      const indexIngredient = checkedNumberIngredients.filter((ingredientIndex) => (
-        ingredientIndex !== Number(index)));
-      setCheckedNumberIngredients(indexIngredient);
-      test.cocktails[urlID] = indexIngredient;
-      localStorage.setItem('inProgressRecipes', JSON.stringify(test));
-    } else {
-      setCheckedIngredients([...checkedIngredients, ingredient]);
-      const number = [...checkedNumberIngredients, Number(index)];
-      setCheckedNumberIngredients(number);
-      test.cocktails[urlID] = number;
-      localStorage.setItem('inProgressRecipes', JSON.stringify(test));
-    }
-  }
+  const stateParams = {
+    checkedNumberIngredients,
+    setCheckedNumberIngredients,
+    checkedIngredients,
+    setCheckedIngredients,
+    urlID,
+    recipeType: 'cocktails' };
 
   return (
     <div>
@@ -104,7 +94,8 @@ function DetailsDrinkIngredientList() {
                         id={ `ingredient-${index}` }
                         name={ index }
                         value={ ingredient }
-                        onChange={ () => addToCheckedIngredient(ingredient, index) }
+                        onChange={ () => addToCheckedIngredient(ingredient,
+                          index, stateParams) }
                         checked={ checkedIngredients.includes(ingredient) }
                       />
                       { (checkedIngredients.includes(ingredient))

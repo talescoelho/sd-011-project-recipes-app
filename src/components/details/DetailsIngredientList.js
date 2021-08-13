@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
+import addToCheckedIngredient from './detailsDrink/AddToCheckedIngredient';
 
 function DetailsIngredientList() {
   const { mealId, setAllIngredientsChecked } = useContext(RecipesContext);
@@ -44,32 +45,21 @@ function DetailsIngredientList() {
         setCheckedNumberIngredients(test);
         setCheckedIngredients(filterIngredientLocalStorage);
       } else {
-        const meals1 = { ...localIngredient, meals: { ...localIngredient.meals, [urlID]: [] } };
+        const meals1 = { ...localIngredient,
+          meals: { ...localIngredient.meals, [urlID]: [] } };
         localStorage.setItem('inProgressRecipes', JSON.stringify(meals1));
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function addToCheckedIngredient(ingredient, index) {
-    const test = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (checkedIngredients.includes(ingredient)) {
-      const arrayCheckedIngredients = checkedIngredients.filter((ingredient1) => (
-        ingredient1 !== ingredient));
-      setCheckedIngredients(arrayCheckedIngredients);
-      const indexIngredient = checkedNumberIngredients.filter((ingredientIndex) => (
-        ingredientIndex !== Number(index)));
-      setCheckedNumberIngredients(indexIngredient);
-      test.meals[urlID] = indexIngredient;
-      localStorage.setItem('inProgressRecipes', JSON.stringify(test));
-    } else {
-      setCheckedIngredients([...checkedIngredients, ingredient]);
-      const number = [...checkedNumberIngredients, Number(index)];
-      setCheckedNumberIngredients(number);
-      test.meals[urlID] = number;
-      localStorage.setItem('inProgressRecipes', JSON.stringify(test));
-    }
-  }
+  const stateParams = {
+    checkedNumberIngredients,
+    setCheckedNumberIngredients,
+    checkedIngredients,
+    setCheckedIngredients,
+    urlID,
+    recipeType: 'meals' };
 
   return (
     <div>
@@ -100,12 +90,13 @@ function DetailsIngredientList() {
                       key={ index }
                     >
                       <input
-                        checked={ checkedIngredients.includes(ingredient) }
+                        defaultChecked={ checkedIngredients.includes(ingredient) }
                         type="checkbox"
                         id={ `ingredient-${index}` }
                         name={ index }
                         value={ ingredient }
-                        onChange={ () => addToCheckedIngredient(ingredient, index) }
+                        onChange={ () => addToCheckedIngredient(ingredient,
+                          index, stateParams) }
                       />
                       { (checkedIngredients.includes(ingredient))
                         ? <del>{ ingredient }</del> : ingredient }
