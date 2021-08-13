@@ -1,14 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import RecipesContext from '../../../context/RecipesContext';
 
 function DetailsDrinkIngredientList() {
-  const { drinkId,
-    setAllIngredientsChecked,
-    checkedIngredients,
-    setCheckedIngredients,
-    checkedNumberIngredients,
-    setCheckedNumberIngredients } = useContext(RecipesContext);
+  const { drinkId, setAllIngredientsChecked } = useContext(RecipesContext);
+
+  const [checkedNumberIngredients, setCheckedNumberIngredients] = useState([]);
+  const [checkedIngredients, setCheckedIngredients] = useState([]);
 
   function conditionFor(idx) { // função para não deixar ser iteravel no for quando ingrediente for nulo
     return !!drinkId[`strIngredient${idx}`];
@@ -35,18 +33,20 @@ function DetailsDrinkIngredientList() {
 
   useEffect(() => {
     const localIngredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (!localIngredient.cocktails) {
-      const drinks1 = { ...localIngredient, cocktails: {} };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(drinks1))
-    } else if (localIngredient.cocktails[urlID] && localIngredient.cocktails[urlID].length !== 0) {
-      const test = localIngredient.cocktails[urlID];
-      const filterIngredientLocalStorage = (
-        ingredients.filter((_, index) => test.includes(index)));
-      setCheckedNumberIngredients(test);
-      setCheckedIngredients(filterIngredientLocalStorage);
-    } else if (isInProgress) {
-      const drinks1 = { ...localIngredient, cocktails: { ...localIngredient.cocktails, [urlID]: [] } };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(drinks1));
+    if (isInProgress) {
+      if (!localIngredient.cocktails) {
+        const cocktails1 = { cocktails: { [urlID]: [] } };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(cocktails1));
+      } else if (localIngredient.cocktails[urlID]) {
+        const test = localIngredient.cocktails[urlID];
+        const filterIngredientLocalStorage = (
+          ingredients.filter((_, index) => test.includes(index)));
+        setCheckedNumberIngredients(test);
+        setCheckedIngredients(filterIngredientLocalStorage);
+      } else {
+        const cocktails1 = { ...localIngredient, cocktails: { ...localIngredient.cocktails, [urlID]: [] } };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(cocktails1));
+      }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -104,7 +104,7 @@ function DetailsDrinkIngredientList() {
                         id={ `ingredient-${index}` }
                         name={ index }
                         value={ ingredient }
-                        onChange={ addToCheckedIngredient }
+                        onChange={ () => addToCheckedIngredient(ingredient, index) }
                         checked={ checkedIngredients.includes(ingredient) }
                       />
                       { (checkedIngredients.includes(ingredient))

@@ -30,9 +30,7 @@ export default function RecipesProvider({ children }) {
   const [drinkId, setDrinkId] = useState({});
   const [drinkRecommend, setDrinkRecommend] = useState([]);
   const [mealsRecommend, setMealsRecommend] = useState([]);
-  const [allIngredientsChecked, setAllIngredientsChecked] = useState([]);
-  const [checkedIngredients, setCheckedIngredients] = useState([]);
-  const [checkedNumberIngredients, setCheckedNumberIngredients] = useState([]);
+  const [allIngredientsChecked, setAllIngredientsChecked] = useState(false);
 
   function visibleAlert(data) { // implementação do requisito 18
     if (data === null) {
@@ -136,10 +134,6 @@ export default function RecipesProvider({ children }) {
     mealsRecommend,
     allIngredientsChecked,
     setAllIngredientsChecked,
-    checkedIngredients,
-    setCheckedIngredients,
-    checkedNumberIngredients,
-    setCheckedNumberIngredients,
   };
 
   return (

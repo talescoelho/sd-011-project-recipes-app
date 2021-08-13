@@ -1,14 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 
 function DetailsIngredientList() {
-  const { mealId,
-    setAllIngredientsChecked,
-    checkedIngredients,
-    setCheckedIngredients,
-    checkedNumberIngredients,
-    setCheckedNumberIngredients } = useContext(RecipesContext);
+  const { mealId, setAllIngredientsChecked } = useContext(RecipesContext);
+
+  const [checkedNumberIngredients, setCheckedNumberIngredients] = useState([]);
+  const [checkedIngredients, setCheckedIngredients] = useState([]);
 
   function conditionFor(idx) { // função para não deixar ser iteravel no for quando ingrediente for nulo
     return !!mealId[`strIngredient${idx}`];
@@ -69,7 +67,6 @@ function DetailsIngredientList() {
       const number = [...checkedNumberIngredients, Number(index)];
       setCheckedNumberIngredients(number);
       test.meals[urlID] = number;
-      console.log(urlID);
       localStorage.setItem('inProgressRecipes', JSON.stringify(test));
     }
   }
