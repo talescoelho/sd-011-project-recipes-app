@@ -58,7 +58,7 @@ function FoodDetails() {
       .finally(() => setRecipesLoading(false));
 
     setIsDone(getDoneRecipes().findIndex((r) => r.id === id) !== NOT_FOUND_INDEX);
-    setIsInProgress(getInProgressRecipeByType('drinks')[id] !== undefined);
+    setIsInProgress(getInProgressRecipeByType('cocktails')[id] !== undefined);
   }, [id, getDoneRecipes, getInProgressRecipeByType]);
 
   const renderNoDrinkMessage = () => renderLoadingOrError(error, isLoading);
@@ -94,7 +94,7 @@ function FoodDetails() {
                 <ol>
                   { Object.keys(cocktail)
                     .filter((key) => /strIngredient/i.test(key))
-                    .filter((key) => cocktail[key] !== '')
+                    .filter((key) => cocktail[key] !== '' && cocktail[key] !== null)
                     .map((key) => {
                       const index = parseInt(key.replace('strIngredient', ''), 10);
                       return (
