@@ -23,16 +23,24 @@ export default function DoneRecipes() {
       <div>
         {
           list !== null && list !== undefined
-            ? list.map((recipe, index, tagName) => (
+            ? list.map((recipe, index) => (
               <div key={ index }>
                 <img
                   src={ `${recipe.image}` }
                   alt="imagem da receita"
                   data-testid={ `${index}-horizontal-image` }
                 />
-                <h4 data-testid={ `${index}-horizontal-top-text` }>{ recipe.category }</h4>
+                <h4
+                  data-testid={ `${index}-horizontal-top-text` }
+                >
+                  { recipe.category }
+                </h4>
                 <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
-                <h4 data-testid={ `${index}-horizontal-done-date` }>{ recipe.doneDate }</h4>
+                <h4
+                  data-testid={ `${index}-horizontal-done-date` }
+                >
+                  { recipe.doneDate }
+                </h4>
                 <button
                   type="button"
                   data-testid={ `${index}-horizontal-share-btn` }
@@ -41,7 +49,12 @@ export default function DoneRecipes() {
                 </button>
                 {
                   recipe.tags.map((tag, tagIndex) => (
-                    <h4 key={ tagIndex } data-testid={ `${index}-${tag}-horizontal-tag>tags` }>Tags</h4>
+                    <h4
+                      key={ tagIndex }
+                      data-testid={ `${index}-${tag}-horizontal-tag>tags` }
+                    >
+                      Tags
+                    </h4>
                   ))
                 }
               </div>))
