@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { getFoodsInitial } from '../../../Services/ApiFood';
 import HeaderExpFoodsOrigin from '../../../Components/headers/HeaderExploreFoodsOrigin';
 import LowerMenu from '../../../Components/footer/LowerMenu';
 
 const Origen = () => {
   const [originList, setOriginList] = useState([]);
   const [mealsByOrigin, setMealsByOrigin] = useState([]);
-  const [onSelectChange, setOnSelectChange] = useState(false);
+  const [originSelected, setOriginSelected] = useState('');
+
+  const handleChange = (event) => {
+    setOriginSelected(event.target.value);
+  };
 
   useEffect(() => {
     const getAPI = async () => {
@@ -15,15 +21,22 @@ const Origen = () => {
     };
     getAPI();
   }, [setOriginList]);
-  console.log(onSelectChange);
+
   useEffect(() => {
     const getAPI = async () => {
-      const endpoint = `www.themealdb.com/api/json/v1/1/filter.php?a=${originList}`;
-      const { meals } = await fetch(endpoint).then((data) => data.json());
-      setMealsByOrigin(meals);
+      if (originSelected !== 'All') {
+        const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${originSelected}`;
+        const { meals } = await fetch(endpoint).then((data) => data.json());
+        setMealsByOrigin(meals);
+      } else if (originSelected === 'All') {
+        const foodsInitialAPI = await getFoodsInitial();
+        setMealsByOrigin(foodsInitialAPI.meals);
+      }
     };
     getAPI();
-  }, [setMealsByOrigin, originList]);
+  }, [originSelected]);
+
+  const magicNumber = 12;
 
   return (
     <div>
@@ -31,7 +44,7 @@ const Origen = () => {
       <section>
         <select
           data-testid="explore-by-area-dropdown"
-          onChange={ () => setOnSelectChange(!onSelectChange) }
+          onChange={ (e) => handleChange(e) }
         >
           { originList && originList.map(({ strArea }, index) => (
             <option
@@ -46,14 +59,25 @@ const Origen = () => {
         </select>
       </section>
       <section>
-        { onSelectChange && mealsByOrigin && mealsByOrigin.map((strArea, index) => (
-          <div
-            key={ index }
-            data-testid={ `${strArea}-option` }
-          >
-            { strArea }
-          </div>
-        ))}
+        <ul>
+          { mealsByOrigin && mealsByOrigin.slice(0, magicNumber).map((food, i) => (
+            <Link key={ food.idMeal } to={ `/comidas/${food.idMeal}` }>
+              <li
+                data-testid={ `${i}-recipe-card` }
+                key={ food.idMeal }
+                style={ { display: 'flex' } }
+              >
+                <img
+                  src={ food.strMealThumb }
+                  alt={ food.strMeal }
+                  data-testid={ `${i}-card-img` }
+                  style={ { width: '30px' } }
+                />
+                <p data-testid={ `${i}-card-name` }>{ food.strMeal }</p>
+              </li>
+            </Link>
+          )) }
+        </ul>
       </section>
       <footer>
         <LowerMenu />

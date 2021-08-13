@@ -14,6 +14,7 @@ import RecipesDone from '../Pages/RecipesDone';
 import FavoriteRecipes from '../Pages/FavoriteRecipes';
 import DetailsRecipesDrinks from '../Pages/DetailsRecipes/DetailsRecipesDrinks';
 import DetailsRecipesFoods from '../Pages/DetailsRecipes/DetailsRecipesFoods';
+import ErrorPage from '../Pages/ErrorPage';
 
 const MainRouter = () => (
   <Switch>
@@ -51,6 +52,7 @@ const MainRouter = () => (
     <Route exact path="/perfil" render={ () => <User /> } />
     <Route exact path="/receitas-feitas" render={ () => <RecipesDone /> } />
     <Route exact path="/receitas-favoritas" render={ () => <FavoriteRecipes /> } />
+    <Route path="*" component={ErrorPage} />
   </Switch>
 );
 export default MainRouter;
