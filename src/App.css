@@ -1,12 +1,12 @@
 @font-face {
-  font-family: "Futura";
+  font-family: Futura;
   font-weight: 600;
   font-size: 50;
   src: url('/fonts/Futura Bold font.ttf');
 }
 
 body {
-  font-family: "Futura";
+  font-family: Futura;
 }
 
 .btn-default {
@@ -42,11 +42,11 @@ button.icon:hover {
 }
 
 .recipe-card img {
-  margin-top: 10px;
-  box-shadow: rgba(0.07) 0px 1px 1px , rgba(0.07) 0px 2px 2px ,
-    rgba(0.07) 0px 4px 4px , rgba(0.07) 0px 8px 8px ,
-    rgba(0.07) 0px 16px 16px;
-  border-radius: 90% 10% 56% 44% / 62% 73% 27% 38%;
+  box-shadow: rgba(0.07) px 1px 1px , rgba(0.07) px 2px 2px ,
+    rgba(0.07) px 4px 4px , rgba(0.07) px 8px 8px ,
+    rgba(0.07) px 16px 16px;
+    border-radius: 90% 10% 56% 44% / 62% 73% 27% 38%;
+    margin-top: 10px;
   }
 
 .recipe-card img:hover {
@@ -64,7 +64,7 @@ button.icon:hover {
 
 .recipe-photo {
   border-radius: 48% 52% 34% 66% / 39% 33% 67% 61%;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20p x,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px ,
-    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  box-shadow: rgba(50, 50, 93, 0.25) 50px 100px -20p x,
+    rgba(0.3) px 30px 60px -30px ,
+    rgba(10, 37, 64, 0.35) px -2px 6px px inset;
 }
