@@ -109,8 +109,6 @@ export default function FavoriteButton({
 FavoriteButton.propTypes = {
   recipeId: PropTypes.string.isRequired,
   selector: PropTypes.string.isRequired,
-  testId: PropTypes.string.isRequired,
-  isRecipeFavorite: PropTypes.bool.isRequired,
   details: PropTypes.shape({
     idMeal: PropTypes.string,
     strMeal: PropTypes.string,

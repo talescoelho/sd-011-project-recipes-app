@@ -6,6 +6,7 @@ import {
   Image,
 } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../../components/Header';
 import CopyButton from '../../components/Details/CopyButton';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -114,6 +115,14 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   handleFavoriteRecipe: (id) => dispatch(actions.handleFavoriteRecipe(id)),
 });
+
+ReceitasFavoritas.propTypes = {
+  handleFavoriteRecipe: PropTypes.func.isRequired,
+  favorites: PropTypes.shape({
+    filter: PropTypes.arrayOf(PropTypes.object).isRequired,
+    map: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }).isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReceitasFavoritas);
 
