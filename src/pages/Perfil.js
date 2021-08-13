@@ -4,7 +4,6 @@ import Header from '../components/Header';
 import LowerMenu from '../components/LowerMenu';
 
 export default function Perfil() {
-  // const { email } = JSON.parse(localStorage.getItem('user'));
   return (
     <div>
       <Header text="Perfil" lupa={ false } />
