@@ -3,10 +3,13 @@ import { Redirect } from 'react-router-dom';
 import MainContext from '../../Context/MainContext';
 import HeaderFoods from '../../Components/headers/HeaderFoods';
 import LowerMenu from '../../Components/footer/LowerMenu';
+import FoodCards from '../../Components/cards/FoodCards';
+import FilterButtonsFood from '../../Components/FilterButtons/FilterButtonsFood';
+import '../../css/Foods.css';
 
 function Foods() {
-  const { dataFoods, setPage, limit,
-    setIdFoods/* , setDetailsFoods */ } = useContext(MainContext);
+  const { dataFoods, setPage,
+    setIdFoods } = useContext(MainContext);
 
   function thisPage() {
     setPage('foods');
@@ -27,21 +30,10 @@ function Foods() {
   }
 
   return (
-    <div>
+    <div className="food-page">
       <HeaderFoods />
-      { dataFoods.map((item, index) => index < limit && (
-        <div key={ index } data-testid={ `${index}-recipe-card` }>
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ item.strMealThumb }
-            alt={ `Food ${item.strMeal}` }
-            width="200"
-          />
-          <p data-testid={ `${index}-card-name` }>
-            { item.strMeal }
-          </p>
-        </div>
-      )) }
+      <FilterButtonsFood />
+      <FoodCards />
       <LowerMenu />
     </div>
   );

@@ -37,12 +37,15 @@ const Provider = ({ children }) => {
   const [newDataFoods, setNewDataFoods] = useState([]);
   const [newDataDrinks, setNewDataDrinks] = useState([]);
   const [dataRandomDrinks, setDataRandomDrinks] = useState([]);
+  const [foodsByCategory, setFoodsByCategory] = useState([]);
+  const [drinksByCategory, setDrinksByCategory] = useState([]);
   const [limit] = useState([number]);
   // # =============================================================================
   const [count, setCount] = useState(false);
   const [selected, setSelected] = useState(0);
   const [doneRecipes, setDoneRecipes] = useState('');
   const [show, setShow] = useState(false);
+  const [filterDone, setFilterDone] = useState('All');
 
   async function fetchFood() {
     if (radioBtn === 'ingredient') {
@@ -144,6 +147,12 @@ const Provider = ({ children }) => {
     setDoneRecipes,
     show,
     setShow,
+    foodsByCategory,
+    setFoodsByCategory,
+    drinksByCategory,
+    setDrinksByCategory,
+    filterDone,
+    setFilterDone,
   };
 
   return (

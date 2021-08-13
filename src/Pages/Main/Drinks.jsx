@@ -3,10 +3,13 @@ import { Redirect } from 'react-router-dom';
 import MainContext from '../../Context/MainContext';
 import HeaderDrinks from '../../Components/headers/HeaderDrinks';
 import LowerMenu from '../../Components/footer/LowerMenu';
+import '../../css/Drinks.css';
+import DrinkCards from '../../Components/cards/DrinkCards';
+import FilterButtonsDrink from '../../Components/FilterButtons/FilterButtonsDrink';
 
 function Drinks() {
-  const { setPage, dataDrinks, limit,
-    setIdDrinks/* , setDetailsDrinks */ } = useContext(MainContext);
+  const { setPage, dataDrinks,
+    setIdDrinks } = useContext(MainContext);
 
   function thisPage() {
     setPage('drinks');
@@ -27,21 +30,10 @@ function Drinks() {
   }
 
   return (
-    <div>
+    <div className="drink-page">
       <HeaderDrinks />
-      { dataDrinks.map((item, index) => index < limit && (
-        <div key={ index } data-testid={ `${index}-recipe-card` }>
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ item.strDrinkThumb }
-            alt={ `Drink ${item.strDrink}` }
-            width="200"
-          />
-          <p data-testid={ `${index}-card-name` }>
-            { item.strDrink }
-          </p>
-        </div>
-      )) }
+      <FilterButtonsDrink />
+      <DrinkCards />
       <LowerMenu />
     </div>
   );
