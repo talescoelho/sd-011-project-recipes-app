@@ -1,4 +1,6 @@
 body, html {
+  align-self: center;
+  background-color: lemonchiffon;
   height: 100vh;
 }
 

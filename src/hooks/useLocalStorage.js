@@ -12,6 +12,7 @@ export default function useLocalStorage() {
 
   const getFavoriteRecipes = useCallback(() => {
     const favoriteRecipes = getFromStorage('favoriteRecipes');
+
     if (favoriteRecipes) {
       return favoriteRecipes;
     }
@@ -61,14 +62,14 @@ export default function useLocalStorage() {
     setToStorage('favoriteRecipes', favoriteRecipes);
   }, [getFavoriteRecipes, setToStorage]);
 
-  const addInProgressRecipes = useCallback((type, recipe) => {
+  const updateInProgressRecipe = useCallback((type, recipe) => {
     const inProgressRecipes = getInProgressRecipes();
 
     if (!inProgressRecipes[type]) {
       inProgressRecipes[type] = {};
     }
 
-    inProgressRecipes[type][recipe.id] = recipe;
+    inProgressRecipes[type][recipe.id] = recipe.usedIngredients;
     setToStorage('inProgressRecipes', inProgressRecipes);
   }, [setToStorage, getInProgressRecipes]);
 
@@ -83,8 +84,8 @@ export default function useLocalStorage() {
     getInProgressRecipeByType,
     getDoneRecipes,
     addFavoriteRecipe,
-    addInProgressRecipes,
-    addDoneRecipes,
     removeFavoriteRecipe,
+    updateInProgressRecipe,
+    addDoneRecipes,
   };
 }

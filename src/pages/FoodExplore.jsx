@@ -24,6 +24,7 @@ function FoodExplore() {
 
   return (
     <Layout title="Explorar Comidas">
+      {console.log(recipes)}
       <main style={ styles.main }>
         <Link to="/explorar/comidas/ingredientes">
           <button

@@ -1,8 +1,14 @@
 import React from 'react';
+import ErrorGif from '../images/error.gif';
 
 function NotFound() {
   return (
-    <h2>Not Found</h2>
+    <img
+      src={ ErrorGif }
+      alt="Not Found"
+      height="300px"
+      width="300px"
+    />
   );
 }
 

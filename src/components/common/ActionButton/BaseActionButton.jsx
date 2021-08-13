@@ -14,10 +14,10 @@ function BaseActionButton({ onClick, action, reverse, index }) {
   };
 
   const iconSrc = action === 'share' ? ShareIcon : getFavoriteIcon(reverse);
-
+  // data-testid={ `${index}-horizontal-favorite-btn` }
   return (
     <button
-      data-testid={ `${index}-horizontal-favorite-btn` }
+      data-testid={ `${action}-btn` }
       type="button"
       title={ `${action} the recipe` }
       onClick={ onClick }
