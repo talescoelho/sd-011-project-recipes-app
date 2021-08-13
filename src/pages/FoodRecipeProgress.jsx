@@ -68,7 +68,6 @@ const FoodRecipeProgress = ({ dispatch, match, mealDetails }) => {
     `${mealDetails.strMeasure20} - ${mealDetails.strIngredient20}`,
   ];
   const ingredients = oldIngredients.filter((ingredient) => !ingredient.startsWith(' '));
-  console.log(ingredients);
   return (
     <>
       <div>Tela de receita em processo de comidas</div>

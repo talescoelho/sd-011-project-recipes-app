@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { arrayOf, bool, func, string } from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { clearProgress, setProgressDone } from
   '../../redux/actions/recipeProgressActions';
+import '../../styles/components/concludeRecipe.css';
 
 const ConcludeRecipe = ({
   addProgressDone,
@@ -12,17 +13,15 @@ const ConcludeRecipe = ({
   recipeDone,
   recipeType,
   resetProgress }) => {
-  useEffect(() => {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (inProgressRecipes[recipeType][id].length === ingredients.length) {
-      addProgressDone();
-    }
-  }, [addProgressDone, id, ingredients.length, recipeType]);
-
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (!inProgressRecipes[recipeType][id]) return (<span>Carregando botão...</span>);
+  if (inProgressRecipes[recipeType][id].length === ingredients.length) {
+    addProgressDone();
+  }
   const handleClick = () => {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    delete inProgressRecipes[recipeType][id];
-    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    const inProgressRecipess = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    delete inProgressRecipess[recipeType][id];
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipess));
     resetProgress();
   };
   return (
@@ -30,10 +29,8 @@ const ConcludeRecipe = ({
       to="/receitas-feitas"
     >
       <button
-        id={ id }
-        ingredients={ ingredients }
+        className={ recipeDone ? 'recipe-done' : 'recipe-in-progress' }
         onClick={ handleClick }
-        recipeType={ recipeType }
         type="button"
         disabled={ !recipeDone }
       >

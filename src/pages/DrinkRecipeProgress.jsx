@@ -7,10 +7,14 @@ import RecipeInstructions from '../components/common/RecipeInstructions';
 import { requestDrinkDetails } from '../redux/actions/recipeDetailsActions';
 
 const DrinkRecipeProgress = ({ dispatch, match, drinkDetails }) => {
-  const { params: { id } } = match;
+  const {
+    params: { id },
+  } = match;
   useEffect(() => {
     dispatch(requestDrinkDetails(id));
-    let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    let inProgressRecipes = JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    );
     if (inProgressRecipes) {
       if (inProgressRecipes.cocktails) {
         if (inProgressRecipes.cocktails[id]) {
@@ -41,9 +45,12 @@ const DrinkRecipeProgress = ({ dispatch, match, drinkDetails }) => {
         },
       };
     }
-    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    localStorage.setItem(
+      'inProgressRecipes',
+      JSON.stringify(inProgressRecipes),
+    );
   }, [dispatch, id]);
-  if (drinkDetails.strInstructions === undefined) return (<span>Carregando...</span>);
+  if (drinkDetails.strInstructions === undefined) return <span>Carregando...</span>;
   const oldIngredients = [
     drinkDetails.strIngredient1,
     drinkDetails.strIngredient2,
@@ -78,7 +85,9 @@ const DrinkRecipeProgress = ({ dispatch, match, drinkDetails }) => {
     drinkDetails.strMeasure14,
     drinkDetails.strMeasure15,
   ];
-  const newIngredients = oldIngredients.filter((ingredient) => ingredient !== null);
+  const newIngredients = oldIngredients.filter(
+    (ingredient) => ingredient !== null,
+  );
   const newMeasures = oldMeasures.filter((measure) => measure !== null);
   const measuresAndIngredients = newIngredients.map((element, index) => {
     if (newMeasures[index] === undefined) return element;
@@ -106,7 +115,7 @@ const mapStateToProps = (state) => ({
   drinkDetails: state.recipeDetailsReducer.drink,
 });
 
-DrinkRecipeProgress.propTypes = ({
+DrinkRecipeProgress.propTypes = {
   dispatch: func,
   drinkDetails: shape({
     idDrink: string,
@@ -126,6 +135,6 @@ DrinkRecipeProgress.propTypes = ({
     strIngredient14: string,
     strIngredient15: string,
   }),
-}).isRequired;
+}.isRequired;
 
 export default connect(mapStateToProps)(DrinkRecipeProgress);

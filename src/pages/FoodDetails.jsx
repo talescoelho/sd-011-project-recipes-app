@@ -12,7 +12,6 @@ const FoodDetails = ({ dispatch, match, mealDetails }) => {
     dispatch(requestMealDetails(id));
   }, [dispatch, id]);
   if (mealDetails.strInstructions === undefined) return (<span>Carregando...</span>);
-  console.log('Imprimiu');
   return (
     <>
       <div>Pagina de Detalhe de Comida</div>
