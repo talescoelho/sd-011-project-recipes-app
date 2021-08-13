@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable guard-for-in */
 import produce from 'immer';
 
 export const isRecipeDone = (idReceita) => {
@@ -51,12 +49,7 @@ export const bookMarkRecipe = async (item) => {
 
 export const showRecipe = (id) => {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-
-  if (doneRecipes && doneRecipes.find((el) => el.id === id)) {
-    console.log(doneRecipes);
-    return false;
-  }
-  return true;
+  return !(doneRecipes && doneRecipes.find((el) => el.id === id));
 };
 
 export const addDoneRecipe = ({ item }) => {
@@ -97,4 +90,17 @@ export const addDoneRecipe = ({ item }) => {
 
     localStorage.setItem('doneRecipes', JSON.stringify(newState));
   }
+};
+
+export const favoriteRefactored = (singleFood) => {
+  const refactored = {
+    id: singleFood.idDrink || singleFood.idMeal,
+    type: singleFood.idDrink ? 'bebida' : 'comida',
+    area: singleFood.strArea || '',
+    category: singleFood.strCategory || '',
+    alcoholicOrNot: singleFood.strAlcoholic || '',
+    name: singleFood.strMeal || singleFood.strDrink,
+    image: singleFood.strMealThumb || singleFood.strDrinkThumb,
+  };
+  return refactored;
 };

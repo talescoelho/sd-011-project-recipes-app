@@ -16,7 +16,7 @@ import TravelButtons from './Buttons/TravelButtons';
 
 export default function FoodDetails({ type }) {
   const recipes = useSelector((state) => state.recipes);
-  const food = recipes.cards;
+  const { singleFood } = recipes;
   const dispatch = useDispatch();
   const { id } = useParams();
   const lStFoods = {
@@ -50,9 +50,9 @@ export default function FoodDetails({ type }) {
   const buttonName = () => (
     isRecipeInProgress({ id, fd }) ? 'Continuar Receita' : 'Iniciar Receita');
 
-  if (food) {
+  if (singleFood) {
     const { strMealThumb, strDrinkThumb,
-      strDrink, strMeal, strInstructions, strCategory, strAlcoholic } = food;
+      strDrink, strMeal, strInstructions, strCategory, strAlcoholic } = singleFood;
 
     const path = {
       meals: `/comidas/${id}/in-progress`,
@@ -71,10 +71,8 @@ export default function FoodDetails({ type }) {
               alt="img"
             />
             <h1 data-testid="recipe-title">{strMeal || strDrink}</h1>
-
             <ShareBtn />
             <FavoriteBtn />
-
             <p data-testid="recipe-category">{strAlcoholic}</p>
             <p data-testid="instructions">{strInstructions}</p>
             <p data-testid="recipe-category">
@@ -82,10 +80,10 @@ export default function FoodDetails({ type }) {
               {strCategory}
             </p>
             <ul>
-              {listIngredients(food)}
+              {listIngredients(singleFood)}
             </ul>
             <h2>Recommended Cards</h2>
-            {type === 'meals' && ShowFrame(food)}
+            {type === 'meals' && ShowFrame(singleFood)}
           </div>
           <div>
             { type === 'drinks' && (<CardsFood />)}

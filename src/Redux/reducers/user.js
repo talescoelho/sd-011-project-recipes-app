@@ -4,6 +4,7 @@ const initialState = {
   name: '',
   orders: '',
   favoriteRecipes: '',
+  inProgressRecipe: [],
 };
 
 export const userSlice = createSlice({
@@ -13,13 +14,7 @@ export const userSlice = createSlice({
     sendUserInfo: (state, action) => {
       state.name = action.payload;
     },
-    updateFavorite: (state, action) => {
-      state.favoriteRecipes = action.payload;
-    },
-    getFavoriteRecipes: (state, action) => {
-      state.favoriteRecipes = action.payload;
-    },
-    filterRecipes: (state, action) => {
+    updateFavorites: (state, action) => {
       state.favoriteRecipes = action.payload;
     },
   },
@@ -27,8 +22,7 @@ export const userSlice = createSlice({
 
 export const {
   sendUserInfo,
-  updateFavorite,
-  getFavoriteRecipes,
-  filterRecipes } = userSlice.actions;
+  updateFavorites,
+} = userSlice.actions;
 
 export default userSlice.reducer;

@@ -43,7 +43,7 @@ export default function FoodCard({ type }) {
   }, [cards, history, type]);
 
   const cardsToRender = (cardsRender) => (
-    Array.isArray(cardsRender) && cardsRender.map(({ idMeal, strMeal, strMealThumb,
+    cardsRender.map(({ idMeal, strMeal, strMealThumb,
       strCategory, strTags, idDrink, strDrink, strDrinkThumb, strAlcoholic,
     }, index) => (
       index < number ? (
@@ -71,7 +71,7 @@ export default function FoodCard({ type }) {
 
   const getCards = () => {
     if (cards) {
-      return cardsToRender(cards);
+      return cardsToRender(cards[type]);
     }
   };
 

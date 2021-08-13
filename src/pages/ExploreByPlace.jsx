@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import FoodCard from '../components/FoodCard';
 import Footer from '../components/Footer';
 import '../styles/ExploreByPlace.css';
-import { fetchFoodCard } from '../Redux/reducers/recipes';
+import { fetchFoodCards } from '../Redux/reducers/recipes';
 
 function ExploreByPlace() {
   const dispatch = useDispatch();
@@ -27,10 +27,10 @@ function ExploreByPlace() {
       const response = await fetch(API_URL);
       const json = await response.json();
       const { meals } = json;
-      dispatch(fetchFoodCard({ filtered: meals, selectedCategory: 'meals' }));
+      dispatch(fetchFoodCards({ filtered: meals, selectedCategory: 'meals' }));
     }
     if (area === 'All') {
-      dispatch(fetchFoodCard({ filtered: '' }));
+      dispatch(fetchFoodCards({ filtered: '' }));
     }
   };
 

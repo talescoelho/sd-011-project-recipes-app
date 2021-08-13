@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   formInfo: '',
-  cards: [],
+  cards: { meals: [], drinks: [] },
   categories: { drinks: [], meals: [] },
   untouched: '',
   selectedCategory: '',
@@ -15,10 +15,10 @@ export const userSlice = createSlice({
     sendFormData: (state, action) => {
       state.formInfo = action.payload;
     },
-    fetchFoodCard: (state, action) => {
-      const { filtered, selectedCategory } = action.payload;
-      state.cards = filtered;
-      state.selectedCategory = selectedCategory;
+    fetchFoodCards: (state, action) => {
+      const { filtered, cat } = action.payload;
+      state.cards[cat] = filtered;
+      state.selectedCategory = cat;
     },
     fetchFoodCategories: (state, action) => {
       const { array } = action.payload;
@@ -32,14 +32,20 @@ export const userSlice = createSlice({
       state.cards = filtered;
       state.selectedCategory = filteredCategory;
     },
+    fetchDetails: (state, action) => {
+      const { selectedCategory, singleFood } = action.payload;
+      state.singleFood = singleFood;
+      state.selectedCategory = selectedCategory;
+    },
   },
 });
 
 export const {
   sendFormData,
-  fetchFoodCard,
+  fetchFoodCards,
   fetchFoodCategories,
   clearFormInfo,
-  fetchFilteredCategory } = userSlice.actions;
+  fetchFilteredCategory,
+  fetchDetails } = userSlice.actions;
 
 export default userSlice.reducer;

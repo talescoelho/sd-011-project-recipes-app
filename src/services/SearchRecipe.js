@@ -1,4 +1,4 @@
-import { fetchFoodCard } from '../Redux/reducers/recipes';
+import { fetchFoodCards } from '../Redux/reducers/recipes';
 
 const getFood = (food, db) => async (dispatch) => {
   const { type, query } = food;
@@ -27,14 +27,13 @@ const getFood = (food, db) => async (dispatch) => {
     const response = await fetch(URL);
     const data = await response.json();
     const filtered = data[db] && data[db].filter((item, index) => index < maxCards);
-    console.log(filtered);
     if (filtered === null && food) {
       return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
 
     try {
       const list = food ? data[db] : filtered;
-      dispatch(fetchFoodCard({ filtered: list, selectedCategory: db }));
+      dispatch(fetchFoodCards({ filtered: list, cat: db }));
     } catch (error) {
       throw new Error(error);
     }

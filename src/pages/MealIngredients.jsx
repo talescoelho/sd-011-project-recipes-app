@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { Card } from 'react-bootstrap';
 import Header from '../components/Header';
-import { fetchFoodCard } from '../Redux/reducers/recipes';
+import { fetchFoodCards } from '../Redux/reducers/recipes';
 import fetchIngredients from '../services/FoodIngredientAPI';
 import '../styles/Ingredients.css';
 import Footer from '../components/Footer';
@@ -28,7 +28,7 @@ export default function MealtIngredients() {
   const renderFilteredIngredients = async (ingredient) => {
     const foodByIngredient = await fetchIngredients(ingredient);
     const { meals } = foodByIngredient;
-    dispatch(fetchFoodCard({ filtered: meals, selectedCategory: 'meals' }));
+    dispatch(fetchFoodCards({ filtered: meals, selectedCategory: 'meals' }));
     dispatch({ type: 'CLEAR_FORM_INFO' });
     history.push('/comidas');
   };

@@ -14,13 +14,7 @@ export default function TravelButtons(props) {
       >
         <i className="fas fa-arrow-circle-left" />
       </button>
-      {/* <Button
-        type="button"
-        variant="outline-dark"
-        onClick={ () => history.goForward() }
-      >
-        <i className="fas fa-arrow-circle-right" />
-      </Button> */}
+
     </div>);
 
   return (

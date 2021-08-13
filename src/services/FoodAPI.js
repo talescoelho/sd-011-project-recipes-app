@@ -1,7 +1,7 @@
 import {
   fetchFoodCategories,
-  fetchFoodCard,
-  fetchFilteredCategory } from '../Redux/reducers/recipes';
+  fetchFilteredCategory,
+  fetchDetails } from '../Redux/reducers/recipes';
 
 export const fetchFood = ({ id, type }) => async (dispatch) => {
   const cat = {
@@ -14,8 +14,8 @@ export const fetchFood = ({ id, type }) => async (dispatch) => {
     const json = await response.json();
 
     try {
-      const s = [...Object.values(json)[0]];
-      return dispatch(fetchFoodCard({ filtered: s[0], selectedCategory: type }));
+      const s = [...Object.values(json)[0]][0];
+      return dispatch(fetchDetails({ singleFood: { ...s, type, id }, selectedCategory: type }));
     } catch (error) {
       throw new Error(error);
     }
