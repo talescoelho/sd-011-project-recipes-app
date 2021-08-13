@@ -50,8 +50,6 @@ export default function Drinks() {
   }
 
   async function handleFetchByCategory(param) {
-    // console.log(param);
-    // console.log(recipesDb);
     const cat = await fetchDrinkCategory(param);
     return setRecipesDb(cat);
   }

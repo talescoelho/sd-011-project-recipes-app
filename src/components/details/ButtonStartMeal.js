@@ -8,8 +8,12 @@ function ButtonStartMeal({ id, type }) {
   const history = useHistory();
 
   function handleStartRecipe() {
-    console.log('inProgress');
     setInProgress(true);
+    const local = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!local) {
+      const initial = { cocktails: {}, meals: {} };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(initial));
+    }
   }
 
   useEffect(() => {
