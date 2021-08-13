@@ -37,7 +37,7 @@
 }
 
 .showImgCarrossel {
-  display: flex;
+  visibility: visible;
 }
 
 .hideImgCarrossel {

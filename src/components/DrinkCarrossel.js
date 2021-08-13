@@ -32,7 +32,7 @@ function FoodCarrossel({ recomendation }) {
       <div className="container-carrossel">
         { recomendations ? recomendations
           .map((item, index) => (
-            <div key={ index } className="carrossel-item">
+            <div key={ index } className="carrossel-item" data-testid={ `${index}-recomendation-card` }>
               <button
                 className={ showRecomendations.some((item2) => item2 === item.strMeal)
                   ? 'showImgCarrossel' : 'hideImgCarrossel' }
@@ -45,7 +45,6 @@ function FoodCarrossel({ recomendation }) {
                       alt="logo"
                       src={ item.strMealThumb }
                       width="100px"
-                      data-testid={ `${index}-recomendation-card` }
                     />
                   </div>
                   <div>
