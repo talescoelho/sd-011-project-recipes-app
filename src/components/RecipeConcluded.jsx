@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import shareImage from '../images/shareIcon.svg';
-
 import '../styles/RecipeConcluded.css';
 import LinkCopy from './LinkCopy';
 
@@ -12,7 +10,6 @@ function RecipeConcluded({ recipe, index }) {
 
   useEffect(() => {
     setRecipes(recipe);
-    console.log(recipes);
   }, [recipe]);
 
   const history = useHistory();
@@ -84,7 +81,9 @@ function RecipeConcluded({ recipe, index }) {
           className="shareBTN"
           type="button"
           data-testid={ `${index}-horizontal-share-btn` }
-          onClick={ () => { handleShareBtn(recipes.area, recipes.id); handleLinkMessage(); } }
+          onClick={ () => {
+            handleShareBtn(recipes.area, recipes.id); handleLinkMessage();
+          } }
         >
           <img src={ shareImage } alt="Compartilhar" />
         </button>
