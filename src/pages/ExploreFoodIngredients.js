@@ -18,7 +18,13 @@ function ExploreFoodIngredients() {
 
   function renderCard(object, number) {
     return (
-      <Link to="/comidas/" key={ number }>
+      <Link
+        to={ {
+          pathname: '/comidas/',
+          state: { ingredient: object.strIngredient },
+        } }
+        key={ number }
+      >
         <div data-testid={ `${number}-ingredient-card` }>
           <p data-testid={ `${number}-card-name` }>{ object.strIngredient }</p>
           <img

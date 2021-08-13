@@ -8,9 +8,9 @@ import {
 } from '../services/RequestFood';
 
 import {
-  searchFirstLetter,
-  searchIngredient,
-  searchName,
+  searchDrinkByFirstLetter,
+  searchDrinkByIngredient,
+  searchDrinkByName,
 } from '../services/RequestDrinks';
 
 const RequestContext = createContext();
@@ -48,7 +48,7 @@ export function RequestProvider({ children }) {
 
   async function filterByNameDrink(filterText) {
     if (!filterText) return;
-    const items = await searchName(filterText);
+    const items = await searchDrinkByName(filterText);
     if (items !== null && items.length >= 1) {
       setFilteredDrink(items);
     }
@@ -56,13 +56,13 @@ export function RequestProvider({ children }) {
 
   async function filterByIngredientDrink(filterText) {
     if (!filterText) return;
-    const items = await searchIngredient(filterText);
+    const items = await searchDrinkByIngredient(filterText);
     setFilteredDrink(items);
   }
 
   async function filterByFirstLetterDrink(filterText) {
     if (!filterText) return;
-    const items = await searchFirstLetter(filterText);
+    const items = await searchDrinkByFirstLetter(filterText);
     setFilteredDrink(items);
   }
 

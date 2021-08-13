@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import HeaderDrink from '../components/HeaderDrink';
 import { getIngredients } from '../services/RequestDrinks';
+import { RequestHook } from '../Context/RequestHook';
 
 function ExploreDrinkIngredients() {
   const [ingredientsArray, setIngredientsArray] = useState([]);
   const MAX_RESULT = 12;
+
+  const {filterByIngredientDrink} = RequestHook();
 
   useEffect(() => {
     async function loadIngredients() {
@@ -18,7 +21,7 @@ function ExploreDrinkIngredients() {
 
   function renderCard(object, number) {
     return (
-      <Link to="/bebidas/" key={ number }>
+      <Link to="/bebidas" key={ number }>
         <div data-testid={ `${number}-ingredient-card` }>
           <p data-testid={ `${number}-card-name` }>{ object.strIngredient1 }</p>
           <img

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
 import { RequestHook } from '../Context/RequestHook';
-
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
@@ -19,10 +17,6 @@ function HeaderDrink({ title, search }) {
     filterByIngredientDrink,
     filterByFirstLetterDrink,
   } = RequestHook();
-
-  // useEffect(() => {
-  //   setShowFilter(true);
-  // }, []);
 
   const nameSearch = 'name-search';
   const firstLetter = 'first-letter';
