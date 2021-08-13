@@ -1,7 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { fetchHeaderSearch } from '../../actions';
 
 class IngredientCard extends Component {
+  constructor() {
+    super();
+
+    this.handleIngredientClick = this.handleIngredientClick.bind(this);
+  }
+
+  handleIngredientClick() {
+    const { history, typeRecipe, ingredientName, dispatchIngredient } = this.props;
+
+    history.push(`/${typeRecipe}`);
+    dispatchIngredient(typeRecipe, 'ingrediente', ingredientName);
+  }
+
   render() {
     const { index, ingredientName, typeRecipe } = this.props;
 
@@ -13,6 +29,7 @@ class IngredientCard extends Component {
       <section>
         <button
           type="button"
+          onClick={ this.handleIngredientClick }
           data-testid={ `${index}-ingredient-card` }
         >
           <img
@@ -28,10 +45,19 @@ class IngredientCard extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  dispatchIngredient:
+  (type, filter, keyWord) => dispatch(fetchHeaderSearch(type, filter, keyWord)),
+});
+
 IngredientCard.propTypes = {
   index: PropTypes.number,
   ingredientName: PropTypes.string,
   typeRecipe: PropTypes.string,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+  dispatchIngredient: PropTypes.func,
 }.isRequired;
 
-export default IngredientCard;
+export default connect(null, mapDispatchToProps)(withRouter(IngredientCard));
