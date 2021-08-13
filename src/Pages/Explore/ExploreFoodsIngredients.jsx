@@ -5,6 +5,7 @@ import IngredientsCard from '../Components/IngredientsCard';
 
 function ExploreFoodsIngredients() {
   const [IngredientId, setIngredientId] = React.useState();
+  const [load, setLoad] = React.useState(true);
 
   React.useEffect(() => {
     async function IngredientsFoodApi() {
@@ -15,7 +16,7 @@ function ExploreFoodsIngredients() {
       const filterId = awaitIngredientToJSON.meals
         .filter((_, index) => index < quantityItems);
       setIngredientId(filterId);
-      console.log(filterId);
+      setLoad(false);
     }
     IngredientsFoodApi();
   }, []);
@@ -31,7 +32,7 @@ function ExploreFoodsIngredients() {
         />
       </div>
       <FooterBar />
-      {IngredientId ? IngredientId
+      {!load ? IngredientId
         .map((ingredient, index) => (
           <IngredientsCard
             ingredient={ ingredient }

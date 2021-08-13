@@ -5,7 +5,7 @@ import Context from '../../Context_Configs/Context';
 export default function FoodCategory() {
   const numberFour = 4;
 
-  const { setRenderCategory, setFoodsForCategory, renderCategory } = React.useContext(Context);
+  const { setRenderCategory, setFoodsForCategory } = React.useContext(Context);
   const [foodCategories, setFoodCategories] = React.useState();
   const [selectedCategory, setSelectedCategory] = React.useState('');
 
