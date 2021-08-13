@@ -20,7 +20,8 @@ import exploreByOrigin from './pages/ExploreByOrigin';
 import userProfile from './pages/UserProfile';
 import finishRecipe from './pages/FinishRecipe';
 import favoriteRecipe from './pages/FavoriteRecipe';
-import Details from './pages/Details';
+import DetailsFood from './pages/DetailsFood';
+import DetailsDrink from './pages/DetailsDrink';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -39,12 +40,12 @@ function App() {
             <Route
               exact
               path="/comidas/:id"
-              render={ (props) => (<Details { ...props } />) }
+              render={ (props) => (<DetailsFood { ...props } />) }
             />
             <Route
               exact
               path="/bebidas/:id"
-              render={ (props) => (<Details { ...props } />) }
+              render={ (props) => (<DetailsDrink { ...props } />) }
             />
             <Route exact path="/comidas/{id-da-receita}/in-progress" />
             <Route exact path="/bebidas/{id-da-receita}/in-progress" />
