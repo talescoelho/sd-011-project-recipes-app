@@ -26,6 +26,7 @@ function RecipeProgressDrink(props) {
     } else {
       setchangeInputDrinkChecked('');
     }
+    localStorage.setItem('inProgressRecipes', JSON.stringify({ checked }));
   }
 
   function renderIngrediente(drink) {

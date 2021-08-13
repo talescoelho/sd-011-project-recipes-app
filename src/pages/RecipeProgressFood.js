@@ -8,7 +8,7 @@ function RecipeProgressFood(props) {
   const { match: { params: { id } } } = props;
   const [initialItemApi, setInitialItemApi] = useState([]);
   const [changeInputFood, setChangeInputFood] = useState(false);
-  const [changeInputFoodChecked, setchangeInputFoodChecked] = useState('noChecked');
+  const [changeInputFoodChecked, setchangeInputFoodChecked] = useState('');
 
   async function getDetailsById() {
     const itemsFood = await searchById(id);
@@ -24,7 +24,7 @@ function RecipeProgressFood(props) {
     if (changeInputFood === false) {
       setchangeInputFoodChecked('checked');
     } else {
-      setchangeInputFoodChecked('noChecked');
+      setchangeInputFoodChecked('');
     }
   }
 
