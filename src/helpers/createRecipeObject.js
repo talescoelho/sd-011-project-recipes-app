@@ -15,6 +15,10 @@ function createRecipeObject(foods, drinks) {
       area: 'strArea',
       alcoholic: '',
       storage: 'meals',
+      fetchId: 'foods',
+      title: 'Comidas',
+      categoriesId: 'allFoodsCategories',
+      filterByCategory: 'filterByFoodCategorie',
     };
   } else {
     recipeObject = {
@@ -28,6 +32,10 @@ function createRecipeObject(foods, drinks) {
       area: '',
       alcoholic: 'strAlcoholic',
       storage: 'cocktails',
+      fetchId: 'drinks',
+      title: 'Bebidas',
+      categoriesId: 'allDrinksCategories',
+      filterByCategory: 'filterByDrinkCategorie',
     };
   }
   return recipeObject;
