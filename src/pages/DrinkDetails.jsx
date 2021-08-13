@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import copy from 'clipboard-copy';
 import { useParams, useHistory } from 'react-router';
 import loading from '../images/loading.gif';
 
-import { Layout, ActionButton, RecipeRecommendationList } from '../components';
-
 import {
-  getStoredFavorites,
-  getDoneRecipes,
-  getStoredInProgressRecipes } from '../utils/storage';
+  Layout,
+  RecipeRecommendationList,
+  ShareButton,
+  FavoriteButton } from '../components';
 
-const TOAST_TIMEOUT = 3000;
+import { useLocalStorage } from '../hooks';
+
+const NOT_FOUND_INDEX = -1;
 
 const renderLoadingOrError = (error, isLoading) => {
   if (isLoading) {
@@ -37,10 +37,9 @@ function FoodDetails() {
   const [recipes, setRecipes] = useState([]);
   const [isDone, setIsDone] = useState(false);
   const [isInProgress, setIsInProgress] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [toastIsVisible, setToastIsVisible] = useState(false);
   const { id } = useParams();
   const history = useHistory();
+  const { getInProgressRecipeByType, getDoneRecipes } = useLocalStorage();
 
   const BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php'; // TODO usar token
   const RECIPES_URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -58,18 +57,9 @@ function FoodDetails() {
       .catch(setRecipesError)
       .finally(() => setRecipesLoading(false));
 
-    getDoneRecipes(id, setIsDone);
-    getStoredInProgressRecipes(id, setIsInProgress, 'cocktails');
-    getStoredFavorites(id, setIsFavorite);
-  }, [id]);
-
-  function showToast() {
-    setToastIsVisible(true);
-
-    setTimeout(() => {
-      setToastIsVisible(false);
-    }, TOAST_TIMEOUT);
-  }
+    setIsDone(getDoneRecipes().findIndex((r) => r.id === id) !== NOT_FOUND_INDEX);
+    setIsInProgress(getInProgressRecipeByType('cocktails')[id] !== undefined);
+  }, [id, getDoneRecipes, getInProgressRecipeByType]);
 
   const renderNoDrinkMessage = () => renderLoadingOrError(error, isLoading);
 
@@ -94,48 +84,8 @@ function FoodDetails() {
                   <h2 data-testid="recipe-category">{ cocktail.strAlcoholic }</h2>
                 </div>
                 <div>
-                  <ActionButton
-                    action="share"
-                    onClick={ () => {
-                      copy(`http://localhost:3000/bebidas/${id}`); // TODO usar history location
-                      showToast();
-                    } }
-                  />
-                  <ActionButton
-                    action="favorite"
-                    reverse={ isFavorite }
-                    onClick={ () => {
-                      const storedFavoriteRecipes = localStorage
-                        .getItem('favoriteRecipes');
-                      const parsedFavoriteRecipes = storedFavoriteRecipes
-                        ? JSON.parse(storedFavoriteRecipes)
-                        : [];
-
-                      let favoriteRecipesToStore;
-
-                      if (isFavorite) {
-                        favoriteRecipesToStore = parsedFavoriteRecipes
-                          .filter((recipe) => recipe.id !== id);
-                      } else {
-                        favoriteRecipesToStore = [...parsedFavoriteRecipes, {
-                          id,
-                          type: 'bebida',
-                          area: '',
-                          category: cocktail.strCategory,
-                          alcoholicOrNot: cocktail.strAlcoholic,
-                          name: cocktail.strDrink,
-                          image: cocktail.strDrinkThumb,
-                        }];
-                      }
-
-                      localStorage.setItem(
-                        'favoriteRecipes',
-                        JSON.stringify(favoriteRecipesToStore),
-                      );
-
-                      setIsFavorite((previously) => !previously);
-                    } }
-                  />
+                  <ShareButton id={ id } type="bebida" />
+                  <FavoriteButton recipe={ cocktail } />
                 </div>
               </section>
               <section>
@@ -144,7 +94,7 @@ function FoodDetails() {
                 <ol>
                   { Object.keys(cocktail)
                     .filter((key) => /strIngredient/i.test(key))
-                    .filter((key) => cocktail[key] !== '')
+                    .filter((key) => cocktail[key] !== '' && cocktail[key] !== null)
                     .map((key) => {
                       const index = parseInt(key.replace('strIngredient', ''), 10);
                       return (
@@ -187,11 +137,6 @@ function FoodDetails() {
               </section>
             </>
           ) }
-        { toastIsVisible && (
-          <div style={ { position: 'fixed', right: '25px', bottom: '25px' } }>
-            <p>Link copiado!</p>
-          </div>
-        ) }
       </main>
     </Layout>
   );

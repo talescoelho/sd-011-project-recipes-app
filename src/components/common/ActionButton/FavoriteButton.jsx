@@ -5,9 +5,9 @@ import { useLocalStorage } from '../../../hooks';
 
 const NOT_FOUND_INDEX = -1;
 function FavoriteButton({ recipe, callback, index }) {
-  const { idMeal, idDrink } = recipe;
+  const { idMeal, idDrink, id: storedId } = recipe;
   const [isFavorite, setIsFavorite] = useState(false);
-  const id = idMeal || idDrink;
+  const id = storedId || idMeal || idDrink;
 
   const {
     addFavoriteRecipe,
@@ -17,6 +17,7 @@ function FavoriteButton({ recipe, callback, index }) {
 
   useEffect(() => {
     const indexOf = getFavoriteRecipes().findIndex((recipes) => recipes.id === id);
+    console.log(indexOf);
     setIsFavorite(indexOf !== NOT_FOUND_INDEX);
   }, [id, getFavoriteRecipes]);
   return (
@@ -25,6 +26,14 @@ function FavoriteButton({ recipe, callback, index }) {
       reverse={ isFavorite }
       action="favorite"
       onClick={ () => {
+        if (isFavorite) {
+          removeFavoriteRecipe(id);
+          setIsFavorite((prevIsFavorite) => !prevIsFavorite);
+          callback();
+          return;
+        }
+        let newFavoriteRecipe;
+
         if (idMeal) {
           newFavoriteRecipe = {
             id: recipe.idMeal,
@@ -46,6 +55,7 @@ function FavoriteButton({ recipe, callback, index }) {
             image: recipe.strDrinkThumb,
           };
         }
+        console.log(newFavoriteRecipe);
         addFavoriteRecipe(newFavoriteRecipe);
         setIsFavorite((prevIsFavorite) => !prevIsFavorite);
         callback();
@@ -56,6 +66,7 @@ function FavoriteButton({ recipe, callback, index }) {
 
 FavoriteButton.defaultProps = {
   callback: () => {},
+  index: null,
 };
 
 FavoriteButton.propTypes = {
@@ -73,6 +84,7 @@ FavoriteButton.propTypes = {
     strAlcoholic: PropTypes.string,
   })]).isRequired,
   callback: PropTypes.func,
+  index: PropTypes.number,
 };
 
 export default FavoriteButton;
