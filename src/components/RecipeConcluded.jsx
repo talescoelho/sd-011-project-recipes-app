@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import '../styles/RecipeConcluded.css';
 import ButtonShare from './ButtonShare';
 
 function RecipeConcluded({ recipe, index }) {
@@ -16,7 +17,7 @@ function RecipeConcluded({ recipe, index }) {
 
   const HandleRedirect = (id, type) => {
     if (type === 'meals') history.push(`comidas/${id}`);
-    if (type === 'cocktails') history.push(`bebidas/${type}`);
+    if (type === 'cocktails') history.push(`bebidas/${id}`);
   };
 
   return (

@@ -27,10 +27,12 @@ function ButtonShare({ recipe, index = 'default' }) {
   return (
     <div>
       <button
+        style={ { width: '50px', height: '50px' } }
         type="button"
-        onClick={ () => { handleShareBtn(recipeType, recipeId); handleLinkMessage(); } }
       >
         <img
+          aria-hidden="true"
+          onClick={ () => { handleShareBtn(recipeType, recipeId); handleLinkMessage(); } }
           style={ { width: '50px', height: '50px' } }
           data-testid={ testId }
           src={ ShareIcon }

@@ -11,7 +11,6 @@ import ButtonFavoriteRecipe from './ButtonFavoriteRecipe';
 import Recommendations from './Recommendations';
 
 function DetailsRecipe(props) {
-  // comentario
   const { recipeData } = props;
   const {
     ingredients,
