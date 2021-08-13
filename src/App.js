@@ -6,8 +6,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { UserProvider } from './Context/UserHook';
 import { RequestProvider } from './Context/RequestHook';
 
-// import { searchRandomMeal } from './services/RequestFood';
-
 import Login from './pages/Login';
 import foodPage from './pages/FoodPage';
 import drinkPage from './pages/DrinkPage';
@@ -27,10 +25,6 @@ import RecipeProgressFood from './pages/RecipeProgressFood';
 import RecipeProgressDrink from './pages/RecipeProgressDrink';
 
 function App() {
-  // useEffect(() => {
-  //   searchRandomMeal();
-  // }, []);
-
   return (
     <UserProvider>
       <RequestProvider>
@@ -76,7 +70,7 @@ function App() {
             <Route exact path="/perfil" component={ userProfile } />
             <Route exact path="/receitas-feitas" component={ finishRecipe } />
             <Route exact path="/receitas-favoritas" component={ favoriteRecipe } />
-            <Route component={ NotFound } />
+            <Route path="*" component={ NotFound } />
           </Switch>
         </BrowserRouter>
       </RequestProvider>

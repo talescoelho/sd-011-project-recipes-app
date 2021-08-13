@@ -8,6 +8,7 @@ function RecipeProgressDrink(props) {
   const { match: { params: { id } } } = props;
   const [initialItemApi, setInitialItemApi] = useState([]);
   const [changeInput, setChangeInput] = useState(false);
+  const [changeInputDrinkChecked, setchangeInputDrinkChecked] = useState('');
 
   async function getDetailsById() {
     const itemsDrink = await searchId(id);
@@ -17,6 +18,15 @@ function RecipeProgressDrink(props) {
   useEffect(() => {
     getDetailsById();
   }, []);
+
+  function isChecked() {
+    setChangeInput(() => !changeInput);
+    if (changeInput === false) {
+      setchangeInputDrinkChecked('checked');
+    } else {
+      setchangeInputDrinkChecked('');
+    }
+  }
 
   function renderIngrediente(drink) {
     const array = [];
@@ -29,11 +39,11 @@ function RecipeProgressDrink(props) {
             <label
               htmlFor={ numero }
               data-testid={ `${numero}-ingredient-step` }
-              className={ changeInput ? 'checked' : '' }
+              onChange={ () => isChecked() }
+              className={ changeInputDrinkChecked }
             >
               <input
                 type="checkbox"
-                onChange={ () => setChangeInput(true) }
               />
               { `${drink[`strIngredient${numero}`]} ` }
               { (drink[`strMeasure${numero}`] !== null
@@ -49,37 +59,34 @@ function RecipeProgressDrink(props) {
   }
 
   return (
-    (!initialItemApi)
-      ? (<p>Loading...</p>)
-      : initialItemApi.map((drink, index) => (
-        <div key={ index }>
-          <img
-            data-testid="recipe-photo"
-            src={ drink.strDrinkThumb }
-            alt={ drink.strDrink }
-            width="50px"
-          />
-          <h2 data-testid="recipe-title">{ drink.strDrink }</h2>
-          <h4 data-testid="recipe-category">
-            { drink.strAlcoholic }
-          </h4>
-          <div>
-            <h3>Ingredientes</h3>
-            { renderIngrediente(drink) }
-          </div>
-          <h3>Instruções</h3>
-          <p data-testid="instructions">{ drink.strInstructions }</p>
-          <button type="button" data-testid="share-btn">Share</button>
-          <button type="button" data-testid="favorite-btn">Favorite</button>
-          <button
-            type="button"
-            data-testid="finish-recipe-btn"
-          >
-            Finalizar Receita
-          </button>
+    initialItemApi && initialItemApi.map((drink, index) => (
+      <div key={ index }>
+        <img
+          data-testid="recipe-photo"
+          src={ drink.strDrinkThumb }
+          alt={ drink.strDrink }
+          width="50px"
+        />
+        <h2 data-testid="recipe-title">{ drink.strDrink }</h2>
+        <h4 data-testid="recipe-category">
+          { drink.strAlcoholic }
+        </h4>
+        <div>
+          <h3>Ingredientes</h3>
+          { renderIngrediente(drink) }
         </div>
-      ))
-  );
+        <h3>Instruções</h3>
+        <p data-testid="instructions">{ drink.strInstructions }</p>
+        <button type="button" data-testid="share-btn">Share</button>
+        <button type="button" data-testid="favorite-btn">Favorite</button>
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+        >
+          Finalizar Receita
+        </button>
+      </div>
+    )));
 }
 
 RecipeProgressDrink.propTypes = {
