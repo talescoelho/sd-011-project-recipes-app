@@ -39,7 +39,7 @@ class RecipeDetailMain extends Component {
       });
 
     return (
-      <main data-testid="recipes-page">
+      <main data-testid="recipes-page" className="detailMain">
         <h1>Conteúdo da tela de DETALHES de COMIDAS</h1>
         <br />
         <img data-testid="recipe-photo" alt="meal recipe" src={ strThumb } />
@@ -61,12 +61,12 @@ class RecipeDetailMain extends Component {
         <h3> Ingredientes</h3>
         <ul name="ingredients-list">
           <br />
-          {ingredientes.map((mealIngred, index) => (
+          {ingredientes.map((ingred, index) => (
             <li
               data-testid={ `${index}-ingredient-name-and-measure` }
               key={ index }
             >
-              { mealIngred }
+              { ingred }
             </li>))}
         </ul>
         <br />
@@ -93,20 +93,8 @@ class RecipeDetailMain extends Component {
             <br />
           </div>
         )}
-        <div>
-          <h3> Recomendadas </h3>
-          <br />
-          <div data-testid="0-recomendation-card">
-            Aqui vai um card
-          </div>
-          <div data-testid="1-recomendation-card">
-            Aqui vai outro card
-          </div>
-          E po aí vão as divs
-        </div>
         <br />
         <br />
-        <button data-testid="start-recipe-btn" type="button"> Iniciar receita</button>
       </main>
     );
   }
