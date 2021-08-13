@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
@@ -8,38 +8,46 @@ import MyContext from '../Context/MyContext';
 import CategoryButtons from '../Components/CategoryButtons';
 
 export default function RecipesFood() {
-  const { cards } = useContext(MyContext);
+  const { food, setFood } = useContext(MyContext);
+  const showMaxRecipes = 12;
 
-  const renderCardRecipes = () => {
-    const showMaxRecipes = 12;
-    if (cards) {
-      const filteredRecipe = cards.filter(
-        (meals, index) => index < showMaxRecipes,
-      );
-      return filteredRecipe;
-    }
+  const getFood = async () => {
+    const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    const response = await fetch(URL);
+    const json = await response.json();
+    setFood(json.meals);
   };
+
+  useEffect(() => {
+    if (food.length === 0) {
+      getFood();
+    }
+  }, []);
 
   return (
     <div>
       <Header className="title" title="Comidas" searchIconAppears />
       <CategoryButtons />
       <div className="cardlist">
-        {cards.length > 0 && renderCardRecipes().map((recp, index) => (
-          <Link
-            className="link"
-            key={ index }
-            to={ {
-              pathname: `/comidas/${recp.idMeal}`,
-            } }
-          >
-            <CardRecipes
-              key={ index }
-              index={ index }
-              thumb={ recp.strMealThumb }
-              title={ recp.strMeal }
-            />
-          </Link>))}
+        {food.length > 0 && food.map((recp, index) => (
+          index < showMaxRecipes
+          && (
+            <Link
+              className="link"
+              key={ recp.idMeal }
+              to={ {
+                pathname: `/comidas/${recp.idMeal}`,
+              } }
+            >
+              <CardRecipes
+                key={ index }
+                index={ index }
+                thumb={ recp.strMealThumb }
+                title={ recp.strMeal }
+              />
+            </Link>
+          )
+        ))}
       </div>
       <Footer />
     </div>

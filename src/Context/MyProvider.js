@@ -4,10 +4,12 @@ import MyContext from './MyContext';
 
 export default function MyProvider({ children }) {
   const [recipe, setRecipe] = useState({ meals: [], drinks: [] });
+  const [food, setFood] = useState([]);
+  const [drink, setDrink] = useState([]);
+  const [search, setSearch] = useState([]);
   const [recFood, setRecFood] = useState([]);
   const [recDrink, setRecDrink] = useState([]);
   const [cards, setCards] = useState([]);
-
   const [favoriteRecipes, setFavRecipes] = useState(() => {
     const favRecipe = localStorage.getItem('favoriteRecipes');
     return favRecipe ? JSON.parse(favRecipe) : [];
@@ -30,6 +32,12 @@ export default function MyProvider({ children }) {
     setRecomendations,
     setIsFavorite,
     isFavorite,
+    food,
+    setFood,
+    drink,
+    setDrink,
+    search,
+    setSearch,
   };
 
   return (
