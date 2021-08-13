@@ -21,7 +21,7 @@ export default function ExploreFoodIngredient({ history }) {
 
   function getRecipeByIngredient(meal) {
     const num12 = 12;
-    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${meal.strIngredient}`)
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${meal.strIngredient}`)
       .then((response) => response.json())
       .then((data) => data.meals.slice(0, num12))
       .then((dataT) => setMeals(dataT))

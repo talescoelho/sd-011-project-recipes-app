@@ -18,7 +18,7 @@ export default function CategoriesMeals() {
 
   const callAPImeals3 = async () => {
     const callAPI = await APImeals();
-    const result = callAPI.meals;
+    const result = callAPI;
     setMeals(result);
   };
 
@@ -26,7 +26,7 @@ export default function CategoriesMeals() {
     <div className="btn-categories">
       <button
         type="button"
-        data-testid="all-category-filter"
+        data-testid="All-category-filter"
         onClick={ () => callAPImeals3() }
       >
         All

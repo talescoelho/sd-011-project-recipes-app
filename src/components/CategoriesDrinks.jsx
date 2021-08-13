@@ -18,7 +18,7 @@ export default function CategoriesDrinks() {
 
   const callAPIdrinks = async () => {
     const callAPI = await APIdrinks();
-    const result = callAPI.drinks;
+    const result = callAPI;
     setDrinks(result);
   };
 
@@ -26,7 +26,7 @@ export default function CategoriesDrinks() {
     <div className="btn-categories">
       <button
         type="button"
-        data-testid="all-category-filter"
+        data-testid="All-category-filter"
         onClick={ () => callAPIdrinks() }
       >
         All
