@@ -7,7 +7,7 @@ import RecipeDetailMain from '../components/RecipeDetailMain';
 import RecipesRecommended from '../components/RecipesRecommended';
 import '../index.css';
 
-function RecipeDetail({ history: { location: { pathname } },
+function RecipeDetail({ history: { push, location: { pathname } },
   dispatchFetchDetail, dispatchFetchRecommended, recipeDetail, recipesRecommended }) {
   const { id } = useParams();
   const type = pathname.includes('comidas') ? 'comidas' : 'bebidas';
@@ -20,13 +20,23 @@ function RecipeDetail({ history: { location: { pathname } },
     dispatchFetchDetail(type, id);
   }, [dispatchFetchDetail, type, id]);
 
+  function redrectToRecipeInProgress() {
+    push(`${pathname}/in-progress`);
+  }
+
   return (
     <div className="recipe-detail">
       <RecipeDetailMain
         recipeDetail={ recipeDetail }
       />
       <RecipesRecommended recipesRecommended={ recipesRecommended } />
-      <button data-testid="start-recipe-btn" type="button"> Iniciar receita</button>
+      <button
+        data-testid="start-recipe-btn"
+        type="button"
+        onClick={ redrectToRecipeInProgress }
+      >
+        Iniciar receita
+      </button>
     </div>
   );
 }
@@ -48,6 +58,7 @@ RecipeDetail.propTypes = {
     location: PropTypes.shape({
       pathname: PropTypes.string,
     }),
+    push: PropTypes.func,
   }),
   recipeDetail: PropTypes.object,
   dispatchFetchDetail: PropTypes.func,
