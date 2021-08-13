@@ -6,7 +6,8 @@ import Footer from '../components/Footer';
 function Perfil() {
   const [userEmail, setUserEmail] = useState('');
   useEffect(() => {
-    const email = JSON.parse(localStorage.getItem('user')) || { email: 'Se você chegou aqui até aqui, parabéns' };
+    const email = JSON.parse(localStorage.getItem('user'))
+      || { email: 'Se você chegou aqui até aqui, parabéns' };
     setUserEmail(email);
   }, []);
 
