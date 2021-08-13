@@ -38,6 +38,10 @@ export const getDrinksCategory = () => fetch('https://www.thecocktaildb.com/api/
       .then((json) => (categories.ok ? Promise.resolve(json) : Promise.reject(json)))
   ));
 
+export const listDrinkIngredients = () => fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list')
+  .then((response) => response.json())
+  .catch((error) => console.error(error));
+
 export function getDrinksByCategory(value) {
   return fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${value}`)
     .then((category) => (

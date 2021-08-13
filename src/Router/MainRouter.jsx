@@ -39,12 +39,12 @@ const MainRouter = () => (
     <Route
       exact
       path="/explorar/comidas/ingredientes"
-      component={ RecipesFoods }
+      render={ (props) => <RecipesFoods { ...props } /> }
     />
     <Route
       exact
       path="/explorar/bebidas/ingredientes"
-      component={ RecipesDrinks }
+      render={ (props) => <RecipesDrinks { ...props } /> }
     />
     <Route exact path="/explorar/comidas/area" component={ Origen } />
     <Route exact path="/perfil" component={ User } />

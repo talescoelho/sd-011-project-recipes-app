@@ -38,6 +38,10 @@ export const getFoodsCategory = () => fetch('https://www.themealdb.com/api/json/
       .then((json) => (categories.ok ? Promise.resolve(json) : Promise.reject(json)))
   ));
 
+export const listFoodIngredients = () => fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
+  .then((response) => response.json())
+  .catch((error) => console.error(error));
+
 export function getFoodsByCategory(value) {
   return fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${value}`)
     .then((category) => (
