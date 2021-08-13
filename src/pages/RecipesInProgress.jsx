@@ -116,7 +116,7 @@ function RecipesInProgress() {
   //   if (localStorage.inProgressRecipes[recipe][id]
   //     && localStorage.inProgressRecipes[recipe][id].length
   //     === arrayIngredients.length) {
-  //     console.log('oi');
+  //     console.log('oiii');
   //     return true;
   //   }
   //   console.log('ola');
