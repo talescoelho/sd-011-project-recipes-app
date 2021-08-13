@@ -1,14 +1,41 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { InProgressContext } from '../../context/InProgress';
+import { InProgressContext } from '../../context/InProgressDrinks';
 
-export default function ButtonFinish() {
+export default function ButtonFinish(props) {
+  const { recipe } = props;
   const { enableFinishBtn } = useContext(InProgressContext);
   const history = useHistory();
 
-  const handleClick = () => {
-    console.log('aeww');
-    return history.push('/receitas-feitas');
+  const handleClick = (callback) => {
+    const {
+      idDrink,
+      idMeal,
+      strArea,
+      strCategory,
+      strAlcoholic,
+      strDrinkThumb,
+      strMealThumb,
+      strDrink,
+      strMeal,
+      strTags,
+    } = recipe;
+
+    const doneRecipe = {
+      id: idDrink || idMeal,
+      type: idDrink ? 'bebida' : 'comida',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      image: strDrinkThumb || strMealThumb,
+      doneDate: callback(),
+      name: strDrink || strMeal,
+      tags: strTags && strTags.split(','),
+    };
+    console.log(doneRecipe);
+
+    // localStorage.setItem('doneRecipes', JSON.stringify(doneRecipe))
+    // return history.push('/receitas-feitas');
   };
 
   return (

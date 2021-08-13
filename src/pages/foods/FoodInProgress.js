@@ -4,7 +4,7 @@ import ButtonShare from '../../components/ButtonShare';
 import IngredientsList from '../../components/RecipeInProgress/IngredientsList';
 import Instructions from '../../components/RecipeInProgress/Instructions';
 import ButtonFinish from '../../components/RecipeInProgress/ButtonFinish';
-import { InProgressProvider } from '../../context/InProgress';
+import { InProgressProvider } from '../../context/InProgressDrinks';
 import CardDetail from '../../components/RecipeInProgress/CardDetail';
 import ButtonFavorite from '../../components/ButtonFavorite';
 
@@ -49,7 +49,7 @@ export default function FoodInProgress({ location }) {
           <ButtonFavorite objData={ recipe } />
           <IngredientsList recipe={ recipe } />
           <Instructions Instructions={ recipe.strInstructions } />
-          <ButtonFinish />
+          <ButtonFinish recipe={ recipe } />
         </section>
       </InProgressProvider>
     );
