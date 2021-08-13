@@ -9,7 +9,6 @@ function ExploreMealsByIgrediente() {
 
   const renderCards = () => (<CardsExplore
     ingredientesList={ ingredientesListMeal }
-    drink={ false }
   />);
 
   const getDataButton = () => {
