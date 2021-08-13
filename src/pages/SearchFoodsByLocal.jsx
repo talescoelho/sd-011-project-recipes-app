@@ -14,7 +14,6 @@ const SearchFoodsByLocal = ({ dispatch, areas, menu }) => {
   const [currentOption, setCurrentOption] = useState('All-option');
 
   useEffect(() => {
-    console.log(currentOption);
     if (currentOption === 'All-option') {
       dispatch(requestMealsMenu());
     } else {
