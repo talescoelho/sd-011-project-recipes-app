@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { fetchRecipeDetail, fetchRecommended } from '../actions/recipeDetail_actions';
 import RecipeDetailMain from '../components/RecipeDetailMain';
 import RecipesRecommended from '../components/RecipesRecommended';
+import '../index.css';
 
 function RecipeDetail({ history: { location: { pathname } },
   dispatchFetchDetail, dispatchFetchRecommended, recipeDetail, recipesRecommended }) {
@@ -20,7 +21,7 @@ function RecipeDetail({ history: { location: { pathname } },
   }, [dispatchFetchDetail, type, id]);
 
   return (
-    <div>
+    <div className="recipe-detail">
       <RecipeDetailMain
         recipeDetail={ recipeDetail }
       />
