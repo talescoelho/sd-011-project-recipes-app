@@ -15,7 +15,6 @@ function Comidas() {
   const { pathname } = useLocation();
   const type = pathname === '/bebidas' ? 'drinks' : 'meals';
   const title = type === 'drinks' ? 'Bebidas' : 'Comidas';
-
   const { isLoading, dataRecipes, setRecipeType } = useContext(RecipesContext);
   const { route } = useState(pathname);
   const [filteredRecipes, setFilteredRecipes] = useState([]);

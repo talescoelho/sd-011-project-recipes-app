@@ -16,6 +16,7 @@ import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
 import ExplorarPorOrigem from './pages/ExplorarPorOrigem';
 import NotFound from './pages/NotFound';
+import Page from './pages/Page';
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
         <RecipesProvider>
           <Switch>
             <Route exact path="/" component={ Login } />
-            <Route exact path="/comidas" component={ Comidas } />
+            <Page />
+            {/* <Route exact path="/comidas" component={ Comidas } />
             <Route exact path="/bebidas" component={ Comidas } />
             <Route exact path="/explorar" component={ Explorar } />
             <Route exact path="/perfil" component={ Perfil } />
@@ -54,7 +56,7 @@ function App() {
               exact
               path="/explorar/comidas/area"
               component={ ExplorarPorOrigem }
-            />
+            /> */}
             <Route exact path="/comidas/:id" component={ Detalhes } />
             <Route exact path="/comidas/:id/in-progress" />
             <Route exact path="/bebidas/:id" component={ Detalhes } />
