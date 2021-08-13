@@ -41,7 +41,8 @@ class RecipesRecommended extends React.Component {
         <div
           data-testid={ `${index}-recomendation-card` }
           className="card"
-          // ref={ this.slides }
+          // className={ (!(index === slideIndex || index === slideIndex + 1)
+          //   && !(slideIndex === INDEX && index === 0)) ? 'displayNone card' : 'card' }
           key={ index }
           hidden={ !(index === slideIndex || index === slideIndex + 1)
             && !(slideIndex === INDEX && index === 0) }

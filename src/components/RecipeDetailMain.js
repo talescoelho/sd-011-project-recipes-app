@@ -39,7 +39,7 @@ class RecipeDetailMain extends Component {
       });
 
     return (
-      <main data-testid="recipes-page">
+      <main data-testid="recipes-page" className="detailMain">
         <h1>Conteúdo da tela de DETALHES de COMIDAS</h1>
         <br />
         <img data-testid="recipe-photo" alt="meal recipe" src={ strThumb } />
