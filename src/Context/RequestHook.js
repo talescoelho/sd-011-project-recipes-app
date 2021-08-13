@@ -16,65 +16,56 @@ import {
 const RequestContext = createContext();
 
 export function RequestProvider({ children }) {
-  const [filteredFood, setFilteredFood] = useState([]);
-  const [filteredDrink, setFilteredDrink] = useState([]);
-  const [initialItensFood, setInitialItensFood] = useState([]);
-  const [initialItensDrink, setInitialItensDrink] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const [initialItens, setInitialItens] = useState([]);
+  const [categorized, setCategorized] = useState(false);
 
   async function filterByNameFood(filterText) {
-    setFilteredFood([]);
-    setInitialItensFood([]);
     const items = await searchByName(filterText);
     if (items !== null && items.length >= 1) {
-      setFilteredFood(items);
+      setFiltered(items);
     }
   }
 
   async function filterByIngredientFood(filterText) {
     if (!filterText) return;
-    setFilteredFood([]);
-    setInitialItensFood([]);
     const items = await searchByIngredient(filterText);
-    setFilteredFood(items);
+    setFiltered(items);
   }
 
   async function filterByFirstLetterFood(filterText) {
     if (!filterText) return;
-    setFilteredFood([]);
-    setInitialItensFood([]);
     const items = await searchByFirstLetter(filterText);
-    setFilteredFood(items);
+    setFiltered(items);
   }
 
   async function filterByNameDrink(filterText) {
     if (!filterText) return;
     const items = await searchDrinkByName(filterText);
     if (items !== null && items.length >= 1) {
-      setFilteredDrink(items);
+      setFiltered(items);
     }
   }
 
   async function filterByIngredientDrink(filterText) {
     if (!filterText) return;
     const items = await searchDrinkByIngredient(filterText);
-    setFilteredDrink(items);
+    setFiltered(items);
   }
 
   async function filterByFirstLetterDrink(filterText) {
     if (!filterText) return;
     const items = await searchDrinkByFirstLetter(filterText);
-    setFilteredDrink(items);
+    setFiltered(items);
   }
 
   const contextValues = {
-    filteredFood,
-    setFilteredFood,
-    filteredDrink,
-    setFilteredDrink,
-    initialItensFood,
-    setInitialItensFood,
-    initialItensDrink,
-    setInitialItensDrink,
+    categorized,
+    setCategorized,
+    filtered,
+    setFiltered,
+    initialItens,
+    setInitialItens,
     filterByNameFood,
     filterByIngredientFood,
     filterByFirstLetterFood,

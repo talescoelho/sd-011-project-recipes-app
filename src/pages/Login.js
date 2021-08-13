@@ -42,7 +42,13 @@ function Login() {
           />
         </label>
       </div>
-      <Link to="/comidas">
+
+      <Link
+        to={ {
+          pathname: '/comidas/',
+          state: { ingredient: '' },
+        } }
+      >
         <button
           type="button"
           data-testid="login-submit-btn"

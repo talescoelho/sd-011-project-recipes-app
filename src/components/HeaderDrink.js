@@ -11,8 +11,8 @@ function HeaderDrink({ title, search }) {
   const [radio, setRadio] = useState('');
 
   const {
-    filteredDrink,
-    setFilteredDrink,
+    filtered,
+    setFiltered,
     filterByNameDrink,
     filterByIngredientDrink,
     filterByFirstLetterDrink,
@@ -25,8 +25,8 @@ function HeaderDrink({ title, search }) {
   function handleButtonDrink(option) {
     switch (option) {
     case (nameSearch):
-      setFilteredDrink(filterByNameDrink(inputTextSearch));
-      if (filteredDrink.length < 1) {
+      setFiltered(filterByNameDrink(inputTextSearch));
+      if (filtered.length < 1) {
         alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
         break;
       }
@@ -36,10 +36,10 @@ function HeaderDrink({ title, search }) {
         alert('Sua busca deve conter somente 1 (um) caracter');
         break;
       }
-      setFilteredDrink(filterByFirstLetterDrink(inputTextSearch));
+      setFiltered(filterByFirstLetterDrink(inputTextSearch));
       break;
     case (ingredient):
-      setFilteredDrink(filterByIngredientDrink(inputTextSearch));
+      setFiltered(filterByIngredientDrink(inputTextSearch));
       break;
     default:
       alert('Escolha uma opção de filtro!');

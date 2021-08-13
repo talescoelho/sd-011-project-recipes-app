@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
-import { searchId } from '../services/RequestDrinks';
+import { searchDrinkById } from '../services/RequestDrinks';
 import { searchFoodsAll } from '../services/RequestFood';
-
 import { RequestHook } from '../Context/RequestHook';
 import CardRecipe from '../components/CardRecipe';
 import Clipboard from '../components/Clipboard';
@@ -15,7 +13,7 @@ function DetailsDrink(props) {
   const limitItensRecomend = 6;
 
   async function getDetailsById() {
-    const itemsDrink = await searchId(id);
+    const itemsDrink = await searchDrinkById(id);
     setInitialItemApi(itemsDrink);
   }
 

@@ -11,8 +11,8 @@ function HeaderFood({ title, search }) {
   const [radio, setRadio] = useState('');
 
   const {
-    filteredFood,
-    setFilteredFood,
+    filtered,
+    setFiltered,
     filterByNameFood,
     filterByIngredientFood,
     filterByFirstLetterFood,
@@ -25,8 +25,8 @@ function HeaderFood({ title, search }) {
   function handleButtonFood(option) {
     switch (option) {
     case (nameSearch):
-      setFilteredFood(filterByNameFood(inputTextSearch));
-      if (filteredFood.length < 1) {
+      setFiltered(filterByNameFood(inputTextSearch));
+      if (filtered.length < 1) {
         alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
         break;
       }
@@ -36,10 +36,10 @@ function HeaderFood({ title, search }) {
         alert('Sua busca deve conter somente 1 (um) caracter');
         break;
       }
-      setFilteredFood(filterByFirstLetterFood(inputTextSearch));
+      setFiltered(filterByFirstLetterFood(inputTextSearch));
       break;
     case (ingredient):
-      setFilteredFood(filterByIngredientFood(inputTextSearch));
+      setFiltered(filterByIngredientFood(inputTextSearch));
       break;
     default:
       alert('Escolha uma opção de filtro!');
