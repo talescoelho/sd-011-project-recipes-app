@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
-function ShareButton() {
+function ShareButton({ test }) {
   const URL = useLocation().pathname;
   const [click, setClick] = useState(false);
 
@@ -19,7 +20,7 @@ function ShareButton() {
         type="image"
         src={ shareIcon }
         alt="Icone share"
-        data-testid="share-btn"
+        data-testid={ test }
         onClick={ () => copyURL() }
         // height="200px"
         // width="200px"
@@ -33,3 +34,7 @@ function ShareButton() {
 }
 
 export default ShareButton;
+
+ShareButton.propTypes = {
+  test: PropTypes.string.isRequired,
+};

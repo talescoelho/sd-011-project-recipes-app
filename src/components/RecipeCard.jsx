@@ -26,8 +26,8 @@ function MealRecipeCard({ title, img, category, data }) {
         {category}
       </p>
 
-      <ShareButton />
-      <FavoriteButton data={ data } />
+      <ShareButton test="share-btn" />
+      <FavoriteButton test="favorite-btn" data={ data } />
     </div>
   );
 }
