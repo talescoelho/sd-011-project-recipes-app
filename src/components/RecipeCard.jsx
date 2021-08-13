@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 
 // Adicionar biblioteca de compartilhar e imagem de coração para o favoritar.
 function MealRecipeCard({ title, img, category, data }) {
-  const URL = useLocation().pathname;
   return (
     <div>
 
@@ -28,8 +26,8 @@ function MealRecipeCard({ title, img, category, data }) {
         {category}
       </p>
 
-      <ShareButton test="share-btn" />
-      <FavoriteButton test="favorite-btn" data={ data } URL={ URL } />
+      <ShareButton test="share-btn" URL={ `/${data.type}s/${data.id}` } />
+      <FavoriteButton test="favorite-btn" data={ data } />
     </div>
   );
 }

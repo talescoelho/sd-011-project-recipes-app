@@ -8,7 +8,6 @@ import FavoriteButton from '../components/FavoriteButton';
 export default function RecipesFavorites() {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [filteredRecipie, setFilter] = useState(favoriteRecipes);
-
   function changeFilter(typeButton) {
     switch (typeButton) {
     case 'all':
