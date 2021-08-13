@@ -15,6 +15,17 @@ const INITIAL_STATE = {
     showRecipe: false,
   },
 };
+
+const itemToSet = {
+  alcoholicOrNot: '',
+  area: 'Jamaican',
+  category: 'Chicken',
+  id: '52940',
+  image: 'https://www.themealdb.com/images/media/meals/sypxpx1515365095.jpg',
+  name: 'Brown Stew Chicken',
+  type: 'comida',
+};
+
 const mockRoute = '/comidas/52771';
 const recipeTitle = 'recipe-title';
 
@@ -53,8 +64,28 @@ describe('Testes para página de HomeComidas', () => {
     const recomendaitonCard1 = await findByTestId('1-recomendation-card');
     expect(recomendaitonCard1).toBeInTheDocument();
     userEvent.click(recomendaitonCard1);
-
-    // const down = await findByTestId('recipe-titsssle');
+  });
+  it('Verifica favoritar quando há itens no localStorage', async () => {
+    jest.spyOn(global, 'fetch');
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockDrinks),
+    });
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockMeal),
+    });
+    localStorage.setItem('favoriteRecipes', JSON.stringify([itemToSet]));
+    const { findByText, findByTestId, getByRole } = renderWithRouterAndRedux(
+      <MealDetails match={ { params: { id: '52771' }, url: `http://localhost:3000/${mockRoute}` } } />,
+      { route: mockRoute }, INITIAL_STATE,
+    );
+    const type = await findByText(/vegetarian/i);
+    const title = await findByTestId(recipeTitle);
+    expect(type).toBeInTheDocument();
+    expect(title).toBeInTheDocument();
+    const whiteIcon = getByRole('img', { name: /favorite icon/i });
+    expect(whiteIcon.src).toEqual('http://localhost/whiteHeartIcon.svg');
+    expect(whiteIcon).toBeInTheDocument();
+    userEvent.click(whiteIcon);
   });
   it('Verifica se há vídeo', async () => {
     jest.spyOn(global, 'fetch');
