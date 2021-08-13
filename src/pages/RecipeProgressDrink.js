@@ -19,14 +19,16 @@ function RecipeProgressDrink(props) {
     getDetailsById();
   }, []);
 
-  function isChecked() {
+  function isChecked(numero) {
     setChangeInput(() => !changeInput);
     if (changeInput === false) {
       setchangeInputDrinkChecked('checked');
+      localStorage.setItem('inProgressRecipes', JSON.stringify(numero));
     } else {
       setchangeInputDrinkChecked('');
+      localStorage.removeItem('inProgressRecipes');
     }
-    localStorage.setItem('inProgressRecipes', JSON.stringify({ checked }));
+    console.log(numero);
   }
 
   function renderIngrediente(drink) {
@@ -40,7 +42,7 @@ function RecipeProgressDrink(props) {
             <label
               htmlFor={ numero }
               data-testid={ `${numero}-ingredient-step` }
-              onChange={ () => isChecked() }
+              onChange={ () => isChecked(`${numero - 1}-ingredient-step`) }
               className={ changeInputDrinkChecked }
             >
               <input

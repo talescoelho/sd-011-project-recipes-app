@@ -19,12 +19,14 @@ function RecipeProgressFood(props) {
     getDetailsById();
   }, []);
 
-  function isCheckedFood() {
+  function isCheckedFood(numero) {
     setChangeInputFood(() => !changeInputFood);
     if (changeInputFood === false) {
       setchangeInputFoodChecked('checked');
+      localStorage.setItem('inProgressRecipes', JSON.stringify(numero));
     } else {
       setchangeInputFoodChecked('');
+      localStorage.removeItem('inProgressRecipes');
     }
   }
 
@@ -39,7 +41,7 @@ function RecipeProgressFood(props) {
             <label
               htmlFor={ numero }
               data-testid={ `${numero}-ingredient-step` }
-              onChange={ () => isCheckedFood() }
+              onChange={ () => isCheckedFood(`${numero - 1}-ingredient-step`) }
               className={ changeInputFoodChecked }
             >
               <input
