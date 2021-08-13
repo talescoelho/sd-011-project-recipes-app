@@ -7,7 +7,7 @@ const initialState = {
   foodsCategories: [],
   drinksCategories: [],
   toRender: [],
-  filterByCategory: '',
+  filterByCategory: 'All',
   // comidas: [],
   // foodIngredients: [],
   // foodByIngredients: [],

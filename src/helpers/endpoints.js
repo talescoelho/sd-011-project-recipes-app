@@ -5,9 +5,9 @@ const URLDictionary = {
   allDrinksCategories: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
   randomFoodRecipe: 'https://www.themealdb.com/api/json/v1/1/random.php',
   randomDrinkRecipe: 'https://www.thecocktaildb.com/api/json/v1/1/random.php',
-  filterByFoodCategorie:
+  filterByFoodCategory:
     'https://www.themealdb.com/api/json/v1/1/filter.php?c=', // input
-  filterByDrinkCategorie:
+  filterByDrinkCategory:
     'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=', // input
   foodsIngredients: 'https://www.themealdb.com/api/json/v1/1/list.php?i=list',
   foodAreaList: 'https://www.themealdb.com/api/json/v1/1/list.php?a=list',
@@ -37,4 +37,8 @@ export const {
   randomDrinkRecipe,
   foodDetails,
   drinkDetails,
+  filterByFoodCategory,
+  filterByDrinkCategory,
+  foodByIngredients,
+  drinkByIngredients,
 } = URLDictionary;

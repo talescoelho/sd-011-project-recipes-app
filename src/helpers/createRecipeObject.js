@@ -19,6 +19,7 @@ function createRecipeObject(foods, drinks) {
       title: 'Comidas',
       categoriesId: 'allFoodsCategories',
       filterByCategory: 'filterByFoodCategorie',
+      filterByIngredient: 'foodByIngredients',
     };
   } else {
     recipeObject = {
@@ -36,6 +37,7 @@ function createRecipeObject(foods, drinks) {
       title: 'Bebidas',
       categoriesId: 'allDrinksCategories',
       filterByCategory: 'filterByDrinkCategorie',
+      filterByIngredient: 'drinkByIngredients',
     };
   }
   return recipeObject;

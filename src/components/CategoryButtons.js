@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import createRecipeObject from '../helpers/createRecipeObject';
 import URLDictionary from '../helpers/endpoints';
-import useDinamicFetch from '../hooks/useDinamicFetch';
+// import useDinamicFetch from '../hooks/useDinamicFetch';
 import useFetch from '../hooks/useFetch';
-import { setFilterByCategory, setToRender } from '../redux/slices/fetchReceitas';
+import { setFilterByCategory } from '../redux/slices/fetchReceitas';
 
 function CategoryButtons() {
   const [categories, setCategories] = useState();
-  const { categoriesId, type, filterByCategory } = createRecipeObject();
+  const { categoriesId, type } = createRecipeObject();
   const { data, isLoading } = useFetch(URLDictionary[categoriesId]);
-  const [response, setUrl] = useDinamicFetch();
+  // const [response, setUrl] = useDinamicFetch();
   const dispatch = useDispatch();
   const LIMIT_CATEGORIES = 5;
 
@@ -44,7 +44,7 @@ function CategoryButtons() {
         data-testid="All-category-filter"
         value="all"
         // onClick={ getRecipesCategorie }
-        onClick={ () => setFilterByCategory('All') }
+        onClick={ () => dispatch(setFilterByCategory('All')) }
       >
         All
       </button>
@@ -55,7 +55,7 @@ function CategoryButtons() {
           data-testid={ `${strCategory}-category-filter` }
           value={ strCategory }
           // onClick={ getRecipesCategorie }
-          onClick={ () => setFilterByCategory(strCategory) }
+          onClick={ () => dispatch(setFilterByCategory(strCategory)) }
         >
           { strCategory }
         </button>
