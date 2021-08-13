@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addRecipeDone } from '../actions';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
+import SectionComidasEmProgresso from '../components/SectionComidasEmProgresso';
 
 class ReceitaEmProgressoComida extends Component {
   constructor() {
@@ -203,83 +200,32 @@ class ReceitaEmProgressoComida extends Component {
 
   render() {
     const { meals: { idMeal, strArea, strMeal, strMealThumb,
-      strInstructions, strCategory }, finalList, disabled, checked,
+      strInstructions, strCategory, strTags }, finalList, disabled, checked,
     loading, isALreadyFavorited, showSpan } = this.state;
     const { addDoneRecipe, match: { params: { id } } } = this.props;
-    const obj = {
-      id: idMeal,
-      type: 'comida',
-      area: strArea,
-      category: strCategory,
-      alcoholicOrNot: '',
-      name: strMeal,
-      image: strMealThumb,
-    };
     return (
       <main>
-        <img src={ strMealThumb } data-testid="recipe-photo" alt="imagem-da-receita" />
-        <h1 data-testid="recipe-title">{ strMeal }</h1>
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ () => this.CopyToClipboard() }
-        >
-          <img src={ shareIcon } alt="icone botão" />
-        </button>
-        <span style={ { display: showSpan ? 'inline' : 'none' } }>
-          Link copiado!
-        </span>
-        <button
-          type="button"
-          data-testid="favorite-btn"
-          src={ isALreadyFavorited ? blackHeartIcon : whiteHeartIcon }
-          onClick={ () => this.handleOnClickLike() }
-        >
-          <img
-            src={ isALreadyFavorited ? blackHeartIcon : whiteHeartIcon }
-            alt={ `liked? ${isALreadyFavorited}` }
-          />
-        </button>
-        <h2 data-testid="recipe-category">{ strCategory }</h2>
-        <form onChange={ this.handleChange }>
-          <ul>
-            {loading ? (<div>...</div>) : (
-              finalList.map((ing, index) => (
-                <li key={ ing } data-testid={ `${index}-ingredient-step` }>
-                  <input
-                    type="checkbox"
-                    checked={ checked[index] }
-                    value={ index }
-                    onClick={ (e) => this.handleClick(e) }
-                  />
-                  <span>{ing}</span>
-                </li>
-              ))
-            )}
-          </ul>
-          <p data-testid="instructions">{strInstructions}</p>
-          <Link to="/receitas-feitas">
-            <button
-              type="button"
-              data-testid="finish-recipe-btn"
-              disabled={ disabled }
-              onClick={ () => { addDoneRecipe(obj); } }
-            >
-              Finalizar receita
-            </button>
-          </Link>
-          <Link
-            to={ {
-              pathname: `/comidas/${id}`,
-            } }
-          >
-            <button
-              type="button"
-            >
-              Voltar para a página de detalhes
-            </button>
-          </Link>
-        </form>
+        <SectionComidasEmProgresso
+          id={ id }
+          idMeal={ idMeal }
+          strArea={ strArea }
+          strMeal={ strMeal }
+          strMealThumb={ strMealThumb }
+          strInstructions={ strInstructions }
+          strCategory={ strCategory }
+          strTags={ strTags }
+          finalList={ finalList }
+          disabled={ disabled }
+          checked={ checked }
+          loading={ loading }
+          isALreadyFavorited={ isALreadyFavorited }
+          showSpan={ showSpan }
+          CopyToClipboard={ this.CopyToClipboard }
+          handleOnClickLike={ this.handleOnClickLike }
+          handleClick={ this.handleClick }
+          addDoneRecipe={ addDoneRecipe }
+          handleChange={ this.handleChange }
+        />
       </main>
     );
   }
