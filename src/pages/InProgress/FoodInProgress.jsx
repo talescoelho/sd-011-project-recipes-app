@@ -70,7 +70,7 @@ function FoodInProgress({ match }) {
     const objectStorage = {
       id,
       type: 'comida',
-      area: '',
+      area: ingredients[0].strArea ? ingredients[0].strArea : '',
       category: ingredients[0].strCategory ? ingredients[0].strCategory : '',
       alcoholicOrNot: ingredients[0].strAlcoholic ? ingredients[0].strAlcoholic : '',
       name: ingredients[0].strMeal,
