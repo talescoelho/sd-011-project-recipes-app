@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import '../styles/RecipeCards.css';
+
 export default function MealsCards({ meals }) {
   const cardLimit = 12;
   return (
