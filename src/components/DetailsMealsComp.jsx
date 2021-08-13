@@ -17,7 +17,8 @@ export default function DetailsMealsComp({ propsDrink }) {
     recipesRecommendation,
     setDrinkRecipeId,
     buttonHiddenClass,
-    inProgress,
+    buttonText,
+    recipesSelectedId,
     handleClickRecipesProgress,
   } = propsDrink;
 
@@ -99,17 +100,17 @@ export default function DetailsMealsComp({ propsDrink }) {
             ))
         }
       </section>
-      {/* <Link to={ `/comidas/${recipesSelectedId}/in-progress` }> */}
-      <Button
-        className={ buttonHiddenClass }
-        type="button"
-        data-testid="start-recipe-btn"
-        variant="success"
-        onClick={ () => handleClickRecipesProgress() }
-      >
-        { inProgress ? 'Continuar receita' : 'Iniciar receita'}
-      </Button>
-      {/* </Link> */}
+      <Link to={ `/comidas/${recipesSelectedId}/in-progress` }>
+        <Button
+          className={ buttonHiddenClass }
+          type="button"
+          data-testid="start-recipe-btn"
+          variant="success"
+          onClick={ () => handleClickRecipesProgress() }
+        >
+          { buttonText }
+        </Button>
+      </Link>
     </div>
   );
 }
@@ -129,6 +130,5 @@ DetailsMealsComp.propTypes = {
     buttonText: PropTypes.string,
     setDrinkRecipeId: PropTypes.string,
     recipesSelectedId: PropTypes.string,
-    inProgress: PropTypes.bool,
   }).isRequired,
 };
