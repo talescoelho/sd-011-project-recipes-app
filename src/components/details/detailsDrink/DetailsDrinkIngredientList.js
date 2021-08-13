@@ -2,26 +2,14 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import RecipesContext from '../../../context/RecipesContext';
 import addToCheckedIngredient from './AddToCheckedIngredient';
+import gettingIngredients from '../GettingIngredient';
 
 function DetailsDrinkIngredientList() {
   const { drinkId, setAllIngredientsChecked } = useContext(RecipesContext);
-
   const [checkedNumberIngredients, setCheckedNumberIngredients] = useState([]);
   const [checkedIngredients, setCheckedIngredients] = useState([]);
 
-  function conditionFor(idx) { // função para não deixar ser iteravel no for quando ingrediente for nulo
-    return !!drinkId[`strIngredient${idx}`];
-  }
-
-  function gettingIngredients() {
-    const list = [];
-    for (let index = 1; conditionFor(index); index += 1) { // depois tentar fazer com filter, mas tem que tranformar as chaves e valores em objetos
-      list.push(`${drinkId[`strIngredient${index}`]} - ${drinkId[`strMeasure${index}`]}`); // cria um nova array com ingrediente e quantidade respectivamente
-    }
-    return list;
-  }
-
-  const ingredients = gettingIngredients();
+  const ingredients = gettingIngredients(drinkId);
   const checkPath = useLocation();
   const isInProgress = checkPath.pathname.includes('in-progress');
   const params = useParams();
@@ -35,7 +23,10 @@ function DetailsDrinkIngredientList() {
   useEffect(() => {
     const localIngredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (isInProgress) {
-      if (!localIngredient.cocktails) {
+      if (!localIngredient) {
+        const cocktails1 = { cocktails: {} };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(cocktails1));
+      } else if (!localIngredient.cocktails) {
         const cocktails1 = { cocktails: { [urlID]: [] } };
         localStorage.setItem('inProgressRecipes', JSON.stringify(cocktails1));
       } else if (localIngredient.cocktails[urlID]) {
@@ -96,7 +87,7 @@ function DetailsDrinkIngredientList() {
                         value={ ingredient }
                         onChange={ () => addToCheckedIngredient(ingredient,
                           index, stateParams) }
-                        checked={ checkedIngredients.includes(ingredient) }
+                        defaultChecked={ checkedIngredients.includes(ingredient) }
                       />
                       { (checkedIngredients.includes(ingredient))
                         ? <del>{ ingredient }</del> : ingredient }

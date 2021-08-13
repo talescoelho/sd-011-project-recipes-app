@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 import addToCheckedIngredient from './detailsDrink/AddToCheckedIngredient';
+import gettingIngredients from './GettingIngredient';
 
 function DetailsIngredientList() {
   const { mealId, setAllIngredientsChecked } = useContext(RecipesContext);
@@ -9,19 +10,7 @@ function DetailsIngredientList() {
   const [checkedNumberIngredients, setCheckedNumberIngredients] = useState([]);
   const [checkedIngredients, setCheckedIngredients] = useState([]);
 
-  function conditionFor(idx) { // função para não deixar ser iteravel no for quando ingrediente for nulo
-    return !!mealId[`strIngredient${idx}`];
-  }
-
-  function gettingIngredients() {
-    const list = [];
-    for (let index = 1; conditionFor(index); index += 1) { // depois tentar fazer com filter, mas tem que tranformar as chaves e valores em objetos
-      list.push(`${mealId[`strIngredient${index}`]} -- ${mealId[`strMeasure${index}`]}`); // cria um nova array com ingrediente e quantidade respectivamente
-    }
-    return list;
-  }
-
-  const ingredients = gettingIngredients();
+  const ingredients = gettingIngredients(mealId);
   const checkPath = useLocation();
   const isInProgress = checkPath.pathname.includes('in-progress');
   const params = useParams();
@@ -35,7 +24,10 @@ function DetailsIngredientList() {
   useEffect(() => {
     const localIngredient = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (isInProgress) {
-      if (!localIngredient.meals) {
+      if (!localIngredient) {
+        const meals1 = { meals: {} };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(meals1));
+      } else if (!localIngredient.meals) {
         const meals1 = { meals: { [urlID]: [] } };
         localStorage.setItem('inProgressRecipes', JSON.stringify(meals1));
       } else if (localIngredient.meals[urlID]) {
