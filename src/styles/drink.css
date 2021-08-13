@@ -1,6 +1,5 @@
 .checked {
   text-decoration: line-through;
-  /* text-decoration: none solid rgb(0, 0, 0); */
 }
 
 .noChecked {
