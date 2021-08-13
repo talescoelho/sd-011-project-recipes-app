@@ -1,61 +1,53 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import './RecipesFoods.css';
 import CardRecipes from '../Components/CardRecipes';
-import { getDrink, fetchCategoryDrink } from '../Services/FetchApi';
 import MyContext from '../Context/MyContext';
+import CategoryButtons from '../Components/CategoryButtons';
 
-export default function RecipesDrink() {
-  const { cards, setCards } = useContext(MyContext);
+export default function RecipesFood() {
+  const { drink, setDrink } = useContext(MyContext);
+  const showMaxRecipes = 12;
 
-  const searchCards = async () => {
-    const response = await getDrink();
-    setCards(response.drinks);
-  };
-
-  const fetchCategoryButtons = async () => {
-    const response = await fetchCategoryDrink();
-    const maxList = 5;
-    const categoryListDrink = response.drinks.slice(0, maxList);
-    console.log(categoryListDrink);
-    return categoryListDrink;
+  const getDrink = async () => {
+    const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    const response = await fetch(URL);
+    const json = await response.json();
+    setDrink(json.drinks);
   };
 
   useEffect(() => {
-    searchCards();
-    fetchCategoryButtons();
+    if (drink.length === 0) {
+      getDrink();
+    }
   }, []);
 
-  const renderCardRecipes = () => {
-    const showMaxRecipes = 12;
-    if (cards) {
-      const filteredRecipe = cards.filter(
-        (drinks, index) => index < showMaxRecipes,
-      );
-      return filteredRecipe;
-    }
-  };
   return (
     <div>
       <Header className="title" title="Bebidas" searchIconAppears />
+      <CategoryButtons />
       <div className="cardlist">
-        {cards.length > 0 && renderCardRecipes().map((recp, index) => (
-          <Link
-            className="link"
-            key={ index }
-            to={ {
-              pathname: `/bebidas/${recp.idDrink}`,
-            } }
-          >
-            <CardRecipes
-              key={ index }
-              index={ index }
-              thumb={ recp.strDrinkThumb }
-              title={ recp.strDrink }
-            />
-          </Link>))}
+        {drink.length > 0 && drink.map((recp, index) => (
+          index < showMaxRecipes
+          && (
+            <Link
+              className="link"
+              key={ recp.idDrink }
+              to={ {
+                pathname: `/bebidas/${recp.idDrink}`,
+              } }
+            >
+              <CardRecipes
+                key={ index }
+                index={ index }
+                thumb={ recp.strDrinkThumb }
+                title={ recp.strDrink }
+              />
+            </Link>
+          )
+        ))}
       </div>
       <Footer />
     </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { string } from 'prop-types';
 import { getDrink, getFood } from '../Services/FetchApi';
 import MyContext from '../Context/MyContext';
 import CardRecipes from './CardRecipes';
@@ -76,3 +77,7 @@ RecomendedRecipes.propTypes = {
 };
 
 export default RecomendedRecipes;
+
+RecomendedRecipes.propTypes = {
+  origem: string,
+}.isRequired;

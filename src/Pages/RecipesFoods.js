@@ -2,67 +2,52 @@ import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
+import './RecipesFoods.css';
 import CardRecipes from '../Components/CardRecipes';
 import MyContext from '../Context/MyContext';
-import { fetchCategoryMeal, getFood } from '../Services/FetchApi';
+import CategoryButtons from '../Components/CategoryButtons';
 
 export default function RecipesFood() {
-  const { cards, setCards } = useContext(MyContext);
+  const { food, setFood } = useContext(MyContext);
+  const showMaxRecipes = 12;
 
-  const searchCards = async () => {
-    const response = await getFood();
-    setCards(response.meals);
-  };
-
-  const fetchCategoryButtons = async () => {
-    const response = await fetchCategoryMeal();
-    const maxList = 5;
-    const categoryListFood = response.meals.slice(0, maxList);
-    return categoryListFood;
-  };
-
-  const busca = async () => {
-    const resposta = await getFood();
-    setCards(resposta.meals);
+  const getFood = async () => {
+    const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    const response = await fetch(URL);
+    const json = await response.json();
+    setFood(json.meals);
   };
 
   useEffect(() => {
-    searchCards();
-    fetchCategoryButtons();
-    busca();
-  }, []);
-
-  const renderCardRecipes = () => {
-    const showMaxRecipes = 12;
-    if (cards) {
-      const filteredRecipe = cards.filter(
-        (meals, index) => index < showMaxRecipes,
-      );
-      return filteredRecipe;
+    if (food.length === 0) {
+      getFood();
     }
-  };
+  }, []);
 
   return (
     <div>
       <Header className="title" title="Comidas" searchIconAppears />
+      <CategoryButtons />
       <div className="cardlist">
-        {cards.length > 0 && renderCardRecipes().map((recp, index) => (
-          <Link
-            className="link"
-            key={ index }
-            to={ {
-              pathname: `/comidas/${recp.idMeal}`,
-            } }
-          >
-            <CardRecipes
-              key={ index }
-              index={ index }
-              thumb={ recp.strMealThumb }
-              title={ recp.strMeal }
-              className={ `card${index}` }
-            />
-            { console.log(index) }
-          </Link>))}
+        {food.length > 0 && food.map((recp, index) => (
+          index < showMaxRecipes
+          && (
+            <Link
+              className="link"
+              key={ recp.idMeal }
+              to={ {
+                pathname: `/comidas/${recp.idMeal}`,
+              } }
+            >
+              <CardRecipes
+                key={ index }
+                index={ index }
+                thumb={ recp.strMealThumb }
+                title={ recp.strMeal }
+              />
+            </Link>
+          )
+        ))}
       </div>
       <Footer />
     </div>
