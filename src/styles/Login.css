@@ -6,11 +6,11 @@
 }
 
 .logo {
+  animation: shake 1s infinite ease;
   display: flex;
   margin-bottom: -90px;
-  width: 300px;
-  animation: shake 1s infinite ease;
   max-height: 80vh;
+  width: 300px;
 }
 
 .button {
@@ -23,9 +23,9 @@
 input {
   border-color: #704c13;
   border-radius: 5px;
+  margin: 3px;
   padding: 10px;
   position: relative;
-  margin: 3px;
 }
 
 input::placeholder {
