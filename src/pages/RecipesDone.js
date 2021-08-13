@@ -1,23 +1,28 @@
 import React from 'react';
 import Header from '../components/Header';
 import RecipeDoneCard from '../components/RecipeDoneCard';
+import RecipeDoneFilters from '../components/RecipeDoneFilters';
 import { getFromStorage } from '../helpers/utils';
 
 function RecipesDone() {
+  const [filter, setFilter] = React.useState('all');
+
   const recipesDone = getFromStorage('doneRecipes');
+
+  const filterRecipes = (recipes) => recipes.filter(({ type }) => {
+    if (filter === 'all') return true;
+
+    return type === filter;
+  });
 
   return (
     <>
       <Header withSearch={ false } pageTitle="Receitas Feitas" />
       <main>
-        <section>
-          <button type="button" data-testid="filter-by-all-btn">All</button>
-          <button type="button" data-testid="filter-by-food-btn">Food</button>
-          <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
-        </section>
+        <RecipeDoneFilters setFilter={ setFilter } />
         <section>
           {
-            recipesDone && recipesDone.map((recipe, index) => (
+            recipesDone && filterRecipes(recipesDone).map((recipe, index) => (
               <RecipeDoneCard key={ index } recipe={ recipe } count={ index } />
             ))
           }

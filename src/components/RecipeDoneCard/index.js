@@ -35,7 +35,7 @@ class RecipeDoneCard extends React.Component {
               data-testid={ `${count}-horizontal-share-btn` }
             />
           </button>
-          <seciont>
+          <section>
             {
               getXFirstElementsFromArray(recipe.tags, 2).map((tag, index) => (
                 <span key={ index } data-testid={ `${count}-${tag}-horizontal-tag` }>
@@ -43,7 +43,7 @@ class RecipeDoneCard extends React.Component {
                 </span>
               ))
             }
-          </seciont>
+          </section>
         </section>
       </section>
     );
