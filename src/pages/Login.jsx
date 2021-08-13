@@ -26,6 +26,13 @@ function Login({ history }) {
     history.push('/comidas');
   }
 
+  function loginWithEnter({ keyCode }) {
+    const enterKeyCode = 13;
+    if (keyCode === enterKeyCode) {
+      handleBtn();
+    }
+  }
+
   return (
     <div className="">
       <h1>Login</h1>
@@ -43,6 +50,7 @@ function Login({ history }) {
         placeholder="senha"
         data-testid="password-input"
         name="password"
+        onKeyUp={ loginWithEnter }
       />
 
       <input
