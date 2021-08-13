@@ -5,20 +5,32 @@ import PropTypes from 'prop-types';
 export default function MealsCards({ meals }) {
   const cardLimit = 12;
   return (
-    <div>
+    <div className="cards-container">
       {
         meals.map(({ idMeal, strMeal, strMealThumb }, index) => (
           index < cardLimit
             ? (
-              <Link key={ index } to={ `/comidas/${idMeal}` }>
-                <div data-testid={ `${index}-recipe-card` }>
+              <Link
+                key={ index }
+                to={ `/comidas/${idMeal}` }
+                className="recipe-container"
+              >
+                <div
+                  data-testid={ `${index}-recipe-card` }
+                  className="recipe-card"
+                >
                   <img
                     src={ strMealThumb }
                     alt=""
                     data-testid={ `${index}-card-img` }
-                    width="150px"
+                    className="recipe-img"
                   />
-                  <p data-testid={ `${index}-card-name` }>{strMeal}</p>
+                  <p
+                    data-testid={ `${index}-card-name` }
+                    className="recipe-title"
+                  >
+                    {strMeal}
+                  </p>
                 </div>
               </Link>
             )
