@@ -88,7 +88,10 @@ export default function RecipesFavorites() {
                     { `${recipe.alcoholicOrNot} - ${recipe.category}` }
                   </p>)}
               <p data-testid={ `${index}-horizontal-name` }>{ recipe.name }</p>
-              <ShareButton test={ `${index}-horizontal-share-btn` } />
+              <ShareButton
+                test={ `${index}-horizontal-share-btn` }
+                URL={ `/comidas/${recipe.id}` }
+              />
               <FavoriteButton
                 test={ `${index}-horizontal-favorite-btn` }
                 data={ {
