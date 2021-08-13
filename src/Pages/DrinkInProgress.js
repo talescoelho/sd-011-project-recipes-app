@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { requestDrinkById } from '../Services/Data';
 import SharedButton from '../components/SharedButton';
 import FavoriteButton from '../components/FavoriteButton';
-import Footer from '../components/Footer';
 
 function DrinkInProgress({ match }) {
   const { url } = match;
@@ -98,21 +97,27 @@ function DrinkInProgress({ match }) {
               <SharedButton
                 path={ `localhost:3000${url}` }
                 dataTest="share-btn"
+                style={ { width: 25 } }
               />
               <FavoriteButton
                 id={ id }
                 favoriteRecipes={ drinks }
                 dataTest="favorite-btn"
+                style={ { width: 25 } }
               />
               <button data-testid="instructions" type="button">Instructions</button>
-              <button data-testid="finish-recipe-btn" type="button">
+              <button
+                data-testid="finish-recipe-btn"
+                type="button"
+              >
+
                 <Link to="/receitas-feitas">Finalizar</Link>
               </button>
             </div>
           )
           : <h1>Carregando...</h1>
       }
-      <Footer />
+
     </div>
   );
 }

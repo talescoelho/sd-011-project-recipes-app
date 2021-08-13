@@ -4,7 +4,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/Login';
 import Recipes from './Pages/Recipes';
-// import Bebidas from './Pages/Bebidas';
+import Bebidas from './Pages/Bebidas';
 import ReceitaDeComida from './Pages/ReceitaDeComida';
 import ReceitaDeBebida from './Pages/ReceitaDeBebida';
 import MealInProgress from './Pages/MealInProgress';
@@ -12,6 +12,7 @@ import DrinkInProgress from './Pages/DrinkInProgress';
 import Explore from './Pages/Explore';
 import ExploreMeals from './Pages/ExploreMeals';
 import ExploreDrinks from './Pages/ExploreDrinks';
+import ExploreDrinksByArea from './Pages/ExploreDrinksByArea';
 import ExploreMealsByIgrediente from './Pages/ExploreMealsByIgrediente';
 import ExploreDrinksByIgrediente from './Pages/ExploreDrinksByIgrediente';
 import ExploreMealsByArea from './Pages/ExploreMealsByArea';
@@ -28,8 +29,11 @@ function App() {
         {/* // Se deixar o valor de component em bebidas como Bebidas ele não passa
         no requisito 10 por isso alterei para Recipes pois o recipes contem os icones
         tanto para a tela de receita de comidas quanto para o de bebidas */}
-        <Route exact path="/bebidas" component={ Recipes } />
+        {/* se o valor não for Bebidas no componente /bebidas todos os requisitos que pedem
+        a pagina de bebidas vão quebrar pois não o conteudo da pagina */}
+        <Route exact path="/bebidas" component={ Bebidas } />
         <Route exact path="/explorar/comidas/area" component={ ExploreMealsByArea } />
+        <Route exact path="/explorar/bebidas/area" component={ ExploreDrinksByArea } />
         <Route exact path="/comidas/:id/in-progress" component={ MealInProgress } />
         <Route exact path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
         <Route

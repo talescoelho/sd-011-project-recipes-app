@@ -10,28 +10,28 @@ import {
   fetchFoodsFirstLetter,
   fetchFoodsFirstLetterDrink } from '../Services/Data';
 
-const list = (search, lala, selected) => {
+const list = (search, foodOrDrink, selected) => {
   const LOC = window.location.pathname;
   if (LOC === '/comidas') {
     if (selected === 'Ingrediente') {
-      fetchFoodsIngredienteMeail(search, lala);
+      fetchFoodsIngredienteMeail(search, foodOrDrink);
     }
     if (selected === 'Nome') {
-      fetchFoodsName(search, lala);
+      fetchFoodsName(search, foodOrDrink);
     }
     if (selected === 'Primeira letra') {
-      fetchFoodsFirstLetter(search, lala);
+      fetchFoodsFirstLetter(search, foodOrDrink);
     }
   }
   if (LOC === '/bebidas') {
     if (selected === 'Ingrediente') {
-      fetchFoodsIngredienteDrink(search, lala);
+      fetchFoodsIngredienteDrink(search, foodOrDrink);
     }
     if (selected === 'Nome') {
-      fetchFoodsNameDrink(search, lala);
+      fetchFoodsNameDrink(search, foodOrDrink);
     }
     if (selected === 'Primeira letra') {
-      fetchFoodsFirstLetterDrink(search, lala);
+      fetchFoodsFirstLetterDrink(search, foodOrDrink);
     }
   }
 };
@@ -55,7 +55,7 @@ function SearchBar(props) {
   //   drink.forEach((el, index) => { item[Object.keys(item)[index]] = el; });
   //   return item;
   // };
-  const lala = (x) => {
+  const foodOrDrink = (x) => {
     if (x !== null) {
       setListSearch(x);
       const LOC = window.location.pathname;
@@ -130,7 +130,7 @@ function SearchBar(props) {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ () => list(search, lala, selected) }
+        onClick={ () => list(search, foodOrDrink, selected) }
       >
         Busca
       </button>

@@ -8,6 +8,35 @@ export const renderWithRouter = (ui, { route = '/' } = {}) => {
 };
 
 const message = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+
+export function fetchIngredientesList(setIngredientesList) {
+  // retorna API com a lista de ingredientes para comidas
+  fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
+    .then((response) => response.json())
+    .then((jsonData) => setIngredientesList(jsonData.meals));
+}
+
+export function fetchIngredientesListDrink(setIngredientesList) {
+  // retorna API com a lista de ingredientes para bebidas
+  fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list')
+    .then((response) => response.json())
+    .then((jsonData) => setIngredientesList(jsonData.drinks));
+}
+
+export function fetchRandomMeal(setRandomMeal) {
+  // retorna API randomica de comida contendo 1 resultado
+  fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+    .then((response) => response.json())
+    .then((jsonData) => setRandomMeal(jsonData.meals[0]));
+}
+
+export function fetchRandomDrink(setRandomDrink) {
+  // retorna API randomica de bebida contendo 1 resultado
+  fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
+    .then((response) => response.json())
+    .then((jsonData) => setRandomDrink(jsonData.drinks[0]));
+}
+
 export function fetchMealsAPI(setListMeals) {
   // essa API aceita o parametro s vaziu
   // retorna API de lista de comida
@@ -54,7 +83,7 @@ export function fetchCocktailsForCategorie(setListCocktail, categorie) {
 
 export const fetchFoodsIngredienteMeail = (ingrediente, setFoods) => {
   // retorna pesquisa por nome na pagina de comidas
-  const api = fetch(`https://www.themealdb.com/api/json/v1/1/search.php?i=${ingrediente}`);
+  const api = fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediente}`);
   if (api) {
     api
       .then((resp) => resp.json())
@@ -65,7 +94,7 @@ export const fetchFoodsIngredienteMeail = (ingrediente, setFoods) => {
 
 export const fetchFoodsIngredienteDrink = (ingrediente, setFoods) => {
   // retorna pesquisa por nome na pagina de bebidas
-  const api = fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${ingrediente}`);
+  const api = fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingrediente}`);
   if (api) {
     api
       .then((resp) => resp.json())
@@ -120,6 +149,12 @@ export async function requestDrinkById(id) {
 
 export async function requestMealById(id) {
   const request = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const resolve = await request.json();
+  return resolve;
+}
+
+export async function requestArea() {
+  const request = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
   const resolve = await request.json();
   return resolve;
 }
