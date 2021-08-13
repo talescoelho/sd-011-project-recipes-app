@@ -1,7 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
 section {
   margin-bottom: 70px;
 }
@@ -9,6 +5,7 @@ section {
 .lower-menu {
   background-color: mediumpurple;
   bottom: 0;
+  left: 0;
   display: flex;
   justify-content: space-evenly;
   padding: 6px 0;

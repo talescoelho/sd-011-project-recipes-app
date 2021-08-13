@@ -35,7 +35,7 @@ export default function ExploreMealsByIngredients({ history }) {
   };
 
   return (
-    <div>
+    <>
       <Header title="Explorar Ingredientes" renderButton />
       <div className="ingredients">
         {
@@ -53,7 +53,7 @@ export default function ExploreMealsByIngredients({ history }) {
         }
       </div>
       <LowerMenu />
-    </div>
+    </>
   );
 }
 

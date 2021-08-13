@@ -69,7 +69,8 @@ function Login(props) {
 }
 
 Login.propTypes = {
-  history: PropTypes.instanceOf(PropTypes.array).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func }).isRequired,
 };
 
 export default withRouter(Login);

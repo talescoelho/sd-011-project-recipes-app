@@ -1,19 +1,60 @@
-.comidas {
-  align-items: center;
+.card-list {
   display: flex;
-  flex-direction: column;
-  height: 100vh;
-  margin: 0 auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .card {
-  border: solid black 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); 
   display: flex;
-  max-width: 180px;
+  flex: 1 1 160px;
+  border: none;
   padding: 5px;
+  text-align: center;
+  font-size: 1.1rem;
+  /* font-weight: bold; */
 }
 
-.card-list {
+.filters-container {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
+  gap: 0 6px;
+  margin: 10px 0;
+}
+
+.filters-container button {
+  flex: 1;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35); */
+  outline: none;
+  position: relative;
+  background: linear-gradient(
+    gold 100%,
+    transparent 0
+  );
+  background-position: 200px;
+  background-repeat: no-repeat;
+  transition: 200ms;
+}
+
+.filters-container button:focus {
+  /* transform: scale(.85); */
+  /* border-bottom: 2px solid #000; */
+  background-position: 0;
+  font-weight: bold;
+}
+
+.filters-container button:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 100%;
+  margin-left: 50%;
+  transform: translate(-50%);
 }

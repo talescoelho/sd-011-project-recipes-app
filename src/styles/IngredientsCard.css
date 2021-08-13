@@ -1,9 +1,9 @@
-.ingredients {
+#root div .ingredients {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
   justify-content: center;
-  margin-bottom: 14vw;
+  /* margin-bottom: 14vw; */
   padding: 18px 24px;
 }
 

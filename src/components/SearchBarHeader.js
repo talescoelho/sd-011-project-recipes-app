@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import GlobalContext from '../context';
+import '../styles/SearchBarHeader.css';
 
 function SearchBarHeader(props) {
   const [option, setOption] = useState('');
@@ -61,64 +62,84 @@ function SearchBarHeader(props) {
     requestApiFoodDrink();
   };
 
+  const closeModal = () => {
+    const { setSearchBarVisible } = props;
+    setSearchBarVisible(false);
+  };
+
   function renderForm() {
     return (
-      <form>
-        <label htmlFor="search-input">
-          <input
-            id="search-input"
-            type="text"
-            value={ searchInput }
-            onChange={ handleSearchInput }
-            placeholder="Buscar Receita"
-            data-testid="search-input"
-          />
-        </label>
+      <div className="search-modal">
+        <form className="search-form">
+          <span
+            onClick={ closeModal }
+            onKeyDown={ () => null }
+            role="button"
+            tabIndex="-1"
+            className="close-modal"
+          >
+            X
+          </span>
+          <h2>Busca Avançada</h2>
+          <label htmlFor="search-input">
+            <input
+              id="search-input"
+              type="text"
+              value={ searchInput }
+              onChange={ handleSearchInput }
+              placeholder="Buscar Receita"
+              data-testid="search-input"
+            />
+          </label>
 
-        <label htmlFor="ingredient">
-          <input
-            id="ingredient"
-            type="radio"
-            value="ingrediente"
-            checked={ option === 'ingrediente' }
-            onChange={ handleOption }
-            data-testid="ingredient-search-radio"
-          />
-          Ingrediente
-        </label>
+          <div className="radio-container">
+            <label htmlFor="ingredient">
+              <input
+                id="ingredient"
+                type="radio"
+                value="ingrediente"
+                checked={ option === 'ingrediente' }
+                onChange={ handleOption }
+                data-testid="ingredient-search-radio"
+              />
+              Ingrediente
+            </label>
 
-        <label htmlFor="name">
-          <input
-            id="name"
-            type="radio"
-            value="nome"
-            checked={ option === 'nome' }
-            onChange={ handleOption }
-            data-testid="name-search-radio"
-          />
-          Nome
-        </label>
+            <label htmlFor="name">
+              <input
+                id="name"
+                type="radio"
+                value="nome"
+                checked={ option === 'nome' }
+                onChange={ handleOption }
+                data-testid="name-search-radio"
+              />
+              Nome
+            </label>
 
-        <label htmlFor="first-letter">
-          <input
-            id="first-letter"
-            type="radio"
-            value="primeira-letra"
-            checked={ option === 'primeira-letra' }
-            onChange={ handleOption }
-            data-testid="first-letter-search-radio"
-          />
-          Primeira letra
-        </label>
+            <label htmlFor="first-letter">
+              <input
+                id="first-letter"
+                type="radio"
+                value="primeira-letra"
+                checked={ option === 'primeira-letra' }
+                onChange={ handleOption }
+                data-testid="first-letter-search-radio"
+              />
+              Primeira letra
+            </label>
+          </div>
 
-        <button
-          type="button"
-          onClick={ requestApi }
-          data-testid="exec-search-btn"
-        >
-          Buscar
-        </button>
-      </form>);
+          <button
+            type="button"
+            onClick={ requestApi }
+            data-testid="exec-search-btn"
+          >
+            Buscar
+          </button>
+        </form>
+      </div>
+    );
   }
 
   return (

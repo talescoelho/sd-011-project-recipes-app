@@ -72,7 +72,7 @@ export async function fetchMealsByCategoryFromMealsDB(category) {
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
     const rawResults = await response.json();
     const results = rawResults.meals;
-    return results;
+    return results.slice(0, maxCount);
   } catch (error) {
     console.log(error);
   }
@@ -84,7 +84,7 @@ export async function fetchDrinksByCategoryFromCocktailsDB(category) {
     fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
     const rawResults = await response.json();
     const results = rawResults.drinks;
-    return results;
+    return results.slice(0, maxCount);
   } catch (error) {
     console.log(error);
   }

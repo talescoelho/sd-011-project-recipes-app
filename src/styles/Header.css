@@ -1,0 +1,22 @@
+header {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background:gold;
+  border-radius: 4px;
+  padding: 6px;
+}
+
+header h1 {
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+header button {
+  border: none;
+  background-color: transparent;
+}
+
+header button:focus {
+  outline: none;
+}
