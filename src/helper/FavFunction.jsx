@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import ShareButton from '../components/ShareButton';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import AppContext from '../context/AppContext';
 
 export default function RenderFaveRecipes(item, index) {
+  const { setBttnFav } = useContext(AppContext);
   function handleFavorite(e) {
     const newLocalFav = localStorage.getItem('favoriteRecipes');
     const newFavRec = JSON.parse(newLocalFav);
     const newArray = newFavRec.filter((el) => el.id !== e.currentTarget.value);
     localStorage.setItem('favoriteRecipes', JSON.stringify(newArray));
+    setBttnFav(newArray);
   }
 
   return (

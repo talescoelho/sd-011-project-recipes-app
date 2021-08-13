@@ -20,6 +20,7 @@ function AppProvider({ children }) {
   const [ingredients, setIngredients] = useState();
   const [loadingExplore, setLoadingExplore] = useState(true);
   const [copySuccess, setCopySuccess] = useState('');
+  const [bttnFav, setBttnFav] = useState([]);
 
   async function fetchFood() {
     let endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?${filterRadio}=${filterText}`;
@@ -182,6 +183,19 @@ function AppProvider({ children }) {
     }
   }
 
+  function ableButton(food, ingredientList, setButtonDisable) {
+    const getLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (getLocal) {
+      const arrayLocal = food ? getLocal.meals[`${idDetails[0].idMeal}`]
+        : getLocal.cocktails[`${idDetails[0].idDrink}`];
+      if (arrayLocal && arrayLocal.length === ingredientList.length) {
+        setButtonDisable(false);
+      } else {
+        setButtonDisable(true);
+      }
+    }
+  }
+
   const contextValue = {
     email,
     password,
@@ -224,6 +238,9 @@ function AppProvider({ children }) {
     getAndSetLocalStorage,
     copySuccess,
     setCopySuccess,
+    bttnFav,
+    setBttnFav,
+    ableButton,
   };
 
   return (

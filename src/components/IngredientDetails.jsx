@@ -5,7 +5,7 @@ import AppContext from '../context/AppContext';
 import '../styles/carousel.css';
 
 function IngredientDetails({ inProcess, food, drink }) {
-  const { idDetails, toggle, getAndSetLocalStorage } = useContext(AppContext);
+  const { idDetails, toggle, getAndSetLocalStorage, ableButton } = useContext(AppContext);
   const [buttonDisable, setButtonDisable] = useState(true);
   console.log(idDetails[0]);
 
@@ -31,27 +31,14 @@ function IngredientDetails({ inProcess, food, drink }) {
     .filter((el) => idDetails[0][el])
     .map((ing, index) => `${idDetails[0][ing]} - ${idDetails[0][measure[index]]}`.trim());
 
-  function ableButton() {
-    const getLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (getLocal) {
-      const arrayLocal = food ? getLocal.meals[`${idDetails[0].idMeal}`]
-        : getLocal.cocktails[`${idDetails[0].idDrink}`];
-      if (arrayLocal && arrayLocal.length === ingredientList.length) {
-        setButtonDisable(false);
-      } else {
-        setButtonDisable(true);
-      }
-    }
-  }
-
   function handleButton(e) {
     toggle(e, drink);
-    ableButton();
+    ableButton(food, ingredientList, setButtonDisable);
   }
 
   useEffect(() => {
     getAndSetLocalStorage(inProcess, food, foodOrDrinkProcess);
-    ableButton();
+    ableButton(food, ingredientList, setButtonDisable);
   }, []);
 
   return (
@@ -92,8 +79,7 @@ function IngredientDetails({ inProcess, food, drink }) {
             Finalizar
           </button>
         </Link>
-      )
-      }
+      )}
     </>
   );
 }

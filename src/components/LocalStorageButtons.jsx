@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import AppContext from '../context/AppContext';
 // import { Link } from 'react-router-dom';
 // import ShareButton from './ShareButton';
 import '../styles/carousel.css';
@@ -8,7 +9,7 @@ import renderFaveRecipes from '../helper/FavFunction';
 import renderDoneRecipes from '../helper/DoneFunction';
 
 function LocalStorageButtons({ doneRecipes }) {
-  const [local, setLocal] = useState([]);
+  const { bttnFav, setBttnFav } = useContext(AppContext);
   const [filter, setFilter] = useState('all');
 
   const done = JSON.parse(localStorage.getItem('doneRecipes'));
@@ -16,23 +17,23 @@ function LocalStorageButtons({ doneRecipes }) {
 
   function handleClick(e) {
     if (doneRecipes) {
-      setLocal(done);
+      setBttnFav(done);
       setFilter(e.target.value);
     } else {
-      setLocal(fave);
+      setBttnFav(fave);
       setFilter(e.target.value);
     }
-    setLocal(local);
+    setBttnFav(bttnFav);
   }
 
-  console.log('filter', local);
+  console.log('filter', bttnFav);
   useEffect(() => {
     if (doneRecipes) {
-      setLocal(done);
+      setBttnFav(done);
     } else {
-      setLocal(fave);
+      setBttnFav(fave);
     }
-  }, [fave]);
+  }, []);
 
   return (
     <>
@@ -62,8 +63,8 @@ function LocalStorageButtons({ doneRecipes }) {
           Drinks
         </button>
       </section>
-      { local && local
-        .filter((item) => (filter !== 'all' ? filter === item.type : local))
+      { bttnFav && bttnFav
+        .filter((item) => (filter !== 'all' ? filter === item.type : bttnFav))
         .map((doneRecipes ? renderDoneRecipes : renderFaveRecipes))}
     </>
   );
