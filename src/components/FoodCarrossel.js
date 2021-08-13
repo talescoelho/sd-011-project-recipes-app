@@ -18,7 +18,7 @@ function FoodCarrossel({ recomendation }) {
     history.push(`/bebidas/${id}`);
     window.location.reload();
   }
-
+  // testandooooooooooooooooooo
   function nextImg() {
     const disney = 4;
     setStartPosition(startPosition + 1);
@@ -34,6 +34,7 @@ function FoodCarrossel({ recomendation }) {
           .map((item, index) => (
             <div key={ index } className="carrossel-item">
               <button
+                data-testid={ `${index}-recomendation-card` }
                 className={ showRecomendations.some((item2) => item2 === item.strDrink)
                   ? 'showImgCarrossel' : 'hideImgCarrossel' }
                 type="button"
@@ -45,7 +46,6 @@ function FoodCarrossel({ recomendation }) {
                       alt="logo"
                       src={ item.strDrinkThumb }
                       width="100px"
-                      data-testid={ `${index}-recomendation-card` }
                     />
                   </div>
                   <div>

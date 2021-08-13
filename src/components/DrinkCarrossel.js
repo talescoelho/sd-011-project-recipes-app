@@ -13,7 +13,7 @@ function FoodCarrossel({ recomendation }) {
       setShowRecomendations([recomendation[0].strMeal, recomendation[1].strMeal]);
     }
   }, [recomendation]);
-
+  // teste
   function imgClickHandler(id) {
     history.push(`/comidas/${id}`);
     window.location.reload();
@@ -34,6 +34,7 @@ function FoodCarrossel({ recomendation }) {
           .map((item, index) => (
             <div key={ index } className="carrossel-item">
               <button
+                data-testid={ `${index}-recomendation-card` }
                 className={ showRecomendations.some((item2) => item2 === item.strMeal)
                   ? 'showImgCarrossel' : 'hideImgCarrossel' }
                 type="button"
@@ -45,7 +46,6 @@ function FoodCarrossel({ recomendation }) {
                       alt="logo"
                       src={ item.strMealThumb }
                       width="100px"
-                      data-testid={ `${index}-recomendation-card` }
                     />
                   </div>
                   <div>
