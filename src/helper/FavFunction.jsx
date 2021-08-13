@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import ShareButton from '../components/ShareButton';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import AppContext from '../context/AppContext';
 
-export default function renderDoneRecipes(item, index) {
+export default function RenderFaveRecipes(item, index) {
+  const { setBttnFav } = useContext(AppContext);
+  function handleFavorite(e) {
+    const newLocalFav = localStorage.getItem('favoriteRecipes');
+    const newFavRec = JSON.parse(newLocalFav);
+    const newArray = newFavRec.filter((el) => el.id !== e.currentTarget.value);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newArray));
+    setBttnFav(newArray);
+  }
+
   return (
     <div key={ index }>
       <Link
@@ -35,16 +46,24 @@ export default function renderDoneRecipes(item, index) {
           {item.name}
         </h2>
       </Link>
-      <p
-        data-testid={ `${index}-horizontal-done-date` }
-      >
-        {`Feita em: ${item.doneDate}`}
-      </p>
       <ShareButton
         index={ index }
         foodOrDrinkBtn={ item.type === 'comida' ? 'comidas' : 'bebidas' }
         id={ item.id }
       />
+      <button
+        type="button"
+        value={ item.id }
+        onClick={ (e) => handleFavorite(e) }
+        src={ blackHeartIcon } // repetido --> teste
+        data-testid={ `${index}-horizontal-favorite-btn` }
+      >
+        <img
+          data-testid="favorite-btn"
+          src={ blackHeartIcon }
+          alt="Imagem do ícone de favorito"
+        />
+      </button>
       {item.tags && item.tags
         .map((_, i) => (
           <p key={ i } data-testid={ `${index}-${item.tags[i]}-horizontal-tag` }>

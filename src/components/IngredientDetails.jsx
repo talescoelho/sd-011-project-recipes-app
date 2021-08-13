@@ -1,10 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import '../styles/carousel.css';
 
 function IngredientDetails({ inProcess, food, drink }) {
-  const { idDetails, toggle, getAndSetLocalStorage } = useContext(AppContext);
+  const { idDetails, toggle, getAndSetLocalStorage, ableButton } = useContext(AppContext);
+  const [buttonDisable, setButtonDisable] = useState(true);
   console.log(idDetails[0]);
 
   const foodOrDrinkProcess = food ? {
@@ -21,10 +23,6 @@ function IngredientDetails({ inProcess, food, drink }) {
     },
   };
 
-  useEffect(() => {
-    getAndSetLocalStorage(inProcess, food, foodOrDrinkProcess);
-  }, []);
-
   const ingredients = Object.keys(idDetails[0])
     .filter((el) => el.includes('strIngredient'));
   const measure = Object.keys(idDetails[0]).filter((el) => el.includes('strMeasure'));
@@ -33,7 +31,15 @@ function IngredientDetails({ inProcess, food, drink }) {
     .filter((el) => idDetails[0][el])
     .map((ing, index) => `${idDetails[0][ing]} - ${idDetails[0][measure[index]]}`.trim());
 
-  console.log(ingredientList);
+  function handleButton(e) {
+    toggle(e, drink);
+    ableButton(food, ingredientList, setButtonDisable);
+  }
+
+  useEffect(() => {
+    getAndSetLocalStorage(inProcess, food, foodOrDrinkProcess);
+    ableButton(food, ingredientList, setButtonDisable);
+  }, []);
 
   return (
     <>
@@ -55,7 +61,7 @@ function IngredientDetails({ inProcess, food, drink }) {
                       id={ item }
                       type="checkbox"
                       value={ index }
-                      onClick={ (e) => toggle(e, drink) }
+                      onClick={ (e) => handleButton(e) }
                     />
                     {item}
                   </label>) : item }
@@ -63,6 +69,17 @@ function IngredientDetails({ inProcess, food, drink }) {
       </ul>
       <h3>Instructions</h3>
       <p data-testid="instructions">{idDetails[0].strInstructions}</p>
+      {inProcess && (
+        <Link to="/receitas-feitas">
+          <button
+            data-testid="finish-recipe-btn"
+            type="button"
+            disabled={ buttonDisable }
+          >
+            Finalizar
+          </button>
+        </Link>
+      )}
     </>
   );
 }

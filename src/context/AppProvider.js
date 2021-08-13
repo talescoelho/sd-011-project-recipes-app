@@ -20,6 +20,7 @@ function AppProvider({ children }) {
   const [ingredients, setIngredients] = useState();
   const [loadingExplore, setLoadingExplore] = useState(true);
   const [copySuccess, setCopySuccess] = useState('');
+  const [bttnFav, setBttnFav] = useState([]);
 
   async function fetchFood() {
     let endPoint = `https://www.themealdb.com/api/json/v1/1/search.php?${filterRadio}=${filterText}`;
@@ -36,7 +37,6 @@ function AppProvider({ children }) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   }
-
   async function fetchDrink() {
     let endPoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?${filterRadio}=${filterText}`;
     if (filterRadio === 'i') {
@@ -52,7 +52,6 @@ function AppProvider({ children }) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   }
-
   async function fetchMainRecipes(foodOrDrink) {
     let endPointItems = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
     let endPointCategory = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
@@ -87,7 +86,6 @@ function AppProvider({ children }) {
     setLoadingMainRecipes(false);
     setSelectedIngredientVerify(false);
   }
-
   async function fetchIngredients(foodOrDrink) {
     let endPoint = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
     if (foodOrDrink === 'Bebidas') {
@@ -104,7 +102,6 @@ function AppProvider({ children }) {
     setSelectedIngredientVerify(true);
     if (foodOrDrink === 'Comidas') {
       setSelectedIngredientFood(e.currentTarget.value);
-      console.log(e.currentTarget.value);
     }
     if (foodOrDrink === 'Bebidas') {
       setSelectedIngredientDrink(e.currentTarget.value);
@@ -119,7 +116,6 @@ function AppProvider({ children }) {
     if (drink) {
       const getLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
       const arrayDrink = getLocalStorage.cocktails[idDetails[0].idDrink];
-      console.log(arrayDrink);
       const newArrayDrink = arrayDrink.includes(elementText)
         ? arrayDrink.filter((el) => el !== elementText)
         : [...arrayDrink, elementText];
@@ -132,7 +128,6 @@ function AppProvider({ children }) {
     }
     const getLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const arrayFood = getLocalStorage.meals[idDetails[0].idMeal];
-    console.log(arrayFood);
     const newArrayFood = arrayFood.includes(elementText)
       ? arrayFood.filter((el) => el !== elementText)
       : [...arrayFood, elementText];
@@ -170,15 +165,24 @@ function AppProvider({ children }) {
       const array = food
         ? spreadLocal.meals[idDetails[0].idMeal]
         : spreadLocal.cocktails[idDetails[0].idDrink];
-      console.log(array);
-
       array.forEach((el) => {
         const element = document.getElementById(el);
         const nameClass = document.getElementsByClassName(el);
         nameClass[0].classList.add('liIngredients');
         element.setAttribute('checked', true);
-        console.log(element);
       });
+    }
+  }
+  function ableButton(food, ingredientList, setButtonDisable) {
+    const getLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (getLocal) {
+      const arrayLocal = food ? getLocal.meals[`${idDetails[0].idMeal}`]
+        : getLocal.cocktails[`${idDetails[0].idDrink}`];
+      if (arrayLocal && arrayLocal.length === ingredientList.length) {
+        setButtonDisable(false);
+      } else {
+        setButtonDisable(true);
+      }
     }
   }
 
@@ -224,6 +228,9 @@ function AppProvider({ children }) {
     getAndSetLocalStorage,
     copySuccess,
     setCopySuccess,
+    bttnFav,
+    setBttnFav,
+    ableButton,
   };
 
   return (
