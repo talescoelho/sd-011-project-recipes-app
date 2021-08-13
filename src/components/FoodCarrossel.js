@@ -1,45 +1,52 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function FoodCarrossel({ recomendation }) {
-  function img0() {
-    return (
-      <div className="img-div">
-        <Link to={ `/comidas/${recomendation[0].idMeal}` }>
-          <img alt="logo" src={ recomendation[0].strMealThumb } width="100px" />
-        </Link>
-      </div>
-    );
+  const history = useHistory();
+  const [recomendations, setRecomendations] = useState();
+  const [showRecomendations, setShowRecomendations] = useState();
+  const [startPosition, setStartPosition] = useState(2);
+
+  useEffect(() => {
+    setRecomendations(recomendation);
+    if (recomendation) {
+      setShowRecomendations([recomendation[0].strMeal, recomendation[1].strMeal]);
+      console.log(recomendation.length)
+    }
+  }, [recomendation]);
+
+  function imgClickHandler(id) {
+    history.push(`/comidas/${id}`);
+    window.location.reload();
   }
 
-  function img1() {
-    return (
-      <div className="img-div">
-        <Link to={ `/comidas/${recomendation[1].idMeal}` }>
-          <img alt="logo" src={ recomendation[1].strMealThumb } width="100px" />
-        </Link>
-      </div>
-    );
+  function nextImg() {
+    const disney = 3;
+    setStartPosition(startPosition + 2);
+    if (startPosition >= disney) setStartPosition(0);
+    setShowRecomendations([recomendation[startPosition].strMeal, recomendation[startPosition + 1].strMeal]);
+    console.log('cliquei no mais')
   }
+
   function renderMealCarrossel() {
     return (
-      <div className="container-fluid">
-        <div id="mainSlider" className="carousel slide" data-ride="carousel">
-          <ol className="carousel-indicators">
-            <li data-target="#mainSlider" data-slide-to="0" className="active" />
-            <li data-target="#mainSlider" data-slide-to="1" />
-            <li data-target="#mainSlider" data-slide-to="2" />
-          </ol>
-          <div className="carousel-inner">
-            <div className="carousel-item active">
-              {img0()}
-
+      <div className="container-carrossel">
+        { recomendations ? recomendations
+          .map((item, index) => (
+            <div key={ index } className="carrossel-item">
+              <button
+                className={ showRecomendations.some((item2) => item2 === item.strMeal) ? 'showImgCarrossel' : 'hideImgCarrossel' }
+                type="button"
+                onClick={ () => imgClickHandler(item.idMeal) }
+              >
+                <img alt="logo" src={ item.strMealThumb } width="100px" data-testid={ `${index}-recomendation-card` } />
+              </button>
             </div>
-            <div className="carousel-item">
-
-              {img1()}
-            </div>
-          </div>
+          )) : 'loading'}
+        <div className="button-foward">
+          <button type="button" onClick={ nextImg }>
+            {'>'}
+          </button>
         </div>
       </div>
     );

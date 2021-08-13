@@ -13,11 +13,11 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure }) {
           <ShareBtn />
           <FavoriteBtn />
         </div>
-        <h4 data-testid="recipe-category">
+        <h4>
           Category:
           { details[0].strCategory }
         </h4>
-        <h4>{details[0].strAlcoholic}</h4>
+        <h4 data-testid="recipe-category">{details[0].strAlcoholic}</h4>
         <h4>Ingredients:</h4>
         { mealIngredients ? mealIngredients.map((item, index) => (
           <h5
@@ -28,7 +28,7 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure }) {
           </h5>
         )) : '' }
         <h4>Instructions:</h4>
-        <h5>{ details[0].strInstructions }</h5>
+        <h5 data-testid="instructions">{ details[0].strInstructions }</h5>
       </div>
     );
   }

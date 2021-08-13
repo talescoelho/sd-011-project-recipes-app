@@ -41,7 +41,7 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure }) {
           </h5>
         )) : '' }
         <h4>Instructions:</h4>
-        <h5>{ details[0].strInstructions }</h5>
+        <h5 data-testid="instructions">{ details[0].strInstructions }</h5>
         <h4>Vídeo</h4>
         { details ? <iframe
           width="560"
