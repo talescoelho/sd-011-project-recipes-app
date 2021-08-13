@@ -5,14 +5,20 @@ import {
   Button,
   Image,
 } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import Header from '../../components/Header';
 import CopyButton from '../../components/Details/CopyButton';
-import FavoriteButton from '../../components/Details/FavoriteButton';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import * as actions from '../../actions';
 
-export default function ReceitasFavoritas() {
-  let favoriteRecipes = window.localStorage.getItem('favoriteRecipes');
-  favoriteRecipes = JSON.parse(favoriteRecipes);
-  console.log(favoriteRecipes);
+function ReceitasFavoritas(props) {
+  const { favorites, handleFavoriteRecipe } = props;
+
+  const handleFavoriteBtn = (idClickado) => {
+    const filteredFavoriteRecipes = favorites
+      .filter((el) => el.id !== idClickado);
+    handleFavoriteRecipe([...filteredFavoriteRecipes]);
+  };
   return (
     <div>
       <Header title="Receitas Favoritas" />
@@ -41,7 +47,7 @@ export default function ReceitasFavoritas() {
           </Button>
         </Col>
       </Row>
-      {favoriteRecipes.map((item, index) => {
+      {favorites.map((item, index) => {
         const {
           id,
           type,
@@ -81,22 +87,16 @@ export default function ReceitasFavoritas() {
                 />
               </Col>
               <Col className="pb-2 justify-items-end">
-                <FavoriteButton
-                  recipeId={ id }
-                  selector={ type }
-                  details={ item }
-                  testId={ `${index}-horizontal-favorite-btn` }
-                  id={ id }
-                  isRecipeFavorite
-                />
-                {/* <Button
-                variant="danger"
-                type="button"
-                className="rounded-circle p-2"
-                data-testid={`${index}-horizontal-favorite-btn`}
-                // onClick={ handleFavoriteBtn }
-                src='aqui'
-                ></Button> */}
+                <Button
+                  variant="danger"
+                  type="button"
+                  className="rounded-circle p-2"
+                  data-testid={ `${index}-horizontal-favorite-btn` }
+                  onClick={ () => handleFavoriteBtn(id) }
+                  src={ blackHeartIcon }
+                >
+                  <img alt="Botão de favoritar receita" src={ blackHeartIcon } />
+                </Button>
               </Col>
             </div>
           </div>
@@ -106,5 +106,15 @@ export default function ReceitasFavoritas() {
 
   );
 }
+
+const mapStateToProps = (state) => ({
+  favorites: state.recipes.favorites,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  handleFavoriteRecipe: (id) => dispatch(actions.handleFavoriteRecipe(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReceitasFavoritas);
 
 // npm run cy -- --spec cypress/integration/favorite_recipes_spec.js

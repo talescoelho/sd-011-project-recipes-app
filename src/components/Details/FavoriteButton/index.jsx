@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
-import {
-  retrieveFavoriteRecipes,
-  setNewFavoriteRecipe,
-  removeFavoriteRecipe,
-} from '../../../services/handleLocalStorage';
+import { useDispatch, useSelector } from 'react-redux';
 import whiteHeartIcon from '../../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../../images/blackHeartIcon.svg';
+import { handleFavoriteRecipe } from '../../../actions';
 
 export default function FavoriteButton({
   recipeId,
   selector,
   details,
-  testId = 'favorite-btn',
-  isRecipeFavorite = false,
 }) {
-  const [isFavorite, setIsFavorite] = useState(isRecipeFavorite);
+  const [isFavorite, setIsFavorite] = useState(false);
   const [favoriteSrc, setFavoriteSrc] = useState(whiteHeartIcon);
   const [id, setId] = useState('');
   const [name, setName] = useState('');
@@ -25,6 +20,9 @@ export default function FavoriteButton({
   const [area, setArea] = useState('');
   const [alcoholic, setAlcoholic] = useState('');
   const [type, setType] = useState('');
+
+  const favorites = useSelector((state) => state.recipes.favorites);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (selector === 'meal') {
@@ -61,8 +59,7 @@ export default function FavoriteButton({
   }, [details, selector]);
 
   useEffect(() => {
-    const favoriteRecipes = retrieveFavoriteRecipes();
-    favoriteRecipes.forEach((obj) => {
+    favorites.forEach((obj) => {
       if (obj.id.includes(recipeId)) {
         setIsFavorite(true);
         setFavoriteSrc(blackHeartIcon);
@@ -83,10 +80,13 @@ export default function FavoriteButton({
     };
     if (favoriteSrc === whiteHeartIcon) {
       setFavoriteSrc(blackHeartIcon);
-      setNewFavoriteRecipe(obj);
+      const newFavorite = [...favorites, obj];
+      dispatch(handleFavoriteRecipe(newFavorite));
     } else {
       setFavoriteSrc(whiteHeartIcon);
-      removeFavoriteRecipe(obj);
+      const filteredFavoriteRecipes = favorites
+        .filter((el) => el.id !== obj.id);
+      dispatch(handleFavoriteRecipe([...filteredFavoriteRecipes]));
     }
   };
 
@@ -95,7 +95,7 @@ export default function FavoriteButton({
       variant="danger"
       type="button"
       className="rounded-circle p-2"
-      data-testid={ testId }
+      data-testid="favorite-btn"
       onClick={ handleFavoriteBtn }
       src={ favoriteSrc }
     >

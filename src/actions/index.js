@@ -3,6 +3,7 @@ export const CATEGORIES_SUCCESS = 'CATEGORIES_SUCCESS';
 export const FILTER_FOOD_RECIPE_BY_INGREDIENT = 'FILTER_FOOD_RECIPE_BY_INGREDIENT';
 export const FILTER_DRINK_RECIPE_BY_INGREDIENT = 'FILTER_DRINK_RECIPE_BY_INGREDIENT';
 export const USER_EMAIL = 'USER_EMAIL';
+export const FAVORITE_RECIPE = 'FAVORITE_RECIPE';
 const MESSAGE_ALERT = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
 function handleRequestSuccess(result, isFiltered) {
@@ -10,6 +11,10 @@ function handleRequestSuccess(result, isFiltered) {
     result = [];
   }
   return { type: REQUEST_SUCCESS, payload: { allRecipes: result, isFiltered } };
+}
+
+export function handleFavoriteRecipe(newFav) {
+  return { type: FAVORITE_RECIPE, payload: newFav };
 }
 
 function handleCategoriesSuccess(result) {
