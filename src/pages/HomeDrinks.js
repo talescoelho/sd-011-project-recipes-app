@@ -53,7 +53,6 @@ function HomeDrinks({ drinksData, isLoadingData, location }) {
 
   React.useEffect(() => {
     if (!location.state) {
-      console.log('fez fetch');
       fetchDrinks(urlFetch, 'drinks');
     } else {
       redirectMeals(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${location.state}`);

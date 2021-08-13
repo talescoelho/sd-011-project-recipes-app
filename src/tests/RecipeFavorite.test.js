@@ -49,6 +49,30 @@ describe('Testes para página de Perfil', () => {
       json: jest.fn().mockResolvedValue(mockDrink),
     });
     localStorage.setItem('favoriteRecipes', JSON.stringify(recipe));
+    const { getByRole } = renderWithRouterAndRedux(
+      <RecipeFavorite />,
+      { route: mockURL }, INITIAL_STATE,
+    );
+    const Food = await getByRole('button', { name: /Food/i });
+    expect(Food).toBeInTheDocument();
+    userEvent.click(Food);
+    const Drinks = await getByRole('button', { name: /Drinks/i });
+    expect(Drinks).toBeInTheDocument();
+    const All = await getByRole('button', { name: /all/i });
+    expect(All).toBeInTheDocument();
+    userEvent.click(All);
+    const localStorage3 = JSON.parse(localStorage.favoriteRecipes);
+    expect(localStorage3.length).toEqual(2);
+  });
+  it('Verifica remover após clicar em filtros', async () => {
+    jest.spyOn(global, 'fetch');
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockMeals),
+    });
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(mockDrink),
+    });
+    localStorage.setItem('favoriteRecipes', JSON.stringify(recipe));
     const { findByText, findByTestId, getByRole } = renderWithRouterAndRedux(
       <RecipeFavorite />,
       { route: mockURL }, INITIAL_STATE,
@@ -70,9 +94,6 @@ describe('Testes para página de Perfil', () => {
     userEvent.click(Food);
     const Drinks = await getByRole('button', { name: /Drinks/i });
     expect(Drinks).toBeInTheDocument();
-    const All = await getByRole('button', { name: /all/i });
-    expect(All).toBeInTheDocument();
-    userEvent.click(All);
     const newfavorite = await findByTestId('0-horizontal-favorite-btn');
     expect(newfavorite.src).toEqual('http://localhost/blackHeartIcon.svg');
     const btnRemove = await findByTestId('btn-remove-favorite');

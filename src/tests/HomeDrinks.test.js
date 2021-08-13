@@ -96,6 +96,9 @@ describe('Testes para página de HomeComidas', () => {
       <HomeDrinks location={ { state: '' } } />,
       { route: '/bebidas' }, INITIAL_STATE,
     );
+    const All = await findByText(/All/i);
+    expect(All).toBeInTheDocument();
+    userEvent.click(All);
     const Ordinary = await findByText(/Ordinary Drink/i);
     expect(Ordinary).toBeInTheDocument();
     userEvent.click(Ordinary);
@@ -111,9 +114,8 @@ describe('Testes para página de HomeComidas', () => {
     const Cocoa = await findByText(/Cocoa/i);
     expect(Cocoa).toBeInTheDocument();
     userEvent.click(Cocoa);
-    const All = await findByText(/All/i);
-    expect(All).toBeInTheDocument();
-    userEvent.click(All);
+    const card = await findByText(/GG/i);
+    userEvent.click(card);
   });
   it('Verifica se chama o endpoint correto', async () => {
     jest.spyOn(global, 'fetch');
