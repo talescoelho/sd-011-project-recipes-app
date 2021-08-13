@@ -118,7 +118,7 @@ export default function ReceitaBebidaPage() {
             type="button"
             data-testid="start-recipe-btn"
             style={ { position: 'fixed',
-    bottom: '0px' } }
+              bottom: '0px' } }
           >
             {storageInPrgrss && (
               storageInPrgrss.cocktails[drinkDetails.drinks[0].idDrink]) ? (
