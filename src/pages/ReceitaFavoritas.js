@@ -10,31 +10,31 @@ export default function ReceitaFavoritas() {
   const [favoriteRecipe, setFavoriteRecipe] = useState();
   const [backup, setBackup] = useState();
   const [copyClip, setCopy] = useState(false);
-  const mockFavoriteStorage = [
-    {
-      id: '52771',
-      type: 'comida',
-      area: 'Italian',
-      category: 'Vegetarian',
-      alcoholicOrNot: '',
-      name: 'Spicy Arrabiata Penne',
-      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-    },
-    {
-      id: '178319',
-      type: 'bebida',
-      area: '',
-      category: 'Cocktail',
-      alcoholicOrNot: 'Alcoholic',
-      name: 'Aquamarine',
-      image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-    },
-  ];
+  // const mockFavoriteStorage = [
+  //   {
+  //     id: '52771',
+  //     type: 'comida',
+  //     area: 'Italian',
+  //     category: 'Vegetarian',
+  //     alcoholicOrNot: '',
+  //     name: 'Spicy Arrabiata Penne',
+  //     image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+  //   },
+  //   {
+  //     id: '178319',
+  //     type: 'bebida',
+  //     area: '',
+  //     category: 'Cocktail',
+  //     alcoholicOrNot: 'Alcoholic',
+  //     name: 'Aquamarine',
+  //     image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+  //   },
+  // ];
 
   useEffect(() => {
-    localStorage.setItem('favoriteRecipes', JSON.stringify(mockFavoriteStorage));
-    setFavoriteRecipe(mockFavoriteStorage);
-    setBackup(mockFavoriteStorage);
+    const data = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    setFavoriteRecipe(data);
+    setBackup(data);
   }, []);
 
   function unfavorite(idValue) {

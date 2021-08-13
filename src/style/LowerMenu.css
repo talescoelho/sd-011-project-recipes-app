@@ -1,4 +1,4 @@
-/* footer{
+footer{
   display: flex;
   justify-content: space-evenly;
   padding: 10px;
@@ -6,4 +6,4 @@
   width: 100%;
   position: fixed;
   background-color: rgb(68, 64, 64);
-} */
+}
