@@ -65,7 +65,7 @@ function FoodsDetails() {
           />
           <div className="details-header">
             <div>
-              <h3 data-testid="recipe-title">{details.strMeal}</h3>
+              <span data-testid="recipe-title">{details.strMeal}</span>
               <span data-testid="recipe-category">{details.strCategory}</span>
             </div>
             <ShareAndFavButtons details={ details } />

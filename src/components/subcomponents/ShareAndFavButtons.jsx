@@ -20,16 +20,9 @@ function ShareAndFavButtons(props) {
   }, [id]);
 
   function copyUrlToClipboard() {
-    if (details.strMeal) {
-      const type = 'comidas';
-      // verificar possibilidade de obter a url completa para qualquer servidor
-      navigator.clipboard.writeText(`http://localhost:3000/${type}/${id}`);
-    } else {
-      const type = 'bebidas';
-      // verificar possibilidade de obter a url completa para qualquer servidor
-      navigator.clipboard.writeText(`http://localhost:3000/${type}/${id}`);
-    }
     setLinkCopied('Link copiado!');
+    // verificar possibilidade de obter a url completa para qualquer servidor
+    navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
   }
 
   const addOrRemoveFavoriteRecipe = () => {
@@ -73,7 +66,6 @@ function ShareAndFavButtons(props) {
 ShareAndFavButtons.propTypes = {
   details: PropTypes.shape({
     id: PropTypes.string,
-    strMeal: PropTypes.string,
   }).isRequired,
 };
 
