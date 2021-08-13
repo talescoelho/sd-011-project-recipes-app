@@ -3,12 +3,13 @@ import { screen, fireEvent } from '@testing-library/react';
 import { renderWithRouterAndStore } from '../helper/testConfig';
 import { testMealsRecipeCard, testDrinksRecipeCard } from '../helper/testRecipeCard';
 import { mockFilterDrinkByCategory, mockFilterMealByCategory } from '../helper/mockAPI';
-import { Foods, Drinks } from '../../pages';
+import { mealsFiltersOptions, drinksFiltersOptions } from '../mocks/mockFilterOptions';
 import mealsFiltersByAll from '../mocks/meals/mockFilterMealsByAll';
 import drinksFiltersByAll from '../mocks/drinks/mockFilterDrinksByAll';
 import mealsFilterByBeef from '../mocks/meals/mockFilterByBeef';
 import drinksFilterByOrdinaryDrink from '../mocks/drinks/mockFilterByOrdinaryDrink';
 import * as requestMenu from '../../services/requestMenu';
+import App from '../../App';
 
 const maxDefaultCards = 12;
 const cardTestId = '-recipe-card';
@@ -19,8 +20,16 @@ jest
   .mockImplementation(() => Promise.resolve(mealsFiltersByAll));
 
 jest
+  .spyOn(requestMenu, 'requestAllMealCategories')
+  .mockImplementation(() => Promise.resolve(mealsFiltersOptions));
+
+jest
   .spyOn(requestMenu, 'searchDrinkByName')
   .mockImplementation(() => Promise.resolve(drinksFiltersByAll));
+
+jest
+  .spyOn(requestMenu, 'requestAllDrinkCategories')
+  .mockImplementation(() => Promise.resolve(drinksFiltersOptions));
 
 afterEach(() => jest.clearAllMocks());
 beforeEach(() => jest.clearAllMocks());
@@ -29,7 +38,7 @@ describe('31 - Develop the category filter with the option to filter by all cate
   () => {
     it('If the recipes are for food, there must be an option to filter by all categories',
       async () => {
-        renderWithRouterAndStore(<Foods />, '/comidas');
+        renderWithRouterAndStore(<App />, { route: '/comidas' });
         mockFilterMealByCategory(mealsFilterByBeef);
 
         const beefFilterOption = await screen.findByTestId('Beef-category-filter');
@@ -47,7 +56,7 @@ describe('31 - Develop the category filter with the option to filter by all cate
 
     it(`If the recipes are for drinks, there must be the option to filter by all 
     categories`, async () => {
-      renderWithRouterAndStore(<Drinks />, '/bebidas');
+      renderWithRouterAndStore(<App />, { route: '/bebidas' });
       mockFilterDrinkByCategory(drinksFilterByOrdinaryDrink);
 
       const ordinaryDrinkFilterOption = await screen.findByTestId(
