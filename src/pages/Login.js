@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import '../styles/Login.css';
+import restaurante from '../images/restaurante.png';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -27,29 +28,35 @@ export default function Login() {
 
   return (
     <div className="login">
-      <h1>Login</h1>
+      <img
+        className="logo"
+        src={ restaurante }
+        alt="restaurante"
+      />
       <input
+        className="input-login"
         type="text"
         placeholder="Digite seu e-mail"
         data-testid="email-input"
         onChange={ handleChangeEmail }
       />
       <input
+        className="input-login"
         type="password"
         placeholder="Digite sua senha"
         data-testid="password-input"
         onChange={ handleChangePassword }
       />
       <Link to="/comidas">
-        <Button
+        <button
+          className="button"
           type="button"
           data-testid="login-submit-btn"
-          variant="success"
           disabled={ !email || !password }
           onClick={ LoginStorage }
         >
           Entrar
-        </Button>
+        </button>
       </Link>
     </div>
   );

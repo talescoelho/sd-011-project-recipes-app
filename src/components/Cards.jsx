@@ -5,6 +5,7 @@ import MealCard from './MealCard';
 import Header from './Header';
 import RecipesAppContext from '../context/RecipesAppContext';
 import MenuInferior from './MenuInferior';
+import loadingMeal from '../images/loadingMeal.gif';
 import '../styles/Cards.css';
 
 export default function Cards() {
@@ -34,7 +35,7 @@ export default function Cards() {
       <Header />
       { haveRecipes
         ? renderRecipes()
-        : <h3>Loading...</h3> }
+        : <img src={ loadingMeal } width="200px" alt="gif" className="loading" /> }
       <MenuInferior />
     </div>
   );

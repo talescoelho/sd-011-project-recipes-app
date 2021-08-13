@@ -2,6 +2,70 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin-top: 200px;
+  margin-top: 100px;
+}
+
+.logo {
+  display: flex;
+  margin-bottom: -90px;
+  width: 300px;
+  animation: shake 1s infinite ease;
+  max-height: 80vh;
+}
+
+.button {
+  background-color: #704c13;
+  border-radius: 5px;
+  color: white;
+  padding: 10px;
+}
+
+input {
+  border-color: #704c13;
+  border-radius: 5px;
+  padding: 10px;
+  position: relative;
+  margin: 3px;
+}
+
+input::placeholder {
+  color: #704c13;
+}
+
+.meals > .logo {
+  animation: shake 1.5s infinite ease;
+  color: aliceblue;
+  font-family: Montserrat , sans-serif;
+  font-size: 3em;
+  font-weight: 900;
+}
+
+@keyframes shake {
+
+  0% {
+    transform: rotate(5deg);
+  }
+
+  50% {
+    transform: rotate(-5deg);
+  }
+
+  100% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes clink {
+
+  0% {
+    transform: rotate(-10deg);
+  }
+
+  50% {
+    transform: rotate(20deg);
+  }
+
+  100% {
+    transform: rotate(-10deg);
+  }
 }

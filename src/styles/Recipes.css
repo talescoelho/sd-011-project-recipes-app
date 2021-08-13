@@ -2,6 +2,6 @@
   display: flex;
   flex-flow: column wrap;
   height: 100%;
-  margin: 2% auto;
-  width: 95%;
+  width: 100%;
+  margin-top: 100px;
 }

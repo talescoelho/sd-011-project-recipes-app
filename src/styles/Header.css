@@ -1,9 +1,13 @@
 .header-section-top {
+  background-color: #eedbbc;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   padding: 5px 0;
-  width: 95%;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 .header-section {
