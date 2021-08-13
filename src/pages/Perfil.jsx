@@ -16,7 +16,7 @@ export default function Perfil() {
     <div>
       <Header title="Perfil" />
       <p data-testid="profile-email">
-        { email}
+        { email }
       </p>
       <Link
         to="/receitas-feitas"

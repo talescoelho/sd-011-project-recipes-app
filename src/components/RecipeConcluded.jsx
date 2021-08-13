@@ -1,16 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import '../styles/RecipeConcluded.css';
+
+import ShareImage from '../images/shareIcon.svg';
+
 import LinkCopy from './LinkCopy';
+import '../styles/RecipeConcluded.css';
 
 function RecipeConcluded({ recipe, index }) {
   const [linkCopy, setLinkCopy] = useState(false);
   const [recipes, setRecipes] = useState(recipe);
+  const [recipeTags, setRecipeTags] = useState(false);
 
   useEffect(() => {
     setRecipes(recipe);
   }, [recipe]);
+
+  useEffect(() => {
+    if (recipes) {
+      if (recipes.tags) {
+        console.log('tags:', recipes.tags);
+        const TAGS = [...recipes.tags];
+        setRecipeTags(TAGS);
+      }
+    }
+  }, [recipes]);
 
   const history = useHistory();
 
@@ -64,10 +78,9 @@ function RecipeConcluded({ recipe, index }) {
           {/* { doneDate } */}
         </p>
         <div className="tagContainer">
-          { console.log(recipes)}
-          { console.log(recipes.area)}
-          { recipes.area && recipes.tags !== null ? (
-            recipes.tags.split().map((tagName, key) => (
+          {console.log( recipes.area, 'tags para renderizar', recipeTags)}
+          { recipes.area && recipeTags !== false ? (
+            recipeTags.map((tagName, key) => (
               <p
                 className="tagName"
                 key={ key }
@@ -85,7 +98,7 @@ function RecipeConcluded({ recipe, index }) {
             handleShareBtn(recipes.area, recipes.id); handleLinkMessage();
           } }
         >
-          <img src={ shareImage } alt="Compartilhar" />
+          <img src={ ShareImage } alt="Compartilhar" />
         </button>
         { linkCopy && <LinkCopy /> }
       </div>
