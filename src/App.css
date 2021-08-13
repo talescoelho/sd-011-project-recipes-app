@@ -33,13 +33,13 @@
 
 .container-carrossel {
   display: flex;
-  flex-wrap: nowrap;
-  overflow-x: scroll;
-  background-color: black;
-  width: 315px;
+  justify-content: center;
 }
 
-.carrossel-item-container {
+.showImgCarrossel {
   display: flex;
-  flex-direction: column;
+}
+
+.hideImgCarrossel {
+  display: none;
 }

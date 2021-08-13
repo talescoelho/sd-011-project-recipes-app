@@ -21,7 +21,13 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure }) {
   function renderDetails() {
     return (
       <div className="details-body">
-        <img alt="logo" src={ details[0].strMealThumb } data-testid="recipe-photo" width="100px" height="100px" />
+        <img
+          alt="logo"
+          src={ details[0].strMealThumb }
+          data-testid="recipe-photo"
+          width="100px"
+          height="100px"
+        />
         <h3 data-testid="recipe-title">{ details[0].strMeal }</h3>
         <div className="details-btn-container">
           <ShareBtn />

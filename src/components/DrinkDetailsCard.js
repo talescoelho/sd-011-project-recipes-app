@@ -35,8 +35,8 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure }) {
         <h4>Ingredients:</h4>
         { mealIngredients ? mealIngredients.map((item, index) => (
           <h5
-            key={ index }
             data-testid={ `${index}-ingredient-name-and-measure` }
+            key={ index }
           >
             { `${item} - ${mealMeasure[index]}` }
           </h5>
