@@ -9,7 +9,47 @@ import FoodCarrossel from './FoodCarrossel';
 function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
   const history = useHistory();
   const [recomendation, setRecomendation] = useState();
-  const [doneRecipe] = useState(false);
+  const [doneRecipe, setDoneRecipe] = useState();
+
+  function doneRecipeToLS() {
+    const drinkID = id;
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    const yyyy = today.getFullYear();
+
+    today = `${dd}/${mm}/${yyyy}`;
+    const detailObject = [{
+      id: drinkID,
+      type: 'drink',
+      area: details[0].strArea,
+      category: details[0].strCategory,
+      alcoholicOrNot: details[0].strMealAlternate,
+      name: details[0].strMeal,
+      image: details[0].strMealThumb,
+      doneDate: today,
+      tags: details[0].strTags,
+    }];
+
+    if (localStorage.doneRecipes) {
+      const prev = JSON.parse(localStorage.doneRecipes);
+      const detailObject2 = [...prev, {
+        id: drinkID,
+        type: 'meal',
+        area: details[0].strArea,
+        category: details[0].strCategory,
+        alcoholicOrNot: details[0].strMealAlternate,
+        name: details[0].strMeal,
+        image: details[0].strMealThumb,
+        doneDate: today,
+        tags: details[0].strTags,
+      }];
+      localStorage.doneRecipes = JSON.stringify(detailObject2);
+    } else {
+      localStorage.doneRecipes = JSON.stringify(detailObject);
+    }
+    history.push(`/comidas/${id}/in-progress`);
+  }
 
   useEffect(() => {
     async function getRecomendations() {
@@ -17,6 +57,11 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
       const response = await FetchApi('thecocktaildb', 'nome', '');
       const recomendationsList = response.drinks.slice(0, qty);
       setRecomendation(recomendationsList);
+    }
+    const foodID = id;
+    if (localStorage.doneRecipes
+      && JSON.parse(localStorage.doneRecipes).some((recipe) => recipe.id === foodID)) {
+      setDoneRecipe(true);
     }
     getRecomendations();
   }, []);
@@ -64,19 +109,18 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
           allowFullScreen
         /> : '' }
         <FoodCarrossel recomendation={ recomendation } />
-        {
-          doneRecipe ? '' : (
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              onClick={ () => history.push(`/comidas/${id}/in-progress`) }
-              style={ { position: 'fixed',
-                bottom: '0px',
-                marginLeft: '60px' } }
-            >
-              Iniciar Receita
-            </button>)
-        }
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => doneRecipeToLS() }
+          style={ { position: 'fixed',
+            bottom: '0px',
+            marginLeft: '60px',
+            visibility: doneRecipe ? 'hidden' : 'visible',
+          } }
+        >
+          Iniciar Receita
+        </button>
       </div>
     );
   }

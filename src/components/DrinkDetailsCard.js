@@ -9,7 +9,47 @@ import FetchApi from '../services/ApiFetch';
 function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
   const history = useHistory();
   const [recomendation, setRecomendation] = useState();
-  const [doneRecipe] = useState(false);
+  const [doneRecipe, setDoneRecipe] = useState();
+
+  function doneRecipeToLS() {
+    const drinkID = id;
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    const yyyy = today.getFullYear();
+
+    today = `${dd}/${mm}/${yyyy}`;
+    const detailObject = [{
+      id: drinkID,
+      type: 'drink',
+      area: details[0].strArea,
+      category: details[0].strCategory,
+      alcoholicOrNot: details[0].strDrinkAlternate,
+      name: details[0].strDrink,
+      image: details[0].strDrinkThumb,
+      doneDate: today,
+      tags: details[0].strTags,
+    }];
+
+    if (localStorage.doneRecipes) {
+      const prev = JSON.parse(localStorage.doneRecipes);
+      const detailObject2 = [...prev, {
+        id: drinkID,
+        type: 'meal',
+        area: details[0].strArea,
+        category: details[0].strCategory,
+        alcoholicOrNot: details[0].strDrinkAlternate,
+        name: details[0].strDrink,
+        image: details[0].strDrinkThumb,
+        doneDate: today,
+        tags: details[0].strTags,
+      }];
+      localStorage.doneRecipes = JSON.stringify(detailObject2);
+    } else {
+      localStorage.doneRecipes = JSON.stringify(detailObject);
+    }
+    history.push(`/bebidas/${id}/in-progress`);
+  }
 
   useEffect(() => {
     async function getRecomendations() {
@@ -17,6 +57,11 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
       const response = await FetchApi('themealdb', 'nome', '');
       const recomendationsList = response.meals.slice(0, qty);
       setRecomendation(recomendationsList);
+    }
+    const drinkID = id;
+    if (localStorage.doneRecipes
+      && JSON.parse(localStorage.doneRecipes).some((recipe) => recipe.id === drinkID)) {
+      setDoneRecipe(true);
     }
     getRecomendations();
   }, []);
@@ -59,19 +104,18 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
     <div className="details-container">
       { details ? renderDetails() : 'Loading...'}
       <DrinkCarrossel recomendation={ recomendation } />
-      {
-        doneRecipe ? '' : (
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
-            style={ { position: 'fixed',
-              bottom: '0px',
-              marginLeft: '60px' } }
-          >
-            Iniciar Receita
-          </button>)
-      }
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ () => doneRecipeToLS() }
+        style={ { position: 'fixed',
+          bottom: '0px',
+          marginLeft: '60px',
+          visibility: doneRecipe ? 'hidden' : 'visible',
+        } }
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 }

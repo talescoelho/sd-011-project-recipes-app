@@ -12,7 +12,6 @@ export default function DrinkDetails(props) {
   useEffect(() => {
     async function fetchApi() {
       const results = await FetchApi('thecocktaildb', null, null, ['details', id]);
-      console.log(results.drinks);
       setDetails(results.drinks);
     }
     fetchApi();
