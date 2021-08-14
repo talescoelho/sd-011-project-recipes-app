@@ -18,7 +18,7 @@ function FoodCarrossel({ recomendation }) {
     history.push(`/bebidas/${id}`);
     window.location.reload();
   }
-
+  // testandooooooooooooooooooo
   function nextImg() {
     const disney = 4;
     setStartPosition(startPosition + 1);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-function FoodCarrossel({ recomendation }) {
+function DrinkCarrossel({ recomendation }) {
   const history = useHistory();
   const [recomendations, setRecomendations] = useState();
   const [showRecomendations, setShowRecomendations] = useState();
@@ -13,7 +13,6 @@ function FoodCarrossel({ recomendation }) {
       setShowRecomendations([recomendation[0].strMeal, recomendation[1].strMeal]);
     }
   }, [recomendation]);
-
   function imgClickHandler(id) {
     history.push(`/comidas/${id}`);
     window.location.reload();
@@ -69,4 +68,4 @@ function FoodCarrossel({ recomendation }) {
   );
 }
 
-export default FoodCarrossel;
+export default DrinkCarrossel;

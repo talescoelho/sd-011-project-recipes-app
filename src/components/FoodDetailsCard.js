@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ShareBtn from './FavoriteBtn';
 import FavoriteBtn from './ShareBtn';
 import FetchApi from '../services/ApiFetch';
 import FoodCarrossel from './FoodCarrossel';
 
-function FoodDetailsCard({ details, mealIngredients, mealMeasure }) {
+function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
+  const history = useHistory();
   const [recomendation, setRecomendation] = useState();
+  const [doneRecipe] = useState(false);
 
   useEffect(() => {
     async function getRecomendations() {
@@ -25,8 +28,8 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure }) {
           alt="logo"
           src={ details[0].strMealThumb }
           data-testid="recipe-photo"
-          width="100px"
-          height="100px"
+          width="350px"
+          height="300px"
         />
         <h3 data-testid="recipe-title">{ details[0].strMeal }</h3>
         <div className="details-btn-container">
@@ -50,8 +53,8 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure }) {
         <p data-testid="instructions">{ details[0].strInstructions }</p>
         <h4>Vídeo</h4>
         { details ? <iframe
-          width="560"
-          height="315"
+          width="355"
+          height="320"
           data-testid="video"
           src={ `https://www.youtube.com/embed/${details[0].strYoutube.split('=')[1]}` }
           title="YouTube video player"
@@ -61,6 +64,19 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure }) {
           allowFullScreen
         /> : '' }
         <FoodCarrossel recomendation={ recomendation } />
+        {
+          doneRecipe ? '' : (
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ () => history.push(`/comidas/${id}/in-progress`) }
+              style={ { position: 'fixed',
+                bottom: '0px',
+                marginLeft: '60px' } }
+            >
+              Iniciar Receita
+            </button>)
+        }
       </div>
     );
   }
