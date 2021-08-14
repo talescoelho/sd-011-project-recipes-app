@@ -49,8 +49,8 @@ export default function DetailsMealsComp({ propsDrink }) {
             onClick={ handleClickFavorites }
           >
             <img
-              data-testid="favorite-btn"
               src={ favorite ? blackHeartIcon : whiteHeartIcon }
+              data-testid="favorite-btn"
               alt="favorite"
             />
           </button>

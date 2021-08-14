@@ -105,9 +105,9 @@ export default function DetailsMeals() {
     ];
     const storageFavorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     if (favorite) {
+      setFavorite(false);
       const rmvFavorite = storageFavorite.filter((item) => item.id !== recipesSelectedId);
       const rmvFavoriteStringfy = JSON.stringify(rmvFavorite);
-      setFavorite(false);
       localStorage.setItem('favoriteRecipes', rmvFavoriteStringfy);
     } else {
       setFavorite(true);

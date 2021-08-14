@@ -104,8 +104,8 @@ export default function RecipeMealProgressComp({ propsMealProgress }) {
         >
           <img
             src={ favorited ? blackHeartIcon : whiteHeartIcon }
-            alt="favorite icon"
             data-testid="favorite-btn"
+            alt="favorite icon"
           />
         </button>
         <p data-testid="recipe-category">{recipeProgress.strCategory}</p>
