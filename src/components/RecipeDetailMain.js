@@ -1,15 +1,40 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 class RecipeDetailMain extends Component {
   constructor() {
     super();
-
+    this.state = {
+      favoriteBtnSrc: whiteHeartIcon,
+    };
     this.main = this.main.bind(this);
+    this.changefavoriteBtn = this.changefavoriteBtn.bind(this);
+  }
+
+  componentDidUpdate() {
+    const { favoriteBtnSrc } = this.state;
+    console.log('favoriteBtnSrc');
+    console.log(favoriteBtnSrc);
+  }
+
+  changefavoriteBtn() {
+    const { favoriteBtnSrc } = this.state;
+    if (favoriteBtnSrc === whiteHeartIcon) {
+      this.setState({
+        favoriteBtnSrc: blackHeartIcon,
+      });
+    } else {
+      this.setState({
+        favoriteBtnSrc: whiteHeartIcon,
+      });
+    }
   }
 
   main(recipeDetail) {
+    const { favoriteBtnSrc } = this.state;
     const { strMealThumb, strDrinkThumb, strDrink, strMeal,
       strCategory, strAlcoholic, strInstructions,
       strYoutube } = recipeDetail;
@@ -50,8 +75,18 @@ class RecipeDetailMain extends Component {
           <img alt="" />
         </button>
         &nbsp;  &nbsp;
-        <button data-testid="favorite-btn" type="button">
-          <img alt="" />
+        <button
+          // data-testid="favorite-btn"
+          type="button"
+          // src={ favoriteBtnSrc }
+          onClick={ () => this.changefavoriteBtn() }
+          aria-label="Botão de favoritar"
+        >
+          <img
+            data-testid="favorite-btn"
+            alt="Imagem do botão de favoritar"
+            src={ favoriteBtnSrc }
+          />
         </button>
         <br />
         <br />
