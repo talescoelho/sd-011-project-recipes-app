@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FetchApi from '../services/ApiFetch';
 import ShareBtn from '../components/ShareBtn';
@@ -17,24 +18,20 @@ class FoodsRecipiesInProcess extends React.Component {
       DoRecipe: [],
       componentMounted: false,
       stockFoods: recoveredInfo,
+      redirectToDoneRecipe: false,
     };
     this.test = this.test.bind(this);
     this.changeRow = this.changeRow.bind(this);
+    this.onclickFinishButton = this.onclickFinishButton.bind(this);
   }
 
   componentDidMount() {
     this.test();
   }
 
-  // componentDidUpdate() {
-  //   if (localStorage.inProgressRecipes) {
-
-  //     const recoveredInfo = JSON.parse(localStorage.inProgressRecipes).cocktails[id];
-  //     // this.setStateFunc(recoveredInfo);
-  //     console.log(recoveredInfo);
-  //     // console.log(recoveredInfo);
-  //   }
-  // }
+  onclickFinishButton() {
+    this.setState({ redirectToDoneRecipe: true });
+  }
 
   async test() {
     const { match: { params: { id } } } = this.props;
@@ -137,13 +134,20 @@ class FoodsRecipiesInProcess extends React.Component {
         <p data-testid="instructions">
           { DoRecipe.meals[0].strInstructions }
         </p>
-        <button data-testid="finish-recipe-btn" type="button">Finalizar</button>
+        <button
+          data-testid="finish-recipe-btn"
+          onClick={ this.onclickFinishButton }
+          type="button"
+        >
+          Finalizar
+        </button>
       </div>
     );
   }
 
   render() {
-    const { componentMounted } = this.state;
+    const { componentMounted, redirectToDoneRecipe } = this.state;
+    if (redirectToDoneRecipe) return <Redirect to="/receitas-feitas" />;
     return (
       <div>
         {componentMounted ? this.renderAll() : 'loading...'}

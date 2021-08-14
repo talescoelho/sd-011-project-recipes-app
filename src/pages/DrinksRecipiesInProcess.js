@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FetchApi from '../services/ApiFetch';
 import ShareBtn from '../components/ShareBtn';
@@ -17,13 +18,19 @@ class DrinksRecipiesInProcess extends React.Component {
       DoRecipe: [],
       componentMounted: false,
       stockDrinks: recoveredInfo,
+      redirectToDoneRecipe: false,
     };
     this.test = this.test.bind(this);
     this.inputOnClickHandler = this.inputOnClickHandler.bind(this);
+    this.onclickFinishButton = this.onclickFinishButton.bind(this);
   }
 
   componentDidMount() {
     this.test();
+  }
+
+  onclickFinishButton() {
+    this.setState({ redirectToDoneRecipe: true });
   }
 
   async test() {
@@ -127,13 +134,20 @@ class DrinksRecipiesInProcess extends React.Component {
         <p data-testid="instructions">
           { DoRecipe.drinks[0].strInstructions }
         </p>
-        <button data-testid="finish-recipe-btn" type="button">Finalizar</button>
+        <button
+          data-testid="finish-recipe-btn"
+          onClick={ this.onclickFinishButton }
+          type="button"
+        >
+          Finalizar
+        </button>
       </div>
     );
   }
 
   render() {
-    const { componentMounted } = this.state;
+    const { componentMounted, redirectToDoneRecipe } = this.state;
+    if (redirectToDoneRecipe) return <Redirect to="/receitas-feitas" />;
     return (
       <div>
         {componentMounted ? this.renderAll() : 'loading...'}
