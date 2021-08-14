@@ -42,9 +42,9 @@ export const recipeSlice = createSlice({
       state.formInfo = '';
     },
     fetchFilteredCategory: (state, action) => {
-      const { filtered, filteredCategory } = action.payload;
-      state.cards = filtered;
-      state.selectedCategory = filteredCategory;
+      const { filtered, type } = action.payload;
+      state.cards[type] = filtered;
+      state.selectedCategory = type;
     },
     fetchDetails: (state, action) => {
       const { selectedCategory, singleFood } = action.payload;

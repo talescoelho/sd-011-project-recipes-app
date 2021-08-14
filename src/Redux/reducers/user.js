@@ -4,7 +4,7 @@ const initialState = {
   name: '',
   orders: '',
   favoriteRecipes: '',
-  recipeStatus: true,
+
 };
 
 export const userSlice = createSlice({
@@ -17,16 +17,12 @@ export const userSlice = createSlice({
     updateFavorites: (state, action) => {
       state.favoriteRecipes = action.payload;
     },
-    updateIngredientList: (state, action) => {
-      state.recipeStatus = action.payload;
-    },
   },
 });
 
 export const {
   sendUserInfo,
   updateFavorites,
-  updateIngredientList,
 } = userSlice.actions;
 
 export default userSlice.reducer;

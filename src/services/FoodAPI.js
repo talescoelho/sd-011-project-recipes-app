@@ -58,9 +58,8 @@ export const getFilteredFoodList = (food, type) => async (dispatch) => {
   const response = await fetch(food !== 'All' ? cat[type] : allCat[type]);
   const json = await response.json();
   try {
-    const array = Object.values(json)[0].filter((el,
-      index) => index < magic);
-    return dispatch(fetchFilteredCategory({ filtered: array, filteredCategory: food }));
+    const array = Object.values(json)[0].filter((el, index) => index < magic);
+    return dispatch(fetchFilteredCategory({ filtered: array, type }));
   } catch (error) {
     throw new Error(error);
   }

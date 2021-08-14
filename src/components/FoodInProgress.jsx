@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,9 +12,9 @@ import { addDoneRecipe } from '../services/RecipesLocalStorage';
 import IngredientChecklist from './FoodInProgress/IngredientChecklist';
 
 export default function FoodInProgress({ type }) {
+  const [disabled, setDisabled] = useState(false);
   const history = useHistory();
   const recipes = useSelector((state) => state.recipes);
-  const user = useSelector((state) => state.user);
   const food = recipes.singleFood;
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -29,8 +29,16 @@ export default function FoodInProgress({ type }) {
   };
 
   if (food) {
-    const { strMealThumb, strDrinkThumb,
-      strDrink, strMeal, strInstructions, strCategory, strAlcoholic } = food;
+    const {
+      strMealThumb,
+      strDrinkThumb,
+      strDrink,
+      strMeal,
+      strInstructions,
+      strCategory,
+      strAlcoholic,
+    } = food;
+
     return (
       <main className="food-details">
         <div>
@@ -43,7 +51,7 @@ export default function FoodInProgress({ type }) {
           <h1 data-testid="recipe-title">{strMeal || strDrink}</h1>
           <ShareBtn type="inProgress" />
           <FavoriteBtn />
-          <IngredientChecklist />
+          <IngredientChecklist { ...{ setDisabled } } />
           <p>{strAlcoholic}</p>
           <p data-testid="instructions">{strInstructions}</p>
           <p data-testid="recipe-category">
@@ -53,12 +61,12 @@ export default function FoodInProgress({ type }) {
           <h3 className="text-center">Recommended Cards</h3>
         </div>
         <div>
-          { type === 'drinks' && (<CardsFood />)}
-          {type === 'meals' && (<CardsDrinks />)}
+          {type === 'drinks' && <CardsFood />}
+          {type === 'meals' && <CardsDrinks />}
         </div>
 
         <Button
-          disabled={ user.recipeStatus }
+          disabled={ disabled }
           className="btnstart"
           type="button"
           data-testid="finish-recipe-btn"
@@ -66,12 +74,14 @@ export default function FoodInProgress({ type }) {
         >
           Finalizar receita
         </Button>
-
       </main>
     );
   }
   return (
-    <div className="loading">Loading&#8230;</div>);
+    <div className="spinner-border text-secondary" role="status">
+      <span className="sr-only">Loading...</span>
+    </div>
+  );
 }
 
 FoodInProgress.propTypes = {

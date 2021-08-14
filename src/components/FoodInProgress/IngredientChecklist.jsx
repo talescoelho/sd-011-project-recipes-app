@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { produce } from 'immer';
 import _ from 'lodash';
 import useLocalStorage from 'use-local-storage-state';
-import { updateIngredientList } from '../../Redux/reducers/user';
+import propTypes from 'prop-types';
 
-export default function IngredientChecklist() {
+export default function IngredientChecklist({ setDisabled }) {
   const dispatch = useDispatch();
   const [local, setLocal] = useLocalStorage('inProgressRecipes',
     { meals: {}, cocktails: {} });
@@ -43,11 +43,11 @@ export default function IngredientChecklist() {
   };
 
   useEffect(() => {
-    dispatch(updateIngredientList(checkboxList()));
+    setDisabled(checkboxList());
     if (local[fd][id]) {
       setIngr(local[fd][id]);
     }
-  }, [local, ingr, fd, id]);
+  }, [local, ingr, fd, id, dispatch, setDisabled]);
 
   function listIngredients(item) {
     const ingrList = _.filter(item, (value, key) => key.includes('Ingredient') && value);
@@ -83,3 +83,7 @@ export default function IngredientChecklist() {
 
   return (<div>{listIngredients(singleFood)}</div>);
 }
+
+IngredientChecklist.propTypes = {
+  setDisabled: propTypes.func.isRequired,
+};
