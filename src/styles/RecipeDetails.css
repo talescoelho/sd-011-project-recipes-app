@@ -1,11 +1,11 @@
 .go-home-button {
-  background-color: orange;
-  color: white;
-  display: block;
-  font-size: 18px;
-  margin: 0 auto;
-  padding: 5px 30px;
-  text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.747);
+  border: none;
+  border-radius: 10px;
+  left: 5px;
+  position: absolute;
+  top: 5px;
+  z-index: 3000;
 }
 
 .details-img {
@@ -38,7 +38,7 @@
 
 .interaction-btn {
   background: none;
-  border: 1px solid #333;
+  border: none;
   border-radius: 5px;
   height: 32px;
   margin: 0 7px;
@@ -57,7 +57,7 @@
   font-size: 22px;
   left: 50%;
   padding: 7px 20px;
-  position: absolute;
+  position: fixed;
   top: 50%;
   transform: translate(-50%, -50%);
 }
@@ -100,6 +100,33 @@
 .details-video {
   margin: 20px auto;
   width: 90%;
+}
+
+.ingredient-done {
+  text-decoration: line-through;
+}
+
+.details-section-list label input {
+  margin-right: 5px;
+}
+
+.finish-recipe-btn {
+  background-color: green;
+  border: 1px solid white;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  margin-left: 45%;
+  padding: 10px 20px;
+  transform: translateX(-45%);
+}
+
+.finish-recipe-btn:disabled {
+  background-color: #ddd;
+  border: 1px solid #888;
+  color: #888;
+  cursor: not-allowed;
+  font-weight: 400;
 }
 
 .clear-start-recipe-btn {

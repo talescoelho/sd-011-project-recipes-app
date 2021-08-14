@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ReactPlayer from 'react-player';
 
+import { RiArrowGoBackFill as GoBackBtn } from 'react-icons/ri';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
@@ -20,7 +21,7 @@ import '../styles/RecipeDetails.css';
 
 const copy = require('clipboard-copy');
 
-export default function DetalhesComida({ match }) {
+export default function DetalhesComida({ match, history }) {
   const { id } = match.params;
   const [meal, setMeal] = useState({});
   const [isFavorite, setFavorite] = useState(false);
@@ -73,6 +74,13 @@ export default function DetalhesComida({ match }) {
       )
       : (
         <div>
+          <button
+            type="button"
+            className="go-home-button"
+            onClick={ () => history.push('/comidas') }
+          >
+            <GoBackBtn size="1.5em" />
+          </button>
           <img
             data-testid="recipe-photo"
             alt=""

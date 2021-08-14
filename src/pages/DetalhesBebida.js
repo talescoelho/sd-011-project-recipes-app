@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import { RiArrowGoBackFill as GoBackBtn } from 'react-icons/ri';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
@@ -18,7 +19,7 @@ import '../styles/RecipeDetails.css';
 
 const copy = require('clipboard-copy');
 
-export default function DetalhesBebida({ match }) {
+export default function DetalhesBebida({ match, history }) {
   const { id } = match.params;
   const [drink, setDrink] = useState({});
   const [recommendations, setRecommendations] = useState([]);
@@ -71,6 +72,13 @@ export default function DetalhesBebida({ match }) {
       )
       : (
         <div>
+          <button
+            type="button"
+            className="go-home-button"
+            onClick={ () => history.push('/bebidas') }
+          >
+            <GoBackBtn size="1.5em" />
+          </button>
           <img
             data-testid="recipe-photo"
             alt=""
