@@ -156,6 +156,27 @@ export async function fetchDrinksById(id) {
   return drinks;
 }
 
+// BUSCA COMIDA RANDOMICA
+
+export async function fetchRandomFood() {
+  const response = await fetch('www.themealdb.com/api/json/v1/1/random.php');
+  const { idMeal } = await response.json();
+  if (!idMeal) {
+    alert(alertString);
+  }
+  return idMeal;
+}
+// BUSCA BEBIDA RANDOMICA
+
+export async function fetchRandomDrink() {
+  const response = await fetch('www.thecocktaildb.com/api/json/v1/1/random.php');
+  const { idDrink } = await response.json();
+  if (!idDrink) {
+    alert(alertString);
+  }
+  return idDrink;
+}
+
 export const Foods = {
   categories: fetchFoodCategories(),
   area: fetchExploreFoodsArea(),
