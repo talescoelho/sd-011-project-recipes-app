@@ -52,6 +52,28 @@ export default function ProcessFoods({ match: { params: { id } } }) {
     return newArray;
   };
 
+  // useEffect(() => {
+  //   const storage = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+  //   localStorage.setItem('inProgressRecipes', JSON
+  //     .stringify(storage));
+  // }, []);
+
+  const inProgressRecipes = {
+    cocktails,
+    meals,
+  }
+
+  const handleClick = (event) => {
+    const storage = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+    if (event.target.checked) {
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify([...storage, event.target.value]));
+    } else {
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify(storage.filter((item) => item !== event.target.value)));
+    }
+  };
+
   return (
     <div>
       <img
@@ -61,7 +83,7 @@ export default function ProcessFoods({ match: { params: { id } } }) {
         alt="Imagem da receita"
       />
       <h2 data-testid="recipe-title">{ recipes.strMeal }</h2>
-      <ShareButton />
+      <ShareButton idRecipe={ `comidas/${recipes.idMeal}/in-progress` } />
       <img src={ whiteHeartIcon } alt="Favoritar Coração" data-testid="favorite-btn" />
       <h3 data-testid="recipe-category">{ recipes.strCategory }</h3>
       <h3>Ingredients</h3>
@@ -73,7 +95,13 @@ export default function ProcessFoods({ match: { params: { id } } }) {
               data-testid={ `${index}-ingredient-step` }
               htmlFor={ igredient[index] }
             >
-              <input type="checkbox" id={ igredient[index] } />
+              <input
+                type="checkbox"
+                id={ igredient[index] }
+                value={ igredient }
+                onClick={ (event) => handleClick(event) }
+                // checked="checked"
+              />
               {' '}
               { igredient }
             </label>)) }

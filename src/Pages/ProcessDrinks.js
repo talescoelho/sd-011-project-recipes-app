@@ -60,7 +60,7 @@ export default function ProcessDrinks({ match: { params: { id } } }) {
         alt="Imagem da receita"
       />
       <h2 data-testid="recipe-title">{ recipes.strDrink }</h2>
-      <ShareButton />
+      <ShareButton idRecipe={ `bebidas/${recipes.idDrink}/in-progress` } />
       <img src={ whiteHeartIcon } alt="Favoritar Coração" data-testid="favorite-btn" />
       <h3 data-testid="recipe-category">{ recipes.strCategory }</h3>
       <h3>Ingredients</h3>
