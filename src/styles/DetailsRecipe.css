@@ -1,56 +1,57 @@
-/* .container {
+.container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  border: green solid;
-  width: 550px;
-  height: 550vh;
-} */
+  width: 100%;
+}
 
 .containerDetailsFood {
   background-color: #e3caab;
-  /* color: #704c13; */
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 10px;
+  padding: 8px;
 }
 
 .recipes-img {
-  border-radius: 35px;
   border: #704c13 solid;
+  border-radius: 35px;
   margin: 3px;
   padding: 5px;
 }
 
 .recomend-container {
   display: flex;
+  margin-bottom: 50px;
   overflow-x: scroll;
 }
 
-.video {
-  align-items: center;
-  height: 250px;
-  margin-bottom: 20px;
-  width: 327px;
+.recomend-img {
+  border: #704c13 solid;
+  border-radius: 35px;
+  margin: 3px;
+  padding: 5px;
+  width: 120px;
 }
 
-.recomend-img {
-  padding: 5px;
-  width: 180px;
-  border-radius: 35px;
-  border: #704c13 solid;
-  margin: 3px;
+.containerDetailsFood a {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
 }
 
 .hiddenButton {
+  background-color: #198754;
+  border-radius: 6px;
   bottom: 0;
-  margin-top: 30px;
+  color: white;
+  font-weight: 600;
+  height: 40px;
   position: fixed;
-  right: 10px;
+  width: 90%;
 }
 
 .hiddenButton-hidden {
+  bottom: 0;
+  position: fixed;
   visibility: hidden;
 }
 

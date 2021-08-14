@@ -46,7 +46,7 @@ export default function RecipeMealProgressComp({ propsMealProgress }) {
 
   function addRecipeDone() {
     const date = new Date();
-    const svDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+    const svDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     const objDoneRecipes = {
       id: recipeProgress.idMeal,
       type: 'comida',

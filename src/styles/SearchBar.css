@@ -12,7 +12,10 @@
 .input-text-search-bar {
   border: none;
   border-radius: 5px;
+  margin: 0 auto;
+  width: 95%;
 }
+
 button {
   background-color: transparent;
   border: none;
@@ -28,29 +31,25 @@ button {
   padding: 10px;
 }
 
-.input-text-search-bar {
-  margin: 0 auto;
-  width: 95%;
-}
-
 .search-radio-div {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-  margin: 10px 0;
+  display: inline;
+  margin-top: 10px;
+  text-align: center;
 }
 
 .search-radio-div label {
   background-color: #704c13;
   border-radius: 3px;
   color: white;
-  font-weight: 500;
-  padding-left: 10px;
+  font-weight: 600;
+  margin-right: 6px;
+  padding: 5px;
 
 }
 
 .search-radio:hover {
   background-color: chartreuse;
+  color: black;
 }
 
 [ type = 'radio' ] {

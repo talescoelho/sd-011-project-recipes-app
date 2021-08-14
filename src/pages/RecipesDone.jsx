@@ -10,8 +10,6 @@ export default function RecipesDone() {
   const [rpsDone, setRpsDone] = useState(recipesDone);
   const [copyText, setCopyText] = useState('');
 
-  console.log(recipesDone);
-
   const filterRecipesDone = (type) => {
     if (type === 'all') {
       setRpsDone(recipesDone);
@@ -26,6 +24,21 @@ export default function RecipesDone() {
     setCopyText('Link copiado!');
     setInterval(() => setCopyText(''), '2000');
   };
+
+  function renderTags(itemOfMap, indexOfMap) {
+    if (itemOfMap.type === 'comida') {
+      return (
+        itemOfMap.tags.map((itemTag, indexTag) => (
+          <p
+            data-testid={ `${indexOfMap}-${itemTag}-horizontal-tag` }
+            key={ indexTag }
+          >
+            { itemTag }
+          </p>
+        ))
+      );
+    }
+  }
 
   return (
     <div>
@@ -92,21 +105,12 @@ export default function RecipesDone() {
                     <h4 data-testid={ `${index}-horizontal-name` }>{ item.name }</h4>
                   </Link>
                   <p data-testid={ `${index}-horizontal-top-text` }>
-                    { item.category }
+                    {`${item.area} - ${item.category}` }
                   </p>
                   <b />
                   <p data-testid={ `${index}-horizontal-done-date` }>{ item.doneDate }</p>
                   <b />
-                  <p>
-                    { item.tags.map((itemTag, indexTag) => (
-                      <p
-                        data-testid={ `${index}-${itemTag}-horizontal-tag` }
-                        key={ indexTag }
-                      >
-                        { itemTag }
-                      </p>
-                    ))}
-                  </p>
+                  { renderTags(item, index) }
                 </section>
               </section>
             );
@@ -135,6 +139,7 @@ export default function RecipesDone() {
                 <Link to={ `/bebidas/${item.id}` }>
                   <h4 data-testid={ `${index}-horizontal-name` }>{ item.name }</h4>
                 </Link>
+                <p data-testid={ `${index}-horizontal-done-date` }>{ item.doneDate }</p>
                 <p
                   data-testid={ `${index}-horizontal-top-text` }
                 >

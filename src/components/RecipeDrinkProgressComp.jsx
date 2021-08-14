@@ -46,17 +46,16 @@ export default function RecipeDrinkProgressComp({ propsDrinkProgress }) {
 
   function addRecipeDone() {
     const date = new Date();
-    const svDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+    const svDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     const objDoneRecipes = {
       id: recipeProgress.idDrink,
-      type: 'comida',
+      type: 'bebida',
       area: recipeProgress.strArea,
       category: recipeProgress.strCategory,
       alcoholicOrNot: recipeProgress.strAlcoholic,
       name: recipeProgress.strDrink,
       image: recipeProgress.strDrinkThumb,
       doneDate: svDate,
-      tags: recipeProgress.strTags.split(',') || [],
     };
     const recipeDone = JSON.parse(localStorage.doneRecipes);
     const newDoneStorage = recipeDone.concat(objDoneRecipes);

@@ -38,9 +38,8 @@ export default function Cards() {
   function renderLoading() {
     if (location.pathname === '/comidas') return <LoadingMeal />;
     if (location.pathname === '/bebidas') return <LoadingDrink />;
-
   }
-  // useEffect(renderRecipes, [drinkRecipes, haveRecipes, location, mealRecipes]);
+
   return (
     <div className="cards-section">
       <Header />

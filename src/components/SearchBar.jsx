@@ -1,10 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
 import getRecipes from '../services/API';
 import '../styles/SearchBar.css';
 import RecipesAppContext from '../context/RecipesAppContext';
-// import DetailsRecipe from './DetailsRecipe';
 
 export default function SearchBar() {
   const {

@@ -10,7 +10,6 @@ export default function DetailsMeals() {
   const [setDrinkRecipeId] = useState('');
   const [copyText, setCopyText] = useState('');
   const [buttonHiddenClass, setButtonHiddenClass] = useState('hiddenButton');
-  // const [buttonText] = useState('Continuar Receita');
   const [favorite, setFavorite] = useState(false);
   const [recipesRecommendation, setRecipesRecommendation] = useState({});
   const [inProgress, setInProgress] = useState(false);
@@ -18,9 +17,6 @@ export default function DetailsMeals() {
   const history = useHistory();
   const { pathname } = history.location;
   const recipesSelectedId = pathname.split('/')[2];
-
-  // console.log(drinkRecipeId);
-  // console.log(mealRecipeId);
 
   useEffect(() => {
     const getApiDetailsRecipesFood = async () => {
@@ -74,7 +70,7 @@ export default function DetailsMeals() {
     if (!localStorage.doneRecipes) localStorage.doneRecipes = JSON.stringify([]);
     const doneRecipesLCstorage = JSON.parse(localStorage.doneRecipes)
       .filter((item) => item.id === recipesSelectedId);
-    if (doneRecipesLCstorage.length >= 1) {
+    if (doneRecipesLCstorage.length > 0) {
       setButtonHiddenClass('hiddenButton-hidden');
     } else {
       setButtonHiddenClass('hiddenButton');

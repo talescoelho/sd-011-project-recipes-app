@@ -15,9 +15,8 @@ export default function DetailsDrinkComp({ propsDrink }) {
     copyText,
     getIngredients,
     recipesRecommendation,
-    setRecipeId,
     buttonHiddenClass,
-    buttonText,
+    inProgress,
     recipesDrinkSelectedId,
   } = propsDrink;
 
@@ -61,10 +60,6 @@ export default function DetailsDrinkComp({ propsDrink }) {
       </div>
       <h4>Instructions</h4>
       <p data-testid="instructions">{ recipesDetails.strInstructions }</p>
-      <video className="video" data-testid="video" width="750" height="500" controls>
-        <source src={ recipesDetails.strYoutube } type="video/mp4" />
-        <track src={ recipesDetails.strYoutube } kind="captions" />
-      </video>
       <div>
         <h4>Recomendadas</h4>
       </div>
@@ -84,8 +79,8 @@ export default function DetailsDrinkComp({ propsDrink }) {
                   { meals.strMeal }
                 </h4>
                 <Link
-                  onClick={ () => setRecipeId(meals.idMeal) }
-                  to={ `/comida/${meals.idMeal}` }
+                  // onClick={ () => setRecipeId(meals.idMeal) }
+                  to={ `/comidas/${meals.idMeal}` }
                 >
                   <img
                     className="recomend-img"
@@ -105,7 +100,7 @@ export default function DetailsDrinkComp({ propsDrink }) {
           data-testid="start-recipe-btn"
           variant="success"
         >
-          { buttonText }
+          { inProgress ? 'Continuar receita' : 'Iniciar Receita' }
         </Button>
       </Link>
     </div>
@@ -120,10 +115,10 @@ DetailsDrinkComp.propTypes = {
     favorite: PropTypes.bool,
     copyText: PropTypes.string,
     getIngredients: PropTypes.func,
-    recipesRecommendation: PropTypes.objectOf(PropTypes.string),
+    recipesRecommendation: PropTypes.arrayOf(PropTypes.object),
     setRecipeId: PropTypes.func,
     buttonHiddenClass: PropTypes.string,
-    buttonText: PropTypes.string,
+    inProgress: PropTypes.bool,
     recipesDrinkSelectedId: PropTypes.string,
   }).isRequired,
 };

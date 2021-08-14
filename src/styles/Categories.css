@@ -9,9 +9,14 @@
   background-color: #704c13;
   border-radius: 5px;
   color: white;
-  font-weight: 600;
   font-size: 0.62em;
+  font-weight: 600;
   margin: 5px 3px;
   padding: 3px 0;
   width: 31%;
+}
+
+.categories-section button:hover {
+  background-color: chartreuse;
+  color: black;
 }
