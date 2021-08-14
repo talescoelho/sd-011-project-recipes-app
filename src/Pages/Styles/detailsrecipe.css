@@ -13,21 +13,7 @@
 }
 
 .start-recipe-btn {
-  background-color: #f4511e;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 25px;
-  margin: 4px 2px;
-  opacity: 0.6;
-  padding: 16px 90px;
-  text-align: center;
-  text-decoration: none;
-  transition: 0.3s;
+  bottom: 0;
+  position: fixed;
 }
 
-.start-recipe-btn:hover {
-  opacity: 1;
-}
