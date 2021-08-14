@@ -8,8 +8,9 @@ export default function MealtIngredients() {
   return (
     <>
       <Header pageName="Explorar Ingredientes" />
-      <h1>Explore Mealt Ingredients</h1>
-      <FoodIngredients type="meals" />
+      <main className="ingredient-list">
+        <FoodIngredients type="meals" />
+      </main>
       <Footer />
     </>
   );

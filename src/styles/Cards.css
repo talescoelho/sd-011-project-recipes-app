@@ -1,4 +1,4 @@
-main {
+.food-page {
   display: flex;
   flex-flow: column nowrap;
 }
@@ -7,11 +7,10 @@ main {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-
 }
 
 .food-cards a {
-  color : black;
+  color: black;
   margin: 2em 0.5em;
   text-decoration: none;
   width: 40%;
@@ -26,7 +25,6 @@ main {
   height: 100%;
   justify-content: space-between;
   width: 100%;
-
 }
 
 .food-cards img {
@@ -51,7 +49,6 @@ main {
   width: 100%;
 }
 
-
 .food-cards .card-header {
   text-align: center;
 }
@@ -60,18 +57,14 @@ main {
   padding: 0.2rem;
 }
 
-
 .filter-buttons {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
   margin: 0.5em;
-
-
 }
 
 .filter-buttons .filter-button {
   margin: 0.5em;
   width: 6em;
 }
-

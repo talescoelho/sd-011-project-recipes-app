@@ -10,7 +10,7 @@ export default function Bebidas() {
   return (
     <>
       <Header pageName="Bebidas" renderButton />
-      <main>
+      <main className="food-page">
         <FilterButtons type="drinks" />
         <FoodCard type="drinks" />
       </main>

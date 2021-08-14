@@ -1,10 +1,10 @@
 main {
-  margin-top: 50px;
+  margin-top: 60px;
 }
 
 .travelButton {
   background-color: transparent;
-  border : none;
+  border: none;
   font-size: 3rem;
   position: absolute;
 }
@@ -35,7 +35,7 @@ main {
   width: 100%;
 }
 
-.loading:not( :required ) {
+.loading:not(:required) {
   background-color: transparent;
   border: 0;
   color: transparent;
@@ -43,10 +43,14 @@ main {
   text-shadow: none;
 }
 
-.loading:not( :required ):after {
+.loading:not(:required):after {
   animation: spinner 1500ms infinite linear;
   border-radius: 0.5em;
-  box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0 , rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0 , rgba(0, 0, 0, 0.75) 0 1.5em 0 0 , rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0 , rgba(0, 0, 0, 0.5) -1.5em 0 0 0 , rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0 , rgba(0, 0, 0, 0.75) 0 -1.5em 0 0 , rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+  box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0,
+    rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0,
+    rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0,
+    rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0,
+    rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
   content: '';
   display: block;
   font-size: 10px;
@@ -58,53 +62,41 @@ main {
 /* Animation */
 
 @keyframes spinner {
-
   0% {
     transform: rotate(0deg);
-
   }
 
   100% {
     transform: rotate(360deg);
-
   }
 }
 
 @keyframes spinner {
-
   0% {
     transform: rotate(0deg);
-
   }
 
   100% {
     transform: rotate(360deg);
-
   }
 }
 
 @keyframes spinner {
-
   0% {
     transform: rotate(0deg);
-
   }
 
   100% {
     transform: rotate(360deg);
-
   }
 }
 
 @keyframes spinner {
-
   0% {
     transform: rotate(0deg);
-
   }
 
   100% {
     transform: rotate(360deg);
-
   }
 }

@@ -1,10 +1,26 @@
-.ingredient-button {
-  background-color: white;
-  border: none;
+.ingredient-list {
   display: flex;
+  flex-flow: row wrap;
   justify-content: center;
-  margin-top: 20px;
-  width: 100%;
+  margin-bottom: 70px;
+  margin-top: 70px;
+}
+
+.ingredient-button {
+  background-color: transparent;
+  border: none;
+  justify-content: center;
+  margin-bottom: 10px;
+  width: 40%;
+}
+
+.ingredient-button img {
+  object-fit: contain;
+}
+
+.ingredient-button .card {
+  height: 100%;
+  object-fit: contain;
 }
 
 p {

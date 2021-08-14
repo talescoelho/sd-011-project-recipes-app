@@ -2,7 +2,10 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { Card } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIngredients, fetchCardsByIngredients } from '../services/FoodOrigin';
+import {
+  getIngredients,
+  fetchCardsByIngredients,
+} from '../services/FoodOrigin';
 import { setLoadingState } from '../Redux/reducers/recipes';
 
 export default function FoodIngredients({ type }) {
@@ -38,29 +41,33 @@ export default function FoodIngredients({ type }) {
     dispatch(fetchCardsByIngredients(ingredient, type));
   };
 
-  const renderIngredients = () => (
-    ingredients.map((el, index) => {
-      const { title, src } = el;
-      return (
-        <button
-          key={ index }
-          className="ingredient-button"
-          type="button"
-          onClick={ () => renderFilteredIngredients(title) }
-        >
-          <Card
-            data-testid={ `${index}-ingredient-card` }
-          >
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ src[type] }
-              alt={ title }
-            />
-            <p data-testid={ `${index}-card-name` }>{title}</p>
-          </Card>
-        </button>);
-    })
-  );
+  const renderIngredients = () => ingredients.map((el, index) => {
+    const { title, src } = el;
+    return (
+      <button
+        className="ingredient-button"
+        key={ index }
+        type="button"
+        onClick={ () => renderFilteredIngredients(title) }
+      >
+
+        <Card data-testid={ `${index}-ingredient-card` }>
+          <Card.Header>
+            <h4
+              className="my-0 font-weight-normal"
+              data-testid={ `${index}-card-name` }
+            >
+              {title}
+            </h4>
+          </Card.Header>
+          <Card.Body className="card-body">
+            <img src={ src[type] } alt={ title } data-testid={ `${index}-card-img` } />
+          </Card.Body>
+        </Card>
+
+      </button>
+    );
+  });
 
   return renderIngredients();
 }

@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import propTypes from 'prop-types';
+import _ from 'lodash';
 import getFood from '../services/SearchRecipe';
 
 export default function FoodCard({ type }) {
@@ -12,14 +13,18 @@ export default function FoodCard({ type }) {
   const recipes = useSelector((state) => state.recipes);
   const { cards, formInfo, selectedCategory } = recipes;
 
-  const middle = {
-    meals: 'comidas',
-    drinks: 'bebidas',
-  };
+  const redirect = useMemo(() => {
+    const obj = {
+      meals: 'comidas',
+      drinks: 'bebidas',
+    };
+    return obj[type];
+  }, [type]);
 
   useEffect(() => {
     const getCards = () => {
       if (!cards[type].length || formInfo || selectedCategory !== type) {
+      // if (formInfo) {
         dispatch(getFood(formInfo, type));
       }
     };
@@ -27,20 +32,17 @@ export default function FoodCard({ type }) {
     getCards();
   },
 
-  [formInfo, dispatch, type, cards.length, selectedCategory, cards]);
+  [cards, dispatch, formInfo, selectedCategory, type]);
+
+  const getId = useCallback(
+    () => _.find(_.find(cards[type]), (v, k) => /id/i.test(k)), [cards, type],
+  );
 
   useEffect(() => {
-    if (cards.length === 1) {
-      const thinkTime = 1500;
-      const route = {
-        meals: 'comidas',
-        drinks: 'bebidas',
-      };
-      setTimeout(() => {
-        history.push(`/${route[type]}/${cards[0].idMeal || cards[0].idDrink}`);
-      }, thinkTime);
+    if (cards[type].length === 1) {
+      history.push(`/${redirect}/${getId()}`);
     }
-  }, [cards, history, type]);
+  }, [cards, getId, history, redirect, type]);
 
   const cardsToRender = (cardsRender) => (
     cardsRender.map(({ idMeal, strMeal, strMealThumb,
@@ -48,7 +50,7 @@ export default function FoodCard({ type }) {
     }, index) => (
       index < number ? (
         <Link
-          to={ `/${middle[type]}/${idMeal || idDrink}` }
+          to={ `/${redirect}/${idMeal || idDrink}` }
           key={ index }
         >
           <Card data-testid={ `${index}-recipe-card` }>

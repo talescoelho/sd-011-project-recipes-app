@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import React from 'react';
 import FoodCard from '../components/FoodCard';
 import Footer from '../components/Footer';
@@ -10,7 +11,7 @@ export default function Home() {
   return (
     <>
       <Header pageName="Comidas" renderButton />
-      <main>
+      <main className="food-page">
         <FilterButtons type="meals" />
         <FoodCard type="meals" />
       </main>

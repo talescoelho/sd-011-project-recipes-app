@@ -10,9 +10,8 @@
   width: 25vh;
 }
 
-
 .userButtons p {
-  font-family: Franklin Gothic Medium , Arial Narrow , Arial , sans-serif;
+  font-family: Franklin Gothic Medium, Arial Narrow, Arial, sans-serif;
   font-size: 1.5em;
 }
 
@@ -23,5 +22,4 @@
   font-size: 1.5em;
   font-weight: 900;
   padding: 10px;
-
 }
