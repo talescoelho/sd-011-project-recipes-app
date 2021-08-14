@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Login from './pages/Login';
 import InitialScreen from './pages/InitialScreen';
 import Profile from './pages/Profile';
@@ -10,6 +10,7 @@ import Ingredients from './pages/Ingredients';
 import OriginLocal from './pages/OriginLocal';
 import DoneRecipes from './pages/DoneRecipes';
 import FavouriteRecipes from './pages/FavouriteRecipes';
+import NotFound from './pages/NotFound';
 
 export default function Routes() {
   return (
@@ -36,16 +37,18 @@ export default function Routes() {
       <Route
         exact
         path="/explorar/comidas/ingredientes"
-        render={ () => <Ingredients type="Comidas" /> }
+        render={ () => <Ingredients type="comidas" /> }
       />
       <Route
         exact
         path="/explorar/bebidas/ingredientes"
-        render={ () => <Ingredients type="Bebidas" /> }
+        render={ () => <Ingredients type="bebidas" /> }
       />
       <Route exact path="/explorar/comidas/area" component={ OriginLocal } />
       <Route exact path="/receitas-feitas" component={ DoneRecipes } />
       <Route exact path="/receitas-favoritas" component={ FavouriteRecipes } />
+      <Route exact path="/not-found" component={ NotFound } />
+      <Redirect to="/not-found" />
     </Switch>
   );
 }

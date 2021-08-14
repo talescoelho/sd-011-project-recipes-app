@@ -36,6 +36,15 @@ export async function fetchExploreFoodsIngredients() {
   return meals;
 }
 
+export async function fetchSearchFoodsArea(area) {
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
+  const { meals } = await response.json();
+  if (!meals) {
+    alert(alertString);
+  }
+  return meals;
+}
+
 // FETCH PAGINA DE DETALHES PELO ID E DETALHES DA COMIDA
 export async function fetchFoodsById(id) {
   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
@@ -159,22 +168,19 @@ export async function fetchDrinksById(id) {
 // BUSCA COMIDA RANDOMICA
 
 export async function fetchRandomFood() {
-  const response = await fetch('www.themealdb.com/api/json/v1/1/random.php');
-  const { idMeal } = await response.json();
-  if (!idMeal) {
-    alert(alertString);
-  }
-  return idMeal;
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+  const { meals } = await response.json();
+  const id = meals[0].idMeal;
+  return id;
 }
+
 // BUSCA BEBIDA RANDOMICA
 
 export async function fetchRandomDrink() {
-  const response = await fetch('www.thecocktaildb.com/api/json/v1/1/random.php');
-  const { idDrink } = await response.json();
-  if (!idDrink) {
-    alert(alertString);
-  }
-  return idDrink;
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+  const { drinks } = await response.json();
+  const id = drinks[0].idDrink;
+  return id;
 }
 
 export const Foods = {
@@ -182,20 +188,23 @@ export const Foods = {
   area: fetchExploreFoodsArea(),
   ingredients: fetchExploreFoodsIngredients(),
   searchCategory: (category) => fetchFoodSearchCategory(category),
-  searchIngredients: (ingredient) => fetchFoodIngredient(ingredient),
+  searchIngredient: (ingredient) => fetchFoodIngredient(ingredient),
+  searchArea: (area) => fetchSearchFoodsArea(area),
   searchName: (name) => fetchFoodName(name),
   searchLetter: (letter) => fetchFoodLetter(letter),
   getById: (id) => fetchFoodsById(id),
+  getRandom: () => fetchRandomFood(),
 };
 
 export const Cocktails = {
   categories: fetchCocktailsCategories(),
   ingredients: fetchExploreCocktailsIngredients(),
   searchCategory: (category) => fetchCocktailsSearchCategory(category),
-  searchIngredients: (ingredient) => fetchCocktailsIngredient(ingredient),
+  searchIngredient: (ingredient) => fetchCocktailsIngredient(ingredient),
   searchName: (name) => fetchCocktailsName(name),
   searchLetter: (letter) => fetchCocktailsLetter(letter),
   getById: (id) => fetchDrinksById(id),
+  getRandom: () => fetchRandomDrink(),
 };
 
 export function getIds(type, recipe) {
