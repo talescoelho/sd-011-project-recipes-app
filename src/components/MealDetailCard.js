@@ -44,7 +44,7 @@ function MealDetailCard() {
     strYoutube,
   } = mealDetail;
 
-  console.log((rec.meals));
+  // console.log((rec.meals));
 
   const objIngred = Object.entries(mealDetail).map((e) => {
     if (e[0].includes('strIngredient') && e[1] !== '') {

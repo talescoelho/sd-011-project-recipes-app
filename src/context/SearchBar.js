@@ -17,6 +17,8 @@ export function SearchBarProvider({ children }) {
   const [dataList, setDataList] = useState([]);
   const [categories, setCategories] = useState([]);
   const [filter, setFilter] = useState('');
+  // Jorge
+  const [ingred, setIngred] = useState('');
 
   console.log('search', dataValues);
 
@@ -45,6 +47,8 @@ export function SearchBarProvider({ children }) {
     setFilter,
     dataList,
     setDataList,
+    ingred,
+    setIngred,
   };
   return (
     <SearchBarContext.Provider value={ value }>
