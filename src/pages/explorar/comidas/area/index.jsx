@@ -1,66 +1,123 @@
-import React, { useEffect, useState } from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Footer from '../../../../components/Footer';
 import Header from '../../../../components/Header';
-import setFilterByAreaRecipe from '../../../../services/setFilterByAreaRecipe';
-import setListArea from '../../../../services/setListArea';
+import * as actions from '../../../../actions';
 
-function ComidasArea() {
-  const [areas, setAreas] = useState([]);
-  const [recipes, setRecipes] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  function setListAreaSuccess(response) {
-    setAreas(response);
+const TWELVE = 12;
+class ComidasArea extends Component {
+  constructor(props) {
+    super(props);
+    this.handleOnChangeArea = this.handleOnChangeArea.bind(this);
   }
 
-  async function requestApiListArea() {
-    setIsLoading(true);
-    const response = await setListArea();
-    setListAreaSuccess(response);
-    setIsLoading(false);
+  componentDidMount() {
+    const { filterListArea, generalRecipesFood } = this.props;
+    filterListArea();
+    generalRecipesFood();
   }
 
-  function setFilterByAreaRecipeSuccess(result) {
-    setRecipes(result);
+  handleOnChangeArea(event) {
+    const { filterRecipeByArea, generalRecipesFood } = this.props;
+    if (event.target.value !== 'All') {
+      filterRecipeByArea(event.target.value);
+    } else {
+      generalRecipesFood();
+    }
   }
 
-  async function requestApiFilterArea() {
-    setIsLoading(true);
-    const result = await setFilterByAreaRecipe();
-    setFilterByAreaRecipeSuccess(result);
-    setIsLoading(false);
-  }
+  renderSelect() {
+    const { allAreas } = this.props;
 
-  useEffect(() => {
-    requestApiFilterArea();
-    requestApiListArea();
-  }, []);
-
-  return !isLoading ? (
-    <div>
-      <Header title="Explorar Origem" hasSearchBar />
+    return (
       <div>
-        <select data-testid="explore-by-area-dropdown">
-          {areas.map(({ strArea: area }, index) => (
-            <option data-testid={ `${area}-option` } key={ index }>{ area }</option>
+        <select
+          data-testid="explore-by-area-dropdown"
+          onChange={ this.handleOnChangeArea }
+        >
+          <option data-testid="All-option" value="All">All</option>
+          {allAreas.map(({ strArea: area }, index) => (
+            <option
+              data-testid={ `${area}-option` }
+              key={ index }
+              value={ area }
+            >
+              { area }
+            </option>
           ))}
         </select>
       </div>
-      <div>
-        {recipes.map(({ strMeal: recipe, strMealThumb: img }, index) => (
-          <div data-testid={ `${index}-recipe-card` } key={ index }>
+    );
+  }
+
+  renderAreaFoods() {
+    const { allRecipes } = this.props;
+    const allRecipesSlice = allRecipes.slice(0, TWELVE);
+    return (
+      allRecipesSlice.map((item, index) => (
+        <Link to={ `/comidas/${item.idMeal}` } key={ index }>
+          <div
+            className="card-item"
+            data-testid={ `${index}-recipe-card` }
+          >
             <img
-              src={ img }
-              alt=""
+              className="img-card"
+              alt={ item.strMeal }
+              src={ item.strMealThumb }
               data-testid={ `${index}-card-img` }
             />
-            <h4 data-testid={ `${index}-card-name` }>{recipe}</h4>
+            <div>
+              <span
+                data-testid={ `${index}-card-name` }
+              >
+                {item.strMeal}
+              </span>
+            </div>
           </div>
-        ))}
-      </div>
-      <Footer />
-    </div>
-  ) : <span>Loading...</span>;
+        </Link>
+      ))
+    );
+  }
+
+  render() {
+    return (
+      <>
+        <Header title="Explorar Origem" mode="comidas" hasSearchBar />
+        <div className="container-main">
+          <div className="area-dropdown">
+            {this.renderSelect()}
+          </div>
+          <div className="card-list">
+            {this.renderAreaFoods()}
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
 }
 
-export default ComidasArea;
+const mapStateToProps = (state) => ({
+  allAreas: state.recipes.allAreas,
+  allRecipes: state.recipes.allRecipes,
+  isAreaList: state.recipes.isAreaList,
+  isAreaFilter: state.recipes.isAreaFilter,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  filterListArea: () => dispatch(actions.filterListArea()),
+  generalRecipesFood: () => dispatch(actions.generalRecipesFood()),
+  filterRecipeByArea: (filter) => dispatch(actions.filterRecipeByArea(filter)),
+});
+
+ComidasArea.propTypes = {
+  allAreas: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filterListArea: PropTypes.func.isRequired,
+  filterRecipeByArea: PropTypes.func.isRequired,
+  allRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  generalRecipesFood: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ComidasArea);

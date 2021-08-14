@@ -3,6 +3,8 @@ import {
   CATEGORIES_SUCCESS,
   FILTER_FOOD_RECIPE_BY_INGREDIENT,
   FILTER_DRINK_RECIPE_BY_INGREDIENT,
+  SET_LIST_AREA_RECIPE,
+  SET_FILTER_BY_AREA_RECIPE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -13,6 +15,10 @@ const INITIAL_STATE = {
   isRecipeFilter: false,
   drinkRecipeByIngredient: [],
   isDrinkFilter: false,
+  allAreas: [],
+  isAreaList: false,
+  allAreasRecipe: [],
+  isAreaFilter: false,
 };
 
 export default function reducer(state = INITIAL_STATE, { type, payload }) {
@@ -41,6 +47,21 @@ export default function reducer(state = INITIAL_STATE, { type, payload }) {
         ...state,
         drinkRecipeByIngredient: payload.drinkRecipeByIngredient,
         isDrinkFilter: payload.isDrinkFilter,
+      }
+    );
+  case SET_LIST_AREA_RECIPE:
+    return (
+      {
+        ...state,
+        allAreas: payload.allAreas,
+        isAreaList: payload.isAreaList,
+      }
+    );
+  case SET_FILTER_BY_AREA_RECIPE:
+    return (
+      {
+        ...state,
+        allRecipes: payload.allAreasRecipe,
       }
     );
   default:
