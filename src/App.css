@@ -102,7 +102,7 @@
   margin-right: 5px;
 }
 
-.search-radio label:nth-last-child( [type="radio"] ) {
+.search-radio label:nth-last-child( [ type = 'radio' ] ) {
   flex-grow: 3;
 }
 
