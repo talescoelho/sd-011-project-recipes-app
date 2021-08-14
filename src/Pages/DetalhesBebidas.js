@@ -8,7 +8,6 @@ import {
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
 import nonFavoriteIcon from '../images/whiteHeartIcon.svg';
-import '../Footer.css';
 
 const copy = require('clipboard-copy');
 

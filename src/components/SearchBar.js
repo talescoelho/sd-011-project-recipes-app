@@ -57,12 +57,14 @@ function SearchBar() {
   }
 
   return (
-    <form>
+    <form className="search-bar-form">
       <label htmlFor="search-bar">
         <input
           name="search-bar"
           data-testid="search-input"
           onChange={ handleSearchInput }
+          placeholder="Buscar Receita"
+          className="search-bar-input"
         />
       </label>
       <label htmlFor="radio-search">

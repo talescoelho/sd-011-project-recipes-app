@@ -21,56 +21,58 @@ import NotFound from './Pages/NotFound';
 
 function App() {
   return (
-    <Switch>
-      <Route exact path="/" component={ Login } />
-      <Route
-        exact
-        path="/comidas"
-        render={ (props) => <Comidas title="Comidas" { ...props } /> }
-      />
-      <Route
-        exact
-        path="/bebidas"
-        render={ (props) => <Bebidas title="Bebidas" { ...props } /> }
-      />
-      <Route exact path="/comidas/:id" component={ DetalhesComidas } />
-      <Route exact path="/bebidas/:id" component={ DetalhesBebidas } />
-      <Route exact path="/comidas/:id/in-progress" component={ ComidaProcesso } />
-      <Route exact path="/bebidas/:id/in-progress" component={ BebidaProcesso } />
-      <Route exact path="/explorar" render={ () => <Explorar title="Explorar" /> } />
-      <Route
-        exact
-        path="/explorar/comidas"
-        render={ () => <ExplorarComidas title="Explorar Comidas" /> }
-      />
-      <Route
-        exact
-        path="/explorar/bebidas"
-        render={ () => <ExplorarBebidas title="Explorar Bebidas" /> }
-      />
-      <Route
-        path="/explorar/comidas/ingredientes"
-        render={ () => <ExplorarComidasIngredientes title="Explorar Ingredientes" /> }
-      />
-      <Route
-        path="/explorar/bebidas/ingredientes"
-        render={ () => <ExplorarBebidasIngredientes title="Explorar Ingredientes" /> }
-      />
-      <Route
-        path="/explorar/comidas/area"
-        render={ () => <ExplorarComidasOrigem title="Explorar Origem" /> }
-      />
-      <Route path="/perfil" render={ () => <Perfil title="Perfil" /> } />
-      <Route
-        path="/receitas-feitas"
-        render={ () => <ReceitasFeitas title="Receitas Feitas" /> }
-      />
-      <Route
-        path="/receitas-favoritas"
-        render={ () => <ReceitasFavoritas title="Receitas Favoritas" /> }
-      />
-      <Route component={ NotFound } />
-    </Switch>
+    <div className="background-wheat">
+      <Switch>
+        <Route exact path="/" component={ Login } />
+        <Route
+          exact
+          path="/comidas"
+          render={ (props) => <Comidas title="Comidas" { ...props } /> }
+        />
+        <Route
+          exact
+          path="/bebidas"
+          render={ (props) => <Bebidas title="Bebidas" { ...props } /> }
+        />
+        <Route exact path="/comidas/:id" component={ DetalhesComidas } />
+        <Route exact path="/bebidas/:id" component={ DetalhesBebidas } />
+        <Route exact path="/comidas/:id/in-progress" component={ ComidaProcesso } />
+        <Route exact path="/bebidas/:id/in-progress" component={ BebidaProcesso } />
+        <Route exact path="/explorar" render={ () => <Explorar title="Explorar" /> } />
+        <Route
+          exact
+          path="/explorar/comidas"
+          render={ () => <ExplorarComidas title="Explorar Comidas" /> }
+        />
+        <Route
+          exact
+          path="/explorar/bebidas"
+          render={ () => <ExplorarBebidas title="Explorar Bebidas" /> }
+        />
+        <Route
+          path="/explorar/comidas/ingredientes"
+          render={ () => <ExplorarComidasIngredientes title="Explorar Ingredientes" /> }
+        />
+        <Route
+          path="/explorar/bebidas/ingredientes"
+          render={ () => <ExplorarBebidasIngredientes title="Explorar Ingredientes" /> }
+        />
+        <Route
+          path="/explorar/comidas/area"
+          render={ () => <ExplorarComidasOrigem title="Explorar Origem" /> }
+        />
+        <Route path="/perfil" render={ () => <Perfil title="Perfil" /> } />
+        <Route
+          path="/receitas-feitas"
+          render={ () => <ReceitasFeitas title="Receitas Feitas" /> }
+        />
+        <Route
+          path="/receitas-favoritas"
+          render={ () => <ReceitasFavoritas title="Receitas Favoritas" /> }
+        />
+        <Route component={ NotFound } />
+      </Switch>
+    </div>
   );
 }
 

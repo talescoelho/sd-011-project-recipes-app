@@ -31,27 +31,29 @@ function Header({ title }) {
   }, [dispatch]);
 
   return (
-    <div>
-      <Link to="/perfil">
-        <img
-          data-testid="profile-top-btn"
-          src={ profileIcon }
-          alt="profile-icon"
-        />
-      </Link>
-      <h1 data-testid="page-title">{title}</h1>
-      {(!renderWithoutSearch.includes(title))
-        && (
-          <div>
-            <button
-              type="button"
-              onClick={ () => setHiddentSearchBar(!hiddenSearchBar) }
-            >
-              <img src={ searchIcon } data-testid="search-top-btn" alt="search-icon" />
-            </button>
-            {(!hiddenSearchBar && renderSearchComponents[title])}
-          </div>)}
-    </div>
+    <>
+      <header>
+        <Link to="/perfil">
+          <img
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="profile-icon"
+          />
+        </Link>
+        <h1 data-testid="page-title">{title}</h1>
+        {(!renderWithoutSearch.includes(title))
+          && (
+            <div>
+              <button
+                type="button"
+                onClick={ () => setHiddentSearchBar(!hiddenSearchBar) }
+              >
+                <img src={ searchIcon } data-testid="search-top-btn" alt="search-icon" />
+              </button>
+            </div>)}
+      </header>
+      {(!hiddenSearchBar && renderSearchComponents[title])}
+    </>
   );
 }
 

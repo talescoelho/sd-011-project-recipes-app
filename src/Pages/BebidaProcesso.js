@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import favoriteIcon from '../images/blackHeartIcon.svg';
 import nonFavoriteIcon from '../images/whiteHeartIcon.svg';
-import '../Footer.css';
+
 import RenderIngredientCheckBox from '../components/RenderIngredientCheckBox';
 
 const copy = require('clipboard-copy');

@@ -53,18 +53,17 @@ function RenderRecipes({ redirectedFromIngredients }) {
   const limitRecipes = 12;
 
   return (
-    <section>
+    <section className="main-recipe-container">
       {(type !== '' && recipes !== null)
         && recipes.slice(0, limitRecipes).map((recipe, index) => (
-          <Link to={ `${linkToGo}/${recipe[id]}` } key={ index }>
-            <div data-testid={ `${index}-recipe-card` } key={ index }>
-              <p data-testid={ `${index}-card-name` }>{recipe[name]}</p>
+          <Link className="card-link" to={ `${linkToGo}/${recipe[id]}` } key={ index }>
+            <div className="recipes-card" data-testid={ `${index}-recipe-card` } key={ index }>
               <img
                 data-testid={ `${index}-card-img` }
                 src={ recipe[image] }
                 alt={ name }
-                width="50px"
               />
+              <p data-testid={ `${index}-card-name` }>{recipe[name]}</p>
             </div>
           </Link>
         ))}

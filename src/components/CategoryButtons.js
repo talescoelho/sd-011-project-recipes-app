@@ -44,7 +44,7 @@ function CategoryButtons() {
   }
 
   return (
-    <nav>
+    <nav className="category-navbar">
       <button
         type="button"
         data-testid="All-category-filter"
