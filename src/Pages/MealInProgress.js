@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { requestMealById } from '../Services/Data';
+import { handleDisable, requestMealById } from '../Services/Data';
 import SharedButton from '../components/SharedButton';
 import FavoriteButton from '../components/FavoriteButton';
 
@@ -9,6 +9,7 @@ function MealInProgress({ match }) {
   const { url } = match;
   const [data, setData] = useState([]);
   const [food, setFood] = useState({});
+  const [check, setCheck] = useState();
   const { params: { id } } = match;
 
   useEffect(() => {
@@ -44,9 +45,16 @@ function MealInProgress({ match }) {
     }
   }
 
-  function handleChange({ target: { name } }) {
+  function handleClick({ target }) {
     const getStorage = JSON.parse(localStorage.getItem('meals'));
-    localStorage.setItem('meals', JSON.stringify([...getStorage, name]));
+    if (target.checked) {
+      localStorage.setItem('meals', JSON.stringify([...getStorage, target.name]));
+      setCheck(JSON.parse(localStorage.getItem('meals')));
+    } else {
+      localStorage.setItem('meals', JSON
+        .stringify(getStorage.filter((meal) => meal !== target.name)));
+      setCheck(check.filter((meal) => meal !== target.name));
+    }
   }
 
   return (
@@ -82,9 +90,7 @@ function MealInProgress({ match }) {
                       type="checkbox"
                       id={ index }
                       name={ data.meals[0][key] }
-                      onClick={ handleChange }
-                      checked={ JSON.parse(localStorage.getItem('meals'))
-                        .find((item) => item === data.meals[0][key]) }
+                      onClick={ handleClick }
                     />
                     { data.meals[0][key] }
                     {}
@@ -104,7 +110,7 @@ function MealInProgress({ match }) {
               />
               <button data-testid="instructions" type="button">Instructions</button>
               <button
-                disabled={ data.keys === 0 }
+                disabled={ handleDisable(ingredients, data, check) }
                 data-testid="finish-recipe-btn"
                 type="button"
               >

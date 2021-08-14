@@ -7,6 +7,13 @@ export const renderWithRouter = (ui, { route = '/' } = {}) => {
   return render(ui, { wrapper: BrowserRouter });
 };
 
+export function handleDisable(cb, stateData, stateCounter) {
+  const count = cb().map((key) => stateData.meals[0][key] !== ''
+    && stateData.meals[0][key] !== null).filter((el) => el === true);
+  if (stateCounter && stateCounter.length === count.length) return '';
+  return '1';
+}
+
 const message = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
 export function fetchIngredientesList(setIngredientesList) {
