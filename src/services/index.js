@@ -1,5 +1,3 @@
-import { reporters } from 'mocha';
-
 // FETCH PAGINA DE COMIDAS
 const alertString = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
