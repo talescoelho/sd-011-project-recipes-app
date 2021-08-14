@@ -28,9 +28,15 @@ jest
 
 const fetch = jest
   .spyOn(global, 'fetch')
-  .mockImplementationOnce(() => Promise.resolve(drinksByIngredient))
-  .mockImplementationOnce(() => Promise.resolve(ginDrinks))
-  .mockImplementationOnce(() => Promise.resolve(drinksByFirstLetter));
+  .mockImplementationOnce(() => Promise.resolve({
+    json: () => Promise.resolve(drinksByIngredient),
+  }))
+  .mockImplementationOnce(() => Promise.resolve({
+    json: () => Promise.resolve(ginDrinks),
+  }))
+  .mockImplementationOnce(() => Promise.resolve({
+    json: () => Promise.resolve(drinksByFirstLetter),
+  }));
 
 const alert = jest.spyOn(window, 'alert').mockImplementation(() => {});
 
