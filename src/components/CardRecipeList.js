@@ -22,41 +22,36 @@ function CardRecipeList({ origin }) {
     if (ingredient !== '') {
       if (origin === 'Food') {
         request = await searchByIngredient(ingredient);
-        console.log('food ingre');
       } else {
         request = await searchDrinkByIngredient(ingredient);
-        console.log('drink ingre');
       }
     } else if (origin === 'Food') {
       request = await searchFoodsAll();
-      console.log('food');
     } else {
       request = await searchDrinksAll();
-      console.log('drink');
     }
     setInitialItens(request);
   }
 
   useEffect(() => {
     loadInitialItens();
-    console.log('load');
   }, []);
 
   function renderItems(array) {
-    if (array && array.length === 1) {
+    if (array.length === 1) {
       if (origin === 'Food') {
         return (history.push(`comidas/${array[0].idMeal}`));
       }
       return (history.push(`bebidas/${array[0].idDrink}`));
     }
     return (
-      array && array.slice(0, MAX_RESULT).map((item, index) => (
+      array.slice(0, MAX_RESULT).map((item, index) => (
         <CardRecipe key={ index } item={ item } index={ index } />)));
   }
 
   return (
     <div>
-      { byCategory ? renderItems(filtered) : renderItems(initialItens) }
+      { !byCategory ? renderItems(initialItens) : renderItems(filtered) }
     </div>
   );
 }
