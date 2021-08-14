@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap');
 * {
-  font-family: 'Poppins', sans-serif;
+  font-family: Poppins, sans-serif;
 }
 
 .container {
@@ -29,7 +29,6 @@
 
 .header-wrapper {
   align-items: center;
-
   display: flex;
   justify-content: space-between;
   width: 90%;
@@ -55,8 +54,8 @@
   align-items: center;
   /* background-color: rgb(255, 245, 245);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) , 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
-  height: 800px;
   display: flex;
+  height: 800px;
   flex-direction: column;
   justify-content: center;
   width: 100%;
@@ -82,14 +81,14 @@
 .search-radio {
   align-items: center;
   display: flex;
-  margin: auto;
   justify-content: space-between;
+  margin: auto;
   width: 80%;
 }
 
 .search-radio label {
- font-size: 12px;
  display: flex;
+ font-size: 12px;
  overflow: hidden;
 }
 
@@ -104,24 +103,24 @@
  .input-btn {
    display: flex;
    margin: auto;
-   width: 95%;
    margin-bottom: 2px;
+   width: 95%;
  }
 
  .input-btn input {
   background-color: rgb(131, 251, 255);
-  height: 40px;
-  border-radius: 20px;
-  padding-left: 25px;
   border: 0;
+  border-radius: 20px;
+  height: 40px;
+  padding-left: 25px;
 }
 
 .input-btn button {
   background-color: white;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1) , 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  margin: auto;
   border-radius: 80px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1) , 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   height: 30px;
+  margin: auto;
   margin-left: -70px;
   width: 60px;
 }
