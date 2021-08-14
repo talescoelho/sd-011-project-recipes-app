@@ -18,14 +18,14 @@ function ButtonFavorite({ objData }) {
   const handleClickToBlack = () => {
     const magicN = -1;
     const objToStorage = {
-      id: objData.idMeal !== undefined ? objData.idMeal : objData.idDrink,
+      id: objData.idMeal ? objData.idMeal : objData.idDrink,
       type: (`${window.location.pathname.split('/')[1]}`).slice(0, magicN),
-      area: objData.strArea !== undefined ? objData.strArea : '',
-      category: objData.strCategory !== undefined ? objData.strCategory : '',
-      alcoholicOrNot: objData.strAlcoholic !== undefined ? objData.strAlcoholic : '',
-      name: objData.strMeal !== undefined ? objData.strMeal : objData.strDrink,
+      area: objData.strArea ? objData.strArea : '',
+      category: objData.strCategory ? objData.strCategory : '',
+      alcoholicOrNot: objData.strAlcoholic ? objData.strAlcoholic : '',
+      name: objData.strMeal ? objData.strMeal : objData.strDrink,
       image: objData
-        .strMealThumb !== undefined ? objData.strMealThumb : objData.strDrinkThumb,
+        .strMealThumb ? objData.strMealThumb : objData.strDrinkThumb,
     };
 
     const acumulate = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -36,10 +36,10 @@ function ButtonFavorite({ objData }) {
 
   const handleClickToWhite = () => {
     const acumulate = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    console.log('fora', acumulate);
+    // console.log('fora', acumulate);
     const update = acumulate
       .filter((e) => (e.id !== window.location.pathname.split('/')[2]));
-    console.log('update', update);
+    // console.log('update', update);
     localStorage.setItem('favoriteRecipes', JSON.stringify(update));
     return setBlack(false);
   };

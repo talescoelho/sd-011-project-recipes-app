@@ -80,7 +80,7 @@ export default function SearchBar(props) {
       // eslint-disable-next-line no-alert
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    
+
     const dataFromApi = await fetchByFilter(urlToFetch);
     setData(dataFromApi);
     setNewSearch(true);

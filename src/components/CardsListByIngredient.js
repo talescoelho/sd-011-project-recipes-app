@@ -12,7 +12,7 @@ export default function CardsListByIngredient() {
   const [redirectTo, setRedirectTo] = useState(false);
   const path = window.location.pathname.split('/')[2];
 
-  const { setIngred, setToCard } = useContext(SearchBarContext);
+  const { setIngred } = useContext(SearchBarContext);
 
   useEffect(() => {
     const urlDrink = 'thecocktaildb';

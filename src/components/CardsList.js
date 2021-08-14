@@ -11,7 +11,7 @@ export default function CardsList(props) {
   const MAX_CARDS = 12;
   useEffect(() => {
   }, [dataValues]);
-  
+
   useEffect(() => {
     // console.log('render 2', dataValues);
     // console.log('cardlist', ingredient);
@@ -19,12 +19,12 @@ export default function CardsList(props) {
       const urlToFetch = `https://www.${fetchType}.com/api/json/v1/1/filter.php?i=${ingredient}`;
       const recipesFromApi = await fetchByFilter(urlToFetch);
       const newRecipes = Object.values(recipesFromApi)[0];
-      console.log('render', ingredient);
+      // console.log('render', ingredient);
       setRenderArray(newRecipes);
     };
     getRecipesByCategory();
   }, [dataValues, ingredient]);
-  
+
   if (ingredient && ingredient.length > 0) {
     // console.log('render 3', renderArray);
     return (
@@ -47,11 +47,11 @@ export default function CardsList(props) {
       <div
         style={ { marginTop: '100px' } }
       >
-        { dataValues.slice(0, MAX_CARDS).map((eachRecipe, index) => (<Cards
-          recipe={ eachRecipe }
+        { dataValues.slice(0, MAX_CARDS).map((eachRecipe1, index1) => (<Cards
+          recipe={ eachRecipe1 }
           type={ fetchType }
-          index={ index }
-          key={ index }
+          index={ index1 }
+          key={ index1 }
         />
         ))}
       </div>

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Header from '../../components/Header';
-import { SearchBarContext, SearchBarProvider } from '../../context/SearchBar';
+import { SearchBarContext } from '../../context/SearchBar';
 import Footer from '../../components/Footer';
 import CardsList from '../../components/CardsList';
 
@@ -12,7 +12,7 @@ export default function Drinks() {
         {/* <SearchBarProvider>
         </SearchBarProvider> */}
         <Header title="Explorar Bebidas" search filterBar fetchType="thecocktaildb" />
-        <CardsList fetchType="thecocktaildb" ingredient={ingred} />
+        <CardsList fetchType="thecocktaildb" ingredient={ ingred } />
       </section>
       <section>
         <Footer />

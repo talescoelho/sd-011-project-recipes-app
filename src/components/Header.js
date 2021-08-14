@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
@@ -10,8 +10,8 @@ export default function Header(props) {
   const [isVisibleSearchBar, setVisibleSearchBar] = useState(false);
   const history = useHistory();
   const { title, search, fetchType, filterBar } = props;
-  console.log('header', filterBar);
-  console.log('header', search);
+  // console.log('header', filterBar);
+  // console.log('header', search);
 
   const renderSearchBar = () => <section><SearchBar fetchType={ fetchType } /></section>;
   const renderFiltersBar = () => (<FiltersBar fetchType={ fetchType } />);
