@@ -55,6 +55,7 @@ export default function DrinkDetails(props) {
       mealIngredients={ mealIngredients }
       details={ details }
       mealMeasure={ mealMeasure }
+      id={ id }
     />
 
   );

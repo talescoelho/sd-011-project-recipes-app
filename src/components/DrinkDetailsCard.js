@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ShareBtn from './FavoriteBtn';
 import FavoriteBtn from './ShareBtn';
 import DrinkCarrossel from './DrinkCarrossel';
 import FetchApi from '../services/ApiFetch';
 
-function DrinkDetailsCard({ details, mealIngredients, mealMeasure }) {
+function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
+  const history = useHistory();
   const [recomendation, setRecomendation] = useState();
+  const [doneRecipe] = useState(false);
 
   useEffect(() => {
     async function getRecomendations() {
@@ -21,7 +24,13 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure }) {
   function renderDetails() {
     return (
       <div className="details-body">
-        <img alt="logo" src={ details[0].strDrinkThumb } data-testid="recipe-photo" />
+        <img
+          alt="logo"
+          src={ details[0].strDrinkThumb }
+          data-testid="recipe-photo"
+          width="350px"
+          height="300px"
+        />
         <h3 data-testid="recipe-title">{ details[0].strDrink }</h3>
         <div className="details-btn-container">
           <ShareBtn />
@@ -50,6 +59,19 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure }) {
     <div className="details-container">
       { details ? renderDetails() : 'Loading...'}
       <DrinkCarrossel recomendation={ recomendation } />
+      {
+        doneRecipe ? '' : (
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
+            style={ { position: 'fixed',
+              bottom: '0px',
+              marginLeft: '60px' } }
+          >
+            Iniciar Receita
+          </button>)
+      }
     </div>
   );
 }
