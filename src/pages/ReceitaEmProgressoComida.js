@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addRecipeDone } from '../actions';
+import SectionComidasEmProgresso from '../components/SectionComidasEmProgresso';
 
 class ReceitaEmProgressoComida extends Component {
   constructor() {
@@ -11,10 +11,17 @@ class ReceitaEmProgressoComida extends Component {
       meals: [],
       finalList: [],
       disabled: true,
+      checked: [],
+      loading: true,
+      isALreadyFavorited: false,
+      showSpan: false,
     };
     this.fetchAPI = this.fetchAPI.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.CopyToClipboard = this.CopyToClipboard.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.getIngredientsFromLS = this.getIngredientsFromLS.bind(this);
+    this.handleOnClickLike = this.handleOnClickLike.bind(this);
   }
 
   componentDidMount() {
@@ -22,9 +29,6 @@ class ReceitaEmProgressoComida extends Component {
   }
 
   handleChange() {
-    // Retirado https://stackoverflow.com/questions/14800954/how-to-check-if-all-checkboxes-are-unchecked
-    /* const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    localStorage.setItem('inProgressRecipes', JSON.stringify(obj)); */
     if (document.querySelectorAll('input[type="checkbox"]:checked').length
     === document.querySelectorAll('input[type="checkbox"]').length) {
       this.setState({
@@ -37,14 +41,123 @@ class ReceitaEmProgressoComida extends Component {
     }
   }
 
+  handleClick(e) {
+    const { target: { value } } = e;
+    const { checked, finalList } = this.state;
+    const { match: { params: { id } } } = this.props;
+    const curr = !checked[value];
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (curr) {
+      const obj = {
+        ...inProgress,
+        meals: {
+          ...inProgress.meals,
+          [id]: [...inProgress.meals[id], finalList[value]],
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    } else {
+      const newArray = inProgress.meals[id].filter((ing) => ing !== finalList[value]);
+      const obj = {
+        ...inProgress,
+        meals: {
+          ...inProgress.meals,
+          [id]: newArray,
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    }
+    const base = -1;
+    if (value !== base) {
+      checked[value] = curr;
+    }
+    this.setState({
+      checked,
+    });
+  }
+
+  handleOnClickLike() {
+    const { meals, isALreadyFavorited } = this.state;
+    const obj = {
+      id: meals.idMeal,
+      type: 'comida',
+      area: meals.strArea,
+      category: meals.strCategory,
+      alcoholicOrNot: '',
+      name: meals.strMeal,
+      image: meals.strMealThumb,
+    };
+    const favoritedRecipes = JSON.parse(
+      localStorage.getItem('favoriteRecipes'),
+    );
+    if (!isALreadyFavorited && favoritedRecipes !== null) {
+      favoritedRecipes.push(obj);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favoritedRecipes));
+    }
+    if (favoritedRecipes === null) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([obj]));
+    }
+    if (isALreadyFavorited) {
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify(favoritedRecipes.filter((e) => e.id !== meals.idMeal)),
+      );
+    }
+    this.setState({
+      isALreadyFavorited: !isALreadyFavorited,
+    });
+  }
+
+  getIngredientsFromLS() {
+    const { match: { params: { id } } } = this.props;
+    const { finalList } = this.state;
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const prepareBooleans = (master, keys) => {
+      const booleans = master.map((el) => keys.includes(el));
+      return booleans;
+    };
+    let array = [];
+    if (inProgressRecipes === null) {
+      const obj = {
+        cocktails: {
+        },
+        meals: {
+          [id]: [],
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    } else if (Object.hasOwnProperty.call(inProgressRecipes.meals, id)) {
+      array = JSON.stringify(inProgressRecipes.meals[id]);
+    } else {
+      const obj = {
+        ...inProgressRecipes,
+        meals: {
+          ...inProgressRecipes.meals,
+          [id]: [],
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    }
+    this.setState({
+      checked: prepareBooleans(finalList, array),
+      loading: false,
+    });
+  }
+
   CopyToClipboard() { // https://orclqa.com/copy-url-clipboard/
+    const { match: { params: { id } } } = this.props;
     const inputc = document.body.appendChild(document.createElement('input'));
-    inputc.value = window.location.href;
-    inputc.focus();
-    inputc.select();
+    navigator.clipboard.writeText(`http://localhost:3000/comidas/${id}`);
     document.execCommand('copy');
     inputc.parentNode.removeChild(inputc);
-    alert('Link copiado!');
+    this.setState({ showSpan: true }, () => {
+      const ONE_SECOND = 2000;
+      setTimeout(() => {
+        this.setState({
+          showSpan: false,
+        });
+      }, ONE_SECOND);
+    });
   }
 
   async fetchAPI() {
@@ -69,68 +182,50 @@ class ReceitaEmProgressoComida extends Component {
         : null)).filter(Boolean);
       this.setState({
         finalList: doneList,
+      }, () => {
+        this.getIngredientsFromLS();
       });
     });
+    const favoritedRecipes = JSON.parse(
+      localStorage.getItem('favoriteRecipes'),
+    );
+    const { meals } = this.state;
+    if (
+      favoritedRecipes !== null
+      && favoritedRecipes.some((e) => e.id === meals.idMeal)
+    ) {
+      this.setState({ isALreadyFavorited: true });
+    }
   }
 
   render() {
     const { meals: { idMeal, strArea, strMeal, strMealThumb,
-      strInstructions, strCategory }, finalList, disabled } = this.state;
+      strInstructions, strCategory, strTags }, finalList, disabled, checked,
+    loading, isALreadyFavorited, showSpan } = this.state;
     const { addDoneRecipe, match: { params: { id } } } = this.props;
-    const obj = {
-      id: idMeal,
-      type: 'comida',
-      area: strArea,
-      category: strCategory,
-      alcoholicOrNot: '',
-      name: strMeal,
-      image: strMealThumb,
-    };
     return (
       <main>
-        <img src={ strMealThumb } data-testid="recipe-photo" alt="imagem-da-receita" />
-        <h1 data-testid="recipe-title">{ strMeal }</h1>
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ () => this.CopyToClipboard() }
-        >
-          Compartilhar
-        </button>
-        <button type="button" data-testid="favorite-btn">Favoritar</button>
-        <h2 data-testid="recipe-category">{ strCategory }</h2>
-        <form onChange={ this.handleChange }>
-          <ul>
-            {finalList.map((ing, index) => (
-              <li key={ ing } data-testid={ `${index}-ingredient-step` }>
-                <span><input type="checkbox" value={ ing } name={ ing } /></span>
-                <span>{ing}</span>
-              </li>
-            ))}
-          </ul>
-          <p data-testid="instructions">{strInstructions}</p>
-          <Link to="/receitas-feitas">
-            <button
-              type="button"
-              data-testid="finish-recipe-btn"
-              disabled={ disabled }
-              onClick={ () => { addDoneRecipe(obj); } }
-            >
-              Finalizar receita
-            </button>
-          </Link>
-          <Link
-            to={ {
-              pathname: `/comidas/${id}`,
-            } }
-          >
-            <button
-              type="button"
-            >
-              Voltar para a página de detalhes
-            </button>
-          </Link>
-        </form>
+        <SectionComidasEmProgresso
+          id={ id }
+          idMeal={ idMeal }
+          strArea={ strArea }
+          strMeal={ strMeal }
+          strMealThumb={ strMealThumb }
+          strInstructions={ strInstructions }
+          strCategory={ strCategory }
+          strTags={ strTags }
+          finalList={ finalList }
+          disabled={ disabled }
+          checked={ checked }
+          loading={ loading }
+          isALreadyFavorited={ isALreadyFavorited }
+          showSpan={ showSpan }
+          CopyToClipboard={ this.CopyToClipboard }
+          handleOnClickLike={ this.handleOnClickLike }
+          handleClick={ this.handleClick }
+          addDoneRecipe={ addDoneRecipe }
+          handleChange={ this.handleChange }
+        />
       </main>
     );
   }

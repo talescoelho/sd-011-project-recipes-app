@@ -114,7 +114,6 @@ class Comidas extends Component {
                       <p data-testid={ `${index}-card-name` }>{recipe.strMeal}</p>
                     </Link>
                   </div>
-
                 ))}
               </div>
             )}

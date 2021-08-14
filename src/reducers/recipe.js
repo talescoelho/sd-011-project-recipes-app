@@ -18,7 +18,7 @@ export const recipe = (state = INITIAL_STATE, action) => {
         },
         meals: {
           controle: '999999999999',
-          [action.payload]: [action.payload2],
+          [action.payload]: [],
         },
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
@@ -27,7 +27,7 @@ export const recipe = (state = INITIAL_STATE, action) => {
         ...inProgress,
         meals: {
           ...inProgress.meals,
-          [action.payload]: [action.payload2],
+          [action.payload]: [],
         },
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
@@ -63,11 +63,10 @@ export const recipeDrink = (state = INITIAL_STATE, action) => {
       const obj = {
         cocktails: {
           controle: '999999999999',
-          [action.payload]: [action.payload2],
+          [action.payload]: [],
         },
         meals: {
           controle: '999999999999',
-          // [action.payload]: [action.payload2],
         },
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
@@ -76,7 +75,7 @@ export const recipeDrink = (state = INITIAL_STATE, action) => {
         ...inProgress,
         cocktails: {
           ...inProgress.cocktails,
-          [action.payload]: [action.payload2],
+          [action.payload]: [],
         },
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
