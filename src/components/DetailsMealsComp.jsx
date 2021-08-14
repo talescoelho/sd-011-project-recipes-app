@@ -16,7 +16,6 @@ export default function DetailsMealsComp({ propsDrink }) {
     recipesRecommendation,
     buttonHiddenClass,
     inProgress,
-    recipesSelectedId,
     handleClickRecipesProgress,
   } = propsDrink;
 
@@ -69,6 +68,7 @@ export default function DetailsMealsComp({ propsDrink }) {
       <iframe
         title={ recipesDetails.strMeal }
         className="video"
+        data-testid="video"
         src={ embedVideo() }
         frameBorder="0"
       />
@@ -105,16 +105,14 @@ export default function DetailsMealsComp({ propsDrink }) {
             ))
         }
       </section>
-      <Link to={ `/comidas/${recipesSelectedId}/in-progress` }>
-        <button
-          className={ buttonHiddenClass }
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => handleClickRecipesProgress() }
-        >
-          { inProgress ? 'Continuar receita' : 'Iniciar Receita' }
-        </button>
-      </Link>
+      <button
+        className={ buttonHiddenClass }
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ () => handleClickRecipesProgress() }
+      >
+        { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
+      </button>
     </div>
   );
 }

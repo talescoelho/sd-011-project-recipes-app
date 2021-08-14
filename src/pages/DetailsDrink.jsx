@@ -7,38 +7,37 @@ import DetailsDrinkComp from '../components/DetailsDrinkComp';
 
 export default function DetailsDrink() {
   const [recipesDetails, setRecipesDetails] = useState({});
-  const [setRecipeId] = useState('');
+  const [setDrinkRecipeId] = useState('');
   const [copyText, setCopyText] = useState('');
   const [buttonHiddenClass, setButtonHiddenClass] = useState('hiddenButton');
-  const [buttonText] = useState('Continuar Receita');
   const [favorite, setFavorite] = useState(false);
   const [recipesRecommendation, setRecipesRecommendation] = useState({});
+  const [inProgress, setInProgress] = useState(false);
 
   const history = useHistory();
   const { pathname } = history.location;
-  const recipesDrinkSelectedId = pathname.split('/')[2];
+  const recipesSelectedId = pathname.split('/')[2];
 
   useEffect(() => {
     const getApiDetailsRecipesDrink = async () => {
-      const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipesDrinkSelectedId}`;
+      const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipesSelectedId}`;
       const requestDrink = await api.fetchAPI(URL);
       const responseDrink = await requestDrink.drinks;
       setRecipesDetails(responseDrink[0]);
-      console.log(responseDrink);
     };
     getApiDetailsRecipesDrink();
-  }, [setRecipesDetails, recipesDrinkSelectedId]);
+    const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    setInProgress(JSON.stringify(recipesInProgress).includes(recipesSelectedId));
+  }, [setRecipesDetails, recipesSelectedId]);
 
-  const getNull = (drink) => {
-    if (drink === null) {
+  const getNull = (measure) => {
+    if (measure === null) {
       return '';
     }
-    return `- ${drink}`;
+    return `- ${measure}`;
   };
 
   const getIngredients = (recipe) => {
-    // O método Object.entries() retorna uma array dos próprios pares  [key, value] enumeráveis de um dado objeto.
-    // referência: https://www.youtube.com/watch?v=HCpXOv1KkJE
     const ingredients = Object.entries(recipe)
       .filter((key) => (key[1] === null ? false : key[0].includes('strIngredient')));
     const measures = Object.entries(recipe)
@@ -64,13 +63,13 @@ export default function DetailsDrink() {
   useEffect(() => {
     if (!localStorage.doneRecipes) localStorage.doneRecipes = JSON.stringify([]);
     const doneRecipesLCstorage = JSON.parse(localStorage.doneRecipes)
-      .filter((item) => item.id === recipesDrinkSelectedId);
-    if (doneRecipesLCstorage.length >= 1) {
+      .filter((item) => item.id === recipesSelectedId);
+    if (doneRecipesLCstorage.length > 0) {
       setButtonHiddenClass('hiddenButton-hidden');
     } else {
       setButtonHiddenClass('hiddenButton');
     }
-  }, [recipesDrinkSelectedId]);
+  }, [recipesSelectedId]);
 
   const handleClickCopy = () => {
     copy(window.location.href);
@@ -82,34 +81,38 @@ export default function DetailsDrink() {
   useEffect(() => {
     const retriveFavoties = () => {
       const atualStorage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-      return setFavorite(atualStorage.some((item) => item.id === recipesDrinkSelectedId));
+      return setFavorite(atualStorage.some((item) => item.id === recipesSelectedId));
     };
     retriveFavoties();
-  }, [recipesDrinkSelectedId]);
+  }, [recipesSelectedId]);
+
+  const handleClickRecipesProgress = () => {
+    history.push(`/bebidas/${recipesSelectedId}/in-progress`);
+  };
 
   const handleClickFavorites = () => {
     const favoriteObj = [
       {
         id: recipesDetails.idDrink,
         type: 'bebida',
-        area: recipesDetails.strArea,
+        area: '',
         category: recipesDetails.strCategory,
         alcoholicOrNot: recipesDetails.strAlcoholic,
         name: recipesDetails.strDrink,
         image: recipesDetails.strDrinkThumb,
       },
     ];
-    const stgFavorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const storageFavorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     if (favorite) {
-      const rmFavorite = stgFavorite.filter((item) => item.id !== recipesDrinkSelectedId);
-      const rmvFavoriteStringfy = JSON.stringify(rmFavorite);
+      const rmvFavorite = storageFavorite.filter((item) => item.id !== recipesSelectedId);
+      const rmvFavoriteStringfy = JSON.stringify(rmvFavorite);
       setFavorite(false);
       localStorage.setItem('favoriteRecipes', rmvFavoriteStringfy);
     } else {
       setFavorite(true);
       const newRecipeStringfy = JSON.stringify([
         ...favoriteObj,
-        ...stgFavorite,
+        ...storageFavorite,
       ]);
       localStorage.setItem('favoriteRecipes', newRecipeStringfy);
     }
@@ -123,10 +126,11 @@ export default function DetailsDrink() {
     copyText,
     getIngredients,
     recipesRecommendation,
-    setRecipeId,
+    recipesSelectedId,
     buttonHiddenClass,
-    buttonText,
-    recipesDrinkSelectedId,
+    inProgress,
+    setDrinkRecipeId,
+    handleClickRecipesProgress,
   };
 
   return (

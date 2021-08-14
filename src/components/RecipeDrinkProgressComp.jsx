@@ -11,7 +11,6 @@ export default function RecipeDrinkProgressComp({ propsDrinkProgress }) {
     recipesSelectedId,
     setFavorited,
     handleChangeCheck,
-    checkBox,
     recipeProgress,
     ingredientChecked,
     favorited,
@@ -43,6 +42,16 @@ export default function RecipeDrinkProgressComp({ propsDrinkProgress }) {
       setFavorited(false);
     }
   };
+
+  function returnIngredients() {
+    return Object.entries(recipeProgress)
+      .filter((ingredient) => ingredient[0].includes('strIngredient'))
+      .filter((ingredienteNotNul) => ingredienteNotNul[1] !== ''
+        && ingredienteNotNul[1] !== null)
+      .map((item) => item[1]);
+  }
+
+  const checkBox = returnIngredients();
 
   function addRecipeDone() {
     const date = new Date();

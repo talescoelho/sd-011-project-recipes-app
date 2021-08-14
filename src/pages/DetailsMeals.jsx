@@ -26,11 +26,8 @@ export default function DetailsMeals() {
       setRecipesDetails(responseFood[0]);
     };
     getApiDetailsRecipesFood();
-    const recipesInProgress = JSON.parse(localStorage.getItem('recipesProgress')) || [];
-    const haveRecipeInProgress = recipesInProgress.filter(
-      (recipe) => recipe.idMeal === recipesSelectedId,
-    );
-    setInProgress(haveRecipeInProgress.length > 0);
+    const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    setInProgress(JSON.stringify(recipesInProgress).includes(recipesSelectedId));
   }, [setRecipesDetails, recipesSelectedId]);
 
   const getNull = (measure) => {
@@ -41,8 +38,6 @@ export default function DetailsMeals() {
   };
 
   const getIngredients = (recipe) => {
-    // O método Object.entries() retorna uma array dos próprios pares  [key, value] enumeráveis de um dado objeto.
-    // referência: https://www.youtube.com/watch?v=HCpXOv1KkJE
     const ingredients = Object.entries(recipe)
       .filter((key) => (key[1] === null ? false : key[0].includes('strIngredient')));
     const measures = Object.entries(recipe)

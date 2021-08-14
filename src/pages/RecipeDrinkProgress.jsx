@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../styles/RecipeMealProgress.css';
 import RecipeDrinkProgressComp from '../components/RecipeDrinkProgressComp';
+import LoadingDrink from '../components/LoadingDrink';
 
 function RecipeDrinkProgress() {
   const [recipeProgress, setRecipeProgress] = useState({});
@@ -17,13 +18,12 @@ function RecipeDrinkProgress() {
     fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipesSelectedId}`)
       .then((response) => response.json())
       .then((data) => setRecipeProgress(data.drinks[0]) || setIsloaded(true));
-    if (JSON.parse(localStorage.getItem('recipesProgress')) !== null) {
-      const recipesInProgress = JSON.parse(localStorage.getItem('recipesProgress'));
-      const recipeIngredientsinProgress = recipesInProgress.filter(
-        (recipe) => recipe.idDrink === recipesSelectedId,
-      );
-      if (recipeIngredientsinProgress.length > 0) {
-        setIngredientChecked([...recipeIngredientsinProgress[0].ingredientChecked]);
+    if (JSON.parse(localStorage.getItem('inProgressRecipes')) !== null) {
+      const saved = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (JSON.stringify(saved).includes('cocktails')) {
+        const recipesProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        const ingredientsSaved = recipesProgress.cocktails[`${recipesSelectedId}`] || [];
+        setIngredientChecked(ingredientsSaved);
       }
     }
     if (JSON.parse(localStorage.getItem('favoriteRecipes')) !== null) {
@@ -36,34 +36,15 @@ function RecipeDrinkProgress() {
   }, [recipesSelectedId]);
 
   useEffect(() => {
-    const objIngredientsRecipes = {
-      idDrink: recipesSelectedId,
-      ingredientChecked,
-    };
-    const recipesInProgress = JSON.parse(localStorage.getItem('recipesProgress')) || [];
-    const filteredRecipesInProgress = recipesInProgress.filter(
-      (recipe) => recipe.idDrink !== recipesSelectedId,
-    );
-    const newArrayRecipes = [
-      objIngredientsRecipes,
-      ...filteredRecipesInProgress,
-    ];
-    localStorage.setItem('recipesProgress', JSON.stringify(newArrayRecipes));
+    if (JSON.parse(localStorage.getItem('inProgressRecipes')) === null) {
+      const inProgress = { meals: {}, cocktails: {} };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+    }
+    const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    recipesInProgress.cocktails[`${recipesSelectedId}`] = [...ingredientChecked];
+    localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgress));
   }, [ingredientChecked, recipesSelectedId]);
 
-  const loading = <p>Loading...</p>;
-
-  function returnIngredients() {
-    return Object.entries(recipeProgress)
-      .filter((ingredient) => ingredient[0].includes('strIngredient'))
-      .filter((ingredienteNotNul) => ingredienteNotNul[1] !== ''
-        && ingredienteNotNul[1] !== null)
-      .map((item) => item[1]);
-  }
-
-  const checkBox = returnIngredients();
-  console.log(checkBox.length);
-  console.log(ingredientChecked.length);
   function handleChangeCheck({ target }) {
     const { value } = target;
     if (!ingredientChecked.includes(value)) {
@@ -82,7 +63,6 @@ function RecipeDrinkProgress() {
   const propsDrinkProgress = {
     setFavorited,
     handleChangeCheck,
-    checkBox,
     recipeProgress,
     ingredientChecked,
     favorited,
@@ -93,7 +73,7 @@ function RecipeDrinkProgress() {
     <div>
       { isLoaded
         ? <RecipeDrinkProgressComp propsDrinkProgress={ propsDrinkProgress } />
-        : loading }
+        : <LoadingDrink /> }
     </div>
   );
 }

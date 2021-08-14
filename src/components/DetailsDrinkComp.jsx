@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -17,7 +16,7 @@ export default function DetailsDrinkComp({ propsDrink }) {
     recipesRecommendation,
     buttonHiddenClass,
     inProgress,
-    recipesDrinkSelectedId,
+    handleClickRecipesProgress,
   } = propsDrink;
 
   return (
@@ -93,16 +92,14 @@ export default function DetailsDrinkComp({ propsDrink }) {
             ))
         }
       </section>
-      <Link to={ `/bebidas/${recipesDrinkSelectedId}/in-progress` }>
-        <Button
-          className={ buttonHiddenClass }
-          type="button"
-          data-testid="start-recipe-btn"
-          variant="success"
-        >
-          { inProgress ? 'Continuar receita' : 'Iniciar Receita' }
-        </Button>
-      </Link>
+      <button
+        className={ buttonHiddenClass }
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ () => handleClickRecipesProgress() }
+      >
+        { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
+      </button>
     </div>
   );
 }
@@ -120,5 +117,6 @@ DetailsDrinkComp.propTypes = {
     buttonHiddenClass: PropTypes.string,
     inProgress: PropTypes.bool,
     recipesDrinkSelectedId: PropTypes.string,
+    handleClickRecipesProgress: PropTypes.func,
   }).isRequired,
 };
