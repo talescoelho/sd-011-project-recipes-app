@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import ShareBtn from './FavoriteBtn';
 import FavoriteBtn from './ShareBtn';
 import DrinkCarrossel from './DrinkCarrossel';
 import FetchApi from '../services/ApiFetch';
 
 function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
-  const history = useHistory();
   const [recomendation, setRecomendation] = useState();
   const [doneRecipe, setDoneRecipe] = useState();
   const [inProgress, setInProgress] = useState();
+  const history = useHistory();
 
-  function doneRecipeToLS() {
+  function DoneRecipeToLSDrink(recipeType) {
     const drinkID = id;
     let today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
     const yyyy = today.getFullYear();
-
     today = `${dd}/${mm}/${yyyy}`;
+    // código de data encontrado em: https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript?rq=1
     const detailObject = [{
       id: drinkID,
-      type: 'drink',
+      type: recipeType,
       area: details[0].strArea,
       category: details[0].strCategory,
       alcoholicOrNot: details[0].strDrinkAlternate,
@@ -31,12 +31,11 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
       doneDate: today,
       tags: details[0].strTags,
     }];
-
     if (localStorage.doneRecipes) {
       const prev = JSON.parse(localStorage.doneRecipes);
       const detailObject2 = [...prev, {
         id: drinkID,
-        type: 'meal',
+        type: recipeType,
         area: details[0].strArea,
         category: details[0].strCategory,
         alcoholicOrNot: details[0].strDrinkAlternate,
@@ -55,13 +54,10 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
   useEffect(() => {
     const drinkID = id;
     if (localStorage.inProgressRecipes
-      && JSON.parse(localStorage.inProgressRecipes).cocktails) {
-      const drinksInProgressObject = Object.keys(
-        JSON.parse(localStorage.inProgressRecipes).cocktails,
-      );
-      if (drinksInProgressObject.some((recipe) => recipe === drinkID)) {
-        setInProgress(true);
-      }
+      && JSON.parse(localStorage.inProgressRecipes).cocktails
+      && Object.keys(JSON.parse(localStorage.inProgressRecipes).cocktails
+        .some((recipe) => recipe === drinkID))) {
+      setInProgress(true);
     }
   }, []);
 
@@ -103,8 +99,8 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
         <h4>Ingredients:</h4>
         { mealIngredients ? mealIngredients.map((item, index) => (
           <h5
-            data-testid={ `${index}-ingredient-name-and-measure` }
             key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
           >
             { `${item} - ${mealMeasure[index]}` }
           </h5>
@@ -124,7 +120,7 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
       <button
         type="button"
         data-testid="start-recipe-btn"
-        onClick={ () => doneRecipeToLS() }
+        onClick={ () => DoneRecipeToLSDrink('cocktails') }
         style={ { position: 'fixed',
           bottom: '0px',
           width: '100%',
