@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
-import { fetchAllRecipesOrByCategory, fetchCategorysList } from '../services/index';
+import { fetchAllRecipesOrByCategory,
+  fetchCategorysList } from '../services/index';
 
 function RecipesProvider({ children }) {
   const { pathname } = useLocation();
@@ -12,6 +13,7 @@ function RecipesProvider({ children }) {
   const [categorysList, setCategorysList] = useState(pathname);
   const [currentCategory, setCurrentCategory] = useState('All');
   const [doneRecipes, setDoneRecipes] = useState('');
+  const [ingredient, setIngredient] = useState(null);
 
   useEffect(() => {
     localStorage.setItem('doneRecipes', JSON.stringify([]));
@@ -24,19 +26,24 @@ function RecipesProvider({ children }) {
   }, [pathname]);
 
   useEffect(() => {
-    const fetchRecipes = async (recipeTypeToFetch, category) => {
-      setIsLoading(true);
-      const recipes = await fetchAllRecipesOrByCategory(recipeTypeToFetch, category);
-      setDataRecipes(recipes);
-      setIsLoading(false);
-    };
-    const fetchCategorys = async () => {
-      const categorys = await fetchCategorysList(recipeType);
-      setCategorysList(categorys);
-    };
-    fetchRecipes(recipeType, currentCategory);
-    fetchCategorys();
-  }, [recipeType, currentCategory]);
+    if (!recipeType.includes('/perfil')) {
+      const fetchRecipes = async (recipeTypeToFetch, category, currentIngredient) => {
+        setIsLoading(true);
+        const recipes = await fetchAllRecipesOrByCategory(
+          recipeTypeToFetch, category, currentIngredient,
+        );
+        setDataRecipes(recipes);
+        setIsLoading(false);
+      };
+
+      const fetchCategorys = async () => {
+        const categorys = await fetchCategorysList(recipeType);
+        setCategorysList(categorys);
+      };
+      fetchRecipes(recipeType, currentCategory, ingredient);
+      fetchCategorys();
+    }
+  }, [recipeType, currentCategory, ingredient]);
 
   const contextValue = {
     dataRecipes,
@@ -48,6 +55,7 @@ function RecipesProvider({ children }) {
     setCurrentCategory,
     setDataRecipes,
     doneRecipes,
+    setIngredient,
   };
 
   RecipesProvider.propTypes = {

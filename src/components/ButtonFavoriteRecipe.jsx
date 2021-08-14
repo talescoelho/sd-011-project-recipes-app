@@ -1,49 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import WhiteHeart from '../images/whiteHeartIcon.svg';
 import BlackHeart from '../images/blackHeartIcon.svg';
+import createFavoriteObject from '../helpers/createFavoriteObject';
 
 function ButtonFavoriteRecipe({ recipes, favorite, setFavorite, index }) {
   const location = useLocation();
   const testIds = location.pathname.includes('receitas-favoritas')
     ? `${index}-horizontal-favorite-btn`
     : 'favorite-btn';
+  const { id } = recipes;
+  const favoriteRecipe = createFavoriteObject(recipes);
 
-  const { id, area, category, strAlcoholic, title, imgUrl } = recipes;
-  const createFavoriteObject = () => {
-    let favoriteRecipeObj = {};
-    // if (location.pathname.includes('comidas')) {
-    if (area) {
-      favoriteRecipeObj = {
-        id,
-        type: 'comida',
-        area,
-        category,
-        alcoholicOrNot: '',
-        name: title,
-        image: imgUrl,
-      };
+  useEffect(() => {
+    const favoriteRecipeArr = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favoriteRecipeArr) {
+      if (recipes) {
+        setFavorite(
+          favoriteRecipeArr.some((recipe) => (recipe.id === recipes.id)),
+        );
+      }
+    } else {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
-    // if (location.pathname.includes('bebidas')) {
-    if (!recipes.area) {
-      favoriteRecipeObj = {
-        id,
-        type: 'bebida',
-        area: '',
-        category,
-        alcoholicOrNot: strAlcoholic,
-        name: title,
-        image: imgUrl,
-      };
-    }
-    return favoriteRecipeObj;
-  };
-
-  const favoriteRecipe = createFavoriteObject();
+  }, [recipes]);
 
   const handleFavoriteBtn = () => {
     const parsedLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    console.log(parsedLocalStorage);
     if (!favorite) {
       setFavorite(true);
       localStorage.setItem('favoriteRecipes', JSON.stringify([...parsedLocalStorage,

@@ -1,28 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import shareImage from '../images/shareIcon.svg';
-
 import '../styles/RecipeConcluded.css';
 import LinkCopy from './LinkCopy';
 
 function RecipeConcluded({ recipe, index }) {
   const [linkCopy, setLinkCopy] = useState(false);
-  const { id,
-    type,
-    area,
-    category,
-    alcoholicOrNot,
-    tags,
-    image,
-    name,
-    doneDate } = recipe;
+  const [recipes, setRecipes] = useState(recipe);
+
+  useEffect(() => {
+    setRecipes(recipe);
+    console.log('aqui', recipe.name);
+  }, [recipe]);
 
   const history = useHistory();
 
   const HandleRedirect = (recipeId) => {
-    if (type === 'comida') history.push(`comidas/${recipeId}`);
-    if (type === 'bebida') history.push(`bebidas/${recipeId}`);
+    if (recipes.type === 'comida') history.push(`comidas/${recipeId}`);
+    if (recipes.type === 'bebida') history.push(`bebidas/${recipeId}`);
   };
 
   const handleShareBtn = (recipeType, recipeId) => {
@@ -43,41 +38,41 @@ function RecipeConcluded({ recipe, index }) {
   return (
     <div className="RecipeConcludedContainer">
       <img
-        src={ image }
+        src={ recipes.image }
         alt="Recipe"
         data-testid={ `${index}-horizontal-image` }
-        onClick={ () => HandleRedirect(id) }
+        onClick={ () => HandleRedirect(recipes.id) }
         aria-hidden="true"
       />
       <div className="RecipeInfoConcluded">
         <span data-testid={ `${index}-horizontal-top-text` }>
-          { type === 'comida' ? area : '' }
+          { recipes.type === 'comida' ? recipes.area : '' }
           { ' - ' }
-          { type === 'comida' ? category : alcoholicOrNot }
+          { recipes.type === 'comida' ? recipes.category : recipes.alcoholicOrNot }
 
         </span>
         <p
           className="RecipesFoodName"
           data-testid={ `${index}-horizontal-name` }
         >
-          { name }
+          { recipes.name }
         </p>
         <p
           data-testid={ `${index}-horizontal-done-date` }
           className="doneDate"
         >
           Feita em:
-          { doneDate }
+          {/* { doneDate } */}
         </p>
         <div className="tagContainer">
-          { type === 'comida' && tags.length > 0 ? (
-            tags.map((tagName, key) => (
+          { recipes.type === 'comida' && recipes.tags.length > 0 ? (
+            recipes.tags.map((tagName, key) => (
               <p
                 className="tagName"
                 key={ key }
-                data-testid={ `${index}-${tagName}-horizontal-tag` }
+                data-testid={ `${index}-${recipes.tagName}-horizontal-tag` }
               >
-                { tagName }
+                { recipes.tagName }
               </p>))
           ) : '' }
         </div>
@@ -85,9 +80,12 @@ function RecipeConcluded({ recipe, index }) {
           className="shareBTN"
           type="button"
           data-testid={ `${index}-horizontal-share-btn` }
-          onClick={ () => { handleShareBtn(type, id); handleLinkMessage(); } }
+          onClick={ () => {
+            handleShareBtn(recipes.type, recipes.id);
+            handleLinkMessage();
+          } }
         >
-          <img src={ shareImage } alt="Compartilhar" />
+          <img src={ recipes.shareImage } alt="Compartilhar" />
         </button>
         { linkCopy && <LinkCopy /> }
       </div>

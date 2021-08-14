@@ -8,6 +8,16 @@
   border-radius: 30px;
 }
 
+.details-loading {
+  /* background-color: tomato; */
+  /* margin: 0 calc(360/4); */
+  width: 220px;
+  position: relative;
+  top: 30%;
+  margin: 0 20%;
+  animation: infinite load 1s;
+}
+
 .details-container {
   display: flex;
   flex-direction: column;
@@ -56,6 +66,12 @@
   font-weight: 700;
   color: white;
   opacity: 1;
+}
+
+.continueRecipe-btn {
+  position: absolute;
+  /* top: -100px; */
+  margin-top: -1116px;
 }
 
 .share-btn img {

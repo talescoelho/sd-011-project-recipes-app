@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ButtonSurpriseMe from '../components/ButtonSurpriseMe';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
@@ -11,14 +12,11 @@ function ExplorarBebidas() {
         to="/explorar/bebidas/ingredientes"
         data-testid="explore-by-ingredient"
       >
-        Por Ingredientes
+        <button type="button">
+          Por Ingredientes
+        </button>
       </Link>
-      <Link
-        to="/explorar/comidas"
-        data-testid="explore-surprise"
-      >
-        Me Surpreenda!
-      </Link>
+      <ButtonSurpriseMe />
       <Footer />
     </div>
   );

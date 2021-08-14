@@ -5,8 +5,23 @@ import {
 
 const fetchAllMeals = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
-export const fetchAllRecipesOrByCategory = async (recipeType, category) => {
-  if (recipeType === '/bebidas') {
+export const fetchFoodsByIngredients = async (pathname, ingredient) => {
+  const type = pathname === '/comidas' ? 'meal' : 'cocktail';
+  const foodsByIngredient = await fetch(
+    `https://www.the${type}db.com/api/json/v1/1/filter.php?i=${ingredient}`,
+  );
+  if (type === 'meal') {
+    const { meals } = await foodsByIngredient.json();
+    return meals;
+  }
+  const { drinks } = await foodsByIngredient.json();
+  return drinks;
+};
+
+export const fetchAllRecipesOrByCategory = async (pathname,
+  category = 'All',
+  ingredient = null) => {
+  if (!ingredient && pathname.includes('bebidas')) {
     if (category === 'All') {
       const recipes = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
       const { drinks } = await recipes.json();
@@ -16,14 +31,19 @@ export const fetchAllRecipesOrByCategory = async (recipeType, category) => {
     const { drinks } = await recipes.json();
     return drinks;
   }
-  if (category === 'All') {
-    const recipes = await fetch(fetchAllMeals);
+  if (!ingredient && pathname.includes('comidas')) {
+    if (category === 'All') {
+      const recipes = await fetch(fetchAllMeals);
+      const { meals } = await recipes.json();
+      return meals;
+    }
+    const recipes = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
     const { meals } = await recipes.json();
     return meals;
   }
-  const recipes = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
-  const { meals } = await recipes.json();
-  return meals;
+  if (ingredient) {
+    return fetchFoodsByIngredients(pathname, ingredient);
+  }
 };
 
 export const fetchCategorysList = async (typeOfRecipes) => {
@@ -101,4 +121,26 @@ export const searchRecommendation = async (type) => {
   const recipes = await fetch(fetchAllMeals);
   const json = await recipes.json();
   return json.meals;
+};
+
+export const fetchIngredientsList = async (pathname) => {
+  const type = pathname === '/explorar/comidas/ingredientes' ? 'meal' : 'cocktail';
+  const ingredients = await fetch(`https://www.the${type}db.com/api/json/v1/1/list.php?i=list`);
+  if (type === 'meal') {
+    const { meals } = await ingredients.json();
+    return meals;
+  }
+  const { drinks } = await ingredients.json();
+  return drinks;
+};
+
+export const fetchRandomRecipe = async (pathname) => {
+  const type = pathname === '/explorar/comidas' ? 'meal' : 'cocktail';
+  const response = await fetch(`https://www.the${type}db.com/api/json/v1/1/random.php`);
+  if (type === 'meal') {
+    const { meals } = await response.json();
+    return meals;
+  }
+  const { drinks } = await response.json();
+  return drinks;
 };

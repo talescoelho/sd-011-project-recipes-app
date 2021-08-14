@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Link, useLocation } from 'react-router-dom';
 import Ingredients from './Ingredients';
 import Share from '../images/shareIcon.svg';
 import handleShareBtn from '../helpers/handleShareBtn';
@@ -9,7 +10,6 @@ import '../styles/DetailsRecipe.css';
 import ButtonStartRecipe from './ButtonStartRecipe';
 import ButtonFavoriteRecipe from './ButtonFavoriteRecipe';
 import Recommendations from './Recommendations';
-import { Link, useLocation } from 'react-router-dom';
 
 function DetailsRecipe(props) {
   // comentario
@@ -50,11 +50,11 @@ function DetailsRecipe(props) {
   return (
     <div className="details-container">
       <header className="details-header">
-        <Link 
-          to={pathname.includes('bebidas') ? '/bebidas' : '/comidas'}
+        <Link
+          to={ pathname.includes('bebidas') ? '/bebidas' : '/comidas' }
           className="arrow-bg"
         >
-          <img src={Arrow} alt="arrow-left" className="arrow" />
+          <img src={ Arrow } alt="arrow-left" className="arrow" />
         </Link>
         <h1 data-testid="recipe-category">{ !strAlcoholic ? category : strAlcoholic}</h1>
         <ButtonFavoriteRecipe

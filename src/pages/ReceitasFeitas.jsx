@@ -7,7 +7,6 @@ import '../styles/ReceitasFeitas.css';
 
 function ReceitasFeitas() {
   const [filterByCategory, setFilterByCategory] = useState('All');
-  console.log(filterByCategory);
   return (
     <div className="ReceitasFeitasContainer">
       <Header title="Receitas Feitas" />

@@ -5,7 +5,8 @@ import RecipesContext from '../context/RecipesContext';
 import Header from '../components/Header';
 import CategoryFilters from '../components/CategoryFilters';
 import FoodCard from '../components/FoodCard';
-import Loading from '../components/Loading';
+// import Loading from '../components/Loading';
+import trybeCook from '../images/trybe_cook.svg';
 import Footer from '../components/Footer';
 
 import '../styles/Comidas.css';
@@ -37,7 +38,7 @@ function Comidas() {
       />
       ),
     )
-  )
+  );
 
   return (
     <div className="comidasPageContainer">
@@ -46,7 +47,7 @@ function Comidas() {
       <div className="foodRecipesContainer">
         {
           isLoading === true
-            ? <Loading />
+            ? <img className="principal-loading" src={ trybeCook } alt="trybe_cook" />
             : recipes
         }
       </div>

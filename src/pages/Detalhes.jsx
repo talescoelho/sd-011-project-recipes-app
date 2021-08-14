@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes, { object } from 'prop-types';
 import { searchById } from '../services';
 import DetailsRecipe from '../components/DetailsRecipe';
-import Loading from '../components/Loading';
+// import Loading from '../components/Loading';
+import trybeCook from '../images/trybe_cook.svg';
 import '../styles/Detalhes.css';
 
 function Detalhes(props) {
@@ -31,11 +32,11 @@ function Detalhes(props) {
     effectFetch();
   }, []);
 
-  if (loading) return <Loading />;
-
   return (
     <div className="detalhes-container">
-      <DetailsRecipe recipeData={ recipeData } />
+      { loading
+        ? <img className="details-loading" src={ trybeCook } alt="trybe_cook" />
+        : <DetailsRecipe recipeData={ recipeData } />}
     </div>
   );
 }

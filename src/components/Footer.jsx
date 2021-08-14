@@ -7,30 +7,30 @@ import mealIcon from '../images/mealIcon.svg';
 import '../styles/Footer.css';
 
 function Footer() {
-  const { setCurrentCategory } = useContext(RecipesContext);
+  const { setCurrentCategory, setIngredient } = useContext(RecipesContext);
   const { pathname } = useLocation();
   useEffect(() => {
-    const sel = document.querySelector('.selection')
+    const sel = document.querySelector('.selection');
     if (pathname === '/bebidas') {
-      sel.style.transform = 'translateX(-120px)'
+      sel.style.transform = 'translateX(-120px)';
     } else if (pathname === '/explorar') {
-      sel.style.transform = 'translateX(0px)'
+      sel.style.transform = 'translateX(0px)';
     } else if (pathname === '/comidas') {
-      sel.style.transform = 'translateX(120px)'
+      sel.style.transform = 'translateX(120px)';
     }
-  }, [pathname])
+  }, [pathname]);
 
   const changeStyle = (target) => {
     const { className } = target;
-    const sel = document.querySelector('.selection')
+    const sel = document.querySelector('.selection');
     if (className === 'link-bebidas') {
-      sel.style.transform = 'translateX(-120px)'
+      sel.style.transform = 'translateX(-120px)';
     } else if (className === 'link-explorar') {
       sel.classList.add('seletcion-start');
     } else if (className === 'link-comidas') {
-      sel.style.transform = 'translateX(120px)'
+      sel.style.transform = 'translateX(120px)';
     }
-  }
+  };
 
   return (
     <footer data-testid="footer" className="footer">
@@ -38,9 +38,10 @@ function Footer() {
       <Link
         to="/bebidas"
         className="link-bebidas"
-        onClick={ ({target}) => {
+        onClick={ ({ target }) => {
           changeStyle(target);
-          setCurrentCategory('All'); 
+          setCurrentCategory('All');
+          setIngredient(null);
         } }
       >
         <img
@@ -52,9 +53,9 @@ function Footer() {
       </Link>
       <Link
         to="/explorar"
-        onClick={ ({target}) => {
+        onClick={ ({ target }) => {
           changeStyle(target);
-          setCurrentCategory('All'); 
+          setCurrentCategory('All');
         } }
         className="link-explorar"
 
@@ -69,14 +70,16 @@ function Footer() {
       <Link
         to="/comidas"
         className="link-comidas"
-        onClick={ ({target}) => {
-          setCurrentCategory('All'); 
+        onClick={ ({ target }) => {
+          setCurrentCategory('All');
           changeStyle(target);
+          setIngredient(null);
         } }
       >
         <img
           data-testid="food-bottom-btn"
-          src={ mealIcon } alt="meal icon"
+          src={ mealIcon }
+          alt="meal-icon"
           className="link-comidas"
         />
       </Link>

@@ -4,14 +4,20 @@ import { useLocation } from 'react-router';
 import RecipesContext from '../context/RecipesContext';
 
 function CategoryButton({ categoryName }) {
-  const { currentCategory, setCurrentCategory } = useContext(RecipesContext);
+  const {
+    currentCategory,
+    setCurrentCategory,
+    setIngredient,
+  } = useContext(RecipesContext);
   const { pathname } = useLocation();
 
   const handleToggleCategory = (category) => {
     if (currentCategory === category) {
+      setIngredient(null);
       return setCurrentCategory('All');
     }
     if (currentCategory !== category) {
+      setIngredient(null);
       return setCurrentCategory(category);
     }
   };
