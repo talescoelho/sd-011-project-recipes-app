@@ -26,16 +26,6 @@ class FoodsRecipiesInProcess extends React.Component {
     this.test();
   }
 
-  // componentDidUpdate() {
-  //   if (localStorage.inProgressRecipes) {
-
-  //     const recoveredInfo = JSON.parse(localStorage.inProgressRecipes).cocktails[id];
-  //     // this.setStateFunc(recoveredInfo);
-  //     console.log(recoveredInfo);
-  //     // console.log(recoveredInfo);
-  //   }
-  // }
-
   async test() {
     const { match: { params: { id } } } = this.props;
     const obj = await FetchApi('themealdb', null, null, ['details', id]);
