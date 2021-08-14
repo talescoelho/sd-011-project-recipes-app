@@ -22,6 +22,10 @@ function RecipeDetail({ history: { push, location: { pathname } },
     dispatchFetchDetail(type, id);
   }, [dispatchFetchDetail, type, id]);
 
+  function verifyRecipeDone() {
+    return recipesDone.some((item) => (item.id === id));
+  }
+
   function redrectToRecipeInProgress() {
     push(`${pathname}/in-progress`);
   }
@@ -37,7 +41,7 @@ function RecipeDetail({ history: { push, location: { pathname } },
         className="fixedBottom"
         type="button"
         onClick={ redrectToRecipeInProgress }
-        hidden={ recipesDone.length > 0 }
+        hidden={ verifyRecipeDone() }
       >
         Iniciar receita
       </button>
