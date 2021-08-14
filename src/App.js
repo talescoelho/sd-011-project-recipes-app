@@ -19,12 +19,10 @@ import favoriteRecipe from './pages/FavoriteRecipe';
 import DetailsFood from './pages/DetailsFood';
 import DetailsDrink from './pages/DetailsDrink';
 import NotFound from './pages/NotFound';
+import RecipeProgressFood from './pages/RecipeProgressFood';
+import RecipeProgressDrink from './pages/RecipeProgressDrink';
 
 function App() {
-  // useEffect(() => {
-  //   searchRandomMeal();
-  // }, []);
-
   return (
     <UserProvider>
       <RequestProvider>
@@ -43,8 +41,16 @@ function App() {
               path="/bebidas/:id"
               render={ (props) => (<DetailsDrink { ...props } />) }
             />
-            <Route exact path="/comidas/{id-da-receita}/in-progress" />
-            <Route exact path="/bebidas/{id-da-receita}/in-progress" />
+            <Route
+              exact
+              path="/comidas/:id/in-progress"
+              render={ (props) => (<RecipeProgressFood { ...props } />) }
+            />
+            <Route
+              exact
+              path="/bebidas/:id/in-progress"
+              render={ (props) => (<RecipeProgressDrink { ...props } />) }
+            />
             <Route exact path="/explorar" component={ Explore } />
             <Route exact path="/explorar/comidas" component={ exploreFood } />
             <Route exact path="/explorar/bebidas" component={ exploreDrink } />
@@ -62,7 +68,7 @@ function App() {
             <Route exact path="/perfil" component={ userProfile } />
             <Route exact path="/receitas-feitas" component={ finishRecipe } />
             <Route exact path="/receitas-favoritas" component={ favoriteRecipe } />
-            <Route component={ NotFound } />
+            <Route path="*" component={ NotFound } />
           </Switch>
         </BrowserRouter>
       </RequestProvider>
