@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap');
 
 * {
-  font-family: Poppins, sans-serif;
+  font-family: Poppins , sans-serif;
 }
 
 .container {
@@ -53,8 +53,8 @@
 .section-container {
   align-items: center;
   display: flex;
-  height: 800px;
   flex-direction: column;
+  height: 800px;
   justify-content: center;
   width: 100%;
 }
@@ -90,6 +90,14 @@
   overflow: hidden;
 }
 
+.input-btn input {
+  background-color: rgb(131, 251, 255);
+  border: 0;
+  border-radius: 20px;
+  height: 40px;
+  padding-left: 25px;
+}
+
 .search-radio label input {
   margin-right: 5px;
 }
@@ -103,14 +111,6 @@
   margin: auto;
   margin-bottom: 2px;
   width: 95%;
-}
-
-.input-btn input {
-  background-color: rgb(131, 251, 255);
-  border: 0;
-  border-radius: 20px;
-  height: 40px;
-  padding-left: 25px;
 }
 
 .input-btn button {
