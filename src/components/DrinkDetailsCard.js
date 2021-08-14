@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import DoneRecipeToLSDrink from './DoneRecipeToLSDrink';
 import ShareBtn from './FavoriteBtn';
 import FavoriteBtn from './ShareBtn';
 import DrinkCarrossel from './DrinkCarrossel';
 import FetchApi from '../services/ApiFetch';
 
 function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
-  const history = useHistory();
   const [recomendation, setRecomendation] = useState();
-  const [doneRecipe] = useState(false);
+  const [doneRecipe, setDoneRecipe] = useState();
+  const [inProgress, setInProgress] = useState();
+  const history = useHistory();
+
+  useEffect(() => {
+    const drinkID = id;
+    if (localStorage.inProgressRecipes
+      && JSON.parse(localStorage.inProgressRecipes).cocktails
+      && Object.keys(JSON.parse(localStorage.inProgressRecipes).cocktails
+        .some((recipe) => recipe === drinkID))) {
+      setInProgress(true);
+    }
+  }, []);
 
   useEffect(() => {
     async function getRecomendations() {
@@ -17,6 +29,11 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
       const response = await FetchApi('themealdb', 'nome', '');
       const recomendationsList = response.meals.slice(0, qty);
       setRecomendation(recomendationsList);
+    }
+    const drinkID = id;
+    if (localStorage.doneRecipes
+      && JSON.parse(localStorage.doneRecipes).some((recipe) => recipe.id === drinkID)) {
+      setDoneRecipe(true);
     }
     getRecomendations();
   }, []);
@@ -44,14 +61,16 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
         <h4>Ingredients:</h4>
         { mealIngredients ? mealIngredients.map((item, index) => (
           <h5
-            data-testid={ `${index}-ingredient-name-and-measure` }
             key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
           >
             { `${item} - ${mealMeasure[index]}` }
           </h5>
         )) : '' }
         <h4>Instructions:</h4>
-        <h5 data-testid="instructions">{ details[0].strInstructions }</h5>
+        <div data-testid="instructions">
+          <p>{ details[0].strInstructions }</p>
+        </div>
       </div>
     );
   }
@@ -59,19 +78,19 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
     <div className="details-container">
       { details ? renderDetails() : 'Loading...'}
       <DrinkCarrossel recomendation={ recomendation } />
-      {
-        doneRecipe ? '' : (
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
-            style={ { position: 'fixed',
-              bottom: '0px',
-              marginLeft: '60px' } }
-          >
-            Iniciar Receita
-          </button>)
-      }
+      <br />
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ () => DoneRecipeToLSDrink('cocktails', history, details, id) }
+        style={ { position: 'fixed',
+          bottom: '0px',
+          width: '100%',
+          visibility: doneRecipe ? 'hidden' : 'visible',
+        } }
+      >
+        {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
+      </button>
     </div>
   );
 }

@@ -1,15 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import DoneRecipeToLSFood from './DoneRecipesToLSFoods';
 import ShareBtn from './FavoriteBtn';
 import FavoriteBtn from './ShareBtn';
 import FetchApi from '../services/ApiFetch';
 import FoodCarrossel from './FoodCarrossel';
+import foodVideo from './FoodVideo';
 
 function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
-  const history = useHistory();
   const [recomendation, setRecomendation] = useState();
-  const [doneRecipe] = useState(false);
+  const [doneRecipe, setDoneRecipe] = useState();
+  const [inProgress, setInProgress] = useState();
+  const history = useHistory();
+
+  useEffect(() => {
+    const drinkID = id;
+    if (localStorage.inProgressRecipes
+      && JSON.parse(localStorage.inProgressRecipes).meals
+      && Object.keys(JSON.parse(localStorage.inProgressRecipes).meals)
+        .some((recipe) => recipe === drinkID)) {
+      setInProgress(true);
+    }
+  }, []);
 
   useEffect(() => {
     async function getRecomendations() {
@@ -17,6 +30,11 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
       const response = await FetchApi('thecocktaildb', 'nome', '');
       const recomendationsList = response.drinks.slice(0, qty);
       setRecomendation(recomendationsList);
+    }
+    const foodID = id;
+    if (localStorage.doneRecipes
+      && JSON.parse(localStorage.doneRecipes).some((recipe) => recipe.id === foodID)) {
+      setDoneRecipe(true);
     }
     getRecomendations();
   }, []);
@@ -52,37 +70,28 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
         <h4>Instructions:</h4>
         <p data-testid="instructions">{ details[0].strInstructions }</p>
         <h4>Vídeo</h4>
-        { details ? <iframe
-          width="355"
-          height="320"
-          data-testid="video"
-          src={ `https://www.youtube.com/embed/${details[0].strYoutube.split('=')[1]}` }
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write;
-          encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        /> : '' }
-        <FoodCarrossel recomendation={ recomendation } />
-        {
-          doneRecipe ? '' : (
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              onClick={ () => history.push(`/comidas/${id}/in-progress`) }
-              style={ { position: 'fixed',
-                bottom: '0px',
-                marginLeft: '60px' } }
-            >
-              Iniciar Receita
-            </button>)
-        }
+        { foodVideo(details) }
       </div>
     );
   }
   return (
     <div className="details-container">
       { details ? renderDetails() : 'Loading...'}
+      <FoodCarrossel recomendation={ recomendation } />
+      <br />
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ () => DoneRecipeToLSFood('meal', history, details, id) }
+        style={ { position: 'fixed',
+          bottom: '0px',
+          width: '100%',
+          left: '0px',
+          visibility: doneRecipe ? 'hidden' : 'visible',
+        } }
+      >
+        {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
+      </button>
     </div>
   );
 }
