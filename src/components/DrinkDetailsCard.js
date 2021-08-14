@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import DoneRecipeToLSDrink from './DoneRecipeToLSDrink';
 import ShareBtn from './FavoriteBtn';
 import FavoriteBtn from './ShareBtn';
 import DrinkCarrossel from './DrinkCarrossel';
@@ -11,45 +12,6 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
   const [doneRecipe, setDoneRecipe] = useState();
   const [inProgress, setInProgress] = useState();
   const history = useHistory();
-
-  function DoneRecipeToLSDrink(recipeType) {
-    const drinkID = id;
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    today = `${dd}/${mm}/${yyyy}`;
-    // código de data encontrado em: https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript?rq=1
-    const detailObject = [{
-      id: drinkID,
-      type: recipeType,
-      area: details[0].strArea,
-      category: details[0].strCategory,
-      alcoholicOrNot: details[0].strDrinkAlternate,
-      name: details[0].strDrink,
-      image: details[0].strDrinkThumb,
-      doneDate: today,
-      tags: details[0].strTags,
-    }];
-    if (localStorage.doneRecipes) {
-      const prev = JSON.parse(localStorage.doneRecipes);
-      const detailObject2 = [...prev, {
-        id: drinkID,
-        type: recipeType,
-        area: details[0].strArea,
-        category: details[0].strCategory,
-        alcoholicOrNot: details[0].strDrinkAlternate,
-        name: details[0].strDrink,
-        image: details[0].strDrinkThumb,
-        doneDate: today,
-        tags: details[0].strTags,
-      }];
-      localStorage.doneRecipes = JSON.stringify(detailObject2);
-    } else {
-      localStorage.doneRecipes = JSON.stringify(detailObject);
-    }
-    history.push(`/bebidas/${id}/in-progress`);
-  }
 
   useEffect(() => {
     const drinkID = id;
@@ -120,7 +82,7 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
       <button
         type="button"
         data-testid="start-recipe-btn"
-        onClick={ () => DoneRecipeToLSDrink('cocktails') }
+        onClick={ () => DoneRecipeToLSDrink('cocktails', history, details, id) }
         style={ { position: 'fixed',
           bottom: '0px',
           width: '100%',
