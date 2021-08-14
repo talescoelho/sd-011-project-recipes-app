@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import ShareButton from '../Components/ShareButton';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import './Styles/ProcessFoods.css';
+import MyContext from '../Context/MyContext';
 
 export default function ProcessFoods({ match: { params: { id } } }) {
   const [recipes, setRecipes] = useState([]);
+  const { inProgress, setInprogress } = useContext(MyContext);
+  const { ingredients, setIngredients} = useContext(MyContext);
+  const { checkedIngredients, setCheckIngredients } = useContext(MyContext);
+  const { allChecked, setAllChecked } = useContext(MyContext);
+
   // Didmount - Faz fetch trazendo a receita pelo id e seta o stado recipes com as receita
   useEffect(() => {
     const getApi = async () => {
@@ -51,19 +57,34 @@ export default function ProcessFoods({ match: { params: { id } } }) {
     }
     return newArray;
   };
-
-  // useEffect(() => {
-  //   const storage = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-  //   localStorage.setItem('inProgressRecipes', JSON
-  //     .stringify(storage));
-  // }, []);
-
-  const inProgressRecipes = {
-    cocktails,
-    meals,
+  // checa inputs checkbox 
+  const checkedInputs = () => {
+    if(setCheckIngredients === newArray.length) {
+      return setAllChecked(true);
+    }
+    return setAllChecked(false);
   }
 
+  useEffect(() => {
+    updateLocalStorage();
+    const storage = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+    localStorage.setItem('inProgressRecipes', JSON
+      .stringify(storage));
+  }, []);
+  // Acrescenta 
   const handleClick = (event) => {
+    if (event.target.checked === true) {
+      setInprogress(inProgress + 1);
+      return setIngredients([...ingredients, event.target.value]);
+    }
+  }
+  const updateLocalStorage = () => {
+    const newLocalStorage = { 
+      cocktails: allMealsStorage, 
+      meals: { ...otherStorageRecepies, [id]: [...ingredients] },    };    const newLocalStorageString = JSON.stringify(newLocalStorage);
+    localStorage.setItem('inProgressRecipes', newLocalStorageString); }
+  }
+
     const storage = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
     if (event.target.checked) {
       localStorage.setItem('inProgressRecipes', JSON
@@ -72,8 +93,7 @@ export default function ProcessFoods({ match: { params: { id } } }) {
       localStorage.setItem('inProgressRecipes', JSON
         .stringify(storage.filter((item) => item !== event.target.value)));
     }
-  };
-
+  
   return (
     <div>
       <img
@@ -99,7 +119,7 @@ export default function ProcessFoods({ match: { params: { id } } }) {
                 type="checkbox"
                 id={ igredient[index] }
                 value={ igredient }
-                onClick={ (event) => handleClick(event) }
+                onChange={ (event) => handleClick(event) }
                 // checked="checked"
               />
               {' '}

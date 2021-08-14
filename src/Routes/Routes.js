@@ -61,6 +61,11 @@ function Routes() {
           path="/bebidas/:id/in-progress"
           component={ ProcessDrinks }
         />
+        <Route
+          exact
+          path="/bebidas/:id/in-progress"
+          component={ ProcessDrinks }
+        />
       </Switch>
     </BrowserRouter>
   );

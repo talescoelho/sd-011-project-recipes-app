@@ -4,10 +4,10 @@ const checkInProgress = () => {
     meals: {},
   };
 
-  const lookForInProgress = localStorage.getItem("inProgressRecipes");
+  const lookForInProgress = localStorage.getItem('inProgressRecipes');
 
   if (!lookForInProgress) {
-    localStorage.setItem("inProgressRecipes", JSON.stringify(initialObj));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(initialObj));
   }
 };
 

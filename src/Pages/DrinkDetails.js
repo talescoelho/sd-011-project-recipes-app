@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import { Link } from 'react-router-dom';
 import ShareButton from '../Components/ShareButton';
-import './Styles/DrinkDetails.css';
+import FavoriteButton from '../Components/FavoriteButton';
 import checkInProgress from '../Services/checkInProgress';
+import RecomendedRecipes from '../Components/RecomendedRecipes';
+// import './Styles/detailsrecipe.css';
 
-function DrinkDetails({ match: { params: { id } } }) {
+function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
   const [recipes, setRecipes] = useState([]);
   // Didmount - Faz fetch trazendo a receita pelo id e seta o stado recipes com as receita
   useEffect(() => {
@@ -53,6 +54,8 @@ function DrinkDetails({ match: { params: { id } } }) {
     }
     return newArray;
   };
+  const essaPagina = pathname;
+
   checkInProgress();
   const checkStart = () => {
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -73,33 +76,34 @@ function DrinkDetails({ match: { params: { id } } }) {
       />
       <h2 data-testid="recipe-title">{ recipes.strDrink }</h2>
       <ShareButton idRecipe={ `bebidas/${recipes.idDrink}` } />
-      <img src={ whiteHeartIcon } alt="Favoritar Coração" data-testid="favorite-btn" />
-      <h3 data-testid="recipe-category">{ recipes.strCategory }</h3>
-      <h3>{ recipes.strAlcoholic }</h3>
+      <FavoriteButton
+        id={ recipes.idDrink }
+        type="bebida"
+        area=""
+        category="Cocktail"
+        alcoholicOrNot={ recipes.strAlcoholic }
+        name={ recipes.strDrink }
+        image={ recipes.strDrinkThumb }
+      />
+      <h3 data-testid="recipe-category">
+        {recipes.strCategory && recipes.strAlcoholic}
+      </h3>
       <h3>Ingredients</h3>
       <ul>
-        {
-          concatIngredientWithMesure()
-            .map((igredient, index) => (
-              <li
-                data-testid={ `${index}-ingredient-name-and-measure` }
-                key={ index }
-              >
-                {igredient}
-              </li>
-            ))
-        }
+        { concatIngredientWithMesure()
+          .map((igredient, index) => (
+            <li
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              {igredient}
+            </li>)) }
       </ul>
-      <h3>Instructions</h3>
-      <p data-testid="instructions">{recipes.strInstructions}</p>
-      {/* <h3 data-testid={ `${index}-recomendation-card"` }>Recomendadas</h3> */}
-      <div id="recommended"><h4>oi</h4></div>
-      <Link
-        to={ `/bebidas/${recipes.idDrink}/in-progress` }
-        params={ recipes.idDrink }
-      >
+      <h3 data-testid="instructions">{recipes.strInstructions}</h3>
+      <div id="recommended"><RecomendedRecipes origem={ essaPagina } /></div>
+      <Link to={ `/bebidas/${recipes.idDrink}/in-progress` } params={ recipes.idDrink }>
         <button
-          className="start-recipe-btn"
+          id="start-recipe-btn"
           type="button"
           data-testid="start-recipe-btn"
         >
@@ -115,6 +119,9 @@ DrinkDetails.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.string,
     }),
+  }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
   }).isRequired,
 };
 

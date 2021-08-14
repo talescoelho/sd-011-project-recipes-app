@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
 function ShareButton({ idRecipe }) {
-  const [isCopy, setIsCopy] = useState(null);
+  const [isCopy, setIsCopy] = useState(false);
 
   const copyToClipboard = ({ target }) => {
     setIsCopy(true);
-    console.log(target);
     const { alt } = target;
     const path = `http://localhost:3000/${alt}`;
     navigator.clipboard.writeText(path);
@@ -15,7 +14,7 @@ function ShareButton({ idRecipe }) {
 
   return (
     <>
-      {isCopy ? <span>Link copiado!</span> : null}
+      {isCopy ? <span>Link copiado!</span> : false}
       <button
         data-testid="share-btn"
         type="button"

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import ShareButton from '../Components/ShareButton';
-import './Styles/FoodDetails.css';
+// import './Styles/detailsrecipe.css';
+import FavoriteButton from '../Components/FavoriteButton';
 import checkInProgress from '../Services/checkInProgress';
+import RecomendedRecipes from '../Components/RecomendedRecipes';
+// import MyContext from '../Context/MyContext';
 
-function FoodDetails({ match: { params: { id } } }) {
+function FoodDetails({ match: { params: { id } }, location: { pathname } }) {
   const [recipes, setRecipes] = useState([]);
 
   // Didmount - Faz fetch trazendo a receita pelo id e seta o stado recipes com as receita
@@ -57,6 +59,9 @@ function FoodDetails({ match: { params: { id } } }) {
     return newArray;
   };
 
+  const essaPagina = pathname;
+  // console.log(essaPagina);
+
   checkInProgress();
   const checkStart = () => {
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -77,7 +82,15 @@ function FoodDetails({ match: { params: { id } } }) {
       />
       <h2 data-testid="recipe-title">{ recipes.strMeal }</h2>
       <ShareButton idRecipe={ `comidas/${recipes.idMeal}` } />
-      <img src={ whiteHeartIcon } alt="Favoritar Coração" data-testid="favorite-btn" />
+      <FavoriteButton
+        id={ recipes.idMeal }
+        type="comida"
+        area={ recipes.strArea }
+        category={ recipes.strCategory }
+        name={ recipes.strMeal }
+        alcoholicOrNot=""
+        image={ recipes.strMealThumb }
+      />
       <h3 data-testid="recipe-category">{ recipes.strCategory }</h3>
       <h3>Ingredients</h3>
       <ul>
@@ -93,8 +106,7 @@ function FoodDetails({ match: { params: { id } } }) {
             ))
         }
       </ul>
-      <h3>Instructions</h3>
-      <p data-testid="instructions">{recipes.strInstructions}</p>
+      <h3 data-testid="instructions">{recipes.strInstructions}</h3>
       <h3>Video</h3>
       <div>
         <ReactPlayer
@@ -104,6 +116,11 @@ function FoodDetails({ match: { params: { id } } }) {
       </div>
       {/* <h3 data-testid={ `${index}-recomendation-card"` }>Recomendadas</h3> */}
       <div id="recommended"><h4>oi</h4></div>
+      <br />
+      <div className="recommended">
+        <RecomendedRecipes origem={ essaPagina } />
+      </div>
+      <br />
       <Link to={ `/comidas/${recipes.idMeal}/in-progress` } params={ recipes.idMeal }>
         <button
           id="start-recipe-btn"
@@ -123,6 +140,9 @@ FoodDetails.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.string,
     }),
+  }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
   }).isRequired,
 };
 

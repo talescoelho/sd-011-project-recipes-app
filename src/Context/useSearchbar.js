@@ -58,5 +58,6 @@ export default function useSearchbar() {
     setSearchResult,
     redirectByChoice,
     getSearch,
+    getRecipe,
   };
 }

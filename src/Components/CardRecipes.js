@@ -3,7 +3,7 @@ import { string, number } from 'prop-types';
 
 export default function CardRecipes({ index, thumb, title }) {
   return (
-    <section data-testid={ `${index}-recipe-card` }>
+    <section className={ `card${index}` } data-testid={ `${index}-recipe-card` }>
       <img
         className="foodimg"
         data-testid={ `${index}-card-img` }
