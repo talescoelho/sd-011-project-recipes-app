@@ -55,9 +55,8 @@ function RecipeConcluded({ recipe, index }) {
           { recipes.doneDate }
         </p>
         <div className="tagContainer">
-          {/* {console.log(recipes.area, 'tags para renderizar', recipeTags)} */}
-          { recipes.type === 'comida' && recipes.tags !== [] ? (
-            recipes.tags.map((tagName, key) => (
+          {
+            recipes.tags && recipes.tags.map((tagName, key) => (
               <p
                 className="tagName"
                 key={ key }
@@ -65,7 +64,7 @@ function RecipeConcluded({ recipe, index }) {
               >
                 { tagName }
               </p>))
-          ) : '' }
+          }
         </div>
         <ButtonShare
           recipe={ { recipeType, recipeId } }

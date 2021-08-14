@@ -20,7 +20,7 @@ function DoneRecipes({ filterBy }) {
   return (
     <div className="DoneRecipesContainer">
       {
-        doneItens.map(
+        doneItens && doneItens.map(
           (recipe, index) => (
             <RecipeConcluded key={ index } index={ index } recipe={ recipe } />
           ),
