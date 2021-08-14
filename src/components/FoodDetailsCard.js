@@ -10,6 +10,7 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
   const history = useHistory();
   const [recomendation, setRecomendation] = useState();
   const [doneRecipe, setDoneRecipe] = useState();
+  const [inProgress, setInProgress] = useState();
 
   function doneRecipeToLS() {
     const drinkID = id;
@@ -50,6 +51,18 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
     }
     history.push(`/comidas/${id}/in-progress`);
   }
+
+  useEffect(() => {
+    const drinkID = id;
+    if (JSON.parse(localStorage.inProgressRecipes).meals) {
+      const foodsInProgressObject = Object.keys(
+        JSON.parse(localStorage.inProgressRecipes).meals,
+      );
+      if (foodsInProgressObject.some((recipe) => recipe === drinkID)) {
+        setInProgress(true);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     async function getRecomendations() {
@@ -109,17 +122,18 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
           allowFullScreen
         /> : '' }
         <FoodCarrossel recomendation={ recomendation } />
+        <br />
         <button
           type="button"
           data-testid="start-recipe-btn"
           onClick={ () => doneRecipeToLS() }
           style={ { position: 'fixed',
             bottom: '0px',
-            marginLeft: '60px',
+            width: '100%',
             visibility: doneRecipe ? 'hidden' : 'visible',
           } }
         >
-          Iniciar Receita
+          {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
         </button>
       </div>
     );

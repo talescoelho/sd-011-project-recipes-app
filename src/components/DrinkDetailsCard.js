@@ -10,6 +10,7 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
   const history = useHistory();
   const [recomendation, setRecomendation] = useState();
   const [doneRecipe, setDoneRecipe] = useState();
+  const [inProgress, setInProgress] = useState();
 
   function doneRecipeToLS() {
     const drinkID = id;
@@ -50,6 +51,18 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
     }
     history.push(`/bebidas/${id}/in-progress`);
   }
+
+  useEffect(() => {
+    const drinkID = id;
+    if (JSON.parse(localStorage.inProgressRecipes).cocktails) {
+      const drinksInProgressObject = Object.keys(
+        JSON.parse(localStorage.inProgressRecipes).cocktails,
+      );
+      if (drinksInProgressObject.some((recipe) => recipe === drinkID)) {
+        setInProgress(true);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     async function getRecomendations() {
@@ -96,7 +109,9 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
           </h5>
         )) : '' }
         <h4>Instructions:</h4>
-        <h5 data-testid="instructions">{ details[0].strInstructions }</h5>
+        <div data-testid="instructions">
+          <p>{ details[0].strInstructions }</p>
+        </div>
       </div>
     );
   }
@@ -104,17 +119,18 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
     <div className="details-container">
       { details ? renderDetails() : 'Loading...'}
       <DrinkCarrossel recomendation={ recomendation } />
+      <br />
       <button
         type="button"
         data-testid="start-recipe-btn"
         onClick={ () => doneRecipeToLS() }
         style={ { position: 'fixed',
           bottom: '0px',
-          marginLeft: '60px',
+          width: '100%',
           visibility: doneRecipe ? 'hidden' : 'visible',
         } }
       >
-        Iniciar Receita
+        {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
       </button>
     </div>
   );
