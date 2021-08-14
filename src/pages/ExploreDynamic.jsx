@@ -33,7 +33,7 @@ export default function ExploreDynamic({ type }) {
       ) }
       <button
         type="button"
-        testid="explore-surprise"
+        data-testid="explore-surprise"
       >
         Me Surpreenda!
       </button>
