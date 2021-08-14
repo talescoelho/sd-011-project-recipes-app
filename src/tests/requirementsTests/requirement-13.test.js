@@ -26,19 +26,19 @@ jest
 afterEach(() => jest.clearAllMocks());
 beforeEach(() => jest.clearAllMocks());
 
-describe(`12 - Develop the search button that, when clicked, the search bar should
-appear. The same goes to hide it`, () => {
-  it('When clicking the search button for the first time the search bar appears',
+describe(`13 - Implement the search bar elements respecting the attributes described in
+the prototype`, () => {
+  it('It has the data-testids for both the search bar and all radio-buttons',
     async () => {
       renderWithRouterAndStore(<App />, { route: '/comidas' });
 
       expect(await screen.findByTestId('search-top-btn')).toBeInTheDocument();
       fireEvent.click(await screen.findByTestId('search-top-btn'));
 
-      expect(screen.queryByTestId('search-input')).toBeInTheDocument();
-      expect(screen.queryByTestId('ingredient-search-radio')).toBeInTheDocument();
-      expect(screen.queryByTestId('name-search-radio')).toBeInTheDocument();
-      expect(screen.queryByTestId('first-letter-search-radio')).toBeInTheDocument();
-      expect(screen.queryByTestId('exec-search-btn')).toBeInTheDocument();
+      expect(await screen.findByTestId('search-input')).toBeInTheDocument();
+      expect(await screen.findByTestId('ingredient-search-radio')).toBeInTheDocument();
+      expect(await screen.findByTestId('name-search-radio')).toBeInTheDocument();
+      expect(await screen.findByTestId('first-letter-search-radio')).toBeInTheDocument();
+      expect(await screen.findByTestId('exec-search-btn')).toBeInTheDocument();
     });
 });
