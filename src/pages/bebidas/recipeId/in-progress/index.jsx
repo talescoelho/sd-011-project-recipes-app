@@ -13,6 +13,7 @@ import { useHistory } from 'react-router-dom';
 import {
   retrieveInProgressRecipes,
   setInProgressRecipe,
+  saveNewDoneRecipe,
 } from '../../../../services/handleLocalStorage';
 import { fetchDetails } from '../../../../services/fetchDetailsApi';
 import FavoriteButton from '../../../../components/Details/FavoriteButton/index';
@@ -25,20 +26,16 @@ export default function BebidasInProgress({ match: { params: { recipeId } } }) {
   const [isRecipeFinalized, setIsRecipeFinalized] = useState(false);
 
   useEffect(() => {
-    const verifyFinalizedBtn = () => {
-      const checkIngredients = Object.keys(details)
-        .filter((key) => key.includes('strIngredient'));
-      if (checkIngredients.length === ingredients.length) {
-        setIsRecipeFinalized(true);
-      } else {
-        setIsRecipeFinalized(false);
-      }
-    };
-
+    const checkIngredients = Object.keys(details)
+      .filter((key) => key.includes('strIngredient'));
+    if (checkIngredients.length === ingredients.length) {
+      setIsRecipeFinalized(true);
+    } else {
+      setIsRecipeFinalized(false);
+    }
     if (ingredients.length !== 0) {
       setInProgressRecipe('cocktails', recipeId, ingredients);
     }
-    verifyFinalizedBtn();
   }, [details, recipeId, ingredients]);
 
   useEffect(() => {
@@ -85,6 +82,26 @@ export default function BebidasInProgress({ match: { params: { recipeId } } }) {
 
   const history = useHistory();
   const handleFinalizedBtn = () => {
+    const {
+      strDrink,
+      strCategory,
+      strArea,
+      strAlcoholic,
+      strDrinkThumb,
+    } = details;
+    const today = new Date().toLocaleDateString();
+    const obj = {
+      id: recipeId,
+      type: 'bebida',
+      area: strArea || '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic || '',
+      name: strDrink,
+      image: strDrinkThumb,
+      doneDate: today,
+      tags: [],
+    };
+    saveNewDoneRecipe(obj);
     history.push('/receitas-feitas');
   };
 
@@ -130,7 +147,11 @@ export default function BebidasInProgress({ match: { params: { recipeId } } }) {
             <span className="">{ strAlcoholic }</span>
           </Col>
           <Col className="col-6 d-flex justify-content-end">
-            <CopyButton />
+            <CopyButton
+              testId="share-btn"
+              id={ recipeId }
+              selector="bebida"
+            />
             <FavoriteButton recipeId={ recipeId } selector="drink" details={ details } />
           </Col>
         </Row>

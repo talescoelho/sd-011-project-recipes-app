@@ -93,7 +93,11 @@ export default function BebidaDetails({ match: { params: { recipeId } } }) {
         </Row>
         <Row as="nav" className="mb-3 m-auto justify-content-center">
           <Col className="col-12 d-flex justify-content-center">
-            <CopyButton />
+            <CopyButton
+              testId="share-btn"
+              id={ recipeId }
+              selector="bebida"
+            />
             <FavoriteButton recipeId={ recipeId } selector="drink" details={ details } />
           </Col>
         </Row>
