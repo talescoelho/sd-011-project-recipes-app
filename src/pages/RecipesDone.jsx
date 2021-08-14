@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
-import profileIcon from '../images/profileIcon.svg';
+import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import '../styles/RecipesDone.css';
 
@@ -41,8 +41,10 @@ export default function RecipesDone() {
   }
 
   return (
-    <div>
-      <header>
+    <div className="recipes-done-section">
+      <Header />
+      <p>{copyText}</p>
+      {/* <header>
         <Link to="/perfil">
           <button type="button">
             <img src={ profileIcon } alt="profileIcon" />
@@ -50,7 +52,7 @@ export default function RecipesDone() {
         </Link>
         <h1>Receitas Feitas</h1>
         <p>{copyText}</p>
-      </header>
+      </header> */}
       <section>
         <button
           className="buttons"

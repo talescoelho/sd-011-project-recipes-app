@@ -13,13 +13,19 @@ function Header() {
   function getPageTitle() {
     const path = location.pathname;
     const area = '/explorar/comidas/area';
+    const receitasFeitas = '/receitas-feitas';
+    const receitasFavoritas = '/receitas-favoritas';
     let pageTitle = '';
-    if (path.split('/').length === 2) {
+    if (path === receitasFeitas) {
+      pageTitle = 'Receitas Feitas';
+    } else if (path === receitasFavoritas) {
+      pageTitle = 'Receitas Favoritas';
+    } else if (path.split('/').length === 2 && path !== receitasFeitas) {
       const title = `${path.split('/')[1]} `;
       pageTitle = title.charAt(0).toUpperCase() + title.slice(1);
     } else if (path === area) {
       pageTitle = 'Explorar Origem';
-    } else if (path !== area) {
+    } else if (path !== area || path !== receitasFeitas) {
       const end = path.split('/').length - 1;
       const pageTitle1 = `${path.split('/')[1]}`;
       const title1 = pageTitle1.charAt(0).toUpperCase() + pageTitle1.slice(1);
