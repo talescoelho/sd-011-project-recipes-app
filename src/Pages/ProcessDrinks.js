@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import ShareButton from '../Components/ShareButton';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import FavoriteButton from '../Components/FavoriteButton';
 
 export default function ProcessDrinks({ match: { params: { id } } }) {
   const [recipes, setRecipes] = useState([]);
+  const [disabled, setDisabled] = useState(true);
+  const [numberOfChecked, setNumberOfChecked] = useState(0);
   // Didmount - Faz fetch trazendo a receita pelo id e seta o stado recipes com as receita
   useEffect(() => {
     const getApi = async () => {
@@ -51,6 +54,24 @@ export default function ProcessDrinks({ match: { params: { id } } }) {
     return newArray;
   };
 
+  function count(e) {
+    if (e.target.checked === true) {
+      setNumberOfChecked(numberOfChecked + 1);
+    } else {
+      setNumberOfChecked(numberOfChecked - 1);
+    }
+  }
+
+  const handleChange = () => {
+    const a = document.getElementsByClassName('count-checkboxes').length - 1;
+    console.log(a, numberOfChecked);
+    if (numberOfChecked === a) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  };
+
   return (
     <div>
       <img
@@ -60,8 +81,16 @@ export default function ProcessDrinks({ match: { params: { id } } }) {
         alt="Imagem da receita"
       />
       <h2 data-testid="recipe-title">{ recipes.strDrink }</h2>
-      <ShareButton idRecipe={ `bebidas/${recipes.idDrink}/in-progress` } />
-      <img src={ whiteHeartIcon } alt="Favoritar Coração" data-testid="favorite-btn" />
+      <ShareButton idRecipe={ `bebidas/${recipes.idDrink}` } />
+      <FavoriteButton
+        id={ recipes.idDrink }
+        type="bebida"
+        area=""
+        category="Cocktail"
+        alcoholicOrNot={ recipes.strAlcoholic }
+        name={ recipes.strDrink }
+        image={ recipes.strDrinkThumb }
+      />
       <h3 data-testid="recipe-category">{ recipes.strCategory }</h3>
       <h3>Ingredients</h3>
       { concatIngredientWithMesure()
@@ -71,19 +100,29 @@ export default function ProcessDrinks({ match: { params: { id } } }) {
             data-testid={ `${index}-ingredient-step` }
             htmlFor={ igredient[index] }
           >
-            <input type="checkbox" id={ igredient[index] } />
+            <input
+              type="checkbox"
+              id={ igredient[index] }
+              className="count-checkboxes"
+              value={ igredient }
+              onChange={ () => handleChange() }
+              onClick={ (e) => count(e) }
+            />
             {' '}
             { igredient }
           </label>)) }
       <h3 data-testid="instructions">Instructions</h3>
       <p>{recipes.strInstructions}</p>
-      <button
-        id="start-recipe-btn"
-        type="button"
-        data-testid="finish-recipe-btn"
-      >
-        Finalizar Receita
-      </button>
+      <Link to="/receitas-feitas">
+        <button
+          className="start-recipe-btn"
+          type="button"
+          data-testid="finish-recipe-btn"
+          disabled={ disabled }
+        >
+          Finalizar Receita
+        </button>
+      </Link>
     </div>
   );
 }
