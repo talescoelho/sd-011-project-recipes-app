@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import ShareButton from '../Components/ShareButton';
 import './Styles/detailsrecipe.css';
 import FavoriteButton from '../Components/FavoriteButton';
 import checkInProgress from '../Services/checkInProgress';
 import RecomendedRecipes from '../Components/RecomendedRecipes';
-// import MyContext from '../Context/MyContext';
 
 function FoodDetails({ match: { params: { id } }, location: { pathname } }) {
   const [recipes, setRecipes] = useState([]);
@@ -72,6 +72,14 @@ function FoodDetails({ match: { params: { id } }, location: { pathname } }) {
     return 'Iniciar Receita';
   };
 
+  function verifyrecipeisdone() {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    if (doneRecipes.length > 0) {
+      return doneRecipes.some((recipe) => recipe.id === id);
+    }
+    return false;
+  }
+
   return (
     <div>
       <img
@@ -121,15 +129,18 @@ function FoodDetails({ match: { params: { id } }, location: { pathname } }) {
         <RecomendedRecipes origem={ essaPagina } />
       </div>
       <br />
-      <Link to={ `/comidas/${recipes.idMeal}/in-progress` } params={ recipes.idMeal }>
-        <button
-          id="start-recipe-btn"
-          type="button"
-          data-testid="start-recipe-btn"
-        >
-          { checkStart() }
-        </button>
-      </Link>
+      <div>
+        <Link to={ `/comidas/${recipes.idMeal}/in-progress` } params={ recipes.idMeal }>
+          <Button
+            className="start-recipe-btn"
+            type="button"
+            style={ { display: verifyrecipeisdone() ? 'none' : 'initial' } }
+            data-testid="start-recipe-btn"
+          >
+            { checkStart() }
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 }
