@@ -6,7 +6,7 @@ import Profile from './pages/Profile';
 import Details from './pages/Details';
 import Explore from './pages/Explore';
 import ExploreDynamic from './pages/ExploreDynamic';
-import Ingredients from './pages/Ingredients';
+import SearchIngredients from './pages/SearchIngredients';
 import OriginLocal from './pages/OriginLocal';
 import DoneRecipes from './pages/DoneRecipes';
 import FavouriteRecipes from './pages/FavouriteRecipes';
@@ -37,12 +37,12 @@ export default function Routes() {
       <Route
         exact
         path="/explorar/comidas/ingredientes"
-        render={ () => <Ingredients type="comidas" /> }
+        render={ () => <SearchIngredients type="comidas" /> }
       />
       <Route
         exact
         path="/explorar/bebidas/ingredientes"
-        render={ () => <Ingredients type="bebidas" /> }
+        render={ () => <SearchIngredients type="bebidas" /> }
       />
       <Route exact path="/explorar/comidas/area" component={ OriginLocal } />
       <Route exact path="/receitas-feitas" component={ DoneRecipes } />

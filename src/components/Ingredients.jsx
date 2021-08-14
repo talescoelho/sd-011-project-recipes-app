@@ -45,7 +45,7 @@ export default function Ingredients({ recipe, inProgress, type }) {
       }, []);
       setIngredients(newIngredients);
     }
-  }, [recipe]);
+  }, [recipe, id, setIngredients, similarName]);
 
   function setLocalStorage(teste) {
     const initialInProgress = JSON.stringify({ cocktails: {}, meals: {} });

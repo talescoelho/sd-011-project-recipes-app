@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { Cocktails, Foods } from '../services';
 
-export default function Ingredients({ type }) {
+export default function SearchIngredients({ type }) {
   const name = 'Explorar Ingredientes';
   const [ingredients, setIngredients] = useState([]);
   const dispatch = useDispatch();
@@ -61,7 +61,7 @@ export default function Ingredients({ type }) {
   );
 }
 
-Ingredients.propTypes = {
+SearchIngredients.propTypes = {
   type: PropTypes.shape({
     includes: PropTypes.func,
   }).isRequired,

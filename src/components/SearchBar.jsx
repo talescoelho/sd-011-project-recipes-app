@@ -11,6 +11,8 @@ function SearchBar({ type }) {
 
   async function filterSearch() {
     if (searchType && searchInput) {
+      console.log(searchType);
+      console.log(searchInput);
       if (type.includes('Comidas')) setData(await Foods[searchType](searchInput));
       if (type.includes('Bebidas')) setData(await Cocktails[searchType](searchInput));
     }
@@ -24,7 +26,7 @@ function SearchBar({ type }) {
           label="Ingredientes"
           onClick={ ({ target }) => setSearchType(target.id) }
           type="radio"
-          id="searchIngredients"
+          id="searchIngredient"
           name="search-type"
           data-testid="ingredient-search-radio"
         />

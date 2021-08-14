@@ -25,7 +25,7 @@ export default function OriginLocal() {
   }
   return (
     <SearchBarProvider type="comida">
-      <Header pageName="Explorar Origem" />
+      <Header pageName="Explorar Origem" showSearchButton />
       <select data-testid="explore-by-area-dropdown" onChange={ (e) => selectArea(e) }>
         <option value="all" data-testid="All-option">All</option>
         { areas.map(({ strArea }, index) => (
