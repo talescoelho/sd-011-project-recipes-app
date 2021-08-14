@@ -8,7 +8,6 @@ import './Styles/detailsrecipe.css';
 import FavoriteButton from '../Components/FavoriteButton';
 import checkInProgress from '../Services/checkInProgress';
 import RecomendedRecipes from '../Components/RecomendedRecipes';
-// import MyContext from '../Context/MyContext';
 
 function FoodDetails({ match: { params: { id } }, location: { pathname } }) {
   const [recipes, setRecipes] = useState([]);
@@ -73,6 +72,15 @@ function FoodDetails({ match: { params: { id } }, location: { pathname } }) {
     return 'Iniciar Receita';
   };
 
+  function verifyrecipeisdone() {
+    // const { match: { params: { id } } } = this.props;
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    if (doneRecipes.length > 0) {
+      return doneRecipes.some((recipe) => recipe.id === id);
+    }
+    return false;
+  }
+
   return (
     <div>
       <img
@@ -127,6 +135,7 @@ function FoodDetails({ match: { params: { id } }, location: { pathname } }) {
           <Button
             className="start-recipe-btn"
             type="button"
+            style={ { display: verifyrecipeisdone() ? 'none' : 'initial' } }
             data-testid="start-recipe-btn"
           >
             { checkStart() }

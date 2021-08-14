@@ -21,6 +21,7 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
     };
     getApi();
   }, [id]);
+
   // retorna o array com os ingredientes
   const ingredientsRecipe = () => {
     const arrayIndredientKids = Object.keys(recipes)
@@ -34,6 +35,7 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
     });
     return ingredients;
   };
+
   // retorna um array com as medidas de cada ingredientes
   const ingredientsMesure = () => {
     const arrayIndredientKids = Object.keys(recipes)
@@ -47,6 +49,7 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
     });
     return ingredients2;
   };
+
   // retorna a concatenação do retorno da função ingredientsMesure com ingredientsRecipe
   const concatIngredientWithMesure = () => {
     const newArray = [];
@@ -66,8 +69,14 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
     }
     return 'Iniciar Receita';
   };
-  // console.log(`minha chave instructions: ${recipes.strInstructions}`);
-  // console.log(`minha chave alcoholic: ${recipes.strAlcoholic}`);
+
+  function verifyrecipeisdone() {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    if (doneRecipes.length > 0) {
+      return doneRecipes.some((recipe) => recipe.id === id);
+    }
+    return false;
+  }
 
   return (
     <div>
@@ -109,6 +118,7 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
           <Button
             className="start-recipe-btn"
             type="button"
+            style={ { display: verifyrecipeisdone() ? 'none' : 'initial' } }
             data-testid="start-recipe-btn"
           >
             { checkStart() }

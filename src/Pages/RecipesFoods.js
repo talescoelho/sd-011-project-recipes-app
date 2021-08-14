@@ -7,7 +7,7 @@ import CardRecipes from '../Components/CardRecipes';
 import MyContext from '../Context/MyContext';
 import CategoryButtons from '../Components/CategoryButtons';
 
-export default function RecipesFood() {
+export default function RecipesFoods() {
   const { food, setFood } = useContext(MyContext);
   const showMaxRecipes = 12;
 
