@@ -54,7 +54,8 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
 
   useEffect(() => {
     const drinkID = id;
-    if (JSON.parse(localStorage.inProgressRecipes).meals) {
+    if (localStorage.inProgressRecipes
+      && JSON.parse(localStorage.inProgressRecipes).meals) {
       const foodsInProgressObject = Object.keys(
         JSON.parse(localStorage.inProgressRecipes).meals,
       );
@@ -130,6 +131,7 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
           style={ { position: 'fixed',
             bottom: '0px',
             width: '100%',
+            left: '0px',
             visibility: doneRecipe ? 'hidden' : 'visible',
           } }
         >

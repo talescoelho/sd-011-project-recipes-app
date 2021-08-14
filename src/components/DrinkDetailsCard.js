@@ -54,7 +54,8 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
 
   useEffect(() => {
     const drinkID = id;
-    if (JSON.parse(localStorage.inProgressRecipes).cocktails) {
+    if (localStorage.inProgressRecipes
+      && JSON.parse(localStorage.inProgressRecipes).cocktails) {
       const drinksInProgressObject = Object.keys(
         JSON.parse(localStorage.inProgressRecipes).cocktails,
       );
