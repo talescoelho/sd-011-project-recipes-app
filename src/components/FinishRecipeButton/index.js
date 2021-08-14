@@ -39,7 +39,7 @@ class FinishRecipeButton extends React.Component {
     return (
       <button
         type="button"
-        onClick={ this.handleRecipeDone }
+        onClick={ () => this.handleRecipeDone() }
         disabled={ !(inProgress[id] && inProgress[id].length === ingredients.length) }
         data-testid="finish-recipe-btn"
       >

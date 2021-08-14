@@ -14,11 +14,9 @@ class RecipeDetailMain extends Component {
     this.changefavoriteBtn = this.changefavoriteBtn.bind(this);
   }
 
-  componentDidUpdate() {
-    const { favoriteBtnSrc } = this.state;
-    console.log('favoriteBtnSrc');
-    console.log(favoriteBtnSrc);
-  }
+  // componentDidUpdate() {
+  //   const { favoriteBtnSrc } = this.state;
+  // }
 
   changefavoriteBtn() {
     const { favoriteBtnSrc } = this.state;

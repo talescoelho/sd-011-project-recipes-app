@@ -6,11 +6,13 @@ import { fetchRecipeDetail, fetchRecommended } from '../actions/recipeDetail_act
 import RecipeDetailMain from '../components/RecipeDetailMain';
 import RecipesRecommended from '../components/RecipesRecommended';
 import '../index.css';
+import { getFromStorage } from '../helpers/utils';
 
 function RecipeDetail({ history: { push, location: { pathname } },
   dispatchFetchDetail, dispatchFetchRecommended, recipeDetail, recipesRecommended }) {
   const { id } = useParams();
   const type = pathname.includes('comidas') ? 'comidas' : 'bebidas';
+  const recipesDone = getFromStorage('doneRecipes') || [];
 
   React.useEffect(() => {
     dispatchFetchRecommended(type);
@@ -35,6 +37,7 @@ function RecipeDetail({ history: { push, location: { pathname } },
         className="fixedBottom"
         type="button"
         onClick={ redrectToRecipeInProgress }
+        hidden={ recipesDone.length > 0 }
       >
         Iniciar receita
       </button>
