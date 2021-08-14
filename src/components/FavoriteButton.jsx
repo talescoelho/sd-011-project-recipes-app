@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
-function FavoriteButton({ data }) {
+function FavoriteButton({ data, test }) {
   // Set do state inicial do favorito como false (como é iniciado o botão)
   const favoritedRecipes = JSON.parse(
     localStorage.getItem('favoriteRecipes'),
@@ -39,7 +39,7 @@ function FavoriteButton({ data }) {
     return (
       <input
         type="image"
-        data-testid="favorite-btn"
+        data-testid={ test }
         src={ fav ? blackHeartIcon : whiteHeartIcon }
         onClick={ () => handleClick() }
         alt="favorite icon"
@@ -50,7 +50,7 @@ function FavoriteButton({ data }) {
   return (
     <input
       type="image"
-      data-testid="favorite-btn"
+      data-testid={ test }
       src={ fav ? blackHeartIcon : whiteHeartIcon }
       onClick={ () => handleClick() }
       alt="favorite icon"
@@ -62,4 +62,5 @@ export default FavoriteButton;
 
 FavoriteButton.propTypes = {
   data: PropTypes.objectOf(PropTypes.string).isRequired,
+  test: PropTypes.string.isRequired,
 };
