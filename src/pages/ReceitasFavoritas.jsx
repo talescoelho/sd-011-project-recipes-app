@@ -22,36 +22,15 @@ class ReceitasFavoritas extends Component {
     this.getListFromLS();
   }
 
-  handleOnClickLike() {
-    const { cocktail, isALreadyFavorited } = this.state;
-    const obj = {
-      id: cocktail.idDrink,
-      type: 'bebida',
-      area: '',
-      category: cocktail.strCategory,
-      alcoholicOrNot: cocktail.strAlcoholic,
-      name: cocktail.strDrink,
-      image: cocktail.strDrinkThumb,
-    };
-    const favoritedRecipes = JSON.parse(
-      localStorage.getItem('favoriteRecipes'),
+  handleOnClickLike(obj) {
+    const { favList } = this.state;
+    localStorage.setItem(
+      'favoriteRecipes',
+      JSON.stringify(
+        favList.filter((recipe) => obj.id !== recipe.id),
+      ),
     );
-    if (!isALreadyFavorited && favoritedRecipes !== null) {
-      favoritedRecipes.push(obj);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(favoritedRecipes));
-    }
-    if (favoritedRecipes === null) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([obj]));
-    }
-    if (isALreadyFavorited) {
-      localStorage.setItem(
-        'favoriteRecipes',
-        JSON.stringify(favoritedRecipes.filter((e) => e.id !== cocktail.idDrink)),
-      );
-    }
-    this.setState({
-      isALreadyFavorited: !isALreadyFavorited,
-    });
+    this.getListFromLS();
   }
 
   getListFromLS() {
@@ -158,6 +137,7 @@ class ReceitasFavoritas extends Component {
               />
             </button>
             <button
+              onClick={ () => this.handleOnClickLike(obj) }
               type="button"
             >
               <img
