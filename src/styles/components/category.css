@@ -16,7 +16,7 @@
 
 .category-container button:focus {
   border: 0;
-  font-weight: bold;
   font-size: 12px;
+  font-weight: 500;
   width: 100px;
 }
