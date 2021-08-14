@@ -9,7 +9,7 @@ function Recommended({ value, type, min }) {
   console.log(min);
   const magicN = 6;
   const sixCards = value.map((e) => e).slice(0, magicN);
-  console.log(sixCards);
+  // console.log(sixCards);
   const kind = () => {
     if (type === 'meal') {
       return (

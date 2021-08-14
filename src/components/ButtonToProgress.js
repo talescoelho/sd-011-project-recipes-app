@@ -26,10 +26,10 @@ function ButtonToProgress(props) {
     }
 
     if (doneRecipes === null) {
-      return localStorage.setItem('doneRecipes', JSON.stringify([{}]));
+      return localStorage.setItem('doneRecipes', JSON.stringify([]));
     }
     if (doneRecipes.includes(path)) {
-      console.log(doneRecipes.includes(path), doneRecipes);
+      // console.log(doneRecipes.includes(path), doneRecipes);
       setStart(true);
     }
   }, [path, doneRecipes, inProgress]);
