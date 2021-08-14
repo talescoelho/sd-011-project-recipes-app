@@ -1,0 +1,58 @@
+.app-name {
+  color: rgb(55, 6, 23);
+  font-family: cursive;
+  font-size: 30px;
+  font-weight: 900;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.body-page {
+  align-items: center;
+  background-image: url('./food-wallpaper.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-sizing: border-box;
+  display: flex;
+  font-family: sans-serif;
+  height: 100vh;
+  justify-content: center;
+}
+
+.login-form {
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container {
+  align-content: center;
+  background-color: whitesmoke;
+  border-radius: 8px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  min-height: 400px;
+  opacity: 0.9;
+  padding: 32px;
+  width: 300px;
+}
+
+.login {
+  color: rgb(3, 7, 30);
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 25px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.mb-3 {
+  border-top: 30px;
+}
+
+.login-button {
+  font-weight: 500;
+}
