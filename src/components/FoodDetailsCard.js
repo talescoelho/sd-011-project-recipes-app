@@ -15,11 +15,11 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
   const history = useHistory();
 
   useEffect(() => {
-    const drinkID = id;
+    const foodID = id;
     if (localStorage.inProgressRecipes
       && JSON.parse(localStorage.inProgressRecipes).meals
       && Object.keys(JSON.parse(localStorage.inProgressRecipes).meals)
-        .some((recipe) => recipe === drinkID)) {
+        .some((recipe) => recipe === foodID)) {
       setInProgress(true);
     }
   }, []);

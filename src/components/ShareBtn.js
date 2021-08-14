@@ -1,5 +1,4 @@
 import React from 'react';
-import CopyToClipboard from 'react-copy-to-clipboard';
 import ShareBtnIcon from '../images/shareIcon.svg';
 
 function ShareBtn() {
@@ -7,7 +6,7 @@ function ShareBtn() {
     const link = window.location.href;
     alert('Link copiado!');
     return (
-      <CopyToClipboard text={ link } />
+      navigator.clipboard.writeText(link)
     );
   }
 
@@ -15,7 +14,7 @@ function ShareBtn() {
     <div>
       <button
         type="button"
-        onClick={ btnClickHandler() }
+        onClick={ btnClickHandler }
       >
         <img
           data-testid="share-btn"
@@ -23,11 +22,6 @@ function ShareBtn() {
           alt="icone Share"
         />
       </button>
-      <CopyToClipboard
-        text={ window.location.href }
-      >
-        <span>Copy to clipboard with span</span>
-      </CopyToClipboard>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import DoneRecipeToLSDrink from './DoneRecipeToLSDrink';
+import DoneRecipeToLSDrink from './DoneRecipesToLSDrink';
 import ShareBtn from './FavoriteBtn';
 import FavoriteBtn from './ShareBtn';
 import DrinkCarrossel from './DrinkCarrossel';
@@ -17,8 +17,8 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
     const drinkID = id;
     if (localStorage.inProgressRecipes
       && JSON.parse(localStorage.inProgressRecipes).cocktails
-      && Object.keys(JSON.parse(localStorage.inProgressRecipes).cocktails
-        .some((recipe) => recipe === drinkID))) {
+      && Object.keys(JSON.parse(localStorage.inProgressRecipes).cocktails)
+        .some((recipe) => recipe === drinkID)) {
       setInProgress(true);
     }
   }, []);
@@ -82,7 +82,7 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
       <button
         type="button"
         data-testid="start-recipe-btn"
-        onClick={ () => DoneRecipeToLSDrink('cocktails', history, details, id) }
+        onClick={ () => DoneRecipeToLSDrink('drink', history, details, id) }
         style={ { position: 'fixed',
           bottom: '0px',
           width: '100%',
