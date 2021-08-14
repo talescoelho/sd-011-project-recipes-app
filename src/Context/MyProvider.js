@@ -17,8 +17,14 @@ export default function MyProvider({ children }) {
   const [recomendations, setRecomendations] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [userEmailProfile, setUserEmailProfile] = useState('');
+  const [drinkIngredients, setDrinkIngredients] = useState([]);
+  const setMealsAndDrinkByIngredients = useState();
+
 
   const context = {
+    setMealsAndDrinkByIngredients,
+    drinkIngredients,
+    setDrinkIngredients,
     userEmailProfile,
     setUserEmailProfile,    
     recipe,

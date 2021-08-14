@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import ShareButton from '../Components/ShareButton';
 import FavoriteButton from '../Components/FavoriteButton';
 import checkInProgress from '../Services/checkInProgress';
@@ -69,7 +70,7 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
   // console.log(`minha chave alcoholic: ${recipes.strAlcoholic}`);
 
   return (
-    <div>
+    <div className="paidobutton">
       <img
         id="img-recipe"
         src={ recipes.strDrinkThumb }
@@ -103,15 +104,19 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
       </ul>
       <h3 data-testid="instructions">{recipes.strInstructions}</h3>
       <div id="recommended"><RecomendedRecipes origem={ essaPagina } /></div>
-      <Link to={ `/bebidas/${recipes.idDrink}/in-progress` } params={ recipes.idDrink }>
-        <button
-          id="start-recipe-btn"
-          type="button"
-          data-testid="start-recipe-btn"
-        >
-          { checkStart() }
-        </button>
-      </Link>
+      <br/>
+      <div className="paidobutton">    
+        <Link to={ `/bebidas/${recipes.idDrink}/in-progress` } params={ recipes.idDrink }>
+          <Button
+            id="start-recipe-btn"
+            type="button"
+            data-testid="start-recipe-btn"
+            className="start-recipe-btn"
+          >
+            { checkStart() }
+          </Button>
+        </Link>
+        </div>
     </div>
   );
 }

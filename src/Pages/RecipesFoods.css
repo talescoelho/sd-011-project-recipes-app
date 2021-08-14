@@ -15,10 +15,10 @@
   text-decoration: none;
 }
 
-input {
+/* input {
   margin-left: 5px;
   margin-right: 5px;
-}
+} */
 
 .cardlist {
   background-image: linear-gradient(to bottom, salmon, white, salmon);
@@ -34,7 +34,7 @@ input {
   height: 150px;
   width: auto;
 }
-
+/* 
 section {
   margin: 5px;
-}
+} */
