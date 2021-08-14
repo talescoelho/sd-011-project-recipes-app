@@ -73,7 +73,6 @@ function FoodDetails({ match: { params: { id } }, location: { pathname } }) {
   };
 
   function verifyrecipeisdone() {
-    // const { match: { params: { id } } } = this.props;
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     if (doneRecipes.length > 0) {
       return doneRecipes.some((recipe) => recipe.id === id);
