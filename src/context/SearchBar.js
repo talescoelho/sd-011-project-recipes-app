@@ -18,6 +18,8 @@ export function SearchBarProvider({ children }) {
   const [categories, setCategories] = useState([]);
   const [filter, setFilter] = useState('');
 
+  console.log('search', dataValues);
+
   const value = {
     input,
     setInput,

@@ -8,7 +8,6 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 export default function FavoriteRecipes() {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [filteredRecipes, setFilteredRecipes] = useState(favoriteRecipes);
-  console.log(filteredRecipes);
   const [type, setType] = useState('all');
 
   useEffect(() => {
@@ -24,7 +23,6 @@ export default function FavoriteRecipes() {
   const handleChange = (btn) => setType(btn);
 
   const handleDisfavor = (id) => {
-    console.log(id);
     const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'))
       .filter((recipe) => recipe.id !== id);
     localStorage.setItem('favoriteRecipes', JSON.stringify(recipes));

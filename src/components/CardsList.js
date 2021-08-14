@@ -11,7 +11,7 @@ export default function CardsList(props) {
   if (dataValues && dataValues.length > 0) {
     return (
       <div
-        style={ { marginTop: '100px' } }
+        style={ { marginTop: '20px' } }
       >
         { dataValues.slice(0, MAX_CARDS).map((eachRecipe, index) => (<Cards
           recipe={ eachRecipe }
