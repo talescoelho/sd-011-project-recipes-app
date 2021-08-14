@@ -4,13 +4,12 @@ import CardRecipeList from '../components/CardRecipeList';
 import Footer from '../components/Footer';
 import NavCategories from '../components/NavCategories';
 
-function drinkPage(props) {
-  const { ingredient } = props.location.state;
+function drinkPage() {
   return (
     <div>
       <HeaderDrink title="Bebidas" search />
       <NavCategories origin="Drink" />
-      <CardRecipeList origin="Drink" text={ ingredient } />
+      <CardRecipeList origin="Drink" />
       <Footer />
     </div>
   );

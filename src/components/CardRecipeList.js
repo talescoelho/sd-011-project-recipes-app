@@ -6,54 +6,63 @@ import CardRecipe from './CardRecipe';
 import { searchFoodsAll, searchByIngredient } from '../services/RequestFood';
 import { searchDrinksAll, searchDrinkByIngredient } from '../services/RequestDrinks';
 
-function CardRecipeList({ origin, text }) {
-  const { categorized, filtered, initialItens, setInitialItens } = RequestHook();
+function CardRecipeList({ origin }) {
+  const {
+    byCategory,
+    ingredient,
+    filtered,
+    initialItens,
+    setInitialItens } = RequestHook();
+
   const MAX_RESULT = 12;
   const history = useHistory();
 
   async function loadInitialItens() {
     let request;
-    if (text !== '') {
+    if (ingredient !== '') {
       if (origin === 'Food') {
-        request = await searchByIngredient(text);
+        request = await searchByIngredient(ingredient);
+        console.log('food ingre');
       } else {
-        request = await searchDrinkByIngredient(text);
+        request = await searchDrinkByIngredient(ingredient);
+        console.log('drink ingre');
       }
-    }
-    if (origin === 'Food') {
+    } else if (origin === 'Food') {
       request = await searchFoodsAll();
+      console.log('food');
     } else {
       request = await searchDrinksAll();
+      console.log('drink');
     }
     setInitialItens(request);
   }
 
   useEffect(() => {
     loadInitialItens();
+    console.log('load');
   }, []);
 
   function renderItems(array) {
-    if (array.length === 1) {
+    if (array && array.length === 1) {
       if (origin === 'Food') {
         return (history.push(`comidas/${array[0].idMeal}`));
       }
       return (history.push(`bebidas/${array[0].idDrink}`));
     }
     return (
-      array.slice(0, MAX_RESULT).map((item, index) => (
+      array && array.slice(0, MAX_RESULT).map((item, index) => (
         <CardRecipe key={ index } item={ item } index={ index } />)));
   }
 
   return (
     <div>
-      { categorized ? renderItems(filtered) : renderItems(initialItens) }
+      { byCategory ? renderItems(filtered) : renderItems(initialItens) }
     </div>
   );
 }
 
 CardRecipeList.propTypes = {
   origin: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
 };
 
 export default CardRecipeList;

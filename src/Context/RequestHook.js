@@ -18,7 +18,8 @@ const RequestContext = createContext();
 export function RequestProvider({ children }) {
   const [filtered, setFiltered] = useState([]);
   const [initialItens, setInitialItens] = useState([]);
-  const [categorized, setCategorized] = useState(false);
+  const [byCategory, setByCategory] = useState(false);
+  const [ingredient, setIngredient] = useState('');
 
   async function filterByNameFood(filterText) {
     const items = await searchByName(filterText);
@@ -60,8 +61,10 @@ export function RequestProvider({ children }) {
   }
 
   const contextValues = {
-    categorized,
-    setCategorized,
+    byCategory,
+    setByCategory,
+    ingredient,
+    setIngredient,
     filtered,
     setFiltered,
     initialItens,

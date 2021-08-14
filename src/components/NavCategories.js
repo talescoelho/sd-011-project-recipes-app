@@ -6,7 +6,7 @@ import { RequestHook } from '../Context/RequestHook';
 
 function NavCategories({ origin }) {
   const [category, setCategory] = useState([]);
-  const { setFiltered, setCategorized } = RequestHook();
+  const { setFiltered, setByCategory } = RequestHook();
   const MAX_RESULT = 5;
 
   useEffect(() => {
@@ -49,7 +49,7 @@ function NavCategories({ origin }) {
             value={ item.strCategory }
             onClick={ (e) => {
               searchByCategory(e.target.value);
-              setCategorized((state) => !state);
+              setByCategory((state) => !state);
             } }
           >
             { item.strCategory }
@@ -62,7 +62,7 @@ function NavCategories({ origin }) {
         value="All"
         onClick={ (e) => {
           searchByCategory(e.target.value);
-          setCategorized((state) => !state);
+          setByCategory((state) => !state);
         } }
       >
         All

@@ -10,12 +10,7 @@ import '../styles/footer.css';
 function Footer() {
   return (
     <div data-testid="footer" className="component-footer">
-      <Link
-        to={ {
-          pathname: '/bebidas',
-          state: { ingredient: '' },
-        } }
-      >
+      <Link to="/bebidas">
         <button type="button">
           <img
             src={ DrinkIcon }
@@ -35,12 +30,7 @@ function Footer() {
           />
         </button>
       </Link>
-      <Link
-        to={ {
-          pathname: '/comidas/',
-          state: { ingredient: '' },
-        } }
-      >
+      <Link to="/comidas/">
         <button type="button">
           <img
             src={ MealIcon }

@@ -2,12 +2,8 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-
 import { UserProvider } from './Context/UserHook';
 import { RequestProvider } from './Context/RequestHook';
-
-// import { searchRandomMeal } from './services/RequestFood';
-
 import Login from './pages/Login';
 import foodPage from './pages/FoodPage';
 import drinkPage from './pages/DrinkPage';
