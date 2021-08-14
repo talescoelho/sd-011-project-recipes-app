@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import ShareIcon from '../images/shareIcon.svg';
 import LinkCopy from './LinkCopy';
 
-function ButtonShare({ recipe }) {
+function ButtonShare({ recipe, index = 'default' }) {
+  console.log(index);
   const { recipeType, recipeId } = recipe;
   const [linkCopy, setLinkCopy] = useState(false);
+  const testId = index === 'default' ? 'share-btn' : `${index}-horizontal-share-btn`;
 
   const handleShareBtn = (foodType, id) => {
-    console.log(foodType, id);
     const hostURL = window.location.origin;
     if (foodType === 'meals') {
       navigator.clipboard.writeText(`${hostURL}/comidas/${id}`);
@@ -25,11 +27,17 @@ function ButtonShare({ recipe }) {
   return (
     <div>
       <button
+        style={ { width: '50px', height: '50px' } }
         type="button"
-        onClick={ () => { handleShareBtn(recipeType, recipeId); handleLinkMessage(); } }
-        data-testid="share-btn"
       >
-        Share
+        <img
+          aria-hidden="true"
+          onClick={ () => { handleShareBtn(recipeType, recipeId); handleLinkMessage(); } }
+          style={ { width: '50px', height: '50px' } }
+          data-testid={ testId }
+          src={ ShareIcon }
+          alt="Share"
+        />
       </button>
       { linkCopy && <LinkCopy /> }
     </div>
