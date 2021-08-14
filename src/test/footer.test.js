@@ -1,20 +1,40 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import App from '../App';
-import renderWithRouterAndContext from './renderWithRouterAndContext';
+// import React from 'react';
+// import userEvent from '@testing-library/user-event';
+// import App from '../App';
+// import renderWithRouterAndContext from './renderWithRouterAndContext';
 
-const EMAIL_INPUT = 'alguem@alguem.com';
-const PASSWORD_INPUT = '1234567';
+// const EMAIL_INPUT = 'alguem@alguem.com';
+// const PASSWORD_INPUT = '1234567';
 
-describe('Tests relacted by Footer component', () => {
-  it('Implemente os elementos do menu inferior respeitando os atributos descritos no protótipo', () => {
-    const { getByTestId, history } = renderWithRouterAndContext(<App />);
-    userEvent.type(getByTestId('email-input'), EMAIL_INPUT);
-    userEvent.type(getByTestId('password-input'), PASSWORD_INPUT);
-    userEvent.click(getByTestId('login-submit-btn'));
+// describe('Tests relacted by Footer component', () => {
+//   test('Elementos do menu inferior na pagina /comidas', () => {
+//     const { getByTestId, history } = renderWithRouterAndContext(<App />);
+//     userEvent.type(getByTestId('email-input'), EMAIL_INPUT);
+//     userEvent.type(getByTestId('password-input'), PASSWORD_INPUT);
+//     userEvent.click(getByTestId('login-submit-btn'));
+//     // console.log(getByTestId('email-input'));
+//     // history.push('/comidas');
 
-    history.push('/comidas');
+//     // expect(window.location.pathname).toBe('/comidas');
+//     expect(getByTestId('footer')).toBeInTheDocument();
+//     expect(getByTestId('drinks-bottom-btn')).toBeInTheDocument();
+//     expect(getByTestId('explore-bottom-btn')).toBeInTheDocument();
+//     expect(getByTestId('food-bottom-btn')).toBeInTheDocument();
+//   });
 
-    expect(window.location.pathname).toBe('/comidas');
-  })
-})
+//   test('Elementos do menu inferior na pagina /bebidas', () => {
+//     const { getByTestId, getByText, history } = renderWithRouterAndContext(<App />);
+//     // userEvent.type(getByTestId('email-input'), EMAIL_INPUT);
+//     // userEvent.type(getByTestId('password-input'), PASSWORD_INPUT);
+//     // userEvent.click(getByTestId('login-submit-btn'));
+//     // userEvent.click(getByTestId('drinks-bottom-btn'));
+//     history.push('/bebidas');
+//     console.log(window.location.href);
+//     expect(getByText('Explorar Bebidas')).toBeInTheDocument();
+//     // expect(window.location.pathname).toBe('/bebidas');
+//     expect(getByTestId('footer')).toBeInTheDocument();
+//     expect(getByTestId('drinks-bottom-btn')).toBeInTheDocument();
+//     expect(getByTestId('explore-bottom-btn')).toBeInTheDocument();
+//     expect(getByTestId('food-bottom-btn')).toBeInTheDocument();
+//   });
+// })
