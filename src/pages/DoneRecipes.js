@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -41,7 +41,8 @@ export default function DoneRecipes() {
                 <button
                   type="button"
                   data-testid={ `${index}-horizontal-share-btn` }
-                  src={ shareIcon } alt="compartilhar"
+                  src={ shareIcon }
+                  alt="compartilhar"
                 />
                 {
                   recipe.tags.map((tag, tagIndex) => (
