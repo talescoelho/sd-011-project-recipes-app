@@ -1,19 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import ShareBtn from './FavoriteBtn';
-import FavoriteBtn from './ShareBtn';
+import { useHistory } from 'react-router-dom';
+// import DoneRecipeToLSFood from './DoneRecipesToLSFoods';
+import ShareBtn from './ShareBtn';
+import FavoriteBtn from './FavoriteBtn';
 import FetchApi from '../services/ApiFetch';
 import FoodCarrossel from './FoodCarrossel';
+import foodVideo from './FoodVideo';
 
-function FoodDetailsCard({ details, mealIngredients, mealMeasure }) {
+function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
   const [recomendation, setRecomendation] = useState();
+  const [doneRecipe, setDoneRecipe] = useState();
+  const [inProgress, setInProgress] = useState();
+  const history = useHistory();
+
+  useEffect(() => {
+    const foodID = id;
+    if (localStorage.inProgressRecipes
+      && JSON.parse(localStorage.inProgressRecipes).meals
+      && Object.keys(JSON.parse(localStorage.inProgressRecipes).meals)
+        .some((recipe) => recipe === foodID)) {
+      setInProgress(true);
+    }
+  }, []);
 
   useEffect(() => {
     async function getRecomendations() {
       const qty = 6;
-      const response = await FetchApi('themealdb', 'nome', '');
-      const recomendations = response.meals.slice(0, qty);
-      setRecomendation(recomendations);
+      const response = await FetchApi('thecocktaildb', 'nome', '');
+      const recomendationsList = response.drinks.slice(0, qty);
+      setRecomendation(recomendationsList);
+    }
+    const foodID = id;
+    if (localStorage.doneRecipes
+      && JSON.parse(localStorage.doneRecipes).some((recipe) => recipe.id === foodID)) {
+      setDoneRecipe(true);
     }
     getRecomendations();
   }, []);
@@ -21,11 +42,17 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure }) {
   function renderDetails() {
     return (
       <div className="details-body">
-        <img alt="logo" src={ details[0].strMealThumb } data-testid="recipe-photo" />
+        <img
+          alt="logo"
+          src={ details[0].strMealThumb }
+          data-testid="recipe-photo"
+          width="350px"
+          height="300px"
+        />
         <h3 data-testid="recipe-title">{ details[0].strMeal }</h3>
         <div className="details-btn-container">
           <ShareBtn />
-          <FavoriteBtn />
+          <FavoriteBtn details={ details } gatilho="meal" id={ id } />
         </div>
         <h4 data-testid="recipe-category">
           Category:
@@ -41,26 +68,31 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure }) {
           </h5>
         )) : '' }
         <h4>Instructions:</h4>
-        <h5>{ details[0].strInstructions }</h5>
+        <p data-testid="instructions">{ details[0].strInstructions }</p>
         <h4>Vídeo</h4>
-        { details ? <iframe
-          width="560"
-          height="315"
-          data-testid="video"
-          src={ `https://www.youtube.com/embed/${details[0].strYoutube.split('=')[1]}` }
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write;
-          encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        /> : '' }
-        <FoodCarrossel recomendation={ recomendation } />
+        { foodVideo(details) }
       </div>
     );
   }
   return (
     <div className="details-container">
       { details ? renderDetails() : 'Loading...'}
+      <FoodCarrossel recomendation={ recomendation } />
+      <br />
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        // onClick={ () => DoneRecipeToLSFood('meal', history, details, id) }
+        onClick={ () => history.push(`/comidas/${id}/in-progress`) }
+        style={ { position: 'fixed',
+          bottom: '0px',
+          width: '100%',
+          left: '0px',
+          visibility: doneRecipe ? 'hidden' : 'visible',
+        } }
+      >
+        {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
+      </button>
     </div>
   );
 }

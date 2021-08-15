@@ -1,23 +1,63 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import ShareBtn from './FavoriteBtn';
-import FavoriteBtn from './ShareBtn';
+import { useHistory } from 'react-router-dom';
+// import DoneRecipeToLSDrink from './DoneRecipeToLSDrink';
+import ShareBtn from './ShareBtn';
+import FavoriteBtn from './FavoriteBtn';
+import DrinkCarrossel from './DrinkCarrossel';
+import FetchApi from '../services/ApiFetch';
 
-function DrinkDetailsCard({ details, mealIngredients, mealMeasure }) {
+function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
+  const [recomendation, setRecomendation] = useState();
+  const [doneRecipe, setDoneRecipe] = useState();
+  const [inProgress, setInProgress] = useState();
+  const history = useHistory();
+
+  useEffect(() => {
+    const drinkID = id;
+    if (localStorage.inProgressRecipes
+      && JSON.parse(localStorage.inProgressRecipes).cocktails
+      && Object.keys(JSON.parse(localStorage.inProgressRecipes).cocktails)
+        .some((recipe) => recipe === drinkID)) {
+      setInProgress(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    async function getRecomendations() {
+      const qty = 6;
+      const response = await FetchApi('themealdb', 'nome', '');
+      const recomendationsList = response.meals.slice(0, qty);
+      setRecomendation(recomendationsList);
+    }
+    const drinkID = id;
+    if (localStorage.doneRecipes
+      && JSON.parse(localStorage.doneRecipes).some((recipe) => recipe.id === drinkID)) {
+      setDoneRecipe(true);
+    }
+    getRecomendations();
+  }, []);
+
   function renderDetails() {
     return (
       <div className="details-body">
-        <img alt="logo" src={ details[0].strDrinkThumb } data-testid="recipe-photo" />
+        <img
+          alt="logo"
+          src={ details[0].strDrinkThumb }
+          data-testid="recipe-photo"
+          width="350px"
+          height="300px"
+        />
         <h3 data-testid="recipe-title">{ details[0].strDrink }</h3>
         <div className="details-btn-container">
+          <FavoriteBtn details={ details } gatilho="drink" id={ id } />
           <ShareBtn />
-          <FavoriteBtn />
         </div>
-        <h4 data-testid="recipe-category">
+        <h4>
           Category:
           { details[0].strCategory }
         </h4>
-        <h4>{details[0].strAlcoholic}</h4>
+        <h4 data-testid="recipe-category">{details[0].strAlcoholic}</h4>
         <h4>Ingredients:</h4>
         { mealIngredients ? mealIngredients.map((item, index) => (
           <h5
@@ -28,13 +68,29 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure }) {
           </h5>
         )) : '' }
         <h4>Instructions:</h4>
-        <h5>{ details[0].strInstructions }</h5>
+        <div data-testid="instructions">
+          <p>{ details[0].strInstructions }</p>
+        </div>
       </div>
     );
   }
   return (
     <div className="details-container">
       { details ? renderDetails() : 'Loading...'}
+      <DrinkCarrossel recomendation={ recomendation } />
+      <br />
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
+        style={ { position: 'fixed',
+          bottom: '0px',
+          width: '100%',
+          visibility: doneRecipe ? 'hidden' : 'visible',
+        } }
+      >
+        {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
+      </button>
     </div>
   );
 }

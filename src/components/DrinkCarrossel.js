@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-function FoodCarrossel({ recomendation }) {
+function DrinkCarrossel({ recomendation }) {
   const history = useHistory();
   const [recomendations, setRecomendations] = useState();
   const [showRecomendations, setShowRecomendations] = useState();
@@ -10,21 +10,20 @@ function FoodCarrossel({ recomendation }) {
   useEffect(() => {
     setRecomendations(recomendation);
     if (recomendation) {
-      setShowRecomendations([recomendation[0].strDrink, recomendation[1].strDrink]);
+      setShowRecomendations([recomendation[0].strMeal, recomendation[1].strMeal]);
     }
   }, [recomendation]);
-
   function imgClickHandler(id) {
-    history.push(`/bebidas/${id}`);
+    history.push(`/comidas/${id}`);
     window.location.reload();
   }
-  // testandooooooooooooooooooo
+
   function nextImg() {
     const disney = 4;
     setStartPosition(startPosition + 1);
     if (startPosition >= disney) setStartPosition(0);
-    setShowRecomendations([recomendation[startPosition].strDrink,
-      recomendation[startPosition + 1].strDrink]);
+    setShowRecomendations([recomendation[startPosition].strMeal,
+      recomendation[startPosition + 1].strMeal]);
   }
 
   function renderMealCarrossel() {
@@ -34,26 +33,22 @@ function FoodCarrossel({ recomendation }) {
           .map((item, index) => (
             <div key={ index } className="carrossel-item">
               <button
-                className={ showRecomendations.some((item2) => item2 === item.strDrink)
+                className={ showRecomendations.some((item2) => item2 === item.strMeal)
                   ? 'showImgCarrossel' : 'hideImgCarrossel' }
                 type="button"
-                onClick={ () => imgClickHandler(item.idDrink) }
+                onClick={ () => imgClickHandler(item.idMeal) }
               >
                 <div className="carrossel-item-container">
                   <div>
                     <img
                       alt="logo"
-                      src={ item.strDrinkThumb }
+                      src={ item.strMealThumb }
                       width="100px"
                       data-testid={ `${index}-recomendation-card` }
                     />
                   </div>
                   <div>
-                    <h3
-                      data-testid={ `${index}-recomendation-title` }
-                    >
-                      {item.strDrink}
-                    </h3>
+                    <h3 data-testid={ `${index}-recomendation-title` }>{item.strMeal}</h3>
                   </div>
                 </div>
               </button>
@@ -73,4 +68,4 @@ function FoodCarrossel({ recomendation }) {
   );
 }
 
-export default FoodCarrossel;
+export default DrinkCarrossel;
