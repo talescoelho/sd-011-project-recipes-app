@@ -26,18 +26,20 @@ export default function OriginLocal() {
   return (
     <SearchBarProvider type="food">
       <Header title="Explorar Origem" showSearchButton />
-      <select data-testid="explore-by-area-dropdown" onChange={ (e) => selectArea(e) }>
-        <option value="all" data-testid="All-option">All</option>
-        { areas.map(({ strArea }, index) => (
-          <option
-            value={ strArea }
-            key={ index }
-            data-testid={ `${strArea}-option` }
-          >
-            { strArea }
-          </option>
-        )) }
-      </select>
+      <form className="d-flex p-1 bg-light">
+        <select data-testid="explore-by-area-dropdown" onChange={ (e) => selectArea(e) }>
+          <option value="all" data-testid="All-option">All</option>
+          { areas.map(({ strArea }, index) => (
+            <option
+              value={ strArea }
+              key={ index }
+              data-testid={ `${strArea}-option` }
+            >
+              { strArea }
+            </option>
+          )) }
+        </select>
+      </form>
       <RecipesCards type="food" />
       <Footer />
     </SearchBarProvider>

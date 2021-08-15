@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { fetchAPI } from '../services';
+import { Button } from '../styles';
 
 export default function ExploreDynamic({ title, type }) {
   const showSearchButton = false;
@@ -18,31 +18,37 @@ export default function ExploreDynamic({ title, type }) {
   return (
     <div>
       <Header title={ title } type={ type } showSearchButton={ showSearchButton } />
-      <Link to={ `/explorar/${drinkOrFood}/ingredientes` }>
-        <button
+      <div className="d-flex flex-column p-2">
+        <Button
           type="button"
+          drink={ type === 'drink' }
           data-testid="explore-by-ingredient"
+          className="btn m-3 border btn-lg border-dark"
+          onClick={ () => history.push(`/explorar/${drinkOrFood}/ingredientes`) }
         >
           Por Ingredientes
-        </button>
-      </Link>
-      { (type === 'food') && (
-        <Link to={ `/explorar/${drinkOrFood}/area` }>
-          <button
+        </Button>
+        { (type === 'food') && (
+          <Button
             type="button"
             data-testid="explore-by-area"
+            className="btn m-3 border btn-lg border-dark"
+            onClick={ () => history.push(`/explorar/${drinkOrFood}/area`) }
           >
             Por Local de Origem
-          </button>
-        </Link>
-      ) }
-      <button
-        onClick={ () => randomRedirect() }
-        type="button"
-        data-testid="explore-surprise"
-      >
-        Me Surpreenda!
-      </button>
+          </Button>
+        ) }
+        <Button
+          onClick={ () => randomRedirect() }
+          drink={ type === 'drink' }
+          type="button"
+          data-testid="explore-surprise"
+          className="btn m-3 border btn-lg border-dark"
+        >
+          Me Surpreenda!
+        </Button>
+      </div>
+
       <Footer drink={ type === 'drink' } />
     </div>
   );

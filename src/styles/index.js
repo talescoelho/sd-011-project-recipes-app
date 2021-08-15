@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
-  background-color: #fcdc4d;
+  background-color: ${({ drink }) => (drink ? '#a73d7e' : '#fcdc4d')};
 `;
 
 export const Underline = styled.p`

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 import Header from '../components/Header';
 import DoneRecipeCard from '../components/DoneRecipeCard';
 
@@ -22,33 +23,39 @@ export default function DoneRecipes() {
   return (
     <div>
       <Header title="Receitas Feitas" />
-      <div>
-        <button
-          type="button"
+      <div className="btn-group d-flex flex-wrap mb-3">
+        <Button
+          variant="light"
+          className="border"
           data-testid="filter-by-all-btn"
           onClick={ () => setFilter('all') }
         >
           All
-        </button>
-        <button
-          type="button"
+        </Button>
+        <Button
+          variant="light"
+          className="border"
           data-testid="filter-by-food-btn"
           onClick={ () => setFilter('comida') }
         >
           Food
-        </button>
-        <button
-          type="button"
+        </Button>
+        <Button
+          className="border"
+          variant="light"
           data-testid="filter-by-drink-btn"
           onClick={ () => setFilter('bebida') }
         >
           Drinks
-        </button>
+        </Button>
       </div>
-      {
-        recipes.map((element, index) => (
-          <DoneRecipeCard recipe={ element } key={ index } index={ index } />))
-      }
+      <div>
+        {
+          recipes.map((element, index) => (
+            <DoneRecipeCard recipe={ element } key={ index } index={ index } />))
+        }
+      </div>
+
     </div>
   );
 }

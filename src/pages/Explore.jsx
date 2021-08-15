@@ -1,19 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { Button } from '../styles';
 
 export default function Explore() {
+  const history = useHistory();
   return (
     <div>
       <Header title="Explorar" />
-      <Link to="/explorar/comidas">
-        <button type="button" data-testid="explore-food">Explorar Comidas</button>
-      </Link>
-
-      <Link to="/explorar/bebidas">
-        <button type="button" data-testid="explore-drinks">Explorar Bebidas</button>
-      </Link>
+      <div className="d-flex flex-column p-2">
+        <Button
+          type="button"
+          className="btn m-3 border btn-lg border-dark"
+          data-testid="explore-food"
+          onClick={ () => history.push('/explorar/comidas') }
+        >
+          Explorar Comidas
+        </Button>
+        <Button
+          type="button"
+          className="btn m-3 border btn-lg border-dark"
+          data-testid="explore-drinks"
+          onClick={ () => history.push('/explorar/bebidas') }
+        >
+          Explorar Bebidas
+        </Button>
+      </div>
       <Footer />
     </div>
   );
