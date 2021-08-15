@@ -1,10 +1,10 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { act } from 'react-dom/test-utils';
-import { fireEvent, screen } from '@testing-library/react';
-// import oneMeal from '../../cypress/mocks/oneMeal';
+import { screen } from '@testing-library/react';
+// import oneDrink from '../../cypress/mocks/oneDrink';
 import renderWithRouter from './renderWithRouter';
-import FoodDetails from '../pages/comidas/recipeId';
+import DrinkDetails from '../pages/bebidas/recipeId';
 
 // const mealResponse = Promise.resolve({
 //   json: () => Promise.resolve(oneMeal),
@@ -14,7 +14,7 @@ import FoodDetails from '../pages/comidas/recipeId';
 
 const match = {
   params: {
-    recipeId: '52771',
+    recipeId: '178319',
   },
 };
 
@@ -24,18 +24,17 @@ const SHARE_BTN = 'share-btn';
 const FAV_BTN = 'favorite-btn';
 const RECIPE_CATEGORY = 'recipe-category';
 const INSTRUCTIONS = 'instructions';
-const VIDEO_SRC = 'video';
 const START_RECIPE_BTN = 'start-recipe-btn';
-const INGREDIENTS = ['0', '1', '2', '3', '4', '5', '6', '7'];
+const INGREDIENTS = ['0', '1', '2'];
 const RECOMENDATIONS = ['0', '1', '2', '3', '4', '5', '6'];
 
-const testHistory = createMemoryHistory({ initialEntries: ['/comidas/52771'] });
+const history = createMemoryHistory({ initialEntries: ['/bebidas/178319'] });
 
-afterEach(() => jest.clearAllMocks());
+// afterEach(() => jest.clearAllMocks());
 
 describe('Testa a página de detalhes da receita', () => {
   it('Testa se o elemento de loading está na tela', () => {
-    renderWithRouter(<FoodDetails match={ match } />, testHistory);
+    renderWithRouter(<DrinkDetails match={ match } />, history);
     const loading = screen.getByText(/Loading/i);
 
     expect(loading).toBeInTheDocument();
@@ -43,7 +42,7 @@ describe('Testa a página de detalhes da receita', () => {
 
   it('Testa se os elementos corretos estão todos na tela', async () => {
     await act(async () => {
-      renderWithRouter(<FoodDetails match={ match } />, testHistory);
+      renderWithRouter(<DrinkDetails match={ match } />, history);
     });
     const ingredientsString = await screen.findByText(/Ingredientes/i);
     const img = await screen.findByTestId(PHOTO_TEST_ID);
@@ -52,7 +51,6 @@ describe('Testa a página de detalhes da receita', () => {
     const favBtn = await screen.findByTestId(FAV_BTN);
     const category = await screen.findByTestId(RECIPE_CATEGORY);
     const instructions = await screen.findByTestId(INSTRUCTIONS);
-    const videoSrc = await screen.findByTestId(VIDEO_SRC);
     const startBtn = await screen.findByTestId(START_RECIPE_BTN);
 
     await act(async () => {
@@ -73,23 +71,12 @@ describe('Testa a página de detalhes da receita', () => {
     expect(ingredientsString).toHaveTextContent('Ingredientes');
     expect(img).toBeInTheDocument();
     expect(title).toBeInTheDocument();
-    expect(title).toHaveTextContent('Spicy Arrabiata Penne');
+    expect(title).toHaveTextContent('Aquamarine');
     expect(shareBtn).toBeInTheDocument();
     expect(favBtn).toBeInTheDocument();
     expect(category).toBeInTheDocument();
     expect(instructions).toBeInTheDocument();
-    expect(videoSrc).toBeInTheDocument();
     expect(startBtn).toBeInTheDocument();
     // expect(mockOneMeal).toBeCalled();
-  });
-
-  it('Botão deve iniciar como iniciar receita e após o click, continuar receita', () => {
-    const {
-      findByTestId,
-      history,
-    } = renderWithRouter(<FoodDetails match={ match } />, testHistory);
-    const startBtn = findByTestId(START_RECIPE_BTN);
-    expect(startBtn).toHaveTextContent('Iniciar Receita');
-    fireEvent.click(startBtn);
   });
 });
