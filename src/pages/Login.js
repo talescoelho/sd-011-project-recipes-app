@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
+import loginIcon from '../images/loginIcon.svg';
 import '../styles/login.css';
 
 export default function Login() {
@@ -29,8 +30,8 @@ export default function Login() {
   return (
     <main className="container">
       <div className="container-login">
+        <img height="200px" src={ loginIcon } alt="login ilustration" />
         <div className="login-info">
-          <h2>Login</h2>
           <input
             type="email"
             data-testid="email-input"
