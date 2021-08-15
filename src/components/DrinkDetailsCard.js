@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import DoneRecipeToLSDrink from './DoneRecipesToLSDrink';
-import ShareBtn from './FavoriteBtn';
-import FavoriteBtn from './ShareBtn';
+// import DoneRecipeToLSDrink from './DoneRecipeToLSDrink';
+import ShareBtn from './ShareBtn';
+import FavoriteBtn from './FavoriteBtn';
 import DrinkCarrossel from './DrinkCarrossel';
 import FetchApi from '../services/ApiFetch';
 
@@ -50,8 +50,8 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
         />
         <h3 data-testid="recipe-title">{ details[0].strDrink }</h3>
         <div className="details-btn-container">
+          <FavoriteBtn details={ details } gatilho="drink" id={ id } />
           <ShareBtn />
-          <FavoriteBtn />
         </div>
         <h4>
           Category:
@@ -82,7 +82,7 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
       <button
         type="button"
         data-testid="start-recipe-btn"
-        onClick={ () => DoneRecipeToLSDrink('drink', history, details, id) }
+        onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
         style={ { position: 'fixed',
           bottom: '0px',
           width: '100%',

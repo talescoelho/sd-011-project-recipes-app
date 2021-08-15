@@ -4,10 +4,10 @@ import ShareBtnIcon from '../images/shareIcon.svg';
 function ShareBtn() {
   function btnClickHandler() {
     const link = window.location.href;
-    alert('Link copiado!');
-    return (
-      navigator.clipboard.writeText(link)
-    );
+    navigator.clipboard.writeText(link);
+    const x = 'Link copiado!';
+    document.getElementById('alert').innerHTML = x;
+    return navigator.clipboard.writeText(link);
   }
 
   return (
@@ -22,6 +22,7 @@ function ShareBtn() {
           alt="icone Share"
         />
       </button>
+      <p id="alert" />
     </div>
   );
 }
