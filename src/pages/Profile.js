@@ -15,41 +15,43 @@ class Profile extends Component {
     return (
       <div>
         <Header title="Perfil" search={ false } />
-        <div className="div-profile">
-          <p
-            data-testid="profile-email"
-            className="user-email"
-          >
-            { userEmail }
-          </p>
-          <Link to="/receitas-feitas">
-            <Button
-              variant="outline-secondary"
-              data-testid="profile-done-btn"
-              className="profile-buttons"
+        <div className="back-ground">
+          <div className="div-profile">
+            <p
+              data-testid="profile-email"
+              className="user-email"
             >
-              Receitas Feitas
-            </Button>
-          </Link>
-          <Link to="/receitas-favoritas">
-            <Button
-              variant="outline-secondary"
-              data-testid="profile-favorite-btn"
-              className="profile-buttons"
-            >
-              Receitas Favoritas
-            </Button>
-          </Link>
-          <Link to="/">
-            <Button
-              variant="outline-secondary"
-              data-testid="profile-logout-btn"
-              className="profile-buttons"
-              onClick={ () => localStorage.clear() }
-            >
-              Sair
-            </Button>
-          </Link>
+              { userEmail }
+            </p>
+            <Link to="/receitas-feitas">
+              <Button
+                variant="outline-secondary"
+                data-testid="profile-done-btn"
+                className="profile-buttons"
+              >
+                Receitas Feitas
+              </Button>
+            </Link>
+            <Link to="/receitas-favoritas">
+              <Button
+                variant="outline-secondary"
+                data-testid="profile-favorite-btn"
+                className="profile-buttons"
+              >
+                Receitas Favoritas
+              </Button>
+            </Link>
+            <Link to="/">
+              <Button
+                variant="outline-secondary"
+                data-testid="profile-logout-btn"
+                className="profile-buttons"
+                onClick={ () => localStorage.clear() }
+              >
+                Sair
+              </Button>
+            </Link>
+          </div>
         </div>
         <Footer />
       </div>
