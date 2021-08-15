@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, wait } from '@testing-library/react';
 import { renderWithRouterAndStore } from '../helper/testConfig';
 import * as requestMenu from '../../services/requestMenu';
 import mealsFiltersByAll from '../mocks/meals/mockFilterMealsByAll';
@@ -37,19 +37,16 @@ bottom of the screen at all times`, () => {
 
     const startRecipeBtn = await screen.findByTestId('start-recipe-btn');
 
-    expect(startRecipeBtn).toHaveStyle(`
-    position: fixed;
-    bottom: 0px;
-  `);
+    await wait(() => expect(startRecipeBtn).toHaveStyle('position: fixed'));
+    await wait(() => expect(startRecipeBtn).toHaveStyle('bottom: 0px'));
   });
 
   it('Check button placement on drink details screen', async () => {
     renderWithRouterAndStore(<App />, { route: mockDrinkPath });
 
     const startRecipeBtn = await screen.findByTestId('start-recipe-btn');
-    expect(startRecipeBtn).toHaveStyle(`
-      position: fixed;
-      bottom: 0px;
-    `);
+
+    await wait(() => expect(startRecipeBtn).toHaveStyle('position: fixed'));
+    await wait(() => expect(startRecipeBtn).toHaveStyle('bottom: 0px'));
   });
 });
