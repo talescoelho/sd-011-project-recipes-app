@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import fetchByFilter from '../services/data';
-// import { SearchBarContext } from '../context/SearchBar';
+import { SearchBarContext } from '../context/SearchBar';
 
 /* Criei CardsList para renderizar apenas uma vez. Deixei apenas o SearchBarProvider encapsulando o Header e CardsList, já que buscam as mesmas informações */
 
@@ -12,7 +12,7 @@ export default function CardsListByIngredient() {
   const [redirectTo, setRedirectTo] = useState(false);
   const path = window.location.pathname.split('/')[2];
 
-  // const { setCheck, setIngred } = useContext(SearchBarContext);
+  const { setIngred } = useContext(SearchBarContext);
 
   useEffect(() => {
     const urlDrink = 'thecocktaildb';
@@ -62,9 +62,8 @@ export default function CardsListByIngredient() {
   }, [path, ingredName]);
 
   const handleClick = (value) => {
-    // setIngred(value);
-    // setCheck('checked');
-    console.log(value);
+    setIngred(value);
+    console.log('cardingred', value);
     setRedirectTo(true);
   };
 
