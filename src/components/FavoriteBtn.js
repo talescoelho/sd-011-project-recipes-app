@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import White from '../images/whiteHeartIcon.svg';
 import Black from '../images/blackHeartIcon.svg';
@@ -95,6 +95,7 @@ function FavoriteBtn({ details, gatilho, id }) {
 export default FavoriteBtn;
 
 FavoriteBtn.propTypes = {
-  details: PropTypes.arrayOf(Array).isRequired,
-  gatilho: PropTypes.string.isRequired,
-};
+  details: PropTypes.arrayOf(Array),
+  gatilho: PropTypes.string,
+  id: PropTypes.string,
+}.isRequired;
