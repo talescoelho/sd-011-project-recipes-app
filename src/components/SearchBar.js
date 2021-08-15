@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { SearchBarContext } from '../context/SearchBar';
 import fetchByFilter from '../services/data';
-// import Cards from './Cards';
 
 export default function SearchBar(props) {
   const {
@@ -23,7 +22,6 @@ export default function SearchBar(props) {
     setNewSearch,
     setData,
     data,
-    // shouldCallCards,
     setShouldCallCards,
   } = useContext(SearchBarContext);
 

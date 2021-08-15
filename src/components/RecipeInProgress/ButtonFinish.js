@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { InProgressContext } from '../../context/InProgressDrinks';
 
 export default function ButtonFinish(props) {
@@ -7,35 +8,59 @@ export default function ButtonFinish(props) {
   const { enableFinishBtn } = useContext(InProgressContext);
   const history = useHistory();
 
-  const handleClick = (callback) => {
+  const getDate = () => {
+    const date = new Date();
+    return (`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`);
+  };
+
+  const handleClick = () => {
     const {
-      idDrink,
       idMeal,
+      strMeal,
+      strTags,
       strArea,
+      idDrink,
       strCategory,
       strAlcoholic,
       strDrinkThumb,
-      strMealThumb,
       strDrink,
-      strMeal,
-      strTags,
+      strMealThumb,
     } = recipe;
 
-    const doneRecipe = {
-      id: idDrink || idMeal,
-      type: idDrink ? 'bebida' : 'comida',
-      area: strArea,
-      category: strCategory,
-      alcoholicOrNot: strAlcoholic,
-      image: strDrinkThumb || strMealThumb,
-      doneDate: callback(),
-      name: strDrink || strMeal,
-      tags: strTags && strTags.split(','),
-    };
-    console.log(doneRecipe);
+    let newRecipeDone;
+    if (idDrink) {
+      newRecipeDone = {
+        id: idDrink,
+        type: 'bebidas',
+        area: '',
+        category: strCategory,
+        alcoholicOrNot: strAlcoholic,
+        image: strDrinkThumb,
+        doneDate: getDate(),
+        name: strDrink,
+        tags: [],
+      };
+    } else {
+      newRecipeDone = {
+        id: idMeal,
+        type: 'comidas',
+        area: strArea,
+        category: strCategory,
+        alcoholicOrNot: '',
+        image: strMealThumb,
+        doneDate: getDate(),
+        name: strMeal,
+        tags: strTags,
+      };
+    }
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
-    // localStorage.setItem('doneRecipes', JSON.stringify(doneRecipe))
-    // return history.push('/receitas-feitas');
+    const itemToSave = doneRecipes
+      ? [...doneRecipes, newRecipeDone]
+      : [newRecipeDone];
+
+    localStorage.setItem('doneRecipes', JSON.stringify(itemToSave));
+    return history.push('/receitas-feitas');
   };
 
   return (
@@ -49,3 +74,16 @@ export default function ButtonFinish(props) {
     </button>
   );
 }
+
+ButtonFinish.propTypes = {
+  idMeal: PropTypes.string,
+  strMeal: PropTypes.string,
+  strTags: PropTypes.array,
+  strArea: PropTypes.string,
+  idDrink: PropTypes.string,
+  strCategory: PropTypes.string,
+  strAlcoholic: PropTypes.string,
+  strDrinkThumb: PropTypes.string,
+  strDrink: PropTypes.string,
+  strMealThumb: PropTypes.string,
+}.isRequired;

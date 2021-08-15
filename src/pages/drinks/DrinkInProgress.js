@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ButtonShare from '../../components/ButtonShare';
 import CardDetail from '../../components/RecipeInProgress/CardDetail';
@@ -78,11 +78,7 @@ export default function DrinkInProgress({ location }) {
   return <div>Carregando...</div>;
 }
 
-// DrinkInProgress.propTypes = {
-//   strCategory: PropTypes.string,
-//   strDrink: PropTypes.string,
-//   idDrink: PropTypes.string,
-//   strDrinkThumb: PropTypes.string,
-//   strInstructions: PropTypes.string,
-//   strAlcoholic: PropTypes.string,
-// }.isRequired;
+DrinkInProgress.propTypes = {
+  location: PropTypes.string,
+  state: PropTypes.string,
+}.isRequired;

@@ -8,19 +8,16 @@ export function InProgressProvider({ children }) {
   const [measurementsArray, setMeasurementsArray] = useState([]);
   const [ingsChecked, setIngsChecked] = useState([]);
   const [enableFinishBtn, setEnableFinishBtn] = useState(false);
-  const drinks = JSON.parse(localStorage.getItem('cocktails'));
   const recipeId = window.location.pathname.split('/')[2];
 
-  // const setFinishButton = () => {
-  //   const cocktails = JSON.parse(localStorage.getItem('cocktails'));
-  //   console.log('cocktails', cocktails[recipeId]);
-  //   console.log('ingsChecked', ingsChecked);
-
-  //   if (cocktails[recipeId] && ingsChecked) {
-  //     setEnableFinishBtn(ingredientsArray.length === cocktails[recipeId].length
-  //       || ingredientsArray.length === ingsChecked[recipeId].length);
-  //   }
-  // };
+  const setFinishButton = () => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const { cocktails } = inProgressRecipes;
+    if (cocktails[recipeId]) {
+      setEnableFinishBtn(ingredientsArray.length
+        === cocktails[recipeId].length);
+    }
+  };
 
   const updateLocalStorage = ({ target }) => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -63,12 +60,11 @@ export function InProgressProvider({ children }) {
     measurementsArray,
     setMeasurementsArray,
     recipeId,
-    drinks,
-    // setFinishButton,
+    setFinishButton,
     enableFinishBtn,
     updateLocalStorage,
     checkSavedItens,
-    // ingsChecked,
+    ingsChecked,
   };
 
   return (
