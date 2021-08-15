@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -9,9 +9,14 @@ export default function DoneRecipes() {
     pageName: 'Receitas Feitas',
     setIcon: false,
   };
-  const recipeStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-  const [doneRecipes, setDoneRecipes] = useState(recipeStorage);
+  const recipeStorages = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  const [doneRecipes, setDoneRecipes] = useState([]);
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    const recipeStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    setDoneRecipes(recipeStorage);
+  }, []);
 
   return (
     <div>
@@ -20,14 +25,14 @@ export default function DoneRecipes() {
         <button
           type="button"
           data-testid="filter-by-all-btn"
-          onClick={ () => setDoneRecipes(recipeStorage) }
+          onClick={ () => setDoneRecipes(recipeStorages) }
         >
           All
         </button>
         <button
           type="button"
           data-testid="filter-by-food-btn"
-          onClick={ () => setDoneRecipes(recipeStorage
+          onClick={ () => setDoneRecipes(doneRecipes
             .filter((recipes) => recipes.type === 'comida')) }
         >
           Food
@@ -35,7 +40,7 @@ export default function DoneRecipes() {
         <button
           type="button"
           data-testid="filter-by-drink-btn"
-          onClick={ () => setDoneRecipes(recipeStorage
+          onClick={ () => setDoneRecipes(doneRecipes
             .filter((recipes) => recipes.type === 'bebida')) }
         >
           Drinks
