@@ -23,7 +23,11 @@ export default function Profile() {
           </button>
         </Link>
         <Link to="/">
-          <button type="button" data-testid="profile-logout-btn">
+          <button
+            type="button"
+            data-testid="profile-logout-btn"
+            onClick={ () => localStorage.clear() }
+          >
             Sair
           </button>
         </Link>
