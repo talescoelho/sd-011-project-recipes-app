@@ -112,7 +112,7 @@ class FoodsRecipiesInProcess extends React.Component {
         />
         <h1 data-testid="recipe-title">{ DoRecipe.meals[0].strDrink }</h1>
         <ShareBtn />
-        <FavoriteBtn />
+        <FavoriteBtn details={ DoRecipe.meals } gatilho="meal" id={ id } />
         <p data-testid="recipe-category">{ DoRecipe.meals[0].strCategory }</p>
         <div className="ul-container">
           <ul id="input-checkbox">
@@ -167,6 +167,7 @@ class FoodsRecipiesInProcess extends React.Component {
     );
   }
 }
+
 export default FoodsRecipiesInProcess;
 
 FoodsRecipiesInProcess.propTypes = {

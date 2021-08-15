@@ -1,35 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import White from '../images/whiteHeartIcon.svg';
 import Black from '../images/blackHeartIcon.svg';
 
 function FavoriteBtn({ details, gatilho, id }) {
+  const [vamosBrincar, setVamosBrincar] = useState(false);
   let favoritedRecipes = [];
   let recipeId = '';
   let recipeType = ''; let recipeArea = ''; let recipeCategory = '';
   let recipeAlcoholicOrNot = ''; let recipeName = ''; let recipeImg = '';
 
-  switch (gatilho) {
-  case 'meal':
-    recipeId = details[0].idMeal;
-    recipeType = 'comida';
-    recipeArea = details[0].strArea;
-    recipeCategory = details[0].strCategory;
-    recipeAlcoholicOrNot = '';
-    recipeName = details[0].strMeal;
-    recipeImg = details[0].strMealThumb;
-    break;
-  case 'drink':
-    recipeId = details[0].idDrink;
-    recipeType = 'bebida';
-    recipeArea = '';
-    recipeCategory = details[0].strCategory;
-    recipeAlcoholicOrNot = details[0].strAlcoholic;
-    recipeName = details[0].strDrink;
-    recipeImg = details[0].strDrinkThumb;
-    break;
-  default:
-    break;
+  useEffect(() => {
+    setVamosBrincar(false);
+  }, [vamosBrincar]);
+
+  if (gatilho !== undefined) {
+    switch (gatilho) {
+    case 'meal':
+      recipeId = details[0].idMeal;
+      recipeType = 'comida';
+      recipeArea = details[0].strArea;
+      recipeCategory = details[0].strCategory;
+      recipeAlcoholicOrNot = '';
+      recipeName = details[0].strMeal;
+      recipeImg = details[0].strMealThumb;
+      break;
+    case 'drink':
+      recipeId = details[0].idDrink;
+      recipeType = 'bebida';
+      recipeArea = '';
+      recipeCategory = details[0].strCategory;
+      recipeAlcoholicOrNot = details[0].strAlcoholic;
+      recipeName = details[0].strDrink;
+      recipeImg = details[0].strDrinkThumb;
+      break;
+    default:
+      break;
+    }
   }
 
   function btnClickHandler() {
@@ -69,7 +76,7 @@ function FavoriteBtn({ details, gatilho, id }) {
         localStorage.favoriteRecipes = JSON.stringify(filter3);
       }
     }
-    window.location.reload();
+    setVamosBrincar(true);
   }
 
   if (localStorage.favoriteRecipes) {

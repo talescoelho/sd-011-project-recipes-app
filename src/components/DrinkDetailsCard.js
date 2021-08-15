@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 // import DoneRecipeToLSDrink from './DoneRecipeToLSDrink';
@@ -8,6 +9,7 @@ import DrinkCarrossel from './DrinkCarrossel';
 import FetchApi from '../services/ApiFetch';
 
 function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
+  const dispatch = useDispatch();
   const [recomendation, setRecomendation] = useState();
   const [doneRecipe, setDoneRecipe] = useState();
   const [inProgress, setInProgress] = useState();
@@ -22,6 +24,15 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
       setInProgress(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (details) {
+      dispatch({
+        type: 'SEND_DETAILS_TO_STORE',
+        details,
+      });
+    }
+  }, [details]);
 
   useEffect(() => {
     async function getRecomendations() {
