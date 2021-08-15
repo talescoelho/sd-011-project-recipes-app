@@ -18,19 +18,19 @@ function IngredientsList({ recipe }) {
     <div>
       <h2>Ingredients</h2>
       <ul>
-        {/* {ingredientListMaker().map((ingredient, index) => (
+        {ingredientListMaker().map((ingredient, index) => (
           <li data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
             {ingredient}
           </li>
-        ))} */}
-        {ingredientListMaker().map((ingredient, index) => (
+        ))}
+        {/* {ingredientListMaker().map((ingredient, index) => (
           <li data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
             <label htmlFor={ index }>
               <input id={ index } type="checkbox" />
               {ingredient}
             </label>
           </li>
-        ))}
+        ))} */}
       </ul>
     </div>
   );

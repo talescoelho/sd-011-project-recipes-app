@@ -45,13 +45,14 @@ function MealDetails({ match: { params } }) {
       }
     }
   }
-  function renderButton(comand) {
-    return (
-      <button className="footer" type="button" data-testid="start-recipe-btn">
-        { `${comand} Receita` }
-      </button>
-    );
-  }
+  // function renderButton(comand) {
+  //   return (
+  //     <button className="footer" type="button" data-testid="start-recipe-btn">
+  //       { `${comand} Receita` }
+  //     </button>
+  //   );
+  // }
+
   useEffect(() => {
     const { id } = params;
     const requestMeal = async () => {
@@ -65,20 +66,14 @@ function MealDetails({ match: { params } }) {
 
   return (
     <div>
-      <RecipeCard
-        title={ MealDataAPI.strMeal }
-        img={ MealDataAPI.strMealThumb }
-        category={ MealDataAPI.strCategory }
-        id={ MealDataAPI.idMeal }
-        data={ objectRecipe }
-      />
+      <RecipeCard data={ objectRecipe } />
 
       <IngredientsList recipe={ MealDataAPI } />
 
-      <p data-testid="instructions">
+      <div data-testid="instructions">
         <h2>Instructions</h2>
         {MealDataAPI.strInstructions}
-      </p>
+      </div>
 
       {(MealDataAPI.strYoutube) ? (
         <div className="embed-responsive embed-responsive-16by9">
@@ -94,13 +89,19 @@ function MealDetails({ match: { params } }) {
         </div>
       ) : <h2>Loading</h2>}
       <Recommendations />
-      { !isMealDone ? (
-        <Link to={ `/comidas/${MealDataAPI.idMeal}/in-progress` }>
-          { renderButton('Iniciar')}
+      { (isMealStarted) ? (
+        <button className="footer" type="button" data-testid="start-recipe-btn">
+          Continuar Receita
+        </button>
+      ) : (
+        <Link
+          to={ `/comidas/${MealDataAPI.idMeal}/in-progress` }
+          className="footer"
+          data-testid="start-recipe-btn"
+        >
+          Iniciar Receita
         </Link>
-      )
-        : undefined }
-      { isMealStarted ? renderButton('Continuar') : undefined }
+      )}
 
     </div>
   );

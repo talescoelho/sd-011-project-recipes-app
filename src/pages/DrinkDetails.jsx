@@ -65,20 +65,14 @@ function DrinkDetails({ match: { params } }) {
 
   return (
     <div>
-      <RecipeCard
-        title={ DrinkDataAPI.strDrink }
-        img={ DrinkDataAPI.strDrinkThumb }
-        category={ DrinkDataAPI.strAlcoholic }
-        id={ DrinkDataAPI.idDrink }
-        data={ objectRecipe }
-      />
+      <RecipeCard data={ objectRecipe } />
 
       <IngredientsList recipe={ DrinkDataAPI } />
 
-      <p data-testid="instructions">
+      <div data-testid="instructions">
         <h2>Instructions</h2>
         {DrinkDataAPI.strInstructions}
-      </p>
+      </div>
 
       {/* passar algum atributo para o recomendações de modo a
       identificar se renderiza bebidas ou comidas */}

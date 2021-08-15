@@ -4,7 +4,8 @@ import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 
 // Adicionar biblioteca de compartilhar e imagem de coração para o favoritar.
-function MealRecipeCard({ title, img, category, data }) {
+function MealRecipeCard({ data }) {
+  console.log(data);
   return (
     <div>
 
@@ -13,17 +14,17 @@ function MealRecipeCard({ title, img, category, data }) {
         width="200px"
         data-testid="recipe-photo"
         alt="Foto da receita"
-        src={ img }
+        src={ data.image }
       />
 
       <br />
 
       <span data-testid="recipe-title">
-        {`${title} `}
+        {`${data.name} `}
       </span>
 
       <p data-testid="recipe-category">
-        {category}
+        {(data.alcoholicOrNot) ? data.alcoholicOrNot : data.category}
       </p>
 
       <ShareButton test="share-btn" URL={ `/${data.type}s/${data.id}` } />
