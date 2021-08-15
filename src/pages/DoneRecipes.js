@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import ShareBtnIcon from '../images/shareIcon.svg';
 
 export default function DoneRecipes() {
-  let list = [];
-  if (localStorage.doneRecipes) {
-    list = JSON.parse(localStorage.doneRecipes);
-    console.log(list);
-  }
+  const [filter, setFilter] = useState('all');
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    if (localStorage.doneRecipes) {
+      const doneRecipesFromLS = JSON.parse(localStorage.doneRecipes);
+      if (filter === 'all') {
+        setList(JSON.parse(localStorage.doneRecipes));
+      } if (filter === 'food') {
+        const foodFoneRecipes = doneRecipesFromLS
+          .filter((recipe) => recipe.type === 'comida');
+        setList(foodFoneRecipes);
+      } if (filter === 'drink') {
+        const drinkDoneRecipes = doneRecipesFromLS
+          .filter((recipe) => recipe.type === 'bebida');
+        setList(drinkDoneRecipes);
+      }
+    }
+  }, [filter]);
 
   function btnClickHandler(type) {
     const infoArray = Object.values(type);
@@ -22,9 +36,27 @@ export default function DoneRecipes() {
     <main>
       <Header title="Receitas Feitas" haveSearchBtn={ false } />
       <div>
-        <button type="button" data-testid="filter-by-all-btn">All</button>
-        <button type="button" data-testid="filter-by-food-btn">Food</button>
-        <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
+        <button
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ () => setFilter('all') }
+        >
+          All
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-food-btn"
+          onClick={ () => setFilter('food') }
+        >
+          Food
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => setFilter('drink') }
+        >
+          Drinks
+        </button>
       </div>
       <div>
         {
@@ -39,9 +71,7 @@ export default function DoneRecipes() {
                 <h4
                   data-testid={ `${index}-horizontal-top-text` }
                 >
-                  { recipe.area
-                    ? `${recipe.area} - ${recipe.category}`
-                    : `${recipe.alcoholicOrNot} - ${recipe.category}`}
+                  { `${recipe.area} ${recipe.alcoholicOrNot} - ${recipe.category}`}
                 </h4>
                 <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
                 <h4
