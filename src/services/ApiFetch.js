@@ -20,6 +20,8 @@ const FetchApi = async (trigger, radioOption, inputValue, list) => {
     if (details === 'details') {
       url = `lookup.php?i=${list[1]}`;
     }
+  } if (radioOption === 'random') {
+    url = 'random.php';
   }
   try {
     const feth = await fetch(`https://www.${trigger}.com/api/json/v1/1/${url}`);

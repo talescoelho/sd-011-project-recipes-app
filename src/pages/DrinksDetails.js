@@ -15,7 +15,7 @@ export default function DrinkDetails(props) {
       setDetails(results.drinks);
     }
     fetchApi();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (details) {
