@@ -22,9 +22,19 @@ function RecipeDetail({ history: { push, location: { pathname } },
     // setIsInProgress(statusRecipe);
   }
 
-  React.useEffect(verifyRecipeInProgress, [id]);
+  React.useEffect(verifyRecipeInProgress, [id]); // Req 40
 
-  // verifyRecipeInProgress(); // Req 40
+  const addStepToStorage = () => { // Req 40
+    const recipesInProgress = getFromStorage('inProgressRecipes') || {};
+    const updatedItem = {
+      ...recipesInProgress,
+      [id]: [],
+    };
+    setToStorage('inProgressRecipes', updatedItem);
+    // dispatchUpdateInProgress(updatedItem);
+  };
+
+  React.useEffect(addStepToStorage, [id]); // Req 40
 
   React.useEffect(() => {
     dispatchFetchRecommended(type);
@@ -42,18 +52,8 @@ function RecipeDetail({ history: { push, location: { pathname } },
     push(`${pathname}/in-progress`);
   }
 
-  const addStepToStorage = () => { // Req 40
-    const recipesInProgress = getFromStorage('inProgressRecipes') || {};
-    const updatedItem = {
-      ...recipesInProgress,
-      [id]: [],
-    };
-    setToStorage('inProgressRecipes', updatedItem);
-    // dispatchUpdateInProgress(updatedItem);
-  };
-
   function handleStartContinueBtn() {
-    addStepToStorage();
+    // addStepToStorage();
     redrectToRecipeInProgress();
   }
 
