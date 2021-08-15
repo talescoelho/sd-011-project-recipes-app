@@ -14,11 +14,13 @@ const ConcludeRecipe = ({
   recipeType,
   resetProgress }) => {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  const localStorageClone = inProgressRecipes[recipeType][id];
-  if (localStorageClone === undefined || localStorageClone === []) {
-    return (<span>Carregando botão...</span>);
+  if (!inProgressRecipes) return (<span>Carregando botão...</span>);
+  if (inProgressRecipes[recipeType][id] === undefined
+        || inProgressRecipes[recipeType][id] === []
+        || inProgressRecipes[recipeType][id] === null) {
+    return (<span>Carregando ingredients...</span>);
   }
-  if (localStorageClone.length === ingredients.length) {
+  if (inProgressRecipes[recipeType][id].length === ingredients.length) {
     addProgressDone();
   }
   const handleClick = () => {

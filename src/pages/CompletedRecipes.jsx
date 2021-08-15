@@ -40,7 +40,7 @@ const CompletedRecipes = () => {
   return (
     <div>
       { console.log('test') }
-      <Header />
+      <Header page="Receitas Feitas" />
       <button
         type="button"
         value="all"
