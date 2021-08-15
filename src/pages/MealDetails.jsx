@@ -59,7 +59,7 @@ function MealDetails({ match: { params } }) {
       const response = await APImealById(id);
       setMealDadaAPI(response.meals[0]);
     };
-    verifyRecipeDone(id);
+    // verifyRecipeDone(id);
     verifyRecipeProgress(id);
     requestMeal();
   }, [params]);
