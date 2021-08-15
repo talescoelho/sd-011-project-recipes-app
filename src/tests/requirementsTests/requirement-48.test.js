@@ -19,31 +19,21 @@ describe('48 - Develop a checkbox for each item on the ingredient list', () => {
     async () => {
       renderWithRouterAndStore(<App />, { route: '/comidas/52977/in-progress' });
 
-      expect(await screen.findByTestId('0-ingredient-step')).not.toBeChecked();
-      expect(await screen.findByTestId('1-ingredient-step')).not.toBeChecked();
-      expect(await screen.findByTestId('2-ingredient-step')).not.toBeChecked();
-      expect(await screen.findByTestId('3-ingredient-step')).not.toBeChecked();
-      expect(await screen.findByTestId('4-ingredient-step')).not.toBeChecked();
-      expect(await screen.findByTestId('5-ingredient-step')).not.toBeChecked();
-      expect(await screen.findByTestId('6-ingredient-step')).not.toBeChecked();
-      expect(await screen.findByTestId('7-ingredient-step')).not.toBeChecked();
-      expect(await screen.findByTestId('8-ingredient-step')).not.toBeChecked();
-      expect(await screen.findByTestId('9-ingredient-step')).not.toBeChecked();
-      expect(await screen.findByTestId('10-ingredient-step')).not.toBeChecked();
-      expect(await screen.findByTestId('11-ingredient-step')).not.toBeChecked();
-      expect(await screen.findByTestId('12-ingredient-step')).not.toBeChecked();
+      const ingredientStep = await screen.findAllByTestId('ingredient-step');
 
-      expect(screen.queryByTestId('13-ingredient-step')).toBeNull();
+      ingredientStep.forEach((input) => {
+        expect(input).not.toBeChecked();
+      });
     });
 
   it('All ingredients of a drink recipe have a checkbox',
     async () => {
       renderWithRouterAndStore(<App />, { route: '/bebidas/15997/in-progress' });
 
-      expect(await screen.findByTestId('0-ingredient-step')).not.toBeChecked();
-      expect(await screen.findByTestId('1-ingredient-step')).not.toBeChecked();
-      expect(await screen.findByTestId('2-ingredient-step')).not.toBeChecked();
+      const ingredientStep = await screen.findAllByTestId('ingredient-step');
 
-      expect(screen.queryByTestId('3-ingredient-step')).toBeNull();
+      ingredientStep.forEach((input) => {
+        expect(input).not.toBeChecked();
+      });
     });
 });
