@@ -6,6 +6,7 @@ import DetailsMealHeader from '../components/details/DetailsMealHeader';
 import DetailsShareMeals from '../components/details/DetailsShareMeals';
 import RecipesContext from '../context/RecipesContext';
 import '../styles/components/footer.css';
+import backPage from '../images/arrow-undo-circle-outline.svg';
 
 function InProgressMeal() {
   const {
@@ -24,16 +25,25 @@ function InProgressMeal() {
   return (
     <div>
       { (mealId.idMeal === id) ? (
-        <div>
-          <DetailsMealHeader />
-          <div>
+        <div className="details-container">
+          <div className="details-header-btn">
+            <img className="back-style" src={ backPage } alt="voltar" />
             <DetailsShareMeals />
-            <DetailsFavoriteButton id={ id } />
           </div>
-          <div>
+          <DetailsMealHeader />
+          <div className="details-title">
+            <div className="details-title-info">
+              <div>
+                <h3 data-testid="recipe-title">{ mealId.strMeal }</h3>
+                <p data-testid="recipe-category">{ mealId.strCategory }</p>
+              </div>
+              <DetailsFavoriteButton id={ id } />
+            </div>
+          </div>
+          <div className="details-info">
             <DetailsIngredientList />
             <div>
-              <h4>Instruction</h4>
+              <h4>Instruções</h4>
               <p data-testid="instructions">{ mealId.strInstructions }</p>
             </div>
           </div>

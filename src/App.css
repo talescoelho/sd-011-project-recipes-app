@@ -83,16 +83,16 @@
   justify-content: center;
 }
 
-.search-radio label input {
-  border: none;
-}
-
 .input-btn input {
   background-color: rgb(131, 251, 255);
   border: 0;
   border-radius: 20px;
   height: 40px;
   padding-left: 25px;
+}
+
+.search-radio label input {
+  border: none;
 }
 
 .input-btn {

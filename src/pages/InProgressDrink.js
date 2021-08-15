@@ -8,6 +8,7 @@ import DetailsDrinkIngredientList
   from '../components/details/detailsDrink/DetailsDrinkIngredientList';
 import '../styles/components/footer.css';
 import RecipesContext from '../context/RecipesContext';
+import backPage from '../images/arrow-undo-circle-outline.svg';
 
 function InProgressDrink() {
   const {
@@ -26,13 +27,22 @@ function InProgressDrink() {
   return (
     <div>
       { (drinkId.idDrink === id) ? (
-        <div>
-          <DetailsDrinkHeader />
-          <div>
+        <div className="details-container">
+          <div className="details-header-btn">
+            <img className="back-style" src={ backPage } alt="voltar" />
             <DetailsShareDrinks />
-            <DetailsDrinkFavoriteButton id={ id } />
           </div>
-          <div>
+          <DetailsDrinkHeader />
+          <div className="details-title">
+            <div className="details-title-info">
+              <div>
+                <h3 data-testid="recipe-title">{ drinkId.strDrink }</h3>
+                <p data-testid="recipe-category">{ drinkId.strAlcoholic }</p>
+              </div>
+              <DetailsDrinkFavoriteButton id={ id } />
+            </div>
+          </div>
+          <div className="details-info">
             <DetailsDrinkIngredientList />
             <div>
               <h4>Instruction</h4>

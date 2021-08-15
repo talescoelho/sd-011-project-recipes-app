@@ -2,8 +2,8 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 65vh;
   gap: 50px;
+  height: 65vh;
   justify-content: center;
   width: 100%;
 }
@@ -12,8 +12,8 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 36vh;
   gap: 50px;
+  height: 36vh;
   justify-content: center;
   width: 100%;
 }
