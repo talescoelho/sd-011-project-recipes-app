@@ -10,6 +10,10 @@ function DetailsHeader() {
         alt={ mealId.strMeal }
         data-testid="recipe-photo"
       />
+      <div>
+        <h3 data-testid="recipe-title">{ mealId.strMeal }</h3>
+        <p data-testid="recipe-category">{ mealId.strCategory }</p>
+      </div>
     </div>
   );
 }
