@@ -69,6 +69,7 @@ function SearchBar() {
       </label>
       <label htmlFor="radio-search">
         <input
+          className="search-bar-radio"
           onChange={ () => setSelectedRadio('ingredients') }
           type="radio"
           name="radio"
@@ -76,6 +77,7 @@ function SearchBar() {
         />
         Ingredientes
         <input
+          className="search-bar-radio"
           onChange={ () => setSelectedRadio('name') }
           type="radio"
           name="radio"
@@ -83,6 +85,7 @@ function SearchBar() {
         />
         Nome
         <input
+          className="search-bar-radio"
           onChange={ () => setSelectedRadio('firstLetter') }
           type="radio"
           name="radio"

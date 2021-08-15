@@ -51,7 +51,7 @@ function ExploreFoodsButtons() {
 
   return (
     <navbar className="explore-buttons-container">
-      <Link to={ `/explorar/${currentURL}/ingredientes` }>
+      <Link className="btn-link" to={ `/explorar/${currentURL}/ingredientes` }>
         <button
           type="button"
           data-testid="explore-by-ingredient"
@@ -63,6 +63,7 @@ function ExploreFoodsButtons() {
       { currentURL === 'comidas' && <RenderExploreOriginButton /> }
       <button
         type="button"
+        className="btn-link"
         data-testid="explore-surprise"
         onClick={ handleRandomFood }
       >

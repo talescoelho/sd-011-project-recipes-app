@@ -81,7 +81,6 @@ header button {
   justify-content: center;
   padding-bottom: 10px;
   margin-bottom: 10px;
-  /* box-shadow: 5px 1px 5px black; */
 }
 
 .search-bar-form input {
@@ -98,10 +97,10 @@ header button {
   padding: 8px 50px;
 }
 
-button:hover{
-  cursor: pointer;
+input.search-bar-radio {
+  margin-left: 5px;
+  margin-right: 3px;
 }
-
 
 .search-bar-input {
   width: 300px;
@@ -183,30 +182,46 @@ button:hover{
 /* RedirectExploreFoodsAndDrinks */
 
 .explore-main-buttons-container {
+  align-items: center;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 30px;
+}
+
+navbar .btn-link {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  text-decoration: none;
+  width: 100%;
 }
 
 .explore-main-buttons-container button {
   border: 1px solid black;
   border-radius: 10px;
-  margin: 10px;
-  padding: 8px 20px;
+  font-size: large;
+  padding: 15px 20px;
+  width: 80%;
 }
 
 /* ExploreButtons */
 .explore-buttons-container {
+  align-items: center;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 30px;
 }
 
 .explore-buttons-container button {
   border: 1px solid black;
   border-radius: 10px;
-  margin: 10px;
-  padding: 8px 20px;
+  font-size: large;
+  padding: 15px 20px;
+  width: 80%;
 }
 
 /* IngredientsDetails */
@@ -215,8 +230,9 @@ button:hover{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-left: 30px;
+  justify-content: center;
   align-items: center;
+  margin-top: 10px;
   margin-bottom: 80px;
 }
 
@@ -266,4 +282,38 @@ button:hover{
   border-radius: 10px;
   margin: 10px;
   padding: 12px 20px;
+}
+
+/* Perfil */
+
+.profile-main-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.profile-main-container .btn-link{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  text-decoration: none;
+  width: 100%;
+}
+
+.profile-main-container button {
+  border: 1px solid black;
+  border-radius: 10px;
+  font-size: large;
+  padding: 15px 20px;
+  width: 80%;
+}
+
+.profile-main-container p {
+  font-weight: 700;
+  font-size: large;
+  margin-bottom: 30px;
+  text-align: center;
 }

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function RenderExploreOriginButton() {
   return (
-    <Link to="/explorar/comidas/area">
+    <Link className="btn-link" to="/explorar/comidas/area">
       <button
         type="button"
         data-testid="explore-by-area"

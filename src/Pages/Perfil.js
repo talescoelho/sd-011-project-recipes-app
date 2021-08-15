@@ -14,9 +14,9 @@ function Perfil() {
   return (
     <div>
       <Header title="Perfil" />
-      <div>
+      <div className="profile-main-container">
         <p data-testid="profile-email">{userEmail.email}</p>
-        <Link to="/receitas-feitas">
+        <Link className="btn-link" to="/receitas-feitas">
           <button
             type="button"
             data-testid="profile-done-btn"
@@ -25,7 +25,7 @@ function Perfil() {
           </button>
         </Link>
 
-        <Link to="/receitas-favoritas">
+        <Link className="btn-link" to="/receitas-favoritas">
           <button
             type="button"
             data-testid="profile-favorite-btn"
@@ -34,7 +34,7 @@ function Perfil() {
           </button>
         </Link>
 
-        <Link to="/">
+        <Link className="btn-link" to="/">
           <button
             type="button"
             data-testid="profile-logout-btn"
