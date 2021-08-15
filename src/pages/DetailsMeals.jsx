@@ -10,16 +10,13 @@ export default function DetailsMeals() {
   const [setDrinkRecipeId] = useState('');
   const [copyText, setCopyText] = useState('');
   const [buttonHiddenClass, setButtonHiddenClass] = useState('hiddenButton');
-  const [buttonText] = useState('Continuar Receita');
   const [favorite, setFavorite] = useState(false);
   const [recipesRecommendation, setRecipesRecommendation] = useState({});
+  const [inProgress, setInProgress] = useState(false);
 
   const history = useHistory();
   const { pathname } = history.location;
   const recipesSelectedId = pathname.split('/')[2];
-
-  // console.log(drinkRecipeId);
-  // console.log(mealRecipeId);
 
   useEffect(() => {
     const getApiDetailsRecipesFood = async () => {
@@ -27,9 +24,10 @@ export default function DetailsMeals() {
       const requestFood = await api.fetchAPI(URL);
       const responseFood = await requestFood.meals;
       setRecipesDetails(responseFood[0]);
-      console.log(responseFood);
     };
     getApiDetailsRecipesFood();
+    const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    setInProgress(JSON.stringify(recipesInProgress).includes(recipesSelectedId));
   }, [setRecipesDetails, recipesSelectedId]);
 
   const getNull = (measure) => {
@@ -40,8 +38,6 @@ export default function DetailsMeals() {
   };
 
   const getIngredients = (recipe) => {
-    // O método Object.entries() retorna uma array dos próprios pares  [key, value] enumeráveis de um dado objeto.
-    // referência: https://www.youtube.com/watch?v=HCpXOv1KkJE
     const ingredients = Object.entries(recipe)
       .filter((key) => (key[1] === null ? false : key[0].includes('strIngredient')));
     const measures = Object.entries(recipe)
@@ -69,7 +65,7 @@ export default function DetailsMeals() {
     if (!localStorage.doneRecipes) localStorage.doneRecipes = JSON.stringify([]);
     const doneRecipesLCstorage = JSON.parse(localStorage.doneRecipes)
       .filter((item) => item.id === recipesSelectedId);
-    if (doneRecipesLCstorage.length >= 1) {
+    if (doneRecipesLCstorage.length > 0) {
       setButtonHiddenClass('hiddenButton-hidden');
     } else {
       setButtonHiddenClass('hiddenButton');
@@ -91,6 +87,10 @@ export default function DetailsMeals() {
     retriveFavoties();
   }, [recipesSelectedId]);
 
+  const handleClickRecipesProgress = () => {
+    history.push(`/comidas/${recipesSelectedId}/in-progress`);
+  };
+
   const handleClickFavorites = () => {
     const favoriteObj = [
       {
@@ -105,9 +105,9 @@ export default function DetailsMeals() {
     ];
     const storageFavorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     if (favorite) {
+      setFavorite(false);
       const rmvFavorite = storageFavorite.filter((item) => item.id !== recipesSelectedId);
       const rmvFavoriteStringfy = JSON.stringify(rmvFavorite);
-      setFavorite(false);
       localStorage.setItem('favoriteRecipes', rmvFavoriteStringfy);
     } else {
       setFavorite(true);
@@ -129,8 +129,9 @@ export default function DetailsMeals() {
     recipesRecommendation,
     recipesSelectedId,
     buttonHiddenClass,
-    buttonText,
+    inProgress,
     setDrinkRecipeId,
+    handleClickRecipesProgress,
   };
 
   return (

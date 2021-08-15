@@ -5,7 +5,9 @@ import MealCard from './MealCard';
 import Header from './Header';
 import RecipesAppContext from '../context/RecipesAppContext';
 import MenuInferior from './MenuInferior';
+import LoadingMeal from './LoadingMeal';
 import '../styles/Cards.css';
+import LoadingDrink from './LoadingDrink';
 
 export default function Cards() {
   const { haveRecipes, mealRecipes, drinkRecipes } = useContext(RecipesAppContext);
@@ -16,25 +18,34 @@ export default function Cards() {
     if (haveRecipes && location.pathname === '/comidas') {
       const recipes = mealRecipes.filter((recipe, index) => index < limit);
       return (
-        recipes.map((recipe, index) => (
-          <MealCard key={ index } recipe={ recipe } i={ index } />))
+        <div className="cards">
+          {recipes.map((recipe, index) => (
+            <MealCard key={ index } recipe={ recipe } i={ index } />))}
+        </div>
       );
     }
     if (haveRecipes && location.pathname === '/bebidas') {
       const recipes = drinkRecipes.filter((recipe, index) => index < limit);
       return (
-        recipes.map((recipe, index) => (
-          <DrinkCard key={ index } recipe={ recipe } i={ index } />))
+        <div className="cards">
+          {recipes.map((recipe, index) => (
+            <DrinkCard key={ index } recipe={ recipe } i={ index } />))}
+        </div>
       );
     }
   }
-  // useEffect(renderRecipes, [drinkRecipes, haveRecipes, location, mealRecipes]);
+
+  function renderLoading() {
+    if (location.pathname === '/comidas') return <LoadingMeal />;
+    if (location.pathname === '/bebidas') return <LoadingDrink />;
+  }
+
   return (
     <div className="cards-section">
       <Header />
       { haveRecipes
         ? renderRecipes()
-        : <h3>Loading...</h3> }
+        : renderLoading() }
       <MenuInferior />
     </div>
   );

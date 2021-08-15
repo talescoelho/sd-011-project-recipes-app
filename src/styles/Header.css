@@ -1,9 +1,13 @@
 .header-section-top {
+  background-color: #d8c9b8;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   padding: 5px 0;
-  width: 95%;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 .header-section {
@@ -18,6 +22,7 @@
 .header-section h3 {
   display: inline;
   font-size: 2.3em;
+  font-weight: 600;
 }
 
 .header-section button {

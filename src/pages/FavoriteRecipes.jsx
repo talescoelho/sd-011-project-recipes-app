@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
-import profileIcon from '../images/profileIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import Header from '../components/Header';
+import '../styles/FavoriteRecipes.css';
 
 function FavoriteRecipes() {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -41,11 +42,13 @@ function FavoriteRecipes() {
   const recipes = filterRecipes();
 
   return (
-    <>
-      <Link to="/perfil">
+    <div className="favorite-recipes-section">
+
+      <Header />
+      {/* <Link to="/perfil">
         <img src={ profileIcon } alt="user" />
       </Link>
-      <h1>Receitas Favoritas</h1>
+      <h1>Receitas Favoritas</h1> */}
       <button
         value="all"
         type="button"
@@ -154,7 +157,7 @@ function FavoriteRecipes() {
           );
         }) : ''
       }
-    </>
+    </div>
   );
 }
 

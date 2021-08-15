@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -15,11 +14,16 @@ export default function DetailsMealsComp({ propsDrink }) {
     copyText,
     getIngredients,
     recipesRecommendation,
-    setDrinkRecipeId,
     buttonHiddenClass,
-    buttonText,
-    recipesSelectedId,
+    inProgress,
+    handleClickRecipesProgress,
   } = propsDrink;
+
+  function embedVideo() {
+    const id = `${recipesDetails.strYoutube}`;
+    const array = id.split('=');
+    return `https://www.youtube.com/embed/${array[1]}`;
+  }
 
   return (
     <div className="containerDetailsFood">
@@ -45,8 +49,8 @@ export default function DetailsMealsComp({ propsDrink }) {
             onClick={ handleClickFavorites }
           >
             <img
-              data-testid="favorite-btn"
               src={ favorite ? blackHeartIcon : whiteHeartIcon }
+              data-testid="favorite-btn"
               alt="favorite"
             />
           </button>
@@ -61,10 +65,13 @@ export default function DetailsMealsComp({ propsDrink }) {
       </div>
       <h4>Instructions</h4>
       <p data-testid="instructions">{ recipesDetails.strInstructions }</p>
-      <video className="video" data-testid="video" width="750" height="500" controls>
-        <source width="100" src={ recipesDetails.strYoutube } type="video/mp4" />
-        <track src={ recipesDetails.strYoutube } kind="captions" />
-      </video>
+      <iframe
+        title={ recipesDetails.strMeal }
+        className="video"
+        data-testid="video"
+        src={ embedVideo() }
+        frameBorder="0"
+      />
       <div>
         <h4>Recomendadas</h4>
       </div>
@@ -76,7 +83,6 @@ export default function DetailsMealsComp({ propsDrink }) {
               <div
                 data-testid={ `${index}-recomendation-card` }
                 key={ index }
-                className=""
               >
                 <p>{drinks.strAlcoholic}</p>
                 <h4
@@ -85,7 +91,7 @@ export default function DetailsMealsComp({ propsDrink }) {
                   {drinks.strDrink}
                 </h4>
                 <Link
-                  onClick={ () => setDrinkRecipeId(drinks.idDrink) }
+                  // onClick={ () => setDrinkRecipeId(drinks.idDrink) }
                   to={ `/bebidas/${drinks.idDrink}` }
                 >
                   <img
@@ -99,16 +105,14 @@ export default function DetailsMealsComp({ propsDrink }) {
             ))
         }
       </section>
-      <Link to={ `/comidas/${recipesSelectedId}/in-progress` }>
-        <Button
-          className={ buttonHiddenClass }
-          type="button"
-          data-testid="start-recipe-btn"
-          variant="success"
-        >
-          { buttonText }
-        </Button>
-      </Link>
+      <button
+        className={ buttonHiddenClass }
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ () => handleClickRecipesProgress() }
+      >
+        { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
+      </button>
     </div>
   );
 }
@@ -121,10 +125,11 @@ DetailsMealsComp.propTypes = {
     favorite: PropTypes.bool,
     copyText: PropTypes.string,
     getIngredients: PropTypes.func,
-    recipesRecommendation: PropTypes.objectOf(PropTypes.string),
+    handleClickRecipesProgress: PropTypes.func,
+    recipesRecommendation: PropTypes.arrayOf(PropTypes.object),
     setRecipeId: PropTypes.func,
     buttonHiddenClass: PropTypes.string,
-    buttonText: PropTypes.string,
+    inProgress: PropTypes.bool,
     setDrinkRecipeId: PropTypes.string,
     recipesSelectedId: PropTypes.string,
   }).isRequired,

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -15,10 +14,9 @@ export default function DetailsDrinkComp({ propsDrink }) {
     copyText,
     getIngredients,
     recipesRecommendation,
-    setRecipeId,
     buttonHiddenClass,
-    buttonText,
-    recipesDrinkSelectedId,
+    inProgress,
+    handleClickRecipesProgress,
   } = propsDrink;
 
   return (
@@ -61,10 +59,6 @@ export default function DetailsDrinkComp({ propsDrink }) {
       </div>
       <h4>Instructions</h4>
       <p data-testid="instructions">{ recipesDetails.strInstructions }</p>
-      <video className="video" data-testid="video" width="750" height="500" controls>
-        <source src={ recipesDetails.strYoutube } type="video/mp4" />
-        <track src={ recipesDetails.strYoutube } kind="captions" />
-      </video>
       <div>
         <h4>Recomendadas</h4>
       </div>
@@ -84,8 +78,8 @@ export default function DetailsDrinkComp({ propsDrink }) {
                   { meals.strMeal }
                 </h4>
                 <Link
-                  onClick={ () => setRecipeId(meals.idMeal) }
-                  to={ `/comida/${meals.idMeal}` }
+                  // onClick={ () => setRecipeId(meals.idMeal) }
+                  to={ `/comidas/${meals.idMeal}` }
                 >
                   <img
                     className="recomend-img"
@@ -98,16 +92,14 @@ export default function DetailsDrinkComp({ propsDrink }) {
             ))
         }
       </section>
-      <Link to={ `/bebidas/${recipesDrinkSelectedId}/in-progress` }>
-        <Button
-          className={ buttonHiddenClass }
-          type="button"
-          data-testid="start-recipe-btn"
-          variant="success"
-        >
-          { buttonText }
-        </Button>
-      </Link>
+      <button
+        className={ buttonHiddenClass }
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ () => handleClickRecipesProgress() }
+      >
+        { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
+      </button>
     </div>
   );
 }
@@ -120,10 +112,11 @@ DetailsDrinkComp.propTypes = {
     favorite: PropTypes.bool,
     copyText: PropTypes.string,
     getIngredients: PropTypes.func,
-    recipesRecommendation: PropTypes.objectOf(PropTypes.string),
+    recipesRecommendation: PropTypes.arrayOf(PropTypes.object),
     setRecipeId: PropTypes.func,
     buttonHiddenClass: PropTypes.string,
-    buttonText: PropTypes.string,
+    inProgress: PropTypes.bool,
     recipesDrinkSelectedId: PropTypes.string,
+    handleClickRecipesProgress: PropTypes.func,
   }).isRequired,
 };

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
-import profileIcon from '../images/profileIcon.svg';
+import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import '../styles/RecipesDone.css';
 
@@ -9,8 +9,6 @@ export default function RecipesDone() {
   const recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
   const [rpsDone, setRpsDone] = useState(recipesDone);
   const [copyText, setCopyText] = useState('');
-
-  console.log(recipesDone);
 
   const filterRecipesDone = (type) => {
     if (type === 'all') {
@@ -27,9 +25,26 @@ export default function RecipesDone() {
     setInterval(() => setCopyText(''), '2000');
   };
 
+  function renderTags(itemOfMap, indexOfMap) {
+    if (itemOfMap.type === 'comida') {
+      return (
+        itemOfMap.tags.map((itemTag, indexTag) => (
+          <p
+            data-testid={ `${indexOfMap}-${itemTag}-horizontal-tag` }
+            key={ indexTag }
+          >
+            { itemTag }
+          </p>
+        ))
+      );
+    }
+  }
+
   return (
-    <div>
-      <header>
+    <div className="recipes-done-section">
+      <Header />
+      <p>{copyText}</p>
+      {/* <header>
         <Link to="/perfil">
           <button type="button">
             <img src={ profileIcon } alt="profileIcon" />
@@ -37,7 +52,7 @@ export default function RecipesDone() {
         </Link>
         <h1>Receitas Feitas</h1>
         <p>{copyText}</p>
-      </header>
+      </header> */}
       <section>
         <button
           className="buttons"
@@ -92,21 +107,12 @@ export default function RecipesDone() {
                     <h4 data-testid={ `${index}-horizontal-name` }>{ item.name }</h4>
                   </Link>
                   <p data-testid={ `${index}-horizontal-top-text` }>
-                    { item.category }
+                    {`${item.area} - ${item.category}` }
                   </p>
                   <b />
                   <p data-testid={ `${index}-horizontal-done-date` }>{ item.doneDate }</p>
                   <b />
-                  <p>
-                    { item.tags.slice(1, 2).map((itemTag, indexTag) => (
-                      <p
-                        data-testid={ `${index}-${itemTag}-horizontal-tag` }
-                        key={ indexTag }
-                      >
-                        { itemTag }
-                      </p>
-                    ))}
-                  </p>
+                  { renderTags(item, index) }
                 </section>
               </section>
             );
@@ -135,13 +141,13 @@ export default function RecipesDone() {
                 <Link to={ `/bebidas/${item.id}` }>
                   <h4 data-testid={ `${index}-horizontal-name` }>{ item.name }</h4>
                 </Link>
+                <p data-testid={ `${index}-horizontal-done-date` }>{ item.doneDate }</p>
                 <p
                   data-testid={ `${index}-horizontal-top-text` }
                 >
                   { item.alcoholicOrNot }
                 </p>
                 <b />
-                <p data-testid={ `${index}-horizontal-done-date` }>{ item.doneDate }</p>
               </section>
             </section>
           );
