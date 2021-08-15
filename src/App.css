@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap') ;
+
+* {
+  font-family: Poppins , sans-serif;
+}
+
 .container {
   align-items: center;
   display: flex;
@@ -8,18 +14,24 @@
 
 .container-header {
   align-items: center;
-  background-color: rgb(182, 182, 182);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  height: 200px;
+  justify-content: space-around;
   width: 100%;
+}
+
+.container-header h3 {
+  align-self: flex-start;
+  font-weight: 500;
+  margin-left: 25px;
 }
 
 .header-wrapper {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 90%;
 }
 
 .hidden-container {
@@ -40,10 +52,9 @@
 
 .section-container {
   align-items: center;
-  background-color: rgb(240, 240, 240);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) , 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   display: flex;
   flex-direction: column;
+  height: 800px;
   justify-content: center;
   width: 100%;
 }
@@ -69,7 +80,47 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  margin: auto;
+  width: 80%;
+}
+
+.search-radio label {
+  display: flex;
+  font-size: 12px;
+  overflow: hidden;
+}
+
+.input-btn input {
+  background-color: rgb(131, 251, 255);
+  border: 0;
+  border-radius: 20px;
+  height: 40px;
+  padding-left: 25px;
+}
+
+.search-radio label input {
+  margin-right: 5px;
+}
+
+.search-radio label:nth-last-child( [ type = 'radio' ] ) {
+  flex-grow: 3;
+}
+
+.input-btn {
+  display: flex;
+  margin: auto;
+  margin-bottom: 2px;
+  width: 95%;
+}
+
+.input-btn button {
+  background-color: white;
+  border-radius: 80px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1) , 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  height: 30px;
+  margin: auto;
+  margin-left: -70px;
+  width: 60px;
 }
 
 .label-style {

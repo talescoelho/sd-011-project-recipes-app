@@ -57,10 +57,10 @@ function Header({ value }) {
             src={ profileIcon }
           />
         </button>
-        <h3 data-testid="page-title">{ pageName }</h3>
         { handleButton() }
       </div>
       { hiddenInput() }
+      <h3 data-testid="page-title">{ pageName }</h3>
     </header>
   );
 }
