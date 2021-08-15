@@ -6,12 +6,18 @@ export const FILTER_FOOD_RECIPE_BY_INGREDIENT = 'FILTER_FOOD_RECIPE_BY_INGREDIEN
 export const FILTER_DRINK_RECIPE_BY_INGREDIENT = 'FILTER_DRINK_RECIPE_BY_INGREDIENT';
 export const SET_LIST_AREA_RECIPE = 'SET_LIST_AREA_RECIPE';
 export const SET_FILTER_BY_AREA_RECIPE = 'SET_FILTER_BY_AREA_RECIPE';
+export const FAVORITE_RECIPE = 'FAVORITE_RECIPE';
+
 
 function handleRequestSuccess(result, isFiltered) {
   if (result === null) {
     result = [];
   }
   return { type: REQUEST_SUCCESS, payload: { allRecipes: result, isFiltered } };
+}
+
+export function handleFavoriteRecipe(newFav) {
+  return { type: FAVORITE_RECIPE, payload: newFav };
 }
 
 function handleCategoriesSuccess(result) {

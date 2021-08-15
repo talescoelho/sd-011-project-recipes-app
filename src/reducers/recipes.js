@@ -5,7 +5,15 @@ import {
   FILTER_DRINK_RECIPE_BY_INGREDIENT,
   SET_LIST_AREA_RECIPE,
   SET_FILTER_BY_AREA_RECIPE,
+  FAVORITE_RECIPE,
 } from '../actions';
+
+let initialFavorites = window.localStorage.getItem('favoriteRecipes');
+if (initialFavorites) {
+  initialFavorites = JSON.parse(initialFavorites);
+} else {
+  initialFavorites = [];
+}
 
 const INITIAL_STATE = {
   allRecipes: [],
@@ -19,6 +27,7 @@ const INITIAL_STATE = {
   isAreaList: false,
   allAreasRecipe: [],
   isAreaFilter: false,
+  favorites: initialFavorites,
 };
 
 export default function reducer(state = INITIAL_STATE, { type, payload }) {
@@ -63,6 +72,9 @@ export default function reducer(state = INITIAL_STATE, { type, payload }) {
         ...state,
         allRecipes: payload.allAreasRecipe,
       }
+  case FAVORITE_RECIPE:
+    return (
+      { ...state, favorites: payload }
     );
   default:
     return state;

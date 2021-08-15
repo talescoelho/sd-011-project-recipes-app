@@ -10,4 +10,10 @@ const store = createStore(
   ),
 );
 
+store.subscribe(() => {
+  const reduxState = store.getState();
+  localStorage.setItem('favoriteRecipes',
+    JSON.stringify(reduxState.recipes.favorites));
+});
+
 export default store;
