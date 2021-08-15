@@ -19,9 +19,12 @@ export default function MyProvider({ children }) {
   const [userEmailProfile, setUserEmailProfile] = useState('');
   const [drinkIngredients, setDrinkIngredients] = useState([]);
   const setMealsAndDrinkByIngredients = useState();
+  const [setFoodArea, foodArea] = useState([]);
 
 
   const context = {
+    setFoodArea,
+    foodArea,
     setMealsAndDrinkByIngredients,
     drinkIngredients,
     setDrinkIngredients,

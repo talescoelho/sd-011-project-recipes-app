@@ -41,6 +41,14 @@ export const getFood = async () => {
   return result;
 };
 
+export const getFoodArea = async () => {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  const result = await globalFetch(URL);
+  return result;
+};
+
+
+
 export const fetchCategoryDrink = async () => {
   const URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
   const result = await globalFetch(URL);
