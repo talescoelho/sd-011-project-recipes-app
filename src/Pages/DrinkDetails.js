@@ -20,37 +20,31 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
     };
     getApi();
   }, [id]);
-  // retorna o array com os ingredientes
-  const ingredientsRecipe = () => {
-    const arrayIndredientKids = Object.keys(recipes)
+
+  // retorna a concatenação ingredients com measures
+  const concatIngredientWithMesure = () => {
+    const ingredients = [];
+    const arrayIndredients = Object.keys(recipes)
       .filter((item) => item
         .includes('strIngredient'));
-    const ingredients = [];
-    arrayIndredientKids.forEach((key) => {
+    arrayIndredients.forEach((key) => {
       if (recipes[key]) {
         ingredients.push(recipes[key]);
       }
     });
-    return ingredients;
-  };
-  // retorna um array com as medidas de cada ingredientes
-  const ingredientsMesure = () => {
-    const arrayIndredientKids = Object.keys(recipes)
+    const measures = [];
+    const arrayMeasures = Object.keys(recipes)
       .filter((item) => item
         .includes('strMeasure'));
-    const ingredients2 = [];
-    arrayIndredientKids.forEach((key) => {
+
+    arrayMeasures.forEach((key) => {
       if (recipes[key]) {
-        ingredients2.push(recipes[key]);
+        measures.push(recipes[key]);
       }
     });
-    return ingredients2;
-  };
-  // retorna a concatenação do retorno da função ingredientsMesure com ingredientsRecipe
-  const concatIngredientWithMesure = () => {
     const newArray = [];
-    for (let index = 0; index < ingredientsRecipe().length; index += 1) {
-      newArray.push(`-${ingredientsRecipe()[index]} - ${ingredientsMesure()[index]}`);
+    for (let index = 0; index < ingredients.length; index += 1) {
+      newArray.push(`-${ingredients[index]} - ${measures[index]}`);
     }
     return newArray;
   };
