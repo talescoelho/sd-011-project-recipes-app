@@ -10,17 +10,17 @@ class Footer extends Component {
     return (
       <footer data-testid="footer" className="footer">
         <Link to="/bebidas">
-          <button type="button">
+          <button type="button" className="buttons">
             <img src={ drinkIcon } alt="drinkIcon" data-testid="drinks-bottom-btn" />
           </button>
         </Link>
         <Link to="/explorar">
-          <button type="button">
+          <button type="button" className="buttons">
             <img src={ exploreIcon } alt="exploreIcon" data-testid="explore-bottom-btn" />
           </button>
         </Link>
         <Link to="/comidas">
-          <button type="button">
+          <button type="button" className="buttons">
             <img src={ mealIcon } alt="mealIcon" data-testid="food-bottom-btn" />
           </button>
         </Link>

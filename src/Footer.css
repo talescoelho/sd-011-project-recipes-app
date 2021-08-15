@@ -1,8 +1,20 @@
 .footer {
+  background-color: rgb(255, 197, 51);
   bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 5px;
+  padding-top: 5px;
   position: fixed;
+  width: 100%;
 }
 
+.buttons {
+  background-color: transparent;
+  border: none;
+}
+
+/* classes da página de receita em progresso */
 .checked-button {
   text-decoration: line-through;
 }

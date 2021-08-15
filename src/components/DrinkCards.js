@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Card from 'react-bootstrap/Card';
+import '../FoodsAndDrinks.css';
 
 class DrinkCards extends Component {
   render() {
@@ -9,21 +11,32 @@ class DrinkCards extends Component {
     return (
       <ul>
         { drinkCardsList.map((item, index) => (
-          <li
+          <Card
+            style={ { width: '14rem' } }
             key={ item.idDrink }
             data-testid={ `${index}-recipe-card` }
+            className="recipes-cards"
           >
             <Link to={ `/bebidas/${item.idDrink}` }>
-              <img
+              <Card.Img
+                className="img-card"
+                variant="top"
                 height="200px"
                 width="200px"
                 data-testid={ `${index}-card-img` }
                 src={ item.strDrinkThumb }
                 alt="Imagem da bebida pronta"
               />
-              <h3 data-testid={ `${index}-card-name` }>{ item.strDrink }</h3>
+              <Card.Body>
+                <Card.Title
+                  data-testid={ `${index}-card-name` }
+                  className="title"
+                >
+                  { item.strDrink }
+                </Card.Title>
+              </Card.Body>
             </Link>
-          </li>
+          </Card>
         ))}
       </ul>
     );

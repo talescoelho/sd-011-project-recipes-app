@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 import { fetchFoodListByCategory, updateCategory, fetchFoodList,
 } from '../redux/actions/foodActions';
 
@@ -29,17 +30,23 @@ class FoodCategories extends Component {
   render() {
     const { foodCategories } = this.props;
     return (
-      <div>
-        <button
+      <div className="category-div">
+        <Button
+          size="sm"
+          variant="outline-dark"
+          className="category-buttons"
           type="button"
           name="category"
           data-testid="All-category-filter"
           onClick={ this.filterByAll }
         >
           All
-        </button>
+        </Button>
         { foodCategories.map((item) => (
-          <button
+          <Button
+            size="sm"
+            variant="outline-dark"
+            className="category-buttons"
             type="button"
             name="category"
             key={ item.strCategory }
@@ -47,9 +54,8 @@ class FoodCategories extends Component {
             onClick={ () => this.filterByCategory(item.strCategory) }
           >
             { item.strCategory }
-          </button>
+          </Button>
         )) }
-
       </div>
     );
   }
