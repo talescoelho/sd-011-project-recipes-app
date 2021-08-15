@@ -44,39 +44,39 @@ function MealsDetails() {
               <DetailsFavoriteButton id={ id } />
             </div>
           </div>
-          <div>
+          <div className="details-info">
             <DetailsIngredientList />
             <div>
-              <h4>Instruction</h4>
+              <h4>Instruções</h4>
               <p data-testid="instructions">{ mealId.strInstructions }</p>
             </div>
             <DetailsVideosMeal />
-          </div>
-          <div>
-            <h4>recomendações</h4>
-            <Carousel
-              width="100%"
-              height="200px"
-            >
-              {
-                drinkRecommend.slice(0, maximum).map((drink, index) => (
-                  <Carousel.Item
-                    key={ index }
-                    data-testid={ `${index}-recomendation-card` }
-                  >
-                    <img
-                      alt="Recomendation"
-                      src={ drink.strDrinkThumb }
-                    />
-                    <Carousel.Caption>
-                      <p data-testid={ `${index}-recomendation-title` }>
-                        {drink.strDrink}
-                      </p>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-                ))
-              }
-            </Carousel>
+            <div>
+              <h4>Recomendações</h4>
+              <Carousel
+                width="100%"
+              >
+                {
+                  drinkRecommend.slice(0, maximum).map((drink, index) => (
+                    <Carousel.Item
+                      key={ index }
+                      data-testid={ `${index}-recomendation-card` }
+                    >
+                      <img
+                        width="100%"
+                        alt="Recomendation"
+                        src={ drink.strDrinkThumb }
+                      />
+                      <Carousel.Caption>
+                        <p data-testid={ `${index}-recomendation-title` }>
+                          {drink.strDrink}
+                        </p>
+                      </Carousel.Caption>
+                    </Carousel.Item>
+                  ))
+                }
+              </Carousel>
+            </div>
           </div>
           <div>
             <ButtonStartMeal id={ id } type="meals" />
