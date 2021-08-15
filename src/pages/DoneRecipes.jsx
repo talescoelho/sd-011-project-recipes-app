@@ -21,7 +21,7 @@ export default function DoneRecipes() {
 
   return (
     <div>
-      <Header pageName="Receitas Feitas" />
+      <Header title="Receitas Feitas" />
       <div>
         <button
           type="button"

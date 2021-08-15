@@ -7,11 +7,11 @@ import { getIds } from '../services';
 export default function RecipeCard({ recipe, type, index }) {
   const { image, name, id } = getIds(type, recipe);
   return (
-    <Link to={ `/${type}s/${id}` }>
+    <Link to={ `/${type}/${id}` }>
       <Card
         data-testid={ `${index}-recipe-card` }
         className="d-flex flex-column align-items-center p-3 my-2 shadow-lg"
-        style={ { backgroundColor: (type === 'bebida') ? '#a73d7e' : '#fcdc4d',
+        style={ { backgroundColor: (type === 'bebidas') ? '#a73d7e' : '#fcdc4d',
           color: 'black' } }
       >
         <Card.Img

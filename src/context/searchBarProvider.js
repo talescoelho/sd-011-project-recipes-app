@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import SearchBarContext from './searchBarContext';
-import { Foods, Cocktails } from '../services';
+import { fetchAPI } from '../services';
 
 const twelve = 12;
 export default function SearchBarProvider({ children, type }) {
@@ -13,9 +13,7 @@ export default function SearchBarProvider({ children, type }) {
   const recipes = (data) ? data.slice(0, twelve) : [];
   useEffect(() => {
     const asyncFunc = async () => {
-      const newRecipes = type
-        .includes('omida') ? await Foods[search](key) : await Cocktails[search](key);
-      setData(newRecipes);
+      setData(await fetchAPI[type][search](key));
     };
     asyncFunc();
   }, [type, search, key]);

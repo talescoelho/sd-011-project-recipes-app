@@ -183,32 +183,33 @@ export async function fetchRandomDrink() {
   return id;
 }
 
-export const Foods = {
-  categories: fetchFoodCategories(),
-  area: fetchExploreFoodsArea(),
-  ingredients: fetchExploreFoodsIngredients(),
-  searchCategory: (category) => fetchFoodSearchCategory(category),
-  searchIngredient: (ingredient) => fetchFoodIngredient(ingredient),
-  searchArea: (area) => fetchSearchFoodsArea(area),
-  searchName: (name) => fetchFoodName(name),
-  searchLetter: (letter) => fetchFoodLetter(letter),
-  getById: (id) => fetchFoodsById(id),
-  getRandom: () => fetchRandomFood(),
-};
-
-export const Cocktails = {
-  categories: fetchCocktailsCategories(),
-  ingredients: fetchExploreCocktailsIngredients(),
-  searchCategory: (category) => fetchCocktailsSearchCategory(category),
-  searchIngredient: (ingredient) => fetchCocktailsIngredient(ingredient),
-  searchName: (name) => fetchCocktailsName(name),
-  searchLetter: (letter) => fetchCocktailsLetter(letter),
-  getById: (id) => fetchDrinksById(id),
-  getRandom: () => fetchRandomDrink(),
+export const fetchAPI = {
+  food: {
+    categories: fetchFoodCategories(),
+    area: fetchExploreFoodsArea(),
+    ingredients: fetchExploreFoodsIngredients(),
+    searchCategory: (category) => fetchFoodSearchCategory(category),
+    searchIngredient: (ingredient) => fetchFoodIngredient(ingredient),
+    searchArea: (area) => fetchSearchFoodsArea(area),
+    searchName: (name) => fetchFoodName(name),
+    searchLetter: (letter) => fetchFoodLetter(letter),
+    getById: (id) => fetchFoodsById(id),
+    getRandom: fetchRandomFood,
+  },
+  drink: {
+    categories: fetchCocktailsCategories(),
+    ingredients: fetchExploreCocktailsIngredients(),
+    searchCategory: (category) => fetchCocktailsSearchCategory(category),
+    searchIngredient: (ingredient) => fetchCocktailsIngredient(ingredient),
+    searchName: (name) => fetchCocktailsName(name),
+    searchLetter: (letter) => fetchCocktailsLetter(letter),
+    getById: (id) => fetchDrinksById(id),
+    getRandom: () => fetchRandomDrink(),
+  },
 };
 
 export function getIds(type, recipe) {
-  const verify = type.includes('omida');
+  const verify = type.includes('omida') || type === 'food';
   return {
     id: verify ? recipe.idMeal : recipe.idDrink,
     type: verify ? 'comida' : 'bebida',

@@ -4,15 +4,13 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function Profile() {
-  const name = 'Perfil';
-  const showSearchButton = false;
   if (!localStorage.user) {
     localStorage.setItem('user', JSON.stringify({ email: '' }));
   }
   const { email } = JSON.parse(localStorage.getItem('user'));
   return (
     <div>
-      <Header pageName={ name } showSearchButton={ showSearchButton } />
+      <Header title="Perfil" />
       Perfil
       <h2 data-testid="profile-email">
         {' '}

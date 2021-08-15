@@ -6,14 +6,13 @@ import Footer from '../components/Footer';
 import RecipesCards from '../components/RecipesCards';
 import CategoriesButtons from '../components/CategoriesButtons';
 
-export default function initialScreen({ type }) {
-  const showSearchButton = true;
+export default function initialScreen({ title, type }) {
   return (
     <SearchBarProvider type={ type }>
-      <Header pageName={ type } showSearchButton={ showSearchButton } />
+      <Header title={ title } type={ type } showSearchButton />
       <CategoriesButtons type={ type } />
       <RecipesCards type={ type } />
-      <Footer color={ type.includes('ebida') ? '#a73d7e' : null } />
+      <Footer drink={ type === 'drink' } />
     </SearchBarProvider>
   );
 }

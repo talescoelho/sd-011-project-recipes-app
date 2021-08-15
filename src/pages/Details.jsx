@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
-import { Foods, Cocktails, getIds } from '../services';
+import { useParams } from 'react-router-dom';
+import { fetchAPI, getIds } from '../services';
 import Ingredients from '../components/Ingredients';
 import Recommendations from '../components/Recommendations';
 import ShareButton from '../components/ShareButton';
@@ -9,18 +10,15 @@ import '../styles/Details.css';
 import RecipeButton from '../components/RecipeButton';
 import DetailsProvider from '../context/detailsProvider';
 
-export default function Details() {
+export default function Details({ type }) {
   const [recipe, setRecipe] = useState(null);
   const [state, setState] = useState(null);
-  const { pathname } = useLocation();
-  const type = pathname;
   const { id, inProgress } = useParams();
 
   useEffect(() => {
     async function asyncFunction() {
-      let results = await Foods.getById(id);
-      if (type.includes('bebida')) results = await Cocktails.getById(id);
-      setRecipe(results[0]);
+      const newRecipe = await fetchAPI[type].getById(id);
+      setRecipe(newRecipe[0]);
     }
     asyncFunction();
   }, [id, setRecipe, type]);
@@ -28,23 +26,19 @@ export default function Details() {
   useEffect(() => setState(inProgress), [inProgress]);
 
   useEffect(() => {
-    // Verificações de se a receita já foi iniciada
-    const initialInProgress = JSON.stringify({ cocktails: {}, meals: {} });
     if (!localStorage.inProgressRecipes) {
-      localStorage.setItem('inProgressRecipes', initialInProgress);
+      localStorage.setItem(
+        'inProgressRecipes', JSON.stringify({ cocktails: {}, meals: {} }),
+      );
     }
-    const inProgressRecipes = JSON.parse(localStorage.inProgressRecipes);
-    const key = (type.includes('bebida')) ? 'cocktails' : 'meals';
-    const inProgressCheck = (Object.keys(inProgressRecipes[key]).some((e) => e === id));
-    if (inProgressCheck) setState('inProgress');
+    if (!localStorage.doneRecipes) localStorage.setItem('doneRecipes', '[]');
 
-    // Verificações de se a receita já foi concluída
-    if (!localStorage.doneRecipes) {
-      localStorage.setItem('doneRecipes', '[]');
-    }
+    const inProgressRecipes = JSON.parse(localStorage.inProgressRecipes);
+    const key = (type === 'drink') ? 'cocktails' : 'meals';
     const doneRecipes = JSON.parse(localStorage.doneRecipes);
-    const doneCheck = doneRecipes.some((e) => e.id === id);
-    if (doneCheck) setState('finish');
+
+    if (Object.keys(inProgressRecipes[key]).some((e) => e === id)) setState('inProgress');
+    if (doneRecipes.some((e) => e.id === id)) setState('finish');
   }, [id, type]);
 
   if (recipe) {
@@ -105,3 +99,7 @@ export default function Details() {
   }
   return <p>Loading ...</p>;
 }
+
+Details.propTypes = {
+  type: PropTypes.string.isRequired,
+};

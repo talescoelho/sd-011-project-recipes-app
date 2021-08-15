@@ -1,20 +1,16 @@
 import PropTypes from 'prop-types';
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import { Foods, Cocktails } from '../services';
-import SearchBarContext from '../context/searchBarContext';
+import { useDispatch } from 'react-redux';
 
 function SearchBar({ type }) {
   const [searchType, setSearchType] = useState(null);
   const [searchInput, setSearchInput] = useState(null);
-  const { setData } = useContext(SearchBarContext);
+  const dispatch = useDispatch();
 
   async function filterSearch() {
     if (searchType && searchInput) {
-      console.log(searchType);
-      console.log(searchInput);
-      if (type.includes('Comidas')) setData(await Foods[searchType](searchInput));
-      if (type.includes('Bebidas')) setData(await Cocktails[searchType](searchInput));
+      dispatch({ type: 'SET_SEARCH', search: { type: searchType, key: searchInput } });
     }
   }
 
@@ -58,7 +54,7 @@ function SearchBar({ type }) {
         placeholder="O que deseja pesquisar?"
       />
       <Button
-        style={ { backgroundColor: type.includes('ebida') ? '#a73d7e' : '#fcdc4d' } }
+        style={ { backgroundColor: type === 'drink' ? '#a73d7e' : '#fcdc4d' } }
         variant="light"
         size="sm"
         type="button"

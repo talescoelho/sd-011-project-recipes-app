@@ -7,7 +7,7 @@ import searchIcon from '../images/searchIcon.svg';
 import '../styles/Header.css';
 import { HeaderNavBar } from '../styles';
 
-function Header({ pageName, showSearchButton }) {
+function Header({ title, type, showSearchButton }) {
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   const showSearchBarHandler = () => (
@@ -24,17 +24,17 @@ function Header({ pageName, showSearchButton }) {
     </button>);
 
   return (
-    <HeaderNavBar color={ pageName.includes('ebida') ? '#a73d7e' : null }>
+    <HeaderNavBar drink={ type === 'drink' }>
       <div className="btns">
         <Link to="/perfil">
           <button className="btn-perfil" type="button">
             <img src={ profileIcon } alt="Profile Icon" data-testid="profile-top-btn" />
           </button>
         </Link>
-        <h2 className="title" data-testid="page-title">{ pageName }</h2>
+        <h2 className="title" data-testid="page-title">{ title }</h2>
         { showSearchButton ? searchButton : null }
       </div>
-      { showSearchBar ? <SearchBar type={ pageName } /> : null }
+      { showSearchBar ? <SearchBar type={ type } /> : null }
     </HeaderNavBar>
   );
 }
@@ -42,6 +42,11 @@ function Header({ pageName, showSearchButton }) {
 export default Header;
 
 Header.propTypes = {
-  pageName: PropTypes.string.isRequired,
-  showSearchButton: PropTypes.bool.isRequired,
+  type: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  showSearchButton: PropTypes.bool,
+};
+
+Header.defaultProps = {
+  showSearchButton: false,
 };

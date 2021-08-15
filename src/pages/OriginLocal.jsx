@@ -4,14 +4,14 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipesCards from '../components/RecipesCards';
 import SearchBarProvider from '../context/searchBarProvider';
-import { Foods } from '../services';
+import { fetchAPI } from '../services';
 
 export default function OriginLocal() {
   const [areas, setAreas] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
     async function asyncFunc() {
-      setAreas(await Foods.area);
+      setAreas(await fetchAPI.food.area);
     }
     asyncFunc();
   }, []);
@@ -24,8 +24,8 @@ export default function OriginLocal() {
     }
   }
   return (
-    <SearchBarProvider type="comida">
-      <Header pageName="Explorar Origem" showSearchButton />
+    <SearchBarProvider type="food">
+      <Header title="Explorar Origem" showSearchButton />
       <select data-testid="explore-by-area-dropdown" onChange={ (e) => selectArea(e) }>
         <option value="all" data-testid="All-option">All</option>
         { areas.map(({ strArea }, index) => (
@@ -38,7 +38,7 @@ export default function OriginLocal() {
           </option>
         )) }
       </select>
-      <RecipesCards type="comida" />
+      <RecipesCards type="food" />
       <Footer />
     </SearchBarProvider>
   );

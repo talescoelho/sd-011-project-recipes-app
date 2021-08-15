@@ -6,11 +6,11 @@ import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 import { FooterBar } from '../styles';
 
-export default function Footer({ color }) {
+export default function Footer({ drink }) {
   return (
     <FooterBar
       data-testid="footer"
-      color={ color }
+      drink={ drink }
     >
       <Link to="/bebidas">
         <img
@@ -38,5 +38,5 @@ export default function Footer({ color }) {
 }
 
 Footer.propTypes = {
-  color: PropTypes.string.isRequired,
+  drink: PropTypes.bool.isRequired,
 };

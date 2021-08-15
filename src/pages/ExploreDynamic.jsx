@@ -4,21 +4,20 @@ import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import { Foods, Cocktails } from '../services';
+import { fetchAPI } from '../services';
 
-export default function ExploreDynamic({ type }) {
+export default function ExploreDynamic({ title, type }) {
   const showSearchButton = false;
-  const drinkOrFood = type.includes('ebida') ? 'bebidas' : 'comidas';
+  const drinkOrFood = type === 'drink' ? 'bebidas' : 'comidas';
   const history = useHistory();
 
   async function randomRedirect() {
-    const id = type
-      .includes('omida') ? await Foods.getRandom() : await Cocktails.getRandom();
+    const id = await fetchAPI[type].getRandom();
     history.push(`/${drinkOrFood}/${id}`);
   }
   return (
     <div>
-      <Header pageName={ type } showSearchButton={ showSearchButton } />
+      <Header title={ title } showSearchButton={ showSearchButton } />
       <Link to={ `/explorar/${drinkOrFood}/ingredientes` }>
         <button
           type="button"
@@ -27,7 +26,7 @@ export default function ExploreDynamic({ type }) {
           Por Ingredientes
         </button>
       </Link>
-      { (type.includes('omida')) && (
+      { (type === 'food') && (
         <Link to={ `/explorar/${drinkOrFood}/area` }>
           <button
             type="button"
@@ -44,10 +43,11 @@ export default function ExploreDynamic({ type }) {
       >
         Me Surpreenda!
       </button>
-      <Footer color={ type.includes('ebida') ? '#a73d7e' : null } />
+      <Footer drink={ type === 'drink' } />
     </div>
   );
 }
 ExploreDynamic.propTypes = {
+  title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
 };

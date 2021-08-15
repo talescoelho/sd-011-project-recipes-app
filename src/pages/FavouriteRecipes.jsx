@@ -20,14 +20,14 @@ export default function FavouriteRecipes() {
   if (recipes.length === 0) {
     return (
       <>
-        <Header pageName="Receitas Favoritas" />
+        <Header title="Receitas Favoritas" />
         <h2> Nenhum favorito </h2>
       </>
     );
   }
   return (
     <div>
-      <Header pageName="Receitas Favoritas" />
+      <Header title="Receitas Favoritas" />
       Receitas Favoritas
       <div>
         <button

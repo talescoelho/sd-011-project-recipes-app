@@ -6,12 +6,12 @@ import RecipeCard from './RecipeCard';
 
 export default function RecipesCards({ type }) {
   const { recipes, keyRedirect } = useContext(SearchBarContext);
-  const newType = type.includes('omida') ? 'comida' : 'bebida';
-  const id = type.includes('omida') ? 'idMeal' : 'idDrink';
+  const newType = type === 'food' ? 'comidas' : 'bebidas';
+  const id = type === 'food' ? 'idMeal' : 'idDrink';
   return (
     <div className=" d-flex flex-column align-items-center px-3">
       {(recipes.length === 1 && keyRedirect) ? (
-        <Redirect to={ `/${newType}s/${recipes[0][id]}` } />)
+        <Redirect to={ `/${newType}/${recipes[0][id]}` } />)
         : recipes.map((element, index) => (
           <RecipeCard type={ newType } key={ index } index={ index } recipe={ element } />
         ))}
