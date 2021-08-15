@@ -16,8 +16,19 @@ export default function MyProvider({ children }) {
   });
   const [recomendations, setRecomendations] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [userEmailProfile, setUserEmailProfile] = useState('');
+  const [drinkIngredients, setDrinkIngredients] = useState([]);
+  const setMealsAndDrinkByIngredients = useState();
+  const [setFoodArea, foodArea] = useState([]);
 
   const context = {
+    setFoodArea,
+    foodArea,
+    setMealsAndDrinkByIngredients,
+    drinkIngredients,
+    setDrinkIngredients,
+    userEmailProfile,
+    setUserEmailProfile,
     recipe,
     setRecipe,
     recFood,

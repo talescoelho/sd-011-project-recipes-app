@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import useExploreRecipes from '../Context/useExploreRecipes';
@@ -16,13 +17,17 @@ export default function ExploreFood() {
       >
         Por Ingredientes
       </button>
-      <button
-        data-testid="explore-by-area"
-        type="button"
-        onClick={ () => backToExplore('area') }
+      <Link
+        to="/explorar/comidas/area"
       >
-        Por Local de Origem
-      </button>
+        <button
+          data-testid="explore-by-area"
+          type="button"
+          onClick={ () => backToExplore('area') }
+        >
+          Por Local de Origem
+        </button>
+      </Link>
       <button
         data-testid="explore-surprise"
         type="button"
