@@ -2,6 +2,7 @@ const INITIAL_STATE = {
   searcResults: [],
   categoryList: [],
   recipeDetailsStore: [],
+  recipeFoodMeasures: [],
 };
 
 function Mechanics(state = INITIAL_STATE, action) {
@@ -17,6 +18,11 @@ function Mechanics(state = INITIAL_STATE, action) {
     return {
       ...state,
       recipeDetailsStore: action.details,
+    };
+  case 'SEND_FOOD_MEASURES_TO_STORE':
+    return {
+      ...state,
+      recipeFoodMeasures: action.payload,
     };
   default:
     return state;
