@@ -40,6 +40,7 @@ export default function Recipes() {
       return (
         <div>
           <button
+            className="btn btn-outline-dark"
             type="button"
             data-testid={ `${listMealsCategorie[0].strCategory}-category-filter` }
             onClick={ () => toggleButton(
@@ -52,6 +53,7 @@ export default function Recipes() {
             {listMealsCategorie[0].strCategory}
           </button>
           <button
+            className="btn btn-outline-dark"
             type="button"
             data-testid={ `${listMealsCategorie[1].strCategory}-category-filter` }
             onClick={ () => toggleButton(
@@ -65,6 +67,7 @@ export default function Recipes() {
 
           </button>
           <button
+            className="btn btn-outline-dark"
             type="button"
             data-testid={ `${listMealsCategorie[2].strCategory}-category-filter` }
             onClick={ () => toggleButton(
@@ -78,6 +81,7 @@ export default function Recipes() {
 
           </button>
           <button
+            className="btn btn-outline-dark"
             type="button"
             data-testid={ `${listMealsCategorie[3].strCategory}-category-filter` }
             onClick={ () => toggleButton(
@@ -91,6 +95,7 @@ export default function Recipes() {
 
           </button>
           <button
+            className="btn btn-outline-dark"
             type="button"
             data-testid={ `${listMealsCategorie[4].strCategory}-category-filter` }
             onClick={ () => toggleButton(
@@ -104,6 +109,7 @@ export default function Recipes() {
 
           </button>
           <button
+            className="btn btn-outline-dark"
             type="button"
             data-testid="All-category-filter"
             onClick={ () => setButtonCategorie(null) }

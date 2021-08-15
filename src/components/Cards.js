@@ -45,28 +45,48 @@ function Cards(props) {
     if (ApiCallMeals) {
       const maxListRender = 12;
       return (
-        mealsAPI.filter((__, index) => index < maxListRender)
+        <div
+          // key={ indexMap }
+          // data-testid={ `${indexMap}-recipe-card` }
+          className="row row-cols-2 row-cols-sm-2 g-3"
+        >
+        {mealsAPI.filter((__, index) => index < maxListRender / 2)
           .map((meal, indexMap) => (
-            <div
-              key={ indexMap }
-              data-testid={ `${indexMap}-recipe-card` }
-              className="cards"
-            >
-              <Link to={ { pathname: `/comidas/${meal.idMeal}` } }>
-                <div>
-                  <h5 data-testid={ `${indexMap}-card-name` }>{meal.strMeal}</h5>
-                  <img
-                    className="card-img"
-                    src={ meal.strMealThumb }
-                    alt={ meal.strMeal }
-                    data-testid={ `${indexMap}-card-img` }
-                  />
-                </div>
-              </Link>
+              <div className="col">
+                <Link to={ { pathname: `/comidas/${meal.idMeal}` } }>
+                  <div className="card">
+                    <div className="card-body">
+                      <h5 data-testid={ `${indexMap}-card-name` } className="card-title">{meal.strMeal}</h5>
+                    </div>
+                    <img
+                        className="card-img-bottom"
+                        src={ meal.strMealThumb }
+                        alt={ meal.strMeal }
+                        data-testid={ `${indexMap}-card-img` }
+                    />
+                  </div>
+                </Link>
+              </div> ))}
+          {mealsAPI.filter((__, index) => index > 6 && index <= maxListRender)
+          .map((meal, indexMap) => (
+              <div className="col">
+                <Link to={ { pathname: `/comidas/${meal.idMeal}` } }>
+                  <div className="card">
+                      <div className="card-body">
+                        <h5 data-testid={ `${indexMap}-card-name` } className="card-title">{meal.strMeal}</h5>
+                      </div>
+                    <img
+                        className="card-img-bottom"
+                        src={ meal.strMealThumb }
+                        alt={ meal.strMeal }
+                        data-testid={ `${indexMap}-card-img` }
+                    />
+                  </div>
+                </Link>
+              </div>))}
             </div>
-          ))
-      );
-    }
+          )}
+
   };
 
   const renderCocktailsList = () => {
