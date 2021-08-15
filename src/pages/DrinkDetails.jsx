@@ -31,7 +31,7 @@ const DrinkDetails = (
         thumb={ thumbDrinks.strDrinkThumb }
         alt={ altDrinks.strDrink }
         title={ altDrinks.strDrink }
-        category={ categoryDetails.strCategory }
+        category={ categoryDetails.strAlcoholic }
         drinkOrFood="bebida"
       />
       <DrinkDetail />

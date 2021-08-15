@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { useHistory } from 'react-router-dom';
+import useFavoriteRecipies from '../../../hooks/useFavoriteRecipies';
 import shareIcon from '../../../images/shareIcon.svg';
 import whiteHeartIcon from '../../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../../images/blackHeartIcon.svg';
@@ -18,9 +19,11 @@ const HeaderDetails = (
     drinkOrFood,
   },
 ) => {
-  const [favoriteTrue, setFavoriteTrue] = useState(false);
-  // const [storeFavorite, setStoreFavorite] = useState([]);
-
+  const { favoriteTrue, setFavoriteTrue, favoriteRecipe } = useFavoriteRecipies(
+    favoriteFood,
+    favoriteDrink,
+    drinkOrFood,
+  );
   const history = useHistory();
   useEffect(() => {
     const favoritedStore = localStorage.favoriteRecipes;
@@ -32,31 +35,7 @@ const HeaderDetails = (
         setFavoriteTrue(true);
       }
     }
-  }, []);
-
-  const favoriteRecipe = () => {
-    const favoritedStore = JSON.parse(localStorage.favoriteRecipes);
-    console.log(favoritedStore);
-    const emptyObject = [];
-
-    const favoriteRecipies = [{
-      id: favoriteFood.idMeal || favoriteDrink.idDrink,
-      type: drinkOrFood,
-      area: favoriteFood.strArea || '',
-      category: favoriteFood.strCategory || favoriteDrink.strCategory,
-      alcoholicOrNot: '' || favoriteDrink.strAlcoholic,
-      name: favoriteFood.strMeal || favoriteDrink.strDrink,
-      image: favoriteFood.strMealThumb || favoriteDrink.strDrinkThumb,
-    }];
-    setFavoriteTrue((blackOrWhite) => !blackOrWhite);
-    if (!favoriteTrue) {
-      localStorage.favoriteRecipes = JSON.stringify(favoriteRecipies);
-    }
-    if (favoriteTrue) {
-      favoritedStore.splice(0, 1);
-      localStorage.favoriteRecipes = JSON.stringify(emptyObject);
-    }
-  };
+  }, [history.location.pathname, setFavoriteTrue]);
 
   return (
     <header>
@@ -85,7 +64,7 @@ const HeaderDetails = (
       </button>
       <button
         type="button"
-        onClick={ favoriteRecipe }
+        onClick={ () => favoriteRecipe() }
       >
         <img
           data-testid="favorite-btn"
