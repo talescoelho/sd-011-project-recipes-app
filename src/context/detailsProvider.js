@@ -12,5 +12,5 @@ export default function DetailsProvider({ children }) {
 }
 
 DetailsProvider.propTypes = {
-  children: PropTypes.isRequired,
+  children: PropTypes.node.isRequired,
 };

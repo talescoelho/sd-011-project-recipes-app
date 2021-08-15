@@ -38,5 +38,9 @@ export default function Footer({ drink }) {
 }
 
 Footer.propTypes = {
-  drink: PropTypes.bool.isRequired,
+  drink: PropTypes.bool,
+};
+
+Footer.defaultProps = {
+  drink: false,
 };

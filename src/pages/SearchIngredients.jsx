@@ -33,6 +33,7 @@ export default function SearchIngredients({ type }) {
       <button
         data-testid={ `${index}-ingredient-card` }
         type="button"
+        key={ index }
         onClick={ () => searchIngredient(ingredient) }
       >
         <h3 data-testid={ `${index}-card-name` }>{ingredient}</h3>
@@ -59,7 +60,5 @@ export default function SearchIngredients({ type }) {
 }
 
 SearchIngredients.propTypes = {
-  type: PropTypes.shape({
-    includes: PropTypes.func,
-  }).isRequired,
+  type: PropTypes.string.isRequired,
 };

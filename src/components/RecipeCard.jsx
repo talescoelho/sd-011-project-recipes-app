@@ -28,6 +28,6 @@ export default function RecipeCard({ recipe, type, index }) {
 
 RecipeCard.propTypes = {
   index: PropTypes.number.isRequired,
-  recipe: PropTypes.isRequired,
+  recipe: PropTypes.shape({}).isRequired,
   type: PropTypes.string.isRequired,
 };

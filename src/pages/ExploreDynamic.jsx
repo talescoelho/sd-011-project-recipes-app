@@ -17,7 +17,7 @@ export default function ExploreDynamic({ title, type }) {
   }
   return (
     <div>
-      <Header title={ title } showSearchButton={ showSearchButton } />
+      <Header title={ title } type={ type } showSearchButton={ showSearchButton } />
       <Link to={ `/explorar/${drinkOrFood}/ingredientes` }>
         <button
           type="button"

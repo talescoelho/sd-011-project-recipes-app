@@ -20,7 +20,6 @@ export default function DoneRecipeCard({ recipe, index }) {
         </p>
         <p data-testid={ `${index}-horizontal-name` }>{ recipe.name }</p>
       </Link>
-      <p data-testid={ `${index}-horizontal-done-date` }>{ recipe.doneData }</p>
       <ShareButton
         dataTestid={ `${index}-horizontal-share-btn` }
         type={ recipe.type }
@@ -44,6 +43,16 @@ export default function DoneRecipeCard({ recipe, index }) {
 }
 
 DoneRecipeCard.propTypes = {
-  index: PropTypes.isRequired,
-  recipe: PropTypes.isRequired,
+  index: PropTypes.number.isRequired,
+  recipe: PropTypes.shape({
+    alcoholicOrNot: PropTypes.string,
+    area: PropTypes.string,
+    category: PropTypes.string,
+    doneDate: PropTypes.string,
+    id: PropTypes.string,
+    image: PropTypes.string,
+    name: PropTypes.string,
+    tags: PropTypes.arrayOf(PropTypes.string),
+    type: PropTypes.string,
+  }).isRequired,
 };

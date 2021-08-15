@@ -46,6 +46,13 @@ export default function FavoriteButton({ recipe, dataTestid }) {
 }
 
 FavoriteButton.propTypes = {
-  recipe: PropTypes.isRequired,
   dataTestid: PropTypes.string.isRequired,
+  recipe: PropTypes.shape({
+    area: PropTypes.string,
+    category: PropTypes.string,
+    id: PropTypes.string,
+    image: PropTypes.string,
+    name: PropTypes.string,
+    type: PropTypes.string,
+  }).isRequired,
 };

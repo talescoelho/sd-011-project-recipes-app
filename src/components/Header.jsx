@@ -42,11 +42,12 @@ function Header({ title, type, showSearchButton }) {
 export default Header;
 
 Header.propTypes = {
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   title: PropTypes.string.isRequired,
   showSearchButton: PropTypes.bool,
 };
 
 Header.defaultProps = {
   showSearchButton: false,
+  type: 'food',
 };

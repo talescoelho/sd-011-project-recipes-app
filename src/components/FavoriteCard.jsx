@@ -19,11 +19,9 @@ export default function FavoriteCard({ recipe, index }) {
               alt={ recipe.name }
               width="100px"
             />
-          </Link>
-          <h3 data-testid={ `${index}-horizontal-top-text` }>
-            { category }
-          </h3>
-          <Link to={ path }>
+            <h3 data-testid={ `${index}-horizontal-top-text` }>
+              { category }
+            </h3>
             <h2 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h2>
           </Link>
           <ShareButton

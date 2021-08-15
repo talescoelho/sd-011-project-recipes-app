@@ -28,6 +28,6 @@ export default function SearchBarProvider({ children, type }) {
 }
 
 SearchBarProvider.propTypes = {
-  children: PropTypes.isRequired,
+  children: PropTypes.node.isRequired,
   type: PropTypes.string.isRequired,
 };
