@@ -8,10 +8,6 @@ export default function DoneRecipes() {
     list = JSON.parse(localStorage.doneRecipes);
   }
 
-  useEffect(() => {
-    console.log(list);
-  }, []);
-
   return (
     <main>
       <Header title="Receitas Feitas" haveSearchBtn={ false } />
@@ -51,9 +47,9 @@ export default function DoneRecipes() {
                   recipe.tags.map((tag, tagIndex) => (
                     <h4
                       key={ tagIndex }
-                      data-testid={ `${index}-${tag}-horizontal-tag>tags` }
+                      data-testid={ `${index}-${tag}-horizontal-tag` }
                     >
-                      Tags
+                      {tag}
                     </h4>
                   ))
                 }

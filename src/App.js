@@ -21,7 +21,7 @@ import DrinksDetails from './pages/DrinksDetails';
 
 import Favorites from './pages/Favorites';
 import RecipesByLocation from './pages/RecipesByLocation';
-import DoRecipes from './pages/DoRecipes';
+import DoneRecipes from './pages/DoneRecipes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -47,7 +47,7 @@ function App() {
         />
         <Route exact path="/receitas-favoritas" component={ Favorites } />
         <Route exact path="/explorar/comidas/area" component={ RecipesByLocation } />
-        <Route exact path="/receitas-feitas" component={ DoRecipes } />
+        <Route exact path="/receitas-feitas" component={ DoneRecipes } />
         <Route exact path="/comidas/:id" component={ FoodsDetails } />
         <Route exact path="/bebidas/:id" component={ DrinksDetails } />
         <Route
