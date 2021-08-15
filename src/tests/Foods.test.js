@@ -4,7 +4,7 @@ import {
   fireEvent,
   queryByTestId,
 } from '@testing-library/react';
-import { renderWithRouterAndStore } from './testConfig';
+import { renderWithRouterAndStore } from './helper/testConfig';
 
 import Foods from '../pages/Foods';
 
