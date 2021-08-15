@@ -77,7 +77,7 @@ class Login extends Component {
         <Button
           className="login-button btn btn-warning"
           type="submit"
-          size="lg"
+          size="m"
           variant="success"
           data-testid="login-submit-btn"
           disabled={ valid }
