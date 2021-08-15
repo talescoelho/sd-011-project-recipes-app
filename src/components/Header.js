@@ -25,6 +25,7 @@ class Header extends Component {
   shouldComponentUpdate({ recipes }) {
     if (recipes.length === 1) {
       this.redirectToRecipeDetail(recipes);
+      // setar LS aqui
       return false;
     }
 

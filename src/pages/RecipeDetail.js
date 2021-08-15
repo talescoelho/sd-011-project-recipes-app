@@ -6,13 +6,25 @@ import { fetchRecipeDetail, fetchRecommended } from '../actions/recipeDetail_act
 import RecipeDetailMain from '../components/RecipeDetailMain';
 import RecipesRecommended from '../components/RecipesRecommended';
 import '../index.css';
-import { getFromStorage } from '../helpers/utils';
+import { getFromStorage, setToStorage } from '../helpers/utils';
 
 function RecipeDetail({ history: { push, location: { pathname } },
   dispatchFetchDetail, dispatchFetchRecommended, recipeDetail, recipesRecommended }) {
   const { id } = useParams();
   const type = pathname.includes('comidas') ? 'comidas' : 'bebidas';
   const recipesDone = getFromStorage('doneRecipes') || [];
+  // const [isInProgress, setIsInProgress] = React.useState(null);
+
+  function verifyRecipeInProgress() { // Req 40
+    const inProgressRecipes = getFromStorage('inProgressRecipes') || [];
+    // const statusRecipe = Object.prototype.hasOwnProperty.call(inProgressRecipes, id);
+    return Object.prototype.hasOwnProperty.call(inProgressRecipes, id);
+    // setIsInProgress(statusRecipe);
+  }
+
+  React.useEffect(verifyRecipeInProgress, [id]);
+
+  // verifyRecipeInProgress(); // Req 40
 
   React.useEffect(() => {
     dispatchFetchRecommended(type);
@@ -22,12 +34,27 @@ function RecipeDetail({ history: { push, location: { pathname } },
     dispatchFetchDetail(type, id);
   }, [dispatchFetchDetail, type, id]);
 
-  function verifyRecipeDone() {
+  function verifyRecipeDone() { // Req 39
     return recipesDone.some((item) => (item.id === id));
   }
 
   function redrectToRecipeInProgress() {
     push(`${pathname}/in-progress`);
+  }
+
+  const addStepToStorage = () => { // Req 40
+    const recipesInProgress = getFromStorage('inProgressRecipes') || {};
+    const updatedItem = {
+      ...recipesInProgress,
+      [id]: [],
+    };
+    setToStorage('inProgressRecipes', updatedItem);
+    // dispatchUpdateInProgress(updatedItem);
+  };
+
+  function handleStartContinueBtn() {
+    addStepToStorage();
+    redrectToRecipeInProgress();
   }
 
   return (
@@ -40,18 +67,21 @@ function RecipeDetail({ history: { push, location: { pathname } },
         data-testid="start-recipe-btn"
         className="fixedBottom"
         type="button"
-        onClick={ redrectToRecipeInProgress }
+        onClick={ handleStartContinueBtn }
         hidden={ verifyRecipeDone() }
       >
-        Iniciar receita
+        {/* { isInProgress ? 'Continuar Receita' : 'Iniciar receita' } */}
+        { verifyRecipeInProgress() ? 'Continuar Receita' : 'Iniciar receita'}
       </button>
     </div>
   );
 }
 
-const mapStateToProps = ({ recipeDetailReducer, recommendedsReducer }) => ({
+const mapStateToProps = ({ recipeDetailReducer,
+  recommendedsReducer, selectedRecipeReducer: { inProgress } }) => ({
   recipeDetail: recipeDetailReducer.detail,
   recipesRecommended: recommendedsReducer.recommended,
+  inProgress,
 });
 
 const mapDispatchToProps = (dispatch) => ({

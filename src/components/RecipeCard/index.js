@@ -13,7 +13,7 @@ class RecipeCard extends React.Component {
   handleRecipeClick() {
     const { history, type, recipe } = this.props;
     const id = recipe.idMeal || recipe.idDrink;
-
+    // Set localstorage aqui tb
     history.push(`/${type}/${id}`);
   }
 
