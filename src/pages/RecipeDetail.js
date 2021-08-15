@@ -19,8 +19,6 @@ function RecipeDetail({ history: { push, location: { pathname } },
     return Object.prototype.hasOwnProperty.call(inProgressRecipes, id);
   }
 
-  React.useEffect(verifyRecipeInProgress, [id]);
-
   const addStepToStorage = () => {
     const recipesInProgress = getFromStorage('inProgressRecipes') || {};
     const updatedItem = {
