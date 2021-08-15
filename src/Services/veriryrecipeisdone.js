@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 
 export default function veriryrecipeisdone({ match: { params: { id } } }) {
   // const [recipes, setRecipes] = useState([]);
-
   function veriryrecipe() {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     if (doneRecipes.length > 0) {
