@@ -19,12 +19,10 @@
   bottom: 0;
   color: white;
   cursor: pointer;
-  display: flex;
+  display: inline-block;
   font-size: 25px;
-  margin-left: center;
-  margin-right: center;
+  margin: 4px 2px;
   opacity: 0.6;
-  padding: 16px 90px;
   position: fixed;
   text-align: center;
   text-decoration: none;

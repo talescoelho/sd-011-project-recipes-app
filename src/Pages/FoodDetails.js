@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import ShareButton from '../Components/ShareButton';
+import './Styles/detailsrecipe.css';
 import FavoriteButton from '../Components/FavoriteButton';
 import checkInProgress from '../Services/checkInProgress';
 import RecomendedRecipes from '../Components/RecomendedRecipes';
-import './Styles/detailsrecipe.css';
 
 function FoodDetails({ match: { params: { id } }, location: { pathname } }) {
   const [recipes, setRecipes] = useState([]);
