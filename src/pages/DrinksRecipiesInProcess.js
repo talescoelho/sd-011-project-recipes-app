@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import FetchApi from '../services/ApiFetch';
 import ShareBtn from '../components/ShareBtn';
 import FavoriteBtn from '../components/FavoriteBtn';
+import DoneRecipeToLSDrink from '../components/DoneRecipesToLSDrink';
 
 class DrinksRecipiesInProcess extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class DrinksRecipiesInProcess extends React.Component {
       recoveredInfo = JSON.parse(localStorage.inProgressRecipes).cocktails[id];
     }
     this.state = {
-      DoRecipe: [],
+      doRecipe: [],
       componentMounted: false,
       stockDrinks: recoveredInfo,
       redirectToDoneRecipe: false,
@@ -32,6 +33,9 @@ class DrinksRecipiesInProcess extends React.Component {
   }
 
   onclickFinishButton() {
+    const { match: { params: { id } } } = this.props;
+    const { doRecipe } = this.state;
+    DoneRecipeToLSDrink('bebida', doRecipe.drinks, id);
     this.setState({ redirectToDoneRecipe: true });
   }
 
@@ -39,16 +43,27 @@ class DrinksRecipiesInProcess extends React.Component {
     const { match: { params: { id } } } = this.props;
     const obj = await FetchApi('thecocktaildb', null, null, ['details', id]);
     this.setState({
-      DoRecipe: obj,
+      doRecipe: obj,
       componentMounted: true,
     });
+    console.log(obj.drinks[0]);
+    const ingredientKeys = Object.entries(obj.drinks[0])
+      .filter((igredients) => igredients[0]
+        .includes('strIngredient') && igredients[1]);
+    if (localStorage.inProgressRecipes
+      && JSON.parse(localStorage.inProgressRecipes).cocktails
+      && JSON.parse(localStorage.inProgressRecipes).cocktails[id]
+      && JSON.parse(localStorage.inProgressRecipes).cocktails[id].length
+        === ingredientKeys.length) {
+      this.setState({ disabledButton: false });
+    }
   }
 
   inputOnClickHandler(event, name) {
     const { match: { params: { id } } } = this.props;
-    const { stockDrinks, ingredientState, DoRecipe } = this.state;
+    const { stockDrinks, ingredientState, doRecipe } = this.state;
     let filter = [];
-    const ingredientKeys = Object.entries(DoRecipe.drinks[0])
+    const ingredientKeys = Object.entries(doRecipe.drinks[0])
       .filter((igredients) => igredients[0]
         .includes('strIngredient') && igredients[1]);
     this.setState({ ingredientState: ingredientKeys });
@@ -95,7 +110,7 @@ class DrinksRecipiesInProcess extends React.Component {
   }
 
   renderAll() {
-    const { DoRecipe, disabledButton } = this.state;
+    const { doRecipe, disabledButton } = this.state;
     let ri = [];
     const { match: { params: { id } } } = this.props;
     if (localStorage.inProgressRecipes
@@ -105,19 +120,19 @@ class DrinksRecipiesInProcess extends React.Component {
     return (
       <div>
         <img
-          src={ DoRecipe.drinks[0].strDrinkThumb }
-          alt={ DoRecipe.drinks[0].strDrink }
+          src={ doRecipe.drinks[0].strDrinkThumb }
+          alt={ doRecipe.drinks[0].strDrink }
           data-testid="recipe-photo"
           width="350px"
           height="300px"
         />
-        <h1 data-testid="recipe-title">{ DoRecipe.drinks[0].strDrink }</h1>
+        <h1 data-testid="recipe-title">{ doRecipe.drinks[0].strDrink }</h1>
         <ShareBtn />
-        <FavoriteBtn details={ DoRecipe.drinks } gatilho="drink" id={ id } />
-        <p data-testid="recipe-category">{ DoRecipe.drinks[0].strCategory }</p>
+        <FavoriteBtn details={ doRecipe.drinks } gatilho="drink" id={ id } />
+        <p data-testid="recipe-category">{ doRecipe.drinks[0].strCategory }</p>
         <div className="ul-container">
           <ul id="input-checkbox">
-            { Object.entries(DoRecipe.drinks[0])
+            { Object.entries(doRecipe.drinks[0])
               .filter((igredients) => igredients[0]
                 .includes('strIngredient') && igredients[1])
               .map((e, index) => (
@@ -145,7 +160,7 @@ class DrinksRecipiesInProcess extends React.Component {
           </ul>
         </div>
         <p data-testid="instructions">
-          { DoRecipe.drinks[0].strInstructions }
+          { doRecipe.drinks[0].strInstructions }
         </p>
         <button
           disabled={ disabledButton }
