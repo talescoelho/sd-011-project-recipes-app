@@ -1,8 +1,7 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { act } from 'react-dom/test-utils';
-import { fireEvent, screen } from '@testing-library/react';
-// import oneMeal from '../../cypress/mocks/oneMeal';
+import { cleanup, fireEvent, screen } from '@testing-library/react';
 import renderWithRouter from './renderWithRouter';
 import FoodDetails from '../pages/comidas/recipeId';
 
@@ -28,12 +27,16 @@ const VIDEO_SRC = 'video';
 const START_RECIPE_BTN = 'start-recipe-btn';
 const INGREDIENTS = ['0', '1', '2', '3', '4', '5', '6', '7'];
 const RECOMENDATIONS = ['0', '1', '2', '3', '4', '5', '6'];
+let MEAL_PATH = '/comidas/52771';
+// const CHECKBOX0 = '0-checkbox';
 
-const testHistory = createMemoryHistory({ initialEntries: ['/comidas/52771'] });
-
-afterEach(() => jest.clearAllMocks());
-
+const testHistory = createMemoryHistory({ initialEntries: [MEAL_PATH] });
 describe('Testa a página de detalhes da receita', () => {
+  beforeEach(() => {
+    MEAL_PATH = '/comidas/52771';
+  });
+  afterEach(cleanup);
+
   it('Testa se o elemento de loading está na tela', () => {
     renderWithRouter(<FoodDetails match={ match } />, testHistory);
     const loading = screen.getByText(/Loading/i);
@@ -83,13 +86,37 @@ describe('Testa a página de detalhes da receita', () => {
     // expect(mockOneMeal).toBeCalled();
   });
 
-  it('Botão deve iniciar como iniciar receita e após o click, continuar receita', () => {
-    const {
-      findByTestId,
-      history,
-    } = renderWithRouter(<FoodDetails match={ match } />, testHistory);
-    const startBtn = findByTestId(START_RECIPE_BTN);
-    expect(startBtn).toHaveTextContent('Iniciar Receita');
-    fireEvent.click(startBtn);
-  });
+  it('Botão deve iniciar como iniciar receita e após o click, continuar receita',
+    async () => {
+      const {
+        findByTestId,
+        history,
+      } = renderWithRouter(<FoodDetails match={ match } />, testHistory);
+      const startBtnBefore = await findByTestId(START_RECIPE_BTN);
+      expect(startBtnBefore).toHaveTextContent('Iniciar Receita');
+
+      fireEvent.click(startBtnBefore);
+
+      expect(history.location.pathname).toEqual('/comidas/52771/in-progress');
+      MEAL_PATH = '/comidas/52771/in-progress';
+      const el = container.querySelectorAll('input');
+      console.log(el[0]);
+      // const checkBox = await findByTestId('0-checkbox');
+      // fireEvent(checkBox);
+      // const x = findByTestId('finish-recipe-btn');
+      // await wait(() => expect(x).toBeInTheDocument());
+      // console.log(Array.of(container.parentNode));
+      // const startBtnAfter = await findByTestId(START_RECIPE_BTN);
+      // expect(startBtnAfter).toBeInTheDocument();
+      // expect(startBtnAfter).toHaveTextContent('Continuar Receita');
+      // const startBtnBefore = findByTestId(START_RECIPE_BTN);
+    });
+
+  // it('Espera que o botão de iniciar mude para continuar', async () => {
+  //   const {
+  //     findByTestId,
+  //   } = renderWithRouter(<FoodDetails match={ match } />, testHistory);
+  //   const startBtnBefore = await findByTestId(START_RECIPE_BTN);
+  //   expect(startBtnBefore).toHaveTextContent('Inicsiar Receita');
+  // });
 });
