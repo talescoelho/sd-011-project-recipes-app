@@ -43,12 +43,22 @@ export default function SearchBar() {
   return (
     <section className="section-container">
       <div className="search-recipe">
-        <input
-          type="text"
-          data-testid="search-input"
-          name="searchText"
-          onChange={ handleGenericInput }
-        />
+        <div className="input-btn">
+          <input
+            type="text"
+            data-testid="search-input"
+            name="searchText"
+            onChange={ handleGenericInput }
+          />
+          <button
+            type="button"
+            data-testid="exec-search-btn"
+            disabled={ (searchInput.searchText.length === 0) }
+            onClick={ () => handleSearch(searchInput, location.pathname) }
+          >
+            Ir
+          </button>
+        </div>
         <div className="serach-radio">
           <label htmlFor="search-ingredients">
             Ingredientes
@@ -84,14 +94,6 @@ export default function SearchBar() {
             />
           </label>
         </div>
-        <button
-          type="button"
-          data-testid="exec-search-btn"
-          disabled={ (searchInput.searchText.length === 0) }
-          onClick={ () => handleSearch(searchInput, location.pathname) }
-        >
-          Buscar
-        </button>
       </div>
     </section>
   );
