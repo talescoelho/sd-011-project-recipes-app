@@ -1,0 +1,37 @@
+.explorer-style {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 65vh;
+  gap: 50px;
+  justify-content: center;
+  width: 100%;
+}
+
+.explorer-style-food {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 36vh;
+  gap: 50px;
+  justify-content: center;
+  width: 100%;
+}
+
+.explorer-style-food button {
+  background-color: rgb(131, 251, 255);
+  border: 0;
+  font-weight: 500;
+  width: 300px;
+}
+
+.explorer-style button {
+  background-color: rgb(131, 251, 255);
+  border: 0;
+  font-weight: 500;
+  width: 300px;
+}
+
+.explorer-style img {
+  width: 100%;
+}

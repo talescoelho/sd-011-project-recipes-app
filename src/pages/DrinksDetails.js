@@ -12,7 +12,8 @@ import '../styles/components/footer.css';
 import RecipesContext from '../context/RecipesContext';
 import ButtonStartMeal from '../components/details/ButtonStartMeal';
 import
-DetailsDrinkNoProgress from '../components/details/detailsDrink/DetailsDrinkNoProgress';
+DetailsDrinkIngredientList
+  from '../components/details/detailsDrink/DetailsDrinkNoProgress';
 import backPage from '../images/arrow-undo-circle-outline.svg';
 
 function DrinksDetails() {
@@ -49,7 +50,7 @@ function DrinksDetails() {
             </div>
           </div>
           <div>
-            <DetailsDrinkNoProgress />
+            <DetailsDrinkIngredientList />
             <div>
               <h4>Instruction</h4>
               <p data-testid="instructions">{ drinkId.strInstructions }</p>

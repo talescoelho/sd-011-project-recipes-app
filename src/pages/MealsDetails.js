@@ -10,8 +10,7 @@ import '../styles/components/footer.css';
 import ButtonStartMeal from '../components/details/ButtonStartMeal';
 import '../styles/components/details.css';
 import backPage from '../images/arrow-undo-circle-outline.svg';
-import
-DetailsIngredientNoProgress from '../components/details/DetailsIngredientNoProgress';
+import DetailsIngredientList from '../components/details/DetailsIngredientList';
 
 function MealsDetails() {
   const {
@@ -46,7 +45,7 @@ function MealsDetails() {
             </div>
           </div>
           <div>
-            <DetailsIngredientNoProgress />
+            <DetailsIngredientList />
             <div>
               <h4>Instruction</h4>
               <p data-testid="instructions">{ mealId.strInstructions }</p>

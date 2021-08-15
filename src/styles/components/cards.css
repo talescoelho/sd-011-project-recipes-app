@@ -9,6 +9,11 @@
   width: 100vw;
 }
 
+.card-container button {
+  background-color: transparent;
+  border: 0;
+}
+
 .card-style {
   align-items: center;
   border: 0.5px solid rgb(231, 231, 231);
