@@ -15,7 +15,7 @@ const useFavoriteRecipies = (
       type: drinkOrFood,
       area: favoriteFood.strArea || '',
       category: favoriteFood.strCategory || favoriteDrink.strCategory,
-      alcoholicOrNot: '' || favoriteDrink.strAlcoholic,
+      alcoholicOrNot: favoriteDrink.strAlcoholic || '',
       name: favoriteFood.strMeal || favoriteDrink.strDrink,
       image: favoriteFood.strMealThumb || favoriteDrink.strDrinkThumb,
     };
@@ -27,9 +27,10 @@ const useFavoriteRecipies = (
           .filter((a) => a.id !== favoriteRecipies.id);
 
         localStorage.favoriteRecipes = JSON.stringify(newFavoriteRecipes);
+      } else {
+        localStorage
+          .favoriteRecipes = JSON.stringify([favoriteRecipies, ...favoriteStoreParsed]);
       }
-      localStorage
-        .favoriteRecipes = JSON.stringify([favoriteRecipies, ...favoriteStoreParsed]);
     } else {
       localStorage.favoriteRecipes = JSON.stringify([favoriteRecipies]);
     }
