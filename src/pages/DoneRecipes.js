@@ -6,6 +6,7 @@ export default function DoneRecipes() {
   let list = [];
   if (localStorage.doneRecipes) {
     list = JSON.parse(localStorage.doneRecipes);
+    console.log(list);
   }
 
   return (
@@ -29,7 +30,7 @@ export default function DoneRecipes() {
                 <h4
                   data-testid={ `${index}-horizontal-top-text` }
                 >
-                  { recipe.category }
+                  { `${recipe.area} - ${recipe.category}` }
                 </h4>
                 <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
                 <h4
@@ -40,9 +41,8 @@ export default function DoneRecipes() {
                 <button
                   type="button"
                   data-testid={ `${index}-horizontal-share-btn` }
-                >
-                  <img src={ shareIcon } alt="compartilhar" />
-                </button>
+                  src={ shareIcon } alt="compartilhar"
+                />
                 {
                   recipe.tags.map((tag, tagIndex) => (
                     <h4
