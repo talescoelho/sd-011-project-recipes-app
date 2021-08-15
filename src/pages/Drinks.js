@@ -3,7 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 import FooterMenu from '../components/FooterMenu';
 import Header from '../components/Header';
 import RecipesContext from '../context/RecipesContext';
-import { fetchDrinksName, fetchDrinkCategory } from '../services/DrinksApiServices';
+import { fetchDrinkCategory, fetchDrinkRecommanded } from '../services/DrinksApiServices';
 import '../styles/components/cards.css';
 import '../styles/components/category.css';
 
@@ -21,7 +21,7 @@ export default function Drinks() {
 
   useEffect(() => {
     const response = async () => {
-      const data = await fetchDrinksName('');
+      const data = await fetchDrinkRecommanded();
       return setFirstDrink(data);
     };
     response();
