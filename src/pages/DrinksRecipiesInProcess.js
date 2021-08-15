@@ -19,6 +19,8 @@ class DrinksRecipiesInProcess extends React.Component {
       componentMounted: false,
       stockDrinks: recoveredInfo,
       redirectToDoneRecipe: false,
+      disabledButton: true,
+      ingredientState: [],
     };
     this.test = this.test.bind(this);
     this.inputOnClickHandler = this.inputOnClickHandler.bind(this);
@@ -43,8 +45,13 @@ class DrinksRecipiesInProcess extends React.Component {
   }
 
   inputOnClickHandler(event, name) {
-    const { stockDrinks } = this.state;
+    const { match: { params: { id } } } = this.props;
+    const { stockDrinks, ingredientState, DoRecipe } = this.state;
     let filter = [];
+    const ingredientKeys = Object.entries(DoRecipe.drinks[0])
+      .filter((igredients) => igredients[0]
+        .includes('strIngredient') && igredients[1]);
+    this.setState({ ingredientState: ingredientKeys });
     if (stockDrinks.some((i) => i === name)) {
       filter = stockDrinks.filter((ell) => ell !== name);
     } else {
@@ -54,7 +61,6 @@ class DrinksRecipiesInProcess extends React.Component {
       stockDrinks: filter,
     }, () => {
       const { stockDrinks: newStockDrinks } = this.state;
-      const { match: { params: { id } } } = this.props;
       let prev2 = {};
       if (localStorage.inProgressRecipes
         && JSON.parse(localStorage.inProgressRecipes).meals) {
@@ -66,18 +72,22 @@ class DrinksRecipiesInProcess extends React.Component {
         },
         meals: prev2,
       };
-      if (localStorage.inProgressRecipes) {
-        if (JSON.parse(localStorage.inProgressRecipes).cocktails) {
-          const prev = JSON.parse(localStorage.inProgressRecipes);
-          console.log(prev);
-          const drinks = {
-            cocktails: {
-              ...prev.cocktails,
-              [id]: newStockDrinks,
-            },
-            meals: prev2,
-          };
-          localStorage.inProgressRecipes = JSON.stringify(drinks);
+      if (localStorage.inProgressRecipes
+        && JSON.parse(localStorage.inProgressRecipes).cocktails) {
+        const prev = JSON.parse(localStorage.inProgressRecipes);
+        const drinks = {
+          cocktails: {
+            ...prev.cocktails,
+            [id]: newStockDrinks,
+          },
+          meals: prev2,
+        };
+        localStorage.inProgressRecipes = JSON.stringify(drinks);
+        if (JSON.parse(localStorage.inProgressRecipes).cocktails[id].length
+                === ingredientState.length) {
+          this.setState({ disabledButton: false });
+        } else {
+          this.setState({ disabledButton: true });
         }
       } else { localStorage.inProgressRecipes = JSON.stringify(drinks2); }
     });
@@ -85,7 +95,7 @@ class DrinksRecipiesInProcess extends React.Component {
   }
 
   renderAll() {
-    const { DoRecipe } = this.state;
+    const { DoRecipe, disabledButton } = this.state;
     let ri = [];
     const { match: { params: { id } } } = this.props;
     if (localStorage.inProgressRecipes
@@ -124,6 +134,7 @@ class DrinksRecipiesInProcess extends React.Component {
                       defaultChecked={ ri.some((item) => item === e[1]) }
                       id={ `for${index}` }
                       type="checkbox"
+                      value={ `${e[1]}checked` }
                       onClick={ (event) => this.inputOnClickHandler(event, e[1]) }
                     />
                   </label>
@@ -135,6 +146,7 @@ class DrinksRecipiesInProcess extends React.Component {
           { DoRecipe.drinks[0].strInstructions }
         </p>
         <button
+          disabled={ disabledButton }
           data-testid="finish-recipe-btn"
           onClick={ this.onclickFinishButton }
           type="button"
