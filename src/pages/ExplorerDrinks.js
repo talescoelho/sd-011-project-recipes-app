@@ -14,7 +14,7 @@ export default function ExplorerDrinks() {
       </Link>
       <Link to="/explorar/bebidas">
         <button type="button" data-testid="explore-surprise">
-          Explorar Bebidas
+          Me Surpreenda!
         </button>
       </Link>
       <Footer />

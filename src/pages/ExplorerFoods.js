@@ -15,12 +15,12 @@ export default function ExplorerFoods() {
         </Link>
         <Link to="/explorar/bebidas">
           <button type="button" data-testid="explore-by-area">
-            Explorar Bebidas
+            Por Local de Origem
           </button>
         </Link>
         <Link to="/explorar/bebidas">
           <button type="button" data-testid="explore-surprise">
-            Explorar Bebidas
+            Me Surpreenda!
           </button>
         </Link>
       </div>
