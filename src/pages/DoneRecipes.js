@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import ShareBtnIcon from '../images/shareIcon.svg';
 
 export default function DoneRecipes() {
   const [filter, setFilter] = useState('all');
   const [list, setList] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     if (localStorage.doneRecipes) {
@@ -63,17 +65,24 @@ export default function DoneRecipes() {
           list !== null && list !== undefined
             ? list.map((recipe, index) => (
               <div key={ index }>
-                <img
-                  src={ `${recipe.image}` }
-                  alt="imagem da receita"
-                  data-testid={ `${index}-horizontal-image` }
-                />
+                <button
+                  type="button"
+                  onClick={ () => history
+                    .push(`/${recipe.type}s/${recipe.id}`) }
+                >
+                  <img
+                    src={ `${recipe.image}` }
+                    className="imageDoneRecipe"
+                    alt="imagem da receita"
+                    data-testid={ `${index}-horizontal-image` }
+                  />
+                  <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
+                </button>
                 <h4
                   data-testid={ `${index}-horizontal-top-text` }
                 >
                   { `${recipe.area} ${recipe.alcoholicOrNot} - ${recipe.category}`}
                 </h4>
-                <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
                 <h4
                   data-testid={ `${index}-horizontal-done-date` }
                 >
@@ -82,8 +91,6 @@ export default function DoneRecipes() {
                 <div>
                   <button
                     type="button"
-                    value={ recipe.type }
-                    key={ recipe.id }
                     onClick={ () => btnClickHandler(
                       { type: recipe.type, id: recipe.id },
                     ) }
