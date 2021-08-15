@@ -6,10 +6,13 @@ import ShareButton from '../Components/ShareButton';
 import FavoriteButton from '../Components/FavoriteButton';
 import checkInProgress from '../Services/checkInProgress';
 import RecomendedRecipes from '../Components/RecomendedRecipes';
+import veriryrecipeisdone from '../Services/veriryrecipeisdone';
 import './Styles/detailsrecipe.css';
 
 function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
   const [recipes, setRecipes] = useState([]);
+  const { veriryrecipe } = veriryrecipeisdone;
+
   // Didmount - Faz fetch trazendo a receita pelo id e seta o stado recipes com as receita
   useEffect(() => {
     const getApi = async () => {
@@ -38,11 +41,11 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
 
   // retorna um array com as medidas de cada ingredientes
   const ingredientsMesure = () => {
-    const arrayIndredientKids = Object.keys(recipes)
+    const arrayIngredientKeys = Object.keys(recipes)
       .filter((item) => item
         .includes('strMeasure'));
     const ingredients2 = [];
-    arrayIndredientKids.forEach((key) => {
+    arrayIngredientKeys.forEach((key) => {
       if (recipes[key]) {
         ingredients2.push(recipes[key]);
       }
@@ -70,13 +73,13 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
     return 'Iniciar Receita';
   };
 
-  function verifyrecipeisdone() {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    if (doneRecipes.length > 0) {
-      return doneRecipes.some((recipe) => recipe.id === id);
-    }
-    return false;
-  }
+  // function verifyrecipeisdone() {
+  //   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  //   if (doneRecipes.length > 0) {
+  //     return doneRecipes.some((recipe) => recipe.id === id);
+  //   }
+  //   return false;
+  // }
 
   return (
     <div>
@@ -118,7 +121,7 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
           <Button
             className="start-recipe-btn"
             type="button"
-            style={ { display: verifyrecipeisdone() ? 'none' : 'initial' } }
+            style={ { display: veriryrecipe ? 'none' : 'initial' } }
             data-testid="start-recipe-btn"
           >
             { checkStart() }
