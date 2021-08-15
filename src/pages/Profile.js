@@ -13,13 +13,13 @@ export default function Profile() {
       </div>
       <div>
         <button type="button" data-testid="profile-done-btn">
-          Receitas feitas
+          Receitas Feitas
         </button>
         <button type="button" data-testid="profile-favorite-btn">
-          Receitas favoritas
+          Receitas Favoritas
         </button>
         <button type="button" data-testid="profile-logout-btn">
-          log out
+          Sair
         </button>
       </div>
       <Footer />
