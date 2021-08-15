@@ -8,7 +8,6 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
-import '../styles/Detalhes.css';
 import RecommendDrink from '../components/RecommendDrink';
 import {
   checkDoneRecipes,

@@ -19,6 +19,7 @@ export default function Login() {
           name="email"
           className="login-input"
           onKeyUp={ handleChange }
+          onChange={ handleChange }
           placeholder="Insira seu email"
         />
         <input
@@ -27,6 +28,7 @@ export default function Login() {
           name="password"
           className="login-input"
           onKeyUp={ handleChange }
+          onChange={ handleChange }
           placeholder="Insira sua senha"
         />
         <button
