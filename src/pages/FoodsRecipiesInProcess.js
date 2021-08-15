@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import FetchApi from '../services/ApiFetch';
 import ShareBtn from '../components/ShareBtn';
 import FavoriteBtn from '../components/FavoriteBtn';
+import DoneRecipeToLSFood from '../components/DoneRecipesToLSFoods';
 
 class FoodsRecipiesInProcess extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class FoodsRecipiesInProcess extends React.Component {
       recoveredInfo = JSON.parse(localStorage.inProgressRecipes).meals[id];
     }
     this.state = {
-      DoRecipe: [],
+      doRecipe: [],
       componentMounted: false,
       stockFoods: recoveredInfo,
       redirectToDoneRecipe: false,
@@ -33,6 +34,9 @@ class FoodsRecipiesInProcess extends React.Component {
   }
 
   onclickFinishButton() {
+    const { match: { params: { id } } } = this.props;
+    const { doRecipe } = this.state;
+    DoneRecipeToLSFood('comida', doRecipe.meals, id);
     this.setState({ redirectToDoneRecipe: true });
   }
 
@@ -50,19 +54,28 @@ class FoodsRecipiesInProcess extends React.Component {
       .filter((item2) => (
         item2 !== ' ' && item2 !== '' && item2 !== null));
     this.setState({
-      DoRecipe: obj,
+      doRecipe: obj,
       componentMounted: true,
       measures: filteredMeasures,
     });
+    const ingredientKeys = Object.entries(obj.meals[0])
+      .filter((igredients) => igredients[0]
+        .includes('strIngredient') && igredients[1]);
+    if (localStorage.inProgressRecipes
+      && JSON.parse(localStorage.inProgressRecipes).meals
+      && JSON.parse(localStorage.inProgressRecipes).meals[id]
+      && JSON.parse(localStorage.inProgressRecipes).meals[id].length
+        === ingredientKeys.length) {
+      this.setState({ disabledButton: false });
+    }
   }
 
   changeRow(event, name) {
     const { match: { params: { id } } } = this.props;
-    const { stockFoods, DoRecipe, ingredientState } = this.state;
-    const ingredientKeys = Object.entries(DoRecipe.meals[0])
+    const { stockFoods, doRecipe, ingredientState } = this.state;
+    const ingredientKeys = Object.entries(doRecipe.meals[0])
       .filter((igredients) => igredients[0]
         .includes('strIngredient') && igredients[1]);
-    console.log(ingredientKeys);
     this.setState({ ingredientState: ingredientKeys });
     let filter = [];
     if (stockFoods.some((i) => i === name)) {
@@ -108,8 +121,7 @@ class FoodsRecipiesInProcess extends React.Component {
   }
 
   renderAll() {
-    const { DoRecipe, disabledButton, measures } = this.state;
-    console.log(measures);
+    const { doRecipe, disabledButton, measures } = this.state;
     let ri = [];
     const { match: { params: { id } } } = this.props;
     if (localStorage.inProgressRecipes
@@ -119,19 +131,19 @@ class FoodsRecipiesInProcess extends React.Component {
     return (
       <div>
         <img
-          src={ DoRecipe.meals[0].strMealThumb }
-          alt={ DoRecipe.meals[0].strMeal }
+          src={ doRecipe.meals[0].strMealThumb }
+          alt={ doRecipe.meals[0].strMeal }
           data-testid="recipe-photo"
           width="350px"
           height="300px"
         />
-        <h1 data-testid="recipe-title">{ DoRecipe.meals[0].strDrink }</h1>
+        <h1 data-testid="recipe-title">{ doRecipe.meals[0].strDrink }</h1>
         <ShareBtn />
-        <FavoriteBtn details={ DoRecipe.meals } gatilho="meal" id={ id } />
-        <p data-testid="recipe-category">{ DoRecipe.meals[0].strCategory }</p>
+        <FavoriteBtn details={ doRecipe.meals } gatilho="meal" id={ id } />
+        <p data-testid="recipe-category">{ doRecipe.meals[0].strCategory }</p>
         <div className="ul-container">
           <ul id="input-checkbox">
-            { Object.entries(DoRecipe.meals[0])
+            { Object.entries(doRecipe.meals[0])
               .filter((igredients) => igredients[0]
                 .includes('strIngredient') && igredients[1])
               .map((e, index) => (
@@ -158,7 +170,7 @@ class FoodsRecipiesInProcess extends React.Component {
           </ul>
         </div>
         <p data-testid="instructions">
-          { DoRecipe.meals[0].strInstructions }
+          { doRecipe.meals[0].strInstructions }
         </p>
         <button
           disabled={ disabledButton }

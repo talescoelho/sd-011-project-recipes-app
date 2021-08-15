@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
+import FavoriteCards from '../components/FavoriteCards';
 
 export default function Favorites() {
   const [favoriteRecipe, setfavoriteRecipe] = useState([]);
   const [filter, setFilter] = useState('all');
   const [fetching, setfetching] = useState(true);
-  const [setList] = useState([]);
+
   useEffect(() => {
     if (localStorage.favoriteRecipes && fetching) {
       const listFromLS = localStorage.favoriteRecipes;
@@ -15,18 +16,22 @@ export default function Favorites() {
   }, [fetching]);
 
   useEffect(() => {
+    console.log(favoriteRecipe);
+  }, [favoriteRecipe]);
+
+  useEffect(() => {
     if (localStorage.doneRecipes) {
       const doneRecipesFromLS = JSON.parse(localStorage.doneRecipes);
       if (filter === 'all') {
-        setList(JSON.parse(localStorage.doneRecipes));
+        setfavoriteRecipe(JSON.parse(localStorage.doneRecipes));
       } if (filter === 'food') {
         const foodFoneRecipes = doneRecipesFromLS
           .filter((recipe) => recipe.type === 'comida');
-        setList(foodFoneRecipes);
+        setfavoriteRecipe(foodFoneRecipes);
       } if (filter === 'drink') {
         const drinkDoneRecipes = doneRecipesFromLS
           .filter((recipe) => recipe.type === 'bebida');
-        setList(drinkDoneRecipes);
+        setfavoriteRecipe(drinkDoneRecipes);
       }
     }
   }, [filter]);
@@ -56,8 +61,8 @@ export default function Favorites() {
           >
             Drinks
           </button>
-
         </div>
+        <FavoriteCards list={ favoriteRecipe } />
       </div>
     );
   }
