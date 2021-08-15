@@ -28,21 +28,17 @@ function MealsInProgress({ match: { params } }) {
 
   return (
     <div>
-      <RecipeCard
-        title={ MealDataAPI.strMeal }
-        img={ MealDataAPI.strMealThumb }
-        category={ MealDataAPI.strCategory }
-        id={ MealDataAPI.idMeal }
-        data={ objectRecipe }
-      />
+      <RecipeCard data={ objectRecipe } />
 
-      <IngredientsList recipe={ MealDataAPI } />
+      <IngredientsList recipe={ MealDataAPI } inProgress />
 
       <p data-testid="instructions">
         <h2>Instructions</h2>
         {MealDataAPI.strInstructions}
       </p>
-
+      <button type="button" data-testid="finish-recipe-btn">
+        Finalizar Receita
+      </button>
     </div>
   );
 }

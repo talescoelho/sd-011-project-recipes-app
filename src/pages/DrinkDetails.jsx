@@ -76,8 +76,6 @@ function DrinkDetails({ match: { params } }) {
         {DrinkDataAPI.strInstructions}
       </div>
 
-      {/* passar algum atributo para o recomendações de modo a
-      identificar se renderiza bebidas ou comidas */}
       <RecommendationsM />
       { !isMealDone ? (
         <Link to={ `/bebidas/${DrinkDataAPI.idDrink}/in-progress` }>

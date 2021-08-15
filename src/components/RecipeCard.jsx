@@ -5,7 +5,6 @@ import ShareButton from './ShareButton';
 
 // Adicionar biblioteca de compartilhar e imagem de coração para o favoritar.
 function MealRecipeCard({ data }) {
-  console.log(data);
   return (
     <div>
 

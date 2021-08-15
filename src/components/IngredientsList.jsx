@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function IngredientsList({ recipe }) {
+function IngredientsList({ recipe, inProgress }) {
   function ingredientListMaker() {
     const ingredients = [];
     const measure = [];
@@ -15,24 +15,28 @@ function IngredientsList({ recipe }) {
   }
 
   return (
-    <div>
+    <>
       <h2>Ingredients</h2>
-      <ul>
-        {ingredientListMaker().map((ingredient, index) => (
-          <li data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
-            {ingredient}
-          </li>
-        ))}
-        {/* {ingredientListMaker().map((ingredient, index) => (
-          <li data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
+      {(inProgress) ? (
+        ingredientListMaker().map((ingredient, index) => (
+          <li data-testid={ `${index}-ingredient-step` } key={ index }>
             <label htmlFor={ index }>
               <input id={ index } type="checkbox" />
               {ingredient}
             </label>
           </li>
-        ))} */}
-      </ul>
-    </div>
+        ))
+      ) : (
+        <ul>
+          {ingredientListMaker().map((ingredient, index) => (
+            <li data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
+              {ingredient}
+            </li>
+          ))}
+          {}
+        </ul>
+      )}
+    </>
   );
 }
 
@@ -40,4 +44,5 @@ export default IngredientsList;
 
 IngredientsList.propTypes = {
   recipe: PropTypes.objectOf(PropTypes.string).isRequired,
+  inProgress: PropTypes.bool.isRequired,
 };
