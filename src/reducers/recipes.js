@@ -72,6 +72,7 @@ export default function reducer(state = INITIAL_STATE, { type, payload }) {
         ...state,
         allRecipes: payload.allAreasRecipe,
       }
+    );
   case FAVORITE_RECIPE:
     return (
       { ...state, favorites: payload }

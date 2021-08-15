@@ -8,7 +8,6 @@ export const SET_LIST_AREA_RECIPE = 'SET_LIST_AREA_RECIPE';
 export const SET_FILTER_BY_AREA_RECIPE = 'SET_FILTER_BY_AREA_RECIPE';
 export const FAVORITE_RECIPE = 'FAVORITE_RECIPE';
 
-
 function handleRequestSuccess(result, isFiltered) {
   if (result === null) {
     result = [];

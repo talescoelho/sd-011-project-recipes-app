@@ -15,14 +15,13 @@ function BebidasIngredientes(props) {
     setIngredients(response);
   }
 
-  async function requestApi() {
-    setIsLoading(true);
-    const response = await fetchByDrinkIngredient();
-    requestApiSuccess(response);
-    setIsLoading(false);
-  }
-
   useEffect(() => {
+    const requestApi = async () => {
+      setIsLoading(true);
+      const response = await fetchByDrinkIngredient();
+      requestApiSuccess(response);
+      setIsLoading(false);
+    };
     requestApi();
   }, []);
 
