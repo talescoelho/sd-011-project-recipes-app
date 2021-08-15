@@ -6,14 +6,14 @@ import DetailsShareDrinks from '../components/details/detailsDrink/DetailsShareD
 import
 DetailsDrinkFavoriteButton
   from '../components/details/detailsDrink/DetailsDrinkFavoriteButton';
-import
-DetailsDrinkIngredientList
-  from '../components/details/detailsDrink/DetailsDrinkIngredientList';
 
 import '../styles/components/footer.css';
 
 import RecipesContext from '../context/RecipesContext';
 import ButtonStartMeal from '../components/details/ButtonStartMeal';
+import
+DetailsDrinkNoProgress from '../components/details/detailsDrink/DetailsDrinkNoProgress';
+import backPage from '../images/arrow-undo-circle-outline.svg';
 
 function DrinksDetails() {
   const {
@@ -33,14 +33,23 @@ function DrinksDetails() {
   return (
     <div>
       { (drinkId.idDrink === id) ? (
-        <div>
-          <DetailsDrinkHeader />
-          <div>
+        <div className="details-container">
+          <div className="details-header-btn">
+            <img className="back-style" src={ backPage } alt="voltar" />
             <DetailsShareDrinks />
-            <DetailsDrinkFavoriteButton id={ id } />
+          </div>
+          <DetailsDrinkHeader />
+          <div className="details-title">
+            <div className="details-title-info">
+              <div>
+                <h3 data-testid="recipe-title">{ drinkId.strDrink }</h3>
+                <p data-testid="recipe-category">{ drinkId.strAlcoholic }</p>
+              </div>
+              <DetailsDrinkFavoriteButton id={ id } />
+            </div>
           </div>
           <div>
-            <DetailsDrinkIngredientList />
+            <DetailsDrinkNoProgress />
             <div>
               <h4>Instruction</h4>
               <p data-testid="instructions">{ drinkId.strInstructions }</p>
@@ -71,13 +80,9 @@ function DrinksDetails() {
                 ))
               }
             </Carousel>
-            {/* <span data-testid="0-recomendation-card">recomendações test</span>
-            <span data-testid="0-recomendation-title">titulo recomendações</span> */}
           </div>
           <div>
-            <div>
-              <ButtonStartMeal id={ id } type="cocktails" />
-            </div>
+            <ButtonStartMeal id={ id } type="cocktails" />
           </div>
         </div>
       ) : 'Carregando...' }
