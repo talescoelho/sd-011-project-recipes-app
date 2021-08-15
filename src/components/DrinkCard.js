@@ -1,23 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Card from 'react-bootstrap/Card';
+import '../FoodsAndDrinks.css';
 
 class DrinkCard extends Component {
   render() {
     const { drink, index } = this.props;
     return (
-      <li data-testid={ `${index}-recipe-card` }>
+      <Card
+        style={ { width: '14rem' } }
+        data-testid={ `${index}-recipe-card` }
+        className="recipes-cards"
+      >
         <Link to={ `/bebidas/${drink.idDrink}` }>
-          <img
+          <Card.Img
+            className="img-card"
+            variant="top"
             height="200px"
             width="200px"
             data-testid={ `${index}-card-img` }
             src={ drink.strDrinkThumb }
             alt="Imagem da bebida pronta"
           />
-          <h3 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h3>
+          <Card.Body>
+            <Card.Title
+              data-testid={ `${index}-card-name` }
+              className="title"
+            >
+              { drink.strDrink }
+            </Card.Title>
+          </Card.Body>
         </Link>
-      </li>
+      </Card>
     );
   }
 }

@@ -1,0 +1,28 @@
+.div-explore, .div-profile {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 90px;
+  width: 100%;
+}
+
+.user-email {
+  color: rgb(92, 10, 39);
+  font-family: Pacifico , cursive;
+  font-size: 20pt;
+}
+
+.explore-buttons, .profile-buttons {
+  align-items: center;
+  background-color: rgb(92, 10, 39);
+  border: solid rgb(92, 10, 39);
+  border-radius: 5px;
+  color: antiquewhite;
+  display: flex;
+  font-family: Lemonada , cursive;
+  font-weight: 500;
+  height: 50px;
+  justify-content: center;
+  margin-bottom: 10px;
+  width: 270px;
+}

@@ -22,7 +22,7 @@ class Foods extends Component {
   render() {
     const { foodCardsList } = this.props;
     return (
-      <div>
+      <main className="foods">
         <Header title="Comidas" search />
         <FoodCategories />
         <ul>
@@ -30,7 +30,7 @@ class Foods extends Component {
             <FoodCard key={ item.idMeal } food={ item } index={ index } />)) }
         </ul>
         <Footer />
-      </div>
+      </main>
     );
   }
 }
