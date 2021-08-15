@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function RedirectExploreFoodsAndDrinks() {
   return (
-    <section>
+    <navbar className="explore-main-buttons-container">
       <Link to="/explorar/comidas">
         <button
           type="button"
@@ -20,7 +20,7 @@ function RedirectExploreFoodsAndDrinks() {
           Explorar Bebidas
         </button>
       </Link>
-    </section>
+    </navbar>
   );
 }
 

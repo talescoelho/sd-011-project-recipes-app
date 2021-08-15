@@ -50,7 +50,7 @@ function ExploreFoodsButtons() {
   }
 
   return (
-    <section>
+    <navbar className="explore-buttons-container">
       <Link to={ `/explorar/${currentURL}/ingredientes` }>
         <button
           type="button"
@@ -68,7 +68,7 @@ function ExploreFoodsButtons() {
       >
         Me Surpreenda!
       </button>
-    </section>
+    </navbar>
   );
 }
 

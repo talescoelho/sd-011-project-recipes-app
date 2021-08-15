@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getRecipes } from '../redux/slices/fetchReceitas';
-import './IngredientsDetails.css';
 
 function IngredientsDetails() {
   const dispatch = useDispatch();
@@ -42,6 +41,7 @@ function IngredientsDetails() {
       <section className="ingredients-container">
         {recipeType && recipeType.slice(0, limitCards).map((ingredient, index) => (
           <Link
+            className="card-link"
             key={ index }
             to={ { pathname: `/${currentURL}`, recipeName: ingredient[ingredientKey] } }
           >

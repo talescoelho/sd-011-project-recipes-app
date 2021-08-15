@@ -26,9 +26,10 @@ function RenderOrigin() {
   if (selectOptions === null || currentData === null) return <p>Loading...</p>;
 
   return (
-    <div>
+    <div className="explore-origin-container">
       <label htmlFor="recipe-origin">
         <select
+          className="area-select"
           id="recipe-origin"
           data-testid="explore-by-area-dropdown"
           onChange={ (e) => setSelectedArea(e.target.value) }
@@ -45,20 +46,29 @@ function RenderOrigin() {
           ))}
         </select>
       </label>
-      {currentData.meals.slice(0, limitCards)
-        .map(({ strMeal, strMealThumb, idMeal }, index) => (
-          <Link key={ index } to={ `/comidas/${idMeal}` }>
-            <div data-testid={ `${index}-recipe-card` }>
-              <img
-                data-testid={ `${index}-card-img` }
-                src={ strMealThumb }
-                alt={ strMeal }
-                width="50px"
-              />
-              <p data-testid={ `${index}-card-name` }>{strMeal}</p>
-            </div>
-          </Link>
-        ))}
+      <section className="main-recipe-container">
+        {currentData.meals.slice(0, limitCards)
+          .map(({ strMeal, strMealThumb, idMeal }, index) => (
+            <Link className="card-link" key={ index } to={ `/comidas/${idMeal}` }>
+              <div
+                className="recipes-card"
+                data-testid={ `${index}-recipe-card` }
+              >
+                <img
+                  data-testid={ `${index}-card-img` }
+                  src={ strMealThumb }
+                  alt={ strMeal }
+                  width="50px"
+                />
+                <p
+                  data-testid={ `${index}-card-name` }
+                >
+                  {strMeal}
+                </p>
+              </div>
+            </Link>
+          ))}
+      </section>
     </div>
   );
 }
