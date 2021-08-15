@@ -36,10 +36,10 @@ export default function DoneRecipes() {
           <ToggleButton name="type" data-testid="filter-by-all-btn" value="">
             All
           </ToggleButton>
-          <ToggleButton name="type" data-testid="filter-by-food-btn" value="comida">
+          <ToggleButton name="type" data-testid="filter-by-food-btn" value="comidas">
             Food
           </ToggleButton>
-          <ToggleButton name="type" data-testid="filter-by-drink-btn" value="bebida">
+          <ToggleButton name="type" data-testid="filter-by-drink-btn" value="bebidas">
             Drink
           </ToggleButton>
         </ToggleButtonGroup>

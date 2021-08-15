@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { InProgressContext } from '../../context/InProgressDrinks';
+import { InProgressContext } from '../../context/RecipesInProgress';
 
 export default function IngredientsList(props) {
   const { recipe } = props;

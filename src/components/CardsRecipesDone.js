@@ -12,7 +12,7 @@ export default function CardsRecipesDone(props) {
   const firstTags = tags.filter((_tag, ind) => ind < 2);
   const href = window.location.origin;
 
-  const onClickTitleOrImage = () => history.push(`/${type}s/${id}`);
+  const onClickTitleOrImage = () => history.push(`/${type}/${id}`);
 
   const card = {
     display: 'flex',
