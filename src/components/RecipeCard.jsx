@@ -36,8 +36,5 @@ function MealRecipeCard({ data }) {
 export default MealRecipeCard;
 
 MealRecipeCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
   data: PropTypes.objectOf(PropTypes.string).isRequired,
 };

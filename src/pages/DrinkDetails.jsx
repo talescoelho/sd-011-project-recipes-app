@@ -11,6 +11,7 @@ function DrinkDetails({ match: { params } }) {
   const [DrinkDataAPI, setDrinkDadaAPI] = useState({});
   const [isMealDone, setIsMealsDone] = useState(false);
   const [isMealStarted, setIsMealStarted] = useState(false);
+
   const objectRecipe = {
     id: DrinkDataAPI.idDrink,
     type: 'bebida',
@@ -20,6 +21,7 @@ function DrinkDetails({ match: { params } }) {
     name: DrinkDataAPI.strDrink,
     image: DrinkDataAPI.strDrinkThumb,
   };
+
   function verifyRecipeProgress(id) {
     const inProgressRecipes = JSON.parse(
       localStorage.getItem('inProgressRecipes'),
@@ -90,5 +92,7 @@ function DrinkDetails({ match: { params } }) {
 export default DrinkDetails;
 
 DrinkDetails.propTypes = {
-  match: PropTypes.objectOf(PropTypes.string).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape(),
+  }).isRequired,
 };

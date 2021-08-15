@@ -110,5 +110,7 @@ function MealDetails({ match: { params } }) {
 export default MealDetails;
 
 MealDetails.propTypes = {
-  match: PropTypes.objectOf(PropTypes.string).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape(),
+  }).isRequired,
 };
