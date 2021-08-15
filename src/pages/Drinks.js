@@ -36,14 +36,11 @@ export default function Drinks() {
     response();
   }, []);
 
-  const history = useHistory();
   const {
     recipesDb,
     redirect,
     setRecipesDb,
   } = useContext(RecipesContext);
-  const limits = 12;
-  const limitCategory = 5;
 
   function functionAll() {
     return setRecipesDb(firstDrink);
@@ -54,6 +51,10 @@ export default function Drinks() {
     return setRecipesDb(cat);
   }
 
+  const history = useHistory();
+  const limits = 12;
+  const limitCategory = 5;
+
   function handleDrinks() {
     if (recipesDb.length === 0) {
       return (
@@ -61,7 +62,7 @@ export default function Drinks() {
           {
             firstDrink.map((drink, index) => (
               (index < limits) && (
-                <Link to={ `/bebidas/${drink.idDrink}` } key={ index }>
+                <Link to={ `/bebidas/${drink.idDrink}` } key={ `${index}-recipe-card` }>
                   <div className="card-style">
                     <div className="card-img" data-testid={ `${index}-recipe-card` }>
                       <img
@@ -86,7 +87,7 @@ export default function Drinks() {
         {
           recipesDb.map((drink, index) => (
             (index < limits) && (
-              <Link to={ `/bebidas/${drink.idDrink}` } key={ index }>
+              <Link to={ `/bebidas/${drink.idDrink}` } key={ `${index}-recipe-card` }>
                 <div className="card-style">
                   <div className="card-img" data-testid={ `${index}-recipe-card` }>
                     <img

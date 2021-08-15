@@ -63,7 +63,7 @@ export default function Food() {
           {
             firstFood.map((meal, index) => (
               (index < limits) && (
-                <Link to={ `/comidas/${meal.idMeal}` } key={ index }>
+                <Link to={ `/comidas/${meal.idMeal}` } key={ `${index}-recipe-card` }>
                   <div className="card-style">
                     <div className="card-img" data-testid={ `${index}-recipe-card` }>
                       <img
@@ -88,7 +88,7 @@ export default function Food() {
         {
           recipesDb.map((meal, index) => (
             (index < limits) && (
-              <Link to={ `/comidas/${meal.idMeal}` } key={ index }>
+              <Link to={ `/comidas/${meal.idMeal}` } key={ `${index}-recipe-card` }>
                 <div className="card-style">
                   <div className="card-img" data-testid={ `${index}-recipe-card` }>
                     <img
