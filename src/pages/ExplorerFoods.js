@@ -13,7 +13,7 @@ export default function ExplorerFoods() {
             Por Ingredientes
           </button>
         </Link>
-        <Link to="/explorar/bebidas">
+        <Link to="/explorar/comidas/area">
           <button type="button" data-testid="explore-by-area">
             Por Local de Origem
           </button>

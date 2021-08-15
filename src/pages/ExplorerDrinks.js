@@ -7,7 +7,7 @@ export default function ExplorerDrinks() {
   return (
     <main>
       <Header haveSearchBtn={ false } title="Explorar Bebidas" />
-      <Link to="/explorar/comidas/ingredientes">
+      <Link to="/explorar/bebidas/ingredientes">
         <button type="button" data-testid="explore-by-ingredient">
           Por Ingredientes
         </button>
