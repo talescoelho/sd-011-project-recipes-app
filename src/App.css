@@ -1,68 +1,49 @@
-.meals {
-  align-items: center;
-  background: #0fa36b;
-  color: #464646;
-  display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
-  height: 100vh;
-  justify-content: center;
+.footer {
+  bottom: 0;
+  position: fixed;
   width: 100%;
 }
 
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
+.cardImage {
+  max-width: 150px;
 }
 
-/*
-#iceLeft {
-  animation: clink .8s infinite ease;
-  opacity: 0.6;
-  transform-origin: 36px 66px;
+.selectedCat {
+  background-color: grey;
 }
 
-#iceRight {
-  animation: clink .8s .2s infinite ease;
-  opacity: 0.6;
-  transform-origin: 60px 78px;
-}
-*/
-
-.meals > .logo {
-  animation: shake 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
+.do-row {
+  text-decoration: line-through;
 }
 
-@keyframes shake {
-
-  0% {
-    transform: rotate(5deg);
-  }
-
-  50% {
-    transform: rotate(-5deg);
-  }
-
-  100% {
-    transform: rotate(5deg);
-  }
+.details-body {
+  align-content: center;
+  justify-content: center;
+  text-align: center;
 }
 
-@keyframes clink {
+.details-btn-container {
+  display: flex;
+  justify-content: center;
+}
 
-  0% {
-    transform: rotate(-10deg);
-  }
+.img-div {
+  width: 100px;
+}
 
-  50% {
-    transform: rotate(20deg);
-  }
+.container-carrossel {
+  display: flex;
+  justify-content: center;
+}
 
-  100% {
-    transform: rotate(-10deg);
-  }
+.showImgCarrossel {
+  visibility: visible;
+}
+
+.hideImgCarrossel {
+  display: none;
+}
+
+.imageDoneRecipe {
+  width: 100%;
 }
