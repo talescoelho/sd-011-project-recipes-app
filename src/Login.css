@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap') ;
+
+.app-name {
+  color: rgb(55, 6, 23);
+  font-family: Pacifico , cursive;
+  font-size: 10vw;
+  font-weight: 500;
+  margin-bottom: 35px;
+  text-align: center;
+  text-shadow: 1px 1px 2px black;
+}
+
+.body-page {
+  align-items: center;
+  background-image: url('./food-wallpaper.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-sizing: border-box;
+  display: flex;
+  font-family: fantasy;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.login-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  justify-content: center;
+  width: auto;
+}
+
+.container {
+  background-color: rgb(245, 245, 245, 0.7);
+  border-radius: 8px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  font-family: Pacifico , cursive;
+  height: 70vh;
+  min-height: 400px;
+  padding: 32px;
+  width: 85vw;
+}
+
+.login {
+  color: rgb(3, 7, 30, 0.8);
+  font-family: Pacifico , cursive;
+  font-size: 6vw;
+  font-weight: 900;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.mb-3 {
+  border-top: 30px;
+}
+
+.login-button {
+  font-weight: 500;
+  width: 10em;
+}

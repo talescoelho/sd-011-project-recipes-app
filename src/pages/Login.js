@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
+import '../Login.css';
+import 'animate.css';
 
 class Login extends Component {
   constructor() {
@@ -66,15 +68,16 @@ class Login extends Component {
           <Form.Control
             type="password"
             name="password"
-            placeholder="Digite sua Senha"
+            placeholder="Digite sua senha"
             data-testid="password-input"
             value={ password }
             onChange={ this.handleChangeForm }
           />
         </Form.Group>
         <Button
+          className="login-button btn btn-warning"
           type="submit"
-          size="lg"
+          size="m"
           variant="success"
           data-testid="login-submit-btn"
           disabled={ valid }
@@ -88,10 +91,17 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Login</h1>
-        {this.renderLoginForm()}
-      </div>
+      <main className="body-page">
+        <div className="container">
+          <h1
+            className="app-name animate__animated animate__heartBeat animate__repeat-2"
+          >
+            Beyond Kitchen
+          </h1>
+          <h2 className="login">Login</h2>
+          {this.renderLoginForm()}
+        </div>
+      </main>
     );
   }
 }
