@@ -59,9 +59,8 @@ export default function SearchBar() {
             Ir
           </button>
         </div>
-        <div className="serach-radio">
+        <div className="search-radio">
           <label htmlFor="search-ingredients">
-            Ingredientes
             <input
               id="search-ingredients"
               type="radio"
@@ -70,9 +69,9 @@ export default function SearchBar() {
               value="ingredient"
               onChange={ handleGenericInput }
             />
+            Ingredientes
           </label>
           <label htmlFor="search-name">
-            Nome
             <input
               id="search-name"
               type="radio"
@@ -81,9 +80,9 @@ export default function SearchBar() {
               value="name"
               onChange={ handleGenericInput }
             />
+            Nome
           </label>
           <label htmlFor="search-firstLetter">
-            Primeira Letra
             <input
               id="search-firstLetter"
               type="radio"
@@ -92,6 +91,7 @@ export default function SearchBar() {
               value="firstLetter"
               onChange={ handleGenericInput }
             />
+            Primeira Letra
           </label>
         </div>
       </div>

@@ -79,15 +79,12 @@
 .search-radio {
   align-items: center;
   display: flex;
-  justify-content: space-between;
-  margin: auto;
-  width: 80%;
+  font-size: 12px;
+  justify-content: center;
 }
 
-.search-radio label {
-  display: flex;
-  font-size: 12px;
-  overflow: hidden;
+.search-radio label input {
+  border: none;
 }
 
 .input-btn input {
@@ -96,14 +93,6 @@
   border-radius: 20px;
   height: 40px;
   padding-left: 25px;
-}
-
-.search-radio label input {
-  margin-right: 5px;
-}
-
-.search-radio label:nth-last-child( [ type = 'radio' ] ) {
-  flex-grow: 3;
 }
 
 .input-btn {
