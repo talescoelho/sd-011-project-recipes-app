@@ -43,3 +43,7 @@
 .hideImgCarrossel {
   display: none;
 }
+
+.imageDoneRecipe {
+  width: 100%;
+}

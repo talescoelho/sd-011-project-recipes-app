@@ -108,10 +108,12 @@ class DrinksRecipiesInProcess extends React.Component {
           src={ DoRecipe.drinks[0].strDrinkThumb }
           alt={ DoRecipe.drinks[0].strDrink }
           data-testid="recipe-photo"
+          width="350px"
+          height="300px"
         />
         <h1 data-testid="recipe-title">{ DoRecipe.drinks[0].strDrink }</h1>
         <ShareBtn />
-        <FavoriteBtn />
+        <FavoriteBtn details={ DoRecipe.drinks } gatilho="drink" id={ id } />
         <p data-testid="recipe-category">{ DoRecipe.drinks[0].strCategory }</p>
         <div className="ul-container">
           <ul id="input-checkbox">
@@ -167,6 +169,7 @@ class DrinksRecipiesInProcess extends React.Component {
     );
   }
 }
+
 export default DrinksRecipiesInProcess;
 
 DrinksRecipiesInProcess.propTypes = {

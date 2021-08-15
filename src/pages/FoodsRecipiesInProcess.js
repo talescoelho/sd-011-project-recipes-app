@@ -50,6 +50,7 @@ class FoodsRecipiesInProcess extends React.Component {
     const ingredientKeys = Object.entries(DoRecipe.meals[0])
       .filter((igredients) => igredients[0]
         .includes('strIngredient') && igredients[1]);
+    console.log(ingredientKeys);
     this.setState({ ingredientState: ingredientKeys });
     let filter = [];
     if (stockFoods.some((i) => i === name)) {
@@ -111,7 +112,7 @@ class FoodsRecipiesInProcess extends React.Component {
         />
         <h1 data-testid="recipe-title">{ DoRecipe.meals[0].strDrink }</h1>
         <ShareBtn />
-        <FavoriteBtn />
+        <FavoriteBtn details={ DoRecipe.meals } gatilho="meal" id={ id } />
         <p data-testid="recipe-category">{ DoRecipe.meals[0].strCategory }</p>
         <div className="ul-container">
           <ul id="input-checkbox">
@@ -166,6 +167,7 @@ class FoodsRecipiesInProcess extends React.Component {
     );
   }
 }
+
 export default FoodsRecipiesInProcess;
 
 FoodsRecipiesInProcess.propTypes = {
