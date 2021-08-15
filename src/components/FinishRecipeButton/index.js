@@ -29,13 +29,13 @@ class FinishRecipeButton extends React.Component {
     };
 
     setToStorage('doneRecipes', [...recipesDone, newDoneRecipe]);
-    this.removeStepFromStorage(id); // Req 40
+    this.removeStepFromStorage(id);
     history.push('/receitas-feitas');
   }
 
-  removeStepFromStorage(id) { // Req 40
-    const inProgressRecipes = getFromStorage('inProgressRecipes') || []; // Req 40
-    delete inProgressRecipes[id]; // Req 40 Deleta chave vazia dentro da chave 'inProgressRecipes'
+  removeStepFromStorage(id) {
+    const inProgressRecipes = getFromStorage('inProgressRecipes') || [];
+    delete inProgressRecipes[id];
     setToStorage('inProgressRecipes', inProgressRecipes);
     if (Object.keys(inProgressRecipes).length === 0) {
       localStorage.removeItem('inProgressRecipes');
