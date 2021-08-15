@@ -25,11 +25,13 @@ export const Title = styled.h1`
 export const HeaderNavBar = styled.div`
   display: flex;
   flex-direction: column;
+  transition: background-color 0.25s;
   background-color: ${({ drink }) => (drink ? '#a73d7e' : '#fcdc4d')};
 `;
 
 export const FooterBar = styled.footer`
   background-color: ${({ drink }) => (drink ? '#a73d7e' : '#fcdc4d')};
+  transition: background-color 0.25s;
   display: flex;
   justify-content: space-between;
   border-top: 1px solid;
