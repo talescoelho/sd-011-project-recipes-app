@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ShareButton from './ShareButton';
 
 export default function DoneRecipeCard({ recipe, index }) {
