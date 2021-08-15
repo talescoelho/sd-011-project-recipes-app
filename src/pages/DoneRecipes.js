@@ -30,7 +30,9 @@ export default function DoneRecipes() {
                 <h4
                   data-testid={ `${index}-horizontal-top-text` }
                 >
-                  { `${recipe.area} - ${recipe.category}` }
+                  { recipe.type === 'comida'
+                    ? `${recipe.area} - ${recipe.category}`
+                    : `${recipe.alcoholicOrNot} - ${recipe.category}` }
                 </h4>
                 <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
                 <h4
