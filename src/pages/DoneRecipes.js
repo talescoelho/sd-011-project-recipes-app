@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -9,14 +9,9 @@ export default function DoneRecipes() {
     pageName: 'Receitas Feitas',
     setIcon: false,
   };
-  const recipeStorages = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-  const [doneRecipes, setDoneRecipes] = useState([]);
+  const recipeStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  const [doneRecipes, setDoneRecipes] = useState(recipeStorage);
   const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    const recipeStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    setDoneRecipes(recipeStorage);
-  }, []);
 
   return (
     <div>
@@ -25,14 +20,14 @@ export default function DoneRecipes() {
         <button
           type="button"
           data-testid="filter-by-all-btn"
-          onClick={ () => setDoneRecipes(recipeStorages) }
+          onClick={ () => setDoneRecipes(recipeStorage) }
         >
           All
         </button>
         <button
           type="button"
           data-testid="filter-by-food-btn"
-          onClick={ () => setDoneRecipes(doneRecipes
+          onClick={ () => setDoneRecipes(recipeStorage
             .filter((recipes) => recipes.type === 'comida')) }
         >
           Food
@@ -40,7 +35,7 @@ export default function DoneRecipes() {
         <button
           type="button"
           data-testid="filter-by-drink-btn"
-          onClick={ () => setDoneRecipes(doneRecipes
+          onClick={ () => setDoneRecipes(recipeStorage
             .filter((recipes) => recipes.type === 'bebida')) }
         >
           Drinks
@@ -56,9 +51,10 @@ export default function DoneRecipes() {
                     to={ `/bebidas/${recipe.id}` }
                   >
                     <img
-                      src={ recipe.image }
-                      alt={ recipe.name }
+                      width="200px"
                       data-testid={ `${index}-horizontal-image` }
+                      alt={ recipe.name }
+                      src={ recipe.image }
                     />
                   </Link>
                   <Link to={ `/bebidas/${recipe.id}` }>
@@ -93,9 +89,10 @@ export default function DoneRecipes() {
                     to={ `/comidas/${recipe.id}` }
                   >
                     <img
-                      src={ recipe.image }
-                      alt={ recipe.name }
+                      width="200px"
                       data-testid={ `${index}-horizontal-image` }
+                      alt={ recipe.name }
+                      src={ recipe.image }
                     />
                   </Link>
                   <Link to={ `/comidas/${recipe.id}` }>

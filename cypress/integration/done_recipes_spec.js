@@ -133,7 +133,7 @@ describe('Done recipes screen', () => {
 
   describe('59 - Redirecione para a tela de detalhes da receita caso seja clicado na foto ou no nome da receita', () => {
     it('Ao clicar na foto da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
-      cy.get('[data-testid="0-horizontal-image"]').click({force: true});
+      cy.get('[data-testid="0-horizontal-image"]').click();
 
       cy.location().should((loc) => expect(loc.pathname).to.eq('/comidas/52771'));
     });
