@@ -3,7 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
-import './Profile.css';
+import './Styles/Profile.css';
 import perfilbg from './perfilbg.mp4';
 
 function Profile() {

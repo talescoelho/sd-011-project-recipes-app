@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
-import './RecipesFoods.css';
 import CardRecipes from '../Components/CardRecipes';
 import MyContext from '../Context/MyContext';
 import CategoryButtons from '../Components/CategoryButtons';
