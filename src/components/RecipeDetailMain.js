@@ -3,20 +3,28 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
+
+const copy = require('clipboard-copy');
 
 class RecipeDetailMain extends Component {
   constructor() {
     super();
     this.state = {
       favoriteBtnSrc: whiteHeartIcon,
+      shareBtnStatus: '',
     };
     this.main = this.main.bind(this);
     this.changefavoriteBtn = this.changefavoriteBtn.bind(this);
+    this.handleShareBtn = this.handleShareBtn.bind(this);
   }
 
-  // componentDidUpdate() {
-  //   const { favoriteBtnSrc } = this.state;
-  // }
+  handleShareBtn() {
+    copy(window.location.href); // https://stackoverflow.com/questions/39823681/read-the-current-full-url-with-react
+    this.setState({
+      shareBtnStatus: 'Link copiado!',
+    });
+  }
 
   changefavoriteBtn() {
     const { favoriteBtnSrc } = this.state;
@@ -32,7 +40,7 @@ class RecipeDetailMain extends Component {
   }
 
   main(recipeDetail) {
-    const { favoriteBtnSrc } = this.state;
+    const { favoriteBtnSrc, shareBtnStatus } = this.state;
     const { strMealThumb, strDrinkThumb, strDrink, strMeal,
       strCategory, strAlcoholic, strInstructions,
       strYoutube } = recipeDetail;
@@ -69,14 +77,17 @@ class RecipeDetailMain extends Component {
         <br />
         <h2 data-testid="recipe-title">{ str }</h2>
         <br />
-        <button data-testid="share-btn" type="button">
-          <img alt="" />
+        <button
+          data-testid="share-btn"
+          type="button"
+          onClick={ () => this.handleShareBtn() }
+        >
+          { shareBtnStatus !== '' ? 'Link copiado!'
+            : <img alt="Ícone do botão compartilhar" src={ shareIcon } /> }
         </button>
         &nbsp;  &nbsp;
         <button
-          // data-testid="favorite-btn"
           type="button"
-          // src={ favoriteBtnSrc }
           onClick={ () => this.changefavoriteBtn() }
           aria-label="Botão de favoritar"
         >
