@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import DoneRecipeToLSDrink from './DoneRecipeToLSDrink';
-import ShareBtn from './FavoriteBtn';
-import FavoriteBtn from './ShareBtn';
+import ShareBtn from './ShareBtn';
+import FavoriteBtn from './FavoriteBtn';
 import DrinkCarrossel from './DrinkCarrossel';
 import FetchApi from '../services/ApiFetch';
 
@@ -50,8 +50,8 @@ function DrinkDetailsCard({ details, mealIngredients, mealMeasure, id }) {
         />
         <h3 data-testid="recipe-title">{ details[0].strDrink }</h3>
         <div className="details-btn-container">
+          <FavoriteBtn details={ details } gatilho="drink" />
           <ShareBtn />
-          <FavoriteBtn />
         </div>
         <h4>
           Category:
