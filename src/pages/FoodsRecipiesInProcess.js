@@ -50,6 +50,7 @@ class FoodsRecipiesInProcess extends React.Component {
     const ingredientKeys = Object.entries(DoRecipe.meals[0])
       .filter((igredients) => igredients[0]
         .includes('strIngredient') && igredients[1]);
+    console.log(ingredientKeys);
     this.setState({ ingredientState: ingredientKeys });
     let filter = [];
     if (stockFoods.some((i) => i === name)) {
