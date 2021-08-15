@@ -23,7 +23,7 @@ function DoneRecipesRender({ filter }) {
   function copyUrl({ dataset }) {
     const { recipetype, recipeid } = dataset;
     const TWO_SECONDS = 2000;
-    copy(`http://localhost:3000/${recipetype}s/${recipeid}`);
+    copy(`${window.location.origin}/${recipetype}s/${recipeid}`);
     setCopyLink(true);
     setTimeout(() => {
       setCopyLink(false);
