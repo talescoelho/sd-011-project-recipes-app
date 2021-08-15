@@ -13,7 +13,7 @@ import '../css/footerMenu.css';
 
 function MealDetails({ match: { params } }) {
   const [MealDataAPI, setMealDadaAPI] = useState({});
-  const [isMealDone, setIsMealsDone] = useState(false);
+  // const [isMealDone, setIsMealsDone] = useState(false);
   const [isMealStarted, setIsMealStarted] = useState(false);
   const objectRecipe = {
     id: MealDataAPI.idMeal,
@@ -36,15 +36,15 @@ function MealDetails({ match: { params } }) {
       setIsMealStarted(isInProgress);
     }
   }
-  function verifyRecipeDone(id) {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (doneRecipes !== null) {
-      const filter = doneRecipes.filter((recipe) => recipe.id === id);
-      if (filter.length >= 1) {
-        setIsMealsDone(true);
-      }
-    }
-  }
+  // function verifyRecipeDone(id) {
+  //   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  //   if (doneRecipes !== null) {
+  //     const filter = doneRecipes.filter((recipe) => recipe.id === id);
+  //     if (filter.length >= 1) {
+  //       setIsMealsDone(true);
+  //     }
+  //   }
+  // }
   // function renderButton(comand) {
   //   return (
   //     <button className="footer" type="button" data-testid="start-recipe-btn">
