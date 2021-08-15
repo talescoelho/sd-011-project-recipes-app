@@ -104,4 +104,5 @@ export default FavoriteBtn;
 FavoriteBtn.propTypes = {
   details: PropTypes.arrayOf(Array).isRequired,
   gatilho: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
