@@ -4,10 +4,11 @@ import ShareBtnIcon from '../images/shareIcon.svg';
 function ShareBtn() {
   function btnClickHandler() {
     const link = window.location.href;
-    navigator.clipboard.writeText(link);
+    const newLink = link.split('/in-progress')[0];
+    navigator.clipboard.writeText(newLink);
     const x = 'Link copiado!';
     document.getElementById('alert').innerHTML = x;
-    return navigator.clipboard.writeText(link);
+    return navigator.clipboard.writeText(newLink);
   }
 
   return (
