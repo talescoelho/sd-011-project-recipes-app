@@ -1,12 +1,21 @@
 import React from 'react';
 import Header from '../components/Header';
-import shareIcon from '../images/shareIcon.svg';
+import ShareBtnIcon from '../images/shareIcon.svg';
 
 export default function DoneRecipes() {
   let list = [];
   if (localStorage.doneRecipes) {
     list = JSON.parse(localStorage.doneRecipes);
     console.log(list);
+  }
+
+  function btnClickHandler(type) {
+    const infoArray = Object.values(type);
+    const link = `http://localhost:3000/${infoArray[0]}s/${infoArray[1]}`;
+    navigator.clipboard.writeText(link);
+    const x = 'Link copiado!';
+    document.getElementById('alert').innerHTML = x;
+    return navigator.clipboard.writeText(link);
   }
 
   return (
@@ -30,9 +39,9 @@ export default function DoneRecipes() {
                 <h4
                   data-testid={ `${index}-horizontal-top-text` }
                 >
-                  { recipe.type === 'comida'
+                  { recipe.area
                     ? `${recipe.area} - ${recipe.category}`
-                    : `${recipe.alcoholicOrNot} - ${recipe.category}` }
+                    : `${recipe.alcoholicOrNot} - ${recipe.category}`}
                 </h4>
                 <h3 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h3>
                 <h4
@@ -40,12 +49,23 @@ export default function DoneRecipes() {
                 >
                   { recipe.doneDate }
                 </h4>
-                <button
-                  type="button"
-                  data-testid={ `${index}-horizontal-share-btn` }
-                  src={ shareIcon }
-                  alt="compartilhar"
-                />
+                <div>
+                  <button
+                    type="button"
+                    value={ recipe.type }
+                    key={ recipe.id }
+                    onClick={ () => btnClickHandler(
+                      { type: recipe.type, id: recipe.id },
+                    ) }
+                  >
+                    <img
+                      data-testid={ `${index}-horizontal-share-btn` }
+                      src={ ShareBtnIcon }
+                      alt="icone Share"
+                    />
+                  </button>
+                  <p id="alert" />
+                </div>
                 {
                   recipe.tags.map((tag, tagIndex) => (
                     <h4
