@@ -54,6 +54,7 @@ function RecipeDetail({ history: { push, location: { pathname } },
     <div className="recipe-detail">
       <RecipeDetailMain
         recipeDetail={ recipeDetail }
+        id={ id }
       />
       <RecipesRecommended recipesRecommended={ recipesRecommended } />
       <button

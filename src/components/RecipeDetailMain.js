@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
+import { getFromStorage } from '../helpers/utils';
 
 const copy = require('clipboard-copy');
 
@@ -15,8 +16,13 @@ class RecipeDetailMain extends Component {
       shareBtnStatus: '',
     };
     this.main = this.main.bind(this);
-    this.changefavoriteBtn = this.changefavoriteBtn.bind(this);
+    this.handleFavoriteBtn = this.handleFavoriteBtn.bind(this);
+    this.changeFavoriteBtn = this.changeFavoriteBtn.bind(this);
     this.handleShareBtn = this.handleShareBtn.bind(this);
+  }
+
+  componentDidMount() {
+    this.changeFavoriteBtn();
   }
 
   handleShareBtn() {
@@ -26,9 +32,24 @@ class RecipeDetailMain extends Component {
     });
   }
 
-  changefavoriteBtn() {
+  handleFavoriteBtn() {
     const { favoriteBtnSrc } = this.state;
     if (favoriteBtnSrc === whiteHeartIcon) {
+      this.setState({
+        favoriteBtnSrc: blackHeartIcon,
+      });
+    } else {
+      this.setState({
+        favoriteBtnSrc: whiteHeartIcon,
+      });
+    }
+  }
+
+  changeFavoriteBtn() {
+    const { id } = this.props;
+    const favoriteRecipes = getFromStorage('favoriteRecipes') || [];
+    const hasId = favoriteRecipes.some((item) => (item.id === id));
+    if (hasId) {
       this.setState({
         favoriteBtnSrc: blackHeartIcon,
       });
@@ -88,7 +109,7 @@ class RecipeDetailMain extends Component {
         &nbsp;  &nbsp;
         <button
           type="button"
-          onClick={ () => this.changefavoriteBtn() }
+          onClick={ () => this.handleFavoriteBtn() }
           aria-label="Botão de favoritar"
         >
           <img
@@ -157,4 +178,5 @@ export default withRouter(RecipeDetailMain);
 
 RecipeDetailMain.propTypes = {
   recipeDetail: PropTypes.object,
+  id: PropTypes.string,
 }.isRequired;
