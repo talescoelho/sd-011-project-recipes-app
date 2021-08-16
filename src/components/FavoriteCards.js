@@ -4,8 +4,9 @@ import { useHistory } from 'react-router-dom';
 import ShareBtnIcon from '../images/shareIcon.svg';
 import FavoriteBtn from './FavoriteBtn';
 
-function FavoriteCards({ list }) {
+function FavoriteCards({ list, func }) {
   const history = useHistory();
+
   function btnClickHandler(type) {
     const infoArray = Object.values(type);
     const link = `http://localhost:3000/${infoArray[0]}s/${infoArray[1]}`;
@@ -14,10 +15,8 @@ function FavoriteCards({ list }) {
     document.getElementById('alert').innerHTML = x;
     return navigator.clipboard.writeText(link);
   }
-
   return (
     <div>
-      {console.log(list)}
       { list && list !== undefined
         ? list.map((recipe, index) => (
           <div key={ index }>
@@ -60,10 +59,11 @@ function FavoriteCards({ list }) {
               <p id="alert" />
             </div>
             <FavoriteBtn
-              details={ list }
+              details={ [recipe] }
               gatilho="favorite"
               id={ recipe.id }
               index={ index }
+              update={ func }
             />
             {
               recipe.tags ? recipe.tags.map((tag, tagIndex) => (
@@ -80,9 +80,8 @@ function FavoriteCards({ list }) {
     </div>
   );
 }
-
 export default FavoriteCards;
-
 FavoriteCards.propTypes = {
-  list: PropTypes.arrayOf(Array).isRequired,
-};
+  list: PropTypes.arrayOf(Array),
+  func: PropTypes.func,
+}.isRequired;

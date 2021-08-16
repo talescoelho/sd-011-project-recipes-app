@@ -27,6 +27,7 @@ class DrinksRecipiesInProcess extends React.Component {
     this.test = this.test.bind(this);
     this.inputOnClickHandler = this.inputOnClickHandler.bind(this);
     this.onclickFinishButton = this.onclickFinishButton.bind(this);
+    this.nada = this.nada.bind(this);
   }
 
   componentDidMount() {
@@ -38,6 +39,10 @@ class DrinksRecipiesInProcess extends React.Component {
     const { doRecipe } = this.state;
     DoneRecipeToLSDrink('bebida', doRecipe.drinks, id);
     this.setState({ redirectToDoneRecipe: true });
+  }
+
+  nada() {
+    console.log('não estou fazendo nada');
   }
 
   async test() {
@@ -145,6 +150,7 @@ class DrinksRecipiesInProcess extends React.Component {
           gatilho="bebida"
           id={ id }
           index={ -1 }
+          update={ this.nada }
         />
         <p data-testid="recipe-category">{ doRecipe.drinks[0].strCategory }</p>
         <div className="ul-container">

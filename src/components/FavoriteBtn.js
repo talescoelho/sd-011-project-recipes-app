@@ -3,17 +3,16 @@ import PropTypes from 'prop-types';
 import White from '../images/whiteHeartIcon.svg';
 import Black from '../images/blackHeartIcon.svg';
 
-function FavoriteBtn({ details, gatilho, id }) {
+function FavoriteBtn({ details, gatilho, id, index, update }) {
   const [vamosBrincar, setVamosBrincar] = useState(false);
+  const magicNumber = -1;
   let favoritedRecipes = [];
   let recipeId = '';
   let recipeType = ''; let recipeArea = ''; let recipeCategory = '';
   let recipeAlcoholicOrNot = ''; let recipeName = ''; let recipeImg = '';
-
   useEffect(() => {
     setVamosBrincar(false);
-  }, [vamosBrincar]);
-
+  }, [vamosBrincar, index]);
   if (gatilho !== undefined) {
     switch (gatilho) {
     case 'favorite':
@@ -47,9 +46,9 @@ function FavoriteBtn({ details, gatilho, id }) {
       break;
     }
   }
-
   function btnClickHandler() {
     let inicial = true;
+    update(true);
     if (!localStorage.favoriteRecipes
         || JSON.parse(localStorage.favoriteRecipes).length < 1) {
       const obj1 = [{
@@ -62,7 +61,6 @@ function FavoriteBtn({ details, gatilho, id }) {
         image: recipeImg,
       }];
       localStorage.favoriteRecipes = JSON.stringify(obj1);
-
       inicial = false;
     }
     if (inicial) {
@@ -87,12 +85,10 @@ function FavoriteBtn({ details, gatilho, id }) {
     }
     setVamosBrincar(true);
   }
-
   if (localStorage.favoriteRecipes) {
     const prev = JSON.parse(localStorage.favoriteRecipes);
     favoritedRecipes = [...prev];
   }
-
   return (
     <div>
       <button
@@ -100,7 +96,8 @@ function FavoriteBtn({ details, gatilho, id }) {
         onClick={ btnClickHandler }
       >
         <img
-          data-testid="favorite-btn"
+          data-testid={ index > magicNumber
+            ? `${index}-horizontal-favorite-btn` : 'favorite-btn' }
           src={ favoritedRecipes.some((item) => item.id === id) ? Black : White }
           alt="icone Share"
         />
@@ -109,7 +106,6 @@ function FavoriteBtn({ details, gatilho, id }) {
   );
 }
 export default FavoriteBtn;
-
 FavoriteBtn.propTypes = {
   details: PropTypes.arrayOf(Array),
   gatilho: PropTypes.string,
