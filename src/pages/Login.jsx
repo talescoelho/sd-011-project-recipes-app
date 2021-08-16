@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import LoginAux from '../components/LoginAux';
+import { Button, Form } from 'react-bootstrap';
+import LoginAux from '../components/Login/LoginAux';
 import { saveEmail } from '../redux/actions';
 
 const Login = () => {
@@ -20,7 +21,7 @@ const Login = () => {
       else buttonState(true);
     };
     emailCheck();
-  }, []);
+  }, [password, email]);
 
   function handleClick() {
     const emailAux = { email };
@@ -35,34 +36,32 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <form>
-        <LoginAux
-          name="email"
-          type="email"
-          data-testid="email-input"
-          setValue={ emailSet }
-          label="Email:"
-        />
-        <br />
-        <LoginAux
-          name="password"
-          type="password"
-          data-testid="password-input"
-          setValue={ passSet }
-          label="Senha:"
-        />
-        <br />
-        <button
-          type="button"
-          data-testid="login-submit-btn"
-          disabled={ disabled }
-          onClick={ handleClick }
-        >
-          Entrar
-        </button>
-      </form>
-    </div>
+    <Form>
+      <LoginAux
+        name="email"
+        type="email"
+        data-testid="email-input"
+        setValue={ emailSet }
+        label="Email:"
+      />
+      <br />
+      <LoginAux
+        name="password"
+        type="password"
+        data-testid="password-input"
+        setValue={ passSet }
+        label="Senha:"
+      />
+      <br />
+      <Button
+        type="button"
+        data-testid="login-submit-btn"
+        disabled={ disabled }
+        onClick={ handleClick }
+      >
+        Entrar
+      </Button>
+    </Form>
   );
 };
 

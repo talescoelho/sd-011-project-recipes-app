@@ -13,7 +13,7 @@ import {
   fetchByFirstLetter,
 } from '../redux/actions/IngredientsApiAction';
 
-import FilterMenu from '../components/FilterMenu';
+import FilterMenu from '../components/common/FilterMenu';
 import Footer from '../components/common/Footer';
 import Header from '../components/Header/Header';
 import RecipeCard from '../components/common/RecipeCard';

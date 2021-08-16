@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/components/filterMenu.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import '../../styles/components/filterMenu.css';
 
 const FilterMenu = ({
   dispatch,
