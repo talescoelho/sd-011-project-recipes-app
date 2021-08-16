@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 import White from '../images/whiteHeartIcon.svg';
 import Black from '../images/blackHeartIcon.svg';
 
-function FavoriteBtn({ details, gatilho, id }) {
+function FavoriteBtn({ details, gatilho, id, index }) {
   const [vamosBrincar, setVamosBrincar] = useState(false);
+  const magicNumber = -1;
   let favoritedRecipes = [];
   let recipeId = '';
   let recipeType = ''; let recipeArea = ''; let recipeCategory = '';
   let recipeAlcoholicOrNot = ''; let recipeName = ''; let recipeImg = '';
   useEffect(() => {
+    console.log(index);
     setVamosBrincar(false);
-  }, [vamosBrincar]);
+  }, [vamosBrincar, index]);
   if (gatilho !== undefined) {
     switch (gatilho) {
     case 'favorite':
@@ -94,7 +96,7 @@ function FavoriteBtn({ details, gatilho, id }) {
         onClick={ btnClickHandler }
       >
         <img
-          data-testid="favorite-btn"
+          data-testid={ index > magicNumber ? `${index}-horizontal-favorite-btn` : 'favorite-btn' }
           src={ favoritedRecipes.some((item) => item.id === id) ? Black : White }
           alt="icone Share"
         />

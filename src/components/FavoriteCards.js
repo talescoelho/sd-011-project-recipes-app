@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import ShareBtnIcon from '../images/shareIcon.svg';
 import FavoriteBtn from './FavoriteBtn';
+
 function FavoriteCards({ list }) {
   const history = useHistory();
   function btnClickHandler(type) {
@@ -15,7 +16,6 @@ function FavoriteCards({ list }) {
   }
   return (
     <div>
-      {console.log(list)}
       { list && list !== undefined
         ? list.map((recipe, index) => (
           <div key={ index }>
@@ -57,9 +57,12 @@ function FavoriteCards({ list }) {
               </button>
               <p id="alert" />
             </div>
-            <div data-testid={ `${index}-horizontal-favorite-btn` }>
-              <FavoriteBtn details={ list } gatilho="favorite" id={ recipe.id } />
-            </div>
+            <FavoriteBtn
+              details={ list }
+              gatilho="favorite"
+              id={ recipe.id }
+              index={ index }
+            />
             {
               recipe.tags ? recipe.tags.map((tag, tagIndex) => (
                 <h4
