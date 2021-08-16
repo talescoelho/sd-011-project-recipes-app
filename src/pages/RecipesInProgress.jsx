@@ -6,6 +6,7 @@ import ShareAndFavButtons from '../components/subcomponents/ShareAndFavButtons';
 import { storageMeals, storageCocktails } from '../helpers/LocalStorageIngredients';
 
 function RecipesInProgress() {
+  const { id } = useParams();
   const history = useHistory();
   const { location: { pathname } } = history;
   const [returnedDetail, setReturnedDetail] = useState({});
@@ -14,7 +15,6 @@ function RecipesInProgress() {
   const [typeFoods, setTypeFoods] = useState('');
   const [recipe, setRecipe] = useState('');
   const [inProgressRecipes, setInprogressRecipes] = useState();
-  const { id } = useParams();
   const [btnDoneRecipe, setBtnDoneRecipe] = useState(true);
   const [checkedIngredients, setCheckedIngredients] = useState([]);
 

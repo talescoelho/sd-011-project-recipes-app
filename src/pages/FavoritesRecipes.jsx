@@ -23,7 +23,8 @@ function FavoritesRecipes() {
   function copyUrlToClipboard() {
     const { type, id } = FavoriteRecipes[0];
     setLinkCopied('Link copiado!');
-    navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
+    navigator.clipboard.writeText(window.location.href
+      .replace('receitas-favoritas', `${type}s/${id}`));
   }
 
   function mealInfo(index, category, area) {

@@ -21,7 +21,8 @@ function DoneRecipes() {
   function copyUrlToClipboard() {
     const { type, id } = doneRecipes[0];
     setLinkCopied('Link copiado!');
-    navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
+    navigator.clipboard.writeText(window.location.href
+      .replace('receitas-feitas', `${type}s/${id}`));
   }
 
   function mealInfo(index, category, area) {

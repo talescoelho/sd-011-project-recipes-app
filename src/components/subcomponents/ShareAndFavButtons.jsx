@@ -21,8 +21,7 @@ function ShareAndFavButtons(props) {
 
   function copyUrlToClipboard() {
     setLinkCopied('Link copiado!');
-    // verificar possibilidade de obter a url completa para qualquer servidor
-    navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
+    navigator.clipboard.writeText(window.location.href.replace('/in-progress', ''));
   }
 
   const addOrRemoveFavoriteRecipe = () => {

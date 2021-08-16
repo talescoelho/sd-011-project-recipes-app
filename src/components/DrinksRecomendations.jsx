@@ -37,7 +37,7 @@ function DrinksRecomendations(props) {
 }
 
 DrinksRecomendations.propTypes = ({
-  recomendations: PropTypes.arrayOf.isRequired,
+  recomendations: PropTypes.arrayOf(PropTypes.object).isRequired,
 });
 
 export default DrinksRecomendations;
