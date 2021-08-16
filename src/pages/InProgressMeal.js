@@ -7,6 +7,7 @@ import DetailsShareMeals from '../components/details/DetailsShareMeals';
 import RecipesContext from '../context/RecipesContext';
 import '../styles/components/footer.css';
 import backPage from '../images/arrow-undo-circle-outline.svg';
+import Loading from '../components/Loading';
 
 function InProgressMeal() {
   const {
@@ -21,6 +22,28 @@ function InProgressMeal() {
   useEffect(() => {
     getMealId(id);
   }, [getMealId, id]);
+
+  function alreadyDone() {
+    const date = new Date();
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const doneRecipe = [{
+      id: mealId.idMeal,
+      type: 'comida',
+      area: mealId.strArea,
+      category: mealId.strCategory,
+      alcoholicOrNot: '',
+      name: mealId.strMeal,
+      image: mealId.strMealThumb,
+      doneDate: `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`,
+      tags: (mealId.strTags !== null) ? [mealId.strTags] : [''],
+    }];
+    if (doneRecipes === null) {
+      localStorage.setItem('doneRecipes', JSON.stringify(doneRecipe));
+    } else {
+      doneRecipes.push(doneRecipe[0]);
+      localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    }
+  }
 
   return (
     <div>
@@ -51,6 +74,7 @@ function InProgressMeal() {
             data-testid="finish-recipe-btn"
             type="button"
             onClick={ () => {
+              alreadyDone();
               history
                 .push('/receitas-feitas');
             } }
@@ -59,7 +83,7 @@ function InProgressMeal() {
             Finalizar receita
           </button>
         </div>
-      ) : 'Carregando...' }
+      ) : (<Loading />) }
     </div>
   );
 }

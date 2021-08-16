@@ -9,6 +9,7 @@ import DetailsDrinkIngredientList
 import '../styles/components/footer.css';
 import RecipesContext from '../context/RecipesContext';
 import backPage from '../images/arrow-undo-circle-outline.svg';
+import Loading from '../components/Loading';
 
 function InProgressDrink() {
   const {
@@ -23,6 +24,28 @@ function InProgressDrink() {
   useEffect(() => {
     getDrinkId(id);
   }, [getDrinkId, id]);
+
+  function alreadyDone() {
+    const date = new Date();
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const doneRecipe = [{
+      id: drinkId.idDrink,
+      type: 'bebida',
+      area: '',
+      category: drinkId.strCategory,
+      alcoholicOrNot: drinkId.strAlcoholic,
+      name: drinkId.strDrink,
+      image: drinkId.strDrinkThumb,
+      doneDate: `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`,
+      tags: (drinkId.strTags !== null) ? [drinkId.strTags] : [''],
+    }];
+    if (doneRecipes === null) {
+      localStorage.setItem('doneRecipes', JSON.stringify(doneRecipe));
+    } else {
+      doneRecipes.push(doneRecipe[0]);
+      localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    }
+  }
 
   return (
     <div>
@@ -53,6 +76,7 @@ function InProgressDrink() {
             data-testid="finish-recipe-btn"
             type="button"
             onClick={ () => {
+              alreadyDone();
               history
                 .push('/receitas-feitas');
             } }
@@ -61,7 +85,7 @@ function InProgressDrink() {
             Finalizar receita
           </button>
         </div>
-      ) : 'Carregando...' }
+      ) : (<Loading />) }
     </div>
   );
 }
