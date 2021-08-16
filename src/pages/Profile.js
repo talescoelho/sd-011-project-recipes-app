@@ -3,13 +3,23 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function Profile() {
+  function getUserEmail() {
+    return JSON.parse(localStorage.getItem('user')).email;
+  }
+
+  getUserEmail();
+
   return (
     <>
       <Header withSearch={ false } pageTitle="Perfil" />
       <main>
-        <h1>Perfil</h1>
         <br />
-        <span data-testid="profile-email"> email aqui </span>
+        <span>E-mail:</span>
+        &nbsp;
+        &nbsp;
+        <span data-testid="profile-email">
+          { getUserEmail() }
+        </span>
         <br />
         <br />
         <br />
