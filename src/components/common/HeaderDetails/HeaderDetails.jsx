@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -24,6 +24,7 @@ const HeaderDetails = (
     favoriteDrink,
     drinkOrFood,
   );
+  const [menssage, setMenssage] = useState(null);
   const history = useHistory();
   useEffect(() => {
     const favoritedStore = localStorage.favoriteRecipes;
@@ -36,6 +37,15 @@ const HeaderDetails = (
       }
     }
   }, [history.location.pathname, setFavoriteTrue]);
+
+  const handleClipboard = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setMenssage('Link copiado!');
+    const time = 3000;
+    setTimeout(() => {
+      setMenssage(null);
+    }, time);
+  };
 
   return (
     <header>
@@ -55,6 +65,7 @@ const HeaderDetails = (
       <h6 data-testid="recipe-category">{category}</h6>
       <button
         type="button"
+        onClick={ () => handleClipboard() }
       >
         <img
           data-testid="share-btn"
@@ -76,6 +87,7 @@ const HeaderDetails = (
           alt="Icon to favorite foods"
         />
       </button>
+      <span>{menssage}</span>
     </header>
   );
 };
