@@ -1,16 +1,10 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { act } from 'react-dom/test-utils';
-import { screen } from '@testing-library/react';
-// import oneDrink from '../../cypress/mocks/oneDrink';
+import { cleanup, fireEvent, wait } from '@testing-library/react';
+import oneDrink from '../../cypress/mocks/oneDrink';
 import renderWithRouter from './renderWithRouter';
 import DrinkDetails from '../pages/bebidas/recipeId';
-
-// const mealResponse = Promise.resolve({
-//   json: () => Promise.resolve(oneMeal),
-// });
-
-// const mockOneMeal = jest.spyOn(global, 'fetch').mockImplementation(() => mealResponse);
 
 const match = {
   params: {
@@ -26,44 +20,81 @@ const RECIPE_CATEGORY = 'recipe-category';
 const INSTRUCTIONS = 'instructions';
 const START_RECIPE_BTN = 'start-recipe-btn';
 const INGREDIENTS = ['0', '1', '2'];
-const RECOMENDATIONS = ['0', '1', '2', '3', '4', '5', '6'];
+const RECOMENDATION0 = '0-recomendation-card';
+const RECOMENDATION1 = '1-recomendation-card';
+const RECOMENDATION2 = '2-recomendation-card';
+const RECOMENDATION3 = '3-recomendation-card';
+const RECOMENDATION4 = '4-recomendation-card';
+const RECOMENDATION5 = '5-recomendation-card';
+const IN_PROGRESS_PATH = '/bebidas/178319/in-progress';
+const API_MAX_CALLS = 3;
 
-const history = createMemoryHistory({ initialEntries: ['/bebidas/178319'] });
+const testHistory = createMemoryHistory({ initialEntries: ['/bebidas/178319'] });
 
 // afterEach(() => jest.clearAllMocks());
 
 describe('Testa a página de detalhes da receita', () => {
+  const inProgressDrink = {
+    cocktails: {
+      178319: [0],
+    },
+    meals: {},
+  };
+
+  const doneDrink = [{
+    id: '178319',
+    type: 'bebida',
+    area: '',
+    category: 'Cocktail',
+    alcoholicOrNot: 'Alcoholic',
+    name: 'Aquamarine',
+    image: 'https: //www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+    doneDate: '8/16/2021',
+    tags: [],
+  }];
+
+  const mealResponse = {
+    json: jest.fn().mockResolvedValue(oneDrink),
+  };
+  const mockOneMeal = jest.spyOn(global, 'fetch');
+  mockOneMeal.mockResolvedValueOnce(mealResponse);
+
+  afterEach(cleanup);
+
   it('Testa se o elemento de loading está na tela', () => {
-    renderWithRouter(<DrinkDetails match={ match } />, history);
-    const loading = screen.getByText(/Loading/i);
+    const {
+      getByText,
+    } = renderWithRouter(<DrinkDetails match={ match } />, testHistory);
+    const loading = getByText(/Loading/i);
 
     expect(loading).toBeInTheDocument();
   });
 
   it('Testa se os elementos corretos estão todos na tela', async () => {
-    await act(async () => {
-      renderWithRouter(<DrinkDetails match={ match } />, history);
-    });
-    const ingredientsString = await screen.findByText(/Ingredientes/i);
-    const img = await screen.findByTestId(PHOTO_TEST_ID);
-    const title = await screen.findByTestId(RECIPE_TITLE);
-    const shareBtn = await screen.findByTestId(SHARE_BTN);
-    const favBtn = await screen.findByTestId(FAV_BTN);
-    const category = await screen.findByTestId(RECIPE_CATEGORY);
-    const instructions = await screen.findByTestId(INSTRUCTIONS);
-    const startBtn = await screen.findByTestId(START_RECIPE_BTN);
+    const {
+      findByTestId,
+      findByText,
+    } = renderWithRouter(<DrinkDetails match={ match } />, testHistory);
+
+    const ingredientsString = await findByText(/Ingredientes/i);
+    const img = await findByTestId(PHOTO_TEST_ID);
+    const title = await findByTestId(RECIPE_TITLE);
+    const shareBtn = await findByTestId(SHARE_BTN);
+    const favBtn = await findByTestId(FAV_BTN);
+    const category = await findByTestId(RECIPE_CATEGORY);
+    const instructions = await findByTestId(INSTRUCTIONS);
+    const startBtn = await findByTestId(START_RECIPE_BTN);
+    const recomendation0 = await findByTestId(RECOMENDATION0);
+    const recomendation1 = await findByTestId(RECOMENDATION1);
+    const recomendation2 = await findByTestId(RECOMENDATION2);
+    const recomendation3 = await findByTestId(RECOMENDATION3);
+    const recomendation4 = await findByTestId(RECOMENDATION4);
+    const recomendation5 = await findByTestId(RECOMENDATION5);
 
     await act(async () => {
       INGREDIENTS.forEach(async (el) => {
-        const ingredient = await screen.findByTestId(`${el}-ingredient-name-and-measure`);
+        const ingredient = await findByTestId(`${el}-ingredient-name-and-measure`);
         expect(ingredient).toBeInTheDocument();
-      });
-    });
-
-    act(() => {
-      RECOMENDATIONS.forEach(async (el) => {
-        const recomendation = await screen.findByTestId(`${el}-recomendation-card`);
-        expect(recomendation).toBeInTheDocument();
       });
     });
 
@@ -77,6 +108,45 @@ describe('Testa a página de detalhes da receita', () => {
     expect(category).toBeInTheDocument();
     expect(instructions).toBeInTheDocument();
     expect(startBtn).toBeInTheDocument();
-    // expect(mockOneMeal).toBeCalled();
+    expect(recomendation0).toBeInTheDocument();
+    expect(recomendation1).toBeInTheDocument();
+    expect(recomendation2).toBeInTheDocument();
+    expect(recomendation3).toBeInTheDocument();
+    expect(recomendation4).toBeInTheDocument();
+    expect(recomendation5).toBeInTheDocument();
+    expect(mockOneMeal).toBeCalled();
+    expect(mockOneMeal).toBeCalledTimes(API_MAX_CALLS);
+  });
+
+  it('Botão deve iniciar como iniciar receita e após o click, continuar receita',
+    async () => {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressDrink));
+      const {
+        findByTestId,
+      } = renderWithRouter(<DrinkDetails match={ match } />, testHistory);
+      const startBtnBefore = await findByTestId(START_RECIPE_BTN);
+      expect(startBtnBefore).toHaveTextContent('Continuar Receita');
+    });
+
+  it('Espera que o botão de iniciar ou continuar receita não exista', async () => {
+    localStorage.setItem('doneRecipes', JSON.stringify(doneDrink));
+    const {
+      queryByTestId,
+    } = renderWithRouter(<DrinkDetails match={ match } />, testHistory);
+    await wait(() => {
+      const startBtn = queryByTestId(START_RECIPE_BTN);
+      expect(startBtn).not.toBeInTheDocument();
+    });
+  });
+
+  it('Espera que a página seja redirecionada corretamente', async () => {
+    localStorage.clear();
+    const {
+      findByTestId,
+      history,
+    } = renderWithRouter(<DrinkDetails match={ match } />, testHistory);
+    const startBtn = await findByTestId(START_RECIPE_BTN);
+    fireEvent.click(startBtn);
+    expect(history.location.pathname).toEqual(IN_PROGRESS_PATH);
   });
 });
