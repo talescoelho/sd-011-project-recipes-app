@@ -14,8 +14,9 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
   const [recomendation, setRecomendation] = useState();
   const [doneRecipe, setDoneRecipe] = useState();
   const [inProgress, setInProgress] = useState();
+  const [nada, setnada] = useState(false);
   const history = useHistory();
-
+  console.log(nada);
   useEffect(() => {
     const foodID = id;
     if (localStorage.inProgressRecipes
@@ -63,7 +64,13 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
         <h3 data-testid="recipe-title">{ details[0].strMeal }</h3>
         <div className="details-btn-container">
           <ShareBtn />
-          <FavoriteBtn details={ details } gatilho="comida" id={ id } index={ -1 } />
+          <FavoriteBtn
+            details={ details }
+            gatilho="comida"
+            id={ id }
+            index={ -1 }
+            update={ setnada }
+          />
         </div>
         <h4 data-testid="recipe-category">
           Category:

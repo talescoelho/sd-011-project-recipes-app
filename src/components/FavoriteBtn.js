@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import White from '../images/whiteHeartIcon.svg';
 import Black from '../images/blackHeartIcon.svg';
 
-function FavoriteBtn({ details, gatilho, id, index }) {
+function FavoriteBtn({ details, gatilho, id, index, update }) {
   const [vamosBrincar, setVamosBrincar] = useState(false);
   const magicNumber = -1;
   let favoritedRecipes = [];
@@ -11,7 +11,6 @@ function FavoriteBtn({ details, gatilho, id, index }) {
   let recipeType = ''; let recipeArea = ''; let recipeCategory = '';
   let recipeAlcoholicOrNot = ''; let recipeName = ''; let recipeImg = '';
   useEffect(() => {
-    console.log(index);
     setVamosBrincar(false);
   }, [vamosBrincar, index]);
   if (gatilho !== undefined) {
@@ -49,6 +48,7 @@ function FavoriteBtn({ details, gatilho, id, index }) {
   }
   function btnClickHandler() {
     let inicial = true;
+    update(true);
     if (!localStorage.favoriteRecipes
         || JSON.parse(localStorage.favoriteRecipes).length < 1) {
       const obj1 = [{

@@ -26,6 +26,7 @@ class FoodsRecipiesInProcess extends React.Component {
     this.test = this.test.bind(this);
     this.changeRow = this.changeRow.bind(this);
     this.onclickFinishButton = this.onclickFinishButton.bind(this);
+    this.nada = this.nada.bind(this);
   }
 
   componentDidMount() {
@@ -37,6 +38,10 @@ class FoodsRecipiesInProcess extends React.Component {
     const { doRecipe } = this.state;
     DoneRecipeToLSFood('comida', doRecipe.meals, id);
     this.setState({ redirectToDoneRecipe: true });
+  }
+
+  nada() {
+    console.log('não estou fazendo nada');
   }
 
   async test() {
@@ -125,7 +130,13 @@ class FoodsRecipiesInProcess extends React.Component {
         />
         <h1 data-testid="recipe-title">{ doRecipe.meals[0].strDrink }</h1>
         <ShareBtn />
-        <FavoriteBtn details={ doRecipe.meals } gatilho="comida" id={ id } index={ -1 } />
+        <FavoriteBtn
+          details={ doRecipe.meals }
+          gatilho="comida"
+          id={ id }
+          index={ -1 }
+          update={ this.nada }
+        />
         <p data-testid="recipe-category">{ doRecipe.meals[0].strCategory }</p>
         <div className="ul-container">
           <ul id="input-checkbox">

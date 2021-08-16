@@ -6,6 +6,7 @@ export default function Favorites() {
   const [favoriteRecipe, setfavoriteRecipe] = useState([]);
   const [filter, setFilter] = useState('all');
   const [fetching, setfetching] = useState(true);
+  const [update, setUpdate] = useState(false);
   useEffect(() => {
     if (localStorage.favoriteRecipes && fetching) {
       const listFromLS = JSON.parse(localStorage.favoriteRecipes);
@@ -13,6 +14,10 @@ export default function Favorites() {
       setfetching(false);
     }
   }, [fetching]);
+  useEffect(() => {
+    setUpdate(false);
+    setfavoriteRecipe(JSON.parse(localStorage.favoriteRecipes));
+  }, [update]);
   useEffect(() => {
     if (localStorage.favoriteRecipes) {
       if (filter === 'all') {
@@ -56,7 +61,7 @@ export default function Favorites() {
             Drinks
           </button>
         </div>
-        <FavoriteCards list={ favoriteRecipe } />
+        <FavoriteCards list={ favoriteRecipe } func={ setUpdate } />
       </div>
     );
   }

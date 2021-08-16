@@ -5,8 +5,10 @@ import Footer from '../components/Footer';
 
 export default function Profile() {
   const [email, setEmail] = useState('');
-  if (localStorage.user) {
-    setEmail(Object.values(JSON.parse(localStorage.user)[0]));
+  const [antiLoop, setAntiLoop] = useState(false);
+  if (localStorage.user && !antiLoop) {
+    setEmail(JSON.parse(localStorage.user).email);
+    setAntiLoop(true);
   }
   return (
     <main>
