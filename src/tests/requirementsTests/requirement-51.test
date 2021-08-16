@@ -55,7 +55,7 @@ afterEach(() => {
   global.navigator.clipboard = originalClipboard;
 });
 
-describe(`51 - Develop favorite and share logic, recipe detail screen logic applies 
+describe(`51 - Develop favorite and share logic, recipe detail screen logic applies
 here`, () => {
   it('Checks if the buttons are available on a food\'s details screen',
     async () => {
@@ -72,7 +72,7 @@ here`, () => {
     expect(await screen.findByTestId(favoriteBtnTestId)).toBeInTheDocument();
   });
 
-  it(`Check the message "Link copiado!" and if the food recipe link was copied to the 
+  it(`Check the message "Link copiado!" and if the food recipe link was copied to the
   clipboard`,
   async () => {
     renderWithRouterAndStore(<App />, foodInProgressPathName);
@@ -85,7 +85,7 @@ here`, () => {
       .toHaveBeenCalledWith(expect.stringContaining('/comidas/52977/in-progress'));
   });
 
-  it(`Check the message "Link Copiado!" and if the drink recipe link was copied to the 
+  it(`Check the message "Link Copiado!" and if the drink recipe link was copied to the
   clipboard`,
   async () => {
     renderWithRouterAndStore(<App />, drinkInProgressPathName);

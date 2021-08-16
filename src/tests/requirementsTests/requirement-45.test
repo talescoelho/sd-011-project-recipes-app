@@ -29,8 +29,8 @@ jest
 afterEach(() => jest.clearAllMocks());
 beforeEach(() => jest.clearAllMocks());
 
-describe(`45 - Implement the logic on the bookmark button, if clicked, the heart 
-icon should change its current state, if filled it should change to "unfilled" 
+describe(`45 - Implement the logic on the bookmark button, if clicked, the heart
+icon should change its current state, if filled it should change to "unfilled"
 and vice versa`, () => {
   it('Favorite food', () => {
     renderWithRouterAndStore(<App />, { route: mockMealPath });

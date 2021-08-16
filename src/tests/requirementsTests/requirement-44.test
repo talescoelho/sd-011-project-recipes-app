@@ -29,7 +29,7 @@ jest
 afterEach(() => jest.clearAllMocks());
 beforeEach(() => jest.clearAllMocks());
 
-describe(`44 - Implement the heart icon (favorite) so that it must be filled in if the 
+describe(`44 - Implement the heart icon (favorite) so that it must be filled in if the
 recipe is favorited and "unfilled" otherwise`, () => {
   it('Check if the favorite food comes with the heart filled', () => {
     renderWithRouterAndStore(<App />, { route: mockMealPath });
