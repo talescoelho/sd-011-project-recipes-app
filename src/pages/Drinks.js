@@ -11,8 +11,19 @@ export default function Drinks() {
   const qty = 12;
   const recipes = useSelector((state) => state.Mechanics.searcResults);
   const dispatch = useDispatch();
+  const recipesByIngredient = useSelector((state) => (
+    state.Mechanics.recipeByIngredientName));
+
   useEffect(() => {
     async function fetchApi() {
+      if (recipesByIngredient) {
+        const results = await FetchApi('thecocktaildb', 'ingrediente', recipesByIngredient);
+        dispatch({
+          type: 'MODIFY_SEARCH_RESULTS',
+          payload: results,
+        });
+        return;
+      }
       const results = await FetchApi('thecocktaildb', 'nome', '');
       dispatch({
         type: 'MODIFY_SEARCH_RESULTS',

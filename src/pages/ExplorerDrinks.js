@@ -30,7 +30,10 @@ export default function ExplorerDrinks() {
         </button>
       </Link>
       <Link to={ `/bebidas/${random.idDrink}` }>
-        <button type="button" data-testid="explore-surprise">
+        <button
+          type="button"
+          data-testid="explore-surprise"
+        >
           Me Surpreenda!
         </button>
       </Link>

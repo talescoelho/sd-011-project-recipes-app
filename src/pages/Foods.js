@@ -11,9 +11,21 @@ export default function Foods() {
   const qty = 12;
   const dispatch = useDispatch();
   const recipes = useSelector((state) => state.Mechanics.searcResults);
+  const recipesByIngredient = useSelector((state) => (
+    state.Mechanics.recipeByIngredientName));
 
   useEffect(() => {
     async function fetchApi() {
+      console.log(recipesByIngredient);
+      if (recipesByIngredient) {
+        console.log('entrei no ifão');
+        const results = await FetchApi('themealdb', 'ingrediente', recipesByIngredient);
+        dispatch({
+          type: 'MODIFY_SEARCH_RESULTS',
+          payload: results,
+        });
+        return;
+      }
       const results = await FetchApi('themealdb', 'nome', '');
       dispatch({
         type: 'MODIFY_SEARCH_RESULTS',

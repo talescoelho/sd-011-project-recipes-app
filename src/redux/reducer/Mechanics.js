@@ -3,6 +3,7 @@ const INITIAL_STATE = {
   categoryList: [],
   recipeDetailsStore: [],
   recipeFoodMeasures: [],
+  recipeByIngredientName: null,
 };
 
 function Mechanics(state = INITIAL_STATE, action) {
@@ -23,6 +24,11 @@ function Mechanics(state = INITIAL_STATE, action) {
     return {
       ...state,
       recipeFoodMeasures: action.payload,
+    };
+  case 'SEND_INGREDIENT_NAME_TO_STORE':
+    return {
+      ...state,
+      recipeByIngredientName: action.name,
     };
   default:
     return state;
