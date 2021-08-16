@@ -22,6 +22,7 @@ class FoodsRecipiesInProcess extends React.Component {
       redirectToDoneRecipe: false,
       disabledButton: true,
       ingredientState: [],
+      measures: null,
     };
     this.test = this.test.bind(this);
     this.changeRow = this.changeRow.bind(this);
@@ -47,9 +48,20 @@ class FoodsRecipiesInProcess extends React.Component {
   async test() {
     const { match: { params: { id } } } = this.props;
     const obj = await FetchApi('themealdb', null, null, ['details', id]);
+    const measureArray = [];
+    const measureObj = obj.meals[0];
+    Object.keys(measureObj).forEach((item) => {
+      if (item.includes('strMeasure')) {
+        measureArray.push(measureObj[item]);
+      }
+    });
+    const filteredMeasures = measureArray
+      .filter((item2) => (
+        item2 !== ' ' && item2 !== '' && item2 !== null));
     this.setState({
       doRecipe: obj,
       componentMounted: true,
+      measures: filteredMeasures,
     });
     const ingredientKeys = Object.entries(obj.meals[0])
       .filter((igredients) => igredients[0]
@@ -114,7 +126,7 @@ class FoodsRecipiesInProcess extends React.Component {
   }
 
   renderAll() {
-    const { doRecipe, disabledButton } = this.state;
+    const { doRecipe, disabledButton, measures } = this.state;
     let ri = [];
     const { match: { params: { id } } } = this.props;
     if (localStorage.inProgressRecipes
@@ -127,6 +139,8 @@ class FoodsRecipiesInProcess extends React.Component {
           src={ doRecipe.meals[0].strMealThumb }
           alt={ doRecipe.meals[0].strMeal }
           data-testid="recipe-photo"
+          width="350px"
+          height="300px"
         />
         <h1 data-testid="recipe-title">{ doRecipe.meals[0].strDrink }</h1>
         <ShareBtn />
@@ -154,7 +168,7 @@ class FoodsRecipiesInProcess extends React.Component {
                     id={ `id1${index}` }
                     htmlFor={ `for${index}` }
                   >
-                    {e[1]}
+                    {`${e[1]} - ${measures[index]}`}
                     <input
                       defaultChecked={ ri.some((item) => item === e[1]) }
                       id={ `for${index}` }

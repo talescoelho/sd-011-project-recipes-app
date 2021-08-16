@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import FetchApi from '../services/ApiFetch';
 import FoodDetailsCard from '../components/FoodDetailsCard';
 
 export default function FoodsDetails(props) {
+  const dispatch = useDispatch();
   const { match: { params: { id } } } = props;
   const [details, setDetails] = useState();
   const [mealIngredients, setMealIngredients] = useState();
@@ -32,12 +34,17 @@ export default function FoodsDetails(props) {
       });
       const filteredIngredients = ingredients
         .filter((item2) => (
-          item2 !== '' && item2 !== null));
+          item2 !== ' ' && item2 !== '' && item2 !== null));
       setMealIngredients(filteredIngredients);
       const filteredMeasures = measure
         .filter((item2) => (
-          item2 !== '' && item2 !== null));
+          item2 !== ' ' && item2 !== '' && item2 !== null));
       setMealMeasure(filteredMeasures);
+      const teste = filteredMeasures;
+      dispatch({
+        type: 'SEND_FOOD_MEASURES_TO_STORE',
+        payload: teste,
+      });
     }
   }, [details]);
 
