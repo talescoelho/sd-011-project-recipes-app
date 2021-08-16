@@ -8,7 +8,7 @@ import Clipboard from '../components/Clipboard';
 
 function DetailsDrink(props) {
   const { match: { params: { id } } } = props;
-  const { initialItensFood, setInitialItensFood } = RequestHook();
+  const { initialItens, setInitialItens } = RequestHook();
   const [initialItemApi, setInitialItemApi] = useState([]);
   const limitItensRecomend = 6;
 
@@ -19,7 +19,7 @@ function DetailsDrink(props) {
 
   async function getAllCategories() {
     const items = await searchFoodsAll();
-    setInitialItensFood(items);
+    setInitialItens(items);
   }
 
   useEffect(() => {
@@ -89,7 +89,7 @@ function DetailsDrink(props) {
           </button>
           <div className="recomendation-card">
             {
-              initialItensFood && initialItensFood
+              initialItens && initialItens
                 .slice(0, limitItensRecomend)
                 .map((drinkRecomend, indexRec) => (
                   <button

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-// import { searchId } from '../services/RequestDrinks';
+import { searchDrinkById } from '../services/RequestDrinks';
 import '../styles/drink.css';
 
 function RecipeProgressDrink(props) {
@@ -11,7 +11,7 @@ function RecipeProgressDrink(props) {
   const [changeInputDrinkChecked, setchangeInputDrinkChecked] = useState('');
 
   async function getDetailsById() {
-    const itemsDrink = await searchId(id);
+    const itemsDrink = await searchDrinkById(id);
     setInitialItemApi(itemsDrink);
   }
 

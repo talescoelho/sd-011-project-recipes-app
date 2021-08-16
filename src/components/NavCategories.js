@@ -5,19 +5,20 @@ import { getCategoriesFood, searchByCategoryFood } from '../services/RequestFood
 import { RequestHook } from '../Context/RequestHook';
 
 function NavCategories({ origin }) {
+  const [clickedButton, setClickedButton] = useState('');
   const [category, setCategory] = useState([]);
   const { setFiltered, setByCategory } = RequestHook();
-  const MAX_RESULT = 5;
 
   useEffect(() => {
-    async function loadCategories() {
+    function loadCategories() {
+      let array;
       if (origin === 'Food') {
-        const request = await getCategoriesFood();
-        setCategory(request);
+        array = ['All', 'Beef', 'Breakfast', 'Chicken', 'Dessert', 'Goat'];
       } else if (origin === 'Drink') {
-        const request = await getCategoriesDrink();
-        setCategory(request);
+        array = ['All', 'Ordinary Drink', 'Cocktail',
+          'Milk / Float / Shake', 'Other/Unknown', 'Cocoa'];
       }
+      setCategory(array);
     }
     loadCategories();
   }, []);
@@ -38,35 +39,32 @@ function NavCategories({ origin }) {
     setFiltered(items);
   }
 
+  function handleClick({ value }) {
+    if (clickedButton === '') {
+      setClickedButton(value);
+      setByCategory((state) => !state);
+      searchByCategory(value);
+    } else if (clickedButton !== value) {
+      setClickedButton(value);
+      searchByCategory(value);
+    } else {
+      setByCategory((state) => !state);
+    }
+  }
+
   return (
     <div>
-      { category ? category.length >= 1 && category.slice(0, MAX_RESULT)
-        .map((item, index) => (
-          <button
-            type="button"
-            key={ index }
-            data-testid={ `${item.strCategory}-category-filter` }
-            value={ item.strCategory }
-            onClick={ (e) => {
-              searchByCategory(e.target.value);
-              setByCategory((state) => !state);
-            } }
-          >
-            { item.strCategory }
-          </button>
-        )) : <p>Loading...</p> }
-
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        value="All"
-        onClick={ (e) => {
-          searchByCategory(e.target.value);
-          setByCategory((state) => !state);
-        } }
-      >
-        All
-      </button>
+      { category.map((item, index) => (
+        <button
+          type="button"
+          key={ index }
+          data-testid={ `${item}-category-filter` }
+          value={ item }
+          onClick={ (e) => handleClick(e.target) }
+        >
+          { item }
+        </button>
+      ))}
     </div>
   );
 }

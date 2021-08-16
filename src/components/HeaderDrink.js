@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 import { RequestHook } from '../Context/RequestHook';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import {
+  searchDrinkByName,
+  searchDrinkByIngredient,
+  searchDrinkByFirstLetter } from '../services/RequestDrinks';
 
 function HeaderDrink({ title, search }) {
   const [showFilterInput, setShowFilter] = useState(false);
@@ -11,35 +15,39 @@ function HeaderDrink({ title, search }) {
   const [radio, setRadio] = useState('');
 
   const {
-    filtered,
+    setByFilter,
     setFiltered,
-    filterByNameDrink,
-    filterByIngredientDrink,
-    filterByFirstLetterDrink,
   } = RequestHook();
 
   const nameSearch = 'name-search';
   const firstLetter = 'first-letter';
   const ingredient = 'ingredient';
 
-  function handleButtonDrink(option) {
+  async function handleButtonDrink(option) {
+    let request;
     switch (option) {
     case (nameSearch):
-      setFiltered(filterByNameDrink(inputTextSearch));
-      if (filtered.length < 1) {
+      request = await searchDrinkByName(inputTextSearch);
+      if (request === null || request.length < 1) {
         alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
         break;
       }
+      setFiltered(request);
+      setByFilter(true);
       break;
     case (firstLetter):
       if (inputTextSearch.length > 1) {
         alert('Sua busca deve conter somente 1 (um) caracter');
         break;
       }
-      setFiltered(filterByFirstLetterDrink(inputTextSearch));
+      request = await searchDrinkByFirstLetter(inputTextSearch);
+      setFiltered(request);
+      setByFilter(true);
       break;
     case (ingredient):
-      setFiltered(filterByIngredientDrink(inputTextSearch));
+      request = await searchDrinkByIngredient(inputTextSearch);
+      setFiltered(request);
+      setByFilter(true);
       break;
     default:
       alert('Escolha uma opção de filtro!');

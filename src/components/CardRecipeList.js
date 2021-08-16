@@ -9,6 +9,7 @@ import { searchDrinksAll, searchDrinkByIngredient } from '../services/RequestDri
 function CardRecipeList({ origin }) {
   const {
     byCategory,
+    byFilter,
     ingredient,
     filtered,
     initialItens,
@@ -38,12 +39,12 @@ function CardRecipeList({ origin }) {
   }, []);
 
   function renderItems(array) {
-    if (array.length === 1) {
-      if (origin === 'Food') {
-        return (history.push(`comidas/${array[0].idMeal}`));
-      }
-      return (history.push(`bebidas/${array[0].idDrink}`));
-    }
+    // if (array.length === 1) {
+    //   if (origin === 'Food') {
+    //     return (history.push(`comidas/${array[0].idMeal}`));
+    //   }
+    //   return (history.push(`bebidas/${array[0].idDrink}`));
+    // }
     return (
       array.slice(0, MAX_RESULT).map((item, index) => (
         <CardRecipe key={ index } item={ item } index={ index } />)));
@@ -51,7 +52,7 @@ function CardRecipeList({ origin }) {
 
   return (
     <div>
-      { !byCategory ? renderItems(initialItens) : renderItems(filtered) }
+      { !(byCategory || byFilter) ? renderItems(initialItens) : renderItems(filtered) }
     </div>
   );
 }

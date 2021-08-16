@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactPlayer from 'react-player';
-
 import { searchById } from '../services/RequestFood';
 import { searchDrinksAll } from '../services/RequestDrinks';
-
 import { RequestHook } from '../Context/RequestHook';
 import CardRecipe from '../components/CardRecipe';
 import Clipboard from '../components/Clipboard';
 
 function DetailsFood(props) {
   const { match: { params: { id } } } = props;
-  const { initialItensDrink, setInitialItensDrink } = RequestHook();
+  const { initialItens, setInitialItens } = RequestHook();
   const [initialItemApi, setInitialItemApi] = useState([]);
   const limitItensRecomend = 6;
 
@@ -22,7 +20,7 @@ function DetailsFood(props) {
 
   async function getAllCategories() {
     const items = await searchDrinksAll();
-    setInitialItensDrink(items);
+    setInitialItens(items);
   }
 
   useEffect(() => {
@@ -30,7 +28,7 @@ function DetailsFood(props) {
     getAllCategories();
   }, []);
 
-  function renderIngrediente(food) {
+  function renderIngredient(food) {
     const array = [];
     const limitItens = 15;
     for (let numero = 1; numero <= limitItens; numero += 1) {
@@ -66,7 +64,10 @@ function DetailsFood(props) {
     (!initialItemApi)
       ? (<p>Loading...</p>)
       : initialItemApi.map((meal, index) => (
-        <div key={ index } className="details-page">
+        <div
+          key={ index }
+          className="details-page"
+        >
           <img
             data-testid="recipe-photo"
             src={ meal.strMealThumb }
@@ -79,7 +80,7 @@ function DetailsFood(props) {
           </h4>
           <div>
             <h3>Ingredientes</h3>
-            { renderIngrediente(meal) }
+            { renderIngredient(meal) }
           </div>
           <h3>Instruções</h3>
           <p data-testid="instructions">{ meal.strInstructions }</p>
@@ -109,7 +110,7 @@ function DetailsFood(props) {
           </button>
           <div className="recomendation-card">
             {
-              initialItensDrink && initialItensDrink
+              initialItens && initialItens
                 .slice(0, limitItensRecomend)
                 .map((foodRecomend, indexRec) => (
                   <button
