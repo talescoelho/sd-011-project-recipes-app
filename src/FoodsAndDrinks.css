@@ -28,7 +28,7 @@ body {
 
 @import url('https://fonts.googleapis.com/css2?family=Lemonada&display=swap') ;
 
-.category-buttons {
+.category-buttons, .category-buttons-filter {
   align-items: center;
   background-color: rgb(92, 10, 39);
   border: solid rgb(92, 10, 39);

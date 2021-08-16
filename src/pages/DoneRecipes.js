@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import Header from '../components/Header';
 import ShareButton from '../components/ShareButton';
+import '../FoodsAndDrinks.css';
 
 export default class DoneRecipes extends Component {
   constructor() {
@@ -36,27 +38,33 @@ export default class DoneRecipes extends Component {
     return (
       <div>
         <Header title="Receitas Feitas" search={ false } />
-        <button
-          type="button"
+        <Button
+          size="sm"
+          variant="outline-dark"
+          className="category-buttons-filter"
           data-testid="filter-by-all-btn"
           onClick={ () => this.filterButtons('') }
         >
           All
-        </button>
-        <button
-          type="button"
+        </Button>
+        <Button
+          size="sm"
+          variant="outline-dark"
+          className="category-buttons-filter"
           data-testid="filter-by-food-btn"
           onClick={ () => this.filterButtons('comida') }
         >
           Food
-        </button>
-        <button
-          type="button"
+        </Button>
+        <Button
+          size="sm"
+          variant="outline-dark"
+          className="category-buttons-filter"
           data-testid="filter-by-drink-btn"
           onClick={ () => this.filterButtons('bebida') }
         >
           Drinks
-        </button>
+        </Button>
         {doneRecipes && doneRecipes.map((item, index) => {
           if (item.type === 'comida') {
             return (
