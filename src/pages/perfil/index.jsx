@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 
 export default function Perfil() {
-  let user = localStorage.getItem('user');
-  user = JSON.parse(user);
+  const [userEmail, setUserEmail] = useState('');
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) setUserEmail(user.email);
+  }, []);
 
   return (
     <div>
       <Header title="Perfil" />
-      <p data-testid="profile-email">{user.email}</p>
+      <p data-testid="profile-email">{userEmail}</p>
       <Link to="receitas-feitas">
         <button type="button" data-testid="profile-done-btn">
           Receitas Feitas
