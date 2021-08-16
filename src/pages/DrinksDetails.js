@@ -15,6 +15,7 @@ import
 DetailsDrinkIngredientList
   from '../components/details/detailsDrink/DetailsDrinkNoProgress';
 import backPage from '../images/arrow-undo-circle-outline.svg';
+import Loading from '../components/Loading';
 
 function DrinksDetails() {
   const {
@@ -86,7 +87,7 @@ function DrinksDetails() {
             <ButtonStartMeal id={ id } type="cocktails" />
           </div>
         </div>
-      ) : 'Carregando...' }
+      ) : (<Loading />) }
     </div>
   );
 }

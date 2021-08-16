@@ -11,6 +11,7 @@ import ButtonStartMeal from '../components/details/ButtonStartMeal';
 import '../styles/components/details.css';
 import backPage from '../images/arrow-undo-circle-outline.svg';
 import DetailsIngredientList from '../components/details/DetailsIngredientList';
+import Loading from '../components/Loading';
 
 function MealsDetails() {
   const {
@@ -82,7 +83,7 @@ function MealsDetails() {
             <ButtonStartMeal id={ id } type="meals" />
           </div>
         </div>
-      ) : 'Carregando...' }
+      ) : (<Loading />) }
     </div>
   );
 }
