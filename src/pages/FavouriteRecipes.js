@@ -64,9 +64,10 @@ export default function FavouriteReciples() {
                     to={ `/bebidas/${recipe.id}` }
                   >
                     <img
-                      src={ recipe.image }
-                      alt={ recipe.name }
+                      width="200px"
                       data-testid={ `${index}-horizontal-image` }
+                      alt={ recipe.name }
+                      src={ recipe.image }
                     />
                   </Link>
                   <Link to={ `/bebidas/${recipe.id}` }>
@@ -108,9 +109,10 @@ export default function FavouriteReciples() {
                     to={ `/comidas/${recipe.id}` }
                   >
                     <img
-                      src={ recipe.image }
-                      alt={ recipe.name }
+                      width="200px"
                       data-testid={ `${index}-horizontal-image` }
+                      alt={ recipe.name }
+                      src={ recipe.image }
                     />
                   </Link>
                   <Link to={ `/comidas/${recipe.id}` }>

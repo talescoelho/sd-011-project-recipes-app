@@ -24,18 +24,20 @@ export default function DrinksExplorer() {
   return (
     <div>
       <Header value={ pageTitle } />
-      <Link to="/explorar/bebidas/ingredientes">
-        <button
-          type="button"
-          data-testid="explore-by-ingredient"
-          name="Por Ingredientes"
-        >
-          Por Ingredientes
-        </button>
-      </Link>
-      {
-        SurpriseButton('bebidas', randomId)
-      }
+      <div className="explorer-style-food">
+        <Link to="/explorar/bebidas/ingredientes">
+          <button
+            type="button"
+            data-testid="explore-by-ingredient"
+            name="Por Ingredientes"
+          >
+            Por Ingredientes
+          </button>
+        </Link>
+        {
+          SurpriseButton('bebidas', randomId)
+        }
+      </div>
       <FooterMenu />
     </div>
   );

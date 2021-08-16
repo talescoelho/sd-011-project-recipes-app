@@ -24,27 +24,29 @@ export default function FoodsExplorer() {
   return (
     <div>
       <Header value={ pageTitle } />
-      <Link to="/explorar/comidas/ingredientes">
-        <button
-          type="button"
-          data-testid="explore-by-ingredient"
-          name="Por Ingredientes"
-        >
-          Por Ingredientes
-        </button>
-      </Link>
-      <Link to="/explorar/comidas/area">
-        <button
-          type="button"
-          data-testid="explore-by-area"
-          name="Por Local de Origem"
-        >
-          Por Local de Origem
-        </button>
-      </Link>
-      {
-        SurpriseButton('comidas', randomId)
-      }
+      <div className="explorer-style-food">
+        <Link to="/explorar/comidas/ingredientes">
+          <button
+            type="button"
+            data-testid="explore-by-ingredient"
+            name="Por Ingredientes"
+          >
+            Por Ingredientes
+          </button>
+        </Link>
+        <Link to="/explorar/comidas/area">
+          <button
+            type="button"
+            data-testid="explore-by-area"
+            name="Por Local de Origem"
+          >
+            Por Local de Origem
+          </button>
+        </Link>
+        {
+          SurpriseButton('comidas', randomId)
+        }
+      </div>
       <FooterMenu />
     </div>
   );

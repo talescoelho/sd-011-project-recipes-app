@@ -18,13 +18,14 @@ function ButtonStartMeal({ id, type }) {
 
   useEffect(() => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));// implementação com base nos cy testes por enquanto que a tela in progress não está pronta
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));// falta a implementação da tela das receitas feitas
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];// falta a implementação da tela das receitas feitas
+    const isDone = doneRecipes.some((recipe) => recipe.id === id);
     if ((inProgressRecipes !== null)// implementação com base nos cy testes por enquanto que a tela in progress não está pronta
       && (inProgressRecipes[type] !== undefined)
       && (inProgressRecipes[type][id] !== undefined)) {
       setInProgress(true);
     }
-    if (doneRecipes !== null) {
+    if (isDone) {
       setShowStartBtn(false);
     }
   }, [id, type]);
@@ -32,9 +33,9 @@ function ButtonStartMeal({ id, type }) {
     <div>
       { (showStartBtn) && (
         <button
+          data-testid="start-recipe-btn"
           className="button-start"
           type="button"
-          data-testid="start-recipe-btn"
           onClick={ () => {
             history
               .push(`/${(type === 'meals' ? 'comidas' : 'bebidas')}/${id}/in-progress`);

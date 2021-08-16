@@ -43,15 +43,24 @@ export default function SearchBar() {
   return (
     <section className="section-container">
       <div className="search-recipe">
-        <input
-          type="text"
-          data-testid="search-input"
-          name="searchText"
-          onChange={ handleGenericInput }
-        />
-        <div className="serach-radio">
+        <div className="input-btn">
+          <input
+            type="text"
+            data-testid="search-input"
+            name="searchText"
+            onChange={ handleGenericInput }
+          />
+          <button
+            type="button"
+            data-testid="exec-search-btn"
+            disabled={ (searchInput.searchText.length === 0) }
+            onClick={ () => handleSearch(searchInput, location.pathname) }
+          >
+            Ir
+          </button>
+        </div>
+        <div className="search-radio">
           <label htmlFor="search-ingredients">
-            Ingredientes
             <input
               id="search-ingredients"
               type="radio"
@@ -60,9 +69,9 @@ export default function SearchBar() {
               value="ingredient"
               onChange={ handleGenericInput }
             />
+            Ingredientes
           </label>
           <label htmlFor="search-name">
-            Nome
             <input
               id="search-name"
               type="radio"
@@ -71,9 +80,9 @@ export default function SearchBar() {
               value="name"
               onChange={ handleGenericInput }
             />
+            Nome
           </label>
           <label htmlFor="search-firstLetter">
-            Primeira Letra
             <input
               id="search-firstLetter"
               type="radio"
@@ -82,16 +91,9 @@ export default function SearchBar() {
               value="firstLetter"
               onChange={ handleGenericInput }
             />
+            Primeira Letra
           </label>
         </div>
-        <button
-          type="button"
-          data-testid="exec-search-btn"
-          disabled={ (searchInput.searchText.length === 0) }
-          onClick={ () => handleSearch(searchInput, location.pathname) }
-        >
-          Buscar
-        </button>
       </div>
     </section>
   );
