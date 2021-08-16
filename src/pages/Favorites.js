@@ -9,7 +9,7 @@ export default function Favorites() {
 
   useEffect(() => {
     if (localStorage.favoriteRecipes && fetching) {
-      const listFromLS = localStorage.favoriteRecipes;
+      const listFromLS = JSON.parse(localStorage.favoriteRecipes);
       setfavoriteRecipe(listFromLS);
       setfetching(false);
     }
