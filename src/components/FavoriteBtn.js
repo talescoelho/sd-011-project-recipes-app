@@ -96,7 +96,8 @@ function FavoriteBtn({ details, gatilho, id, index }) {
         onClick={ btnClickHandler }
       >
         <img
-          data-testid={ index > magicNumber ? `${index}-horizontal-favorite-btn` : 'favorite-btn' }
+          data-testid={ index > magicNumber
+            ? `${index}-horizontal-favorite-btn` : 'favorite-btn' }
           src={ favoritedRecipes.some((item) => item.id === id) ? Black : White }
           alt="icone Share"
         />
