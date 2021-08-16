@@ -14,9 +14,9 @@ export default function DoneRecipes() {
       if (filter === 'all') {
         setList(JSON.parse(localStorage.doneRecipes));
       } if (filter === 'food') {
-        const foodFoneRecipes = doneRecipesFromLS
+        const foodDoneRecipes = doneRecipesFromLS
           .filter((recipe) => recipe.type === 'comida');
-        setList(foodFoneRecipes);
+        setList(foodDoneRecipes);
       } if (filter === 'drink') {
         const drinkDoneRecipes = doneRecipesFromLS
           .filter((recipe) => recipe.type === 'bebida');

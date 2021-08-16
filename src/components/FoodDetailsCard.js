@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-// import DoneRecipeToLSFood from './DoneRecipesToLSFoods';
 import ShareBtn from './ShareBtn';
 import FavoriteBtn from './FavoriteBtn';
 import FetchApi from '../services/ApiFetch';
@@ -10,12 +8,12 @@ import FoodCarrossel from './FoodCarrossel';
 import foodVideo from './FoodVideo';
 
 function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
-  const dispatch = useDispatch();
   const [recomendation, setRecomendation] = useState();
   const [doneRecipe, setDoneRecipe] = useState();
   const [inProgress, setInProgress] = useState();
+  const [nada, setnada] = useState(false);
   const history = useHistory();
-
+  console.log(nada);
   useEffect(() => {
     const foodID = id;
     if (localStorage.inProgressRecipes
@@ -25,15 +23,6 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
       setInProgress(true);
     }
   }, []);
-
-  useEffect(() => {
-    if (details) {
-      dispatch({
-        type: 'SEND_DETAILS_TO_STORE',
-        details,
-      });
-    }
-  }, [details, recomendation]);
 
   useEffect(() => {
     async function getRecomendations() {
@@ -63,7 +52,13 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
         <h3 data-testid="recipe-title">{ details[0].strMeal }</h3>
         <div className="details-btn-container">
           <ShareBtn />
-          <FavoriteBtn details={ details } gatilho="meal" id={ id } />
+          <FavoriteBtn
+            details={ details }
+            gatilho="comida"
+            id={ id }
+            index={ -1 }
+            update={ setnada }
+          />
         </div>
         <h4 data-testid="recipe-category">
           Category:
@@ -93,7 +88,6 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
       <button
         type="button"
         data-testid="start-recipe-btn"
-        // onClick={ () => DoneRecipeToLSFood('meal', history, details, id) }
         onClick={ () => history.push(`/comidas/${id}/in-progress`) }
         style={ { position: 'fixed',
           bottom: '0px',

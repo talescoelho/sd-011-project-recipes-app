@@ -1,4 +1,4 @@
-function DoneRecipeToLSFood(recipeType, history, details, id) {
+function DoneRecipeToLSFood(recipeType, details, id) {
   const recipeID = id;
   let today = new Date();
   const dd = String(today.getDate()).padStart(2, '0');
@@ -9,32 +9,31 @@ function DoneRecipeToLSFood(recipeType, history, details, id) {
   const detailObject = [{
     id: recipeID,
     type: recipeType,
-    area: details[0].strArea,
+    area: details[0].strArea ? details[0].strArea : '',
     category: details[0].strCategory,
-    alcoholicOrNot: details[0].strMealAlternate,
+    alcoholicOrNot: details[0].strAlcoholic ? details[0].strAlcoholic : '',
     name: details[0].strMeal,
     image: details[0].strMealThumb,
     doneDate: today,
-    tags: details[0].strTags,
+    tags: details[0].strTags ? [details[0].strTags] : [],
   }];
   if (localStorage.doneRecipes) {
     const prev = JSON.parse(localStorage.doneRecipes);
     const detailObject2 = [...prev, {
       id: recipeID,
       type: recipeType,
-      area: details[0].strArea,
+      area: details[0].strArea ? details[0].strArea : '',
       category: details[0].strCategory,
-      alcoholicOrNot: details[0].strMealAlternate,
+      alcoholicOrNot: details[0].strAlcoholic ? details[0].strAlcoholic : '',
       name: details[0].strMeal,
       image: details[0].strMealThumb,
       doneDate: today,
-      tags: details[0].strTags,
+      tags: details[0].strTags ? [details[0].strTags] : [],
     }];
     localStorage.doneRecipes = JSON.stringify(detailObject2);
   } else {
     localStorage.doneRecipes = JSON.stringify(detailObject);
   }
-  history.push(`/comidas/${id}/in-progress`);
 }
 
 export default DoneRecipeToLSFood;
