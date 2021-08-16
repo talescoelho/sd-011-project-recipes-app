@@ -16,6 +16,7 @@ import ComidasArea from '../pages/explorar/comidas/area';
 import Perfil from '../pages/perfil';
 import ReceitasFeitas from '../pages/receitas-feitas';
 import ReceitasFavoritas from '../pages/receitas-favoritas';
+import NotFound from '../pages/not-found';
 
 function Routes() {
   return (
@@ -26,6 +27,7 @@ function Routes() {
       <Route path="/explorar/comidas/ingredientes" component={ ComidasIngredientes } />
       <Route path="/explorar/bebidas/ingredientes" component={ BebidasIngredientes } />
       <Route path="/explorar/comidas/area" component={ ComidasArea } />
+      <Route path="/explorar/bebidas/area" component={ NotFound } />
       <Route path="/explorar/comidas" component={ ExplorarComidas } />
       <Route path="/explorar/bebidas" component={ ExplorarBebidas } />
       <Route path="/comidas/:recipeId" component={ ComidaDetails } />

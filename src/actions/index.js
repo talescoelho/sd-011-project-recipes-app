@@ -1,10 +1,12 @@
+export const USER_EMAIL = 'USER_EMAIL';
 export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
+const MESSAGE_ALERT = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 export const CATEGORIES_SUCCESS = 'CATEGORIES_SUCCESS';
 export const FILTER_FOOD_RECIPE_BY_INGREDIENT = 'FILTER_FOOD_RECIPE_BY_INGREDIENT';
 export const FILTER_DRINK_RECIPE_BY_INGREDIENT = 'FILTER_DRINK_RECIPE_BY_INGREDIENT';
-export const USER_EMAIL = 'USER_EMAIL';
+export const SET_LIST_AREA_RECIPE = 'SET_LIST_AREA_RECIPE';
+export const SET_FILTER_BY_AREA_RECIPE = 'SET_FILTER_BY_AREA_RECIPE';
 export const FAVORITE_RECIPE = 'FAVORITE_RECIPE';
-const MESSAGE_ALERT = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
 function handleRequestSuccess(result, isFiltered) {
   if (result === null) {
@@ -42,6 +44,22 @@ function handleFilterDrinkRecipeByIngredient(result, isDrinkFilter) {
       type: FILTER_DRINK_RECIPE_BY_INGREDIENT,
       payload: { drinkRecipeByIngredient: result, isDrinkFilter },
     }
+  );
+}
+
+function handleListArea(result, isAreaList) {
+  if (result === null) {
+    result = [];
+  }
+  return { type: SET_LIST_AREA_RECIPE, payload: { allAreas: result, isAreaList } };
+}
+
+function handleFilterByAreaRecipe(result) {
+  if (result === null) {
+    result = [];
+  }
+  return (
+    { type: SET_FILTER_BY_AREA_RECIPE, payload: { allAreasRecipe: result } }
   );
 }
 
@@ -199,6 +217,26 @@ export function filterDrinkByIngredient(ingredient) {
       .then((response) => response.json())
       .then(
         (json) => dispatch(handleFilterDrinkRecipeByIngredient(json.drinks, true)),
+      );
+  };
+}
+
+export function filterListArea() {
+  return (dispatch) => {
+    fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list')
+      .then((response) => response.json())
+      .then(
+        (json) => dispatch(handleListArea(json.meals, true)),
+      );
+  };
+}
+
+export function filterRecipeByArea(filter) {
+  return (dispatch) => {
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${filter}`)
+      .then((response) => response.json())
+      .then(
+        (json) => dispatch(handleFilterByAreaRecipe(json.meals)),
       );
   };
 }
