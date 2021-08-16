@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
-import { getFromStorage } from '../helpers/utils';
+import { getFromStorage, setToStorage } from '../helpers/utils';
 
 const copy = require('clipboard-copy');
 
@@ -19,6 +19,8 @@ class RecipeDetailMain extends Component {
     this.handleFavoriteBtn = this.handleFavoriteBtn.bind(this);
     this.changeFavoriteBtn = this.changeFavoriteBtn.bind(this);
     this.handleShareBtn = this.handleShareBtn.bind(this);
+    this.addToLocalStorage = this.addToLocalStorage.bind(this);
+    this.removeFromLocalStorage = this.removeFromLocalStorage.bind(this);
   }
 
   componentDidMount() {
@@ -35,14 +37,44 @@ class RecipeDetailMain extends Component {
   handleFavoriteBtn() {
     const { favoriteBtnSrc } = this.state;
     if (favoriteBtnSrc === whiteHeartIcon) {
+      this.addToLocalStorage();
       this.setState({
         favoriteBtnSrc: blackHeartIcon,
       });
     } else {
+      this.removeFromLocalStorage();
       this.setState({
         favoriteBtnSrc: whiteHeartIcon,
       });
     }
+  }
+
+  addToLocalStorage() {
+    const { id, type, recipeDetail: { strArea, strCategory,
+      strAlcoholic, strDrink, strMeal, strMealThumb, strDrinkThumb } } = this.props;
+
+    const favoriteRecipes = getFromStorage('favoriteRecipes') || [];
+    const newFavoriteRecipe = [
+      ...favoriteRecipes,
+      {
+        id,
+        type: type.replace('s', ''),
+        area: strArea || '',
+        category: strCategory || '',
+        alcoholicOrNot: strAlcoholic || '',
+        name: strMeal || strDrink,
+        image: strDrinkThumb || strMealThumb,
+      },
+    ];
+    setToStorage('favoriteRecipes', newFavoriteRecipe);
+  }
+
+  removeFromLocalStorage() {
+    const { id } = this.props;
+    const favoriteRecipes = getFromStorage('favoriteRecipes') || [];
+    const newFavoriteRecipe = favoriteRecipes.filter((item) => (item.id !== id));
+
+    setToStorage('favoriteRecipes', newFavoriteRecipe);
   }
 
   changeFavoriteBtn() {
