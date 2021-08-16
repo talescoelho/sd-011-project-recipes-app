@@ -124,7 +124,6 @@ class RecipeDetailMain extends Component {
 
     return (
       <main data-testid="recipes-page" className="detailMain">
-        <h1>Conteúdo da tela de DETALHES de COMIDAS</h1>
         <br />
         <img data-testid="recipe-photo" alt="meal recipe" src={ strThumb } />
         <br />
@@ -211,4 +210,5 @@ export default withRouter(RecipeDetailMain);
 RecipeDetailMain.propTypes = {
   recipeDetail: PropTypes.object,
   id: PropTypes.string,
+  type: PropTypes.string,
 }.isRequired;
