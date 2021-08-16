@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ShareButton from '../Components/ShareButton';
 import FavoriteButton from '../Components/FavoriteButton';
 import './Styles/ProcessFoods.css';
-// import MyContext from '../Context/MyContext';
+import MyContext from '../Context/MyContext';
 
 export default function ProcessFoods({ match: { params: { id } } }) {
   const [recipes, setRecipes] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const [numberOfChecked, setNumberOfChecked] = useState(0);
-  // const { ingredients, setIngredients } = useContext(MyContext);
+  const { food, setFood } = useContext(MyContext);
   // const { inProgress, setInprogress } = useContext(MyContext);
-  // const { checkedIngredients, setCheckIngredients } = useContext(MyContext);
+  const { checkIngredients, setCheckIngredients } = useContext(MyContext);
   // const { allChecked, setAllChecked } = useContext(MyContext);
 
-  // Didmount - Faz fetch trazendo a receita pelo id e seta o stado recipes com as receita
+  // DidUpdate - Faz fetch trazendo a receita pelo id e seta o stado recipes com as receita
   useEffect(() => {
     const getApi = async () => {
       const endPoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
@@ -23,29 +24,30 @@ export default function ProcessFoods({ match: { params: { id } } }) {
       const results = await response.json();
       const meals = results.meals[0];
       setRecipes(meals);
+      setFood(meals);
     };
     getApi();
-  }, [id]);
+  }, []);
   // retorna o array com os ingredientes
   const ingredientsRecipe = () => {
-    const arrayIndredientKids = Object.keys(recipes)
+    const arrayIngredientKids = Object.keys(recipes)
       .filter((item) => item
         .includes('strIngredient'));
-    const ingredients = [];
-    arrayIndredientKids.forEach((key) => {
+    const newIngredient = [];
+    arrayIngredientKids.forEach((key) => {
       if (recipes[key]) {
-        ingredients.push(recipes[key]);
+        newIngredient.push(recipes[key]);
       }
     });
-    return ingredients;
+    return newIngredient;
   };
   // retorna um array com as medidas de cada ingredientes
   const ingredientsMesure = () => {
-    const arrayIndredientKids = Object.keys(recipes)
+    const arrayIngredientKids = Object.keys(recipes)
       .filter((item) => item
         .includes('strMeasure'));
     const ingredients2 = [];
-    arrayIndredientKids.forEach((key) => {
+    arrayIngredientKids.forEach((key) => {
       if (recipes[key]) {
         ingredients2.push(recipes[key]);
       }
@@ -61,10 +63,6 @@ export default function ProcessFoods({ match: { params: { id } } }) {
     return newArray;
   };
 
-  // useEffect(() => {
-  //   setTaskBtnsEnabled(numberOfChecked > 0);
-  // }, [numberOfChecked]);
-  console.log(numberOfChecked);
   function count(e) {
     if (e.target.checked === true) {
       setNumberOfChecked(numberOfChecked + 1);
@@ -82,44 +80,68 @@ export default function ProcessFoods({ match: { params: { id } } }) {
       setDisabled(true);
     }
   };
-  // checa inputs checkbox
-  // const checkedInputs = () => {
-  //   if (setCheckIngredients === arrayRecipesFiltered.length) {
-  //     return setAllChecked(true);
-  //   }
-  //   return setAllChecked(false);
-  // };
 
-  // useEffect(() => {
-  //   updateLocalStorage();
-  //   const storage = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-  //   localStorage.setItem('inProgressRecipes', JSON
-  //     .stringify(storage));
-  // }, []);
-  // // Acrescenta
-  // const handleClick = (event) => {
-  //   if (event.target.checked === true) {
-  //     setInprogress(inProgress + 1);
-  //     return setIngredients([...ingredients, event.target.value]);
-  //   }
-  // };
+  function checkedInputLocalStorage() {
+    // busca todos os ingredientes e check inicialmente são falsos
+    const allIngredients = recipes.length > 0 && recipes.map((ingredient) => ({
+      name: ingredient[1],
+      checked: false,
+    }));
+    setIngredients(allIngredients);
+    // var states iniciais
+    let recipesProcess = {
+      cocktails: {},
+      meals: {},
+    };
+    // check se existe essa chave no local storage === true  (seta para receipesProcess)
+    if (localStorage.getItem('inProgressRecipes')) {
+      recipesProcess = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    }
+    // var state intermediarias
+    let arrRecipesProcess = [];
+    // check as respectivas chaves
+    arrRecipesProcess = recipesProcess.meals[id];
 
-  // const updateLocalStorage = () => {
-  //   const newLocalStorage = {
-  //     cocktails: allMealsStorage,
-  //     meals: { ...otherStorageRecepies, [id]: [...ingredients] } };
-  //   const newLocalStorageString = JSON.stringify(newLocalStorage);
-  //   localStorage.setItem('inProgressRecipes', newLocalStorageString);
+    if (!arrRecipesProcess) {
+      arrRecipesProcess = [];
+    }
+    // setCheckIngredients(arrRecipesProcess);
+  }
 
-  //   const storage = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-  //   if (event.target.checked) {
-  //     localStorage.setItem('inProgressRecipes', JSON
-  //       .stringify([...storage, event.target.value]));
-  //   } else {
-  //     localStorage.setItem('inProgressRecipes', JSON
-  //       .stringify(storage.filter((item) => item !== event.target.value)));
-  //   }
-  // };
+  function setStage() {
+    let recipesProcess = {
+      cocktails: {},
+      meals: {},
+    };
+    if (localStorage.getItem('inProgressRecipes')) {
+      recipesProcess = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    }
+    // const result = checkIngredients;
+    // const resCheck = [];
+    // result.forEach((element) => {
+    //   if (element.checked) {
+    //     resCheck.push(element.name);
+    //   }
+    // });
+    // recipesProcess.meals[id] = resCheck;
+    localStorage.setItem('inProgressRecipes', JSON.stringify(recipesProcess));
+  }
+  // Pega ingredientes que são checados se (true) mantem o estado
+  // const confirmCheckedIngredient = ingredients.length > 0 && ingredients
+  //   .map((ingredient, index) => {
+  //     if (checkIngredients.name === index) {
+  //       ingredient.checked = true;
+  //       return ingredient;
+  //     }
+  //     setCheckIngredients(confirmCheckedIngredient);
+  //     return ingredient;
+  //   });
+
+
+  useEffect(() => {
+    checkedInputLocalStorage();
+  }, []);
+
   return (
     <div>
       <img
@@ -154,9 +176,7 @@ export default function ProcessFoods({ match: { params: { id } } }) {
                 type="checkbox"
                 id={ igredient[index] }
                 value={ igredient }
-                onChange={ () => handleChange() }
-                onClick={ (e) => count(e) }
-                // checked="checked"
+                onChange={ (e) => { handleChange(); count(e); setStage(); } }
               />
               {' '}
               { igredient }

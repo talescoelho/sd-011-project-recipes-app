@@ -5,8 +5,8 @@ import MyContext from './MyContext';
 export default function MyProvider({ children }) {
   const [recipe, setRecipe] = useState({ meals: [], drinks: [] });
   const [inProgress, setInProgress] = useState([]);
-  const { ingredients, setIngredients } = useState([]);
-  const { checkedIngredients, setCheckIngredients } = useState([]);
+  const { ingredients, setIngredients } = useState();
+  const { checkIngredients, setCheckIngredients } = useState([]);
   const { allChecked, setAllChecked } = useState([]);
 
   const [food, setFood] = useState([]);
@@ -25,7 +25,7 @@ export default function MyProvider({ children }) {
   const context = {
     allChecked,
     setAllChecked,
-    checkedIngredients,
+    checkIngredients,
     setCheckIngredients,
     ingredients,
     setIngredients,
