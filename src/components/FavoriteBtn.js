@@ -16,7 +16,16 @@ function FavoriteBtn({ details, gatilho, id }) {
 
   if (gatilho !== undefined) {
     switch (gatilho) {
-    case 'meal':
+    case 'favorite':
+      recipeId = details[0].id;
+      recipeType = details[0].type;
+      recipeArea = details[0].area;
+      recipeCategory = details[0].category;
+      recipeAlcoholicOrNot = details[0].alcoholicOrNot;
+      recipeName = details[0].name;
+      recipeImg = details[0].image;
+      break;
+    case 'comida':
       recipeId = details[0].idMeal;
       recipeType = 'comida';
       recipeArea = details[0].strArea;
@@ -25,7 +34,7 @@ function FavoriteBtn({ details, gatilho, id }) {
       recipeName = details[0].strMeal;
       recipeImg = details[0].strMealThumb;
       break;
-    case 'drink':
+    case 'bebida':
       recipeId = details[0].idDrink;
       recipeType = 'bebida';
       recipeArea = '';

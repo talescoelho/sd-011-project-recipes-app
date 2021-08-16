@@ -9,29 +9,29 @@ export default function Favorites() {
 
   useEffect(() => {
     if (localStorage.favoriteRecipes && fetching) {
-      const listFromLS = localStorage.favoriteRecipes;
+      const listFromLS = JSON.parse(localStorage.favoriteRecipes);
       setfavoriteRecipe(listFromLS);
       setfetching(false);
     }
   }, [fetching]);
 
   useEffect(() => {
-    console.log(favoriteRecipe);
-  }, [favoriteRecipe]);
-
-  useEffect(() => {
-    if (localStorage.doneRecipes) {
-      const doneRecipesFromLS = JSON.parse(localStorage.doneRecipes);
+    if (localStorage.favoriteRecipes) {
       if (filter === 'all') {
-        setfavoriteRecipe(JSON.parse(localStorage.doneRecipes));
+        console.log('dentroDoIfFodao 1');
+        setfavoriteRecipe(JSON.parse(localStorage.favoriteRecipes));
       } if (filter === 'food') {
+        const doneRecipesFromLS = JSON.parse(localStorage.favoriteRecipes);
         const foodFoneRecipes = doneRecipesFromLS
           .filter((recipe) => recipe.type === 'comida');
         setfavoriteRecipe(foodFoneRecipes);
+        console.log('dentroDoIfFodao 2');
       } if (filter === 'drink') {
+        const doneRecipesFromLS = JSON.parse(localStorage.favoriteRecipes);
         const drinkDoneRecipes = doneRecipesFromLS
           .filter((recipe) => recipe.type === 'bebida');
         setfavoriteRecipe(drinkDoneRecipes);
+        console.log('dentroDoIfFodao 3');
       }
     }
   }, [filter]);
