@@ -10,6 +10,7 @@ export default class DoneRecipes extends Component {
     super();
     this.state = {
       doneRecipes: [],
+      filter: '',
     };
     this.saveState = this.saveState.bind(this);
   }
@@ -26,15 +27,13 @@ export default class DoneRecipes extends Component {
   }
 
   filterButtons(getFilters) {
-    const getFromLS = JSON.parse(localStorage.getItem('doneRecipes'))
-      .filter((item) => item.type.includes(getFilters));
     this.setState({
-      doneRecipes: getFromLS,
+      filter: getFilters,
     });
   }
 
   render() {
-    const { doneRecipes } = this.state;
+    const { doneRecipes, filter } = this.state;
     return (
       <div>
         <Header title="Receitas Feitas" search={ false } />
@@ -65,12 +64,50 @@ export default class DoneRecipes extends Component {
         >
           Drinks
         </Button>
-        {doneRecipes && doneRecipes.map((item, index) => {
-          if (item.type === 'comida') {
+        {doneRecipes && doneRecipes.filter((item) => item.type.includes(filter))
+          .map((item, index) => {
+            if (item.type === 'comida') {
+              return (
+                <li key={ index }>
+                  <Link to={ `/comidas/${item.id}` }>
+                    <img
+                      data-testid={ `${index}-horizontal-image` }
+                      src={ item.image }
+                      alt="card-img"
+                      width="300px"
+                      height="200px"
+                    />
+                  </Link>
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    {`${item.area} - ${item.category}`}
+                  </p>
+                  <Link to={ `/comidas/${item.id}` }>
+                    <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
+                  </Link>
+                  <p
+                    data-testid={ `${index}-horizontal-done-date` }
+                  >
+                    {`Feita em: ${item.doneDate}`}
+                  </p>
+                  <p
+                    data-testid={ `${index}-${item.tags[0]}-horizontal-tag` }
+                  >
+                    {item.tags[0]}
+                  </p>
+                  <p
+                    data-testid={ `${index}-${item.tags[1]}-horizontal-tag` }
+                  >
+                    {item.tags[1]}
+                  </p>
+                  <ShareButton test={ `${index}-horizontal-share-btn` } id={ item.id } />
+                </li>
+              );
+            }
             return (
               <li key={ index }>
-                {/* <Header title="Receitas Feitas" search={ false } /> */}
-                <Link to={ `/comidas/${item.id}` }>
+                <Link to={ `/bebidas/${item.id}` }>
                   <img
                     data-testid={ `${index}-horizontal-image` }
                     src={ item.image }
@@ -82,9 +119,9 @@ export default class DoneRecipes extends Component {
                 <p
                   data-testid={ `${index}-horizontal-top-text` }
                 >
-                  {`${item.area} - ${item.category}`}
+                  {item.alcoholicOrNot}
                 </p>
-                <Link to={ `/comidas/${item.id}` }>
+                <Link to={ `/bebidas/${item.id}` }>
                   <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
                 </Link>
                 <p
@@ -92,45 +129,10 @@ export default class DoneRecipes extends Component {
                 >
                   {`Feita em: ${item.doneDate}`}
                 </p>
-                <p
-                  data-testid={ `${index}-${item.tags[0]}-horizontal-tag` }
-                >
-                  {item.tags[0]}
-                </p>
-                <p
-                  data-testid={ `${index}-${item.tags[1]}-horizontal-tag` }
-                >
-                  {item.tags[1]}
-                </p>
                 <ShareButton test={ `${index}-horizontal-share-btn` } id={ item.id } />
               </li>
             );
-          }
-
-          return (
-            <li key={ index }>
-              <Link to={ `/bebidas/${item.id}` }>
-                <img
-                  data-testid={ `${index}-horizontal-image` }
-                  src={ item.image }
-                  alt="card-img"
-                  width="300px"
-                  height="200px"
-                />
-              </Link>
-              <p data-testid={ `${index}-horizontal-top-text` }>{item.alcoholicOrNot}</p>
-              <Link to={ `/bebidas/${item.id}` }>
-                <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
-              </Link>
-              <p
-                data-testid={ `${index}-horizontal-done-date` }
-              >
-                {`Feita em: ${item.doneDate}`}
-              </p>
-              <ShareButton test={ `${index}-horizontal-share-btn` } id={ item.id } />
-            </li>
-          );
-        })}
+          })}
       </div>
     );
   }

@@ -35,8 +35,9 @@
   font-weight: 600;
   height: 35px;
   justify-content: center;
+  left: 0;
   position: fixed;
-  width: 75%;
+  width: 100%;
 }
 
 .checkbox {
