@@ -9,7 +9,7 @@ class DrinkRecomendation extends Component {
     const { drinkRecomendations } = this.props;
     return (
       <div className="carousel">
-        <Carousel>
+        <Carousel variant="dark">
           <Carousel.Item>
             <img
               className="d-block w-75 img-carousel"

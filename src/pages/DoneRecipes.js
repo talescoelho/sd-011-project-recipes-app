@@ -61,7 +61,7 @@ export default class DoneRecipes extends Component {
           if (item.type === 'comida') {
             return (
               <li key={ index }>
-                <Header title="Receitas Feitas" search={ false } />
+                {/* <Header title="Receitas Feitas" search={ false } /> */}
                 <Link to={ `/comidas/${item.id}` }>
                   <img
                     data-testid={ `${index}-horizontal-image` }
