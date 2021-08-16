@@ -16,7 +16,7 @@ function CardRecipeList({ origin }) {
     setInitialItens } = RequestHook();
 
   const MAX_RESULT = 12;
-  const history = useHistory();
+  // const history = useHistory();
 
   async function loadInitialItens() {
     let request;
