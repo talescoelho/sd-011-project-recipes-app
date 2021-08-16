@@ -5,7 +5,8 @@ import Footer from '../components/Footer';
 
 function Profile({ history: { push } }) {
   function getUserEmail() {
-    return JSON.parse(localStorage.getItem('user')).email;
+    const email = JSON.parse(localStorage.getItem('user')) || {};
+    return email.email;
   }
 
   getUserEmail();
