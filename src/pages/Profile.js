@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 export default function Profile() {
-  const email = Object.values(JSON.parse(localStorage.getItem('user')))[0];
+  const [email, setEmail] = useState('');
+  if (localStorage.user) {
+    setEmail(Object.values(JSON.parse(localStorage.user)[0]));
+  }
   return (
     <main>
       <Header haveSearchBtn={ false } title="Perfil" />

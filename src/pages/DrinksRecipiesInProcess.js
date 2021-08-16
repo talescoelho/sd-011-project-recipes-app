@@ -128,7 +128,12 @@ class DrinksRecipiesInProcess extends React.Component {
         />
         <h1 data-testid="recipe-title">{ doRecipe.drinks[0].strDrink }</h1>
         <ShareBtn />
-        <FavoriteBtn details={ doRecipe.drinks } gatilho="drink" id={ id } />
+        <FavoriteBtn
+          details={ doRecipe.drinks }
+          gatilho="bebida"
+          id={ id }
+          index={ -1 }
+        />
         <p data-testid="recipe-category">{ doRecipe.drinks[0].strCategory }</p>
         <div className="ul-container">
           <ul id="input-checkbox">

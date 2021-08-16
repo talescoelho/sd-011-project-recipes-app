@@ -63,7 +63,7 @@ function FoodDetailsCard({ details, mealIngredients, mealMeasure, id }) {
         <h3 data-testid="recipe-title">{ details[0].strMeal }</h3>
         <div className="details-btn-container">
           <ShareBtn />
-          <FavoriteBtn details={ details } gatilho="meal" id={ id } />
+          <FavoriteBtn details={ details } gatilho="comida" id={ id } index={ -1 } />
         </div>
         <h4 data-testid="recipe-category">
           Category:
