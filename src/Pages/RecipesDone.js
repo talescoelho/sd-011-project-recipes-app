@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import Header from '../Components/Header';
-import DoneShareButton from '../Components/DoneShareButton ';
+import shareIcon from '../images/shareIcon.svg';
 
 export default function RecipesDone() {
   const recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
   const [doneRecipes, setDoneRecipes] = useState(recipesDone);
+  const [copyText, setCopyText] = useState('');
 
   const doneRecipesFilter = (type) => {
     if (type === 'all') {
@@ -14,6 +16,12 @@ export default function RecipesDone() {
       const filteredResult = recipesDone.filter((item) => item.type === type);
       setDoneRecipes(filteredResult);
     }
+  };
+
+  const copyToClipboard = (recipe) => {
+    copy(`http://localhost:3000/${recipe.type}s/${recipe.id}`);
+    setCopyText('Link copiado!');
+    setInterval(() => setCopyText(''), '2000');
   };
 
   function showTag(item1, index1) {
@@ -31,6 +39,7 @@ export default function RecipesDone() {
   return (
     <div>
       <Header title="Receitas Feitas" />
+      <p>{copyText}</p>
       <section>
         <button
           type="button"
@@ -67,7 +76,13 @@ export default function RecipesDone() {
                   />
                 </Link>
                 <section>
-                  <DoneShareButton />
+                  <input
+                    type="image"
+                    data-testid={ `${index}-horizontal-share-btn` }
+                    src={ shareIcon }
+                    alt="share Icon"
+                    onClick={ copyToClipboard }
+                  />
                   <Link to={ `/comidas/${item.id}` }>
                     <h4 data-testid={ `${index}-horizontal-name` }>{ item.name }</h4>
                   </Link>
@@ -91,7 +106,16 @@ export default function RecipesDone() {
                 />
               </Link>
               <section>
-                <DoneShareButton />
+                <button
+                  type="button"
+                  onClick={ copyToClipboard }
+                >
+                  <img
+                    data-testid={ `${index}-horizontal-share-btn` }
+                    alt="share"
+                    src={ shareIcon }
+                  />
+                </button>
                 <Link to={ `/bebidas/${item.id}` }>
                   <h4 data-testid={ `${index}-horizontal-name` }>{ item.name }</h4>
                 </Link>

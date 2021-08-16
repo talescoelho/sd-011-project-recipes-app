@@ -2,9 +2,9 @@ import React from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Header from '../Components/Header';
-import Footer from '../Components/Footer';
 import './Styles/Profile.css';
 import perfilbg from './perfilbg.mp4';
+import Footer from '../Components/Footer';
 
 function Profile() {
   const history = useHistory();
@@ -58,9 +58,9 @@ function Profile() {
               Sair
             </Button>
           </Link>
+          <Footer />
         </main>
       </div>
-      <Footer />
     </div>
   );
 }

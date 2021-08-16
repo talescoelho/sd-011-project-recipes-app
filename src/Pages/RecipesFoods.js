@@ -8,18 +8,18 @@ import MyContext from '../Context/MyContext';
 import CategoryButtons from '../Components/CategoryButtons';
 
 export default function RecipesFoods() {
-  const { recipe, setRecipe } = useContext(MyContext);
+  const { food, setFood } = useContext(MyContext);
   const showMaxRecipes = 12;
 
   const getFood = async () => {
     const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
     const response = await fetch(URL);
     const json = await response.json();
-    setRecipe(json.meals);
+    setFood(json.meals);
   };
 
   useEffect(() => {
-    if (recipe.length === 0) {
+    if (food.length === 0) {
       getFood();
     }
   }, []);
@@ -29,7 +29,7 @@ export default function RecipesFoods() {
       <Header className="title" title="Comidas" searchIconAppears />
       <CategoryButtons />
       <div className="cardlist">
-        {recipe.length > 0 && recipe.map((recp, index) => (
+        {food.length > 0 && food.map((recp, index) => (
           index < showMaxRecipes
           && (
             <Link
