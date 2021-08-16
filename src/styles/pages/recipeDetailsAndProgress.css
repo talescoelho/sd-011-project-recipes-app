@@ -1,0 +1,4 @@
+.details-or-progress {
+  display: flex;
+  flex-direction: column;
+}

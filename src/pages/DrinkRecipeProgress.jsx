@@ -51,7 +51,7 @@ const DrinkRecipeProgress = ({ dispatch, match, drinkDetails }) => {
   if (drinkDetails.strInstructions === undefined) return <span>Carregando...</span>;
   const measuresAndIngredients = filterDrinkMeasuresAndIngredients(drinkDetails);
   return (
-    <>
+    <main className="details-or-progress">
       <div>Tela de receita em processo de bebida</div>
       <IngredientsListWithCheckbox
         id={ drinkDetails.idDrink }
@@ -64,7 +64,7 @@ const DrinkRecipeProgress = ({ dispatch, match, drinkDetails }) => {
         ingredients={ measuresAndIngredients }
         recipeType="cocktails"
       />
-    </>
+    </main>
   );
 };
 

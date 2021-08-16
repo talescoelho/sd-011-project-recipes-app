@@ -31,12 +31,11 @@ const RecipeCard = ({
   };
 
   return (
-    <CardGroup>
+    <CardGroup className="recipes-cards">
       <Card
         data-testid={ `${index}${cardTestId}` }
       >
         <Link
-          className="card-menu"
           to={ () => choiceRoute() }
         >
           <Card.Img

@@ -5,6 +5,7 @@ import RecipeInstructions from '../components/common/RecipeInstructions';
 import StartRecipeBtn from '../components/common/StartRecipeBtn';
 import { requestDrinkDetails } from '../redux/actions/recipeDetailsActions';
 import RecommendationCarousel from '../components/common/RecommendationCarousel';
+import '../styles/pages/recipeDetailsAndProgress.css';
 
 const DrinkDetails = ({ dispatch, match, drinkDetails }) => {
   const { params: { id }, url } = match;
@@ -14,12 +15,12 @@ const DrinkDetails = ({ dispatch, match, drinkDetails }) => {
   }, []);
   if (drinkDetails.strInstructions === undefined) return (<span>Carregando...</span>);
   return (
-    <>
+    <main className="details-or-progress">
       <div>Pagina de Detalhe de Bebidas</div>
       <RecipeInstructions strInstructions={ drinkDetails.strInstructions } />
       <RecommendationCarousel url={ url } />
       <StartRecipeBtn routeInfo={ { id, url } } />
-    </>
+    </main>
   );
 };
 

@@ -71,7 +71,7 @@ const FoodRecipeProgress = ({ dispatch, match, mealDetails }) => {
     !ingredient.startsWith(' ') && !ingredient.startsWith('null')
   ));
   return (
-    <>
+    <main className="details-or-progress">
       <div>Tela de receita em processo de comidas</div>
       <IngredientsListWithCheckbox
         id={ mealDetails.idMeal }
@@ -84,7 +84,7 @@ const FoodRecipeProgress = ({ dispatch, match, mealDetails }) => {
         ingredients={ ingredients }
         recipeType="meals"
       />
-    </>
+    </main>
   );
 };
 const mapStateToProps = ({ recipeDetailsReducer }) => ({

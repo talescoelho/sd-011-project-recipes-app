@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import '../../styles/components/recipeInstructions.css';
 
 const RecipeInstructions = ({ strInstructions }) => (
-  <section>
+  <section className="recipes-instructions-parent">
     <h3>Instruções</h3>
     <p
       className="recipe-instructions"

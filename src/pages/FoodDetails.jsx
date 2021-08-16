@@ -15,13 +15,13 @@ const FoodDetails = ({ dispatch, match, mealDetails }) => {
   }, []);
   if (mealDetails.strInstructions === undefined) return (<span>Carregando...</span>);
   return (
-    <>
+    <main className="details-or-progress">
       <div>Pagina de Detalhe de Comida</div>
       <RecipeInstructions strInstructions={ mealDetails.strInstructions } />
       <RecipeVideo strYoutube={ mealDetails.strYoutube } />
       <RecommendationCarousel url={ url } />
       <StartRecipeBtn routeInfo={ { id, url } } />
-    </>
+    </main>
   );
 };
 
