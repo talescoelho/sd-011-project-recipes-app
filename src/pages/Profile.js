@@ -1,13 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-function Profile() {
+function Profile({ history: { push } }) {
   function getUserEmail() {
     return JSON.parse(localStorage.getItem('user')).email;
   }
 
   getUserEmail();
+
+  function toFavoriteRecipes() {
+    push('/receitas-favoritas');
+  }
+
+  function toRecipesDone() {
+    push('/receitas-feitas');
+  }
 
   return (
     <>
@@ -27,6 +36,7 @@ function Profile() {
           data-testid="profile-done-btn"
           aria-label="Botão de Receitas feitas"
           type="button"
+          onClick={ toRecipesDone }
         >
           Receitas Feitas
         </button>
@@ -35,6 +45,7 @@ function Profile() {
           data-testid="profile-favorite-btn"
           aria-label="Botão de Receitas favoritas"
           type="button"
+          onClick={ toFavoriteRecipes }
         >
           Receitas Favoritas
         </button>
@@ -54,3 +65,9 @@ function Profile() {
 }
 
 export default Profile;
+
+Profile.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequisred;
