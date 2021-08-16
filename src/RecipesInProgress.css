@@ -29,6 +29,7 @@
 .finish-recipe {
   align-items: center;
   bottom: 0;
+  left: 0;
   color: rgb(55, 6, 23);
   display: flex;
   font-family: Montserrat , sans-serif;
@@ -36,7 +37,7 @@
   height: 35px;
   justify-content: center;
   position: fixed;
-  width: 75%;
+  width: 100%;
 }
 
 .checkbox {

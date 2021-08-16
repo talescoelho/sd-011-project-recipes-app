@@ -8,6 +8,7 @@ export default class DoneRecipes extends Component {
     super();
     this.state = {
       doneRecipes: [],
+      filter: '',
     };
     this.saveState = this.saveState.bind(this);
   }
@@ -24,15 +25,13 @@ export default class DoneRecipes extends Component {
   }
 
   filterButtons(getFilters) {
-    const getFromLS = JSON.parse(localStorage.getItem('doneRecipes'))
-      .filter((item) => item.type.includes(getFilters));
     this.setState({
-      doneRecipes: getFromLS,
+      filter: getFilters,
     });
   }
 
   render() {
-    const { doneRecipes } = this.state;
+    const { doneRecipes, filter } = this.state;
     return (
       <div>
         <Header title="Receitas Feitas" search={ false } />
@@ -57,11 +56,11 @@ export default class DoneRecipes extends Component {
         >
           Drinks
         </button>
-        {doneRecipes && doneRecipes.map((item, index) => {
+        {doneRecipes && doneRecipes.filter((item) => item.type.includes(filter))
+        .map((item, index) => {
           if (item.type === 'comida') {
             return (
               <li key={ index }>
-                {/* <Header title="Receitas Feitas" search={ false } /> */}
                 <Link to={ `/comidas/${item.id}` }>
                   <img
                     data-testid={ `${index}-horizontal-image` }
