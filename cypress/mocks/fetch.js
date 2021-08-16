@@ -34,7 +34,7 @@ const fetch = (url) => Promise.resolve({
       return Promise.resolve(mealCategories);
 
     if (url === 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
-        return Promise.resolve(drinkCategories);
+      return Promise.resolve(drinkCategories);
 
     if (url === 'https://www.themealdb.com/api/json/v1/1/list.php?i=list')
       return Promise.resolve(mealIngredients);
