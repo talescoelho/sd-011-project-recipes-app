@@ -1,6 +1,7 @@
 import React from 'react';
 import { string, number } from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
+import { Card, CardGroup } from 'react-bootstrap';
 import '../../styles/components/recipeCard.css';
 
 const RecipeCard = ({
@@ -30,19 +31,34 @@ const RecipeCard = ({
   };
 
   return (
-    <Link
-      aria-label="card-menu"
-      className="card-menu"
-      data-testid={ `${index}${cardTestId}` }
-      to={ () => choiceRoute() }
-    >
-      <h3 data-testid={ `${index}${titleTestId}` }>{ recipeName }</h3>
-      <img
-        data-testid={ `${index}-card-img` }
-        src={ recipeThumb }
-        alt={ `${recipeName} recipe` }
-      />
-    </Link>
+    <CardGroup>
+      <Card
+        data-testid={ `${index}${cardTestId}` }
+      >
+        <Link
+          className="card-menu"
+          to={ () => choiceRoute() }
+        >
+          <Card.Img
+            className="img-card"
+            variant="top"
+            height="200px"
+            width="200px"
+            data-testid={ `${index}-card-img` }
+            src={ recipeThumb }
+            alt={ `${recipeName} recipe` }
+          />
+          <Card.Body>
+            <Card.Title
+              className="title"
+              data-testid={ `${index}${titleTestId}` }
+            >
+              { recipeName }
+            </Card.Title>
+          </Card.Body>
+        </Link>
+      </Card>
+    </CardGroup>
   );
 };
 

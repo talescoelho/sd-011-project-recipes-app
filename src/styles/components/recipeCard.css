@@ -1,19 +1,12 @@
-.card-menu {
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  height: 10%;
+.title {
+  color: rgb(55, 6, 23);
+  font-size: 28px;
+  letter-spacing: 3px;
+  text-align: center;
 }
 
-.card-menu img {
-  height: 100%;
-  margin: 0;
-  width: 100%;
-}
-
-.card-menu h3 {
-  align-items: flex-end;
-  color: black;
-  display: flex;
-  flex-grow: 1;
+.img-card {
+  border: solid 1px rgb(55, 6, 23);
+  border-radius: 5px;
+  box-shadow: 4px 4px 4px 3px rgba(55, 6, 23, 0.2);
 }
