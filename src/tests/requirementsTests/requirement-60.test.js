@@ -37,7 +37,7 @@ describe(`60 - Implement the elements of the favorite recipes screen (cumulative
   described in the prototype`, () => {
   it(`All data-testids, cumulative with attributes in common with the recipes made
   screen, are available`, async () => {
-    renderWithRouterAndStore(<App />, { route: 'receitas-favoritas' });
+    renderWithRouterAndStore(<App />, { route: '/receitas-favoritas' });
 
     expect(await screen.findByTestId('filter-by-all-btn')).toBeInTheDocument();
     expect(await screen.findByTestId('filter-by-food-btn')).toBeInTheDocument();

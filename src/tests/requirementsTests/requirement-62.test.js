@@ -36,7 +36,7 @@ describe(`62 - Develop the screen so that, if the recipe on the card is a drink,
 have: the picture of the recipe, the name, whether it is alcoholic or not, a share button
 and a "disfavorite" button`, () => {
   it('The card has the correct attributes of a drink', async () => {
-    renderWithRouterAndStore(<App />, { route: 'receitas-favoritas' });
+    renderWithRouterAndStore(<App />, { route: '/receitas-favoritas' });
 
     expect(await screen.findByTestId('1-horizontal-image'))
       .toHaveAttribute('src', expect.stringContaining(favoriteRecipes[1].image));
