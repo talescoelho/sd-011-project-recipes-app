@@ -4,21 +4,6 @@ import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import DetailsContext from '../context/detailsContext';
 
-// const d = new Date();
-// console.log(`${data.getDate()}/${data.getMonth()}/${data.getFullYear()}`);
-
-// [{
-//   id: id-da-receita,
-//   type: comida-ou-bebida,
-//   area: area-da-receita-ou-texto-vazio,
-//   category: categoria-da-receita-ou-texto-vazio,
-//   alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
-//   name: nome-da-receita,
-//   image: imagem-da-receita,
-//   doneDate: quando-a-receita-foi-concluida,
-//   tags: array-de-tags-da-receita-ou-array-vazio
-// }]
-
 export default function RecipeButton({ state, recipe }) {
   const history = useHistory();
   const { ingredients } = useContext(DetailsContext);
@@ -96,6 +81,18 @@ export default function RecipeButton({ state, recipe }) {
 }
 
 RecipeButton.propTypes = {
-  recipe: PropTypes.isRequired,
-  state: PropTypes.string.isRequired,
+  recipe: PropTypes.shape({
+    area: PropTypes.string,
+    category: PropTypes.string,
+    id: PropTypes.string,
+    image: PropTypes.string,
+    name: PropTypes.string,
+    type: PropTypes.string,
+    tags: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+  state: PropTypes.string,
+};
+
+RecipeButton.defaultProps = {
+  state: '',
 };

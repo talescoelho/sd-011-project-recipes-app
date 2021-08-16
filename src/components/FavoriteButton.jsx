@@ -18,12 +18,7 @@ export default function FavoriteButton({ recipe, dataTestid }) {
 
   function handleHeart() {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const verifyFav = favoriteRecipes.reduce((acc, cur) => {
-      if (cur.id !== id) {
-        return [...acc, cur];
-      }
-      return acc;
-    }, []);
+    const verifyFav = favoriteRecipes.filter((value) => value.id !== id);
     const newFavorite = {
       id,
       type,
@@ -51,6 +46,13 @@ export default function FavoriteButton({ recipe, dataTestid }) {
 }
 
 FavoriteButton.propTypes = {
-  recipe: PropTypes.isRequired,
   dataTestid: PropTypes.string.isRequired,
+  recipe: PropTypes.shape({
+    area: PropTypes.string,
+    category: PropTypes.string,
+    id: PropTypes.string,
+    image: PropTypes.string,
+    name: PropTypes.string,
+    type: PropTypes.string,
+  }).isRequired,
 };

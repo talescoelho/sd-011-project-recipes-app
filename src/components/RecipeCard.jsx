@@ -7,12 +7,15 @@ import { getIds } from '../services';
 export default function RecipeCard({ recipe, type, index }) {
   const { image, name, id } = getIds(type, recipe);
   return (
-    <Link to={ `/${type}s/${id}` }>
+    <Link to={ `/${type}/${id}` }>
       <Card
         data-testid={ `${index}-recipe-card` }
         className="d-flex flex-column align-items-center p-3 my-2 shadow-lg"
-        style={ { backgroundColor: (type === 'bebida') ? '#a73d7e' : '#fcdc4d',
-          color: 'black' } }
+        style={ {
+          backgroundColor: (type === 'bebidas') ? '#a73d7e' : '#fcdc4d',
+          color: 'black',
+          transition: 'background-color 0.25s',
+        } }
       >
         <Card.Img
           className="mb-2 border border-dark"
@@ -28,6 +31,6 @@ export default function RecipeCard({ recipe, type, index }) {
 
 RecipeCard.propTypes = {
   index: PropTypes.number.isRequired,
-  recipe: PropTypes.isRequired,
+  recipe: PropTypes.shape({}).isRequired,
   type: PropTypes.string.isRequired,
 };

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { Link } from 'react-router-dom';
-import { Foods, Cocktails, getIds } from '../services';
+import { fetchAPI, getIds } from '../services';
 import { CarouselItem } from '../styles';
 
 const six = 6;
@@ -11,8 +11,8 @@ export default function Recommendations({ type }) {
   const [items, setItems] = useState();
   useEffect(() => {
     const asyncFunc = async () => {
-      if (type === 'comida') setItems(await Foods.searchName(''));
-      if (type === 'bebida') setItems(await Cocktails.searchName(''));
+      if (type === 'comida') setItems(await fetchAPI.food.searchName(''));
+      if (type === 'bebida') setItems(await fetchAPI.drink.searchName(''));
     };
     asyncFunc();
   }, [type]);

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
-  background-color: #fcdc4d;
+  background-color: ${({ drink }) => (drink ? '#a73d7e' : '#fcdc4d')};
 `;
 
 export const Underline = styled.p`
@@ -25,11 +25,13 @@ export const Title = styled.h1`
 export const HeaderNavBar = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${(props) => (props.color ? props.color : '#fcdc4d')};
+  transition: background-color 0.25s;
+  background-color: ${({ drink }) => (drink ? '#a73d7e' : '#fcdc4d')};
 `;
 
 export const FooterBar = styled.footer`
-  background-color: ${(props) => (props.color ? props.color : '#fcdc4d')};
+  background-color: ${({ drink }) => (drink ? '#a73d7e' : '#fcdc4d')};
+  transition: background-color 0.25s;
   display: flex;
   justify-content: space-between;
   border-top: 1px solid;

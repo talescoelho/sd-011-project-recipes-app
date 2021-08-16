@@ -1,21 +1,27 @@
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import SearchBarContext from './searchBarContext';
-import { Foods, Cocktails } from '../services';
+import { fetchAPI } from '../services';
 
 const twelve = 12;
 export default function SearchBarProvider({ children, type }) {
   const [data, setData] = useState([]);
   const [keyRedirect, setKeyRedirect] = useState(true);
+  const { type: search, key } = useSelector((state) => state.recipes.search);
 
   const recipes = (data) ? data.slice(0, twelve) : [];
   useEffect(() => {
     const asyncFunc = async () => {
-      if (type.includes('omida')) setData(await Foods.searchName(''));
-      if (type.includes('ebidas')) setData(await Cocktails.searchName(''));
+      const newRecipes = await fetchAPI[type][search](key);
+      if (!newRecipes) {
+        alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      }
+      setData(newRecipes);
     };
     asyncFunc();
-  }, [type]);
+  }, [type, search, key]);
+
   return (
     <SearchBarContext.Provider
       value={ { data, setData, recipes, keyRedirect, setKeyRedirect } }
@@ -26,6 +32,6 @@ export default function SearchBarProvider({ children, type }) {
 }
 
 SearchBarProvider.propTypes = {
-  children: PropTypes.isRequired,
+  children: PropTypes.node.isRequired,
   type: PropTypes.string.isRequired,
 };

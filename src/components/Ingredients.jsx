@@ -45,7 +45,7 @@ export default function Ingredients({ recipe, inProgress, type }) {
       }, []);
       setIngredients(newIngredients);
     }
-  }, [recipe]);
+  }, [recipe, id, setIngredients, similarName]);
 
   function setLocalStorage(teste) {
     const initialInProgress = JSON.stringify({ cocktails: {}, meals: {} });
@@ -108,9 +108,13 @@ export default function Ingredients({ recipe, inProgress, type }) {
 }
 
 Ingredients.propTypes = {
-  inProgress: PropTypes.isRequired,
-  recipe: PropTypes.isRequired,
-  type: PropTypes.isRequired,
+  inProgress: PropTypes.string,
+  recipe: PropTypes.shape({}).isRequired,
+  type: PropTypes.string.isRequired,
+};
+
+Ingredients.defaultProps = {
+  inProgress: undefined,
 };
 
 // data-testid*="ingredient-step";
