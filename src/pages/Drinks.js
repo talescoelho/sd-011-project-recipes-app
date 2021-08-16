@@ -17,7 +17,8 @@ export default function Drinks() {
   useEffect(() => {
     async function fetchApi() {
       if (recipesByIngredient) {
-        const results = await FetchApi('thecocktaildb', 'ingrediente', recipesByIngredient);
+        const results = (
+          await FetchApi('thecocktaildb', 'ingrediente', recipesByIngredient));
         dispatch({
           type: 'MODIFY_SEARCH_RESULTS',
           payload: results,
