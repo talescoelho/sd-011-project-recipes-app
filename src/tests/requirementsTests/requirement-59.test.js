@@ -49,22 +49,12 @@ const doneRecipes = [
   },
 ];
 
-// Como realizar o mock do clipboard https://stackoverflow.com/questions/62351935/how-to-mock-navigator-clipboard-writetext-in-jest
-
-const originalClipboard = { ...global.navigator.clipboard };
-
 beforeEach(() => {
   localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
-  const mockClipboard = {
-    writeText: jest.fn(),
-  };
-  global.navigator.clipboard = mockClipboard;
 });
 
 afterEach(() => {
   localStorage.clear();
-  jest.clearAllMocks();
-  global.navigator.clipboard = originalClipboard;
 });
 
 describe(`59 - Redirect to the recipe details screen if clicked on the picture or recipe
