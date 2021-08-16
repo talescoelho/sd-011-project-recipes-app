@@ -5,7 +5,7 @@ import CardDetail from '../components/RecipeInProgress/CardDetail';
 import IngredientsList from '../components/RecipeInProgress/IngredientsList';
 import Instructions from '../components/RecipeInProgress/Instructions';
 import ButtonFinish from '../components/RecipeInProgress/ButtonFinish';
-import { InProgressProvider } from '../context/RecipesInProgress';
+import { InProgressProvider } from '../context/RecipeInProgress';
 import ButtonFavorite from '../components/ButtonFavorite';
 import fetchByFilter from '../services/data';
 
@@ -17,42 +17,7 @@ export default function RecipeInProgress({ location }) {
   const { state } = location;
   console.log(isMeal);
 
-  const setDrinkType = () => {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (!inProgressRecipes) {
-      return { cocktails: { [recipeId]: [] }, meals: { } };
-    } if (inProgressRecipes && !inProgressRecipes.cocktails[recipeId]) {
-      const { meals, cocktails } = inProgressRecipes;
-      return { meals, cocktails: { ...cocktails, [recipeId]: [] } };
-    }
-    const { meals, cocktails } = inProgressRecipes;
-    return { cocktails, meals };
-  };
-
-  const setMealType = () => {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (!inProgressRecipes) {
-      return { cocktails: { }, meals: { [recipeId]: [] } };
-    } if (inProgressRecipes && !inProgressRecipes.meals[recipeId]) {
-      const { meals, cocktails } = inProgressRecipes;
-      return { meals: { ...meals, [recipeId]: [] }, cocktails };
-    }
-    const { meals, cocktails } = inProgressRecipes;
-    return { cocktails, meals };
-  };
-
-  const setLocalStorage = () => {
-    const itemToSave = isMeal ? setMealType() : setDrinkType();
-    localStorage.setItem('inProgressRecipes', JSON.stringify(itemToSave));
-  };
-
-  useEffect(setLocalStorage, [setLocalStorage]);
-
-  useEffect(() => {
-    if (state && !recipe) {
-      setRecipe(state);
-    }
-  }, [recipe, state]);
+  useEffect(() => state && !recipe && setRecipe(state), [recipe, state]);
 
   useEffect(() => {
     if (!state) {

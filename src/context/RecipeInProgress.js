@@ -30,6 +30,35 @@ export function InProgressProvider({ children }) {
     }
   };
 
+  const setDrinkType = () => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!inProgressRecipes) {
+      return { cocktails: { [recipeId]: [] }, meals: { } };
+    } if (inProgressRecipes && !inProgressRecipes.cocktails[recipeId]) {
+      const { meals, cocktails } = inProgressRecipes;
+      return { meals, cocktails: { ...cocktails, [recipeId]: [] } };
+    }
+    const { meals, cocktails } = inProgressRecipes;
+    return { cocktails, meals };
+  };
+
+  const setMealType = () => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!inProgressRecipes) {
+      return { cocktails: { }, meals: { [recipeId]: [] } };
+    } if (inProgressRecipes && !inProgressRecipes.meals[recipeId]) {
+      const { meals, cocktails } = inProgressRecipes;
+      return { meals: { ...meals, [recipeId]: [] }, cocktails };
+    }
+    const { meals, cocktails } = inProgressRecipes;
+    return { cocktails, meals };
+  };
+
+  const setLocalStorage = () => {
+    const itemToSave = isMeal ? setMealType() : setDrinkType();
+    localStorage.setItem('inProgressRecipes', JSON.stringify(itemToSave));
+  };
+
   const updateLocalStorage = ({ target }) => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const { meals, cocktails } = inProgressRecipes;
@@ -91,6 +120,9 @@ export function InProgressProvider({ children }) {
   };
 
   const value = {
+    setDrinkType,
+    setMealType,
+    setLocalStorage,
     ingredientsArray,
     setIngredientsArray,
     measurementsArray,

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { InProgressContext } from '../../context/RecipesInProgress';
+import { InProgressContext } from '../../context/RecipeInProgress';
 
 export default function ButtonFinish(props) {
   const { recipe } = props;
@@ -50,7 +50,7 @@ export default function ButtonFinish(props) {
         image: strMealThumb,
         doneDate: getDate(),
         name: strMeal,
-        tags: strTags.split(','),
+        tags: strTags ? strTags.split(',') : [],
       };
     }
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));

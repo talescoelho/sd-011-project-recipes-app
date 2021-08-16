@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { InProgressContext } from '../../context/RecipesInProgress';
+import { InProgressContext } from '../../context/RecipeInProgress';
 
 export default function IngredientsList(props) {
   const { recipe } = props;
   const {
+    setLocalStorage,
     ingredientsArray,
     setIngredientsArray,
     measurementsArray,
@@ -13,6 +14,8 @@ export default function IngredientsList(props) {
     checkSavedItens,
     setFinishButton,
   } = useContext(InProgressContext);
+
+  useEffect(setLocalStorage, [setLocalStorage]);
 
   useEffect(() => {
     setFinishButton();
