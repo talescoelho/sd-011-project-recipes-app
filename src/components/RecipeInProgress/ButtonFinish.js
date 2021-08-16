@@ -31,7 +31,7 @@ export default function ButtonFinish(props) {
     if (idDrink) {
       newRecipeDone = {
         id: idDrink,
-        type: 'bebidas',
+        type: 'bebida',
         area: '',
         category: strCategory,
         alcoholicOrNot: strAlcoholic,
@@ -43,7 +43,7 @@ export default function ButtonFinish(props) {
     } else {
       newRecipeDone = {
         id: idMeal,
-        type: 'comidas',
+        type: 'comida',
         area: strArea,
         category: strCategory,
         alcoholicOrNot: '',
