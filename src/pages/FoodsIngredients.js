@@ -50,9 +50,10 @@ export default function FoodsIngredients() {
             >
               <img
                 alt="ingredient-logo"
-                src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}.png` }
+                src={ `https://www.themealdb.com/images/ingredients/${item.strIngredient}-Small.png` }
                 width="300px"
                 height="300px"
+                data-testid={ `${index}-card-img` }
               />
               <h3 data-testid={ `${index}-card-name` }>
                 {item.strIngredient}

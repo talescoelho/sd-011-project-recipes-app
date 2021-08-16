@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import FavoriteCards from '../components/FavoriteCards';
+import favoriteFilter from '../components/FavoriteFilter';
 
 export default function Favorites() {
   const [favoriteRecipe, setfavoriteRecipe] = useState([]);
@@ -15,27 +16,13 @@ export default function Favorites() {
     }
   }, [fetching]);
   useEffect(() => {
+    if (update) {
+      setfavoriteRecipe(JSON.parse(localStorage.favoriteRecipes));
+    }
     setUpdate(false);
-    setfavoriteRecipe(JSON.parse(localStorage.favoriteRecipes));
   }, [update]);
   useEffect(() => {
-    if (localStorage.favoriteRecipes) {
-      if (filter === 'all') {
-        setfavoriteRecipe(JSON.parse(localStorage.favoriteRecipes));
-      } if (filter === 'food') {
-        const doneRecipesFromLS = JSON.parse(localStorage.favoriteRecipes);
-        const foodFoneRecipes = doneRecipesFromLS
-          .filter((recipe) => recipe.type === 'comida');
-        setfavoriteRecipe(foodFoneRecipes);
-        console.log('dentroDoIfFodao 2');
-      } if (filter === 'drink') {
-        const doneRecipesFromLS = JSON.parse(localStorage.favoriteRecipes);
-        const drinkDoneRecipes = doneRecipesFromLS
-          .filter((recipe) => recipe.type === 'bebida');
-        setfavoriteRecipe(drinkDoneRecipes);
-        console.log('dentroDoIfFodao 3');
-      }
-    }
+    favoriteFilter(setfavoriteRecipe, filter);
   }, [filter]);
   function renderFavorites() {
     return (
@@ -70,7 +57,7 @@ export default function Favorites() {
   return (
     <main>
       <Header haveSearchBtn={ false } title="Receitas Favoritas" />
-      { favoriteRecipe ? renderFavorites() : '' }
+      { favoriteRecipe !== [] ? renderFavorites() : <p>Nenhuma receita favoritada</p> }
     </main>
   );
 }

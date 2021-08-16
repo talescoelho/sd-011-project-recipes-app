@@ -50,9 +50,10 @@ export default function DrinksIgredients() {
             >
               <img
                 alt="ingredient-logo"
-                src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Medium.png` }
+                src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` }
                 width="300px"
                 height="300px"
+                data-testid={ `${index}-card-img` }
               />
               <h3 data-testid={ `${index}-card-name` }>
                 {item.strIngredient1}
