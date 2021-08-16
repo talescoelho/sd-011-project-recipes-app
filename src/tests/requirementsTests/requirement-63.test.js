@@ -29,7 +29,7 @@ const favoriteRecipes = [
 const originalClipboard = { ...global.navigator.clipboard };
 
 beforeEach(() => {
-  localStorage.setItem('doneRecipes', JSON.stringify(favoriteRecipes));
+  localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
   const mockClipboard = {
     writeText: jest.fn(),
   };

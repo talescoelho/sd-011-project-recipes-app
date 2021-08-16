@@ -25,7 +25,7 @@ const favoriteRecipes = [
 ];
 
 beforeEach(() => {
-  localStorage.setItem('doneRecipes', JSON.stringify(favoriteRecipes));
+  localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
 });
 
 afterEach(() => {
