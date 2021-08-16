@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipeCard';
 import RecipesContext from '../context/RecipesContext';
+import Loading from '../components/Loading';
 
 function ExplorerMealsOrigin() {
   const [optionsArea, setOptions] = useState([]);
@@ -40,6 +41,10 @@ function ExplorerMealsOrigin() {
       area === 'All' ? resetFilter() : filterMealsByArea(area));
     handlerFilterOption();
   }, [area]);
+
+  if (optionsArea.length === 0) {
+    return <Loading />;
+  }
 
   return (
     <>

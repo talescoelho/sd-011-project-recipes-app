@@ -13,16 +13,22 @@ function IngredientCard({ ingredient, index, recipeType }) {
     || ingredient.strIngredient1);
   return (
     <div
+      className="card border border-danger"
       data-testid={ `${index}-ingredient-card` }
     >
-      <img
-        src={ ingredientImg }
-        alt={ ingredient.strIngredient || ingredient.strIngredient1 }
-        data-testid={ `${index}-card-img` }
-      />
-      <p data-testid={ `${index}-card-name` }>
-        { ingredient.strIngredient || ingredient.strIngredient1 }
-      </p>
+      <div className="card-img-top align-img-center">
+        <img
+          className=""
+          src={ ingredientImg }
+          alt={ ingredient.strIngredient || ingredient.strIngredient1 }
+          data-testid={ `${index}-card-img` }
+        />
+      </div>
+      <div className="card-inner">
+        <h2 className="title-recipe" data-testid={ `${index}-card-name` }>
+          { ingredient.strIngredient || ingredient.strIngredient1 }
+        </h2>
+      </div>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import IngredientCard from '../components/IngredientCard';
 import Footer from '../components/Footer';
 import { fetchCocktailsIngredients,
   fetchCocktailsByIngredient } from '../services/cocktailAPI';
+import Loading from '../components/Loading';
 
 function ExplorerDrinksIngredients() {
   const { setDrinksData } = useContext(RecipesContext);
@@ -25,24 +26,33 @@ function ExplorerDrinksIngredients() {
     setDrinksData(response.slice(0, maxIngredients));
   };
 
+  if (ingredientList.length === 0) {
+    return <Loading />;
+  }
+
   return (
-    <div>
+    <>
       <Header title="Explorar Ingredientes" recipeType="drinks" />
-      { ingredientList.map((ingredient, index) => (
-        <Link
-          to="/bebidas"
-          key={ index }
-          onClick={ () => handleClickLink(ingredient.strIngredient1) }
-        >
-          <IngredientCard
-            ingredient={ ingredient }
-            index={ index }
-            recipeType="drinks"
-          />
-        </Link>
-      ))}
+      <div className="container my-5">
+        <div className="row px-5 gallery-work">
+          { ingredientList.map((ingredient, index) => (
+            <div className="col-md-4 my-3" key={ index }>
+              <Link
+                to="/bebidas"
+                onClick={ () => handleClickLink(ingredient.strIngredient1) }
+              >
+                <IngredientCard
+                  ingredient={ ingredient }
+                  index={ index }
+                  recipeType="drinks"
+                />
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

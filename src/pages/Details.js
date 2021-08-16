@@ -5,9 +5,10 @@ import FrameVideo from '../components/FrameVideo';
 import RecommendedRecipes from '../components/RecommendedsRecipes';
 import RecipesContext from '../context/RecipesContext';
 import DetailsButton from '../components/DetailsButton';
+import Loading from '../components/Loading';
 
 function Details({ match: { url, params: { id } } }) {
-  const { getRecipeById } = useContext(RecipesContext);
+  const { getRecipeById, recipeDetail } = useContext(RecipesContext);
 
   const createLSInProgress = () => {
     const recipe = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
@@ -26,8 +27,11 @@ function Details({ match: { url, params: { id } } }) {
     createLSInProgress();
   }, []);
 
-  return (
+  if (recipeDetail.length === 0) {
+    return <Loading />;
+  }
 
+  return (
     <div className="container">
       <RecipeDetails url={ url } />
       {url.includes('comidas') && <FrameVideo />}

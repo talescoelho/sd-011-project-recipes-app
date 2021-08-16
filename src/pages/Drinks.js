@@ -5,13 +5,14 @@ import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CategoriesBar from '../components/CategoriesBar';
+import Loading from '../components/Loading';
 
 function Drinks() {
   const { drinksData } = useContext(RecipesContext);
 
-  // useEffect(() => {
-
-  // }, []);
+  if (drinksData.length === 0) {
+    return <Loading />;
+  }
 
   return (
     <>

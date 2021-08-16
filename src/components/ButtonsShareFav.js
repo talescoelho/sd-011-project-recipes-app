@@ -49,21 +49,24 @@ function ButtonsShareFav() {
 
   return (
     <div className="buttons-actions">
-      <button
-        type="button"
-        onClick={
-          () => { navigator.clipboard.writeText(link); setShare(!share); }
-        }
-      >
-        <img data-testid="share-btn" src={ ShareIcon } alt="Share Icon" />
-      </button>
-      <button type="button" onClick={ toggleClick }>
-        <img
-          data-testid="favorite-btn"
-          src={ favIcon ? blackHearthIcon : whiteHearthIcon }
-          alt="Fav Icon"
-        />
-      </button>
+      <div>
+        <button
+          className="button-fav-share my-2"
+          type="button"
+          onClick={
+            () => { navigator.clipboard.writeText(link); setShare(!share); }
+          }
+        >
+          <img data-testid="share-btn" src={ ShareIcon } alt="Share Icon" />
+        </button>
+        <button className="button-fav-share" type="button" onClick={ toggleClick }>
+          <img
+            data-testid="favorite-btn"
+            src={ favIcon ? blackHearthIcon : whiteHearthIcon }
+            alt="Fav Icon"
+          />
+        </button>
+      </div>
       <div>
         { share && <p className="alert alert-success" role="alert">Link copiado!</p>}
       </div>

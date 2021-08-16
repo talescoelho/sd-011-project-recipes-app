@@ -5,6 +5,7 @@ import RecipesContext from '../context/RecipesContext';
 import IngredientCard from '../components/IngredientCard';
 import Footer from '../components/Footer';
 import { fetchMealsIngredients, fetchMealsByIngredient } from '../services/meailAPI';
+import Loading from '../components/Loading';
 
 function ExplorerMealsIngredients() {
   const { setMealsData } = useContext(RecipesContext);
@@ -24,24 +25,33 @@ function ExplorerMealsIngredients() {
     setMealsData(response.slice(0, maxIngredients));
   };
 
+  if (ingredientList.length === 0) {
+    return <Loading />;
+  }
+
   return (
-    <div>
+    <>
       <Header title="Explorar Ingredientes" recipeType="drinks" />
-      { ingredientList.map((ingredient, index) => (
-        <Link
-          to="/comidas"
-          key={ index }
-          onClick={ () => handleClickLink(ingredient.strIngredient) }
-        >
-          <IngredientCard
-            ingredient={ ingredient }
-            index={ index }
-            recipeType="meals"
-          />
-        </Link>
-      ))}
+      <div className="container my-5">
+        <div className="row px-5 gallery-work">
+          { ingredientList.map((ingredient, index) => (
+            <div className="col-md-4 my-3" key={ index }>
+              <Link
+                to="/comidas"
+                onClick={ () => handleClickLink(ingredient.strIngredient) }
+              >
+                <IngredientCard
+                  ingredient={ ingredient }
+                  index={ index }
+                  recipeType="meals"
+                />
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

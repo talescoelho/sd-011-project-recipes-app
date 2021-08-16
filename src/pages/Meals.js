@@ -5,12 +5,17 @@ import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import CategoriesBar from '../components/CategoriesBar';
+import Loading from '../components/Loading';
 
 function Meals() {
   const { mealsData, currentCategory } = useContext(RecipesContext);
 
   if (mealsData.length === 1 && currentCategory === 'All') {
     return <Redirect to={ `/comidas/${mealsData[0].idMeal}` } />;
+  }
+
+  if (mealsData.length === 0) {
+    return <Loading />;
   }
 
   return (
